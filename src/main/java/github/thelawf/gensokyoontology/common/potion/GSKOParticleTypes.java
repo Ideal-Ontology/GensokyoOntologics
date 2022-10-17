@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.potion;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import net.minecraft.particles.BasicParticleType;
+import github.thelawf.gensokyoontology.common.particle.GSKOBasicParticleType;
 import net.minecraft.util.registry.Registry;
 import net.minecraftforge.registries.ObjectHolder;
 

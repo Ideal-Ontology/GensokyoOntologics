@@ -1,8 +1,8 @@
 package github.thelawf.gensokyoontology.common.particle;
 
+/*
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import github.thelawf.gensokyoontology.common.potion.GSKOParticleRegistry;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
@@ -76,6 +76,11 @@ public class HotSpringSteamData implements IParticleData {
 
 
     @Override
+    public HotSpringSteamData getType() {
+        return this;
+    }
+
+    @Override
     public ParticleType<?> getType() {
         return null;
     }
@@ -113,3 +118,4 @@ public class HotSpringSteamData implements IParticleData {
     }
 
 }
+*/

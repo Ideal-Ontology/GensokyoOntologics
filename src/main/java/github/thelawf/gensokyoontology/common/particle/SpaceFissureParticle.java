@@ -44,5 +44,9 @@ public class SpaceFissureParticle extends SpriteTexturedParticle {
         public Particle makeParticle(GSKOBasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
             return new SpaceFissureParticle(worldIn,x,y,z,xSpeed,this.spriteSet);
         }
+
+        private Factory() {
+            throw new UnsupportedOperationException("Use the SpaceFissureParticle.Factory(IAnimatedSprite sprite) constructor");
+        }
     }
 }
