@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.tools;
 
+import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -8,9 +9,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nonnull;
+import java.awt.*;
 
 public class IdealismSword extends SwordItem {
     public IdealismSword() {
@@ -27,7 +30,8 @@ public class IdealismSword extends SwordItem {
             double d0 = -MathHelper.sin(attacker.rotationYaw * ((float)Math.PI / 180F));
             double d1 = MathHelper.cos(attacker.rotationYaw * ((float)Math.PI / 180F));
             if (attacker.getEntityWorld() instanceof ServerWorld) {
-                ((ServerWorld)attacker.getEntityWorld()).spawnParticle(ParticleTypes.SWEEP_ATTACK,
+                SpaceFissureParticleData sfpData = new SpaceFissureParticleData(new Vector3d(0,0,0),new Color(0),0.8F);
+                ((ServerWorld)attacker.getEntityWorld()).spawnParticle(sfpData,
                         attacker.getPosX() + d0, attacker.getPosYHeight(0.5D),
                         attacker.getPosZ() + d1, 0, d0, 0.0D, d1, 0.0D);
             }
