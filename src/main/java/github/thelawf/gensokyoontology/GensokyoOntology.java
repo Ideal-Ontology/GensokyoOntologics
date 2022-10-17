@@ -70,7 +70,6 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.ONION_CROP_BLOCK.get(),
                         RenderType.getCutout());
-
             });
 
         }
