@@ -8,6 +8,7 @@ import net.minecraft.client.world.ClientWorld;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+/*
 public class HotSpringSteamFactory implements IParticleFactory<HotSpringSteamData> {
 
     private final IAnimatedSprite sprite;
@@ -25,3 +26,5 @@ public class HotSpringSteamFactory implements IParticleFactory<HotSpringSteamDat
         return particle;
     }
 }
+
+ */

@@ -11,7 +11,9 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -28,14 +30,21 @@ public class GensokyoOntology {
     public static final String MODID = "gensokyoontology";
 
     public GensokyoOntology() {
+        // final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        // ClientOnlyRegistry cog = new ClientOnlyRegistry(modEventBus);
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
         ItemInit.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
         FluidRegistry.FLUIDS.register(FMLJavaModLoadingContext.get().getModEventBus());
         BlockRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         GSKOParticleRegistry.PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-
     }
+
+    /*
+    public void registerCommonEvents(IEventBus eventBusIn) {
+        eventBusIn.register(StartUpCommon.class);
+    }
+     */
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
@@ -70,6 +79,7 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.ONION_CROP_BLOCK.get(),
                         RenderType.getCutout());
+
             });
 
         }
