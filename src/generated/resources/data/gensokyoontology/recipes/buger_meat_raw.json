@@ -1,0 +1,28 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#OO",
+    "XXX",
+    "YY$"
+  ],
+  "key": {
+    "#": {
+      "item": "gensokyoontology:kitchen_knife"
+    },
+    "O": {
+      "item": "minecraft:beef"
+    },
+    "X": {
+      "item": "minecraft:porkchop"
+    },
+    "Y": {
+      "item": "gensokyoontology:onion"
+    },
+    "$": {
+      "item": "minecraft:egg"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:buger_meat_raw"
+  }
+}

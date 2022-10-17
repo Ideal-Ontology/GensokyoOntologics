@@ -1,0 +1,6 @@
+{
+  "parent": "gensokyoontology:block/pane_cooker",
+  "textures": {
+    "2": "gensokyoontology:block/fried_pane"
+  }
+}

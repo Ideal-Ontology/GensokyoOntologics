@@ -1,0 +1,16 @@
+package github.thelawf.gensokyoontology.common.item.food;
+
+import net.minecraft.item.Food;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
+
+public class TakoYaki extends Item {
+    private static final Food food = (new Food.Builder())
+            .saturation(7)
+            .hunger(5)
+            .setAlwaysEdible()
+            .build();
+    public TakoYaki() {
+        super(new Properties().group(ItemGroup.FOOD).food(food));
+    }
+}

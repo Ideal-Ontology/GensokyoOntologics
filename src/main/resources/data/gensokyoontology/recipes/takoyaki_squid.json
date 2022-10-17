@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#O#",
+    "#X#",
+    " I "
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:wheat"
+    },
+    "O": {
+      "item": "gensokyoontology:onion"
+    },
+    "X": {
+      "item": "gensokyoontology:squid_tentacle"
+    },
+    "I": {
+      "item": "minecraft:stick"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:tako_yaki",
+    "count": 1
+  }
+}
