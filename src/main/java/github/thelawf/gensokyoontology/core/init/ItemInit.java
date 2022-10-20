@@ -10,6 +10,7 @@ import github.thelawf.gensokyoontology.common.item.tools.*;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.block.*;
 import net.minecraft.item.*;
+import net.minecraft.stats.IStatFormatter;
 import net.minecraft.world.Dimension;
 import net.minecraft.world.gen.DimensionSettings;
 import net.minecraftforge.fml.RegistryObject;

@@ -3,6 +3,8 @@ package github.thelawf.gensokyoontology;
 import github.thelawf.gensokyoontology.common.named.GSKORecipeHandler;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+//import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.core.init.EffectInit;
 import github.thelawf.gensokyoontology.core.init.FluidRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemInit;
 import net.minecraft.block.Block;
@@ -11,9 +13,7 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
@@ -38,6 +38,8 @@ public class GensokyoOntology {
         FluidRegistry.FLUIDS.register(FMLJavaModLoadingContext.get().getModEventBus());
         BlockRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         GSKOParticleRegistry.PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        EffectInit.POTION_EFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
+        //EntityRegistry.GSKO_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     /*

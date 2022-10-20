@@ -24,6 +24,10 @@
   "block.gensokyoontology.onion_crop": "洋葱",
   "item.gensokyoontology.metaphysics_sword": "形而上之剑",
   "item.gensokyoontology.idealism_sword": "观念论之剑",
-  "item.gensokyoontology.praxis_sword": "实践"
+  "item.gensokyoontology.praxis_sword": "实践",
+  "tooltip.gensokyoontology.idealism_sword_info": "按住 \u00A79SHIFT\u00A7r 查看信息",
+  "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75右键释放现实裂缝\u00A7r\\n(但是我还没做完)\\n",
+  "effect.gensokyoontology.love_potion": "迷恋",
+  "effect.gensokyoontology.hypnosis_potion": "催眠"
 
 }
