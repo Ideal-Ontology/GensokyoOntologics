@@ -1,24 +1,36 @@
 package github.thelawf.gensokyoontology.common.item.tools;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.command.impl.GiveCommand;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
-import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
+import java.util.List;
 
 public class IdealismSword extends SwordItem {
     public IdealismSword() {
         /* 需要显示划破空间的粒子效果，在 PlayerEntity.java中的 spawnSweepParticles()
          方法内使用，在 ParticleManager.java内被注册为Factory
+
+         设置冷却请在 CooldownTracker.java 里面查看
          */
         super(GSKOItemTier.IDEALISM, 12, -1.2F, new Item.Properties().group(
                 GSKOItemTab.GSKO_ITEM_TAB));
@@ -37,5 +49,23 @@ public class IdealismSword extends SwordItem {
             }
         }
         return super.hitEntity(stack, target, attacker);
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        // Minecraft 格式化字符为 \u00A7 - "§"
+        if (Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip."+
+                    GensokyoOntology.MODID +".idealism_sword_shift"));
+        }
+        else {
+            tooltip.add(new TranslationTextComponent("tooltip."+
+                    GensokyoOntology.MODID +".idealism_sword_info"));
+        }
     }
 }

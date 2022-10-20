@@ -1,19 +1,12 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.item.tools.IdealismSword;
 import github.thelawf.gensokyoontology.common.item.tools.RealismSword;
-import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
-import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticle;
 import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
-import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
@@ -28,7 +21,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = "gensokyoontology",bus = Mod.EventBusSubscriber.Bus.FORGE,value = Dist.CLIENT)
-public class SwordUseEvents {
+public class ItemUseEvents {
     @SubscribeEvent
     public static void onSwordRightClick(PlayerInteractEvent.RightClickItem event){
         // 持有实在论之剑右键单击会给范围内的敌对生物劈下闪电
@@ -55,7 +48,7 @@ public class SwordUseEvents {
             double d0 = -MathHelper.sin(event.getEntityLiving().rotationYaw * ((float)Math.PI / 180F));
             double d1 = MathHelper.cos(event.getEntityLiving().rotationYaw * ((float)Math.PI / 180F));
             if (event.getWorld() instanceof ServerWorld) {
-                SpaceFissureParticleData sfpData = new SpaceFissureParticleData(new Vector3d(0,0,0),new Color(0),1.2F);
+                SpaceFissureParticleData sfpData = new SpaceFissureParticleData(new Vector3d(0,0,0),new Color(0),0.8F);
                 ((ServerWorld)event.getWorld()).spawnParticle(sfpData,
                         event.getEntityLiving().getPosX() + d0, event.getEntityLiving().getPosYHeight(0.5D),
                         event.getEntityLiving().getPosZ() + d1, 0, d0, 0.0D, d1, 0.0D);
