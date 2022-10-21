@@ -23,7 +23,7 @@ public enum GSKOItemTier implements IItemTier {
     IDEALISM(6,10011,15.0F,24.0F,114,
             () -> Ingredient.fromItems(ItemInit.SPIRIT_DIALECTICS.get())),
     PRAXIS(10,2147000000,25.0F,2147000000.0F,514,
-            () -> Ingredient.fromItems(ItemInit.SPIRIT_DIALECTICS.get()));
+            () -> Ingredient.fromItems(ItemInit.SPIRIT_CREATIVE.get()));
 
 
     private final int harvestLevel;

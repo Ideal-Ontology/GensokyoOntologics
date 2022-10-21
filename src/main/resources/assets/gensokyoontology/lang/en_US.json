@@ -24,5 +24,12 @@
   "item.gensokyoontology.onion": "Onion",
   "item.gensokyoontology.kitchen_knife": "Kitchen Knife",
   "item.gensokyoontology.burger_meat_raw": "Burger Meat Raw",
-  "item.gensokyoontology.burger_meat": "Burger Meat"
+  "item.gensokyoontology.burger_meat": "Burger Meat",
+  "tooltip.gensokyoontology.idealism_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
+  "tooltip.gensokyoontology.praxis_sword_info": "Press \u00a79SHIFT\u00a7r to Show More",
+  "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75Left Click to Release Space Fissure\u00A7r",
+  "description.gensokyoontology.idealism_sword_description": "(But I haven't finished that yet!)",
+  "description.gensokyoontology.praxis_sword_description": "\u00A76Now this is it. Go into Praxis, man ~",
+  "effect.gensokyoontology.love_potion": "Love Effect",
+  "effect.gensokyoontology.hypnosis_potion": "Hypnosis"
 }

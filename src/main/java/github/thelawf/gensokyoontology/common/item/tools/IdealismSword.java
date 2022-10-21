@@ -62,6 +62,8 @@ public class IdealismSword extends SwordItem {
         if (Screen.hasShiftDown()) {
             tooltip.add(new TranslationTextComponent("tooltip."+
                     GensokyoOntology.MODID +".idealism_sword_shift"));
+            tooltip.add(new TranslationTextComponent("description." +
+                    GensokyoOntology.MODID + "idealism_sword_description"));
         }
         else {
             tooltip.add(new TranslationTextComponent("tooltip."+

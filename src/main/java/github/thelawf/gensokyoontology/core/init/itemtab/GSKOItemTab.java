@@ -14,6 +14,6 @@ public class GSKOItemTab extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ItemInit.HOTSPRING_BUCKET.get());
+        return new ItemStack(ItemInit.LYCORIS_RADIATA.get());
     }
 }
