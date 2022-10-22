@@ -30,7 +30,7 @@ public class PraxisSword extends SwordItem {
             tooltip.add(new TranslationTextComponent("tooltip."+
                     GensokyoOntology.MODID +".praxis_sword_shift"));
             tooltip.add(new TranslationTextComponent("description." +
-                    GensokyoOntology.MODID + "praxis_sword_description"));
+                    GensokyoOntology.MODID + ".praxis_sword_description"));
         }
         else {
             tooltip.add(new TranslationTextComponent("tooltip."+

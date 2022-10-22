@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.events;
 
+import github.thelawf.gensokyoontology.common.item.food.CakeScarletDemon;
 import github.thelawf.gensokyoontology.common.item.food.KoishiHatMousse;
 import github.thelawf.gensokyoontology.common.item.food.MilkBottle;
 import github.thelawf.gensokyoontology.common.item.food.YattsumeUnaYaki;
@@ -30,5 +31,10 @@ public class FoodCookingEvents {
         else if (event.getInventory() instanceof KoishiHatMousse) {
             event.getEntityLiving().getHeldItemMainhand().setTag(GensokyoOntologyNBTs.nbtKoishiMousse);
         }
+        /*
+        else if (event.getInventory() instanceof CakeScarletDemon) {
+
+        }
+         */
     }
 }

@@ -48,7 +48,7 @@ public class LovePotionEntity extends PotionEntity implements IRendersAsItem {
     }
 
     /*
-    原版应用药水的方法叫做 func_213888_a
+    原版应用药水效果的方法叫做 func_213888_a
      */
     public void applyEffect(List<EffectInstance> listIn, @Nullable Entity entityIn) {
         AxisAlignedBB axisalignedbb = this.getBoundingBox().grow(4.0D, 2.0D, 4.0D);

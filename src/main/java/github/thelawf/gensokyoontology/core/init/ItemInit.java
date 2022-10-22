@@ -16,6 +16,7 @@ import net.minecraft.world.gen.DimensionSettings;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
 import static net.minecraft.item.Items.BUCKET;
 
 public class ItemInit {
@@ -117,5 +118,6 @@ public class ItemInit {
     public static final RegistryObject<BlockItem> FRIED_PANE_ITEM = ITEMS.register(
             "fried_pane", () -> new BlockItem(BlockRegistry.FRIED_PANE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
 
 }
