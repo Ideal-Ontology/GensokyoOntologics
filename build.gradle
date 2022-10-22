@@ -10,25 +10,42 @@ buildscript {
     }
     dependencies {
         classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
     }
 }
 
 plugins {
     id 'net.minecraftforge.gradle' version '5.1.+'
 }
+
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
+
+mixin {
+    add sourceSets.main, "patchouli.refmap.json"
+}
+
+
 allprojects {
     repositories {
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        maven{ url 'https://maven.aliyun.com/nexus/content/repositories/jcenter'}
+        maven { url 'https://maven.aliyun.com/repository/google' }
+        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
+        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://www.jitpack.io' }
+        mavenLocal()
         mavenCentral()
+        google()
+        jcenter()
     }
 }
 
-group = 'github'
-version = '1.0-SNAPSHOT'
+group = 'com.github.thelawf'
+version = '1.0.01-SNAPSHOT'
 
 java {
-    archivesBaseName = 'thelawf'
+    archivesBaseName = 'gensokyoontology'
     toolchain.languageVersion = JavaLanguageVersion.of(8)
 }
 
@@ -54,6 +71,8 @@ minecraft {
     // These can be tweaked, removed, or duplicated as needed.
     runs {
         client {
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             workingDirectory project.file('run')
 
             // Recommended logging data for a userdev environment
@@ -119,13 +138,16 @@ repositories {
     // ForgeGradle automatically adds the Forge maven and Maven Central for you
 
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
-    // flatDir {
-    //     dir 'libs'
-    // }
+
+    maven { url 'https://maven.blamejared.com' }
+
 }
 
 dependencies {
-    implementation 'org.jetbrains:annotations:20.1.0'
+    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:api")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:")
+
+    implementation 'org.jetbrains:annotations:23.0.0'
 
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
