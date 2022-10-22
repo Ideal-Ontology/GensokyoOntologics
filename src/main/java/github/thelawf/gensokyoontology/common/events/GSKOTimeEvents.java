@@ -10,12 +10,12 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-
-
+/*
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID,bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GSKOTimeEvents {
 
     // 玩家登录Minecraft时读取本地时间，与上次登录进行比较
+
     @SubscribeEvent
     public static void onPlayerOnLine(PlayerEvent.PlayerLoggedInEvent event) {
         IdealismLib idealLib = new IdealismLib();
@@ -37,4 +37,4 @@ public class GSKOTimeEvents {
         idealismLib.saveTimeData();
     }
 }
-
+ */
