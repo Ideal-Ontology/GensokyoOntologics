@@ -28,9 +28,14 @@
   "effect.gensokyoontology.love_potion": "Love Effect",
   "effect.gensokyoontology.hypnosis_potion": "催眠",
   "tooltip.gensokyoontology.idealism_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
-  "tooltip.gensokyoontology.idealism_sword_shift": "\u00a75Left Click to Release Space Fissure\u00a7r\n(But I haven't finish yet!)\n",
+  "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75Left Click to Release Space Fissure\u00A7r",
+  "tooltip.gensokyoontology.praxis_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
+  "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality.",
+  "description.gensokyoontology.praxis_sword_description": "\u00A76Now this is it. Go into Praxis, man ~",
   "description.gensokyoontology.idealism_sword_description": "(But I haven't finished that yet!)",
-  "tooltip.gensokyoontology.praxis_sword_info": "Press §9SHIFT§r to Show More",
-  "description.gensokyoontology.praxis_sword_description": "§6Now this is it. Go into Praxis, man ~"
+  "patchouli.gensokyoontology.book.landing_text": "$(l)Fore Words:$(br)Stay $(4)S$(b)A$(d)N$(2)E!$() You're now in the $(k)(m)meaningless network$() of $(l)ideologies.$() Be $(l)$(#ff0000)CLEAR AWARE$() of this!",
+  "patchouli.gensokyoontology.overview.description": "$(l)$(o)Where did the fiction begin?",
+  "patchouli.gensokyoontology.overview.introduction_p1": "All the cultural works made by human kind no matter a mass culture or a subculture can be interpreted as a certain kind of forms of ideologies. Ideologies are everywhere acting like atmosphere. It is so universal that we have no idea that we are actually subordinated to it and became its properties.",
+  "patchouli.gensokyoontology.overview.introduction_p2": "Try to reify the embodiment of all kinds of ideologies is the target of this book. Now follow this guidebook to visualize and realize yourselves."
 
 }
