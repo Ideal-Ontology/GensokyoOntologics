@@ -28,8 +28,13 @@
   "tooltip.gensokyoontology.idealism_sword_info": "按住 \u00A79SHIFT\u00A7r 查看更多信息",
   "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75右键释放现实裂缝\u00A7r",
   "description.gensokyoontology.idealism_sword_description": "(但是我还没做完!)",
-  "description.gensokyoontology.praxis_sword_description": "\u00a76现在，你知道了所有的故事，那么，请开始实践吧~",
+  "description.gensokyoontology.praxis_sword_description": "\u00A76现在，你知道了所有的故事，那么，请开始实践吧~",
   "effect.gensokyoontology.love_potion": "迷恋",
   "effect.gensokyoontology.hypnosis_potion": "催眠",
-  "tooltip.gensokyoontology.praxis_sword_info": "按住 \u00a79SHIFT\u00a7r 查看更多信息"
+  "tooltip.gensokyoontology.praxis_sword_info": "按住 \u00A79SHIFT\u00A7r 查看更多信息",
+  "tooltip.gensokyoontology.praxis_sword_shift": "如果你能游戏里编程，那么为什么不去现实中试一试呢",
+  "patchouli.gensokyoontology.book.landing_text": "$(l)Fore Words:$(br)Stay $(4)S$(b)A$(d)N$(2)E!$() You're now in the $(k)(m)meaningless network$() of $(l)ideologies.$() Be $(l)$(#ff0000)CLEAR AWARE$() of this!",
+  "patchouli.gensokyoontology.overview.description": "$(l)$(o)Where did the fiction begin?",
+  "patchouli.gensokyoontology.overview.introduction_p1": "All the cultural works made by human kind no matter a mass culture or a subculture can be interpreted as a certain kind of forms of ideologies. Ideologies are everywhere acting like atmosphere. It is so universal that we have no idea that we are actually subordinated to it and became its properties.",
+  "patchouli.gensokyoontology.overview.introduction_p2": "Try to reify the embodiment of all kinds of ideologies is the target of this book. Now follow this guidebook to visualize and realize yourselves."
 }
