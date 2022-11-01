@@ -1,5 +1,6 @@
 {
-  "name": "The Ideology",
-  "landing_text": "Fore Words",
+  "name": "Book of Ideology",
+  "landing_text": "patchouli.gensokyoontology.book.landing_text",
+  "i18n": true,
   "version": 1
 }
