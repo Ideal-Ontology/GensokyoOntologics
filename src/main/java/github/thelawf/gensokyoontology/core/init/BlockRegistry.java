@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.block.FriedPane;
-import github.thelawf.gensokyoontology.common.block.HotSpringBlock;
-import github.thelawf.gensokyoontology.common.block.LycorisRadiata;
-import github.thelawf.gensokyoontology.common.block.OnionCropBlock;
+import github.thelawf.gensokyoontology.common.block.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.RegistryObject;
@@ -29,4 +26,12 @@ public class BlockRegistry {
     public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
             "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));
 
+    public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
+            "space_fissure_block", SpaceFissureBlock::new);
+
+    public static final RegistryObject<Block> SUKIMA_BLOCK = BLOCKS.register("sukima",
+            SukimaBlock::new);
+
+    public static final RegistryObject<Block> COMPUTER_BLOCK = BLOCKS.register("computer",
+            ComputerBlock::new);
 }

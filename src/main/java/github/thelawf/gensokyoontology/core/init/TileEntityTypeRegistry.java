@@ -1,0 +1,28 @@
+package github.thelawf.gensokyoontology.core.init;
+
+import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.tileentity.ComputerTileEntity;
+import github.thelawf.gensokyoontology.common.tileentity.SpaceFissureTileEntity;
+import github.thelawf.gensokyoontology.common.tileentity.SukimaTileEntity;
+import net.minecraft.tileentity.CommandBlockTileEntity;
+import net.minecraft.tileentity.TileEntityType;
+import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.ForgeRegistries;
+
+public class TileEntityTypeRegistry {
+    public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(
+            ForgeRegistries.TILE_ENTITIES, GensokyoOntology.MODID);
+
+    public static final RegistryObject<TileEntityType<SpaceFissureTileEntity>> SPACE_FISSURE_TILE_ENTITY =
+            TILE_ENTITIES.register("space_fissure_tileentity",() -> TileEntityType.Builder.create(
+                    SpaceFissureTileEntity::new, BlockRegistry.SPACE_FISSURE_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<SukimaTileEntity>> SUKIMA_TILE_ENTITY =
+            TILE_ENTITIES.register("sukima_tileentity", () -> TileEntityType.Builder.create(
+                    SukimaTileEntity::new, BlockRegistry.SUKIMA_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<ComputerTileEntity>> COMPUTER_TILE_ENTITY =
+            TILE_ENTITIES.register("computer_tileentity", () -> TileEntityType.Builder.create(
+                    ComputerTileEntity::new, BlockRegistry.COMPUTER_BLOCK.get()).build(null));
+}
