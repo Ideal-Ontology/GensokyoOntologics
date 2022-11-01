@@ -7,11 +7,13 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.entity.living.EntityTeleportEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -30,7 +32,7 @@ public class ItemUseEvents {
                     new AxisAlignedBB(event.getPlayer().getPosition(),event.getPlayer().getPosition().add(160,80,160)));
 
             for (Entity e : entityList) {
-                if (event.getWorld().isRemote && e instanceof MonsterEntity) {
+                if (e instanceof MonsterEntity) {
                     AxisAlignedBB aabb = e.getBoundingBox();
                     LightningBoltEntity lightningBolt = EntityType.LIGHTNING_BOLT.create(e.world);
                     Vector3d vector3d = aabb.getCenter();

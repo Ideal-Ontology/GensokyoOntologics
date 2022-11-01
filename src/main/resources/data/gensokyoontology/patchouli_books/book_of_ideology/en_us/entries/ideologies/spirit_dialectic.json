@@ -1,0 +1,19 @@
+{
+  "name": "patchouli.gensokyoontology.ideologies.dia.title",
+  "icon": "gensokyoontology:dialectic_spirit",
+  "category": "ideologies",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.ideologies.dia.tutorial_p1"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.ideologies.dia.tutorial_p2"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.ideologies.dia.tutorial_p3"
+    }
+  ]
+}

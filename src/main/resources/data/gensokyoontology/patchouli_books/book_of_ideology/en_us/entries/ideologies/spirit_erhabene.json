@@ -1,0 +1,15 @@
+{
+  "name": "patchouli.gensokyoontology.ideologies.erhabene.title",
+  "icon": "gensokyoontology:theology_spirit",
+  "category": "ideologies",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.ideologies.erhabene.tutorial_p1"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.ideologies.erhabene.tutorial_p2"
+    }
+  ]
+}
