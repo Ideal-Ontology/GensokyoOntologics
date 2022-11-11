@@ -42,7 +42,7 @@ allprojects {
 }
 
 group = 'com.github.thelawf'
-version = '1.0.01-SNAPSHOT'
+version = 'forge-1.16.5-1.0.1x'
 
 java {
     archivesBaseName = 'gensokyoontology'
@@ -139,7 +139,11 @@ repositories {
 
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so:
 
-    maven { url 'https://maven.blamejared.com' }
+    maven {
+        name 'Jared Maven'
+        url 'https://maven.blamejared.com'
+    }
+
 
 }
 
@@ -149,11 +153,17 @@ dependencies {
 
     implementation 'org.jetbrains:annotations:23.0.0'
 
+
     // Specify the version of Minecraft to use. If this is any group other than 'net.minecraft' it is assumed
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
 
+    //jarJar(group: 'com.jozufozu.flywheel', name: "flywheel-forge-1.16.5", version: '[0.6.4,0.6.5)') {
+    //  jarJar.pin(it, project.flywheel_version)
+    //}
+
+    //implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency
