@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "facing=north":{"model": "gensokyoontology:block/railway"},
+    "facing=south":{"model": "gensokyoontology:block/railway","y": 180},
+    "facing=west": {"model": "gensokyoontology:block/railway","y": 270},
+    "facing=east": {"model": "gensokyoontology:block/railway","y": 90},
+    "facing=up": {"model": "gensokyoontology:block/railway","x": 90},
+    "facing=down": {"model": "gensokyoontology:block/railway","x": 90}
+  }
+}

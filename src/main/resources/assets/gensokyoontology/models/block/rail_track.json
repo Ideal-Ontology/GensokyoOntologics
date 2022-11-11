@@ -1,0 +1,12 @@
+{
+  "parent": "block/railway",
+  "textures": {
+    "particle": "gensokyoontology:block/railway",
+    "up": "gensokyoontology:block/railway",
+    "down": "gensokyoontology:block/railway",
+    "north": "gensokyoontology:block/railway",
+    "south": "gensokyoontology:block/railway",
+    "west": "gensokyoontology:block/railway",
+    "east": "gensokyoontology:block/railway"
+  }
+}
