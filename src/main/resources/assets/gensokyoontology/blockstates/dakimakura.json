@@ -1,5 +1,7 @@
 {
-  "variants": {
-    "" : {"model": "gensokyoontology:dakimakura/blank/dakimakura.obj"}
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "model": "gensokyoontology:dakimakura.obj"
   }
 }

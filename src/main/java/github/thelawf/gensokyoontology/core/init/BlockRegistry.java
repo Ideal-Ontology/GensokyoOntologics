@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.core.init;
 
-import com.mojang.serialization.RecordBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import net.minecraft.block.*;

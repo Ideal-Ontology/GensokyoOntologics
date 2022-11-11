@@ -1,7 +1,8 @@
 # Blender v2.79 (sub 0) OBJ File: ''
 # www.blender.org
-mtllib blank_tex.mtl
-o baozhen_Mesh
+mtllib dakimakura.mtl
+
+o dakimakura
 v -0.428333 0.557055 -0.189268
 v -0.448251 0.900658 -0.189268
 v -0.367759 0.557055 -0.239417
