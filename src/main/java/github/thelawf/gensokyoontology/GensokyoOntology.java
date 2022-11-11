@@ -2,11 +2,8 @@ package github.thelawf.gensokyoontology;
 
 import github.thelawf.gensokyoontology.common.named.GSKORecipeHandler;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
-import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import github.thelawf.gensokyoontology.core.init.*;
 //import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import github.thelawf.gensokyoontology.core.init.EffectInit;
-import github.thelawf.gensokyoontology.core.init.FluidRegistry;
-import github.thelawf.gensokyoontology.core.init.ItemInit;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -39,7 +36,8 @@ public class GensokyoOntology {
         BlockRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
         GSKOParticleRegistry.PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         EffectInit.POTION_EFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        //EntityRegistry.GSKO_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        TileEntityTypeRegistry.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        EntityRegistry.GSKO_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     /*
@@ -81,8 +79,8 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.ONION_CROP_BLOCK.get(),
                         RenderType.getCutout());
-
-
+                RenderTypeLookup.setRenderLayer(BlockRegistry.SPACE_FISSURE_BLOCK.get(),
+                        RenderType.getCutout());
             });
 
         }

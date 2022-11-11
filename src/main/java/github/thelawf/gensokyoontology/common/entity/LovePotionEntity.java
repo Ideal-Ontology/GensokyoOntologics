@@ -1,43 +1,50 @@
 package github.thelawf.gensokyoontology.common.entity;
 
-import github.thelawf.gensokyoontology.core.init.EffectInit;
 import github.thelawf.gensokyoontology.core.init.PotionRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.PotionEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
 
 public class LovePotionEntity extends PotionEntity implements IRendersAsItem {
-    protected LovePotionEntity(EntityType<? extends PotionEntity> type, World worldIn) {
+    public LovePotionEntity(EntityType<? extends PotionEntity> type, World worldIn) {
         super(type, worldIn);
     }
+    private static final DataParameter<Optional<UUID>> LOVE_MASTER = EntityDataManager.createKey(
+            LovePotionEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
     @Override
     protected void registerData() {
-
+        this.dataManager.register(LOVE_MASTER, Optional.of(Objects.requireNonNull(this.getShooter()).getUniqueID()));
     }
 
     @Override
     public ItemStack getItem() {
-        return null;
+        return Items.POTION.getDefaultInstance();
     }
 
     @Override
-    public void onImpact(RayTraceResult result) {
+    public void onImpact(@NotNull RayTraceResult result) {
         ItemStack stack = this.getItem();
         Potion potion = PotionUtils.getPotionFromItem(stack);
         List<EffectInstance> list = PotionUtils.getEffectsFromStack(stack);
@@ -81,7 +88,7 @@ public class LovePotionEntity extends PotionEntity implements IRendersAsItem {
 
     }
 
-    @org.jetbrains.annotations.Nullable
+    @Nullable
     @Override
     public Entity getShooter() {
         return super.getShooter();
