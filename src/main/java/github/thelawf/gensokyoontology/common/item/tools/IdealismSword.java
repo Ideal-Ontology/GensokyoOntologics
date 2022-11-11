@@ -1,11 +1,12 @@
 package github.thelawf.gensokyoontology.common.item.tools;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.block.SpaceFissureBlock;
 import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
+import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.command.impl.GiveCommand;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -28,9 +29,7 @@ import java.util.List;
 
 public class IdealismSword extends SwordItem {
     public IdealismSword() {
-        /* 需要显示划破空间的粒子效果，在 PlayerEntity.java中的 spawnSweepParticles()
-         方法内使用，在 ParticleManager.java内被注册为Factory
-
+        /*
          设置冷却请在 CooldownTracker.java 里面查看
          */
         super(GSKOItemTier.IDEALISM, 12, -1.2F, new Item.Properties().group(
@@ -52,8 +51,17 @@ public class IdealismSword extends SwordItem {
         return super.hitEntity(stack, target, attacker);
     }
 
+
+
+
     @Override
     public @NotNull ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        playerIn.getCooldownTracker().setCooldown(this,200);
+        if (playerIn.getCooldownTracker().getCooldown(this,200) == 0) {
+            SpaceFissureBlock sfb = new SpaceFissureBlock();
+            worldIn.setBlockState(playerIn.getPosition(),
+                    BlockRegistry.SPACE_FISSURE_BLOCK.get().getDefaultState());
+        }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
