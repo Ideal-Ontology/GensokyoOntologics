@@ -9,7 +9,6 @@ public class SpaceFissureTileEntity extends TileEntity implements ITickableTileE
         super(TileEntityTypeRegistry.SPACE_FISSURE_TILE_ENTITY.get());
     }
 
-
     @Override
     public void tick() {
 

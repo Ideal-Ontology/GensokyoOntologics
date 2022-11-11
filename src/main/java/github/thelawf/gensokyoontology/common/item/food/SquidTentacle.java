@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.item.food;
 
-import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;

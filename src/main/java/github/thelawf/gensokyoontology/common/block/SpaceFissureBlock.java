@@ -19,9 +19,10 @@ import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 
 public class SpaceFissureBlock extends Block {
+
     private static final VoxelShape shape;
     static {
-        VoxelShape portalPane = Block.makeCuboidShape(0,0,0,14,30,14);
+        VoxelShape portalPane = Block.makeCuboidShape(1,0,8,15,24,8);
         shape = VoxelShapes.or(portalPane);
     }
 
@@ -53,4 +54,6 @@ public class SpaceFissureBlock extends Block {
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
         return shape;
     }
+
+
 }

@@ -16,9 +16,13 @@ public interface ITransform {
     // transform()函数接受所有的变换操作
     void transform(double x, double y, double z, double yaw, double pitch, double roll);
 
+    void transform();
+
     // 设置对象旋转的枢轴点坐标
     void setPivot();
 
     // 获取对象旋转的枢轴点坐标
     Vector3d getPivot();
+
+
 }

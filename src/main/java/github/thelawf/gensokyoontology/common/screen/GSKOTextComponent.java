@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.screen;
 
+/*
 import net.minecraft.client.gui.IGuiEventListener;
 import net.minecraft.item.WritableBookItem;
 import net.minecraft.util.text.ITextComponent;
@@ -16,3 +17,5 @@ public class GSKOTextComponent extends StringTextComponent implements IGuiEventL
     }
 
 }
+
+ */

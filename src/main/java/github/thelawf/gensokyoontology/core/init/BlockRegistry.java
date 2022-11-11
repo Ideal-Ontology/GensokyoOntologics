@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.core.init;
 
+import com.mojang.serialization.RecordBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import net.minecraft.block.*;
@@ -34,4 +35,10 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> COMPUTER_BLOCK = BLOCKS.register("computer",
             ComputerBlock::new);
+
+    public static final RegistryObject<Block> RAIL_TRACK_BLOCK = BLOCKS.register("rail_track",
+            RailTrackBlock::new);
+
+    public static final RegistryObject<Block> DAKIMAKURA = BLOCKS.register("dakimakura",
+            Dakimakura::new);
 }

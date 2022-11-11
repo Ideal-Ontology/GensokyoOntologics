@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.events;
 
+import github.thelawf.gensokyoontology.common.block.SpaceFissureBlock;
 import github.thelawf.gensokyoontology.common.item.tools.IdealismSword;
 import github.thelawf.gensokyoontology.common.item.tools.RealismSword;
 import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
@@ -7,7 +8,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
@@ -57,4 +57,16 @@ public class ItemUseEvents {
             }
         }
     }
+
+    @SubscribeEvent
+    public static void onSwordRightClickBlock(PlayerInteractEvent.RightClickBlock event) {
+        if (event.getPlayer().getHeldItemMainhand().getItem() instanceof IdealismSword) {
+            event.getPlayer().getCooldownTracker().setCooldown(event.getItemStack().getItem(), 200);
+            if (event.getPlayer().getCooldownTracker().getCooldown(event.getItemStack().getItem(), 200) == 0) {
+                SpaceFissureBlock sfb = new SpaceFissureBlock();
+                event.getWorld().updateBlock(event.getPlayer().getPosition(),sfb);
+            }
+        }
+    }
+
 }

@@ -119,5 +119,17 @@ public class ItemInit {
             "fried_pane", () -> new BlockItem(BlockRegistry.FRIED_PANE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    /*
+    public static final RegistryObject<BlockItem> SPACE_FISSURE_ITEM = ITEMS.register(
+            "space_fissure_block", () -> new BlockItem(BlockRegistry.SPACE_FISSURE_BLOCK.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+     */
 
+    public static final RegistryObject<Item> RAIL_TRACK = ITEMS.register(
+            "rail_track", () -> new BlockItem(BlockRegistry.RAIL_TRACK_BLOCK.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> DAKIMAKURA_ITEM = ITEMS.register(
+            "dakimakura", () -> new BlockItem(BlockRegistry.DAKIMAKURA.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 }

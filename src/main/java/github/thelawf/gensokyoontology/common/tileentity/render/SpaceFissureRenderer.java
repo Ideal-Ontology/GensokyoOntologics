@@ -20,7 +20,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class SpaceFissureRenderer extends TileEntityRenderer<SpaceFissureTileEntity> {
     public static final ResourceLocation SPACE_FISSURE_TEX = new ResourceLocation(
-            GensokyoOntology.MODID,"block/space_fissure");
+            GensokyoOntology.MODID,"block/space_fissure_block");
 
     public SpaceFissureRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
