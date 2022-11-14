@@ -2,14 +2,8 @@ package github.thelawf.gensokyoontology.common.events;
 
 
 import github.thelawf.gensokyoontology.common.block.HotSpringBlock;
-import github.thelawf.gensokyoontology.common.named.GSKOBlockTags;
 import net.minecraft.block.BlockState;
-import net.minecraft.data.TagsProvider;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.nbt.NBTUtil;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.Tag;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -2,17 +2,13 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.item.Butter;
-import github.thelawf.gensokyoontology.common.item.Onion;
 import github.thelawf.gensokyoontology.common.item.food.MilkBottle;
 import github.thelawf.gensokyoontology.common.item.YattsumeUna;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.tools.*;
+import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
-import net.minecraft.block.*;
 import net.minecraft.item.*;
-import net.minecraft.stats.IStatFormatter;
-import net.minecraft.world.Dimension;
-import net.minecraft.world.gen.DimensionSettings;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -115,15 +111,12 @@ public class ItemInit {
             new BlockItem(BlockRegistry.ONION_CROP_BLOCK.get(),new Item.Properties().group(
                     GSKOItemTab.GSKO_ITEM_TAB)));
 
+    public static final RegistryObject<DanmakuTestItem> DANMAKU_TEST_ITEM = ITEMS.register(
+            "danmaku_test", () -> new DanmakuTestItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+
     public static final RegistryObject<BlockItem> FRIED_PANE_ITEM = ITEMS.register(
             "fried_pane", () -> new BlockItem(BlockRegistry.FRIED_PANE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
-    /*
-    public static final RegistryObject<BlockItem> SPACE_FISSURE_ITEM = ITEMS.register(
-            "space_fissure_block", () -> new BlockItem(BlockRegistry.SPACE_FISSURE_BLOCK.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-     */
 
     public static final RegistryObject<Item> RAIL_TRACK = ITEMS.register(
             "rail_track", () -> new BlockItem(BlockRegistry.RAIL_TRACK_BLOCK.get(),
@@ -131,5 +124,9 @@ public class ItemInit {
 
     public static final RegistryObject<Item> DAKIMAKURA_ITEM = ITEMS.register(
             "dakimakura", () -> new BlockItem(BlockRegistry.DAKIMAKURA.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> ROTATE_FRAME_ITEM = ITEMS.register(
+            "rotate_frame", () -> new BlockItem(BlockRegistry.ROTATE_FRAME.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 }

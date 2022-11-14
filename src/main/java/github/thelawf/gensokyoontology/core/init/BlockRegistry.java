@@ -40,4 +40,7 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> DAKIMAKURA = BLOCKS.register("dakimakura",
             Dakimakura::new);
+
+    public static final RegistryObject<Block> ROTATE_FRAME = BLOCKS.register("rotate_frame",
+            RotateFrameBlock::new);
 }

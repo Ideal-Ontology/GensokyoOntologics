@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology;
 
-import github.thelawf.gensokyoontology.common.named.GSKORecipeHandler;
+import github.thelawf.gensokyoontology.common.nbt.GSKORecipeHandler;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
 //import github.thelawf.gensokyoontology.core.init.EntityRegistry;

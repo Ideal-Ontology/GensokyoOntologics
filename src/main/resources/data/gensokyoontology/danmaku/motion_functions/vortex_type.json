@@ -29,11 +29,6 @@
         "z": 0,
         "y": 0
       },
-      "init_rotation": {
-        "yaw": 0.0,
-        "pitch": 0.0,
-        "roll": 0.0
-      },
       "motion_function": {
         "linear": {
           "resultant_speed": 1.0,
@@ -54,24 +49,6 @@
             "rotate_roll": 0.0
           }
         },
-        "custom": {
-          "formula_format": {
-            "vt_curve": "v=&[log|t|16^(1/t)]",
-            "symbols": "※§†∂∑∏∫ †&[]",
-            "st_curve": "s=&[ln|t*<e>^&[sin|-t^(3/8)]]"
-          },
-          "resultant_acceleration": 1.0,
-          "vector_acceleration": {
-            "a_x": 0.0,
-            "a_z": 0.0,
-            "a_y": 0.0
-          },
-          "rotate_acceleration": {
-            "a_yaw": 0.0,
-            "a_pitch": 0.0,
-            "a_roll": 0.0
-          }
-        },
         "apply_motion": {
           "apply_pivot": null,
           "apply_muzzles": null,
@@ -82,15 +59,6 @@
     "loop_functions": false,
     "execution_priority": {
       "func_01": 1
-    },
-    "func_02": {
-      "style_presets": {
-        "style_random": true,
-        "using_default": {}
-      },
-      "seed": null,
-      "life_span": 5000,
-      "execute_times": 2
     }
   }
 }
