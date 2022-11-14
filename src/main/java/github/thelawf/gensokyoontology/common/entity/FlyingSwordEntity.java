@@ -1,8 +1,9 @@
 package github.thelawf.gensokyoontology.common.entity;
 
-import github.thelawf.gensokyoontology.common.libs.logoslib.MathCalculator;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathCalculator;
 import github.thelawf.gensokyoontology.core.init.ItemInit;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,6 +24,10 @@ public class FlyingSwordEntity extends Entity implements IRendersAsItem {
     private UUID master;
     private int masterId;
     private static int life = 200;
+
+    public static final EntityType<FlyingSwordEntity> FLY_SWORD_TYPE = EntityType.Builder.<FlyingSwordEntity>create(
+                    FlyingSwordEntity::new, EntityClassification.MISC).size(1f,0.4f).trackingRange(4)
+            .updateInterval(5).build("flying_sword_entity");
 
     public FlyingSwordEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
