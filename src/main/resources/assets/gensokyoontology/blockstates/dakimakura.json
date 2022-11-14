@@ -3,5 +3,8 @@
   "defaults": {
     "textures": {},
     "model": "gensokyoontology:dakimakura.obj"
+  },
+  "variants": {
+    "": {"model": "gensokyoontology:dakimakura.obj"}
   }
 }

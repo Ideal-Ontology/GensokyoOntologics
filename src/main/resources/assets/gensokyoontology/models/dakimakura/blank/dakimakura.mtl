@@ -3,12 +3,3 @@
 
 newmtl initialShadingGroup
 map_Kd gensokyoontology:dakimakura/blank/dakimakura
-Ns 1.171749
-Ka 1.000000 1.000000 1.000000
-Kd 1.000000 1.000000 1.000000
-Ks 1.000000 1.000000 1.000000
-Ke 1.000000 1.000000 1.000000
-Ni 1.450000
-d 1.000000
-illum 2
-newmtl none
