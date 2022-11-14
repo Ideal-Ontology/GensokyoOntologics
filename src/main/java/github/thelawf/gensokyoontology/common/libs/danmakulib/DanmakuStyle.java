@@ -1,18 +1,24 @@
 package github.thelawf.gensokyoontology.common.libs.danmakulib;
 
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DanmakuStyle {
-    HashMap<String, HashMap<String,BulletMuzzle>> muzzles;
+    HashMap<String, HashMap<String, Object>> muzzles;
+    TransformFunctionJson[] functionJsons;
 
-    HashMap<String,TransformFunction> functionMap;
+    public DanmakuStyle(HashMap<String, HashMap<String, Object>> muzzles, TransformFunctionJson[] functionJsons) {
+        this.muzzles = muzzles;
+        this.functionJsons = functionJsons;
+    }
 
-    String aimingAt;
+    public void setMuzzles(HashMap<String, HashMap<String, Object>> muzzles) {
+        this.muzzles = muzzles;
+    }
 
-    @SafeVarargs
-    public DanmakuStyle(HashMap<String, HashMap<String,HashMap<String,Object>>> muzzlesIn,
-                        HashMap<String, HashMap<String,HashMap<String,Integer>>> ... mapIn) {
-
+    public void setFunctionJsons(TransformFunctionJson[] functionJsons) {
+        this.functionJsons = functionJsons;
     }
 }
