@@ -2,16 +2,20 @@ package github.thelawf.gensokyoontology.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DirectionalBlock;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.item.ItemStack;
+import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
@@ -19,11 +23,15 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.opengl.GL11;
 
-public class RailTrackBlock extends Block {
+public class RailTrackBlock extends DirectionalBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
+    public static final BooleanProperty CONNECTED = BooleanProperty.create("connected");
+    public static final BooleanProperty UNCONNECTED = BooleanProperty.create("unconnected");
     // public static final EnumProperty<AxisRotations> ROTATE = EnumProperty.create("rotate", AxisRotations.class);
     //public static final EnumProperty ANCHORED_PLANE = EnumProperty.create("anchored_plane");
+
     private static final VoxelShape shape;
     public static final VoxelShape railHorizontal;
     public static final VoxelShape railVertical;
@@ -61,8 +69,26 @@ public class RailTrackBlock extends Block {
     public RailTrackBlock() {
         super(Properties.create(Material.ROCK).hardnessAndResistance(3.f,25).notSolid());
         this.setDefaultState(this.stateContainer.getBaseState());
+
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+    }
+
+    @Override
+    public boolean hasTileEntity(BlockState state) {
+        return super.hasTileEntity(state);
+    }
+
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return super.createTileEntity(state, world);
+    }
+
+    /*
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if (placer != null) {
@@ -70,28 +96,38 @@ public class RailTrackBlock extends Block {
         }
     }
 
+     */
+
     @SuppressWarnings("deprecation")
     @Override
     public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn, BlockPos currentPos, BlockPos facingPos) {
         return super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
     }
 
-    /*
+
     @Nullable
     @Override
     public BlockState getStateForPlacement(BlockItemUseContext context) {
-        return this.getDefaultState().getOffset(FACING,false);
+        return getDefaultState().with(BlockStateProperties.FACING, context.getNearestLookingDirection().getOpposite());
     }
-     */
 
+
+    /*
     public static Direction getStateFromEntity(BlockPos clickedBlock, Entity player){
         return Direction.getFacingFromVector((float) (player.getPosX() - clickedBlock.getX()),
                 (float) (player.getPosY() - clickedBlock.getY()), (float) (player.getPosZ() - clickedBlock.getZ()));
     }
 
+     */
+
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING);
         super.fillStateContainer(builder);
+    }
+
+    //尝试连接两处轨道方块
+    public void tryConnect(){
+
     }
 }
