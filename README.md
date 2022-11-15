@@ -4,6 +4,10 @@ This mod is a second creation of Touhou Project based on Minecraft 1.16.5. There
 Most of the objects I listed below is still on the paper. I may add them all to minecraft in further future cause it really takes me a long long time...  
     
 ## Now Implemented:  
+### Ideology Forms:  
+- Ideology Dialetics: used for crafting and special capability  
+- Ideology Utopian: Same as Above  
+
 ### New Items:  
 - Yattsume Una: used for crafting foods, of 50% probabilities when kill salmons to drop.
   
@@ -17,12 +21,11 @@ Most of the objects I listed below is still on the paper. I may add them all to 
 - Lycoris Radiata: used for crafting, dimension entering and special capability(Now solving the problem of texure missing)  
   
 ### New Fluid:  
-- Hot Spring: Entity can get instant health effect when enjoy soaking in it(Now solving the problem that entity will get infinite effect duration once it got into any fluid)  
+- Hot Spring: Entity can get instant health effect when enjoy soaking in it(Now solving the problem that entity will get infinite effect duration once it got into any fluid)   
+  
   
 ## Not yet Add to Minecraft:  
 ### Ideology Forms:  
-- Ideology Dialetics: used for crafting and special capability  
-- Ideology Utopian: Same as Above  
 - Ideology Existentialism: Same as Above  
 - Ideology Creativism: Same as Above  
 - Ideology Nihilism: Same as Above  
@@ -53,5 +56,9 @@ Dimension List:
 - Hakurou Sword(may be set as an addon of slashbalde): The sword owned by Konpaku Youmu.  
 - Spell Card: Can be used to craft spell cards to launch bullets as danmanku.  
   
-    
+   
+## 2022/11/14 Update:    
+- Danmaku entity can now be added to world by Danmaku Test Item
+  
+  
 Original Author: KK, ZUN/Team ShanghaiAlice
