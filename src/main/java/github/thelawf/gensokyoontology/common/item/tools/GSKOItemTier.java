@@ -1,11 +1,9 @@
 package github.thelawf.gensokyoontology.common.item.tools;
 
-import github.thelawf.gensokyoontology.core.init.ItemInit;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.util.LazyValue;
-import net.minecraftforge.common.BiomeDictionary;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
@@ -17,13 +15,13 @@ public enum GSKOItemTier implements IItemTier {
     // 观念论材料为 10011 等级
     // 实践材料为 int类型最大值
     REALISM(1,114,4.0F,2.0F,5,
-            () -> Ingredient.fromItems(ItemInit.SPIRIT_THEOLOGY.get())),
+            () -> Ingredient.fromItems(ItemRegistry.SPIRIT_THEOLOGY.get())),
     METAPHYSICS(4,1024,10.0F,10.0F,25,
-            () -> Ingredient.fromItems(ItemInit.SPIRIT_UTOPIAN.get())),
+            () -> Ingredient.fromItems(ItemRegistry.SPIRIT_UTOPIAN.get())),
     IDEALISM(6,10011,15.0F,24.0F,114,
-            () -> Ingredient.fromItems(ItemInit.SPIRIT_DIALECTICS.get())),
+            () -> Ingredient.fromItems(ItemRegistry.SPIRIT_DIALECTICS.get())),
     PRAXIS(10,2147000000,25.0F,2147000000.0F,514,
-            () -> Ingredient.fromItems(ItemInit.SPIRIT_CREATIVE.get()));
+            () -> Ingredient.fromItems(ItemRegistry.SPIRIT_CREATIVE.get()));
 
 
     private final int harvestLevel;

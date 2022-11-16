@@ -1,18 +1,13 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import github.thelawf.gensokyoontology.common.named.GensokyoOntologyNBTs;
-import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
-import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
-import github.thelawf.gensokyoontology.core.init.EffectInit;
+import github.thelawf.gensokyoontology.common.nbt.GensokyoOntologyNBTs;
+import github.thelawf.gensokyoontology.core.init.EffectRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.ProjectileImpactEvent;
 import net.minecraftforge.event.entity.living.PotionEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -26,7 +21,7 @@ public class GSKOEffectEvents {
         // 恋爱效果（迫真）的实现
         LivingEntity living = event.getEntityLiving();
         if (!(living instanceof PlayerEntity) &&
-        event.getEntityLiving().isPotionActive(EffectInit.LOVE_EFFECT.get())) {
+        event.getEntityLiving().isPotionActive(EffectRegistry.LOVE_EFFECT.get())) {
             System.out.println("OK");
         }
         if (living instanceof PlayerEntity) {
@@ -45,7 +40,7 @@ public class GSKOEffectEvents {
         if (event.getEntityLiving() instanceof ServerPlayerEntity ||
                 event.getEntityLiving() instanceof VillagerEntity) {
             //event.getEntityLiving().setPose(Pose.SLEEPING);
-            if (event.getEntityLiving().isPotionActive(EffectInit.HYPNOSIS_EFFECT.get())) {
+            if (event.getEntityLiving().isPotionActive(EffectRegistry.HYPNOSIS_EFFECT.get())) {
                 event.getEntityLiving().setPose(Pose.SLEEPING);
                 event.getEntityLiving().startSleeping(event.getEntityLiving().getPosition());
             }

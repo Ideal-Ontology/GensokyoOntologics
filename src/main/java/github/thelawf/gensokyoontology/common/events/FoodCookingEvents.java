@@ -1,11 +1,7 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import github.thelawf.gensokyoontology.common.item.food.CakeScarletDemon;
-import github.thelawf.gensokyoontology.common.item.food.KoishiHatMousse;
-import github.thelawf.gensokyoontology.common.item.food.MilkBottle;
-import github.thelawf.gensokyoontology.common.item.food.YattsumeUnaYaki;
-import github.thelawf.gensokyoontology.common.named.GensokyoOntologyNBTs;
-import github.thelawf.gensokyoontology.core.init.ItemInit;
+import github.thelawf.gensokyoontology.common.item.food.*;
+import github.thelawf.gensokyoontology.common.nbt.GensokyoOntologyNBTs;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;

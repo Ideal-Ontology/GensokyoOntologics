@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.named;
+package github.thelawf.gensokyoontology.common.nbt;
 
 import net.minecraft.block.Block;
 import net.minecraft.nbt.CompoundNBT;

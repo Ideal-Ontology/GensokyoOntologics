@@ -1,29 +1,27 @@
 package github.thelawf.gensokyoontology.common.libs.danmakulib;
 
-import github.thelawf.gensokyoontology.common.entity.DanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathCalculator;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import java.util.HashMap;
 import java.util.UUID;
 
 public class TransformFunction extends ITransform.AbstractTransform {
+    public static final Logger LOGGER = LogManager.getLogger();
 
     private World worldIn;
 
     private PlayerEntity playerIn;
 
     // -------------Initialize Rotations and Locations--------------//
-    public double yaw = 0.D;
-    public double pitch = 0.D;
-    public double roll = 0.D;
-    public double posX = 0.D;
-    public double posY = 0.D;
-    public double posZ = 0.D;
-    public Vector3d rotationVec = new Vector3d(0D,0D,0D);
-    public Vector3d locationVec = new Vector3d(0d,0d,0d);
+    public double yaw, pitch, roll = 0.D;
+    public double x, y, z = 0.D;
+    public Vector3d initLocation = new Vector3d(0d,0d,0d);
+    public Vector3d initRotation = new Vector3d(0d,0d,0d);
 
     // --------------------Function settings---------------------//
 
@@ -50,63 +48,66 @@ public class TransformFunction extends ITransform.AbstractTransform {
     public static final double maxResultantSpeed = 5.d;
     public Vector3d acceleration = new Vector3d(0,0,0);
     public Vector3d speedV3 = new Vector3d(0,0,0);
-    public HashMap<String,HashMap<BlockPos,BlockPos>> toNewBlockPos = new HashMap<>();
 
-    // /**
-    //  * 在变换函数实例化时传入初始参数。
-    //  * @param rotationVec 初始化旋转角度
-    //  * @param locationVec 初始化坐标，此坐标默认为枢轴点坐标
-    //  */
-    // public TransformFunction(Vector3d rotationVec, @NotNull Vector3d locationVec){
-    //     this.rotationVec = rotationVec;
-    //     this.locationVec = locationVec;
-    //     this.resultantSpeed = Math.pow(Math.pow(locationVec.x,2) + Math.pow(locationVec.y,2) +
-    //             Math.pow(locationVec.z,2),0.5);
-    // }
-//
-    // public TransformFunction(double yaw, double pitch, double roll,
-    //                          double posX, double posY, double posZ) {
-    //     this.yaw = yaw;
-    //     this.pitch = pitch;
-    //     this.roll = roll;
-    //     this.posX = posX;
-    //     this.posY = posY;
-    //     this.posZ = posZ;
-    //     this.resultantSpeed = Math.pow(posX * posX + posY * posY + posZ * posZ, 0.5);
-    // }
-//
-    // /**
-    //  * 使用for循环配合Entity.setLocationAndAngles()方法循环生成弹幕，循环次数为此函数生成的弹幕总量，使用形参 lifeSpan / shootInterval * executeTimes 来获得本函数生成的弹幕总量。
-    //  * @param rotationVec 初始化旋转角度
-    //  * @param locationVec 初始化枢轴点位置
-    //  * @param executeTimes 函数的执行次数
-    //  * @param lifeSpan 函数每次执行时的生命周期
-    //  * @param shootInterval 函数每次生命周期内发射弹幕的间隔
-    //  * @param executeInterval 所有执行次数结束后执行其他函数的间隔
-    //  * @param executePriority 函数的执行优先级
-    //  * @param aimingAt 是否瞄准某个实体
-    //  * @param resultantSpeed 弹幕的合成速度
-    //  */
-    // public TransformFunction(Vector3d rotationVec, Vector3d locationVec, int executeTimes,
-    //                          double lifeSpan, double shootInterval, double executeInterval,
-    //                          int executePriority, UUID aimingAt, double resultantSpeed) {
-    //     this.rotationVec = rotationVec;
-    //     this.locationVec = locationVec;
-    //     this.executeTimes = executeTimes;
-    //     this.lifeSpan = lifeSpan;
-    //     this.shootInterval = shootInterval;
-    //     this.executeInterval = executeInterval;
-    //     this.executePriority = executePriority;
-    //     this.aimingAt = aimingAt;
-    //     this.resultantSpeed = resultantSpeed;
-    // }
+    public static class Builder extends TransformFunction {
+        public static TransformFunction create() {
+            return new TransformFunction();
+        }
+    }
 
-    public static TransformFunction create() {
-        return new TransformFunction();
+    public TransformFunction() {
+    }
+
+    public TransformFunction(double yaw, double pitch, double roll,
+                             double posX, double posY, double posZ) {
+        this.yaw = yaw;
+        this.pitch = pitch;
+        this.roll = roll;
+        this.x = posX;
+        this.y = posY;
+        this.z = posZ;
+        this.resultantSpeed = MathCalculator.toModulus3D(posX, posY, posZ);
+    }
+    /**
+     * 使用for循环配合Entity.setLocationAndAngles()方法循环生成弹幕，循环次数为此函数生成的弹幕总量，使用形参 lifeSpan / shootInterval * executeTimes 来获得本函数生成的弹幕总量。
+     * @param locationVec 初始化枢轴点位置
+     * @param executeTimes 函数的执行次数
+     * @param lifeSpan 函数每次执行时的生命周期
+     * @param shootInterval 函数每次生命周期内发射弹幕的间隔
+     * @param executeInterval 所有执行次数结束后执行其他函数的间隔
+     * @param executePriority 函数的执行优先级
+     * @param aimingAt 是否瞄准某个实体
+     * @param resultantSpeed 弹幕的合成速度
+     */
+    public TransformFunction(Vector3d rotationVec, Vector3d locationVec, int executeTimes,
+                             double lifeSpan, double shootInterval, double executeInterval,
+                             int executePriority, UUID aimingAt, double resultantSpeed) {
+        this.roll = rotationVec.x;
+        this.yaw = rotationVec.y;
+        this.pitch = rotationVec.z;
+        this.initLocation = locationVec;
+        this.executeTimes = executeTimes;
+        this.lifeSpan = lifeSpan;
+        this.shootInterval = shootInterval;
+        this.executeInterval = executeInterval;
+        this.executePriority = executePriority;
+        this.aimingAt = aimingAt;
+        this.resultantSpeed = resultantSpeed;
+    }
+
+    public TransformFunction setRotation(Vector3d initRotation) {
+        this.initRotation = initRotation;
+        this.roll = initRotation.x;
+        this.yaw = initRotation.y;
+        this.pitch = initRotation.z;
+        return this;
     }
 
     public TransformFunction setAcceleration(Vector3d acceleration) {
         this.acceleration = acceleration;
+        this.x += this.acceleration.x;
+        this.y += this.acceleration.y;
+        this.z += this.acceleration.z;
         return this;
     }
 
@@ -155,33 +156,32 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return this;
     }
 
-    public TransformFunction setPosX(double posX) {
-        this.posX = posX;
+    public TransformFunction setX(double x) {
+        this.x = x;
         return this;
     }
 
-    public TransformFunction setPosY(double posY) {
-        this.posY = posY;
+    public TransformFunction setY(double y) {
+        this.y = y;
         return this;
     }
 
     public TransformFunction setSpeedV3(Vector3d speedV3) {
         this.speedV3 = speedV3;
+        this.resultantSpeed = MathCalculator.toModulus3D(speedV3.x, speedV3.y, speedV3.z);
         return this;
     }
 
-    public TransformFunction setPosZ(double posZ) {
-        this.posZ = posZ;
+    public TransformFunction setZ(double z) {
+        this.z = z;
         return this;
     }
 
-    public TransformFunction setRotationVec(Vector3d rotationVec) {
-        this.rotationVec = rotationVec;
-        return this;
-    }
-
-    public TransformFunction setLocationVec(Vector3d locationVec) {
-        this.locationVec = locationVec;
+    public TransformFunction setInitLocation(Vector3d initLocation) {
+        this.initLocation = initLocation;
+        this.x = initLocation.x;
+        this.y = initLocation.y;
+        this.z = initLocation.z;
         return this;
     }
 
@@ -199,11 +199,6 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return this;
     }
 
-
-    public TransformFunction setToNewBlockPos(HashMap<String, HashMap<BlockPos, BlockPos>> toNewBlockPos) {
-        this.toNewBlockPos = toNewBlockPos;
-        return this;
-    }
 
     public int getExecuteTimes() {
         return executeTimes;
@@ -226,9 +221,13 @@ public class TransformFunction extends ITransform.AbstractTransform {
     }
 
     @Override
-    public void rotate(Vector3d v3d) {
-
+    public TransformFunction rotate(Vector3d v3d) {
+        this.roll = v3d.x;
+        this.yaw = v3d.y;
+        this.pitch = v3d.z;
+        return this;
     }
+
 
     public void transform(double x, double y, double z, double yaw, double pitch, double roll) {
 
@@ -278,18 +277,38 @@ public class TransformFunction extends ITransform.AbstractTransform {
         DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
         if (worldIn.isRemote) {
             for (int i = 0; i < 20 * this.executeTimes; i++) {
-                danmaku.shoot(this.locationVec.x + speedV3.x,
-                        this.locationVec.y + speedV3.y,
-                        this.locationVec.z + speedV3.z,
+                danmaku.shoot(this.initLocation.x + speedV3.x,
+                        this.initLocation.y + speedV3.y,
+                        this.initLocation.z + speedV3.z,
                         0.1f, 0.5f);
                 worldIn.addEntity(danmaku);
             }
         }
     }
 
+
     @Override
     public Vector3d accelerate(Vector3d acceleration) {
         return this.acceleration = acceleration;
+    }
+
+    @Override
+    public void shoot() {
+        DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
+        if (worldIn.isRemote) {
+            for (int i = 0; i < this.lifeSpan / shootInterval; i++) {
+
+                this.resultantSpeed += MathCalculator.toModulus3D(this.acceleration.x, this.acceleration.y, this.acceleration.z);
+                danmaku.setLocationAndAngles(this.x,this.y,this.z,
+                        (float) this.yaw, (float) this.pitch);
+
+                Vector3d towards = playerIn.getLookVec();
+                danmaku.shoot(towards.x, towards.y, towards.z,
+                        (float) this.resultantSpeed, 0.2f);
+                worldIn.addEntity(danmaku);
+            }
+            LOGGER.info("Function executed");
+        }
     }
 
 }

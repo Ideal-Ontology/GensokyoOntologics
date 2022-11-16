@@ -1,10 +1,7 @@
-package github.thelawf.gensokyoontology.common.entity;
+package github.thelawf.gensokyoontology.common.entity.projectile;
 
 import github.thelawf.gensokyoontology.core.init.PotionRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRendersAsItem;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.projectile.PotionEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -27,6 +24,9 @@ import java.util.Optional;
 import java.util.UUID;
 
 public class LovePotionEntity extends PotionEntity implements IRendersAsItem {
+    public static final EntityType<LovePotionEntity> LOVE_POTION_TYPE = EntityType.Builder.<LovePotionEntity>create(
+            LovePotionEntity::new, EntityClassification.MISC).size(0.25F, 0.25F).trackingRange(4)
+            .updateInterval(10).build("love_potion_entity");
     public LovePotionEntity(EntityType<? extends PotionEntity> type, World worldIn) {
         super(type, worldIn);
     }

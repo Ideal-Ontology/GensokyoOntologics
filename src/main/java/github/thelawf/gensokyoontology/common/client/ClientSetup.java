@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.core.init.client;
+package github.thelawf.gensokyoontology.common.client;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.SpaceFissureTileEntity;

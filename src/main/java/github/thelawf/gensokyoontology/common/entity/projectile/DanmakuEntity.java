@@ -1,12 +1,11 @@
-package github.thelawf.gensokyoontology.common.entity;
+package github.thelawf.gensokyoontology.common.entity.projectile;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuStyle;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
-import github.thelawf.gensokyoontology.core.init.EffectInit;
-import github.thelawf.gensokyoontology.core.init.ItemInit;
+import github.thelawf.gensokyoontology.core.init.EffectRegistry;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
@@ -20,7 +19,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
@@ -122,7 +120,7 @@ public class DanmakuEntity extends ThrowableEntity implements IRendersAsItem{
         Entity shooter = getShooter();
         LivingEntity entityHit = (LivingEntity) result.getEntity();
         if (shooter instanceof PlayerEntity && !(entityHit instanceof PlayerEntity)) {
-            entityHit.addPotionEffect(new EffectInstance(EffectInit.LOVE_EFFECT.get(), 5 * 40));
+            entityHit.addPotionEffect(new EffectInstance(EffectRegistry.LOVE_EFFECT.get(), 5 * 40));
             entityHit.attackEntityFrom(DamageSource.GENERIC, DanmakuType.HEART_SHOT.damage);
             this.remove();
         }
@@ -131,6 +129,6 @@ public class DanmakuEntity extends ThrowableEntity implements IRendersAsItem{
 
     @Override
     public ItemStack getItem() {
-        return new ItemStack(ItemInit.DANMAKU_TEST_ITEM.get());
+        return new ItemStack(ItemRegistry.DANMAKU_TEST_ITEM.get());
     }
 }

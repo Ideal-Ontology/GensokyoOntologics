@@ -1,6 +1,5 @@
-package github.thelawf.gensokyoontology.common.named;
+package github.thelawf.gensokyoontology.common.nbt;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;

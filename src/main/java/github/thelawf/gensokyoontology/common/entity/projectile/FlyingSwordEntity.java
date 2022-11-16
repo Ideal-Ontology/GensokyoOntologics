@@ -1,7 +1,7 @@
-package github.thelawf.gensokyoontology.common.entity;
+package github.thelawf.gensokyoontology.common.entity.projectile;
 
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathCalculator;
-import github.thelawf.gensokyoontology.core.init.ItemInit;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -77,7 +77,7 @@ public class FlyingSwordEntity extends Entity implements IRendersAsItem {
 
     @Override
     public @NotNull ItemStack getItem() {
-        return new ItemStack(ItemInit.METAPHYSICS_SWORD.get());
+        return new ItemStack(ItemRegistry.METAPHYSICS_SWORD.get());
     }
 
     @Override

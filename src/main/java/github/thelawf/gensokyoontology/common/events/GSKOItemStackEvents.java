@@ -1,19 +1,22 @@
 package github.thelawf.gensokyoontology.common.events;
 
+import github.thelawf.gensokyoontology.common.block.Dakimakura;
 import github.thelawf.gensokyoontology.common.block.SpaceFissureBlock;
 import github.thelawf.gensokyoontology.common.item.tools.IdealismSword;
 import github.thelawf.gensokyoontology.common.item.tools.RealismSword;
 import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
+import net.minecraft.block.CraftingTableBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.living.EntityTeleportEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -23,7 +26,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = "gensokyoontology",bus = Mod.EventBusSubscriber.Bus.FORGE,value = Dist.CLIENT)
-public class ItemUseEvents {
+public class GSKOItemStackEvents {
     @SubscribeEvent
     public static void onSwordRightClick(PlayerInteractEvent.RightClickItem event){
         // 持有实在论之剑右键单击会给范围内的敌对生物劈下闪电
@@ -68,5 +71,4 @@ public class ItemUseEvents {
             }
         }
     }
-
 }

@@ -8,7 +8,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class EffectInit {
+public class EffectRegistry {
     public static final DeferredRegister<Effect> POTION_EFFECTS = DeferredRegister.create(
             ForgeRegistries.POTIONS, GensokyoOntology.MODID);
     public static final RegistryObject<Effect> LOVE_EFFECT = POTION_EFFECTS.register("love_potion",

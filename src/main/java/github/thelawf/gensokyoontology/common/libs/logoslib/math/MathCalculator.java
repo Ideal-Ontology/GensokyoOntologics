@@ -75,4 +75,22 @@ public class MathCalculator {
         double r = MathCalculator.toModulus3D(rc.x, rc.y, rc.z);
         return new SphericalCoordinate(r, Math.acos(rc.z / r), Math.atan(rc.y / rc.x));
     }
+
+    /**
+     * 弧度值除以Math.PI的结果为【180度的几分之几】
+     * @param radIn 弧度值
+     * @return 角度值
+     */
+    public static double toDegree(double radIn) {
+        return radIn / Math.PI * 180d;
+    }
+
+    /**
+     * Math.PI 除以180度的结果为【每一角度等于多少弧度】
+     * @param degIn 角度值
+     * @return 弧度值
+     */
+    public static double toRadian(double degIn) {
+        return degIn * Math.PI / 180d;
+    }
 }

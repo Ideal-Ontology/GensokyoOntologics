@@ -15,7 +15,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import static net.minecraft.item.Items.BUCKET;
 
-public class ItemInit {
+public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, GensokyoOntology.MODID);
     public static final RegistryObject<Item> HOTSPRING_BUCKET =

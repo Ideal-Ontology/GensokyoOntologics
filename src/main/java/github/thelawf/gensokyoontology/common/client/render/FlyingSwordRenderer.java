@@ -1,12 +1,11 @@
-package github.thelawf.gensokyoontology.common.entity.render;
+package github.thelawf.gensokyoontology.common.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.common.entity.FlyingSwordEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.FlyingSwordEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;

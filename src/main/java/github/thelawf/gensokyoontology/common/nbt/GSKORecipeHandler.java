@@ -1,6 +1,6 @@
-package github.thelawf.gensokyoontology.common.named;
+package github.thelawf.gensokyoontology.common.nbt;
 
-import github.thelawf.gensokyoontology.core.init.ItemInit;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
@@ -16,24 +16,24 @@ public class GSKORecipeHandler extends ForgeRecipeProvider {
 
     @Override
     protected void registerRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shapedRecipe(ItemInit.BURGER_MEAT_RAW.get())
+        ShapedRecipeBuilder.shapedRecipe(ItemRegistry.BURGER_MEAT_RAW.get())
                 .patternLine("#OO")
                 .patternLine("XXX")
                 .patternLine("YY$")
-                .key('#', ItemInit.KITCHEN_KNIFE.get())
+                .key('#', ItemRegistry.KITCHEN_KNIFE.get())
                 .key('O', Items.BEEF)
                 .key('X', Items.PORKCHOP)
-                .key('Y', ItemInit.ONION.get())
+                .key('Y', ItemRegistry.ONION.get())
                 .key('$', Items.EGG)
                 .addCriterion("buger_meat_raw", InventoryChangeTrigger.Instance.forItems(
-                        ItemInit.KITCHEN_KNIFE.get(),Items.BEEF,Items.PORKCHOP,ItemInit.ONION.get(),Items.EGG
+                        ItemRegistry.KITCHEN_KNIFE.get(),Items.BEEF,Items.PORKCHOP, ItemRegistry.ONION.get(),Items.EGG
                 ))
                 .build(consumer);
 
         /*
-        CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ItemInit.BURGER_MEAT_RAW.get()),
-                IItemProvider.asItem(ItemInit.BURGER_MEAT.get()),2.5F,235)
-                .addCriterion("buger_meat", InventoryChangeTrigger.Instance.forItems(ItemInit.BURGER_MEAT_RAW.get()))
+        CookingRecipeBuilder.cookingRecipe(Ingredient.fromItems(ItemRegistry.BURGER_MEAT_RAW.get()),
+                IItemProvider.asItem(ItemRegistry.BURGER_MEAT.get()),2.5F,235)
+                .addCriterion("buger_meat", InventoryChangeTrigger.Instance.forItems(ItemRegistry.BURGER_MEAT_RAW.get()))
                 .build(consumer);
          */
     }

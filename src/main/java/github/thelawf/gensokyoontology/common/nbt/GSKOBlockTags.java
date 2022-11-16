@@ -1,9 +1,8 @@
-package github.thelawf.gensokyoontology.common.named;
+package github.thelawf.gensokyoontology.common.nbt;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.FluidTagsProvider;
-import net.minecraft.fluid.Fluid;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ITagCollectionSupplier;
 import net.minecraft.tags.TagRegistry;

@@ -16,7 +16,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 public class DispenserRegister {
     @SubscribeEvent
     public static void onDispenseRegister(FMLCommonSetupEvent event){
-        DispenserBlock.registerDispenseBehavior(ItemInit.HOTSPRING_BUCKET.get(),
+        DispenserBlock.registerDispenseBehavior(ItemRegistry.HOTSPRING_BUCKET.get(),
                 new DefaultDispenseItemBehavior(){
                     private final DefaultDispenseItemBehavior behavior =
                             new DefaultDispenseItemBehavior();

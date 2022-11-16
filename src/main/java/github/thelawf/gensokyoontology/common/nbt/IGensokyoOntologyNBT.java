@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.named;
+package github.thelawf.gensokyoontology.common.nbt;
 
 public interface IGensokyoOntologyNBT {
     int CHEAP = 0;

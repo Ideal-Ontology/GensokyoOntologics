@@ -1,9 +1,8 @@
 package github.thelawf.gensokyoontology.common.block;
 
-import github.thelawf.gensokyoontology.core.init.ItemInit;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.CropsBlock;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.math.BlockPos;
@@ -33,7 +32,7 @@ public class OnionCropBlock extends CropsBlock {
     @Override
     @Nonnull
     protected IItemProvider getSeedsItem() {
-        return ItemInit.ONION.get();
+        return ItemRegistry.ONION.get();
     }
 
     @Override

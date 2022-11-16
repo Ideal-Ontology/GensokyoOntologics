@@ -5,7 +5,7 @@ import net.minecraft.util.math.vector.Vector3d;
 public interface ITransform {
 
     // rotate()函数接受所有的旋转操作
-    void rotate(Vector3d v3d);
+    TransformFunction rotate(Vector3d v3d);
 
     // transform()函数接受所有的变换操作
     void transform(double x, double y, double z, double yaw, double pitch, double roll);
@@ -15,5 +15,7 @@ public interface ITransform {
 
     abstract class AbstractTransform implements ITransform {
         public abstract Vector3d accelerate(Vector3d v3dIn);
+
+        public abstract void shoot();
     }
 }

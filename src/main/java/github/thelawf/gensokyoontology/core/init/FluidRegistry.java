@@ -4,10 +4,7 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.fluid.FlowingFluid;
 import net.minecraft.fluid.Fluid;
-import net.minecraft.item.PotionItem;
-import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.event.entity.living.PotionColorCalculationEvent;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
 import net.minecraftforge.fml.RegistryObject;
@@ -33,7 +30,7 @@ public class FluidRegistry {
     public static ForgeFlowingFluid.Properties HOT_SPRING_PROPERTIES = new ForgeFlowingFluid.Properties(
             HOT_SPRING_SOURCE, HOT_SPRING_FLOWING, FluidAttributes.builder(
                     STILL_HOTSPRING_TEX,FLOW_HOTSPRING_TEX).color(0xFF00FFFF).density(5000).viscosity(4000))
-            .bucket(ItemInit.HOTSPRING_BUCKET).block(BlockRegistry.HOT_SPRING_BLOCK)
+            .bucket(ItemRegistry.HOTSPRING_BUCKET).block(BlockRegistry.HOT_SPRING_BLOCK)
             .slopeFindDistance(3).explosionResistance(100F);
 
     /*
@@ -46,7 +43,7 @@ public class FluidRegistry {
     public static ForgeFlowingFluid.Properties HOT_SPRING_PROPERTIES = new ForgeFlowingFluid.Properties(
             HOT_SPRING_SOURCE,HOT_SPRING_FLOWING, FluidAttributes.builder(
             STILL_HOTSPRING_TEX,FLOW_HOTSPRING_TEX).color(0xFFF0FFAA).density(5000).viscosity(4000))
-            .bucket(ItemInit.HOTSPRING_BUCKET).block(BlockRegistry.HOT_SPRING_BLOCK)
+            .bucket(ItemRegistry.HOTSPRING_BUCKET).block(BlockRegistry.HOT_SPRING_BLOCK)
             .slopeFindDistance(3).explosionResistance(100F);
 
      */
