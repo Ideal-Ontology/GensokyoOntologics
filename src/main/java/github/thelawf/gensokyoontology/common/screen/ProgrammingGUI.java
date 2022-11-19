@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.screen;
 
+/*
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.libs.logoslib.BlockCodeFormatter;
@@ -63,8 +64,9 @@ public class ProgrammingGUI extends Screen {
         /* 在这里加上一个判断，调用逻各斯通用库的 BlockCodeRenderer类和原版的 FontRenderer类
         下面的 drawText(...,int color)方法，需要使用同样位于 FontRenderer类下面的getStringpropertyWidth()
         方法获取文本的长度。
-         */
+
         super.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
 }
+*/
