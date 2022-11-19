@@ -4,6 +4,8 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuStyle;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -33,11 +35,11 @@ public class DanmakuRenderer extends SpriteRenderer<DanmakuEntity> {
         TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(
                 AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(DANMAKU_TEX);
         IVertexBuilder builder = ItemRenderer.getBuffer(bufferIn, RENDER_TYPE, true,false);
-
+        float scale = DanmakuType.LARGE_SHOT.size;
         matrixStackIn.push();
         matrixStackIn.rotate(this.renderManager.getCameraOrientation());
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
-        matrixStackIn.scale(1.2f,1.2f,1.2f);
+        matrixStackIn.scale(scale, scale, scale);
 
         MatrixStack.Entry matrixStackLast = matrixStackIn.getLast();
         Matrix3f normal = matrixStackLast.getNormal();
