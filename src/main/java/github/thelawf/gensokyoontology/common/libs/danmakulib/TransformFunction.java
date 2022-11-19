@@ -1,14 +1,20 @@
 package github.thelawf.gensokyoontology.common.libs.danmakulib;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathCalculator;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.*;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.awt.*;
 import java.util.UUID;
+import java.util.Vector;
 
 public class TransformFunction extends ITransform.AbstractTransform {
     public static final Logger LOGGER = LogManager.getLogger();
@@ -18,10 +24,17 @@ public class TransformFunction extends ITransform.AbstractTransform {
     private PlayerEntity playerIn;
 
     // -------------Initialize Rotations and Locations--------------//
+
+    /** 设置实体的枢轴点坐标 */
+    public double pivotX, pivotY, pivotZ = 0.D;
+
+    /** 仅设置实体的朝向 */
     public double yaw, pitch, roll = 0.D;
+
     public double x, y, z = 0.D;
     public Vector3d initLocation = new Vector3d(0d,0d,0d);
     public Vector3d initRotation = new Vector3d(0d,0d,0d);
+    public double rotateTotal = 0.D;
 
     // --------------------Function settings---------------------//
 
@@ -44,10 +57,30 @@ public class TransformFunction extends ITransform.AbstractTransform {
     public UUID aimingAt = null;
 
     // -------------Parameters to Set Future Motions--------------//
-    public double resultantSpeed;
-    public static final double maxResultantSpeed = 5.d;
-    public Vector3d acceleration = new Vector3d(0,0,0);
+
+    /** 实体的瞬时矢量速度 */
     public Vector3d speedV3 = new Vector3d(0,0,0);
+
+    /** 实体的瞬时合成速度 */
+    public double resultantSpeed;
+
+    /** 实体的最大速度 */
+    public static final double maxResultantSpeed = 5.d;
+
+    /** 角度的线性增加量  */
+    public double increment = 0.D;
+
+    /** 角度的非线性增加量 */
+    public Vector3d increment3D = new Vector3d(0d,0d,0d);
+
+    /** （角度/位移/速度）的非线性增加量 */
+    public Vector3d acceleration3D = new Vector3d(0,0,0);
+
+    // -------------Constructors, Builders, and Implements------------- //
+
+    public TransformFunction getInstance() {
+        return this;
+    }
 
     public static class Builder extends TransformFunction {
         public static TransformFunction create() {
@@ -95,24 +128,35 @@ public class TransformFunction extends ITransform.AbstractTransform {
         this.resultantSpeed = resultantSpeed;
     }
 
-    public TransformFunction setRotation(Vector3d initRotation) {
-        this.initRotation = initRotation;
-        this.roll = initRotation.x;
-        this.yaw = initRotation.y;
-        this.pitch = initRotation.z;
-        return this;
-    }
-
-    public TransformFunction setAcceleration(Vector3d acceleration) {
-        this.acceleration = acceleration;
-        this.x += this.acceleration.x;
-        this.y += this.acceleration.y;
-        this.z += this.acceleration.z;
-        return this;
-    }
-
     public TransformFunction setAimingAt(UUID aimingAt) {
         this.aimingAt = aimingAt;
+        return this;
+    }
+
+    public TransformFunction setRotation(Vector3d incrementV3) {
+        this.roll += incrementV3.x;
+        this.yaw += incrementV3.y;
+        this.pitch += incrementV3.z;
+        return this;
+    }
+
+    public TransformFunction setAcceleration3D(Vector3d acceleration3D) {
+        this.acceleration3D = acceleration3D;
+        return this;
+    }
+
+    /**
+     * 根据传入的角度偏转值更改瞬时矢量速度
+     * @param rollIncrement
+     * @param yawIncrement
+     * @param pitchIncrement
+     */
+    public void setAcceleration3D(double rollIncrement, double yawIncrement, double pitchIncrement) {
+
+    }
+
+    public TransformFunction setShootInterval(double shootInterval) {
+        this.shootInterval = shootInterval;
         return this;
     }
 
@@ -141,52 +185,51 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return this;
     }
 
-    public TransformFunction setYaw(double yaw) {
-        this.yaw = yaw;
-        return this;
+    public Vector3d increaseYaw(float yawIncrement) {
+        float f = MathHelper.cos(yawIncrement);
+        float f1 = MathHelper.sin(yawIncrement);
+        double d0 = this.x * (double)f + this.z * (double)f1;
+        double d1 = this.y;
+        double d2 = this.z * (double)f - this.x * (double)f1;
+        this.speedV3 = new Vector3d(this.speedV3.x + d0, this.speedV3.y, this.speedV3.z + d2);
+        return new Vector3d(d0, d1, d2);
     }
 
-    public TransformFunction setPitch(double pitch) {
-        this.pitch = pitch;
-        return this;
+    public Vector3d increasePitch(float pitchIncrement) {
+        float f = MathHelper.cos(pitchIncrement);
+        float f1 = MathHelper.sin(pitchIncrement);
+        double d0 = this.x;
+        double d1 = this.y * (double)f + this.z * (double)f1;
+        double d2 = this.z * (double)f - this.y * (double)f1;
+        this.speedV3 = new Vector3d(this.speedV3.x, this.speedV3.y + d1, this.speedV3.z + d2);
+        return new Vector3d(d0, d1, d2);
     }
 
-    public TransformFunction setRoll(double roll) {
-        this.roll = roll;
-        return this;
+    @OnlyIn(Dist.CLIENT)
+    public Vector3d increaseRoll(float rollIncrement) {
+        float f = MathHelper.cos(rollIncrement);
+        float f1 = MathHelper.sin(rollIncrement);
+        double d0 = this.x * (double)f + this.y * (double)f1;
+        double d1 = this.y * (double)f - this.x * (double)f1;
+        double d2 = this.z;
+        this.speedV3 = new Vector3d(this.speedV3.x + d0, this.speedV3.y + d1, this.speedV3.z);
+        return new Vector3d(d0, d1, d2);
     }
 
-    public TransformFunction setX(double x) {
-        this.x = x;
-        return this;
-    }
-
-    public TransformFunction setY(double y) {
-        this.y = y;
-        return this;
-    }
 
     public TransformFunction setSpeedV3(Vector3d speedV3) {
         this.speedV3 = speedV3;
-        this.resultantSpeed = MathCalculator.toModulus3D(speedV3.x, speedV3.y, speedV3.z);
+        this.resultantSpeed = Math.min(MathCalculator.toModulus3D(
+                speedV3.x, speedV3.y, speedV3.z), maxResultantSpeed);
         return this;
     }
 
-    public TransformFunction setZ(double z) {
-        this.z = z;
-        return this;
-    }
 
     public TransformFunction setInitLocation(Vector3d initLocation) {
         this.initLocation = initLocation;
         this.x = initLocation.x;
         this.y = initLocation.y;
         this.z = initLocation.z;
-        return this;
-    }
-
-    public TransformFunction setShootInterval(double shootInterval) {
-        this.shootInterval = shootInterval;
         return this;
     }
 
@@ -199,6 +242,22 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return this;
     }
 
+    public void setRotateTotal(double rotateTotal) {
+        this.rotateTotal = rotateTotal;
+    }
+
+    public void setIncrement(double rotateTotal) {
+        this.increment = rotateTotal / (this.lifeSpan / this.shootInterval);
+
+    }
+
+    public void setIncrement(double rotateTotal, double interval) {
+        this.increment = rotateTotal / interval;
+    }
+
+    public void setInitRotation(Vector3d initRotation) {
+        this.initRotation = initRotation;
+    }
 
     public int getExecuteTimes() {
         return executeTimes;
@@ -220,22 +279,59 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return executePriority;
     }
 
+    /**
+     * 通过给定的组件坐标和枢轴点坐标旋转该组件
+     * @param vecPrev 之前的向量坐标方位
+     * @param incrementV3 三维向量增加量。vector内的三个参数分别对应roll，yaw和pitch，单位是角度值
+     */
     @Override
-    public TransformFunction rotate(Vector3d v3d) {
-        this.roll = v3d.x;
-        this.yaw = v3d.y;
-        this.pitch = v3d.z;
-        return this;
+    public void rotate(Vector3d vecPrev, Vector3d incrementV3) {
+        double incrementRoll = incrementV3.x;
+        double incrementYaw = incrementV3.y;
+        double incrementPitch = incrementV3.z;
     }
 
+    public Vector3d rotate(Vector3d prevPos, Vector3d pivotLocation, Vector3d rotationV3) {
+        double radius = MathCalculator.distanceBetweenPoints3D(prevPos.x, prevPos.y, prevPos.z,
+                pivotLocation.x, pivotLocation.y, pivotLocation.z);
+        double incrementX = 0;
+        double incrementY = 0;
+        double incrementZ = 0;
+
+        if (rotationV3.x != 0) {
+            LineSegment hypotenuse = new LineSegment3D(pivotLocation.x, pivotLocation.y,0d, prevPos.x, prevPos.y,0d);
+            RectangularCoordinate rc = MathCalculator.toRollCoordinate(hypotenuse.getLength(), rotationV3.x);
+            incrementX = rc.x;
+            incrementY = rc.y;
+        }
+        if (rotationV3.y != 0) {
+            LineSegment hypotenuse = new LineSegment3D(pivotLocation.x,0d , pivotLocation.z, prevPos.x, 0d, prevPos.z);
+            RectangularCoordinate rc = MathCalculator.toYawCoordinate(hypotenuse.getLength(), rotationV3.y);
+            incrementX = rc.x;;
+            incrementZ = rc.z;
+        }
+        if (rotationV3.z != 0) {
+            LineSegment hypotenuse = new LineSegment3D(0d, pivotLocation.y , pivotLocation.z, 0d, prevPos.y, prevPos.z);
+            RectangularCoordinate rc = MathCalculator.toPitchCoordinate(hypotenuse.getLength(), rotationV3.z);
+            incrementY = rc.y;
+            incrementZ = rc.z;
+        }
+        this.x += incrementX;
+        this.y += incrementY;
+        this.z += incrementZ;
+        return new Vector3d(prevPos.x + incrementX, prevPos.y + incrementY, prevPos.z + incrementZ);
+    }
 
     public void transform(double x, double y, double z, double yaw, double pitch, double roll) {
 
     }
 
     @Override
-    public void translate() {
-
+    public Vector3d translate(double pivotX, double pivotY, double pivotZ) {
+        this.pivotX = pivotX;
+        this.pivotY = pivotY;
+        this.pivotZ = pivotZ;
+        return new Vector3d(pivotX, pivotY, pivotZ);
     }
 
     /**
@@ -249,6 +345,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
      * @param incrementPitchIn pitch轴的旋转角度的增加值，即天顶角 φ
      * @return 返回一个三维向量(xSpeed,ySpeed,zSpeed)，注意x和z才是水平方向，而y是垂直方向。
      */
+    @Deprecated
     public Vector3d angleToVector(double incrementYawIn, double incrementPitchIn) {
         return new Vector3d(this.resultantSpeed * Math.sin(90D - incrementYawIn),
                 this.resultantSpeed * Math.sin(incrementPitchIn) / Math.sin(90D - incrementPitchIn),
@@ -262,11 +359,13 @@ public class TransformFunction extends ITransform.AbstractTransform {
      * <br> x = r * sin(θ) * cos(φ)
      * <br> y = r * sin(θ) * sin(φ)
      * <br> z = r * cos(θ)
+     * @deprecated 现在请使用 {@link github.thelawf.gensokyoontology.common.libs.logoslib.math.RectangularCoordinate} 来将球坐标角度转为直角坐标向量
      * @param resultantSpeedIn 弹幕的合成速度
      * @param incrementYawIn yaw轴每tick的旋转角度，即方位角 θ
      * @param incrementPitchIn pitch轴每tick的旋转角度，即天顶角 φ
      * @return 返回一个三维向量(xSpeed,ySpeed,zSpeed)，注意x和z才是水平方向，而y是垂直方向。
      */
+    @Deprecated
     public Vector3d angleToVector(double resultantSpeedIn, double incrementYawIn, double incrementPitchIn) {
         return new Vector3d(resultantSpeedIn * Math.sin(90D - incrementYawIn),
                 resultantSpeedIn * Math.sin(incrementPitchIn) / Math.sin(90D - incrementPitchIn),
@@ -289,7 +388,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
     @Override
     public Vector3d accelerate(Vector3d acceleration) {
-        return this.acceleration = acceleration;
+        return this.acceleration3D = acceleration;
     }
 
     @Override
@@ -298,7 +397,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
         if (worldIn.isRemote) {
             for (int i = 0; i < this.lifeSpan / shootInterval; i++) {
 
-                this.resultantSpeed += MathCalculator.toModulus3D(this.acceleration.x, this.acceleration.y, this.acceleration.z);
+                this.resultantSpeed += MathCalculator.toModulus3D(this.acceleration3D.x, this.acceleration3D.y, this.acceleration3D.z);
                 danmaku.setLocationAndAngles(this.x,this.y,this.z,
                         (float) this.yaw, (float) this.pitch);
 
