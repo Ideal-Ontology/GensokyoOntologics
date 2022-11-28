@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.libs.danmakulib;
 
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.RectangularCoordinate;
-import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.UUID;
 

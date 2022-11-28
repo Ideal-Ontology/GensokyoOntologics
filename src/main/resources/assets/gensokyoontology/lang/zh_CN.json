@@ -1,5 +1,7 @@
 {
-  "itemGroup.gensokyo_ontology_items": "幻想存有论：物品",
+  "itemGroup.gensokyoontology_items": "幻想存有论：物品",
+  "itemGroup.gensokyoontology_combat": "幻想存有论：战斗",
+
   "item.gensokyoontology.hotspring_bucket": "温泉水桶",
   "item.gensokyoontology.dialectic_spirit": "意识形态·辩证",
   "item.gensokyoontology.utopian_spirit": "意识形态·幻想",
@@ -9,6 +11,8 @@
   "item.gensokyoontology.metaphysics_sword": "形而上之剑",
   "item.gensokyoontology.idealism_sword": "观念论之剑",
   "item.gensokyoontology.praxis_sword": "实践",
+
+  "item.gensokyoontology.danmaku_test": "弹幕测试工具",
 
   "item.gensokyoontology.yattsume_una": "八目鳗",
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
@@ -30,6 +34,7 @@
   "block.gensokyoontology.fried_pane": "炸锅",
   "block.gensokyoontology.dakimakura": "抱枕",
   "block.gensokyoontology.rail_track": "轨道",
+  "block.gensokyoontology.rotate_frame": "旋转框架测试方块",
 
   "tooltip.gensokyoontology.idealism_sword_info": "按住 \u00A79SHIFT\u00A7r 查看更多信息",
   "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75右键释放现实裂缝\u00A7r",

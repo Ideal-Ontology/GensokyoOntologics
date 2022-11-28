@@ -279,6 +279,26 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return executePriority;
     }
 
+    public double getPivotX() {
+        return pivotX;
+    }
+
+    public double getPivotY() {
+        return pivotY;
+    }
+
+    public double getPivotZ() {
+        return pivotZ;
+    }
+
+    public Vector3d getInitLocation() {
+        return initLocation;
+    }
+
+    public Vector3d getInitRotation() {
+        return initRotation;
+    }
+
     /**
      * 通过给定的组件坐标和枢轴点坐标旋转该组件
      * @param vecPrev 之前的向量坐标方位

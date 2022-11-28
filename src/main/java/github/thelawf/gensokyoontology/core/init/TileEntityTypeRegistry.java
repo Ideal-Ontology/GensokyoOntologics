@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.ComputerTileEntity;
+import github.thelawf.gensokyoontology.common.tileentity.RailTrackTileEntity;
 import github.thelawf.gensokyoontology.common.tileentity.SpaceFissureTileEntity;
 import github.thelawf.gensokyoontology.common.tileentity.SukimaTileEntity;
 import net.minecraft.tileentity.CommandBlockTileEntity;
@@ -25,4 +26,8 @@ public class TileEntityTypeRegistry {
     public static final RegistryObject<TileEntityType<ComputerTileEntity>> COMPUTER_TILE_ENTITY =
             TILE_ENTITIES.register("computer_tileentity", () -> TileEntityType.Builder.create(
                     ComputerTileEntity::new, BlockRegistry.COMPUTER_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<RailTrackTileEntity>> RAIL_TRACK_TILE =
+            TILE_ENTITIES.register("rail_track_tileentity", () -> TileEntityType.Builder.create(
+                    RailTrackTileEntity::new, BlockRegistry.RAIL_TRACK_BLOCK.get()).build(null));
 }

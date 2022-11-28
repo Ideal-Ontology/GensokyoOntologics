@@ -1,37 +1,48 @@
 {
-  "itemGroup.gensokyo_ontology_items": "Gensokyo Ontology: Items",
+  "itemGroup.gensokyoontology_items": "Gensokyo Ontology: Items",
+  "itemGroup.gensokyoontology_combat": "Gensokyo Ontology: Combat",
+
   "item.gensokyoontology.hotspring_bucket": "Hot Spring Bucket",
   "item.gensokyoontology.dialectic_spirit": "Dialectic Spirit",
   "item.gensokyoontology.utopian_spirit": "Utopian Spirit",
   "item.gensokyoontology.theology_spirit": "Theology Spirit",
+
   "item.gensokyoontology.realism_sword": "Realism Sword",
   "item.gensokyoontology.metaphysics_sword": "Metaphysics Sword",
   "item.gensokyoontology.idealism_sword": "Idealism Sword",
   "item.gensokyoontology.praxis_sword": "Praxis Sword",
+
+  "item.gensokyoontology.danmaku_test": "Danmaku Test Item",
+
   "item.gensokyoontology.yattsume_una_yaki": "Yattsume Una Yaki",
   "item.gensokyoontology.koishi_hat_mousse": "Koishi Hat Mousse",
   "item.gensokyoontology.cake_scarlet_demon": "Cake Scarlet Demon",
   "item.gensokyoontology.butter": "Butter",
+
   "item.gensokyoontology.milk_bottle": "Milk Bottle",
   "item.gensokyoontology.lingoame": "Lingoame",
   "item.gensokyoontology.tako_yaki": "Takoyaki",
   "item.gensokyoontology.white_snow": "White Snow",
   "item.gensokyoontology.squid_tentacle": "Squid Tentacle",
   "item.gensokyoontology.onion": "Onion",
+
   "item.gensokyoontology.kitchen_knife": "Kitchen Knife",
   "item.gensokyoontology.burger_meat_raw": "Burger Meat Raw",
   "item.gensokyoontology.burger_meat": "Burger Meat",
   "item.gensokyoontology.yattsume_una": "Yattsume Una",
   "block.gensokyoontology.lycoris_radiata": "Lycoris Radiata",
+
   "block.gensokyoontology.fried_pane": "Fried Pane",
   "block.gensokyoontology.onion_crop": "Onion",
   "block.gensokyoontology.dakimakura": "Dakimakura",
   "block.gensokyoontology.rail_track": "Rail Track",
+  "block.gensokyoontology.rotate_frame": "Rotate Frame Test",
+
   "tooltip.gensokyoontology.idealism_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
   "tooltip.gensokyoontology.praxis_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
   "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75Left Click to Release Space Fissure\u00A7r",
   "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality.",
-  "description.gensokyoontology.idealism_sword_description": "(But I haven't finished that yet!)",
+  "description.gensokyoontology.idealism_sword_description": "Cause 12 damage each tick",
   "description.gensokyoontology.praxis_sword_description": "§6Go into Praxis, man ~",
   "effect.gensokyoontology.love_potion": "Love Effect",
   "effect.gensokyoontology.hypnosis_potion": "Hypnosis",
