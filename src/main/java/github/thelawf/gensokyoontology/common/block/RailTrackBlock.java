@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.common.block;
 
+import github.thelawf.gensokyoontology.common.tileentity.RailTrackTileEntity;
+import github.thelawf.gensokyoontology.common.util.AxisRotations;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DirectionalBlock;
@@ -8,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
+import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
@@ -28,8 +31,7 @@ import org.lwjgl.opengl.GL11;
 public class RailTrackBlock extends DirectionalBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
     public static final BooleanProperty CONNECTED = BooleanProperty.create("connected");
-    public static final BooleanProperty UNCONNECTED = BooleanProperty.create("unconnected");
-    // public static final EnumProperty<AxisRotations> ROTATE = EnumProperty.create("rotate", AxisRotations.class);
+    // public static final EnumProperty<AxisRotations> ROTATION = EnumProperty.create("rotation", AxisRotations.class);
     //public static final EnumProperty ANCHORED_PLANE = EnumProperty.create("anchored_plane");
 
     private static final VoxelShape shape;
@@ -72,6 +74,7 @@ public class RailTrackBlock extends DirectionalBlock {
 
     }
 
+
     @SuppressWarnings("deprecation")
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -80,12 +83,12 @@ public class RailTrackBlock extends DirectionalBlock {
 
     @Override
     public boolean hasTileEntity(BlockState state) {
-        return super.hasTileEntity(state);
+        return true;
     }
 
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return super.createTileEntity(state, world);
+        return new RailTrackTileEntity();
     }
 
     /*
@@ -123,6 +126,8 @@ public class RailTrackBlock extends DirectionalBlock {
     @Override
     protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
         builder.add(BlockStateProperties.FACING);
+        // builder.add(ROTATION);
+        builder.add(CONNECTED);
         super.fillStateContainer(builder);
     }
 
