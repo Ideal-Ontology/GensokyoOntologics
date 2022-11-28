@@ -52,8 +52,6 @@ public class IdealismSword extends SwordItem {
     }
 
 
-
-
     @Override
     public @NotNull ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         playerIn.getCooldownTracker().setCooldown(this,200);

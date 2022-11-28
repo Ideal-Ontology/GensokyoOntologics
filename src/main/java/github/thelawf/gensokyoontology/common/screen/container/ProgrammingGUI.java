@@ -1,15 +1,18 @@
-package github.thelawf.gensokyoontology.common.screen;
+package github.thelawf.gensokyoontology.common.screen.container;
 
-/*
+
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.libs.logoslib.BlockCodeFormatter;
+import github.thelawf.gensokyoontology.common.libs.logoslib.syntax.AccessModifiers;
+import github.thelawf.gensokyoontology.common.screen.GSKOTextComponent;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.Color;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -39,7 +42,12 @@ public class ProgrammingGUI extends Screen {
 
         this.codeField = new TextFieldWidget(this.font,(window.getWidth() - this.width)/2
                 ,(window.getHeight() - this.height)/2,200,136,new TranslationTextComponent(
-                        "gui." + GensokyoOntology.MODID + ".code_field.content"));
+                        "gui." + GensokyoOntology.MODID + ".code_field.content")) {
+            protected IFormattableTextComponent getNarrationMessage() {
+                return super.getNarrationMessage().appendString(AccessModifiers.publicModifier);
+            }
+
+        };
         this.children.add(codeField);
 
         this.compileButton = new Button((window.getWidth() - this.width)/2 + this.width / 2,
@@ -66,7 +74,9 @@ public class ProgrammingGUI extends Screen {
         方法获取文本的长度。
 
         super.render(matrixStack, mouseX, mouseY, partialTicks);
+
+         */
     }
 
 }
-*/
+

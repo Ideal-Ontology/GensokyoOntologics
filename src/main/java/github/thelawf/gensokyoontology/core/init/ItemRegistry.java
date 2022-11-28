@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.item.Butter;
 import github.thelawf.gensokyoontology.common.item.food.MilkBottle;
 import github.thelawf.gensokyoontology.common.item.YattsumeUna;
 import github.thelawf.gensokyoontology.common.item.food.*;
+import github.thelawf.gensokyoontology.common.item.spell_card.NamiToTubuNoKyokai;
 import github.thelawf.gensokyoontology.common.item.tools.*;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
@@ -114,6 +115,12 @@ public class ItemRegistry {
     public static final RegistryObject<DanmakuTestItem> DANMAKU_TEST_ITEM = ITEMS.register(
             "danmaku_test", () -> new DanmakuTestItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
 
+    public static final RegistryObject<NamiToTubuNoKyokai> SPELL_CARD_NAMI = ITEMS.register(
+            "spell_card_nami", () -> new NamiToTubuNoKyokai(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+
+    public static final RegistryObject<RailWrench> RAIL_WRENCH = ITEMS.register("rail_wrench",
+            () -> new RailWrench(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     public static final RegistryObject<BlockItem> FRIED_PANE_ITEM = ITEMS.register(
             "fried_pane", () -> new BlockItem(BlockRegistry.FRIED_PANE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -121,6 +128,10 @@ public class ItemRegistry {
     public static final RegistryObject<Item> RAIL_TRACK = ITEMS.register(
             "rail_track", () -> new BlockItem(BlockRegistry.RAIL_TRACK_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> RAIL_NODE = ITEMS.register(
+            "rail_node", () -> new BlockItem(BlockRegistry.RAIL_NODE_BLOCK.get(),
+                    new Item.Properties()));
 
     public static final RegistryObject<Item> DAKIMAKURA_ITEM = ITEMS.register(
             "dakimakura", () -> new BlockItem(BlockRegistry.DAKIMAKURA.get(),
