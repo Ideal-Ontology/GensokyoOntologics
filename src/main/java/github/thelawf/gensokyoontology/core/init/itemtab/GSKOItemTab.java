@@ -9,7 +9,7 @@ public class GSKOItemTab extends ItemGroup {
     public static final GSKOItemTab GSKO_ITEM_TAB = new GSKOItemTab();
 
     public GSKOItemTab() {
-        super("gensokyo_ontology_items");
+        super("gensokyoontology_items");
     }
 
     @Override

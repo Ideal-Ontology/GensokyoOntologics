@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.datagen;
+package github.thelawf.gensokyoontology.common.data;
 
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.LootTableProvider;

@@ -9,7 +9,7 @@ public class GSKOCombatTab extends ItemGroup {
     public static final GSKOCombatTab GSKO_COMBAT_TAb = new GSKOCombatTab();
 
     public GSKOCombatTab() {
-        super("gensokyo_ontology_combat");
+        super("gensokyoontology_combat");
     }
 
     @Override

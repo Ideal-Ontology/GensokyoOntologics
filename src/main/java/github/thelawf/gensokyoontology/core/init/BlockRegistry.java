@@ -38,6 +38,9 @@ public class BlockRegistry {
     public static final RegistryObject<Block> RAIL_TRACK_BLOCK = BLOCKS.register("rail_track",
             RailTrackBlock::new);
 
+    public static final RegistryObject<Block> RAIL_NODE_BLOCK = BLOCKS.register("rail_node",
+            RailNodeBlock::new);
+
     public static final RegistryObject<Block> DAKIMAKURA = BLOCKS.register("dakimakura",
             Dakimakura::new);
 
