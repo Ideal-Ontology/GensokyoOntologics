@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.nbt;
+package github.thelawf.gensokyoontology.common.data;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
@@ -13,14 +13,14 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public final class GSKOBlockTags extends FluidTagsProvider {
+public final class GSKOFluidTags extends FluidTagsProvider {
     private static final TagRegistry<Block> REGISTRY = TagRegistryManager.create(
             new ResourceLocation("fluid"), ITagCollectionSupplier::getBlockTags
     );
 
     public static final ITag.INamedTag<Block> HOT_SPRING = makeWrapperTag("hot_spring");
 
-    public GSKOBlockTags(DataGenerator generatorIn, String modId, @Nullable ExistingFileHelper existingFileHelper) {
+    public GSKOFluidTags(DataGenerator generatorIn, String modId, @Nullable ExistingFileHelper existingFileHelper) {
         super(generatorIn, modId, existingFileHelper);
     }
 

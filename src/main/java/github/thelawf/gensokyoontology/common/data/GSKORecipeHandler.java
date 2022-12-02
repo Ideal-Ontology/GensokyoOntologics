@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.nbt;
+package github.thelawf.gensokyoontology.common.data;
 
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.advancements.criterion.InventoryChangeTrigger;
