@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.libs.logoslib.math;
 
 
+import net.minecraft.util.math.vector.Vector3d;
+
 import java.awt.*;
 
 public class MathCalculator {
@@ -31,6 +33,153 @@ public class MathCalculator {
 
     public static double distanceBetweenPoints3D(double x1, double y1, double z1, double x2, double y2, double z2) {
         return Math.pow(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 + z2, 2), 0.5);
+    }
+
+    public static RectangularCoordinate getIntersectPoint2D(LineSegment l1, LineSegment l2) {
+        return getIntersectPoint2D(new Point(l1.dotA), new Point(l1.dotB),
+                new Point(l2.dotA), new Point(l2.dotB));
+    }
+
+    /**
+     * 获取平面上两条直线的交点坐标
+     * @param p1 直线1的起点
+     * @param p2 直线1的终点
+     * @param p3 直线2的起点
+     * @param p4 直线2的终点
+     * @return 交点的平面直角坐标
+     */
+    public static RectangularCoordinate getIntersectPoint2D(Point p1, Point p2, Point p3, Point p4) {
+
+        double a1 = p1.getY() - p2.getY();
+        double b1 = p2.getX() - p1.getX();
+        double c1 = a1 * p1.getX() + b1 * p1.getY();
+
+        double a2 = p3.getY() - p4.getY();
+        double b2 = p4.getX() - p3.getX();
+        double c2 = a2 * p3.getX() + b2 * p3.getY();
+
+        double detK = a1 * b2 - a2 * b1;
+
+        if(Math.abs(detK)<0.00001){
+            return null;
+        }
+
+        double a = b2 / detK;
+        double b = -1 * b1 / detK;
+        double c = -1 * a2 / detK;
+        double d = a1 / detK;
+
+        double x = a * c1 + b * c2;
+        double y = c * c1 + d * c2;
+
+        return new RectangularCoordinate(x, y,0);
+
+    }
+
+    public static RectangularCoordinate getIntersectPoint3D(LineSegment3D l1, LineSegment3D l2) {
+        try {
+            return getIntersectPoint3D(l1.x1, l1.y1, l1.z1, l1.x2, l1.y2, l1.z2,
+                    l2.x1, l2.y1, l2.z1, l2.x2, l2.y2, l2.z2);
+        } catch (PointNonExistException e) {
+            throw new RuntimeException();
+        }
+    }
+
+    /**
+     * 设两条线段的端点分别为 (x1,y1,z1), (x2,y2,z2) 和 （x3,y3,z3), (x4,y4,z4)，那么第一条线段方程为U(t1)
+     * <p>
+     * x=x1+(x2-x1)t1
+     * <p>
+     * y=y1+(y2-y1)t1
+     * <p>
+     * z=z1+(z2-z1)t1
+     * <p>
+     * 0<=t<=1
+     * <p>
+     * 同样，第二条线段方程为V(t2)
+     * <p>
+     * x=x3+(x4-x3)t2
+     * <p>
+     * y=y3+(y4-y3)t2
+     * <p>
+     * z=z3+(z4-z3)t2
+     * <p>
+     * 0<=t<=1
+     * <p>
+     * 我们的问题就成为是否存在t1,t2,使得U(t1)=V(t2)，也就是求t1,t2,使得
+     * <p>
+     * x1+(x2-x1)t1=x3+(x4-x3)t2
+     * <p>
+     * y1+(y2-y1)t1=y3+(y4-y3)t2
+     * <p>
+     * z1+(z2-z1)t1=z3+(z4-z3)t2
+     * <p>
+     * 可以通过前面两条方程求出t1,t2,然后带入第三条方程进行检验解是否符合。此外还要求0<=t1,t2<=1，否则还是不相交
+     * <p>
+     * @param x1 直线1的起点x坐标
+     * @param y1 直线1的起点y坐标
+     * @param z1 直线1的起点z坐标
+     * @param x2 直线1的终点x坐标
+     * @param y2 直线1的终点y坐标
+     * @param z2 直线1的终点z坐标
+     * @param x3 直线2的起点x坐标
+     * @param y3 直线2的起点y坐标
+     * @param z3 直线2的起点z坐标
+     * @param x4 直线2的终点x坐标
+     * @param y4 直线2的终点y坐标
+     * @param z4 直线2的终点z坐标
+     * @throws PointNonExistException 直线不存在交点
+     * @return 直线1和直线2的交点在三维空间中的坐标
+     */
+    public static RectangularCoordinate getIntersectPoint3D(double x1, double y1, double z1,
+                                                            double x2, double y2, double z2,
+                                                            double x3, double y3, double z3,
+                                                            double x4, double y4, double z4)
+            throws PointNonExistException{
+
+        double t1 = ((y1 -y3) * (x3 - x4) - (y3 - y4) * (x1 - x3)) /
+                ((y3 - y1) * (x1 - x2) - (x3 -x4) * (y1 - y2));
+        double t2 = ((x1 - x3) + (x1 - x2) * t1) / (x3 - x4);
+
+        if (t1 <= 0 || t1 >= 1 || t2 <= 0 || t2 >= 1) {
+            throw new PointNonExistException("两直线平行或线性相关，不存在交点");
+        }
+        else {
+            double x = x1 + (x1 - x2) * t1;
+            double y = y1 + (y1 - y2) * t1;
+            double z = z1 + (z1 - z2) * t1;
+            return new RectangularCoordinate(x,y,z);
+        }
+
+    }
+
+    public static Vector3d getIntersectVec(Vector3d p1, Vector3d v1,
+                                           Vector3d p2, Vector3d v2) {
+        Vector3d intersection = Vector3d.ZERO;
+        if (v1.dotProduct(v2) == 1)
+        {
+            // 两线平行
+            return null;
+        }
+
+        Vector3d startPointSeg = p2.subtract(p1);
+        Vector3d vecS1 = v1.crossProduct(v2);            // 有向面积1
+        Vector3d vecS2 = startPointSeg.crossProduct(v2); // 有向面积2
+        double num = startPointSeg.dotProduct(vecS1);
+
+        // 判断两这直线是否共面
+        if (num >= 1E-05f || num <= -1E-05f)
+        {
+            return null;
+        }
+
+        // 有向面积比值，利用点乘是因为结果可能是正数或者负数
+        double num2 = vecS2.dotProduct(vecS1) / vecS1.lengthSquared();
+
+        Vector3d vector3d = new Vector3d(v1.x * num2, v1.y * num2, v1.z* num2 );
+        intersection = p1.add(vector3d);
+
+        return intersection;
     }
 
     /**
@@ -82,6 +231,14 @@ public class MathCalculator {
 
     public static SphericalCoordinate toSphereCoordinate(double x, double y, double z) {
         return toSphereCoordinate(new RectangularCoordinate(x, y, z));
+    }
+
+    public static RectangularCoordinate toLocalCoordinate(RectangularCoordinate newOriginIn,
+                                                          RectangularCoordinate globalIn) {
+        return new RectangularCoordinate(globalIn.getX() - newOriginIn.getX(),
+                globalIn.getY() - newOriginIn.getY(),
+                globalIn.getZ() - newOriginIn.getZ());
+
     }
 
     /**

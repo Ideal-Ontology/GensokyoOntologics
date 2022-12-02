@@ -6,8 +6,11 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DirectionalBlock;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
@@ -22,11 +25,14 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL11;
+
+import java.util.ArrayList;
 
 public class RailTrackBlock extends DirectionalBlock {
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
@@ -91,15 +97,21 @@ public class RailTrackBlock extends DirectionalBlock {
         return new RailTrackTileEntity();
     }
 
-    /*
+
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
         if (placer != null) {
             worldIn.setBlockState(pos, state.with(FACING, getStateFromEntity(pos, placer)));
+
         }
     }
 
-     */
+    public Direction getStateFromEntity(BlockPos clickedPos, LivingEntity entity) {
+        Vector3d vec = entity.getPositionVec();
+        return Direction.getFacingFromVector((float) vec.x - clickedPos.getX(),
+                (float) vec.y - clickedPos.getY(), (float) vec.z - clickedPos.getZ());
+    }
+
 
     @SuppressWarnings("deprecation")
     @Override
