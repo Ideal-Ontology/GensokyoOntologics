@@ -51,7 +51,7 @@ public class DanmakuTestItem extends ShootableItem {
             // 在这里初始化TransformFunction.transform()，部分变量必须提供，详情请见{@link TransformFunction.java}
             TransformFunction func = TransformFunction.Builder.create()
                     .setPlayer(playerIn).setInitLocation(playerIn.getPositionVec())
-                    .setLifeSpan(120).setShootInterval(1).setExecuteTimes(5)
+                    .setLifeSpan(20).setShootInterval(1).setExecuteTimes(5)
                     .setExecuteInterval(10).setResultantSpeed(0.75)
                     .setWorld(worldIn);
 
@@ -108,6 +108,7 @@ public class DanmakuTestItem extends ShootableItem {
                         LOGGER.info("x = " + danmaku.getPosX() +
                                 ", y = " + danmaku.getPosY() +
                                 ", z = " + danmaku.getPosZ());
+
                     }
                     else {
                         func.setIncrement(func.rotateTotal, Math.PI / 12);

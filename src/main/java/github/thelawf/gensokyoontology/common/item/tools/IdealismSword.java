@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.block.SpaceFissureBlock;
 import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.block.IWaterLoggable;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
