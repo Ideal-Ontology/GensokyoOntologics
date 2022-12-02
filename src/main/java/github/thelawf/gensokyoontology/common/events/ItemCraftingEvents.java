@@ -9,7 +9,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = "gensokyoontology",bus = Mod.EventBusSubscriber.Bus.FORGE,value = Dist.CLIENT)
-public class FoodCookingEvents {
+public class ItemCraftingEvents {
 
     @SubscribeEvent
     public static void onRightClickCooker(PlayerInteractEvent.RightClickItem event){
@@ -32,5 +32,9 @@ public class FoodCookingEvents {
 
         }
          */
+    }
+
+    public static void onHarvest(PlayerEvent event) {
+
     }
 }
