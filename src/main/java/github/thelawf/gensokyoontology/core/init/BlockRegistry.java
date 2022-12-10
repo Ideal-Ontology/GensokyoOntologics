@@ -12,6 +12,30 @@ public class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, GensokyoOntology.MODID);
 
+    public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register("magic_leaves",
+            () -> new LeavesBlock(AbstractBlock.Properties.create(
+                    Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
+
+    public static final RegistryObject<Block> MAGIC_LOG = BLOCKS.register("magic_log",
+            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
+
+    // public static final RegistryObject<Block> MAGIC_SAPLING =BLOCKS.register("magic_sapling",
+    //         () -> new SaplingBlock());
+
+    public static final RegistryObject<Block> HASH_LOG = BLOCKS.register("hash_log",
+            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> HASH_LEAVES = BLOCKS.register("magic_leaves",
+            () -> new LeavesBlock(AbstractBlock.Properties.create(
+                    Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
+
+    public static final RegistryObject<Block> FRACTAL_LOG = BLOCKS.register("fractal_log",
+            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> FRACTAL_LEAVES = BLOCKS.register("magic_leaves",
+            () -> new LeavesBlock(AbstractBlock.Properties.create(
+                    Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
+
     public static RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
             () -> new HotSpringBlock(() -> FluidRegistry.HOT_SPRING_SOURCE.get(),
             Block.Properties.create(Material.WATER).doesNotBlockMovement()

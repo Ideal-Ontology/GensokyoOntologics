@@ -1,0 +1,27 @@
+{
+  "display": {
+    "icon": {
+      "item": "gensokyoontology:koishi_hat_mousse"
+    },
+    "title": {
+      "translate": "advancement.gensokyontology.root.title"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "annouce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:texures/block/mossy_stone_bricks.png"
+  },
+  "criteria": {
+    "cyber_dimension": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "gensokyoontology:wire"
+          }
+        ]
+      }
+    }
+  }
+}
