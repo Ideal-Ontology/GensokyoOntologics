@@ -16,10 +16,10 @@
       "item": "minecraft:porkchop"
     },
     "Y": {
-      "item": "gensokyoontology:onion"
+      "item": "forge:crops/onion"
     },
     "$": {
-      "item": "minecraft:egg"
+      "item": "forge:eggs"
     }
   },
   "result": {

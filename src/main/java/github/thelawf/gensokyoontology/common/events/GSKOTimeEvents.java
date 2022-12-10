@@ -1,15 +1,5 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.libs.IdealismLib;
-import github.thelawf.gensokyoontology.core.init.ItemInit;
-import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
-
 /*
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID,bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GSKOTimeEvents {
@@ -25,7 +15,7 @@ public class GSKOTimeEvents {
         if (recentLogInDateAndYear[1] - lastLogInDateAndYear[1] >= 1) {
             recentLogInDateAndYear[0] += 366;
             if (recentLogInDateAndYear[0] - lastLogInDateAndYear[0] >= 365) {
-                event.getPlayer().addItemStackToInventory(new ItemStack(ItemInit.SPIRIT_CREATIVE.get(),2));
+                event.getPlayer().addItemStackToInventory(new ItemStack(ItemRegistry.SPIRIT_CREATIVE.get(),2));
             }
         }
     }

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.dimensions.world.biomes;
+package github.thelawf.gensokyoontology.common.dimensions.world.biome;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.util.RegistryKey;
@@ -6,18 +6,41 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
-import net.minecraftforge.fml.common.Mod;
+import net.minecraft.world.biome.BiomeAmbience;
+import net.minecraft.world.biome.BiomeMaker;
 
-@Mod.EventBusSubscriber(modid = GensokyoOntology.MODID)
-public final class GSKOBiomes {
+public class GSKOBiome {
+    // execute as @a[gamemode=creative,nbt={SelectedItem:{id:"minecraft:feather"},Inventory:[{Slot:"0b",id:"minecraft:feather"}]}] at positioned ^ ^ ^ run clone x1 y1 z1 x2 y2 z2 ~-3 ~-2 ~-3 masked normal
     public static final int GSKO_WATER_COLOR = 0x0bccff;
     public static final int GSKO_WATER_FOG_COLOR = 0x0033aa;
     public static final int GSKO_FOG_COLOR = 0xff24be;
     public static final int GSKO_SKY_COLOR = getSkyColor(0.76f);
 
+    // public static final Biome GSKO_WILDLAND_BIOME = new Biome.Builder()
+    //         .depth(0.8f)
+    //         .temperature(0.76f)
+    //         .setEffects(new BiomeAmbience.Builder()
+    //                 .setFogColor(GSKO_FOG_COLOR)
+    //                 .setWaterFogColor(GSKO_WATER_FOG_COLOR)
+    //                 .setWaterColor(GSKO_WATER_COLOR)
+    //                 .build())
+    //         .build();
+//
+    // public static final Biome GSKO_FOREST_BIOME = new Biome.Builder()
+    //         .depth(0.8f)
+    //         .temperature(0.8f)
+    //         .build();
+//
+    // public static final Biome YOKAI_MOUNTAIN_BIOME = new Biome.Builder()
+    //         .depth(5.3f)
+    //         .build();
+    // public static Biome createBiome() {
+    //     return GSKO_WILDLAND_BIOME;
+    // }
+
+    public static final RegistryKey<Biome> GSKO_WILDLAND = key("gensokyo_wild_land");
     public static final RegistryKey<Biome> GSKO_FOREST = key("gensokyo_wild_forest");
     public static final RegistryKey<Biome> HUMAN_VILLAGE = key("human_village");
-    public static final RegistryKey<Biome> MISTY_LAKE = key("misty_lake");
     public static final RegistryKey<Biome> YOUKAI_MOUNTAIN = key("youkai_mountain");
     public static final RegistryKey<Biome> MAGIC_FOREST = key("magic_forest");
     public static final RegistryKey<Biome> FORMER_HELL_BIOME = key("former_hell");

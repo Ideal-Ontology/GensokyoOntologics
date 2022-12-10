@@ -2,6 +2,8 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.item.Butter;
+import github.thelawf.gensokyoontology.common.item.ByteCoin;
+import github.thelawf.gensokyoontology.common.item.GameCoin;
 import github.thelawf.gensokyoontology.common.item.food.MilkBottle;
 import github.thelawf.gensokyoontology.common.item.YattsumeUna;
 import github.thelawf.gensokyoontology.common.item.food.*;
@@ -111,6 +113,12 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ONION = ITEMS.register("onion", () ->
             new BlockItem(BlockRegistry.ONION_CROP_BLOCK.get(),new Item.Properties().group(
                     GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> BYTE_COIN = ITEMS.register("bytecoin",
+            () -> new ByteCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> GAME_COIN = ITEMS.register("game_coin",
+            () -> new GameCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<DanmakuTestItem> DANMAKU_TEST_ITEM = ITEMS.register(
             "danmaku_test", () -> new DanmakuTestItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));

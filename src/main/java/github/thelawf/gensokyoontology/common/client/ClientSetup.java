@@ -24,4 +24,5 @@ public class ClientSetup {
         }
         event.addSprite(SpaceFissureRenderer.SPACE_FISSURE_TEX);
     }
+
 }

@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import github.thelawf.gensokyoontology.common.nbt.GensokyoOntologyNBTs;
+import github.thelawf.gensokyoontology.common.nbt.GensokyoOntologyNBT;
 import github.thelawf.gensokyoontology.core.init.EffectRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
@@ -27,7 +27,7 @@ public class GSKOEffectEvents {
         if (living instanceof PlayerEntity) {
             UUID uuid = ((PlayerEntity) living).getGameProfile().getId();
             String name = ((PlayerEntity) living).getGameProfile().getName();
-            if (Objects.equals(name, GensokyoOntologyNBTs.getLovePotionMasterName().getString())) {
+            if (Objects.equals(name, GensokyoOntologyNBT.getLovePotionMasterName().getString())) {
                 return;
             }
         }

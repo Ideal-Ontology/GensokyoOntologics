@@ -10,7 +10,7 @@
       "item": "minecraft:wheat"
     },
     "O": {
-      "item": "gensokyoontology:onion"
+      "tag": "forge:crops/onion"
     },
     "X": {
       "item": "gensokyoontology:squid_tentacle"

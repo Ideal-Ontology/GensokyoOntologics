@@ -1,0 +1,50 @@
+{
+  "type": "lake",
+  "config": {
+    "lava_level": {
+      "above_bottom": 4
+    },
+    "aquifers_enabled": false,
+    "debug_settings": {
+      "water_state": {
+        "Name": "gensokyoonotlogy:hot_spring_block",
+        "Properties": {
+          "level=": "15"
+        }
+      },
+      "lava_state": {
+        "Name": "",
+        "Properties": {
+          "": ""
+        }
+      },
+      "barrier_state": {
+        "Name": "",
+        "": {
+          "": ""
+        }
+      },
+      "air_state": {
+        "Name": "",
+        "Properties": {
+          "": ""
+        }
+      }
+    },
+    "probability": {
+      "y": {
+        "type": "minecraft:uniform",
+        "min_inclusive": {
+          "absolute": 3
+        },
+        "max_inclusive": {
+          "below_top": 1
+        }
+      },
+      "yScale": 3,
+      "horizontal_radius_multiplier": 8,
+      "vertical_radius_multiplier": 7,
+      "floor_level": 64
+    }
+  }
+}

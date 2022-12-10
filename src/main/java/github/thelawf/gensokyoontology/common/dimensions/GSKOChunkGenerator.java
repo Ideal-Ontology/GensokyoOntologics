@@ -9,11 +9,9 @@ import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 
-import java.util.function.Supplier;
+public class GSKOChunkGenerator extends ChunkGenerator {
 
-public class GSKOChunkGen extends ChunkGenerator {
-
-    public GSKOChunkGen(BiomeProvider p_i231888_1_, DimensionStructuresSettings p_i231888_2_) {
+    public GSKOChunkGenerator(BiomeProvider p_i231888_1_, DimensionStructuresSettings p_i231888_2_) {
         super(p_i231888_1_, p_i231888_2_);
     }
 
@@ -46,5 +44,5 @@ public class GSKOChunkGen extends ChunkGenerator {
     public IBlockReader func_230348_a_(int p_230348_1_, int p_230348_2_) {
         return null;
     }
-
 }
+

@@ -1,0 +1,112 @@
+{
+  "depth": 3,
+  "scale": 3,
+  "precipitation": "rain",
+  "category": "plains",
+  "temperature": 21,
+  "temperature_modifier": "none",
+  "player_spawn_friendly": true,
+  "creature_spawn_probability": 0.4,
+  "effects": {
+    "sky_color": 255,
+    "fog_color": 255,
+    "water_color": 255,
+    "water_fog_color": 255,
+    "foliage_color": 255,
+    "grass_color_modifier": "none",
+    "particle": {
+      "probability": 0.2,
+      "options": {
+        "type": "block",
+        "Name": "",
+        "Properties": {
+          "BlockStatesNameIn": "BlockStatesValues"
+        }
+      },
+      "ambient_sound": "none",
+      "mood_sound": {
+        "sound": "none",
+        "tick_delay": 11451,
+        "block_search_extent": 1000,
+        "offset": 0
+      },
+      "additions_sound": {
+        "sound": "none",
+        "tick_chance": 0.006
+      },
+      "music": {
+        "sound": "none",
+        "min_delay": 100,
+        "max_delay": 10000,
+        "replace_current_music": false
+      }
+    },
+    "surface_builder": "gsko_default_surface.json",
+    "carvers": {
+      "air": [
+        "gsko_air_carver.json"
+      ],
+      "liquid": [
+        "gsko_fluid_carver.json"
+      ]
+    },
+    "features": [
+      [
+        "RAW_GENERATION"
+      ],
+      [
+        "misty_lake.json"
+      ],
+      [
+        "stone_forest.json"
+      ],
+      [
+        "chireiten.json"
+      ],
+      [
+        "hakurei_shrine.json"
+      ],
+      [
+        "STRONGHOLDS"
+      ],
+      [
+        "inyoutama_ore.json"
+      ],
+      [
+        "UNDERGROUND_DECORATION"
+      ],
+      [
+        "magic_trees.json",
+        "sakura_trees.json"
+      ],
+      [
+        "TOP_LAYER_MODIFICATION"
+      ]
+    ],
+    "starts": [
+      "structure_hakurei_shrine.nbt"
+    ],
+    "spawners": {
+      "type": [
+        {
+          "type": "gensokyoontology:entity/hakurei_reimu",
+          "weight": 6,
+          "minCount": 1,
+          "maxCount": 1
+        },
+        {
+          "type": "gensokyoontology:entity/yuurei",
+          "weight": 1,
+          "minCount": 1,
+          "maxCount": 5
+        },
+        {
+          "type": "gensokyoontology:entity/yousei",
+          "weight": 3,
+          "minCount": 1,
+          "maxCount": 5
+        }
+      ]
+    }
+  }
+}

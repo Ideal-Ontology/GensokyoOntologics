@@ -1,9 +1,13 @@
 package github.thelawf.gensokyoontology.common.libs.logoslib.math;
 
 
+import github.thelawf.gensokyoontology.common.libs.logoslib.annotations.Degree;
+import github.thelawf.gensokyoontology.common.libs.logoslib.annotations.GlobalCoordinate;
+import github.thelawf.gensokyoontology.common.libs.logoslib.annotations.Radian;
 import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 public class MathCalculator {
 
@@ -15,7 +19,7 @@ public class MathCalculator {
      * @param p2 第二个点
      * @return 上述两点间的距离
      */
-    public static double distanceBetweenPoints(Point p1, Point p2){
+    public static double distanceBetweenPoints(Point p1, Point p2) {
         return Math.pow(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2), 0.5);
     }
 
@@ -28,7 +32,7 @@ public class MathCalculator {
      * @return 上述两点间的距离
      */
     public static double distanceBetweenPoints(double x1, double y1, double x2, double y2){
-        return Math.sqrt(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2));
+        return Math.sqrt(square(x1 - x2) + square(y1 - y2));
     }
 
     public static double distanceBetweenPoints3D(double x1, double y1, double z1, double x2, double y2, double z2) {
@@ -182,6 +186,54 @@ public class MathCalculator {
         return intersection;
     }
 
+    public static ArrayList<RectangularCoordinate> getCirclePoints2D(RectangularCoordinate center,
+                                                           double radius, int count) {
+
+        ArrayList<RectangularCoordinate> coordinates = new ArrayList<>();
+        double radians = (Math.PI / 180) * Math.round(360d / count);
+        for (int i = 0; i < count; i++) {
+            double x = center.getX() + radius * Math.sin(radians * i);
+            double y = center.getY() + radius * Math.cos(radians * i);
+            RectangularCoordinate coordinate = new RectangularCoordinate(x,y,0);
+            coordinates.add(coordinate);
+        }
+        return coordinates;
+    }
+
+    public static RectangularCoordinate getPointOnCircleByAngle(@GlobalCoordinate RectangularCoordinate center,
+                                                                double radius,@Degree double angle) {
+        return new RectangularCoordinate(
+                center.getX() + radius * Math.cos(Math.toDegrees(angle)),
+                center.getY() + radius * Math.sin(Math.toDegrees(angle)),
+                0);
+    }
+
+    public static RectangularCoordinate getPointOnOvalByAngle(@GlobalCoordinate RectangularCoordinate center,
+                                                              double lengthX, double lengthY,@Degree double angle) {
+        return new RectangularCoordinate(
+                center.getX() + lengthX * Math.cos(Math.toDegrees(angle)),
+                center.getY() + lengthY * Math.sin(Math.toDegrees(angle)),
+                0);
+    }
+
+    public static RectangularCoordinate getPointOnOval(@GlobalCoordinate RectangularCoordinate center,
+                                                       double lengthX, double lengthY,@Radian double angle) {
+        if (lengthX > lengthY) {
+            double x = (lengthX * lengthY) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
+            double y = (lengthX * lengthY * Math.tan(angle)) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
+            return new RectangularCoordinate(center.getX() + x, center.getY() + y, 0);
+        }
+        else if (lengthX < lengthY) {
+            double y = (lengthX * lengthY) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
+            double x = (lengthX * lengthY * Math.tan(angle)) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
+            return new RectangularCoordinate(center.getX() + x, center.getY() + y, 0);
+
+        }
+        else {
+            return getPointOnCircleByAngle(center, lengthX, toDegree(angle));
+        }
+    }
+
     /**
      * 这里不会抛出一个{@link TriangleNotUniqueException} 异常
      * @param vertexAIn 三角形∠A所对应的点的坐标
@@ -305,5 +357,21 @@ public class MathCalculator {
      */
     public static double toRadian(double degIn) {
         return degIn * Math.PI / 180d;
+    }
+
+    public static double pow2(double base) {
+        return square(base);
+    }
+
+    public static double pow3(double base) {
+        return cube(base);
+    }
+
+    public static double square(double base){
+        return base * base;
+    }
+
+    public static double cube(double base) {
+        return base * base * base;
     }
 }
