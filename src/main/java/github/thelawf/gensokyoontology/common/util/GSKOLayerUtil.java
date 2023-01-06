@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.dimensions.layer;
+package github.thelawf.gensokyoontology.common.util;
 
 import github.thelawf.gensokyoontology.common.dimensions.layer.GSKOBiomeID;
 import net.minecraft.util.registry.Registry;

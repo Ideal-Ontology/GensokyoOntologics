@@ -21,7 +21,8 @@ public class GSKOCommand{
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralCommandNode<CommandSource> gskoCmd = dispatcher.register(
-                Commands.literal("/gsko")
+                Commands.literal("gsko")
+                        .then(DimensionCommand.register(dispatcher))
         );
     }
 }

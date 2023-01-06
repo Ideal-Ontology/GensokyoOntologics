@@ -20,11 +20,14 @@ public class GSKODimensions {
     public static final Logger LOGGER = LogManager.getLogger(GSKODimensions.class);
     public static final ResourceLocation GENSOKYO_ID = new ResourceLocation(GensokyoOntology.MODID,"gensokyo");
     public static final ResourceLocation FORMER_HELL_ID = new ResourceLocation(GensokyoOntology.MODID, "former_hell");
-    public static final ResourceLocation MAKKAI_ID = new ResourceLocation(GensokyoOntology.MODID, "mekkai");
+    public static final ResourceLocation MEKKAI_ID = new ResourceLocation(GensokyoOntology.MODID, "mekkai");
 
-    public static final RegistryKey<World> WORLD = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,GENSOKYO_ID);
-    public static final RegistryKey<Dimension> GENSOKYO = RegistryKey.getOrCreateKey(Registry.DIMENSION_KEY,GENSOKYO_ID);
-    public static final RegistryKey<DimensionType> GENSOKYO_TYPE = RegistryKey.getOrCreateKey(Registry.DIMENSION_TYPE_KEY,GENSOKYO_ID);
-    public static final RegistryKey<DimensionSettings> GENSOKYO_SETTINGS = RegistryKey.getOrCreateKey(Registry.NOISE_SETTINGS_KEY,GENSOKYO_ID);
+    public static final RegistryKey<World> GSKO_WORLD = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, GENSOKYO_ID);
+    public static final RegistryKey<Dimension> GENSOKYO_DIM = RegistryKey.getOrCreateKey(Registry.DIMENSION_KEY, GENSOKYO_ID);
+    public static final RegistryKey<DimensionType> GENSOKYO_TYPE = RegistryKey.getOrCreateKey(Registry.DIMENSION_TYPE_KEY, GENSOKYO_ID);
+
+    public static void register() {
+        LOGGER.debug("Registry Dimension of" + GensokyoOntology.MODID);
+    }
 
 }

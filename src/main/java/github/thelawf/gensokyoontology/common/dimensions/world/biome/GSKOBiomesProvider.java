@@ -3,15 +3,20 @@ package github.thelawf.gensokyoontology.common.dimensions.world.biome;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -55,26 +60,27 @@ import java.util.stream.Stream;
  */
 public class GSKOBiomesProvider extends BiomeProvider {
 
-    public static final Codec<GSKOBiomesProvider> GSKO_BIOME_CODEC = RecordCodecBuilder.create(
-            (builder) -> {return builder.group(RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter(
-                            (provider) -> {return provider.lookupRegistry;}), Codec.LONG.fieldOf("seed").stable().forGetter(
-                            (provider) -> {return provider.seed;})).
-                    apply(builder, builder.stable(GSKOBiomesProvider::new));
-            });
-    private Registry<Biome> lookupRegistry;
+    private Registry<Biome> biomeRegistry;
     private Long seed;
+    private final Biome biome;
 
-    protected GSKOBiomesProvider(Stream<Supplier<Biome>> biomes, Registry<Biome> biomes1) {
-        super(biomes);
+    public static final Codec<GSKOBiomesProvider> GSKO_BIOME_CODEC = RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY)
+            .xmap(GSKOBiomesProvider::new, GSKOBiomesProvider::getBiomeRegistry).codec();
+
+    private static final List<RegistryKey<Biome>> SPAWN = Collections.singletonList(Biomes.PLAINS);
+
+    public GSKOBiomesProvider(Registry<Biome> biomeRegistry) {
+        super(getStartBiome(biomeRegistry));
+        this.biomeRegistry = biomeRegistry;
+        biome = biomeRegistry.getOrDefault(Biomes.PLAINS.getLocation());
     }
 
-    public GSKOBiomesProvider(List<Biome> biomes, Registry<Biome> lookupRegistry) {
-        super(biomes);
-        this.lookupRegistry = lookupRegistry;
+    private static List<Biome> getStartBiome(Registry<Biome> registry) {
+        return SPAWN.stream().map(s -> registry.getOrDefault(s.getLocation())).collect(Collectors.toList());
     }
 
-    public GSKOBiomesProvider(Codec<Biome> biomeCodec, Long aLong) {
-        super(Stream.<Supplier<Biome>>builder().build());
+    public Registry<Biome> getBiomeRegistry() {
+        return biomeRegistry;
     }
 
     @Override
@@ -95,6 +101,11 @@ public class GSKOBiomesProvider extends BiomeProvider {
     @Override
     public List<Biome> getBiomes() {
         return super.getBiomes();
+    }
+
+    public static void register() {
+        Registry.register(Registry.BIOME_PROVIDER_CODEC, new ResourceLocation(
+                GensokyoOntology.MODID, "gsko_biome_provider"), GSKO_BIOME_CODEC);
     }
 
     private static final Set<RegistryKey<Biome>> ALL_BIOMES = ImmutableSet.of(
