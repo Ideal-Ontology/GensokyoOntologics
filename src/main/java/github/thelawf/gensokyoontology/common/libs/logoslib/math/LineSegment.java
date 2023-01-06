@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.libs.logoslib.math;
 
 import java.awt.*;
-import java.util.Vector;
 
 public class LineSegment {
     Point dotA;
@@ -13,7 +12,7 @@ public class LineSegment {
     public LineSegment(Point dotA, Point dotB) {
         this.dotA = dotA;
         this.dotB = dotB;
-        this.length = MathCalculator.distanceBetweenPoints(this.dotA.getX(),
+        this.length = MathUtil.distanceOf2D(this.dotA.getX(),
                 this.dotB.getX(), this.dotA.getY(), this.dotB.getY());
     }
 
@@ -22,7 +21,7 @@ public class LineSegment {
         this.y1 = y1;
         this.x2 = x2;
         this.y2 = y2;
-        this.length = MathCalculator.distanceBetweenPoints(this.x1, this.y1, this.x2, this.y2);
+        this.length = MathUtil.distanceOf2D(this.x1, this.y1, this.x2, this.y2);
     }
 
     public double getLength() {

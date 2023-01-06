@@ -58,7 +58,7 @@ public class CurveSegment2d {
     public void getAllIntersectPoints() {
         for (int i = 0; i < this.tangentLines.size(); i++) {
             if (this.tangentLines.size() % 2 == 0) {
-                this.intersectPoints.add(MathCalculator.getIntersectPoint2D(
+                this.intersectPoints.add(MathUtil.intersection2D(
                         this.tangentLines.get(i), this.tangentLines.get(i+1)));
                 i++;
             }

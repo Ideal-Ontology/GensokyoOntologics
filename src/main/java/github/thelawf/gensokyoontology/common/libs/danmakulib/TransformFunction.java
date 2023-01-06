@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.common.libs.danmakulib;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.*;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
@@ -12,9 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.awt.*;
 import java.util.UUID;
-import java.util.Vector;
 
 public class TransformFunction extends ITransform.AbstractTransform {
     public static final Logger LOGGER = LogManager.getLogger();
@@ -99,7 +96,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
         this.x = posX;
         this.y = posY;
         this.z = posZ;
-        this.resultantSpeed = MathCalculator.toModulus3D(posX, posY, posZ);
+        this.resultantSpeed = MathUtil.toModulus3D(posX, posY, posZ);
     }
     /**
      * 使用for循环配合Entity.setLocationAndAngles()方法循环生成弹幕，循环次数为此函数生成的弹幕总量，使用形参 lifeSpan / shootInterval * executeTimes 来获得本函数生成的弹幕总量。
@@ -219,7 +216,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
     public TransformFunction setSpeedV3(Vector3d speedV3) {
         this.speedV3 = speedV3;
-        this.resultantSpeed = Math.min(MathCalculator.toModulus3D(
+        this.resultantSpeed = Math.min(MathUtil.toModulus3D(
                 speedV3.x, speedV3.y, speedV3.z), maxResultantSpeed);
         return this;
     }
@@ -312,7 +309,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
     }
 
     public Vector3d rotate(Vector3d prevPos, Vector3d pivotLocation, Vector3d rotationV3) {
-        double radius = MathCalculator.distanceBetweenPoints3D(prevPos.x, prevPos.y, prevPos.z,
+        double radius = MathUtil.distanceOf3D(prevPos.x, prevPos.y, prevPos.z,
                 pivotLocation.x, pivotLocation.y, pivotLocation.z);
         double incrementX = 0;
         double incrementY = 0;
@@ -320,19 +317,19 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
         if (rotationV3.x != 0) {
             LineSegment hypotenuse = new LineSegment3D(pivotLocation.x, pivotLocation.y,0d, prevPos.x, prevPos.y,0d);
-            RectangularCoordinate rc = MathCalculator.toRollCoordinate(hypotenuse.getLength(), rotationV3.x);
+            RectangularCoordinate rc = MathUtil.toRollCoordinate(hypotenuse.getLength(), rotationV3.x);
             incrementX = rc.x;
             incrementY = rc.y;
         }
         if (rotationV3.y != 0) {
             LineSegment hypotenuse = new LineSegment3D(pivotLocation.x,0d , pivotLocation.z, prevPos.x, 0d, prevPos.z);
-            RectangularCoordinate rc = MathCalculator.toYawCoordinate(hypotenuse.getLength(), rotationV3.y);
+            RectangularCoordinate rc = MathUtil.toYawCoordinate(hypotenuse.getLength(), rotationV3.y);
             incrementX = rc.x;;
             incrementZ = rc.z;
         }
         if (rotationV3.z != 0) {
             LineSegment hypotenuse = new LineSegment3D(0d, pivotLocation.y , pivotLocation.z, 0d, prevPos.y, prevPos.z);
-            RectangularCoordinate rc = MathCalculator.toPitchCoordinate(hypotenuse.getLength(), rotationV3.z);
+            RectangularCoordinate rc = MathUtil.toPitchCoordinate(hypotenuse.getLength(), rotationV3.z);
             incrementY = rc.y;
             incrementZ = rc.z;
         }
@@ -417,7 +414,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
         if (worldIn.isRemote) {
             for (int i = 0; i < this.lifeSpan / shootInterval; i++) {
 
-                this.resultantSpeed += MathCalculator.toModulus3D(this.acceleration3D.x, this.acceleration3D.y, this.acceleration3D.z);
+                this.resultantSpeed += MathUtil.toModulus3D(this.acceleration3D.x, this.acceleration3D.y, this.acceleration3D.z);
                 danmaku.setLocationAndAngles(this.x,this.y,this.z,
                         (float) this.yaw, (float) this.pitch);
 

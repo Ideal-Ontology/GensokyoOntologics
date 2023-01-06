@@ -30,22 +30,51 @@
   "item.gensokyoontology.burger_meat_raw": "Burger Meat Raw",
   "item.gensokyoontology.burger_meat": "Burger Meat",
   "item.gensokyoontology.yattsume_una": "Yattsume Una",
+
+  "item.gensokyoontology.rail_wrench": "Rail Wrench",
+
   "block.gensokyoontology.lycoris_radiata": "Lycoris Radiata",
+  "block.gensokyoontology.onion_crop": "Onion",
 
   "block.gensokyoontology.fried_pane": "Fried Pane",
-  "block.gensokyoontology.onion_crop": "Onion",
   "block.gensokyoontology.dakimakura": "Dakimakura",
   "block.gensokyoontology.rail_track": "Rail Track",
+  "block.gensokyoontology.rail_node": "Rail Node",
   "block.gensokyoontology.rotate_frame": "Rotate Frame Test",
+
+  "gui.gensokyoontology.rail_adjust.title": "Rail Adjustment",
+  "gui.gensokyoontology.button.increase_roll": "+",
+  "gui.gensokyoontology.button.increase_yaw": "+",
+  "gui.gensokyoontology.button.increase_pitch": "+",
+  "gui.gensokyoontology.button.decrease_roll": "-",
+  "gui.gensokyoontology.button.decrease_yaw": "-",
+  "gui.gensokyoontology.button.decrease_pitch": "-",
+
+  "gui.gensokyoontology.button.increase_roll.msg": "Roll",
+  "gui.gensokyoontology.button.increase_yaw.msg": "Yaw",
+  "gui.gensokyoontology.button.increase_pitch.msg": "Pitch",
+  "gui.gensokyoontology.button.decrease_roll.msg": "Roll",
+  "gui.gensokyoontology.button.decrease_yaw.msg": "Yaw",
+  "gui.gensokyoontology.button.decrease_pitch.msg": "Pitch",
+
+  "gui.gensokyoontology.text_field.rotation_roll": "0",
+  "gui.gensokyoontology.text_field.rotation_yaw": "0",
+  "gui.gensokyoontology.text_field.rotation_pitch": "0",
+
+  "nbt.gensokyoontology.start_pos": "Rail Connection Start at: ",
+  "nbt.gensokyoontology.end_pos": "Rail Connection End at: ",
 
   "tooltip.gensokyoontology.idealism_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
   "tooltip.gensokyoontology.praxis_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
   "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75Left Click to Release Space Fissure\u00A7r",
   "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality.",
+
   "description.gensokyoontology.idealism_sword_description": "Cause 12 damage each tick",
   "description.gensokyoontology.praxis_sword_description": "§6Go into Praxis, man ~",
+
   "effect.gensokyoontology.love_potion": "Love Effect",
   "effect.gensokyoontology.hypnosis_potion": "Hypnosis",
+
   "patchouli.gensokyoontology.book.landing_text": "$(l)Fore Words:$(br)Stay $(4)S$(b)A$(d)N$(2)E!$() You're now in the $(k)(m)meaningless network$() of $(l)ideologies.$() Be $(l)$(#ff0000)CLEAR AWARE$() of this!",
   "patchouli.gensokyoontology.overview.description": "$(l)$(o)Where did the fiction begin?",
   "patchouli.gensokyoontology.ideologies.description": "$(l)$(o)$(#eb82ee)Science is not your Jesus Christ! Nor Philosophy!",

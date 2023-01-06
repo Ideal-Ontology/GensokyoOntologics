@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathCalculator;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
@@ -94,7 +94,7 @@ public class FlyingSwordEntity extends Entity implements IRendersAsItem {
             double playerZ = this.getMaster().getPosZ();
 
             // 飞剑与玩家的距离
-            double radius = MathCalculator.distanceBetweenPoints(x, z, playerX, playerZ);
+            double radius = MathUtil.distanceOf2D(x, z, playerX, playerZ);
             double deltaX = radius / Math.sin(720.d / life);
             float each = life;
             this.setPositionAndRotation(x, y, z, 720.f / each,0);

@@ -1,0 +1,10 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {},
+    "model": "gensokyoontology:rail_wrench.obj"
+  },
+  "variants": {
+    "": {"model": "gensokyoontology:rail_wrench.obj"}
+  }
+}

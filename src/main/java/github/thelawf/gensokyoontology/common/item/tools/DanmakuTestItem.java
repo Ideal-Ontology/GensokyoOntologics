@@ -2,8 +2,6 @@ package github.thelawf.gensokyoontology.common.item.tools;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathCalculator;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

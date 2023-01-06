@@ -29,6 +29,26 @@
   "item.gensokyoontology.praxis_sword": "実践の宝剣",
   "effect.gensokyoontology.love_potion": "媚薬",
   "effect.gensokyoontology.hypnosis_potion": "催眠",
+
+  "gui.gensokyoontology.rail_adjust.title": "Rail Adjustment",
+  "gui.gensokyoontology.button.increase_roll": "+",
+  "gui.gensokyoontology.button.increase_yaw": "+",
+  "gui.gensokyoontology.button.increase_pitch": "+",
+  "gui.gensokyoontology.button.decrease_roll": "-",
+  "gui.gensokyoontology.button.decrease_yaw": "-",
+  "gui.gensokyoontology.button.decrease_pitch": "-",
+
+  "gui.gensokyoontology.button.increase_roll.msg": "Roll",
+  "gui.gensokyoontology.button.increase_yaw.msg": "Yaw",
+  "gui.gensokyoontology.button.increase_pitch.msg": "Pitch",
+  "gui.gensokyoontology.button.decrease_roll.msg": "Roll",
+  "gui.gensokyoontology.button.decrease_yaw.msg": "Yaw",
+  "gui.gensokyoontology.button.decrease_pitch.msg": "Pitch",
+
+  "gui.gensokyoontology.text_field.rotation_roll": "0",
+  "gui.gensokyoontology.text_field.rotation_yaw": "0",
+  "gui.gensokyoontology.text_field.rotation_pitch": "0",
+
   "tooltip.gensokyoontology.idealism_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
   "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75Left Click to Release Space Fissure\u00A7r",
   "tooltip.gensokyoontology.praxis_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
@@ -49,6 +69,9 @@
   "patchouli.gensokyoontology.ideologies.erhabene.tutorial_p2": "This might be a picture?",
   "patchouli.gensokyoontology.ideologies.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideologies.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideologies.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
+  "patchouli.gensokyoontology.ideologies.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "item.gensokyoontology.rail_wrench": "Rail Wrench",
+  "block.gensokyoontology.rail_node": "Rail Node",
+  "block.gensokyoontology.rotate_frame": "Rotate Frame Test"
 
 }

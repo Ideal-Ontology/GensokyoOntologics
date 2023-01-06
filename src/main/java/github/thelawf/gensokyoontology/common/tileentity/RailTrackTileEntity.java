@@ -10,6 +10,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.AxisRotation;
 import net.minecraft.util.Rotation;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class RailTrackTileEntity extends TileEntity implements ITickableTileEntity {
 
@@ -63,4 +64,6 @@ public class RailTrackTileEntity extends TileEntity implements ITickableTileEnti
     public CompoundNBT write(CompoundNBT compound) {
         return super.write(compound);
     }
+
+
 }

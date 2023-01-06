@@ -11,6 +11,8 @@ import github.thelawf.gensokyoontology.common.item.spell_card.NamiToTubuNoKyokai
 import github.thelawf.gensokyoontology.common.item.tools.*;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -127,7 +129,7 @@ public class ItemRegistry {
             "spell_card_nami", () -> new NamiToTubuNoKyokai(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
 
     public static final RegistryObject<RailWrench> RAIL_WRENCH = ITEMS.register("rail_wrench",
-            () -> new RailWrench(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new RailWrench(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
 
     public static final RegistryObject<BlockItem> FRIED_PANE_ITEM = ITEMS.register(
             "fried_pane", () -> new BlockItem(BlockRegistry.FRIED_PANE.get(),
@@ -148,4 +150,20 @@ public class ItemRegistry {
     public static final RegistryObject<Item> ROTATE_FRAME_ITEM = ITEMS.register(
             "rotate_frame", () -> new BlockItem(BlockRegistry.ROTATE_FRAME.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    //======================= ↓ The Mod Cyber Statistics ↓ ==================//
+    public static final RegistryObject<Item> MAGIC_LEAVES_ITEM = ITEMS.register(
+            "magic_leaves",() -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> HASH_LOG_ITEM = ITEMS.register(
+            "hash_log",() -> new BlockItem(BlockRegistry.HASH_LOG.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> FRACTAL_LOG_ITEM = ITEMS.register(
+            "fractal_log",() -> new BlockItem(BlockRegistry.FRACTAL_LOG.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    //======================= ↑ The Mod Cyber Statistics ↑ ====================//
+
 }

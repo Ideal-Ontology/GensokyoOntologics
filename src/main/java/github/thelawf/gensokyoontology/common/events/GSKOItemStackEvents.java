@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import github.thelawf.gensokyoontology.common.block.Dakimakura;
-import github.thelawf.gensokyoontology.common.block.OnionCropBlock;
 import github.thelawf.gensokyoontology.common.block.SpaceFissureBlock;
-import github.thelawf.gensokyoontology.common.item.Onion;
-import github.thelawf.gensokyoontology.common.item.food.CakeScarletDemon;
+import github.thelawf.gensokyoontology.common.block.cyber.HashLog;
 import github.thelawf.gensokyoontology.common.item.food.KoishiHatMousse;
 import github.thelawf.gensokyoontology.common.item.food.MilkBottle;
 import github.thelawf.gensokyoontology.common.item.food.YattsumeUnaYaki;
@@ -12,33 +9,23 @@ import github.thelawf.gensokyoontology.common.item.tools.IdealismSword;
 import github.thelawf.gensokyoontology.common.item.tools.RealismSword;
 import github.thelawf.gensokyoontology.common.nbt.GensokyoOntologyNBT;
 import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
-import github.thelawf.gensokyoontology.core.init.BlockRegistry;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
-import net.minecraft.block.Block;
-import net.minecraft.block.CraftingTableBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.Dimension;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.common.Mod;
 
 import java.awt.*;
@@ -114,13 +101,4 @@ public class GSKOItemStackEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onItemPickUp(PlayerEvent.ItemPickupEvent event) {
-        ItemStack targetStack = event.getStack();
-        Item targetItem = event.getStack().getItem();
-        if (event.getPlayer().getServer().getWorld(World.OVERWORLD) != null
-                && Objects.requireNonNull(targetStack.getTag()).contains("can_place_in_overworld")) {
-
-        }
-    }
 }

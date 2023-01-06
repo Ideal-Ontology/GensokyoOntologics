@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.common.libs.logoslib.math;
 
+import net.minecraft.util.math.vector.Vector3d;
+
 public class RectangularCoordinate {
 
     public double x;
@@ -10,6 +12,10 @@ public class RectangularCoordinate {
         this.x = x;
         this.y = y;
         this.z = z;
+    }
+
+    public Vector3d toVector3D() {
+        return new Vector3d(this.x, this.y, this.z);
     }
 
     public void setX(double x) {

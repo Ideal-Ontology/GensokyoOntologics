@@ -2,6 +2,9 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
+import github.thelawf.gensokyoontology.common.block.cyber.ComputerBlock;
+import github.thelawf.gensokyoontology.common.block.cyber.FractalLeaves;
+import github.thelawf.gensokyoontology.common.block.cyber.HashLeaves;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.RegistryObject;
@@ -22,19 +25,27 @@ public class BlockRegistry {
     // public static final RegistryObject<Block> MAGIC_SAPLING =BLOCKS.register("magic_sapling",
     //         () -> new SaplingBlock());
 
+    //======================= ↓ The Mod Cyber Statistics ↓ ==================//
     public static final RegistryObject<Block> HASH_LOG = BLOCKS.register("hash_log",
             () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
 
-    public static final RegistryObject<Block> HASH_LEAVES = BLOCKS.register("magic_leaves",
-            () -> new LeavesBlock(AbstractBlock.Properties.create(
-                    Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
+    // public static final RegistryObject<Block> HASH_LEAVES = BLOCKS.register("magic_leaves",
+    //         HashLeaves::new);
 
     public static final RegistryObject<Block> FRACTAL_LOG = BLOCKS.register("fractal_log",
             () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
 
-    public static final RegistryObject<Block> FRACTAL_LEAVES = BLOCKS.register("magic_leaves",
-            () -> new LeavesBlock(AbstractBlock.Properties.create(
-                    Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
+    // public static final RegistryObject<Block> FRACTAL_LEAVES = BLOCKS.register("magic_leaves",
+    //         FractalLeaves::new);
+
+    public static final RegistryObject<Block> IC_BOARD_LOG = BLOCKS.register("ic_board_log",
+            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
+
+    public static final RegistryObject<Block> IC_LEAVES = BLOCKS.register("ic_leaves", () ->
+            new LeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
+
+    //======================= ↑ The Mod Cyber Statistics ↑ ====================//
+
 
     public static RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
             () -> new HotSpringBlock(() -> FluidRegistry.HOT_SPRING_SOURCE.get(),

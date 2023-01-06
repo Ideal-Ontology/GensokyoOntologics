@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.block;
 
 import github.thelawf.gensokyoontology.common.tileentity.RailTrackTileEntity;
 import github.thelawf.gensokyoontology.common.util.AxisRotations;
+import net.minecraft.advancements.criterion.NetherTravelTrigger;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DirectionalBlock;
@@ -11,6 +12,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.EnumProperty;
@@ -141,10 +143,5 @@ public class RailTrackBlock extends DirectionalBlock {
         // builder.add(ROTATION);
         builder.add(CONNECTED);
         super.fillStateContainer(builder);
-    }
-
-    //尝试连接两处轨道方块
-    public void tryConnect(){
-
     }
 }
