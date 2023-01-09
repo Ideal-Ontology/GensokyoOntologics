@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.client.model;
+package github.thelawf.gensokyoontology.client.model;
 
 import com.mojang.datafixers.util.Either;
 import net.minecraft.client.renderer.model.*;

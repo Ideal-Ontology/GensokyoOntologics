@@ -1,8 +1,8 @@
-package github.thelawf.gensokyoontology.common.client;
+package github.thelawf.gensokyoontology.client;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.client.render.InWorldRenderer;
-import github.thelawf.gensokyoontology.common.client.render.SpaceFissureRenderer;
+import github.thelawf.gensokyoontology.client.render.InWorldRenderer;
+import github.thelawf.gensokyoontology.client.render.SpaceFissureRenderer;
 import github.thelawf.gensokyoontology.common.screen.container.RailAdjustGUI;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraftforge.api.distmarker.Dist;

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.client.model;
+package github.thelawf.gensokyoontology.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;

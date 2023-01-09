@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.client.render;
+package github.thelawf.gensokyoontology.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.tileentity.RailTrackTileEntity;

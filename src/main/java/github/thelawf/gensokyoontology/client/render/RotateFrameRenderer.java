@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.client.render;
+package github.thelawf.gensokyoontology.client.render;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.client.Minecraft;

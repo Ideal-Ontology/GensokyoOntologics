@@ -26,5 +26,10 @@ public class GSKOTimeEvents {
         IdealismLib idealismLib = new IdealismLib();
         idealismLib.saveTimeData();
     }
+
+    // 记录世界时间
+    @SubscribeEvent
+    public static void onTimePassBy(WorldTimeEvent event) {
+    }
 }
  */
