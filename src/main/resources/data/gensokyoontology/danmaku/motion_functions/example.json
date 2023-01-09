@@ -1,0 +1,66 @@
+{
+  "function": {
+    "key": "func_01",
+    "fields": [
+      {
+        "key": "rotation",
+        "value": 30
+      },
+      {
+        "key": "acceleration",
+        "value": 3
+      }
+    ],
+    "operations": [
+      {
+        "add": [
+          {
+            "obj1": "rotation",
+            "obj2": "acceleration"
+          }
+        ]
+      },
+      {
+        "operations": [
+          {
+            "if": [
+              {
+                "condition": {
+                  "rotation=": 120
+                }
+              },
+              {
+                "rotation=": "-rotation"
+              }
+            ]
+          },
+          {
+            "while": [
+              {
+                "condition": true
+              },
+              {
+                "delay": 10
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "muzzels": [
+    {
+      "id": "m1",
+      "danmaku_type": "orb",
+      "init_location": "default",
+      "execute": [
+        {
+          "key": "func_01"
+        }
+      ]
+    },
+    {
+      "id": "m2"
+    }
+  ]
+}
