@@ -8,7 +8,7 @@
   "has_raids": false,
   "ultrawarm": false,
   "natural": true,
-  "coordinate_scale": 0.125,
+  "coordinate_scale": 1,
   "piglin_safe": false,
   "fixed_time": 16000,
   "has_skylight": true,

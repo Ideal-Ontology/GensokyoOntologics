@@ -1,23 +1,27 @@
 package github.thelawf.gensokyoontology.common.dimensions.world.biome;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.dimensions.GSKODimensions;
+import net.minecraft.block.BlockState;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
-import java.util.function.Supplier;
+import javax.annotation.Nonnull;
+import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * 1. 幻想乡群系及注册名汇总：
@@ -60,23 +64,39 @@ import java.util.stream.Stream;
  */
 public class GSKOBiomesProvider extends BiomeProvider {
 
-    private Registry<Biome> biomeRegistry;
-    private Long seed;
+
+    private final long seed;
     private final Biome biome;
+    private List<Biome> biomes;
+    private final Registry<Biome> biomeRegistry;
 
-    public static final Codec<GSKOBiomesProvider> GSKO_BIOME_CODEC = RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY)
-            .xmap(GSKOBiomesProvider::new, GSKOBiomesProvider::getBiomeRegistry).codec();
+    // public static final Codec<GSKOBiomesProvider> GSKO_BIOME_CODEC = RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY)
+    //         .xmap(GSKOBiomesProvider::new, GSKOBiomesProvider::getBiomeRegistry).codec();
 
-    private static final List<RegistryKey<Biome>> SPAWN = Collections.singletonList(Biomes.PLAINS);
+    public static final Codec<GSKOBiomesProvider> GSKO_BIOME_CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.LONG.fieldOf("seed").stable().forGetter(provider -> provider.seed),
+            RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter(o -> o.biomeRegistry))
+            .apply(instance, instance.stable(GSKOBiomesProvider::new)));
 
-    public GSKOBiomesProvider(Registry<Biome> biomeRegistry) {
-        super(getStartBiome(biomeRegistry));
+    private static final List<RegistryKey<Biome>> GSKO_BIOMES = ImmutableList.of(
+            GSKOBiomes.GSKO_WILDLAND_KEY,
+            GSKOBiomes.GSKO_FOREST_KEY,
+            GSKOBiomes.HUMAN_VILLAGE_KEY,
+            GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
+            GSKOBiomes.MAGIC_FOREST_KEY,
+            GSKOBiomes.SUNFLOWER_GARDEN_KEY,
+            GSKOBiomes.BAMBOO_FOREST_OF_LOST_KEY,
+            GSKOBiomes.FORMER_HELL_KEY,
+            GSKOBiomes.HIGAN_BIOME_KEY,
+            GSKOBiomes.SANZU_RIVER_KEY,
+            GSKOBiomes.DREAM_WORLD_KEY
+    );
+
+    public GSKOBiomesProvider(long seed, Registry<Biome> biomeRegistry) {
+        super(getBiomes(biomeRegistry));
         this.biomeRegistry = biomeRegistry;
-        biome = biomeRegistry.getOrDefault(Biomes.PLAINS.getLocation());
-    }
-
-    private static List<Biome> getStartBiome(Registry<Biome> registry) {
-        return SPAWN.stream().map(s -> registry.getOrDefault(s.getLocation())).collect(Collectors.toList());
+        biome = biomeRegistry.getOrThrow(GSKOBiomes.YOUKAI_MOUNTAIN_KEY);
+        this.seed = seed;
     }
 
     public Registry<Biome> getBiomeRegistry() {
@@ -95,12 +115,31 @@ public class GSKOBiomesProvider extends BiomeProvider {
 
     @Override
     public Biome getNoiseBiome(int x, int y, int z) {
-        return null;
+        return biome;
+    }
+
+    private static List<Biome> getBiomes(Registry<Biome> biomeRegistry)
+    {
+        List<Biome> list = Lists.newArrayList();
+        biomeRegistry.forEach((biome) -> {
+            if (GSKO_BIOMES.contains(biomeRegistry.getRegistryKey()))
+            {
+                list.add(biome);
+            }
+        });
+        return list;
     }
 
     @Override
-    public List<Biome> getBiomes() {
-        return super.getBiomes();
+    @Nonnull
+    public Set<BlockState> getSurfaceBlocks() {
+        return super.getSurfaceBlocks();
+    }
+
+    @Nullable
+    @Override
+    public BlockPos findBiomePosition(int xIn, int yIn, int zIn, int radiusIn, Predicate<Biome> biomesIn, Random randIn) {
+        return super.findBiomePosition(xIn, yIn, zIn, radiusIn, biomesIn, randIn);
     }
 
     public static void register() {
@@ -108,19 +147,6 @@ public class GSKOBiomesProvider extends BiomeProvider {
                 GensokyoOntology.MODID, "gsko_biome_provider"), GSKO_BIOME_CODEC);
     }
 
-    private static final Set<RegistryKey<Biome>> ALL_BIOMES = ImmutableSet.of(
-            GSKOBiome.GSKO_WILDLAND,
-            GSKOBiome.GSKO_FOREST,
-            GSKOBiome.HUMAN_VILLAGE,
-            GSKOBiome.YOUKAI_MOUNTAIN,
-            GSKOBiome.MAGIC_FOREST,
-            GSKOBiome.SUNFLOWER_GARDEN,
-            GSKOBiome.BAMBOO_FOREST_OF_LOST,
-            GSKOBiome.FORMER_HELL_BIOME,
-            GSKOBiome.HIGAN_BIOME,
-            GSKOBiome.SANZU_RIVER,
-            GSKOBiome.DREAM_WORLD_BIOME
-    );
 
 }
 

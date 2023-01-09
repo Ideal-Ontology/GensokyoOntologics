@@ -5,6 +5,7 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomesProvider;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.command.impl.SeedCommand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.Registry;
@@ -13,21 +14,28 @@ import net.minecraft.world.Blockreader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
 public class GSKOChunkGenerator extends ChunkGenerator {
 
+    public static final Logger LOGGER = LogManager.getLogger();
     private final Settings settings;
+    private long seed;
 
-    public GSKOChunkGenerator(Registry<Biome> registry, Settings settings) {
-        super(new GSKOBiomesProvider(registry), new DimensionStructuresSettings(false));
+    public GSKOChunkGenerator(BiomeProvider provider,long seed, Settings settings) {
+        super(provider, new DimensionStructuresSettings(false));
+        this.seed = seed;
         this.settings = settings;
+        LOGGER.info("New dimension registered");
     }
 
     public static final Codec<Settings> SETTINGS_CODEC = RecordCodecBuilder.create(instance ->
@@ -37,11 +45,13 @@ public class GSKOChunkGenerator extends ChunkGenerator {
                 Codec.FLOAT.fieldOf("horizontalvariance").forGetter(Settings::getHorizontalVariance)
         ).apply(instance, Settings::new));
 
+    // TODO: Add biome_source and seed fields to gensokyo.json to add custom biomes
     public static final Codec<GSKOChunkGenerator> CHUNK_GEN_CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
-                    RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter(GSKOChunkGenerator::getBiomeRegistry),
+                    BiomeProvider.CODEC.fieldOf("biome_source").forGetter(chunkGenerator -> chunkGenerator.biomeProvider),
+                    Codec.LONG.fieldOf("seed").stable().orElseGet(() -> GSKODimensions.seed).forGetter(obj -> obj.seed),
                     SETTINGS_CODEC.fieldOf("settings").forGetter(GSKOChunkGenerator::getSettings)
-            ).apply(instance, GSKOChunkGenerator::new));
+            ).apply(instance, instance.stable(GSKOChunkGenerator::new)));
 
     public Registry<Biome> getBiomeRegistry() {
         return ((GSKOBiomesProvider) biomeProvider).getBiomeRegistry();
@@ -59,21 +69,34 @@ public class GSKOChunkGenerator extends ChunkGenerator {
 
     @Override
     @Nonnull
-    public ChunkGenerator func_230349_a_(long p_230349_1_) {
-        return new GSKOChunkGenerator(getBiomeRegistry(), settings);
+    public ChunkGenerator func_230349_a_(long seed) {
+        return new GSKOChunkGenerator(this.biomeProvider.getBiomeProvider(seed), seed, settings);
     }
 
     @Override
+    @SuppressWarnings("deprecation")
     public void generateSurface(@NotNull WorldGenRegion region, @NotNull IChunk chunk) {
         BlockState bedrock = Blocks.BEDROCK.getDefaultState();
+        BlockState grassBlock = Blocks.GRASS_BLOCK.getDefaultState();
         ChunkPos chunkPos = chunk.getPos();
 
         int x,z;
         BlockPos.Mutable positions = new BlockPos.Mutable();
 
+        // 先在y=0的位置铺一层基岩
         for (x = 0; x < 16; x++) {
             for (z = 0; z < 16; z++) {
                 chunk.setBlockState(positions.add(x, 0, z), bedrock, true);
+            }
+        }
+
+        long seed = region.getWorld().getSeed();
+
+        // 再使用噪声生成器生成地表的草方块和地下的石头
+        for (x = 0; x < 16; x++) {
+            for (z = 0; z < 16; z++) {
+                int globalX = chunkPos.x * 16 + x;
+                int globalZ = chunkPos.z * 16 + z;
             }
         }
     }

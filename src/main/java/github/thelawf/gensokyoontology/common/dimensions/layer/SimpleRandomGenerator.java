@@ -9,10 +9,9 @@ import java.util.Objects;
 import java.util.Random;
 
 public class SimpleRandomGenerator {
-
-    ArrayList<BlockPos> posList = new ArrayList<>();
     ArrayList<Integer> location = new ArrayList<>();
     ArrayList<ArrayList<Integer>> locations = new ArrayList<>();
+    BlockPos.Mutable blockPos;
     // 世界边界大小
     int worldSize;
     final long seed;

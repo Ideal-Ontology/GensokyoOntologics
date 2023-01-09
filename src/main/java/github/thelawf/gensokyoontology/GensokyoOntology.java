@@ -1,17 +1,14 @@
 package github.thelawf.gensokyoontology;
 
+import github.thelawf.gensokyoontology.common.CommonSetUp;
 import github.thelawf.gensokyoontology.common.data.GSKORecipeHandler;
-import github.thelawf.gensokyoontology.common.dimensions.GSKOChunkGenerator;
 import github.thelawf.gensokyoontology.common.dimensions.GSKODimensions;
 import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
-//import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -20,7 +17,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +37,7 @@ public class GensokyoOntology {
 
         IEventBus modEvent = FMLJavaModLoadingContext.get().getModEventBus();
 
-        modEvent.addListener(this::registerSetUpCommon);
+        modEvent.addListener(CommonSetUp::init);
 
         MinecraftForge.EVENT_BUS.register(this);
         ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -52,19 +48,6 @@ public class GensokyoOntology {
         TileEntityTypeRegistry.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
         EntityRegistry.GSKO_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
-
-
-    public void registerSetUpCommon(final FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            Registry.register(Registry.CHUNK_GENERATOR_CODEC,
-                    new ResourceLocation(GensokyoOntology.MODID, "chunkgen"),
-                    GSKOChunkGenerator.CHUNK_GEN_CODEC);
-            Registry.register(Registry.BIOME_PROVIDER_CODEC,
-                    new ResourceLocation(GensokyoOntology.MODID, "biomes"),
-                    GSKOBiomesProvider.GSKO_BIOME_CODEC);
-        });
-    }
-
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
@@ -110,7 +93,7 @@ public class GensokyoOntology {
     public static class WorldGenRegistryEvents{
         @SubscribeEvent
         public static void registerBiomes(RegistryEvent.Register<Biome> event) {
-            GSKODimensions.register();
+            // GSKODimensions.register();
         }
     }
 
