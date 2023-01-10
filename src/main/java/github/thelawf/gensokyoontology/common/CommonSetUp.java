@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.command.GSKOCommand;
 import github.thelawf.gensokyoontology.common.dimensions.GSKOChunkGenerator;
+import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomesProvider;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
