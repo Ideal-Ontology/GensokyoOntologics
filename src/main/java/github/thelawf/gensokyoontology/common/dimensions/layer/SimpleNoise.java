@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.dimensions.layer;
 
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathUtil;
 
 import java.util.Random;
 
@@ -9,16 +8,22 @@ public class SimpleNoise {
 
     public static int getNoiseHeight(long seed, int globalX, int globalZ, int diff, int loud) {
         Random random = new Random(seed);
-        for (int i = 0; i < diff; i++) {
-            for (int j = 0; j < diff; j++) {
-                int y = random.nextInt(loud);
+        int y = 0;
+        if (globalX % diff == 0 && globalZ % diff == 0) {
+            for (int i = 0; i < diff; i++) {
+                for (int j = 0; j < diff; j++) {
+                    int height = random.nextInt(loud);
+                    y = getSmoothY(i, j, height, diff);
+                }
             }
         }
 
-        return 0;
+        return y;
     }
 
-    public static int getSmoothHeight(BlockPos posIn) {
-        return 0;
+    public static int getSmoothY(int x, int z, int height, int diff) {
+        return (int) Math.sqrt(
+                MathUtil.pow2((double) x / (x + diff)) +
+                MathUtil.pow2((double)z / (z + diff))) * height;
     }
 }

@@ -2,7 +2,9 @@ package github.thelawf.gensokyoontology.common.dimensions;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import github.thelawf.gensokyoontology.common.dimensions.layer.SimpleNoise;
 import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomesProvider;
+import github.thelawf.gensokyoontology.common.util.GSKOLayerUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.command.impl.SeedCommand;
@@ -76,8 +78,10 @@ public class GSKOChunkGenerator extends ChunkGenerator {
     @Override
     @SuppressWarnings("deprecation")
     public void generateSurface(@NotNull WorldGenRegion region, @NotNull IChunk chunk) {
-        BlockState bedrock = Blocks.BEDROCK.getDefaultState();
         BlockState grassBlock = Blocks.GRASS_BLOCK.getDefaultState();
+        BlockState stone = Blocks.STONE.getDefaultState();
+        BlockState bedrock = Blocks.BEDROCK.getDefaultState();
+
         ChunkPos chunkPos = chunk.getPos();
 
         int x,z;
@@ -97,12 +101,19 @@ public class GSKOChunkGenerator extends ChunkGenerator {
             for (z = 0; z < 16; z++) {
                 int globalX = chunkPos.x * 16 + x;
                 int globalZ = chunkPos.z * 16 + z;
+                chunk.setBlockState(positions.add(globalX,
+                        SimpleNoise.getNoiseHeight(seed, globalX, globalZ, 16, 55),
+                        globalZ), stone, false);
+                chunk.setBlockState(positions.add(globalX,
+                                SimpleNoise.getNoiseHeight(seed, globalX, globalZ, 16, 60), globalZ),
+                        grassBlock, false);
+
             }
         }
     }
 
     @Override
-    public void func_230352_b_(@NotNull IWorld p_230352_1_, @NotNull StructureManager p_230352_2_, @NotNull IChunk p_230352_3_) {
+    public void func_230352_b_(@NotNull IWorld world, @NotNull StructureManager structureManager, @NotNull IChunk chunk) {
 
     }
 
