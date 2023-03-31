@@ -4,9 +4,11 @@ package github.thelawf.gensokyoontology.common.libs.logoslib.math;
 import github.thelawf.gensokyoontology.common.libs.logoslib.annotations.Degree;
 import github.thelawf.gensokyoontology.common.libs.logoslib.annotations.GlobalCoordinate;
 import github.thelawf.gensokyoontology.common.libs.logoslib.annotations.Radian;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.*;
+import java.math.MathContext;
 import java.util.ArrayList;
 
 import static net.minecraft.util.math.MathHelper.lerp;
@@ -240,7 +242,15 @@ public class MathUtil {
         return lerp(time, lerp(time, start, p), lerp(time, p, end));
     }
 
-    public static Vector3d bezier2(Vector3d start, Vector3d p, Vector3d end, double time) {
+    /**
+     * 用于小于等于90度的水平转弯
+     * @param start 起始点
+     * @param p 控制点
+     * @param end 终点
+     * @param time 步长
+     * @return 在控制点的作用下，以起止点为基准的下一个点在曲线上的位置
+     */
+    public static Vector3d bezier2(Vector3d start,Vector3d end,  Vector3d p, double time) {
         if (time > 1 || time < 0)
             return null;
         Vector3d v1 = start.scale(pow2(1 - time));
@@ -251,6 +261,8 @@ public class MathUtil {
     }
 
     public static Vector3d bezier3(Vector3d p1, Vector3d p2, Vector3d q1, Vector3d q2, float time) {
+        if (time > 1 || time < 0)
+            return null;
         Vector3d v1 = lerp(time, p1, q1);
         Vector3d v2 = lerp(time, q1, q2);
         Vector3d v3 = lerp(time, q2, p2);
@@ -268,6 +280,23 @@ public class MathUtil {
 
     public static Vector3d lerp(float p, Vector3d from, Vector3d to) {
         return from.add(to.subtract(from).scale(p));
+    }
+
+    /**
+     *
+     * @param start 本地坐标系的起点向量
+     * @param end 本地坐标系的终点向量
+     * @param startRotationRad 起点向量基于自身的本地坐标系的旋转角度（弧度值）
+     * @param endRotationRad 终点向量基于自身的本地坐标系的旋转角度（弧度值）
+     * @return 起点到终点的弧长
+     */
+    public static double getArcLengthFormTo(Vector3d start,
+                                            Vector3d end,
+                                            double startRotationRad,
+                                            double endRotationRad) {
+        double middle = Math.abs(start.x - end.x) / 2;
+        double centerAngle = Math.PI / 4 - Math.abs(startRotationRad - endRotationRad);
+        return Math.PI * 2 * middle * (centerAngle / (Math.PI / 2));
     }
     
     /**

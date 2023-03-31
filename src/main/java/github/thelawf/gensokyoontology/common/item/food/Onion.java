@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.item;
+package github.thelawf.gensokyoontology.common.item.food;
 
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;

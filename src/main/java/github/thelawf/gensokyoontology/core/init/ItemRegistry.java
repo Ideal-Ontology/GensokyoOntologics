@@ -1,18 +1,14 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.item.Butter;
+import github.thelawf.gensokyoontology.common.item.food.Butter;
 import github.thelawf.gensokyoontology.common.item.ByteCoin;
 import github.thelawf.gensokyoontology.common.item.GameCoin;
-import github.thelawf.gensokyoontology.common.item.food.MilkBottle;
-import github.thelawf.gensokyoontology.common.item.YattsumeUna;
+import github.thelawf.gensokyoontology.common.item.spellcard.SC_WaveAndParticle;
 import github.thelawf.gensokyoontology.common.item.food.*;
-import github.thelawf.gensokyoontology.common.item.spell_card.NamiToTubuNoKyokai;
 import github.thelawf.gensokyoontology.common.item.tools.*;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
-import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
 import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -125,8 +121,9 @@ public class ItemRegistry {
     public static final RegistryObject<DanmakuTestItem> DANMAKU_TEST_ITEM = ITEMS.register(
             "danmaku_test", () -> new DanmakuTestItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
 
-    public static final RegistryObject<NamiToTubuNoKyokai> SPELL_CARD_NAMI = ITEMS.register(
-            "spell_card_nami", () -> new NamiToTubuNoKyokai(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+    public static final RegistryObject<SC_WaveAndParticle> SPELL_CARD_NAMI = ITEMS.register(
+            "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb),
+                    "波与粒的境界","",500));
 
     public static final RegistryObject<RailWrench> RAIL_WRENCH = ITEMS.register("rail_wrench",
             () -> new RailWrench(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));

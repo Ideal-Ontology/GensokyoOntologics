@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.data;
+package github.thelawf.gensokyoontology.data;
 
 import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;

@@ -12,6 +12,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.UUID;
+import java.util.function.Function;
 
 public class TransformFunction extends ITransform.AbstractTransform {
     public static final Logger LOGGER = LogManager.getLogger();
@@ -53,6 +54,8 @@ public class TransformFunction extends ITransform.AbstractTransform {
      /** 设置本函数应用于的发射口发出的弹幕是否瞄准某个实体 */
     public UUID aimingAt = null;
 
+    public int ticksToExecute = 0;
+
     // -------------Parameters to Set Future Motions--------------//
 
     /** 实体的瞬时矢量速度 */
@@ -71,7 +74,9 @@ public class TransformFunction extends ITransform.AbstractTransform {
     public Vector3d increment3D = new Vector3d(0d,0d,0d);
 
     /** （角度/位移/速度）的非线性增加量 */
-    public Vector3d acceleration3D = new Vector3d(0,0,0);
+    public Vector3d shootDirection = new Vector3d(0,0,0);
+
+    public Function<?,?> function;
 
     // -------------Constructors, Builders, and Implements------------- //
 
@@ -137,8 +142,8 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return this;
     }
 
-    public TransformFunction setAcceleration3D(Vector3d acceleration3D) {
-        this.acceleration3D = acceleration3D;
+    public TransformFunction setShootDirection(Vector3d shootDirection) {
+        this.shootDirection = shootDirection;
         return this;
     }
 
@@ -154,6 +159,11 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
     public TransformFunction setShootInterval(double shootInterval) {
         this.shootInterval = shootInterval;
+        return this;
+    }
+
+    public TransformFunction setTicksToExecute(int ticksToExecute) {
+        this.ticksToExecute = ticksToExecute;
         return this;
     }
 
@@ -243,17 +253,19 @@ public class TransformFunction extends ITransform.AbstractTransform {
         this.rotateTotal = rotateTotal;
     }
 
-    public void setIncrement(double rotateTotal) {
-        this.increment = rotateTotal / (this.lifeSpan / this.shootInterval);
-
-    }
 
     public void setIncrement(double rotateTotal, double interval) {
         this.increment = rotateTotal / interval;
     }
 
-    public void setInitRotation(Vector3d initRotation) {
+    public TransformFunction setIncrement(double increment) {
+        this.increment = increment;
+        return this;
+    }
+
+    public TransformFunction setInitRotation(Vector3d initRotation) {
         this.initRotation = initRotation;
+        return this;
     }
 
     public int getExecuteTimes() {
@@ -405,7 +417,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
     @Override
     public Vector3d accelerate(Vector3d acceleration) {
-        return this.acceleration3D = acceleration;
+        return this.shootDirection = acceleration;
     }
 
     @Override
@@ -414,7 +426,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
         if (worldIn.isRemote) {
             for (int i = 0; i < this.lifeSpan / shootInterval; i++) {
 
-                this.resultantSpeed += MathUtil.toModulus3D(this.acceleration3D.x, this.acceleration3D.y, this.acceleration3D.z);
+                this.resultantSpeed += MathUtil.toModulus3D(this.shootDirection.x, this.shootDirection.y, this.shootDirection.z);
                 danmaku.setLocationAndAngles(this.x,this.y,this.z,
                         (float) this.yaw, (float) this.pitch);
 

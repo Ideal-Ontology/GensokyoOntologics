@@ -5,6 +5,9 @@ import github.thelawf.gensokyoontology.common.block.HotSpringBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -19,6 +22,8 @@ public class HotSpringHealEvent{
             if (blockState.getBlockState().getBlock() instanceof HotSpringBlock &&
             !(event.getEntityLiving() instanceof IMob)) {
                 event.getEntityLiving().heal(1.2F);
+                // event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.BLINDNESS, 5 * 20));
+                // event.getEntityLiving().attackEntityFrom(DamageSource.OUT_OF_WORLD, 100.f);
             }
 
         }

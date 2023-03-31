@@ -56,16 +56,13 @@ import java.util.function.Predicate;
  *   地灵殿 - mansion_chireiten<p>
  *   旧地狱温泉<p>
  *   核聚变炉心<p>
- *   月球城市<p>
+ *   月球城市
  */
 public class GSKOBiomesProvider extends BiomeProvider {
-
 
     private final long seed;
 
     private List<Biome> biomes;
-
-    // todo: This layer has to be Final
     private final Layer layer;
     private final Registry<Biome> biomeRegistry;
 
@@ -96,6 +93,7 @@ public class GSKOBiomesProvider extends BiomeProvider {
                 .map(biomeRegistry::getOptional)
                 .filter(Optional::isPresent)
                 .map(b -> b::get));
+
         this.biomeRegistry = biomeRegistry;
         this.seed = seed;
         this.layer = GSKOLayerUtil.makeLayers(seed, biomeRegistry);

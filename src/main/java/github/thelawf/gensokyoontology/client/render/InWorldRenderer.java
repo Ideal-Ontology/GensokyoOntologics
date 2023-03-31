@@ -20,6 +20,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import org.apache.logging.log4j.LogManager;
@@ -47,12 +49,12 @@ public class InWorldRenderer {
      * 3. 每次迭代返回一对数据，分别为方块的坐标和欧拉角，以三维向量的形式存储，使用matrix矩阵变换至这些位置并渲染。<br>
      * @param event 渲染世界事件
      */
+    @OnlyIn(value = Dist.CLIENT)
     public static void renderBezierRail(RenderWorldLastEvent event) {
 
         ClientPlayerEntity player = Minecraft.getInstance().player;
         ItemStack stack = Objects.requireNonNull(player).getHeldItemMainhand();
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        LOGGER.info("World render update received!");
 
         BlockPos startPos = GSKONBTUtil.readPosFromStack(stack, "start_pos");
         BlockPos endPos = GSKONBTUtil.readPosFromStack(stack, "end_pos");

@@ -19,41 +19,83 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 public class DanmakuEntity extends ThrowableEntity implements IRendersAsItem{
 
-    public static final EntityType<DanmakuEntity> DANMAKU_TYPE = EntityType.Builder.<DanmakuEntity>create(
+    public static final EntityType<DanmakuEntity> DANMAKU_ENTITY = EntityType.Builder.<DanmakuEntity>create(
                     DanmakuEntity::new, EntityClassification.MISC).size(0.5F,0.5F).trackingRange(4)
             .updateInterval(2).build("danmaku_entity");
 
     public static final int MAX_LIVING_TICK = 125;
 
     public static final DataParameter<Float> DAMAGE = EntityDataManager.createKey(DanmakuEntity.class,DataSerializers.FLOAT);
+    private List<Vector3d> path;
+    private int pathIndex = 0;
+    private int pathTick = 0;
+    private DanmakuType type;
 
     public DanmakuEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
     public DanmakuEntity(LivingEntity throwerIn, World worldIn) {
-        super(DANMAKU_TYPE,throwerIn, worldIn);
+        super(DANMAKU_ENTITY,throwerIn, worldIn);
     }
 
-    @Override
-    protected void registerData() {
-
+    public DanmakuEntity(LivingEntity throwerIn, World world,  DanmakuType type, List<Vector3d> path) {
+        super(DANMAKU_ENTITY, throwerIn, world);
+        this.type = type;
+        this.path = path;
     }
 
     @Override
     public void tick() {
         super.tick();
+
+        if (this.world.isRemote) {
+            return;
+        }
+
         if (this.ticksExisted >= MAX_LIVING_TICK) {
             this.remove();
+            return;
         }
+
+        Vector3d currentPos = this.path.get(this.pathIndex);
+        Vector3d nextPos = this.path.get((this.pathIndex + 1) % this.path.size());
+
+        double deltaX = nextPos.x - currentPos.x;
+        double deltaY = nextPos.y - currentPos.y;
+        double deltaZ = nextPos.z - currentPos.z;
+
+        double speed = 0.5;
+
+        double motionX = deltaX / this.pathTick * speed;
+        double motionY = deltaY / this.pathTick * speed;
+        double motionZ = deltaZ / this.pathTick * speed;
+
+        this.setMotion(motionX, motionY, motionZ);
+
+        if (this.pathTick >= this.pathIndex) {
+            this.pathIndex = (this.pathIndex + 1) % this.path.size();
+            this.pathTick = 0;
+        } else {
+            this.pathTick++;
+        }
+
+        this.move(MoverType.SELF, this.getMotion());
+    }
+
+    @Override
+    protected void registerData() {
+
     }
 
     public void getStyleFromJson() {
@@ -106,9 +148,25 @@ public class DanmakuEntity extends ThrowableEntity implements IRendersAsItem{
         }
     }
 
-
     @Override
     public ItemStack getItem() {
         return new ItemStack(ItemRegistry.DANMAKU_TEST_ITEM.get());
+    }
+
+
+    public DanmakuEntity setPath(List<Vector3d> path) {
+        this.path = path;
+        return this;
+    }
+
+    public void setGravity(int gravity) {
+        if (gravity == 0) {
+            this.setNoGravity(true);
+        }
+    }
+
+    public DanmakuEntity setDanmakuType(DanmakuType type) {
+        this.type = type;
+        return this;
     }
 }

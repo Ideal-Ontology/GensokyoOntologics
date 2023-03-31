@@ -1,9 +1,7 @@
-package github.thelawf.gensokyoontology.common.item.spell_card;
+package github.thelawf.gensokyoontology.common.item.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.spellcard.ISpellCard;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,12 +11,12 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-
-public class NamiToTubuNoKyokai extends Item implements ISpellCard<DanmakuType> {
+@Deprecated
+public class NamiTotubuSCItem extends Item {
     // 传统艺能：境符「波与粒的境界」
     String spellName;
 
-    public NamiToTubuNoKyokai(Properties properties) {
+    public NamiTotubuSCItem(Properties properties) {
         super(properties);
     }
 
@@ -76,14 +74,4 @@ public class NamiToTubuNoKyokai extends Item implements ISpellCard<DanmakuType> 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
-
-    @Override
-    public String getSpellName() {
-        return spellName;
-    }
-
-    @Override
-    public String setSpellName(String nameIn) {
-        return nameIn;
-    }
 }

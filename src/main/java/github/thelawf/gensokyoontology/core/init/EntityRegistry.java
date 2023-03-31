@@ -23,7 +23,7 @@ public class EntityRegistry {
             */
 
     public static final RegistryObject<EntityType<DanmakuEntity>> DANMAKU_ENTITY = GSKO_ENTITIES.register(
-            "danmaku", () -> DanmakuEntity.DANMAKU_TYPE);
+            "danmaku", () -> DanmakuEntity.DANMAKU_ENTITY);
 
     public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
             "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);

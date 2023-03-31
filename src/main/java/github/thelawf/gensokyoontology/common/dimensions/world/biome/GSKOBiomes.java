@@ -1,8 +1,10 @@
 package github.thelawf.gensokyoontology.common.dimensions.world.biome;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.data.WorldgenDataConsumer;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.datafix.fixes.LWJGL3KeyOptions;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.*;
@@ -18,9 +20,16 @@ public class GSKOBiomes {
     public static final int GSKO_FOG_COLOR = 0xff24be;
     public static final int GSKO_SKY_COLOR = getSkyColor(0.76f);
 
+    public GSKOBiomes(WorldgenDataConsumer<Biome> worldgen) {
+        worldgen.register(MAGIC_FOREST_KEY, MAGIC_FOREST_BIOME);
+        worldgen.register(YATSUGATAKE_KEY, YATUGA_TAKE_BIOME);
+        worldgen.register(YOUKAI_MOUNTAIN_KEY, YOKAI_MOUNTAIN_BIOME);
+        // worldgen.register(GSKO_FOREST_KEY, )
+    }
+
     private static BiomeGenerationSettings.Builder makeDefaultBuilder()
     {
-        //抄原版用来装饰群系
+        //抄原版用来装饰群系(这句话来自模组 Ashihara，作者：遗失唐伞绘卷屋)
         BiomeGenerationSettings.Builder BiomegenerationSettings
                 = (new BiomeGenerationSettings.Builder()
                 .withSurfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
@@ -42,9 +51,9 @@ public class GSKOBiomes {
      * 主世界的八岳山，生成概率极低，可在此通过神隐的方式进入幻想乡
      */
     public static final Biome YATUGA_TAKE_BIOME = new Biome.Builder()
-            .depth(4.6f)
+            .depth(4.5f)
             .scale(2.5f)
-            .downfall(0.6f)
+            .downfall(0f)
             .temperature(0.35f)
             .category(Biome.Category.EXTREME_HILLS)
             .precipitation(Biome.RainType.SNOW)
@@ -91,10 +100,10 @@ public class GSKOBiomes {
     // TODO: subBiomes of Youkai Mountain: Youkai Mountain Foothill（妖怪树海）;
     //  Youkai Moutain Highland（伪天棚）; Wind Goddess Lake（风神之湖）
     public static final Biome YOKAI_MOUNTAIN_BIOME = new Biome.Builder()
-            .depth(5.8f)
-            .temperature(0.33f)
+            .depth(5.2f)
+            .temperature(0.35f)
             .scale(2.5f)
-            .downfall(0.2f)
+            .downfall(0f)
             .category(Biome.Category.EXTREME_HILLS)
             .precipitation(Biome.RainType.SNOW)
             .withMobSpawnSettings(MobSpawnInfo.EMPTY)
@@ -130,6 +139,7 @@ public class GSKOBiomes {
             .build()
             .setRegistryName(new ResourceLocation(GensokyoOntology.MODID, "magic_forest"));
 
+    public static final RegistryKey<Biome> YATSUGATAKE_KEY = key("mountain_yatsugatake");
     public static final RegistryKey<Biome> GSKO_WILDLAND_KEY = key("gensokyo_wild_land");
     public static final RegistryKey<Biome> GSKO_FOREST_KEY = key("gensokyo_wild_forest");
     public static final RegistryKey<Biome> HUMAN_VILLAGE_KEY = key("human_village");

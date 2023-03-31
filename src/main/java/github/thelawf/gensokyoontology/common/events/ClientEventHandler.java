@@ -16,7 +16,7 @@ public class ClientEventHandler {
     @SubscribeEvent
     public static void onClientSetUp(FMLClientSetupEvent event) {
         ItemRenderer itemRenderer = event.getMinecraftSupplier().get().getItemRenderer();
-        RenderingRegistry.registerEntityRenderingHandler(DanmakuEntity.DANMAKU_TYPE,
+        RenderingRegistry.registerEntityRenderingHandler(DanmakuEntity.DANMAKU_ENTITY,
                 (EntityRendererManager manager) -> new SpriteRenderer<>(manager, itemRenderer));
     }
 }

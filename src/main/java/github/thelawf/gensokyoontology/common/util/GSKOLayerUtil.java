@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.util;
 
+import github.thelawf.gensokyoontology.common.dimensions.layer.GenerateCommonLayer;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.IExtendedNoiseRandom;
@@ -8,6 +9,7 @@ import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.area.IAreaFactory;
 import net.minecraft.world.gen.area.LazyArea;
 import net.minecraft.world.gen.layer.Layer;
+import net.minecraft.world.gen.layer.ZoomLayer;
 
 import javax.annotation.Nonnull;
 import java.util.function.LongFunction;
@@ -27,8 +29,16 @@ public class GSKOLayerUtil extends Layer {
     }
 
 
+    // 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格
     private static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> buildBiomes(final LongFunction<C> seed, Registry<Biome> registry) {
-        return null;
+        IAreaFactory<T> biomes = GenerateCommonLayer.INSTANCE.setUp(registry).apply(seed.apply(1L));
+        biomes = ZoomLayer.NORMAL.apply(seed.apply(1000L), biomes);
+        biomes = ZoomLayer.NORMAL.apply(seed.apply(1001L), biomes);
+        biomes = ZoomLayer.NORMAL.apply(seed.apply(1002), biomes);
+        biomes = ZoomLayer.NORMAL.apply(seed.apply(1003), biomes);
+        biomes = ZoomLayer.NORMAL.apply(seed.apply(1004), biomes);
+
+        return biomes;
     }
 
     @Override

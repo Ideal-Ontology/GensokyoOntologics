@@ -1,0 +1,17 @@
+{
+  "depth": 0.19,
+  "scale": 4.3,
+  "downfall": 0.2,
+  "temperature": 0.6,
+  "category": "forest",
+  "temperature_modifier": "none",
+  "player_spawn_friendly": true,
+  "creature_spawn_probability": 0.4,
+  "precipitation": "rain",
+  "effects": {
+    "sky_color": 7907327,
+    "fog_color": 12248771,
+    "water_color": 5172447,
+    "water_fog_color": 270131
+  }
+}

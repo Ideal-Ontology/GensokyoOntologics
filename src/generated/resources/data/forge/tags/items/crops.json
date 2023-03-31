@@ -1,7 +1,6 @@
 {
   "replace": false,
   "values": [
-    "#forge:crops/onion",
-    "gensokyoontology:item/onion"
+    "#forge:crops"
   ]
 }

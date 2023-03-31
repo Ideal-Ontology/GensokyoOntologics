@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.common.dimensions;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomes;
-import github.thelawf.gensokyoontology.common.dimensions.world.biome.MagicForest;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -17,7 +16,7 @@ public class GSKOBiomeHandler {
 
     @SubscribeEvent
     public static void onRegister(RegistryEvent.Register<Biome> event) {
-        addBiome(event, BiomeManager.BiomeType.WARM, "mountain_yatsugatake", 15, GSKOBiomes.MAGIC_FOREST_BIOME);
+        addBiome(event, BiomeManager.BiomeType.WARM, "magic_forest", 15, GSKOBiomes.MAGIC_FOREST_BIOME);
     }
 
     public static void addBiome(RegistryEvent.Register<Biome> event, BiomeManager.BiomeType type,

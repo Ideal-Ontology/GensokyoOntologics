@@ -28,8 +28,8 @@ public class ConnectionUtil {
      */
     @Deprecated
     public static boolean tryConnect(BlockState startState, BlockState endState, BlockPos startPos, BlockPos endPos){
-        if (startState.getBlock() instanceof RailTrackBlock &&
-                endState.getBlock() instanceof RailTrackBlock) {
+        if (startState.getBlock() instanceof RailTrackBlock) {
+            endState.getBlock();
         }
         return false;
     }

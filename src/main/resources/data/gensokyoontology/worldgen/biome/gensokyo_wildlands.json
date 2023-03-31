@@ -1,12 +1,14 @@
 {
-  "depth": 3,
-  "scale": 3,
-  "precipitation": "rain",
+  "depth": 1.3,
+  "scale": 2.5,
+  "downfall": 0,
+  "temperature": 0.48,
   "category": "plains",
-  "temperature": 21,
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
   "creature_spawn_probability": 0.4,
+  "precipitation": "rain",
+  "forge:registry_name": "gensokyoontology:gensokyo_wildlands",
   "effects": {
     "sky_color": 255,
     "fog_color": 255,
@@ -23,71 +25,13 @@
           "BlockStatesNameIn": "BlockStatesValues"
         }
       },
-      "ambient_sound": "none",
-      "mood_sound": {
-        "sound": "none",
-        "tick_delay": 11451,
-        "block_search_extent": 1000,
-        "offset": 0
-      },
-      "additions_sound": {
-        "sound": "none",
-        "tick_chance": 0.006
-      },
-      "music": {
-        "sound": "none",
-        "min_delay": 100,
-        "max_delay": 10000,
-        "replace_current_music": false
-      }
+      "ambient_sound": "none"
     },
-    "surface_builder": "gsko_default_surface.json",
-    "carvers": {
-      "air": [
-        "gsko_air_carver.json"
-      ],
-      "liquid": [
-        "gsko_fluid_carver.json"
-      ]
-    },
-    "features": [
-      [
-        "RAW_GENERATION"
-      ],
-      [
-        "misty_lake.json"
-      ],
-      [
-        "stone_forest.json"
-      ],
-      [
-        "chireiten.json"
-      ],
-      [
-        "hakurei_shrine.json"
-      ],
-      [
-        "STRONGHOLDS"
-      ],
-      [
-        "inyoutama_ore.json"
-      ],
-      [
-        "UNDERGROUND_DECORATION"
-      ],
-      [
-        "magic_trees.json",
-        "sakura_trees.json"
-      ],
-      [
-        "TOP_LAYER_MODIFICATION"
-      ]
-    ],
     "starts": [
       "structure_hakurei_shrine.nbt"
     ],
     "spawners": {
-      "type": [
+      "monster": [
         {
           "type": "gensokyoontology:entity/hakurei_reimu",
           "weight": 6,

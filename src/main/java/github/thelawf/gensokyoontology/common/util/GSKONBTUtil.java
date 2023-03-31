@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.util;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
@@ -43,8 +44,35 @@ public class GSKONBTUtil {
         return BlockPos.ZERO;
     }
 
-    public static Object readDataFromStack(ItemStack stack, String nbtKey) {
-        return null;
+    public static CompoundNBT removeAllChildNBT (CompoundNBT nbt) {
+        if (nbt != null) {
+            for (String key : nbt.keySet()) {
+                nbt.remove(key);
+            }
+        }
+        return nbt;
+    }
+
+    public static CompoundNBT removeAllChildNBT(ItemStack stack, CompoundNBT nbt){
+        if (stack.getTag() == nbt && nbt != null) {
+            for (String key : nbt.keySet()) {
+                nbt.remove(key);
+                stack.setTag(nbt);
+            }
+            return nbt;
+        }
+        return new CompoundNBT();
+    }
+
+    public static ItemStack removeAllChildNBTFromStack(ItemStack stack, CompoundNBT nbt) {
+        if (stack.getTag() == nbt && nbt != null) {
+            for (String key : nbt.keySet()) {
+                nbt.remove(key);
+                stack.setTag(nbt);
+            }
+            return stack;
+        }
+        return new ItemStack(stack.getItem());
     }
 
     public static Vector3d blockPosToVec(BlockPos blockPos) {

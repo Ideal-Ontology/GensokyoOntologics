@@ -24,14 +24,13 @@ public class RailNodeRenderer extends TileEntityRenderer {
 
     @Override
     public void render(TileEntity tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        GeneralPath path = new GeneralPath();
 
         // 判断轨道是否连接
         matrixStackIn.push();
         BlockRendererDispatcher blockRen = Minecraft.getInstance().getBlockRendererDispatcher();
         BlockState state = BlockRegistry.RAIL_NODE_BLOCK.get().getDefaultState();
         blockRen.renderBlock(state, matrixStackIn, bufferIn, combinedLightIn, combinedOverlayIn, EmptyModelData.INSTANCE);
-
+        matrixStackIn.pop();
     }
 
 }

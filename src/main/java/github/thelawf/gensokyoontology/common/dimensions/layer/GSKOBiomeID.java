@@ -6,6 +6,9 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.layer.Layer;
 
+/**
+ * Copy from Tropicraft
+ */
 public class GSKOBiomeID {
     public final int gskoForest;
     public final int humanVillage;

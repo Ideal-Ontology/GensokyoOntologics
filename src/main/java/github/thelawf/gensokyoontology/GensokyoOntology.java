@@ -1,14 +1,14 @@
 package github.thelawf.gensokyoontology;
 
 import github.thelawf.gensokyoontology.common.CommonSetUp;
-import github.thelawf.gensokyoontology.common.data.GSKORecipeHandler;
-import github.thelawf.gensokyoontology.common.dimensions.GSKODimensions;
-import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomesProvider;
+import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
+import github.thelawf.gensokyoontology.data.GSKOWorldgenProvider;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -17,7 +17,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -38,6 +37,7 @@ public class GensokyoOntology {
         IEventBus modEvent = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEvent.addListener(CommonSetUp::init);
+        // modEvent.addListener(GensokyoOntology::gatherWorldgenData);
 
         MinecraftForge.EVENT_BUS.register(this);
         ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
@@ -57,14 +57,6 @@ public class GensokyoOntology {
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // register a new block here
             LOGGER.info("HELLO from Register Block");
-        }
-    }
-
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class DataGenEvent {
-        @SubscribeEvent
-        public static void dataGen(GatherDataEvent event) {
-            event.getGenerator().addProvider(new GSKORecipeHandler(event.getGenerator()));
         }
     }
 
@@ -89,12 +81,11 @@ public class GensokyoOntology {
         }
     }
 
-    @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class WorldGenRegistryEvents{
-        @SubscribeEvent
-        public static void registerBiomes(RegistryEvent.Register<Biome> event) {
-            // GSKODimensions.register();
-        }
+    public static void gatherWorldgenData(DataGenerator gen) {
+        gen.addProvider(new GSKOWorldgenProvider(gen, generator -> {
+            // generator.addBiomes(consumer -> new GSKOBiomes)
+        }));
     }
+
 
 }

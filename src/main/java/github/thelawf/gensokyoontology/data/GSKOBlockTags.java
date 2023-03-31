@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.data;
+package github.thelawf.gensokyoontology.data;
 
 import github.thelawf.gensokyoontology.common.nbt.ForgeTags;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
