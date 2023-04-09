@@ -8,12 +8,14 @@
   "player_spawn_friendly": true,
   "creature_spawn_probability": 0.8,
   "precipitation": "snow",
+  "surface_builder": "minecraft:grass",
   "effects": {
     "sky_color": 7907327,
     "fog_color": 12248771,
     "water_color": 5172447,
     "water_fog_color": 270131
   },
+  "spawn_costs": {},
   "features": [],
   "carvers": {
 

@@ -1,17 +1,23 @@
 {
   "depth": 0.07,
   "scale": 2.8,
-  "downfall": 0,
+  "downfall": 0.1,
   "temperature": 0.4,
   "category": "forest",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
   "creature_spawn_probability": 0.48,
   "precipitation": "rain",
+  "surface_builder": "minecraft:grass",
   "effects": {
     "sky_color": 7907327,
     "fog_color": 12248771,
     "water_color": 5172447,
     "water_fog_color": 270131
-  }
+  },
+  "starts": [],
+  "spawners": {},
+  "spawn_costs": {},
+  "carvers": {},
+  "features": []
 }

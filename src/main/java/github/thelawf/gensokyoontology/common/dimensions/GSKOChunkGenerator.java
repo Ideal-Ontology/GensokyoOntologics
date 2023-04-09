@@ -17,16 +17,26 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
+import net.minecraft.world.biome.provider.OverworldBiomeProvider;
+import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.gen.settings.NoiseSettings;
+import net.minecraft.world.gen.settings.ScalingSettings;
+import net.minecraft.world.gen.settings.SlideSettings;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Optional;
 
+/**
+ * {@link ChunkGenerator} 里面的 func_230352_b()方法是主要的散布维度的方法
+ */
 public class GSKOChunkGenerator extends ChunkGenerator {
 
     public static final Logger LOGGER = LogManager.getLogger();
@@ -37,7 +47,7 @@ public class GSKOChunkGenerator extends ChunkGenerator {
         super(provider, new DimensionStructuresSettings(false));
         this.seed = seed;
         this.settings = settings;
-        LOGGER.info("New dimension registered");
+        LOGGER.info("Gensokyo Chunk Generator Registered");
     }
 
     public static final Codec<Settings> SETTINGS_CODEC = RecordCodecBuilder.create(instance ->
@@ -47,7 +57,6 @@ public class GSKOChunkGenerator extends ChunkGenerator {
                 Codec.FLOAT.fieldOf("horizontalvariance").forGetter(Settings::getHorizontalVariance)
         ).apply(instance, Settings::new));
 
-    // TODO: Add biome_source and seed fields to gensokyo.json to add custom biomes
     public static final Codec<GSKOChunkGenerator> CHUNK_GEN_CODEC = RecordCodecBuilder.create(instance ->
             instance.group(
                     BiomeProvider.CODEC.fieldOf("biome_source").forGetter(chunkGenerator -> chunkGenerator.biomeProvider),
@@ -70,9 +79,8 @@ public class GSKOChunkGenerator extends ChunkGenerator {
     }
 
     @Override
-    @Nonnull
-    public ChunkGenerator func_230349_a_(long seed) {
-        return new GSKOChunkGenerator(this.biomeProvider.getBiomeProvider(seed), seed, settings);
+    public ChunkGenerator func_230349_a_(long p_230349_1_) {
+        return new GSKOChunkGenerator(this.biomeProvider.getBiomeProvider(p_230349_1_), p_230349_1_, this.settings);
     }
 
     @Override
@@ -94,6 +102,11 @@ public class GSKOChunkGenerator extends ChunkGenerator {
             }
         }
 
+        for (x = 0; x < 16; x++) {
+            for (z = 0; z < 16; z++) {
+                chunk.setBlockState(positions.add(x, 64, z), bedrock, true);
+            }
+        }
         long seed = region.getWorld().getSeed();
 
         // 再使用噪声生成器生成地表的草方块和地下的石头

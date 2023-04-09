@@ -45,20 +45,27 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
     }
 
     private static final List<RegistryKey<Biome>> commonBiomes = ImmutableList.of(
-            GSKOBiomes.GSKO_WILDLAND_KEY,
-            GSKOBiomes.GSKO_FOREST_KEY,
+            GSKOBiomes.GSKO_PLAINS_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
-            GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
-            GSKOBiomes.HUMAN_VILLAGE_KEY,
-            GSKOBiomes.BAMBOO_FOREST_OF_LOST_KEY
+            GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
+            GSKOBiomes.YOUKAI_MOUNTAIN_KEY
     );
 
     @Override
     public int apply(INoiseRandom random, int x, int y) {
-        return getCommonBiomeID(random, commonBiomes);
+        double d = random.random(10);
+        if (x == 0 && y == 0) {
+            return getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY);
+        }
+        return getCommonBiomeID(random);
     }
 
-    private int getCommonBiomeID(INoiseRandom random, List<RegistryKey<Biome>> biomes) {
-        return GSKOBiomesProvider.getBiomeID(biomes.get(random.random(biomes.size())), registry);
+    private int getCommonBiomeID(INoiseRandom random) {
+        return getId(registry, GenerateCommonLayer.commonBiomes.get(
+                random.random(GenerateCommonLayer.commonBiomes.size())));
+    }
+
+    private static int getId(Registry<Biome> biomes, RegistryKey<Biome> key) {
+        return biomes.getId(biomes.getValueForKey(key));
     }
 }

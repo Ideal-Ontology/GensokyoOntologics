@@ -14,7 +14,7 @@ public class LineSegment3D extends LineSegment{
         this.y2 = y2;
         this.z1 = z1;
         this.z2 = z2;
-        this.length = MathUtil.distanceOf3D(this.x1, this.y1, this.z1,
+        this.length = GSKOMathUtil.distanceOf3D(this.x1, this.y1, this.z1,
                 this.x2, this.y2, this.z2);
     }
 }

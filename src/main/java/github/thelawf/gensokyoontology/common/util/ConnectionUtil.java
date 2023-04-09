@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.common.util;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.block.RailTrackBlock;
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathUtil;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
@@ -38,7 +38,7 @@ public class ConnectionUtil {
         if (startPos.getY() == endPos.getY()) {
             return true;
         }
-        else if (MathUtil.distanceOf3D(
+        else if (GSKOMathUtil.distanceOf3D(
                 startPos.getX(), startPos.getY(), startPos.getZ(),
                 endPos.getX(), endPos.getY(), endPos.getZ()) == 0) {
             return false;
@@ -60,7 +60,7 @@ public class ConnectionUtil {
             return 0;
         }
         else {
-           return (int) (MathUtil.distanceOf3D(
+           return (int) (GSKOMathUtil.distanceOf3D(
                    startPosIn.getX(), startPosIn.getY(), startPosIn.getZ(),
                    endPosIn.getX(), endPosIn.getY(), endPosIn.getZ()) / 3);
         }
@@ -80,7 +80,7 @@ public class ConnectionUtil {
      * @return 方块位置(x, y, z)和三维向量(roll, yaw, pitch)的一对儿
      */
     public static Pair<Vector3d, Vector3d> getPosAndRot(Vector3d startPos, Vector3d intersection, Vector3d endPos, float time) {
-        Vector3d segPos = MathUtil.bezier2(startPos, intersection, endPos, time);
+        Vector3d segPos = GSKOMathUtil.bezier2(startPos, intersection, endPos, time);
         return new Pair<>(segPos, new Vector3d(1,1,1));
     }
 

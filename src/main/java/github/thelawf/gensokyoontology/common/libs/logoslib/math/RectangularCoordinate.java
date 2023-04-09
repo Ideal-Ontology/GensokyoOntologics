@@ -43,12 +43,12 @@ public class RectangularCoordinate {
     }
 
     public DirectionUtil directionOf(RectangularCoordinate center) {
-        double distance = MathUtil.distanceOf2D(this.x, this.z, center.x, center.z);
+        double distance = GSKOMathUtil.distanceOf2D(this.x, this.z, center.x, center.z);
         return null;
     }
 
     public double distanceOf(RectangularCoordinate coordinate) {
-        return MathUtil.distanceOf3D(this.x, this.y, this.z, coordinate.x, coordinate.y, coordinate.z);
+        return GSKOMathUtil.distanceOf3D(this.x, this.y, this.z, coordinate.x, coordinate.y, coordinate.z);
     }
 
     public enum DirectionUtil {

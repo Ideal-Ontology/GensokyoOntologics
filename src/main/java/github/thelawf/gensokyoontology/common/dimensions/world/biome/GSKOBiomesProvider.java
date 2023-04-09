@@ -61,8 +61,6 @@ import java.util.function.Predicate;
 public class GSKOBiomesProvider extends BiomeProvider {
 
     private final long seed;
-
-    private List<Biome> biomes;
     private final Layer layer;
     private final Registry<Biome> biomeRegistry;
 
@@ -75,25 +73,17 @@ public class GSKOBiomesProvider extends BiomeProvider {
             .apply(instance, instance.stable(GSKOBiomesProvider::new)));
 
     private static final List<RegistryKey<Biome>> GSKO_BIOMES = ImmutableList.of(
-            GSKOBiomes.GSKO_WILDLAND_KEY,
+            GSKOBiomes.GSKO_PLAINS_KEY,
             GSKOBiomes.GSKO_FOREST_KEY,
-            GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
-            GSKOBiomes.SUNFLOWER_GARDEN_KEY,
-            GSKOBiomes.BAMBOO_FOREST_OF_LOST_KEY,
-            GSKOBiomes.FORMER_HELL_KEY,
-            GSKOBiomes.HIGAN_BIOME_KEY,
-            GSKOBiomes.SANZU_RIVER_KEY,
-            GSKOBiomes.DREAM_WORLD_KEY
+            GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
+            GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
+            GSKOBiomes.SUNFLOWER_GARDEN_KEY
     );
 
     public GSKOBiomesProvider(long seed, Registry<Biome> biomeRegistry) {
-        super(GSKO_BIOMES.stream()
-                .map(RegistryKey::getLocation)
-                .map(biomeRegistry::getOptional)
-                .filter(Optional::isPresent)
-                .map(b -> b::get));
-
+        super(GSKO_BIOMES.stream().map(key -> () -> biomeRegistry.getOrThrow(key)));
+        // super(GSKO_BIOMES.stream().map(biomeRegistry::getValueForKey).filter(Objects::nonNull).map(biome -> () -> biome));
         this.biomeRegistry = biomeRegistry;
         this.seed = seed;
         this.layer = GSKOLayerUtil.makeLayers(seed, biomeRegistry);
@@ -102,6 +92,7 @@ public class GSKOBiomesProvider extends BiomeProvider {
     public Registry<Biome> getBiomeRegistry() {
         return biomeRegistry;
     }
+
 
     @Override
     protected Codec<? extends BiomeProvider> getBiomeProviderCodec() {
@@ -115,7 +106,7 @@ public class GSKOBiomesProvider extends BiomeProvider {
 
     @Override
     public Biome getNoiseBiome(int x, int y, int z) {
-        return layer.func_242936_a(biomeRegistry, x, z);
+        return this.layer.func_242936_a(biomeRegistry, x, z);
     }
 
     @Override

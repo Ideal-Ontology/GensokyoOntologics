@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.dimensions.layer;
 
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathUtil;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 
 import java.util.Random;
 
@@ -23,7 +23,7 @@ public class SimpleNoise {
 
     public static int getSmoothY(int x, int z, int height, int diff) {
         return (int) Math.sqrt(
-                MathUtil.pow2((double) x / (x + diff)) +
-                MathUtil.pow2((double)z / (z + diff))) * height;
+                GSKOMathUtil.pow2((double) x / (x + diff)) +
+                GSKOMathUtil.pow2((double)z / (z + diff))) * height;
     }
 }

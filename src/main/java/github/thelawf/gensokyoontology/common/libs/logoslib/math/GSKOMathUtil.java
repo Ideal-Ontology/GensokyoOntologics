@@ -4,18 +4,21 @@ package github.thelawf.gensokyoontology.common.libs.logoslib.math;
 import github.thelawf.gensokyoontology.common.libs.logoslib.annotations.Degree;
 import github.thelawf.gensokyoontology.common.libs.logoslib.annotations.GlobalCoordinate;
 import github.thelawf.gensokyoontology.common.libs.logoslib.annotations.Radian;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
 
 import java.awt.*;
-import java.math.MathContext;
 import java.util.ArrayList;
 
 import static net.minecraft.util.math.MathHelper.lerp;
 
-public class MathUtil {
+public class GSKOMathUtil {
 
-    private MathUtil() {}
+    private GSKOMathUtil() {}
 
     /**
      * 这里的Point类是java.awt里面的类
@@ -342,7 +345,7 @@ public class MathUtil {
      * @return 返回球坐标系对象
      */
     public static SphericalCoordinate toSphereCoordinate(RectangularCoordinate rc) {
-        double r = MathUtil.toModulus3D(rc.x, rc.y, rc.z);
+        double r = GSKOMathUtil.toModulus3D(rc.x, rc.y, rc.z);
         return new SphericalCoordinate(r, Math.acos(rc.y / r), Math.atan(rc.z / rc.x));
     }
 
@@ -447,5 +450,62 @@ public class MathUtil {
 
     public static double cube(double base) {
         return base * base * base;
+    }
+
+    /** Generate this code field by ChatGPT
+     * @param world 世界
+     * @param block 将要被放置的方块
+     * @param start 起始点
+     * @param end 终点
+     */
+    public static void generateBlockOnBezierCurve(World world, Block block, BlockPos start, BlockPos end) {
+        // 获取起点和终点之间的距离
+        double dist = start.distanceSq(end);
+
+        // 计算中点和控制点的坐标
+        double mx = (start.getX() + end.getX()) / 2.0;
+        double my = (start.getY() + end.getY()) / 2.0 + (dist / 16.0);
+        double mz = (start.getZ() + end.getZ()) / 2.0;
+        double cx = (start.getX() + end.getX() + my - start.getY()) / 2.0;
+        double cz = (start.getZ() + end.getZ() + my - start.getY()) / 2.0;
+
+        // 获取贝塞尔曲线上的坐标，并在每个坐标处放置草方块
+        int numPoints = (int) Math.sqrt(dist) * 2;
+        for (int i = 0; i <= numPoints; i++) {
+            double t = (double) i / (double) numPoints;
+            double x = Math.pow(1 - t, 2) * start.getX() + 2 * (1 - t) * t * cx + Math.pow(t, 2) * end.getX();
+            double y = Math.pow(1 - t, 2) * start.getY() + 2 * (1 - t) * t * my + Math.pow(t, 2) * end.getY();
+            double z = Math.pow(1 - t, 2) * start.getZ() + 2 * (1 - t) * t * cz + Math.pow(t, 2) * end.getZ();
+
+            BlockPos pos = new BlockPos(x, y, z);
+            if (world.getBlockState(pos).getBlock() == Blocks.AIR) {
+                world.setBlockState(pos, block.getDefaultState());
+            }
+        }
+    }
+
+    public static ArrayList<Vector3d> generateBlockOnBezierCurve(BlockPos start, BlockPos end) {
+        // 获取起点和终点之间的距离
+        double dist = start.distanceSq(end);
+        ArrayList<Vector3d> vecList = new ArrayList<>();
+
+        // 计算中点和控制点的坐标
+        double mx = (start.getX() + end.getX()) / 2.0;
+        double my = (start.getY() + end.getY()) / 2.0 + (dist / 16.0);
+        double mz = (start.getZ() + end.getZ()) / 2.0;
+        double cx = (start.getX() + end.getX() + my - start.getY()) / 2.0;
+        double cz = (start.getZ() + end.getZ() + my - start.getY()) / 2.0;
+
+        // 获取贝塞尔曲线上的坐标，并在每个坐标处放置草方块
+        int numPoints = (int) Math.sqrt(dist) * 2;
+        for (int i = 0; i <= numPoints; i++) {
+            double t = (double) i / (double) numPoints;
+            double x = Math.pow(1 - t, 2) * start.getX() + 2 * (1 - t) * t * cx + Math.pow(t, 2) * end.getX();
+            double y = Math.pow(1 - t, 2) * start.getY() + 2 * (1 - t) * t * my + Math.pow(t, 2) * end.getY();
+            double z = Math.pow(1 - t, 2) * start.getZ() + 2 * (1 - t) * t * cz + Math.pow(t, 2) * end.getZ();
+
+            vecList.add(new Vector3d(x, y, z));
+        }
+        return vecList;
     }
 }

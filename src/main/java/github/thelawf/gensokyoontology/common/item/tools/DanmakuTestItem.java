@@ -79,17 +79,17 @@ public class DanmakuTestItem extends ShootableItem{
              所以需要在 for循环内部实例化弹幕实体
             */
 
-        func.lifeSpan--;
-        // func.increment += Math.PI / 100;
-        DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
-        Vector3d shootPos = func.getInitRotation().rotateYaw((float)
-                (func.increment));
-        danmaku.setNoGravity(true);
-
-        danmaku.setLocationAndAngles(func.initLocation.x, func.initLocation.y, func.initLocation.z,
-                (float) func.yaw, (float) func.pitch);
-        danmaku.shoot(shootPos.x,0, shootPos.z, 0.3f, 0);
-        worldIn.addEntity(danmaku);
+        // func.lifeSpan--;
+        // // func.increment += Math.PI / 100;
+        // DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
+        // Vector3d shootPos = func.getInitRotation().rotateYaw((float)
+        //         (func.increment));
+        // danmaku.setNoGravity(true);
+//
+        // danmaku.setLocationAndAngles(func.initLocation.x, func.initLocation.y, func.initLocation.z,
+        //         (float) func.yaw, (float) func.pitch);
+        // danmaku.shoot(shootPos.x,0, shootPos.z, 0.3f, 0);
+        // worldIn.addEntity(danmaku);
 
     }
 

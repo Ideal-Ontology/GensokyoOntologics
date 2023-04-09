@@ -2,10 +2,8 @@ package github.thelawf.gensokyoontology.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.LineSegment;
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.LineSegment3D;
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.MathUtil;
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.RectangularCoordinate;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.ConnectionUtil;
 import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
@@ -14,12 +12,10 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.BlockRendererDispatcher;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3i;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
@@ -27,7 +23,6 @@ import net.minecraftforge.client.model.data.EmptyModelData;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Map;
 import java.util.Objects;
 
 public class InWorldRenderer {
@@ -39,7 +34,7 @@ public class InWorldRenderer {
      * 而这两个标签只有在玩家按合法顺序点击轨道方块的时候才能被添加至RailWrench.<br>
      * <br>
      * Possible Error:<br>
-     * 1. MathUtil.bezier2()<br>
+     * 1. GSKOMathUtil.bezier2()<br>
      * 2. Rotation is not considered yet<br>
      * 3. new Quaternion()<br>
      * <br>
@@ -74,7 +69,7 @@ public class InWorldRenderer {
                 startPos.getX() + 1, startPos.getY() + 1, startPos.getZ() + 1);
         LineSegment3D lineB = new LineSegment3D(endPos.getX(), endPos.getY(), endPos.getZ(),
                 endPos.getX() + 1, endPos.getY() + 1, endPos.getZ() + 1);
-        Vector3d intersection = MathUtil.intersection3D(lineA, lineB).toVector3D();
+        Vector3d intersection = GSKOMathUtil.intersection3D(lineA, lineB).toVector3D();
 
         for (int i = 0; i < 1 / count; i ++) {
             Pair<Vector3d, Vector3d> pose = ConnectionUtil.getPosAndRot(startVec, intersection, endVec, i);

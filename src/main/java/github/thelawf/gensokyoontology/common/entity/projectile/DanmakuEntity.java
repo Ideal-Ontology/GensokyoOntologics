@@ -90,7 +90,7 @@ public class DanmakuEntity extends ThrowableEntity implements IRendersAsItem{
             this.pathTick++;
         }
 
-        this.move(MoverType.SELF, this.getMotion());
+        this.move(MoverType.SELF, this.getPositionVec());
     }
 
     @Override

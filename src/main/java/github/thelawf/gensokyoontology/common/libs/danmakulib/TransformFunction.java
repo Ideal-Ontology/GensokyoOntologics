@@ -101,7 +101,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
         this.x = posX;
         this.y = posY;
         this.z = posZ;
-        this.resultantSpeed = MathUtil.toModulus3D(posX, posY, posZ);
+        this.resultantSpeed = GSKOMathUtil.toModulus3D(posX, posY, posZ);
     }
     /**
      * 使用for循环配合Entity.setLocationAndAngles()方法循环生成弹幕，循环次数为此函数生成的弹幕总量，使用形参 lifeSpan / shootInterval * executeTimes 来获得本函数生成的弹幕总量。
@@ -226,7 +226,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
     public TransformFunction setSpeedV3(Vector3d speedV3) {
         this.speedV3 = speedV3;
-        this.resultantSpeed = Math.min(MathUtil.toModulus3D(
+        this.resultantSpeed = Math.min(GSKOMathUtil.toModulus3D(
                 speedV3.x, speedV3.y, speedV3.z), maxResultantSpeed);
         return this;
     }
@@ -321,7 +321,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
     }
 
     public Vector3d rotate(Vector3d prevPos, Vector3d pivotLocation, Vector3d rotationV3) {
-        double radius = MathUtil.distanceOf3D(prevPos.x, prevPos.y, prevPos.z,
+        double radius = GSKOMathUtil.distanceOf3D(prevPos.x, prevPos.y, prevPos.z,
                 pivotLocation.x, pivotLocation.y, pivotLocation.z);
         double incrementX = 0;
         double incrementY = 0;
@@ -329,19 +329,19 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
         if (rotationV3.x != 0) {
             LineSegment hypotenuse = new LineSegment3D(pivotLocation.x, pivotLocation.y,0d, prevPos.x, prevPos.y,0d);
-            RectangularCoordinate rc = MathUtil.toRollCoordinate(hypotenuse.getLength(), rotationV3.x);
+            RectangularCoordinate rc = GSKOMathUtil.toRollCoordinate(hypotenuse.getLength(), rotationV3.x);
             incrementX = rc.x;
             incrementY = rc.y;
         }
         if (rotationV3.y != 0) {
             LineSegment hypotenuse = new LineSegment3D(pivotLocation.x,0d , pivotLocation.z, prevPos.x, 0d, prevPos.z);
-            RectangularCoordinate rc = MathUtil.toYawCoordinate(hypotenuse.getLength(), rotationV3.y);
+            RectangularCoordinate rc = GSKOMathUtil.toYawCoordinate(hypotenuse.getLength(), rotationV3.y);
             incrementX = rc.x;;
             incrementZ = rc.z;
         }
         if (rotationV3.z != 0) {
             LineSegment hypotenuse = new LineSegment3D(0d, pivotLocation.y , pivotLocation.z, 0d, prevPos.y, prevPos.z);
-            RectangularCoordinate rc = MathUtil.toPitchCoordinate(hypotenuse.getLength(), rotationV3.z);
+            RectangularCoordinate rc = GSKOMathUtil.toPitchCoordinate(hypotenuse.getLength(), rotationV3.z);
             incrementY = rc.y;
             incrementZ = rc.z;
         }
@@ -426,7 +426,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
         if (worldIn.isRemote) {
             for (int i = 0; i < this.lifeSpan / shootInterval; i++) {
 
-                this.resultantSpeed += MathUtil.toModulus3D(this.shootDirection.x, this.shootDirection.y, this.shootDirection.z);
+                this.resultantSpeed += GSKOMathUtil.toModulus3D(this.shootDirection.x, this.shootDirection.y, this.shootDirection.z);
                 danmaku.setLocationAndAngles(this.x,this.y,this.z,
                         (float) this.yaw, (float) this.pitch);
 

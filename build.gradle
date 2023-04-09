@@ -26,7 +26,6 @@ mixin {
     add sourceSets.main, "patchouli.refmap.json"
 }
 
-
 allprojects {
     repositories {
         maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }

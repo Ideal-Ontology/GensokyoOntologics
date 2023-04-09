@@ -54,9 +54,10 @@ public class SC_WaveAndParticle extends SpellCardItem {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        for (int i = 0; i < 2000; i++) {
+        for (int i = 0; i < 100; i++) {
             start(playerIn);
         }
+
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }

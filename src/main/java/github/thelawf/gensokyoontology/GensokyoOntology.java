@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.data.GSKOWorldgenProvider;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.command.impl.LocateBiomeCommand;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.api.distmarker.Dist;
@@ -17,6 +18,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,6 +39,7 @@ public class GensokyoOntology {
         IEventBus modEvent = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEvent.addListener(CommonSetUp::init);
+        modEvent.addListener(this::gatherData);
         // modEvent.addListener(GensokyoOntology::gatherWorldgenData);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -57,6 +60,16 @@ public class GensokyoOntology {
         public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
             // register a new block here
             LOGGER.info("HELLO from Register Block");
+        }
+
+        @SubscribeEvent
+        public static void onBiomeRegistry(final RegistryEvent.Register<Biome> event) {
+            event.getRegistry().registerAll(
+                    // GSKOBiomes.MAGIC_FOREST_BIOME,
+                    // GSKOBiomes.YOUKAI_MOUNTAIN_BIOME,
+                    // GSKOBiomes.GSKO_WILDLAND_BIOME,
+                    // GSKOBiomes.BAMBOO_FOREST_LOST_BIOME
+            );
         }
     }
 
@@ -81,9 +94,13 @@ public class GensokyoOntology {
         }
     }
 
+    private void gatherData(GatherDataEvent event) {
+        gatherWorldgenData(event.getGenerator());
+    }
+
     public static void gatherWorldgenData(DataGenerator gen) {
         gen.addProvider(new GSKOWorldgenProvider(gen, generator -> {
-            // generator.addBiomes(consumer -> new GSKOBiomes)
+            // generator.addBiomes(GSKOBiomes::new);
         }));
     }
 
