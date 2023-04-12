@@ -10,22 +10,17 @@ import net.minecraft.block.Blocks;
 import net.minecraft.command.impl.SeedCommand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.Blockreader;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
-import net.minecraft.world.biome.provider.OverworldBiomeProvider;
-import net.minecraft.world.chunk.ChunkPrimer;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
-import net.minecraft.world.gen.settings.NoiseSettings;
-import net.minecraft.world.gen.settings.ScalingSettings;
-import net.minecraft.world.gen.settings.SlideSettings;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
@@ -84,7 +79,6 @@ public class GSKOChunkGenerator extends ChunkGenerator {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public void generateSurface(@NotNull WorldGenRegion region, @NotNull IChunk chunk) {
         BlockState grassBlock = Blocks.GRASS_BLOCK.getDefaultState();
         BlockState stone = Blocks.STONE.getDefaultState();
@@ -104,22 +98,23 @@ public class GSKOChunkGenerator extends ChunkGenerator {
 
         for (x = 0; x < 16; x++) {
             for (z = 0; z < 16; z++) {
-                chunk.setBlockState(positions.add(x, 64, z), bedrock, true);
+                chunk.setBlockState(positions.add(x, 64, z), grassBlock, true);
             }
         }
         long seed = region.getWorld().getSeed();
+        LOGGER.info(chunkPos.x + ", " + chunkPos.z);
 
         // 再使用噪声生成器生成地表的草方块和地下的石头
         for (x = 0; x < 16; x++) {
             for (z = 0; z < 16; z++) {
                 int globalX = chunkPos.x * 16 + x;
                 int globalZ = chunkPos.z * 16 + z;
-                chunk.setBlockState(positions.add(globalX,
-                        SimpleNoise.getNoiseHeight(seed, globalX, globalZ, 16, 55),
+                chunk.setBlockState(positions.add(globalX, SimpleNoise.getNoiseHeight(
+                        seed, new BlockPos(globalX, 0, globalZ), 64, 60),
+                        globalZ), grassBlock, false);
+                chunk.setBlockState(positions.add(globalX, SimpleNoise.getNoiseHeight(
+                                seed, new BlockPos(globalX, 0, globalZ), 64, 55),
                         globalZ), stone, false);
-                chunk.setBlockState(positions.add(globalX,
-                                SimpleNoise.getNoiseHeight(seed, globalX, globalZ, 16, 60), globalZ),
-                        grassBlock, false);
 
             }
         }

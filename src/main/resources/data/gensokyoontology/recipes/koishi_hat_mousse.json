@@ -13,7 +13,7 @@
       "item": "gensokyoontology:milk_bottle"
     },
     "B": {
-      "item": "forge:crops/onion"
+      "tag": "forge:crops/onion"
     },
     "$": {
       "item": "minecraft:honey_bottle"

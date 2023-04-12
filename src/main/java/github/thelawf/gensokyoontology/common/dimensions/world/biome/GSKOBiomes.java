@@ -29,18 +29,23 @@ public class GSKOBiomes {
      * 主世界的八岳山，生成概率极低，可在此通过神隐的方式进入幻想乡
      */
     public static final Biome YATSUGA_TAKE_BIOME = GSKOBiomeMaker.makeYatsugaTakeBiome();
+    public static final Biome YAMOTSU_HIRASAKA = GSKOBiomeMaker.makeYamotsuHirasaka();
+    public static final Biome HELL_VALLEY = GSKOBiomeMaker.makeHellValley();
+    public static final Biome OUTSIDE_CITY_FIELD = GSKOBiomeMaker.makeOutsideCityBiome();
+
     public static final Biome GSKO_WILDLAND_BIOME = GSKOBiomeMaker.makeGSKOWildLand();
     public static final Biome YOUKAI_MOUNTAIN_BIOME = GSKOBiomeMaker.makeYoukaiMoutain();
     public static final Biome MAGIC_FOREST_BIOME = GSKOBiomeMaker.makeMagicForest();
     public static final Biome BAMBOO_FOREST_LOST_BIOME = GSKOBiomeMaker.makeBambooForestLost();
 
     public static final RegistryKey<Biome> YATSUGA_TAKE_KEY = key("mountain_yatsugatake");
-    public static final RegistryKey<Biome> GSKO_FOREST_KEY = key("gensokyo_wild_forest");
+    public static final RegistryKey<Biome> GSKO_FOREST_KEY = key("gensokyo_forest");
     public static final RegistryKey<Biome> GSKO_PLAINS_KEY = key("gensokyo_plains");
     public static final RegistryKey<Biome> YOUKAI_MOUNTAIN_KEY = key("youkai_mountain");
     public static final RegistryKey<Biome> SUNFLOWER_GARDEN_KEY = key("sunflower_garden");
     public static final RegistryKey<Biome> BAMBOO_FOREST_LOST_KEY = key("bamboo_forest_of_lost");
     public static final RegistryKey<Biome> MAGIC_FOREST_KEY = key("magic_forest");
+    public static final RegistryKey<Biome> HUMAN_VILLAGE_KEY = key("human_village");
 
 
 

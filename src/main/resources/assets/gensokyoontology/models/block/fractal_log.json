@@ -1,6 +1,7 @@
 {
-  "parent": "block/cube_all",
+  "parent": "minecraft:block/cube_column",
   "textures": {
-    "all": "gensokyoontology:block/fractal_log"
+    "end": "gensokyoontology:block/fractal_log",
+    "side": "minecraft:block/oak_log"
   }
 }

@@ -11,13 +11,18 @@
   "surface_builder": "minecraft:grass",
   "effects": {
     "sky_color": 7907327,
-    "fog_color": 12248771,
-    "water_color": 5172447,
+    "fog_color": 16121854,
+    "water_color": 4364016,
     "water_fog_color": 270131
   },
   "starts": [],
   "spawners": {},
   "spawn_costs": {},
-  "carvers": {},
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:canyon"
+    ]
+  },
   "features": []
 }

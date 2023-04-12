@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.dimensions;
 
 
+import net.minecraft.world.biome.BiomeMaker;
+
 /**
  * 幻想乡群系的分布规则：
  * 中部0，0，0的位置是人间之里，妖怪兽道，雾之湖，魔法森林围绕着人里，妖怪兽道通往迷途竹林和博丽神社，
@@ -10,7 +12,6 @@ package github.thelawf.gensokyoontology.common.dimensions;
 public class GSKOBiomeDistributor {
 
     public static final class GensokyoDistributor{
-
     }
 
     public static final class LunarCapitalDistributor {

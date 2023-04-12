@@ -5,6 +5,7 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.IExtendedNoiseRandom;
 import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer1;
+import net.minecraft.world.gen.layer.traits.IC0Transformer;
 
 /**
  * {@link IAreaTransformer1} 是在原有单纯噪声生成地图的基础上对其进行局部的修改或是进行整体

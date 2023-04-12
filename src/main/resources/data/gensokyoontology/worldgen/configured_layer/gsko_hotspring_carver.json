@@ -9,7 +9,6 @@
       "water_state": {
         "Name": "gensokyoonotlogy:hot_spring_block",
         "Properties": {
-          "level=": "15"
         }
       },
       "lava_state": {
@@ -19,8 +18,8 @@
         }
       },
       "barrier_state": {
-        "Name": "",
-        "": {
+        "Name": "minecraft:stone",
+        "Properties": {
           "": ""
         }
       },

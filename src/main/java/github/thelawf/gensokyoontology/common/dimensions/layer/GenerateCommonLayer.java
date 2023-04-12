@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.common.dimensions.layer;
 
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomes;
-import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomesProvider;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
@@ -18,7 +17,7 @@ import java.util.List;
  * <p>
  * 在1.16.5的世界生成之前我们需要明白的几个名词：
  * <p>
- * 32 × 32 × 256 方块大小 -- 区域
+ * 32 × 32 个区块 -- 区域
  * <p>
  * 16 × 16 × 256 方块大小 -- 区块
  * <p>
@@ -38,7 +37,6 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
 
     private Registry<Biome> registry;
 
-
     public GenerateCommonLayer setUp(Registry<Biome> registry) {
         this.registry = registry;
         return this;
@@ -46,9 +44,12 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
 
     private static final List<RegistryKey<Biome>> commonBiomes = ImmutableList.of(
             GSKOBiomes.GSKO_PLAINS_KEY,
+            GSKOBiomes.GSKO_FOREST_KEY
+    );
+
+    private static final List<RegistryKey<Biome>> rareBiomes = ImmutableList.of(
             GSKOBiomes.MAGIC_FOREST_KEY,
-            GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
-            GSKOBiomes.YOUKAI_MOUNTAIN_KEY
+            GSKOBiomes.BAMBOO_FOREST_LOST_KEY
     );
 
     @Override

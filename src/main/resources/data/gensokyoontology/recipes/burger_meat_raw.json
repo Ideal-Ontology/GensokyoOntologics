@@ -16,10 +16,10 @@
       "item": "minecraft:porkchop"
     },
     "Y": {
-      "item": "forge:crops/onion"
+      "tag": "forge:crops/onion"
     },
     "$": {
-      "item": "forge:eggs"
+      "tag": "forge:eggs"
     }
   },
   "result": {

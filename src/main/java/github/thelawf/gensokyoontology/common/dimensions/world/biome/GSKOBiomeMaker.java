@@ -111,6 +111,7 @@ public final class GSKOBiomeMaker {
                 .precipitation(Biome.RainType.SNOW)
                 .withMobSpawnSettings(MobSpawnInfo.EMPTY)
                 .withGenerationSettings(makeDefaultBuilder().build())
+                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
                 .setEffects(new BiomeAmbience.Builder()
                         .setWaterColor(0x0DA7D6)
                         .setWaterFogColor(0x282E84)
@@ -119,9 +120,6 @@ public final class GSKOBiomeMaker {
                         .withSkyColor(getSkyColor(0.7F))
                         .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
                         .build())
-                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
-                .withGenerationSettings(makeDefaultBuilder().build())
-                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
                 .build()
                 .setRegistryName(GensokyoOntology.MODID, "mountain_yatsugatake");
     }
@@ -133,9 +131,10 @@ public final class GSKOBiomeMaker {
                 .downfall(0f)
                 .temperature(0.3f)
                 .category(Biome.Category.JUNGLE)
-                .precipitation(Biome.RainType.SNOW)
+                .precipitation(Biome.RainType.RAIN)
                 .withMobSpawnSettings(MobSpawnInfo.EMPTY)
                 .withGenerationSettings(makeDefaultBuilder().build())
+                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
                 .setEffects(new BiomeAmbience.Builder()
                         .setWaterColor(0x0DA7D6)
                         .setWaterFogColor(0x282E84)
@@ -146,6 +145,72 @@ public final class GSKOBiomeMaker {
                         .build())
                 .build()
                 .setRegistryName(GensokyoOntology.MODID, "bamboo_forest_of_lost");
+    }
+
+    public static Biome makeYamotsuHirasaka() {
+        return new Biome.Builder()
+                .depth(0.1f)
+                .scale(0.34f)
+                .downfall(0.08f)
+                .temperature(0.5f)
+                .category(Biome.Category.FOREST)
+                .precipitation(Biome.RainType.RAIN)
+                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
+                .withGenerationSettings(makeDefaultBuilder().build())
+                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
+                .setEffects(new BiomeAmbience.Builder()
+                        .withSkyColor(0xFFE894)
+                        .setFogColor(0xC0D8FF)
+                        .setWaterColor(0x7C3E9)
+                        .setWaterFogColor(0xC31A1)
+                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
+                        .build())
+                .build()
+                .setRegistryName(GensokyoOntology.MODID, "yamotsu_hirasaka");
+    }
+
+    public static Biome makeOutsideCityBiome() {
+        return new Biome.Builder()
+                .depth(0.1f)
+                .scale(3.5f)
+                .downfall(0.08f)
+                .temperature(0.5f)
+                .category(Biome.Category.PLAINS)
+                .precipitation(Biome.RainType.RAIN)
+                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
+                .withGenerationSettings(makeDefaultBuilder().build())
+                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
+                .setEffects(new BiomeAmbience.Builder()
+                        .withSkyColor(0x12A4E2)
+                        .setFogColor(0xC0D8FF)
+                        .setWaterColor(0x7C3E9)
+                        .setWaterFogColor(0xC31A1)
+                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
+                        .build())
+                .build()
+                .setRegistryName(GensokyoOntology.MODID, "outside_city_field");
+    }
+
+    public static Biome makeHellValley() {
+        return new Biome.Builder()
+                .depth(1.2f)
+                .scale(0.4f)
+                .downfall(0.9f)
+                .temperature(0.88f)
+                .category(Biome.Category.MESA)
+                .precipitation(Biome.RainType.SNOW)
+                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
+                .withGenerationSettings(makeDefaultBuilder().build())
+                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
+                .setEffects(new BiomeAmbience.Builder()
+                        .withSkyColor(0xBEBB97)
+                        .setFogColor(0x97A2B4)
+                        .setWaterColor(0xBD9D00)
+                        .setWaterFogColor(0x50533)
+                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
+                        .build())
+                .build()
+                .setRegistryName(GensokyoOntology.MODID, "hell_valley");
     }
 
     private static int getSkyColor(float temperature) {

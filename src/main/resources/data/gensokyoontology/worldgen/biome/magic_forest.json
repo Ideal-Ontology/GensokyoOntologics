@@ -10,9 +10,9 @@
   "precipitation": "rain",
   "surface_builder": "minecraft:grass",
   "effects": {
-    "sky_color": 7907327,
-    "fog_color": 12248771,
-    "water_color": 5172447,
+    "sky_color": 9090047,
+    "fog_color": 5994087,
+    "water_color": 5290221,
     "water_fog_color": 270131
   },
   "spawn_costs" : {
@@ -23,7 +23,14 @@
 
   },
   "spawners": {
-
+    "air": [
+      "minecraft:cave",
+      "minecraft:canyon"
+    ],
+    "liquid": [
+      "minecraft:underwater_cave",
+      "minecraft:underwater_canyon"
+    ]
   },
   "starts": []
 }

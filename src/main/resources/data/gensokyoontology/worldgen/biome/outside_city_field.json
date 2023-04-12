@@ -1,24 +1,23 @@
 {
-  "depth": 0.05,
-  "scale": 1.7,
-  "downfall": 0,
-  "temperature": 0.75,
+  "depth": 0.1,
+  "scale": 3.5,
+  "downfall": 0.08,
+  "temperature": 0.5,
   "category": "plains",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
-  "creature_spawn_probability": 0.8,
+  "creature_spawn_probability": 0.3,
   "precipitation": "rain",
   "surface_builder": "minecraft:grass",
   "effects": {
-    "sky_color": 6141433,
+    "sky_color": 1221858,
     "fog_color": 12638463,
-    "water_color": 4364016,
+    "water_color": 508905,
     "water_fog_color": 799137
   },
-  "spawn_costs" : {
-
-  },
-  "features": [],
+  "starts": [],
+  "spawners": {},
+  "spawn_costs": {},
   "carvers": {
     "air": [
       "minecraft:cave",
@@ -29,8 +28,5 @@
       "minecraft:underwater_canyon"
     ]
   },
-  "spawners": {
-
-  },
-  "starts": []
+  "features": []
 }

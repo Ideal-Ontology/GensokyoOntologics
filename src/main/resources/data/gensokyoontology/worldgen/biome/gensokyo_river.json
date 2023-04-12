@@ -1,23 +1,21 @@
 {
-  "depth": 0.05,
-  "scale": 1.7,
+  "depth": -0.65,
+  "scale": 0.001,
   "downfall": 0,
-  "temperature": 0.75,
-  "category": "plains",
+  "temperature": 0.55,
+  "category": "river",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
   "creature_spawn_probability": 0.8,
-  "precipitation": "rain",
+  "precipitation": "snow",
   "surface_builder": "minecraft:grass",
   "effects": {
-    "sky_color": 6141433,
-    "fog_color": 12638463,
-    "water_color": 4364016,
-    "water_fog_color": 799137
+    "sky_color": 7907327,
+    "fog_color": 12248771,
+    "water_color": 4159204,
+    "water_fog_color": 329011
   },
-  "spawn_costs" : {
-
-  },
+  "spawn_costs": {},
   "features": [],
   "carvers": {
     "air": [

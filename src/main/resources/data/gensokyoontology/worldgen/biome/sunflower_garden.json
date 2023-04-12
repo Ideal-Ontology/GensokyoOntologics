@@ -10,10 +10,10 @@
   "precipitation": "rain",
   "surface_builder": "minecraft:grass",
   "effects": {
-    "sky_color": 7907327,
-    "fog_color": 12248771,
-    "water_color": 5172447,
-    "water_fog_color": 270131
+    "sky_color": 1221858,
+    "fog_color": 12638463,
+    "water_color": 5290221,
+    "water_fog_color": 799137
   },
   "starts": [],
   "spawners": {},

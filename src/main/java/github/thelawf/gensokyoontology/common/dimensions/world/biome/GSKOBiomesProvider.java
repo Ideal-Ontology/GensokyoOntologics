@@ -61,6 +61,8 @@ import java.util.function.Predicate;
 public class GSKOBiomesProvider extends BiomeProvider {
 
     private final long seed;
+
+    public static final List<Biome> biomes = new ArrayList<>();
     private final Layer layer;
     private final Registry<Biome> biomeRegistry;
 
@@ -78,7 +80,8 @@ public class GSKOBiomesProvider extends BiomeProvider {
             GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
             GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
-            GSKOBiomes.SUNFLOWER_GARDEN_KEY
+            GSKOBiomes.SUNFLOWER_GARDEN_KEY,
+            GSKOBiomes.HUMAN_VILLAGE_KEY
     );
 
     public GSKOBiomesProvider(long seed, Registry<Biome> biomeRegistry) {

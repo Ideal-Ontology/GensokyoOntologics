@@ -17,9 +17,9 @@ public class CommonSetUp {
 
     public static void init(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
-            Registry.register(Registry.CHUNK_GENERATOR_CODEC,
-                    new ResourceLocation(GensokyoOntology.MODID, "chunkgen"),
-                    GSKOChunkGenerator.CHUNK_GEN_CODEC);
+            // Registry.register(Registry.CHUNK_GENERATOR_CODEC,
+            //         new ResourceLocation(GensokyoOntology.MODID, "chunkgen"),
+            //         GSKOChunkGenerator.CHUNK_GEN_CODEC);
             Registry.register(Registry.BIOME_PROVIDER_CODEC,
                     new ResourceLocation(GensokyoOntology.MODID, "gensokyo"),
                     GSKOBiomesProvider.GSKO_BIOME_CODEC);

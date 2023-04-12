@@ -2,6 +2,6 @@
   "parent": "minecraft:block/cube_column",
   "textures": {
     "end": "minecraft:block/acacia_log_top",
-    "side": "gensokyoontolgy:block/oak_log"
+    "side": "gensokyoontolgy:block/magic_log"
   }
 }

@@ -15,6 +15,7 @@ import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.area.IAreaFactory;
 import net.minecraft.world.gen.area.LazyArea;
 import net.minecraft.world.gen.layer.Layer;
+import net.minecraft.world.gen.layer.SmoothLayer;
 import net.minecraft.world.gen.layer.ZoomLayer;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,13 +41,16 @@ public class GSKOLayerUtil extends Layer {
 
 
     // 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格
-    public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> buildBiomes(final LongFunction<C> seed, Registry<Biome> registry) {
-        IAreaFactory<T> biomes = GenerateCommonLayer.INSTANCE.setUp(registry).apply(seed.apply(1L));
-        biomes = ZoomLayer.NORMAL.apply(seed.apply(1000L), biomes);
-        biomes = ZoomLayer.NORMAL.apply(seed.apply(1001L), biomes);
-        biomes = ZoomLayer.NORMAL.apply(seed.apply(1002), biomes);
-        biomes = ZoomLayer.NORMAL.apply(seed.apply(1003), biomes);
-        biomes = ZoomLayer.NORMAL.apply(seed.apply(1004), biomes);
+    public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> buildBiomes(final LongFunction<C> context, Registry<Biome> registry) {
+        IAreaFactory<T> biomes = GenerateCommonLayer.INSTANCE.setUp(registry).apply(context.apply(1L));
+        biomes = ZoomLayer.FUZZY.apply(context.apply(2000), biomes);
+        biomes = ZoomLayer.NORMAL.apply(context.apply(2001), biomes);
+        biomes = ZoomLayer.NORMAL.apply(context.apply(2002), biomes);
+        biomes = ZoomLayer.NORMAL.apply(context.apply(2003), biomes);
+        biomes = ZoomLayer.NORMAL.apply(context.apply(2004), biomes);
+        biomes = ZoomLayer.NORMAL.apply(context.apply(2005), biomes);
+        biomes = ZoomLayer.NORMAL.apply(context.apply(2007), biomes);
+        biomes = SmoothLayer.INSTANCE.apply(context.apply(2008), biomes);
 
         return biomes;
     }
