@@ -4,13 +4,10 @@ import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import github.thelawf.gensokyoontology.common.dimensions.layer.SimpleNoise;
 import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomesProvider;
-import github.thelawf.gensokyoontology.common.util.GSKOLayerUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.command.impl.SeedCommand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Blockreader;
 import net.minecraft.world.IBlockReader;
@@ -26,8 +23,6 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Optional;
 
 /**
  * {@link ChunkGenerator} 里面的 func_230352_b()方法是主要的散布维度的方法

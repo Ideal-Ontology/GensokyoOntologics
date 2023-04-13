@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.util.GSKOLayerUtil;
+import github.thelawf.gensokyoontology.common.dimensions.layer.GSKOLayerUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;

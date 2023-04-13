@@ -1,14 +1,7 @@
-package github.thelawf.gensokyoontology.common.util;
+package github.thelawf.gensokyoontology.common.dimensions.layer;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.dimensions.layer.GenerateCommonLayer;
-import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomes;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeRegistry;
-import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.IExtendedNoiseRandom;
 import net.minecraft.world.gen.LazyAreaLayerContext;
 import net.minecraft.world.gen.area.IArea;
@@ -17,12 +10,8 @@ import net.minecraft.world.gen.area.LazyArea;
 import net.minecraft.world.gen.layer.Layer;
 import net.minecraft.world.gen.layer.SmoothLayer;
 import net.minecraft.world.gen.layer.ZoomLayer;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.LongFunction;
 
 public class GSKOLayerUtil extends Layer {

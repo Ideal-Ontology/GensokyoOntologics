@@ -9,6 +9,7 @@ import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer0;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * {@link IAreaTransformer0} 是一切生物群系生成的开始，通过噪声函数直接得到一个单一生物群系
@@ -47,15 +48,15 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
             GSKOBiomes.GSKO_FOREST_KEY
     );
 
-    private static final List<RegistryKey<Biome>> rareBiomes = ImmutableList.of(
+    private static final List<RegistryKey<Biome>> specialBiomes = ImmutableList.of(
             GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY
     );
 
     @Override
     public int apply(INoiseRandom random, int x, int y) {
-        double d = random.random(10);
-        if (x == 0 && y == 0) {
+        double d = random.random(300);
+        if (x == 1350 + d && y == 0) {
             return getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY);
         }
         return getCommonBiomeID(random);
