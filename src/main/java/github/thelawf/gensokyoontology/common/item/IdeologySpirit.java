@@ -2,8 +2,8 @@ package github.thelawf.gensokyoontology.common.item;
 
 import net.minecraft.item.Item;
 
-public class SpiritDialectics extends IdeologySpirit {
-    public SpiritDialectics(Properties properties) {
+public class IdeologySpirit extends Item {
+    public IdeologySpirit(Properties properties) {
         super(properties);
     }
 }

@@ -1,7 +1,13 @@
 package github.thelawf.gensokyoontology.common.item.tools;
 
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.client.gui.recipebook.RecipeList;
+import net.minecraft.data.ShapelessRecipeBuilder;
 import net.minecraft.item.*;
+import net.minecraft.item.crafting.RecipeItemHelper;
+import net.minecraft.item.crafting.ShapedRecipe;
+import net.minecraft.item.crafting.ShapelessRecipe;
+import net.minecraft.tileentity.ChestTileEntity;
 
 public class KitchenKnife extends SwordItem {
     public KitchenKnife() {
@@ -16,7 +22,7 @@ public class KitchenKnife extends SwordItem {
         if (stack.getDamage() >= stack.getMaxDamage()) {
             return ItemStack.EMPTY;
         }
-        return stack;
+        return stack.copy();
     }
 
     @Override

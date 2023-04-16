@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.item.InyoJade;
+import github.thelawf.gensokyoontology.common.item.OccultBall;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
 import github.thelawf.gensokyoontology.common.item.ByteCoin;
 import github.thelawf.gensokyoontology.common.item.GameCoin;
@@ -21,33 +23,30 @@ public class ItemRegistry {
             DeferredRegister.create(ForgeRegistries.ITEMS, GensokyoOntology.MODID);
     public static final RegistryObject<Item> HOTSPRING_BUCKET =
             ITEMS.register("hotspring_bucket",() -> new BucketItem(
-                    FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties().group(
-                            GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(16).containerItem(BUCKET)));
+                    FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)
+                    .maxStackSize(16).containerItem(BUCKET)));
     public static final RegistryObject<Item> SPIRIT_DIALECTICS =
             ITEMS.register("dialectic_spirit", () -> new Item(
                     new Item.Properties()
                             .group(GSKOItemTab.GSKO_ITEM_TAB)
-                            .maxStackSize(16)
-            ));
+                            .maxStackSize(16)));
     public static final RegistryObject<Item> SPIRIT_UTOPIAN =
             ITEMS.register("utopian_spirit", () -> new Item(
                     new Item.Properties()
                             .group(GSKOItemTab.GSKO_ITEM_TAB)
-                            .maxStackSize(16)
-            ));
+                            .maxStackSize(16)));
     public static final RegistryObject<Item> SPIRIT_THEOLOGY =
             ITEMS.register("theology_spirit", () -> new Item(
                     new Item.Properties()
                             .group(GSKOItemTab.GSKO_ITEM_TAB)
-                            .maxStackSize(16)
-            ));
+                            .maxStackSize(16)));
 
     public static final RegistryObject<Item> SPIRIT_CREATIVE =
             ITEMS.register("creative_spirit",() -> new Item(
                     new Item.Properties()
                             .group(GSKOItemTab.GSKO_ITEM_TAB)
-                            .maxStackSize(16)
-            ));
+                            .maxStackSize(16)));
 
     public static final RegistryObject<Item> REALISM_SWORD =
             ITEMS.register("realism_sword", RealismSword::new);
@@ -67,13 +66,15 @@ public class ItemRegistry {
     public static final RegistryObject<Item> LYCORIS_RADIATA =
             ITEMS.register("lycoris_radiata",() -> new BlockItem(
                     BlockRegistry.LYCORIS_RADIATA.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)
-            ));
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<OccultBall> MYSTERY_SPHERE =
+            ITEMS.register("occult_ball", () -> new OccultBall(
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     public static final RegistryObject<YattsumeUna> YATTSUME_UNA =
             ITEMS.register("yattsume_una",() -> new YattsumeUna(
-                    new Item.Properties()
-                            .group(GSKOItemTab.GSKO_ITEM_TAB)
-            ));
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<YattsumeUnaYaki> YATTSUME_UNA_YAKI =
             ITEMS.register("yattsume_una_yaki", YattsumeUnaYaki::new);
@@ -136,21 +137,70 @@ public class ItemRegistry {
             "rail_track", () -> new BlockItem(BlockRegistry.RAIL_TRACK_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    // public static final RegistryObject<BlockItem> MAGIC_LEAVES_ITEM = ITEMS.register(
+    //         "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
+    //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<BlockItem> MAGIC_LOG_ITEM = ITEMS.register(
+            "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LOG.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<BlockItem> SAKURA_LEAVES_ITEM = ITEMS.register(
+            "sakura_leaves", () -> new BlockItem(BlockRegistry.SAKURA_LEAVES.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<BlockItem> SAKURA_LOG_ITEM = ITEMS.register(
+            "sakura_log", () -> new BlockItem(BlockRegistry.SAKURA_LOG.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     public static final RegistryObject<Item> RAIL_NODE = ITEMS.register(
             "rail_node", () -> new BlockItem(BlockRegistry.RAIL_NODE_BLOCK.get(),
                     new Item.Properties()));
 
     public static final RegistryObject<Item> DAKIMAKURA_ITEM = ITEMS.register(
             "dakimakura", () -> new BlockItem(BlockRegistry.DAKIMAKURA.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties()));
 
     public static final RegistryObject<Item> ROTATE_FRAME_ITEM = ITEMS.register(
             "rotate_frame", () -> new BlockItem(BlockRegistry.ROTATE_FRAME.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties()));
+
+    public static final RegistryObject<Item> INYO_JADE_BLACK = ITEMS.register(
+            "inyo_jade_black", () -> new InyoJade(DyeColor.BLACK,
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+
+    public static final RegistryObject<Item> INYO_JADE_RED = ITEMS.register(
+            "inyo_jade_red", () -> new InyoJade(DyeColor.RED,
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+
+    public static final RegistryObject<Item> INYO_JADE_YELLOW = ITEMS.register(
+            "inyo_jade_yellow", () -> new InyoJade(DyeColor.YELLOW,
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+
+    public static final RegistryObject<Item> INYO_JADE_GREEN = ITEMS.register(
+            "inyo_jade_green", () -> new InyoJade(DyeColor.GREEN,
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+
+    public static final RegistryObject<Item> INYO_JADE_AQUA = ITEMS.register(
+            "inyo_jade_aqua", () -> new InyoJade(DyeColor.LIGHT_BLUE,
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+
+    public static final RegistryObject<Item> INYO_JADE_BLUE = ITEMS.register(
+            "inyo_jade_blue", () -> new InyoJade(DyeColor.BLUE,
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+
+    public static final RegistryObject<Item> INYO_JADE_PURPLE = ITEMS.register(
+            "inyo_jade_purple", () -> new InyoJade(DyeColor.PURPLE,
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+
 
     //======================= ↓ The Mod Cyber Statistics ↓ ==================//
-    public static final RegistryObject<Item> MAGIC_LEAVES_ITEM = ITEMS.register(
-            "magic_leaves",() -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
+    // public static final RegistryObject<Item> MAGIC_LEAVES_ITEM = ITEMS.register(
+    //         "magic_leaves",() -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
+    //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> HASH_LEAVES_ITEM = ITEMS.register(
+            "hash_leaves", () -> new BlockItem(BlockRegistry.HASH_LEAVES.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> HASH_LOG_ITEM = ITEMS.register(
