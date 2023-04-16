@@ -2,6 +2,9 @@ package github.thelawf.gensokyoontology.common.potion;
 
 import github.thelawf.gensokyoontology.common.libs.AbstractEffectHandler;
 import github.thelawf.gensokyoontology.common.libs.IEffectHandler;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;
 
@@ -24,5 +27,20 @@ public class LovePotionEffect extends Effect implements IEffectHandler{
     @Override
     public String getPlayerName(String playerName) {
         return IEffectHandler.super.getPlayerName(playerName);
+    }
+
+    @Override
+    public void performEffect(LivingEntity entityLivingBaseIn, int amplifier) {
+        PlayerEntity thrower = entityLivingBaseIn.world.getClosestPlayer(entityLivingBaseIn, 16.0D);
+        if (entityLivingBaseIn.world.isRemote || entityLivingBaseIn instanceof PlayerEntity) {
+            return;
+        }
+        if (thrower == null) {
+            return;
+        }
+        entityLivingBaseIn.moveToBlockPosAndAngles(thrower.getPosition(),
+                thrower.rotationYaw, thrower.rotationPitch);
+
+        super.performEffect(entityLivingBaseIn, amplifier);
     }
 }
