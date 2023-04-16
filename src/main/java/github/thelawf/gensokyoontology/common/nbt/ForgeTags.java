@@ -13,8 +13,9 @@ import java.util.function.Function;
 
 public class ForgeTags {
 
-
     public static final ITag.INamedTag<Item> CROPS = makeItemTag("crops");
+
+    public static final ITag.INamedTag<Item> INYO_JADE = makeItemTag("inyo_jade");
     public static final ITag.INamedTag<Item> ONION = makeItemTag("crops/onion");
 
     public static final ITag.INamedTag<Block> ONION_CROP = makeBlockTag("crops/onion");

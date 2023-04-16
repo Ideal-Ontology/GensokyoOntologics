@@ -20,9 +20,6 @@
   },
   "features": [],
   "carvers": {
-
-  },
-  "spawners": {
     "air": [
       "minecraft:cave",
       "minecraft:canyon"
@@ -31,6 +28,9 @@
       "minecraft:underwater_cave",
       "minecraft:underwater_canyon"
     ]
+  },
+  "spawners": {
+
   },
   "starts": []
 }

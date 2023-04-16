@@ -1,15 +1,15 @@
 {
   "variants": {
     "axis=x": {
-      "model": "minecraft:block/fractal_log_horizontal",
+      "model": "gensokyoontology:block/fractal_log_horizontal",
       "x": 90,
       "y": 90
     },
     "axis=y": {
-      "model": "minecraft:block/acacia_log"
+      "model": "gensokyoontology:block/fractal_log"
     },
     "axis=z": {
-      "model": "minecraft:block/fractal_log_horizontal",
+      "model": "gensokyoontology:block/fractal_log_horizontal",
       "x": 90
     }
   }

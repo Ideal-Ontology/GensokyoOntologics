@@ -19,18 +19,25 @@ public class BlockRegistry {
             () -> new LeavesBlock(AbstractBlock.Properties.create(
                     Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
 
-    public static final RegistryObject<Block> MAGIC_LOG = BLOCKS.register("magic_log",
-            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
+    public static final RegistryObject<Block> MAGIC_LOG = BLOCKS.register(
+            "magic_log", MagicLog::new);
 
     // public static final RegistryObject<Block> MAGIC_SAPLING =BLOCKS.register("magic_sapling",
     //         () -> new SaplingBlock());
+
+    public static final RegistryObject<Block> SAKURA_LEAVES = BLOCKS.register("sakura_leaves",
+            () -> new LeavesBlock(AbstractBlock.Properties.create
+                    (Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
+
+    public static final RegistryObject<Block> SAKURA_LOG = BLOCKS.register(
+            "sakura_log", SakuraLog::new);
 
     //======================= ↓ The Mod Cyber Statistics ↓ ==================//
     public static final RegistryObject<Block> HASH_LOG = BLOCKS.register("hash_log",
             () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
 
-    // public static final RegistryObject<Block> HASH_LEAVES = BLOCKS.register("magic_leaves",
-    //         HashLeaves::new);
+    public static final RegistryObject<Block> HASH_LEAVES = BLOCKS.register(
+            "hash_leaves", HashLeaves::new);
 
     public static final RegistryObject<Block> FRACTAL_LOG = BLOCKS.register("fractal_log",
             () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
@@ -45,7 +52,6 @@ public class BlockRegistry {
             new LeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
 
     //======================= ↑ The Mod Cyber Statistics ↑ ====================//
-
 
     public static RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
             () -> new HotSpringBlock(() -> FluidRegistry.HOT_SPRING_SOURCE.get(),

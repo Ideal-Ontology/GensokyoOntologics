@@ -5,7 +5,7 @@
   "item.gensokyoontology.dialectic_spirit": "観念形態「弁証」",
   "item.gensokyoontology.utopian_spirit": "観念形態「幻想」",
   "item.gensokyoontology.theology_spirit": "観念形態「崇拝」",
-  "block.gensokyoontology.lycoris_radiata": "リコリス",
+
   "item.gensokyoontology.yattsume_una": "八つ目鰻",
   "item.gensokyoontology.yattsume_una_yaki": "八つ目鰻焼き",
   "item.gensokyoontology.koishi_hat_mousse": "無意識妖怪のムース",
@@ -17,16 +17,21 @@
   "item.gensokyoontology.tako_yaki": "たこ焼き",
   "item.gensokyoontology.realism_sword": "実在論の宝剣",
   "item.gensokyoontology.danmaku_test": "弾幕テストアイテム",
+
+  "block.gensokyoontology.lycoris_radiata": "リコリス",
   "block.gensokyoontology.fried_pane": "揚げ鍋",
+  "block.gensokyoontology.onion_crop": "玉葱",
+
   "item.gensokyoontology.squid_tentacle": "たこ",
   "item.gensokyoontology.onion": "玉葱",
   "item.gensokyoontology.kitchen_knife": "Kitchen Knife",
   "item.gensokyoontology.burger_meat_raw": "生ハンバーグ",
   "item.gensokyoontology.burger_meat": "ハンバーグ",
-  "block.gensokyoontology.onion_crop": "玉葱",
+
   "item.gensokyoontology.metaphysics_sword": "形而上学の宝剣",
   "item.gensokyoontology.idealism_sword": "観念主義の宝剣",
   "item.gensokyoontology.praxis_sword": "実践の宝剣",
+
   "effect.gensokyoontology.love_potion": "媚薬",
   "effect.gensokyoontology.hypnosis_potion": "催眠",
 
@@ -53,14 +58,18 @@
   "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75Left Click to Release Space Fissure\u00A7r",
   "tooltip.gensokyoontology.praxis_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
   "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality.",
+
   "description.gensokyoontology.praxis_sword_description": "\u00A76Now this is it. Go into Praxis, man ~",
   "description.gensokyoontology.idealism_sword_description": "(But I haven't finished that yet!)",
+
   "patchouli.gensokyoontology.book.landing_text": "$(l)Fore Words:$(br)Stay $(4)S$(b)A$(d)N$(2)E!$() You're now in the $(k)(m)meaningless network$() of $(l)ideologies.$() Be $(l)$(#ff0000)CLEAR AWARE$() of this!",
   "patchouli.gensokyoontology.overview.description": "$(l)$(o)Where did the fiction begin?",
   "patchouli.gensokyoontology.overview.introduction_p1": "All the cultural works made by human kind no matter a mass culture or a subculture can be interpreted as a certain kind of forms of ideologies. Ideologies are everywhere acting like atmosphere. It is so universal that we have no idea that we are actually subordinated to it and became its properties.",
   "patchouli.gensokyoontology.overview.introduction_p2": "Try to reify the embodiment of all kinds of ideologies is the target of this book. Now follow this guidebook to visualize and realize yourselves.",
-  "block.gensokyoontology.dakimakura": "抱き",
+
+  "block.gensokyoontology.dakimakura": "抱き枕",
   "block.gensokyoontology.rail_track": "軌道",
+
   "patchouli.gensokyoontology.ideologies.description": "$(l)$(o)$(#eb82ee)Science is not your Jesus Christ! Nor Philosophy!",
   "patchouli.gensokyoontology.overview.intro.title": "Background Story",
   "patchouli.gensokyoontology.ideologies.erhabene.title": "How to get Hochfliegend",

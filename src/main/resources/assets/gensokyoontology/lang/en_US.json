@@ -7,12 +7,22 @@
   "item.gensokyoontology.utopian_spirit": "Utopian Spirit",
   "item.gensokyoontology.theology_spirit": "Theology Spirit",
 
+  "item.gensokyoontology.occult_ball": "Occult Ball",
+
   "item.gensokyoontology.realism_sword": "Realism Sword",
   "item.gensokyoontology.metaphysics_sword": "Metaphysics Sword",
   "item.gensokyoontology.idealism_sword": "Idealism Sword",
   "item.gensokyoontology.praxis_sword": "Praxis Sword",
 
   "item.gensokyoontology.danmaku_test": "Danmaku Test Item",
+  "item.gensokyoontology.sc_wave_and_particle": "Spell Card: Wave and Particle",
+  "item.gensokyoontology.inyo_jade_black": "Yin Yo Jade Black",
+  "item.gensokyoontology.inyo_jade_red": "Yin Yo Jade Red",
+  "item.gensokyoontology.inyo_jade_yellow": "Yin Yo Jade Yellow",
+  "item.gensokyoontology.inyo_jade_green": "Yin Yo Jade Green",
+  "item.gensokyoontology.inyo_jade_aqua": "Yin Yo Jade Aqua",
+  "item.gensokyoontology.inyo_jade_blue": "Yin Yo Jade Blue",
+  "item.gensokyoontology.inyo_jade_purple": "Yin Yo Jade Purple",
 
   "item.gensokyoontology.yattsume_una_yaki": "Yattsume Una Yaki",
   "item.gensokyoontology.koishi_hat_mousse": "Koishi Hat Mousse",
@@ -35,6 +45,9 @@
 
   "block.gensokyoontology.lycoris_radiata": "Lycoris Radiata",
   "block.gensokyoontology.onion_crop": "Onion",
+
+  "block.gensokyoontology.sakura_leaves": "Sakura Leaves",
+  "block.gensokyoontology.sakura_log": "Sakura Log",
 
   "block.gensokyoontology.fried_pane": "Fried Pane",
   "block.gensokyoontology.dakimakura": "Dakimakura",
@@ -68,6 +81,8 @@
   "tooltip.gensokyoontology.praxis_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
   "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75Left Click to Release Space Fissure\u00A7r",
   "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality.",
+
+  "tooltip.gensokyoontology.occult_ball.biome": "Occult Biome: ",
 
   "description.gensokyoontology.idealism_sword_description": "Cause 12 damage each tick",
   "description.gensokyoontology.praxis_sword_description": "§6Go into Praxis, man ~",

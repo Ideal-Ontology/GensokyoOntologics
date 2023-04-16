@@ -15,6 +15,14 @@
   "item.gensokyoontology.rail_wrench": "Rail Wrench",
 
   "item.gensokyoontology.danmaku_test": "弹幕测试工具",
+  "item.gensokyoontology.sc_wave_and_particle": "符卡：波与粒的境界",
+  "item.gensokyoontology.inyo_jade_black": "阴阳玉（黑）",
+  "item.gensokyoontology.inyo_jade_red": "阴阳玉（红）",
+  "item.gensokyoontology.inyo_jade_yellow": "阴阳玉（黄）",
+  "item.gensokyoontology.inyo_jade_green": "阴阳玉（绿）",
+  "item.gensokyoontology.inyo_jade_aqua": "阴阳玉（淡蓝）",
+  "item.gensokyoontology.inyo_jade_blue": "阴阳玉（蓝）",
+  "item.gensokyoontology.inyo_jade_purple": "阴阳玉（紫）",
 
   "item.gensokyoontology.yattsume_una": "八目鳗",
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
@@ -33,6 +41,8 @@
 
   "block.gensokyoontology.lycoris_radiata": "红花石蒜",
   "block.gensokyoontology.onion_crop": "洋葱",
+  "block.gensokyoontology.sakura_leaves": "樱花树叶",
+  "block.gensokyoontology.sakura_log": "樱花树原木",
 
   "block.gensokyoontology.rail_node": "Rail Node",
   "block.gensokyoontology.fried_pane": "炸锅",
@@ -64,6 +74,8 @@
   "tooltip.gensokyoontology.praxis_sword_info": "按住 \u00A79SHIFT\u00A7r 查看更多信息",
   "tooltip.gensokyoontology.praxis_sword_shift": "如果你能游戏里编程，那么为什么不去现实中试一试呢",
 
+  "tooltip.gensokyoontology.occult_ball.biome": "神秘地点: ",
+
   "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
   "description.gensokyoontology.praxis_sword_description": "\u00A76现在，你知道了所有的故事，那么，请开始实践吧~",
 
@@ -85,5 +97,8 @@
 
   "patchouli.gensokyoontology.ideologies.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideologies.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideologies.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
+  "patchouli.gensokyoontology.ideologies.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+
+  "nbt.gensokyoontology.start_pos": "轨道起点：",
+  "nbt.gensokyoontology.end_pos": "轨道终点： "
 }
