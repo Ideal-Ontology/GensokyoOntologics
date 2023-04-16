@@ -17,6 +17,8 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.function.Predicate;
 
 public class DanmakuTestItem extends ShootableItem{
@@ -79,17 +81,15 @@ public class DanmakuTestItem extends ShootableItem{
              所以需要在 for循环内部实例化弹幕实体
             */
 
-        // func.lifeSpan--;
-        // // func.increment += Math.PI / 100;
-        // DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
-        // Vector3d shootPos = func.getInitRotation().rotateYaw((float)
-        //         (func.increment));
-        // danmaku.setNoGravity(true);
-//
-        // danmaku.setLocationAndAngles(func.initLocation.x, func.initLocation.y, func.initLocation.z,
-        //         (float) func.yaw, (float) func.pitch);
-        // danmaku.shoot(shootPos.x,0, shootPos.z, 0.3f, 0);
-        // worldIn.addEntity(danmaku);
+        DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
+        Vector3d shootPos = func.getInitRotation().rotateYaw((float)
+                (func.increment));
+        danmaku.setNoGravity(true);
+
+        danmaku.setLocationAndAngles(func.initLocation.x, func.initLocation.y, func.initLocation.z,
+                (float) func.yaw, (float) func.pitch);
+        danmaku.shoot(shootPos.x,0, shootPos.z, 0.3f, 0);
+        worldIn.addEntity(danmaku);
 
     }
 
@@ -112,19 +112,27 @@ public class DanmakuTestItem extends ShootableItem{
                     .setPlayer((PlayerEntity) player)
                     .setInitLocation(player.getPositionVec())
                     .setInitRotation(player.getLookVec())
-                    .setLifeSpan(50)
+                    .setLifeSpan(500)
                     .setShootInterval(8)
                     .setExecuteTimes(5)
                     .setExecuteInterval(10)
-                    .setIncrement(Math.PI / 36)
+                    .setIncrement(Math.PI / 180)
                     .setWorld(player.getEntityWorld());
 
+            Timer timer = new Timer();
             // 被标记为 exeTimes 的for循环决定着一张符卡将一共执行多少个tick
             exeTimes : for (int i = 0; i < func.lifeSpan; i++) {
 
-                func.initRotation = func.initRotation.rotateYaw((float) func.increment * i);
+                // func.initRotation = func.initRotation.rotateYaw((float) (func.increment + Math.PI / (180 - i)));
                 // func.setRotation(func.initRotation.rotateYaw((float) func.increment * i));
+                func.increment += Math.PI / (180 - i);
                 shootCircle(player.world, (PlayerEntity) player, func);
+                // timer.schedule(new TimerTask() {
+                //     @Override
+                //     public void run() {
+                //         shootCircle(player.world, (PlayerEntity) player, func);
+                //     }
+                // }, 10);
 
             }
         }

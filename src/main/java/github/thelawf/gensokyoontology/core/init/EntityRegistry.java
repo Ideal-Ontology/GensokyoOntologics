@@ -1,9 +1,8 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.FlyingSwordEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.MasterSparkEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -25,11 +24,14 @@ public class EntityRegistry {
     public static final RegistryObject<EntityType<DanmakuEntity>> DANMAKU_ENTITY = GSKO_ENTITIES.register(
             "danmaku", () -> DanmakuEntity.DANMAKU_ENTITY);
 
-    public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
-            "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);
+    public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = GSKO_ENTITIES.register(
+            "master_spark", () -> MasterSparkEntity.MASTER_SPARK_ENTITY);
 
-    public static final RegistryObject<EntityType<PhantasmSphereEntity>> PH_SPHERE_ENTITY = GSKO_ENTITIES.register(
-            "phantasm_sphere", () -> PhantasmSphereEntity.PH_SPHERE_TYPE);
+   // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
+   //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);
+
+   // public static final RegistryObject<EntityType<PhantasmSphereEntity>> PH_SPHERE_ENTITY = GSKO_ENTITIES.register(
+   //         "phantasm_sphere", () -> PhantasmSphereEntity.PH_SPHERE_TYPE);
 }
 
 

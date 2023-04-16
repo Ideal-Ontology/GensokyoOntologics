@@ -20,8 +20,6 @@ public abstract class SpellCardItem extends Item {
         this.duration = duration;
     }
 
-
-
     public String getId() {
         return id;
     }

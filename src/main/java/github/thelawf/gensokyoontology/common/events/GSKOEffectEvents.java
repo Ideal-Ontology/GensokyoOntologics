@@ -2,11 +2,14 @@ package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.common.nbt.GensokyoOntologyNBT;
 import github.thelawf.gensokyoontology.core.init.EffectRegistry;
+import net.minecraft.command.impl.SetIdleTimeoutCommand;
+import net.minecraft.command.impl.TimeCommand;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.PotionEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -37,10 +40,12 @@ public class GSKOEffectEvents {
     public static void onHypnosisEffectActivate(PotionEvent event){
         // 更改玩家姿态的代码在 PlayerEntity.java的updatePose()方法中实现。
         // 在这个事件中我设置玩家睡觉的姿态，并跳过10000个游戏刻的时间。
-        if (event.getEntityLiving() instanceof ServerPlayerEntity ||
-                event.getEntityLiving() instanceof VillagerEntity) {
-            //event.getEntityLiving().setPose(Pose.SLEEPING);
+
+        PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        if (event.getEntityLiving() instanceof ServerPlayerEntity) {
             if (event.getEntityLiving().isPotionActive(EffectRegistry.HYPNOSIS_EFFECT.get())) {
+                ServerWorld serverWorld = (ServerWorld) player.getEntityWorld();
+                serverWorld.setDayTime(13000);
                 event.getEntityLiving().setPose(Pose.SLEEPING);
                 event.getEntityLiving().startSleeping(event.getEntityLiving().getPosition());
             }

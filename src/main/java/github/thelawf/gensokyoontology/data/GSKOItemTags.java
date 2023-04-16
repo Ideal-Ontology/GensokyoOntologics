@@ -28,6 +28,7 @@ public class GSKOItemTags extends ItemTagsProvider {
         // addItemTags(ForgeTags.ONION, ItemRegistry.ONION.get());
         this.getOrCreateBuilder(ForgeTags.CROPS).addTag(ForgeTags.CROPS);
         this.getOrCreateBuilder(ForgeTags.ONION).addItemEntry(ItemRegistry.ONION.get());
+        // this.getOrCreateBuilder(ForgeTags.INYO_JADE).addItemEntry()
     }
 
     protected void addItemTags(ITag.INamedTag<Item> tag, IItemProvider... items) {
