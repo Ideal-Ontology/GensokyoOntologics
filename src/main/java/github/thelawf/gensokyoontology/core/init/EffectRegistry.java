@@ -15,7 +15,7 @@ public class EffectRegistry {
             ForgeRegistries.POTIONS, GensokyoOntology.MODID);
     public static final RegistryObject<Effect> LOVE_EFFECT = POTION_EFFECTS.register("love_potion",
             LovePotionEffect::new);
-    public static final RegistryObject<Effect> HYPNOSIS_EFFECT = POTION_EFFECTS.register("hypnosis_potion",
+    public static final RegistryObject<Effect> HYPNOSIS_EFFECT = POTION_EFFECTS.register("hypnosis",
             HypnosisEffect::new);
 
     public static final RegistryObject<Effect> MANIA_EFFECT = POTION_EFFECTS.register("mania",

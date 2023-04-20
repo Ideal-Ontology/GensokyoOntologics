@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.client;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.render.InWorldRenderer;
 import github.thelawf.gensokyoontology.client.render.SpaceFissureRenderer;
+import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.screen.container.RailAdjustGUI;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,6 +30,7 @@ public class ClientSetup {
         if (!event.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
             return;
         }
+        event.addSprite(HypnosisEffect.HYPNOSIS_TEXTURE);
         event.addSprite(SpaceFissureRenderer.SPACE_FISSURE_TEX);
     }
 

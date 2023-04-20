@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.item.tools;
+package github.thelawf.gensokyoontology.common.item.spellcard;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

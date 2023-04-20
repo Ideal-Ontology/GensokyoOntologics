@@ -57,12 +57,15 @@ public class BlockRegistry {
             () -> new HotSpringBlock(() -> FluidRegistry.HOT_SPRING_SOURCE.get(),
             Block.Properties.create(Material.WATER).doesNotBlockMovement()
                                 .hardnessAndResistance(100.0f).noDrops()));
-    public static final RegistryObject<Block> LYCORIS_RADIATA =
-            BLOCKS.register("lycoris_radiata", LycorisRadiata::new);
+    public static final RegistryObject<Block> LYCORIS_RADIATA = BLOCKS.register(
+            "lycoris_radiata", LycorisRadiata::new);
 
     public static final RegistryObject<FriedPane> FRIED_PANE = BLOCKS.register(
             "fried_pane",FriedPane::new
     );
+
+    public static final RegistryObject<Block> WASABI_BLOCK = BLOCKS.register(
+            "wasabi", WasabiBlock::new);
 
     public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
             "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));

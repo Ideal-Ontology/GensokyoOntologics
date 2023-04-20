@@ -1,7 +1,7 @@
 # GensokyoOntologics  
 
 This mod is a second creation of Touhou Project based on Minecraft 1.16.5. There will be a lot of differences from the original work. Please take it easy. If you can accept them, then here we go.  
-Most of the objects I listed below is still on the paper. I may add them all to minecraft in further future cause it really takes me a long long time...  
+<font color=red> Red Colored</font> items listed below is still on the paper. I may add them all to minecraft in further future cause it really takes me a long long time...  
     
 ## Now Implemented:  
 ### Ideology Forms:  
@@ -26,15 +26,31 @@ Most of the objects I listed below is still on the paper. I may add them all to 
 ### New Dimension and Biomes. In order to bring gensokyo to minecraft world(It's a hard work to realize them all but I will have a try!):  
 Dimension List:  
 - Gensokyo: A wonder land that holds all the forgotten things where human and youkai live together side by side with a delicate balance.  
-- Mekkai: The land in gensokyo where the only way for the dead to begin the next samsara to go.  
-- Former Hell: The underground dimension where the most depressed youkai lived.  
-- Dream World: The dimension where lived the lord of dreams, which will only be used as a portal way form overworld to gensokyo.  
+- <font color=red>Mekkai</font>
+- <font color=red>Former Hell</font>  
+- <font color=red>Dream World</font>
+
+Biome List:
+- Yamotsu Hirasaka: An overworld biome having been considered by Japanese as the pathway to the nether lands;
+- Hell Valley: Overworld Biome;
+- Mountain YatsugaTake: Overworld Biome;
+- Gensokyo Forest: One of the most common biomes in Gensokyo;
+- Gensokyo Plain: One of the most common biomes in Gensokyo;
+- Youkai Mountain: A giant mountain in the southwest of Gensokyo;
+- Human Village: In the center of Gensokyo provided for human to live;
+- Magic Forest: A mysterious forest biome with many strange mushrooms;
+- Bamboo Forest of Lost: A bamboo forest where stands the House of Eternity;
+- <font color="red">Misty Lake</font>
    
 ## 2022/11/14 Update:    
 - Danmaku entity can now be added to world by Danmaku Test Item  
   
 ## 2023/1/10 Update:  
-- Add new Dimension: Gensokyo to Minecraft (Though there is just a single layer of bedrocks 😸)
+- Add new Dimension: Gensokyo to Minecraft (Though there is just a single layer of bedrocks)  
   
-  
+## 2023/4/19 Update:  
+- Add More Biomes to Gensokyo Dimension and Overworld. Generate the terrain of Gensokyo Dimension with Minecraft Vanilla chunk generator;
+<br>
+<br>
+<br>
 Original Author: KK, ZUN/Team ShanghaiAlice

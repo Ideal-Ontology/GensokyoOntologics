@@ -59,7 +59,7 @@ public class DanmakuTestItem extends ShootableItem{
 //
             TransformFunction tff = TransformFunction.Builder.create();
 //
-            func.setRotateTotal(Math.PI * 2);
+            // func.setRotateTotal(Math.PI * 2);
             ItemStack stack = playerIn.getHeldItem(handIn).getStack();
             this.onUsingTick(stack, playerIn, getUseDuration(stack));
 //

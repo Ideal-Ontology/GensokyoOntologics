@@ -11,6 +11,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 import java.util.function.Function;
 
@@ -32,7 +34,6 @@ public class TransformFunction extends ITransform.AbstractTransform {
     public double x, y, z = 0.D;
     public Vector3d initLocation = new Vector3d(0d,0d,0d);
     public Vector3d initRotation = new Vector3d(0d,0d,0d);
-    public double rotateTotal = 0.D;
 
     // --------------------Function settings---------------------//
 
@@ -40,7 +41,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
     public int executeTimes = 0;
 
     /** 函数的生命周期，即每次执行时执行的时长 */
-    public double lifeSpan = 0.d;
+    public int lifeSpan = 0;
 
     /** 设置本函数在应用于发射口时，下一枚子弹发射的间隔，0代表同时发射 */
     public double shootInterval = 0.d;
@@ -54,7 +55,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
      /** 设置本函数应用于的发射口发出的弹幕是否瞄准某个实体 */
     public UUID aimingAt = null;
 
-    public int ticksToExecute = 0;
+    public int delayedExeTicks = 0;
 
     // -------------Parameters to Set Future Motions--------------//
 
@@ -115,7 +116,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
      * @param resultantSpeed 弹幕的合成速度
      */
     public TransformFunction(Vector3d rotationVec, Vector3d locationVec, int executeTimes,
-                             double lifeSpan, double shootInterval, double executeInterval,
+                             int lifeSpan, double shootInterval, double executeInterval,
                              int executePriority, UUID aimingAt, double resultantSpeed) {
         this.roll = rotationVec.x;
         this.yaw = rotationVec.y;
@@ -162,8 +163,8 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return this;
     }
 
-    public TransformFunction setTicksToExecute(int ticksToExecute) {
-        this.ticksToExecute = ticksToExecute;
+    public TransformFunction setDelayedExeTicks(int delayedExeTicks) {
+        this.delayedExeTicks = delayedExeTicks;
         return this;
     }
 
@@ -182,7 +183,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return this;
     }
 
-    public TransformFunction setLifeSpan(double lifeSpan) {
+    public TransformFunction setLifeSpan(int lifeSpan) {
         this.lifeSpan = lifeSpan;
         return this;
     }
@@ -247,10 +248,6 @@ public class TransformFunction extends ITransform.AbstractTransform {
     public TransformFunction setPlayer(PlayerEntity playerIn) {
         this.playerIn = playerIn;
         return this;
-    }
-
-    public void setRotateTotal(double rotateTotal) {
-        this.rotateTotal = rotateTotal;
     }
 
 

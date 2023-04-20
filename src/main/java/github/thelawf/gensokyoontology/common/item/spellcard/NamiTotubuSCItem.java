@@ -42,7 +42,7 @@ public class NamiTotubuSCItem extends Item {
                     DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
 
                     if (j < tf.lifeSpan / 2) {
-                        tf.setIncrement(tf.rotateTotal, Math.PI / 10);
+                        //tf.setIncrement(tf.rotateTotal, Math.PI / 10);
                         tf.increaseYaw((float) tf.increment * j);
                         danmaku.setLocationAndAngles(tf.x, tf.y, tf.z,
                                 (float) tf.yaw, (float) tf.pitch);
@@ -56,7 +56,7 @@ public class NamiTotubuSCItem extends Item {
 
                     }
                     else {
-                        tf.setIncrement(tf.rotateTotal, Math.PI / 10);
+                        //tf.setIncrement(tf.rotateTotal, Math.PI / 10);
                         tf.increaseYaw((float) -tf.increment * j);
                         danmaku.setLocationAndAngles(tf.x, tf.y, tf.z,
                                 (float) -tf.yaw, (float) tf.pitch);

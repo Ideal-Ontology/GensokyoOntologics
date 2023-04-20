@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology;
 
+import github.thelawf.gensokyoontology.client.ClientSetup;
 import github.thelawf.gensokyoontology.common.CommonSetUp;
 import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
@@ -88,6 +89,8 @@ public class GensokyoOntology {
                 RenderTypeLookup.setRenderLayer(BlockRegistry.ONION_CROP_BLOCK.get(),
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SPACE_FISSURE_BLOCK.get(),
+                        RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.WASABI_BLOCK.get(),
                         RenderType.getCutout());
             });
 

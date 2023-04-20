@@ -122,24 +122,13 @@ public class ItemRegistry {
     public static final RegistryObject<DanmakuTestItem> DANMAKU_TEST_ITEM = ITEMS.register(
             "danmaku_test", () -> new DanmakuTestItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
 
-    public static final RegistryObject<SC_WaveAndParticle> SPELL_CARD_NAMI = ITEMS.register(
+    public static final RegistryObject<SC_WaveAndParticle> SC_WAVE_AND_PARTICLE = ITEMS.register(
             "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb),
                     "波与粒的境界","",500));
 
-    public static final RegistryObject<RailWrench> RAIL_WRENCH = ITEMS.register("rail_wrench",
-            () -> new RailWrench(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
-
-    public static final RegistryObject<BlockItem> FRIED_PANE_ITEM = ITEMS.register(
-            "fried_pane", () -> new BlockItem(BlockRegistry.FRIED_PANE.get(),
+    public static final RegistryObject<BlockItem> WASABI_ITEM = ITEMS.register(
+            "wasabi", () -> new BlockItem(BlockRegistry.WASABI_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
-    public static final RegistryObject<Item> RAIL_TRACK = ITEMS.register(
-            "rail_track", () -> new BlockItem(BlockRegistry.RAIL_TRACK_BLOCK.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
-    // public static final RegistryObject<BlockItem> MAGIC_LEAVES_ITEM = ITEMS.register(
-    //         "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
-    //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> MAGIC_LOG_ITEM = ITEMS.register(
             "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LOG.get(),
