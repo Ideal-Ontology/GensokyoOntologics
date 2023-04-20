@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity;
 
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IAngerable;
 import net.minecraft.entity.passive.TameableEntity;
@@ -13,6 +14,10 @@ import java.util.UUID;
 public class YukariEntity extends TameableEntity implements IAngerable {
     private int angerTime;
     private UUID angerTarget;
+
+    public static final EntityType<YukariEntity> YUKARI = EntityType.Builder.create(
+                    YukariEntity::new, EntityClassification.CREATURE)
+            .size(0.6f, 1.5f).trackingRange(10).build("fairy");
 
     protected YukariEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);

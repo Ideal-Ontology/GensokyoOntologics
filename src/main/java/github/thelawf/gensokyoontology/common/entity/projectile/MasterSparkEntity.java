@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 
 public class MasterSparkEntity extends ThrowableEntity {
     public final int LIFE_SPAN = 200;
-    public static final EntityType<MasterSparkEntity> MASTER_SPARK_ENTITY = EntityType.Builder.<MasterSparkEntity>create(
+    public static final EntityType<MasterSparkEntity> MASTER_SPARK = EntityType.Builder.<MasterSparkEntity>create(
                     MasterSparkEntity::new, EntityClassification.MISC).size(2F,25F).trackingRange(4)
             .updateInterval(2).build("master_spark_entity");
 
@@ -18,7 +18,7 @@ public class MasterSparkEntity extends ThrowableEntity {
     }
 
     public MasterSparkEntity(EntityType<? extends ThrowableEntity> type, World world) {
-        super(MASTER_SPARK_ENTITY, world);
+        super(MASTER_SPARK, world);
 
     }
 

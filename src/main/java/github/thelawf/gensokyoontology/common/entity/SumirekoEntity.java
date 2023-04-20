@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity;
 
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
@@ -13,6 +14,10 @@ import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 
 public class SumirekoEntity extends TameableEntity {
+    public static final EntityType<SumirekoEntity> SUMIREKO = EntityType.Builder.create(
+                    SumirekoEntity::new, EntityClassification.CREATURE)
+            .size(0.6f, 1.5f).trackingRange(10).build("fairy");
+
     protected SumirekoEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
     }

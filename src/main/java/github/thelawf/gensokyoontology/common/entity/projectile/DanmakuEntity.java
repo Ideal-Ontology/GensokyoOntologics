@@ -19,17 +19,15 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 public class DanmakuEntity extends ThrowableEntity implements IRendersAsItem{
 
-    public static final EntityType<DanmakuEntity> DANMAKU_ENTITY = EntityType.Builder.<DanmakuEntity>create(
+    public static final EntityType<DanmakuEntity> DANMAKU = EntityType.Builder.<DanmakuEntity>create(
                     DanmakuEntity::new, EntityClassification.MISC).size(0.5F,0.5F).trackingRange(4)
             .updateInterval(2).build("danmaku_entity");
 
@@ -45,11 +43,11 @@ public class DanmakuEntity extends ThrowableEntity implements IRendersAsItem{
     }
 
     public DanmakuEntity(LivingEntity throwerIn, World worldIn) {
-        super(DANMAKU_ENTITY,throwerIn, worldIn);
+        super(DANMAKU,throwerIn, worldIn);
     }
 
     public DanmakuEntity(LivingEntity throwerIn, World world,  DanmakuType type) {
-        super(DANMAKU_ENTITY, throwerIn, world);
+        super(DANMAKU, throwerIn, world);
         this.type = type;
     }
 

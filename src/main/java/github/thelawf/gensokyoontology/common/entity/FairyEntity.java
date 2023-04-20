@@ -2,22 +2,18 @@ package github.thelawf.gensokyoontology.common.entity;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.world.World;
 
 public class FairyEntity extends MonsterEntity {
 
-    public static final EntityType<FairyEntity> FAIRY_ENTITY = EntityType.Builder.create(
-            FairyEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<FairyEntity> FAIRY = EntityType.Builder.create(
+            FairyEntity::new, EntityClassification.MONSTER)
             .size(0.6f, 1.5f).trackingRange(10).build("fairy");
 
     public FairyEntity(EntityType<FairyEntity> entityTypeIn, World worldIn) {

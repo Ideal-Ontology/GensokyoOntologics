@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity;
 
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IAngerable;
 import net.minecraft.entity.passive.TameableEntity;
@@ -20,6 +21,11 @@ public class KoishiEntity extends TameableEntity implements IAngerable {
     private UUID angerTarget;
     private static final DataParameter<Integer> DATA_FAVORABILITY = EntityDataManager.createKey(KoishiEntity.class, DataSerializers.VARINT);
     public static final String KEY_FAVORABILITY = "favourability";
+
+    public static final EntityType<KoishiEntity> KOISHI = EntityType.Builder.create(
+                    KoishiEntity::new, EntityClassification.CREATURE)
+            .size(0.6f, 1.5f).trackingRange(10).build("fairy");
+
     protected KoishiEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
     }

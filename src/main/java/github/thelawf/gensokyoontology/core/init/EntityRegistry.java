@@ -2,7 +2,9 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.KoishiEntity;
 import github.thelawf.gensokyoontology.common.entity.SpellCardEntity;
+import github.thelawf.gensokyoontology.common.entity.SumirekoEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.MasterSparkEntity;
 import net.minecraft.entity.EntityType;
@@ -15,13 +17,19 @@ public class EntityRegistry {
             ForgeRegistries.ENTITIES, GensokyoOntology.MODID);
 
     public static final RegistryObject<EntityType<FairyEntity>> FAIRY_ENTITY = GSKO_ENTITIES.register(
-            "fairy_entity", () -> FairyEntity.FAIRY_ENTITY);
+            "fairy", () -> FairyEntity.FAIRY);
+
+    public static final RegistryObject<EntityType<KoishiEntity>> KOISHI_ENTITY = GSKO_ENTITIES.register(
+            "komeiji_koishi", () -> KoishiEntity.KOISHI);
+
+    public static final RegistryObject<EntityType<SumirekoEntity>> SUMIREKO_ENTITY = GSKO_ENTITIES.register(
+            "usami_sumireko", () -> SumirekoEntity.SUMIREKO);
 
     public static final RegistryObject<EntityType<DanmakuEntity>> DANMAKU_ENTITY = GSKO_ENTITIES.register(
-            "danmaku", () -> DanmakuEntity.DANMAKU_ENTITY);
+            "danmaku", () -> DanmakuEntity.DANMAKU);
 
     public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = GSKO_ENTITIES.register(
-            "master_spark", () -> MasterSparkEntity.MASTER_SPARK_ENTITY);
+            "master_spark", () -> MasterSparkEntity.MASTER_SPARK);
 
     RegistryObject<EntityType<SpellCardEntity>> SPELL_CARD_ENTITY = GSKO_ENTITIES.register(
             "spell_card_entity", () -> SpellCardEntity.SPELL_CARD_ENTITY);

@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.common.item.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.SpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.Muzzle;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,7 +31,7 @@ public class SC_WaveAndParticle extends SpellCardItem {
             List<Muzzle> muzzles = new ArrayList<>();
             for (int i = 0; i < 5; i++) {
                 muzzles.add(new Muzzle(new TransformFunction(),
-                        DanmakuEntity.DANMAKU_ENTITY));
+                        DanmakuEntity.DANMAKU));
             }
             SpellCardEntity spellEntity = new SpellCardEntity(
                     SpellCardEntity.SPELL_CARD_ENTITY, world, muzzles);
