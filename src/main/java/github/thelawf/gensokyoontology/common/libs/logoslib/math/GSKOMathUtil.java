@@ -13,6 +13,7 @@ import net.minecraft.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Random;
 
 import static net.minecraft.util.math.MathHelper.lerp;
 
@@ -415,6 +416,10 @@ public class GSKOMathUtil {
 
     public static Vector3d rectCoordToVec(RectangularCoordinate coordinate) {
         return new Vector3d(coordinate.x, coordinate.y, coordinate.z);
+    }
+
+    public static int randomRange(int min, int max) {
+        return new Random().nextInt(max - min + 1) + min;
     }
 
     /**

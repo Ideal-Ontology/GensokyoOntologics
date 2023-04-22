@@ -1,11 +1,9 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.item.InyoJade;
-import github.thelawf.gensokyoontology.common.item.OccultBall;
+import github.thelawf.gensokyoontology.common.item.*;
+import github.thelawf.gensokyoontology.common.item.danmaku.DanmakuShot;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
-import github.thelawf.gensokyoontology.common.item.ByteCoin;
-import github.thelawf.gensokyoontology.common.item.GameCoin;
 import github.thelawf.gensokyoontology.common.item.spellcard.SC_WaveAndParticle;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.tools.*;
@@ -21,6 +19,14 @@ import static net.minecraft.item.Items.BUCKET;
 public class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, GensokyoOntology.MODID);
+
+    public static final RegistryObject<Item> SAKUYA_WATCH = ITEMS.register(
+            "sakuya_stop_watch", () -> new SakuyaStopWatch(
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> KOISHI_EYE =
+            ITEMS.register("koishi_eye", () -> new KoishiEye(
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> HOTSPRING_BUCKET =
             ITEMS.register("hotspring_bucket",() -> new BucketItem(
                     FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
@@ -119,8 +125,11 @@ public class ItemRegistry {
     public static final RegistryObject<Item> GAME_COIN = ITEMS.register("game_coin",
             () -> new GameCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<DanmakuTestItem> DANMAKU_TEST_ITEM = ITEMS.register(
-            "danmaku_test", () -> new DanmakuTestItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+    public static final RegistryObject<DanmakuShot> DANMAKU_SHOT = ITEMS.register("danmaku_shot",
+            () -> new DanmakuShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+    public static final RegistryObject<Item> DANMAKU_TEST_ITEM = ITEMS.register(
+            "danmaku_test", () -> new DanmakuTestItem(
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
 
     public static final RegistryObject<SC_WaveAndParticle> SC_WAVE_AND_PARTICLE = ITEMS.register(
             "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb),
@@ -182,11 +191,11 @@ public class ItemRegistry {
             "inyo_jade_purple", () -> new InyoJade(DyeColor.PURPLE,
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
 
+    public static final RegistryObject<Item> BOMB_ITEM = ITEMS.register(
+            "bomb_item", () -> new BombItem(
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
 
-    //======================= ↓ The Mod Cyber Statistics ↓ ==================//
-    // public static final RegistryObject<Item> MAGIC_LEAVES_ITEM = ITEMS.register(
-    //         "magic_leaves",() -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
-    //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    //======================= ↓ The Mod Cyber Statistics ↓ ====================//
 
     public static final RegistryObject<Item> HASH_LEAVES_ITEM = ITEMS.register(
             "hash_leaves", () -> new BlockItem(BlockRegistry.HASH_LEAVES.get(),

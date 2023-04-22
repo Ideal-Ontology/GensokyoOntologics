@@ -41,7 +41,7 @@ allprojects {
 }
 
 group = 'com.github.thelawf'
-version = 'forge-1.16.5-1.0.1x'
+version = 'forge-1.16.5-unfinished-3'
 
 java {
     archivesBaseName = 'gensokyoontology'
