@@ -24,6 +24,10 @@
   "item.gensokyoontology.inyo_jade_blue": "Yin Yo Jade Blue",
   "item.gensokyoontology.inyo_jade_purple": "Yin Yo Jade Purple",
 
+  "item.gensokyoontology.bomb_item": "Bomb Item",
+  "item.gensokyoontology.koishi_eye": "Koishi's Third Eye",
+  "item.gensokyoontology.sakuya_stop_watch": "Sakuya's Stop Watch",
+
   "item.gensokyoontology.yattsume_una_yaki": "Yattsume Una Yaki",
   "item.gensokyoontology.koishi_hat_mousse": "Koishi Hat Mousse",
   "item.gensokyoontology.cake_scarlet_demon": "Cake Scarlet Demon",
@@ -63,6 +67,11 @@
   "effect.gensokyoontology.hypnosis": "Hypnosis",
   "effect.gensokyoontology.mania": "Mania",
   "effect.gensokyoontology.depression": "Depression",
+
+  "entity.gensokyoontology.fairy": "Fairy",
+  "entity.gensokyoontology.komeiji_koishi": "Komeiji Koishi",
+  "entity.gensokyoontology.usami_sumireko": "Usami Sumireko",
+  "entity.gensokyoontology.yakumo_yukari": "Yakumo Yukari",
 
   "gui.gensokyoontology.rail_adjust.title": "Rail Adjustment",
   "gui.gensokyoontology.button.increase_roll": "+",

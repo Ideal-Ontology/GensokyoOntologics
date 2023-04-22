@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.FairyEntity;
-import github.thelawf.gensokyoontology.common.entity.KoishiEntity;
-import github.thelawf.gensokyoontology.common.entity.SpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.SumirekoEntity;
+import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.MasterSparkEntity;
 import net.minecraft.entity.EntityType;
@@ -24,6 +21,9 @@ public class EntityRegistry {
 
     public static final RegistryObject<EntityType<SumirekoEntity>> SUMIREKO_ENTITY = GSKO_ENTITIES.register(
             "usami_sumireko", () -> SumirekoEntity.SUMIREKO);
+
+    public static final RegistryObject<EntityType<YukariEntity>> YUKARI_ENTITY = GSKO_ENTITIES.register(
+            "yakumo_yukari", () -> YukariEntity.YUKARI);
 
     public static final RegistryObject<EntityType<DanmakuEntity>> DANMAKU_ENTITY = GSKO_ENTITIES.register(
             "danmaku", () -> DanmakuEntity.DANMAKU);

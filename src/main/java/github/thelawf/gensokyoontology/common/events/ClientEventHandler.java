@@ -1,5 +1,10 @@
 package github.thelawf.gensokyoontology.common.events;
 
+import github.thelawf.gensokyoontology.client.model.FairyModel;
+import github.thelawf.gensokyoontology.client.render.FairyRenderer;
+import github.thelawf.gensokyoontology.client.render.YukariRenderer;
+import github.thelawf.gensokyoontology.common.entity.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.YukariEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -17,6 +22,8 @@ public class ClientEventHandler {
     public static void onClientSetUp(FMLClientSetupEvent event) {
         ItemRenderer itemRenderer = event.getMinecraftSupplier().get().getItemRenderer();
         RenderingRegistry.registerEntityRenderingHandler(DanmakuEntity.DANMAKU,
-                (EntityRendererManager manager) -> new SpriteRenderer<>(manager, itemRenderer));
+                (manager) -> new SpriteRenderer<>(manager, itemRenderer));
+        RenderingRegistry.registerEntityRenderingHandler(FairyEntity.FAIRY, FairyRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
     }
 }

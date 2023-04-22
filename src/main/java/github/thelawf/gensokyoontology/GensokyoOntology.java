@@ -1,28 +1,29 @@
 package github.thelawf.gensokyoontology;
 
-import github.thelawf.gensokyoontology.client.ClientSetup;
 import github.thelawf.gensokyoontology.common.CommonSetUp;
-import github.thelawf.gensokyoontology.common.dimensions.world.biome.GSKOBiomes;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
-import github.thelawf.gensokyoontology.data.GSKOWorldgenProvider;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.command.impl.LocateBiomeCommand;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.List;
 
 // The value here should match an entry in the META-INF/mods.toml file
 @Mod(GensokyoOntology.MODID)
@@ -40,7 +41,6 @@ public class GensokyoOntology {
         IEventBus modEvent = FMLJavaModLoadingContext.get().getModEventBus();
 
         modEvent.addListener(CommonSetUp::init);
-        modEvent.addListener(this::gatherData);
         // modEvent.addListener(GensokyoOntology::gatherWorldgenData);
 
         MinecraftForge.EVENT_BUS.register(this);
@@ -55,22 +55,12 @@ public class GensokyoOntology {
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class RegistryEvents {
-        @SubscribeEvent
-        public static void onBlocksRegistry(final RegistryEvent.Register<Block> blockRegistryEvent) {
-            // register a new block here
-            LOGGER.info("HELLO from Register Block");
-        }
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = GensokyoOntology.MODID)
+    public static class InitializationEvents {
 
         @SubscribeEvent
-        public static void onBiomeRegistry(final RegistryEvent.Register<Biome> event) {
-            event.getRegistry().registerAll(
-                    // GSKOBiomes.MAGIC_FOREST_BIOME,
-                    // GSKOBiomes.YOUKAI_MOUNTAIN_BIOME,
-                    // GSKOBiomes.GSKO_WILDLAND_BIOME,
-                    // GSKOBiomes.BAMBOO_FOREST_LOST_BIOME
-            );
+        public static void onOtherModLoad(FMLLoadCompleteEvent event) {
+            List<ModInfo> forgeMods = ModList.get().getMods();
         }
     }
 
@@ -96,16 +86,31 @@ public class GensokyoOntology {
 
         }
     }
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class AttributesSetEvent {
+        @SubscribeEvent
+        public static void setupAttributes(EntityAttributeCreationEvent event) {
+            double randomHealthFairy = GSKOMathUtil.randomRange(2,20);
 
-    private void gatherData(GatherDataEvent event) {
-        gatherWorldgenData(event.getGenerator());
+            event.put(EntityRegistry.FAIRY_ENTITY.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthFairy).create());
+
+            event.put(EntityRegistry.SUMIREKO_ENTITY.get(), TameableEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 20D).create());
+
+            event.put(EntityRegistry.KOISHI_ENTITY.get(), TameableEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 100D)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 12D)
+                    .createMutableAttribute(Attributes.ARMOR, 10D)
+                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 20D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D).create());
+
+            event.put(EntityRegistry.YUKARI_ENTITY.get(), TameableEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 300D)
+                    .createMutableAttribute(Attributes.ARMOR, 20D)
+                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 40D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5D).create());
+        }
     }
-
-    public static void gatherWorldgenData(DataGenerator gen) {
-        gen.addProvider(new GSKOWorldgenProvider(gen, generator -> {
-            // generator.addBiomes(GSKOBiomes::new);
-        }));
-    }
-
 
 }
