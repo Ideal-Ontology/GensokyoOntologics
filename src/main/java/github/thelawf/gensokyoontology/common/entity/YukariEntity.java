@@ -15,8 +15,8 @@ public class YukariEntity extends TameableEntity implements IAngerable {
     private int angerTime;
     private UUID angerTarget;
 
-    public static final EntityType<YukariEntity> YUKARI = EntityType.Builder.create(
-                    YukariEntity::new, EntityClassification.CREATURE)
+    public static final EntityType<YukariEntity> YUKARI = EntityType.Builder.<YukariEntity>create(
+                    YukariEntity::new, EntityClassification.CREATURE).updateInterval(2)
             .size(0.6f, 1.5f).trackingRange(10).build("fairy");
 
     protected YukariEntity(EntityType<? extends TameableEntity> type, World worldIn) {
