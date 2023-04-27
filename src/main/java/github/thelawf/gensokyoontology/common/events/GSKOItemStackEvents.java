@@ -1,27 +1,20 @@
 package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.common.block.SpaceFissureBlock;
-import github.thelawf.gensokyoontology.common.block.cyber.HashLog;
-import github.thelawf.gensokyoontology.common.item.food.KoishiHatMousse;
 import github.thelawf.gensokyoontology.common.item.food.MilkBottle;
-import github.thelawf.gensokyoontology.common.item.food.YattsumeUnaYaki;
 import github.thelawf.gensokyoontology.common.item.tools.IdealismSword;
 import github.thelawf.gensokyoontology.common.item.tools.RealismSword;
-import github.thelawf.gensokyoontology.common.nbt.GensokyoOntologyNBT;
 import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -92,16 +85,15 @@ public class GSKOItemStackEvents {
     }
 
     @SubscribeEvent
-    public static void onFoodCrafted(PlayerEvent.ItemCraftedEvent event) {
-        for (int i = 0; i < event.getInventory().getSizeInventory(); i++) {
-            ItemStack targetStack = event.getInventory().getStackInSlot(i);
-            Item targetItem = targetStack.getItem();
-            if (targetItem instanceof KoishiHatMousse) {
-                targetStack.setTag(GensokyoOntologyNBT.nbtKoishiMousse);
-            }
-            else if (targetItem instanceof YattsumeUnaYaki) {
-                targetStack.setTag(GensokyoOntologyNBT.nbtYattsume);
-            }
+    public static void onCrafting(PlayerEvent.ItemCraftedEvent event) {
+        IInventory inventory = event.getInventory();
+        ItemStack result = inventory.getStackInSlot(0);
+        for (int i = 1; i < 10; i++) {
+            ItemStack stack = inventory.getStackInSlot(i);
+            // if (stack.getItem().equals(ItemRegistry.DANMAKU_TEST_ITEM.get()) &&
+            //         stack.getTag() != null && stack.getTag().contains("nbt")) {
+            //
+            // }
         }
     }
 
