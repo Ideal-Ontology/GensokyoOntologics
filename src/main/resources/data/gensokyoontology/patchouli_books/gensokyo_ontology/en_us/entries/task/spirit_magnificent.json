@@ -1,0 +1,15 @@
+{
+  "name": "patchouli.gensokyoontology.task.ideology.title",
+  "icon": "gensokyoontology:theology_spirit",
+  "category": "task",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.ideology.magnificent.tutorial_p2"
+    }
+  ]
+}

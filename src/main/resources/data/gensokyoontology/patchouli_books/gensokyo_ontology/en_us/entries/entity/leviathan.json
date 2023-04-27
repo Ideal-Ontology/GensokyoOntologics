@@ -1,0 +1,24 @@
+{
+  "name": "patchouli.gensokyoontology.entity.leviathan.title",
+  "icon": "miencraft:spawn_egg",
+  "category": "entity",
+  "advancement": "",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.leviathan_introduction"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.leviathan_standing_paint"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.leviathan_model"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.leviathan_spell_card"
+    }
+  ]
+}

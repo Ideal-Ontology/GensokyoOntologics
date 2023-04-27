@@ -1,0 +1,12 @@
+{
+  "name": "patchouli.gensokyoontology.chapter.gensokyo.title",
+  "icon": "gensokyoontology:inyo_jade_red",
+  "category": "chapter",
+  "advancement": "",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.gensokyo.introduction"
+    }
+  ]
+}
