@@ -3,13 +3,16 @@ package github.thelawf.gensokyoontology.common.entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -54,6 +57,16 @@ public class FairyEntity extends MonsterEntity {
         if (this.ticksExisted >= MAX_LIVING_TICK) {
             this.remove();
         }
+    }
+
+    @Override
+    public boolean canSpawn(IWorld worldIn, SpawnReason spawnReasonIn) {
+        return super.canSpawn(worldIn, spawnReasonIn);
+    }
+
+    @Override
+    public void checkDespawn() {
+        super.checkDespawn();
     }
 
     public static class FlyingCasuallyGoal extends Goal {
