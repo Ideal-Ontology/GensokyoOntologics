@@ -15,7 +15,7 @@
   "item.gensokyoontology.praxis_sword": "实践",
 
   "item.gensokyoontology.danmaku_test": "弹幕测试工具",
-  "item.gensokyoontology.sc_wave_and_particle": "符卡：波与粒的境界",
+  "item.gensokyoontology.sc_wave_and_particle": "境符「波与粒的境界」",
   "item.gensokyoontology.inyo_jade_black": "阴阳玉（黑）",
   "item.gensokyoontology.inyo_jade_red": "阴阳玉（红）",
   "item.gensokyoontology.inyo_jade_yellow": "阴阳玉（黄）",
@@ -23,6 +23,12 @@
   "item.gensokyoontology.inyo_jade_aqua": "阴阳玉（淡蓝）",
   "item.gensokyoontology.inyo_jade_blue": "阴阳玉（蓝）",
   "item.gensokyoontology.inyo_jade_purple": "阴阳玉（紫）",
+
+  "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
+
+  "item.gensokyoontology.bomb_item": "B点",
+  "item.gensokyoontology.koishi_eye": "恋之瞳",
+  "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
 
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
   "item.gensokyoontology.koishi_hat_mousse": "无意识妖怪慕斯",
@@ -43,12 +49,18 @@
 
   "item.gensokyoontology.rail_wrench": "Rail Wrench",
 
+  "advancement.gensokyoontology.root.title": "Not An Animation!",
+  "advancement.gensokyoontology.root.description": "Get Story Pages Chapter 1.1",
+  "advancement.gensokyoontology.login_gensokyo.title": "Player off Land",
+  "advancement.gensokyoontology.login_gensokyo.description": "Player change to Gensokyo dimension",
+
   "block.gensokyoontology.wasabi": "山葵",
   "block.gensokyoontology.lycoris_radiata": "红花石蒜",
   "block.gensokyoontology.onion_crop": "洋葱",
 
   "block.gensokyoontology.sakura_leaves": "樱花树叶",
   "block.gensokyoontology.sakura_log": "樱花树原木",
+  "block.gensokyoontology.sakura_planks": "樱花树木板",
 
   "block.gensokyoontology.fried_pane": "炸锅",
   "block.gensokyoontology.dakimakura": "抱枕",
@@ -59,10 +71,15 @@
   "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
   "description.gensokyoontology.praxis_sword_description": "§6现在，你知道了所有的故事，那么，请开始实践吧~",
 
-  "effect.gensokyoontology.depression": "抑郁",
-  "effect.gensokyoontology.mania": "躁狂",
-  "effect.gensokyoontology.hypnosis": "催眠",
   "effect.gensokyoontology.love_potion": "迷恋",
+  "effect.gensokyoontology.hypnosis": "催眠",
+  "effect.gensokyoontology.mania": "躁狂",
+  "effect.gensokyoontology.depression": "抑郁",
+
+  "entity.gensokyoontology.fairy": "妖精",
+  "entity.gensokyoontology.komeiji_koishi": "古明地恋",
+  "entity.gensokyoontology.usami_sumireko": "宇佐见堇子",
+  "entity.gensokyoontology.yakumo_yukari": "八云紫",
 
   "gui.gensokyoontology.rail_adjust.title": "轨道调整",
   "gui.gensokyoontology.button.increase_roll": "+",
@@ -86,6 +103,10 @@
   "nbt.gensokyoontology.start_pos": "轨道起点：",
   "nbt.gensokyoontology.end_pos": "轨道终点： ",
 
+  "story.gensokyoontology.chapter_1_1.page_1": "I can't forget the day when I rest down in peace. The sky was stained by a crimson color like the end of the world. People spread rumors that there falls a mansion of vampires on another side of Misty Lake. I do not believe at first for no one ever comes to the other side of Misty Lake, but here, look at me, I should have believe it...",
+  "story.gensokyoontology.chapter_1_2.page_1": "That was a cold spring which I was starved to die. Snows fall until May 1st. I have wandered around on this icy land for many years ever since then. I was unreconciled, why me? why only my vitality was been taken altogether with the spring?",
+  "story.gensokyoontology.chapter_1_3.page_1": "Quite a lengthy night!\nThis is the only thing that I can remember.",
+
   "tooltip.gensokyoontology.idealism_sword_info": "按住 §9SHIFT§r 查看更多信息",
   "tooltip.gensokyoontology.praxis_sword_info": "按住 §9SHIFT§r 查看更多信息",
   "tooltip.gensokyoontology.idealism_sword_shift": "§5右键释放现实裂缝§r",
@@ -93,18 +114,50 @@
 
   "tooltip.gensokyoontology.occult_ball.biome": "神秘地点: ",
 
-  "patchouli.gensokyoontology.book.landing_text": "$(l)前言$(br)&()$(4)保$(b)持$(d)理$(2)智!$() 你正处于 $(k)(m)meaningless network$() of $(l)ideologies.$() Be $(l)$(#ff0000)CLEAR AWARE$() of this!",
-  "patchouli.gensokyoontology.overview.description": "$(l)$(o)Where did the fiction begin?",
-  "patchouli.gensokyoontology.overview.introduction_p1": "All the cultural works made by human kind no matter a mass culture or a subculture can be interpreted as a certain kind of forms of ideologies. Ideologies are everywhere acting like atmosphere. It is so universal that we have no idea that we are actually subordinated to it and became its properties.",
-  "patchouli.gensokyoontology.overview.introduction_p2": "Try to reify the embodiment of all kinds of ideologies is the target of this book. Now follow this guidebook to visualize and realize yourselves.",
-  "patchouli.gensokyoontology.overview.intro.title": "Background Story",
+  "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
+  "patchouli.gensokyoontology.book.landing_text": "Fore Words",
+  "patchouli.gensokyoontology.book.subtitle": "-- Author: Usami Sumireko",
 
-  "patchouli.gensokyoontology.ideologies.description": "$(l)$(o)$(#eb82ee)Science is not your Jesus Christ! Nor Philosophy!",
-  "patchouli.gensokyoontology.ideologies.erhabene.title": "How to get Hochfliegend",
-  "patchouli.gensokyoontology.ideologies.dia.title": "The Necessity of History",
-  "patchouli.gensokyoontology.ideologies.erhabene.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
-  "patchouli.gensokyoontology.ideologies.erhabene.tutorial_p2": "This might be a picture?",
-  "patchouli.gensokyoontology.ideologies.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
-  "patchouli.gensokyoontology.ideologies.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideologies.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
+  "patchouli.gensokyoontology.chapter.intro.title": "Introduction Overview",
+  "patchouli.gensokyoontology.chapter.description": "$(l)Gensokyo, a world where human and youkai live together within side by side keeping a dedicate balance.",
+  "patchouli.gensokyoontology.chapter.introduction_p1": "Hello, my name is Usami Sumireko, the founder of Hifuu Club. When you see this book, that means I have already lost in that fictional dimension. Or otherwise, me, myself, even you who are reading this book is also part of the fiction itself. I can feel that Hakurei Keikkai is... very unstable, something wrong will happen.",
+  "patchouli.gensokyoontology.chapter.introduction_p2": "I have transferred some of my powers to this book in order that it will appear in this library someday when I lost. The rest of my power will be stored in this book for you to use. If I fail, take this book with you, and please, try to find the way out!",
+
+  "patchouli.gensokyoontology.chapter.story.title": "Chapter 1: New Crisis",
+  "patchouli.gensokyoontology.story.chapter_01.content_01": "$(l)\"Signs often appears before the real crisis.\" -- Her voice haunted me even though she is no longer be here. I don't know when did those meme entities come into being in our world, but I know that fighting against with those entities for too long will lost one's ego -- and that is how she left me.$(br) Her eyes turned into jewels which could show the images of those entities on the paper, and I am collecting the loots from those monsters:",
+
+  "patchouli.gensokyoontology.task.title": "Crafting Manual",
+
+  "patchouli.gensokyoontology.entity.title": "Entities Being Lost in Gensokyo",
+  "patchouli.gensokyoontology.entity.description": "Some entities that might summon everywhere. This is not a good sign.$(br)\t\t -- Usami Sumireko",
+
+  "patchouli.gensokyoontology.entity.mob.title": "Meme Entities",
+  "patchouli.gensokyoontology.entity.fairy_introduction": "The most common and normal creature in Gensokyo. But it is abnormal to see them spawn in Overworld. These creature seems undying because when I was in Gensokyo, I killed a lot of them, but they will soon respawn elsewhere.",
+  "patchouli.gensokyoontology.entity.butterfly_fairy_introduction": "The big version of the fairy, possessing tougher health but having a large probabilities to drop Bomb Item.",
+  "patchouli.gensokyoontology.entity.inyo_jade_entity_introduction": "Entity Inyo Jade never drops Bomb Point Item, but the fragments of jade and the spirit fragments it dropped may be useful?",
+  "patchouli.gensokyoontology.entity.spectre_introduction": "These are the wandering souls who once were killed but holding with desperate shame or unwilling mind",
+
+  "patchouli.gensokyoontology.entity.object_a.title": "$(l)Object a",
+  "patchouli.gensokyoontology.entity.object_a.introduction": "$(l)Object a, she is the one you authentically desire to. She could block your truly wantings and force you to worship on items. That's crazy, but thanks to koishi's eye, if you have koishi's eye in any of your inventory slot, you will not be added with fetish effect!",
+  "patchouli.gensokyoontology.entity.object_a.spell_card": "$(li)$(sc_object_a)Spell Card 1: ",
+
+  "patchouli.gensokyoontology.entity.koishi.title": "$(l)Komeiji Koishi",
+  "patchouli.gensokyoontology.entity.koishi.introduction": "$(l)Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
+
+  "patchouli.gensokyoontology.entity.sumireko.title": "$(l)Usami Sumireko",
+  "patchouli.gensokyoontology.entity.sumireko.introduction": "$(l)You want to know more about me! Yes, I am the one you called JK! And isn't it common to know that Japanese JK can use super powers right?www...",
+
+  "patchouli.gensokyoontology.entity.yukari.title": "$(l)Yakumo Yukari",
+  "patchouli.gensokyoontology.entity.yukari.introduction": "$(l)An evil, old, grandma, devil gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)Ah-la, if you dare to call me like that... $(ff0000)YOU WILL BE THE SAME WITH THIS GIRL!$()",
+
+  "patchouli.gensokyoontology.task.ideology.magnificent.title": "How to get Hochfliegend",
+  "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
+  "patchouli.gensokyoontology.ideology.magnificent.tutorial_p2": "This might be a picture?",
+
+  "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "advancement.gensokyoontology.story_root.description": "Get Story Pages Chapter 1.1",
+  "advancement.gensokyoontology.story_root.title": "Story of Us"
 }

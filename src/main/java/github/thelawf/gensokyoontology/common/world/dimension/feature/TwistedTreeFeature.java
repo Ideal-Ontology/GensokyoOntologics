@@ -1,15 +1,11 @@
-package github.thelawf.gensokyoontology.common.dimensions.world.feature;
+package github.thelawf.gensokyoontology.common.world.dimension.feature;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.block.trees.Tree;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.BaseTreeFeatureConfig;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
