@@ -3,7 +3,6 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.cyber.ComputerBlock;
-import github.thelawf.gensokyoontology.common.block.cyber.FractalLeaves;
 import github.thelawf.gensokyoontology.common.block.cyber.HashLeaves;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -25,13 +24,24 @@ public class BlockRegistry {
     // public static final RegistryObject<Block> MAGIC_SAPLING =BLOCKS.register("magic_sapling",
     //         () -> new SaplingBlock());
 
-    public static final RegistryObject<Block> SAKURA_LEAVES = BLOCKS.register("sakura_leaves",
-            () -> new LeavesBlock(AbstractBlock.Properties.create
-                    (Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
+    public static final RegistryObject<Block> SAKURA_LEAVES = BLOCKS.register(
+            "sakura_leaves", SakuraLeaves::new);
 
     public static final RegistryObject<Block> SAKURA_LOG = BLOCKS.register(
             "sakura_log", SakuraLog::new);
 
+    public static final RegistryObject<Block> SAKURA_PLANKS = BLOCKS.register(
+            "sakura_planks", SakuraPlanks::new);
+
+    public static final RegistryObject<Block> SAKURA_STAIRS = BLOCKS.register(
+            "sakura_staris", () -> new StairsBlock(() -> SAKURA_PLANKS.get().getDefaultState(),
+                    AbstractBlock.Properties.from(Blocks.OAK_STAIRS).sound(SoundType.WOOD)));
+
+    public static final RegistryObject<Block> SAKURA_SLAB = BLOCKS.register(
+            "sakura_slab", SakuraSlab::new);
+
+    public static final RegistryObject<Block> SAKURA_FENCE = BLOCKS.register(
+            "sakura_fence", SakuraFence::new);
     //======================= ↓ The Mod Cyber Statistics ↓ ==================//
     public static final RegistryObject<Block> HASH_LOG = BLOCKS.register("hash_log",
             () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
@@ -69,6 +79,9 @@ public class BlockRegistry {
 
     public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
             "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));
+
+    public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register(
+            "danmaku_table", DanmakuTable::new);
 
     public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
             "space_fissure_block", SpaceFissureBlock::new);
