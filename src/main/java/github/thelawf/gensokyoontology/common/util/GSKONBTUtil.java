@@ -10,6 +10,10 @@ import net.minecraft.util.math.vector.Vector3i;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 public class GSKONBTUtil {
 
@@ -59,6 +63,31 @@ public class GSKONBTUtil {
                 nbt.remove(key);
                 stack.setTag(nbt);
             }
+            return nbt;
+        }
+        return new CompoundNBT();
+    }
+
+    public static CompoundNBT putStory() {
+        String key = "story";
+        String storyText = "";
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putString(key, storyText);
+        return nbt;
+    }
+
+    public static CompoundNBT putRandomStory (List<String> stories) {
+        String key = "story";
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putString(key, stories.get(new Random().nextInt(stories.size())));
+        return nbt;
+    }
+
+    public static <T> CompoundNBT putStoryIf (Predicate<T> predicate, T t) {
+        if (predicate.test(t)) {
+            String key = "story";
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putString(key, predicate.toString());
             return nbt;
         }
         return new CompoundNBT();

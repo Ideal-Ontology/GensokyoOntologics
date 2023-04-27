@@ -422,6 +422,10 @@ public class GSKOMathUtil {
         return new Random().nextInt(max - min + 1) + min;
     }
 
+    public static <V> V rollByWeight(int total, int weight, V value) {
+        return new Random().nextInt(total) < weight ? null : value;
+    }
+
     /**
      * 弧度值除以Math.PI的结果为【180度的几分之几】
      * @param radIn 弧度值

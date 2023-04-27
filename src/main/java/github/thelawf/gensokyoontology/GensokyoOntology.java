@@ -82,6 +82,11 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.WASABI_BLOCK.get(),
                         RenderType.getCutout());
+
+                RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),
+                        RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.HASH_LEAVES.get(),
+                        RenderType.getCutout());
             });
 
         }
