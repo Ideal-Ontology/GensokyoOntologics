@@ -31,7 +31,7 @@ public class KoishiEntity extends TameableEntity implements IAngerable {
 
     public static final EntityType<KoishiEntity> KOISHI = EntityType.Builder.create(
                     KoishiEntity::new, EntityClassification.CREATURE).updateInterval(2)
-            .size(0.6f, 1.5f).trackingRange(10).build("fairy");
+            .size(0.6f, 1.5f).trackingRange(10).build("koishi");
 
     protected KoishiEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);

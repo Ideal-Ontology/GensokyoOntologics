@@ -20,7 +20,6 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = "gensokyoontology",bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GSKOEntityEvents {
-
     @SubscribeEvent
     public static void onHotSpringIn(LivingEvent.LivingUpdateEvent event){
         if (event.getEntityLiving() != null && event.getEntityLiving().isInWater()) {
