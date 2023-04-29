@@ -74,6 +74,20 @@
               "condition": "minecraft:killed_by_player"
             }
           ]
+        },
+        {
+          "type": "minecraft:item",
+          "name": "gensokyoontology:spirit_fragment",
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance_with_looting",
+              "chance": 0.1,
+              "looting_multiplier": 0.05
+            },
+            {
+              "condition": "minecraft:killed_by_player"
+            }
+          ]
         }
       ]
     }

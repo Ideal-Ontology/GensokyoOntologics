@@ -10,7 +10,7 @@
       "item": "minecraft:oak_button"
     },
     "#": {
-      "tag": "minecraft:glass_panes"
+      "item": "minecraft:glass_pane"
     },
     "O": {
       "item": "minecraft:diamond"
@@ -20,7 +20,7 @@
     }
   },
   "result": {
-    "item": "gensokyoontology:koishi_hat_mousse",
+    "item": "gensokyoontology:spirit_tube",
     "count": 1
   }
 }

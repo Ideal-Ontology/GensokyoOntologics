@@ -1,5 +1,5 @@
 {
-  "depth": 0.05,
+  "depth": 0.01,
   "scale": 1.7,
   "downfall": 0,
   "temperature": 0.75,
@@ -30,7 +30,14 @@
     ]
   },
   "spawners": {
-
+    "creature": [
+      {
+        "type": "minecraft:villager",
+        "weight": 10,
+        "minCount": 10,
+        "maxCount": 15
+      }
+    ]
   },
   "starts": []
 }

@@ -32,7 +32,7 @@
 
   "item.gensokyoontology.koishi_eye": "Koishi's Third Eye",
   "item.gensokyoontology.sakuya_stop_watch": "Sakuya's Stop Watch",
-  "item.gensokyoontology.memory_card": "Bomb Item",
+  "item.gensokyoontology.story_card": "Story Card",
 
   "item.gensokyoontology.yattsume_una_yaki": "Yattsume Una Yaki",
   "item.gensokyoontology.koishi_hat_mousse": "Koishi Hat Mousse",
@@ -123,7 +123,7 @@
   "patchouli.gensokyoontology.book.subtitle":"-- Author: Usami Sumireko",
 
   "patchouli.gensokyoontology.chapter.intro.title": "Introduction Overview",
-  "patchouli.gensokyoontology.chapter.description": "$(l)Gensokyo, a world where human and youkai live together within side by side keeping a dedicate balance.",
+  "patchouli.gensokyoontology.chapter.description": "Gensokyo, a world where human and youkai live together within side by side keeping a dedicate balance.",
   "patchouli.gensokyoontology.chapter.introduction_p1": "Hello, my name is Usami Sumireko, the founder of Hifuu Club. When you see this book, that means I have already lost in that fictional dimension. Or otherwise, me, myself, even you who are reading this book is also part of the fiction itself. I can feel that Hakurei Keikkai is... very unstable, something wrong will happen.",
   "patchouli.gensokyoontology.chapter.introduction_p2": "I have transferred some of my powers to this book in order that it will appear in this library someday when I lost. The rest of my power will be stored in this book for you to use. If I fail, take this book with you, and please, try to find the way out!",
 
@@ -141,22 +141,31 @@
   "patchouli.gensokyoontology.entity.inyo_jade_entity_introduction": "Entity Inyo Jade never drops Bomb Point Item, but the fragments of jade and the spirit fragments it dropped may be useful?",
   "patchouli.gensokyoontology.entity.spectre_introduction": "These are the wandering souls who once were killed but holding with desperate shame or unwilling mind",
 
-  "patchouli.gensokyoontology.entity.object_a.title": "$(l)Object a",
-  "patchouli.gensokyoontology.entity.object_a.introduction": "$(l)Object a, she is the one you authentically desire to. She could block your truly wantings and force you to worship on items. That's crazy, but thanks to koishi's eye, if you have koishi's eye in any of your inventory slot, you will not be added with fetish effect!",
+  "patchouli.gensokyoontology.entity.object_a.title": "Object a",
+  "patchouli.gensokyoontology.entity.object_a.introduction": "Object a, she is the one you authentically desire to. She could block your truly wantings and force you to worship on items. That's crazy, but thanks to koishi's eye, if you have koishi's eye in any of your inventory slot, you will not be added with fetish effect!",
   "patchouli.gensokyoontology.entity.object_a.spell_card": "$(li)$(sc_object_a)Spell Card 1: ",
 
-  "patchouli.gensokyoontology.entity.koishi.title": "$(l)Komeiji Koishi",
-  "patchouli.gensokyoontology.entity.koishi.introduction": "$(l)Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
+  "patchouli.gensokyoontology.entity.koishi.title": "Komeiji Koishi",
+  "patchouli.gensokyoontology.entity.koishi.introduction": "Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
 
-  "patchouli.gensokyoontology.entity.sumireko.title": "$(l)Usami Sumireko",
-  "patchouli.gensokyoontology.entity.sumireko.introduction": "$(l)You want to know more about me! Yes, I am the one you called JK! And isn't it common to know that Japanese JK can use super powers right?www...",
+  "patchouli.gensokyoontology.entity.sumireko.title": "Usami Sumireko",
+  "patchouli.gensokyoontology.entity.sumireko.introduction": "You want to know more about me! Yes, I am the one you called JK! And isn't it common to know that Japanese JK can use super powers right?www...",
 
-  "patchouli.gensokyoontology.entity.yukari.title": "$(l)Yakumo Yukari",
-  "patchouli.gensokyoontology.entity.yukari.introduction": "$(l)An evil, old, grandma, devil gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)Ah-la, if you dare to call me like that... $(ff0000)YOU WILL BE THE SAME WITH THIS GIRL!$()",
+  "patchouli.gensokyoontology.entity.yukari.title": "Yakumo Yukari",
+  "patchouli.gensokyoontology.entity.yukari.introduction": "An evil, old, grandma, devil gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)Ah-la, if you dare to call me like that... $(ff0000)YOU WILL BE THE SAME WITH THIS GIRL!$()",
 
   "patchouli.gensokyoontology.task.ideology.magnificent.title": "How to get Hochfliegend",
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p2": "This might be a picture?",
+
+  "patchouli.gensokyoontology.task.spirit.title": "Spirit",
+  "patchouli.gensokyoontology.task.spirit_fragment.title": "Spirit Fragment",
+
+  "patchouli.gensokyoontology.spell_card.sc_koishi.title": "Koishi's Spell Card",
+  "patchouli.gensokyoontology.spell_card.sc_yukari.title": "Yukari's Spell Card",
+  "patchouli.gensokyoontology.spell_card.sc_leviathan.title": "Leviathan's Spell Card",
+  "patchouli.gensokyoontology.spell_card.sc_meme.title": "Entity Meme's Spell Card",
+  "patchouli.gensokyoontology.spell_card.sc_object_a.title": "Object a's Spell Card",
 
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",

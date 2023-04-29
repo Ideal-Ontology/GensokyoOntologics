@@ -8,6 +8,9 @@
   "item.gensokyoontology.theology_spirit": "意识形态·崇拜",
 
   "item.gensokyoontology.occult_ball": "神秘珠",
+  "item.gensokyoontology.spirit_tube": "灵魂的标本瓶",
+  "item.gensokyoontology.kuda_gitsune_tube": "管狐的试管",
+  "item.gensokyoontology.gitsune_tube_full": "装满的试管",
 
   "item.gensokyoontology.realism_sword": "实在论之剑",
   "item.gensokyoontology.metaphysics_sword": "形而上之剑",
@@ -24,11 +27,12 @@
   "item.gensokyoontology.inyo_jade_blue": "阴阳玉（蓝）",
   "item.gensokyoontology.inyo_jade_purple": "阴阳玉（紫）",
 
-  "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
-
+  "item.gensokyoontology.danmaku_shot": "弹幕之点",
   "item.gensokyoontology.bomb_item": "B点",
+
   "item.gensokyoontology.koishi_eye": "恋之瞳",
   "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
+  "item.gensokyoontology.story_card": "故事卡片",
 
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
   "item.gensokyoontology.koishi_hat_mousse": "无意识妖怪慕斯",
@@ -49,10 +53,10 @@
 
   "item.gensokyoontology.rail_wrench": "Rail Wrench",
 
-  "advancement.gensokyoontology.root.title": "Not An Animation!",
-  "advancement.gensokyoontology.root.description": "Get Story Pages Chapter 1.1",
-  "advancement.gensokyoontology.login_gensokyo.title": "Player off Land",
-  "advancement.gensokyoontology.login_gensokyo.description": "Player change to Gensokyo dimension",
+  "advancement.gensokyoontology.root.title": "不是冻鳗!",
+  "advancement.gensokyoontology.root.description": "获得故事书的第1.1章",
+  "advancement.gensokyoontology.login_gensokyo.title": "玩家已着陆",
+  "advancement.gensokyoontology.login_gensokyo.description": "玩家进入幻想乡维度",
 
   "block.gensokyoontology.wasabi": "山葵",
   "block.gensokyoontology.lycoris_radiata": "红花石蒜",
@@ -110,54 +114,61 @@
   "tooltip.gensokyoontology.idealism_sword_info": "按住 §9SHIFT§r 查看更多信息",
   "tooltip.gensokyoontology.praxis_sword_info": "按住 §9SHIFT§r 查看更多信息",
   "tooltip.gensokyoontology.idealism_sword_shift": "§5右键释放现实裂缝§r",
-  "tooltip.gensokyoontology.praxis_sword_shift": "如果你能游戏里编程，那么为什么不去现实中试一试呢",
+  "tooltip.gensokyoontology.praxis_sword_shift": "过于OP，已被弃用",
 
   "tooltip.gensokyoontology.occult_ball.biome": "神秘地点: ",
 
-  "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
-  "patchouli.gensokyoontology.book.landing_text": "Fore Words",
-  "patchouli.gensokyoontology.book.subtitle": "-- Author: Usami Sumireko",
+  "patchouli.gensokyoontology.book.name": "幻想存有论",
+  "patchouli.gensokyoontology.book.landing_text": "前言",
+  "patchouli.gensokyoontology.book.subtitle": "——作者：宇佐见堇子",
 
-  "patchouli.gensokyoontology.chapter.intro.title": "Introduction Overview",
-  "patchouli.gensokyoontology.chapter.description": "$(l)Gensokyo, a world where human and youkai live together within side by side keeping a dedicate balance.",
-  "patchouli.gensokyoontology.chapter.introduction_p1": "Hello, my name is Usami Sumireko, the founder of Hifuu Club. When you see this book, that means I have already lost in that fictional dimension. Or otherwise, me, myself, even you who are reading this book is also part of the fiction itself. I can feel that Hakurei Keikkai is... very unstable, something wrong will happen.",
-  "patchouli.gensokyoontology.chapter.introduction_p2": "I have transferred some of my powers to this book in order that it will appear in this library someday when I lost. The rest of my power will be stored in this book for you to use. If I fail, take this book with you, and please, try to find the way out!",
+  "patchouli.gensokyoontology.chapter.intro.title": "总体介绍",
+  "patchouli.gensokyoontology.chapter.description": "幻想乡，一个人与妖怪两相对立却又彼此依存的世界。",
+  "patchouli.gensokyoontology.chapter.introduction_p1": "你好，我是宇佐见堇子，秘封俱乐部的创始人，当你看见这本书的时候，那就意味着我已经迷失在了那个虚构的国度。也许我，我自己，甚至是正在阅读着这段文字的你，不过也同样是这幻想的一员罢了。我能感受到博丽大结界……十分的不稳定，一场异变马上就要到来了。",
+  "patchouli.gensokyoontology.chapter.introduction_p2": "我将自己的能力的一部分转移到了这本书里，这样，当我进入幻想之时，这本书便会出现在这座图书馆。如果我失败了，请带上这本书，本书中残余的能量或许能够帮助到你。我想请求你，帮我找到解决这场异变的办法！",
 
-  "patchouli.gensokyoontology.chapter.story.title": "Chapter 1: New Crisis",
+  "patchouli.gensokyoontology.chapter.story.title": "第一章：新的？异变？",
   "patchouli.gensokyoontology.story.chapter_01.content_01": "$(l)\"Signs often appears before the real crisis.\" -- Her voice haunted me even though she is no longer be here. I don't know when did those meme entities come into being in our world, but I know that fighting against with those entities for too long will lost one's ego -- and that is how she left me.$(br) Her eyes turned into jewels which could show the images of those entities on the paper, and I am collecting the loots from those monsters:",
 
-  "patchouli.gensokyoontology.task.title": "Crafting Manual",
+  "patchouli.gensokyoontology.task.title": "合成指南",
 
-  "patchouli.gensokyoontology.entity.title": "Entities Being Lost in Gensokyo",
+  "patchouli.gensokyoontology.entity.title": "已进入幻想的实体",
   "patchouli.gensokyoontology.entity.description": "Some entities that might summon everywhere. This is not a good sign.$(br)\t\t -- Usami Sumireko",
 
-  "patchouli.gensokyoontology.entity.mob.title": "Meme Entities",
+  "patchouli.gensokyoontology.entity.mob.title": "各种迷因实体",
   "patchouli.gensokyoontology.entity.fairy_introduction": "The most common and normal creature in Gensokyo. But it is abnormal to see them spawn in Overworld. These creature seems undying because when I was in Gensokyo, I killed a lot of them, but they will soon respawn elsewhere.",
   "patchouli.gensokyoontology.entity.butterfly_fairy_introduction": "The big version of the fairy, possessing tougher health but having a large probabilities to drop Bomb Item.",
   "patchouli.gensokyoontology.entity.inyo_jade_entity_introduction": "Entity Inyo Jade never drops Bomb Point Item, but the fragments of jade and the spirit fragments it dropped may be useful?",
   "patchouli.gensokyoontology.entity.spectre_introduction": "These are the wandering souls who once were killed but holding with desperate shame or unwilling mind",
 
-  "patchouli.gensokyoontology.entity.object_a.title": "$(l)Object a",
-  "patchouli.gensokyoontology.entity.object_a.introduction": "$(l)Object a, she is the one you authentically desire to. She could block your truly wantings and force you to worship on items. That's crazy, but thanks to koishi's eye, if you have koishi's eye in any of your inventory slot, you will not be added with fetish effect!",
+  "patchouli.gensokyoontology.entity.object_a.title": "对象a（别名：小客体a）",
+  "patchouli.gensokyoontology.entity.object_a.introduction": "Object a, she is the one you authentically desire to. She could block your truly wantings and force you to worship on items. That's crazy, but thanks to koishi's eye, if you have koishi's eye in any of your inventory slot, you will not be added with fetish effect!",
   "patchouli.gensokyoontology.entity.object_a.spell_card": "$(li)$(sc_object_a)Spell Card 1: ",
 
-  "patchouli.gensokyoontology.entity.koishi.title": "$(l)Komeiji Koishi",
+  "patchouli.gensokyoontology.entity.koishi.title": "古明地恋",
   "patchouli.gensokyoontology.entity.koishi.introduction": "$(l)Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
 
-  "patchouli.gensokyoontology.entity.sumireko.title": "$(l)Usami Sumireko",
+  "patchouli.gensokyoontology.entity.sumireko.title": "宇佐见堇子",
   "patchouli.gensokyoontology.entity.sumireko.introduction": "$(l)You want to know more about me! Yes, I am the one you called JK! And isn't it common to know that Japanese JK can use super powers right?www...",
 
-  "patchouli.gensokyoontology.entity.yukari.title": "$(l)Yakumo Yukari",
-  "patchouli.gensokyoontology.entity.yukari.introduction": "$(l)An evil, old, grandma, devil gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)Ah-la, if you dare to call me like that... $(ff0000)YOU WILL BE THE SAME WITH THIS GIRL!$()",
+  "patchouli.gensokyoontology.entity.yukari.title": "八云紫",
+  "patchouli.gensokyoontology.entity.yukari.introduction": "$(l)一个凶狠、邪恶、老不死的隙间妖怪gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)啊啦，如果你敢这么称呼我的话……$(ff0000)你也会落得和这个女孩儿一样的下场哟!$()",
 
   "patchouli.gensokyoontology.task.ideology.magnificent.title": "How to get Hochfliegend",
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p2": "This might be a picture?",
 
+  "patchouli.gensokyoontology.task.spirit.title": "意识形态",
+  "patchouli.gensokyoontology.task.spirit_fragment.title": "意识形态碎片",
+
+  "patchouli.gensokyoontology.spell_card.sc_koishi.title": "恋恋的符卡",
+  "patchouli.gensokyoontology.spell_card.sc_yukari.title": "紫的符卡",
+  "patchouli.gensokyoontology.spell_card.sc_leviathan.title": "利维坦的符卡",
+  "patchouli.gensokyoontology.spell_card.sc_meme.title": "迷因实体的符卡",
+  "patchouli.gensokyoontology.spell_card.sc_object_a.title": "对象a的符卡",
+
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "advancement.gensokyoontology.story_root.description": "Get Story Pages Chapter 1.1",
-  "advancement.gensokyoontology.story_root.title": "Story of Us"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }
