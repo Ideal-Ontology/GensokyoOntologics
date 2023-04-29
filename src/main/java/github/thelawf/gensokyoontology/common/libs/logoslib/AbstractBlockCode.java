@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.libs.logoslib;
 
-import javax.annotation.Nonnull;
+import github.thelawf.gensokyoontology.api.IBlockCode;
 
-public abstract class AbstractBlockCode implements IBlockCode{
+public abstract class AbstractBlockCode implements IBlockCode {
 
 }

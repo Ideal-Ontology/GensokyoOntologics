@@ -1,8 +1,10 @@
 package github.thelawf.gensokyoontology.common.libs.logoslib.syntax;
 
+import github.thelawf.gensokyoontology.api.IReversedWord;
+
 import java.awt.*;
 
-public class ReturnTypes extends AbstractReservedWord implements IReversedWord{
+public class ReturnTypes extends AbstractReservedWord implements IReversedWord {
     public static final String voidType = "void";
     public static final String intType = "int";
     public static final String longType = "long";

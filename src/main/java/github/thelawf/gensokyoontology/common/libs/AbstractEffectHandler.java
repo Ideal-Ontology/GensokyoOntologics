@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.libs;
 
-public abstract class AbstractEffectHandler implements IEffectHandler{
+import github.thelawf.gensokyoontology.api.IEffectHandler;
+
+public abstract class AbstractEffectHandler implements IEffectHandler {
     @Override
     public String getEntityId(String entityId) {
         return IEffectHandler.super.getEntityId(entityId);

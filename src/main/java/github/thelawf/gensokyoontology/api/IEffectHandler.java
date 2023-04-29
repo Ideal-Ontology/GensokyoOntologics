@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.libs;
+package github.thelawf.gensokyoontology.api;
 
 public interface IEffectHandler {
 

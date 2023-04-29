@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.libs.logoslib;
+package github.thelawf.gensokyoontology.api;
 
 import javax.annotation.Nonnull;
 

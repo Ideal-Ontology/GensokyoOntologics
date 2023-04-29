@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.libs.logoslib.syntax;
 
-public class ClassInstanceKeyWords extends AbstractReservedWord implements IReversedWord{
+import github.thelawf.gensokyoontology.api.IReversedWord;
+
+public class ClassInstanceKeyWords extends AbstractReservedWord implements IReversedWord {
     public static final String importKeyWord = "import";
     public static final String packageKeyWord = "package";
     public static final String classKeyWord = "class";

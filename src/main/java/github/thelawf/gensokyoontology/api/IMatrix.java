@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.libs.logoslib.math;
+package github.thelawf.gensokyoontology.api;
 
 import java.util.List;
 
