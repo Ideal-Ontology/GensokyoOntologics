@@ -7,10 +7,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public class KudaGitsuneTube extends Item {
@@ -27,7 +25,7 @@ public class KudaGitsuneTube extends Item {
             nbt.putString("story", "content");
             playerIn.inventory.addItemStackToInventory(new ItemStack(
                     ItemRegistry.GITSUNE_TUBE_FULL.get(), 1, nbt));
-            return ActionResultType.CONSUME;
+            return ActionResultType.func_233537_a_(playerIn.world.isRemote());
         }
         return super.itemInteractionForEntity(stack, playerIn, target, hand);
     }

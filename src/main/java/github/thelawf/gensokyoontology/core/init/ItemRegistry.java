@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.tools.*;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.RegistryObject;
@@ -33,6 +34,34 @@ public class ItemRegistry {
 
     public static final RegistryObject<BlockItem> SAKURA_PLANKS_ITEM = ITEMS.register(
             "sakura_planks", () -> new BlockItem(BlockRegistry.SAKURA_PLANKS.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<BlockItem> SAKURA_BUTTON_ITEM = ITEMS.register(
+            "sakura_button", () -> new BlockItem(BlockRegistry.SAKURA_BUTTON.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<BlockItem> SAKURA_SLAB_ITEM = ITEMS.register(
+            "sakura_slab", () -> new BlockItem(BlockRegistry.SAKURA_SLAB.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<BlockItem> SAKURA_STAIRS_ITEM = ITEMS.register(
+            "sakura_stairs", () -> new BlockItem(BlockRegistry.SAKURA_STAIRS.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<BlockItem> SAKURA_DOOR_ITEM = ITEMS.register(
+            "sakura_door", () -> new BlockItem(BlockRegistry.SAKURA_DOOR.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<BlockItem> SAKURA_FENCE_ITEM = ITEMS.register(
+            "sakura_fence", () -> new BlockItem(BlockRegistry.SAKURA_FENCE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<BlockItem> SAKURA_FENCE_GATE_ITEM = ITEMS.register(
+            "sakura_fence_gate", () -> new BlockItem(BlockRegistry.SAKURA_FENCE_GATE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<BlockItem> SAKURA_TRAPDOOR_ITEM = ITEMS.register(
+            "sakura_trapdoor", () -> new BlockItem(BlockRegistry.SAKURA_TRAPDOOR.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // --------------------------- 草本植物类方块：----------------------------//
@@ -63,9 +92,14 @@ public class ItemRegistry {
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
             "sakuya_stop_watch", () -> new SakuyaStopWatch(
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<KoishiEye> KOISHI_EYE =
-            ITEMS.register("koishi_eye", () -> new KoishiEye(
+    public static final RegistryObject<KoishiEye> KOISHI_EYE = ITEMS.register(
+            "koishi_eye", () -> new KoishiEye(
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<ArmorItem> KOISHI_HAT = ITEMS.register(
+            "koishi_hat", () -> new ArmorItem(GSKOArmorMaterial.EMPATHY,
+                    EquipmentSlotType.HEAD, (new Item.Properties().group(
+                            GSKOItemTab.GSKO_ITEM_TAB))));
 
     public static final RegistryObject<OccultBall> OCCULT_BALL =
             ITEMS.register("occult_ball", () -> new OccultBall(
@@ -153,7 +187,7 @@ public class ItemRegistry {
     // --------------------------- 故事书页 ------------------------------//
 
     public static final RegistryObject<Item> MEMORY_CARD = ITEMS.register(
-            "memory_card", () -> new MemoryCard(new CompoundNBT()));
+            "story_card", () -> new StoryCard(new CompoundNBT()));
 
 
     // Technical Items that will break the game balance: //

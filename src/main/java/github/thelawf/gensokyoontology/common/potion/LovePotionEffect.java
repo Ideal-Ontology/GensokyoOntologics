@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.common.potion;
 
-import github.thelawf.gensokyoontology.common.libs.AbstractEffectHandler;
-import github.thelawf.gensokyoontology.common.libs.IEffectHandler;
+import github.thelawf.gensokyoontology.api.IEffectHandler;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectType;

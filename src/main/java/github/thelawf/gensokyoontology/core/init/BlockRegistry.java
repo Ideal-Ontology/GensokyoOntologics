@@ -33,15 +33,27 @@ public class BlockRegistry {
     public static final RegistryObject<Block> SAKURA_PLANKS = BLOCKS.register(
             "sakura_planks", SakuraPlanks::new);
 
+    public static final RegistryObject<Block> SAKURA_BUTTON = BLOCKS.register(
+            "sakura_button", SakuraButton::new);
+
     public static final RegistryObject<Block> SAKURA_STAIRS = BLOCKS.register(
-            "sakura_staris", () -> new StairsBlock(() -> SAKURA_PLANKS.get().getDefaultState(),
-                    AbstractBlock.Properties.from(Blocks.OAK_STAIRS).sound(SoundType.WOOD)));
+            "sakura_staris", SakuraStairs::new);
 
     public static final RegistryObject<Block> SAKURA_SLAB = BLOCKS.register(
             "sakura_slab", SakuraSlab::new);
 
+    public static final RegistryObject<Block> SAKURA_DOOR = BLOCKS.register(
+            "sakura_door", SakuraDoor::new);
+
     public static final RegistryObject<Block> SAKURA_FENCE = BLOCKS.register(
             "sakura_fence", SakuraFence::new);
+
+    public static final RegistryObject<Block> SAKURA_FENCE_GATE = BLOCKS.register(
+            "sakura_fence_gate", SakuraFenceGate::new);
+
+    public static final RegistryObject<Block> SAKURA_TRAPDOOR = BLOCKS.register(
+            "sakura_trapdoor", SakuraTrapDoor::new);
+
     //======================= ↓ The Mod Cyber Statistics ↓ ==================//
     public static final RegistryObject<Block> HASH_LOG = BLOCKS.register("hash_log",
             () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));

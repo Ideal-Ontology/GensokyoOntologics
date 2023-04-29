@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.common.block.HotSpringBlock;
+import github.thelawf.gensokyoontology.common.entity.FairyEntity;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
 import github.thelawf.gensokyoontology.core.init.EffectRegistry;
@@ -12,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.potion.Effect;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -29,6 +31,13 @@ public class GSKOEntityEvents {
                 // event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.BLINDNESS, 5 * 20));
                 // event.getEntityLiving().attackEntityFrom(DamageSource.OUT_OF_WORLD, 100.f);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingDeath(LivingDeathEvent event) {
+        if (event.getEntityLiving() != null && event.getEntityLiving() instanceof FairyEntity) {
+            FairyEntity fairy = (FairyEntity) event.getEntityLiving();
         }
     }
 
