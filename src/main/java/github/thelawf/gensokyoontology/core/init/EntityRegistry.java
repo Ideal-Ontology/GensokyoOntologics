@@ -13,6 +13,9 @@ public class EntityRegistry {
     public static final DeferredRegister<EntityType<?>> GSKO_ENTITIES = DeferredRegister.create(
             ForgeRegistries.ENTITIES, GensokyoOntology.MODID);
 
+    public static final RegistryObject<EntityType<HumanResidentEntity>> HUMAN_RESIDENT_ENTITY = GSKO_ENTITIES.register(
+            "human_resident", () -> HumanResidentEntity.HUMAN_RESIDENT);
+
     public static final RegistryObject<EntityType<FairyEntity>> FAIRY_ENTITY = GSKO_ENTITIES.register(
             "fairy", () -> FairyEntity.FAIRY);
 

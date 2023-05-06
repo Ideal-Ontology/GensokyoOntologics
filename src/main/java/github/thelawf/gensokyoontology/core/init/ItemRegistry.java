@@ -79,15 +79,13 @@ public class ItemRegistry {
     // ======================= GSKO杂项：道具类物品 =========================//
     // ----------------------- 东方project特殊功能道具 ----------------------//
 
-    public static final RegistryObject<SpiritTube> SPIRIT_TUBE = ITEMS.register(
-            "spirit_tube", () -> new SpiritTube(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<KudaGitsuneTube> KUDA_GITSUNE_TUBE =ITEMS.register(
-            "kuda_gitsune_tube", () -> new KudaGitsuneTube(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<Item> GITSUNE_TUBE_FULL = ITEMS.register(
-            "gitsune_tube_full", () -> new KudaGitsuneTube(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB).containerItem(ItemRegistry.SPIRIT_TUBE.get())));
+    public static final RegistryObject<HakureiGohei> HAKUREI_GOHEI = ITEMS.register(
+            "hakurei_gohei", () -> new HakureiGohei(
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<MarisaHakkeiro> MARISA_HAKKEIRO = ITEMS.register(
+            "marisa_hakkeiro", () -> new MarisaHakkeiro(
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
             "sakuya_stop_watch", () -> new SakuyaStopWatch(
@@ -99,7 +97,16 @@ public class ItemRegistry {
     public static final RegistryObject<ArmorItem> KOISHI_HAT = ITEMS.register(
             "koishi_hat", () -> new ArmorItem(GSKOArmorMaterial.EMPATHY,
                     EquipmentSlotType.HEAD, (new Item.Properties().group(
-                            GSKOItemTab.GSKO_ITEM_TAB))));
+                    GSKOItemTab.GSKO_ITEM_TAB))));
+    public static final RegistryObject<SpiritTube> SPIRIT_TUBE = ITEMS.register(
+            "spirit_tube", () -> new SpiritTube(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<KudaGitsuneTube> KUDA_GITSUNE_TUBE =ITEMS.register(
+            "kuda_gitsune_tube", () -> new KudaGitsuneTube(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> GITSUNE_TUBE_FULL = ITEMS.register(
+            "gitsune_tube_full", () -> new KudaGitsuneTube(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB).containerItem(ItemRegistry.SPIRIT_TUBE.get())));
 
     public static final RegistryObject<OccultBall> OCCULT_BALL =
             ITEMS.register("occult_ball", () -> new OccultBall(
@@ -162,6 +169,11 @@ public class ItemRegistry {
             "burger_meat", BugerMeat::new);
 
     // ---------------------------- 意识形态 ------------------------------//
+    public static final RegistryObject<SpiritStar> SPIRIT_STAR = ITEMS.register(
+            "spirit_star", () -> new SpiritStar(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)
+                    .maxStackSize(16)));
+
     public static final RegistryObject<SpiritFragment> SPIRIT_FRAGMENT = ITEMS.register(
             "spirit_fragment", () -> new SpiritFragment(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)
