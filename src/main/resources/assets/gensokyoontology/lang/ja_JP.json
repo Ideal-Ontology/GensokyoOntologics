@@ -3,11 +3,17 @@
   "itemGroup.gensokyoontology_combat": "幻想的なアントロジ：戦闘",
 
   "item.gensokyoontology.hotspring_bucket": "温泉水バケツ",
+
+  "item.gensokyoontology.spirit_star": "Spirit Star",
+  "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
   "item.gensokyoontology.dialectic_spirit": "観念形態「弁証」",
   "item.gensokyoontology.utopian_spirit": "観念形態「幻想」",
   "item.gensokyoontology.theology_spirit": "観念形態「崇拝」",
 
   "item.gensokyoontology.occult_ball": "オカルトボール",
+  "item.gensokyoontology.spirit_tube": "Spirit Tube",
+  "item.gensokyoontology.kuda_gitsune_tube": "Kuda Gitsune Tube",
+  "item.gensokyoontology.gitsune_tube_full": "Gitsune Tube Full",
 
   "item.gensokyoontology.realism_sword": "実在論の宝剣",
   "item.gensokyoontology.metaphysics_sword": "形而上学の宝剣",
@@ -15,7 +21,7 @@
   "item.gensokyoontology.praxis_sword": "実践の宝剣",
 
   "item.gensokyoontology.danmaku_test": "弾幕テストアイテム",
-  "item.gensokyoontology.sc_wave_and_particle": "Spell Card: Wave and Particle",
+  "item.gensokyoontology.sc_wave_and_particle": "境符「波と粒の境界」",
   "item.gensokyoontology.inyo_jade_black": "陰陽玉「黒」",
   "item.gensokyoontology.inyo_jade_red": "陰陽玉「赤」",
   "item.gensokyoontology.inyo_jade_yellow": "陰陽玉「黄」",
@@ -25,10 +31,13 @@
   "item.gensokyoontology.inyo_jade_purple": "陰陽玉「紫」",
 
   "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
-
   "item.gensokyoontology.bomb_item": "Bomb Item",
+
+  "item.gensokyoontology.hakurei_gohei": "Hakurei Gohei",
+  "item.gensokyoontology.marisa_hakkeiro": "Marisa Hakkeiro",
   "item.gensokyoontology.koishi_eye": "こいしのサードアイ",
   "item.gensokyoontology.sakuya_stop_watch": "Sakuya's Stop Watch",
+  "item.gensokyoontology.story_card": "Story Card",
 
   "item.gensokyoontology.yattsume_una_yaki": "八つ目鰻焼き",
   "item.gensokyoontology.koishi_hat_mousse": "無意識妖怪のムース",
@@ -49,8 +58,10 @@
 
   "item.gensokyoontology.rail_wrench": "Rail Wrench",
 
-  "advancement.gensokyoontology.story_root.title": "Story of Us",
-  "advancement.gensokyoontology.story_root.description": "Get Story Pages Chapter 1.1",
+  "advancement.gensokyoontology.root.title": "Not An Animation!",
+  "advancement.gensokyoontology.root.description": "Get Story Pages Chapter 1.1",
+  "advancement.gensokyoontology.login_gensokyo.title": "Player off Land",
+  "advancement.gensokyoontology.login_gensokyo.description": "Player change to Gensokyo dimension",
 
   "block.gensokyoontology.wasabi": "山葵",
   "block.gensokyoontology.lycoris_radiata": "リコリス",
@@ -59,6 +70,12 @@
   "block.gensokyoontology.sakura_leaves": "桜",
   "block.gensokyoontology.sakura_log": "Sakura Log",
   "block.gensokyoontology.sakura_planks": "Sakura Planks",
+  "block.gensokyoontology.sakura_slabs": "Sakura Slabs",
+  "block.gensokyoontology.sakura_stairs": "Sakura Stairs",
+  "block.gensokyoontology.sakura_door": "Sakura Door",
+  "block.gensokyoontology.sakura_fence": "Sakura Fence",
+  "block.gensokyoontology.sakura_fence_gate": "Sakura Fence Gate",
+  "block.gensokyoontology.sakura_trapdoor": "Sakura Trapdoor",
 
   "block.gensokyoontology.fried_pane": "揚げ鍋",
   "block.gensokyoontology.dakimakura": "抱き枕",
@@ -74,6 +91,7 @@
   "effect.gensokyoontology.mania": "Mania",
   "effect.gensokyoontology.depression": "憂鬱",
 
+  "entity.gensokyoontology.human_resident": "Human Resident",
   "entity.gensokyoontology.fairy": "妖精",
   "entity.gensokyoontology.komeiji_koishi": "古明地こいし",
   "entity.gensokyoontology.usami_sumireko": "宇佐見菫子",
@@ -152,21 +170,17 @@
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p2": "This might be a picture?",
 
+  "patchouli.gensokyoontology.task.spirit.title": "Spirit",
+  "patchouli.gensokyoontology.task.spirit_fragment.title": "Spirit Fragment",
+
+  "patchouli.gensokyoontology.spell_card.sc_koishi.title": "Koishi's Spell Card",
+  "patchouli.gensokyoontology.spell_card.sc_yukari.title": "Yukari's Spell Card",
+  "patchouli.gensokyoontology.spell_card.sc_leviathan.title": "Leviathan's Spell Card",
+  "patchouli.gensokyoontology.spell_card.sc_meme.title": "Entity Meme's Spell Card",
+  "patchouli.gensokyoontology.spell_card.sc_object_a.title": "Object a's Spell Card",
+
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "patchouli.gensokyoontology.ideologies.description": "$(l)$(o)$(#eb82ee)Science is not your Jesus Christ! Nor Philosophy!",
-  "patchouli.gensokyoontology.ideologies.dia.title": "The Necessity of History",
-  "patchouli.gensokyoontology.ideologies.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
-  "patchouli.gensokyoontology.ideologies.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideologies.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "patchouli.gensokyoontology.ideologies.erhabene.title": "How to get Hochfliegend",
-  "patchouli.gensokyoontology.ideologies.erhabene.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
-  "patchouli.gensokyoontology.ideologies.erhabene.tutorial_p2": "This might be a picture?",
-  "patchouli.gensokyoontology.overview.description": "$(l)$(o)Where did the fiction begin?",
-  "patchouli.gensokyoontology.overview.intro.title": "Background Story",
-  "patchouli.gensokyoontology.overview.introduction_p1": "All the cultural works made by human kind no matter a mass culture or a subculture can be interpreted as a certain kind of forms of ideologies. Ideologies are everywhere acting like atmosphere. It is so universal that we have no idea that we are actually subordinated to it and became its properties.",
-  "patchouli.gensokyoontology.overview.introduction_p2": "Try to reify the embodiment of all kinds of ideologies is the target of this book. Now follow this guidebook to visualize and realize yourselves.",
-  "　\"item.gensokyoontology.sc_wave_and_particle\"": "境符「波と粒の境界」"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }

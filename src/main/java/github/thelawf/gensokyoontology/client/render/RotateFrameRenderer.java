@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.client.render;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraftforge.client.event.RenderWorldLastEvent;

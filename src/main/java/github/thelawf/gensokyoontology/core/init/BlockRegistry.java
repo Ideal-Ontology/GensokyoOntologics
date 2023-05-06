@@ -37,7 +37,7 @@ public class BlockRegistry {
             "sakura_button", SakuraButton::new);
 
     public static final RegistryObject<Block> SAKURA_STAIRS = BLOCKS.register(
-            "sakura_staris", SakuraStairs::new);
+            "sakura_stairs", SakuraStairs::new);
 
     public static final RegistryObject<Block> SAKURA_SLAB = BLOCKS.register(
             "sakura_slab", SakuraSlab::new);

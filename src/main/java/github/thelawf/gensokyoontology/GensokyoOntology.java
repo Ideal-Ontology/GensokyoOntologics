@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
+import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.passive.TameableEntity;
@@ -83,6 +84,9 @@ public class GensokyoOntology {
                 RenderTypeLookup.setRenderLayer(BlockRegistry.WASABI_BLOCK.get(),
                         RenderType.getCutout());
 
+                RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_DOOR.get(),
+                        RenderType.getCutout());
+
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.HASH_LEAVES.get(),
@@ -115,6 +119,11 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.ARMOR, 20D)
                     .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 40D)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5D).create());
+
+            event.put(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), AgeableEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 20D)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 20D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
         }
     }
 

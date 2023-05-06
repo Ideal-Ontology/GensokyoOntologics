@@ -9,9 +9,6 @@ import github.thelawf.gensokyoontology.common.entity.FairyEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Consumer;
 
 public class FairyModel extends EntityModel<FairyEntity> {
 	private final ModelRenderer bone;

@@ -1,16 +1,13 @@
 package github.thelawf.gensokyoontology.client.render;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.FairyModel;
 import github.thelawf.gensokyoontology.common.entity.FairyEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.jetbrains.annotations.NotNull;
 
 public class FairyRenderer extends MobRenderer<FairyEntity, FairyModel> {

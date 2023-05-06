@@ -3,6 +3,9 @@
   "itemGroup.gensokyoontology_combat": "幻想存有论：战斗",
 
   "item.gensokyoontology.hotspring_bucket": "温泉水桶",
+
+  "item.gensokyoontology.spirit_star": "灵魂之星",
+  "item.gensokyoontology.spirit_fragment": "意识形态碎片",
   "item.gensokyoontology.dialectic_spirit": "意识形态·辩证",
   "item.gensokyoontology.utopian_spirit": "意识形态·幻想",
   "item.gensokyoontology.theology_spirit": "意识形态·崇拜",
@@ -30,6 +33,8 @@
   "item.gensokyoontology.danmaku_shot": "弹幕之点",
   "item.gensokyoontology.bomb_item": "B点",
 
+  "item.gensokyoontology.hakurei_gohei": "博丽的御币",
+  "item.gensokyoontology.marisa_hakkeiro": "八卦炉",
   "item.gensokyoontology.koishi_eye": "恋之瞳",
   "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
   "item.gensokyoontology.story_card": "故事卡片",
@@ -65,6 +70,12 @@
   "block.gensokyoontology.sakura_leaves": "樱花树叶",
   "block.gensokyoontology.sakura_log": "樱花树原木",
   "block.gensokyoontology.sakura_planks": "樱花树木板",
+  "block.gensokyoontology.sakura_slabs": "樱花木台阶",
+  "block.gensokyoontology.sakura_stairs": "樱花木楼梯",
+  "block.gensokyoontology.sakura_door": "樱花木门",
+  "block.gensokyoontology.sakura_fence": "樱花木栅栏",
+  "block.gensokyoontology.sakura_fence_gate": "樱花木栅栏门",
+  "block.gensokyoontology.sakura_trapdoor": "樱花木活版门",
 
   "block.gensokyoontology.fried_pane": "炸锅",
   "block.gensokyoontology.dakimakura": "抱枕",
@@ -80,6 +91,7 @@
   "effect.gensokyoontology.mania": "躁狂",
   "effect.gensokyoontology.depression": "抑郁",
 
+  "entity.gensokyoontology.human_resident": "人里居民",
   "entity.gensokyoontology.fairy": "妖精",
   "entity.gensokyoontology.komeiji_koishi": "古明地恋",
   "entity.gensokyoontology.usami_sumireko": "宇佐见堇子",

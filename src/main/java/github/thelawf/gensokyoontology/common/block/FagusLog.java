@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.block;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.RotatedPillarBlock;
 
 public class FagusLog extends RotatedPillarBlock {

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuStyle;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;

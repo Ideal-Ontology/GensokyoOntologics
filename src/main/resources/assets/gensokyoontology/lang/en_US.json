@@ -3,6 +3,9 @@
   "itemGroup.gensokyoontology_combat": "Gensokyo Ontology: Combat",
 
   "item.gensokyoontology.hotspring_bucket": "Hot Spring Bucket",
+
+  "item.gensokyoontology.spirit_star": "Spirit Star",
+  "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
   "item.gensokyoontology.dialectic_spirit": "Dialectic Spirit",
   "item.gensokyoontology.utopian_spirit": "Utopian Spirit",
   "item.gensokyoontology.theology_spirit": "Theology Spirit",
@@ -30,6 +33,8 @@
   "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
   "item.gensokyoontology.bomb_item": "Bomb Item",
 
+  "item.gensokyoontology.hakurei_gohei": "Hakurei Gohei",
+  "item.gensokyoontology.marisa_hakkeiro": "Marisa Hakkeiro",
   "item.gensokyoontology.koishi_eye": "Koishi's Third Eye",
   "item.gensokyoontology.sakuya_stop_watch": "Sakuya's Stop Watch",
   "item.gensokyoontology.story_card": "Story Card",
@@ -65,6 +70,12 @@
   "block.gensokyoontology.sakura_leaves": "Sakura Leaves",
   "block.gensokyoontology.sakura_log": "Sakura Log",
   "block.gensokyoontology.sakura_planks": "Sakura Planks",
+  "block.gensokyoontology.sakura_slabs": "Sakura Slabs",
+  "block.gensokyoontology.sakura_stairs": "Sakura Stairs",
+  "block.gensokyoontology.sakura_door": "Sakura Door",
+  "block.gensokyoontology.sakura_fence": "Sakura Fence",
+  "block.gensokyoontology.sakura_fence_gate": "Sakura Fence Gate",
+  "block.gensokyoontology.sakura_trapdoor": "Sakura Trapdoor",
 
   "block.gensokyoontology.fried_pane": "Fried Pane",
   "block.gensokyoontology.dakimakura": "Dakimakura",
@@ -80,6 +91,7 @@
   "effect.gensokyoontology.mania": "Mania",
   "effect.gensokyoontology.depression": "Depression",
 
+  "entity.gensokyoontology.human_resident": "Human Resident",
   "entity.gensokyoontology.fairy": "Fairy",
   "entity.gensokyoontology.komeiji_koishi": "Komeiji Koishi",
   "entity.gensokyoontology.usami_sumireko": "Usami Sumireko",
@@ -120,7 +132,7 @@
 
   "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
   "patchouli.gensokyoontology.book.landing_text": "Fore Words",
-  "patchouli.gensokyoontology.book.subtitle":"-- Author: Usami Sumireko",
+  "patchouli.gensokyoontology.book.subtitle": "-- Author: Usami Sumireko",
 
   "patchouli.gensokyoontology.chapter.intro.title": "Introduction Overview",
   "patchouli.gensokyoontology.chapter.description": "Gensokyo, a world where human and youkai live together within side by side keeping a dedicate balance.",
@@ -130,7 +142,7 @@
   "patchouli.gensokyoontology.chapter.story.title": "Chapter 1: New Crisis",
   "patchouli.gensokyoontology.story.chapter_01.content_01": "$(l)\"Signs often appears before the real crisis.\" -- Her voice haunted me even though she is no longer be here. I don't know when did those meme entities come into being in our world, but I know that fighting against with those entities for too long will lost one's ego -- and that is how she left me.$(br) Her eyes turned into jewels which could show the images of those entities on the paper, and I am collecting the loots from those monsters:",
 
-  "patchouli.gensokyoontology.task.title":"Crafting Manual",
+  "patchouli.gensokyoontology.task.title": "Crafting Manual",
 
   "patchouli.gensokyoontology.entity.title": "Entities Being Lost in Gensokyo",
   "patchouli.gensokyoontology.entity.description": "Some entities that might summon everywhere. This is not a good sign.$(br)\t\t -- Usami Sumireko",

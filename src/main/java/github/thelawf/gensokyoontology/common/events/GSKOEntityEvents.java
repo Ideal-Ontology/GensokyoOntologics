@@ -4,14 +4,12 @@ import github.thelawf.gensokyoontology.common.block.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.entity.FairyEntity;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
-import github.thelawf.gensokyoontology.core.init.EffectRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.potion.Effect;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -32,6 +30,7 @@ public class GSKOEntityEvents {
             }
         }
     }
+
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {

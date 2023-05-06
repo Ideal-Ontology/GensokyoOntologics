@@ -1,13 +1,14 @@
 package github.thelawf.gensokyoontology.client;
 
-import github.thelawf.gensokyoontology.client.model.FairyModel;
+import github.thelawf.gensokyoontology.client.model.HumanNPCModel;
 import github.thelawf.gensokyoontology.client.render.FairyRenderer;
+import github.thelawf.gensokyoontology.client.render.HumanResidentRenderer;
 import github.thelawf.gensokyoontology.client.render.YukariRenderer;
 import github.thelawf.gensokyoontology.common.entity.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.HumanResidentEntity;
 import github.thelawf.gensokyoontology.common.entity.YukariEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,5 +26,8 @@ public class ClientEventHandler {
                 (manager) -> new SpriteRenderer<>(manager, itemRenderer));
         RenderingRegistry.registerEntityRenderingHandler(FairyEntity.FAIRY, FairyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(HumanResidentEntity.HUMAN_RESIDENT,
+                (HumanResidentRenderer::new));
     }
 }

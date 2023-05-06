@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "OXO",
+    "OOO",
+    "###"
+  ],
+  "key": {
+    "O": {
+      "item": "minecraft:quartz_block"
+    },
+    "X": {
+      "item": "gensokyoontology:spirit_star"
+    },
+    "#": {
+      "item": "minecraft:obsidian"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:marisa_hakkeiro",
+    "count": 1
+  }
+}
