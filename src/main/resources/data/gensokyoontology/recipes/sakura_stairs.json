@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#  ",
+    "## ",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "gensokyoontology:sakura_planks"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:sakura_stairs",
+    "count": 8
+  }
+}

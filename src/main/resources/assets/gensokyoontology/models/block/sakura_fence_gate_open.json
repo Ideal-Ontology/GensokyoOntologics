@@ -1,5 +1,5 @@
 {
-  "parent": "minecraft:block/button_inventory",
+  "parent": "minecraft:block/template_fence_gate_open",
   "textures": {
     "texture": "gensokyoontology:block/sakura_planks"
   }

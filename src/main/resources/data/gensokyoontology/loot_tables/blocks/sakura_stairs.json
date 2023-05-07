@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "gensokyoontology:sakura_stair"
+          "name": "gensokyoontology:sakura_stairs"
         }
       ],
       "conditions": [

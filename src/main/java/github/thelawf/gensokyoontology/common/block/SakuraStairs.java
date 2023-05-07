@@ -6,9 +6,9 @@ import net.minecraft.item.BlockItemUseContext;
 
 import java.util.function.Supplier;
 
-public class SakuraStairs extends Block {
+public class SakuraStairs extends StairsBlock {
     public SakuraStairs() {
-        super(Properties.from(Blocks.OAK_STAIRS).sound(SoundType.WOOD));
+        super(Blocks.OAK_STAIRS::getDefaultState, Properties.from(Blocks.OAK_STAIRS));
     }
 
     @Override
