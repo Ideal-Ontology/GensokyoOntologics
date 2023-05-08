@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.events;
 
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.world.dimension.feature.GSKOFeatureGeneration;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -17,7 +18,7 @@ import net.minecraftforge.fml.common.Mod;
 import java.util.Arrays;
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = GensokyoOntology.MODID)
 public class GSKOWorldEvents {
 
     @SubscribeEvent
@@ -30,7 +31,14 @@ public class GSKOWorldEvents {
                 EntityRegistry.FAIRY_ENTITY.get().getClassification());
 
         spawners.add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(),
-                8,3,10));
+                38,3,10));
+    }
+
+    @SubscribeEvent
+    public static void onBiomeLoad(final BiomeLoadingEvent event) {
+        GSKOFeatureGeneration.generateOverworldTrees(event);
+        GSKOFeatureGeneration.generateGensokyoTrees(event);
+        GSKOFeatureGeneration.generateFlowers(event);
     }
 
     private static void spawnEntityIn(ServerWorld serverWorld, EntityClassification classification,

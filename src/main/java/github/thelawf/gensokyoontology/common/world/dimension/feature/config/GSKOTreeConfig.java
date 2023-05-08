@@ -1,6 +1,13 @@
 package github.thelawf.gensokyoontology.common.world.dimension.feature.config;
 
-public class GSKOTreeConfig {
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.block.Blocks;
+import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
+import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+
+public class GSKOTreeConfig implements IFeatureConfig {
 
     public final int ovalLength;
     public final int ovalWidth;
