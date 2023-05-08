@@ -86,6 +86,8 @@ public class GensokyoOntology {
 
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_DOOR.get(),
                         RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_TRAPDOOR.get(),
+                        RenderType.getCutout());
 
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),
                         RenderType.getCutout());

@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-public class DispenserRegister {
+public final class DispenserRegister {
     @SubscribeEvent
     public static void onDispenseRegister(FMLCommonSetupEvent event){
         DispenserBlock.registerDispenseBehavior(ItemRegistry.HOTSPRING_BUCKET.get(),

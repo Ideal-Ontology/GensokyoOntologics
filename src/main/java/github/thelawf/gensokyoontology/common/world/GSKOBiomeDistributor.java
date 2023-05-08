@@ -7,7 +7,8 @@ package github.thelawf.gensokyoontology.common.world;
  * 太阳花田在魔法森林，妖怪兽道和博丽神社中间的位置，妖怪之山在北部，河童的玄武之泽与山童的森林环绕
  * 妖怪之山的位置，三途河流经妖怪之山
  */
-public class GSKOBiomeDistributor {
+@Deprecated
+public final class GSKOBiomeDistributor {
 
     public static final class GensokyoDistributor{
     }

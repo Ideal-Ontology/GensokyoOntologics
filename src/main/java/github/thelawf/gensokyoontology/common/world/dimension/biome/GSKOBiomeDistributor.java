@@ -6,7 +6,8 @@ import net.minecraft.world.biome.provider.BiomeProvider;
 
 import java.util.List;
 
-public class GSKOBiomeDistributor extends BiomeProvider {
+@Deprecated
+public final class GSKOBiomeDistributor extends BiomeProvider {
     protected GSKOBiomeDistributor(List<Biome> biomes) {
         super(biomes);
     }

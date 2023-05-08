@@ -12,7 +12,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class FluidRegistry {
+public final class FluidRegistry {
     public static final ResourceLocation STILL_HOTSPRING_TEX =
             new ResourceLocation("block/water_still");
     public static final ResourceLocation FLOW_HOTSPRING_TEX =

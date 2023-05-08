@@ -21,8 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "gensokyoontology:story_papper",
-            "nbt": "chapter_1_1"
+            "item": "gensokyoontology:guide_book"
           }
         ]
       }

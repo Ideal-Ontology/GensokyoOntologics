@@ -1,11 +1,15 @@
 package github.thelawf.gensokyoontology.common.world.dimension.biome;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.FairyEntity;
+import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
+
+import java.util.List;
 
 public final class GSKOBiomeMaker {
 
@@ -13,21 +17,49 @@ public final class GSKOBiomeMaker {
     private static BiomeGenerationSettings.Builder makeDefaultBuilder()
     {
         //抄原版用来装饰群系(这句话来自模组 Ashihara，作者：遗失唐伞绘卷屋)
-        BiomeGenerationSettings.Builder BiomegenerationSettings
+        BiomeGenerationSettings.Builder biomegenerationSettings
                 = (new BiomeGenerationSettings.Builder()
                 .withSurfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
                 .withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.CAVE));
-        DefaultBiomeFeatures.withStrongholdAndMineshaft(BiomegenerationSettings);
-        DefaultBiomeFeatures.withCavesAndCanyons(BiomegenerationSettings);
-        DefaultBiomeFeatures.withLavaAndWaterLakes(BiomegenerationSettings);
-        DefaultBiomeFeatures.withMonsterRoom(BiomegenerationSettings);
-        DefaultBiomeFeatures.withCommonOverworldBlocks(BiomegenerationSettings);
-        DefaultBiomeFeatures.withOverworldOres(BiomegenerationSettings);
-        DefaultBiomeFeatures.withDisks(BiomegenerationSettings);
+        DefaultBiomeFeatures.withStrongholdAndMineshaft(biomegenerationSettings);
+        DefaultBiomeFeatures.withCavesAndCanyons(biomegenerationSettings);
+        DefaultBiomeFeatures.withLavaAndWaterLakes(biomegenerationSettings);
+        DefaultBiomeFeatures.withMonsterRoom(biomegenerationSettings);
+        DefaultBiomeFeatures.withCommonOverworldBlocks(biomegenerationSettings);
+        DefaultBiomeFeatures.withOverworldOres(biomegenerationSettings);
+        DefaultBiomeFeatures.withDisks(biomegenerationSettings);
+        DefaultBiomeFeatures.withNormalMushroomGeneration(biomegenerationSettings);
+        DefaultBiomeFeatures.withLavaAndWaterSprings(biomegenerationSettings);
+        return biomegenerationSettings;
+    }
+
+    private static BiomeGenerationSettings.Builder makeBiomeIfContains (List<Features> features) {
+        BiomeGenerationSettings.Builder biomegenerationSettings
+                = (new BiomeGenerationSettings.Builder()
+                .withSurfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
+                .withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.CAVE));
+        DefaultBiomeFeatures.withStrongholdAndMineshaft(biomegenerationSettings);
+        DefaultBiomeFeatures.withCavesAndCanyons(biomegenerationSettings);
+        DefaultBiomeFeatures.withLavaAndWaterLakes(biomegenerationSettings);
+        DefaultBiomeFeatures.withMonsterRoom(biomegenerationSettings);
+        DefaultBiomeFeatures.withCommonOverworldBlocks(biomegenerationSettings);
+        DefaultBiomeFeatures.withOverworldOres(biomegenerationSettings);
+        DefaultBiomeFeatures.withDisks(biomegenerationSettings);
 //        DefaultBiomeFeatures.withForestGrass(BiomegenerationSettings);
-        DefaultBiomeFeatures.withNormalMushroomGeneration(BiomegenerationSettings);
-        DefaultBiomeFeatures.withLavaAndWaterSprings(BiomegenerationSettings);
-        return BiomegenerationSettings;
+        DefaultBiomeFeatures.withNormalMushroomGeneration(biomegenerationSettings);
+        DefaultBiomeFeatures.withLavaAndWaterSprings(biomegenerationSettings);
+
+        if (features.contains(Features.PUMPKINS)) {
+            DefaultBiomeFeatures.withSugarCaneAndPumpkins(biomegenerationSettings);
+        }
+        if (features.contains(Features.FOREST_GRASS)) {
+            DefaultBiomeFeatures.withForestGrass(biomegenerationSettings);
+        }
+        if (features.contains(Features.SAKURA_TREE)) {
+
+        }
+
+        return biomegenerationSettings;
     }
 
     public static Biome makeMagicForest() {
@@ -171,7 +203,7 @@ public final class GSKOBiomeMaker {
     public static Biome makeOutsideCityBiome() {
         return new Biome.Builder()
                 .depth(0.1f)
-                .scale(3.5f)
+                .scale(1.5f)
                 .downfall(0.08f)
                 .temperature(0.5f)
                 .category(Biome.Category.PLAINS)
@@ -187,7 +219,31 @@ public final class GSKOBiomeMaker {
                         .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
                         .build())
                 .build()
-                .setRegistryName(GensokyoOntology.MODID, "outside_city_field");
+                .setRegistryName(GensokyoOntology.MODID, "outside_city");
+    }
+
+    public static Biome makeSakuraForest() {
+        return new Biome.Builder()
+                .depth(0.1f)
+                .scale(0.67f)
+                .downfall(0.9f)
+                .temperature(0.7f)
+                .category(Biome.Category.FOREST)
+                .precipitation(Biome.RainType.RAIN)
+                .withMobSpawnSettings(new MobSpawnInfo.Builder().withSpawner(
+                        EntityClassification.MONSTER, new MobSpawnInfo.Spawners(
+                                FairyEntity.FAIRY, 68, 3,5)).build())
+                .withGenerationSettings(makeDefaultBuilder().build())
+                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
+                .setEffects(new BiomeAmbience.Builder().setWaterColor(0x0DA7D6)
+                        .setWaterFogColor(0x282E84)
+                        .setFogColor(0xC0D8FF)
+                        .withGrassColor(0x59BA82)
+                        .withSkyColor(getSkyColor(0.7F))
+                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
+                        .build())
+                .build()
+                .setRegistryName(GensokyoOntology.MODID, "sakura_forest");
     }
 
     public static Biome makeHellValley() {
@@ -215,5 +271,15 @@ public final class GSKOBiomeMaker {
     private static int getSkyColor(float temperature) {
         float shift = MathHelper.clamp(temperature / 3.0F, -1.0F, 1.0F);
         return MathHelper.hsvToRGB((224.0F / 360.0F) - shift * 0.05F, 0.5F + shift * 0.1F, 1.0F);
+    }
+
+    public enum Features {
+        OAK_TREE,
+        ACACIA_TREE,
+        SAKURA_TREE,
+        BAMBOO,
+        LYCORIS,
+        PUMPKINS,
+        FOREST_GRASS
     }
 }

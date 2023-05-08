@@ -18,7 +18,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import static net.minecraft.item.Items.BUCKET;
 
-public class ItemRegistry {
+public final class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS =
             DeferredRegister.create(ForgeRegistries.ITEMS, GensokyoOntology.MODID);
 
@@ -121,6 +121,11 @@ public class ItemRegistry {
 
 
     // ======================= GSKO杂项：合成消耗品 =========================//
+
+    // public static final RegistryObject<Item> ISHI_ZAKURA = ITEMS.register("ishi_zakura",
+    //         () -> new IshiZakura(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+
     // ---------------------------- 食物原材料 -----------------------------//
 
     public static final RegistryObject<Item> KITCHEN_KNIFE =

@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.world.dimension.biome;
 
+import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.data.WorldgenDataConsumer;
 import net.minecraft.util.RegistryKey;
@@ -10,6 +11,9 @@ import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.biome.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GSKOBiomes {
 
@@ -25,18 +29,16 @@ public class GSKOBiomes {
         // worldgen.register(MAGIC_FOREST_KEY, MAGIC_FOREST_BIOME);
     }
 
+
     /**
      * 主世界的八岳山，生成概率极低，可在此通过神隐的方式进入幻想乡
      */
     public static final Biome YATSUGA_TAKE_BIOME = GSKOBiomeMaker.makeYatsugaTakeBiome();
     public static final Biome YAMOTSU_HIRASAKA = GSKOBiomeMaker.makeYamotsuHirasaka();
     public static final Biome HELL_VALLEY = GSKOBiomeMaker.makeHellValley();
-    public static final Biome OUTSIDE_CITY_FIELD = GSKOBiomeMaker.makeOutsideCityBiome();
+    public static final Biome OUTSIDE_CITY = GSKOBiomeMaker.makeOutsideCityBiome();
 
-    public static final Biome GSKO_WILDLAND_BIOME = GSKOBiomeMaker.makeGSKOWildLand();
-    public static final Biome YOUKAI_MOUNTAIN_BIOME = GSKOBiomeMaker.makeYoukaiMoutain();
-    public static final Biome MAGIC_FOREST_BIOME = GSKOBiomeMaker.makeMagicForest();
-    public static final Biome BAMBOO_FOREST_LOST_BIOME = GSKOBiomeMaker.makeBambooForestLost();
+    public static final Biome SAKURA_FOREST = GSKOBiomeMaker.makeSakuraForest();
 
     public static final RegistryKey<Biome> YATSUGA_TAKE_KEY = key("mountain_yatsugatake");
     public static final RegistryKey<Biome> GSKO_FOREST_KEY = key("gensokyo_forest");
@@ -46,8 +48,6 @@ public class GSKOBiomes {
     public static final RegistryKey<Biome> BAMBOO_FOREST_LOST_KEY = key("bamboo_forest_of_lost");
     public static final RegistryKey<Biome> MAGIC_FOREST_KEY = key("magic_forest");
     public static final RegistryKey<Biome> HUMAN_VILLAGE_KEY = key("human_village");
-
-
 
     private static RegistryKey<Biome> key(String name) {
         return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(GensokyoOntology.MODID, name));

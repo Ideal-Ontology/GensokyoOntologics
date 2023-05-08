@@ -19,12 +19,14 @@ public class GSKOBiomeHandler {
                 5, GSKOBiomes.YATSUGA_TAKE_BIOME);
         addBiome(event, BiomeManager.BiomeType.WARM, "yamotsu_hirasaka",
                 5, GSKOBiomes.YAMOTSU_HIRASAKA);
-        // Logger LOGGER = LogManager.getLogger();
-        // LOGGER.info(GSKOBiomes.YAMOTSU_HIRASAKA.getRegistryName());
+
         addBiome(event, BiomeManager.BiomeType.WARM, "hell_valley",
                 5, GSKOBiomes.HELL_VALLEY);
-        addBiome(event, BiomeManager.BiomeType.WARM, "outside_city_field",
-                8, GSKOBiomes.OUTSIDE_CITY_FIELD);
+        addBiome(event, BiomeManager.BiomeType.WARM, "outside_city",
+                8, GSKOBiomes.OUTSIDE_CITY);
+
+        addBiome(event, BiomeManager.BiomeType.COOL, "sakura_forest",
+                7, GSKOBiomes.SAKURA_FOREST);
     }
 
     public static void addBiome(RegistryEvent.Register<Biome> event, BiomeManager.BiomeType type,

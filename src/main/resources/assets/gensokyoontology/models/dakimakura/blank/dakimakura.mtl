@@ -1,5 +1,24 @@
-# Blender MTL File: 'tutorial.blend'
-# Material Count: 1
+# Blender MTL File: 'daki.blend'
+# Material Count: 2
 
 newmtl initialShadingGroup
-map_Kd gensokyoontology:dakimakura/blank/dakimakura
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd gensokyoontology:dakimakura/satori/satori_front
+
+newmtl initialShadingGroup.001
+Ns 0.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.800000 0.800000 0.800000
+Ks 0.000000 0.000000 0.000000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 1
+map_Kd gensokyoontology:dakimakura/satori/satori_back

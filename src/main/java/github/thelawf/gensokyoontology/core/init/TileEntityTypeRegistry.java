@@ -8,7 +8,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class TileEntityTypeRegistry {
+public final class TileEntityTypeRegistry {
     public static final DeferredRegister<TileEntityType<?>> TILE_ENTITIES = DeferredRegister.create(
             ForgeRegistries.TILE_ENTITIES, GensokyoOntology.MODID);
 

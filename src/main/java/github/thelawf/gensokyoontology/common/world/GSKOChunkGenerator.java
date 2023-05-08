@@ -24,10 +24,12 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 
+
 /**
  * {@link ChunkGenerator} 里面的 func_230352_b()方法是主要的散布维度的方法
  */
-public class GSKOChunkGenerator extends ChunkGenerator {
+@Deprecated
+public final class GSKOChunkGenerator extends ChunkGenerator {
 
     public static final Logger LOGGER = LogManager.getLogger();
     private final Settings settings;

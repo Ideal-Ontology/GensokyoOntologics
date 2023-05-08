@@ -8,7 +8,7 @@ import net.minecraft.world.Dimension;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 
-public class GSKODimensions {
+public final class GSKODimensions {
     public static long seed;
     public static final RegistryKey<World> GENSOKYO = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
             new ResourceLocation(GensokyoOntology.MODID,"gensokyo"));

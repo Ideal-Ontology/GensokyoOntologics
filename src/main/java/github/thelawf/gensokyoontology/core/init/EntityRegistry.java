@@ -9,7 +9,7 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-public class EntityRegistry {
+public final class EntityRegistry {
     public static final DeferredRegister<EntityType<?>> GSKO_ENTITIES = DeferredRegister.create(
             ForgeRegistries.ENTITIES, GensokyoOntology.MODID);
 

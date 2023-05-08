@@ -16,15 +16,9 @@
   "parent": "gensokyoontology:root",
   "criteria": {
     "requirement": {
-      "trigger": "minecraft:changed_dimension",
+      "trigger": "minecraft:location",
       "conditions": {
-        "player": {
-          "location": {
-            "dimension": "gensokyoontology:gensokyo"
-          }
-        },
-        "from": "minecraft:overworld",
-        "to": "gensokyoontology:gensokyo"
+        "dimension": "gesnokyo"
       }
     }
   }
