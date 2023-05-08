@@ -1,0 +1,5 @@
+{
+  "loader": "forge:obj",
+  "model": "gensokyoontology:models/item/marisa_hakkeiro.obj",
+  "flip-v": true
+}
