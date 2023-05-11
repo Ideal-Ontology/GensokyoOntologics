@@ -19,6 +19,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix3f;
 import net.minecraft.util.math.vector.Vector3f;
 
+@Deprecated
 public class DanmakuRenderer extends SpriteRenderer<DanmakuEntity> {
     private static final ResourceLocation DANMAKU_TEX = new ResourceLocation(GensokyoOntology.MODID, "textures/entity/danmaku.png");
     private static final RenderType RENDER_TYPE = RenderType.getItemEntityTranslucentCull(DANMAKU_TEX);

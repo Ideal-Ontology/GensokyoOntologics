@@ -115,7 +115,7 @@ public class DanmakuEntity extends ThrowableEntity implements IRendersAsItem{
         LivingEntity entityHit = (LivingEntity) result.getEntity();
         if (shooter instanceof PlayerEntity && !(entityHit instanceof PlayerEntity)) {
             entityHit.addPotionEffect(new EffectInstance(EffectRegistry.LOVE_EFFECT.get(), 5 * 40));
-            entityHit.attackEntityFrom(DamageSource.GENERIC, DanmakuType.HEART_SHOT.damage);
+            entityHit.attackEntityFrom(GSKODamageSource.DANMAKU, DanmakuType.HEART_SHOT.damage);
             this.remove();
         }
     }

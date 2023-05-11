@@ -9,20 +9,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public class SpectreEntity extends MonsterEntity implements IRendersAsItem {
+public class InyoJadeMonsterEntity extends MonsterEntity implements IRendersAsItem {
 
-    public static final EntityType<SpectreEntity> SPECTRE = EntityType.Builder.create(
-                    SpectreEntity::new, EntityClassification.CREATURE).updateInterval(2)
-            .size(0.65f, 0.65f).trackingRange(10).build("spectre");
+    public static final EntityType<InyoJadeMonsterEntity> INYO_JADE_MONSTER = EntityType.Builder.create(
+                    InyoJadeMonsterEntity::new, EntityClassification.CREATURE).updateInterval(2)
+            .size(0.8f, 0.8f).trackingRange(10).build("human_resident");
 
-    protected SpectreEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    protected InyoJadeMonsterEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
     @Override
     @NotNull
     public ItemStack getItem() {
-        return new ItemStack(ItemRegistry.WANDERING_SOUL.get());
+        return new ItemStack(ItemRegistry.INYO_JADE_BLUE.get());
     }
 
     @Override

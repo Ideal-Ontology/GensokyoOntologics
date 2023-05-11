@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.capability.IDomainCapability;
+import github.thelawf.gensokyoontology.common.capability.IIdeologyCapability;
 import github.thelawf.gensokyoontology.common.command.GSKOCommand;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -37,16 +37,16 @@ public class CommonSetUp {
                     MonsterEntity::canMonsterSpawn);
 
             CapabilityManager.INSTANCE.register(
-                    IDomainCapability.class,
-                    new Capability.IStorage<IDomainCapability>() {
+                    IIdeologyCapability.class,
+                    new Capability.IStorage<IIdeologyCapability>() {
                         @Nullable
                         @Override
-                        public INBT writeNBT(Capability<IDomainCapability> capability, IDomainCapability instance, Direction side) {
+                        public INBT writeNBT(Capability<IIdeologyCapability> capability, IIdeologyCapability instance, Direction side) {
                             return null;
                         }
 
                         @Override
-                        public void readNBT(Capability<IDomainCapability> capability, IDomainCapability instance, Direction side, INBT nbt) {
+                        public void readNBT(Capability<IIdeologyCapability> capability, IIdeologyCapability instance, Direction side, INBT nbt) {
 
                         }
                     },
