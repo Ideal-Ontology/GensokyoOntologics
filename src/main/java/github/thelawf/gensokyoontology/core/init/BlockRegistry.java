@@ -75,10 +75,13 @@ public final class BlockRegistry {
 
     //======================= ↑ The Mod Cyber Statistics ↑ ====================//
 
-    public static RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
+    public static final RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
             () -> new HotSpringBlock(() -> FluidRegistry.HOT_SPRING_SOURCE.get(),
             Block.Properties.create(Material.WATER).doesNotBlockMovement()
                                 .hardnessAndResistance(100.0f).noDrops()));
+
+    public static final RegistryObject<DragonSphereOre> DRAGON_SPHERE_ORE = BLOCKS.register(
+            "dragon_sphere_ore", DragonSphereOre::new);
     public static final RegistryObject<Block> LYCORIS_RADIATA = BLOCKS.register(
             "lycoris_radiata", LycorisRadiata::new);
 

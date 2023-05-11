@@ -11,20 +11,27 @@ import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.tileentity.ChestTileEntity;
 
+import java.util.Random;
+
 public class KitchenKnife extends SwordItem {
+
     public KitchenKnife() {
         super(ItemTier.IRON, 3, -2.4F,
-                new Properties().group(GSKOItemTab.GSKO_ITEM_TAB));
+                new Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxDamage(40));
+    }
+
+    @Override
+    public boolean hasContainerItem(ItemStack stack) {
+        return true;
     }
 
     @Override
     public ItemStack getContainerItem(ItemStack itemStack) {
-        ItemStack stack = new ItemStack(this);
-        stack.setDamage(stack.getDamage() + 1);
-        if (stack.getDamage() >= stack.getMaxDamage()) {
+        ItemStack stack = itemStack.copy();
+        if (stack.attemptDamageItem(1, random, null)) {
             return ItemStack.EMPTY;
         }
-        return stack.copy();
+        return stack;
     }
 
     @Override

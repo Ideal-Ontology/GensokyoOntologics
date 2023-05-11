@@ -9,4 +9,5 @@ public class HakureiGohei extends Item {
     public HakureiGohei(Properties properties) {
         super(properties);
     }
+
 }

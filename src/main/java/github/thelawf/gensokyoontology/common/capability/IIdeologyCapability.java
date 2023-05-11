@@ -4,7 +4,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.util.INBTSerializable;
 
-public interface IDomainCapability extends INBTSerializable<CompoundNBT> {
+public interface IIdeologyCapability extends INBTSerializable<CompoundNBT> {
 
     AxisAlignedBB getRange();
 

@@ -4,12 +4,24 @@ import github.thelawf.gensokyoontology.common.block.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.entity.FairyEntity;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.advancements.*;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.stats.ServerStatisticsManager;
+import net.minecraft.stats.Stat;
+import net.minecraft.stats.StatType;
+import net.minecraft.stats.Stats;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -29,6 +41,7 @@ public class GSKOEntityEvents {
                 // event.getEntityLiving().attackEntityFrom(DamageSource.OUT_OF_WORLD, 100.f);
             }
         }
+
     }
 
 
@@ -36,6 +49,9 @@ public class GSKOEntityEvents {
     public static void onLivingDeath(LivingDeathEvent event) {
         if (event.getEntityLiving() != null && event.getEntityLiving() instanceof FairyEntity) {
             FairyEntity fairy = (FairyEntity) event.getEntityLiving();
+            if (event.getSource() == DamageSource.WITHER) {
+                fairy.entityDropItem(new ItemStack(ItemRegistry.DANMAKU_TEST_ITEM.get()));
+            }
         }
     }
 

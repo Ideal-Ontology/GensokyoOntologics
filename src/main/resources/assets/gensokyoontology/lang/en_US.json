@@ -4,6 +4,8 @@
 
   "item.gensokyoontology.hotspring_bucket": "Hot Spring Bucket",
 
+  "item.gensokyoontology.wandering_soul": "Wnadering Soul",
+
   "item.gensokyoontology.spirit_star": "Spirit Star",
   "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
   "item.gensokyoontology.dialectic_spirit": "Dialectic Spirit",
@@ -93,8 +95,11 @@
   "effect.gensokyoontology.mania": "Mania",
   "effect.gensokyoontology.depression": "Depression",
 
-  "entity.gensokyoontology.human_resident": "Human Resident",
   "entity.gensokyoontology.fairy": "Fairy",
+  "entity.gensokyoontology.inyo_jade": "Inyo Jade",
+  "entity.gensokyoontology.spectre": "Spectre",
+  "entity.gensokyoontology.human_resident": "Human Resident",
+  "entity.gensokyoontology.citizen": "Citizen",
   "entity.gensokyoontology.komeiji_koishi": "Komeiji Koishi",
   "entity.gensokyoontology.usami_sumireko": "Usami Sumireko",
   "entity.gensokyoontology.yakumo_yukari": "Yakumo Yukari",

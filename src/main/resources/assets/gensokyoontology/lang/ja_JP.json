@@ -4,6 +4,8 @@
 
   "item.gensokyoontology.hotspring_bucket": "温泉水バケツ",
 
+  "item.gensokyoontology.wandering_soul": "Wnadering Soul",
+
   "item.gensokyoontology.spirit_star": "Spirit Star",
   "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
   "item.gensokyoontology.dialectic_spirit": "観念形態「弁証」",
@@ -93,8 +95,11 @@
   "effect.gensokyoontology.mania": "Mania",
   "effect.gensokyoontology.depression": "憂鬱",
 
-  "entity.gensokyoontology.human_resident": "Human Resident",
   "entity.gensokyoontology.fairy": "妖精",
+  "entity.gensokyoontology.inyo_jade": "Inyo Jade",
+  "entity.gensokyoontology.spectre": "Spectre",
+  "entity.gensokyoontology.human_resident": "Human Resident",
+  "entity.gensokyoontology.citizen": "Citizen",
   "entity.gensokyoontology.komeiji_koishi": "古明地こいし",
   "entity.gensokyoontology.usami_sumireko": "宇佐見菫子",
   "entity.gensokyoontology.yakumo_yukari": "八雲紫",

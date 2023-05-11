@@ -5,6 +5,7 @@ import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import github.thelawf.gensokyoontology.common.entity.AbstractHumanEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -16,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 import java.util.Random;
 
-public class HumanNPCModel<T extends LivingEntity> extends BipedModel<T> {
+public class HumanNPCModel<T extends AbstractHumanEntity> extends BipedModel<T> {
     private List<ModelRenderer> modelRenderers = Lists.newArrayList();
     public final ModelRenderer bipedLeftArmwear;
     public final ModelRenderer bipedRightArmwear;

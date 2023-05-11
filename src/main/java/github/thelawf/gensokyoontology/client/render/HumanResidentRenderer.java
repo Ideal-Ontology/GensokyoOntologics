@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.entity.HumanResidentEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.util.ResourceLocation;
+import org.jetbrains.annotations.NotNull;
 
 public class HumanResidentRenderer extends LivingRenderer<HumanResidentEntity, HumanNPCModel<HumanResidentEntity>> {
 
@@ -17,7 +18,8 @@ public class HumanResidentRenderer extends LivingRenderer<HumanResidentEntity, H
     }
 
     @Override
-    public ResourceLocation getEntityTexture(HumanResidentEntity entity) {
+    @NotNull
+    public ResourceLocation getEntityTexture(@NotNull HumanResidentEntity entity) {
         return HUMAN_RESIDENT_TEXTURE;
     }
 }

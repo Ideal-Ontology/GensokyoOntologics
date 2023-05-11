@@ -51,7 +51,7 @@ public class GensokyoOntology {
         GSKOParticleRegistry.PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
         EffectRegistry.POTION_EFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
         TileEntityTypeRegistry.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        EntityRegistry.GSKO_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+        EntityRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -101,10 +101,27 @@ public class GensokyoOntology {
     public static class AttributesSetEvent {
         @SubscribeEvent
         public static void setupAttributes(EntityAttributeCreationEvent event) {
-            double randomHealthFairy = GSKOMathUtil.randomRange(2,20);
+            double randomHealthFairy = GSKOMathUtil.randomRange(2, 20);
+            double randomHealthInyojade = GSKOMathUtil.randomRange(4, 10);
+            double randomHealthSpectre = GSKOMathUtil.randomRange(2,10);
 
             event.put(EntityRegistry.FAIRY_ENTITY.get(), MobEntity.func_233666_p_()
-                    .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthFairy).create());
+                    .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthFairy)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D)
+                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0D).create());
+
+            event.put(EntityRegistry.INYO_JADE_ENTITY.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthInyojade)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 25D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 8D)
+                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.8D).create());
+
+            event.put(EntityRegistry.SPECTRE_ENTITY.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthSpectre)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 40D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5D)
+                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.8D).create());
 
             event.put(EntityRegistry.SUMIREKO_ENTITY.get(), TameableEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 20D).create());
@@ -114,7 +131,9 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 12D)
                     .createMutableAttribute(Attributes.ARMOR, 10D)
                     .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 20D)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D).create());
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D)
+                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 3.5D)
+                    .createMutableAttribute(Attributes.ATTACK_SPEED, 1.6D).create());
 
             event.put(EntityRegistry.YUKARI_ENTITY.get(), TameableEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 300D)
@@ -125,6 +144,11 @@ public class GensokyoOntology {
             event.put(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), AgeableEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 20D)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 20D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
+
+            event.put(EntityRegistry.CITIZEN.get(), AgeableEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 20D)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 15D)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
         }
     }

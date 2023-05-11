@@ -8,6 +8,7 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
+@Deprecated
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID)
 public class WorldGenerateEvents {
 

@@ -14,10 +14,6 @@ buildscript {
     }
 }
 
-plugins {
-    id 'net.minecraftforge.gradle' version '5.1.+'
-}
-
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
@@ -41,7 +37,7 @@ allprojects {
 }
 
 group = 'com.github.thelawf'
-version = 'forge-1.16.5-unfinished-3'
+version = 'forge-1.16.5-unfinished-3a'
 
 java {
     archivesBaseName = 'gensokyoontology'

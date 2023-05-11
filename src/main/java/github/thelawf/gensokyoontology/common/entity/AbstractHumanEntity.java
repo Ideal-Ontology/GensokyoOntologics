@@ -12,6 +12,7 @@ import net.minecraft.entity.ai.goal.RandomWalkingGoal;
 import net.minecraft.entity.ai.goal.SwimGoal;
 import net.minecraft.entity.merchant.IMerchant;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MerchantOffer;
@@ -38,7 +39,7 @@ public class AbstractHumanEntity extends AgeableEntity implements INPC, IMerchan
     protected void registerGoals() {
         super.registerGoals();
         this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(8, new RandomWalkingGoal(this, 0.6D));
+        this.goalSelector.addGoal(8, new RandomWalkingGoal(this, 0.3D));
         this.goalSelector.addGoal(9, new LookAtGoal(this, PlayerEntity.class, 3.0F, 1.0F));
         this.goalSelector.addGoal(10, new LookAtGoal(this, MobEntity.class, 8.0F));
     }
@@ -60,7 +61,6 @@ public class AbstractHumanEntity extends AgeableEntity implements INPC, IMerchan
 
     @Override
     public void setCustomer(@Nullable PlayerEntity player) {
-
     }
 
     @Nullable

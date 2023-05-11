@@ -96,4 +96,9 @@ public class GSKOItemStackEvents {
         }
     }
 
+    @SubscribeEvent
+    public static void onItemRightClickField(PlayerInteractEvent.EntityInteract event) {
+
+    }
+
 }

@@ -1,16 +1,13 @@
 package github.thelawf.gensokyoontology.data;
 
-import github.thelawf.gensokyoontology.common.nbt.ForgeTags;
+import github.thelawf.gensokyoontology.common.nbt.GSKOTags;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.ItemTagsProvider;
 import net.minecraft.item.Item;
-import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.ITag;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.IItemProvider;
-import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,10 +22,10 @@ public class GSKOItemTags extends ItemTagsProvider {
 
     @Override
     protected void registerTags() {
-        // addItemTags(ForgeTags.ONION, ItemRegistry.ONION.get());
-        this.getOrCreateBuilder(ForgeTags.CROPS).addTag(ForgeTags.CROPS);
-        this.getOrCreateBuilder(ForgeTags.ONION).addItemEntry(ItemRegistry.ONION.get());
-        // this.getOrCreateBuilder(ForgeTags.INYO_JADE).addItemEntry()
+        // addItemTags(GSKOTags.ONION, ItemRegistry.ONION.get());
+        this.getOrCreateBuilder(GSKOTags.CROPS).addTag(GSKOTags.CROPS);
+        this.getOrCreateBuilder(GSKOTags.ONION).addItemEntry(ItemRegistry.ONION.get());
+        // this.getOrCreateBuilder(GSKOTags.INYO_JADE).addItemEntry()
     }
 
     protected void addItemTags(ITag.INamedTag<Item> tag, IItemProvider... items) {

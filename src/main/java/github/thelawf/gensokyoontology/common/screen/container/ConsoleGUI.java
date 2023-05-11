@@ -11,7 +11,6 @@ import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.Color;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -19,7 +18,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import javax.annotation.Nonnull;
 import java.util.Objects;
 
-public class ProgrammingGUI extends Screen {
+public class ConsoleGUI extends Screen {
     TextFieldWidget codeField;
     GSKOTextComponent component;
     Button compileButton;
@@ -30,7 +29,7 @@ public class ProgrammingGUI extends Screen {
     final ResourceLocation PROGRAMMING_GUI_TEX = new ResourceLocation(GensokyoOntology.MODID,
             "texures/gui/programming_gui.png");
 
-    protected ProgrammingGUI(ITextComponent titleIn) {
+    protected ConsoleGUI(ITextComponent titleIn) {
         super(titleIn);
     }
 

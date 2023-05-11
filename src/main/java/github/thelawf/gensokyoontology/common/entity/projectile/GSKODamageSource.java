@@ -10,6 +10,7 @@ public class GSKODamageSource extends DamageSource {
 
     public static final DamageSource DANMAKU = (new DamageSource(
             "danmaku"));
+
     public static final DamageSource PSYCHOLOGY = (new DamageSource(
             "psychology")).setDamageBypassesArmor();
 }

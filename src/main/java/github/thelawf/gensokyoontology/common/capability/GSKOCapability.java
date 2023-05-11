@@ -5,6 +5,6 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 
 public class GSKOCapability {
 
-    @CapabilityInject(IDomainCapability.class)
-    public static Capability<IDomainCapability> DOMAIN_CAPABILITY;
+    @CapabilityInject(IIdeologyCapability.class)
+    public static Capability<IIdeologyCapability> DOMAIN_CAPABILITY;
 }

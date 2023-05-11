@@ -4,7 +4,9 @@
 
   "item.gensokyoontology.hotspring_bucket": "温泉水桶",
 
+  "item.gensokyoontology.wandering_soul": "游荡的灵魂",
   "item.gensokyoontology.spirit_star": "灵魂之星",
+
   "item.gensokyoontology.spirit_fragment": "意识形态碎片",
   "item.gensokyoontology.dialectic_spirit": "意识形态·辩证",
   "item.gensokyoontology.utopian_spirit": "意识形态·幻想",
@@ -36,7 +38,7 @@
   "item.gensokyoontology.hakurei_gohei": "博丽的御币",
   "item.gensokyoontology.marisa_hakkeiro": "八卦炉",
   "item.gensokyoontology.koishi_eye": "恋之瞳",
-  "item.gensokyoontology.koishi_hat": "Koishi Hat",
+  "item.gensokyoontology.koishi_hat": "恋恋的帽子",
   "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
   "item.gensokyoontology.story_card": "故事卡片",
 
@@ -60,7 +62,7 @@
   "item.gensokyoontology.rail_wrench": "Rail Wrench",
 
   "advancement.gensokyoontology.root.title": "不是冻鳗!",
-  "advancement.gensokyoontology.root.description": "获得故事书的第1.1章",
+  "advancement.gensokyoontology.root.description": "阅读幻想乡故事的第1.1章",
   "advancement.gensokyoontology.login_gensokyo.title": "玩家已着陆",
   "advancement.gensokyoontology.login_gensokyo.description": "玩家进入幻想乡维度",
 
@@ -82,7 +84,7 @@
   "block.gensokyoontology.fried_pane": "炸锅",
   "block.gensokyoontology.dakimakura": "抱枕",
   "block.gensokyoontology.rail_track": "轨道",
-  "block.gensokyoontology.rail_node": "Rail Node",
+  "block.gensokyoontology.rail_node": "轨道节点",
   "block.gensokyoontology.rotate_frame": "旋转框架测试方块",
 
   "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
@@ -93,8 +95,11 @@
   "effect.gensokyoontology.mania": "躁狂",
   "effect.gensokyoontology.depression": "抑郁",
 
-  "entity.gensokyoontology.human_resident": "人里居民",
   "entity.gensokyoontology.fairy": "妖精",
+  "entity.gensokyoontology.inyo_jade": "阴阳玉",
+  "entity.gensokyoontology.spectre": "幽灵",
+  "entity.gensokyoontology.human_resident": "人里居民",
+  "entity.gensokyoontology.citizen": "市民",
   "entity.gensokyoontology.komeiji_koishi": "古明地恋",
   "entity.gensokyoontology.usami_sumireko": "宇佐见堇子",
   "entity.gensokyoontology.yakumo_yukari": "八云紫",
@@ -184,6 +189,5 @@
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "block.gensokyoontology.sakura_slabs": "樱花木台阶"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }

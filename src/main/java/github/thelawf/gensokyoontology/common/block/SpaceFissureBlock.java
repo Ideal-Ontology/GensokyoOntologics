@@ -54,15 +54,16 @@ public class SpaceFissureBlock extends Block {
         }
         else if (worldIn instanceof ServerWorld && !entityIn.isPassenger() &&
                 !entityIn.isBeingRidden() && entityIn.canChangeDimension()) {
-            RegistryKey<World> registryKey = entityIn.world.getDimensionKey() == World.OVERWORLD ? GSKODimensions.GENSOKYO : World.OVERWORLD;
-            ServerWorld world = worldIn.getServer().getWorld(registryKey);
+            RegistryKey<World> dimensionKey = entityIn.world.getDimensionKey() == World.OVERWORLD ? GSKODimensions.GENSOKYO : World.OVERWORLD;
+            ServerWorld world = ((ServerWorld) worldIn).getServer().getWorld(dimensionKey);
+
             if (world == null) {
-                LOGGER.warn("Dimension {} not present", registryKey.toString());
+                LOGGER.warn("The Dimsion {} on this server does not exist!", dimensionKey.getRegistryName());
                 return;
             }
-
-            LOGGER.info("Player {} has been to {}", ((PlayerEntity) entityIn).getGameProfile().getName(), registryKey.toString());
-            // entityIn.changeDimension(world);
+            entityIn.changeDimension(world);
+            LOGGER.info("Player {} has been to {}", ((PlayerEntity) entityIn).getGameProfile().getName(),
+                    dimensionKey.getRegistryName());
         }
     }
 

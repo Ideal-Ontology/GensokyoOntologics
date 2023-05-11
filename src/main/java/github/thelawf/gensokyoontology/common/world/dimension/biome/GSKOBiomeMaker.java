@@ -134,8 +134,8 @@ public final class GSKOBiomeMaker {
 
     public static Biome makeYatsugaTakeBiome() {
         return new Biome.Builder()
-                .depth(4.5f)
-                .scale(2.5f)
+                .depth(3.0f)
+                .scale(1.5f)
                 .downfall(0f)
                 .temperature(0.35f)
                 .category(Biome.Category.EXTREME_HILLS)
@@ -203,7 +203,7 @@ public final class GSKOBiomeMaker {
     public static Biome makeOutsideCityBiome() {
         return new Biome.Builder()
                 .depth(0.1f)
-                .scale(1.5f)
+                .scale(0.45f)
                 .downfall(0.08f)
                 .temperature(0.5f)
                 .category(Biome.Category.PLAINS)
@@ -226,7 +226,7 @@ public final class GSKOBiomeMaker {
         return new Biome.Builder()
                 .depth(0.1f)
                 .scale(0.67f)
-                .downfall(0.9f)
+                .downfall(0.2f)
                 .temperature(0.7f)
                 .category(Biome.Category.FOREST)
                 .precipitation(Biome.RainType.RAIN)
@@ -250,7 +250,7 @@ public final class GSKOBiomeMaker {
         return new Biome.Builder()
                 .depth(1.2f)
                 .scale(0.4f)
-                .downfall(0.9f)
+                .downfall(0.7f)
                 .temperature(0.88f)
                 .category(Biome.Category.MESA)
                 .precipitation(Biome.RainType.SNOW)

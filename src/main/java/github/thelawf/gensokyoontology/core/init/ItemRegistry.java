@@ -123,13 +123,16 @@ public final class ItemRegistry {
     // ======================= GSKO杂项：合成消耗品 =========================//
 
     // public static final RegistryObject<Item> ISHI_ZAKURA = ITEMS.register("ishi_zakura",
-    //         () -> new IshiZakura(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    //         () -> new IshiZakuraBlock(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    public static final RegistryObject<Item> WANDERING_SOUL = ITEMS.register(
+            "wandering_soul", () -> new WanderingSoul(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ---------------------------- 食物原材料 -----------------------------//
 
-    public static final RegistryObject<Item> KITCHEN_KNIFE =
-            ITEMS.register("kitchen_knife", KitchenKnife::new);
+    public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register(
+            "kitchen_knife", KitchenKnife::new);
 
     public static final RegistryObject<Butter> BUTTER = ITEMS.register("butter",
             () -> new Butter(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB) ));
@@ -226,6 +229,11 @@ public final class ItemRegistry {
 
     public static final RegistryObject<Item> GAME_COIN = ITEMS.register("game_coin",
             () -> new GameCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    // ======================== GSKO 实用类方块 ===========================//
+    public static final RegistryObject<BlockItem> DRAGON_SPHERE_ORE_ITEM = ITEMS.register(
+            "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//
