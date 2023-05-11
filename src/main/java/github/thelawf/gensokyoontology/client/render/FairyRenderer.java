@@ -16,7 +16,7 @@ public class FairyRenderer extends MobRenderer<FairyEntity, FairyModel> {
             GensokyoOntology.MODID, "textures/entity/fairy_texture_1.png");
 
     public FairyRenderer(EntityRendererManager renderManagerIn) {
-        super(renderManagerIn, new FairyModel(), 0.8f);
+        super(renderManagerIn, new FairyModel(1.0f), 0.8f);
     }
 
     @Override

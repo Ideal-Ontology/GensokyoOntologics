@@ -6,11 +6,13 @@ package github.thelawf.gensokyoontology.client.model;// Made with Blockbench 4.7
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.common.entity.FairyEntity;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class FairyModel extends EntityModel<FairyEntity> {
+public class FairyModel extends BipedModel<FairyEntity> {
 	private final ModelRenderer bone;
 	private final ModelRenderer head;
 	// private final ModelRenderer blink;
@@ -23,7 +25,8 @@ public class FairyModel extends EntityModel<FairyEntity> {
 	private final ModelRenderer legLeft;
 	private final ModelRenderer legRight;
 
-	public FairyModel() {
+	public FairyModel(float modelSize) {
+		super(RenderType::getEntityTranslucent, modelSize, 0f,64,64);
 		textureWidth = 64;
 		textureHeight = 64;
 
@@ -86,7 +89,17 @@ public class FairyModel extends EntityModel<FairyEntity> {
 		legRight = new ModelRenderer(this);
 		legRight.setRotationPoint(-2.0F, -9.0F, 0.0F);
 		bone.addChild(legRight);
-		legRight.setTextureOffset(32, 6).addBox(-1.499F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
+		legRight.setTextureOffset(33, 18).addBox(-1.499F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
+
+		// legLeft = new ModelRenderer(this);
+		// legLeft.setRotationPoint(2.0F, -9.0F, 0.0F);
+		// bone.addChild(legLeft);
+		// legLeft.setTextureOffset(33, 18).addBox(-1.501F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
+
+		// legRight = new ModelRenderer(this);
+		// legRight.setRotationPoint(-2.0F, -9.0F, 0.0F);
+		// bone.addChild(legRight);
+		// legRight.setTextureOffset(32, 6).addBox(-1.499F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
 	}
 
 	@Override
