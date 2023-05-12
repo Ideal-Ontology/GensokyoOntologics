@@ -3,10 +3,7 @@ package github.thelawf.gensokyoontology.common.capability;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 
-import java.util.ArrayList;
-import java.util.List;
-
-public class DomainCapability implements IDomainCapability{
+public class DomainCapability implements IIdeologyCapability {
 
     public AxisAlignedBB rangeBox;
 
