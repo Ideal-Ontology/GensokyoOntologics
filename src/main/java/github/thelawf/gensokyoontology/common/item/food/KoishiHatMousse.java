@@ -15,6 +15,6 @@ public class KoishiHatMousse extends Item {
             .setAlwaysEdible()
             .build();
     public KoishiHatMousse() {
-        super(new Properties().group(ItemGroup.FOOD).food(food));
+        super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB).food(food));
     }
 }

@@ -12,7 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class KoishiEmpathicDomainProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT> {
 
-    private IDomainCapability domainCapability;
+    private IIdeologyCapability domainCapability;
 
     @NotNull
     @Override
@@ -21,7 +21,7 @@ public class KoishiEmpathicDomainProvider implements ICapabilityProvider, INBTSe
                 LazyOptional.empty();
     }
 
-    IDomainCapability getOrCreateCapability() {
+    IIdeologyCapability getOrCreateCapability() {
         if (domainCapability == null) {
             this.domainCapability = new DomainCapability(
                     new AxisAlignedBB(0,0,0,50,50,50));

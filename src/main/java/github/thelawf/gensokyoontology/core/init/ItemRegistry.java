@@ -2,11 +2,15 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.item.*;
-import github.thelawf.gensokyoontology.common.item.danmaku.DanmakuShot;
+import github.thelawf.gensokyoontology.common.item.danmaku.DanmakuShotItem;
+import github.thelawf.gensokyoontology.common.item.danmaku.HeartShot;
+import github.thelawf.gensokyoontology.common.item.danmaku.LargeShot;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
 import github.thelawf.gensokyoontology.common.item.spellcard.SC_WaveAndParticle;
 import github.thelawf.gensokyoontology.common.item.food.*;
+import github.thelawf.gensokyoontology.common.item.spellcard.SpellCardBlank;
 import github.thelawf.gensokyoontology.common.item.tools.*;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -38,7 +42,7 @@ public final class ItemRegistry {
 
     public static final RegistryObject<BlockItem> SAKURA_BUTTON_ITEM = ITEMS.register(
             "sakura_button", () -> new BlockItem(BlockRegistry.SAKURA_BUTTON.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().group(ItemGroup.REDSTONE)));
 
     public static final RegistryObject<BlockItem> SAKURA_SLAB_ITEM = ITEMS.register(
             "sakura_slab", () -> new BlockItem(BlockRegistry.SAKURA_SLAB.get(),
@@ -238,48 +242,53 @@ public final class ItemRegistry {
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//
 
+    public static final RegistryObject<SpellCardBlank> SPELL_CARD_BLANK = ITEMS.register(
+            "spell_card_blank", () -> new SpellCardBlank(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+
     public static final RegistryObject<SC_WaveAndParticle> SC_WAVE_AND_PARTICLE = ITEMS.register(
-            "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb),
+            "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
                     "波与粒的境界","",500));
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
-    public static final RegistryObject<Item> DANMAKU_TEST_ITEM = ITEMS.register(
-            "danmaku_test", () -> new DanmakuTestItem(
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
 
-    public static final RegistryObject<DanmakuShot> DANMAKU_SHOT = ITEMS.register("danmaku_shot",
-            () -> new DanmakuShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+    public static final RegistryObject<DanmakuShotItem> DANMAKU_SHOT = ITEMS.register("danmaku_shot",
+            () -> new DanmakuShotItem(DanmakuType.DANMAKU_SHOT));
+    public static final RegistryObject<Item> LARGE_SHOT_ITEM = ITEMS.register(
+            "large_shot", () -> new LargeShot(DanmakuType.LARGE_SHOT));
+    public static final RegistryObject<Item> HEART_SHOT_ITEM = ITEMS.register(
+            "heart_shot", () -> new HeartShot(DanmakuType.HEART_SHOT));
 
     public static final RegistryObject<Item> INYO_JADE_BLACK = ITEMS.register(
             "inyo_jade_black", () -> new InyoJade(DyeColor.BLACK,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> INYO_JADE_RED = ITEMS.register(
             "inyo_jade_red", () -> new InyoJade(DyeColor.RED,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> INYO_JADE_YELLOW = ITEMS.register(
             "inyo_jade_yellow", () -> new InyoJade(DyeColor.YELLOW,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> INYO_JADE_GREEN = ITEMS.register(
             "inyo_jade_green", () -> new InyoJade(DyeColor.GREEN,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> INYO_JADE_AQUA = ITEMS.register(
             "inyo_jade_aqua", () -> new InyoJade(DyeColor.LIGHT_BLUE,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> INYO_JADE_BLUE = ITEMS.register(
             "inyo_jade_blue", () -> new InyoJade(DyeColor.BLUE,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> INYO_JADE_PURPLE = ITEMS.register(
             "inyo_jade_purple", () -> new InyoJade(DyeColor.PURPLE,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> BOMB_ITEM = ITEMS.register(
             "bomb_item", () -> new BombItem(
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAb)));
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     // +++++++++++++++++++++++++++ Deprecated Items +++++++++++++++++++++++//
     public static final RegistryObject<BlockItem> MAGIC_LOG_ITEM = ITEMS.register(

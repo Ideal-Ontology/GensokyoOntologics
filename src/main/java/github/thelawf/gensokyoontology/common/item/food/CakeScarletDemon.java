@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.food;
 
+import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -14,6 +15,6 @@ public class CakeScarletDemon extends Item {
             .effect(() -> new EffectInstance(Effects.HEALTH_BOOST,5*100,2),0.5f)
             .build();
     public CakeScarletDemon() {
-        super(new Properties().group(ItemGroup.FOOD).food(food));
+        super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB).food(food));
     }
 }

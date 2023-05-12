@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.client.render;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -20,7 +20,7 @@ import net.minecraft.util.math.vector.Matrix3f;
 import net.minecraft.util.math.vector.Vector3f;
 
 @Deprecated
-public class DanmakuRenderer extends SpriteRenderer<DanmakuEntity> {
+public class DanmakuRenderer extends SpriteRenderer<DanmakuShotEntity> {
     private static final ResourceLocation DANMAKU_TEX = new ResourceLocation(GensokyoOntology.MODID, "textures/entity/danmaku.png");
     private static final RenderType RENDER_TYPE = RenderType.getItemEntityTranslucentCull(DANMAKU_TEX);
 
@@ -31,7 +31,7 @@ public class DanmakuRenderer extends SpriteRenderer<DanmakuEntity> {
         this.itemRenderer = itemRendererIn;
     }
 
-    public void render(DanmakuEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    public void render(DanmakuShotEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(
                 AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(DANMAKU_TEX);
         IVertexBuilder builder = ItemRenderer.getBuffer(bufferIn, RENDER_TYPE, true,false);

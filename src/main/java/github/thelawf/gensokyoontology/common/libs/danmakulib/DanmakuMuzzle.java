@@ -24,10 +24,6 @@ public class DanmakuMuzzle extends TransformComponent{
         return null;
     }
 
-    @Override
-    public void shoot() {
-
-    }
 
     @Override
     public Vector3d rotateRollYaw(double degreesRoll, double degreesYaw) {

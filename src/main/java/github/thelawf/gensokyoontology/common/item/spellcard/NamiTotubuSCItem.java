@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -37,38 +37,7 @@ public class NamiTotubuSCItem extends Item {
 
                 tf.setInitLocation(new Vector3d(tf.initLocation.x + 0.9 * i,
                         tf.initLocation.y, tf.initLocation.z));
-                for (int j = 0; j < tf.lifeSpan / tf.shootInterval; j++) {
 
-                    DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
-
-                    if (j < tf.lifeSpan / 2) {
-                        //tf.setIncrement(tf.rotateTotal, Math.PI / 10);
-                        tf.increaseYaw((float) tf.increment * j);
-                        danmaku.setLocationAndAngles(tf.x, tf.y, tf.z,
-                                (float) tf.yaw, (float) tf.pitch);
-                        danmaku.setNoGravity(true);
-                        danmaku.canBeCollidedWith();
-
-                        Vector3d towards = playerIn.getLookVec();
-                        danmaku.shoot(tf.speedV3.x, tf.speedV3.y, tf.speedV3.z,
-                                (float) tf.resultantSpeed, 0.f);
-                        worldIn.addEntity(danmaku);
-
-                    }
-                    else {
-                        //tf.setIncrement(tf.rotateTotal, Math.PI / 10);
-                        tf.increaseYaw((float) -tf.increment * j);
-                        danmaku.setLocationAndAngles(tf.x, tf.y, tf.z,
-                                (float) -tf.yaw, (float) tf.pitch);
-                        danmaku.setNoGravity(true);
-                        danmaku.canBeCollidedWith();
-
-                        Vector3d towards = playerIn.getLookVec();
-                        danmaku.shoot(tf.speedV3.x, tf.speedV3.y, tf.speedV3.z,
-                                (float) tf.resultantSpeed, 0.f);
-                        worldIn.addEntity(danmaku);
-                    }
-                }
             }
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);

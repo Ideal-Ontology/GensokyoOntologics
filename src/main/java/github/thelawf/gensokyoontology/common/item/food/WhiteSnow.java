@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.food;
 
 import github.thelawf.gensokyoontology.common.nbt.GensokyoOntologyNBT;
+import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.item.Food;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
@@ -14,7 +15,7 @@ public class WhiteSnow extends Item {
             .build();
 
     public WhiteSnow() {
-        super(new Properties().group(ItemGroup.FOOD).containerItem(Items.BOWL).food(food));
+        super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB).containerItem(Items.BOWL).food(food));
         this.updateItemStackNBT(GensokyoOntologyNBT.nbtWhiteSnow);
     }
 }
