@@ -1,7 +1,10 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
+import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+
+import java.util.function.Supplier;
 
 /**
  * 八云紫的：「存在与虚无的境界」
@@ -19,8 +22,8 @@ public class SC_BeingAndNothing extends SpellCardItem {
     }
 
     @Override
-    public void update(PlayerEntity player, int tick) {
-
+    public Supplier<TransformFunction> update(PlayerEntity player, int tick) {
+        return () -> new TransformFunction().setPlayer(player);
     }
 
     @Override

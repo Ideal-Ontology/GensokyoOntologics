@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.libs.danmakulib;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
@@ -11,10 +11,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.UUID;
-import java.util.function.Function;
 
 public class TransformFunction extends ITransform.AbstractTransform {
     public static final Logger LOGGER = LogManager.getLogger();
@@ -28,12 +25,12 @@ public class TransformFunction extends ITransform.AbstractTransform {
     /** 设置实体的枢轴点坐标 */
     public double pivotX, pivotY, pivotZ = 0.D;
 
-    /** 仅设置实体的朝向 */
+    /** 设置实体的朝向 */
     public double yaw, pitch, roll = 0.D;
 
     public double x, y, z = 0.D;
     public Vector3d initLocation = new Vector3d(0d,0d,0d);
-    public Vector3d initRotation = new Vector3d(0d,0d,0d);
+    public Vector3d shootVector = new Vector3d(0d,0d,0d);
 
     // --------------------Function settings---------------------//
 
@@ -75,9 +72,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
     public Vector3d increment3D = new Vector3d(0d,0d,0d);
 
     /** （角度/位移/速度）的非线性增加量 */
-    public Vector3d shootDirection = new Vector3d(0,0,0);
-
-    public Function<?,?> function;
+    public Vector3d acceleration = new Vector3d(0,0,0);
 
     // -------------Constructors, Builders, and Implements------------- //
 
@@ -136,27 +131,16 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return this;
     }
 
-    public TransformFunction setRotation(Vector3d incrementV3) {
-        this.roll += incrementV3.x;
-        this.yaw += incrementV3.y;
-        this.pitch += incrementV3.z;
+    public TransformFunction setShootVector(Vector3d shootVector) {
+        this.shootVector = shootVector;
         return this;
     }
 
-    public TransformFunction setShootDirection(Vector3d shootDirection) {
-        this.shootDirection = shootDirection;
+    public TransformFunction setAcceleration(Vector3d acceleration) {
+        this.acceleration = acceleration;
         return this;
     }
 
-    /**
-     * 根据传入的角度偏转值更改瞬时矢量速度
-     * @param rollIncrement
-     * @param yawIncrement
-     * @param pitchIncrement
-     */
-    public void setAcceleration3D(double rollIncrement, double yawIncrement, double pitchIncrement) {
-
-    }
 
     public TransformFunction setShootInterval(double shootInterval) {
         this.shootInterval = shootInterval;
@@ -170,11 +154,6 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
     public TransformFunction setExecuteInterval(double executeInterval) {
         this.executeInterval = executeInterval;
-        return this;
-    }
-
-    public TransformFunction setExecutePriority(int executePriority) {
-        this.executePriority = executePriority;
         return this;
     }
 
@@ -225,14 +204,6 @@ public class TransformFunction extends ITransform.AbstractTransform {
     }
 
 
-    public TransformFunction setSpeedV3(Vector3d speedV3) {
-        this.speedV3 = speedV3;
-        this.resultantSpeed = Math.min(GSKOMathUtil.toModulus3D(
-                speedV3.x, speedV3.y, speedV3.z), maxResultantSpeed);
-        return this;
-    }
-
-
     public TransformFunction setInitLocation(Vector3d initLocation) {
         this.initLocation = initLocation;
         this.x = initLocation.x;
@@ -251,18 +222,13 @@ public class TransformFunction extends ITransform.AbstractTransform {
     }
 
 
-    public void setIncrement(double rotateTotal, double interval) {
-        this.increment = rotateTotal / interval;
-    }
-
     public TransformFunction setIncrement(double increment) {
         this.increment = increment;
         return this;
     }
 
-    public TransformFunction setInitRotation(Vector3d initRotation) {
-        this.initRotation = initRotation;
-        return this;
+    public PlayerEntity getPlayer () {
+        return this.playerIn;
     }
 
     public int getExecuteTimes() {
@@ -301,8 +267,8 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return initLocation;
     }
 
-    public Vector3d getInitRotation() {
-        return initRotation;
+    public Vector3d getShootVector() {
+        return shootVector;
     }
 
     /**
@@ -317,6 +283,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
         double incrementPitch = incrementV3.z;
     }
 
+    @Deprecated
     public Vector3d rotate(Vector3d prevPos, Vector3d pivotLocation, Vector3d rotationV3) {
         double radius = GSKOMathUtil.distanceOf3D(prevPos.x, prevPos.y, prevPos.z,
                 pivotLocation.x, pivotLocation.y, pivotLocation.z);
@@ -398,42 +365,9 @@ public class TransformFunction extends ITransform.AbstractTransform {
                 resultantSpeedIn * Math.sin(incrementYawIn) / Math.sin(90D));
     }
 
-    public void circleStyleShoot() {
-        DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
-        if (worldIn.isRemote) {
-            for (int i = 0; i < 20 * this.executeTimes; i++) {
-                danmaku.shoot(this.initLocation.x + speedV3.x,
-                        this.initLocation.y + speedV3.y,
-                        this.initLocation.z + speedV3.z,
-                        0.1f, 0.5f);
-                worldIn.addEntity(danmaku);
-            }
-        }
-    }
-
-
     @Override
     public Vector3d accelerate(Vector3d acceleration) {
-        return this.shootDirection = acceleration;
-    }
-
-    @Override
-    public void shoot() {
-        DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
-        if (worldIn.isRemote) {
-            for (int i = 0; i < this.lifeSpan / shootInterval; i++) {
-
-                this.resultantSpeed += GSKOMathUtil.toModulus3D(this.shootDirection.x, this.shootDirection.y, this.shootDirection.z);
-                danmaku.setLocationAndAngles(this.x,this.y,this.z,
-                        (float) this.yaw, (float) this.pitch);
-
-                Vector3d towards = playerIn.getLookVec();
-                danmaku.shoot(towards.x, towards.y, towards.z,
-                        (float) this.resultantSpeed, 0.2f);
-                worldIn.addEntity(danmaku);
-            }
-            LOGGER.info("Function executed");
-        }
+        return this.acceleration = acceleration;
     }
 
 }

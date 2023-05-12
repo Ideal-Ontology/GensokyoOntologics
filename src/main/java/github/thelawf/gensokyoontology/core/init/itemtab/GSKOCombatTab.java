@@ -6,7 +6,7 @@ import net.minecraft.item.ItemStack;
 
 public class GSKOCombatTab extends ItemGroup {
 
-    public static final GSKOCombatTab GSKO_COMBAT_TAb = new GSKOCombatTab();
+    public static final GSKOCombatTab GSKO_COMBAT_TAB = new GSKOCombatTab();
 
     public GSKOCombatTab() {
         super("gensokyoontology_combat");
@@ -14,6 +14,6 @@ public class GSKOCombatTab extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ItemRegistry.DANMAKU_TEST_ITEM.get());
+        return new ItemStack(ItemRegistry.LARGE_SHOT_ITEM.get());
     }
 }

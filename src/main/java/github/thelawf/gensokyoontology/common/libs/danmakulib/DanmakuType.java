@@ -8,11 +8,12 @@ import javax.annotation.Nullable;
 
 public enum DanmakuType {
 
+    DANMAKU_SHOT("danmaku_shot", 0.5f, 0.1f),
     // 心弹
-    HEART_SHOT("heart_shot", 1.5f, 1.5f, EffectRegistry.LOVE_EFFECT.get()),
+    HEART_SHOT("heart_shot", 1.5f, 2.5f),
 
     // 蝶弹
-    BUTTERFLY_SHOT("butterfly_shot",1.5f,1.5f),
+    BUTTERFLY_SHOT("butterfly_shot",1.5f,2.5f),
 
     // 小玉
     SMALL_SHOT("small_shot", 0.5f,0.5f),
@@ -24,19 +25,19 @@ public enum DanmakuType {
     CIRCLE_SHOT("circle_shot",1.0f, 1.0f),
 
     // 大玉
-    LARGE_SHOT("large_shot",2.5f, 1.5f),
+    LARGE_SHOT("large_shot",2.5f, 2.5f),
 
     // 小星弹
     SMALL_STAR_SHOT("small_star_shot", 0.5f, 0.5f),
 
     // 星弹
-    LARGE_STAR_SHOT("large_star_shot", 1.5f, 0.5f),
+    LARGE_STAR_SHOT("large_star_shot", 1.5f, 2f),
 
     // 光弹
     LIGHT_SHOT("light_shot",1.0f,1.0f),
 
     // 大光弹
-    BIG_LIGHT_SHOT("big_light_shot",1.5f,1.5f),
+    BIG_LIGHT_SHOT("big_light_shot",1.5f,2.5f),
 
     // 米弹
     RICE_SHOT("rice_shot", 0.5f,0.5f),
@@ -59,10 +60,13 @@ public enum DanmakuType {
     KNIFE_SHOT("knife_shot", 1.0f, 1.0f),
 
     // 札弹
-    TALISMAN_SHOT("talisman_shot", 1.0f,1.0f),
+    TALISMAN_SHOT("talisman_shot", 1.0f,1.5f),
 
     // 椭圆弹
-    OVAL_SHOT("oval_shot", 1.0f,1.2f);
+    OVAL_SHOT("oval_shot", 1.0f,1.5f),
+
+    // 阴阳玉弹幕
+    INYO_JADE_SHOT("inyo_jade", 2.0f, 2.5f);
 
 
     public final String name;
@@ -76,5 +80,4 @@ public enum DanmakuType {
         this.size = size;
         this.effect = effect;
     }
-
 }

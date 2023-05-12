@@ -3,7 +3,6 @@
   "itemGroup.gensokyoontology_combat": "Gensokyo Ontology: Combat",
 
   "item.gensokyoontology.hotspring_bucket": "Hot Spring Bucket",
-
   "item.gensokyoontology.wandering_soul": "Wnadering Soul",
 
   "item.gensokyoontology.spirit_star": "Spirit Star",
@@ -22,7 +21,13 @@
   "item.gensokyoontology.idealism_sword": "Idealism Sword",
   "item.gensokyoontology.praxis_sword": "Praxis Sword",
 
-  "item.gensokyoontology.danmaku_test": "Danmaku Test Item",
+  "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
+  "item.gensokyoontology.large_shot": "Large Shot",
+  "item.gensokyoontology.heart_shot": "Heart Shot",
+  "item.gensokyoontology.star_shot": "Star Shot",
+
+  "item.gensokyoontology.bomb_item": "Bomb Item",
+
   "item.gensokyoontology.sc_wave_and_particle": "Spell Card: Wave and Particle",
   "item.gensokyoontology.inyo_jade_black": "Yin Yo Jade Black",
   "item.gensokyoontology.inyo_jade_red": "Yin Yo Jade Red",
@@ -31,9 +36,6 @@
   "item.gensokyoontology.inyo_jade_aqua": "Yin Yo Jade Aqua",
   "item.gensokyoontology.inyo_jade_blue": "Yin Yo Jade Blue",
   "item.gensokyoontology.inyo_jade_purple": "Yin Yo Jade Purple",
-
-  "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
-  "item.gensokyoontology.bomb_item": "Bomb Item",
 
   "item.gensokyoontology.hakurei_gohei": "Hakurei Gohei",
   "item.gensokyoontology.marisa_hakkeiro": "Marisa Hakkeiro",
@@ -95,11 +97,19 @@
   "effect.gensokyoontology.mania": "Mania",
   "effect.gensokyoontology.depression": "Depression",
 
+  "entity.gensokyoontology.spell_card_entity": "Spell Card Entity",
+
+  "entity.gensokyoontology.danmaku_entity": "Danmaku Entity",
+  "entity.gensokyoontology.large_shot_entity": "Large Shot Entity",
+  "entity.gensokyoontology.heart_shot_entity": "Heart Shot Entity",
+  "entity.gensokyoontology.star_shot_entity": "Star Show Entity",
+
   "entity.gensokyoontology.fairy": "Fairy",
   "entity.gensokyoontology.inyo_jade": "Inyo Jade",
   "entity.gensokyoontology.spectre": "Spectre",
   "entity.gensokyoontology.human_resident": "Human Resident",
   "entity.gensokyoontology.citizen": "Citizen",
+
   "entity.gensokyoontology.komeiji_koishi": "Komeiji Koishi",
   "entity.gensokyoontology.usami_sumireko": "Usami Sumireko",
   "entity.gensokyoontology.yakumo_yukari": "Yakumo Yukari",
@@ -125,6 +135,8 @@
 
   "nbt.gensokyoontology.start_pos": "Rail Connection Start at: ",
   "nbt.gensokyoontology.end_pos": "Rail Connection End at: ",
+
+  "screen.gensokyoontology.loading": "Now Loading",
 
   "story.gensokyoontology.chapter_1_1.page_1": "I can't forget the day when I rest down in peace. The sky was stained by a crimson color like the end of the world. People spread rumors that there falls a mansion of vampires on another side of Misty Lake. I do not believe at first for no one ever comes to the other side of Misty Lake, but here, look at me, I should have believe it...",
   "story.gensokyoontology.chapter_1_2.page_1": "That was a cold spring which I was starved to die. Snows fall until May 1st. I have wandered around on this icy land for many years ever since then. I was unreconciled, why me? why only my vitality was been taken altogether with the spring?",

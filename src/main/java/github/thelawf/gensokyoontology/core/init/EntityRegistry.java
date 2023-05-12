@@ -2,8 +2,9 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.*;
-import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.MasterSparkEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.fml.RegistryObject;
@@ -38,14 +39,21 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<YukariEntity>> YUKARI_ENTITY = ENTITIES.register(
             "yakumo_yukari", () -> YukariEntity.YUKARI);
 
-    public static final RegistryObject<EntityType<DanmakuEntity>> DANMAKU_ENTITY = ENTITIES.register(
-            "danmaku", () -> DanmakuEntity.DANMAKU);
+    public static final RegistryObject<EntityType<DanmakuShotEntity>> DANMAKU_ENTITY = ENTITIES.register(
+            "danmaku_entity", () -> DanmakuShotEntity.DANMAKU);
+
+    public static final RegistryObject<EntityType<SpellCardEntity>> SPELL_CARD_ENTITY = ENTITIES.register(
+            "spell_card_entity", () -> SpellCardEntity.SPELL_CARD_ENTITY);
+
+    public static final RegistryObject<EntityType<HeartShotEntity>> HERAT_SHOT_ENTITY = ENTITIES.register(
+            "heart_shot_entity", () -> HeartShotEntity.HEART_SHOT);
+
+    public static final RegistryObject<EntityType<LargeShotEntity>> LARGE_SHOT_ENTITY =ENTITIES.register(
+            "large_shot_entity", () -> LargeShotEntity.LARGE_SHOT);
 
     public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = ENTITIES.register(
             "master_spark", () -> MasterSparkEntity.MASTER_SPARK);
 
-    RegistryObject<EntityType<SpellCardEntity>> SPELL_CARD_ENTITY = ENTITIES.register(
-            "spell_card_entity", () -> SpellCardEntity.SPELL_CARD_ENTITY);
 
    // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
    //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);

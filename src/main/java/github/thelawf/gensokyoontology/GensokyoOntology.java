@@ -3,7 +3,10 @@ package github.thelawf.gensokyoontology;
 import github.thelawf.gensokyoontology.common.CommonSetUp;
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
+import github.thelawf.gensokyoontology.common.screen.DanmakuCraftingScreen;
+import github.thelawf.gensokyoontology.core.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.AgeableEntity;
@@ -39,19 +42,19 @@ public class GensokyoOntology {
         // ClientOnlyRegistry cog = new ClientOnlyRegistry(modEventBus);
         // Register ourselves for server and other game events we are interested in
 
-        IEventBus modEvent = FMLJavaModLoadingContext.get().getModEventBus();
-
-        modEvent.addListener(CommonSetUp::init);
-        // modEvent.addListener(GensokyoOntology::gatherWorldgenData);
-
         MinecraftForge.EVENT_BUS.register(this);
-        ItemRegistry.ITEMS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        FluidRegistry.FLUIDS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        BlockRegistry.BLOCKS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        GSKOParticleRegistry.PARTICLE_TYPES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        EffectRegistry.POTION_EFFECTS.register(FMLJavaModLoadingContext.get().getModEventBus());
-        TileEntityTypeRegistry.TILE_ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
-        EntityRegistry.ENTITIES.register(FMLJavaModLoadingContext.get().getModEventBus());
+
+        final IEventBus modEvent = FMLJavaModLoadingContext.get().getModEventBus();
+        modEvent.addListener(CommonSetUp::init);
+
+        ItemRegistry.ITEMS.register(modEvent);
+        FluidRegistry.FLUIDS.register(modEvent);
+        BlockRegistry.BLOCKS.register(modEvent);
+        GSKOParticleRegistry.PARTICLE_TYPES.register(modEvent);
+        EffectRegistry.POTION_EFFECTS.register(modEvent);
+        TileEntityTypeRegistry.TILE_ENTITIES.register(modEvent);
+        EntityRegistry.ENTITIES.register(modEvent);
+        ContainerRegistry.CONTAINERS.register(modEvent);
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -93,6 +96,9 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.HASH_LEAVES.get(),
                         RenderType.getCutout());
+
+                ScreenManager.registerFactory(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(),
+                        DanmakuCraftingScreen::new);
             });
 
         }

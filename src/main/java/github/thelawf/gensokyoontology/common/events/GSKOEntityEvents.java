@@ -50,7 +50,7 @@ public class GSKOEntityEvents {
         if (event.getEntityLiving() != null && event.getEntityLiving() instanceof FairyEntity) {
             FairyEntity fairy = (FairyEntity) event.getEntityLiving();
             if (event.getSource() == DamageSource.WITHER) {
-                fairy.entityDropItem(new ItemStack(ItemRegistry.DANMAKU_TEST_ITEM.get()));
+                fairy.entityDropItem(new ItemStack(ItemRegistry.LARGE_SHOT_ITEM.get()));
             }
         }
     }

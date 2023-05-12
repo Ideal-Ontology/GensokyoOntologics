@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.tools;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -14,11 +14,10 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.function.Predicate;
 
 public class DanmakuTestItem extends ShootableItem{
@@ -38,12 +37,13 @@ public class DanmakuTestItem extends ShootableItem{
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
         // if (Screen.hasShiftDown()) {
         //     SHIFT右键该物品可切换弹幕风格
         // }
@@ -54,7 +54,7 @@ public class DanmakuTestItem extends ShootableItem{
                     .setLifeSpan(50).setShootInterval(1).setExecuteTimes(5)
                     .setExecuteInterval(10).setResultantSpeed(0.75)
                     .setIncrement(Math.PI / 72)
-                    .setInitRotation(playerIn.getLookVec())
+                    .setShootVector(playerIn.getLookVec())
                     .setWorld(worldIn);
 //
             TransformFunction tff = TransformFunction.Builder.create();
@@ -81,15 +81,15 @@ public class DanmakuTestItem extends ShootableItem{
              所以需要在 for循环内部实例化弹幕实体
             */
 
-        DanmakuEntity danmaku = new DanmakuEntity(playerIn, worldIn);
-        Vector3d shootPos = func.getInitRotation().rotateYaw((float)
-                (func.increment));
-        danmaku.setNoGravity(true);
-
-        danmaku.setLocationAndAngles(func.initLocation.x, func.initLocation.y, func.initLocation.z,
-                (float) func.yaw, (float) func.pitch);
-        danmaku.shoot(shootPos.x,0, shootPos.z, 0.3f, 0);
-        worldIn.addEntity(danmaku);
+        // DanmakuShotEntity danmaku = new DanmakuShotEntity(playerIn, worldIn);
+        // Vector3d shootPos = func.getShootVector().rotateYaw((float)
+        //         (func.increment));
+        // danmaku.setNoGravity(true);
+//
+        // danmaku.setLocationAndAngles(func.initLocation.x, func.initLocation.y, func.initLocation.z,
+        //         (float) func.yaw, (float) func.pitch);
+        // danmaku.shoot(shootPos.x,0, shootPos.z, 0.3f, 0);
+        // worldIn.addEntity(danmaku);
 
     }
 
@@ -99,44 +99,13 @@ public class DanmakuTestItem extends ShootableItem{
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(@NotNull ItemStack stack) {
         return 200;
     }
 
     @Override
     public void onUsingTick(ItemStack stack, LivingEntity player, int count) {
         super.onUsingTick(stack, player, count);
-
-        if (player instanceof PlayerEntity) {
-            TransformFunction func = TransformFunction.Builder.create()
-                    .setPlayer((PlayerEntity) player)
-                    .setInitLocation(player.getPositionVec())
-                    .setInitRotation(player.getLookVec())
-                    .setLifeSpan(500)
-                    .setShootInterval(8)
-                    .setExecuteTimes(5)
-                    .setExecuteInterval(10)
-                    .setIncrement(Math.PI / 180)
-                    .setWorld(player.getEntityWorld());
-
-            Timer timer = new Timer();
-            // 被标记为 exeTimes 的for循环决定着一张符卡将一共执行多少个tick
-            exeTimes : for (int i = 0; i < func.lifeSpan; i++) {
-
-                // func.initRotation = func.initRotation.rotateYaw((float) (func.increment + Math.PI / (180 - i)));
-                // func.setRotation(func.initRotation.rotateYaw((float) func.increment * i));
-                func.increment += Math.PI / (180 - i);
-                shootCircle(player.world, (PlayerEntity) player, func);
-                // timer.schedule(new TimerTask() {
-                //     @Override
-                //     public void run() {
-                //         shootCircle(player.world, (PlayerEntity) player, func);
-                //     }
-                // }, 10);
-
-            }
-        }
-
     }
 
 }

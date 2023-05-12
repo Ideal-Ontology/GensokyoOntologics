@@ -1,6 +1,10 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
+import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
 import net.minecraft.entity.player.PlayerEntity;
+
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public class SpellCardBlank extends SpellCardItem {
     public SpellCardBlank(Properties properties) {
@@ -13,8 +17,8 @@ public class SpellCardBlank extends SpellCardItem {
     }
 
     @Override
-    public void update(PlayerEntity player, int tick) {
-
+    public Supplier<TransformFunction> update(PlayerEntity player, int tick) {
+        return () -> new TransformFunction().setPlayer(player);
     }
 
     @Override

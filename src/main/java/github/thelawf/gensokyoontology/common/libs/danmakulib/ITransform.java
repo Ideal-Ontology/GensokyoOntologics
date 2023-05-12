@@ -16,6 +16,5 @@ public interface ITransform {
     abstract class AbstractTransform implements ITransform {
         public abstract Vector3d accelerate(Vector3d v3dIn);
 
-        public abstract void shoot();
     }
 }
