@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.client;
 
-import github.thelawf.gensokyoontology.client.render.CitizenRenderer;
-import github.thelawf.gensokyoontology.client.render.FairyRenderer;
-import github.thelawf.gensokyoontology.client.render.HumanResidentRenderer;
-import github.thelawf.gensokyoontology.client.render.YukariRenderer;
+import github.thelawf.gensokyoontology.client.model.DomainFieldModel;
+import github.thelawf.gensokyoontology.client.renderer.*;
 import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
@@ -45,5 +43,8 @@ public class ClientEventHandler {
                 HumanResidentRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(CitizenEntity.CITIZEN,
                 CitizenRenderer::new);
+
+        RenderingRegistry.registerEntityRenderingHandler(NamespaceDomain.NAMESPACE_DOMAIN,
+               manager -> new NamespaceDomainRenderer(manager, new DomainFieldModel()));
     }
 }

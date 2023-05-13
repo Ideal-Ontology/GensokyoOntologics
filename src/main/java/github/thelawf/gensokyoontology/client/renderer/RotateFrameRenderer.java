@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.render;
+package github.thelawf.gensokyoontology.client.renderer;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;

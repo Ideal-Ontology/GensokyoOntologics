@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.render;
+package github.thelawf.gensokyoontology.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.entity.InyoJadeMonsterEntity;
@@ -8,8 +8,6 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix3f;
 import net.minecraft.util.math.vector.Vector3f;
 
 @Deprecated

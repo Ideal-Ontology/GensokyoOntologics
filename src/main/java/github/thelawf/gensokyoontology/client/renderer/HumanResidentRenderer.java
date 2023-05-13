@@ -1,11 +1,14 @@
-package github.thelawf.gensokyoontology.client.render;
+package github.thelawf.gensokyoontology.client.renderer;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.HumanNPCModel;
 import github.thelawf.gensokyoontology.common.entity.HumanResidentEntity;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import org.jetbrains.annotations.NotNull;
 
 public class HumanResidentRenderer extends LivingRenderer<HumanResidentEntity, HumanNPCModel<HumanResidentEntity>> {
@@ -15,6 +18,16 @@ public class HumanResidentRenderer extends LivingRenderer<HumanResidentEntity, H
 
     public HumanResidentRenderer(EntityRendererManager rendererManager) {
         super(rendererManager, new HumanNPCModel<>(1.0f), 0.8f);
+    }
+
+    @Override
+    protected boolean canRenderName(HumanResidentEntity entity) {
+        return super.canRenderName(entity) && entity.hasCustomName();
+    }
+
+    @Override
+    protected void renderName(HumanResidentEntity entityIn, ITextComponent displayNameIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+
     }
 
     @Override

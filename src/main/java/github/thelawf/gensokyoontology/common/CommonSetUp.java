@@ -3,8 +3,10 @@ package github.thelawf.gensokyoontology.common;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.IIdeologyCapability;
 import github.thelawf.gensokyoontology.common.command.GSKOCommand;
+import github.thelawf.gensokyoontology.common.command.GUICommand;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import net.minecraft.command.Commands;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.nbt.INBT;
@@ -16,10 +18,11 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import org.jetbrains.annotations.Nullable;
 
-// @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonSetUp {
 
     public static void init(final FMLCommonSetupEvent event) {
@@ -58,5 +61,6 @@ public class CommonSetUp {
     @SubscribeEvent
     public static void registerCommand(RegisterCommandsEvent event) {
         GSKOCommand.register(event.getDispatcher());
+        GUICommand.register(event.getDispatcher());
     }
 }

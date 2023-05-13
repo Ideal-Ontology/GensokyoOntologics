@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.render;
+package github.thelawf.gensokyoontology.client.renderer;
 
 import github.thelawf.gensokyoontology.common.entity.SpellCardEntity;
 import net.minecraft.client.renderer.entity.EntityRenderer;
