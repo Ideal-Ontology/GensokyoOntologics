@@ -224,8 +224,8 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> IDEALISM_SWORD = ITEMS.register(
             "idealism_sword", IdealismSword::new);
 
-    public static final RegistryObject<Item> PRAXIS_SWORD =
-            ITEMS.register("praxis_sword", PraxisSword::new);
+    public static final RegistryObject<Item> PRAXIS_SWORD = ITEMS.register(
+            "praxis_sword", PraxisSword::new);
 
 
     public static final RegistryObject<Item> BYTE_COIN = ITEMS.register("bytecoin",
