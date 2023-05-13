@@ -12,10 +12,15 @@ import org.jetbrains.annotations.NotNull;
 import java.util.UUID;
 
 
-public class DomainFieldEntity extends Entity {
+public abstract class DomainFieldEntity extends Entity {
 
-    protected final LivingEntity MASTER;
-    protected final UUID MASTER_ID;
+    public LivingEntity MASTER;
+    public UUID MASTER_ID;
+
+    public DomainFieldEntity(EntityType<?> entityTypeIn, World worldIn) {
+        super(entityTypeIn, worldIn);
+    }
+
     public DomainFieldEntity(EntityType<?> entityTypeIn, World worldIn, LivingEntity master) {
         super(entityTypeIn, worldIn);
         this.MASTER = master;

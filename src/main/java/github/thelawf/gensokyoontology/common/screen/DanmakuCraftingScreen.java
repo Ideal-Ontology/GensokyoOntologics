@@ -14,11 +14,13 @@ import org.jetbrains.annotations.NotNull;
 public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContainer> {
 
     public static final ResourceLocation DANMAKU_CRAFTING_TEXTURE = new ResourceLocation(
-            GensokyoOntology.MODID, "textuers/gui/danmauku_crafting_gui.png"
+            GensokyoOntology.MODID, "textures/gui/danmaku_crafting.png"
     );
 
     public DanmakuCraftingScreen(DanmakuCraftingContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
+        this.playerInventoryTitleX = 15;
+        this.playerInventoryTitleY = 111;
     }
 
     @Override
@@ -37,6 +39,6 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
 
         int left = this.guiLeft;
         int top = this.guiTop;
-        this.blit(matrixStack, left, top, 0,0, this.xSize, this.ySize);
+        this.blit(matrixStack, left, top, 0,0, 256, 256);
     }
 }

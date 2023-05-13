@@ -54,6 +54,8 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = ENTITIES.register(
             "master_spark", () -> MasterSparkEntity.MASTER_SPARK);
 
+    public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
+            "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
 
    // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
    //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);

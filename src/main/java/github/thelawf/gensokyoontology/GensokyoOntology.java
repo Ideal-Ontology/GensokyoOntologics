@@ -10,7 +10,10 @@ import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraftforge.api.distmarker.Dist;
@@ -156,6 +159,7 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.MAX_HEALTH, 20D)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 15D)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
+
         }
     }
 

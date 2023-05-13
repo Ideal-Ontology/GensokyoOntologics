@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.core;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.screen.container.DanmakuCraftingContainer;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.extensions.IForgeContainerType;
@@ -16,10 +17,5 @@ public final class ContainerRegistry {
 
     public static final RegistryObject<ContainerType<DanmakuCraftingContainer>> DANMAKU_CRAFTING_CONTAINER
             = CONTAINERS.register("danmaku_crafting_container",
-            () -> IForgeContainerType.create((windowId, inv, data) -> {
-                World world = inv.player.getEntityWorld();
-                int id = data.readInt();
-                return new DanmakuCraftingContainer(null, windowId,
-                        world, id, inv, inv.player);
-            }));
+            () -> IForgeContainerType.create((windowId, inv, data) -> new DanmakuCraftingContainer(windowId, inv, inv.player)));
 }
