@@ -6,6 +6,8 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.LiteralCommandNode;
 import github.thelawf.gensokyoontology.common.entity.NamespaceDomain;
+import github.thelawf.gensokyoontology.common.screen.container.ConsoleGUI;
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -27,4 +29,5 @@ public class GUICommand implements Command<CommandSource> {
         NetworkHooks.openGui(player, NamespaceDomain.createContainer(context.getSource().getWorld(), player.getPosition()));
         return 1;
     }
+
 }

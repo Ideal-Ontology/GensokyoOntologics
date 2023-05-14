@@ -86,7 +86,7 @@ public class NamespaceDomain extends DomainFieldEntity {
         return new INamedContainerProvider() {
             @Override
             public ITextComponent getDisplayName() {
-                return new TranslationTextComponent("container.gensokyoontology.namespace_domian.title");
+                return new TranslationTextComponent("container.gensokyoontology.danmaku_craft.title");
             }
 
             @Nullable

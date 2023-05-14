@@ -4,14 +4,11 @@ package github.thelawf.gensokyoontology.common.screen.container;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.libs.logoslib.BlockCodeFormatter;
-import github.thelawf.gensokyoontology.common.libs.logoslib.syntax.AccessModifiers;
-import github.thelawf.gensokyoontology.common.screen.GSKOTextComponent;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
@@ -20,17 +17,17 @@ import java.util.Objects;
 
 public class ConsoleGUI extends Screen {
     TextFieldWidget codeField;
-    GSKOTextComponent component;
     Button compileButton;
     Button runButton;
     TranslationTextComponent titleText = new TranslationTextComponent("gui." +
             GensokyoOntology.MODID + ".title");
 
-    final ResourceLocation PROGRAMMING_GUI_TEX = new ResourceLocation(GensokyoOntology.MODID,
-            "texures/gui/programming_gui.png");
+    final ResourceLocation CONSOLE_TEX = new ResourceLocation(GensokyoOntology.MODID,
+            "textures/gui/console.png");
 
-    protected ConsoleGUI(ITextComponent titleIn) {
-        super(titleIn);
+    public ConsoleGUI() {
+        super(new TranslationTextComponent("gui." + GensokyoOntology.MODID +
+                "console_gui.title"));
     }
 
     @Override
@@ -41,12 +38,7 @@ public class ConsoleGUI extends Screen {
 
         this.codeField = new TextFieldWidget(this.font,(window.getWidth() - this.width)/2
                 ,(window.getHeight() - this.height)/2,200,136,new TranslationTextComponent(
-                        "gui." + GensokyoOntology.MODID + ".code_field.content")) {
-            protected IFormattableTextComponent getNarrationMessage() {
-                return super.getNarrationMessage().appendString(AccessModifiers.publicModifier);
-            }
-
-        };
+                        "gui." + GensokyoOntology.MODID + ".code_field.content"));
         this.children.add(codeField);
 
         this.compileButton = new Button((window.getWidth() - this.width)/2 + this.width / 2,
@@ -65,7 +57,7 @@ public class ConsoleGUI extends Screen {
     @Override
     public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
-        Objects.requireNonNull(this.minecraft).getTextureManager().bindTexture(PROGRAMMING_GUI_TEX);
+        Objects.requireNonNull(this.minecraft).getTextureManager().bindTexture(CONSOLE_TEX);
         int texWid = 640;
         int texHei = 480;
         /* 在这里加上一个判断，调用逻各斯通用库的 BlockCodeRenderer类和原版的 FontRenderer类
@@ -75,6 +67,7 @@ public class ConsoleGUI extends Screen {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
 
          */
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
 }

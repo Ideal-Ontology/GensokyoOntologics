@@ -1,7 +1,7 @@
 {
   "depth": 0.07,
-  "scale": 1.0,
-  "downfall": 0.1,
+  "scale": 0.37,
+  "downfall": 0.07,
   "temperature": 0.4,
   "category": "forest",
   "temperature_modifier": "none",

@@ -14,6 +14,9 @@ public final class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, GensokyoOntology.MODID);
 
+    // public static final RegistryObject<Block> PREDICATE_BLOCK = BLOCKS.register(
+    //         "prediacte_block", PredicateBlock::new);
+
     public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register("magic_leaves",
             () -> new LeavesBlock(AbstractBlock.Properties.create(
                     Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));

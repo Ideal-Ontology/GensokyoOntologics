@@ -1,7 +1,7 @@
 {
   "depth": 3.0,
   "scale": 1.5,
-  "downfall": 0,
+  "downfall": 0.3,
   "temperature": 0.35,
   "category": "extreme_hills",
   "temperature_modifier": "none",

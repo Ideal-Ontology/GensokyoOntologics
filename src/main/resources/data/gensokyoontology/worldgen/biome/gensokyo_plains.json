@@ -1,7 +1,7 @@
 {
   "depth": 0.03,
   "scale": 0.25,
-  "downfall": 0,
+  "downfall": 0.05,
   "temperature": 0.48,
   "category": "plains",
   "temperature_modifier": "none",
