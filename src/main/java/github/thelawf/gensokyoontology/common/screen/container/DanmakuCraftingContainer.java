@@ -5,13 +5,14 @@ import github.thelawf.gensokyoontology.core.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraft.util.IWorldPosCallable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -37,8 +38,15 @@ public class DanmakuCraftingContainer extends Container {
 
     public static final Logger LOGGER = LogManager.getLogger();
 
+    private final IWorldPosCallable POS_CALLABLE = IWorldPosCallable.DUMMY;
+
+    private List<ItemStack> prevStacks = new ArrayList<>();
+    private List<ItemStack> newStacks = new ArrayList<>();
+
     private final CraftingInventory craftingMatrix = new CraftingInventory(this, 5, 5);
-    private final Inventory resultsMatrix = new Inventory(4);
+    private final Inventory resultsMatrix = new Inventory(4) {
+
+    };
 
     public DanmakuCraftingContainer(int windowId,
                                        PlayerInventory playerInventory,
@@ -50,10 +58,16 @@ public class DanmakuCraftingContainer extends Container {
 
         layoutPlayerInventorySlots(28, 124);
 
-        addSlotBox(this.craftingMatrix, 0, 16, 20,5,5,18,18);
-        addSlotBox(this.resultsMatrix, 0, 149, 41, 2,2,18,18);
+        for (int i = 0; i < 4; i++) {
+            prevStacks.add(ItemStack.EMPTY);
+        }
+
+        addSlotBox(this.craftingMatrix, 0, 16, 21,5,5,18,18);
+        addResultSlots();
+        // addIngredientSlots();
 
     }
+
 
     @Override
     public boolean canInteractWith(@NotNull PlayerEntity playerIn) {
@@ -61,91 +75,118 @@ public class DanmakuCraftingContainer extends Container {
     }
 
     @Override
-    public void onContainerClosed(PlayerEntity playerIn) {
+    public void onContainerClosed(@NotNull PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);
         //playerIn.inventory.addItemStackToInventory(craftingMatrix.getStackInSlot())
+        this.clearContainer(playerIn, playerIn.world, this.craftingMatrix);
     }
 
     @Override
     public void onCraftMatrixChanged(@NotNull IInventory inventoryIn) {
-        super.onCraftMatrixChanged(inventoryIn);
-        // 大型星弹的槽位
-        List<Integer> starShotSlots = createRecipeIndexes(2,7,10,11,12,13,14,16,18,19,23);
-        // 心弹的槽位
-        List<Integer> heartShotSlots = createRecipeIndexes(1,3,5,7,9,10,14,16,18,22);
-        // 大弹的槽位
-        List<Integer> largeShotSlots = createRecipeIndexes(0,1,2,3,4,5,9,10,14,15,19,20,24);
+        if (!player.world.isRemote()) {
+            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) this.player;
+            // 大型星弹的槽位
+            List<Integer> starShotSlots = createRecipeIndexes(2,7,10,11,12,13,14,16,18,19,23);
+            // 心弹的槽位
+            List<Integer> heartShotSlots = createRecipeIndexes(1,3,5,7,9,10,14,16,18,22);
+            // 大弹的槽位
+            List<Integer> largeShotSlots = createRecipeIndexes(0,1,2,3,4,5,9,10,14,15,19,20,24);
 
-        LOGGER.info("Matches Heart = " + matches(inventoryIn, heartShotSlots));
-        LOGGER.info("Matches Large = " + matches(inventoryIn, largeShotSlots));
-        if (matches(inventoryIn, heartShotSlots)) {
-            this.resultsMatrix.setInventorySlotContents(0, new ItemStack(ItemRegistry.HEART_SHOT_ITEM.get()));
-        }
-        else if (matches(inventoryIn, largeShotSlots)) {
-            this.resultsMatrix.setInventorySlotContents(0, new ItemStack(ItemRegistry.LARGE_SHOT_ITEM.get()));
-        }
-    }
 
-    /**
-     * "__A__"<br>
-     * "__A__"<br>
-     * "AAAAA"    -> 合成 星弹物品<br>
-     * "_A_A_"<br>
-     * "A___A"<br>
-     * <br><br>
-     * "_A_A_"<br>
-     * "A_A_A"<br>
-     * "A___A"    -> 合成 心弹物品<br>
-     * "_A_A_"<br>
-     * "__A__"<br>
-     * <br><br>
-     * "AAAAA"<br>
-     * "A___A"<br>
-     * "A___A"    -> 合成 大弹物品<br>
-     * "A___A"<br>
-     * "AAAAA"<br>
-     * <br><br>
-     * "_A_A_"<br>
-     * "A_A_A"<br>
-     * "A___A"    -> 合成 心弹物品<br>
-     * "_A_A_"<br>
-     * "__A__"<br>
-     * @param slots 槽位的索引
-     * @return 能够合成出物品的槽位的索引集合
-     */
-    private List<Integer> createRecipeIndexes(Integer... slots) {
-        List<Integer> list = new ArrayList<>();
-        return new ArrayList<>(Arrays.asList(slots));
-    }
+            if (matches(inventoryIn, heartShotSlots)) {
+                ItemStack stack = new ItemStack(ItemRegistry.HEART_SHOT_ITEM.get());
+                this.resultsMatrix.setInventorySlotContents(0, stack);
+                this.prevStacks.set(0, stack);
+            }
+            else if (matches(inventoryIn, largeShotSlots)) {
+                ItemStack stack = new ItemStack(ItemRegistry.LARGE_SHOT_ITEM.get());
+                this.resultsMatrix.setInventorySlotContents(0, stack);
+                this.prevStacks.set(0, stack);
+            }
+            else {
+                for (int i = 0; i < this.resultsMatrix.getSizeInventory(); i++) {
+                    this.resultsMatrix.setInventorySlotContents(i, ItemStack.EMPTY);
+                    this.prevStacks.set(i, ItemStack.EMPTY);
+                    detectAndSendChanges();
+                }
+            }
 
-    private List<TriMap<Integer, String, ItemStack>> createRecipeMap(int index, String pattern, ItemStack stack) {
-        List<TriMap<Integer, String, ItemStack>> list = new ArrayList<>();
-        TriMap<Integer, String, ItemStack> triMap = new TriMap<>();
-        triMap.put(index, pattern, stack);
-        list.add(triMap);
-        return list;
-    }
+            boolean flag = false;
 
-    private boolean matches (IInventory inventoryIn, List<Integer> list) {
-        int matchCount = 0;
-        for (int i : list) {
-            if (inventoryIn.getStackInSlot(i).getItem() == ItemRegistry.DANMAKU_SHOT.get()) {
-                matchCount++;
+            for (int i = 0; i < this.resultsMatrix.getSizeInventory(); i++) {
+                if (this.resultsMatrix.getStackInSlot(i).isEmpty() && !this.prevStacks.get(i).isEmpty()) {
+                    flag= true;
+                    detectAndSendChanges();
+                    break;
+                }
+            }
+
+            LOGGER.info("Condition: " + flag);
+            if (flag) {
+                for (int j = 0; j < this.craftingMatrix.getSizeInventory(); j++) {
+                    this.craftingMatrix.setInventorySlotContents(j, ItemStack.EMPTY);
+                    detectAndSendChanges();
+                }
             }
         }
-        return matchCount == list.size();
+        super.onCraftMatrixChanged(inventoryIn);
     }
 
+    private void addIngredientSlots() {
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                addSlot(new Slot(this.resultsMatrix, j + i * 2, 16 + j * 18, 21 + i * 18) {
+                    @Override
+                    @NotNull
+                    public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
+                        for (int k = 0; k < 4; k++) {
+                            if (DanmakuCraftingContainer.this.resultsMatrix.getStackInSlot(k) != ItemStack.EMPTY) {
+                                DanmakuCraftingContainer.this.resultsMatrix.removeStackFromSlot(k);
+                            }
+                        }
+                        detectAndSendChanges();
+                        return super.onTake(thePlayer, stack);
+                    }
 
-    private void addIngredientSlots (PlayerEntity entity) {
-        entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(ih ->
-                addSlotBox(ih, 61, 16,21, 5, 5, 18,18));
+                });
+            }
+
+        }
     }
 
-    private void addResultSlots(PlayerEntity entity) {
-        entity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(ih ->
-                addSlotBox(ih, 36, 149, 41, 2,2, 18, 18));
+    /*
+    private void addResultSlots() {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                addSlot(new Slot(this.resultsMatrix, j + i * 2,
+                        149 + j * 18, 41 + i * 18));
+            }
+        }
     }
+    */
+
+    private void addResultSlots() {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                addSlot(new Slot(this.resultsMatrix, j + i * 2, 149 + j * 18, 41 + i * 18) {
+                    @Override
+                    @NotNull
+                    public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
+                        for (int k = 0; k < 25; k++) {
+                            DanmakuCraftingContainer.this.craftingMatrix.removeStackFromSlot(k);
+                        }
+                        detectAndSendChanges();
+                        DanmakuCraftingContainer.this.onCraftMatrixChanged(
+                                DanmakuCraftingContainer.this.craftingMatrix);
+                        return super.onTake(thePlayer, stack);
+                    }
+
+                });
+            }
+
+        }
+    }
+
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {
@@ -157,12 +198,11 @@ public class DanmakuCraftingContainer extends Container {
         return index;
     }
 
-    private void addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int verAmount,int dx,  int dy) {
+    private void addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int verAmount,int dx, int dy) {
         for (int j = 0; j < verAmount; j++) {
             index = addSlotRange(handler, index, x, y, horAmount, dx);
             y += dy;
         }
-
     }
 
     private int addSlotRange(IInventory inventory, int index, int x, int y, int amount, int dx) {
@@ -254,5 +294,68 @@ public class DanmakuCraftingContainer extends Container {
         }
 
         return itemstack;
+    }
+
+    /**
+     * "__A__"<br>
+     * "__A__"<br>
+     * "AAAAA"    -> 合成 星弹物品<br>
+     * "_A_A_"<br>
+     * "A___A"<br>
+     * <br><br>
+     * "_A_A_"<br>
+     * "A_A_A"<br>
+     * "A___A"    -> 合成 心弹物品<br>
+     * "_A_A_"<br>
+     * "__A__"<br>
+     * <br><br>
+     * "AAAAA"<br>
+     * "A___A"<br>
+     * "A___A"    -> 合成 大弹物品<br>
+     * "A___A"<br>
+     * "AAAAA"<br>
+     * <br><br>
+     * "_A_A_"<br>
+     * "A_A_A"<br>
+     * "A___A"    -> 合成 心弹物品<br>
+     * "_A_A_"<br>
+     * "__A__"<br>
+     * @param slots 槽位的索引
+     * @return 能够合成出物品的槽位的索引集合
+     */
+    private List<Integer> createRecipeIndexes(Integer... slots) {
+        List<Integer> list = new ArrayList<>();
+        return new ArrayList<>(Arrays.asList(slots));
+    }
+
+    private List<TriMap<Integer, String, ItemStack>> createRecipeMap(int index, String pattern, ItemStack stack) {
+        List<TriMap<Integer, String, ItemStack>> list = new ArrayList<>();
+        TriMap<Integer, String, ItemStack> triMap = new TriMap<>();
+        triMap.put(index, pattern, stack);
+        list.add(triMap);
+        return list;
+    }
+
+    private boolean matches (IInventory inventoryIn, List<Integer> list) {
+        int matchCount = 0;
+        for (int i : list) {
+            if (inventoryIn.getStackInSlot(i).getItem() == ItemRegistry.DANMAKU_SHOT.get()) {
+                matchCount++;
+            }
+        }
+        return matchCount == list.size();
+    }
+
+    private boolean isResultMatrixChange (IInventory inventory) {
+        for (Slot inventorySlot : this.inventorySlots) {
+            return inventorySlot.getHasStack();
+        }
+        return false;
+    }
+
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+
     }
 }

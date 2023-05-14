@@ -10,7 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import org.jetbrains.annotations.NotNull;
 
-
 public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContainer> {
 
     public static final ResourceLocation DANMAKU_CRAFTING_TEXTURE = new ResourceLocation(
@@ -19,6 +18,8 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
 
     public DanmakuCraftingScreen(DanmakuCraftingContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
+        this.xSize = 217;
+        this.ySize = 211;
         this.playerInventoryTitleX = 15;
         this.playerInventoryTitleY = 111;
     }
