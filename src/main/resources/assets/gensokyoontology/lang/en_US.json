@@ -158,18 +158,33 @@
   "patchouli.gensokyoontology.book.landing_text": "Fore Words",
   "patchouli.gensokyoontology.book.subtitle": "-- Author: Usami Sumireko",
 
+  "patchouli.gensokyoontology.category.chapter": "Chapters",
+  "patchouli.gensokyoontology.category.entity": "Fantasy Entities",
+  "patchouli.gensokyoontology.category.item": "Items",
+  "patchouli.gensokyoontology.category.spell_card": "Spell Cards",
+  "patchouli.gensokyoontology.category.task": "Crafting Manual",
+
+  "patchouli.gensokyoontology.category.chapter.description": "Gensokyo, a world where human and youkai live together within side by side keeping a dedicate balance.",
+  "patchouli.gensokyoontology.category.entity.description": "Some entities that might summon everywhere. This is not a good sign.$(br)\t\t -- Usami Sumireko",
+  "patchouli.gensokyoontology.category.item.description": "Special items that can help you sometimes",
+  "patchouli.gensokyoontology.category.task.description": "Follow these rules to go into that dimension!",
+  "patchouli.gensokyoontology.category.spell_card.description": "Super ablilities used by youkai or human?",
+
   "patchouli.gensokyoontology.chapter.intro.title": "Introduction Overview",
-  "patchouli.gensokyoontology.chapter.description": "Gensokyo, a world where human and youkai live together within side by side keeping a dedicate balance.",
   "patchouli.gensokyoontology.chapter.introduction_p1": "Hello, my name is Usami Sumireko, the founder of Hifuu Club. When you see this book, that means I have already lost in that fictional dimension. Or otherwise, me, myself, even you who are reading this book is also part of the fiction itself. I can feel that Hakurei Keikkai is... very unstable, something wrong will happen.",
   "patchouli.gensokyoontology.chapter.introduction_p2": "I have transferred some of my powers to this book in order that it will appear in this library someday when I lost. The rest of my power will be stored in this book for you to use. If I fail, take this book with you, and please, try to find the way out!",
 
-  "patchouli.gensokyoontology.chapter.story.title": "Chapter 1: New Crisis",
-  "patchouli.gensokyoontology.story.chapter_01.content_01": "$(l)\"Signs often appears before the real crisis.\" -- Her voice haunted me even though she is no longer be here. I don't know when did those meme entities come into being in our world, but I know that fighting against with those entities for too long will lost one's ego -- and that is how she left me.$(br) Her eyes turned into jewels which could show the images of those entities on the paper, and I am collecting the loots from those monsters:",
+  "patchouli.gensokyoontology.chapter.chapter_01.title": "Chapter 1: New Crisis",
+  "patchouli.gensokyoontology.chapter_01.content_01": "$(l)\"Signs often appears before the real crisis.\" -- Her voice haunted me even though she is no longer be here. I don't know when did those meme entities come into being in our world, but I know that fighting against with those entities for too long will lost one's ego -- and that is how she left me.$(br) Her eyes turned into jewels which could show the images of those entities on the paper, and I am collecting the loots from those monsters:",
 
-  "patchouli.gensokyoontology.task.title": "Crafting Manual",
+  "patchouli.gensokyoontology.chapter.gensokyo.title": "Chapter Gensokyo: To Step Within",
+  "patchouli.gensokyoontology.chapter.gensokyo.introduction": "Though making a very complete preperation, it still shocks me the first time when I entered gensokyo. The first thing you have to do is to make sure where you are. Different places in gensokyo have different danger level. ",
 
-  "patchouli.gensokyoontology.entity.title": "Entities Being Lost in Gensokyo",
-  "patchouli.gensokyoontology.entity.description": "Some entities that might summon everywhere. This is not a good sign.$(br)\t\t -- Usami Sumireko",
+  "patchouli.gensokyoontology.chapter.combat.title": "Chapter Combat: How to Get Level Up",
+  "patchouli.gensokyoontology.chapter.combat.entity_loot_01": "Fairy Loots",
+
+  "patchouli.gensokyoontology.chapter.structure.title": "About Places",
+  "patchouli.gensokyoontology.chapter.structure.outside_city": "First, is the most familiar place -- the city where we live.",
 
   "patchouli.gensokyoontology.entity.mob.title": "Meme Entities",
   "patchouli.gensokyoontology.entity.fairy_introduction": "The most common and normal creature in Gensokyo. But it is abnormal to see them spawn in Overworld. These creature seems undying because when I was in Gensokyo, I killed a lot of them, but they will soon respawn elsewhere.",

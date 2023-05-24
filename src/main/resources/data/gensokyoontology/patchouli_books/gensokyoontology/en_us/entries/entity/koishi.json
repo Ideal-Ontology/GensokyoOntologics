@@ -1,0 +1,24 @@
+{
+  "name": "patchouli.gensokyoontology.entity.koishi.title",
+  "icon": "miencraft:spawn_egg",
+  "category": "entity",
+  "advancement": "",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.koishi.introduction"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.koishi.standing_paint"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.koishi.model"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.koishi.spell_card"
+    }
+  ]
+}

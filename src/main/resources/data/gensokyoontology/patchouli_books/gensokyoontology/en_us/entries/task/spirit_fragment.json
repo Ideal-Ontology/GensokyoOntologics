@@ -1,0 +1,15 @@
+{
+  "name": "patchouli.gensokyoontology.task.spirit_fragment.title",
+  "icon": "gensokyoontology:diaclectic_spirit",
+  "category": "task",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.spirit.recipe_spirit_fragment"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.spirit.how_to_get"
+    }
+  ]
+}

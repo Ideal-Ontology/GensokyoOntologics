@@ -18,7 +18,7 @@ public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAs
             .updateInterval(2).build("large_shot_entity");
 
     public LargeShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
-        super(type, worldIn);
+        super(LARGE_SHOT, worldIn);
     }
 
     public LargeShotEntity(LivingEntity throwerIn, World world) {

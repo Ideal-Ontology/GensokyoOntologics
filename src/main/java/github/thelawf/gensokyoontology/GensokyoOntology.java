@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology;
 
 import github.thelawf.gensokyoontology.common.CommonSetUp;
+import github.thelawf.gensokyoontology.common.entity.SpellCardEntity;
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.common.screen.DanmakuCraftingScreen;
@@ -36,8 +37,7 @@ import java.util.List;
 @Mod(GensokyoOntology.MODID)
 public class GensokyoOntology {
 
-    // Directly reference a log4j logger.
-    private static final Logger LOGGER = LogManager.getLogger();
+    public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "gensokyoontology";
 
     public GensokyoOntology() {

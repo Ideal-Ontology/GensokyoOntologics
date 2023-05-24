@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.SpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.Muzzle;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
@@ -27,7 +29,23 @@ public class SC_WaveAndParticle extends SpellCardItem {
 
     @Override
     public void start(PlayerEntity player) {
-        World world = player.world;
+
+
+    }
+
+
+    @Override
+    public Supplier<TransformFunction> update(PlayerEntity player, int tick) {
+        return () -> new TransformFunction().setPlayer(player);
+    }
+
+    @Override
+    public void end(PlayerEntity player) {
+
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand handIn) {
 
         // 获取玩家位置
         Vector3d playerPos = player.getPositionVec();
@@ -50,24 +68,29 @@ public class SC_WaveAndParticle extends SpellCardItem {
                 SpellCardEntity.SPELL_CARD_ENTITY, world, muzzles);
         world.addEntity(spellEntity);
 
+        muzzles.forEach(muzzle -> {
+            LargeShotEntity danmaku = new LargeShotEntity(muzzle.getPlayer(), muzzle.getPlayer().getEntityWorld());
+            Vector3d prevAngle = muzzle.getFunc().getShootVector();
 
+            if (muzzle.getFunc().increment != 0D) {
+                Vector3d newAngle = prevAngle.rotateYaw((float) muzzle.getFunc().increment * 0.1f);
+                danmaku.setNoGravity(true);
+                danmaku.setLocationAndAngles(muzzle.getX(), muzzle.getY(), muzzle.getZ(),
+                        (float) newAngle.y, (float) newAngle.z);
+            }
+            else {
+                danmaku.setNoGravity(true);
+                danmaku.setLocationAndAngles(muzzle.getX(), muzzle.getY(), muzzle.getZ(),
+                        (float) prevAngle.y, (float) prevAngle.z);
+            }
+            danmaku.shoot(prevAngle.x, prevAngle.y, prevAngle.z, 0.3f, 0f);
+            world.addEntity(danmaku);
+        });
 
-    }
+        spellEntity.tick();
 
+        GensokyoOntology.LOGGER.info("波粒符卡已点击释放了呀");
 
-    @Override
-    public Supplier<TransformFunction> update(PlayerEntity player, int tick) {
-        return () -> new TransformFunction().setPlayer(player);
-    }
-
-    @Override
-    public void end(PlayerEntity player) {
-
-    }
-
-    @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        start(playerIn);
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        return super.onItemRightClick(world, player, handIn);
     }
 }

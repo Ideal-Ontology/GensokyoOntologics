@@ -8,6 +8,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
+import net.minecraft.entity.ai.attributes.AttributeModifierMap;
+import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.item.BoatEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
@@ -24,14 +28,11 @@ import java.util.List;
 
 public class SpellCardEntity extends Entity implements IRendersAsItem {
 
-    public static int lifeSpan;
+    private int lifeSpan = 200;
     public List<Muzzle<? extends AbstractDanmakuEntity>> muzzles = new ArrayList<>();
 
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
             SpellCardEntity.class, DataSerializers.VARINT);
-
-    public static final DataParameter<CompoundNBT> DATA_MUZZLES = EntityDataManager.createKey(
-            SpellCardEntity.class, DataSerializers.COMPOUND_NBT);
 
     public static final EntityType<SpellCardEntity> SPELL_CARD_ENTITY = EntityType.Builder.<SpellCardEntity>create(
                     SpellCardEntity::new, EntityClassification.MISC).size(1F,1F).trackingRange(4)
@@ -49,13 +50,14 @@ public class SpellCardEntity extends Entity implements IRendersAsItem {
 
     @Override
     protected void registerData() {
-        this.dataManager.register(DATA_LIFESPAN, lifeSpan);
+        this.dataManager.register(DATA_LIFESPAN, 200);
     }
-
 
     @Override
     protected void readAdditional(@NotNull CompoundNBT compound) {
-        super.read(compound);
+        if (compound.contains("lifespan")) {
+            this.lifeSpan = compound.getInt("lifespan");
+        }
     }
 
     @Override
@@ -72,7 +74,7 @@ public class SpellCardEntity extends Entity implements IRendersAsItem {
         }
         // 在这里调用变换函数，使用 tickExisted 作为变换函数中increment增加值的迭代单位
         this.muzzles.forEach(muzzle -> {
-            LargeShotEntity danmaku = (LargeShotEntity) muzzle.getDanmaku();
+            LargeShotEntity danmaku = new LargeShotEntity(muzzle.getPlayer(), muzzle.getPlayer().getEntityWorld());
             Vector3d prevAngle = muzzle.getFunc().getShootVector();
 
             if (muzzle.getFunc().increment != 0D) {
@@ -80,29 +82,32 @@ public class SpellCardEntity extends Entity implements IRendersAsItem {
                 danmaku.setNoGravity(true);
                 danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
                         (float) newAngle.y, (float) newAngle.z);
-                danmaku.shoot(prevAngle.x, prevAngle.y, prevAngle.z, 0.3f, 0f);
-                world.addEntity(danmaku);
             }
             else {
                 danmaku.setNoGravity(true);
                 danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
                         (float) prevAngle.y, (float) prevAngle.z);
-                danmaku.shoot(prevAngle.x, prevAngle.y, prevAngle.z, 0.3f, 0f);
-                world.addEntity(danmaku);
             }
+            danmaku.shoot(prevAngle.x, prevAngle.y, prevAngle.z, 0.3f, 0f);
+            world.addEntity(danmaku);
 
         });
+    }
+
+    public static AttributeModifierMap.MutableAttribute registerAttributes() {
+        return AttributeModifierMap.createMutableAttribute().createMutableAttribute(Attributes.MAX_HEALTH).createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE).createMutableAttribute(Attributes.MOVEMENT_SPEED).createMutableAttribute(Attributes.ARMOR).createMutableAttribute(Attributes.ARMOR_TOUGHNESS).createMutableAttribute(net.minecraftforge.common.ForgeMod.SWIM_SPEED.get()).createMutableAttribute(net.minecraftforge.common.ForgeMod.NAMETAG_DISTANCE.get()).createMutableAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
     }
 
     @Override
     @NotNull
     public IPacket<?> createSpawnPacket() {
+
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
     @Override
     @NotNull
     public ItemStack getItem() {
-        return new ItemStack(ItemRegistry.SPELL_CARD_BLANK.get());
+        return new ItemStack(ItemRegistry.SC_WAVE_AND_PARTICLE.get());
     }
 }

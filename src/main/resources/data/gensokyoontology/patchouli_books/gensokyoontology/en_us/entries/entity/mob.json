@@ -1,0 +1,40 @@
+{
+  "name": "patchouli.gensokyoontology.entity.mob.title",
+  "icon": "miencraft:spawn_egg",
+  "category": "entity",
+  "advancement": "",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.fairy_introduction"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.fairy_model"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.butterfly_fairy_introduction"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.butterfly_fairy_model"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.inyo_jade_entity_introduction"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.inyo_jade_entity_model"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.spectre_introduction"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.spectre_model"
+    }
+  ]
+}

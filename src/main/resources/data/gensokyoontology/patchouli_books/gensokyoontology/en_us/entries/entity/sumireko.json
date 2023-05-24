@@ -1,0 +1,24 @@
+{
+  "name": "patchouli.gensokyoontology.entity.sumireko.title",
+  "icon": "miencraft:spawn_egg",
+  "category": "entity",
+  "advancement": "",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.sumireko.introduction"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.sumireko.standing_paint"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.sumireko.model"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.sumireko.spell_card"
+    }
+  ]
+}

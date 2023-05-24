@@ -31,7 +31,7 @@ public class GSKOWorldEvents {
                 EntityRegistry.FAIRY_ENTITY.get().getClassification());
 
         spawners.add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(),
-                38,3,10));
+                38,2,4));
     }
 
     @SubscribeEvent
