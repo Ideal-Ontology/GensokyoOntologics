@@ -9,6 +9,9 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
@@ -20,6 +23,10 @@ import javax.annotation.Nonnull;
 
 public abstract class AbstractDanmakuEntity extends ThrowableEntity {
     public static final int MAX_LIVING_TICK = 125;
+    public float damage = 2.0f;
+    public static final DataParameter<Float> DATA_DAMAGE = EntityDataManager.createKey(
+            AbstractDanmakuEntity.class, DataSerializers.FLOAT
+    );
     public DanmakuType danmakuType;
     protected AbstractDanmakuEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
         super(type, worldIn);
@@ -44,8 +51,11 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity {
     }
 
     @Override
-    protected void readAdditional(CompoundNBT compound) {
+    protected void readAdditional(@NotNull CompoundNBT compound) {
         super.readAdditional(compound);
+        if (compound.contains("damage")) {
+            this.damage = compound.getFloat("damage");
+        }
     }
 
     @Override
@@ -56,7 +66,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity {
 
     @Override
     protected void registerData() {
-
+        this.dataManager.register(DATA_DAMAGE, this.damage);
     }
 
     @Override

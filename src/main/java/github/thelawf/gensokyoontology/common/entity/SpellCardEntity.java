@@ -1,13 +1,14 @@
 package github.thelawf.gensokyoontology.common.entity;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.Muzzle;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRendersAsItem;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.item.BoatEntity;
@@ -28,7 +29,7 @@ import java.util.List;
 
 public class SpellCardEntity extends Entity implements IRendersAsItem {
 
-    private int lifeSpan = 200;
+    private int lifeSpan = 100;
     public List<Muzzle<? extends AbstractDanmakuEntity>> muzzles = new ArrayList<>();
 
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
@@ -38,30 +39,30 @@ public class SpellCardEntity extends Entity implements IRendersAsItem {
                     SpellCardEntity::new, EntityClassification.MISC).size(1F,1F).trackingRange(4)
             .updateInterval(2).build("spell_card_entity");
 
-    public SpellCardEntity(EntityType<?> entityTypeIn, World worldIn, List<Muzzle<? extends AbstractDanmakuEntity>> muzzles) {
-        super(entityTypeIn, worldIn);
+    public SpellCardEntity(World worldIn, List<Muzzle<? extends AbstractDanmakuEntity>> muzzles) {
+        super(SPELL_CARD_ENTITY, worldIn);
         this.muzzles = muzzles;
         muzzles.forEach(muzzle -> lifeSpan = muzzle.getFunc().lifeSpan);
     }
 
     public SpellCardEntity(EntityType<?> entityTypeIn, World worldIn) {
-        super(entityTypeIn, worldIn);
+        super(SPELL_CARD_ENTITY, worldIn);
     }
 
     @Override
     protected void registerData() {
-        this.dataManager.register(DATA_LIFESPAN, 200);
+        this.dataManager.register(DATA_LIFESPAN, this.lifeSpan);
     }
 
     @Override
-    protected void readAdditional(@NotNull CompoundNBT compound) {
+    public void readAdditional(@NotNull CompoundNBT compound) {
         if (compound.contains("lifespan")) {
             this.lifeSpan = compound.getInt("lifespan");
         }
     }
 
     @Override
-    protected void writeAdditional(CompoundNBT compound) {
+    public void writeAdditional(CompoundNBT compound) {
         compound.putInt("lifespan", lifeSpan);
     }
 
@@ -69,29 +70,56 @@ public class SpellCardEntity extends Entity implements IRendersAsItem {
     @Override
     public void tick() {
         super.tick();
+        boolean canShoot = true;
         if (ticksExisted >= lifeSpan) {
             this.remove();
+            canShoot = false;
         }
+
+        PlayerEntity player = this.world.getPlayers().get(0);
+        Vector3d playerPos = player.getPositionVec();
+        Vector3d lookVec = player.getLookVec();
+
+        for (int i = 0; i < 4; i++) {
+            Vector3d nextVec = lookVec.rotateYaw((float) (i * Math.PI / 2));
+
+            this.muzzles.add(new Muzzle<>(new TransformFunction()
+                    .setPlayer(player)
+                    .setInitLocation(playerPos)
+                    .setShootVector(nextVec)
+                    .setLifeSpan(200)
+                    .setIncrement(Math.PI / 180),
+                    new LargeShotEntity(player, world)
+            ));
+        }
+
         // 在这里调用变换函数，使用 tickExisted 作为变换函数中increment增加值的迭代单位
+        boolean finalCanShoot = canShoot;
+
         this.muzzles.forEach(muzzle -> {
-            LargeShotEntity danmaku = new LargeShotEntity(muzzle.getPlayer(), muzzle.getPlayer().getEntityWorld());
-            Vector3d prevAngle = muzzle.getFunc().getShootVector();
+            if (finalCanShoot && ticksExisted % 2 == 0) {
+                LargeShotEntity danmaku = new LargeShotEntity(muzzle.getPlayer(), muzzle.getPlayer().getEntityWorld());
+                Vector3d prevAngle = muzzle.getFunc().getShootVector();
 
-            if (muzzle.getFunc().increment != 0D) {
-                Vector3d newAngle = prevAngle.rotateYaw((float) muzzle.getFunc().increment * ticksExisted);
-                danmaku.setNoGravity(true);
-                danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
-                        (float) newAngle.y, (float) newAngle.z);
-            }
-            else {
-                danmaku.setNoGravity(true);
-                danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
-                        (float) prevAngle.y, (float) prevAngle.z);
-            }
-            danmaku.shoot(prevAngle.x, prevAngle.y, prevAngle.z, 0.3f, 0f);
-            world.addEntity(danmaku);
+                if (muzzle.getFunc().increment != 0D) {
+                    Vector3d newAngle = prevAngle.rotateYaw((float) muzzle.getFunc().increment +
+                            (float) (Math.PI / 60 * ticksExisted) * ticksExisted);
 
+                    danmaku.setNoGravity(true);
+                    danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
+                            (float) newAngle.y, (float) newAngle.z);
+                }
+                else {
+                    danmaku.setNoGravity(true);
+                    danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
+                            (float) prevAngle.y, (float) prevAngle.z);
+                }
+                danmaku.shoot(prevAngle.x, prevAngle.y, prevAngle.z, 0.3f, 0f);
+                world.addEntity(danmaku);
+            }
         });
+
+        GensokyoOntology.LOGGER.info("符卡持续时间：" + ticksExisted);
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {

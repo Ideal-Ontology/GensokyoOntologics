@@ -22,4 +22,9 @@ public class DanmakuUtil {
         playerIn.getHeldItemMainhand().shrink(1);
 
     }
+
+    public static <T extends AbstractDanmakuEntity> void shootWaveAndParticle (@NotNull World worldIn, PlayerEntity playerIn,
+                                                                               T danmakuEntityType, float velocity, float inaccuracy) {
+
+    }
 }

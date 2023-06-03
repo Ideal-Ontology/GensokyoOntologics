@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.Muzzle;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
+import net.minecraft.command.impl.SummonCommand;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -53,43 +54,27 @@ public class SC_WaveAndParticle extends SpellCardItem {
 
         List<Muzzle<?>> muzzles = new ArrayList<>();
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 6; i++) {
+            Vector3d nextVec = lookVec.rotateYaw((float) (i * Math.PI / 3));
+
             muzzles.add(new Muzzle<>(new TransformFunction()
                     .setPlayer(player).setLifeSpan(100)
                     .setInitLocation(playerPos)
-                    .setShootVector(lookVec)
+                    .setShootVector(nextVec)
                     .setLifeSpan(200)
                     .setIncrement(Math.PI / 180),
                     new DanmakuShotEntity(player, world, DanmakuType.LARGE_SHOT)
             ));
         }
 
-        SpellCardEntity spellEntity = new SpellCardEntity(
-                SpellCardEntity.SPELL_CARD_ENTITY, world, muzzles);
-        world.addEntity(spellEntity);
+        if (world instanceof ServerWorld) {
+            SpellCardEntity spellEntity = new SpellCardEntity(world, muzzles);
+            ServerWorld serverWorld = (ServerWorld) world;
+            serverWorld.addEntity(spellEntity);
+            GensokyoOntology.LOGGER.info("事服务端世界");
+        }
 
-        muzzles.forEach(muzzle -> {
-            LargeShotEntity danmaku = new LargeShotEntity(muzzle.getPlayer(), muzzle.getPlayer().getEntityWorld());
-            Vector3d prevAngle = muzzle.getFunc().getShootVector();
-
-            if (muzzle.getFunc().increment != 0D) {
-                Vector3d newAngle = prevAngle.rotateYaw((float) muzzle.getFunc().increment * 0.1f);
-                danmaku.setNoGravity(true);
-                danmaku.setLocationAndAngles(muzzle.getX(), muzzle.getY(), muzzle.getZ(),
-                        (float) newAngle.y, (float) newAngle.z);
-            }
-            else {
-                danmaku.setNoGravity(true);
-                danmaku.setLocationAndAngles(muzzle.getX(), muzzle.getY(), muzzle.getZ(),
-                        (float) prevAngle.y, (float) prevAngle.z);
-            }
-            danmaku.shoot(prevAngle.x, prevAngle.y, prevAngle.z, 0.3f, 0f);
-            world.addEntity(danmaku);
-        });
-
-        spellEntity.tick();
-
-        GensokyoOntology.LOGGER.info("波粒符卡已点击释放了呀");
+        GensokyoOntology.LOGGER.info("发射口数量：" + muzzles.size());
 
         return super.onItemRightClick(world, player, handIn);
     }
