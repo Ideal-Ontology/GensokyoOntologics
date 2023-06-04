@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "gensokyoontology:burger_meat_raw"
+  },
+  "result": "gensokyoontology:burger_meat",
+  "experience": 0.35,
+  "cookingtime": 550
+}

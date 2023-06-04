@@ -1,0 +1,28 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:writable_book"
+    },
+    "title": "advancement.gensokyoontology.story.title",
+    "description": "advancement.gensokyoontology.story.description",
+    "background": "gensokyoontology:block/sakura_leaves",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "gensokyoontology:root",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "gensokyoontology:story_paper",
+            "nbt": "{story:\"gensokyoontology.story.content_01-2\"}"
+          }
+        ]
+      }
+    }
+  }
+}

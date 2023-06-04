@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#A#",
+    "O O",
+    "#$#"
+  ],
+  "key": {
+    "A": {
+      "item": "minecraft:oak_button"
+    },
+    "#": {
+      "item": "minecraft:glass_pane"
+    },
+    "O": {
+      "item": "minecraft:diamond"
+    },
+    "$": {
+      "item": "gensokyoontology:spirit_fragment"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:spirit_tube",
+    "count": 1
+  }
+}

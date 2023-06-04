@@ -1,0 +1,75 @@
+{
+  "depth": 0.07,
+  "scale": 0.37,
+  "downfall": 0.07,
+  "temperature": 0.4,
+  "category": "forest",
+  "temperature_modifier": "none",
+  "player_spawn_friendly": true,
+  "creature_spawn_probability": 0.48,
+  "precipitation": "rain",
+  "surface_builder": "minecraft:grass",
+  "effects": {
+    "sky_color": 9090047,
+    "fog_color": 12237498,
+    "water_color": 5290221,
+    "water_fog_color": 270131
+  },
+  "starts": [],
+  "spawners": {
+    "monster": [
+      {
+        "type": "gensokyoontology:fairy",
+        "weight": 20,
+        "minCount": 3,
+        "maxCount": 8
+      },
+      {
+        "type": "mincraft:ender_man",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "mincraft:zombie",
+        "weight": 5,
+        "minCount": 3,
+        "maxCount": 3
+      }
+    ],
+    "creature": [
+      {
+        "type": "minecraft:panda",
+        "weight": 2,
+        "minCount": 2,
+        "maxCount": 2
+      }
+    ]
+  },
+  "spawn_costs": {},
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "minecraft:lake_water"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:bamboo",
+      "minecraft:bamboo_light",
+      "minecraft:bamboo_vegetation"
+    ],
+    []
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "gensokyoontology:inyo_jade_red"
+    },
+    "title": {
+      "translate": "advancement.gensokyoontology.login_gensokyo.title"
+    },
+    "description": "advancement.gensokyoontology.login_gensokyo.description",
+    "background": "gensokyoontology:block/sakura_leaves",
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "gensokyoontology:root",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "dimension": "gesnokyo"
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "name": "patchouli.gensokyoontology.chapter.intro.title",
+  "icon": "minecraft:writable_book",
+  "category": "chapter",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.chapter.introduction_p1"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.chapter.introduction_p2"
+    }
+  ]
+}

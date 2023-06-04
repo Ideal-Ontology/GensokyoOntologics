@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#A#",
+    "#A#"
+  ],
+  "key": {
+    "#": {
+      "tag": "forge:rods/wooden"
+    },
+    "A": {
+      "item": "gensokyoontology:sakura_planks"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:sakura_fence_gate",
+    "count": 3
+  }
+}

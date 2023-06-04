@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smoking",
+  "ingredient": {
+    "item": "gensokyoontology:yattsume_una"
+  },
+  "result": "gensokyoontology:yattsume_una_yaki",
+  "experience": 0.35,
+  "cookingtime": 420
+}

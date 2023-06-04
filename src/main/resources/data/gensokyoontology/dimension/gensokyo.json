@@ -1,0 +1,12 @@
+{
+  "type": "gensokyoontology:gensokyo",
+  "generator": {
+    "type": "minecraft:noise",
+    "seed": 0,
+    "settings": "minecraft:overworld",
+    "biome_source": {
+      "seed": 0,
+      "type": "gensokyoontology:gensokyo"
+    }
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "functions": {
+    "bullet_muzzles": {
+      "a": {
+        "danmaku_type": "gensokyoontology:danmaku_type/small_sphere",
+        "execute_functions": ["func_01"]
+      },
+      "b": {
+        "danmaku_type": "gensokyoontology:danmaku_type/small_sphere",
+        "execute_functions": ["func_01"]
+      },
+      "A": {
+        "danmaku_type": "gensokyoontology:danmaku_type/small_star",
+        "execute_functions": ["func_01"]
+      },
+      "B": {
+        "danmaku_type": "gensokyoontology:danmaku_type/small_star",
+        "execute_functions": ["func_01"]
+      }
+    },
+    "func_01": {
+      "life_span": 5000,
+      "execute_times": 3,
+      "execute_interval": 3,
+      "shoot_interval": 3,
+      "aiming_at": null,
+      "init_location": {
+        "x": 0,
+        "z": 0,
+        "y": 0
+      },
+      "motion_function": {
+        "linear": {
+          "resultant_speed": 1.0,
+          "pivot_point": "default",
+          "vector_speed": {
+            "speed_x": 0.0,
+            "speed_z": 0.0,
+            "speed_y": 0.0
+          },
+          "next_location": {
+            "locate_x": 0.0,
+            "locate_z": 0.0,
+            "locate_y": 0.0
+          },
+          "next_rotation": {
+            "rotate_yaw": 2.0,
+            "rotate_pitch": 0.0,
+            "rotate_roll": 0.0
+          }
+        },
+        "apply_motion": {
+          "apply_pivot": null,
+          "apply_muzzles": null,
+          "apply_bullets": null
+        }
+      }
+    },
+    "loop_functions": false,
+    "execution_priority": {
+      "func_01": 1
+    }
+  }
+}
+

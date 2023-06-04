@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:cave_spider_spawn_egg"
+    },
+    "title": "advancement.gensokyoontology.retreat_yukari.title",
+    "description": "advancement.gensokyoontology.retreat_yukari.description",
+    "background": "gensokyoontology:block/sakura_leaves",
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "gensokyoontology:root",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "player": {
+          "type": "gensokyoontology:yukari"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,5 @@
+{
+  "loader": "forge:obj",
+  "model": "gensokyoontology:models/item/rail_wrench.obj",
+  "flip-v": true
+}

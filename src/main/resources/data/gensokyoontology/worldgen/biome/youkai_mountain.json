@@ -1,0 +1,27 @@
+{
+  "depth": 3.2,
+  "scale": 0.75,
+  "downfall": 0.6,
+  "temperature": 0.35,
+  "category": "extreme_hills",
+  "temperature_modifier": "none",
+  "player_spawn_friendly": true,
+  "creature_spawn_probability": 0.4,
+  "precipitation": "snow",
+  "surface_builder": "minecraft:grass",
+  "effects": {
+    "sky_color": 7907327,
+    "fog_color": 12248771,
+    "water_color": 3574990,
+    "water_fog_color": 600654
+  },
+  "spawn_costs" : {},
+  "features": [],
+  "carvers": {
+
+  },
+  "spawners": {
+
+  },
+  "starts": []
+}

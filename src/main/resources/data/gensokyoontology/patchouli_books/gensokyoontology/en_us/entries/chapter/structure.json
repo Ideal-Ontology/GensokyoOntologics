@@ -1,0 +1,15 @@
+{
+  "name": "patchouli.gensokyoontology.chapter.structure.title",
+  "icon": "gensokyoontology:inyo_jade_red",
+  "category": "chapter",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.structure.outside_city"
+    },
+    {
+      "type": "text",
+      "text": "this should be a picture, and should be locked until player get occult ball"
+    }
+  ]
+}

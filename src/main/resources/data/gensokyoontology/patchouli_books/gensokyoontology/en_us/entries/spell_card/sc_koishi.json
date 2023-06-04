@@ -1,0 +1,16 @@
+{
+  "name": "patchouli.gensokyoontology.spell_card.sc_koishi.title",
+  "icon": "miencraft:spawn_egg",
+  "category": "spell_card",
+  "advancement": "",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.spell_card.sc_koishi.introduction"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.spell_card.sc_koishi.image"
+    }
+  ]
+}

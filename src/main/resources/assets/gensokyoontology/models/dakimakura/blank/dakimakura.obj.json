@@ -1,0 +1,5 @@
+{
+  "loader": "forge:obj",
+  "model": "gensokyoontology:models/dakimakura/blank/dakimakura.obj",
+  "flip-v": true
+}

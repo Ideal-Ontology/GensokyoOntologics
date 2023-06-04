@@ -1,0 +1,30 @@
+{
+  "display": {
+    "icon": {
+      "item": "gensokyoontology:dialectic_spirit"
+    },
+    "title": {
+      "translate": "advancement.gensokyoontology.root.title"
+    },
+    "description": {
+      "translate": "advancement.gensokyoontology.root.description"
+    },
+    "background": "gensokyoontology:block/sakura_leaves",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "patchouli:guide_book"
+          }
+        ]
+      }
+    }
+  }
+}
