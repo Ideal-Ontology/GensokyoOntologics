@@ -69,7 +69,7 @@ public class InWorldRenderer {
                 startPos.getX() + 1, startPos.getY() + 1, startPos.getZ() + 1);
         LineSegment3D lineB = new LineSegment3D(endPos.getX(), endPos.getY(), endPos.getZ(),
                 endPos.getX() + 1, endPos.getY() + 1, endPos.getZ() + 1);
-        Vector3d intersection = GSKOMathUtil.intersection3D(lineA, lineB).toVector3D();
+        Vector3d intersection = GSKOMathUtil.intersection3D(lineA, lineB);
 
         for (int i = 0; i < 1 / count; i ++) {
             Pair<Vector3d, Vector3d> pose = ConnectionUtil.getPosAndRot(startVec, intersection, endVec, i);

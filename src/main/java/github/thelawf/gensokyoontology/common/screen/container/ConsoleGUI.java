@@ -3,7 +3,6 @@ package github.thelawf.gensokyoontology.common.screen.container;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.libs.logoslib.BlockCodeFormatter;
 import net.minecraft.client.MainWindow;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -45,8 +44,6 @@ public class ConsoleGUI extends Screen {
                 (window.getHeight() - this.height)/2 + this.height / 2, 80, 20,
                 new TranslationTextComponent("gui." + GensokyoOntology.MODID + ".compile"), (button) -> {
             String code = codeField.getText();
-            BlockCodeFormatter formatter = new BlockCodeFormatter();
-            formatter.writeFile(formatter.highlightTextAsHTML(code));
         });
 
         this.addButton(compileButton);

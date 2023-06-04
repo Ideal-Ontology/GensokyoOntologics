@@ -395,13 +395,6 @@ public class GSKOMathUtil {
         return new Vector3d(0, y, Math.tan(pitch) * y);
     }
 
-    public static Vector3d vecToRectCoord(Vector3d vector3d) {
-        return new Vector3d(vector3d.x, vector3d.y, vector3d.z);
-    }
-
-    public static Vector3d rectCoordToVec(Vector3d coordinate) {
-        return new Vector3d(coordinate.x, coordinate.y, coordinate.z);
-    }
 
     public static int randomRange(int min, int max) {
         return new Random().nextInt(max - min + 1) + min;
