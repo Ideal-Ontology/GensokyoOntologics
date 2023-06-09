@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -19,10 +20,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix3f;
 import net.minecraft.util.math.vector.Vector3f;
 
+import java.util.HashMap;
+
 @Deprecated
 public class DanmakuRenderer extends SpriteRenderer<DanmakuShotEntity> {
-    private static final ResourceLocation DANMAKU_TEX = new ResourceLocation(GensokyoOntology.MODID, "textures/entity/danmaku.png");
-    private static final RenderType RENDER_TYPE = RenderType.getItemEntityTranslucentCull(DANMAKU_TEX);
+    public static final String PATH = "textures/entity";
+    private static final ResourceLocation DANMAKU_RED = new ResourceLocation(GensokyoOntology.MODID, PATH);
+    // private static final RenderType RENDER_TYPE = RenderType.getItemEntityTranslucentCull(DANMAKU_TEX);
 
     private final ItemRenderer itemRenderer;
 
@@ -32,9 +36,7 @@ public class DanmakuRenderer extends SpriteRenderer<DanmakuShotEntity> {
     }
 
     public void render(DanmakuShotEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(
-                AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(DANMAKU_TEX);
-        IVertexBuilder builder = ItemRenderer.getBuffer(bufferIn, RENDER_TYPE, true,false);
+
         float scale = DanmakuType.LARGE_SHOT.size;
         matrixStackIn.push();
         matrixStackIn.rotate(this.renderManager.getCameraOrientation());
@@ -45,15 +47,6 @@ public class DanmakuRenderer extends SpriteRenderer<DanmakuShotEntity> {
         Matrix3f normal = matrixStackLast.getNormal();
         this.itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GROUND,
                 packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
-        // add(builder, matrixStackIn, normal,0, 0, 0.5f, sprite.getMinU(), sprite.getMinV(), packedLightIn);
-        // add(builder, matrixStackIn, normal,1, 0, 0.5f, sprite.getMaxU(), sprite.getMinV(), packedLightIn);
-        // add(builder, matrixStackIn, normal,1, 1, 0.5f, sprite.getMaxU(), sprite.getMaxV(), packedLightIn);
-        // add(builder, matrixStackIn, normal,0, 1, 0.5f, sprite.getMinU(), sprite.getMaxV(), packedLightIn);
-//
-        // add(builder, matrixStackIn, normal,0, 1, 0.5f, sprite.getMinU(), sprite.getMaxV(), packedLightIn);
-        // add(builder, matrixStackIn, normal,1, 1, 0.5f, sprite.getMaxU(), sprite.getMaxV(), packedLightIn);
-        // add(builder, matrixStackIn, normal,1, 0, 0.5f, sprite.getMaxU(), sprite.getMinV(), packedLightIn);
-        // add(builder, matrixStackIn, normal,0, 0, 0.5f, sprite.getMinU(), sprite.getMinV(), packedLightIn);
 
         matrixStackIn.pop();
     }

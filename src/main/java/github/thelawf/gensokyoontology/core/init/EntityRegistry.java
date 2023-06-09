@@ -6,7 +6,9 @@ import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntit
 import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.MasterSparkEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
+// import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.WaveAndParticleEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -43,9 +45,6 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<DanmakuShotEntity>> DANMAKU_ENTITY = ENTITIES.register(
             "danmaku_entity", () -> DanmakuShotEntity.DANMAKU);
 
-    public static final RegistryObject<EntityType<SpellCardEntity>> SPELL_CARD_ENTITY = ENTITIES.register(
-            "spell_card_entity", () -> SpellCardEntity.SPELL_CARD_ENTITY);
-
     public static final RegistryObject<EntityType<HeartShotEntity>> HERAT_SHOT_ENTITY = ENTITIES.register(
             "heart_shot_entity", () -> HeartShotEntity.HEART_SHOT);
 
@@ -58,7 +57,14 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
             "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
 
-   // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
+
+    public static final RegistryObject<EntityType<WaveAndParticleEntity>> WAVE_AND_PARTICLE_ENTITY = ENTITIES.register(
+            "spell_card_entity", () -> WaveAndParticleEntity.WAVE_AND_PARTICLE);
+
+    public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY =
+            ENTITIES.register("ido_no_kaiho", () -> IdonokaihoEntity.IDONOKAIHO_ENTITY);
+
+    // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
    //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);
 
    // public static final RegistryObject<EntityType<PhantasmSphereEntity>> PH_SPHERE_ENTITY = GSKO_ENTITIES.register(

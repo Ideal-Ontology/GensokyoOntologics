@@ -1,10 +1,10 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
 public class InYoJadeDanmakuEntity extends AbstractDanmakuEntity {
@@ -16,12 +16,17 @@ public class InYoJadeDanmakuEntity extends AbstractDanmakuEntity {
         super(type, worldIn);
     }
 
-    public InYoJadeDanmakuEntity(LivingEntity throwerIn, World world, DanmakuType danmakuType) {
-        super(INYO_JADE_DANMAKU, throwerIn, world, danmakuType);
+    public InYoJadeDanmakuEntity(LivingEntity throwerIn, World world, SpellData spellData) {
+        super(INYO_JADE_DANMAKU, throwerIn, world, spellData);
     }
 
     @Override
     protected void registerData() {
 
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return null;
     }
 }

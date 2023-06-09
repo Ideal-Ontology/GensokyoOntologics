@@ -1,12 +1,51 @@
 package github.thelawf.gensokyoontology.common.libs.danmakulib;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.core.SpellCardRegistry;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.datasync.IDataSerializer;
+import net.minecraft.util.IntIdentityHashBiMap;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+
 public class DanmakuUtil {
+
+    public static final IntIdentityHashBiMap<IDataSerializer<SpellData>> REGISTRY = new IntIdentityHashBiMap<>(16);
+
+    public static final IDataSerializer<SpellData> SPELL_DATA = new IDataSerializer<SpellData>() {
+        @Override
+        public void write(PacketBuffer buf, @NotNull SpellData value) {
+            buf.writeString(SpellCardRegistry.IDO_NO_KAIHO_DATA.getId().toString());
+        }
+
+        @Override
+        public SpellData read(PacketBuffer buf) {
+            return SpellCardRegistry.SPELL_CARD_REGISTRY.getValue(new ResourceLocation(
+                    GensokyoOntology.MODID, buf.readString()));
+        }
+
+        @Override
+        @NotNull
+        public SpellData copyValue(@NotNull SpellData value) {
+            return value;
+        }
+
+    };
+
+    public static void registerSerializer(IDataSerializer<SpellData> serializer) {
+        if (REGISTRY.add(serializer) >= 256) throw new RuntimeException("Vanilla DataSerializer ID limit exceeded");
+    }
+
+    static {
+        registerSerializer(SPELL_DATA);
+    }
 
     public static <T extends AbstractDanmakuEntity> void shootDanmaku(@NotNull World worldIn, PlayerEntity playerIn,
                                                                       T danmakuEntityType, float velocity, float inaccuracy) {
@@ -19,11 +58,53 @@ public class DanmakuUtil {
         worldIn.addEntity(danmakuEntityType);
 
         playerIn.getHeldItemMainhand().shrink(1);
+        GensokyoOntology.LOGGER.info("????");
 
     }
 
     public static <T extends AbstractDanmakuEntity> void shootWaveAndParticle (@NotNull World worldIn, PlayerEntity playerIn,
-                                                                               T danmakuEntityType, float velocity, float inaccuracy) {
+                                                                               float velocity, float inaccuracy,
+                                                                               int ticksExisted) {
+        SpellData spellData = new SpellData(new HashMap<>());
+        // 在具体的符卡类中，这里初始化的弹幕实体类应该写成泛型强制类型转换：
+        // if (muzzle.getDanmaku() instanceof LargeshotEntity) {
+        //    LargeShotEntity danmaku = (LargeShotEntity) muzzle.getDanmaku();
+        // }
+        // 先判断muzzle里面弹幕的类型是否和符卡需要的类型一致，再初始化弹幕
 
     }
+
+    public static <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d muzzle) {
+        danmaku.setNoGravity(true);
+        danmaku.setLocationAndAngles(muzzle.getX(), muzzle.getY(), muzzle.getZ(),
+                (float) muzzle.y, (float) muzzle.z);
+    }
+
+    public static Vector3d transformOrders(VectorOperations operation, TransformFunction function, Vector3d prevVec) {
+        if (function.scaling > 0F) {
+            if (operation == VectorOperations.ROTATE_YAW) {
+                return prevVec.rotateYaw(function.scaling);
+            }
+            else if (operation == VectorOperations.ROTATE_ROLL) {
+                return prevVec.rotateRoll(function.scaling);
+            }
+            else if (operation == VectorOperations.ROTATE_PITCH) {
+                return prevVec.rotatePitch(function.scaling);
+            }
+            else if (operation == VectorOperations.SCALE) {
+                return prevVec.scale(function.scaling);
+            }
+        }
+        else if (function.acceleration != null) {
+            if (operation == VectorOperations.ADD) {
+                return prevVec.add(function.acceleration);
+            }
+            else if (operation == VectorOperations.SUBTRACT) {
+                return prevVec.subtract(function.acceleration);
+            }
+        }
+
+        return prevVec;
+    }
+
 }

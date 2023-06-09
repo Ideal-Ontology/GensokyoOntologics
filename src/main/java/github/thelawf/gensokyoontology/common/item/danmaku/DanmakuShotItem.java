@@ -1,9 +1,10 @@
 package github.thelawf.gensokyoontology.common.item.danmaku;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -24,8 +25,10 @@ public class DanmakuShotItem extends Item {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        DanmakuUtil.shootDanmaku(worldIn, playerIn, new DanmakuShotEntity(playerIn, worldIn, DanmakuType.DANMAKU_SHOT),
-                0.1f, 0f);
+        SpellData spellData = new SpellData(null, DanmakuType.DANMAKU_SHOT,
+                DanmakuColor.NONE, false, false);
+        DanmakuUtil.shootDanmaku(worldIn, playerIn, new DanmakuShotEntity(playerIn, worldIn, spellData),
+                0.5f, 0.6f);
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 

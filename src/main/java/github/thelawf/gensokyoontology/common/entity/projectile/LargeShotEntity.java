@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -21,8 +21,8 @@ public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAs
         super(LARGE_SHOT, worldIn);
     }
 
-    public LargeShotEntity(LivingEntity throwerIn, World world) {
-        super(LARGE_SHOT, throwerIn, world, DanmakuType.LARGE_SHOT);
+    public LargeShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
+        super(LARGE_SHOT, throwerIn, world, spellData);
     }
 
     @Override

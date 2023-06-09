@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.util;
 
+
 public class TriMap<F,S,T> implements ITriMap<F,S,T>{
     private F f;
     private S s;

@@ -51,7 +51,7 @@ public class DanmakuTestItem extends ShootableItem{
             // 在这里初始化TransformFunction.transform()，部分变量必须提供，详情请见{@link TransformFunction.java}
             TransformFunction func = TransformFunction.Builder.create()
                     .setPlayer(playerIn).setInitLocation(playerIn.getPositionVec())
-                    .setLifeSpan(50).setShootInterval(1).setExecuteTimes(5)
+                    .setLifeSpan(50).setExecuteTimes(5)
                     .setExecuteInterval(10).setResultantSpeed(0.75)
                     .setIncrement(Math.PI / 72)
                     .setShootVector(playerIn.getLookVec())

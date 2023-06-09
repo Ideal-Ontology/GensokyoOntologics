@@ -23,8 +23,8 @@ public class HeartShot extends Item {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        DanmakuUtil.shootDanmaku(worldIn, playerIn, new HeartShotEntity(playerIn, worldIn),
-                0.6f, 0f);
+        // DanmakuUtil.shootDanmaku(worldIn, playerIn, new HeartShotEntity(playerIn, worldIn),
+        //         0.6f, 0f);
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }

@@ -26,7 +26,7 @@ public class NamiTotubuSCItem extends Item {
             // 开花弹示例：
             TransformFunction tf = TransformFunction.Builder.create()
                     .setPlayer(playerIn).setInitLocation(playerIn.getPositionVec())
-                    .setLifeSpan(120).setShootInterval(1).setExecuteTimes(5)
+                    .setLifeSpan(120).setExecuteTimes(5)
                     .setExecuteInterval(10).setResultantSpeed(0.75)
                     .setWorld(worldIn);
 

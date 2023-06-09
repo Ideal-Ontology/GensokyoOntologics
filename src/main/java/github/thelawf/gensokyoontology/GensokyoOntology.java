@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.common.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.core.ContainerRegistry;
+import github.thelawf.gensokyoontology.core.SerializerRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -54,6 +55,7 @@ public class GensokyoOntology {
         TileEntityTypeRegistry.TILE_ENTITIES.register(modEvent);
         EntityRegistry.ENTITIES.register(modEvent);
         ContainerRegistry.CONTAINERS.register(modEvent);
+        SerializerRegistry.SPELL_DATA_SERIALIZER.register(modEvent);
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

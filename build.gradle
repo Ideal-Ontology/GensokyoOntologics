@@ -18,9 +18,9 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-mixin {
-    add sourceSets.main, "patchouli.refmap.json"
-}
+// mixin {
+//     add sourceSets.main, "patchouli.refmap.json"
+// }
 
 allprojects {
     repositories {
@@ -143,8 +143,8 @@ repositories {
 }
 
 dependencies {
-    compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:api")
-    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:")
+    // compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:api")
+    // runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:")
 
     implementation 'org.jetbrains:annotations:23.0.0'
 

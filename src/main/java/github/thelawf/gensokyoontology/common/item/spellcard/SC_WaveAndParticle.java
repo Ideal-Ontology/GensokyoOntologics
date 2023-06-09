@@ -1,18 +1,19 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuMuzzle;
+import github.thelawf.gensokyoontology.common.entity.spellcard.WaveAndParticleEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Supplier;
 
 public class SC_WaveAndParticle extends SpellCardItem {
@@ -41,29 +42,20 @@ public class SC_WaveAndParticle extends SpellCardItem {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World world, @NotNull PlayerEntity player, @NotNull Hand handIn) {
+        if (world instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld) world;
 
-        // 获取玩家位置
-        Vector3d playerPos = player.getPositionVec();
-        Vector3d lookVec = player.getLookVec();
+            EntityType<WaveAndParticleEntity> entityType = EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get();
+            entityType.spawn(serverWorld, player.getHeldItemMainhand(), player, player.getPosition(),
+                    SpawnReason.MOB_SUMMONED,true, true);
 
-        List<DanmakuMuzzle<?>> muzzles = new ArrayList<>();
+            // EntityType<IdonokaihoEntity> entityType = EntityRegistry.IDO_NO_KAIHO_ENTITY.get();
+            // entityType.spawn(serverWorld, player.getHeldItemMainhand(), player, player.getPosition(),
+            //        SpawnReason.MOB_SUMMONED,true, true);
 
-        for (int i = 0; i < 4; i++) {
-            Vector3d nextVec = lookVec.rotateYaw((float) (i * Math.PI / 3));
 
-            muzzles.add(new DanmakuMuzzle<>(new TransformFunction()
-                    .setPlayer(player).setLifeSpan(100)
-                    .setInitLocation(playerPos)
-                    .setShootVector(nextVec)
-                    .setLifeSpan(200)
-                    .setIncrement(Math.PI / 180),
-                    new LargeShotEntity(player, world)
-            ));
         }
-
-        SpellCardEntity spellEntity = new SpellCardEntity(world, muzzles, player);
-        world.addEntity(spellEntity);
 
         return super.onItemRightClick(world, player, handIn);
 

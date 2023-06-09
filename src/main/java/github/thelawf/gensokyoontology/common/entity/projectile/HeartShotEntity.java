@@ -1,12 +1,26 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
+import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformUnit;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.*;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRendersAsItem;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Map;
 
 public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAsItem {
 
@@ -18,9 +32,17 @@ public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAs
         super(type, worldIn);
     }
 
-    public HeartShotEntity(LivingEntity throwerIn, World world) {
-        super(HEART_SHOT, throwerIn, world, DanmakuType.HEART_SHOT);
+    public HeartShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
+        super(HEART_SHOT, throwerIn, world, spellData);
     }
+
+    @Override
+    public void tick() {
+        super.tick();
+        GensokyoOntology.LOGGER.info(this.getSpellData());
+    }
+
+
 
     @Override
     @NotNull

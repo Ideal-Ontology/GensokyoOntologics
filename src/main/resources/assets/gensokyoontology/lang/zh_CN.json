@@ -29,6 +29,7 @@
   "item.gensokyoontology.bomb_item": "B点",
 
   "item.gensokyoontology.sc_wave_and_particle": "境符「波与粒的境界」",
+  "item.gensokyoontology.sc_ido_no_kaiho": "本能「本我的解放」",
   "item.gensokyoontology.inyo_jade_black": "阴阳玉（黑）",
   "item.gensokyoontology.inyo_jade_red": "阴阳玉（红）",
   "item.gensokyoontology.inyo_jade_yellow": "阴阳玉（黄）",
@@ -221,11 +222,5 @@
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "patchouli.gensokyoontology.chapter.description": "幻想乡，一个人与妖怪两相对立却又彼此依存的世界。",
-  "patchouli.gensokyoontology.chapter.story.title": "第一章：新的？异变？",
-  "patchouli.gensokyoontology.entity.description": "Some entities that might summon everywhere. This is not a good sign.$(br)\t\t -- Usami Sumireko",
-  "patchouli.gensokyoontology.entity.title": "已进入幻想的实体",
-  "patchouli.gensokyoontology.story.chapter_01.content_01": "$(l)\"Signs often appears before the real crisis.\" -- Her voice haunted me even though she is no longer be here. I don't know when did those meme entities come into being in our world, but I know that fighting against with those entities for too long will lost one's ego -- and that is how she left me.$(br) Her eyes turned into jewels which could show the images of those entities on the paper, and I am collecting the loots from those monsters:",
-  "patchouli.gensokyoontology.task.title": "合成指南"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }

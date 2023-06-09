@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.item.danmaku.DanmakuShotItem;
 import github.thelawf.gensokyoontology.common.item.danmaku.HeartShot;
 import github.thelawf.gensokyoontology.common.item.danmaku.LargeShot;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
+import github.thelawf.gensokyoontology.common.item.spellcard.SC_IdoNoKaiho;
 import github.thelawf.gensokyoontology.common.item.spellcard.SC_WaveAndParticle;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.spellcard.SpellCardBlank;
@@ -249,6 +250,10 @@ public final class ItemRegistry {
     public static final RegistryObject<SC_WaveAndParticle> SC_WAVE_AND_PARTICLE = ITEMS.register(
             "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
                     "波与粒的境界","",500));
+
+    public static final RegistryObject<SC_IdoNoKaiho> SC_IDO_NO_KAIHO = ITEMS.register(
+            "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
+                    "本我的解放","", 600));
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
 

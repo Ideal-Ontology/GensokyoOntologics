@@ -5,29 +5,20 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Consumer;
 
 public class DanmakuMuzzle<D extends AbstractDanmakuEntity> {
     private TransformFunction func;
-    public List<TransformFunction> futureTransform = new ArrayList<>();
+    private ArrayList<TransformFunction> motions;
 
-    private D danmaku;
+    private final D danmaku;
 
-    private Consumer<TransformFunction> consumer = (function) -> {};
-    public DanmakuMuzzle(TransformFunction func, List<TransformFunction> futureTransform, D danmaku) {
-        this.func = func;
-        this.danmaku = danmaku;
-        this.futureTransform = futureTransform;
-    }
 
     public DanmakuMuzzle(TransformFunction func, D danmaku) {
         this.func = func;
         this.danmaku = danmaku;
     }
 
-    public DanmakuMuzzle(Consumer<TransformFunction> consumer, D danmaku) {
-        this.consumer = consumer;
+    public DanmakuMuzzle(D danmaku, int lifespan) {
         this.danmaku = danmaku;
     }
 
@@ -37,10 +28,6 @@ public class DanmakuMuzzle<D extends AbstractDanmakuEntity> {
 
     public D getDanmaku() {
         return danmaku;
-    }
-
-    public void run () {
-        consumer.accept(func);
     }
 
     public double getX() {
@@ -69,10 +56,6 @@ public class DanmakuMuzzle<D extends AbstractDanmakuEntity> {
 
     public World getWorld() {
         return func.getPlayer().getEntityWorld();
-    }
-
-    public void setFutureTransform (TransformFunction function) {
-        this.futureTransform.add(function);
     }
 
 }

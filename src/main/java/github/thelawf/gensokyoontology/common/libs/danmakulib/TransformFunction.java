@@ -1,7 +1,8 @@
 package github.thelawf.gensokyoontology.common.libs.danmakulib;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.*;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.LineSegment;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.LineSegment3D;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
@@ -11,7 +12,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 public class TransformFunction extends ITransform.AbstractTransform {
     public static final Logger LOGGER = LogManager.getLogger();
@@ -22,10 +29,10 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
     // -------------Initialize Rotations and Locations--------------//
 
-    /** 设置实体的枢轴点坐标 */
+    /** 设置向量的枢轴点坐标 */
     public double pivotX, pivotY, pivotZ = 0.D;
 
-    /** 设置实体的朝向 */
+    /** 设置向量的旋转角度，以弧度值为单位 */
     public double yaw, pitch, roll = 0.D;
 
     public double x, y, z = 0.D;
@@ -40,45 +47,45 @@ public class TransformFunction extends ITransform.AbstractTransform {
     /** 函数的生命周期，即每次执行时执行的时长 */
     public int lifeSpan = 0;
 
-    /** 设置本函数在应用于发射口时，下一枚子弹发射的间隔，0代表同时发射 */
-    public double shootInterval = 0.d;
-
     /** 设置本函数所有执行次数完成后间隔多久执行另外的函数 */
     public double executeInterval = 0.d;
-
-    /** 设置本函数的执行优先级，若某个发射口应用了多个函数则调用该优先级，同等优先级的函数会随机进行调用 */
-    public int executePriority = 0;
 
      /** 设置本函数应用于的发射口发出的弹幕是否瞄准某个实体 */
     public UUID aimingAt = null;
 
-    public int delayedExeTicks = 0;
+    public ArrayList<VectorOperations> transformOrders = new ArrayList<>();
+
+    public VectorOperations vectorOperations;
 
     // -------------Parameters to Set Future Motions--------------//
 
     /** 实体的瞬时矢量速度 */
     public Vector3d speedV3 = new Vector3d(0,0,0);
 
+    public Vector3d nextShootVec = new Vector3d(0,0,0);
+
     /** 实体的瞬时合成速度 */
     public double resultantSpeed;
 
-    /** 实体的最大速度 */
-    public static final double maxResultantSpeed = 5.d;
-
-    /** 角度的线性增加量  */
+    /** 线性增加量，一般用于旋转下一个弹幕的发射角度 */
     public double increment = 0.D;
 
-    /** 角度的非线性增加量 */
-    public Vector3d increment3D = new Vector3d(0d,0d,0d);
+    /** 用于将原有的速度向量使用向量数乘法乘以该参数 */
+    public float scaling = 0.F;
 
-    /** （角度/位移/速度）的非线性增加量 */
+    /** 在弹幕实体发tick()方法里面将原有的速度向量使用向量相加的方式加上该速度向量，一般
+     * 用于让弹幕在其生成之后的运动轨迹为一条弧线。
+     */
     public Vector3d acceleration = new Vector3d(0,0,0);
 
-    // -------------Constructors, Builders, and Implements------------- //
+    /** 用于将原有的速度向量使用向量相减的方式减去该参数的方式返回新的速度向量 */
+    public Vector3d subtraction = new Vector3d(0,0,0);
 
-    public TransformFunction getInstance() {
-        return this;
-    }
+    // ======================== Conditions and Predicate ========================= //
+
+
+
+    // -------------Constructors, Builders, and Implements------------- //
 
     public static class Builder extends TransformFunction {
         public static TransformFunction create() {
@@ -99,32 +106,6 @@ public class TransformFunction extends ITransform.AbstractTransform {
         this.z = posZ;
         this.resultantSpeed = GSKOMathUtil.toModulus3D(posX, posY, posZ);
     }
-    /**
-     * 使用for循环配合Entity.setLocationAndAngles()方法循环生成弹幕，循环次数为此函数生成的弹幕总量，使用形参 lifeSpan / shootInterval * executeTimes 来获得本函数生成的弹幕总量。
-     * @param locationVec 初始化枢轴点位置
-     * @param executeTimes 函数的执行次数
-     * @param lifeSpan 函数每次执行时的生命周期
-     * @param shootInterval 函数每次生命周期内发射弹幕的间隔
-     * @param executeInterval 所有执行次数结束后执行其他函数的间隔
-     * @param executePriority 函数的执行优先级
-     * @param aimingAt 是否瞄准某个实体
-     * @param resultantSpeed 弹幕的合成速度
-     */
-    public TransformFunction(Vector3d rotationVec, Vector3d locationVec, int executeTimes,
-                             int lifeSpan, double shootInterval, double executeInterval,
-                             int executePriority, UUID aimingAt, double resultantSpeed) {
-        this.roll = rotationVec.x;
-        this.yaw = rotationVec.y;
-        this.pitch = rotationVec.z;
-        this.initLocation = locationVec;
-        this.executeTimes = executeTimes;
-        this.lifeSpan = lifeSpan;
-        this.shootInterval = shootInterval;
-        this.executeInterval = executeInterval;
-        this.executePriority = executePriority;
-        this.aimingAt = aimingAt;
-        this.resultantSpeed = resultantSpeed;
-    }
 
     public TransformFunction setAimingAt(UUID aimingAt) {
         this.aimingAt = aimingAt;
@@ -138,17 +119,6 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
     public TransformFunction setAcceleration(Vector3d acceleration) {
         this.acceleration = acceleration;
-        return this;
-    }
-
-
-    public TransformFunction setShootInterval(double shootInterval) {
-        this.shootInterval = shootInterval;
-        return this;
-    }
-
-    public TransformFunction setDelayedExeTicks(int delayedExeTicks) {
-        this.delayedExeTicks = delayedExeTicks;
         return this;
     }
 
@@ -169,6 +139,31 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
     public TransformFunction setWorld(World worldIn) {
         this.worldIn = worldIn;
+        return this;
+    }
+
+    public TransformFunction setScaling(float scaling) {
+        this.scaling = scaling;
+        return this;
+    }
+
+    public TransformFunction setYaw(double yaw) {
+        this.yaw = yaw;
+        return this;
+    }
+
+    public TransformFunction setRoll(double roll) {
+        this.roll = roll;
+        return this;
+    }
+
+    public TransformFunction setPitch(double pitch) {
+        this.pitch = pitch;
+        return this;
+    }
+
+    public TransformFunction setTransformOrders(ArrayList<VectorOperations>transformOrders) {
+        this.transformOrders = transformOrders;
         return this;
     }
 
@@ -231,6 +226,10 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return this.playerIn;
     }
 
+    public World getWorld() {
+        return worldIn;
+    }
+
     public int getExecuteTimes() {
         return executeTimes;
     }
@@ -239,29 +238,10 @@ public class TransformFunction extends ITransform.AbstractTransform {
         return lifeSpan;
     }
 
-    public double getShootInterval() {
-        return shootInterval;
-    }
-
     public double getExecuteInterval() {
         return executeInterval;
     }
 
-    public int getExecutePriority() {
-        return executePriority;
-    }
-
-    public double getPivotX() {
-        return pivotX;
-    }
-
-    public double getPivotY() {
-        return pivotY;
-    }
-
-    public double getPivotZ() {
-        return pivotZ;
-    }
 
     public Vector3d getInitLocation() {
         return initLocation;

@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.libs.danmakulib;
 
-import github.thelawf.gensokyoontology.core.init.EffectRegistry;
 import net.minecraft.potion.Effect;
 import net.minecraft.potion.Effects;
 

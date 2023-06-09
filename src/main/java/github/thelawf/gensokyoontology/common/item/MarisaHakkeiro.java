@@ -70,11 +70,11 @@ public class MarisaHakkeiro extends Item {
         // 设置起爆点，从玩家看向的视角延伸20格为第一个爆炸的起爆位置。获取方式是先获取玩家的视角位置，
         // 然后通过向量加法和向量数乘法，在这个位置的基础上再加上20倍的玩家视角向量
         Vector3d explodeStartPos = playerIn.getEyePosition(1.0F).add(
-                playerIn.getLookVec().scale(20));
+                playerIn.getLookVec().scale(8));
 
         // 循环引发100次爆炸，每次爆炸前先获取距离 explodeStartPos i格外的向量位置，
         // 通过同样的向量加法和数乘法确定下一个引爆的位置
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 50; i++) {
             Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
             worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
                     explodePos.getZ(), 5.0f, true, Explosion.Mode.DESTROY);
