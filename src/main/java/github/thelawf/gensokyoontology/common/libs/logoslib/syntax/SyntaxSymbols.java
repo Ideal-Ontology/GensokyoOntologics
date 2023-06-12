@@ -1,0 +1,43 @@
+package github.thelawf.gensokyoontology.common.libs.logoslib.syntax;
+
+public class SyntaxSymbols {
+    public static final String brace = "{";
+    public static final String backBrace = "}";
+    public static final String parentheses = "(";
+    public static final String backParentheses = ")";
+    public static final String bracket = "[";
+    public static final String backBracket = "]";
+    public static final String dot = ".";
+    public static final String comma = ",";
+    public static final String colon = ":";
+    public static final String semicolon = ";";
+    public static final String slash = "/";
+    public static final String backSlash = "\\";
+    public static final String reversedMeaningBackSlash = "\\\\";
+    public static final String quotation = "\"";
+    public static final String asterisk = "*";
+    public static final String plusMark = "+";
+    public static final String minusMark = "-";
+    public static final String assignmentMark = "=";
+    public static final String equalsMark = "==";
+    public static final String selfPlusMark = "++";
+    public static final String selfMinusMark = "--";
+    public static final String plusEqualsMark = "+=";
+    public static final String minusEqualsMark = "-=";
+    public static final String MultipleEqualsMark = "*=";
+    public static final String DivideEqualsMark = "/=";
+    public static final String percentMark = "%";
+    public static final String orLogicMark1 = "|";
+    public static final String orLogicMark2 = "||";
+    public static final String andLogicMark1 = "&";
+    public static final String andLogicMark2 = "&&";
+    public static final String annotationMark = "@";
+    public static final String biggerMark = ">";
+    public static final String smallerMark = "<";
+    public static final String circumflexMark = "^";
+    public static final String tildeMark = "~";
+    public static final String sharpMark = "#";
+    public static final String lambdaReturnMark = "->";
+    public static final String ternaryOperator = "?";
+    public static final String functionInterface = "::";
+}
