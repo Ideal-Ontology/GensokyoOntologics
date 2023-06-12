@@ -33,8 +33,8 @@ public class SpellCardRegistry {
         ArrayList<VectorOperations> orders = new ArrayList<>();
 
         orders.add(VectorOperations.ROTATE_YAW);
-        orders.add(VectorOperations.SCALE);
-        orders.add(VectorOperations.ADD);
+        orders.add(VectorOperations.VECTOR_SCALE);
+        orders.add(VectorOperations.VECTOR_ADD);
 
         TransformFunction function = TransformFunction.Builder.create()
                 .setYaw((float) Math.PI / 2)

@@ -20,13 +20,14 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAsItem {
 
     public static final EntityType<HeartShotEntity> HEART_SHOT = EntityType.Builder.<HeartShotEntity>create(
                     HeartShotEntity::new, EntityClassification.MISC).size(0.5F,0.5F).trackingRange(4)
-            .updateInterval(2).build("heart_shot_entity");
+            .updateInterval(2).build("heart_shot");
 
     public HeartShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
         super(type, worldIn);
@@ -39,10 +40,21 @@ public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAs
     @Override
     public void tick() {
         super.tick();
-        GensokyoOntology.LOGGER.info(this.getSpellData());
+        if (this.spellData != null) {
+            if (this.spellData.keyTransforms != null) {
+                applyTransform(this.spellData.keyTransforms);
+            }
+        }
     }
 
+    private void applyTransform(HashMap<Integer, TransformFunction> keyTransforms) {
+        for (Map.Entry<Integer, TransformFunction> entry : keyTransforms.entrySet()) {
+            Integer keyTick = entry.getKey();
+            TransformFunction function = entry.getValue();
+            if (function.transformOrders == null) return;
 
+        }
+    }
 
     @Override
     @NotNull

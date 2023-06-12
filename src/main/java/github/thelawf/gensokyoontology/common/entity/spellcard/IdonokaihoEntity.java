@@ -2,23 +2,18 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.*;
-import github.thelawf.gensokyoontology.core.SpellCardRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
-import java.util.function.BiFunction;
-import java.util.function.Function;
 
 /**恋恋的符卡：本我的解放
  *
@@ -55,9 +50,8 @@ public class IdonokaihoEntity extends SpellCardEntity {
         ArrayList<VectorOperations> orders = new ArrayList<>();
 
         orders.add(VectorOperations.ROTATE_YAW);
-        orders.add(VectorOperations.SCALE);
-        orders.add(VectorOperations.ADD);
-
+        orders.add(VectorOperations.VECTOR_SCALE);
+        orders.add(VectorOperations.VECTOR_ADD);
 
         functions.put(1, TransformFunction.Builder.create()
                 .setYaw((float) Math.PI / 2)

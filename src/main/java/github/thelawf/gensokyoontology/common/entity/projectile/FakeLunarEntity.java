@@ -1,0 +1,51 @@
+package github.thelawf.gensokyoontology.common.entity.projectile;
+
+import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.world.World;
+
+public class FakeLunarEntity extends AbstractDanmakuEntity {
+
+    public static final EntityType<FakeLunarEntity> FAKE_LUNAR =
+            EntityType.Builder.<FakeLunarEntity>create(FakeLunarEntity::new,
+                            EntityClassification.MISC).size(2.8F,2.8F)
+                    .trackingRange(4).updateInterval(2).build("fake_lunar");
+
+    public FakeLunarEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
+        super(FAKE_LUNAR, worldIn);
+    }
+
+    public FakeLunarEntity(LivingEntity throwerIn, World world, SpellData spellData) {
+        super(FAKE_LUNAR, throwerIn, world, spellData);
+    }
+
+
+    @Override
+    protected void onEntityHit(EntityRayTraceResult result) {
+        Entity shooter = getShooter();
+
+        if (result.getEntity() instanceof AbstractDanmakuEntity){
+            AbstractDanmakuEntity danmaku = (AbstractDanmakuEntity) result.getEntity();
+            danmaku.remove();
+        }
+        else if (shooter instanceof PlayerEntity && !(result.getEntity() instanceof PlayerEntity)) {
+            // entityHit.addPotionEffect(new EffectInstance(EffectRegistry.LOVE_EFFECT.get(), 5 * 40));
+            result.getEntity().attackEntityFrom(GSKODamageSource.DANMAKU,spellData.danmakuType.damage);
+            this.remove();
+        }
+    }
+
+    @Override
+    public ItemStack getItem() {
+        return new ItemStack(ItemRegistry.FAKE_LUNAR_ITEM.get());
+    }
+}

@@ -65,7 +65,9 @@ public enum DanmakuType {
     OVAL_SHOT("oval_shot", 1.0f,1.5f),
 
     // 阴阳玉弹幕
-    INYO_JADE_SHOT("inyo_jade", 2.0f, 2.5f);
+    INYO_JADE_SHOT("inyo_jade", 2.0f, 2.5f),
+
+    FAKE_LUNAR("fake_lunar", 5.0f, 10f);
 
 
     public final String name;

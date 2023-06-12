@@ -10,9 +10,9 @@ import net.minecraft.util.IntIdentityHashBiMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class DanmakuUtil {
@@ -52,13 +52,12 @@ public class DanmakuUtil {
         Vector3d lookVec = playerIn.getLookVec();
 
         danmakuEntityType.setNoGravity(true);
-        danmakuEntityType.setLocationAndAngles(playerIn.getPosX(), playerIn.getEyeHeight(), playerIn.getPosZ(),
+        danmakuEntityType.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + 0.8, playerIn.getPosZ(),
                 (float) lookVec.y, (float) lookVec.z);
         danmakuEntityType.shoot(lookVec.x, lookVec.y, lookVec.z, velocity, inaccuracy);
         worldIn.addEntity(danmakuEntityType);
 
         playerIn.getHeldItemMainhand().shrink(1);
-        GensokyoOntology.LOGGER.info("????");
 
     }
 
@@ -80,7 +79,11 @@ public class DanmakuUtil {
                 (float) muzzle.y, (float) muzzle.z);
     }
 
-    public static Vector3d transformOrders(VectorOperations operation, TransformFunction function, Vector3d prevVec) {
+    public static void applyOperation (ArrayList<VectorOperations> operations, TransformFunction function, Vector3d prevVec) {
+        // operations.forEach(operation -> getTransform(operation, function, prevVec));
+    }
+
+    public static Vector3d getTransform(VectorOperations operation, TransformFunction function, Vector3d prevVec) {
         if (function.scaling > 0F) {
             if (operation == VectorOperations.ROTATE_YAW) {
                 return prevVec.rotateYaw(function.scaling);
@@ -91,20 +94,28 @@ public class DanmakuUtil {
             else if (operation == VectorOperations.ROTATE_PITCH) {
                 return prevVec.rotatePitch(function.scaling);
             }
-            else if (operation == VectorOperations.SCALE) {
+            else if (operation == VectorOperations.VECTOR_SCALE) {
                 return prevVec.scale(function.scaling);
             }
         }
         else if (function.acceleration != null) {
-            if (operation == VectorOperations.ADD) {
+            if (operation == VectorOperations.VECTOR_ADD) {
                 return prevVec.add(function.acceleration);
             }
-            else if (operation == VectorOperations.SUBTRACT) {
+            else if (operation == VectorOperations.VECTOR_SUBTRACT) {
                 return prevVec.subtract(function.acceleration);
             }
         }
+        else if (operation == VectorOperations.ARCHIMEDE_SPIRAL) {
+            return getArchimedeSpiral(prevVec, 1.0f, Math.PI);
+        }
 
         return prevVec;
+    }
+
+    public static Vector3d getArchimedeSpiral(Vector3d prevVec, double radius, double angle) {
+        return new Vector3d(prevVec.x * radius * Math.cos(angle),
+                prevVec.y, prevVec.z * radius * Math.signum(angle));
     }
 
 }

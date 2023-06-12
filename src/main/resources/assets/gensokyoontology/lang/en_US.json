@@ -25,11 +25,14 @@
   "item.gensokyoontology.large_shot": "Large Shot",
   "item.gensokyoontology.heart_shot": "Heart Shot",
   "item.gensokyoontology.star_shot": "Star Shot",
+  "item.gensokyoontology.fake_lunar": "Fake Lunar",
 
   "item.gensokyoontology.bomb_item": "Bomb Item",
 
   "item.gensokyoontology.sc_wave_and_particle": "Spell Card: Wave and Particle",
   "item.gensokyoontology.sc_ido_no_kaiho": "Spell Card: The Release of Ido",
+  "item.gensokyoontology.sc_hell_eclipse": "Spell Card: Hell Eclipse",
+
   "item.gensokyoontology.inyo_jade_black": "Yin Yo Jade Black",
   "item.gensokyoontology.inyo_jade_red": "Yin Yo Jade Red",
   "item.gensokyoontology.inyo_jade_yellow": "Yin Yo Jade Yellow",
@@ -100,12 +103,13 @@
   "effect.gensokyoontology.mania": "Mania",
   "effect.gensokyoontology.depression": "Depression",
 
-  "entity.gensokyoontology.spell_card_entity": "Spell Card Entity",
+  "entity.gensokyoontology.spell_card_entity": "Spell Card",
 
-  "entity.gensokyoontology.danmaku_entity": "Danmaku Entity",
-  "entity.gensokyoontology.large_shot_entity": "Large Shot Entity",
-  "entity.gensokyoontology.heart_shot_entity": "Heart Shot Entity",
-  "entity.gensokyoontology.star_shot_entity": "Star Show Entity",
+  "entity.gensokyoontology.danmaku_entity": "Danmaku Shot",
+  "entity.gensokyoontology.large_shot": "Large Shot",
+  "entity.gensokyoontology.heart_shot": "Heart Shot",
+  "entity.gensokyoontology.star_shot": "Star Shot",
+  "entity.gensokyoontology.fake_lunar": "Fake Lunar",
 
   "entity.gensokyoontology.fairy": "Fairy",
   "entity.gensokyoontology.inyo_jade": "Inyo Jade",

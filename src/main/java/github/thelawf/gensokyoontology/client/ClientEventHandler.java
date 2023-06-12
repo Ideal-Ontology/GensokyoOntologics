@@ -4,9 +4,12 @@ import github.thelawf.gensokyoontology.client.model.DomainFieldModel;
 import github.thelawf.gensokyoontology.client.renderer.*;
 import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.HellEclipseEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.CircleCrossEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.WaveAndParticleEntity;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -24,24 +27,33 @@ public class ClientEventHandler {
     public static void onClientSetUp(FMLClientSetupEvent event) {
         ItemRenderer itemRenderer = event.getMinecraftSupplier().get().getItemRenderer();
 
+        // ========================== 弹幕的渲染器 ======================== //
         RenderingRegistry.registerEntityRenderingHandler(DanmakuShotEntity.DANMAKU,
                 manager -> new SpriteRenderer<>(manager, itemRenderer));
         RenderingRegistry.registerEntityRenderingHandler(HeartShotEntity.HEART_SHOT,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(LargeShotEntity.LARGE_SHOT,
                 manager -> new SpriteRenderer<>(manager, itemRenderer));
+        RenderingRegistry.registerEntityRenderingHandler(FakeLunarEntity.FAKE_LUNAR,
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 5.0f, false));
 
+        // ======================== 贴图类怪物的渲染器 ==================== //
         RenderingRegistry.registerEntityRenderingHandler(InyoJadeMonsterEntity.INYO_JADE_MONSTER,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(SpectreEntity.SPECTRE,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
+        // ======================== 符卡实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(WaveAndParticleEntity.WAVE_AND_PARTICLE,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(IdonokaihoEntity.IDONOKAIHO_ENTITY,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(CircleCrossEntity.CIRCLE_CROSS_ENTITY,
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(HellEclipseEntity.HELL_ECLIPSE_ENTITY,
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
-
+        // =========================== 人形生物的渲染器 ========================= //
         RenderingRegistry.registerEntityRenderingHandler(FairyEntity.FAIRY, FairyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
 
@@ -50,6 +62,7 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(CitizenEntity.CITIZEN,
                 CitizenRenderer::new);
 
+        // ====================== 奇怪实体的渲染器 ===================== //
         RenderingRegistry.registerEntityRenderingHandler(NamespaceDomain.NAMESPACE_DOMAIN,
                manager -> new NamespaceDomainRenderer(manager, new DomainFieldModel()));
     }

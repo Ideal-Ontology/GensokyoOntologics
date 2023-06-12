@@ -54,6 +54,7 @@ public class TransformFunction extends ITransform.AbstractTransform {
     public UUID aimingAt = null;
 
     public ArrayList<VectorOperations> transformOrders = new ArrayList<>();
+    public ArrayList<TransformUnit> transformUnits = new ArrayList<>();
 
     public VectorOperations vectorOperations;
 
@@ -219,6 +220,11 @@ public class TransformFunction extends ITransform.AbstractTransform {
 
     public TransformFunction setIncrement(double increment) {
         this.increment = increment;
+        return this;
+    }
+
+    public TransformFunction addTransformUnit(TransformUnit transformUnit) {
+        this.transformUnits.add(transformUnit);
         return this;
     }
 

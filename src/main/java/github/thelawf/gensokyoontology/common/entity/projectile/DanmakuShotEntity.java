@@ -14,7 +14,7 @@ public class DanmakuShotEntity extends AbstractDanmakuEntity {
 
     public static final EntityType<DanmakuShotEntity> DANMAKU = EntityType.Builder.<DanmakuShotEntity>create(
                     DanmakuShotEntity::new, EntityClassification.MISC).size(0.5F,0.5F).trackingRange(4)
-            .updateInterval(2).build("danmaku_entity");
+            .updateInterval(2).build("danmaku_shot");
 
     public static final int MAX_LIVING_TICK = 125;
 

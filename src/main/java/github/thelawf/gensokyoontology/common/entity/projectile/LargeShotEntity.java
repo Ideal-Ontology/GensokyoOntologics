@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -15,15 +16,20 @@ public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAs
 
     public static final EntityType<LargeShotEntity> LARGE_SHOT = EntityType.Builder.<LargeShotEntity>create(
                     LargeShotEntity::new, EntityClassification.MISC).size(0.5F,0.5F).trackingRange(4)
-            .updateInterval(2).build("large_shot_entity");
+            .updateInterval(2).build("large_shot");
 
-    public LargeShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
+    public LargeShotEntity(World worldIn) {
         super(LARGE_SHOT, worldIn);
     }
 
     public LargeShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
         super(LARGE_SHOT, throwerIn, world, spellData);
     }
+
+    public LargeShotEntity(EntityType<LargeShotEntity> largeShotEntityEntityType, World worldIn) {
+        super(LARGE_SHOT, worldIn);
+    }
+
 
     @Override
     @NotNull

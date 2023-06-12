@@ -3,13 +3,12 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.danmaku.DanmakuShotItem;
+import github.thelawf.gensokyoontology.common.item.danmaku.FakeLunarItem;
 import github.thelawf.gensokyoontology.common.item.danmaku.HeartShot;
 import github.thelawf.gensokyoontology.common.item.danmaku.LargeShot;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
-import github.thelawf.gensokyoontology.common.item.spellcard.SC_IdoNoKaiho;
-import github.thelawf.gensokyoontology.common.item.spellcard.SC_WaveAndParticle;
+import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
-import github.thelawf.gensokyoontology.common.item.spellcard.SpellCardBlank;
 import github.thelawf.gensokyoontology.common.item.tools.*;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
@@ -249,11 +248,20 @@ public final class ItemRegistry {
 
     public static final RegistryObject<SC_WaveAndParticle> SC_WAVE_AND_PARTICLE = ITEMS.register(
             "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
-                    "波与粒的境界","",500));
+                    "境符「波与粒的境界」","",500));
 
     public static final RegistryObject<SC_IdoNoKaiho> SC_IDO_NO_KAIHO = ITEMS.register(
             "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
-                    "本我的解放","", 600));
+                    "本能「本我的解放」","", 600));
+
+    public static final RegistryObject<SC_CircleCross> SC_CIRCLE_CROSS = ITEMS.register(
+            "sc_circle_cross", () -> new SC_CircleCross(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
+                    "圆形交叉弹", "", 500));
+
+    public static final RegistryObject<SC_HellEclipse> SC_HELL_ECLIPSE = ITEMS.register(
+            "sc_hell_eclipse", () -> new SC_HellEclipse(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
+                    "狱符「地狱月食」", "", 500));
+
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
 
@@ -263,6 +271,10 @@ public final class ItemRegistry {
             "large_shot", () -> new LargeShot(DanmakuType.LARGE_SHOT));
     public static final RegistryObject<Item> HEART_SHOT_ITEM = ITEMS.register(
             "heart_shot", () -> new HeartShot(DanmakuType.HEART_SHOT));
+
+    public static final RegistryObject<Item> FAKE_LUNAR_ITEM = ITEMS.register(
+            "fake_lunar", () -> new FakeLunarItem(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> INYO_JADE_BLACK = ITEMS.register(
             "inyo_jade_black", () -> new InyoJade(DyeColor.BLACK,

@@ -25,11 +25,14 @@
   "item.gensokyoontology.large_shot": "Large Shot",
   "item.gensokyoontology.heart_shot": "Heart Shot",
   "item.gensokyoontology.star_shot": "Star Shot",
+  "item.gensokyoontology.fake_lunar": "Fake Lunar",
 
   "item.gensokyoontology.bomb_item": "Bomb Item",
 
   "item.gensokyoontology.sc_wave_and_particle": "境符「波と粒の境界」",
   "item.gensokyoontology.sc_ido_no_kaiho": " 本能「イドの解放」",
+  "item.gensokyoontology.sc_hell_eclipse": "獄符「ヘルエクリプス」",
+
   "item.gensokyoontology.inyo_jade_black": "陰陽玉「黒」",
   "item.gensokyoontology.inyo_jade_red": "陰陽玉「赤」",
   "item.gensokyoontology.inyo_jade_yellow": "陰陽玉「黄」",
@@ -103,13 +106,14 @@
   "entity.gensokyoontology.spell_card_entity": "Spell Card Entity",
 
   "entity.gensokyoontology.danmaku_entity": "Danmaku Entity",
-  "entity.gensokyoontology.large_shot_entity": "Large Shot Entity",
-  "entity.gensokyoontology.heart_shot_entity": "Heart Shot Entity",
-  "entity.gensokyoontology.star_shot_entity": "Star Show Entity",
+  "entity.gensokyoontology.large_shot": "Large Shot",
+  "entity.gensokyoontology.heart_shot": "Heart Shot",
+  "entity.gensokyoontology.star_shot": "Star Shot",
+  "entity.gensokyoontology.fake_lunar": "偽の月",
 
   "entity.gensokyoontology.fairy": "妖精",
-  "entity.gensokyoontology.inyo_jade": "Inyo Jade",
-  "entity.gensokyoontology.spectre": "Spectre",
+  "entity.gensokyoontology.inyo_jade": "陰陽玉",
+  "entity.gensokyoontology.spectre": "幽霊",
   "entity.gensokyoontology.human_resident": "Human Resident",
   "entity.gensokyoontology.citizen": "Citizen",
 

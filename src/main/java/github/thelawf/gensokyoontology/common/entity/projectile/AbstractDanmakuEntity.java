@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
@@ -15,6 +16,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -41,7 +43,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     // public static final DataParameter<CompoundNBT> DATA_SPELL = EntityDataManager.createKey(
     //         AbstractDanmakuEntity.class, DataSerializers.COMPOUND_NBT);
 
-    private SpellData spellData;
+    protected SpellData spellData;
     public TransformFunction function;
     public CompoundNBT compoundNBT = new CompoundNBT();
     protected AbstractDanmakuEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
@@ -122,9 +124,16 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     @Override
     protected void onEntityHit(EntityRayTraceResult result) {
         Entity shooter = getShooter();
+        if (!(result.getEntity() instanceof LivingEntity))
+            return;
+
+        // if (shooter != null) {
+        //     LOGGER.info("{} Hit {}!", this.getClass().getName(), shooter.getClass().getName());
+        // }
+
         LivingEntity entityHit = (LivingEntity) result.getEntity();
         if (shooter instanceof PlayerEntity && !(entityHit instanceof PlayerEntity)) {
-            // entityHit.addPotionEffect(new EffectInstance(EffectRegistry.LOVE_EFFECT.get(), 5 * 40));
+
             entityHit.attackEntityFrom(GSKODamageSource.DANMAKU,spellData.danmakuType.damage);
             this.remove();
         }
