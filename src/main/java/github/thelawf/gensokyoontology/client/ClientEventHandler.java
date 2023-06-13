@@ -3,15 +3,9 @@ package github.thelawf.gensokyoontology.client;
 import github.thelawf.gensokyoontology.client.model.DomainFieldModel;
 import github.thelawf.gensokyoontology.client.renderer.*;
 import github.thelawf.gensokyoontology.common.entity.*;
-import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.HellEclipseEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.CircleCrossEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.WaveAndParticleEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.*;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -34,6 +28,12 @@ public class ClientEventHandler {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(LargeShotEntity.LARGE_SHOT,
                 manager -> new SpriteRenderer<>(manager, itemRenderer));
+
+        RenderingRegistry.registerEntityRenderingHandler(StarShotEntity.STAR_SHOT_SMALL,
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 0.5f, false));
+        RenderingRegistry.registerEntityRenderingHandler(StarShotEntity.STAR_SHOT_SMALL,
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
+
         RenderingRegistry.registerEntityRenderingHandler(FakeLunarEntity.FAKE_LUNAR,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 5.0f, false));
 
@@ -51,6 +51,8 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(CircleCrossEntity.CIRCLE_CROSS_ENTITY,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(HellEclipseEntity.HELL_ECLIPSE_ENTITY,
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(MountainOfFaithEntity.MOUTAIN_OF_FAITH_ENTITY,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // =========================== 人形生物的渲染器 ========================= //

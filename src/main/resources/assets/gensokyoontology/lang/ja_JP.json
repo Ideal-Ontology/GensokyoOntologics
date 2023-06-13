@@ -25,13 +25,16 @@
   "item.gensokyoontology.large_shot": "Large Shot",
   "item.gensokyoontology.heart_shot": "Heart Shot",
   "item.gensokyoontology.star_shot": "Star Shot",
-  "item.gensokyoontology.fake_lunar": "Fake Lunar",
+  "item.gensokyoontology.fake_lunar": "偽の月",
 
   "item.gensokyoontology.bomb_item": "Bomb Item",
 
+  "item.gensokyoontology.spell_card_blank": "Spell Card Blank",
+  "item.gensokyoontology.sc_circle_cross": "Spell Card Circle Cross (Experimental)",
   "item.gensokyoontology.sc_wave_and_particle": "境符「波と粒の境界」",
   "item.gensokyoontology.sc_ido_no_kaiho": " 本能「イドの解放」",
   "item.gensokyoontology.sc_hell_eclipse": "獄符「ヘルエクリプス」",
+  "item.gensokyoontology.sc_mountain_of_faith": "「マウンテン・オブ・フェイス」",
 
   "item.gensokyoontology.inyo_jade_black": "陰陽玉「黒」",
   "item.gensokyoontology.inyo_jade_red": "陰陽玉「赤」",
@@ -41,7 +44,7 @@
   "item.gensokyoontology.inyo_jade_blue": "陰陽玉「蒼」",
   "item.gensokyoontology.inyo_jade_purple": "陰陽玉「紫」",
 
-  "item.gensokyoontology.hakurei_gohei": "Hakurei Gohei",
+  "item.gensokyoontology.hakurei_gohei": "博麗の御幣",
   "item.gensokyoontology.marisa_hakkeiro": "Marisa Hakkeiro",
   "item.gensokyoontology.koishi_eye": "こいしのサードアイ",
   "item.gensokyoontology.koishi_hat": "Koishi Hat",

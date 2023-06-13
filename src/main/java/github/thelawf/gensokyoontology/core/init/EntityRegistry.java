@@ -4,10 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.HellEclipseEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.CircleCrossEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.WaveAndParticleEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.*;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -47,10 +44,16 @@ public final class EntityRegistry {
             "danmaku_shot", () -> DanmakuShotEntity.DANMAKU);
     public static final RegistryObject<EntityType<HeartShotEntity>> HERAT_SHOT_ENTITY = ENTITIES.register(
             "heart_shot", () -> HeartShotEntity.HEART_SHOT);
-    public static final RegistryObject<EntityType<LargeShotEntity>> LARGE_SHOT_ENTITY =ENTITIES.register(
+    public static final RegistryObject<EntityType<LargeShotEntity>> LARGE_SHOT_ENTITY = ENTITIES.register(
             "large_shot", () -> LargeShotEntity.LARGE_SHOT);
+    public static final RegistryObject<EntityType<StarShotEntity>> STAR_SHOT_SMALL_ENTITY = ENTITIES.register(
+            "star_shot_small", () -> StarShotEntity.STAR_SHOT_SMALL);
+    public static final RegistryObject<EntityType<StarShotEntity>> STAR_SHOT_LARGE_ENTITY = ENTITIES.register(
+            "start_shot_large", () -> StarShotEntity.STAR_SHOT_LARGE);
     public static final RegistryObject<EntityType<FakeLunarEntity>> FAKE_LUNAR_ENTITY = ENTITIES.register(
             "fake_lunar", () -> FakeLunarEntity.FAKE_LUNAR);
+
+    // ================================ 不知道是什么的实体 ================================= //
     public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = ENTITIES.register(
             "master_spark", () -> MasterSparkEntity.MASTER_SPARK);
     public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
@@ -68,6 +71,8 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<HellEclipseEntity>> HELL_ECLIPSE_ENTITY =
             ENTITIES.register("hell_eclipse", () -> HellEclipseEntity.HELL_ECLIPSE_ENTITY);
 
+    public static final RegistryObject<EntityType<MountainOfFaithEntity>> MOUNTAIN_OF_FAITH_ENTITY =
+            ENTITIES.register("mountain_of_faith", () -> MountainOfFaithEntity.MOUTAIN_OF_FAITH_ENTITY);
 
     // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
    //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);

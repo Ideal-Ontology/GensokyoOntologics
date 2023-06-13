@@ -2,10 +2,7 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.item.*;
-import github.thelawf.gensokyoontology.common.item.danmaku.DanmakuShotItem;
-import github.thelawf.gensokyoontology.common.item.danmaku.FakeLunarItem;
-import github.thelawf.gensokyoontology.common.item.danmaku.HeartShot;
-import github.thelawf.gensokyoontology.common.item.danmaku.LargeShot;
+import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
@@ -241,7 +238,6 @@ public final class ItemRegistry {
 
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//
-
     public static final RegistryObject<SpellCardBlank> SPELL_CARD_BLANK = ITEMS.register(
             "spell_card_blank", () -> new SpellCardBlank(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
@@ -262,6 +258,10 @@ public final class ItemRegistry {
             "sc_hell_eclipse", () -> new SC_HellEclipse(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
                     "狱符「地狱月食」", "", 500));
 
+    public static final RegistryObject<SC_MountainOfFaith> SC_MOUNTAIN_OF_FAITH = ITEMS.register(
+            "sc_mountain_of_faith", () -> new SC_MountainOfFaith(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
+                    "信仰之山", "", 500));
+
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
 
@@ -272,6 +272,8 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> HEART_SHOT_ITEM = ITEMS.register(
             "heart_shot", () -> new HeartShot(DanmakuType.HEART_SHOT));
 
+    public static final RegistryObject<Item> STAR_SHOT_ITEM = ITEMS.register(
+            "star_shot", () -> new StarShot(DanmakuType.STAR_SHOT_SMALL));
     public static final RegistryObject<Item> FAKE_LUNAR_ITEM = ITEMS.register(
             "fake_lunar", () -> new FakeLunarItem(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB)));

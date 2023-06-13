@@ -27,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class SpellCardEntity extends Entity implements IRendersAsItem {
 
     private int lifeSpan = 100;
@@ -82,44 +83,11 @@ public class SpellCardEntity extends Entity implements IRendersAsItem {
 
         for (int i = 0; i < 4; i++) {
             Vector3d nextVec = lookVec.rotateYaw((float) (i * Math.PI / 2));
-
-            this.muzzles.add(new Muzzle<>(new TransformFunction()
-                    .setPlayer(player)
-                    .setInitLocation(playerPos)
-                    .setShootVector(nextVec)
-                    .setLifeSpan(200)
-                    .setIncrement(Math.PI / 180),
-                    new LargeShotEntity(player, world)
-            ));
         }
 
         // 在这里调用变换函数，使用 tickExisted 作为变换函数中increment增加值的迭代单位
         boolean finalCanShoot = canShoot;
 
-        this.muzzles.forEach(muzzle -> {
-            if (finalCanShoot && ticksExisted % 2 == 0) {
-                LargeShotEntity danmaku = new LargeShotEntity(muzzle.getPlayer(), muzzle.getPlayer().getEntityWorld());
-                Vector3d prevAngle = muzzle.getFunc().getShootVector();
-
-                if (muzzle.getFunc().increment != 0D) {
-                    Vector3d newAngle = prevAngle.rotateYaw((float) muzzle.getFunc().increment +
-                            (float) (Math.PI / 60 * ticksExisted) * ticksExisted);
-
-                    danmaku.setNoGravity(true);
-                    danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
-                            (float) newAngle.y, (float) newAngle.z);
-                }
-                else {
-                    danmaku.setNoGravity(true);
-                    danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
-                            (float) prevAngle.y, (float) prevAngle.z);
-                }
-                danmaku.shoot(prevAngle.x, prevAngle.y, prevAngle.z, 0.3f, 0f);
-                world.addEntity(danmaku);
-            }
-        });
-
-        GensokyoOntology.LOGGER.info("符卡持续时间：" + ticksExisted);
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {

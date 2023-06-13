@@ -4,6 +4,7 @@
 
   "item.gensokyoontology.hotspring_bucket": "温泉水桶",
   "item.gensokyoontology.wandering_soul": "游荡的灵魂",
+
   "item.gensokyoontology.spirit_star": "灵魂之星",
   "item.gensokyoontology.spirit_fragment": "意识形态碎片",
   "item.gensokyoontology.dialectic_spirit": "意识形态·辩证",
@@ -28,9 +29,12 @@
 
   "item.gensokyoontology.bomb_item": "B点",
 
+  "item.gensokyoontology.spell_card_blank": "空白符卡",
+  "item.gensokyoontology.sc_circle_cross": "实验性符卡：原型交叉弹",
   "item.gensokyoontology.sc_wave_and_particle": "境符「波与粒的境界」",
   "item.gensokyoontology.sc_ido_no_kaiho": "本能「本我的解放」",
   "item.gensokyoontology.sc_hell_eclipse": "狱符「地狱月食」",
+  "item.gensokyoontology.sc_mountain_of_faith": "「信仰之山」",
 
   "item.gensokyoontology.inyo_jade_black": "阴阳玉（黑）",
   "item.gensokyoontology.inyo_jade_red": "阴阳玉（红）",
@@ -45,19 +49,20 @@
   "item.gensokyoontology.koishi_eye": "恋之瞳",
   "item.gensokyoontology.koishi_hat": "恋恋的帽子",
   "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
-
   "item.gensokyoontology.story_card": "故事卡片",
 
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
   "item.gensokyoontology.koishi_hat_mousse": "无意识妖怪慕斯",
   "item.gensokyoontology.cake_scarlet_demon": "猩红恶魔蛋糕",
   "item.gensokyoontology.butter": "黄油",
+
   "item.gensokyoontology.milk_bottle": "牛奶瓶",
   "item.gensokyoontology.lingoame": "苹果糖",
   "item.gensokyoontology.tako_yaki": "章鱼小丸子",
   "item.gensokyoontology.white_snow": "白雪",
   "item.gensokyoontology.squid_tentacle": "鱿鱼须",
   "item.gensokyoontology.onion": "洋葱",
+
   "item.gensokyoontology.kitchen_knife": "菜刀",
   "item.gensokyoontology.burger_meat_raw": "生汉堡肉",
   "item.gensokyoontology.burger_meat": "汉堡肉",
@@ -92,6 +97,7 @@
   "block.gensokyoontology.rotate_frame": "旋转框架测试方块",
 
   "container.gensokyoontology.danmaku_craft.title": "弹幕合成",
+
   "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
   "description.gensokyoontology.praxis_sword_description": "§6现在，你知道了所有的故事，那么，请开始实践吧~",
 
@@ -101,6 +107,7 @@
   "effect.gensokyoontology.depression": "抑郁",
 
   "entity.gensokyoontology.spell_card_entity": "符卡实体",
+
   "entity.gensokyoontology.danmaku_entity": "弹幕实体",
   "entity.gensokyoontology.large_shot": "大弹",
   "entity.gensokyoontology.heart_shot": "心弹",
@@ -110,15 +117,14 @@
   "entity.gensokyoontology.fairy": "妖精",
   "entity.gensokyoontology.inyo_jade": "阴阳玉",
   "entity.gensokyoontology.spectre": "幽灵",
-
   "entity.gensokyoontology.human_resident": "人里居民",
   "entity.gensokyoontology.citizen": "市民",
 
   "entity.gensokyoontology.komeiji_koishi": "古明地恋",
   "entity.gensokyoontology.usami_sumireko": "宇佐见堇子",
   "entity.gensokyoontology.yakumo_yukari": "八云紫",
-  "gui.gensokyoontology.rail_adjust.title": "轨道调整",
 
+  "gui.gensokyoontology.rail_adjust.title": "轨道调整",
   "gui.gensokyoontology.button.increase_roll": "+",
   "gui.gensokyoontology.button.increase_yaw": "+",
   "gui.gensokyoontology.button.increase_pitch": "+",
@@ -142,6 +148,7 @@
 
   "nbt.gensokyoontology.start_pos": "轨道起点：",
   "nbt.gensokyoontology.end_pos": "轨道终点： ",
+
   "screen.gensokyoontology.loading": "少女折寿中...",
 
   "story.gensokyoontology.chapter_1_1.page_1": "I can't forget the day when I rest down in peace. The sky was stained by a crimson color like the end of the world. People spread rumors that there falls a mansion of vampires on another side of Misty Lake. I do not believe at first for no one ever comes to the other side of Misty Lake, but here, look at me, I should have believe it...",
@@ -152,6 +159,7 @@
   "tooltip.gensokyoontology.praxis_sword_info": "按住 §9SHIFT§r 查看更多信息",
   "tooltip.gensokyoontology.idealism_sword_shift": "§5右键释放现实裂缝§r",
   "tooltip.gensokyoontology.praxis_sword_shift": "过于OP，已被弃用",
+
   "tooltip.gensokyoontology.occult_ball.biome": "神秘地点: ",
 
   "patchouli.gensokyoontology.book.name": "幻想存有论",
@@ -208,9 +216,10 @@
   "patchouli.gensokyoontology.task.ideology.magnificent.title": "How to get Hochfliegend",
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p2": "This might be a picture?",
-  "patchouli.gensokyoontology.task.spirit.title": "意识形态",
 
+  "patchouli.gensokyoontology.task.spirit.title": "意识形态",
   "patchouli.gensokyoontology.task.spirit_fragment.title": "意识形态碎片",
+
   "patchouli.gensokyoontology.spell_card.sc_koishi.title": "恋恋的符卡",
   "patchouli.gensokyoontology.spell_card.sc_yukari.title": "紫的符卡",
   "patchouli.gensokyoontology.spell_card.sc_leviathan.title": "利维坦的符卡",

@@ -27,10 +27,10 @@ public enum DanmakuType {
     LARGE_SHOT("large_shot",2.5f, 2.5f),
 
     // 小星弹
-    SMALL_STAR_SHOT("small_star_shot", 0.5f, 0.5f),
+    STAR_SHOT_SMALL("small_star_shot", 0.5f, 0.5f),
 
     // 星弹
-    LARGE_STAR_SHOT("large_star_shot", 1.5f, 2f),
+    STAR_SHOT_LARGE("large_star_shot", 1.5f, 2f),
 
     // 光弹
     LIGHT_SHOT("light_shot",1.0f,1.0f),

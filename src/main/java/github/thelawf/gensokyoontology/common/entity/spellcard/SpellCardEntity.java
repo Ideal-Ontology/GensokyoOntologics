@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuMuzzle;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
@@ -103,7 +104,12 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     protected <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d muzzle) {
         danmaku.setNoGravity(true);
         danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
-                (float) muzzle.y, (float) muzzle.z);
+                this.rotationYaw, this.rotationPitch);
+    }
+
+    protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d muzzle) {
+        danmaku.setNoGravity(true);
+        danmaku.setLocationAndAngles(muzzle.x, muzzle.y, muzzle.z, this.rotationYaw, this.rotationPitch);
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {

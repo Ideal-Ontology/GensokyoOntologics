@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
@@ -16,7 +15,6 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -26,13 +24,13 @@ import javax.annotation.Nonnull;
 
 /**
  * 抽象弹幕类，用于处理所有继承于该类的弹幕实体的那些相似的逻辑，包含如下几个方面：<br>
- * 弹幕的生命周期或存在时间：{@value MAX_LIVING_TICK} 个游戏刻<br>
+ * 弹幕的生命周期或存在时间：{@value maxLivingTick} 个游戏刻<br>
  * 弹幕的tick()方法<br>
  * 弹幕击中生物时的逻辑<br>
  * （待补充……）
  */
 public abstract class AbstractDanmakuEntity extends ThrowableEntity implements IRendersAsItem {
-    public static final int MAX_LIVING_TICK = 125;
+    private int maxLivingTick = 125;
     public float damage = 2.0f;
     public static final DataParameter<Float> DATA_DAMAGE = EntityDataManager.createKey(
             AbstractDanmakuEntity.class, DataSerializers.FLOAT);
@@ -55,6 +53,14 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         this.spellData = spellData;
     }
 
+    public void setMaxLivingTick(int maxLivingTick) {
+        this.maxLivingTick = maxLivingTick;
+    }
+
+    public int getMaxLivingTick() {
+        return maxLivingTick;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -63,7 +69,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
             return;
         }
 
-        if (this.ticksExisted >= MAX_LIVING_TICK) {
+        if (this.ticksExisted >= maxLivingTick) {
             this.remove();
         }
     }
