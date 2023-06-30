@@ -1,0 +1,11 @@
+{
+  "replace": false,
+  "values": [
+    "gensokyoontology:large_shot_red",
+    "gensokyoontology:large_shot_yellow",
+    "gensokyoontology:large_shot_green",
+    "gensokyoontology:large_shot_aqua",
+    "gensokyoontology:large_shot_blue",
+    "gensokyoontology:large_shot_purple"
+  ]
+}

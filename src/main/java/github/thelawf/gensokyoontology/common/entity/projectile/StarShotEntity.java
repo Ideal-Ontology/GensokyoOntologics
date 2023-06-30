@@ -26,7 +26,7 @@ public class StarShotEntity extends AbstractDanmakuEntity {
         super(STAR_SHOT_SMALL, worldIn);
     }
 
-    public StarShotEntity(EntityType<? extends ThrowableEntity> type, LivingEntity throwerIn, World world, SpellData spellData) {
+    public StarShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
         super(STAR_SHOT_SMALL, throwerIn, world, spellData);
     }
 

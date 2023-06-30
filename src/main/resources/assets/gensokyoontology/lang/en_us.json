@@ -21,20 +21,34 @@
   "item.gensokyoontology.idealism_sword": "观念论之剑",
   "item.gensokyoontology.praxis_sword": "实践",
 
-  "item.gensokyoontology.danmaku_shot": "弹幕之点",
-  "item.gensokyoontology.large_shot_red": "大弹（红）",
-  "item.gensokyoontology.heart_shot_pink": "心弹（粉）",
-  "item.gensokyoontology.star_shot_blue": "星弹",
-  "item.gensokyoontology.fake_lunar": "虚假之月",
-
-  "item.gensokyoontology.bomb_item": "B点",
-
   "item.gensokyoontology.spell_card_blank": "空白符卡",
   "item.gensokyoontology.sc_circle_cross": "实验性符卡：原型交叉弹",
   "item.gensokyoontology.sc_wave_and_particle": "境符「波与粒的境界」",
   "item.gensokyoontology.sc_ido_no_kaiho": "本能「本我的解放」",
   "item.gensokyoontology.sc_hell_eclipse": "狱符「地狱月食」",
   "item.gensokyoontology.sc_mountain_of_faith": "「信仰之山」",
+
+  "item.gensokyoontology.danmaku_shot": "弹幕之点",
+  "item.gensokyoontology.large_shot_red": "大弹（红）",
+  "item.gensokyoontology.large_shot_yellow": "大弹（黄）",
+  "item.gensokyoontology.large_shot_green": "大弹（绿）",
+  "item.gensokyoontology.large_shot_blue": "大弹（蓝）",
+  "item.gensokyoontology.large_shot_purple": "大弹（紫）",
+
+  "item.gensokyoontology.heart_shot_pink": "心弹（粉）",
+  "item.gensokyoontology.heart_shot_red": "心弹（红）",
+  "item.gensokyoontology.heart_shot_aqua": "心弹（淡蓝）",
+  "item.gensokyoontology.heart_shot_blue": "心弹（蓝）",
+
+  "item.gensokyoontology.star_shot_red": "星弹（红）",
+  "item.gensokyoontology.star_shot_yellow": "星弹（黄）",
+  "item.gensokyoontology.star_shot_green": "星弹（绿）",
+  "item.gensokyoontology.star_shot_blue": "星弹（蓝）",
+  "item.gensokyoontology.star_shot_aqua": "星弹（淡蓝）",
+  "item.gensokyoontology.star_shot_purple": "星弹（紫）",
+
+  "item.gensokyoontology.fake_lunar": "虚假之月",
+  "item.gensokyoontology.bomb_item": "B点",
 
   "item.gensokyoontology.inyo_jade_black": "阴阳玉（黑）",
   "item.gensokyoontology.inyo_jade_red": "阴阳玉（红）",
