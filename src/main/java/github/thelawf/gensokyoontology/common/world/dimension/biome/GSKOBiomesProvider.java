@@ -74,14 +74,20 @@ public class GSKOBiomesProvider extends BiomeProvider {
             RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter(o -> o.biomeRegistry))
             .apply(instance, instance.stable(GSKOBiomesProvider::new)));
 
-    private static final List<RegistryKey<Biome>> GSKO_BIOMES = ImmutableList.of(
+    /** MC生物群系最坑的一点：如果在这里使用RegistryKey的列表添加了群系，那么这些群系也需要添加在
+     * data/modid/worldgen/biome 路径之下
+     */
+    public static final List<RegistryKey<Biome>> GSKO_BIOMES = ImmutableList.of(
             GSKOBiomes.GSKO_PLAINS_KEY,
             GSKOBiomes.GSKO_FOREST_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
             GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
             GSKOBiomes.SUNFLOWER_GARDEN_KEY,
-            GSKOBiomes.HUMAN_VILLAGE_KEY
+            GSKOBiomes.HUMAN_VILLAGE_KEY,
+            GSKOBiomes.MISTY_LAKE_KEY,
+            GSKOBiomes.SANZU_RIVER_KEY,
+            GSKOBiomes.HIGAN_KEY
     );
 
     public GSKOBiomesProvider(long seed, Registry<Biome> biomeRegistry) {

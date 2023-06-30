@@ -26,8 +26,8 @@ public class CircleCrossEntity extends SpellCardEntity {
                             EntityClassification.MISC).size(1F,1F).trackingRange(4)
                     .updateInterval(2).build("circle_cross");
 
-    public CircleCrossEntity(EntityType<?> entityTypeIn, World worldIn, UUID owner) {
-        super(entityTypeIn, worldIn, owner);
+    public CircleCrossEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
+        super(entityTypeIn, worldIn, player);
     }
 
     public CircleCrossEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
@@ -40,7 +40,7 @@ public class CircleCrossEntity extends SpellCardEntity {
         if (ticksExisted >= lifeSpan)
             this.remove();
 
-        PlayerEntity player = world.getPlayers().get(0);
+        PlayerEntity player = (PlayerEntity) this.getOwner();
         Vector3d center = new Vector3d(Vector3f.XP);
 
         Vector3d local = center.add(4,0,0).rotateYaw(((float) (Math.PI / 60 * ticksExisted)));

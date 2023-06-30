@@ -13,7 +13,9 @@
     "sky_color": 6141433,
     "fog_color": 12638463,
     "water_color": 4364016,
-    "water_fog_color": 799137
+    "water_fog_color": 799137,
+    "grass_color": 2402825,
+    "foliage_color": 1281297
   },
   "spawn_costs" : {
 
@@ -29,15 +31,6 @@
       "minecraft:underwater_canyon"
     ]
   },
-  "spawners": {
-    "creature": [
-      {
-        "type": "minecraft:villager",
-        "weight": 10,
-        "minCount": 10,
-        "maxCount": 15
-      }
-    ]
-  },
+  "spawners": {},
   "starts": []
 }

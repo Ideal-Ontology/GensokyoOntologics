@@ -1,8 +1,8 @@
 {
   "depth": -0.65,
-  "scale": 0.001,
-  "downfall": 0.08,
-  "temperature": 0.55,
+  "scale": 0.02,
+  "downfall": 0.3,
+  "temperature": 0.65,
   "category": "river",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
@@ -16,7 +16,25 @@
     "water_fog_color": 329011
   },
   "spawn_costs": {},
-  "features": [],
+  "features": [
+    [],
+    [
+      "minecraft:lake_water"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:trees_plains",
+      "minecraft:patch_grass_jungle",
+      "minecraft:patch_grass_normal"
+    ],
+    []
+  ],
   "carvers": {
     "air": [
       "minecraft:cave",

@@ -23,9 +23,11 @@ public class SC_HellEclipse extends SpellCardItem {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (worldIn instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
-            EntityType<HellEclipseEntity> entityType = EntityRegistry.HELL_ECLIPSE_ENTITY.get();
-            entityType.spawn(serverWorld, playerIn.getHeldItemMainhand(), playerIn, playerIn.getPosition(),
-                    SpawnReason.MOB_SUMMONED,true, true);
+            // EntityType<HellEclipseEntity> entityType = EntityRegistry.HELL_ECLIPSE_ENTITY.get();
+            // entityType.spawn(serverWorld, playerIn.getHeldItemMainhand(), playerIn, playerIn.getPosition(),
+            //         SpawnReason.MOB_SUMMONED,true, true);
+            HellEclipseEntity hellEclipse = new HellEclipseEntity(worldIn, playerIn);
+            worldIn.addEntity(hellEclipse);
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

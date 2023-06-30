@@ -1,7 +1,7 @@
 {
   "depth": 0.12,
   "scale": 0.3,
-  "downfall": 0.1,
+  "downfall": 0.75,
   "temperature": 0.8,
   "category": "forest",
   "temperature_modifier": "none",
@@ -13,12 +13,37 @@
     "sky_color": 9090047,
     "fog_color": 5994087,
     "water_color": 5290221,
-    "water_fog_color": 270131
+    "water_fog_color": 270131,
+    "grass_color": 962329,
+    "foliage_color": 1867546
   },
   "spawn_costs" : {
 
   },
-  "features": [],
+  "features": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:dark_oak",
+      "minecraft:dark_oak",
+      "minecraft:dark_oak",
+      "minecraft:fancy_oak",
+      "minecraft:fancy_oak",
+      "minecraft:dark_forest_vegetation_brown",
+      "minecraft:dark_forest_vegetation_red",
+      "minecraft:brown_mushroom_giant",
+      "minecraft:huge_red_mushroom"
+
+    ],
+    []
+  ],
   "carvers": {
     "air": [
       "minecraft:cave",
@@ -86,6 +111,12 @@
         "weight": 3,
         "minCount": 3,
         "maxCount": 5
+      },
+      {
+        "type": "minecraft:pig",
+        "weight": 8,
+        "minCount": 2,
+        "maxCount": 3
       }
     ]
   },

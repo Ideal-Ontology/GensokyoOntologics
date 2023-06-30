@@ -9,6 +9,7 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public final class GSKOBiomeMaker {
@@ -33,7 +34,7 @@ public final class GSKOBiomeMaker {
         return biomegenerationSettings;
     }
 
-    private static BiomeGenerationSettings.Builder makeBiomeIfContains (List<Features> features) {
+    private static BiomeGenerationSettings.Builder addFeatureIfContains(List<Features> features) {
         BiomeGenerationSettings.Builder biomegenerationSettings
                 = (new BiomeGenerationSettings.Builder()
                 .withSurfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
@@ -45,94 +46,36 @@ public final class GSKOBiomeMaker {
         DefaultBiomeFeatures.withCommonOverworldBlocks(biomegenerationSettings);
         DefaultBiomeFeatures.withOverworldOres(biomegenerationSettings);
         DefaultBiomeFeatures.withDisks(biomegenerationSettings);
-//        DefaultBiomeFeatures.withForestGrass(BiomegenerationSettings);
         DefaultBiomeFeatures.withNormalMushroomGeneration(biomegenerationSettings);
         DefaultBiomeFeatures.withLavaAndWaterSprings(biomegenerationSettings);
 
-        if (features.contains(Features.PUMPKINS)) {
-            DefaultBiomeFeatures.withSugarCaneAndPumpkins(biomegenerationSettings);
-        }
-        if (features.contains(Features.FOREST_GRASS)) {
-            DefaultBiomeFeatures.withForestGrass(biomegenerationSettings);
-        }
-        if (features.contains(Features.SAKURA_TREE)) {
+        features.forEach(f -> {
+            if (features.contains(Features.PUMPKINS)) {
+                DefaultBiomeFeatures.withSugarCaneAndPumpkins(biomegenerationSettings);
+            }
+            if (features.contains(Features.FOREST_GRASS)) {
+                DefaultBiomeFeatures.withForestGrass(biomegenerationSettings);
+            }
+            if (features.contains(Features.ACACIA_TREE)) {
+                DefaultBiomeFeatures.withSavannaTrees(biomegenerationSettings);
+            }
+            if (features.contains(Features.PLAINS_GRASS)) {
+                DefaultBiomeFeatures.withPlainGrassVegetation(biomegenerationSettings);
+            }
+            if (features.contains(Features.NORMAL_GRASS_PATCH)) {
+                DefaultBiomeFeatures.withNormalGrassPatch(biomegenerationSettings);
+            }
+        });
 
-        }
 
         return biomegenerationSettings;
     }
 
-    public static Biome makeMagicForest() {
-        return new Biome.Builder()
-                .category(Biome.Category.FOREST)
-                .depth(1.05f)
-                .downfall(0f)
-                .scale(3.5f)
-                .temperature(0.7f)
-                .precipitation(Biome.RainType.RAIN)
-                .setEffects(new BiomeAmbience.Builder().setWaterColor(0x0DA7D6)
-                        .setWaterFogColor(0x282E84)
-                        .setFogColor(0xC0D8FF)
-                        .withGrassColor(0x59BA82)
-                        .withSkyColor(getSkyColor(0.7F))
-                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
-                        .build())
-                .withGenerationSettings(makeDefaultBuilder().build())
-                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
-                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
-                .build()
-                .setRegistryName(GensokyoOntology.MODID, "magic_forest");
-    }
-
-    public static Biome makeYoukaiMoutain() {
-        return new Biome.Builder()
-                .depth(5.2f)
-                .temperature(0.35f)
-                .scale(2.5f)
-                .downfall(0f)
-                .category(Biome.Category.EXTREME_HILLS)
-                .precipitation(Biome.RainType.SNOW)
-                .setEffects(new BiomeAmbience.Builder()
-                        .setWaterColor(0x0DA7D6)
-                        .setWaterFogColor(0x282E84)
-                        .setFogColor(0xC0D8FF)
-                        .withGrassColor(0x59BA82)
-                        .withSkyColor(getSkyColor(0.7F))
-                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
-                        .build())
-                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
-                .withGenerationSettings(makeDefaultBuilder().build())
-                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
-                .build()
-                .setRegistryName(GensokyoOntology.MODID, "youkai_mountain");
-
-    }
-
-    public static Biome makeGSKOWildLand() {
-        return new Biome.Builder()
-                .depth(1.7f)
-                .scale(2.5f)
-                .downfall(0f)
-                .temperature(0.35f)
-                .category(Biome.Category.EXTREME_HILLS)
-                .precipitation(Biome.RainType.SNOW)
-                .setEffects(new BiomeAmbience.Builder()
-                        .setWaterColor(0xEDA7D6)
-                        .setWaterFogColor(0x282E84)
-                        .setFogColor(0xC0D8FF)
-                        .withGrassColor(0x59BA82)
-                        .withSkyColor(getSkyColor(0.7F))
-                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
-                        .build())
-                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
-                .withGenerationSettings(makeDefaultBuilder().build())
-                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
-                .build()
-                .setRegistryName(GensokyoOntology.MODID, "youkai_mountain");
-
-    }
-
     public static Biome makeYatsugaTakeBiome() {
+        List<Features> features = new ArrayList<>();
+        features.add(Features.ACACIA_TREE);
+        features.add(Features.NORMAL_GRASS_PATCH);
+
         return new Biome.Builder()
                 .depth(2.8f)
                 .scale(1.5f)
@@ -141,7 +84,7 @@ public final class GSKOBiomeMaker {
                 .category(Biome.Category.EXTREME_HILLS)
                 .precipitation(Biome.RainType.SNOW)
                 .withMobSpawnSettings(MobSpawnInfo.EMPTY)
-                .withGenerationSettings(makeDefaultBuilder().build())
+                .withGenerationSettings(addFeatureIfContains(features).build())
                 .withTemperatureModifier(Biome.TemperatureModifier.NONE)
                 .setEffects(new BiomeAmbience.Builder()
                         .setWaterColor(0x0DA7D6)
@@ -155,30 +98,12 @@ public final class GSKOBiomeMaker {
                 .setRegistryName(GensokyoOntology.MODID, "mountain_yatsugatake");
     }
 
-    public static Biome makeBambooForestLost() {
-        return new Biome.Builder()
-                .depth(1.5f)
-                .scale(4.5f)
-                .downfall(0f)
-                .temperature(0.3f)
-                .category(Biome.Category.JUNGLE)
-                .precipitation(Biome.RainType.RAIN)
-                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
-                .withGenerationSettings(makeDefaultBuilder().build())
-                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
-                .setEffects(new BiomeAmbience.Builder()
-                        .setWaterColor(0x0DA7D6)
-                        .setWaterFogColor(0x282E84)
-                        .setFogColor(0xC0D8FF)
-                        .withGrassColor(0x59BA82)
-                        .withSkyColor(getSkyColor(0.7F))
-                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
-                        .build())
-                .build()
-                .setRegistryName(GensokyoOntology.MODID, "bamboo_forest_of_lost");
-    }
 
     public static Biome makeYamotsuHirasaka() {
+        List<Features> features = new ArrayList<>();
+        features.add(Features.PLAINS_GRASS);
+        features.add(Features.NORMAL_GRASS_PATCH);
+
         return new Biome.Builder()
                 .depth(0.1f)
                 .scale(0.34f)
@@ -187,7 +112,7 @@ public final class GSKOBiomeMaker {
                 .category(Biome.Category.FOREST)
                 .precipitation(Biome.RainType.RAIN)
                 .withMobSpawnSettings(MobSpawnInfo.EMPTY)
-                .withGenerationSettings(makeDefaultBuilder().build())
+                .withGenerationSettings(addFeatureIfContains(features).build())
                 .withTemperatureModifier(Biome.TemperatureModifier.NONE)
                 .setEffects(new BiomeAmbience.Builder()
                         .withSkyColor(0xBEBB97)
@@ -223,6 +148,10 @@ public final class GSKOBiomeMaker {
     }
 
     public static Biome makeSakuraForest() {
+        List<Features> features = new ArrayList<>();
+        features.add(Features.FOREST_GRASS);
+        features.add(Features.NORMAL_GRASS_PATCH);
+
         return new Biome.Builder()
                 .depth(0.1f)
                 .scale(0.42f)
@@ -233,7 +162,7 @@ public final class GSKOBiomeMaker {
                 .withMobSpawnSettings(new MobSpawnInfo.Builder().withSpawner(
                         EntityClassification.MONSTER, new MobSpawnInfo.Spawners(
                                 FairyEntity.FAIRY, 68, 3,5)).build())
-                .withGenerationSettings(makeDefaultBuilder().build())
+                .withGenerationSettings(addFeatureIfContains(features).build())
                 .withTemperatureModifier(Biome.TemperatureModifier.NONE)
                 .setEffects(new BiomeAmbience.Builder().setWaterColor(0x0DA7D6)
                         .setWaterFogColor(0x282E84)
@@ -275,11 +204,15 @@ public final class GSKOBiomeMaker {
 
     public enum Features {
         OAK_TREE,
+        FANCY_OAK_TREE,
         ACACIA_TREE,
         SAKURA_TREE,
         BAMBOO,
         LYCORIS,
+        SUNFLOWER,
         PUMPKINS,
-        FOREST_GRASS
+        FOREST_GRASS,
+        PLAINS_GRASS,
+        NORMAL_GRASS_PATCH
     }
 }

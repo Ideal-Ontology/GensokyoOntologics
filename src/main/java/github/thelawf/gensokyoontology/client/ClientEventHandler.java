@@ -52,7 +52,7 @@ public class ClientEventHandler {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(HellEclipseEntity.HELL_ECLIPSE_ENTITY,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(MountainOfFaithEntity.MOUTAIN_OF_FAITH_ENTITY,
+        RenderingRegistry.registerEntityRenderingHandler(MountainOfFaithEntity.MOUNTAIN_OF_FAITH_ENTITY,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // =========================== 人形生物的渲染器 ========================= //

@@ -1,0 +1,52 @@
+{
+  "depth": -0.65,
+  "scale": 0.22,
+  "downfall": 0.1,
+  "temperature": 0.2,
+  "category": "river",
+  "temperature_modifier": "none",
+  "player_spawn_friendly": true,
+  "creature_spawn_probability": 0.8,
+  "precipitation": "snow",
+  "surface_builder": "minecraft:gravelly_mountain",
+  "effects": {
+    "sky_color": 7907327,
+    "fog_color": 12248771,
+    "water_color": 4159204,
+    "water_fog_color": 329011
+  },
+  "spawn_costs": {},
+  "features": [
+    [],
+    [
+      "minecraft:lake_water"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:trees_plains",
+      "minecraft:patch_grass_jungle",
+      "minecraft:patch_grass_normal"
+    ],
+    []
+  ],
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:canyon"
+    ],
+    "liquid": [
+      "minecraft:underwater_cave",
+      "minecraft:underwater_canyon"
+    ]
+  },
+  "spawners": {
+
+  },
+  "starts": []
+}

@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.block;
 
 import net.minecraft.block.*;
+import net.minecraft.client.gui.screen.SettingsScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;

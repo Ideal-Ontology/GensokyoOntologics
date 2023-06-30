@@ -14,6 +14,6 @@ public class GSKOCombatTab extends ItemGroup {
 
     @Override
     public ItemStack createIcon() {
-        return new ItemStack(ItemRegistry.LARGE_SHOT_ITEM.get());
+        return new ItemStack(ItemRegistry.LARGE_SHOT_RED.get());
     }
 }

@@ -267,44 +267,68 @@ public final class ItemRegistry {
 
     public static final RegistryObject<DanmakuShotItem> DANMAKU_SHOT = ITEMS.register("danmaku_shot",
             () -> new DanmakuShotItem(DanmakuType.DANMAKU_SHOT));
-    public static final RegistryObject<Item> LARGE_SHOT_ITEM = ITEMS.register(
-            "large_shot", () -> new LargeShot(DanmakuType.LARGE_SHOT));
-    public static final RegistryObject<Item> HEART_SHOT_ITEM = ITEMS.register(
-            "heart_shot", () -> new HeartShot(DanmakuType.HEART_SHOT));
 
-    public static final RegistryObject<Item> STAR_SHOT_ITEM = ITEMS.register(
-            "star_shot", () -> new StarShot(DanmakuType.STAR_SHOT_SMALL));
-    public static final RegistryObject<Item> FAKE_LUNAR_ITEM = ITEMS.register(
-            "fake_lunar", () -> new FakeLunarItem(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    /////////////////////////// 所有颜色的大弹 ////////////////////////////////
+    public static final RegistryObject<Item> LARGE_SHOT_RED = ITEMS.register(
+            "large_shot_red", () -> new LargeShot(DanmakuType.LARGE_SHOT));
+    public static final RegistryObject<Item> LARGE_SHOT_YELLOW = ITEMS.register(
+            "large_shot_yellow", () -> new LargeShot(DanmakuType.LARGE_SHOT));
+    public static final RegistryObject<Item> LARGE_SHOT_GREEN = ITEMS.register(
+            "large_shot_green", () -> new LargeShot(DanmakuType.LARGE_SHOT));
+    public static final RegistryObject<Item> LARGE_SHOT_BLUE = ITEMS.register(
+            "large_shot_blue", () -> new LargeShot(DanmakuType.LARGE_SHOT));
+    public static final RegistryObject<Item> LARGE_SHOT_PURPLE = ITEMS.register(
+            "large_shot_purple", () -> new LargeShot(DanmakuType.LARGE_SHOT));
 
+    ////////////////////////////// 所有颜色的心弹  /////////////////////////////////
+    public static final RegistryObject<Item> HEART_SHOT_PINK = ITEMS.register(
+            "heart_shot_pink", () -> new HeartShot(DanmakuType.HEART_SHOT));
+    public static final RegistryObject<Item> HEART_SHOT_RED = ITEMS.register(
+            "heart_shot_red", () -> new HeartShot(DanmakuType.HEART_SHOT));
+    public static final RegistryObject<Item> HEART_SHOT_AQUA = ITEMS.register(
+            "heart_shot_aqua", () -> new HeartShot(DanmakuType.HEART_SHOT));
+    public static final RegistryObject<Item> HEART_SHOT_BLUE = ITEMS.register(
+            "heart_shot_blue", () -> new HeartShot(DanmakuType.HEART_SHOT));
+
+    ////////////////////////////// 所有颜色的星弹  /////////////////////////////////
+    public static final RegistryObject<Item> STAR_SHOT_RED = ITEMS.register(
+            "star_shot_red", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
+    public static final RegistryObject<Item> STAR_SHOT_YELLOW = ITEMS.register(
+            "star_shot_yellow", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
+    public static final RegistryObject<Item> STAR_SHOT_GREEN = ITEMS.register(
+            "star_shot_green", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
+    public static final RegistryObject<Item> STAR_SHOT_AQUA = ITEMS.register(
+            "star_shot_aqua", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
+    public static final RegistryObject<Item> STAR_SHOT_BLUE = ITEMS.register(
+            "star_shot_blue", () -> new StarShot(DanmakuType.STAR_SHOT_SMALL));
+    public static final RegistryObject<Item> STAR_SHOT_PURPLE = ITEMS.register(
+            "star_shot_purple", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
+
+    ////////////////////////////// 所有颜色的阴阳玉 ///////////////////////////////////
     public static final RegistryObject<Item> INYO_JADE_BLACK = ITEMS.register(
             "inyo_jade_black", () -> new InyoJade(DyeColor.BLACK,
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
-
     public static final RegistryObject<Item> INYO_JADE_RED = ITEMS.register(
             "inyo_jade_red", () -> new InyoJade(DyeColor.RED,
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
-
     public static final RegistryObject<Item> INYO_JADE_YELLOW = ITEMS.register(
             "inyo_jade_yellow", () -> new InyoJade(DyeColor.YELLOW,
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
-
     public static final RegistryObject<Item> INYO_JADE_GREEN = ITEMS.register(
             "inyo_jade_green", () -> new InyoJade(DyeColor.GREEN,
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
-
     public static final RegistryObject<Item> INYO_JADE_AQUA = ITEMS.register(
             "inyo_jade_aqua", () -> new InyoJade(DyeColor.LIGHT_BLUE,
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
-
     public static final RegistryObject<Item> INYO_JADE_BLUE = ITEMS.register(
             "inyo_jade_blue", () -> new InyoJade(DyeColor.BLUE,
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
-
     public static final RegistryObject<Item> INYO_JADE_PURPLE = ITEMS.register(
             "inyo_jade_purple", () -> new InyoJade(DyeColor.PURPLE,
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+
+    public static final RegistryObject<Item> FAKE_LUNAR_ITEM = ITEMS.register(
+            "fake_lunar", FakeLunarItem::new);
     public static final RegistryObject<Item> BOMB_ITEM = ITEMS.register(
             "bomb_item", () -> new BombItem(
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));

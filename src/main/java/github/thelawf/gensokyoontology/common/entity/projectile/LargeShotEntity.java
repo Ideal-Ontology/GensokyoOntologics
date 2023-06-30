@@ -6,8 +6,6 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -34,6 +32,6 @@ public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAs
     @Override
     @NotNull
     public ItemStack getItem() {
-        return new ItemStack(ItemRegistry.LARGE_SHOT_ITEM.get());
+        return new ItemStack(ItemRegistry.LARGE_SHOT_RED.get());
     }
 }

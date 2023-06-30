@@ -1,6 +1,9 @@
 package github.thelawf.gensokyoontology.common.item;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.item.TNTEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
@@ -13,10 +16,15 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.ExplosionContext;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 /**
  * 魔理沙的八卦炉
@@ -77,7 +85,7 @@ public class MarisaHakkeiro extends Item {
         for (int i = 0; i < 50; i++) {
             Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
             worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
-                    explodePos.getZ(), 5.0f, true, Explosion.Mode.DESTROY);
+                    explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
         }
         // damageItem(playerIn.getHeldItemMainhand(), 1, playerIn, player -> player.getHeldItemMainhand().shrink(1));
         return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -87,4 +95,15 @@ public class MarisaHakkeiro extends Item {
     // public ItemStack getContainerItem(ItemStack itemStack) {
     //     return super.getContainerItem(itemStack);
     // }
+
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID +
+                ".marisa_hakkeiro"));
+        if (Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID +
+                    ".marisa_hakkeiro.info"));
+        }
+    }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "gensokyoontology:item/large_shot"
+    "layer0": "gensokyoontology:item/large_shot_red"
   }
 }

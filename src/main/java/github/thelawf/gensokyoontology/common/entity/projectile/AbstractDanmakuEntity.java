@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.projectile;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
+import github.thelawf.gensokyoontology.core.SerializerRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
@@ -14,6 +15,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -24,7 +26,7 @@ import javax.annotation.Nonnull;
 
 /**
  * 抽象弹幕类，用于处理所有继承于该类的弹幕实体的那些相似的逻辑，包含如下几个方面：<br>
- * 弹幕的生命周期或存在时间：{@value maxLivingTick} 个游戏刻<br>
+ * 弹幕的生命周期或存在时间：125 个游戏刻<br>
  * 弹幕的tick()方法<br>
  * 弹幕击中生物时的逻辑<br>
  * （待补充……）
@@ -38,6 +40,9 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     public static final DataParameter<SpellData> DATA_SPELL = EntityDataManager.createKey(
             AbstractDanmakuEntity.class, DanmakuUtil.SPELL_DATA);
 
+    public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
+            AbstractDanmakuEntity.class, DataSerializers.VARINT);
+
     // public static final DataParameter<CompoundNBT> DATA_SPELL = EntityDataManager.createKey(
     //         AbstractDanmakuEntity.class, DataSerializers.COMPOUND_NBT);
 
@@ -49,8 +54,9 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     }
 
     public AbstractDanmakuEntity(EntityType<? extends ThrowableEntity> type, LivingEntity throwerIn, World world, SpellData spellData) {
-        super(type, throwerIn, world);
-        this.spellData = spellData;
+        this(type, world);
+        this.setWorld(world);
+        this.setSpellData(spellData);
     }
 
     public void setMaxLivingTick(int maxLivingTick) {
@@ -80,13 +86,19 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         if (compound.contains("damage")) {
             this.damage = compound.getFloat("damage");
         }
-
+        // ?????
+        if (compound.contains("SpellData")) {
+            this.spellData = getSpellData();
+        }
     }
 
     @Override
     protected void writeAdditional(@NotNull CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putFloat("damage", this.spellData.danmakuType.damage);
+        if (this.getSpellData() != null) {
+            compound.putString("SpellData", SerializerRegistry.SPELL_DATA.getId().toString());
+        }
         // compound.putIntArray("key_transforms", this.spellData.vectorOperations);
         //compound.putIntArray("keyTicks", this.spellData.keyTransforms);
         // compound.putDouble("yaw",this.function.yaw);
@@ -103,6 +115,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         this.dataManager.register(DATA_DAMAGE, this.damage);
         this.dataManager.register(DATA_SPELL, this.spellData);
     }
+
 
     @Override
     @Nonnull
@@ -146,10 +159,11 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     }
 
     public void setSpellData(SpellData spellData) {
-        this.spellData = spellData;
+        this.dataManager.set(DATA_SPELL, spellData);
     }
 
     public SpellData getSpellData() {
-        return spellData;
+        return this.dataManager.get(DATA_SPELL);
     }
+
 }

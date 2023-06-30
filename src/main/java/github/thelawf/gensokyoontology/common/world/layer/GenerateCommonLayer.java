@@ -7,6 +7,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer0;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -48,20 +49,13 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.HUMAN_VILLAGE_KEY,
-            GSKOBiomes.SUNFLOWER_GARDEN_KEY
+            GSKOBiomes.SUNFLOWER_GARDEN_KEY,
+            GSKOBiomes.YOUKAI_MOUNTAIN_KEY
     );
 
-    private static final List<RegistryKey<Biome>> specialBiomes = ImmutableList.of(
-            GSKOBiomes.MAGIC_FOREST_KEY,
-            GSKOBiomes.BAMBOO_FOREST_LOST_KEY
-    );
 
     @Override
-    public int apply(INoiseRandom random, int x, int y) {
-        double d = random.random(300);
-        if (x == 1350 + d && y == 0) {
-            return getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY);
-        }
+    public int apply(@NotNull INoiseRandom random, int x, int y) {
         return getCommonBiomeID(random);
     }
 

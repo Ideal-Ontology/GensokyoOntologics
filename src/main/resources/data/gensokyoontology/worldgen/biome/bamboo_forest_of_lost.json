@@ -1,8 +1,8 @@
 {
-  "depth": 0.07,
-  "scale": 0.37,
-  "downfall": 0.07,
-  "temperature": 0.4,
+  "depth": 0.1,
+  "scale": 0.2,
+  "downfall": 0.8,
+  "temperature": 0.91,
   "category": "forest",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
@@ -12,7 +12,7 @@
   "effects": {
     "sky_color": 9090047,
     "fog_color": 12237498,
-    "water_color": 5290221,
+    "water_color": 4159204,
     "water_fog_color": 270131
   },
   "starts": [],
@@ -39,7 +39,7 @@
     ],
     "creature": [
       {
-        "type": "minecraft:panda",
+        "type": "minecraft:rabbit",
         "weight": 2,
         "minCount": 2,
         "maxCount": 2

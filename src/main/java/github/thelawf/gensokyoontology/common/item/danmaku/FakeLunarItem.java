@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.item.danmaku;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.*;
+import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,9 +12,9 @@ import net.minecraft.world.World;
 
 import java.util.HashMap;
 
-public class FakeLunarItem extends Item {
-    public FakeLunarItem(Properties properties) {
-        super(properties);
+public class FakeLunarItem extends DanmakuShotItem {
+    public FakeLunarItem() {
+        super(DanmakuType.FAKE_LUNAR);
     }
 
     @Override

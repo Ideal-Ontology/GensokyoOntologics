@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformUnit;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -12,11 +9,6 @@ import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.datasync.DataParameter;
-import net.minecraft.network.datasync.DataSerializers;
-import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,6 +51,6 @@ public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAs
     @Override
     @NotNull
     public ItemStack getItem() {
-        return new ItemStack(ItemRegistry.HEART_SHOT_ITEM.get());
+        return new ItemStack(ItemRegistry.HEART_SHOT_PINK.get());
     }
 }

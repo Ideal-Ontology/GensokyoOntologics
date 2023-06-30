@@ -18,17 +18,17 @@ import java.util.UUID;
 
 public class MountainOfFaithEntity extends SpellCardEntity{
 
-    public static final EntityType<MountainOfFaithEntity> MOUTAIN_OF_FAITH_ENTITY =
+    public static final EntityType<MountainOfFaithEntity> MOUNTAIN_OF_FAITH_ENTITY =
             EntityType.Builder.<MountainOfFaithEntity>create(MountainOfFaithEntity::new,
                             EntityClassification.MISC).size(1F,1F).trackingRange(4)
                     .updateInterval(2).build("mountain_of_faith");
 
-    public MountainOfFaithEntity(EntityType<?> entityTypeIn, World worldIn, UUID owner) {
-        super(entityTypeIn, worldIn, owner);
+    public MountainOfFaithEntity(World worldIn, PlayerEntity player) {
+        super(MOUNTAIN_OF_FAITH_ENTITY, worldIn, player);
     }
 
     public MountainOfFaithEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
-        super(entityTypeIn, worldIn);
+        super(MOUNTAIN_OF_FAITH_ENTITY, worldIn);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class MountainOfFaithEntity extends SpellCardEntity{
         super.tick();
 
         Vector3d origin = new Vector3d(Vector3f.XP);
-        PlayerEntity player = world.getPlayers().get(0);
+        PlayerEntity player = this.world.getPlayerByUuid(this.dataManager.get(DATA_OWNER_UUID).get());
 
         HashMap<Integer, TransformFunction> map = new HashMap<>();
         SpellData spellData = new SpellData(map, DanmakuType.LARGE_SHOT, DanmakuColor.PINK, false, false);

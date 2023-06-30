@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.*;
 import net.minecraft.entity.EntityType;
+import net.minecraft.world.biome.BiomeMaker;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -61,7 +62,8 @@ public final class EntityRegistry {
 
     // ============================ 技术性实体：符卡 ============================= //
     public static final RegistryObject<EntityType<WaveAndParticleEntity>> WAVE_AND_PARTICLE_ENTITY = ENTITIES.register(
-            "spell_card_entity", () -> WaveAndParticleEntity.WAVE_AND_PARTICLE);
+            "wave_and_particle", () -> WaveAndParticleEntity.WAVE_AND_PARTICLE);
+
     public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY =
             ENTITIES.register("ido_no_kaiho", () -> IdonokaihoEntity.IDONOKAIHO_ENTITY);
 
@@ -72,7 +74,7 @@ public final class EntityRegistry {
             ENTITIES.register("hell_eclipse", () -> HellEclipseEntity.HELL_ECLIPSE_ENTITY);
 
     public static final RegistryObject<EntityType<MountainOfFaithEntity>> MOUNTAIN_OF_FAITH_ENTITY =
-            ENTITIES.register("mountain_of_faith", () -> MountainOfFaithEntity.MOUTAIN_OF_FAITH_ENTITY);
+            ENTITIES.register("mountain_of_faith", () -> MountainOfFaithEntity.MOUNTAIN_OF_FAITH_ENTITY);
 
     // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
    //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);

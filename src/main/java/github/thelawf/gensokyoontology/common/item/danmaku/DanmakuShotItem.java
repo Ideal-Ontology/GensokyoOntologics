@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.danmaku;
 
+import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.DanmakuShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
@@ -15,11 +16,11 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public class DanmakuShotItem extends Item {
-    public final DanmakuType type;
+    public final DanmakuType danmaku;
 
-    public DanmakuShotItem(DanmakuType type) {
+    public DanmakuShotItem(DanmakuType danmaku) {
         super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
-        this.type = type;
+        this.danmaku = danmaku;
     }
 
     @Override

@@ -27,8 +27,8 @@ public class IdonokaihoEntity extends SpellCardEntity {
                             EntityClassification.MISC).size(1F,1F).trackingRange(4)
                     .updateInterval(2).build("ido_no_kaiho");
 
-    public IdonokaihoEntity(EntityType<?> entityTypeIn, World worldIn, UUID owner) {
-        super(entityTypeIn, worldIn, owner);
+    public IdonokaihoEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
+        super(entityTypeIn, worldIn, player);
     }
 
     public IdonokaihoEntity(EntityType<IdonokaihoEntity> entityTypeIn, World worldIn) {

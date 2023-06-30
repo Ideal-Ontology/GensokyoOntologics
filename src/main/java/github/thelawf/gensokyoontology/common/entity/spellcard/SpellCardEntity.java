@@ -2,12 +2,12 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuMuzzle;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -21,71 +21,94 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
 
     private int lifeSpan = 500;
-    public List<DanmakuMuzzle<? extends AbstractDanmakuEntity>> muzzles = new ArrayList<>();
     protected UUID owner;
+    private int ownerId;
 
     /**
      * 初始化设置弹幕的射击方位为X轴正方向，即游戏中的东方
      */
     protected Vector3d shootAngle = new Vector3d(Vector3f.XP);
 
+    public List<DanmakuMuzzle<? extends AbstractDanmakuEntity>> muzzles = new ArrayList<>();
+
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
             SpellCardEntity.class, DataSerializers.VARINT);
 
+    public static final DataParameter<Optional<UUID>> DATA_OWNER_UUID = EntityDataManager.createKey(
+            SpellCardEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
-    public SpellCardEntity(EntityType<?> entityTypeIn, World worldIn, UUID owner) {
-        super(entityTypeIn, worldIn);
+
+    public SpellCardEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
+        this(entityTypeIn, worldIn);
+        this.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
+        this.setOwner(worldIn.getPlayerByUuid(player.getUniqueID()));
     }
 
     public SpellCardEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
     }
 
-
     @Override
     protected void registerData() {
         this.dataManager.register(DATA_LIFESPAN, this.lifeSpan);
+        this.dataManager.register(DATA_OWNER_UUID, Optional.empty());
     }
 
-    @Override
-    public void readAdditional(@NotNull CompoundNBT compound) {
-        if (compound.contains("lifespan")) {
-            this.lifeSpan = compound.getInt("lifespan");
+    protected void readAdditional(@NotNull CompoundNBT compound) {
+        if (compound.contains("Lifespan")) {
+            this.lifeSpan = compound.getInt("Lifespan");
         }
-        else if (compound.hasUniqueId("owner")) {
-            this.owner = compound.getUniqueId("owner");
+
+        UUID uuid = null;
+        if (compound.hasUniqueId("Owner")) {
+            uuid = compound.getUniqueId("Owner");
+        }
+
+        if (uuid != null) {
+            setOwnerId(uuid);
         }
     }
 
-    @Override
-    public void writeAdditional(CompoundNBT compound) {
-        compound.putInt("lifespan", this.lifeSpan);
+    protected void writeAdditional(CompoundNBT compound) {
+        compound.putInt("Lifespan", this.lifeSpan);
         if (this.owner != null) {
-            compound.putUniqueId("owner", this.owner);
+            compound.putUniqueId("Owner", this.owner);
         }
     }
 
-    public void setOwner(Entity entityIn) {
+    public void setOwner(@Nullable Entity entityIn) {
         if (entityIn != null) {
-            owner = entityIn.getUniqueID();
+            this.owner = entityIn.getUniqueID();
+            this.setOwnerId(this.owner);
+            LOGGER.info("Is Owner {} Present?", this.owner);
         }
+        LOGGER.info("Is Owner {} Present?", this.owner);
+    }
+
+    private void setOwnerId(UUID uuid) {
+        this.dataManager.set(DATA_OWNER_UUID, Optional.ofNullable(uuid));
     }
 
     @Nullable
     public Entity getOwner() {
-        if (owner != null && this.world instanceof ServerWorld) {
-            return ((ServerWorld) this.world).getEntityByUuid(owner);
+        if (this.world instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld) this.world;
+            Optional<UUID> optionalUUID = this.getDataManager().get(DATA_OWNER_UUID);
+            if (optionalUUID.isPresent()) {
+                return serverWorld.getEntityByUuid(optionalUUID.get());
+            }
         }
-        else {
-            return null;
-        }
+        return null;
+    }
+
+    @Nullable
+    public UUID getOwnerId() {
+        return this.dataManager.get(DATA_OWNER_UUID).orElse(null);
     }
 
     /**
@@ -123,3 +146,4 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     }
 
 }
+

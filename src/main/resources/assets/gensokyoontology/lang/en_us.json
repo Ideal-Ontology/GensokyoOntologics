@@ -22,9 +22,9 @@
   "item.gensokyoontology.praxis_sword": "实践",
 
   "item.gensokyoontology.danmaku_shot": "弹幕之点",
-  "item.gensokyoontology.large_shot": "大弹",
-  "item.gensokyoontology.heart_shot": "心弹",
-  "item.gensokyoontology.star_shot": "星弹",
+  "item.gensokyoontology.large_shot_red": "大弹（红）",
+  "item.gensokyoontology.heart_shot_pink": "心弹（粉）",
+  "item.gensokyoontology.star_shot_blue": "星弹",
   "item.gensokyoontology.fake_lunar": "虚假之月",
 
   "item.gensokyoontology.bomb_item": "B点",
@@ -124,6 +124,11 @@
   "entity.gensokyoontology.usami_sumireko": "宇佐见堇子",
   "entity.gensokyoontology.yakumo_yukari": "八云紫",
 
+  "entity.gensokyoontology.spellcard.wave_and_particle": "境符「波与粒的境界」",
+  "entity.gensokyoontology.spellcard.sc_ido_no_kaiho": "本能「本我的解放」",
+  "entity.gensokyoontology.spellcard.sc_hell_eclipse": "狱符「地狱月食」",
+  "entity.gensokyoontology.spellcard.sc_mountain_of_faith": "「信仰之山」",
+
   "gui.gensokyoontology.rail_adjust.title": "轨道调整",
   "gui.gensokyoontology.button.increase_roll": "+",
   "gui.gensokyoontology.button.increase_yaw": "+",
@@ -160,6 +165,8 @@
   "tooltip.gensokyoontology.idealism_sword_shift": "§5右键释放现实裂缝§r",
   "tooltip.gensokyoontology.praxis_sword_shift": "过于OP，已被弃用",
 
+  "tooltip.gensokyoontology.marisa_hakkeiro": "魔理沙的强力道具，能够发出可以破坏地形的极限火花",
+  "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗32个火焰弹和一个B点发射极限火花",
   "tooltip.gensokyoontology.occult_ball.biome": "神秘地点: ",
 
   "patchouli.gensokyoontology.book.name": "幻想存有论",

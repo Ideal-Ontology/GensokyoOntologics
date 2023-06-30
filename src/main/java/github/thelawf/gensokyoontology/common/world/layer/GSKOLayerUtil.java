@@ -1,17 +1,21 @@
 package github.thelawf.gensokyoontology.common.world.layer;
 
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.IExtendedNoiseRandom;
+import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.LazyAreaLayerContext;
 import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.area.IAreaFactory;
 import net.minecraft.world.gen.area.LazyArea;
-import net.minecraft.world.gen.layer.Layer;
-import net.minecraft.world.gen.layer.SmoothLayer;
-import net.minecraft.world.gen.layer.ZoomLayer;
+import net.minecraft.world.gen.layer.*;
+import net.minecraft.world.gen.layer.traits.IAreaTransformer1;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 import java.util.function.LongFunction;
 
 public class GSKOLayerUtil extends Layer {
@@ -31,17 +35,40 @@ public class GSKOLayerUtil extends Layer {
 
     // 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格
     public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> buildBiomes(final LongFunction<C> context, Registry<Biome> registry) {
-        IAreaFactory<T> biomes = GenerateCommonLayer.INSTANCE.setUp(registry).apply(context.apply(1L));
-        biomes = ZoomLayer.FUZZY.apply(context.apply(2000), biomes);
-        biomes = ZoomLayer.NORMAL.apply(context.apply(2001), biomes);
-        biomes = ZoomLayer.NORMAL.apply(context.apply(2002), biomes);
-        biomes = ZoomLayer.NORMAL.apply(context.apply(2003), biomes);
-        biomes = ZoomLayer.NORMAL.apply(context.apply(2004), biomes);
-        biomes = ZoomLayer.NORMAL.apply(context.apply(2005), biomes);
-        biomes = ZoomLayer.NORMAL.apply(context.apply(2007), biomes);
-        biomes = SmoothLayer.INSTANCE.apply(context.apply(2008), biomes);
+        IAreaFactory<T> area = GenerateCommonLayer.INSTANCE.setUp(registry).apply(context.apply(1L));
+        area = ZoomLayer.FUZZY.apply(context.apply(2000L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(2001L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(2002L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(2003L), area);
 
-        return biomes;
+        area = ZoomLayer.NORMAL.apply(context.apply(2004L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(2005L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(2006L), area);
+
+        IAreaFactory<T> river = repeat(1000L, ZoomLayer.NORMAL, area, 0, context);
+        // river = GSKORiverLayer.INSTANCE.apply(context.apply(7L), area);
+        river = StartRiverLayer.INSTANCE.apply(context.apply(100L), river);
+        river = AddMistyLakeLayer.INSTANCE.apply(context.apply(30L), area);
+        river = AddWindGoddessLakeLayer.INSTANCE.apply(context.apply(50L), area);
+        river = repeat(1000L, ZoomLayer.NORMAL, area, 2, context);
+        river = repeat(1000L, ZoomLayer.NORMAL, area, 2, context);
+
+        river = RiverLayer.INSTANCE.apply(context.apply(1L), river);
+        river = SmoothLayer.INSTANCE.apply(context.apply(10L), river);
+        area = SmoothLayer.INSTANCE.apply(context.apply(3008), area);
+        area = MixRiverLayer.INSTANCE.apply(context.apply(3001L), area, river);
+
+        return area;
+    }
+
+    public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> repeat(long seed, IAreaTransformer1 parent, IAreaFactory<T> p_202829_3_, int count, LongFunction<C> contextFactory) {
+        IAreaFactory<T> iareafactory = p_202829_3_;
+
+        for(int i = 0; i < count; ++i) {
+            iareafactory = parent.apply(contextFactory.apply(seed + (long)i), iareafactory);
+        }
+
+        return iareafactory;
     }
 
     @SuppressWarnings("all")
@@ -56,5 +83,26 @@ public class GSKOLayerUtil extends Layer {
 
         return biome;
 
+    }
+
+    public static int getId(Registry<Biome> biomes, RegistryKey<Biome> key) {
+        return biomes.getId(biomes.getValueForKey(key));
+    }
+
+    public static int getGSKORiver(INoiseRandom random, Registry<Biome> biomes, int value) {
+        for (RegistryKey<Biome> biome : GSKOBiomesProvider.GSKO_BIOMES) {
+            return Math.max(value, getId(biomes, biome));
+        }
+        return value;
+    }
+
+    public static int getMistyLake(INoiseRandom random, Registry<Biome> biomes, int value) {
+        return value == getId(biomes, GSKOBiomes.MAGIC_FOREST_KEY) && random.random(10) > 5 ?
+                value : getId(biomes, GSKOBiomes.MISTY_LAKE_KEY);
+    }
+
+    public static int getWindGoddessLake(INoiseRandom random, Registry<Biome> biomes, int value) {
+        return value == getId(biomes, GSKOBiomes.YOUKAI_MOUNTAIN_KEY) && random.random(10) > 8 ?
+                value : getId(biomes, GSKOBiomes.WIND_GODDESS_LAKE_KEY);
     }
 }
