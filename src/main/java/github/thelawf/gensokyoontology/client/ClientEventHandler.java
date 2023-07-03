@@ -27,12 +27,14 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(HeartShotEntity.HEART_SHOT,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(LargeShotEntity.LARGE_SHOT,
-                manager -> new SpriteRenderer<>(manager, itemRenderer));
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(LargeShotEntity.SMALL_SHOT,
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 0.5f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(StarShotEntity.STAR_SHOT_SMALL,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 0.5f, false));
-        RenderingRegistry.registerEntityRenderingHandler(StarShotEntity.STAR_SHOT_SMALL,
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(StarShotEntity.STAR_SHOT_LARGE,
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.5f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(FakeLunarEntity.FAKE_LUNAR,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 5.0f, false));

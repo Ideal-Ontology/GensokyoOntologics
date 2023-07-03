@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.Entity;
@@ -28,6 +30,9 @@ public class FakeLunarEntity extends AbstractDanmakuEntity {
         super(FAKE_LUNAR, throwerIn, world, spellData);
     }
 
+    public FakeLunarEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
+        super(FAKE_LUNAR, throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
+    }
 
     @Override
     protected void onEntityHit(EntityRayTraceResult result) {
@@ -37,9 +42,9 @@ public class FakeLunarEntity extends AbstractDanmakuEntity {
             AbstractDanmakuEntity danmaku = (AbstractDanmakuEntity) result.getEntity();
             danmaku.remove();
         }
-        else if (shooter instanceof PlayerEntity && !(result.getEntity() instanceof PlayerEntity)) {
+        else if (!(result.getEntity() instanceof PlayerEntity)) {
             // entityHit.addPotionEffect(new EffectInstance(EffectRegistry.LOVE_EFFECT.get(), 5 * 40));
-            result.getEntity().attackEntityFrom(GSKODamageSource.DANMAKU,spellData.danmakuType.damage);
+            result.getEntity().attackEntityFrom(GSKODamageSource.DANMAKU,this.dataManager.get(DATA_DAMAGE));
             this.remove();
         }
     }

@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -9,6 +11,7 @@ import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.IItemProvider;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -27,6 +30,10 @@ public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAs
 
     public HeartShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
         super(HEART_SHOT, throwerIn, world, spellData);
+    }
+
+    public HeartShotEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
+        super(HEART_SHOT, throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
     }
 
     @Override
@@ -51,6 +58,31 @@ public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAs
     @Override
     @NotNull
     public ItemStack getItem() {
-        return new ItemStack(ItemRegistry.HEART_SHOT_PINK.get());
+        IItemProvider item = null;
+        switch (getDanmakuColor()) {
+            case RED:
+            case YELLOW:
+            case GREEN:
+            case PURPLE:
+            case NONE:
+                item = ItemRegistry.HEART_SHOT_RED.get();
+                break;
+            case AQUA:
+                item = ItemRegistry.HEART_SHOT_AQUA.get();
+                break;
+            case BLUE:
+                item = ItemRegistry.HEART_SHOT_BLUE.get();
+                break;
+            case PINK:
+                item = ItemRegistry.HEART_SHOT_PINK.get();
+                break;
+        }
+
+        if (item == null) {
+            return ItemStack.EMPTY;
+        }
+        else {
+            return new ItemStack(item);
+        }
     }
 }

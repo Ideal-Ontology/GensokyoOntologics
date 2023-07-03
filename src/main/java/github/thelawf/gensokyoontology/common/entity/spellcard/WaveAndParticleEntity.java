@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuMuzzle;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.*;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -27,12 +25,12 @@ public class WaveAndParticleEntity extends SpellCardEntity{
             .updateInterval(2).build("wave_and_particle");
 
     public WaveAndParticleEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
-        super(entityTypeIn, worldIn);
+        super(WAVE_AND_PARTICLE, worldIn);
     }
 
-    public WaveAndParticleEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, LivingEntity livingEntity) {
-        super(entityTypeIn, worldIn);
-        this.setOwner(livingEntity);
+    public WaveAndParticleEntity(World worldIn, PlayerEntity player) {
+        super(WAVE_AND_PARTICLE, worldIn);
+        this.setOwner(player);
     }
 
     @Override
@@ -44,41 +42,38 @@ public class WaveAndParticleEntity extends SpellCardEntity{
         //     return;
 
         // PlayerEntity player = (PlayerEntity) this.getOwner();
-        PlayerEntity player = this.world.getPlayers().get(0);
-        Vector3d playerPos = player.getPositionVec();
-        Vector3d lookVec = player.getLookVec();
+        Vector3d playerPos = this.getPositionVec();
+        Vector3d lookVec = this.getLookVec();
 
         SpellData spellData = new SpellData(new HashMap<>());
 
         // 然后是设定弹幕发射口的变换函数和需要发射的弹幕
-        DanmakuMuzzle<LargeShotEntity> muzzle = new DanmakuMuzzle<>(new TransformFunction()
-                .setPlayer(player).setLifeSpan(100)
+        TransformFunction muzzle = new TransformFunction()
+                .setLifeSpan(100)
                 .setInitLocation(playerPos)
                 .setShootVector(lookVec)
                 .setLifeSpan(200)
-                .setIncrement(Math.PI / 180),
-                new LargeShotEntity(player, world, spellData)
-        );
+                .setIncrement(Math.PI / 180);
 
         // 在具体的符卡类中，这里初始化的弹幕实体类应该写成泛型强制类型转换：
         // if (muzzle.getDanmaku() instanceof LargeshotEntity) {
         //    LargeShotEntity danmaku = (LargeShotEntity) muzzle.getDanmaku();
         // }
         // 先判断muzzle里面弹幕的类型是否和符卡需要的类型一致，再初始化弹幕
-        LargeShotEntity danmaku1 = new LargeShotEntity(player, world, spellData);
-        LargeShotEntity danmaku2 = new LargeShotEntity(player, world, spellData);
-        LargeShotEntity danmaku3 = new LargeShotEntity(player, world, spellData);
+        LargeShotEntity danmaku1 = new LargeShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.PURPLE);
+        LargeShotEntity danmaku2 = new LargeShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.PURPLE);
+        LargeShotEntity danmaku3 = new LargeShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.PURPLE);
 
         // this.shootAngle = muzzle.getFunc().getShootVector();
-        Vector3d muzzle1 = this.shootAngle.rotateYaw((float) (muzzle.getFunc().increment *
+        Vector3d muzzle1 = this.shootAngle.rotateYaw((float) (muzzle.increment *
                 ticksExisted * ((float) ticksExisted / 5)));
 
         Vector3d muzzle2 = this.shootAngle.rotateYaw((float) Math.PI / 3 * 2);
         Vector3d muzzle3 = this.shootAngle.rotateYaw((float) Math.PI / 3 * 4);
 
-        muzzle2 = muzzle2.rotateYaw((float) (muzzle.getFunc().increment * ticksExisted *
+        muzzle2 = muzzle2.rotateYaw((float) (muzzle.increment * ticksExisted *
                 ((float) ticksExisted / 5)));
-        muzzle3 = muzzle3.rotateYaw((float) (muzzle.getFunc().increment * ticksExisted *
+        muzzle3 = muzzle3.rotateYaw((float) (muzzle.increment * ticksExisted *
                 ((float) ticksExisted / 5)));
 
         initDanmaku(danmaku1, muzzle1);

@@ -56,6 +56,7 @@ public class GensokyoOntology {
         EntityRegistry.ENTITIES.register(modEvent);
         ContainerRegistry.CONTAINERS.register(modEvent);
         SerializerRegistry.SPELL_DATA_SERIALIZER.register(modEvent);
+        FeatureRegistry.FEATURES.register(modEvent);
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -79,6 +80,8 @@ public class GensokyoOntology {
                 RenderTypeLookup.setRenderLayer(FluidRegistry.HOT_SPRING_FLOWING.get(),
                         RenderType.getTranslucent());
 
+                RenderTypeLookup.setRenderLayer(BlockRegistry.BLUE_ROSE_BUSH.get(),
+                        RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.LYCORIS_RADIATA.get(),
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.ONION_CROP_BLOCK.get(),
@@ -96,6 +99,8 @@ public class GensokyoOntology {
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.HASH_LEAVES.get(),
+                        RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.MAGIC_LEAVES.get(),
                         RenderType.getCutout());
 
                 ScreenManager.registerFactory(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(),

@@ -68,7 +68,7 @@ public class MountainOfFaithEntity extends SpellCardEntity{
                     Vector3d muzzleNext = muzzleLocal.rotateYaw((float) (Math.PI / 50 * ticksExisted));
                     Vector3d muzzleGlobal = muzzleNext.add(this.getPositionVec()).add(centerLocal);
 
-                    LargeShotEntity largeShot = new LargeShotEntity(player, world, spellData);
+                    LargeShotEntity largeShot = new LargeShotEntity(player, world, DanmakuType.LARGE_SHOT, DanmakuColor.GREEN);
                     setDanmakuInit(largeShot, muzzleGlobal);
                     // largeShot.shoot(muzzleNext.x, muzzleNext.y, muzzleNext.z, 0.1F, 0F);
                     world.addEntity(largeShot);

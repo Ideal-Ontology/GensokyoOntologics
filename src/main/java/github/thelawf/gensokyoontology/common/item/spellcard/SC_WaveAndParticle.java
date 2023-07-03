@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
+import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.WaveAndParticleEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -30,7 +31,6 @@ public class SC_WaveAndParticle extends SpellCardItem {
 
     }
 
-
     @Override
     public Supplier<TransformFunction> update(PlayerEntity player, int tick) {
         return () -> new TransformFunction().setPlayer(player);
@@ -42,19 +42,17 @@ public class SC_WaveAndParticle extends SpellCardItem {
     }
 
     @Override
+    @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World world, @NotNull PlayerEntity player, @NotNull Hand handIn) {
         if (world instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) world;
 
-            EntityType<WaveAndParticleEntity> entityType = EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get();
-            entityType.spawn(serverWorld, player.getHeldItemMainhand(), player, player.getPosition(),
-                    SpawnReason.MOB_SUMMONED,true, true);
-
-            // EntityType<IdonokaihoEntity> entityType = EntityRegistry.IDO_NO_KAIHO_ENTITY.get();
+            // EntityType<WaveAndParticleEntity> entityType = EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get();
             // entityType.spawn(serverWorld, player.getHeldItemMainhand(), player, player.getPosition(),
-            //        SpawnReason.MOB_SUMMONED,true, true);
+            //         SpawnReason.MOB_SUMMONED,true, true);
 
-
+            WaveAndParticleEntity waveAndParticle = new WaveAndParticleEntity(world, player);
+            world.addEntity(waveAndParticle);
         }
 
         return super.onItemRightClick(world, player, handIn);

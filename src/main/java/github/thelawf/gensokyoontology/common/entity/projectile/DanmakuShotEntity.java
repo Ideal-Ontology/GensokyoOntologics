@@ -27,7 +27,7 @@ public class DanmakuShotEntity extends AbstractDanmakuEntity {
 
     public DanmakuShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
         super(DANMAKU, throwerIn, world, spellData);
-        this.setSpellData(spellData);
+        // this.setSpellData(spellData);
     }
 
     @Override

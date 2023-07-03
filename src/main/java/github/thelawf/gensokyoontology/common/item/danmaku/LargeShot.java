@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.danmaku;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
@@ -26,10 +27,34 @@ public class LargeShot extends Item {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        SpellData spellData = new SpellData(null, DanmakuType.LARGE_SHOT,
-                DanmakuColor.NONE, false, false);
-        DanmakuUtil.shootDanmaku(worldIn, playerIn, new LargeShotEntity(playerIn, worldIn, spellData),
-                0.6f, 0f);
+        final String typeName = String.valueOf(this.getItem().getRegistryName());
+        final String modid = GensokyoOntology.MODID + ":";
+        GensokyoOntology.LOGGER.info(typeName);
+        DanmakuColor danmakuColor = DanmakuColor.NONE;
+
+        switch (typeName) {
+            case modid + "large_shot_red":
+                danmakuColor = DanmakuColor.RED;
+                break;
+            case modid + "large_shot_yellow":
+                danmakuColor = DanmakuColor.YELLOW;
+                break;
+            case modid + "large_shot_blue":
+                danmakuColor = DanmakuColor.BLUE;
+                break;
+            case modid + "large_shot_green":
+                danmakuColor = DanmakuColor.GREEN;
+                break;
+            case modid + "large_shot_purple":
+                danmakuColor = DanmakuColor.PURPLE;
+                break;
+            default:
+                break;
+        }
+
+        LargeShotEntity largeShot = new LargeShotEntity(playerIn, worldIn, DanmakuType.HEART_SHOT, danmakuColor);
+        DanmakuUtil.shootDanmaku(worldIn, playerIn, largeShot, 0.6f, 0f);
+
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 

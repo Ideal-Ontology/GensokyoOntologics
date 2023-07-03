@@ -1,9 +1,11 @@
 package github.thelawf.gensokyoontology.common.block;
 
+import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
+import net.minecraft.block.SoundType;
 
 public class FagusLeaves extends LeavesBlock {
-    public FagusLeaves(Properties properties) {
-        super(properties);
+    public FagusLeaves() {
+        super(Properties.from(Blocks.OAK_LEAVES).tickRandomly().sound(SoundType.WOOD));
     }
 }

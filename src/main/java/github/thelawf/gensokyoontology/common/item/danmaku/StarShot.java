@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.danmaku;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
+import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.StarShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
@@ -13,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class StarShot extends Item {
 
@@ -24,11 +26,38 @@ public class StarShot extends Item {
     }
 
     @Override
+    @NotNull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        SpellData spellData = new SpellData(null, DanmakuType.STAR_SHOT_LARGE,
-                DanmakuColor.NONE, false, false);
-        DanmakuUtil.shootDanmaku(worldIn, playerIn, new StarShotEntity(playerIn, worldIn, spellData),
-                0.6f, 0f);
+        final String typeName = String.valueOf(this.getItem().getRegistryName());
+        final String modid = GensokyoOntology.MODID + ":";
+        DanmakuColor danmakuColor = DanmakuColor.NONE;
+
+        switch (typeName) {
+            case modid + "star_shot_red":
+                danmakuColor = DanmakuColor.RED;
+                break;
+            case modid + "star_shot_yellow":
+                danmakuColor = DanmakuColor.YELLOW;
+                break;
+            case modid + "star_shot_green":
+                danmakuColor = DanmakuColor.GREEN;
+                break;
+            case modid + "star_shot_blue":
+                danmakuColor = DanmakuColor.BLUE;
+                break;
+            case modid + "star_shot_aqua":
+                danmakuColor = DanmakuColor.AQUA;
+                break;
+            case modid + "star_shot_purple":
+                danmakuColor = DanmakuColor.PURPLE;
+                break;
+            default:
+                break;
+        }
+
+        StarShotEntity starShot = new StarShotEntity(playerIn, worldIn, DanmakuType.LARGE_SHOT, danmakuColor);
+        DanmakuUtil.shootDanmaku(worldIn, playerIn, starShot, 0.6f, 0f);
+
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }

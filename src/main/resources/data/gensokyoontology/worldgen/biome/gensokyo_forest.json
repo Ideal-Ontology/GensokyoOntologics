@@ -13,7 +13,9 @@
     "sky_color": 7907327,
     "fog_color": 16121854,
     "water_color": 4364016,
-    "water_fog_color": 270131
+    "water_fog_color": 270131,
+    "foliage_color": 4764952,
+    "grass_color": 9286496
   },
   "starts": [],
   "spawners": {
@@ -103,9 +105,8 @@
     [],
     [
       "minecraft:oak",
-      "minecraft:oak",
       "minecraft:fancy_oak",
-      "minecraft:fancy_oak"
+      "gensokyoontology:magic_tree"
     ],
     []
   ]

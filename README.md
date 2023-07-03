@@ -1,6 +1,6 @@
 # GensokyoOntologics  
 
-This mod is a second creation of Touhou Project based on Minecraft 1.16.5. There will be a lot of differences from the original work. Please take it easy. If you can accept them, then here we go.  
+This mod is a derivative work of Touhou Project based on Minecraft 1.16.5. There will be a lot of differences from the original work. Please take it easy. If you can accept them, then here we go.  
 <font color=red> Red Colored</font> items listed below is still on the paper. I may add them all to minecraft in further future cause it really takes me a long time...  
    
 ## Introduction:  

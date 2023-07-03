@@ -1,0 +1,13 @@
+{
+  "variants": {
+    "type=bottom": {
+      "model": "gensokyoontology:block/fagus_slab"
+    },
+    "type=double": {
+      "model": "gensokyoontology:block/fagus_planks"
+    },
+    "type=top": {
+      "model": "gensokyoontology:block/fagus_slab_top"
+    }
+  }
+}

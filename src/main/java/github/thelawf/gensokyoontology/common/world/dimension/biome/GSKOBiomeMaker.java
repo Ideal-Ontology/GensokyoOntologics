@@ -71,6 +71,25 @@ public final class GSKOBiomeMaker {
         return biomegenerationSettings;
     }
 
+    private static BiomeGenerationSettings.Builder makeCustomBuilder()
+    {
+        //抄原版用来装饰群系(这句话来自模组 Ashihara，作者：遗失唐伞绘卷屋)
+        BiomeGenerationSettings.Builder biomegenerationSettings
+                = (new BiomeGenerationSettings.Builder()
+                .withSurfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
+                .withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.CAVE));
+        DefaultBiomeFeatures.withStrongholdAndMineshaft(biomegenerationSettings);
+        DefaultBiomeFeatures.withCavesAndCanyons(biomegenerationSettings);
+        DefaultBiomeFeatures.withLavaAndWaterLakes(biomegenerationSettings);
+        DefaultBiomeFeatures.withMonsterRoom(biomegenerationSettings);
+        DefaultBiomeFeatures.withCommonOverworldBlocks(biomegenerationSettings);
+        DefaultBiomeFeatures.withOverworldOres(biomegenerationSettings);
+        DefaultBiomeFeatures.withDisks(biomegenerationSettings);
+        DefaultBiomeFeatures.withNormalMushroomGeneration(biomegenerationSettings);
+        DefaultBiomeFeatures.withLavaAndWaterSprings(biomegenerationSettings);
+        return biomegenerationSettings;
+    }
+
     public static Biome makeYatsugaTakeBiome() {
         List<Features> features = new ArrayList<>();
         features.add(Features.ACACIA_TREE);

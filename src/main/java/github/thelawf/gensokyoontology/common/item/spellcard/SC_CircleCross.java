@@ -24,9 +24,11 @@ public class SC_CircleCross extends SpellCardItem{
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (worldIn instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
-            EntityType<CircleCrossEntity> entityType = EntityRegistry.CIRCLE_CROSS_ENTITY.get();
-            entityType.spawn(serverWorld, playerIn.getHeldItemMainhand(), playerIn, playerIn.getPosition(),
-                    SpawnReason.MOB_SUMMONED,true, true);
+            // EntityType<CircleCrossEntity> entityType = EntityRegistry.CIRCLE_CROSS_ENTITY.get();
+            // entityType.spawn(serverWorld, playerIn.getHeldItemMainhand(), playerIn, playerIn.getPosition(),
+            //         SpawnReason.MOB_SUMMONED,true, true);
+            CircleCrossEntity circleCross = new CircleCrossEntity(worldIn, playerIn);
+            worldIn.addEntity(circleCross);
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

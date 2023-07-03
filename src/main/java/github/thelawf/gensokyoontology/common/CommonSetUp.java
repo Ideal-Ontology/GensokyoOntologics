@@ -6,7 +6,7 @@ import github.thelawf.gensokyoontology.common.command.GSKOCommand;
 import github.thelawf.gensokyoontology.common.command.GUICommand;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import net.minecraft.command.Commands;
+import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.nbt.INBT;

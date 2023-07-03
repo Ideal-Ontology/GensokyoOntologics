@@ -62,7 +62,7 @@ public class IdonokaihoEntity extends SpellCardEntity {
 
         for (int i = 0; i < 6; i++) {
             if (ticksExisted % 3 == 0) {
-                HeartShotEntity heartShot = new HeartShotEntity(player, world, spellData);
+                HeartShotEntity heartShot = new HeartShotEntity(player, world, DanmakuType.HEART_SHOT, DanmakuColor.PINK);
                 Vector3d muzzle = new Vector3d(Vector3f.XP).rotateYaw((float) (Math.PI / 3 * i));
                 Vector3d nextMotion = muzzle.rotateYaw((float) (Math.PI / 120) * ticksExisted);
 
@@ -78,7 +78,7 @@ public class IdonokaihoEntity extends SpellCardEntity {
         for (int i = 0; i < 6; i++) {
             if (ticksExisted % 3 == 0) {
 
-                HeartShotEntity heartShot = new HeartShotEntity(player, world, spellData);
+                HeartShotEntity heartShot = new HeartShotEntity(player, world, DanmakuType.HEART_SHOT, DanmakuColor.PINK);
                 Vector3d muzzle = new Vector3d(Vector3f.XP).rotateYaw((float) (Math.PI / 3 * i));
                 Vector3d nextMotion = muzzle.rotateYaw((float) (-Math.PI / 120) * ticksExisted);
 

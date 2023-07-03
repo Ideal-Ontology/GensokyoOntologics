@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.cyber.ComputerBlock;
 import github.thelawf.gensokyoontology.common.block.cyber.HashLeaves;
+import github.thelawf.gensokyoontology.common.world.feature.tree.SakuraTree;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.RegistryObject;
@@ -27,6 +28,9 @@ public final class BlockRegistry {
     // public static final RegistryObject<Block> MAGIC_SAPLING =BLOCKS.register("magic_sapling",
     //         () -> new SaplingBlock());
 
+    public static final RegistryObject<Block> SAKURA_SAPLING = BLOCKS.register(
+            "sakura_sapling", () -> new SaplingBlock(new SakuraTree(),
+                    AbstractBlock.Properties.from(Blocks.ACACIA_SAPLING)));
     public static final RegistryObject<Block> SAKURA_LEAVES = BLOCKS.register(
             "sakura_leaves", SakuraLeaves::new);
 
@@ -57,6 +61,80 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> SAKURA_TRAPDOOR = BLOCKS.register(
             "sakura_trapdoor", SakuraTrapDoor::new);
 
+    public static final RegistryObject<Block> SAKURA_PRESSRUE_PLATE = BLOCKS.register(
+            "sakura_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
+                    AbstractBlock.Properties.from(Blocks.ACACIA_PRESSURE_PLATE)));
+
+    //////////////////////////////// 榉树木 ////////////////////////////////
+    public static final RegistryObject<Block> FAGUS_LEAVES = BLOCKS.register(
+            "fagus_leaves", FagusLeaves::new);
+
+    public static final RegistryObject<Block> FAGUS_LOG = BLOCKS.register(
+            "fagus_log", FagusLog::new);
+
+    public static final RegistryObject<Block> FAGUS_PLANKS = BLOCKS.register(
+            "fagus_planks", FagusPlanks::new);
+
+    public static final RegistryObject<Block> FAGUS_BUTTON = BLOCKS.register(
+            "fagus_button", FagusButton::new);
+
+    public static final RegistryObject<Block> FAGUS_STAIRS = BLOCKS.register(
+            "fagus_stairs", FagusStairs::new);
+
+    public static final RegistryObject<Block> FAGUS_SLAB = BLOCKS.register(
+            "fagus_slab", FagusSlab::new);
+
+    public static final RegistryObject<Block> FAGUS_DOOR = BLOCKS.register(
+            "fagus_door", FagusDoor::new);
+
+    public static final RegistryObject<Block> FAGUS_FENCE = BLOCKS.register(
+            "fagus_fence", FagusFence::new);
+
+    public static final RegistryObject<Block> FAGUS_FENCE_GATE = BLOCKS.register(
+            "fagus_fence_gate", FagusFenceGate::new);
+
+    public static final RegistryObject<Block> FAGUS_TRAPDOOR = BLOCKS.register(
+            "fagus_trapdoor", FagusTrapdoor::new);
+
+    public static final RegistryObject<Block> FAGUS_PRESSRUE_PLATE = BLOCKS.register(
+            "fagus_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
+                    AbstractBlock.Properties.from(Blocks.ACACIA_PRESSURE_PLATE)));
+
+    //////////////////////////////// 枫木 ////////////////////////////////
+    public static final RegistryObject<Block> MAPLE_LEAVES = BLOCKS.register(
+            "maple_leaves", MapleLeaves::new);
+
+    public static final RegistryObject<Block> MAPLE_LOG = BLOCKS.register(
+            "maple_log", MapleLog::new);
+
+    public static final RegistryObject<Block> MAPLE_PLANKS = BLOCKS.register(
+            "maple_planks", MaplePlanks::new);
+
+    public static final RegistryObject<Block> MAPLE_BUTTON = BLOCKS.register(
+            "maple_button", MapleButton::new);
+
+    public static final RegistryObject<Block> MAPLE_STAIRS = BLOCKS.register(
+            "maple_stairs", MapleStairs::new);
+
+    public static final RegistryObject<Block> MAPLE_SLAB = BLOCKS.register(
+            "maple_slab", MapleSlab::new);
+
+    public static final RegistryObject<Block> MAPLE_DOOR = BLOCKS.register(
+            "maple_door", MapleDoor::new);
+
+    public static final RegistryObject<Block> MAPLE_FENCE = BLOCKS.register(
+            "maple_fence", MapleFence::new);
+
+    public static final RegistryObject<Block> MAPLE_FENCE_GATE = BLOCKS.register(
+            "maple_fence_gate", MapleFenceGate::new);
+
+    public static final RegistryObject<Block> MAPLE_TRAPDOOR = BLOCKS.register(
+            "maple_trapdoor", MapleTrapdoor::new);
+
+    public static final RegistryObject<Block> MAPLE_PRESSRUE_PLATE = BLOCKS.register(
+            "maple_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
+                    AbstractBlock.Properties.from(Blocks.ACACIA_PRESSURE_PLATE)));
+
     //======================= ↓ The Mod Cyber Statistics ↓ ==================//
     public static final RegistryObject<Block> HASH_LOG = BLOCKS.register("hash_log",
             () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
@@ -85,6 +163,9 @@ public final class BlockRegistry {
 
     public static final RegistryObject<DragonSphereOre> DRAGON_SPHERE_ORE = BLOCKS.register(
             "dragon_sphere_ore", DragonSphereOre::new);
+
+    public static final RegistryObject<Block> BLUE_ROSE_BUSH = BLOCKS.register(
+            "blue_rose_bush", BlueRoseBush::new);
     public static final RegistryObject<Block> LYCORIS_RADIATA = BLOCKS.register(
             "lycoris_radiata", LycorisRadiata::new);
 

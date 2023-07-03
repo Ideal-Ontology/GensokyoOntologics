@@ -7,6 +7,6 @@ public enum VectorOperations {
     VECTOR_SCALE,
     VECTOR_ADD,
     VECTOR_SUBTRACT,
-    ARCHIMEDE_SPIRAL;
+    ARCHIMEDE_SPIRAL
 
 }

@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.events;
 
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.world.dimension.feature.GSKOFeatureGeneration;
+import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatureGeneration;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

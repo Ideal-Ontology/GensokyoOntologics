@@ -30,7 +30,7 @@ public enum DanmakuType {
     STAR_SHOT_SMALL("small_star_shot", 0.5f, 0.5f),
 
     // 星弹
-    STAR_SHOT_LARGE("large_star_shot", 1.5f, 2f),
+    STAR_SHOT_LARGE("large_star_shot", 1.5f, 2.0f),
 
     // 光弹
     LIGHT_SHOT("light_shot",1.0f,1.0f),
@@ -67,7 +67,7 @@ public enum DanmakuType {
     // 阴阳玉弹幕
     INYO_JADE_SHOT("inyo_jade", 2.0f, 2.5f),
 
-    FAKE_LUNAR("fake_lunar", 5.0f, 10f);
+    FAKE_LUNAR("fake_lunar", 5.0f, 10.0f);
 
 
     public final String name;

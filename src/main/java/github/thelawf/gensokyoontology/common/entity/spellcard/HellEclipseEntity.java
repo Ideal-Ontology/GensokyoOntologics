@@ -44,11 +44,8 @@ public class HellEclipseEntity extends SpellCardEntity{
     public void tick() {
         super.tick();
 
-        PlayerEntity player = this.world.getPlayerByUuid(this.dataManager.get(DATA_OWNER_UUID).get());
-        if (player != null) {
-            LOGGER.info("Is Player {} Present here?", player.getGameProfile());
-        }
-        else throw new NullPointerException("Player Not Present Here");
+        PlayerEntity player = this.hasOwner() ? this.world.getPlayerByUuid(
+                this.dataManager.get(DATA_OWNER_UUID).get()) : null;
 
         double radius = 4;
         double angle = Math.PI / 100;
@@ -65,7 +62,7 @@ public class HellEclipseEntity extends SpellCardEntity{
 
         for (int i = 0; i < 8; i++) {
 
-            LargeShotEntity largeShot = new LargeShotEntity((LivingEntity) this.getOwner(), world, spellData);
+            LargeShotEntity largeShot = new LargeShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
             Vector3d vector3d = center.rotateYaw((float) (Math.PI / 4 * i))
                     .rotateYaw((float) (Math.PI / 100 * ticksExisted));
 

@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/slab",
+  "textures": {
+    "bottom": "gensokyoontology:block/fagus_planks",
+    "top": "gensokyoontology:block/fagus_planks",
+    "side": "gensokyoontology:block/fagus_planks"
+  }
+}

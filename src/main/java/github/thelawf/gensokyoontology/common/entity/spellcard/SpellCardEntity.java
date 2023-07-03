@@ -81,6 +81,10 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         }
     }
 
+    public boolean hasOwner() {
+        return this.dataManager.get(DATA_OWNER_UUID).isPresent();
+    }
+
     public void setOwner(@Nullable Entity entityIn) {
         if (entityIn != null) {
             this.owner = entityIn.getUniqueID();
@@ -119,9 +123,15 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     public void tick() {
         super.tick();
 
+        if (!this.dataManager.get(DATA_OWNER_UUID).isPresent()) {
+            LOGGER.info("Player Not Present here");
+            this.remove();
+        }
+
         if (ticksExisted >= lifeSpan) {
             this.remove();
         }
+
     }
 
     protected <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d muzzle) {
