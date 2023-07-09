@@ -17,28 +17,26 @@ import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.*;
 import net.minecraft.world.gen.feature.structure.StructureManager;
-import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 
 /**
  * {@link ChunkGenerator} 里面的 func_230352_b()方法是主要的散布维度的方法
  */
 @Deprecated
-public final class GSKOChunkGenerator extends ChunkGenerator {
+public final class GSKOChunkGenerator extends NoiseChunkGenerator {
 
     public static final Logger LOGGER = LogManager.getLogger();
-    private final Settings settings;
     private long seed;
 
-    public GSKOChunkGenerator(BiomeProvider provider,long seed, Settings settings) {
-        super(provider, new DimensionStructuresSettings(false));
+    public GSKOChunkGenerator(BiomeProvider provider,long seed, Supplier<DimensionSettings> settings) {
+        super(provider, seed, settings);
         this.seed = seed;
-        this.settings = settings;
         LOGGER.info("Gensokyo Chunk Generator Registered");
     }
 
@@ -49,30 +47,21 @@ public final class GSKOChunkGenerator extends ChunkGenerator {
                 Codec.FLOAT.fieldOf("horizontalvariance").forGetter(Settings::getHorizontalVariance)
         ).apply(instance, Settings::new));
 
-    public static final Codec<GSKOChunkGenerator> CHUNK_GEN_CODEC = RecordCodecBuilder.create(instance ->
-            instance.group(
-                    BiomeProvider.CODEC.fieldOf("biome_source").forGetter(chunkGenerator -> chunkGenerator.biomeProvider),
-                    Codec.LONG.fieldOf("seed").stable().orElseGet(() -> GSKODimensions.seed).forGetter(obj -> obj.seed),
-                    SETTINGS_CODEC.fieldOf("settings").forGetter(GSKOChunkGenerator::getSettings)
-            ).apply(instance, instance.stable(GSKOChunkGenerator::new)));
 
     public Registry<Biome> getBiomeRegistry() {
         return ((GSKOBiomesProvider) biomeProvider).getBiomeRegistry();
     }
 
-    public Settings getSettings() {
-        return this.settings;
-    }
 
     @Override
     @Nonnull
     protected Codec<? extends ChunkGenerator> func_230347_a_() {
-        return CHUNK_GEN_CODEC;
+        return field_236079_d_;
     }
 
     @Override
     public ChunkGenerator func_230349_a_(long p_230349_1_) {
-        return new GSKOChunkGenerator(this.biomeProvider.getBiomeProvider(p_230349_1_), p_230349_1_, this.settings);
+        return new GSKOChunkGenerator(this.biomeProvider.getBiomeProvider(p_230349_1_), p_230349_1_, field_236080_h_);
     }
 
     @Override

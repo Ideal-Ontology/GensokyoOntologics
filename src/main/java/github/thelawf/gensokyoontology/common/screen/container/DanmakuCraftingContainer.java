@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.screen.container;
 
 import github.thelawf.gensokyoontology.common.util.TriMap;
-import github.thelawf.gensokyoontology.core.ContainerRegistry;
+import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-
+    "gensokyoontology:sakura_leaves",
+    "gensokyoontology:maple_leaves",
+    "gensokyoontology:fagus_leaves"
   ]
 }

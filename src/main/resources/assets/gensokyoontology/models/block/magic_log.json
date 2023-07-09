@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "end": "minecraft:block/acacia_log_top",
-    "side": "gensokyoontolgy:block/magic_log"
+    "end": "gensokyoontology:block/magic_log_top",
+    "side": "minecraft:block/spruce_log_side"
   }
 }

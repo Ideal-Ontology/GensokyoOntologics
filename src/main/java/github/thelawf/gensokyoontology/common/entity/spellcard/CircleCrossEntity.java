@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
@@ -30,7 +31,7 @@ public class CircleCrossEntity extends SpellCardEntity {
     }
 
     public CircleCrossEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
-        super(entityTypeIn, worldIn);
+        super(CIRCLE_CROSS_ENTITY, worldIn);
     }
 
     @Override
@@ -48,11 +49,11 @@ public class CircleCrossEntity extends SpellCardEntity {
             HashMap<Integer, TransformFunction> map = new HashMap<>();
             SpellData spellData = new SpellData(map, DanmakuType.LARGE_SHOT, DanmakuColor.PINK, false, false);
 
-            LargeShotEntity largeShot = new LargeShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.YELLOW);
-            setDanmakuInit(largeShot, global);
+            SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.YELLOW);
+            setDanmakuInit(smallShot, global);
 
-            largeShot.shoot(shootAngle.x, shootAngle.y, shootAngle.z, 0.6f, 0f);
-            world.addEntity(largeShot);
+            smallShot.shoot(shootAngle.x, shootAngle.y, shootAngle.z, 0.6f, 0f);
+            world.addEntity(smallShot);
         }
 
         // for (int i = 0; i < 8; i++) {

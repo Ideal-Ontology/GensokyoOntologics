@@ -21,10 +21,6 @@ public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAs
                     LargeShotEntity::new, EntityClassification.MISC).size(0.5F,0.5F).trackingRange(4)
             .updateInterval(2).build("large_shot");
 
-    public static final EntityType<LargeShotEntity> SMALL_SHOT = EntityType.Builder.<LargeShotEntity>create(
-                    LargeShotEntity::new, EntityClassification.MISC).size(0.15F,0.15F).trackingRange(4)
-            .updateInterval(2).build("small_shot");
-
     public LargeShotEntity(World worldIn) {
         super(LARGE_SHOT, worldIn);
     }
@@ -51,6 +47,9 @@ public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAs
         IItemProvider item = null;
         switch (getDanmakuColor()) {
             case RED:
+            case NONE:
+            case PINK:
+            case AQUA:
                 item = ItemRegistry.LARGE_SHOT_RED.get();
                 break;
             case YELLOW:
@@ -59,20 +58,11 @@ public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAs
             case GREEN:
                 item = ItemRegistry.LARGE_SHOT_GREEN.get();
                 break;
-            case AQUA:
-                item = ItemRegistry.LARGE_SHOT_RED.get();
-                break;
             case BLUE:
                 item = ItemRegistry.LARGE_SHOT_BLUE.get();
                 break;
-            case PINK:
-                item = ItemRegistry.LARGE_SHOT_RED.get();
-                break;
             case PURPLE:
                 item = ItemRegistry.LARGE_SHOT_PURPLE.get();
-                break;
-            case NONE:
-                item = ItemRegistry.LARGE_SHOT_RED.get();
                 break;
         }
 

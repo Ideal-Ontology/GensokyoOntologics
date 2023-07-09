@@ -52,10 +52,11 @@ public class DanmakuUtil {
         Vector3d lookVec = playerIn.getLookVec();
 
         danmakuEntityType.setNoGravity(true);
-        danmakuEntityType.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + 0.8, playerIn.getPosZ(),
+        danmakuEntityType.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight(), playerIn.getPosZ(),
                 (float) lookVec.y, (float) lookVec.z);
         danmakuEntityType.shoot(lookVec.x, lookVec.y, lookVec.z, velocity, inaccuracy);
         worldIn.addEntity(danmakuEntityType);
+        GensokyoOntology.LOGGER.info(playerIn.getEyeHeight());
 
         playerIn.getHeldItemMainhand().shrink(1);
 

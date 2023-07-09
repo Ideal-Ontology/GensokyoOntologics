@@ -1,6 +1,6 @@
 {
   "parent": "block/cube_all",
   "textures": {
-    "all": "gensokyoontology:block/fagus_blossom"
+    "all": "gensokyoontology:block/fagus_leaves"
   }
 }

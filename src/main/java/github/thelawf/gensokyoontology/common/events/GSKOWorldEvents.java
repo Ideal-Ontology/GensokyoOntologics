@@ -2,21 +2,38 @@ package github.thelawf.gensokyoontology.common.events;
 
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatureGeneration;
+import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.Dimension;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeContainer;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.chunk.Chunk;
+import net.minecraft.world.chunk.IChunk;
+import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.Features;
+import net.minecraft.world.gen.feature.IFeatureConfig;
+import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
+import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
+import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
 
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID)
 public class GSKOWorldEvents {
@@ -32,6 +49,31 @@ public class GSKOWorldEvents {
 
         spawners.add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(),
                 38,2,4));
+    }
+
+    @SubscribeEvent
+    public static void onChunkLoad(ChunkEvent.Load event) {
+        IChunk chunk = event.getChunk();
+        if (chunk.getWorldForge() instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld) chunk.getWorldForge();
+            if (serverWorld.getDimensionKey().equals(GSKODimensions.GENSOKYO)) {
+                Biome biome = serverWorld.getBiome(chunk.getPos().asBlockPos());
+                final String modid = GensokyoOntology.MODID;
+                // if (String.valueOf(biome.getRegistryName()).equals(modid + ":gensokyo_forest")) {
+                //     GensokyoOntology.LOGGER.info(String.valueOf(biome.getRegistryName()));
+                // }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onWorldLoad(WorldGenerateEvent event) {
+        if (!event.getWorld().isRemote()) {
+            ServerWorld serverWorld = (ServerWorld) event.getWorld();
+            if (serverWorld.getDimensionKey().equals(GSKODimensions.GENSOKYO)) {
+                Biome biome = serverWorld.getBiome(event.getChunk().getPos().asBlockPos());
+            }
+        }
     }
 
     @SubscribeEvent
@@ -61,8 +103,20 @@ public class GSKOWorldEvents {
                 new ResourceLocation("minecraft:giant_spruce_taiga")
         );
 
-        serverWorld.getChunkProvider().getChunkGenerator().getBiomeProvider().
-                getBiomes().forEach(biome -> spawnEntityIn(biome, biomeIds, classification));
+        serverWorld.getChunkProvider().getChunkGenerator().getBiomeProvider()
+                .getBiomes().forEach(biome -> spawnEntityIn(biome, biomeIds, classification));
+    }
+
+    private static <FC extends IFeatureConfig, F extends Feature<FC>> void generateFeatureIn(Biome biome, ConfiguredFeature<FC, F> feature) {
+
+
+        // List<Supplier<ConfiguredFeature<?,?>>> base = biome.getGenerationSettings().getFeatures()
+        //         .get(GenerationStage.Decoration.VEGETAL_DECORATION.ordinal());
+//
+        // base.add(GenerationStage.Decoration.VEGETAL_DECORATION.ordinal(),
+        //         () -> feature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+        //         .withPlacement(Placement.COUNT_EXTRA.configure(
+        //                 new AtSurfaceWithExtraConfig(1, 0.8f, 2))));
     }
 
     private static void spawnEntityIn (Biome biome, List<ResourceLocation> biomeIds,

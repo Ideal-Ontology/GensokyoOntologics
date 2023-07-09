@@ -4,11 +4,14 @@ package github.thelawf.gensokyoontology.common.libs.logoslib.math;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GSKOMathUtil {
@@ -204,19 +207,17 @@ public class GSKOMathUtil {
     }
 
     public static Vector3d getPointOnCircle(Vector3d center,
-                                                         double radius, double angle) {
+                                            double radius, double angle) {
         return new Vector3d(
                 center.getX() + radius * Math.cos(Math.toDegrees(angle)),
-                center.getY() + radius * Math.sin(Math.toDegrees(angle)),
-                0);
+                0, center.getZ() + radius * Math.sin(Math.toDegrees(angle)));
     }
 
     public static Vector3d getPointOnOvalByAngle(Vector3d center,
-                                                              double lengthX, double lengthY, double angle) {
+                                                 double lengthX, double lengthY, double angle) {
         return new Vector3d(
                 center.getX() + lengthX * Math.cos(Math.toDegrees(angle)),
-                center.getY() + lengthY * Math.sin(Math.toDegrees(angle)),
-                0);
+                0, center.getY() + lengthY * Math.sin(Math.toDegrees(angle)));
     }
 
     public static Vector3d getPointOnOval(Vector3d center,
@@ -279,6 +280,13 @@ public class GSKOMathUtil {
 
     public static Vector3d lerp(float p, Vector3d from, Vector3d to) {
         return from.add(to.subtract(from).scale(p));
+    }
+
+    public static BlockPos lerp(float progress, BlockPos start, BlockPos end) {
+        int x = MathHelper.floor(MathHelper.lerp(progress, start.getX(), end.getX()));
+        int y = MathHelper.floor(MathHelper.lerp(progress, start.getY(), end.getY()));
+        int z = MathHelper.floor(MathHelper.lerp(progress, start.getZ(), end.getZ()));
+        return new BlockPos(x,y,z);
     }
 
     /**
@@ -418,7 +426,6 @@ public class GSKOMathUtil {
      * @param degIn 角度值
      * @return 弧度值
      */
-
     public static double toRadian(double degIn) {
         return degIn * Math.PI / 180d;
     }
@@ -437,6 +444,20 @@ public class GSKOMathUtil {
 
     public static double cube(double base) {
         return base * base * base;
+    }
+
+    /**
+     * 快速傅里叶变换算法
+     */
+    public static List<Complex> fft (List<Complex> complexes) {
+        int n = complexes.size();
+
+        List<Complex> list = new ArrayList<>();
+        if (n == 1) {
+
+            list.add(complexes.get(0));
+        }
+        return list;
     }
 
     /** Generate this code field by ChatGPT

@@ -19,12 +19,9 @@ public class GSKOItemTags extends ItemTagsProvider {
         super(dataGenerator, blockTagProvider, modId, existingFileHelper);
     }
 
-
     @Override
     protected void registerTags() {
         // addItemTags(GSKOTags.ONION, ItemRegistry.ONION.get());
-        this.getOrCreateBuilder(GSKOTags.CROPS).addTag(GSKOTags.CROPS);
-        this.getOrCreateBuilder(GSKOTags.ONION).addItemEntry(ItemRegistry.ONION.get());
         // this.getOrCreateBuilder(GSKOTags.INYO_JADE).addItemEntry()
     }
 

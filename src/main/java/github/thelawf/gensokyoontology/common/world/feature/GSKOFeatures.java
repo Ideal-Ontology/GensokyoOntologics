@@ -2,9 +2,12 @@ package github.thelawf.gensokyoontology.common.world.feature;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
@@ -25,14 +28,13 @@ public class GSKOFeatures {
     // public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE = register(
     //         new ResourceLocation(GensokyoOntology.MODID, "magic_tree"), Feature.TREE.withConfiguration(
     //                 new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.DARK_OAK_LOG.getDefaultState()),
-    //                         new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState()),
+    //                         new SimpleBlockStateProvider(BlockRegistry.MAGIC_LEAVES.get().getDefaultState()),
     //                         new BlobFoliagePlacer(FeatureSpread.create(10),FeatureSpread.create(18),20),
     //                         new FancyTrunkPlacer(15,3,2),
     //                         new TwoLayerFeature(1,0,1)).setIgnoreVines().build()));
 
-    // public static final ConfiguredFeature<MagicTreeConfig, ?> MAGIC_TREE = new ResourceLocation(
-    //         GensokyoOntology.MODID, "magic_tree", FeatureRegistry.MAGIC_TREE.get().withConfiguration(
-    //                 new MagicTreeConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.))));
+    public static final ConfiguredFeature<NoFeatureConfig, ?> MAGIC_TREE = register(new ResourceLocation(
+            GensokyoOntology.MODID, "magic_tree"), FeatureRegistry.MAGIC_TREE.get().withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG));
 
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAPLE_TREE = register(new ResourceLocation(
             GensokyoOntology.MODID, "maple_tree"), Feature.TREE.withConfiguration(
@@ -57,12 +59,19 @@ public class GSKOFeatures {
                     .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3));
 
+    public static final StructureFeature<?, ?> MYSTIA_STRUCTURE = FeatureRegistry.MYSTIA_IZAKAYA.get()
+            .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC,?> register(String key, ConfiguredFeature<FC,?> feature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, key, feature);
     }
 
-    protected static <FC extends IFeatureConfig, F extends Feature<FC>> ConfiguredFeature<FC, F> register(
+    public static <FC extends IFeatureConfig, F extends Feature<FC>> ConfiguredFeature<FC, F> register(
             ResourceLocation location, ConfiguredFeature<FC, F> feature) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location, feature);
+    }
+
+    public static void registerStructure() {
+        FlatGenerationSettings.STRUCTURES.put(FeatureRegistry.MYSTIA_IZAKAYA.get(), MYSTIA_STRUCTURE);
     }
 }

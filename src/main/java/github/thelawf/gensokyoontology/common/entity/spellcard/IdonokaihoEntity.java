@@ -28,11 +28,11 @@ public class IdonokaihoEntity extends SpellCardEntity {
                     .updateInterval(2).build("ido_no_kaiho");
 
     public IdonokaihoEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
-        super(entityTypeIn, worldIn, player);
+        super(IDONOKAIHO_ENTITY, worldIn, player);
     }
 
     public IdonokaihoEntity(EntityType<IdonokaihoEntity> entityTypeIn, World worldIn) {
-        super(entityTypeIn, worldIn);
+        super(IDONOKAIHO_ENTITY, worldIn);
     }
 
     @Override

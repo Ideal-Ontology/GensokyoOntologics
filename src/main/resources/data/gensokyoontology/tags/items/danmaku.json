@@ -1,0 +1,9 @@
+{
+  "replace": false,
+  "values": [
+    "#gensokyoontology:danmaku/large_shots",
+    "#gensokyoontology:danmaku/small_shots",
+    "#gensokyoontology:danmaku/heart_shots",
+    "#gensokyoontology:danmaku/star_shots"
+  ]
+}

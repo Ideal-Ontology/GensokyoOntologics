@@ -29,7 +29,6 @@ public class LargeShot extends Item {
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
         final String typeName = String.valueOf(this.getItem().getRegistryName());
         final String modid = GensokyoOntology.MODID + ":";
-        GensokyoOntology.LOGGER.info(typeName);
         DanmakuColor danmakuColor = DanmakuColor.NONE;
 
         switch (typeName) {

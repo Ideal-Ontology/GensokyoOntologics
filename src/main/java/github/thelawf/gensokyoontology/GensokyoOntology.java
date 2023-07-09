@@ -1,12 +1,16 @@
 package github.thelawf.gensokyoontology;
 
 import github.thelawf.gensokyoontology.common.CommonSetUp;
+import github.thelawf.gensokyoontology.common.events.WorldGenerateEvent;
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.common.screen.DanmakuCraftingScreen;
-import github.thelawf.gensokyoontology.core.ContainerRegistry;
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
+import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
+import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
@@ -17,6 +21,7 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
+import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -44,19 +49,21 @@ public class GensokyoOntology {
 
         MinecraftForge.EVENT_BUS.register(this);
 
-        final IEventBus modEvent = FMLJavaModLoadingContext.get().getModEventBus();
-        modEvent.addListener(CommonSetUp::init);
+        final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        eventBus.addListener(CommonSetUp::init);
 
-        ItemRegistry.ITEMS.register(modEvent);
-        FluidRegistry.FLUIDS.register(modEvent);
-        BlockRegistry.BLOCKS.register(modEvent);
-        GSKOParticleRegistry.PARTICLE_TYPES.register(modEvent);
-        EffectRegistry.POTION_EFFECTS.register(modEvent);
-        TileEntityTypeRegistry.TILE_ENTITIES.register(modEvent);
-        EntityRegistry.ENTITIES.register(modEvent);
-        ContainerRegistry.CONTAINERS.register(modEvent);
-        SerializerRegistry.SPELL_DATA_SERIALIZER.register(modEvent);
-        FeatureRegistry.FEATURES.register(modEvent);
+        ItemRegistry.ITEMS.register(eventBus);
+        FluidRegistry.FLUIDS.register(eventBus);
+        BlockRegistry.BLOCKS.register(eventBus);
+        GSKOParticleRegistry.PARTICLE_TYPES.register(eventBus);
+        EffectRegistry.POTION_EFFECTS.register(eventBus);
+        TileEntityTypeRegistry.TILE_ENTITIES.register(eventBus);
+        EntityRegistry.ENTITIES.register(eventBus);
+        ContainerRegistry.CONTAINERS.register(eventBus);
+        SerializerRegistry.SPELL_DATA_SERIALIZER.register(eventBus);
+        FeatureRegistry.FEATURES.register(eventBus);
+
+        GSKOBiomes.BIOMES.register(eventBus);
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -94,6 +101,11 @@ public class GensokyoOntology {
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_DOOR.get(),
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_TRAPDOOR.get(),
+                        RenderType.getCutout());
+
+                RenderTypeLookup.setRenderLayer(BlockRegistry.MAPLE_SAPLING.get(),
+                        RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_SAPLING.get(),
                         RenderType.getCutout());
 
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),

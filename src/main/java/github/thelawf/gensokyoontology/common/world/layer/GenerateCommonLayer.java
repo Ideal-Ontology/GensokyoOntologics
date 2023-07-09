@@ -1,14 +1,17 @@
 package github.thelawf.gensokyoontology.common.world.layer;
 
 import com.google.common.collect.ImmutableList;
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer0;
+import net.minecraftforge.fml.common.Mod;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.annotation.Annotation;
 import java.util.List;
 
 /**
@@ -46,6 +49,9 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
     private static final List<RegistryKey<Biome>> commonBiomes = ImmutableList.of(
             GSKOBiomes.GSKO_PLAINS_KEY,
             GSKOBiomes.GSKO_FOREST_KEY,
+            GSKOBiomes.GSKO_RIVER_KEY,
+            GSKOBiomes.MISTY_LAKE_KEY,
+            GSKOBiomes.WIND_GODDESS_LAKE_KEY,
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.HUMAN_VILLAGE_KEY,
@@ -60,6 +66,7 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
     }
 
     private int getCommonBiomeID(INoiseRandom random) {
+        Annotation a = GensokyoOntology.class.getAnnotation(Mod.class);
         return getId(registry, GenerateCommonLayer.commonBiomes.get(
                 random.random(GenerateCommonLayer.commonBiomes.size())));
     }

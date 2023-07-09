@@ -2,9 +2,11 @@ package github.thelawf.gensokyoontology.common.item.danmaku;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
+import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -18,7 +20,7 @@ public class SmallShot extends Item {
 
     public DanmakuType type;
     public SmallShot(DanmakuType type) {
-        super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB));
+        super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
         this.type = type;
     }
 
@@ -27,7 +29,6 @@ public class SmallShot extends Item {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         final String typeName = String.valueOf(this.getItem().getRegistryName());
         final String modid = GensokyoOntology.MODID + ":";
-        GensokyoOntology.LOGGER.info(typeName);
         DanmakuColor danmakuColor = DanmakuColor.NONE;
 
         switch (typeName) {
@@ -50,8 +51,8 @@ public class SmallShot extends Item {
                 break;
         }
 
-        LargeShotEntity smallShot = new LargeShotEntity(LargeShotEntity.SMALL_SHOT, playerIn,
-                worldIn, DanmakuType.HEART_SHOT, danmakuColor);
+        SmallShotEntity smallShot = new SmallShotEntity(playerIn, worldIn,
+                DanmakuType.HEART_SHOT, danmakuColor);
         DanmakuUtil.shootDanmaku(worldIn, playerIn, smallShot, 0.6f, 0f);
 
         return super.onItemRightClick(worldIn, playerIn, handIn);

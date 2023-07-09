@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.world.feature;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.registry.Registry;
@@ -27,24 +28,18 @@ public class GSKOFeatureGeneration {
 
         if (event.getName().equals(GSKOBiomes.SAKURA_FOREST.getRegistryName())) {
             List<Supplier<ConfiguredFeature<?,?>>> base = event.getGeneration().getFeatures(
-                    GenerationStage.Decoration.VEGETAL_DECORATION
-            );
+                    GenerationStage.Decoration.VEGETAL_DECORATION);
 
             base.add(() -> GSKOFeatures.SAKURA_TREE
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                     .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1, 0.65f, 2)))
-            );
+                            new AtSurfaceWithExtraConfig(1, 0.65f, 2))));
+
             base.add(() -> Features.OAK
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                     .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1,0.05f, 2)
-                    )));
-            base.add(() -> GSKOFeatures.MAPLE_TREE
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1, 0.3f, 2)
-                    )));
+                            new AtSurfaceWithExtraConfig(1,0.05f, 2))));
+
         }
 
     }
@@ -52,7 +47,8 @@ public class GSKOFeatureGeneration {
     public static void generateGensokyoTrees(final BiomeLoadingEvent event) {
         if (event.getName() == null) return;
 
-        if (event.getName().equals(GSKOBiomes.GSKO_FOREST_KEY.getRegistryName())) {
+        GensokyoOntology.LOGGER.info(event.getName().equals(GSKOBiomes.GSKO_FOREST_KEY.getRegistryName()));
+        if (event.getName().equals(GSKOBiomes.GSKO_PLAINS_KEY.getRegistryName())) {
             List<Supplier<ConfiguredFeature<?,?>>> base = event.getGeneration().getFeatures(
                     GenerationStage.Decoration.VEGETAL_DECORATION
             );
@@ -63,17 +59,16 @@ public class GSKOFeatureGeneration {
                             new AtSurfaceWithExtraConfig(1, 0.15f, 2)))
             );
 
-            base.add(() -> Features.OAK
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1,0.23f, 2)
-                    )));
-
             base.add(() -> Features.FANCY_OAK
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                     .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1,0.45f, 2)
+                            new AtSurfaceWithExtraConfig(1,0.15f, 2)
                     )));
+
+            base.add(() -> GSKOFeatures.MAGIC_TREE
+                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+                    .withPlacement(Placement.COUNT_EXTRA.configure(
+                            new AtSurfaceWithExtraConfig(1, 0.15f, 2))));
         }
 
         if (event.getName().equals(GSKOBiomes.BAMBOO_FOREST_LOST_KEY.getRegistryName())) {

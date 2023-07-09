@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.*;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -62,17 +63,17 @@ public class HellEclipseEntity extends SpellCardEntity{
 
         for (int i = 0; i < 8; i++) {
 
-            LargeShotEntity largeShot = new LargeShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
+            SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
             Vector3d vector3d = center.rotateYaw((float) (Math.PI / 4 * i))
                     .rotateYaw((float) (Math.PI / 100 * ticksExisted));
 
-            largeShot.setLocationAndAngles(global.x, global.y, global.z,
+            smallShot.setLocationAndAngles(global.x, global.y, global.z,
                     (float) center.y, (float) center.z);
-            largeShot.setNoGravity(true);
+            smallShot.setNoGravity(true);
 
-            largeShot.shoot(vector3d.x, 0, vector3d.z, 0.5F, 0F);
+            smallShot.shoot(vector3d.x, 0, vector3d.z, 0.5F, 0F);
 
-            world.addEntity(largeShot);
+            world.addEntity(smallShot);
         }
 
     }

@@ -14,6 +14,7 @@ import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.layer.Layer;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -80,12 +81,14 @@ public class GSKOBiomesProvider extends BiomeProvider {
     public static final List<RegistryKey<Biome>> GSKO_BIOMES = ImmutableList.of(
             GSKOBiomes.GSKO_PLAINS_KEY,
             GSKOBiomes.GSKO_FOREST_KEY,
+            GSKOBiomes.GSKO_RIVER_KEY,
+            GSKOBiomes.MISTY_LAKE_KEY,
+            GSKOBiomes.WIND_GODDESS_LAKE_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
             GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
             GSKOBiomes.SUNFLOWER_GARDEN_KEY,
             GSKOBiomes.HUMAN_VILLAGE_KEY,
-            GSKOBiomes.MISTY_LAKE_KEY,
             GSKOBiomes.SANZU_RIVER_KEY,
             GSKOBiomes.HIGAN_KEY
     );

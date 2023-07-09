@@ -47,8 +47,8 @@ public final class EntityRegistry {
             "heart_shot", () -> HeartShotEntity.HEART_SHOT);
     public static final RegistryObject<EntityType<LargeShotEntity>> LARGE_SHOT_ENTITY = ENTITIES.register(
             "large_shot", () -> LargeShotEntity.LARGE_SHOT);
-    public static final RegistryObject<EntityType<LargeShotEntity>> SMALL_SHOT_ENTITY = ENTITIES.register(
-            "small_shot", () -> LargeShotEntity.SMALL_SHOT);
+    public static final RegistryObject<EntityType<SmallShotEntity>> SMALL_SHOT_ENTITY = ENTITIES.register(
+            "small_shot", () -> SmallShotEntity.SMALL_SHOT);
     public static final RegistryObject<EntityType<StarShotEntity>> STAR_SHOT_SMALL_ENTITY = ENTITIES.register(
             "star_shot_small", () -> StarShotEntity.STAR_SHOT_SMALL);
     public static final RegistryObject<EntityType<StarShotEntity>> STAR_SHOT_LARGE_ENTITY = ENTITIES.register(

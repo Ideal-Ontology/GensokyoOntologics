@@ -36,16 +36,18 @@ public class OccultBall extends Item {
         CompoundNBT nbt = new CompoundNBT();
         Biome biome = worldIn.getBiome(playerIn.getPosition());
         nbt.putString("biome", String.valueOf(biome.getRegistryName()));
+        nbt.putBoolean("can_travel_to_gensokyo", this.canTravelToGensokyo);
 
         stack.setTag(nbt);
 
-        if (worldIn instanceof ServerWorld && playerIn instanceof ServerPlayerEntity) {
+        if (!worldIn.isRemote() && nbt.getBoolean("can_travel_to_gensokyo") && playerIn instanceof ServerPlayerEntity) {
+            this.canTravelToGensokyo = false;
+            nbt.remove("can_travel_to_gensokyo");
+            ServerWorld serverWorld = (ServerWorld) worldIn;
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) playerIn;
-            if (serverPlayer.getServer() != null && this.canTravelToGensokyo) {
-                this.canTravelToGensokyo = false;
-                ServerWorld gensokyo = serverPlayer.getServer().getWorld(GSKODimensions.GENSOKYO);
-                TeleportHelper.teleport(serverPlayer, gensokyo, playerIn.getPosition());
-            }
+            ServerWorld gensokyo = serverWorld.getServer().getWorld(GSKODimensions.GENSOKYO);
+            TeleportHelper.teleport(serverPlayer, gensokyo, playerIn.getPosition());
+
         }
 
         BlockPos blockPos = playerIn.getPosition();

@@ -4,6 +4,8 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.cyber.ComputerBlock;
 import github.thelawf.gensokyoontology.common.block.cyber.HashLeaves;
+import github.thelawf.gensokyoontology.common.block.decoration.*;
+import github.thelawf.gensokyoontology.common.world.feature.tree.MapleTree;
 import github.thelawf.gensokyoontology.common.world.feature.tree.SakuraTree;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
@@ -15,9 +17,9 @@ public final class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, GensokyoOntology.MODID);
 
-    // public static final RegistryObject<Block> PREDICATE_BLOCK = BLOCKS.register(
-    //         "prediacte_block", PredicateBlock::new);
-
+    ///////////////////////////////////////////////////////////////////////////////////
+    /////////////                     装饰类方块                          ///////////////
+    ///////////////////////////////////////////////////////////////////////////////////
     public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register("magic_leaves",
             () -> new LeavesBlock(AbstractBlock.Properties.create(
                     Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
@@ -66,6 +68,9 @@ public final class BlockRegistry {
                     AbstractBlock.Properties.from(Blocks.ACACIA_PRESSURE_PLATE)));
 
     //////////////////////////////// 榉树木 ////////////////////////////////
+    // public static final RegistryObject<Block> FAGUS_SAPLING = BLOCKS.register(
+    //         "fagus_sapling", () -> new SaplingBlock(new MapleTree(),
+    //                 AbstractBlock.Properties.from(Blocks.ACACIA_SAPLING)));
     public static final RegistryObject<Block> FAGUS_LEAVES = BLOCKS.register(
             "fagus_leaves", FagusLeaves::new);
 
@@ -101,6 +106,9 @@ public final class BlockRegistry {
                     AbstractBlock.Properties.from(Blocks.ACACIA_PRESSURE_PLATE)));
 
     //////////////////////////////// 枫木 ////////////////////////////////
+    public static final RegistryObject<Block> MAPLE_SAPLING = BLOCKS.register(
+            "maple_sapling", () -> new SaplingBlock(new MapleTree(),
+                    AbstractBlock.Properties.from(Blocks.ACACIA_SAPLING)));
     public static final RegistryObject<Block> MAPLE_LEAVES = BLOCKS.register(
             "maple_leaves", MapleLeaves::new);
 
@@ -131,9 +139,46 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> MAPLE_TRAPDOOR = BLOCKS.register(
             "maple_trapdoor", MapleTrapdoor::new);
 
-    public static final RegistryObject<Block> MAPLE_PRESSRUE_PLATE = BLOCKS.register(
+    public static final RegistryObject<Block> MAPLE_PRESSURE_PLATE = BLOCKS.register(
             "maple_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
                     AbstractBlock.Properties.from(Blocks.ACACIA_PRESSURE_PLATE)));
+
+    /////////////////////////////     蘑菇方块      ////////////////////////////////
+    public static final RegistryObject<Block> BLUE_MUSHROOM_BLOCK = BLOCKS.register(
+            "blue_mushroom_block", BlueMushroomBlock::new);
+    public static final RegistryObject<Block> PURPLE_MUSHROOM_BLOCK = BLOCKS.register(
+            "purple_mushroom_block", PurpleMushroomBlock::new);
+
+    /////////////////////////////     草本植物     ////////////////////////////////
+    public static final RegistryObject<Block> BLUE_ROSE_BUSH = BLOCKS.register(
+            "blue_rose_bush", BlueRoseBush::new);
+    public static final RegistryObject<Block> LYCORIS_RADIATA = BLOCKS.register(
+            "lycoris_radiata", LycorisRadiata::new);
+    public static final RegistryObject<Block> WASABI_BLOCK = BLOCKS.register(
+            "wasabi", WasabiBlock::new);
+
+    ///////////////////////////////////////////////////////////////////////////////////
+    /////////////                     实用类方块                          ///////////////
+    ///////////////////////////////////////////////////////////////////////////////////
+    public static final RegistryObject<Block> DRAGON_SPHERE_ORE = BLOCKS.register(
+            "dragon_sphere_ore", DragonSphereOre::new);
+
+    public static final RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
+            () -> new HotSpringBlock(() -> FluidRegistry.HOT_SPRING_SOURCE.get(),
+            Block.Properties.create(Material.WATER).doesNotBlockMovement()
+                                .hardnessAndResistance(100.0f).noDrops()));
+
+    public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
+            "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));
+
+    public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register(
+            "danmaku_table", DanmakuTable::new);
+
+    public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
+            "space_fissure_block", SpaceFissureBlock::new);
+
+    public static final RegistryObject<Block> SUKIMA_BLOCK = BLOCKS.register("sukima",
+            SukimaBlock::new);
 
     //======================= ↓ The Mod Cyber Statistics ↓ ==================//
     public static final RegistryObject<Block> HASH_LOG = BLOCKS.register("hash_log",
@@ -155,39 +200,6 @@ public final class BlockRegistry {
             new LeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
 
     //======================= ↑ The Mod Cyber Statistics ↑ ====================//
-
-    public static final RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
-            () -> new HotSpringBlock(() -> FluidRegistry.HOT_SPRING_SOURCE.get(),
-            Block.Properties.create(Material.WATER).doesNotBlockMovement()
-                                .hardnessAndResistance(100.0f).noDrops()));
-
-    public static final RegistryObject<DragonSphereOre> DRAGON_SPHERE_ORE = BLOCKS.register(
-            "dragon_sphere_ore", DragonSphereOre::new);
-
-    public static final RegistryObject<Block> BLUE_ROSE_BUSH = BLOCKS.register(
-            "blue_rose_bush", BlueRoseBush::new);
-    public static final RegistryObject<Block> LYCORIS_RADIATA = BLOCKS.register(
-            "lycoris_radiata", LycorisRadiata::new);
-
-    public static final RegistryObject<FriedPane> FRIED_PANE = BLOCKS.register(
-            "fried_pane",FriedPane::new
-    );
-
-    public static final RegistryObject<Block> WASABI_BLOCK = BLOCKS.register(
-            "wasabi", WasabiBlock::new);
-
-    public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
-            "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));
-
-    public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register(
-            "danmaku_table", DanmakuTable::new);
-
-    public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
-            "space_fissure_block", SpaceFissureBlock::new);
-
-    public static final RegistryObject<Block> SUKIMA_BLOCK = BLOCKS.register("sukima",
-            SukimaBlock::new);
-
     public static final RegistryObject<Block> COMPUTER_BLOCK = BLOCKS.register("computer",
             ComputerBlock::new);
 
@@ -202,4 +214,5 @@ public final class BlockRegistry {
 
     public static final RegistryObject<Block> ROTATE_FRAME = BLOCKS.register("rotate_frame",
             RotateFrameBlock::new);
+
 }

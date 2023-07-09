@@ -18,9 +18,6 @@
   "spawn_costs": {},
   "features": [
     [],
-    [
-      "minecraft:lake_water"
-    ],
     [],
     [],
     [],
@@ -28,11 +25,8 @@
     [],
     [],
     [],
-    [
-      "minecraft:trees_plains",
-      "minecraft:patch_grass_jungle",
-      "minecraft:patch_grass_normal"
-    ],
+    [],
+    [],
     []
   ],
   "carvers": {

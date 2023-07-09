@@ -28,8 +28,8 @@ public class ClientEventHandler {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(LargeShotEntity.LARGE_SHOT,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(LargeShotEntity.SMALL_SHOT,
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 0.5f, false));
+        RenderingRegistry.registerEntityRenderingHandler(SmallShotEntity.SMALL_SHOT,
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 0.6f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(StarShotEntity.STAR_SHOT_SMALL,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 0.5f, false));

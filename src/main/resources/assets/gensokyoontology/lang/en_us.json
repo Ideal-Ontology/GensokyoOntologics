@@ -71,6 +71,12 @@
   "item.gensokyoontology.large_shot_blue": "大弹（蓝）",
   "item.gensokyoontology.large_shot_purple": "大弹（紫）",
 
+  "item.gensokyoontology.small_shot_red": "小弹（红）",
+  "item.gensokyoontology.small_shot_yellow": "小弹（黄）",
+  "item.gensokyoontology.small_shot_green": "小弹（绿）",
+  "item.gensokyoontology.small_shot_blue": "小弹（蓝）",
+  "item.gensokyoontology.small_shot_purple": "小弹（紫）",
+
   "item.gensokyoontology.heart_shot_pink": "心弹（粉）",
   "item.gensokyoontology.heart_shot_red": "心弹（红）",
   "item.gensokyoontology.heart_shot_aqua": "心弹（淡蓝）",
@@ -142,6 +148,7 @@
   "block.gensokyoontology.sakura_trapdoor": "樱花木活板门",
 
   "block.gensokyoontology.magic_leaves": "魔法树叶",
+  "block.gensokyoontology.magic_log": "魔法树原木",
 
   "block.gensokyoontology.maple_button": "枫树按钮",
   "block.gensokyoontology.maple_leaves": "枫树树叶",
@@ -164,6 +171,9 @@
   "block.gensokyoontology.fagus_fence": "榉树栅栏",
   "block.gensokyoontology.fagus_fence_gate": "榉树栅栏门",
   "block.gensokyoontology.fagus_trapdoor": "榉树活板门",
+
+  "block.gensokyoontology.blue_mushroom_block": "蓝色蘑菇方块",
+  "block.gensokyoontology.purple_mushroom_block": "紫色蘑菇方块",
 
   "block.gensokyoontology.fried_pane": "炸锅",
   "block.gensokyoontology.dakimakura": "抱枕",

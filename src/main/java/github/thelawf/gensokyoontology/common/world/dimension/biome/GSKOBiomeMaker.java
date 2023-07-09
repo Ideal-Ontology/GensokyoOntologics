@@ -34,7 +34,7 @@ public final class GSKOBiomeMaker {
         return biomegenerationSettings;
     }
 
-    private static BiomeGenerationSettings.Builder addFeatureIfContains(List<Features> features) {
+    private static BiomeGenerationSettings.Builder addFeatureIfContains(List<FeatureType> features) {
         BiomeGenerationSettings.Builder biomegenerationSettings
                 = (new BiomeGenerationSettings.Builder()
                 .withSurfaceBuilder(ConfiguredSurfaceBuilders.GRASS)
@@ -50,19 +50,19 @@ public final class GSKOBiomeMaker {
         DefaultBiomeFeatures.withLavaAndWaterSprings(biomegenerationSettings);
 
         features.forEach(f -> {
-            if (features.contains(Features.PUMPKINS)) {
+            if (features.contains(FeatureType.PUMPKINS)) {
                 DefaultBiomeFeatures.withSugarCaneAndPumpkins(biomegenerationSettings);
             }
-            if (features.contains(Features.FOREST_GRASS)) {
+            if (features.contains(FeatureType.FOREST_GRASS)) {
                 DefaultBiomeFeatures.withForestGrass(biomegenerationSettings);
             }
-            if (features.contains(Features.ACACIA_TREE)) {
+            if (features.contains(FeatureType.ACACIA_TREE)) {
                 DefaultBiomeFeatures.withSavannaTrees(biomegenerationSettings);
             }
-            if (features.contains(Features.PLAINS_GRASS)) {
+            if (features.contains(FeatureType.PLAINS_GRASS)) {
                 DefaultBiomeFeatures.withPlainGrassVegetation(biomegenerationSettings);
             }
-            if (features.contains(Features.NORMAL_GRASS_PATCH)) {
+            if (features.contains(FeatureType.NORMAL_GRASS_PATCH)) {
                 DefaultBiomeFeatures.withNormalGrassPatch(biomegenerationSettings);
             }
         });
@@ -91,9 +91,9 @@ public final class GSKOBiomeMaker {
     }
 
     public static Biome makeYatsugaTakeBiome() {
-        List<Features> features = new ArrayList<>();
-        features.add(Features.ACACIA_TREE);
-        features.add(Features.NORMAL_GRASS_PATCH);
+        List<FeatureType> features = new ArrayList<>();
+        features.add(FeatureType.ACACIA_TREE);
+        features.add(FeatureType.NORMAL_GRASS_PATCH);
 
         return new Biome.Builder()
                 .depth(2.8f)
@@ -119,9 +119,9 @@ public final class GSKOBiomeMaker {
 
 
     public static Biome makeYamotsuHirasaka() {
-        List<Features> features = new ArrayList<>();
-        features.add(Features.PLAINS_GRASS);
-        features.add(Features.NORMAL_GRASS_PATCH);
+        List<FeatureType> features = new ArrayList<>();
+        features.add(FeatureType.PLAINS_GRASS);
+        features.add(FeatureType.NORMAL_GRASS_PATCH);
 
         return new Biome.Builder()
                 .depth(0.1f)
@@ -167,9 +167,9 @@ public final class GSKOBiomeMaker {
     }
 
     public static Biome makeSakuraForest() {
-        List<Features> features = new ArrayList<>();
-        features.add(Features.FOREST_GRASS);
-        features.add(Features.NORMAL_GRASS_PATCH);
+        List<FeatureType> features = new ArrayList<>();
+        features.add(FeatureType.FOREST_GRASS);
+        features.add(FeatureType.NORMAL_GRASS_PATCH);
 
         return new Biome.Builder()
                 .depth(0.1f)
@@ -216,12 +216,34 @@ public final class GSKOBiomeMaker {
                 .setRegistryName(GensokyoOntology.MODID, "hell_valley");
     }
 
+    public static Biome makeGensokyoForest() {
+        return new Biome.Builder()
+                .depth(0.12f)
+                .scale(0.32f)
+                .downfall(0.7f)
+                .temperature(0.88f)
+                .category(Biome.Category.FOREST)
+                .precipitation(Biome.RainType.RAIN)
+                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
+                .withGenerationSettings(makeDefaultBuilder().build())
+                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
+                .setEffects(new BiomeAmbience.Builder()
+                        .setWaterColor(0x0DA7D6)
+                        .setWaterFogColor(0x282E84)
+                        .setFogColor(0xC0D8FF)
+                        .withGrassColor(0x59BA82)
+                        .withSkyColor(getSkyColor(0.7F))
+                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
+                        .build())
+                .build();
+    }
+
     private static int getSkyColor(float temperature) {
         float shift = MathHelper.clamp(temperature / 3.0F, -1.0F, 1.0F);
         return MathHelper.hsvToRGB((224.0F / 360.0F) - shift * 0.05F, 0.5F + shift * 0.1F, 1.0F);
     }
 
-    public enum Features {
+    public enum FeatureType {
         OAK_TREE,
         FANCY_OAK_TREE,
         ACACIA_TREE,

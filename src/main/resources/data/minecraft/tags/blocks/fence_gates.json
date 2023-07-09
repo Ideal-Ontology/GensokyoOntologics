@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-
+    "gensokyoontology:sakura_fence_gate",
+    "gensokyoontology:fagus_fence_gate",
+    "gensokyoontology:maple_fence_gate"
   ]
 }

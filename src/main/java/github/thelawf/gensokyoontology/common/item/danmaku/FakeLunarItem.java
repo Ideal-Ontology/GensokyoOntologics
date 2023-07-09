@@ -17,7 +17,7 @@ import java.util.HashMap;
 public class FakeLunarItem extends Item {
     public DanmakuType type;
     public FakeLunarItem(DanmakuType type) {
-        super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB));
+        super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
         this.type = type;
     }
 
