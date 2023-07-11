@@ -15,7 +15,9 @@
     "water_color": 4159204,
     "water_fog_color": 270131
   },
-  "starts": [],
+  "starts": [
+    "gensokyoontology:mystia_izakaya"
+  ],
   "spawners": {
     "monster": [
       {
@@ -46,7 +48,28 @@
       }
     ]
   },
-  "spawn_costs": {},
+  "spawn_costs": {
+    "minecraft:sheep": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:pig": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:cow": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:chicken": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:rabbit": {
+      "energy_budget": 0.12,
+      "charge": 0.8
+    }
+  },
   "carvers": {
     "air": [
       "minecraft:cave",

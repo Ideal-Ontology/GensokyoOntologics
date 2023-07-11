@@ -64,6 +64,7 @@ public class GensokyoOntology {
         FeatureRegistry.FEATURES.register(eventBus);
 
         GSKOBiomes.BIOMES.register(eventBus);
+        StructureRegistry.STRUCTURES.register(eventBus);
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

@@ -1,8 +1,11 @@
 package github.thelawf.gensokyoontology.common.world.feature;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
+import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -11,9 +14,15 @@ import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
+import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class GSKOFeatures {
 
@@ -44,6 +53,11 @@ public class GSKOFeatures {
                             new FancyTrunkPlacer(7, 3, 5),
                             new TwoLayerFeature(2,3,2)).setIgnoreVines().build()));
 
+    public static final ConfiguredFeature<BigMushroomFeatureConfig, ?> HUGE_BLUE_MUSHROOM = register(new ResourceLocation(
+            GensokyoOntology.MODID, "huge_blue_mushroom"), Feature.HUGE_RED_MUSHROOM.withConfiguration(
+                  new BigMushroomFeatureConfig(new SimpleBlockStateProvider(BlockRegistry.BLUE_MUSHROOM_BLOCK.get().getDefaultState()),
+                          new SimpleBlockStateProvider(Blocks.MUSHROOM_STEM.getDefaultState()),6)));
+
     public static final ConfiguredFeature<?,?> LYCORIS = register(
             new ResourceLocation(GensokyoOntology.MODID, "lycoris"),Feature.FLOWER.withConfiguration(
                     new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(
@@ -59,7 +73,9 @@ public class GSKOFeatures {
                     .withPlacement(Features.Placements.VEGETATION_PLACEMENT)
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3));
 
-    public static final StructureFeature<?, ?> MYSTIA_STRUCTURE = FeatureRegistry.MYSTIA_IZAKAYA.get()
+    public static final StructureFeature<?, ?> MYSTIA_STRUCTURE = StructureRegistry.MYSTIA_IZAKAYA.get()
+            .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+    public static final StructureFeature<?, ?> HAKUREI_STRUCTURE = StructureRegistry.HAKUREI_SHRINE.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
     private static <FC extends IFeatureConfig> ConfiguredFeature<FC,?> register(String key, ConfiguredFeature<FC,?> feature) {
@@ -72,6 +88,13 @@ public class GSKOFeatures {
     }
 
     public static void registerStructure() {
-        FlatGenerationSettings.STRUCTURES.put(FeatureRegistry.MYSTIA_IZAKAYA.get(), MYSTIA_STRUCTURE);
+        Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
+        //可以继续添加多个
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "mystia_izakaya"), MYSTIA_STRUCTURE);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "hakurei_shrine"), HAKUREI_STRUCTURE);
+
+        FlatGenerationSettings.STRUCTURES.put(StructureRegistry.MYSTIA_IZAKAYA.get(), MYSTIA_STRUCTURE);
+        FlatGenerationSettings.STRUCTURES.put(StructureRegistry.HAKUREI_SHRINE.get(), HAKUREI_STRUCTURE);
     }
+
 }

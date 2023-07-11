@@ -17,8 +17,23 @@
     "grass_color": 2402825,
     "foliage_color": 1281297
   },
-  "spawn_costs" : {
-
+  "spawn_costs": {
+    "minecraft:sheep": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:pig": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:cow": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:chicken": {
+      "energy_budget": 0.01,
+      "charge": 1
+    }
   },
   "features": [],
   "carvers": {

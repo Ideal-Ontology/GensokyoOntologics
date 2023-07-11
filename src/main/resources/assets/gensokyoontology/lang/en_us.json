@@ -35,6 +35,9 @@
   "gensokyoontology:gensokyo_plains": "幻想平原",
   "gensokyoontology:gensokyo_forest": "幻想森林",
 
+  "gensokyoontology:hakurei_shrine": "博丽神社",
+  "gensokyoontology:mystia_izakaya": "米斯蒂娅的烧烤店",
+
   "itemGroup.gensokyoontology_items": "幻想存有论：物品",
   "itemGroup.gensokyoontology_combat": "幻想存有论：战斗",
 
@@ -47,10 +50,19 @@
   "item.gensokyoontology.utopian_spirit": "意识形态·幻想",
   "item.gensokyoontology.theology_spirit": "意识形态·崇拜",
 
+  "item.gensokyoontology.hakurei_gohei": "博丽的御币",
+  "item.gensokyoontology.marisa_hakkeiro": "八卦炉",
+  "item.gensokyoontology.koishi_eye": "恋之瞳",
+  "item.gensokyoontology.koishi_hat": "恋恋的帽子",
+  "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
+  "item.gensokyoontology.story_card": "故事卡片",
+
+  "item.gensokyoontology.aya_fans": "文文的扇子",
   "item.gensokyoontology.occult_ball": "神秘珠",
   "item.gensokyoontology.spirit_tube": "灵魂的标本瓶",
   "item.gensokyoontology.kuda_gitsune_tube": "管狐的试管",
   "item.gensokyoontology.gitsune_tube_full": "装满的试管",
+  "item.gensokyoontology.chimata_market_license": "天弓千亦的市场许可证",
 
   "item.gensokyoontology.realism_sword": "实在论之剑",
   "item.gensokyoontology.metaphysics_sword": "形而上之剑",
@@ -100,13 +112,6 @@
   "item.gensokyoontology.inyo_jade_blue": "阴阳玉（蓝）",
   "item.gensokyoontology.inyo_jade_purple": "阴阳玉（紫）",
 
-  "item.gensokyoontology.hakurei_gohei": "博丽的御币",
-  "item.gensokyoontology.marisa_hakkeiro": "八卦炉",
-  "item.gensokyoontology.koishi_eye": "恋之瞳",
-  "item.gensokyoontology.koishi_hat": "恋恋的帽子",
-  "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
-  "item.gensokyoontology.story_card": "故事卡片",
-
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
   "item.gensokyoontology.koishi_hat_mousse": "无意识妖怪慕斯",
   "item.gensokyoontology.cake_scarlet_demon": "猩红恶魔蛋糕",
@@ -136,6 +141,7 @@
   "block.gensokyoontology.lycoris_radiata": "红花石蒜",
   "block.gensokyoontology.onion_crop": "洋葱",
 
+  "block.gensokyoontology.sakura_sapling": "樱花树苗",
   "block.gensokyoontology.sakura_button": "樱花木按钮",
   "block.gensokyoontology.sakura_leaves": "樱花树叶",
   "block.gensokyoontology.sakura_log": "樱花树原木",
@@ -150,6 +156,7 @@
   "block.gensokyoontology.magic_leaves": "魔法树叶",
   "block.gensokyoontology.magic_log": "魔法树原木",
 
+  "block.gensokyoontology.maple_sapling": "枫树树苗",
   "block.gensokyoontology.maple_button": "枫树按钮",
   "block.gensokyoontology.maple_leaves": "枫树树叶",
   "block.gensokyoontology.maple_log": "枫树原木",
