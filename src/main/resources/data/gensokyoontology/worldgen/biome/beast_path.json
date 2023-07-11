@@ -1,0 +1,71 @@
+{
+  "depth": 0.2,
+  "scale": 0.75,
+  "downfall": 0.6,
+  "temperature": 0.95,
+  "category": "extreme_hills",
+  "temperature_modifier": "none",
+  "player_spawn_friendly": true,
+  "creature_spawn_probability": 0.4,
+  "precipitation": "snow",
+  "surface_builder": "minecraft:mountain",
+  "effects": {
+    "sky_color": 7907327,
+    "fog_color": 12248771,
+    "water_color": 3574990,
+    "water_fog_color": 329011
+
+  },
+  "spawn_costs": {
+    "minecraft:sheep": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:pig": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:cow": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:chicken": {
+      "energy_budget": 0.01,
+      "charge": 1
+    }
+  },
+  "features": [
+    [],
+    [
+      "minecraft:lake_water"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "gensokyoontology:sakura_tree",
+      "gensokyoontology:sakura_tree",
+      "gensokyoontology:maple_tree",
+      "gensokyoontology:maple_tree"
+    ],
+    []
+  ],
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:canyon"
+    ],
+    "liquid": [
+      "minecraft:underwater_cave",
+      "minecraft:underwater_canyon"
+    ]
+  },
+  "spawners": {
+
+  },
+  "starts": []
+}

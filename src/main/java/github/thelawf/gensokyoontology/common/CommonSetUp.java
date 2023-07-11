@@ -5,8 +5,11 @@ import github.thelawf.gensokyoontology.common.capability.IIdeologyCapability;
 import github.thelawf.gensokyoontology.common.command.GSKOCommand;
 import github.thelawf.gensokyoontology.common.command.GUICommand;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
+import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
+import github.thelawf.gensokyoontology.core.PlacerRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
+import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.nbt.INBT;
@@ -31,6 +34,13 @@ public class CommonSetUp {
             // Registry.register(Registry.CHUNK_GENERATOR_CODEC,
             //         new ResourceLocation(GensokyoOntology.MODID, "chunkgen"),
             //         GSKOChunkGenerator.CHUNK_GEN_CODEC);
+
+            StructureRegistry.setupStructures();
+            PlacerRegistry.registerPlacers();
+            GSKOFeatures.registerStructure();
+            GSKOFeatures.registerFeature();
+
+
             Registry.register(Registry.BIOME_PROVIDER_CODEC,
                     new ResourceLocation(GensokyoOntology.MODID, "gensokyo"),
                     GSKOBiomesProvider.GSKO_BIOME_CODEC);

@@ -1,0 +1,124 @@
+{
+  "depth": 0.23,
+  "scale": 0.25,
+  "downfall": 0.05,
+  "temperature": 0.68,
+  "category": "plains",
+  "temperature_modifier": "none",
+  "player_spawn_friendly": true,
+  "creature_spawn_probability": 0.4,
+  "precipitation": "rain",
+  "surface_builder": "minecraft:grass",
+  "effects": {
+    "sky_color": 7907327,
+    "fog_color": 16121854,
+    "water_color": 4364016,
+    "water_fog_color": 270131
+  },
+  "starts": [],
+  "spawners": {
+    "monster": [
+      {
+        "type": "gensokyoontology:fairy",
+        "weight": 15,
+        "minCount": 5,
+        "maxCount": 8
+      },
+      {
+        "type": "mincraft:ender_man",
+        "weight": 5,
+        "minCount": 3,
+        "maxCount": 5
+      },
+      {
+        "type": "mincraft:zombie",
+        "weight": 5,
+        "minCount": 5,
+        "maxCount": 5
+      },
+      {
+        "type": "minecraft:skelecton",
+        "weight": 5,
+        "minCount": 5,
+        "maxCount": 5
+      },
+      {
+        "type": "minecraft:creeper",
+        "weight": 3,
+        "minCount": 1,
+        "maxCount": 3
+      },
+      {
+        "type": "minecraft:spider",
+        "weight": 3,
+        "minCount": 3,
+        "maxCount": 5
+      }
+    ],
+    "creature": [
+      {
+        "type": "minecraft:sheep",
+        "weight": 8,
+        "minCount": 4,
+        "maxCount": 8
+      },
+      {
+        "type": "minecraft:cow",
+        "weight": 8,
+        "minCount": 4,
+        "maxCount": 8
+      },
+      {
+        "type": "minecraft:chicken",
+        "weight": 8,
+        "minCount": 4,
+        "maxCount": 8
+      }
+    ]
+  },
+  "spawn_costs": {
+    "minecraft:sheep": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:pig": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:cow": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:chicken": {
+      "energy_budget": 0.01,
+      "charge": 1
+    }
+  },
+  "carvers": {
+    "air": [
+      "minecraft:cave",
+      "minecraft:canyon"
+    ],
+    "liquid": [
+      "minecraft:underwater_cave",
+      "minecraft:underwater_canyon"
+    ]
+  },
+  "features": [
+    [],
+    [
+      "minecraft:lake_water"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "gensokyoontology:lycoris_higan"
+    ],
+    []
+  ]
+}

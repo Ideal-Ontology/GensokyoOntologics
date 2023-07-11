@@ -16,7 +16,24 @@
     "water_fog_color": 329011
 
   },
-  "spawn_costs" : {},
+  "spawn_costs": {
+    "minecraft:sheep": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:pig": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:cow": {
+      "energy_budget": 0.01,
+      "charge": 1
+    },
+    "minecraft:chicken": {
+      "energy_budget": 0.01,
+      "charge": 1
+    }
+  },
   "features": [
     [],
     [
@@ -30,8 +47,11 @@
     [],
     [],
     [
-      "minecraft:trees_mountain",
-      "minecraft:trees_shattered_savanna"
+      "minecraft:trees_shattered_savanna",
+      "gensokyoontology:sakura_tree",
+      "gensokyoontology:sakura_tree",
+      "gensokyoontology:maple_tree",
+      "gensokyoontology:maple_tree"
     ],
     []
   ],

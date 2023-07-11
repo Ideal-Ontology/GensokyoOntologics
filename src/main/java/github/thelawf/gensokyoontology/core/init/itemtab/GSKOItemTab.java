@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.core.init.itemtab;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 public class GSKOItemTab extends ItemGroup {
 
@@ -13,7 +14,8 @@ public class GSKOItemTab extends ItemGroup {
     }
 
     @Override
+    @NotNull
     public ItemStack createIcon() {
-        return new ItemStack(ItemRegistry.LYCORIS_RADIATA.get());
+        return new ItemStack(ItemRegistry.MARISA_HAKKEIRO.get());
     }
 }

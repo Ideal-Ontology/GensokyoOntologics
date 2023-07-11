@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.common.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
+import github.thelawf.gensokyoontology.core.PlacerRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
@@ -46,6 +47,10 @@ public class GensokyoOntology {
         // final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         // ClientOnlyRegistry cog = new ClientOnlyRegistry(modEventBus);
         // Register ourselves for server and other game events we are interested in
+        // 目前MC的注册方式：
+        // 1. Registry<IForgeRegistry>
+        // 2. Registry<CODEC>
+        // 3. RegistryKey<.class>
 
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -64,6 +69,8 @@ public class GensokyoOntology {
         FeatureRegistry.FEATURES.register(eventBus);
 
         GSKOBiomes.BIOMES.register(eventBus);
+        StructureRegistry.STRUCTURES.register(eventBus);
+        PlacerRegistry.FOLIAGE_PLACERS.register(eventBus);
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD

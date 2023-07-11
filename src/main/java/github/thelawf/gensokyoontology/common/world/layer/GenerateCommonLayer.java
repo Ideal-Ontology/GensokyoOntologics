@@ -51,10 +51,8 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
             GSKOBiomes.GSKO_FOREST_KEY,
             GSKOBiomes.GSKO_RIVER_KEY,
             GSKOBiomes.MISTY_LAKE_KEY,
-            GSKOBiomes.WIND_GODDESS_LAKE_KEY,
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
-            GSKOBiomes.HUMAN_VILLAGE_KEY,
             GSKOBiomes.SUNFLOWER_GARDEN_KEY,
             GSKOBiomes.YOUKAI_MOUNTAIN_KEY
     );
@@ -62,6 +60,9 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
 
     @Override
     public int apply(@NotNull INoiseRandom random, int x, int y) {
+        if (x == 0 && y == 0) {
+            return getId(registry, GSKOBiomes.HUMAN_VILLAGE_KEY);
+        }
         return getCommonBiomeID(random);
     }
 

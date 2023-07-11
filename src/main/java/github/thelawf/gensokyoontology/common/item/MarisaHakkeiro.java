@@ -35,7 +35,7 @@ public class MarisaHakkeiro extends Item {
     }
 
     /**
-     * 当玩家手持魔理沙的八卦炉右键单击时在玩家视角看向位置20格的距离开始，每增加一个就引发1次爆炸，共引爆100次
+     * 当玩家手持魔理沙的八卦炉右键单击时在玩家视角看向位置20格的距离开始，每增加一格就引发1次爆炸，共引爆100次
      * @param worldIn 引发爆炸的服务端世界
      * @param playerIn 玩家
      * @param handIn 玩家持有该物品的手

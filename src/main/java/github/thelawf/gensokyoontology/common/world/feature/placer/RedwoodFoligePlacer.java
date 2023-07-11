@@ -23,7 +23,7 @@ public class RedwoodFoligePlacer extends FoliagePlacer {
 
     /** 生成树的核心代码 */
     @Override
-    protected void func_230372_a_(IWorldGenerationReader p_230372_1_, Random p_230372_2_, BaseTreeFeatureConfig p_230372_3_, int height, Foliage p_230372_5_, int p_230372_6_, int p_230372_7_, Set<BlockPos> p_230372_8_, int p_230372_9_, MutableBoundingBox p_230372_10_) {
+    protected void func_230372_a_(IWorldGenerationReader reader, Random random, BaseTreeFeatureConfig config, int height, Foliage foliage, int p_230372_6_, int p_230372_7_, Set<BlockPos> blockPos, int p_230372_9_, MutableBoundingBox p_230372_10_) {
 
     }
 

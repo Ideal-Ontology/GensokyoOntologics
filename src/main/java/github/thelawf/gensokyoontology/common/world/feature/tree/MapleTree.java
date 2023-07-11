@@ -12,6 +12,6 @@ public class MapleTree extends Tree {
     @Nullable
     @Override
     protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
-        return GSKOFeatures.MAPLE_TREE;
+        return GSKOFeatures.MAPLE_TREE_BASE;
     }
 }

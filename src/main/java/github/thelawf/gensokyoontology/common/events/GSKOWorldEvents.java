@@ -1,39 +1,40 @@
 package github.thelawf.gensokyoontology.common.events;
 
 import com.google.common.collect.ImmutableList;
+import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
-import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatureGeneration;
-import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
+import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatureGenerator;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.Dimension;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeContainer;
 import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.FlatChunkGenerator;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.settings.DimensionStructuresSettings;
+import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import org.apache.logging.log4j.LogManager;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Supplier;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID)
 public class GSKOWorldEvents {
@@ -66,22 +67,59 @@ public class GSKOWorldEvents {
         }
     }
 
+
     @SubscribeEvent
-    public static void onWorldLoad(WorldGenerateEvent event) {
-        if (!event.getWorld().isRemote()) {
+    public static void addDimensionSpacing(final WorldEvent.Load event) {
+        if (event.getWorld() instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) event.getWorld();
-            if (serverWorld.getDimensionKey().equals(GSKODimensions.GENSOKYO)) {
-                Biome biome = serverWorld.getBiome(event.getChunk().getPos().asBlockPos());
+            Method GET_CODEC_METHOD = ObfuscationReflectionHelper.findMethod(ChunkGenerator.class, "func_230347_a_");
+            try {
+                ResourceLocation location = Registry.CHUNK_GENERATOR_CODEC.getKey(
+                        (Codec<? extends ChunkGenerator>) GET_CODEC_METHOD.invoke(
+                                serverWorld.getChunkProvider().getChunkGenerator()));
+                if (location != null && location.getNamespace().equals("terraforged")) {
+                    return;
+                }
+            } catch (IllegalAccessException | InvocationTargetException e) {
+                LogManager.getLogger().error("Was unable to check if " + serverWorld.getDimensionKey()
+                        + " is using Terraforged's ChunkGenerator.");
             }
+            // 放止建筑在超平坦世界生成
+            if (serverWorld.getChunkProvider().generator instanceof FlatChunkGenerator &&
+                    serverWorld.getDimensionKey().equals(World.OVERWORLD)) {
+                return;
+            }
+
+            // 将我们的建筑添加到建筑生成地图中，反混淆映射如下：
+            //        srg名：               反混淆名：                                类型/返回值：                                             作用：
+            //   func_235957_b()     getDimensionSettings()         return -> DimensionStructuresSettings                              获取世界维度生成设置
+            //   field_236193_d_          structures                Map<Structure<?>, StructureSeparationSettings>             存放建筑结构和建筑生成设置的映射Map
+            //   field_236191_b_       structureSettings       ImmutableMap<Structure<?>, StructureSeparationSettings>      存放建筑结构和建筑生成设置的不可变映射Map
+            //   field_236268_b_            feature                           F extends Structure<FC>                            泛型：一切继承于建筑结构的类
+            Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(
+                    serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
+
+            tempMap.putIfAbsent(StructureRegistry.MYSTIA_IZAKAYA.get(),
+                    DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.MYSTIA_IZAKAYA.get()));
+
+            tempMap.putIfAbsent(StructureRegistry.HAKUREI_SHRINE.get(),
+                    DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.HAKUREI_SHRINE.get()));
+
+            serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }
 
     @SubscribeEvent
     public static void onBiomeLoad(final BiomeLoadingEvent event) {
-        GSKOFeatureGeneration.generateOverworldTrees(event);
-        GSKOFeatureGeneration.generateGensokyoTrees(event);
-        GSKOFeatureGeneration.generateFlowers(event);
+        GSKOFeatureGenerator.generateOverworldStructures(event);
+        GSKOFeatureGenerator.generateGSKOStructures(event);
+
+        GSKOFeatureGenerator.generateOverworldTrees(event);
+        GSKOFeatureGenerator.generateGensokyoTrees(event);
+        GSKOFeatureGenerator.generateFlowers(event);
+        GSKOFeatureGenerator.generateHerbPlants(event);
     }
+
 
     private static void spawnEntityIn(ServerWorld serverWorld, EntityClassification classification,
                                       WorldEvent.PotentialSpawns event) {

@@ -17,32 +17,31 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 import java.util.Random;
 import java.util.Vector;
 
-public class MagicTreeFeature extends Feature<NoFeatureConfig> {
+public class MagicTreeFeature extends Feature<MagicTreeConfig> {
 
     public static final BlockState MAGIC_LOG = BlockRegistry.MAPLE_LOG.get().getDefaultState();
     public static final BlockState MAGIC_LEAVES = BlockRegistry.MAGIC_LEAVES.get().getDefaultState();
 
-    public MagicTreeFeature(Codec<NoFeatureConfig> codec) {
+    public MagicTreeFeature(Codec<MagicTreeConfig> codec) {
         super(codec);
     }
 
     @Override
-    public Codec<ConfiguredFeature<NoFeatureConfig, Feature<NoFeatureConfig>>> getCodec() {
+    public Codec<ConfiguredFeature<MagicTreeConfig, Feature<MagicTreeConfig>>> getCodec() {
         return super.getCodec();
     }
 
     @Override
-    public ConfiguredFeature<NoFeatureConfig, ?> withConfiguration(NoFeatureConfig config) {
+    public ConfiguredFeature<MagicTreeConfig, ?> withConfiguration(MagicTreeConfig config) {
         return super.withConfiguration(config);
     }
 
     @Override
-    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, NoFeatureConfig config) {
+    public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, MagicTreeConfig config) {
         while (pos.getY() > 1 && isAirOrLeaves(reader, pos)) {
             pos = pos.down();
         }

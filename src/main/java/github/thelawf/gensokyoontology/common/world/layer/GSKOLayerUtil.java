@@ -3,8 +3,11 @@ package github.thelawf.gensokyoontology.common.world.layer;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import net.minecraft.util.RegistryKey;
+import net.minecraft.util.datafix.fixes.BiomeIdFix;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeRegistry;
+import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.IExtendedNoiseRandom;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.LazyAreaLayerContext;
@@ -33,7 +36,9 @@ public class GSKOLayerUtil extends Layer {
     }
 
 
-    // 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格
+    /** 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格
+     * Biome 数字id 的位置：{@link BiomeRegistry}
+     */
     public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> buildBiomes(final LongFunction<C> context, Registry<Biome> registry) {
         IAreaFactory<T> area = GenerateCommonLayer.INSTANCE.setUp(registry).apply(context.apply(1L));
         area = ZoomLayer.FUZZY.apply(context.apply(2000L), area);
@@ -49,7 +54,7 @@ public class GSKOLayerUtil extends Layer {
         // river = GSKORiverLayer.INSTANCE.apply(context.apply(7L), area);
         river = StartRiverLayer.INSTANCE.apply(context.apply(100L), river);
         river = AddMistyLakeLayer.INSTANCE.apply(context.apply(30L), area);
-        river = AddWindGoddessLakeLayer.INSTANCE.apply(context.apply(50L), area);
+        // river = AddWindGoddessLakeLayer.INSTANCE.apply(context.apply(50L), area);
         river = repeat(1000L, ZoomLayer.NORMAL, area, 2, context);
         river = repeat(1000L, ZoomLayer.NORMAL, area, 2, context);
 

@@ -25,6 +25,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.Objects;
 
+@OnlyIn(Dist.CLIENT)
 public class InWorldRenderer {
     public static final Logger LOGGER = LogManager.getLogger();
 

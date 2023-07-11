@@ -12,6 +12,6 @@ public class SakuraTree extends Tree {
     @Nullable
     @Override
     protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
-        return GSKOFeatures.SAKURA_TREE;
+        return GSKOFeatures.SAKURA_TREE_BASE;
     }
 }
