@@ -41,14 +41,14 @@ public class GSKOLayerUtil extends Layer {
      */
     public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> buildBiomes(final LongFunction<C> context, Registry<Biome> registry) {
         IAreaFactory<T> area = GenerateCommonLayer.INSTANCE.setUp(registry).apply(context.apply(1L));
-        area = ZoomLayer.FUZZY.apply(context.apply(2000L), area);
-        area = ZoomLayer.NORMAL.apply(context.apply(2001L), area);
-        area = ZoomLayer.NORMAL.apply(context.apply(2002L), area);
-        area = ZoomLayer.NORMAL.apply(context.apply(2003L), area);
+        area = ZoomLayer.FUZZY.apply(context.apply(1000L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(1001L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(1002L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(1003L), area);
 
-        area = ZoomLayer.NORMAL.apply(context.apply(2004L), area);
-        area = ZoomLayer.NORMAL.apply(context.apply(2005L), area);
-        area = ZoomLayer.NORMAL.apply(context.apply(2006L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(1004L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(1005L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(1006L), area);
 
         IAreaFactory<T> river = repeat(1000L, ZoomLayer.NORMAL, area, 0, context);
         // river = GSKORiverLayer.INSTANCE.apply(context.apply(7L), area);

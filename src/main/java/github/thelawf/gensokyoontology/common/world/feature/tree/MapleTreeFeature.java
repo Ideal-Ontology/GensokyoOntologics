@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.world.feature;
+package github.thelawf.gensokyoontology.common.world.feature.tree;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.block.Blocks;

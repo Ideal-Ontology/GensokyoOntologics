@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.world.feature;
+package github.thelawf.gensokyoontology.common.world.feature.tree;
 
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;

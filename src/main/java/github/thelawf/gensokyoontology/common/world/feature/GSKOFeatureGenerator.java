@@ -130,10 +130,10 @@ public class GSKOFeatureGenerator {
         RegistryKey<Biome> biomeKey = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biomeKey);
 
-        if (types.contains(BiomeDictionary.Type.PLAINS)) {
-            List<Supplier<StructureFeature<?,?>>> structures = event.getGeneration().getStructures();
-            structures.add(() -> StructureRegistry.HAKUREI_SHRINE.get().withConfiguration(
-                    IFeatureConfig.NO_FEATURE_CONFIG));
-        }
+        // if (types.contains(BiomeDictionary.Type.PLAINS)) {
+        //     List<Supplier<StructureFeature<?,?>>> structures = event.getGeneration().getStructures();
+        //     structures.add(() -> StructureRegistry.HAKUREI_SHRINE.get().withConfiguration(
+        //             IFeatureConfig.NO_FEATURE_CONFIG));
+        // }
     }
 }

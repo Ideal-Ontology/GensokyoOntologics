@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.world.feature.MagicTreeFeature;
+import github.thelawf.gensokyoontology.common.world.feature.tree.MagicTreeFeature;
 import github.thelawf.gensokyoontology.common.world.feature.config.MagicTreeConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.fml.RegistryObject;

@@ -1,6 +1,6 @@
 {
   "depth": 0.4,
-  "scale": 0.9,
+  "scale": 0.4,
   "downfall": 0.2,
   "temperature": 0.6,
   "category": "forest",
@@ -17,7 +17,9 @@
     "grass_color": 2596368,
     "foliage_color": 3113240
   },
-  "starts": [],
+  "starts": [
+    "gensokyoontology:hakurei_shrine"
+  ],
   "spawners": {
     "monster": [
       {
@@ -76,5 +78,24 @@
       "minecraft:canyon"
     ]
   },
-  "features": []
+  "features": [
+    [],
+    [
+      "minecraft:lake_water"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "gensokyoontology:sakura_tree",
+      "gensokyoontology:sakura_tree",
+      "gensokyoontology:maple_tree",
+      "gensokyoontology:maple_tree"
+    ],
+    []
+  ]
 }
