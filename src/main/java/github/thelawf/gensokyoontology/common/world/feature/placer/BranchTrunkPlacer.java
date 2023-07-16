@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.common.world.feature.placer;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.RotatedPillarBlock;
@@ -12,34 +14,52 @@ import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
 import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.TrunkPlacerType;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
 public class BranchTrunkPlacer extends AbstractTrunkPlacer {
 
-    public BranchTrunkPlacer(int baseHeight, int heightRandA, int heightRandB) {
+    private final int width;
+    private final int height;
+
+    public static final Codec<BranchTrunkPlacer> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+            Codec.INT.fieldOf("trunk_height").forGetter(o -> o.baseHeight),
+            Codec.INT.fieldOf("branch_min_height").forGetter(o -> o.heightRandA),
+            Codec.INT.fieldOf("branch_max_count").forGetter(o -> o.heightRandB),
+            Codec.INT.fieldOf("width").forGetter(o -> o.width),
+            Codec.INT.fieldOf("height").forGetter(o -> o.height)
+    ).apply(instance, BranchTrunkPlacer::new));
+
+    public BranchTrunkPlacer(int baseHeight, int heightRandA, int heightRandB, int width, int height) {
         super(baseHeight, heightRandA, heightRandB);
+        this.width = width;
+        this.height = height;
     }
 
     @Override
     protected TrunkPlacerType<?> getPlacerType() {
+        // return PlacerRegistry.BRANCH_TRUNK_PLACER;
         return null;
     }
 
     @Override
-    public List<FoliagePlacer.Foliage> getFoliages(IWorldGenerationReader reader, Random rand, int treeHeight, BlockPos p_230382_4_, Set<BlockPos> p_230382_5_, MutableBoundingBox p_230382_6_, BaseTreeFeatureConfig p_230382_7_) {
-        return null;
+    public List<FoliagePlacer.Foliage> getFoliages(IWorldGenerationReader reader, Random rand, int treeHeight, BlockPos pos, Set<BlockPos> logs, MutableBoundingBox bounds, BaseTreeFeatureConfig config) {
+        return growBranches(reader, rand, pos, logs, bounds, config, new ArrayList<>());
     }
 
-    private void growBranches(IWorldGenerationReader world, Random random, BlockPos origin, Set<BlockPos> logs, MutableBoundingBox bounds, BaseTreeFeatureConfig config, List<FoliagePlacer.Foliage> leafNodes) {
-        int count = random.nextInt(2) + 1;
+    private List<FoliagePlacer.Foliage> growBranches(IWorldGenerationReader world, Random random, BlockPos origin, Set<BlockPos> logs, MutableBoundingBox bounds, BaseTreeFeatureConfig config, List<FoliagePlacer.Foliage> leafNodes) {
+        if (this.heightRandB > 4 || this.heightRandA < 4)
+            return leafNodes;
+
+
         double thetaOffset = random.nextDouble() * 2 * Math.PI;
 
         // Place 1-2 branches
-        for (int i = 0; i < count; i++) {
+        for (int i = 0; i < this.heightRandB; i++) {
             // Get angle of this branch
-            double theta = (((double) i / count) * 2 * Math.PI) + thetaOffset;
+            double theta = (((double) i / this.heightRandB) * 2 * Math.PI) + thetaOffset;
 
             // Add a random offset to the theta
             theta += random.nextDouble() * Math.PI * 0.15;
@@ -65,6 +85,7 @@ public class BranchTrunkPlacer extends AbstractTrunkPlacer {
                 }
             }
         }
+        return leafNodes;
     }
 
     public static Direction.Axis getAxisBetween(BlockPos start, BlockPos end) {

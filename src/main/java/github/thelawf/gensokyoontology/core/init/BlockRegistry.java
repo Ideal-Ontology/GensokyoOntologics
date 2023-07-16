@@ -20,9 +20,8 @@ public final class BlockRegistry {
     ///////////////////////////////////////////////////////////////////////////////////
     /////////////                     装饰类方块                          ///////////////
     ///////////////////////////////////////////////////////////////////////////////////
-    public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register("magic_leaves",
-            () -> new LeavesBlock(AbstractBlock.Properties.create(
-                    Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
+    public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register(
+            "magic_leaves", MagicLeaves::new);
 
     public static final RegistryObject<Block> MAGIC_LOG = BLOCKS.register(
             "magic_log", MagicLog::new);

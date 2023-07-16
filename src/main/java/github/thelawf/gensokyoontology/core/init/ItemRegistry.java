@@ -450,7 +450,7 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<BlockItem> MAGIC_LEAVES_ITEM = ITEMS.register(
-            "magic_leaes", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
+            "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAGIC_LOG_ITEM = ITEMS.register(
             "magic_log", () -> new BlockItem(BlockRegistry.MAGIC_LOG.get(),

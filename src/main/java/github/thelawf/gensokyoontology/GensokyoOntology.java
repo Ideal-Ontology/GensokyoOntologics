@@ -117,9 +117,11 @@ public class GensokyoOntology {
 
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),
                         RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.HASH_LEAVES.get(),
+                RenderTypeLookup.setRenderLayer(BlockRegistry.MAPLE_LEAVES.get(),
                         RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.MAGIC_LEAVES.get(),
+                // RenderTypeLookup.setRenderLayer(BlockRegistry.MAGIC_LEAVES.get(),
+                //         RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.HASH_LEAVES.get(),
                         RenderType.getCutout());
 
                 ScreenManager.registerFactory(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(),

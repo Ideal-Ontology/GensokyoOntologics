@@ -30,8 +30,8 @@ public class StructureRegistry {
     public static final RegistryObject<Structure<NoFeatureConfig>> HAKUREI_SHRINE = STRUCTURES.register(
             "hakurei_shrine", () -> new HakureiShrineStructure(NoFeatureConfig.CODEC));
     public static void setupStructures() {
-        setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(),new StructureSeparationSettings(50, 20, 1234567897), true);
-        setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(80, 40, 51392147), true);
+        setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(),new StructureSeparationSettings(50, 15, 1234567897), true);
+        setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(60, 20, 51392147), true);
     }
 
     /**

@@ -60,17 +60,6 @@ public class MagicTreeFeature extends Feature<MagicTreeConfig> {
         }
 
         // TODO: Generate Leaves With Oval Layers:
-        int maxRadius = 7;
-        int minRadius = 5;
-        for (int i = 0; i < leavesHeight; i++) {
-            if (pos.getY() > 1 && pos.getY() + 7 + 1 < reader.getHeight()) {
-                for (int j = pos.getY(); j < pos.getY() + trunkHeight + 1; i++) {
-                    FeatureUtil.fillEllipse(reader, new BlockPos(pos.getX(), j, pos.getZ()), MAGIC_LOG,
-                            maxRadius, minRadius + rand.nextInt(2));
-                }
-            }
-
-        }
 
         // if (pos.getX() % rand.nextInt(15) > 10 && pos.getZ() % rand.nextInt(10) == 0) {
         //     generateCanopy(reader.getWorld(), pos);

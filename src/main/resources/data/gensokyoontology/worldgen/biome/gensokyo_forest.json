@@ -2,7 +2,7 @@
   "depth": 0.12,
   "scale": 0.33,
   "downfall": 0.58,
-  "temperature": 0.7,
+  "temperature": 0.4,
   "category": "forest",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,

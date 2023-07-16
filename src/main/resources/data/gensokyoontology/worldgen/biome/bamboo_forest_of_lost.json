@@ -92,7 +92,8 @@
       "gensokyoontology:bamboo",
       "gensokyoontology:bamboo",
       "minecraft:bamboo_vegetation",
-      "minecraft:bamboo"
+      "minecraft:bamboo",
+      "minecraft:patch_grass_jungle"
     ],
     []
   ]

@@ -221,7 +221,7 @@ public class GSKOMathUtil {
     }
 
     public static Vector3d getPointOnOval(Vector3d center,
-                                                       double lengthX, double lengthY, double angle) {
+                                          double lengthX, double lengthY, double angle) {
         if (lengthX > lengthY) {
             double x = (lengthX * lengthY) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
             double y = (lengthX * lengthY * Math.tan(angle)) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));

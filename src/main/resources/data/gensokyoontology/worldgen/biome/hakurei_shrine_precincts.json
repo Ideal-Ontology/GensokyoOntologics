@@ -1,5 +1,5 @@
 {
-  "depth": 0.4,
+  "depth": 0.3,
   "scale": 0.4,
   "downfall": 0.2,
   "temperature": 0.6,
@@ -13,9 +13,7 @@
     "sky_color": 7907327,
     "fog_color": 16121854,
     "water_color": 4364016,
-    "water_fog_color": 270131,
-    "grass_color": 2596368,
-    "foliage_color": 3113240
+    "water_fog_color": 270131
   },
   "starts": [
     "gensokyoontology:hakurei_shrine"
@@ -91,10 +89,12 @@
     [],
     [],
     [
+      "minecraft:patch_grass_normal",
+      "minecraft:patch_grass_plain",
+      "minecraft:patch_tall_grass_2",
       "gensokyoontology:sakura_tree",
       "gensokyoontology:sakura_tree",
-      "gensokyoontology:maple_tree",
-      "gensokyoontology:maple_tree"
+      "gensokyoontology:sakura_tree_hakurei_shrine"
     ],
     []
   ]

@@ -13,9 +13,7 @@
     "sky_color": 6141433,
     "fog_color": 12638463,
     "water_color": 4364016,
-    "water_fog_color": 799137,
-    "grass_color": 2402825,
-    "foliage_color": 1281297
+    "water_fog_color": 799137
   },
   "spawn_costs": {
     "minecraft:sheep": {
@@ -35,7 +33,25 @@
       "charge": 1
     }
   },
-  "features": [],
+  "features": [
+    [],
+    [
+      "minecraft:lake_water"
+    ],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [
+      "minecraft:patch_tall_grass_2",
+      "minecraft:patch_grass_normal",
+      "minecraft:patch_grass_plain"
+    ],
+    []
+  ],
   "carvers": {
     "air": [
       "minecraft:cave",

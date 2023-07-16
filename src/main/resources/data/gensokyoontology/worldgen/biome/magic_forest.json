@@ -46,14 +46,14 @@
     [],
     [],
     [
-      "minecraft:dark_forest_vegetation_brown",
-      "minecraft:dark_forest_vegetation_red",
       "minecraft:brown_mushroom_giant",
       "minecraft:huge_red_mushroom",
-      "gensokyoontology:huge_blue_mushroom",
-      "gensokyoontology:huge_purple_mushroom",
+      "minecraft:patch_tall_grass_2",
+      "minecraft:patch_grass_forest",
+      "gensokyoontology:sakura_tree",
       "gensokyoontology:magic_tree",
-      "gensokyoontology:magic_tree"
+      "gensokyoontology:huge_blue_mushroom",
+      "gensokyoontology:huge_purple_mushroom"
     ],
     []
   ],
