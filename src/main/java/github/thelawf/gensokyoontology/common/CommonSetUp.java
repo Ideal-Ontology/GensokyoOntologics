@@ -40,7 +40,6 @@ public class CommonSetUp {
             GSKOFeatures.registerStructure();
             GSKOFeatures.registerFeature();
 
-
             Registry.register(Registry.BIOME_PROVIDER_CODEC,
                     new ResourceLocation(GensokyoOntology.MODID, "gensokyo"),
                     GSKOBiomesProvider.GSKO_BIOME_CODEC);

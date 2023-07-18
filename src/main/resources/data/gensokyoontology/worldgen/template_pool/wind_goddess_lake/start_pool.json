@@ -1,0 +1,15 @@
+{
+  "name": "gensokyoontology:wind_goddess_lake/start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "gensokyoontology:wind_goddess_lake",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:list_pool_element"
+      }
+    }
+  ]
+}

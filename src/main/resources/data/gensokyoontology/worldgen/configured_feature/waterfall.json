@@ -1,0 +1,20 @@
+{
+  "type": "gensokyoontology:waterfall",
+  "config": {
+    "state": {
+      "Name": "minecraft:water",
+      "Properties": {
+        "level": "0"
+      }
+    },
+    "rock_count": 2,
+    "hole_count": 5,
+    "requires_block_below": true,
+    "valid_blocks": [
+      "minecraft:andesite",
+      "minecraft:stone",
+      "minecraft:granite",
+      "minecraft:diorite"
+    ]
+  }
+}

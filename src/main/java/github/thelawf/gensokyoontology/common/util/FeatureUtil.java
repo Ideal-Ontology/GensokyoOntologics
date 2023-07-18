@@ -1,15 +1,19 @@
 package github.thelawf.gensokyoontology.common.util;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import net.minecraft.block.*;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
 
 import java.util.Random;
+import java.util.Set;
 
 public class FeatureUtil {
 
@@ -39,5 +43,34 @@ public class FeatureUtil {
             BlockPos pos = GSKOMathUtil.lerp(i / distance, start, end);
             placeBlock(reader, pos, random, state);
         }
+    }
+
+    public boolean isBoundaryBiome(Biome centerBiome, Biome surroundBiome) {
+        // 自定义判断逻辑，根据生物群系的分类或其他属性来判断是否位于分界线上
+        // 这里以生物群系分类不同为例
+        return centerBiome.getRegistryName() == null && surroundBiome.getRegistryName() == null &&
+                centerBiome.getRegistryName().equals(surroundBiome.getRegistryName()) &&
+                centerBiome.getRegistryName().equals(new ResourceLocation(GensokyoOntology.MODID, "youkai_mountain"));
+    }
+
+    public static Direction getValidDirection(ISeedReader reader, BlockPos blockPos, Set<Block> blocks) {
+        return getValidDirection(reader, blockPos, blocks, 1);
+    }
+    public static Direction getValidDirection(ISeedReader reader, BlockPos blockPos, Set<Block> blocks, int count) {
+        for (int i = 0; i < count; i++) {
+            if (blocks.contains(reader.getBlockState(blockPos.east(i)).getBlock())) {
+                return Direction.EAST;
+            }
+            else if (blocks.contains(reader.getBlockState(blockPos.south(i)).getBlock())) {
+                return Direction.SOUTH;
+            }
+            else if (blocks.contains(reader.getBlockState(blockPos.west(i)).getBlock())) {
+                return Direction.WEST;
+            }
+            else if (blocks.contains(reader.getBlockState(blockPos.north(i)).getBlock())) {
+                return Direction.NORTH;
+            }
+        }
+        return Direction.UP;
     }
 }

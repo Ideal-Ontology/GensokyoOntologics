@@ -1,12 +1,17 @@
 package github.thelawf.gensokyoontology.common.world.feature;
 
+import com.google.common.collect.ImmutableSet;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.world.feature.placer.MagicTrunkPlacer;
+import github.thelawf.gensokyoontology.common.world.feature.placer.MagicFoliagePlacer;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HugeMushroomBlock;
+import net.minecraft.fluid.FluidState;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -18,6 +23,10 @@ import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
 import net.minecraft.world.gen.placement.*;
 import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
+import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class GSKOFeatures {
 
@@ -26,6 +35,8 @@ public class GSKOFeatures {
     public static final BlockState PURPLE_MUSHROOM_DOWN = BlockRegistry.BLUE_MUSHROOM_BLOCK.get().getDefaultState().with(
             HugeMushroomBlock.DOWN, Boolean.FALSE);
     public static final BlockState MUSHROOM_STEM = Blocks.MUSHROOM_STEM.getDefaultState().with(HugeMushroomBlock.UP, Boolean.valueOf(false)).with(HugeMushroomBlock.DOWN, Boolean.valueOf(false));
+
+
 
     /** 特征地物生成目前遇到了三大坑：
      * 1. MC特有的两套注册系统，且非要你注册之后才能用，特有的将面向过程编程变成面向json编程<br>
@@ -74,8 +85,8 @@ public class GSKOFeatures {
     public static final ConfiguredFeature<?, ?> MAGIC_TREE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(BlockRegistry.MAGIC_LEAVES.get().getDefaultState()),
-                    new BlobFoliagePlacer(FeatureSpread.create(2,3), FeatureSpread.create(1,2), 2),
-                    new MagicTrunkPlacer(12,6,3,3,5),
+                    new MagicFoliagePlacer(FeatureSpread.create(1), FeatureSpread.create(1)),
+                    new StraightTrunkPlacer(12, -1, 3),
                     new TwoLayerFeature(1,0,0)).setIgnoreVines().build())
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(4, 0.8f, 6)));
@@ -133,16 +144,19 @@ public class GSKOFeatures {
                             SimpleBlockPlacer.PLACER).tries(2).build())
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3);
 
+    public static final ConfiguredFeature<?, ?> WATERFALL = FeatureRegistry.WATERFALL.get()
+            .withConfiguration(new LiquidsConfig(Fluids.WATER.getDefaultState(), true, 4, 1, ImmutableSet.of(
+                    Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE))).withPlacement(
+                            Placement.RANGE_BIASED.configure(new TopSolidRangeConfig(8, 8, 256))).square().count(50);
+
+
     public static final StructureFeature<?, ?> MYSTIA_STRUCTURE = StructureRegistry.MYSTIA_IZAKAYA.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static final StructureFeature<?, ?> HAKUREI_STRUCTURE = StructureRegistry.HAKUREI_SHRINE.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
-
-    public static <FC extends IFeatureConfig, F extends Feature<FC>> ConfiguredFeature<FC, F> register(
-            ResourceLocation location, ConfiguredFeature<FC, F> feature) {
-        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, location, feature);
-    }
+    // public static final StructureFeature<?, ?> WATERFALL_FEATURE = StructureRegistry.WATERFALL_NINE_HEAVEN.get()
+    //         .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
     public static void registerFeature() {
         Registry<ConfiguredFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_FEATURE;
@@ -159,6 +173,8 @@ public class GSKOFeatures {
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_blue_mushroom"), HUGE_BLUE_MUSHROOM);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_purple_mushroom"), HUGE_PURPLE_MUSHROOM);
+
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "waterfall"), WATERFALL);
     }
 
     public static void registerStructure() {
@@ -170,5 +186,6 @@ public class GSKOFeatures {
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.MYSTIA_IZAKAYA.get(), MYSTIA_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.HAKUREI_SHRINE.get(), HAKUREI_STRUCTURE);
     }
+
 
 }

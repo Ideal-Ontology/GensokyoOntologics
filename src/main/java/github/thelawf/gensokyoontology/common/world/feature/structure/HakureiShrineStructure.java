@@ -106,10 +106,6 @@ public class HakureiShrineStructure extends Structure<NoFeatureConfig> {
             this.components.forEach(piece -> piece.getBoundingBox().minX -= 1);
 
             this.recalculateStructureSize();
-            LogManager.getLogger().debug("Hakurei Shrine starts generate at ({}, {}, {})",
-                    this.components.get(0).getBoundingBox().minX,
-                    this.components.get(0).getBoundingBox().minY,
-                    this.components.get(0).getBoundingBox().minZ);
         }
     }
 }

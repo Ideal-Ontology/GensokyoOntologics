@@ -2,16 +2,16 @@ package github.thelawf.gensokyoontology.common.world.feature;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
+import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.BiomeMaker;
 import net.minecraft.world.gen.GenerationStage;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Features;
-import net.minecraft.world.gen.feature.IFeatureConfig;
-import net.minecraft.world.gen.feature.StructureFeature;
+import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
 import net.minecraft.world.gen.placement.Placement;
 import net.minecraftforge.common.BiomeDictionary;
@@ -119,9 +119,9 @@ public class GSKOFeatureGenerator {
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biomeKey);
 
         if (biomeKey.getRegistryName().equals(bambooForestOfLost)) {
-            List<Supplier<StructureFeature<?,?>>> structures = event.getGeneration().getStructures();
-            structures.add(() -> StructureRegistry.MYSTIA_IZAKAYA.get().withConfiguration(
-                    IFeatureConfig.NO_FEATURE_CONFIG));
+            List<Supplier<ConfiguredFeature<?,?>>> features = event.getGeneration().getFeatures(
+                    GenerationStage.Decoration.SURFACE_STRUCTURES);
+            features.add(() -> GSKOFeatures.WATERFALL);
 
         }
     }
@@ -135,5 +135,18 @@ public class GSKOFeatureGenerator {
         //     structures.add(() -> StructureRegistry.HAKUREI_SHRINE.get().withConfiguration(
         //             IFeatureConfig.NO_FEATURE_CONFIG));
         // }
+    }
+
+    public static void addWaterfall (final BiomeLoadingEvent event) {
+        RegistryKey<Biome> biomeKey = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
+        ResourceLocation bambooForestOfLost = new ResourceLocation(GensokyoOntology.MODID, "bamboo_forest_of_lost");
+
+        Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biomeKey);
+
+        if (types.contains(BiomeDictionary.Type.MOUNTAIN)) {
+            List<Supplier<ConfiguredFeature<?,?>>> features = event.getGeneration().getFeatures(
+                    GenerationStage.Decoration.VEGETAL_DECORATION);
+            features.add(() -> GSKOFeatures.WATERFALL);
+        }
     }
 }

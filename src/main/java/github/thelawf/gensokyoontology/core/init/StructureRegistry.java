@@ -5,6 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.feature.structure.HakureiShrineStructure;
 import github.thelawf.gensokyoontology.common.world.feature.structure.MystiaIzakayaStructure;
+import github.thelawf.gensokyoontology.common.world.feature.structure.WaterfallNineHeavenStructure;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
@@ -29,12 +30,17 @@ public class StructureRegistry {
 
     public static final RegistryObject<Structure<NoFeatureConfig>> HAKUREI_SHRINE = STRUCTURES.register(
             "hakurei_shrine", () -> new HakureiShrineStructure(NoFeatureConfig.CODEC));
+
+    // public static final RegistryObject<Structure<NoFeatureConfig>> WATERFALL_NINE_HEAVEN = STRUCTURES.register(
+    //         "water_of_nine_heaven", () -> new WaterfallNineHeavenStructure(NoFeatureConfig.CODEC));
+
     public static void setupStructures() {
-        setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(),new StructureSeparationSettings(50, 15, 1234567897), true);
+        setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(),new StructureSeparationSettings(50, 15, 1023567897), true);
         setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(60, 20, 51392147), true);
+        // setupMapSpacingAndLand(WATERFALL_NINE_HEAVEN.get(), new StructureSeparationSettings(40, 30, 95323460), true);
     }
 
-    /**
+        /**
      * 本方法中的反混淆映射名如下：
      * <br><br>
      * Structure.field_236384_t：<br>

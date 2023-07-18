@@ -13,6 +13,7 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.biome.provider.BiomeProvider;
@@ -21,15 +22,13 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
-import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructureStart;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
+import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Random;
 
 // seed: -1241385503433286442
 public class MystiaIzakayaStructure extends Structure<NoFeatureConfig> {
@@ -108,6 +107,7 @@ public class MystiaIzakayaStructure extends Structure<NoFeatureConfig> {
                     int referenceIn, long seedIn) {
            super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
        }
+
        /** generatePieces()
         * <br>
         * 生成建筑的每一个部分，应该是从模板池中取出对应的建筑部分
@@ -137,10 +137,6 @@ public class MystiaIzakayaStructure extends Structure<NoFeatureConfig> {
            this.components.forEach(piece -> piece.getBoundingBox().minX -= 1);
 
            this.recalculateStructureSize();
-           LogManager.getLogger().debug("Mystia Izakaya starts generate at ({}, {}, {})",
-                   this.components.get(0).getBoundingBox().minX,
-                   this.components.get(0).getBoundingBox().minY,
-                   this.components.get(0).getBoundingBox().minZ);
        }
    }
 }

@@ -67,7 +67,6 @@ public class GSKOWorldEvents {
         }
     }
 
-
     @SubscribeEvent
     public static void addDimensionSpacing(final WorldEvent.Load event) {
         if (event.getWorld() instanceof ServerWorld) {
@@ -112,12 +111,14 @@ public class GSKOWorldEvents {
     @SubscribeEvent
     public static void onBiomeLoad(final BiomeLoadingEvent event) {
         GSKOFeatureGenerator.generateOverworldStructures(event);
-        GSKOFeatureGenerator.generateGSKOStructures(event);
+        // GSKOFeatureGenerator.generateGSKOStructures(event);
 
         GSKOFeatureGenerator.generateOverworldTrees(event);
         GSKOFeatureGenerator.generateGensokyoTrees(event);
         GSKOFeatureGenerator.generateFlowers(event);
         GSKOFeatureGenerator.generateHerbPlants(event);
+
+        GSKOFeatureGenerator.addWaterfall(event);
     }
 
 
