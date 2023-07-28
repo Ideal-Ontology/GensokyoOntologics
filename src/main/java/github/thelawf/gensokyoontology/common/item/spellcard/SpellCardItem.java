@@ -1,8 +1,13 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
+import github.thelawf.gensokyoontology.common.item.danmaku.DanmakuItem;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.world.World;
 
 import java.util.function.Supplier;
 
@@ -21,6 +26,14 @@ public abstract class SpellCardItem extends Item {
         this.id = id;
         this.description = description;
         this.duration = duration;
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        if (playerIn.getHeldItem(handIn).getItem() instanceof DanmakuItem) {
+            return ActionResult.resultConsume(playerIn.getHeldItem(handIn));
+        }
+        return ActionResult.resultPass(playerIn.getHeldItem(handIn));
     }
 
     public String getId() {

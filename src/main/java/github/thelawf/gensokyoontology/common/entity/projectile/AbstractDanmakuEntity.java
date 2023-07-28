@@ -171,7 +171,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         LivingEntity entityHit = (LivingEntity) result.getEntity();
         if (!(entityHit instanceof PlayerEntity)) {
 
-            entityHit.attackEntityFrom(GSKODamageSource.DANMAKU, this.dataManager.get(DATA_DAMAGE));
+            entityHit.attackEntityFrom(GSKODamageSource.DANMAKU, this.damage);
             this.remove();
         }
     }

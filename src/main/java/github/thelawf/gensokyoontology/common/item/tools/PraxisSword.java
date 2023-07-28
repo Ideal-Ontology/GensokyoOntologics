@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-
+/*
 public class PraxisSword extends SwordItem {
     public PraxisSword() {
         super(GSKOItemTier.PRAXIS, 483640, -0.01F,
@@ -38,3 +38,5 @@ public class PraxisSword extends SwordItem {
         }
     }
 }
+
+ */

@@ -7,7 +7,7 @@ import net.minecraft.util.LazyValue;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
-
+/*
 public enum GSKOItemTier implements IItemTier {
 
     // 实在论材料等级为石质工具等级
@@ -72,3 +72,5 @@ public enum GSKOItemTier implements IItemTier {
     }
 
 }
+
+ */

@@ -67,7 +67,7 @@ public class ClientEventHandler {
                 CitizenRenderer::new);
 
         // ====================== 奇怪实体的渲染器 ===================== //
-        RenderingRegistry.registerEntityRenderingHandler(NamespaceDomain.NAMESPACE_DOMAIN,
-               manager -> new NamespaceDomainRenderer(manager, new DomainFieldModel()));
+        // RenderingRegistry.registerEntityRenderingHandler(NamespaceDomain.NAMESPACE_DOMAIN,
+        //        manager -> new NamespaceDomainRenderer(manager, new DomainFieldModel()));
     }
 }

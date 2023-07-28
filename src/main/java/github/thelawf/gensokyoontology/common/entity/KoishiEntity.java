@@ -21,7 +21,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
-
+/*
 public class KoishiEntity extends TameableEntity implements IAngerable {
 
     private int angerTime;
@@ -102,3 +102,5 @@ public class KoishiEntity extends TameableEntity implements IAngerable {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }
+
+ */

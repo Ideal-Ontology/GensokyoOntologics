@@ -118,7 +118,7 @@ public class GSKOWorldEvents {
         GSKOFeatureGenerator.generateFlowers(event);
         GSKOFeatureGenerator.generateHerbPlants(event);
 
-        GSKOFeatureGenerator.addWaterfall(event);
+        // GSKOFeatureGenerator.addWaterfall(event);
     }
 
 

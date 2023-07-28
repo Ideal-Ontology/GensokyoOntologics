@@ -12,7 +12,7 @@ import net.minecraftforge.fluids.FluidAttributes;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Objects;
-
+/*
 public class RealismSword extends SwordItem {
     // 攻击速度冷却秒数计算方式：1 / 攻击间隔，保留一位一位小数
     public RealismSword() {
@@ -51,3 +51,5 @@ public class RealismSword extends SwordItem {
     }
 
 }
+
+ */

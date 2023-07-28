@@ -24,10 +24,11 @@ public class MasterSparkEntity extends ThrowableEntity {
 
     @Override
     public void tick() {
+        super.tick();
         if (ticksExisted >= this.LIFE_SPAN) {
             this.remove();
         }
-        super.tick();
+
     }
 
     @Override

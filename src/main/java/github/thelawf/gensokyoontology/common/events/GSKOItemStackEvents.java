@@ -2,8 +2,6 @@ package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.common.block.SpaceFissureBlock;
 import github.thelawf.gensokyoontology.common.item.food.MilkBottle;
-import github.thelawf.gensokyoontology.common.item.tools.IdealismSword;
-import github.thelawf.gensokyoontology.common.item.tools.RealismSword;
 import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -30,6 +28,8 @@ import java.util.Objects;
 @Mod.EventBusSubscriber(modid = "gensokyoontology",bus = Mod.EventBusSubscriber.Bus.FORGE,value = Dist.CLIENT)
 public class GSKOItemStackEvents {
     public static final Logger LOGGER = LogManager.getLogger();
+
+    /*
     @SubscribeEvent
     public static void onSwordRightClick(PlayerInteractEvent.RightClickItem event){
         // 持有实在论之剑右键单击会给范围内的敌对生物劈下闪电
@@ -50,6 +50,7 @@ public class GSKOItemStackEvents {
     }
 
     // 持有观念论之剑左键单击会生成撕裂空间的粒子效果
+
     @SubscribeEvent
     public static void onSwordLeftClickBlock(PlayerInteractEvent.LeftClickBlock event) {
         if (event.getEntityLiving().getHeldItemMainhand().getItem() instanceof IdealismSword) {
@@ -78,10 +79,10 @@ public class GSKOItemStackEvents {
     @SubscribeEvent
     public static void onRightClickCooker(PlayerInteractEvent.RightClickItem event){
         int volume;
-        if (event.getEntityLiving().getHeldItemMainhand().getItem() instanceof MilkBottle) {
-            System.out.println("l");
-        }
+
     }
+
+     */
 
     @SubscribeEvent
     public static void onCrafting(PlayerEvent.ItemCraftedEvent event) {

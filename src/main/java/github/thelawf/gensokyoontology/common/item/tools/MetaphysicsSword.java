@@ -15,12 +15,12 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import java.util.List;
-
+/*
 public class MetaphysicsSword extends SwordItem {
     public MetaphysicsSword() {
-        /* 需要显示划破空间的粒子效果，在 PlayerEntity.java中的 spawnSweepParticles()
+        需要显示划破空间的粒子效果，在 PlayerEntity.java中的 spawnSweepParticles()
          方法内使用，在 ParticleManager.java内被注册为Factory
-         */
+
         super(GSKOItemTier.METAPHYSICS, 6, -2.2F, new Item.Properties().group(
                 GSKOItemTab.GSKO_ITEM_TAB));
     }
@@ -41,3 +41,5 @@ public class MetaphysicsSword extends SwordItem {
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }
+
+ */

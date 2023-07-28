@@ -75,7 +75,7 @@ public class MarisaHakkeiro extends Item {
         bomb.shrink(1);
         fireCharge.shrink(32);
 
-        // 设置起爆点，从玩家看向的视角延伸20格为第一个爆炸的起爆位置。获取方式是先获取玩家的视角位置，
+        // 设置起爆点，从玩家看向的视角延伸8格为第一个爆炸的起爆位置。获取方式是先获取玩家的视角位置，
         // 然后通过向量加法和向量数乘法，在这个位置的基础上再加上20倍的玩家视角向量
         Vector3d explodeStartPos = playerIn.getEyePosition(1.0F).add(
                 playerIn.getLookVec().scale(8));
@@ -88,7 +88,12 @@ public class MarisaHakkeiro extends Item {
                     explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
         }
         // damageItem(playerIn.getHeldItemMainhand(), 1, playerIn, player -> player.getHeldItemMainhand().shrink(1));
-        return super.onItemRightClick(worldIn, playerIn, handIn);
+        if (handIn == Hand.MAIN_HAND) {
+            return ActionResult.resultSuccess(playerIn.getHeldItem(Hand.MAIN_HAND));
+        }
+        else {
+            return ActionResult.resultSuccess(playerIn.getHeldItem(Hand.OFF_HAND));
+        }
     }
 
     // @Override

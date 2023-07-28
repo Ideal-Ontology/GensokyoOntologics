@@ -27,12 +27,12 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.List;
-
+/*
 public class IdealismSword extends SwordItem {
     public IdealismSword() {
-        /*
+
          设置冷却请在 CooldownTracker.java 里面查看
-         */
+
         super(GSKOItemTier.IDEALISM, 12, -1.2F, new Item.Properties().group(
                 GSKOItemTab.GSKO_ITEM_TAB));
     }
@@ -79,3 +79,5 @@ public class IdealismSword extends SwordItem {
         }
     }
 }
+
+ */

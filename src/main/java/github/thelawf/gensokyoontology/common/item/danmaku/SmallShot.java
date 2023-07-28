@@ -1,22 +1,19 @@
 package github.thelawf.gensokyoontology.common.item.danmaku;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
-import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public class SmallShot extends Item {
+public class SmallShot extends DanmakuItem {
 
     public DanmakuType type;
     public SmallShot(DanmakuType type) {

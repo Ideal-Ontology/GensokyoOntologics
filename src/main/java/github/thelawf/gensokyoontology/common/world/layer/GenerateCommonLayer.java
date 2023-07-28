@@ -47,16 +47,11 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
     }
 
     private static final List<RegistryKey<Biome>> commonBiomes = ImmutableList.of(
-            GSKOBiomes.GSKO_PLAINS_KEY,
-            GSKOBiomes.GSKO_FOREST_KEY,
-            GSKOBiomes.GSKO_RIVER_KEY,
             GSKOBiomes.MISTY_LAKE_KEY,
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
-            GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.SUNFLOWER_GARDEN_KEY,
             GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
-            GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY,
-            GSKOBiomes.HIGAN_KEY
+            GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY
     );
 
 

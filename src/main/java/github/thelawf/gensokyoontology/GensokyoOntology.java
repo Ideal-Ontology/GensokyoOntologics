@@ -156,23 +156,23 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5D)
                     .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.8D).create());
 
-            event.put(EntityRegistry.SUMIREKO_ENTITY.get(), TameableEntity.func_233666_p_()
-                    .createMutableAttribute(Attributes.MAX_HEALTH, 20D).create());
-
-            event.put(EntityRegistry.KOISHI_ENTITY.get(), TameableEntity.func_233666_p_()
-                    .createMutableAttribute(Attributes.MAX_HEALTH, 100D)
-                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 12D)
-                    .createMutableAttribute(Attributes.ARMOR, 10D)
-                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 20D)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D)
-                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 3.5D)
-                    .createMutableAttribute(Attributes.ATTACK_SPEED, 1.6D).create());
-
-            event.put(EntityRegistry.YUKARI_ENTITY.get(), TameableEntity.func_233666_p_()
-                    .createMutableAttribute(Attributes.MAX_HEALTH, 300D)
-                    .createMutableAttribute(Attributes.ARMOR, 20D)
-                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 40D)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5D).create());
+            // event.put(EntityRegistry.SUMIREKO_ENTITY.get(), TameableEntity.func_233666_p_()
+            //         .createMutableAttribute(Attributes.MAX_HEALTH, 20D).create());
+//
+            // event.put(EntityRegistry.KOISHI_ENTITY.get(), TameableEntity.func_233666_p_()
+            //         .createMutableAttribute(Attributes.MAX_HEALTH, 100D)
+            //         .createMutableAttribute(Attributes.FOLLOW_RANGE, 12D)
+            //         .createMutableAttribute(Attributes.ARMOR, 10D)
+            //         .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 20D)
+            //         .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D)
+            //         .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 3.5D)
+            //         .createMutableAttribute(Attributes.ATTACK_SPEED, 1.6D).create());
+//
+            // event.put(EntityRegistry.YUKARI_ENTITY.get(), TameableEntity.func_233666_p_()
+            //         .createMutableAttribute(Attributes.MAX_HEALTH, 300D)
+            //         .createMutableAttribute(Attributes.ARMOR, 20D)
+            //         .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 40D)
+            //         .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5D).create());
 
             event.put(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), AgeableEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 20D)

@@ -58,8 +58,6 @@ public class DanmakuUtil {
         worldIn.addEntity(danmakuEntityType);
         GensokyoOntology.LOGGER.info(playerIn.getEyeHeight());
 
-        playerIn.getHeldItemMainhand().shrink(1);
-
     }
 
     public static <T extends AbstractDanmakuEntity> void shootWaveAndParticle (@NotNull World worldIn, PlayerEntity playerIn,

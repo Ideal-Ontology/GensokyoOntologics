@@ -1,0 +1,337 @@
+{
+  "minecraft:ocean": "海洋",
+  "minecraft:plains": "平原",
+  "minecraft:desert": "沙漠",
+  "minecraft:extreme_hills": "风袭丘陵",
+  "minecraft:forest": "森林",
+  "minecraft:taiga": "针叶林",
+  "minecraft:swampland": "沼泽",
+  "minecraft:river": "河流",
+  "minecraft:hell": "下界荒原",
+  "minecraft:the_end": "末地",
+  "minecraft:frozen_river": "冻河",
+  "minecraft:ice_plains": "雪原",
+  "minecraft:ice_mountains": "雪山",
+  "minecraft:mushroom_island": "蘑菇岛",
+  "minecraft:mushroom_island_shore": "蘑菇岛岸",
+  "minecraft:beach": "海洋",
+  "minecraft:desert_hills": "海洋",
+  "minecraft:jungle": "海洋",
+  "minecraft:savanna": "热带草原",
+
+  "gensokyoontology:sakura_forest": "樱花树林",
+  "gensokyoontology:mountain_yatsugatake": "八岳山",
+  "gensokyoontology:yamotsu_hirasaka": "黄泉比良坂",
+  "gensokyoontology:hell_valley": "地狱谷",
+
+  "gensokyoontology:human_village": "人间之里",
+  "gensokyoontology:misty_lake": "雾之湖",
+  "gensokyoontology:magic_forest": "魔法森林",
+  "gensokyoontology:bamboo_forest_of_lost": "迷途竹林",
+  "gensokyoontology:sunflower_garden": "向日葵花田",
+  "gensokyoontology:youkai_mountain": "妖怪之山",
+  "gensokyoontology:wind_goddess_lake": "风神之湖",
+
+  "gensokyoontology:gensokyo_plains": "幻想平原",
+  "gensokyoontology:gensokyo_forest": "幻想森林",
+
+  "gensokyoontology:hakurei_shrine": "博丽神社",
+  "gensokyoontology:mystia_izakaya": "米斯蒂娅的烧烤店",
+
+  "itemGroup.gensokyoontology_items": "幻想存有论：物品",
+  "itemGroup.gensokyoontology_combat": "幻想存有论：战斗",
+
+  "item.gensokyoontology.hotspring_bucket": "温泉水桶",
+  "item.gensokyoontology.wandering_soul": "游荡的灵魂",
+
+  "item.gensokyoontology.spirit_star": "灵魂之星",
+  "item.gensokyoontology.spirit_fragment": "意识形态碎片",
+  "item.gensokyoontology.dialectic_spirit": "意识形态·辩证",
+  "item.gensokyoontology.utopian_spirit": "意识形态·幻想",
+  "item.gensokyoontology.theology_spirit": "意识形态·崇拜",
+
+  "item.gensokyoontology.hakurei_gohei": "博丽的御币",
+  "item.gensokyoontology.marisa_hakkeiro": "八卦炉",
+  "item.gensokyoontology.koishi_eye": "恋之瞳",
+  "item.gensokyoontology.koishi_hat": "恋恋的帽子",
+  "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
+  "item.gensokyoontology.story_card": "故事卡片",
+
+  "item.gensokyoontology.aya_fans": "文文的扇子",
+  "item.gensokyoontology.occult_ball": "神秘珠",
+  "item.gensokyoontology.spirit_tube": "灵魂的标本瓶",
+  "item.gensokyoontology.kuda_gitsune_tube": "管狐的试管",
+  "item.gensokyoontology.gitsune_tube_full": "装满的试管",
+  "item.gensokyoontology.chimata_market_license": "天弓千亦的市场许可证",
+
+  "item.gensokyoontology.realism_sword": "实在论之剑",
+  "item.gensokyoontology.metaphysics_sword": "形而上之剑",
+  "item.gensokyoontology.idealism_sword": "观念论之剑",
+  "item.gensokyoontology.praxis_sword": "实践",
+
+  "item.gensokyoontology.spell_card_blank": "空白符卡",
+  "item.gensokyoontology.sc_circle_cross": "原创实验性符卡01",
+  "item.gensokyoontology.sc_wave_and_particle": "境符「波与粒的境界」",
+  "item.gensokyoontology.sc_ido_no_kaiho": "本能「本我的解放」",
+  "item.gensokyoontology.sc_hell_eclipse": "狱符「地狱月食」",
+  "item.gensokyoontology.sc_mountain_of_faith": "「信仰之山」",
+
+  "item.gensokyoontology.danmaku_shot": "弹幕之点",
+  "item.gensokyoontology.large_shot_red": "大弹（红）",
+  "item.gensokyoontology.large_shot_yellow": "大弹（黄）",
+  "item.gensokyoontology.large_shot_green": "大弹（绿）",
+  "item.gensokyoontology.large_shot_blue": "大弹（蓝）",
+  "item.gensokyoontology.large_shot_purple": "大弹（紫）",
+
+  "item.gensokyoontology.small_shot_red": "小弹（红）",
+  "item.gensokyoontology.small_shot_yellow": "小弹（黄）",
+  "item.gensokyoontology.small_shot_green": "小弹（绿）",
+  "item.gensokyoontology.small_shot_blue": "小弹（蓝）",
+  "item.gensokyoontology.small_shot_purple": "小弹（紫）",
+
+  "item.gensokyoontology.heart_shot_pink": "心弹（粉）",
+  "item.gensokyoontology.heart_shot_red": "心弹（红）",
+  "item.gensokyoontology.heart_shot_aqua": "心弹（淡蓝）",
+  "item.gensokyoontology.heart_shot_blue": "心弹（蓝）",
+
+  "item.gensokyoontology.star_shot_red": "星弹（红）",
+  "item.gensokyoontology.star_shot_yellow": "星弹（黄）",
+  "item.gensokyoontology.star_shot_green": "星弹（绿）",
+  "item.gensokyoontology.star_shot_blue": "星弹（蓝）",
+  "item.gensokyoontology.star_shot_aqua": "星弹（淡蓝）",
+  "item.gensokyoontology.star_shot_purple": "星弹（紫）",
+
+  "item.gensokyoontology.fake_lunar": "虚假之月",
+  "item.gensokyoontology.bomb_item": "B点",
+
+  "item.gensokyoontology.inyo_jade_black": "阴阳玉（黑）",
+  "item.gensokyoontology.inyo_jade_red": "阴阳玉（红）",
+  "item.gensokyoontology.inyo_jade_yellow": "阴阳玉（黄）",
+  "item.gensokyoontology.inyo_jade_green": "阴阳玉（绿）",
+  "item.gensokyoontology.inyo_jade_aqua": "阴阳玉（淡蓝）",
+  "item.gensokyoontology.inyo_jade_blue": "阴阳玉（蓝）",
+  "item.gensokyoontology.inyo_jade_purple": "阴阳玉（紫）",
+
+  "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
+  "item.gensokyoontology.koishi_hat_mousse": "无意识妖怪慕斯",
+  "item.gensokyoontology.cake_scarlet_demon": "猩红恶魔蛋糕",
+  "item.gensokyoontology.butter": "黄油",
+
+  "item.gensokyoontology.milk_bottle": "牛奶瓶",
+  "item.gensokyoontology.lingoame": "苹果糖",
+  "item.gensokyoontology.tako_yaki": "章鱼小丸子",
+  "item.gensokyoontology.white_snow": "白雪",
+  "item.gensokyoontology.squid_tentacle": "鱿鱼须",
+  "item.gensokyoontology.onion": "洋葱",
+
+  "item.gensokyoontology.kitchen_knife": "菜刀",
+  "item.gensokyoontology.burger_meat_raw": "生汉堡肉",
+  "item.gensokyoontology.burger_meat": "汉堡肉",
+  "item.gensokyoontology.yattsume_una": "八目鳗",
+
+  "item.gensokyoontology.rail_wrench": "Rail Wrench",
+
+  "advancement.gensokyoontology.root.title": "灵梦，这是异变啊！",
+  "advancement.gensokyoontology.root.description": "阅读幻想乡故事的第1.1章",
+  "advancement.gensokyoontology.login_gensokyo.title": "爱来自幻想乡♥~",
+  "advancement.gensokyoontology.login_gensokyo.description": "玩家进入幻想乡维度",
+
+  "block.gensokyoontology.blue_rose_bush": "蓝蔷薇",
+  "block.gensokyoontology.wasabi": "山葵",
+  "block.gensokyoontology.lycoris_radiata": "红花石蒜",
+  "block.gensokyoontology.onion_crop": "洋葱",
+
+  "block.gensokyoontology.sakura_sapling": "樱花树苗",
+  "block.gensokyoontology.sakura_button": "樱花木按钮",
+  "block.gensokyoontology.sakura_leaves": "樱花树叶",
+  "block.gensokyoontology.sakura_log": "樱花树原木",
+  "block.gensokyoontology.sakura_planks": "樱花树木板",
+  "block.gensokyoontology.sakura_slab": "樱花木台阶",
+  "block.gensokyoontology.sakura_stairs": "樱花木楼梯",
+  "block.gensokyoontology.sakura_door": "樱花木门",
+  "block.gensokyoontology.sakura_fence": "樱花木栅栏",
+  "block.gensokyoontology.sakura_fence_gate": "樱花木栅栏门",
+  "block.gensokyoontology.sakura_trapdoor": "樱花木活板门",
+
+  "block.gensokyoontology.magic_leaves": "魔法树叶",
+  "block.gensokyoontology.magic_log": "魔法树原木",
+
+  "block.gensokyoontology.maple_sapling": "枫树树苗",
+  "block.gensokyoontology.maple_button": "枫树按钮",
+  "block.gensokyoontology.maple_leaves": "枫树树叶",
+  "block.gensokyoontology.maple_log": "枫树原木",
+  "block.gensokyoontology.maple_planks": "枫树木板",
+  "block.gensokyoontology.maple_slab": "枫树台阶",
+  "block.gensokyoontology.maple_stairs": "枫树楼梯",
+  "block.gensokyoontology.maple_door": "枫树木门",
+  "block.gensokyoontology.maple_fence": "枫树栅栏",
+  "block.gensokyoontology.maple_fence_gate": "枫树栅栏门",
+  "block.gensokyoontology.maple_trapdoor": "枫树活板门",
+
+  "block.gensokyoontology.fagus_button": "榉树按钮",
+  "block.gensokyoontology.fagus_leaves": "榉树树叶",
+  "block.gensokyoontology.fagus_log": "榉树原木",
+  "block.gensokyoontology.fagus_planks": "榉树木板",
+  "block.gensokyoontology.fagus_slab": "榉树台阶",
+  "block.gensokyoontology.fagus_stairs": "榉树楼梯",
+  "block.gensokyoontology.fagus_door": "榉树木门",
+  "block.gensokyoontology.fagus_fence": "榉树栅栏",
+  "block.gensokyoontology.fagus_fence_gate": "榉树栅栏门",
+  "block.gensokyoontology.fagus_trapdoor": "榉树活板门",
+
+  "block.gensokyoontology.blue_mushroom_block": "蓝色蘑菇方块",
+  "block.gensokyoontology.purple_mushroom_block": "紫色蘑菇方块",
+
+  "block.gensokyoontology.fried_pane": "炸锅",
+  "block.gensokyoontology.dakimakura": "抱枕",
+  "block.gensokyoontology.rail_track": "轨道",
+  "block.gensokyoontology.rail_node": "轨道节点",
+  "block.gensokyoontology.rotate_frame": "旋转框架测试方块",
+
+  "container.gensokyoontology.danmaku_craft.title": "弹幕合成",
+
+  "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
+  "description.gensokyoontology.praxis_sword_description": "§6现在，你知道了所有的故事，那么，请开始实践吧~",
+
+  "effect.gensokyoontology.love_potion": "迷恋",
+  "effect.gensokyoontology.hypnosis": "催眠",
+  "effect.gensokyoontology.mania": "躁狂",
+  "effect.gensokyoontology.depression": "抑郁",
+
+  "entity.gensokyoontology.spell_card_entity": "符卡实体",
+
+  "entity.gensokyoontology.danmaku_entity": "弹幕实体",
+  "entity.gensokyoontology.large_shot": "大弹",
+  "entity.gensokyoontology.heart_shot": "心弹",
+  "entity.gensokyoontology.star_shot": "星弹",
+  "entity.gensokyoontology.fake_lunar": "虚假之月",
+
+  "entity.gensokyoontology.fairy": "妖精",
+  "entity.gensokyoontology.inyo_jade": "阴阳玉",
+  "entity.gensokyoontology.spectre": "幽灵",
+  "entity.gensokyoontology.human_resident": "人里居民",
+  "entity.gensokyoontology.citizen": "市民",
+
+  "entity.gensokyoontology.komeiji_koishi": "古明地恋",
+  "entity.gensokyoontology.usami_sumireko": "宇佐见堇子",
+  "entity.gensokyoontology.yakumo_yukari": "八云紫",
+
+  "entity.gensokyoontology.spellcard.wave_and_particle": "境符「波与粒的境界」",
+  "entity.gensokyoontology.spellcard.sc_ido_no_kaiho": "本能「本我的解放」",
+  "entity.gensokyoontology.spellcard.sc_hell_eclipse": "狱符「地狱月食」",
+  "entity.gensokyoontology.spellcard.sc_mountain_of_faith": "「信仰之山」",
+
+  "gui.gensokyoontology.rail_adjust.title": "轨道调整",
+  "gui.gensokyoontology.button.increase_roll": "+",
+  "gui.gensokyoontology.button.increase_yaw": "+",
+  "gui.gensokyoontology.button.increase_pitch": "+",
+  "gui.gensokyoontology.button.decrease_roll": "-",
+  "gui.gensokyoontology.button.decrease_yaw": "-",
+  "gui.gensokyoontology.button.decrease_pitch": "-",
+
+  "gui.gensokyoontology.button.increase_roll.msg": "翻滚角",
+  "gui.gensokyoontology.button.increase_yaw.msg": "偏航角",
+  "gui.gensokyoontology.button.increase_pitch.msg": "俯仰角",
+  "gui.gensokyoontology.button.decrease_roll.msg": "Roll",
+  "gui.gensokyoontology.button.decrease_yaw.msg": "Yaw",
+  "gui.gensokyoontology.button.decrease_pitch.msg": "Pitch",
+
+  "gui.gensokyoontology.story_page.next": "Next Page",
+  "gui.gensokyoontology.story_page.prev": "Previous Page",
+
+  "gui.gensokyoontology.text_field.rotation_roll": "0",
+  "gui.gensokyoontology.text_field.rotation_yaw": "0",
+  "gui.gensokyoontology.text_field.rotation_pitch": "0",
+
+  "nbt.gensokyoontology.start_pos": "轨道起点：",
+  "nbt.gensokyoontology.end_pos": "轨道终点： ",
+
+  "screen.gensokyoontology.loading": "少女折寿中...",
+
+  "story.gensokyoontology.chapter_1_1.page_1": "I can't forget the day when I rest down in peace. The sky was stained by a crimson color like the end of the world. People spread rumors that there falls a mansion of vampires on another side of Misty Lake. I do not believe at first for no one ever comes to the other side of Misty Lake, but here, look at me, I should have believe it...",
+  "story.gensokyoontology.chapter_1_2.page_1": "That was a cold spring which I was starved to die. Snows fall until May 1st. I have wandered around on this icy land for many years ever since then. I was unreconciled, why me? why only my vitality was been taken altogether with the spring?",
+  "story.gensokyoontology.chapter_1_3.page_1": "Quite a lengthy night!\nThis is the only thing that I can remember.",
+
+  "tooltip.blank_line": "",
+  "tooltip.gensokyoontology.idealism_sword_info": "按住 §9SHIFT§r 查看更多信息",
+  "tooltip.gensokyoontology.praxis_sword_info": "按住 §9SHIFT§r 查看更多信息",
+  "tooltip.gensokyoontology.idealism_sword_shift": "§5右键释放现实裂缝§r",
+  "tooltip.gensokyoontology.praxis_sword_shift": "过于OP，已被弃用",
+
+  "tooltip.gensokyoontology.marisa_hakkeiro": "§e魔理沙的强力道具，能够发出可以破坏地形的极限火花",
+  "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗§c32个火焰弹§r和§a一个B点§r发射极限火花",
+  "tooltip.gensokyoontology.occult_ball.biome": "§d神秘地点: ",
+  "tooltip.gensokyoontology.occult_ball.hint": "右键点击进入幻想乡",
+
+  "patchouli.gensokyoontology.book.name": "幻想存有论",
+  "patchouli.gensokyoontology.book.landing_text": "前言",
+  "patchouli.gensokyoontology.book.subtitle": "——作者：宇佐见堇子",
+
+  "patchouli.gensokyoontology.category.chapter": "Chapters",
+  "patchouli.gensokyoontology.category.entity": "Fantasy Entities",
+  "patchouli.gensokyoontology.category.item": "Items",
+  "patchouli.gensokyoontology.category.spell_card": "Spell Cards",
+  "patchouli.gensokyoontology.category.task": "Crafting Manual",
+
+  "patchouli.gensokyoontology.category.chapter.description": "Gensokyo, a world where human and youkai live together within side by side keeping a dedicate balance.",
+  "patchouli.gensokyoontology.category.entity.description": "Some entities that might summon everywhere. This is not a good sign.$(br)\t\t -- Usami Sumireko",
+  "patchouli.gensokyoontology.category.item.description": "Special items that can help you sometimes",
+  "patchouli.gensokyoontology.category.task.description": "Follow these rules to go into that dimension!",
+  "patchouli.gensokyoontology.category.spell_card.description": "Super ablilities used by youkai or human?",
+
+  "patchouli.gensokyoontology.chapter.intro.title": "总体介绍",
+  "patchouli.gensokyoontology.chapter.introduction_p1": "你好，我是宇佐见堇子，秘封俱乐部的创始人，当你看见这本书的时候，那就意味着我已经迷失在了那个虚构的国度。也许我，我自己，甚至是正在阅读着这段文字的你，不过也同样是这幻想的一员罢了。我能感受到博丽大结界……十分的不稳定，一场异变马上就要到来了。",
+  "patchouli.gensokyoontology.chapter.introduction_p2": "我将自己的能力的一部分转移到了这本书里，这样，当我进入幻想之时，这本书便会出现在这座图书馆。如果我失败了，请带上这本书，本书中残余的能量或许能够帮助到你。我想请求你，帮我找到解决这场异变的办法！",
+
+  "patchouli.gensokyoontology.chapter.chapter_01.title": "Chapter 1: New Crisis",
+  "patchouli.gensokyoontology.chapter_01.content_01": "$(l)\"Signs often appears before the real crisis.\" -- Her voice haunted me even though she is no longer be here. I don't know when did those meme entities come into being in our world, but I know that fighting against with those entities for too long will lost one's ego -- and that is how she left me.$(br) Her eyes turned into jewels which could show the images of those entities on the paper, and I am collecting the loots from those monsters:",
+
+  "patchouli.gensokyoontology.chapter.gensokyo.title": "Chapter Gensokyo: To Step Within",
+  "patchouli.gensokyoontology.chapter.gensokyo.introduction": "Though making a very complete preperation, it still shocks me the first time when I entered gensokyo. The first thing you have to do is to make sure where you are. Different places in gensokyo have different danger level. ",
+
+  "patchouli.gensokyoontology.chapter.combat.title": "Chapter Combat: How to Get Level Up",
+  "patchouli.gensokyoontology.chapter.combat.entity_loot_01": "Fairy Loots",
+
+  "patchouli.gensokyoontology.chapter.structure.title": "About Places",
+  "patchouli.gensokyoontology.chapter.structure.outside_city": "First, is the most familiar place -- the city where we live.",
+
+  "patchouli.gensokyoontology.entity.mob.title": "各种迷因实体",
+  "patchouli.gensokyoontology.entity.fairy_introduction": "The most common and normal creature in Gensokyo. But it is abnormal to see them spawn in Overworld. These creature seems undying because when I was in Gensokyo, I killed a lot of them, but they will soon respawn elsewhere.",
+  "patchouli.gensokyoontology.entity.butterfly_fairy_introduction": "The big version of the fairy, possessing tougher health but having a large probabilities to drop Bomb Item.",
+  "patchouli.gensokyoontology.entity.inyo_jade_entity_introduction": "Entity Inyo Jade never drops Bomb Point Item, but the fragments of jade and the spirit fragments it dropped may be useful?",
+  "patchouli.gensokyoontology.entity.spectre_introduction": "These are the wandering souls who once were killed but holding with desperate shame or unwilling mind",
+
+  "patchouli.gensokyoontology.entity.object_a.title": "对象a（别名：小客体a）",
+  "patchouli.gensokyoontology.entity.object_a.introduction": "Object a, she is the one you authentically desire to. She could block your truly wantings and force you to worship on items. That's crazy, but thanks to koishi's eye, if you have koishi's eye in any of your inventory slot, you will not be added with fetish effect!",
+  "patchouli.gensokyoontology.entity.object_a.spell_card": "$(li)$(sc_object_a)Spell Card 1: ",
+
+  "patchouli.gensokyoontology.entity.koishi.title": "古明地恋",
+  "patchouli.gensokyoontology.entity.koishi.introduction": "$(l)Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
+
+  "patchouli.gensokyoontology.entity.sumireko.title": "宇佐见堇子",
+  "patchouli.gensokyoontology.entity.sumireko.introduction": "$(l)You want to know more about me! Yes, I am the one you called JK! And isn't it common to know that Japanese JK can use super powers right?www...",
+
+  "patchouli.gensokyoontology.entity.yukari.title": "八云紫",
+  "patchouli.gensokyoontology.entity.yukari.introduction": "$(l)一个凶狠、邪恶、老不死的隙间妖怪gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)啊啦，如果你敢这么称呼我的话……$(ff0000)你也会落得和这个女孩儿一样的下场哟!$()",
+
+  "patchouli.gensokyoontology.task.ideology.magnificent.title": "How to get Hochfliegend",
+  "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
+  "patchouli.gensokyoontology.ideology.magnificent.tutorial_p2": "This might be a picture?",
+
+  "patchouli.gensokyoontology.task.spirit.title": "意识形态",
+  "patchouli.gensokyoontology.task.spirit_fragment.title": "意识形态碎片",
+
+  "patchouli.gensokyoontology.spell_card.sc_koishi.title": "恋恋的符卡",
+  "patchouli.gensokyoontology.spell_card.sc_yukari.title": "紫的符卡",
+  "patchouli.gensokyoontology.spell_card.sc_leviathan.title": "利维坦的符卡",
+  "patchouli.gensokyoontology.spell_card.sc_meme.title": "迷因实体的符卡",
+  "patchouli.gensokyoontology.spell_card.sc_object_a.title": "对象a的符卡",
+
+  "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "item.gensokyoontology.large_shot": "Large Shot",
+  "item.gensokyoontology.heart_shot": "Heart Shot",
+  "item.gensokyoontology.star_shot": "Star Shot"
+}

@@ -23,7 +23,7 @@ public class FeatureUtil {
         for (int x = -radiusX; x <= radiusX; x++) {
             for (int z = -radiusZ; z <= radiusZ; z++) {
                 double distance = Math.sqrt(x * x + z * z);
-                if (distance <= radiusZ + 0.5) {  //
+                if (distance <= radiusZ + 0.5) {
                     mutable = (BlockPos.Mutable) mutable.add(x, 0, z);
                     placeBlock(reader, mutable, random, state);
                 }
@@ -72,5 +72,23 @@ public class FeatureUtil {
             }
         }
         return Direction.UP;
+    }
+
+    public static void genRandContour(ISeedReader reader, BlockPos pos, Set<Block> blocks,
+                                      int repetition, int step) {
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < repetition; j++) {
+                switch (i) {
+                    case 0:
+                        pos.add(step, pos.getY(), pos.getZ()+1);
+                        break;
+                    case 1:
+                        pos.add(pos.getX() + 1, pos.getY(), step);
+                        break;
+                    case 2:
+                        break;
+                }
+            }
+        }
     }
 }

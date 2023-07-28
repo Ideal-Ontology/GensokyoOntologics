@@ -3,18 +3,14 @@ package github.thelawf.gensokyoontology.common.item.danmaku;
 import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.*;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
-import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-
-public class FakeLunarItem extends Item {
+public class FakeLunarItem extends DanmakuItem {
     public DanmakuType type;
     public FakeLunarItem(DanmakuType type) {
         super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));

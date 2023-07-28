@@ -20,7 +20,7 @@ public class GSKOEntityLoot extends EntityLootTables {
     @Override
     protected void addTables() {
         registerLootTable(EntityRegistry.FAIRY_ENTITY.getId(), FAIRY_LOOT);
-        registerLootTable(EntityRegistry.KOISHI_ENTITY.getId(), KOISHI_LOOT);
+        // registerLootTable(EntityRegistry.KOISHI_ENTITY.getId(), KOISHI_LOOT);
     }
 
     public static final LootTable.Builder FAIRY_LOOT = LootTable.builder()

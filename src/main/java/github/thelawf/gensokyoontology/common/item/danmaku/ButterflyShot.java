@@ -1,8 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.danmaku;
 
-import net.minecraft.item.Item;
-
-public class ButterflyShot extends Item {
+public class ButterflyShot extends DanmakuItem {
     public ButterflyShot(Properties properties) {
         super(properties);
     }

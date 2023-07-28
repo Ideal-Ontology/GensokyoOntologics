@@ -79,7 +79,7 @@ public final class ItemRegistry {
     //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> FAGUS_LEAVES_ITEM = ITEMS.register(
             "fagus_leaves", () -> new BlockItem(BlockRegistry.FAGUS_LEAVES.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties()));
 
     public static final RegistryObject<BlockItem> FAGUS_LOG_ITEM = ITEMS.register(
             "fagus_log", () -> new BlockItem(BlockRegistry.FAGUS_LOG.get(),
@@ -103,7 +103,7 @@ public final class ItemRegistry {
 
     public static final RegistryObject<BlockItem> FAGUS_DOOR_ITEM = ITEMS.register(
             "fagus_door", () -> new BlockItem(BlockRegistry.FAGUS_DOOR.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties()));
 
     public static final RegistryObject<BlockItem> FAGUS_FENCE_ITEM = ITEMS.register(
             "fagus_fence", () -> new BlockItem(BlockRegistry.FAGUS_FENCE.get(),
@@ -115,7 +115,7 @@ public final class ItemRegistry {
 
     public static final RegistryObject<BlockItem> FAGUS_TRAPDOOR_ITEM = ITEMS.register(
             "fagus_trapdoor", () -> new BlockItem(BlockRegistry.FAGUS_TRAPDOOR.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties()));
 
     public static final RegistryObject<BlockItem> FAGUS_PRESSRUE_PLATE_ITEM = ITEMS.register(
             "fagus_pressure_plate", () -> new BlockItem(BlockRegistry.FAGUS_PRESSRUE_PLATE.get(),
@@ -151,7 +151,7 @@ public final class ItemRegistry {
 
     public static final RegistryObject<BlockItem> MAPLE_DOOR_ITEM = ITEMS.register(
             "maple_door", () -> new BlockItem(BlockRegistry.MAPLE_DOOR.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties()));
 
     public static final RegistryObject<BlockItem> MAPLE_FENCE_ITEM = ITEMS.register(
             "maple_fence", () -> new BlockItem(BlockRegistry.MAPLE_FENCE.get(),
@@ -163,11 +163,18 @@ public final class ItemRegistry {
 
     public static final RegistryObject<BlockItem> MAPLE_TRAPDOOR_ITEM = ITEMS.register(
             "maple_trapdoor", () -> new BlockItem(BlockRegistry.MAPLE_TRAPDOOR.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties()));
 
     public static final RegistryObject<BlockItem> MAPLE_PRESSRUE_PLATE_ITEM = ITEMS.register(
             "maple_pressure_plate", () -> new BlockItem(BlockRegistry.MAPLE_PRESSURE_PLATE.get(),
                     new Item.Properties().group(ItemGroup.REDSTONE)));
+
+    public static final RegistryObject<BlockItem> MAGIC_LEAVES_ITEM = ITEMS.register(
+            "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
+                    new Item.Properties()));
+    public static final RegistryObject<BlockItem> MAGIC_LOG_ITEM = ITEMS.register(
+            "magic_log", () -> new BlockItem(BlockRegistry.MAGIC_LOG.get(),
+                    new Item.Properties()));
 
     // --------------------------- 草本植物类方块：----------------------------//
     public static final RegistryObject<Item> BLUE_ROSE_ITEM = ITEMS.register(
@@ -196,13 +203,13 @@ public final class ItemRegistry {
     // ----------------------- 东方project特殊功能道具 ----------------------//
     public static final RegistryObject<HakureiGohei> HAKUREI_GOHEI = ITEMS.register(
             "hakurei_gohei", () -> new HakureiGohei(
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties()));
     public static final RegistryObject<MarisaHakkeiro> MARISA_HAKKEIRO = ITEMS.register(
             "marisa_hakkeiro", () -> new MarisaHakkeiro(
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
             "sakuya_stop_watch", () -> new SakuyaStopWatch(
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties()));
     public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register("aya_fans",
             () -> new AyaFans(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<KoishiEye> KOISHI_EYE = ITEMS.register(
@@ -225,8 +232,7 @@ public final class ItemRegistry {
             "occult_ball", () -> new OccultBall(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<ChimataMarketLicense> CHIMATA_MARKET_LICENSE = ITEMS.register(
-            "chimata_market_license", () -> new ChimataMarketLicense(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+            "chimata_market_license", () -> new ChimataMarketLicense(new Item.Properties()));
 
     // ---------------------------- 一般物品 -------------------------------//
     public static final RegistryObject<Item> HOTSPRING_BUCKET =
@@ -287,58 +293,58 @@ public final class ItemRegistry {
             "burger_meat", BugerMeat::new);
 
     // ---------------------------- 意识形态 ------------------------------//
-    public static final RegistryObject<SpiritStar> SPIRIT_STAR = ITEMS.register(
-            "spirit_star", () -> new SpiritStar(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)
-                    .maxStackSize(16)));
-
-    public static final RegistryObject<SpiritFragment> SPIRIT_FRAGMENT = ITEMS.register(
-            "spirit_fragment", () -> new SpiritFragment(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)
-                    .maxStackSize(16)));
-    public static final RegistryObject<Item> SPIRIT_DIALECTICS = ITEMS.register(
-            "dialectic_spirit", () -> new Item(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)
-                    .maxStackSize(16)));
-    public static final RegistryObject<Item> SPIRIT_UTOPIAN = ITEMS.register(
-            "utopian_spirit", () -> new Item(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)
-                    .maxStackSize(16)));
-    public static final RegistryObject<Item> SPIRIT_THEOLOGY = ITEMS.register(
-            "theology_spirit", () -> new Item(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)
-                    .maxStackSize(16)));
-
-    public static final RegistryObject<Item> SPIRIT_CREATIVE = ITEMS.register(
-            "creative_spirit",() -> new Item(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)
-                    .maxStackSize(16)));
-
+    // public static final RegistryObject<SpiritStar> SPIRIT_STAR = ITEMS.register(
+    //         "spirit_star", () -> new SpiritStar(new Item.Properties()
+    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
+    //                 .maxStackSize(16)));
+//
+    // public static final RegistryObject<SpiritFragment> SPIRIT_FRAGMENT = ITEMS.register(
+    //         "spirit_fragment", () -> new SpiritFragment(new Item.Properties()
+    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
+    //                 .maxStackSize(16)));
+    // public static final RegistryObject<Item> SPIRIT_DIALECTICS = ITEMS.register(
+    //         "dialectic_spirit", () -> new Item(new Item.Properties()
+    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
+    //                 .maxStackSize(16)));
+    // public static final RegistryObject<Item> SPIRIT_UTOPIAN = ITEMS.register(
+    //         "utopian_spirit", () -> new Item(new Item.Properties()
+    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
+    //                 .maxStackSize(16)));
+    // public static final RegistryObject<Item> SPIRIT_THEOLOGY = ITEMS.register(
+    //         "theology_spirit", () -> new Item(new Item.Properties()
+    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
+    //                 .maxStackSize(16)));
+//
+    // public static final RegistryObject<Item> SPIRIT_CREATIVE = ITEMS.register(
+    //         "creative_spirit",() -> new Item(new Item.Properties()
+    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
+    //                 .maxStackSize(16)));
+//
     // --------------------------- 故事书页 ------------------------------//
     public static final RegistryObject<Item> MEMORY_CARD = ITEMS.register(
             "story_card", () -> new StoryCard(new CompoundNBT()));
 
 
     // Technical Items that will break the game balance: //
-    public static final RegistryObject<Item> REALISM_SWORD = ITEMS.register(
-            "realism_sword", RealismSword::new);
-    public static final RegistryObject<Item> METAPHYSICS_SWORD = ITEMS.register(
-            "metaphysics_sword", MetaphysicsSword::new);
-    public static final RegistryObject<Item> IDEALISM_SWORD = ITEMS.register(
-            "idealism_sword", IdealismSword::new);
-    public static final RegistryObject<Item> PRAXIS_SWORD = ITEMS.register(
-            "praxis_sword", PraxisSword::new);
+    // public static final RegistryObject<Item> REALISM_SWORD = ITEMS.register(
+    //         "realism_sword", RealismSword::new);
+    // public static final RegistryObject<Item> METAPHYSICS_SWORD = ITEMS.register(
+    //         "metaphysics_sword", MetaphysicsSword::new);
+    // public static final RegistryObject<Item> IDEALISM_SWORD = ITEMS.register(
+    //         "idealism_sword", IdealismSword::new);
+    // public static final RegistryObject<Item> PRAXIS_SWORD = ITEMS.register(
+    //         "praxis_sword", PraxisSword::new);
 
-    public static final RegistryObject<Item> BYTE_COIN = ITEMS.register("bytecoin",
-            () -> new ByteCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
-    public static final RegistryObject<Item> GAME_COIN = ITEMS.register("game_coin",
-            () -> new GameCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    // public static final RegistryObject<Item> BYTE_COIN = ITEMS.register("bytecoin",
+    //         () -> new ByteCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+//
+    // public static final RegistryObject<Item> GAME_COIN = ITEMS.register("game_coin",
+    //         () -> new GameCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================== GSKO 实用类方块 ===========================//
     public static final RegistryObject<BlockItem> DRAGON_SPHERE_ORE_ITEM = ITEMS.register(
             "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties()));
 
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//
@@ -351,7 +357,7 @@ public final class ItemRegistry {
                     "境符「波与粒的境界」","",500));
 
     public static final RegistryObject<SC_IdoNoKaiho> SC_IDO_NO_KAIHO = ITEMS.register(
-            "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
+            "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties(),
                     "本能「本我的解放」","", 600));
 
     public static final RegistryObject<SC_CircleCross> SC_CIRCLE_CROSS = ITEMS.register(
@@ -363,7 +369,7 @@ public final class ItemRegistry {
                     "狱符「地狱月食」", "", 500));
 
     public static final RegistryObject<SC_MountainOfFaith> SC_MOUNTAIN_OF_FAITH = ITEMS.register(
-            "sc_mountain_of_faith", () -> new SC_MountainOfFaith(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
+            "sc_mountain_of_faith", () -> new SC_MountainOfFaith(new Item.Properties(),
                     "信仰之山", "", 500));
 
 
@@ -449,41 +455,34 @@ public final class ItemRegistry {
             "bomb_item", () -> new BombItem(
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    public static final RegistryObject<BlockItem> MAGIC_LEAVES_ITEM = ITEMS.register(
-            "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<BlockItem> MAGIC_LOG_ITEM = ITEMS.register(
-            "magic_log", () -> new BlockItem(BlockRegistry.MAGIC_LOG.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
     // +++++++++++++++++++++++++++ Deprecated Items +++++++++++++++++++++++//
-    public static final RegistryObject<Item> RAIL_NODE = ITEMS.register(
-            "rail_node", () -> new BlockItem(BlockRegistry.RAIL_NODE_BLOCK.get(),
-                    new Item.Properties()));
-
-    public static final RegistryObject<Item> DAKIMAKURA_ITEM = ITEMS.register(
-            "dakimakura", () -> new BlockItem(BlockRegistry.DAKIMAKURA.get(),
-                    new Item.Properties()));
-
-    public static final RegistryObject<Item> ROTATE_FRAME_ITEM = ITEMS.register(
-            "rotate_frame", () -> new BlockItem(BlockRegistry.ROTATE_FRAME.get(),
-                    new Item.Properties()));
-
-
+    // public static final RegistryObject<Item> RAIL_NODE = ITEMS.register(
+    //         "rail_node", () -> new BlockItem(BlockRegistry.RAIL_NODE_BLOCK.get(),
+    //                 new Item.Properties()));
+//
+    // public static final RegistryObject<Item> DAKIMAKURA_ITEM = ITEMS.register(
+    //         "dakimakura", () -> new BlockItem(BlockRegistry.DAKIMAKURA.get(),
+    //                 new Item.Properties()));
+//
+    // public static final RegistryObject<Item> ROTATE_FRAME_ITEM = ITEMS.register(
+    //         "rotate_frame", () -> new BlockItem(BlockRegistry.ROTATE_FRAME.get(),
+    //                 new Item.Properties()));
+//
+//
     //======================= ↓ The Mod Cyber Statistics ↓ ====================//
 
-    public static final RegistryObject<Item> HASH_LEAVES_ITEM = ITEMS.register(
-            "hash_leaves", () -> new BlockItem(BlockRegistry.HASH_LEAVES.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
-    public static final RegistryObject<Item> HASH_LOG_ITEM = ITEMS.register(
-            "hash_log",() -> new BlockItem(BlockRegistry.HASH_LOG.get(),
-                    new Item.Properties()));
-
-    public static final RegistryObject<Item> FRACTAL_LOG_ITEM = ITEMS.register(
-            "fractal_log",() -> new BlockItem(BlockRegistry.FRACTAL_LOG.get(),
-                    new Item.Properties()));
-
+    // public static final RegistryObject<Item> HASH_LEAVES_ITEM = ITEMS.register(
+    //         "hash_leaves", () -> new BlockItem(BlockRegistry.HASH_LEAVES.get(),
+    //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+//
+    // public static final RegistryObject<Item> HASH_LOG_ITEM = ITEMS.register(
+    //         "hash_log",() -> new BlockItem(BlockRegistry.HASH_LOG.get(),
+    //                 new Item.Properties()));
+//
+    // public static final RegistryObject<Item> FRACTAL_LOG_ITEM = ITEMS.register(
+    //         "fractal_log",() -> new BlockItem(BlockRegistry.FRACTAL_LOG.get(),
+    //                 new Item.Properties()));
+//
     //======================= ↑ The Mod Cyber Statistics ↑ ====================//
 
 }

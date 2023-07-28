@@ -33,12 +33,12 @@ public final class EntityRegistry {
             "spectre", () -> SpectreEntity.SPECTRE);
 
     // =============================== 可驯服的生物 ============================ //
-    public static final RegistryObject<EntityType<KoishiEntity>> KOISHI_ENTITY = ENTITIES.register(
-            "komeiji_koishi", () -> KoishiEntity.KOISHI);
-    public static final RegistryObject<EntityType<SumirekoEntity>> SUMIREKO_ENTITY = ENTITIES.register(
-            "usami_sumireko", () -> SumirekoEntity.SUMIREKO);
-    public static final RegistryObject<EntityType<YukariEntity>> YUKARI_ENTITY = ENTITIES.register(
-            "yakumo_yukari", () -> YukariEntity.YUKARI);
+    // public static final RegistryObject<EntityType<KoishiEntity>> KOISHI_ENTITY = ENTITIES.register(
+    //         "komeiji_koishi", () -> KoishiEntity.KOISHI);
+    // public static final RegistryObject<EntityType<SumirekoEntity>> SUMIREKO_ENTITY = ENTITIES.register(
+    //         "usami_sumireko", () -> SumirekoEntity.SUMIREKO);
+    // public static final RegistryObject<EntityType<YukariEntity>> YUKARI_ENTITY = ENTITIES.register(
+    //         "yakumo_yukari", () -> YukariEntity.YUKARI);
 
     // =========================== 技术性实体：弹幕 ========================= //
     public static final RegistryObject<EntityType<DanmakuShotEntity>> DANMAKU_ENTITY = ENTITIES.register(
@@ -57,10 +57,10 @@ public final class EntityRegistry {
             "fake_lunar", () -> FakeLunarEntity.FAKE_LUNAR);
 
     // ================================ 不知道是什么的实体 ================================= //
-    public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = ENTITIES.register(
-            "master_spark", () -> MasterSparkEntity.MASTER_SPARK);
-    public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
-            "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
+    // public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = ENTITIES.register(
+    //         "master_spark", () -> MasterSparkEntity.MASTER_SPARK);
+    // public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
+    //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
 
     // ============================ 技术性实体：符卡 ============================= //
     public static final RegistryObject<EntityType<WaveAndParticleEntity>> WAVE_AND_PARTICLE_ENTITY = ENTITIES.register(

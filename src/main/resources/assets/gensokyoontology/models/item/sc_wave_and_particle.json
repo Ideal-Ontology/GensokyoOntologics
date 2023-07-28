@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "gensokyoontology:item/wave_and_particle"
+    "layer0": "gensokyoontology:item/sc_wave_and_particle"
   }
 }
