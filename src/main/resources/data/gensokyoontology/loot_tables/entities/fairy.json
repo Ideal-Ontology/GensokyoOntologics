@@ -41,8 +41,8 @@
           "conditions": [
             {
               "condition": "minecraft:random_chance_with_looting",
-              "chance": 0.01,
-              "looting_multiplier": 0.005
+              "chance": 0.05,
+              "looting_multiplier": 0.01
             },
             {
               "condition": "minecraft:killed_by_player"

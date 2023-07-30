@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "gensokyoontology:life_fragment"
+    },
+    {
+      "item": "gensokyoontology:life_fragment"
+    },
+    {
+      "item": "gensokyoontology:life_fragment"
+    },
+    {
+      "item": "gensokyoontology:life_fragment"
+    }
+  ],
+  "result": {
+    "item": "gensokyoontology:extra_life",
+    "count": 1
+  }
+}

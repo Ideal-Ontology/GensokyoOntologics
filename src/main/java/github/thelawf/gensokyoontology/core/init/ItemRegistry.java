@@ -251,6 +251,14 @@ public final class ItemRegistry {
             "wandering_soul", () -> new WanderingSoul(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    public static final RegistryObject<Item> BOMB_FRAGMENT = ITEMS.register(
+            "bomb_fragment", () -> new BombFragment(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> LIFE_FRAGMENT = ITEMS.register(
+            "life_fragment", () -> new LifeFragment(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     // ---------------------------- 食物原材料 -----------------------------//
     public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register(
             "kitchen_knife", KitchenKnife::new);
@@ -451,8 +459,13 @@ public final class ItemRegistry {
 
     public static final RegistryObject<Item> FAKE_LUNAR_ITEM = ITEMS.register(
             "fake_lunar", () -> new FakeLunarItem(DanmakuType.FAKE_LUNAR));
+
     public static final RegistryObject<Item> BOMB_ITEM = ITEMS.register(
             "bomb_item", () -> new BombItem(
+                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+
+    public static final RegistryObject<Item> EXTRA_LIFE_ITEM = ITEMS.register(
+            "extra_life", () -> new ExtraLifeItem(
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     // +++++++++++++++++++++++++++ Deprecated Items +++++++++++++++++++++++//

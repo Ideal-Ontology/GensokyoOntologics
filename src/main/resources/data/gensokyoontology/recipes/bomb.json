@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "gensokyoontology:bomb_fragment"
+    },
+    {
+      "item": "gensokyoontology:bomb_fragment"
+    },
+    {
+      "item": "gensokyoontology:bomb_fragment"
+    },
+    {
+      "item": "gensokyoontology:bomb_fragment"
+    }
+  ],
+  "result": {
+    "item": "gensokyoontology:bomb_item",
+    "count": 1
+  }
+}
