@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.tools;
 
 import github.thelawf.gensokyoontology.common.block.RailTrackBlock;
-import github.thelawf.gensokyoontology.common.screen.container.RailAdjustGUI;
+import github.thelawf.gensokyoontology.client.screen.container.RailAdjustGUI;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;

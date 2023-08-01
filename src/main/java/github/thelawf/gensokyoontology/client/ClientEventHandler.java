@@ -1,20 +1,45 @@
 package github.thelawf.gensokyoontology.client;
 
-import github.thelawf.gensokyoontology.client.model.DomainFieldModel;
-import github.thelawf.gensokyoontology.client.renderer.*;
+import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.client.renderer.entity.CitizenRenderer;
+import github.thelawf.gensokyoontology.client.renderer.entity.FairyRenderer;
+import github.thelawf.gensokyoontology.client.renderer.entity.HumanResidentRenderer;
+import github.thelawf.gensokyoontology.client.renderer.entity.YukariRenderer;
+import github.thelawf.gensokyoontology.client.screen.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.*;
+import github.thelawf.gensokyoontology.common.world.GSKODimensions;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.chat.NarratorChatListener;
+import net.minecraft.client.gui.screen.DownloadTerrainScreen;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.entity.ArrowRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.client.renderer.entity.TridentRenderer;
+import net.minecraft.client.renderer.entity.layers.BeeStingerLayer;
+import net.minecraft.util.Hand;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD,value = Dist.CLIENT)
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+
+@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GensokyoOntology.MODID, value = Dist.CLIENT)
 public class ClientEventHandler {
 
     @SubscribeEvent
@@ -69,5 +94,21 @@ public class ClientEventHandler {
         // ====================== 奇怪实体的渲染器 ===================== //
         // RenderingRegistry.registerEntityRenderingHandler(NamespaceDomain.NAMESPACE_DOMAIN,
         //        manager -> new NamespaceDomainRenderer(manager, new DomainFieldModel()));
+
+        MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
     }
+
+    // @SubscribeEvent
+    public static void onOverlayRender(RenderGameOverlayEvent event) {
+        if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
+            return;
+        }
+        Class<ItemRegistry> registryClass = ItemRegistry.class;
+        List<Field> fields = Arrays.asList(registryClass.getFields());
+        fields.removeIf(f -> f.getType() != RegistryObject.class);
+        if (Minecraft.getInstance().player == null || Minecraft.getInstance().player.getHeldItem(Hand.MAIN_HAND).getItem() != ItemRegistry.HAKUREI_GOHEI.get()) {
+            return;
+        }
+    }
+
 }

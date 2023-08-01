@@ -1,10 +1,8 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.screen.container.DanmakuCraftingContainer;
-import net.minecraft.entity.player.PlayerInventory;
+import github.thelawf.gensokyoontology.client.screen.container.DanmakuCraftingContainer;
 import net.minecraft.inventory.container.ContainerType;
-import net.minecraft.world.World;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;

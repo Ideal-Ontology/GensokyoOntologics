@@ -4,7 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.cyber.ComputerBlock;
 import github.thelawf.gensokyoontology.common.block.cyber.HashLeaves;
-import github.thelawf.gensokyoontology.common.block.decoration.*;
+import github.thelawf.gensokyoontology.common.block.nature.*;
 import github.thelawf.gensokyoontology.common.world.feature.tree.MapleTree;
 import github.thelawf.gensokyoontology.common.world.feature.tree.SakuraTree;
 import net.minecraft.block.*;
@@ -163,9 +163,13 @@ public final class BlockRegistry {
             "dragon_sphere_ore", DragonSphereOre::new);
 
     public static final RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
-            () -> new HotSpringBlock(() -> FluidRegistry.HOT_SPRING_SOURCE.get(),
+            () -> new HotSpringBlock(FluidRegistry.HOT_SPRING_SOURCE,
             Block.Properties.create(Material.WATER).doesNotBlockMovement()
                                 .hardnessAndResistance(100.0f).noDrops()));
+
+    public static final RegistryObject<FlowingFluidBlock> SAKE_WINE_BLOCK = BLOCKS.register("sake_wine_block",
+            () -> new FlowingFluidBlock(FluidRegistry.SAKE_WINE_SOURCE,
+                    AbstractBlock.Properties.from(Blocks.WATER)));
 
     public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
             "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));

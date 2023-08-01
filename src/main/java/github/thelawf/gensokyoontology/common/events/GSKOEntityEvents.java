@@ -4,8 +4,10 @@ import github.thelawf.gensokyoontology.common.block.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.entity.FairyEntity;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
+import github.thelawf.gensokyoontology.core.init.FluidRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.CauldronBlock;
 import net.minecraft.client.particle.TotemOfUndyingParticle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.Pose;
@@ -13,9 +15,12 @@ import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.fluid.LavaFluid;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.server.ServerWorld;
@@ -38,6 +43,16 @@ public class GSKOEntityEvents {
 
     }
 
+    @SubscribeEvent
+    public static void onWineIn(LivingEvent.LivingUpdateEvent event) {
+        if (event.getEntityLiving() != null && event.getEntityLiving().isInWater()) {
+            BlockState blockState = event.getEntityLiving().getBlockState();
+            if (blockState.getBlockState().getBlock() instanceof HotSpringBlock &&
+                    !(event.getEntityLiving() instanceof PlayerEntity)) {
+                event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.NAUSEA));
+            }
+        }
+    }
 
     @SubscribeEvent
     public static void onLivingDeath(LivingDeathEvent event) {

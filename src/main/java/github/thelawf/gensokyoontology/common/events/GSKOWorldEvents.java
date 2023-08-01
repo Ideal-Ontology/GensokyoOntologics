@@ -113,10 +113,10 @@ public class GSKOWorldEvents {
         GSKOFeatureGenerator.generateOverworldStructures(event);
         // GSKOFeatureGenerator.generateGSKOStructures(event);
 
-        GSKOFeatureGenerator.generateOverworldTrees(event);
-        GSKOFeatureGenerator.generateGensokyoTrees(event);
-        GSKOFeatureGenerator.generateFlowers(event);
-        GSKOFeatureGenerator.generateHerbPlants(event);
+        // GSKOFeatureGenerator.generateOverworldTrees(event);
+        // GSKOFeatureGenerator.generateGensokyoTrees(event);
+        // GSKOFeatureGenerator.generateFlowers(event);
+        // GSKOFeatureGenerator.generateHerbPlants(event);
 
         // GSKOFeatureGenerator.addWaterfall(event);
     }

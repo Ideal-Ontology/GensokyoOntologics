@@ -22,6 +22,9 @@
   "item.gensokyoontology.praxis_sword": "実践の宝剣",
 
   "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
+  "item.gensokyoontology.large_shot": "Large Shot",
+  "item.gensokyoontology.heart_shot": "Heart Shot",
+  "item.gensokyoontology.star_shot": "Star Shot",
   "item.gensokyoontology.fake_lunar": "偽の月",
 
   "item.gensokyoontology.bomb_item": "Bomb Item",
@@ -158,6 +161,10 @@
   "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality.",
 
   "tooltip.gensokyoontology.occult_ball.biome": "Occult Biome: ",
+  "tooltip.gensokyoontology.three_sacred_treasures.sword": "「三種の神器　剣」",
+  "tooltip.gensokyoontology.three_sacred_treasures.orb": "「三種の神器　玉」",
+  "tooltip.gensokyoontology.three_sacred_treasures.mirror": "「三種の神器　鏡」",
+  "tooltip.gensokyoontology.three_sacred_treasures.country": "「三種の神器　郷」",
 
   "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
   "patchouli.gensokyoontology.book.landing_text": "$(l)Fore Words:$(br)Stay $(4)S$(b)A$(d)N$(2)E!$() You're now in the $(k)(m)meaningless network$() of $(l)ideologies.$() Be $(l)$(#ff0000)CLEAR AWARE$() of this!",
@@ -316,5 +323,6 @@
   "entity.gensokyoontology.spellcard.sc_mountain_of_faith": "「信仰之山」",
   "tooltip.blank_line": "",
   "tooltip.gensokyoontology.marisa_hakkeiro": "§e魔理沙的强力道具，能够发出可以破坏地形的极限火花",
-  "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗§c32个火焰弹§r和§a一个B点§r发射极限火花"
+  "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗§c32个火焰弹§r和§a一个B点§r发射极限火花",
+  "a": "b"
 }

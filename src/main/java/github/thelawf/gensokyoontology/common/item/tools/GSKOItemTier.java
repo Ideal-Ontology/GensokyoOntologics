@@ -7,9 +7,10 @@ import net.minecraft.util.LazyValue;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
-/*
+
 public enum GSKOItemTier implements IItemTier {
 
+/*
     // 实在论材料等级为石质工具等级
     // 形而上学材料为下界合金等级
     // 观念论材料为 10011 等级
@@ -22,7 +23,9 @@ public enum GSKOItemTier implements IItemTier {
             () -> Ingredient.fromItems(ItemRegistry.SPIRIT_DIALECTICS.get())),
     PRAXIS(10,2147000000,25.0F,2147000000.0F,514,
             () -> Ingredient.fromItems(ItemRegistry.SPIRIT_CREATIVE.get()));
+ */
 
+    CRIMSON_METAL(5, 2048, 9.5F, 4.5F, 15, () -> Ingredient.fromItems(ItemRegistry.BOMB_ITEM.get()));
 
     private final int harvestLevel;
     private final int maxUses;
@@ -73,4 +76,4 @@ public enum GSKOItemTier implements IItemTier {
 
 }
 
- */
+

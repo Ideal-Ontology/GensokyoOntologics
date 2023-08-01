@@ -65,6 +65,9 @@ public class GSKOFeatures {
                     new FancyTrunkPlacer(8, 2, 1),
                     new TwoLayerFeature(1,1,2)).setIgnoreVines().build());
 
+    /**
+     * 从这里开始是初始化世界中自然生成的树木特征的配置
+     */
     public static final ConfiguredFeature<?, ?> SAKURA_TREE = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.SAKURA_LOG.get().getDefaultState()),
                             new SimpleBlockStateProvider(BlockRegistry.SAKURA_LEAVES.get().getDefaultState()),
@@ -132,6 +135,7 @@ public class GSKOFeatures {
     // public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SHINBOKU = register(new ResourceLocation(GensokyoOntology.MODID, "shinboku"),
     //         Feature.TREE.withConfiguration());
 
+    // 生成彼岸花
     public static final ConfiguredFeature<?,?> LYCORIS = Feature.FLOWER.withConfiguration(
                     new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(
                             BlockRegistry.LYCORIS_RADIATA.get().getDefaultState()),

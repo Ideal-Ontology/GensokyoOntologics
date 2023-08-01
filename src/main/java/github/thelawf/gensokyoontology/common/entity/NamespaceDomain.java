@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity;
 
-import github.thelawf.gensokyoontology.common.screen.container.DanmakuCraftingContainer;
+import github.thelawf.gensokyoontology.client.screen.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

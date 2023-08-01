@@ -25,8 +25,8 @@ public class GSKOBiomeHandler {
         addBiome(event, BiomeManager.BiomeType.WARM, "outside_city",
                 8, GSKOBiomes.OUTSIDE_CITY);
 
-        addBiome(event, BiomeManager.BiomeType.COOL, "sakura_forest",
-                7, GSKOBiomes.SAKURA_FOREST);
+        // addBiome(event, BiomeManager.BiomeType.COOL, "sakura_forest",
+        //         7, GSKOBiomes.SAKURA_FOREST);
     }
 
     public static void addBiome(RegistryEvent.Register<Biome> event, BiomeManager.BiomeType type,

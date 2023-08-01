@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.IIdeologyCapability;
 import github.thelawf.gensokyoontology.common.command.GSKOCommand;
 import github.thelawf.gensokyoontology.common.command.GUICommand;
+import github.thelawf.gensokyoontology.common.network.GSKOIncidentNetworking;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
@@ -43,6 +44,8 @@ public class CommonSetUp {
             Registry.register(Registry.BIOME_PROVIDER_CODEC,
                     new ResourceLocation(GensokyoOntology.MODID, "gensokyo"),
                     GSKOBiomesProvider.GSKO_BIOME_CODEC);
+
+            GSKOIncidentNetworking.registerMessage();
 
             EntitySpawnPlacementRegistry.register(EntityRegistry.FAIRY_ENTITY.get(),
                     EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
