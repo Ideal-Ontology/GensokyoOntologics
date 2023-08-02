@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "compatibilityLevel": "JAVA_8",
+  "package": "github.thelawf.gensokyoontology.mixin",
+  "mixins": [
+    "MixinCauldronBlock"
+  ],
+  "client": [
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "refmap": "mixins.gensokyoontology.refmap.json"
+}

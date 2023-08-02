@@ -1,0 +1,43 @@
+{
+  "variants": {
+    "level=0,fluid=empty": {
+      "model": "minecraft:block/cauldron"
+    },
+    "level=1,fluid=empty": {
+      "model": "minecraft:block/cauldron"
+    },
+    "level=2,fluid=empty": {
+      "model": "minecraft:block/cauldron"
+    },
+    "level=3,fluid=empty": {
+      "model": "minecraft:block/cauldron"
+    },
+    "level=1,fluid=water": {
+      "model": "minecraft:block/cauldron_water_level1"
+    },
+    "level=2,fluid=water": {
+      "model": "minecraft:block/cauldron_water_level2"
+    },
+    "level=3,fluid=water": {
+      "model": "minecraft:block/cauldron_water_level3"
+    },
+    "level=1,fluid=lava": {
+      "model": "minecraft:block/cauldron_lava_level1"
+    },
+    "level=2,fluid=lava": {
+      "model": "minecraft:block/cauldron_lava_level2"
+    },
+    "level=3,fluid=lava": {
+      "model": "minecraft:block/cauldron_lava_level3"
+    },
+    "level=1,fluid=hot_spring": {
+      "model": "minecraft:block/cauldron_hot_spring_level1"
+    },
+    "level=2,fluid=hot_spring": {
+      "model": "minecraft:block/cauldron_hot_spring_level2"
+    },
+    "level=3,fluid=hot_spring": {
+      "model": "minecraft:block/cauldron_hot_spring_level3"
+    }
+  }
+}

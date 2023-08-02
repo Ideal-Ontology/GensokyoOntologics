@@ -9,7 +9,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.*;
-import net.minecraft.pathfinding.PathType;
 import net.minecraft.potion.PotionUtils;
 import net.minecraft.potion.Potions;
 import net.minecraft.state.EnumProperty;
@@ -25,62 +24,69 @@ import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.shapes.IBooleanFunction;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import org.spongepowered.asm.mixin.Intrinsic;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.*;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(CauldronBlock.class)
 public class MixinCauldronBlock extends Block{
     private static final IntegerProperty LEVEL = BlockStateProperties.LEVEL_0_3;
+
+    @Unique
     private static final EnumProperty<CauldronFluid> FLUID = GSKOBlockProperties.CAULDRON_FLUID;
-    private static final VoxelShape INSIDE = Block.makeCuboidShape(2.0D, 4.0D, 2.0D, 14.0D, 16.0D, 14.0D);
-    protected static final VoxelShape SHAPE = VoxelShapes.combineAndSimplify(VoxelShapes.fullCube(), VoxelShapes.or(makeCuboidShape(0.0D, 0.0D, 4.0D, 16.0D, 3.0D, 12.0D), makeCuboidShape(4.0D, 0.0D, 0.0D, 12.0D, 3.0D, 16.0D), makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 3.0D, 14.0D), INSIDE), IBooleanFunction.ONLY_FIRST);
 
-    public MixinCauldronBlock(AbstractBlock.Properties properties) {
+    public MixinCauldronBlock(Properties properties) {
         super(properties);
-        this.setDefaultState(this.stateContainer.getBaseState().with(LEVEL, Integer.valueOf(0)));
-        this.setDefaultState(this.getStateContainer().getBaseState().with(FLUID, CauldronFluid.EMPTY));
     }
 
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
-        return SHAPE;
+    @Inject(method = "<init>", at = @At("RETURN"))
+    public void cauldronBlock$Init(Properties properties, CallbackInfo ci) {
+        this.thelawf$setFluidState(CauldronFluid.EMPTY);
     }
 
-    public VoxelShape getRaytraceShape(BlockState state, IBlockReader worldIn, BlockPos pos) {
-        return INSIDE;
-    }
 
-    @Inject(method = "onEntityCollision", at = @At("HEAD"))
-    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo ci) {
+    @Inject(method = "onEntityCollision", at = @At("HEAD"), cancellable = true)
+    public void onEntityEnter(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo ci) {
         int i = state.get(LEVEL);
         float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
-        BlockState waterState = worldIn.getBlockState(pos).with(FLUID, CauldronFluid.WATER);
-        BlockState hotSpringState = worldIn.getBlockState(pos).with(FLUID, CauldronFluid.HOT_SPRING);
 
         if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && entityIn.getPosY() <= (double)f) {
-            if (this.getStateContainer().getBaseState().equals(waterState)) {
+            if (FLUID.getAllowedValues().contains(CauldronFluid.WATER) || FLUID.getAllowedValues().contains(CauldronFluid.HOT_SPRING)) {
                 entityIn.extinguish();
                 this.setWaterLevel(worldIn, pos, state, i - 1);
             }
-            else if (this.getStateContainer().getBaseState().equals(hotSpringState) &&
+            else if (FLUID.getAllowedValues().contains(CauldronFluid.HOT_SPRING) &&
             entityIn instanceof LivingEntity) {
                 LivingEntity living = (LivingEntity) entityIn;
                 living.heal(1.2F);
             }
+            else if (FLUID.getAllowedValues().contains(CauldronFluid.LAVA) &&
+                    entityIn instanceof LivingEntity) {
+                LivingEntity living = (LivingEntity) entityIn;
+                living.setFire(3);
+            }
         }
+        ci.cancel();
     }
 
-    @Override
-    // @Inject(method = "onBlockActivated", at = @At("RETURN"), cancellable = true)
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    // @Redirect(method = "onBlockActivated", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/CauldronBlock;onBlockActivated(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/Direction;FFF)Z"))
+    // private ActionResultType redirectToOnBlockClick(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
+    //                                     BlockRayTraceResult hit) {
+    //     return onBlockRightClick(state, worldIn, pos, player, handIn, hit);
+    // }
+
+    /**
+     * @author TheLawF
+     * @reason 重写这个方法的原因是因为1.16.5版本居然不支持把岩浆加到炼药锅里面，所以自定义的液体也无法被添加至炼药锅
+     */
+    @Overwrite
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
+                                             BlockRayTraceResult hit) {
         ItemStack itemstack = player.getHeldItem(handIn);
         if (itemstack.isEmpty()) {
             return ActionResultType.PASS;
@@ -112,7 +118,7 @@ public class MixinCauldronBlock extends Block{
 
                     player.addStat(Stats.USE_CAULDRON);
                     this.setWaterLevel(worldIn, pos, state, 0);
-                    this.setFluidState(CauldronFluid.EMPTY);
+                    this.thelawf$setFluidState(CauldronFluid.EMPTY);
                     worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
@@ -162,12 +168,27 @@ public class MixinCauldronBlock extends Block{
 
                     player.addStat(Stats.FILL_CAULDRON);
                     this.setWaterLevel(worldIn, pos, state, 3);
-                    this.setFluidState(CauldronFluid.HOT_SPRING);
+                    this.thelawf$setFluidState(CauldronFluid.HOT_SPRING);
                     worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
-            } else {
+            }
+            else if (item == Items.LAVA_BUCKET) {
+                if (i == 0 && !worldIn.isRemote) {
+                    if (!player.abilities.isCreativeMode) {
+                        player.setHeldItem(handIn, new ItemStack(Items.BUCKET));
+                    }
+
+                    player.addStat(Stats.FILL_CAULDRON);
+                    this.setWaterLevel(worldIn, pos, state, 3);
+                    this.thelawf$setFluidState(CauldronFluid.LAVA);
+                    worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
+                }
+
+                return ActionResultType.func_233537_a_(worldIn.isRemote);
+            }
+            else {
                 if (i > 0 && item instanceof IDyeableArmorItem) {
                     IDyeableArmorItem idyeablearmoritem = (IDyeableArmorItem)item;
                     if (idyeablearmoritem.hasColor(itemstack) && !worldIn.isRemote) {
@@ -221,50 +242,24 @@ public class MixinCauldronBlock extends Block{
         }
     }
 
+    @Shadow
     public void setWaterLevel(World worldIn, BlockPos pos, BlockState state, int level) {
-        worldIn.setBlockState(pos, state.with(LEVEL, Integer.valueOf(MathHelper.clamp(level, 0, 3))), 2);
+        worldIn.setBlockState(pos, state.with(LEVEL, MathHelper.clamp(level, 0, 3)), 2);
         worldIn.updateComparatorOutputLevel(pos, this);
     }
 
+    @Inject(method = "fillStateContainer", at = @At("TAIL"))
+    protected void $addToStateContainer(StateContainer.Builder<Block, BlockState> builder, CallbackInfo info) {
+        builder.add(FLUID);
+    }
+
     /**
+     * @author TheLawF
      * @param fluidIn 需要处理的液体类型
      */
-    @Intrinsic
-    private void setFluidState(CauldronFluid fluidIn) {
-        this.stateContainer.getBaseState().with(FLUID, fluidIn);
+    @Unique
+    private void thelawf$setFluidState(CauldronFluid fluidIn) {
+        this.setDefaultState(this.stateContainer.getBaseState().with(FLUID, fluidIn));
     }
 
-    /**
-     * Called similar to random ticks, but only when it is raining.
-     */
-    public void fillWithRain(World worldIn, BlockPos pos) {
-        if (worldIn.rand.nextInt(20) == 1) {
-            float f = worldIn.getBiome(pos).getTemperature(pos);
-            if (!(f < 0.15F)) {
-                BlockState blockstate = worldIn.getBlockState(pos);
-                if (blockstate.get(LEVEL) < 3) {
-                    worldIn.setBlockState(pos, blockstate.cycleValue(LEVEL), 2);
-                }
-
-            }
-        }
-    }
-
-
-    public boolean hasComparatorInputOverride(BlockState state) {
-        return true;
-    }
-
-
-    public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) {
-        return blockState.get(LEVEL);
-    }
-
-    protected void fillStateContainer(StateContainer.Builder<Block, BlockState> builder) {
-        builder.add(LEVEL);
-    }
-
-    public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
-        return false;
-    }
 }

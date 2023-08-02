@@ -42,5 +42,31 @@ public final class DispenserRegister {
                     }
                 });
 
+        DispenserBlock.registerDispenseBehavior(ItemRegistry.SAKE_BUCKET.get(),
+                new DefaultDispenseItemBehavior(){
+                    private final DefaultDispenseItemBehavior behavior =
+                            new DefaultDispenseItemBehavior();
+
+                    /**
+                     * Dispense the specified stack, play the dispensed sound and spawn particles.
+                     *
+                     */
+                    @Override
+                    public ItemStack dispenseStack(IBlockSource source, ItemStack stack){
+                        BucketItem bucketItem = (BucketItem) stack.getItem();
+                        BlockPos blockPos = source.getBlockPos().offset(source.getBlockState()
+                                .get(DispenserBlock.FACING));
+                        World world = source.getWorld();
+                        if (bucketItem.tryPlaceContainedLiquid(null,world,
+                                blockPos,null)) {
+                            bucketItem.onLiquidPlaced(world,stack,blockPos);
+                            return new ItemStack(Items.BUCKET);
+                        }
+                        else {
+                            return this.behavior.dispense(source,stack);
+                        }
+                    }
+                });
+
     }
 }

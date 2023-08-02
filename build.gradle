@@ -25,9 +25,12 @@ plugins {
 // apply plugin: 'maven-publish'
 // apply plugin: 'org.spongepowered.mixin'
 
-// mixin {
-//     add sourceSets.main, "patchouli.refmap.json"
-// }
+mixin {
+    add sourceSets.main, "gensokyoontology.refmap.json"
+    config 'mixins.gensokyoontology.json'
+    // add sourceSets.main, "patchouli.refmap.json"
+
+}
 
 allprojects {
     repositories {

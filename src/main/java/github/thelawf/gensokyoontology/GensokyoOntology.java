@@ -27,6 +27,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import net.minecraftforge.forgespi.language.IModInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -77,6 +78,7 @@ public class GensokyoOntology {
         @SubscribeEvent
         public static void onOtherModLoad(FMLLoadCompleteEvent event) {
             List<ModInfo> forgeMods = ModList.get().getMods();
+
         }
     }
 
@@ -88,6 +90,10 @@ public class GensokyoOntology {
                 RenderTypeLookup.setRenderLayer(FluidRegistry.HOT_SPRING_SOURCE.get(),
                         RenderType.getTranslucent());
                 RenderTypeLookup.setRenderLayer(FluidRegistry.HOT_SPRING_FLOWING.get(),
+                        RenderType.getTranslucent());
+                RenderTypeLookup.setRenderLayer(FluidRegistry.SAKE_WINE_SOURCE.get(),
+                        RenderType.getTranslucent());
+                RenderTypeLookup.setRenderLayer(FluidRegistry.SAKE_WINE_FLOWING.get(),
                         RenderType.getTranslucent());
 
                 RenderTypeLookup.setRenderLayer(BlockRegistry.BLUE_ROSE_BUSH.get(),

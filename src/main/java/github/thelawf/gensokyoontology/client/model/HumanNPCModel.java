@@ -75,7 +75,7 @@ public class HumanNPCModel<T extends AbstractHumanEntity> extends BipedModel<T> 
     }
 
     /**
-     * Sets this entity's model rotation angles
+     * Sets this entity's models rotation angles
      */
     public void setRotationAngles(T entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);

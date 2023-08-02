@@ -234,12 +234,16 @@ public final class ItemRegistry {
     public static final RegistryObject<ChimataMarketLicense> CHIMATA_MARKET_LICENSE = ITEMS.register(
             "chimata_market_license", () -> new ChimataMarketLicense(new Item.Properties()));
 
-    // ---------------------------- 一般物品 -------------------------------//
-    public static final RegistryObject<Item> HOTSPRING_BUCKET =
-            ITEMS.register("hotspring_bucket",() -> new BucketItem(
-                    FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
+    // ---------------------------- 杂项物品 -------------------------------//
+    public static final RegistryObject<Item> HOTSPRING_BUCKET = ITEMS.register("hotspring_bucket",
+            () -> new BucketItem(FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)
-                    .maxStackSize(16).containerItem(BUCKET)));
+                    .maxStackSize(1).containerItem(BUCKET)));
+
+    public static final RegistryObject<Item> SAKE_BUCKET = ITEMS.register("sake_bucket",
+            () -> new BucketItem(FluidRegistry.SAKE_WINE_SOURCE, new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)
+                    .maxStackSize(1).containerItem(BUCKET)));
 
 
     // ======================= GSKO杂项：合成消耗品 =========================//
