@@ -64,7 +64,10 @@
   "item.gensokyoontology.star_shot": "Star Shot",
   "item.gensokyoontology.fake_lunar": "Fake Lunar",
 
-  "item.gensokyoontology.bomb_item": "Bomb Item",
+  "item.gensokyoontology.bomb_item": "Bomb",
+  "item.gensokyoontology.extra_life": "Extra Life",
+  "item.gensokyoontology.bomb_fragment": "Bomb Fragment",
+  "item.gensokyoontology.life_fragment": "Life Fragment",
 
   "item.gensokyoontology.spell_card_blank": "Spell Card Blank",
   "item.gensokyoontology.sc_circle_cross": "Spell Card Original Made 01 (Experimental)",
@@ -141,6 +144,9 @@
   "block.gensokyoontology.lycoris_radiata": "Lycoris Radiata",
   "block.gensokyoontology.onion_crop": "Onion",
 
+  "block.gensokyoontology.blue_rose_bush": "Blue Rose Bush",
+
+  "block.gensokyoontology.sakura_sapling": "Sakura Sapling",
   "block.gensokyoontology.sakura_button": "Sakura Button",
   "block.gensokyoontology.sakura_leaves": "Sakura Leaves",
   "block.gensokyoontology.sakura_log": "Sakura Log",
@@ -152,8 +158,6 @@
   "block.gensokyoontology.sakura_fence_gate": "Sakura Fence Gate",
   "block.gensokyoontology.sakura_trapdoor": "Sakura Trapdoor",
 
-  "block.gensokyoontology.blue_rose_bush": "Blue Rose Bush",
-  "block.gensokyoontology.sakura_sapling": "Sakura Sapling",
   "block.gensokyoontology.magic_leaves": "Magic Leaves",
   "block.gensokyoontology.magic_log": "Magic Log",
   "block.gensokyoontology.maple_sapling": "Maple Sapling",
@@ -178,6 +182,7 @@
   "block.gensokyoontology.fagus_fence": "Fagus Fence",
   "block.gensokyoontology.fagus_fence_gate": "Fagus Fence Gate",
   "block.gensokyoontology.fagus_trapdoor": "Fagus Trapdoor",
+
   "block.gensokyoontology.blue_mushroom_block": "Blue Mushroom Block",
   "block.gensokyoontology.purple_mushroom_block": "Purple Mushroom Block",
 

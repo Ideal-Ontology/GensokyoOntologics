@@ -55,7 +55,14 @@
     [
       "minecraft:patch_tall_grass_2",
       "minecraft:patch_grass_normal",
-      "minecraft:patch_grass_plain"
+      "minecraft:patch_grass_plain",
+
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_pumpkin",
+      "minecraft:pile_pumpkin",
+      "minecraft:pile_melon",
+      "minecraft:pile_melon"
     ],
     []
   ],

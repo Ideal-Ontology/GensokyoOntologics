@@ -57,10 +57,15 @@
       "minecraft:dark_forest_vegetation_red",
       "minecraft:brown_mushroom_giant",
       "minecraft:huge_red_mushroom",
+
+      "minecraft:patch_sugar_cane",
+      "minecraft:pile_melon",
+
       "gensokyoontology:huge_blue_mushroom",
       "gensokyoontology:huge_purple_mushroom",
       "gensokyoontology:magic_tree",
       "gensokyoontology:magic_tree"
+
     ],
     []
   ],

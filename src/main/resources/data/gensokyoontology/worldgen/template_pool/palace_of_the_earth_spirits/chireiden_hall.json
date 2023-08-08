@@ -1,0 +1,15 @@
+{
+  "name": "gensokyoontology:palace_of_the_earth_spirit/chireiden_hall",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "gensokyoontology:chireiden_hall",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

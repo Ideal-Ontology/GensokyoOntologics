@@ -25,7 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.Shadow;
@@ -50,6 +50,17 @@ public class MixinCauldronBlock extends Block{
     }
 
 
+    @Nullable
+    @Override
+    public BlockState getStateForPlacement(BlockItemUseContext context) {
+        BlockPos pos = context.getPos();
+        if (pos.getY() < 255 && context.getWorld().getBlockState(pos.up()).isReplaceable(context)) {
+            return this.getDefaultState().with(FLUID, CauldronFluid.EMPTY).with(LEVEL, 0);
+        } else {
+            return null;
+        }
+    }
+
     @Inject(method = "onEntityCollision", at = @At("HEAD"), cancellable = true)
     public void onEntityEnter(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo ci) {
         int i = state.get(LEVEL);
@@ -58,7 +69,12 @@ public class MixinCauldronBlock extends Block{
         if (!worldIn.isRemote && entityIn.isBurning() && i > 0 && entityIn.getPosY() <= (double)f) {
             if (FLUID.getAllowedValues().contains(CauldronFluid.WATER) || FLUID.getAllowedValues().contains(CauldronFluid.HOT_SPRING)) {
                 entityIn.extinguish();
-                this.setWaterLevel(worldIn, pos, state, i - 1);
+                if (FLUID.getAllowedValues().contains(CauldronFluid.WATER)) {
+                    this.thelawf$setCauldronState(worldIn, pos, CauldronFluid.WATER, i - 1);
+                }
+                else if (FLUID.getAllowedValues().contains(CauldronFluid.WATER)) {
+                    this.thelawf$setCauldronState(worldIn, pos, CauldronFluid.HOT_SPRING, i - 1);
+                }
             }
             else if (FLUID.getAllowedValues().contains(CauldronFluid.HOT_SPRING) &&
             entityIn instanceof LivingEntity) {
@@ -118,7 +134,7 @@ public class MixinCauldronBlock extends Block{
 
                     player.addStat(Stats.USE_CAULDRON);
                     this.setWaterLevel(worldIn, pos, state, 0);
-                    this.thelawf$setFluidState(CauldronFluid.EMPTY);
+                    worldIn.setBlockState(pos, this.getDefaultState().with(FLUID, CauldronFluid.EMPTY));
                     worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
@@ -144,6 +160,9 @@ public class MixinCauldronBlock extends Block{
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
             } else if (item == Items.POTION && PotionUtils.getPotionFromItem(itemstack) == Potions.WATER) {
+                if (!FLUID.getAllowedValues().contains(CauldronFluid.WATER))
+                    return ActionResultType.FAIL;
+
                 if (i < 3 && !worldIn.isRemote) {
                     if (!player.abilities.isCreativeMode) {
                         ItemStack itemstack3 = new ItemStack(Items.GLASS_BOTTLE);
@@ -155,7 +174,7 @@ public class MixinCauldronBlock extends Block{
                     }
 
                     worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BOTTLE_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    this.setWaterLevel(worldIn, pos, state, i + 1);
+                    this.thelawf$setCauldronState(worldIn, pos, CauldronFluid.WATER, i + 1);
                 }
 
                 return ActionResultType.func_233537_a_(worldIn.isRemote);
@@ -167,8 +186,7 @@ public class MixinCauldronBlock extends Block{
                     }
 
                     player.addStat(Stats.FILL_CAULDRON);
-                    this.setWaterLevel(worldIn, pos, state, 3);
-                    this.thelawf$setFluidState(CauldronFluid.HOT_SPRING);
+                    this.thelawf$setCauldronState(worldIn, pos, CauldronFluid.HOT_SPRING, 3);
                     worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
@@ -181,8 +199,7 @@ public class MixinCauldronBlock extends Block{
                     }
 
                     player.addStat(Stats.FILL_CAULDRON);
-                    this.setWaterLevel(worldIn, pos, state, 3);
-                    this.thelawf$setFluidState(CauldronFluid.LAVA);
+                    this.thelawf$setCauldronState(worldIn, pos , CauldronFluid.LAVA, 3);
                     worldIn.playSound((PlayerEntity)null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
                 }
 
@@ -258,8 +275,13 @@ public class MixinCauldronBlock extends Block{
      * @param fluidIn 需要处理的液体类型
      */
     @Unique
-    private void thelawf$setFluidState(CauldronFluid fluidIn) {
-        this.setDefaultState(this.stateContainer.getBaseState().with(FLUID, fluidIn));
+    private void thelawf$setCauldronState(World world, BlockPos pos, CauldronFluid fluidIn, int levelIn) {
+        world.setBlockState(pos, this.getDefaultState().with(FLUID, fluidIn).with(LEVEL, levelIn));
+    }
+
+    @Unique
+    private void thelawf$setFluidState(CauldronFluid fluid) {
+        this.stateContainer.getBaseState().with(FLUID, fluid);
     }
 
 }

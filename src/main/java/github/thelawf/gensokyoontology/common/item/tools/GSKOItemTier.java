@@ -25,7 +25,8 @@ public enum GSKOItemTier implements IItemTier {
             () -> Ingredient.fromItems(ItemRegistry.SPIRIT_CREATIVE.get()));
  */
 
-    CRIMSON_METAL(5, 2048, 9.5F, 4.5F, 15, () -> Ingredient.fromItems(ItemRegistry.BOMB_ITEM.get()));
+    CRIMSON_ALLOY(5, 2048, 9.5F, 4.5F, 15, () -> Ingredient.fromItems(ItemRegistry.BOMB_ITEM.get()));
+    //JADE(6, 4514, 10.0F, 5F, 16, () -> Ingredient.fromItems());
 
     private final int harvestLevel;
     private final int maxUses;

@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.common.item.tools;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.SwordItem;
 import net.minecraft.util.text.ITextComponent;
@@ -14,7 +13,7 @@ import java.util.List;
 
 public class SwordAmeNoMurakumo extends SwordItem {
     public SwordAmeNoMurakumo(Properties properties) {
-        super(GSKOItemTier.CRIMSON_METAL, 2, 2.0F, properties);
+        super(GSKOItemTier.CRIMSON_ALLOY, 2, 2.0F, properties);
     }
 
     @Override

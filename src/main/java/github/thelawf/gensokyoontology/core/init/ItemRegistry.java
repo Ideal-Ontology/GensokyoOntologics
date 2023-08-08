@@ -199,6 +199,7 @@ public final class ItemRegistry {
 
     // ======================= GSKO杂项：功能性方块 =========================//
 
+
     // ======================= GSKO杂项：道具类物品 =========================//
     // ----------------------- 东方project特殊功能道具 ----------------------//
     public static final RegistryObject<HakureiGohei> HAKUREI_GOHEI = ITEMS.register(
@@ -255,13 +256,6 @@ public final class ItemRegistry {
             "wandering_soul", () -> new WanderingSoul(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<Item> BOMB_FRAGMENT = ITEMS.register(
-            "bomb_fragment", () -> new BombFragment(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
-
-    public static final RegistryObject<Item> LIFE_FRAGMENT = ITEMS.register(
-            "life_fragment", () -> new LifeFragment(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ---------------------------- 食物原材料 -----------------------------//
     public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register(
@@ -461,8 +455,17 @@ public final class ItemRegistry {
             "inyo_jade_purple", () -> new InyoJade(DyeColor.PURPLE,
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
+    //////////////////////////// 道具：B点、残机 ////////////////////////////////
     public static final RegistryObject<Item> FAKE_LUNAR_ITEM = ITEMS.register(
             "fake_lunar", () -> new FakeLunarItem(DanmakuType.FAKE_LUNAR));
+
+    public static final RegistryObject<Item> BOMB_FRAGMENT = ITEMS.register(
+            "bomb_fragment", () -> new BombFragment(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+
+    public static final RegistryObject<Item> LIFE_FRAGMENT = ITEMS.register(
+            "life_fragment", () -> new LifeFragment(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> BOMB_ITEM = ITEMS.register(
             "bomb_item", () -> new BombItem(

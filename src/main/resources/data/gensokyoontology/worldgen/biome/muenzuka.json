@@ -124,6 +124,10 @@
     [],
     [],
     [
+      "minecraft:patch_sugar_cane",
+      "minecraft:pile_pumpkin",
+      "minecraft:pile_melon",
+
       "gensokyoontology:lycoris_higan"
     ],
     []

@@ -6,6 +6,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.gen.feature.structure.WoodlandMansionPieces;
+import net.minecraft.world.gen.feature.structure.WoodlandMansionStructure;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.ITeleporter;
 import net.minecraftforge.fluids.IFluidBlock;

@@ -159,8 +159,16 @@ public final class BlockRegistry {
     ///////////////////////////////////////////////////////////////////////////////////
     /////////////                     实用类方块                          ///////////////
     ///////////////////////////////////////////////////////////////////////////////////
+
+    // ============================== 矿石类方块 ================================== //
     public static final RegistryObject<Block> DRAGON_SPHERE_ORE = BLOCKS.register(
             "dragon_sphere_ore", DragonSphereOre::new);
+    public static final RegistryObject<Block> CRIMSON_ALLOY_BLOCK = BLOCKS.register(
+            "crimson_alloy_block", CrimsonAlloyBlock::new);
+    public static final RegistryObject<Block> CRIMSON_METAL_BLOCK = BLOCKS.register(
+            "crimson_metal_block", CrimsonMetalBlock::new);
+    public static final RegistryObject<Block> CRIMSON_ORE_BLOCK = BLOCKS.register(
+            "crimson_ore_block", CrimsonOreBlock::new);
 
     public static final RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
             () -> new HotSpringBlock(FluidRegistry.HOT_SPRING_SOURCE,

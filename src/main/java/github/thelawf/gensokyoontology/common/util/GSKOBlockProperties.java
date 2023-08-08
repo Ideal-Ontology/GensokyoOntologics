@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.util;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.EditStructureScreen;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.Property;
 import net.minecraft.state.properties.BlockStateProperties;

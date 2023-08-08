@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.block.decoration;
+package github.thelawf.gensokyoontology.common.block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;

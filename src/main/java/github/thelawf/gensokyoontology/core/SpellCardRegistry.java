@@ -13,7 +13,6 @@ public class SpellCardRegistry {
 
     public static final IForgeRegistry<SpellData> SPELL_CARD_REGISTRY;
 
-
     static {
         SPELL_CARD_REGISTRY = new RegistryBuilder<SpellData>()
                 .setDefaultKey(new ResourceLocation("spell_data"))

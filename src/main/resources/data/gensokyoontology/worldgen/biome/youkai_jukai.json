@@ -42,8 +42,6 @@
     [],
     [],
     [],
-    [],
-    [],
     [
       "minecraft:ore_coal",
       "minecraft:ore_iron",
@@ -53,6 +51,13 @@
       "minecraft:ore_diamond"
     ],
     [],
+    [],
+    [
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_pumpkin",
+      "minecraft:pile_pumpkin",
+      "minecraft:pile_melon"
+    ],
     []
   ],
   "carvers": {

@@ -66,7 +66,6 @@ public class GSKOEntityEvents {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             IInventory inventory = player.inventory;
 
-
             // 循环获取玩家物品栏每个物品，如果玩家持有残机点数则恢复玩家生命值, 然后让玩家原地复活
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
                 ItemStack stack = inventory.getStackInSlot(i);
