@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.client.renderer.entity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.FairyModel;
-import github.thelawf.gensokyoontology.common.entity.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;

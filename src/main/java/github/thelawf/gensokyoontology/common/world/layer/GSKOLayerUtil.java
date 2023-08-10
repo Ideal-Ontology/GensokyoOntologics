@@ -3,11 +3,9 @@ package github.thelawf.gensokyoontology.common.world.layer;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import net.minecraft.util.RegistryKey;
-import net.minecraft.util.datafix.fixes.BiomeIdFix;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeRegistry;
-import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.gen.IExtendedNoiseRandom;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.LazyAreaLayerContext;
@@ -18,7 +16,6 @@ import net.minecraft.world.gen.layer.*;
 import net.minecraft.world.gen.layer.traits.IAreaTransformer1;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 import java.util.function.LongFunction;
 
 public class GSKOLayerUtil extends Layer {
@@ -30,7 +27,7 @@ public class GSKOLayerUtil extends Layer {
         this.area = lazyAreaFactoryIn.make();
     }
 
-    public static Layer makeLayers(long seed, Registry<Biome> registry) {
+    public static Layer makeGSKOLayers(long seed, Registry<Biome> registry) {
         IAreaFactory<LazyArea> areaFactory = buildBiomes((context) -> new LazyAreaLayerContext(25, seed, context), registry);
         return new GSKOLayerUtil(areaFactory);
     }

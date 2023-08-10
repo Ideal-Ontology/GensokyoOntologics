@@ -14,7 +14,6 @@ import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.layer.Layer;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -61,7 +60,7 @@ import java.util.function.Predicate;
  */
 public class GSKOBiomesProvider extends BiomeProvider {
 
-    private final long seed;
+    final long seed;
 
     public static final List<Biome> biomes = new ArrayList<>();
     private final Layer layer;
@@ -101,7 +100,7 @@ public class GSKOBiomesProvider extends BiomeProvider {
         // super(GSKO_BIOMES.stream().map(biomeRegistry::getValueForKey).filter(Objects::nonNull).map(biome -> () -> biome));
         this.biomeRegistry = biomeRegistry;
         this.seed = seed;
-        this.layer = GSKOLayerUtil.makeLayers(seed, biomeRegistry);
+        this.layer = GSKOLayerUtil.makeGSKOLayers(seed, biomeRegistry);
     }
 
     public Registry<Biome> getBiomeRegistry() {

@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.client.renderer;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.SpectreEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SpriteRenderer;

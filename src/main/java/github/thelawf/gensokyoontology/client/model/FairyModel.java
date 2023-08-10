@@ -5,10 +5,9 @@ package github.thelawf.gensokyoontology.client.model;// Made with Blockbench 4.7
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import github.thelawf.gensokyoontology.common.entity.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 

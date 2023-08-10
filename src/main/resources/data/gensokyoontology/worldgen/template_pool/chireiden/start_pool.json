@@ -1,11 +1,11 @@
 {
-  "name": "gensokyoontology:palace_of_the_earth_spirit/start_pool",
+  "name": "gensokyoontology:chireiden/start_pool",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "gensokyoontology:chireiden_gate",
+        "location": "gensokyoontology:chireiden_tower",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

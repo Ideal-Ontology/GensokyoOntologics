@@ -1,13 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
-import github.thelawf.gensokyoontology.common.entity.FairyEntity;
-import net.minecraft.entity.LivingEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import net.minecraft.entity.ai.goal.Goal;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
-import net.minecraft.util.math.vector.Vector3d;
-
-import java.util.EnumSet;
 
 public class FairyAttackGoal extends Goal {
     private static final int MAX_WITH_IN_RANGE_TIME = 20;

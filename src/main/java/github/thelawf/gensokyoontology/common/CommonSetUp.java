@@ -12,6 +12,7 @@ import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
+import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;

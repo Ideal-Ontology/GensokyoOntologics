@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.*;
-import net.minecraft.tileentity.CommandBlockTileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -15,9 +14,9 @@ public final class TileEntityTypeRegistry {
     public static final RegistryObject<TileEntityType<SpaceFissureTileEntity>> SPACE_FISSURE_TILE_ENTITY =
             TILE_ENTITIES.register("space_fissure_tileentity",() -> TileEntityType.Builder.create(
                     SpaceFissureTileEntity::new, BlockRegistry.SPACE_FISSURE_BLOCK.get()).build(null));
-    public static final RegistryObject<TileEntityType<DanmakuTabelTile>> DANMAKU_TABLE_TILE =
+    public static final RegistryObject<TileEntityType<DanmakuTabelTileEntity>> DANMAKU_TABLE_TILE =
             TILE_ENTITIES.register("danmaku_table_tileentity", () -> TileEntityType.Builder.create(
-                    DanmakuTabelTile::new, BlockRegistry.DANMAKU_TABLE.get()).build(null));
+                    DanmakuTabelTileEntity::new, BlockRegistry.DANMAKU_TABLE.get()).build(null));
     public static final RegistryObject<TileEntityType<SukimaTileEntity>> SUKIMA_TILE_ENTITY =
             TILE_ENTITIES.register("sukima_tileentity", () -> TileEntityType.Builder.create(
                     SukimaTileEntity::new, BlockRegistry.SUKIMA_BLOCK.get()).build(null));

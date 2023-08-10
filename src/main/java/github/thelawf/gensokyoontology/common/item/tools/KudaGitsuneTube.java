@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.tools;
 
-import github.thelawf.gensokyoontology.common.entity.SpectreEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

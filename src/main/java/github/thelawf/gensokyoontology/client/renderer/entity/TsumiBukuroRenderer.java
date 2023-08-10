@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.client.renderer.entity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.HumanNPCModel;
-import github.thelawf.gensokyoontology.common.entity.TsumiBukuroEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.TsumiBukuroEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.util.ResourceLocation;

@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.world.feature;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.world.GSKOOreType;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
@@ -109,6 +110,13 @@ public class GSKOFeatureGenerator {
             List<Supplier<ConfiguredFeature<?,?>>> base = event.getGeneration().getFeatures(
                     GenerationStage.Decoration.VEGETAL_DECORATION);
             base.add(() -> GSKOFeatures.WASABI);
+        }
+    }
+
+    public static void generateOres(final BiomeLoadingEvent event) {
+        for (GSKOOreType ore :  GSKOOreType.values()) {
+            OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+                    ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
         }
     }
 

@@ -10,6 +10,8 @@ import github.thelawf.gensokyoontology.common.item.tools.*;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.entity.monster.GhastEntity;
+import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
@@ -193,12 +195,15 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> BLUE_MUSHROOM_ITEM = ITEMS.register(
             "blue_mushroom_block", () -> new BlockItem(BlockRegistry.BLUE_MUSHROOM_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     public static final RegistryObject<Item> PURPLE_MUSHROOM_ITEM = ITEMS.register(
             "purple_mushroom_block", () -> new BlockItem(BlockRegistry.PURPLE_MUSHROOM_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：功能性方块 =========================//
-
+    public static final RegistryObject<BlockItem> DANMAKU_TABLE_ITEM = ITEMS.register(
+            "danmaku_table", () -> new BlockItem(BlockRegistry.DANMAKU_TABLE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：道具类物品 =========================//
     // ----------------------- 东方project特殊功能道具 ----------------------//
@@ -256,7 +261,13 @@ public final class ItemRegistry {
             "wandering_soul", () -> new WanderingSoul(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    public static final RegistryObject<Item> WASHI_PAPER = ITEMS.register(
+            "washi_paper", () -> new WashiPaper(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    public static final RegistryObject<Item> PAPER_SHIDE = ITEMS.register(
+            "paper_shide", () -> new PaperShide(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
     // ---------------------------- 食物原材料 -----------------------------//
     public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register(
             "kitchen_knife", KitchenKnife::new);

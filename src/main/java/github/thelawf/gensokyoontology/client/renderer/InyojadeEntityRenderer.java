@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.common.entity.InyoJadeMonsterEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.InyoJadeMonsterEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;

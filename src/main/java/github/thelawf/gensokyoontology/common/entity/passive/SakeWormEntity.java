@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.entity;
+package github.thelawf.gensokyoontology.common.entity.passive;
 
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;

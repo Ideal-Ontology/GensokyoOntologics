@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.entity;
+package github.thelawf.gensokyoontology.common.entity.monster;
 
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

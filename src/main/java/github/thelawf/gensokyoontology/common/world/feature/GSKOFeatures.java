@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.world.feature;
 
 import com.google.common.collect.ImmutableSet;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.world.GSKOOreType;
 import github.thelawf.gensokyoontology.common.world.feature.placer.MagicFoliagePlacer;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
@@ -135,6 +136,12 @@ public class GSKOFeatures {
     // public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SHINBOKU = register(new ResourceLocation(GensokyoOntology.MODID, "shinboku"),
     //         Feature.TREE.withConfiguration());
 
+    public static final ConfiguredFeature<?, ?> FORMER_HELL_JADE_ORE = Feature.ORE.withConfiguration(
+            new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+                    BlockRegistry.JADE_ORE.get().getDefaultState(),
+                    GSKOOreType.JADE_FORMER_HELL.getMaxVeinSize())).withPlacement(
+                            Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
+
     // 生成彼岸花
     public static final ConfiguredFeature<?,?> LYCORIS = Feature.FLOWER.withConfiguration(
                     new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(
@@ -174,6 +181,8 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree"), SAKURA_TREE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree_hakurei_shrine"), SAKURA_TREE_HAKUREI_SHRINE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "gsko_oak_tree"), GSKO_OAK);
+
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "former_hell_jade_ore"), FORMER_HELL_JADE_ORE);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_blue_mushroom"), HUGE_BLUE_MUSHROOM);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_purple_mushroom"), HUGE_PURPLE_MUSHROOM);

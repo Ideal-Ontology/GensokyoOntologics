@@ -1,5 +1,6 @@
-package github.thelawf.gensokyoontology.common.entity;
+package github.thelawf.gensokyoontology.common.entity.passive;
 
+import github.thelawf.gensokyoontology.common.entity.AbstractHumanEntity;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

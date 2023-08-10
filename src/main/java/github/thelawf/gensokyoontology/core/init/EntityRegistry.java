@@ -1,12 +1,15 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.*;
+import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.InyoJadeMonsterEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
+import github.thelawf.gensokyoontology.common.entity.passive.CitizenEntity;
+import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.*;
 import net.minecraft.entity.EntityType;
-import net.minecraft.world.biome.BiomeMaker;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;

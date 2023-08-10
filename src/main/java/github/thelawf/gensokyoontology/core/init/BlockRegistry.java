@@ -163,6 +163,9 @@ public final class BlockRegistry {
     // ============================== 矿石类方块 ================================== //
     public static final RegistryObject<Block> DRAGON_SPHERE_ORE = BLOCKS.register(
             "dragon_sphere_ore", DragonSphereOre::new);
+    public static final RegistryObject<Block> CRIMSON_METAL_ORE = BLOCKS.register(
+            "diamond_ore", CrimsonOreBlock::new);
+
     public static final RegistryObject<Block> CRIMSON_ALLOY_BLOCK = BLOCKS.register(
             "crimson_alloy_block", CrimsonAlloyBlock::new);
     public static final RegistryObject<Block> CRIMSON_METAL_BLOCK = BLOCKS.register(
@@ -170,6 +173,12 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> CRIMSON_ORE_BLOCK = BLOCKS.register(
             "crimson_ore_block", CrimsonOreBlock::new);
 
+    public static final RegistryObject<Block> JADE_ORE = BLOCKS.register(
+            "jade_ore", JadeOreBlock::new);
+    public static final RegistryObject<Block> JADE_BLOCK = BLOCKS.register(
+            "jade_block", JadeBlock::new);
+
+    // ==============================流体方块 ================================== //
     public static final RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
             () -> new HotSpringBlock(FluidRegistry.HOT_SPRING_SOURCE,
             Block.Properties.create(Material.WATER).doesNotBlockMovement()
@@ -183,7 +192,7 @@ public final class BlockRegistry {
             "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));
 
     public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register(
-            "danmaku_table", DanmakuTable::new);
+            "danmaku_table", DanmakuTableBlock::new);
 
     public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
             "space_fissure_block", SpaceFissureBlock::new);

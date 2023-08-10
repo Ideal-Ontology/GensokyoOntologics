@@ -1,5 +1,6 @@
-package github.thelawf.gensokyoontology.common.entity;
+package github.thelawf.gensokyoontology.common.entity.monster;
 
+import github.thelawf.gensokyoontology.common.entity.AbstractHumanEntity;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -7,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 
-public class TsumiBukuroEntity extends AbstractHumanEntity{
+public class TsumiBukuroEntity extends AbstractHumanEntity {
 
     public static final EntityType<TsumiBukuroEntity> HUMAN_RESIDENT = EntityType.Builder.create(
                     TsumiBukuroEntity::new, EntityClassification.CREATURE).updateInterval(2)

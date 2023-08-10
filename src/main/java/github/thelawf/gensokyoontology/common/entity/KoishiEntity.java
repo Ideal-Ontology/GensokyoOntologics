@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity;
 
 import net.minecraft.advancements.Advancement;
+import net.minecraft.client.renderer.entity.model.VillagerModel;
+import net.minecraft.client.renderer.entity.model.ZombieModel;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -8,6 +10,8 @@ import net.minecraft.entity.IAngerable;
 import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.monster.VindicatorEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -21,7 +25,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
-/*
+
 public class KoishiEntity extends TameableEntity implements IAngerable {
 
     private int angerTime;
@@ -102,5 +106,3 @@ public class KoishiEntity extends TameableEntity implements IAngerable {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 }
-
- */

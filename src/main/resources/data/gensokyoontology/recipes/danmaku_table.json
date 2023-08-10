@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "ingredients": [
+    {
+      "item": "gensokyoontology:life_fragment"
+    },
+    {
+      "item": "gensokyoontology:life_fragment"
+    },
+    {
+      "item": "gensokyoontology:life_fragment"
+    },
+    {
+      "item": "gensokyoontology:life_fragment"
+    }
+  ],
+  "result": {
+    "item": "gensokyoontology:danmaku_table",
+    "count": 1
+  }
+}

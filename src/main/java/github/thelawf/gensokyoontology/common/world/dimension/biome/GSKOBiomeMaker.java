@@ -1,10 +1,11 @@
 package github.thelawf.gensokyoontology.common.world.dimension.biome;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.*;
+import net.minecraft.world.biome.provider.NetherBiomeProvider;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
@@ -236,6 +237,10 @@ public final class GSKOBiomeMaker {
                         .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
                         .build())
                 .build();
+    }
+
+    public static Biome makeFormerHellBiome() {
+        return new Biome.Builder().build();
     }
 
     private static int getSkyColor(float temperature) {

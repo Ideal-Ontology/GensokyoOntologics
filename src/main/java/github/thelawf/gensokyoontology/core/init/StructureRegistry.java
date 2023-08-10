@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.core.init;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.world.feature.structure.ChireidenStructure;
 import github.thelawf.gensokyoontology.common.world.feature.structure.HakureiShrineStructure;
 import github.thelawf.gensokyoontology.common.world.feature.structure.MystiaIzakayaStructure;
 import github.thelawf.gensokyoontology.common.world.feature.structure.WaterfallNineHeavenStructure;
@@ -31,12 +32,16 @@ public class StructureRegistry {
     public static final RegistryObject<Structure<NoFeatureConfig>> HAKUREI_SHRINE = STRUCTURES.register(
             "hakurei_shrine", () -> new HakureiShrineStructure(NoFeatureConfig.CODEC));
 
+    public static final RegistryObject<Structure<NoFeatureConfig>> CHIREIDEN = STRUCTURES.register(
+            "chireiden", () -> new ChireidenStructure(NoFeatureConfig.CODEC));
+
     // public static final RegistryObject<Structure<NoFeatureConfig>> WATERFALL_NINE_HEAVEN = STRUCTURES.register(
     //         "water_of_nine_heaven", () -> new WaterfallNineHeavenStructure(NoFeatureConfig.CODEC));
 
     public static void setupStructures() {
         setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(),new StructureSeparationSettings(50, 15, 1023567897), true);
         setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(60, 20, 51392147), true);
+        setupMapSpacingAndLand(CHIREIDEN.get(), new StructureSeparationSettings(80, 50, 413054656), true);
         // setupMapSpacingAndLand(WATERFALL_NINE_HEAVEN.get(), new StructureSeparationSettings(40, 30, 95323460), true);
     }
 
