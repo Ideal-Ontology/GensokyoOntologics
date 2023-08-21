@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.block;
 
+import github.thelawf.gensokyoontology.client.screen.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.common.tileentity.ComputerTileEntity;
 import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import net.minecraft.block.*;
@@ -42,9 +43,8 @@ public class DanmakuTableBlock extends Block {
     }
 
     public INamedContainerProvider getContainer(World worldIn, BlockPos pos) {
-        return new SimpleNamedContainerProvider((id, inventory, player) -> {
-            return new WorkbenchContainer(id, inventory, IWorldPosCallable.of(worldIn, pos));
-        }, DanmakuTabelTileEntity.CONTAINER_NAME);
+        return new SimpleNamedContainerProvider(DanmakuCraftingContainer::new,
+                DanmakuTabelTileEntity.CONTAINER_NAME);
     }
 
     @Nullable

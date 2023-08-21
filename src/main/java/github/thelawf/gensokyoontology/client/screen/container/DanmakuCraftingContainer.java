@@ -41,7 +41,6 @@ public class DanmakuCraftingContainer extends Container {
     private final IWorldPosCallable POS_CALLABLE = IWorldPosCallable.DUMMY;
 
     private List<ItemStack> prevStacks = new ArrayList<>();
-    private List<ItemStack> newStacks = new ArrayList<>();
 
     private final CraftingInventory craftingMatrix = new CraftingInventory(this, 5, 5);
     private final Inventory resultsMatrix = new Inventory(4) {
@@ -68,7 +67,6 @@ public class DanmakuCraftingContainer extends Container {
 
     }
 
-
     @Override
     public boolean canInteractWith(@NotNull PlayerEntity playerIn) {
         return true;
@@ -86,7 +84,7 @@ public class DanmakuCraftingContainer extends Container {
         if (!player.world.isRemote()) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) this.player;
             // 大型星弹的槽位
-            List<Integer> starShotSlots = createRecipeIndexes(2,7,10,11,12,13,14,16,18,19,23);
+            List<Integer> starShotSlots = createRecipeIndexes(2,7,10,11,12,13,14,16,18,20,24);
             // 心弹的槽位
             List<Integer> heartShotSlots = createRecipeIndexes(1,3,5,7,9,10,14,16,18,22);
             // 大弹的槽位
@@ -94,12 +92,20 @@ public class DanmakuCraftingContainer extends Container {
 
 
             if (matches(inventoryIn, heartShotSlots)) {
-                ItemStack stack = new ItemStack(ItemRegistry.HEART_SHOT_PINK.get());
+                ItemStack stack = new ItemStack(ItemRegistry.HEART_SHOT_RED.get());
+                stack.setCount(getMinStackCount(heartShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
             }
             else if (matches(inventoryIn, largeShotSlots)) {
-                ItemStack stack = new ItemStack(ItemRegistry.LARGE_SHOT_RED.get());
+                ItemStack stack = new ItemStack(ItemRegistry.LARGE_SHOT_PURPLE.get());
+                stack.setCount(getMinStackCount(largeShotSlots));
+                this.resultsMatrix.setInventorySlotContents(0, stack);
+                this.prevStacks.set(0, stack);
+            }
+            else if (matches(inventoryIn, starShotSlots)) {
+                ItemStack stack = new ItemStack(ItemRegistry.STAR_SHOT_BLUE.get());
+                stack.setCount(getMinStackCount(starShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
             }
@@ -121,7 +127,6 @@ public class DanmakuCraftingContainer extends Container {
                 }
             }
 
-            LOGGER.info("Condition: " + flag);
             if (flag) {
                 for (int j = 0; j < this.craftingMatrix.getSizeInventory(); j++) {
                     this.craftingMatrix.setInventorySlotContents(j, ItemStack.EMPTY);
@@ -130,6 +135,19 @@ public class DanmakuCraftingContainer extends Container {
             }
         }
         super.onCraftMatrixChanged(inventoryIn);
+    }
+
+    private int getMinStackCount(List<Integer> stackIndexes) {
+        int count = this.craftingMatrix.getStackInSlot(stackIndexes.get(0)).getCount();
+        LOGGER.info(count);
+        for (Integer stackIndex : stackIndexes) {
+            int count1 = this.craftingMatrix.getStackInSlot(stackIndex).getCount();
+            if (count1 < count) {
+                count = count1;
+            }
+        }
+        //LOGGER.info("Min count of each slot: " + count);
+        return count;
     }
 
     private void addIngredientSlots() {
@@ -153,17 +171,6 @@ public class DanmakuCraftingContainer extends Container {
 
         }
     }
-
-    /*
-    private void addResultSlots() {
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 2; j++) {
-                addSlot(new Slot(this.resultsMatrix, j + i * 2,
-                        149 + j * 18, 41 + i * 18));
-            }
-        }
-    }
-    */
 
     private void addResultSlots() {
         for (int i = 0; i < 2; i++) {

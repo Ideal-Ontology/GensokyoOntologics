@@ -3,12 +3,15 @@ package github.thelawf.gensokyoontology.core.init;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.world.feature.structure.ChireidenStructure;
 import github.thelawf.gensokyoontology.common.world.feature.structure.HakureiShrineStructure;
 import github.thelawf.gensokyoontology.common.world.feature.structure.MystiaIzakayaStructure;
 import github.thelawf.gensokyoontology.common.world.feature.structure.WaterfallNineHeavenStructure;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.structure.MineshaftConfig;
+import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
@@ -32,8 +35,8 @@ public class StructureRegistry {
     public static final RegistryObject<Structure<NoFeatureConfig>> HAKUREI_SHRINE = STRUCTURES.register(
             "hakurei_shrine", () -> new HakureiShrineStructure(NoFeatureConfig.CODEC));
 
-    public static final RegistryObject<Structure<NoFeatureConfig>> CHIREIDEN = STRUCTURES.register(
-            "chireiden", () -> new ChireidenStructure(NoFeatureConfig.CODEC));
+    public static final RegistryObject<Structure<MineshaftConfig>> CHIREIDEN = STRUCTURES.register(
+            "chireiden", () -> new ChireidenStructure(MineshaftConfig.field_236541_a_));
 
     // public static final RegistryObject<Structure<NoFeatureConfig>> WATERFALL_NINE_HEAVEN = STRUCTURES.register(
     //         "water_of_nine_heaven", () -> new WaterfallNineHeavenStructure(NoFeatureConfig.CODEC));

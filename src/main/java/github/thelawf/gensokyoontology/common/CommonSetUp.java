@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.common.network.GSKOIncidentNetworking;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
+import github.thelawf.gensokyoontology.core.StatRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
