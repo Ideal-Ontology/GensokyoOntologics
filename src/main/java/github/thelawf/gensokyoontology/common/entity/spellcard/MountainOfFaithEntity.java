@@ -2,11 +2,13 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.*;
+import github.thelawf.gensokyoontology.common.util.DanmakuEntityPool;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -41,7 +43,10 @@ public class MountainOfFaithEntity extends SpellCardEntity{
         HashMap<Integer, TransformFunction> map = new HashMap<>();
         SpellData spellData = new SpellData(map, DanmakuType.LARGE_SHOT, DanmakuColor.PINK, false, false);
 
-        final int level = 4;
+        // level: 麻将山花瓣层数
+        // track: 每层的花瓣数
+        // count: 每朵花瓣上的弹幕数量
+        final int level = 3;
         final int track = 5;
         final int count = 15;
 
@@ -68,9 +73,13 @@ public class MountainOfFaithEntity extends SpellCardEntity{
                     Vector3d muzzleNext = muzzleLocal.rotateYaw((float) (Math.PI / 50 * ticksExisted));
                     Vector3d muzzleGlobal = muzzleNext.add(this.getPositionVec()).add(centerLocal);
 
-                    LargeShotEntity largeShot = new LargeShotEntity(player, world, DanmakuType.LARGE_SHOT, DanmakuColor.GREEN);
-                    setDanmakuInit(largeShot, muzzleGlobal);
+                    // LargeShotEntity largeShot = new LargeShotEntity(player, world, DanmakuType.LARGE_SHOT, DanmakuColor.GREEN);
+                    // setDanmakuInit(largeShot, muzzleGlobal);
                     // largeShot.shoot(muzzleNext.x, muzzleNext.y, muzzleNext.z, 0.1F, 0F);
+                    DanmakuEntityPool<LargeShotEntity> pool = new DanmakuEntityPool<>(LargeShotEntity.LARGE_SHOT,
+                            player, world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
+                    LargeShotEntity largeShot = pool.acquireProjectile(new LargeShotEntity(player, world, DanmakuType.LARGE_SHOT, DanmakuColor.RED),
+                            muzzleGlobal, Vector2f.ZERO);
                     world.addEntity(largeShot);
 
                     float speed = 0.5F + (ticksExisted - 50) * 0.02F;

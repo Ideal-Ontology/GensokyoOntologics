@@ -382,12 +382,12 @@ public final class ItemRegistry {
                     "圆形交叉弹", "", 500));
 
     public static final RegistryObject<SC_HellEclipse> SC_HELL_ECLIPSE = ITEMS.register(
-            "sc_hell_eclipse", () -> new SC_HellEclipse(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
-                    "狱符「地狱月食」", "", 500));
+            "sc_hell_eclipse", () -> new SC_HellEclipse(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), "狱符「地狱月食」", "", 500));
 
     public static final RegistryObject<SC_MountainOfFaith> SC_MOUNTAIN_OF_FAITH = ITEMS.register(
-            "sc_mountain_of_faith", () -> new SC_MountainOfFaith(new Item.Properties(),
-                    "信仰之山", "", 500));
+            "sc_mountain_of_faith", () -> new SC_MountainOfFaith(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB), "信仰之山", "", 500));
 
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
