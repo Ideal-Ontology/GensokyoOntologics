@@ -257,17 +257,24 @@ public final class ItemRegistry {
     // public static final RegistryObject<Item> ISHI_ZAKURA = ITEMS.register("ishi_zakura",
     //         () -> new IshiZakuraBlock(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<Item> WANDERING_SOUL = ITEMS.register(
-            "wandering_soul", () -> new WanderingSoul(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> WANDERING_SOUL = ITEMS.register("wandering_soul",
+            () -> new WanderingSoul(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<Item> WASHI_PAPER = ITEMS.register(
-            "washi_paper", () -> new WashiPaper(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> WASHI_PAPER = ITEMS.register("washi_paper",
+            () -> new WashiPaper(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<Item> PAPER_SHIDE = ITEMS.register(
-            "paper_shide", () -> new PaperShide(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> PAPER_SHIDE = ITEMS.register("paper_shide",
+            () -> new PaperShide(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> CRIMSON_ALLOY_INGOT = ITEMS.register("crimson_alloy_ingot",
+            () -> new CrimsonAlloyIngot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> CRIMSON_METAL_INGOT = ITEMS.register("crimson_metal_ingot",
+            () -> new CrimsonMetalIngot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> CRIMSON_METAL_FRAGMENT = ITEMS.register("crimson_metal_fragment",
+            () -> new CrimsonMetalFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     // ---------------------------- 食物原材料 -----------------------------//
     public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register(
             "kitchen_knife", KitchenKnife::new);
