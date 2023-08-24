@@ -3,12 +3,15 @@ package github.thelawf.gensokyoontology.common.events;
 import github.thelawf.gensokyoontology.common.block.SpaceFissureBlock;
 import github.thelawf.gensokyoontology.common.item.food.MilkBottle;
 import github.thelawf.gensokyoontology.common.particle.SpaceFissureParticleData;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.effect.LightningBoltEntity;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
@@ -86,15 +89,12 @@ public class GSKOItemStackEvents {
 
     @SubscribeEvent
     public static void onCrafting(PlayerEvent.ItemCraftedEvent event) {
-        IInventory inventory = event.getInventory();
-        ItemStack result = inventory.getStackInSlot(0);
-        for (int i = 1; i < 10; i++) {
-            ItemStack stack = inventory.getStackInSlot(i);
-            // if (stack.getItem().equals(ItemRegistry.DANMAKU_TEST_ITEM.get()) &&
-            //         stack.getTag() != null && stack.getTag().contains("nbt")) {
-            //
-            // }
-        }
+        ItemStack stack = event.getCrafting();
+        // if (stack.getItem().equals(ItemRegistry.AYA_FANS.get())) {
+        //     CompoundNBT nbt = new CompoundNBT();
+        //     nbt.putLong("posA", event.getEntityLiving().getPosition().toLong());
+        //     stack.setTag(nbt);
+        // }
     }
 
     @SubscribeEvent

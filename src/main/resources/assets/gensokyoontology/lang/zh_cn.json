@@ -41,6 +41,15 @@
 
   "item.gensokyoontology.hotspring_bucket": "温泉水桶",
   "item.gensokyoontology.wandering_soul": "游荡的灵魂",
+  "item.gensokyoontology.washi_paper": "和纸",
+  "item.gensokyoontology.paper_shide": "纸垂",
+
+  "item.gensokyoontology.oblivious_tales_scarlet_mist": "被遗忘的传说: 红雾往事",
+  "item.gensokyoontology.oblivious_tales_spring_snows": "被遗忘的传说: 春天飞雪",
+
+  "item.gensokyoontology.crimson_alloy_ingot": "绯色合金锭",
+  "item.gensokyoontology.crimson_metal_ingot": "绯色金属锭",
+  "item.gensokyoontology.crimson_metal_fragment": "绯色金属碎片",
 
   "item.gensokyoontology.spirit_star": "灵魂之星",
   "item.gensokyoontology.spirit_fragment": "意识形态碎片",
@@ -136,14 +145,17 @@
   "item.gensokyoontology.rail_wrench": "Rail Wrench",
 
   "advancement.gensokyoontology.root.title": "灵梦，这是异变啊！",
-  "advancement.gensokyoontology.root.description": "阅读幻想乡故事的第1.1章",
-  "advancement.gensokyoontology.login_gensokyo.title": "爱来自幻想乡♥~",
-  "advancement.gensokyoontology.login_gensokyo.description": "玩家进入幻想乡维度",
+  "advancement.gensokyoontology.root.description": "获得被遗忘的传说",
+  "advancement.gensokyoontology.login_gensokyo.title": "爱来自幻想乡♥",
+  "advancement.gensokyoontology.login_gensokyo.description": "进入幻想乡维度",
 
   "block.gensokyoontology.wasabi": "山葵",
   "block.gensokyoontology.lycoris_radiata": "红花石蒜",
   "block.gensokyoontology.onion_crop": "洋葱",
 
+  "block.gensokyoontology.blue_rose_bush": "蓝蔷薇",
+
+  "block.gensokyoontology.sakura_sapling": "樱花树苗",
   "block.gensokyoontology.sakura_button": "樱花木按钮",
   "block.gensokyoontology.sakura_leaves": "樱花树叶",
   "block.gensokyoontology.sakura_log": "樱花树原木",
@@ -155,8 +167,6 @@
   "block.gensokyoontology.sakura_fence_gate": "樱花木栅栏门",
   "block.gensokyoontology.sakura_trapdoor": "樱花木活板门",
 
-  "block.gensokyoontology.blue_rose_bush": "蓝蔷薇",
-  "block.gensokyoontology.sakura_sapling": "樱花树苗",
   "block.gensokyoontology.magic_leaves": "魔法树叶",
   "block.gensokyoontology.magic_log": "魔法树原木",
   "block.gensokyoontology.maple_sapling": "枫树树苗",
@@ -181,6 +191,9 @@
   "block.gensokyoontology.fagus_fence": "榉树栅栏",
   "block.gensokyoontology.fagus_fence_gate": "榉树栅栏门",
   "block.gensokyoontology.fagus_trapdoor": "榉树活板门",
+
+  "block.gensokyoontology.sukima": "隙间",
+
   "block.gensokyoontology.blue_mushroom_block": "蓝色蘑菇方块",
   "block.gensokyoontology.purple_mushroom_block": "紫色蘑菇方块",
 
@@ -336,7 +349,5 @@
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "a": "b",
-  "tooltip.gensokyoontology.occult_ball.hint": "右键点击进入幻想乡"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }

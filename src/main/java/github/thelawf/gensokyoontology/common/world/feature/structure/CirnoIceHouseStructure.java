@@ -1,10 +1,10 @@
 package github.thelawf.gensokyoontology.common.world.feature.structure;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
@@ -14,20 +14,34 @@ import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
-import net.minecraft.world.gen.feature.structure.*;
+import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
+import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.structure.StructureStart;
+import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.jetbrains.annotations.NotNull;
 
-public class ChireidenStructure extends Structure<MineshaftConfig> {
-    public ChireidenStructure(Codec<MineshaftConfig> codec) {
+import java.util.List;
+
+public class CirnoIceHouseStructure extends Structure<NoFeatureConfig> {
+    public CirnoIceHouseStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
     }
+
+    private static final List<MobSpawnInfo.Spawners> MONSTERS = ImmutableList.of(
+            new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 3, 1, 2)
+    );
+
+    private static final List<MobSpawnInfo.Spawners> CREATURES = ImmutableList.of(
+            new MobSpawnInfo.Spawners(EntityType.RABBIT, 7, 1, 3)
+    );
 
     @Override
     @NotNull
@@ -35,15 +49,30 @@ public class ChireidenStructure extends Structure<MineshaftConfig> {
         return GenerationStage.Decoration.SURFACE_STRUCTURES;
     }
 
+
     @Override
-    public IStartFactory<MineshaftConfig> getStartFactory() {
-        return ChireidenStructure.Start::new;
+    public IStartFactory<NoFeatureConfig> getStartFactory() {
+        return CirnoIceHouseStructure.Start::new;
+    }
+
+    @Override
+    public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
+        return MONSTERS;
+    }
+
+    @Override
+    public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
+        return CREATURES;
+    }
+
+    @Override
+    public boolean getDefaultRestrictsSpawnsToInside() {
+        return true;
     }
 
     /** isFeaturedChunk()
      * <br>
-     * 用于判断传入的区块是否是可以生成特征的区块<br>
-     * 通过MC原版高度图修改下方的 landHeight 本地变量以控制建筑的生成高度
+     * 用于判断传入的区块是否是可以生成特征的区块
      * @param chunkGenerator 区块生成器
      * @param provider 生物群系提供器
      * @param seed 地图种子
@@ -58,7 +87,7 @@ public class ChireidenStructure extends Structure<MineshaftConfig> {
     @Override
     protected boolean func_230363_a_(@NotNull ChunkGenerator chunkGenerator, @NotNull BiomeProvider provider,
                                      long seed, @NotNull SharedSeedRandom chunkRandom, int chunkX, int chunkZ,
-                                     @NotNull Biome biome, @NotNull ChunkPos chunkPos, @NotNull MineshaftConfig config) {
+                                     @NotNull Biome biome, @NotNull ChunkPos chunkPos, @NotNull NoFeatureConfig config) {
         BlockPos centerOfChunk = new BlockPos((chunkX << 4) + 7, 0, (chunkZ << 4) + 7);
         int landHeight = chunkGenerator.getHeight(centerOfChunk.getX(), centerOfChunk.getZ(),
                 Heightmap.Type.WORLD_SURFACE_WG);
@@ -67,12 +96,12 @@ public class ChireidenStructure extends Structure<MineshaftConfig> {
         IBlockReader columnOfBlocks = chunkGenerator.func_230348_a_(centerOfChunk.getX(), centerOfChunk.getZ());
         BlockState topBlock = columnOfBlocks.getBlockState(centerOfChunk.up(landHeight));
 
-        return topBlock.getFluidState().isEmpty() && topBlock.getBlockState().equals(Blocks.STONE.getDefaultState());
+        return topBlock.getFluidState().isEmpty();
     }
 
-    public static class Start extends StructureStart<MineshaftConfig> {
+    public static class Start extends StructureStart<NoFeatureConfig> {
 
-        public Start(Structure<MineshaftConfig> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox,
+        public Start(Structure<NoFeatureConfig> structureIn, int chunkX, int chunkZ, MutableBoundingBox mutableBoundingBox,
                      int referenceIn, long seedIn) {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
         }
@@ -90,7 +119,7 @@ public class ChireidenStructure extends Structure<MineshaftConfig> {
          */
         @Override
         public void func_230364_a_(DynamicRegistries dynamicRegistry, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn,
-                                   int chunkX, int chunkZ, Biome biome, MineshaftConfig config) {
+                                   int chunkX, int chunkZ, Biome biome, NoFeatureConfig config) {
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
             BlockPos pos = new BlockPos(x, 0, z);
@@ -98,17 +127,15 @@ public class ChireidenStructure extends Structure<MineshaftConfig> {
             // addPieces() Method
             JigsawManager.func_242837_a(dynamicRegistry,
                     new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "chireiden/start_pool")),
+                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "mystia_izakaya/start_pool")),
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     pos, this.components, this.rand, false, true);
 
-            int j = chunkGenerator.getSeaLevel() - this.bounds.maxY + this.bounds.getYSize() / 2 + 5;
-            this.bounds.offset(0, j, 0);
-
-            this.components.forEach(piece -> piece.offset(0, j, 0));
+            this.components.forEach(piece -> piece.offset(0, 1, 0));
             this.components.forEach(piece -> piece.getBoundingBox().minX -= 1);
 
             this.recalculateStructureSize();
         }
     }
+
 }

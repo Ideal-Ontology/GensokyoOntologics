@@ -1,44 +1,20 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.WaveAndParticleEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
-import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.function.Supplier;
 
 public class SC_WaveAndParticle extends SpellCardItem {
 
     public static final int LIFE_SPAN = 200;
 
-    public SC_WaveAndParticle(Properties properties, String id, String description, int duration) {
-        super(properties, id, description, duration);
-    }
-
-    @Override
-    public void start(PlayerEntity player) {
-
-
-    }
-
-    @Override
-    public Supplier<TransformFunction> update(PlayerEntity player, int tick) {
-        return () -> new TransformFunction().setPlayer(player);
-    }
-
-    @Override
-    public void end(PlayerEntity player) {
-
+    public SC_WaveAndParticle(Properties properties, int duration) {
+        super(properties, duration);
     }
 
     @Override

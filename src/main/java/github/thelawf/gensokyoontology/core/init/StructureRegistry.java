@@ -4,10 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
-import github.thelawf.gensokyoontology.common.world.feature.structure.ChireidenStructure;
-import github.thelawf.gensokyoontology.common.world.feature.structure.HakureiShrineStructure;
-import github.thelawf.gensokyoontology.common.world.feature.structure.MystiaIzakayaStructure;
-import github.thelawf.gensokyoontology.common.world.feature.structure.WaterfallNineHeavenStructure;
+import github.thelawf.gensokyoontology.common.world.feature.structure.*;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
@@ -38,36 +35,40 @@ public class StructureRegistry {
     public static final RegistryObject<Structure<MineshaftConfig>> CHIREIDEN = STRUCTURES.register(
             "chireiden", () -> new ChireidenStructure(MineshaftConfig.field_236541_a_));
 
+    public static final RegistryObject<Structure<NoFeatureConfig>> CIRNO_ICE_HOUSE = STRUCTURES.register(
+            "cirno_ice_house", () -> new CirnoIceHouseStructure(NoFeatureConfig.CODEC));
+
     // public static final RegistryObject<Structure<NoFeatureConfig>> WATERFALL_NINE_HEAVEN = STRUCTURES.register(
     //         "water_of_nine_heaven", () -> new WaterfallNineHeavenStructure(NoFeatureConfig.CODEC));
 
     public static void setupStructures() {
-        setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(),new StructureSeparationSettings(50, 15, 1023567897), true);
-        setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(60, 20, 51392147), true);
+        setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(),new StructureSeparationSettings(20, 10, 1023567897), true);
+        setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(30, 20, 51392147), true);
         setupMapSpacingAndLand(CHIREIDEN.get(), new StructureSeparationSettings(80, 50, 413054656), true);
+        setupMapSpacingAndLand(CIRNO_ICE_HOUSE.get(), new StructureSeparationSettings(25, 15, 164916420), true);
         // setupMapSpacingAndLand(WATERFALL_NINE_HEAVEN.get(), new StructureSeparationSettings(40, 30, 95323460), true);
     }
 
         /**
      * 本方法中的反混淆映射名如下：
      * <br><br>
-     * Structure.field_236384_t：<br>
+     * srg名：Structure.field_236384_t<br>
      * 反混淆名：structureList<br>
-     * 类型：List<Structure<?>><br>
+     * 类型：List< Structure< ?>><br>
      * 作用：存放所有建筑结构的列表<br>
      * <br>
-     * DimensionStructuresSettings.field_236191_b_：<br>
+     * srg名：DimensionStructuresSettings.field_236191_b_<br>
      * 反混淆名：structureSettings<br>
-     * 类型：ImmutableMap<Structure<?>, StructureSeparationSettings><br>
+     * 类型：ImmutableMap< Structure< ?>, StructureSeparationSettings><br>
      * 作用：存放建筑结构和建筑生成设置的不可变映射Map<br>
      * <br>
-     * DimensionStructuresSettings.field_236193_d_：<br>
-     * structures<br>
-     * Map<Structure<?>, StructureSeparationSettings><br>
-     * 存放建筑结构和建筑生成设置的映射Map
+     * srg名：DimensionStructuresSettings.field_236193_d_<br>
+     * 反混淆名：structures<br>
+     * 类型：Map< Structure< ?>, StructureSeparationSettings><br>
+     * 作用：存放建筑结构和建筑生成设置的映射Map
      * @param structure 建筑结构
      * @param structureSeparationSettings 建筑结构分布设置
-     * @param transformSurroundingLand 不知道
+     * @param transformSurroundingLand 是否转变建筑周围的地形
      * @param <F> 建筑结构类型形参
      */
     public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure,

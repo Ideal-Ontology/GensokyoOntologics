@@ -1,11 +1,13 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.*;
 import github.thelawf.gensokyoontology.common.util.DanmakuEntityPool;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector2f;
@@ -27,6 +29,7 @@ public class MountainOfFaithEntity extends SpellCardEntity{
 
     public MountainOfFaithEntity(World worldIn, PlayerEntity player) {
         super(MOUNTAIN_OF_FAITH_ENTITY, worldIn, player);
+        this.setOwner(player.getEntity());
     }
 
     public MountainOfFaithEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
@@ -38,7 +41,6 @@ public class MountainOfFaithEntity extends SpellCardEntity{
         super.tick();
 
         Vector3d origin = new Vector3d(Vector3f.XP);
-        PlayerEntity player = this.world.getPlayerByUuid(this.dataManager.get(DATA_OWNER_UUID).get());
 
         HashMap<Integer, TransformFunction> map = new HashMap<>();
         SpellData spellData = new SpellData(map, DanmakuType.LARGE_SHOT, DanmakuColor.PINK, false, false);
@@ -52,20 +54,54 @@ public class MountainOfFaithEntity extends SpellCardEntity{
 
         Logger LOGGER = LogManager.getLogger();
 
+        // for (int j = 0; j < track; j++) {
+        //     if (ticksExisted % count > 3) {
+        //         // 两个origin 的含义不同
+        //         // centerLocal 表示在三个不同的半径上将会生成三个不同半径的花瓣形曲线
+        //         // muzzleLocal 表示每个花瓣形曲线上的某一个圆弧花瓣线的中心位置
+        //         Vector3d centerLocal;
+        //         if (i % 2 == 0) {
+        //             centerLocal = origin.add(i * 2, 0, i * 2).rotateYaw((float) (Math.PI / track * j));
+        //         }
+        //         else {
+        //             centerLocal = origin.add(i * 2, 0, i * 2).rotateYaw((float) (Math.PI / track * j))
+        //                     .rotateYaw((float) (Math.PI / track * j));
+        //         }
+        //         Vector3d muzzleLocal = origin.add(1, 0, 1);
+        //         Vector3d muzzleNext = muzzleLocal.rotateYaw((float) (Math.PI / 50 * ticksExisted));
+        //         Vector3d muzzleGlobal = muzzleNext.add(this.getPositionVec()).add(centerLocal);
+        //
+        //         DanmakuEntityPool<SmallShotEntity> pool = new DanmakuEntityPool<>(SmallShotEntity.SMALL_SHOT,
+        //                 (LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
+        //         SmallShotEntity smallShot = pool.acquireProjectile(new SmallShotEntity((LivingEntity) this.getOwner(),
+        //                 world, DanmakuType.LARGE_SHOT, DanmakuColor.RED), muzzleGlobal, Vector2f.ZERO);
+        //         setDanmakuInit(smallShot, muzzleGlobal);
+        //         world.addEntity(smallShot);
+        //         pool.releaseProjectile(smallShot);
+        //         float speed = 0.5F + (ticksExisted - 50) * 0.02F;
+        //         if (smallShot.ticksExisted > 50) {
+        //             smallShot.shoot(
+        //                     -muzzleNext.normalize().x,
+        //                     muzzleNext.normalize().y,
+        //                     -muzzleNext.normalize().z, 0.4f, 0f
+        //             );
+        //         }
+        //     }
+        // }
 
         for (int i = 1; i < level; i++) {
             for (int j = 0; j < track; j++) {
                 if (ticksExisted % count > 3) {
-                    // 两个origin 的含义不同
+                    // 两个本地坐标的含义不同
                     // centerLocal 表示在三个不同的半径上将会生成三个不同半径的花瓣形曲线
                     // muzzleLocal 表示每个花瓣形曲线上的某一个圆弧花瓣线的中心位置
 
                     Vector3d centerLocal;
                     if (i % 2 == 0) {
-                        centerLocal = origin.add(i * 2, 0, i * 2).rotateYaw((float) (Math.PI / track * j * 2));
+                        centerLocal = origin.add(i * 2, 0, 0).rotateYaw((float) (Math.PI / track * j * 2));
                     }
                     else {
-                        centerLocal = origin.add(i * 2, 0, i * 2).rotateYaw((float) (Math.PI / track * j * 2))
+                        centerLocal = origin.add(i * 2, 0, 0).rotateYaw((float) (Math.PI / track * j * 2))
                                 .rotateYaw((float) (Math.PI / track * j));
                     }
 
@@ -73,18 +109,25 @@ public class MountainOfFaithEntity extends SpellCardEntity{
                     Vector3d muzzleNext = muzzleLocal.rotateYaw((float) (Math.PI / 50 * ticksExisted));
                     Vector3d muzzleGlobal = muzzleNext.add(this.getPositionVec()).add(centerLocal);
 
-                    // LargeShotEntity largeShot = new LargeShotEntity(player, world, DanmakuType.LARGE_SHOT, DanmakuColor.GREEN);
-                    // setDanmakuInit(largeShot, muzzleGlobal);
-                    // largeShot.shoot(muzzleNext.x, muzzleNext.y, muzzleNext.z, 0.1F, 0F);
-                    DanmakuEntityPool<LargeShotEntity> pool = new DanmakuEntityPool<>(LargeShotEntity.LARGE_SHOT,
-                            player, world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
-                    LargeShotEntity largeShot = pool.acquireProjectile(new LargeShotEntity(player, world, DanmakuType.LARGE_SHOT, DanmakuColor.RED),
+                    // LargeShotEntity smallShot = new LargeShotEntity(player, world, DanmakuType.LARGE_SHOT, DanmakuColor.GREEN);
+                    // setDanmakuInit(smallShot, muzzleGlobal);
+                    // smallShot.shoot(muzzleNext.x, muzzleNext.y, muzzleNext.z, 0.1F, 0F);
+                    DanmakuEntityPool<SmallShotEntity> pool = new DanmakuEntityPool<>(SmallShotEntity.SMALL_SHOT,
+                            (LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
+                    SmallShotEntity smallShot = pool.acquireProjectile(new SmallShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED),
                             muzzleGlobal, Vector2f.ZERO);
-                    world.addEntity(largeShot);
+                    setDanmakuInit(smallShot, muzzleGlobal);
+                    world.addEntity(smallShot);
+                    pool.releaseProjectile(smallShot);
 
                     float speed = 0.5F + (ticksExisted - 50) * 0.02F;
-                    if (largeShot.ticksExisted > 50) {
-                        largeShot.setMotion(muzzleNext.normalize());
+                    if (smallShot.ticksExisted > 50) {
+                        smallShot.shoot(
+                                -muzzleNext.x,
+                                muzzleNext.y,
+                                -muzzleNext.z, 0.4f, 0f
+                        );
+                        LOGGER.info("Shoot!!");
                     }
                 }
             }

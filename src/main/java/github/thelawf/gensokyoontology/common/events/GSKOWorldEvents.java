@@ -104,8 +104,12 @@ public class GSKOWorldEvents {
             tempMap.putIfAbsent(StructureRegistry.HAKUREI_SHRINE.get(),
                     DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.HAKUREI_SHRINE.get()));
 
+            tempMap.putIfAbsent(StructureRegistry.CIRNO_ICE_HOUSE.get(),
+                    DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.CIRNO_ICE_HOUSE.get()));
+
             tempMap.putIfAbsent(StructureRegistry.CHIREIDEN.get(),
                     DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.CHIREIDEN.get()));
+
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }

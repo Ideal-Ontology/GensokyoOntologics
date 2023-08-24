@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "gensokyoontology:dialectic_spirit"
+      "item": "gensokyoontology:oblivious_tales_scarlet_mist"
     },
     "title": {
       "translate": "advancement.gensokyoontology.root.title"
@@ -9,7 +9,7 @@
     "description": {
       "translate": "advancement.gensokyoontology.root.description"
     },
-    "background": "gensokyoontology:block/sakura_leaves",
+    "background": "gensokyoontology:block/sakura_planks",
     "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
@@ -21,7 +21,7 @@
       "conditions": {
         "items": [
           {
-            "item": "patchouli:guide_book"
+            "item": "gensokyoontology:oblivious_tales_scarlet_mist"
           }
         ]
       }

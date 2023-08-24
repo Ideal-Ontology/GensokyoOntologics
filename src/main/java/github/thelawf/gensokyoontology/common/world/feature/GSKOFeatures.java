@@ -169,6 +169,9 @@ public class GSKOFeatures {
     public static final StructureFeature<?, ?> CHIREIDEN = StructureRegistry.CHIREIDEN.get()
             .withConfiguration(new MineshaftConfig(0.1F, MineshaftStructure.Type.NORMAL));
 
+    public static final StructureFeature<?, ?> CIRNO_ICE_HOUSE = StructureRegistry.CIRNO_ICE_HOUSE.get()
+            .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+
     // public static final StructureFeature<?, ?> WATERFALL_FEATURE = StructureRegistry.WATERFALL_NINE_HEAVEN.get()
     //         .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
@@ -198,10 +201,12 @@ public class GSKOFeatures {
         //可以继续添加多个
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "mystia_izakaya"), MYSTIA_STRUCTURE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "hakurei_shrine"), HAKUREI_STRUCTURE);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "cirno_ice_house"), CIRNO_ICE_HOUSE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "chireiden"), CHIREIDEN);
 
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.MYSTIA_IZAKAYA.get(), MYSTIA_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.HAKUREI_SHRINE.get(), HAKUREI_STRUCTURE);
+        FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CIRNO_ICE_HOUSE.get(), CIRNO_ICE_HOUSE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CHIREIDEN.get(), CHIREIDEN);
     }
 

@@ -56,7 +56,6 @@ public class DanmakuUtil {
                 (float) lookVec.y, (float) lookVec.z);
         danmakuEntityType.shoot(lookVec.x, lookVec.y, lookVec.z, velocity, inaccuracy);
         worldIn.addEntity(danmakuEntityType);
-        GensokyoOntology.LOGGER.info(playerIn.getEyeHeight());
 
     }
 

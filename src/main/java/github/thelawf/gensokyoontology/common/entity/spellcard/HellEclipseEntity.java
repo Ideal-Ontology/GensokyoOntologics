@@ -23,10 +23,8 @@ public class HellEclipseEntity extends SpellCardEntity{
 
     FakeLunarEntity fakeLunar;
     public static final EntityType<HellEclipseEntity> HELL_ECLIPSE_ENTITY =
-            EntityType.Builder.<HellEclipseEntity>create(HellEclipseEntity::new,
-                            EntityClassification.MISC).size(1F,1F).trackingRange(4)
-                    .updateInterval(2).build("circle_cross");
-
+            EntityType.Builder.<HellEclipseEntity>create(HellEclipseEntity::new, EntityClassification.MISC)
+                    .size(1F,1F).trackingRange(4).updateInterval(2).build("circle_cross");
 
     public HellEclipseEntity(World worldIn, PlayerEntity player) {
         super(HELL_ECLIPSE_ENTITY, worldIn, player);

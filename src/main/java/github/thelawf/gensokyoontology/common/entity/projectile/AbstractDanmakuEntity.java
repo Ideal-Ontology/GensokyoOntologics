@@ -36,9 +36,9 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     private int maxLivingTick = 125;
     public float damage = 2.0f;
 
-    private String danmakuColor;
-    public static final DataParameter<String> DATA_COLOR = EntityDataManager.createKey(
-            AbstractDanmakuEntity.class, DataSerializers.STRING);
+    private int danmakuColor;
+    public static final DataParameter<Integer> DATA_COLOR = EntityDataManager.createKey(
+            AbstractDanmakuEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Float> DATA_DAMAGE = EntityDataManager.createKey(
             AbstractDanmakuEntity.class, DataSerializers.FLOAT);
 
@@ -69,7 +69,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     public AbstractDanmakuEntity(EntityType<? extends ThrowableEntity> type, LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
         super(type, worldIn);
         this.damage = danmakuTypeIn.damage;
-        this.danmakuColor = danmakuColorIn.name();
+        this.danmakuColor = danmakuColorIn.ordinal();
         this.setWorld(worldIn);
         this.setDanmakuColor(danmakuColorIn);
     }
@@ -107,7 +107,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         }
 
         if (compound.contains("color")) {
-            this.danmakuColor = compound.getString("color");
+            this.danmakuColor = compound.getInt("color");
         }
     }
 
@@ -115,7 +115,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     protected void writeAdditional(@NotNull CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putFloat("damage", this.damage);
-        compound.putString("color", this.danmakuColor);
+        compound.putInt("color", this.danmakuColor);
         if (this.getSpellData() != null) {
             compound.putString("SpellData", SerializerRegistry.SPELL_DATA.getId().toString());
         }
@@ -185,10 +185,10 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     }
 
     public void setDanmakuColor(DanmakuColor danmakuColor) {
-        this.dataManager.set(DATA_COLOR, danmakuColor.name());
+        this.dataManager.set(DATA_COLOR, danmakuColor.ordinal());
     }
 
     public DanmakuColor getDanmakuColor() {
-        return DanmakuColor.valueOf(this.dataManager.get(DATA_COLOR));
+        return DanmakuColor.values()[this.dataManager.get(DATA_COLOR)];
     }
 }

@@ -41,6 +41,15 @@
 
   "item.gensokyoontology.hotspring_bucket": "Hot Spring Bucket",
   "item.gensokyoontology.wandering_soul": "Wnadering Soul",
+  "item.gensokyoontology.washi_paper": "Washi Paper",
+  "item.gensokyoontology.paper_shide": "Paper Shide",
+
+  "item.gensokyoontology.oblivious_tales_scarlet_mist": "Oblivious Tales: Scarlet Mist",
+  "item.gensokyoontology.oblivious_tales_spring_snows": "Oblivious Tales: Spring Snows",
+
+  "item.gensokyoontology.crimson_alloy_ingot": "Crimson Alloy Ingot",
+  "item.gensokyoontology.crimson_metal_ingot": "Crimson Metal Ingot",
+  "item.gensokyoontology.crimson_metal_fragment": "Crimson Metal Fragment",
 
   "item.gensokyoontology.spirit_star": "Spirit Star",
   "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
@@ -182,6 +191,8 @@
   "block.gensokyoontology.fagus_fence": "Fagus Fence",
   "block.gensokyoontology.fagus_fence_gate": "Fagus Fence Gate",
   "block.gensokyoontology.fagus_trapdoor": "Fagus Trapdoor",
+
+  "block.gensokyoontology.sukima": "Sukima",
 
   "block.gensokyoontology.blue_mushroom_block": "Blue Mushroom Block",
   "block.gensokyoontology.purple_mushroom_block": "Purple Mushroom Block",

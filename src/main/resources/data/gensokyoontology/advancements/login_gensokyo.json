@@ -7,7 +7,7 @@
       "translate": "advancement.gensokyoontology.login_gensokyo.title"
     },
     "description": "advancement.gensokyoontology.login_gensokyo.description",
-    "background": "gensokyoontology:block/sakura_leaves",
+    "background": "gensokyoontology:block/sakura_planks",
     "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,

@@ -10,8 +10,6 @@ import github.thelawf.gensokyoontology.common.item.tools.*;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
-import net.minecraft.entity.monster.GhastEntity;
-import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
@@ -209,13 +207,17 @@ public final class ItemRegistry {
     // ----------------------- 东方project特殊功能道具 ----------------------//
     public static final RegistryObject<HakureiGohei> HAKUREI_GOHEI = ITEMS.register(
             "hakurei_gohei", () -> new HakureiGohei(
-                    new Item.Properties()));
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<MarisaHakkeiro> MARISA_HAKKEIRO = ITEMS.register(
             "marisa_hakkeiro", () -> new MarisaHakkeiro(
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
             "sakuya_stop_watch", () -> new SakuyaStopWatch(
                     new Item.Properties()));
+
+    public static final RegistryObject<BlockItem> SUKIMA_BLOCK_ITEM = ITEMS.register("sukima",
+            () -> new BlockItem(BlockRegistry.SUKIMA_BLOCK.get(), new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register("aya_fans",
             () -> new AyaFans(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<KoishiEye> KOISHI_EYE = ITEMS.register(
@@ -344,9 +346,11 @@ public final class ItemRegistry {
     //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
     //                 .maxStackSize(16)));
 //
-    // --------------------------- 故事书页 ------------------------------//
-    public static final RegistryObject<Item> MEMORY_CARD = ITEMS.register(
-            "story_card", () -> new StoryCard(new CompoundNBT()));
+    // --------------------------- 被遗忘的传说 ------------------------------//
+    public static final RegistryObject<Item> TALES_SCARLET_MIST = ITEMS.register(
+            "oblivious_tales_scarlet_mist", () -> new ObliviousTales(new CompoundNBT()));
+    public static final RegistryObject<Item> TALES_SPRING_SNOWS = ITEMS.register(
+            "oblivious_tales_spring_tales", () -> new ObliviousTales(new CompoundNBT()));
 
 
     // Technical Items that will break the game balance: //
@@ -377,24 +381,23 @@ public final class ItemRegistry {
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<SC_WaveAndParticle> SC_WAVE_AND_PARTICLE = ITEMS.register(
-            "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
-                    "境符「波与粒的境界」","",500));
+            "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
 
     public static final RegistryObject<SC_IdoNoKaiho> SC_IDO_NO_KAIHO = ITEMS.register(
-            "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties(),
-                    "本能「本我的解放」","", 600));
+            "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties(), 600));
 
     public static final RegistryObject<SC_CircleCross> SC_CIRCLE_CROSS = ITEMS.register(
-            "sc_circle_cross", () -> new SC_CircleCross(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB),
-                    "圆形交叉弹", "", 500));
+            "sc_circle_cross", () -> new SC_CircleCross(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
 
     public static final RegistryObject<SC_HellEclipse> SC_HELL_ECLIPSE = ITEMS.register(
             "sc_hell_eclipse", () -> new SC_HellEclipse(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), "狱符「地狱月食」", "", 500));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
 
     public static final RegistryObject<SC_MountainOfFaith> SC_MOUNTAIN_OF_FAITH = ITEMS.register(
             "sc_mountain_of_faith", () -> new SC_MountainOfFaith(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB), "信仰之山", "", 500));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
 
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//

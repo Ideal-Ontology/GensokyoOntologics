@@ -1,11 +1,5 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-
-import java.util.function.Supplier;
-
 /**
  * 八云紫的：「存在与虚无的境界」
  * 在击败最终阶段的八云紫后，八云紫将会释放该符卡，还会神出鬼没地来往于隙间与现实。和东方系列的
@@ -16,18 +10,4 @@ public class SC_BeingAndNothing extends SpellCardItem {
         super(properties);
     }
 
-    @Override
-    public void start(PlayerEntity player) {
-
-    }
-
-    @Override
-    public Supplier<TransformFunction> update(PlayerEntity player, int tick) {
-        return () -> new TransformFunction().setPlayer(player);
-    }
-
-    @Override
-    public void end(PlayerEntity player) {
-
-    }
 }

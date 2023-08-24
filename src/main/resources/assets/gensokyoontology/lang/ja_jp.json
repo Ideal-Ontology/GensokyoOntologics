@@ -41,6 +41,15 @@
 
   "item.gensokyoontology.hotspring_bucket": "温泉水バケツ",
   "item.gensokyoontology.wandering_soul": "Wnadering Soul",
+  "item.gensokyoontology.washi_paper": "Washi Paper",
+  "item.gensokyoontology.paper_shide": "Paper Shide",
+
+  "item.gensokyoontology.oblivious_tales_scarlet_mist": "Oblivious Tales: Scarlet Mist",
+  "item.gensokyoontology.oblivious_tales_spring_snows": "Oblivious Tales: Spring Snows",
+
+  "item.gensokyoontology.crimson_alloy_ingot": "Crimson Alloy Ingot",
+  "item.gensokyoontology.crimson_metal_ingot": "Crimson Metal Ingot",
+  "item.gensokyoontology.crimson_metal_fragment": "Crimson Metal Fragment",
 
   "item.gensokyoontology.spirit_star": "Spirit Star",
   "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
@@ -144,6 +153,9 @@
   "block.gensokyoontology.lycoris_radiata": "リコリス",
   "block.gensokyoontology.onion_crop": "玉葱",
 
+  "block.gensokyoontology.blue_rose_bush": "蓝蔷薇",
+
+  "block.gensokyoontology.sakura_sapling": "樱花树苗",
   "block.gensokyoontology.sakura_button": "Sakura Button",
   "block.gensokyoontology.sakura_leaves": "桜",
   "block.gensokyoontology.sakura_log": "Sakura Log",
@@ -155,8 +167,6 @@
   "block.gensokyoontology.sakura_fence_gate": "Sakura Fence Gate",
   "block.gensokyoontology.sakura_trapdoor": "Sakura Trapdoor",
 
-  "block.gensokyoontology.blue_rose_bush": "蓝蔷薇",
-  "block.gensokyoontology.sakura_sapling": "樱花树苗",
   "block.gensokyoontology.magic_leaves": "魔法树叶",
   "block.gensokyoontology.magic_log": "魔法树原木",
   "block.gensokyoontology.maple_sapling": "枫树树苗",
@@ -181,6 +191,9 @@
   "block.gensokyoontology.fagus_fence": "榉树栅栏",
   "block.gensokyoontology.fagus_fence_gate": "榉树栅栏门",
   "block.gensokyoontology.fagus_trapdoor": "榉树活板门",
+
+  "block.gensokyoontology.sukima": "隙間",
+
   "block.gensokyoontology.blue_mushroom_block": "蓝色蘑菇方块",
   "block.gensokyoontology.purple_mushroom_block": "紫色蘑菇方块",
 
