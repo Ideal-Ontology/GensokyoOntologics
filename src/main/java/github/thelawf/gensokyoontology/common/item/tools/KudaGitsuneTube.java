@@ -1,8 +1,10 @@
 package github.thelawf.gensokyoontology.common.item.tools;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.GhastEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -22,7 +24,20 @@ public class KudaGitsuneTube extends Item {
         if (target instanceof SpectreEntity) {
             stack.shrink(1);
             CompoundNBT nbt = new CompoundNBT();
-            nbt.putString("story", "content");
+            nbt.putString("story", "story."+ GensokyoOntology.MODID +".spectre");
+            nbt.putString("entity_stored", "entity."+ GensokyoOntology.MODID +".spectre");
+
+            playerIn.inventory.addItemStackToInventory(new ItemStack(
+                    ItemRegistry.GITSUNE_TUBE_FULL.get(), 1, nbt));
+            return ActionResultType.func_233537_a_(playerIn.world.isRemote());
+        }
+        else if (target instanceof GhastEntity) {
+            target.remove();
+            stack.shrink(1);
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putString("story", "story."+ GensokyoOntology.MODID +".spectre");
+            nbt.putString("entity_stored", "entity.mineraft.ghast");
+
             playerIn.inventory.addItemStackToInventory(new ItemStack(
                     ItemRegistry.GITSUNE_TUBE_FULL.get(), 1, nbt));
             return ActionResultType.func_233537_a_(playerIn.world.isRemote());

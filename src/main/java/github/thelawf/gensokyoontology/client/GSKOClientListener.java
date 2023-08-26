@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.client;
 
-import github.thelawf.gensokyoontology.client.screen.GensokyoLoadingScreen;
+import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.chat.NarratorChatListener;

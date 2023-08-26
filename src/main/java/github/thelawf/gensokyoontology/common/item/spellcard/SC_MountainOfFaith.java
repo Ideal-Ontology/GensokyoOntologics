@@ -22,11 +22,13 @@ public class SC_MountainOfFaith extends SpellCardItem{
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if (worldIn instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld) worldIn;
+        if (playerIn.getCooldownTracker().hasCooldown(this))
+            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
+        if (worldIn instanceof ServerWorld) {
            MountainOfFaithEntity spellCard = new MountainOfFaithEntity(worldIn, playerIn);
            worldIn.addEntity(spellCard);
+            playerIn.getCooldownTracker().setCooldown(this, 1200);
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

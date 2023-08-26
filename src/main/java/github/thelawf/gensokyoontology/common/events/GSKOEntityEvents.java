@@ -1,7 +1,8 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import github.thelawf.gensokyoontology.common.block.HotSpringBlock;
+import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -15,7 +16,6 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -51,7 +51,7 @@ public class GSKOEntityEvents {
     public static void onLivingDeath(LivingDeathEvent event) {
         if (event.getEntityLiving() != null && event.getEntityLiving() instanceof FairyEntity) {
             FairyEntity fairy = (FairyEntity) event.getEntityLiving();
-            if (event.getSource() == DamageSource.WITHER) {
+            if (event.getSource() == GSKODamageSource.DANMAKU) {
                 fairy.entityDropItem(new ItemStack(ItemRegistry.LARGE_SHOT_RED.get()));
             }
         }

@@ -5,7 +5,6 @@ import github.thelawf.gensokyoontology.client.renderer.entity.CitizenRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.FairyRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.HumanResidentRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.YukariRenderer;
-import github.thelawf.gensokyoontology.client.screen.GSKOCapabilityHud;
 import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.InyoJadeMonsterEntity;
@@ -15,13 +14,9 @@ import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.*;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
-import net.minecraft.util.Hand;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -64,7 +59,7 @@ public class ClientEventHandler {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(IdonokaihoEntity.IDONOKAIHO_ENTITY,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(CircleCrossEntity.CIRCLE_CROSS_ENTITY,
+        RenderingRegistry.registerEntityRenderingHandler(SpiralWheelEntity.SPIRAL_WHEEL_ENTITY,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(HellEclipseEntity.HELL_ECLIPSE_ENTITY,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
@@ -87,20 +82,24 @@ public class ClientEventHandler {
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
     }
 
-    @SubscribeEvent
-    public static void onOverlayRender(RenderGameOverlayEvent event) {
-        if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
-            return;
-        }
-        // Class<ItemRegistry> registryClass = ItemRegistry.class;
-        // List<Field> fields = Arrays.asList(registryClass.getFields());
-        // fields.removeIf(f -> f.getType() != RegistryObject.class);
-        if (Minecraft.getInstance().player == null || Minecraft.getInstance().player.getHeldItem(Hand.MAIN_HAND).getItem() != ItemRegistry.HAKUREI_GOHEI.get()) {
-            return;
-        }
+    // @SubscribeEvent
+    // public static void onOverlayRender(RenderGameOverlayEvent event) {
+    //     if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
+    //         return;
+    //     }
+    //     // Class<ItemRegistry> registryClass = ItemRegistry.class;
+    //     // List<Field> fields = Arrays.asList(registryClass.getFields());
+    //     // fields.removeIf(f -> f.getType() != RegistryObject.class);
+    //     if (Minecraft.getInstance().player == null || Minecraft.getInstance().player.getHeldItem(Hand.MAIN_HAND).getItem() != ItemRegistry.HAKUREI_GOHEI.get()) {
+    //         return;
+    //     }
+//
+    //     GSKOCapabilityHud gskoHud = new GSKOCapabilityHud(event.getMatrixStack());
+    //     gskoHud.render();
+    // }
 
-        GSKOCapabilityHud gskoHud = new GSKOCapabilityHud(event.getMatrixStack());
-        gskoHud.render();
-    }
-
+    // @SubscribeEvent
+    // public static void onRenderPlayer(RenderPlayerEvent.Pre event) {
+    //
+    // }
 }

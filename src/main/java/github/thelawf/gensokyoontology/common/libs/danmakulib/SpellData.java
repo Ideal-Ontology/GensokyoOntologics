@@ -9,7 +9,7 @@ import java.util.List;
 
 public class SpellData extends ForgeRegistryEntry<SpellData> {
 
-    public static final SpellData INIT = new SpellData(new HashMap<>(), DanmakuType.LARGE_SHOT, DanmakuColor.PINK, false, false);
+    public static final SpellData INSTANCE = new SpellData(new HashMap<>(), DanmakuType.LARGE_SHOT, DanmakuColor.PINK, false, false);
 
     public HashMap<Integer, TransformFunction> keyTransforms = new HashMap<>();
     public List<VectorOperations> vectorOperations;

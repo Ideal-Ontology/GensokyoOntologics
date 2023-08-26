@@ -44,6 +44,10 @@ public class MarisaHakkeiro extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 
+        if (playerIn.getCooldownTracker().hasCooldown(this))
+            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
+
+        playerIn.getCooldownTracker().setCooldown(this, 1800);
         // 获取玩家的物品栏对象
         IInventory inventory = playerIn.inventory;
 

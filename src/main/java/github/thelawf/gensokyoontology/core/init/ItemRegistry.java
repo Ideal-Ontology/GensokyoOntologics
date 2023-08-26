@@ -4,6 +4,10 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
+import github.thelawf.gensokyoontology.common.item.ore.CrimsonAlloyIngot;
+import github.thelawf.gensokyoontology.common.item.ore.CrimsonMetalFragment;
+import github.thelawf.gensokyoontology.common.item.ore.CrimsonMetalIngot;
+import github.thelawf.gensokyoontology.common.item.ore.JadeItem;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.tools.*;
@@ -206,14 +210,13 @@ public final class ItemRegistry {
     // ======================= GSKO杂项：道具类物品 =========================//
     // ----------------------- 东方project特殊功能道具 ----------------------//
     public static final RegistryObject<HakureiGohei> HAKUREI_GOHEI = ITEMS.register(
-            "hakurei_gohei", () -> new HakureiGohei(
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            "hakurei_gohei", () -> new HakureiGohei(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<MarisaHakkeiro> MARISA_HAKKEIRO = ITEMS.register(
             "marisa_hakkeiro", () -> new MarisaHakkeiro(
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
-            "sakuya_stop_watch", () -> new SakuyaStopWatch(
-                    new Item.Properties()));
+            "sakuya_stop_watch", () -> new SakuyaStopWatch(new Item.Properties()));
 
     public static final RegistryObject<BlockItem> SUKIMA_BLOCK_ITEM = ITEMS.register("sukima",
             () -> new BlockItem(BlockRegistry.SUKIMA_BLOCK.get(), new Item.Properties()
@@ -241,6 +244,10 @@ public final class ItemRegistry {
 
     public static final RegistryObject<ChimataMarketLicense> CHIMATA_MARKET_LICENSE = ITEMS.register(
             "chimata_market_license", () -> new ChimataMarketLicense(new Item.Properties()));
+
+    //魔法道具
+    public static final RegistryObject<SorceryScarletMist> SORCERY_SCARLET_MIST = ITEMS.register(
+            "sorcery_scarlet_mmist", () -> new SorceryScarletMist(new Item.Properties()));
 
     // ---------------------------- 杂项物品 -------------------------------//
     public static final RegistryObject<Item> HOTSPRING_BUCKET = ITEMS.register("hotspring_bucket",
@@ -277,6 +284,18 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> CRIMSON_METAL_FRAGMENT = ITEMS.register("crimson_metal_fragment",
             () -> new CrimsonMetalFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    public static final RegistryObject<Item> JADE_LEVEL_B = ITEMS.register("jade_level_b",
+            () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> JADE_LEVEL_A = ITEMS.register("jade_level_a",
+            () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> JADE_LEVEL_S = ITEMS.register("jade_level_s",
+            () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> JADE_LEVEL_SS = ITEMS.register("jade_level_ss",
+            () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> JADE_LEVEL_SSS = ITEMS.register("jade_level_sss",
+            () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> ORB_JADE = ITEMS.register("orb_jade",
+            () -> new OrbJade(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     // ---------------------------- 食物原材料 -----------------------------//
     public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register(
             "kitchen_knife", KitchenKnife::new);
@@ -284,6 +303,7 @@ public final class ItemRegistry {
             () -> new Butter(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB) ));
     public static final RegistryObject<MilkBottle> MILK_BOTTLE = ITEMS.register(
             "milk_bottle", MilkBottle::new);
+
     public static final RegistryObject<SquidTentacle> SQUID_TENTACLE = ITEMS.register(
             "squid_tentacle", SquidTentacle::new);
     public static final RegistryObject<Item> ONION = ITEMS.register("onion", () ->
@@ -351,7 +371,8 @@ public final class ItemRegistry {
             "oblivious_tales_scarlet_mist", () -> new ObliviousTales(new CompoundNBT()));
     public static final RegistryObject<Item> TALES_SPRING_SNOWS = ITEMS.register(
             "oblivious_tales_spring_tales", () -> new ObliviousTales(new CompoundNBT()));
-
+    public static final RegistryObject<Item> TALES_OCCULT_BALL = ITEMS.register(
+            "oblivious_tale_occult_ball", () -> new ObliviousTales(new CompoundNBT()));
 
     // Technical Items that will break the game balance: //
     // public static final RegistryObject<Item> REALISM_SWORD = ITEMS.register(
@@ -385,10 +406,11 @@ public final class ItemRegistry {
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
 
     public static final RegistryObject<SC_IdoNoKaiho> SC_IDO_NO_KAIHO = ITEMS.register(
-            "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties(), 600));
+            "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB), 600));
 
-    public static final RegistryObject<SC_CircleCross> SC_CIRCLE_CROSS = ITEMS.register(
-            "sc_circle_cross", () -> new SC_CircleCross(new Item.Properties()
+    public static final RegistryObject<SC_SpiralWheel> SC_SPIRAL_WHEEL = ITEMS.register(
+            "sc_spiral_wheel", () -> new SC_SpiralWheel(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
 
     public static final RegistryObject<SC_HellEclipse> SC_HELL_ECLIPSE = ITEMS.register(

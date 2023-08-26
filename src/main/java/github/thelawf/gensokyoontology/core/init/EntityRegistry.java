@@ -10,6 +10,7 @@ import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.*;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.ShieldItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -72,8 +73,8 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY =
             ENTITIES.register("ido_no_kaiho", () -> IdonokaihoEntity.IDONOKAIHO_ENTITY);
 
-    public static final RegistryObject<EntityType<CircleCrossEntity>> CIRCLE_CROSS_ENTITY =
-            ENTITIES.register("circle_cross", () -> CircleCrossEntity.CIRCLE_CROSS_ENTITY);
+    public static final RegistryObject<EntityType<SpiralWheelEntity>> SPIRAL_WHEEL_ENTITY =
+            ENTITIES.register("spiral_wheel", () -> SpiralWheelEntity.SPIRAL_WHEEL_ENTITY);
 
     public static final RegistryObject<EntityType<HellEclipseEntity>> HELL_ECLIPSE_ENTITY =
             ENTITIES.register("hell_eclipse", () -> HellEclipseEntity.HELL_ECLIPSE_ENTITY);

@@ -1,14 +1,9 @@
 package github.thelawf.gensokyoontology.common.command;
 
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.context.CommandContext;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.tree.LiteralCommandNode;
-import github.thelawf.gensokyoontology.common.block.HotSpringWater;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.command.impl.FillCommand;
 
 public class GSKOCommand{
     // 实现一个可以显示 GUI的指令

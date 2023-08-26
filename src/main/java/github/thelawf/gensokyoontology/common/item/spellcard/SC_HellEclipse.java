@@ -15,11 +15,16 @@ public class SC_HellEclipse extends SpellCardItem {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        if (playerIn.getCooldownTracker().hasCooldown(this))
+            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
+
         if (worldIn instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
 
             HellEclipseEntity hellEclipse = new HellEclipseEntity(worldIn, playerIn);
             worldIn.addEntity(hellEclipse);
+
+            playerIn.getCooldownTracker().setCooldown(this, 1200);
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

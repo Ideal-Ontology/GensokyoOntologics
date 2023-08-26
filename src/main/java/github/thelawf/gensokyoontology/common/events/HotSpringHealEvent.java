@@ -1,13 +1,9 @@
 package github.thelawf.gensokyoontology.common.events;
 
 
-import github.thelawf.gensokyoontology.common.block.HotSpringBlock;
+import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
-import net.minecraft.util.DamageSource;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

@@ -20,18 +20,18 @@ public class SC_WaveAndParticle extends SpellCardItem {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World world, @NotNull PlayerEntity player, @NotNull Hand handIn) {
+        if (player.getCooldownTracker().hasCooldown(this))
+            return ActionResult.resultPass(player.getHeldItem(handIn));
+
         if (world instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld) world;
-
-            // EntityType<WaveAndParticleEntity> entityType = EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get();
-            // entityType.spawn(serverWorld, player.getHeldItemMainhand(), player, player.getPosition(),
-            //         SpawnReason.MOB_SUMMONED,true, true);
-
             WaveAndParticleEntity waveAndParticle = new WaveAndParticleEntity(world, player);
             world.addEntity(waveAndParticle);
+
+            player.getCooldownTracker().setCooldown(this, 1200);
         }
 
         return super.onItemRightClick(world, player, handIn);
 
     }
+
 }

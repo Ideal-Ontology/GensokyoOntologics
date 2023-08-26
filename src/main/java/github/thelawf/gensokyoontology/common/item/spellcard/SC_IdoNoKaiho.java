@@ -20,11 +20,13 @@ public class SC_IdoNoKaiho extends SpellCardItem{
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
+        if (playerIn.getCooldownTracker().hasCooldown(this))
+            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
+
         if (worldIn instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld) worldIn;
-            EntityType<IdonokaihoEntity> entityType = EntityRegistry.IDO_NO_KAIHO_ENTITY.get();
-            entityType.spawn(serverWorld, playerIn.getHeldItemMainhand(), playerIn, playerIn.getPosition(),
-                    SpawnReason.MOB_SUMMONED,true, true);
+            IdonokaihoEntity idonokaiho = new IdonokaihoEntity(worldIn, playerIn);
+            worldIn.addEntity(idonokaiho);
+            playerIn.getCooldownTracker().setCooldown(this, 1200);
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);

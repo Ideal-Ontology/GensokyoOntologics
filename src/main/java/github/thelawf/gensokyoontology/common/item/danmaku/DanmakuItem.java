@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.danmaku;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.EnderPearlItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -14,6 +15,7 @@ public class DanmakuItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+
         if (playerIn.getHeldItem(Hand.MAIN_HAND).getItem() instanceof DanmakuItem) {
             ItemStack stack = playerIn.getHeldItem(Hand.MAIN_HAND);
             stack.shrink(1);

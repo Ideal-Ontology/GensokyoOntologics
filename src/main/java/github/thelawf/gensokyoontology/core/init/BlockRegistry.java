@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.cyber.ComputerBlock;
 import github.thelawf.gensokyoontology.common.block.cyber.HashLeaves;
 import github.thelawf.gensokyoontology.common.block.nature.*;
+import github.thelawf.gensokyoontology.common.block.ore.*;
 import github.thelawf.gensokyoontology.common.world.feature.tree.MapleTree;
 import github.thelawf.gensokyoontology.common.world.feature.tree.SakuraTree;
 import net.minecraft.block.*;

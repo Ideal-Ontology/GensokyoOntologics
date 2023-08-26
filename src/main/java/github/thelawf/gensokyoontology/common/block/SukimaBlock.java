@@ -33,8 +33,9 @@ public class SukimaBlock extends Block {
 
     @Override
     public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-        if (worldIn.isRemote && placer instanceof PlayerEntity) {
+        if (!worldIn.isRemote && placer instanceof PlayerEntity) {
             placer.getActiveItemStack().setCount(1);
+
         }
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
     }
