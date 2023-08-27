@@ -84,7 +84,7 @@
   "item.gensokyoontology.light_spirit": "阳爻",
 
   "item.gensokyoontology.spell_card_blank": "空白符卡",
-  "item.gensokyoontology.sc_circle_cross": "原创实验性符卡01",
+  "item.gensokyoontology.sc_spiral_wheel": "实验性符卡: 螺旋车轮",
   "item.gensokyoontology.sc_wave_and_particle": "境符「波与粒的境界」",
   "item.gensokyoontology.sc_ido_no_kaiho": "本能「本我的解放」",
   "item.gensokyoontology.sc_hell_eclipse": "狱符「地狱月食」",
@@ -169,6 +169,7 @@
   "block.gensokyoontology.onion_crop": "洋葱",
 
   "block.gensokyoontology.blue_rose_bush": "蓝蔷薇",
+  "block.gensokyoontology.ishi_zakura": "石樱",
 
   "block.gensokyoontology.sakura_sapling": "樱花树苗",
   "block.gensokyoontology.sakura_button": "樱花木按钮",
@@ -294,6 +295,8 @@
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗§c32个火焰弹§r和§a一个B点§r发射极限火花",
 
   "tooltip.gensokyoontology.occult_ball.biome": "§d神秘地点: ",
+  "tooltip.gensokyoontology.occult_ball.hint": "A mysterious sphere that can send you to the another world.",
+
   "tooltip.gensokyoontology.three_sacred_treasures.sword": "「三种神器　剑」",
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "「三种神器　玉」",
   "tooltip.gensokyoontology.three_sacred_treasures.mirror": "「三种神器　镜」",
@@ -368,5 +371,6 @@
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
   "block.gensokyoontology.sukima": "隙间",
-  "item.gensokyoontology.koishi_eye": "恋之瞳"
+  "item.gensokyoontology.koishi_eye": "恋之瞳",
+  "item.gensokyoontology.sc_circle_cross": "原创实验性符卡01"
 }

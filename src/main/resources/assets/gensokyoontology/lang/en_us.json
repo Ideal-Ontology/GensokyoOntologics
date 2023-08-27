@@ -84,7 +84,7 @@
   "item.gensokyoontology.light_spirit": "Light Spirit",
 
   "item.gensokyoontology.spell_card_blank": "Spell Card Blank",
-  "item.gensokyoontology.sc_circle_cross": "Spell Card Original Made 01 (Experimental)",
+  "item.gensokyoontology.sc_spiral_wheel": "Spell Card Original: Spiral Wheel",
   "item.gensokyoontology.sc_wave_and_particle": "Border Sign \"Boundary of Wave and Particle\"",
   "item.gensokyoontology.sc_ido_no_kaiho": "Instinct \"Release of the Id\"",
   "item.gensokyoontology.sc_hell_eclipse": "Hell Sign \"Hell Eclipse\"",
@@ -169,6 +169,7 @@
   "block.gensokyoontology.onion_crop": "Onion",
 
   "block.gensokyoontology.blue_rose_bush": "Blue Rose Bush",
+  "block.gensokyoontology.ishi_zakura": "Ishi Zakura",
 
   "block.gensokyoontology.sakura_sapling": "Sakura Sapling",
   "block.gensokyoontology.sakura_button": "Sakura Button",
@@ -294,6 +295,8 @@
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "Spend§c32 Fire Charges§r and§a 1 Bomb§r to generate Master Spark on right click",
 
   "tooltip.gensokyoontology.occult_ball.biome": "Occult Biome: ",
+  "tooltip.gensokyoontology.occult_ball.hint": "A mysterious sphere that can send you to the another world.",
+
   "tooltip.gensokyoontology.three_sacred_treasures.sword": "Three Sacred Treasures - Sword",
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "Three Sacred Treasures - Orb",
   "tooltip.gensokyoontology.three_sacred_treasures.mirror": "Three Sacred Treasures - Mirror",

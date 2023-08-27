@@ -1,8 +1,6 @@
 package github.thelawf.gensokyoontology.common.block;
 
-import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
-import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.tileentity.SorceryExtractorTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;

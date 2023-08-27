@@ -4,7 +4,6 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
-import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatureGenerator;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.entity.EntityClassification;
@@ -34,7 +33,10 @@ import org.apache.logging.log4j.LogManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID)
 public class GSKOWorldEvents {

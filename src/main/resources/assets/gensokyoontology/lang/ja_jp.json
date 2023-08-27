@@ -84,7 +84,7 @@
   "item.gensokyoontology.light_spirit": "Light Spirit",
 
   "item.gensokyoontology.spell_card_blank": "Spell Card Blank",
-  "item.gensokyoontology.sc_circle_cross": "Spell Card Circle Cross (Experimental)",
+  "item.gensokyoontology.sc_spiral_wheel": "Spell Card Original: Spiral Wheel",
   "item.gensokyoontology.sc_wave_and_particle": "境符「波と粒の境界」",
   "item.gensokyoontology.sc_ido_no_kaiho": " 本能「イドの解放」",
   "item.gensokyoontology.sc_hell_eclipse": "獄符「ヘルエクリプス」",
@@ -169,6 +169,7 @@
   "block.gensokyoontology.onion_crop": "玉葱",
 
   "block.gensokyoontology.blue_rose_bush": "蓝蔷薇",
+  "block.gensokyoontology.ishi_zakura": "Ishi Zakura",
 
   "block.gensokyoontology.sakura_sapling": "樱花树苗",
   "block.gensokyoontology.sakura_button": "Sakura Button",
@@ -294,6 +295,8 @@
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗§c32个火焰弹§r和§a一个B点§r发射极限火花",
 
   "tooltip.gensokyoontology.occult_ball.biome": "Occult Biome: ",
+  "tooltip.gensokyoontology.occult_ball.hint": "A mysterious sphere that can send you to the another world.",
+
   "tooltip.gensokyoontology.three_sacred_treasures.sword": "「三種の神器　剣」",
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "「三種の神器　玉」",
   "tooltip.gensokyoontology.three_sacred_treasures.mirror": "「三種の神器　鏡」",
@@ -370,5 +373,6 @@
   "a": "b",
   "block.gensokyoontology.sukima": "隙間",
   "item.gensokyoontology.extra_life": "Extra Life",
-  "item.gensokyoontology.koishi_eye": "こいしのサードアイ"
+  "item.gensokyoontology.koishi_eye": "こいしのサードアイ",
+  "item.gensokyoontology.sc_circle_cross": "Spell Card Circle Cross (Experimental)"
 }

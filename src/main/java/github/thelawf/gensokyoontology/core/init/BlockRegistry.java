@@ -203,7 +203,7 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register(
             "danmaku_table", DanmakuTableBlock::new);
     public static final RegistryObject<Block> SORCERY_EXTRACTOR = BLOCKS.register(
-            "socery_extractor", SorceryExtractorBlock::new);
+            "sorcery_extractor", SorceryExtractorBlock::new);
 
     public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
             "space_fissure_block", SpaceFissureBlock::new);

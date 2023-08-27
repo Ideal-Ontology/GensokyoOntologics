@@ -7,11 +7,9 @@ import github.thelawf.gensokyoontology.common.world.feature.placer.MagicFoliageP
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HugeMushroomBlock;
-import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -24,12 +22,12 @@ import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
-import net.minecraft.world.gen.placement.*;
+import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
+import net.minecraft.world.gen.placement.IPlacementConfig;
+import net.minecraft.world.gen.placement.Placement;
+import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class GSKOFeatures {
 
