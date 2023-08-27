@@ -3,7 +3,9 @@ package github.thelawf.gensokyoontology.common.libs.danmakulib;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.core.SpellCardRegistry;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.IntIdentityHashBiMap;
@@ -14,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class DanmakuUtil {
 
@@ -116,4 +119,30 @@ public class DanmakuUtil {
                 prevVec.y, prevVec.z * radius * Math.signum(angle));
     }
 
+    public static List<Item> getAllDanmakuItem() {
+        final List<Item> danmakuItems = new ArrayList<>();
+        danmakuItems.add(ItemRegistry.LARGE_SHOT_RED.get());
+        danmakuItems.add(ItemRegistry.LARGE_SHOT_PURPLE.get());
+        danmakuItems.add(ItemRegistry.LARGE_SHOT_BLUE.get());
+        danmakuItems.add(ItemRegistry.LARGE_SHOT_GREEN.get());
+        danmakuItems.add(ItemRegistry.LARGE_SHOT_YELLOW.get());
+
+        danmakuItems.add(ItemRegistry.SMALL_SHOT_RED.get());
+        danmakuItems.add(ItemRegistry.SMALL_SHOT_BLUE.get());
+        danmakuItems.add(ItemRegistry.SMALL_SHOT_GREEN.get());
+        danmakuItems.add(ItemRegistry.SMALL_SHOT_PURPLE.get());
+        danmakuItems.add(ItemRegistry.SMALL_SHOT_YELLOW.get());
+
+        danmakuItems.add(ItemRegistry.HEART_SHOT_RED.get());
+        danmakuItems.add(ItemRegistry.HEART_SHOT_PINK.get());
+        danmakuItems.add(ItemRegistry.HEART_SHOT_AQUA.get());
+
+        danmakuItems.add(ItemRegistry.STAR_SHOT_AQUA.get());
+        danmakuItems.add(ItemRegistry.STAR_SHOT_BLUE.get());
+        danmakuItems.add(ItemRegistry.STAR_SHOT_RED.get());
+        danmakuItems.add(ItemRegistry.STAR_SHOT_GREEN.get());
+        danmakuItems.add(ItemRegistry.STAR_SHOT_YELLOW.get());
+
+        return danmakuItems;
+    }
 }

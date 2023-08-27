@@ -37,12 +37,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "gensokyoontology:bomb_item",
+          "name": "gensokyoontology:bomb_fragment",
           "conditions": [
             {
               "condition": "minecraft:random_chance_with_looting",
-              "chance": 0.05,
-              "looting_multiplier": 0.01
+              "chance": 0.3,
+              "looting_multiplier": 0.05
             },
             {
               "condition": "minecraft:killed_by_player"

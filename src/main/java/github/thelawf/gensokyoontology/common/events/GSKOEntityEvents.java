@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.events;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.GSKODamageSource;
+import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -13,6 +14,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
@@ -21,6 +23,9 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.List;
+import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = "gensokyoontology",bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GSKOEntityEvents {
@@ -33,7 +38,6 @@ public class GSKOEntityEvents {
                 event.getEntityLiving().heal(1.2F);
             }
         }
-
     }
 
     @SubscribeEvent
@@ -51,8 +55,15 @@ public class GSKOEntityEvents {
     public static void onLivingDeath(LivingDeathEvent event) {
         if (event.getEntityLiving() != null && event.getEntityLiving() instanceof FairyEntity) {
             FairyEntity fairy = (FairyEntity) event.getEntityLiving();
+            Random random = new Random();
             if (event.getSource() == GSKODamageSource.DANMAKU) {
-                fairy.entityDropItem(new ItemStack(ItemRegistry.LARGE_SHOT_RED.get()));
+                if (random.nextInt(100) < 23) {
+                    fairy.entityDropItem(new ItemStack(ItemRegistry.LIFE_FRAGMENT.get()));
+                }
+                for (int i = 0; i < random.nextInt(3); i++) {
+                    List<Item> danmakuItems = DanmakuUtil.getAllDanmakuItem();
+                    fairy.entityDropItem(danmakuItems.get(random.nextInt(danmakuItems.size())));
+                }
             }
         }
         else if (event.getEntityLiving() != null && event.getEntityLiving() instanceof PlayerEntity) {
@@ -62,7 +73,7 @@ public class GSKOEntityEvents {
             // 循环获取玩家物品栏每个物品，如果玩家持有残机点数则恢复玩家生命值, 然后让玩家原地复活
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
                 ItemStack stack = inventory.getStackInSlot(i);
-                if (stack.getItem().equals(ItemRegistry.EXTRA_LIFE_ITEM.get())) {
+                if (stack.getItem().equals(ItemRegistry.EXTEND_ITEM.get())) {
                     player.heal(20f);
                     event.getEntityLiving().getEntityWorld().setEntityState(player, (byte) 2);
                 }

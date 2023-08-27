@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.client.gui.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
@@ -14,10 +15,28 @@ public class SorceryExtractorScreen extends ContainerScreen<SorceryExtractorCont
     );
     public SorceryExtractorScreen(SorceryExtractorContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
+        this.xSize = 217;
+        this.ySize = 211;
+        this.playerInventoryTitleX = 5;
+        this.playerInventoryTitleY = 5;
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(matrixStack);
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.renderHoveredTooltip(matrixStack, mouseX, mouseY);
+    }
 
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
+        RenderSystem.color4f(1f, 1f, 1f, 1f);
+        if (this.minecraft == null) return;
+        this.minecraft.getTextureManager().bindTexture(SORCERY_GUI_TEXTURE);
+
+        int left = this.guiLeft;
+        int top = this.guiTop;
+        this.blit(matrixStack, left, top, 0,0, 256, 256);
     }
 }

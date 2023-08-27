@@ -39,6 +39,7 @@
   "itemGroup.gensokyoontology_items": "幻想的なアントロジ：物品",
   "itemGroup.gensokyoontology_combat": "幻想的なアントロジ：戦闘",
 
+  "item.gensokyoontology.sake_bucket": "Sake Bucket",
   "item.gensokyoontology.hotspring_bucket": "温泉水バケツ",
   "item.gensokyoontology.wandering_soul": "Wnadering Soul",
   "item.gensokyoontology.washi_paper": "和紙",
@@ -75,7 +76,7 @@
   "item.gensokyoontology.fake_lunar": "偽の月",
 
   "item.gensokyoontology.bomb_item": "Bomb Item",
-  "item.gensokyoontology.extra_life": "Extra Life",
+  "item.gensokyoontology.extend_item": "Extend Item",
   "item.gensokyoontology.bomb_fragment": "Bomb Fragment",
   "item.gensokyoontology.life_fragment": "Life Fragment",
 
@@ -136,6 +137,7 @@
   "item.gensokyoontology.satori_eye": "さとりのサードアイ",
   "item.gensokyoontology.koishi_hat": "こいしの帽子",
   "item.gensokyoontology.sakuya_stop_watch": "Sakuya's Stop Watch",
+  "item.gensokyoontology.gap": "Gap",
   "item.gensokyoontology.story_card": "Story Card",
 
   "item.gensokyoontology.yattsume_una_yaki": "八つ目鰻焼き",
@@ -367,5 +369,6 @@
   "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
   "a": "b",
   "block.gensokyoontology.sukima": "隙間",
+  "item.gensokyoontology.extra_life": "Extra Life",
   "item.gensokyoontology.koishi_eye": "こいしのサードアイ"
 }

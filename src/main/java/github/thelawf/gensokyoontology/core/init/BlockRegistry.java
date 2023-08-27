@@ -166,6 +166,8 @@ public final class BlockRegistry {
     /////////////                     实用类方块                          ///////////////
     ///////////////////////////////////////////////////////////////////////////////////
 
+    public static final RegistryObject<Block> ISHI_ZAKURA = BLOCKS.register("ishi_zakura", IshiZakuraBlock::new);
+
     // ============================== 矿石类方块 ================================== //
     public static final RegistryObject<Block> DRAGON_SPHERE_ORE = BLOCKS.register(
             "dragon_sphere_ore", DragonSphereOre::new);

@@ -175,37 +175,46 @@ public final class ItemRegistry {
 
     public static final RegistryObject<BlockItem> MAGIC_LEAVES_ITEM = ITEMS.register(
             "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
-                    new Item.Properties()));
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAGIC_LOG_ITEM = ITEMS.register(
             "magic_log", () -> new BlockItem(BlockRegistry.MAGIC_LOG.get(),
                     new Item.Properties()));
 
     // --------------------------- 草本植物类方块：----------------------------//
-    public static final RegistryObject<Item> BLUE_ROSE_ITEM = ITEMS.register(
+    public static final RegistryObject<BlockItem> BLUE_ROSE_ITEM = ITEMS.register(
             "blue_rose_bush", () -> new BlockItem(BlockRegistry.BLUE_ROSE_BUSH.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<Item> LYCORIS_RADIATA =
+    public static final RegistryObject<BlockItem> LYCORIS_RADIATA =
             ITEMS.register("lycoris_radiata",() -> new BlockItem(
                     BlockRegistry.LYCORIS_RADIATA.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<Item> WASABI = ITEMS.register(
+    public static final RegistryObject<BlockItem> WASABI = ITEMS.register(
             "wasabi", () -> new BlockItem(BlockRegistry.WASABI_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ------------------------------ 蘑菇方块 --------------------------------//
-    public static final RegistryObject<Item> BLUE_MUSHROOM_ITEM = ITEMS.register(
+    public static final RegistryObject<BlockItem> BLUE_MUSHROOM_ITEM = ITEMS.register(
             "blue_mushroom_block", () -> new BlockItem(BlockRegistry.BLUE_MUSHROOM_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<Item> PURPLE_MUSHROOM_ITEM = ITEMS.register(
+    public static final RegistryObject<BlockItem> PURPLE_MUSHROOM_ITEM = ITEMS.register(
             "purple_mushroom_block", () -> new BlockItem(BlockRegistry.PURPLE_MUSHROOM_BLOCK.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    ///////////////////////////////    工艺装饰类方块    //////////////////////////////////
+    public static final RegistryObject<BlockItem> CHIREIDEN_COLORED_GLASS = ITEMS.register(
+            "chireiden_colored_glass", () -> new BlockItem(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：功能性方块 =========================//
     public static final RegistryObject<BlockItem> DANMAKU_TABLE_ITEM = ITEMS.register(
             "danmaku_table", () -> new BlockItem(BlockRegistry.DANMAKU_TABLE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> ISHI_ZAKURA_ITEM = ITEMS.register(
+            "ishi_zakura", () -> new BlockItem(BlockRegistry.ISHI_ZAKURA.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
 
     // ======================= GSKO杂项：道具类物品 =========================//
     // ----------------------- 东方project特殊功能道具 ----------------------//
@@ -382,7 +391,7 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> TALES_SPRING_SNOWS = ITEMS.register(
             "oblivious_tales_spring_snows", () -> new ObliviousTales(new CompoundNBT()));
     public static final RegistryObject<Item> TALES_OCCULT_BALL = ITEMS.register(
-            "oblivious_tale_occult_ball", () -> new ObliviousTales(new CompoundNBT()));
+            "oblivious_tales_occult_ball", () -> new ObliviousTales(new CompoundNBT()));
 
     // Technical Items that will break the game balance: //
     // public static final RegistryObject<Item> REALISM_SWORD = ITEMS.register(
@@ -524,7 +533,7 @@ public final class ItemRegistry {
             "bomb_item", () -> new BombItem(
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    public static final RegistryObject<Item> EXTRA_LIFE_ITEM = ITEMS.register(
+    public static final RegistryObject<Item> EXTEND_ITEM = ITEMS.register(
             "extend_item", () -> new ExtendItem(
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 

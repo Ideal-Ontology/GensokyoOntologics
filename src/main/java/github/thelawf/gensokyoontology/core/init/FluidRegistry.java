@@ -44,7 +44,7 @@ public final class FluidRegistry {
 
     public static final ForgeFlowingFluid.Properties SAKE_WINE_PROPERTIES = new ForgeFlowingFluid.Properties(
             SAKE_WINE_SOURCE, SAKE_WINE_FLOWING, FluidAttributes.builder(SAKE_WINE_STILL_TEX, SAKE_WINE_FLOW_TEX)
-            .color(0x0000FFFF)
+            .color(0xFF8888BB)
             .density(4500)
             .viscosity(3800))
             .bucket(ItemRegistry.SAKE_BUCKET)

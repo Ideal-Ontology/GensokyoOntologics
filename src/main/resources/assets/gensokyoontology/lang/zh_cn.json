@@ -32,7 +32,6 @@
   "gensokyoontology:wind_goddess_lake": "风神之湖",
   "gensokyoontology:gensokyo_plains": "幻想平原",
   "gensokyoontology:gensokyo_forest": "幻想森林",
-
   "gensokyoontology:hakurei_shrine": "博丽神社",
   "gensokyoontology:mystia_izakaya": "米斯蒂娅的烧烤店",
 
@@ -40,6 +39,7 @@
   "itemGroup.gensokyoontology_items": "幻想存有论：物品",
   "itemGroup.gensokyoontology_combat": "幻想存有论：战斗",
 
+  "item.gensokyoontology.sake_bucket": "清酒桶",
   "item.gensokyoontology.hotspring_bucket": "温泉水桶",
   "item.gensokyoontology.wandering_soul": "游荡的灵魂",
   "item.gensokyoontology.washi_paper": "和纸",
@@ -76,7 +76,7 @@
   "item.gensokyoontology.fake_lunar": "虚假之月",
 
   "item.gensokyoontology.bomb_item": "B点",
-  "item.gensokyoontology.extra_life": "Extra Life",
+  "item.gensokyoontology.extend_item": "Extend Item",
   "item.gensokyoontology.bomb_fragment": "B点碎片",
   "item.gensokyoontology.life_fragment": "残机碎片",
 
@@ -137,6 +137,7 @@
   "item.gensokyoontology.satori_eye": "觉的第三只眼",
   "item.gensokyoontology.koishi_hat": "恋恋的帽子",
   "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
+  "item.gensokyoontology.gap": "隙间",
   "item.gensokyoontology.story_card": "故事卡片",
 
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",

@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.client.gui.container;
 
+import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
@@ -11,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,10 +41,10 @@ public class SorceryExtractorContainer extends Container {
 
     private final Inventory ingredientInventory = new Inventory(4);
     private final Inventory resultInventory = new Inventory(1);
-    protected SorceryExtractorContainer(@Nullable ContainerType<?> type, int id, PlayerEntity player, IItemHandler playerInventory) {
-        super(type, id);
+    public SorceryExtractorContainer(int id, PlayerInventory playerInventory, PlayerEntity player) {
+        super(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(), id);
         this.player = player;
-        this.playerInventory = playerInventory;
+        this.playerInventory = new InvWrapper(playerInventory);
 
         addSlot(new Slot(this.ingredientInventory, 0, 46, 3));
         addSlot(new Slot(this.ingredientInventory, 1, 1, 47));
@@ -115,6 +118,11 @@ public class SorceryExtractorContainer extends Container {
     private boolean matches(IInventory inventory, List<ItemStack> recipes) {
         int totalCount = 0;
         int matchCount = 0;
+        //for (int i = 0; i < recipes.size()-1; i++) {
+        //    if (recipes.get(i).hasTag()) {
+        //
+        //    }
+        //}
         for (int i = 0; i < 4; i++) {
             if (!recipes.get(i).equals(ItemStack.EMPTY)) {
                 totalCount++;

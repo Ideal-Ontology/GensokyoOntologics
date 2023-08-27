@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology;
 
+import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
+import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
 import github.thelawf.gensokyoontology.common.CommonSetUp;
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
@@ -26,6 +28,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import org.apache.http.cookie.SM;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -128,6 +131,8 @@ public class GensokyoOntology {
 
                 ScreenManager.registerFactory(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(),
                         DanmakuCraftingScreen::new);
+                ScreenManager.registerFactory(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(),
+                        SorceryExtractorScreen::new);
             });
 
         }

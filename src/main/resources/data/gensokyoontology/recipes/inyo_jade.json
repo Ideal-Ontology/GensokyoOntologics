@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "gensokyoontology:dark_spirit"
+    },
+    {
+      "item": "gensokyoontology:light_spirit"
+    }
+  ],
+  "result": {
+    "item": "gensokyoontology:inyo_jade_black",
+    "count": 1
+  }
+}
