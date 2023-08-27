@@ -199,8 +199,11 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
             "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));
 
+    /// 方块实体
     public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register(
             "danmaku_table", DanmakuTableBlock::new);
+    public static final RegistryObject<Block> SORCERY_EXTRACTOR = BLOCKS.register(
+            "socery_extractor", SorceryExtractorBlock::new);
 
     public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
             "space_fissure_block", SpaceFissureBlock::new);

@@ -20,6 +20,9 @@ public final class TileEntityTypeRegistry {
     public static final RegistryObject<TileEntityType<GapTileEntity>> SUKIMA_TILE_ENTITY =
             TILE_ENTITIES.register("sukima_tileentity", () -> TileEntityType.Builder.create(
                     GapTileEntity::new, BlockRegistry.GAP_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<SorceryExtractorTileEntity>> SORCERY_EXTRACTOR_TILE_ENTITY =
+            TILE_ENTITIES.register("sorcery_tileentity", () -> TileEntityType.Builder.create(
+                    SorceryExtractorTileEntity::new, BlockRegistry.SORCERY_EXTRACTOR.get()).build(null));
 
     public static final RegistryObject<TileEntityType<ComputerTileEntity>> COMPUTER_TILE_ENTITY =
             TILE_ENTITIES.register("computer_tileentity", () -> TileEntityType.Builder.create(
