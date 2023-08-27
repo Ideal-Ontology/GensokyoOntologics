@@ -211,6 +211,9 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> DANMAKU_TABLE_ITEM = ITEMS.register(
             "danmaku_table", () -> new BlockItem(BlockRegistry.DANMAKU_TABLE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> SORCERY_EXTRACTOR_ITEM = ITEMS.register(
+            "sorcery_extractor", () -> new BlockItem(BlockRegistry.SORCERY_EXTRACTOR.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ISHI_ZAKURA_ITEM = ITEMS.register(
             "ishi_zakura", () -> new BlockItem(BlockRegistry.ISHI_ZAKURA.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
