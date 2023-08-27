@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 
 public enum GSKOArmorMaterial implements IArmorMaterial {
     EMPATHY("empathy", 41, 10, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,
-            5.0F, 0.4F, () -> Ingredient.fromItems(ItemRegistry.KOISHI_EYE.get())),
+            5.0F, 0.4F, () -> Ingredient.fromItems(ItemRegistry.KOISHI_EYE_OPEN.get())),
     ;
 
     GSKOArmorMaterial(String name, int maxDamageFactor, int enchantability,

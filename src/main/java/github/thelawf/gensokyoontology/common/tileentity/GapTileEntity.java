@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
+import github.thelawf.gensokyoontology.common.util.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
@@ -7,21 +8,20 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
-public class SukimaTileEntity extends TileEntity implements ITickableTileEntity {
+public class GapTileEntity extends TileEntity implements ITickableTileEntity {
 
-    private BlockPos prevPos;
-    private BlockPos nextPos;
+    private BlockPos destinationPos;
+    private RegistryKey<World> destinationWorld;
 
-    public SukimaTileEntity() {
+    public GapTileEntity() {
         super(TileEntityTypeRegistry.SUKIMA_TILE_ENTITY.get());
     }
 
@@ -53,18 +53,39 @@ public class SukimaTileEntity extends TileEntity implements ITickableTileEntity 
 
     @Override
     public void read(BlockState state, CompoundNBT nbt) {
-
         super.read(state, nbt);
+        if (nbt.contains("DestinationPos")) {
+            this.destinationPos = BlockPos.fromLong(nbt.getLong("DestinationPos"));
+        }
+        if (nbt.contains("DestinationWorld")) {
+            this.destinationWorld = GSKOWorldUtil.getWorldDimension(new ResourceLocation(
+                    nbt.getString("DestinationWorld")));
+        }
     }
 
     @Override
     @Nonnull
     public CompoundNBT write(CompoundNBT compound) {
-        int[] previous = {prevPos.getX(), prevPos.getY(), prevPos.getZ()};
-        int[] next = {nextPos.getX(), nextPos.getY(), nextPos.getZ()};
-        compound.putIntArray("prevPos", Arrays.stream(previous).toArray());
-        compound.putIntArray("nextPos", Arrays.stream(next).toArray());
+        compound.putString("DestinationWorld", this.destinationWorld.getLocation().toString());
+        compound.putLong("DestinationPos", this.destinationPos.toLong());
         markDirty();
-        return super.write(compound);
+        return compound;
     }
+
+    public void setDestinationPos(BlockPos destinationPos) {
+        this.destinationPos = destinationPos;
+    }
+
+    public void setDestinationWorld(RegistryKey<World> destinationWorld) {
+        this.destinationWorld = destinationWorld;
+    }
+
+    public BlockPos getDestinationPos() {
+        return destinationPos;
+    }
+
+    public RegistryKey<World> getDestinationWorld() {
+        return destinationWorld;
+    }
+
 }

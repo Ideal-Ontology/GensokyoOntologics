@@ -32,7 +32,7 @@ public class GSKOEntityLoot extends EntityLootTables {
     public static final LootTable.Builder KOISHI_LOOT = LootTable.builder()
             .addLootPool(LootPool.builder()
                     .rolls(ConstantRange.of(1))
-                    .addEntry(ItemLootEntry.builder(ItemRegistry.KOISHI_EYE.get()))
+                    .addEntry(ItemLootEntry.builder(ItemRegistry.KOISHI_EYE_OPEN.get()))
                     .acceptCondition(KilledByPlayer.builder()));
 
     public static final LootTable.Builder YUKARI_LOOT = LootTable.builder();

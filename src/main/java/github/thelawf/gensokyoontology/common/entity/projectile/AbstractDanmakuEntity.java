@@ -122,15 +122,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         if (this.getSpellData() != null) {
             compound.putString("SpellData", SerializerRegistry.SPELL_DATA.getId().toString());
         }
-        // compound.putIntArray("key_transforms", this.spellData.vectorOperations);
-        //compound.putIntArray("keyTicks", this.spellData.keyTransforms);
-        // compound.putDouble("yaw",this.function.yaw);
-        // compound.putDouble("roll", this.function.roll);
-        // compound.putDouble("pitch", this.function.pitch);
-        // compound.putDouble("scaling", this.function.scaling);
-        // compound.putDouble("acceleration_x",this.function.acceleration.x);
-        // compound.putDouble("acceleration_y", this.function.acceleration.y);
-        // compound.putDouble("acceleration_z", this.function.acceleration.z);
     }
 
     @Override

@@ -19,8 +19,7 @@ public class GSKOClientListener {
     @SubscribeEvent
     public void onTerrainGUIOpen(GuiOpenEvent event) {
         if (event.getGui() instanceof DownloadTerrainScreen && this.mc.player != null) {
-            RegistryKey<World> gensokyo = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, GSKODimensions.GENSOKYO_TYPE.getLocation());
-            if (this.mc.player.getEntityWorld().getDimensionKey() == gensokyo) {
+            if (this.mc.player.getEntityWorld().getDimensionKey() == GSKODimensions.GENSOKYO) {
                 GensokyoLoadingScreen guiLoading = new GensokyoLoadingScreen(NarratorChatListener.EMPTY);
                 event.setGui(guiLoading);
             }

@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.cyber.ComputerBlock;
 import github.thelawf.gensokyoontology.common.block.cyber.HashLeaves;
+import github.thelawf.gensokyoontology.common.block.decoration.ChireitenColoredGlassBlock;
 import github.thelawf.gensokyoontology.common.block.nature.*;
 import github.thelawf.gensokyoontology.common.block.ore.*;
 import github.thelawf.gensokyoontology.common.world.feature.tree.MapleTree;
@@ -157,6 +158,10 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> WASABI_BLOCK = BLOCKS.register(
             "wasabi", WasabiBlock::new);
 
+    /////////////////////////////     工艺装饰类方块     ////////////////////////////////
+    public static final RegistryObject<GlassBlock> CHIREIDEN_COLORED_GLASS = BLOCKS.register(
+            "chireiden_colored_glass", ChireitenColoredGlassBlock::new);
+
     ///////////////////////////////////////////////////////////////////////////////////
     /////////////                     实用类方块                          ///////////////
     ///////////////////////////////////////////////////////////////////////////////////
@@ -198,8 +203,8 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
             "space_fissure_block", SpaceFissureBlock::new);
 
-    public static final RegistryObject<Block> SUKIMA_BLOCK = BLOCKS.register("sukima",
-            SukimaBlock::new);
+    public static final RegistryObject<Block> GAP_BLOCK = BLOCKS.register("gap",
+            GapBlock::new);
 
     //======================= ↓ The Mod Cyber Statistics ↓ ==================//
     public static final RegistryObject<Block> HASH_LOG = BLOCKS.register("hash_log",

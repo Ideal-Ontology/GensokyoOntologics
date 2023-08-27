@@ -217,18 +217,22 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
             "sakuya_stop_watch", () -> new SakuyaStopWatch(new Item.Properties()));
-
-    public static final RegistryObject<BlockItem> SUKIMA_BLOCK_ITEM = ITEMS.register("sukima",
-            () -> new BlockItem(BlockRegistry.SUKIMA_BLOCK.get(), new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register("aya_fans",
             () -> new AyaFans(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<KoishiEye> KOISHI_EYE = ITEMS.register(
-            "koishi_eye", () -> new KoishiEye(new Item.Properties()
+    public static final RegistryObject<GapItem> GAP_ITEM = ITEMS.register("gap",
+            () -> new GapItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<KoishiEyeOpen> KOISHI_EYE_OPEN = ITEMS.register(
+            "koishi_eye_open", () -> new KoishiEyeOpen(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<KoishiEyeClosed> KOISHI_EYE_CLOSED = ITEMS.register(
+            "koishi_eye_closed", () -> new KoishiEyeClosed(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ArmorItem> KOISHI_HAT = ITEMS.register(
             "koishi_hat", () -> new ArmorItem(GSKOArmorMaterial.EMPATHY,
                     EquipmentSlotType.HEAD, (new Item.Properties())));
+    public static final RegistryObject<SatoriEye> SATORI_EYE = ITEMS.register(
+            "satori_eye", () -> new SatoriEye(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<SpiritTube> SPIRIT_TUBE = ITEMS.register(
             "spirit_tube", () -> new SpiritTube(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -284,6 +288,7 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> CRIMSON_METAL_FRAGMENT = ITEMS.register("crimson_metal_fragment",
             () -> new CrimsonMetalFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    ////////////////////////////////////  各个等级的玉石  ///////////////////////////////////////
     public static final RegistryObject<Item> JADE_LEVEL_B = ITEMS.register("jade_level_b",
             () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> JADE_LEVEL_A = ITEMS.register("jade_level_a",
@@ -296,6 +301,11 @@ public final class ItemRegistry {
             () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> ORB_JADE = ITEMS.register("orb_jade",
             () -> new OrbJade(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> DARK_SPIRIT = ITEMS.register("dark_spirit",
+            () -> new DarkSpirit(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> LIGHT_SPIRIT = ITEMS.register("light_spirit",
+            () -> new LightSpirit(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     // ---------------------------- 食物原材料 -----------------------------//
     public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register(
             "kitchen_knife", KitchenKnife::new);
@@ -370,7 +380,7 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> TALES_SCARLET_MIST = ITEMS.register(
             "oblivious_tales_scarlet_mist", () -> new ObliviousTales(new CompoundNBT()));
     public static final RegistryObject<Item> TALES_SPRING_SNOWS = ITEMS.register(
-            "oblivious_tales_spring_tales", () -> new ObliviousTales(new CompoundNBT()));
+            "oblivious_tales_spring_snows", () -> new ObliviousTales(new CompoundNBT()));
     public static final RegistryObject<Item> TALES_OCCULT_BALL = ITEMS.register(
             "oblivious_tale_occult_ball", () -> new ObliviousTales(new CompoundNBT()));
 
@@ -407,7 +417,7 @@ public final class ItemRegistry {
 
     public static final RegistryObject<SC_IdoNoKaiho> SC_IDO_NO_KAIHO = ITEMS.register(
             "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB), 600));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), 600));
 
     public static final RegistryObject<SC_SpiralWheel> SC_SPIRAL_WHEEL = ITEMS.register(
             "sc_spiral_wheel", () -> new SC_SpiralWheel(new Item.Properties()
@@ -515,7 +525,7 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> EXTRA_LIFE_ITEM = ITEMS.register(
-            "extra_life", () -> new ExtraLifeItem(
+            "extend_item", () -> new ExtendItem(
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     // +++++++++++++++++++++++++++ Deprecated Items +++++++++++++++++++++++//
