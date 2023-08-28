@@ -11,7 +11,7 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 
-public class FeatureRegistry {
+public final class FeatureRegistry {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(
             ForgeRegistries.FEATURES, GensokyoOntology.MODID);
 

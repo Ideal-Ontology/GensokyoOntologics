@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * 种子：3761463330874600349
  */
-public class StructureRegistry {
+public final class StructureRegistry {
     public static final DeferredRegister<Structure<?>> STRUCTURES = DeferredRegister.create(
             ForgeRegistries.STRUCTURE_FEATURES, GensokyoOntology.MODID);
 
