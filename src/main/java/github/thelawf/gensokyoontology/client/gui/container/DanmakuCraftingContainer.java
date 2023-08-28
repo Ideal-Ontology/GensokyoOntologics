@@ -200,7 +200,6 @@ public class DanmakuCraftingContainer extends Container {
             x += dx;
             index++;
         }
-
         return index;
     }
 
@@ -226,7 +225,6 @@ public class DanmakuCraftingContainer extends Container {
             index = addSlotRange(inventory, index, x, y, horAmount, dx);
             y += dy;
         }
-
     }
 
     private void layoutPlayerInventorySlots(int leftCol, int topRow) {
