@@ -1,73 +1,57 @@
 package github.thelawf.gensokyoontology.client.gui.container;
 
+import github.thelawf.gensokyoontology.common.util.GSKOGUIUtil;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 各个槽位的位置：<br>
- * 上方槽位：(46, 3)<br>
- * 左边槽位：(1, 47)<br>
- * 【合成结果槽位】中间槽位：(46, 47)<br>
- * 右边槽位：(91, 47)<br>
- * 下方槽位：(46, 92)<br>
+ * 上方槽位：(71, 4)<br>
+ * 左边槽位：(26, 48)<br>
+ * 【合成结果槽位】中间槽位：(71, 48)<br>
+ * 右边槽位：(116, 48)<br>
+ * 下方槽位：(71, 93)<br>
  */
 public class SorceryExtractorContainer extends Container {
     private final PlayerEntity player;
     private final IItemHandler playerInventory;
 
     //public static final Logger LOGGER = LogManager.getLogger();
-    public List<List<ItemStack>> recipes = new ArrayList<>();
+    public static final List<List<ItemStack>> RECIPES = GSKOGUIUtil.makeRecipes();
 
     private final IWorldPosCallable POS_CALLABLE = IWorldPosCallable.DUMMY;
 
-    private List<ItemStack> prevStacks = new ArrayList<>();
-
-    private final Inventory ingredientInventory = new Inventory(4);
+    private final Inventory ingredientInventory = new Inventory(5);
     private final Inventory resultInventory = new Inventory(1);
     public SorceryExtractorContainer(int id, PlayerInventory playerInventory, PlayerEntity player) {
         super(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(), id);
         this.player = player;
         this.playerInventory = new InvWrapper(playerInventory);
 
-        addPlayerInventorySlots(0, 119);
+        addPlayerInventorySlots(0, 120);
 
-        addSlot(new Slot(this.ingredientInventory, 0, 46, 3));
-        addSlot(new Slot(this.ingredientInventory, 1, 1, 47));
-        addSlot(new Slot(this.ingredientInventory, 2, 91, 47));
-        addSlot(new Slot(this.ingredientInventory, 3, 46, 92));
-        addResultSlot(this.resultInventory, 4, 46, 47);
+        addSlot(new Slot(this.ingredientInventory, 0, 71, 4));
+        addSlot(new Slot(this.ingredientInventory, 1, 26, 48));
+        addSlot(new Slot(this.ingredientInventory, 2, 116, 48));
+        addSlot(new Slot(this.ingredientInventory, 3, 71, 93));
+        addResultSlot(this.resultInventory, 4, 71, 48);
 
-        this.recipes.add(createRecipe(
-                new ItemStack(ItemRegistry.ORB_JADE.get()),
-                new ItemStack(ItemRegistry.TALES_SCARLET_MIST.get()),
-                ItemStack.EMPTY,
-                ItemStack.EMPTY,
-                new ItemStack(ItemRegistry.SORCERY_SCARLET_MIST.get())));
-
-        this.recipes.add(createRecipe(
-                new ItemStack(Items.ENDER_EYE),
-                new ItemStack(ItemRegistry.GITSUNE_TUBE_FULL.get()),
-                new ItemStack(ItemRegistry.TALES_OCCULT_BALL.get()),
-                ItemStack.EMPTY,
-                new ItemStack(ItemRegistry.SORCERY_SCARLET_MIST.get())));
     }
 
     @Override
@@ -84,9 +68,14 @@ public class SorceryExtractorContainer extends Container {
     @Override
     public void onCraftMatrixChanged(IInventory inventoryIn) {
         super.onCraftMatrixChanged(inventoryIn);
-        for (List<ItemStack> recipe : this.recipes) {
+
+
+        Logger logger = LogManager.getLogger();
+        logger.info(this.resultInventory.getStackInSlot(0));
+
+        for (List<ItemStack> recipe : RECIPES) {
             if (matches(this.ingredientInventory, recipe)) {
-                this.resultInventory.setInventorySlotContents(0, recipe.get(4));
+                this.resultInventory.setInventorySlotContents(0, recipe.get(recipe.size()-1));
             }
         }
     }
@@ -107,18 +96,8 @@ public class SorceryExtractorContainer extends Container {
         });
     }
 
-    public static List<ItemStack> createRecipe(ItemStack upSlot, ItemStack leftSlot,
-                                        ItemStack rightSlot, ItemStack downSlot, ItemStack result) {
-        List<ItemStack> stacks = new ArrayList<>();
-        stacks.add(upSlot);
-        stacks.add(leftSlot);
-        stacks.add(rightSlot);
-        stacks.add(downSlot);
-        stacks.add(result);
-        return stacks;
-    }
-
     private boolean matches(IInventory inventory, List<ItemStack> recipes) {
+
         int totalCount = 0;
         int matchCount = 0;
         //for (int i = 0; i < recipes.size()-1; i++) {
@@ -132,7 +111,7 @@ public class SorceryExtractorContainer extends Container {
             }
         }
         for (int i = 0; i < 4; i++) {
-            if (inventory.getStackInSlot(i).equals(recipes.get(i))) {
+            if (inventory.getStackInSlot(i).equals(recipes.get(recipes.size()-1))) {
                 matchCount++;
             }
         }
@@ -162,4 +141,53 @@ public class SorceryExtractorContainer extends Container {
         yStart += 58;
         addSlotRange(playerInventory, 0, xStart, yStart, 9, 18);
     }
+
+    @Override
+    @NotNull
+    public ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+        if (slot != null && slot.getHasStack()) {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            if (index == 0) {
+
+                if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
+                    return ItemStack.EMPTY;
+                }
+
+                slot.onSlotChange(itemstack1, itemstack);
+            } else if (index >= 10 && index < 46) {
+                if (!this.mergeItemStack(itemstack1, 1, 10, false)) {
+                    if (index < 37) {
+                        if (!this.mergeItemStack(itemstack1, 37, 46, false)) {
+                            return ItemStack.EMPTY;
+                        }
+                    } else if (!this.mergeItemStack(itemstack1, 10, 37, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+            } else if (!this.mergeItemStack(itemstack1, 10, 46, false)) {
+                return ItemStack.EMPTY;
+            }
+
+            if (itemstack1.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
+            } else {
+                slot.onSlotChanged();
+            }
+
+            if (itemstack1.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
+            }
+
+            ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
+            if (index == 0) {
+                playerIn.dropItem(itemstack2, false);
+            }
+        }
+
+        return itemstack;
+    }
 }
+

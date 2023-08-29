@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.data.recipe;
 
-import github.thelawf.gensokyoontology.common.item.tools.KitchenKnife;
+import github.thelawf.gensokyoontology.common.item.touhou.KitchenKnife;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.ICraftingRecipe;

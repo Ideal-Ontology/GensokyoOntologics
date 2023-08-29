@@ -10,6 +10,7 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.FurnaceContainer;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IWorldPosCallable;
@@ -64,7 +65,6 @@ public class DanmakuCraftingContainer extends Container {
         addSlotBox(this.craftingMatrix, 0, 16, 21,5,5,18,18);
         addResultSlots();
         // addIngredientSlots();
-
     }
 
     @Override

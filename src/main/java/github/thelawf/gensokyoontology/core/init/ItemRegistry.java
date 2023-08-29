@@ -10,7 +10,7 @@ import github.thelawf.gensokyoontology.common.item.ore.CrimsonMetalIngot;
 import github.thelawf.gensokyoontology.common.item.ore.JadeItem;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
-import github.thelawf.gensokyoontology.common.item.tools.*;
+import github.thelawf.gensokyoontology.common.item.touhou.*;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;

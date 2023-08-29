@@ -1,19 +1,24 @@
 {
   "type": "minecraft:crafting_shaped",
-  "ingredients": [
-    {
-      "item": "gensokyoontology:life_fragment"
-    },
-    {
-      "item": "gensokyoontology:life_fragment"
-    },
-    {
-      "item": "gensokyoontology:life_fragment"
-    },
-    {
-      "item": "gensokyoontology:life_fragment"
-    }
+  "pattern": [
+    "###",
+    "XOX",
+    "AAA"
   ],
+  "key": {
+    "#": {
+      "tag": "minecraft:planks"
+    },
+    "A": {
+      "item": "minecraft:quartz_slab"
+    },
+    "X": {
+      "item": "minecraft:obsidian"
+    },
+    "O": {
+      "item": "minecraft:lapis_lazuli"
+    }
+  },
   "result": {
     "item": "gensokyoontology:danmaku_table",
     "count": 1

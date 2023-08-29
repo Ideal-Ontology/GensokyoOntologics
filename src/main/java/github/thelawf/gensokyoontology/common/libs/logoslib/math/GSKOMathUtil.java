@@ -403,6 +403,19 @@ public class GSKOMathUtil {
         return new Vector3d(0, y, Math.tan(pitch) * y);
     }
 
+    public static Vector3d vecCeil(Vector3d vec) {
+        return new Vector3d(
+                Math.ceil(vec.getX()),
+                Math.ceil(vec.getY()),
+                Math.ceil(vec.getZ()));
+    }
+
+    public static Vector3d vecFloor (Vector3d vec) {
+        return new Vector3d(
+                Math.floor(vec.getX()),
+                Math.floor(vec.getY()),
+                Math.floor(vec.getZ()));
+    }
 
     public static int randomRange(int min, int max) {
         return new Random().nextInt(max - min + 1) + min;

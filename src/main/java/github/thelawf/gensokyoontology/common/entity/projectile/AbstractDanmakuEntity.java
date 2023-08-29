@@ -131,7 +131,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         this.dataManager.register(DATA_COLOR, this.danmakuColor);
     }
 
-
     @Override
     @Nonnull
     public IPacket<?> createSpawnPacket() {
@@ -176,9 +175,8 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
             return;
         }
 
-        Logger logger = LogManager.getLogger();
-        logger.info("Hit Result:" +
-                (result.getEntity() instanceof AbstractDanmakuEntity));
+        //Logger logger = LogManager.getLogger();
+
         LivingEntity entityHit = (LivingEntity) result.getEntity();
         if (!(entityHit instanceof PlayerEntity)) {
             entityHit.attackEntityFrom(GSKODamageSource.DANMAKU, this.damage);
