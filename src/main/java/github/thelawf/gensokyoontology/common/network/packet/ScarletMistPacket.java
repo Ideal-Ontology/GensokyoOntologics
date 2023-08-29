@@ -9,15 +9,15 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.function.Supplier;
 
-public class BloodyMistPacket {
+public class ScarletMistPacket {
     private final int color;
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public BloodyMistPacket(PacketBuffer buf) {
+    public ScarletMistPacket(PacketBuffer buf) {
         this.color = buf.readInt();
     }
 
-    public BloodyMistPacket(int color) {
+    public ScarletMistPacket(int color) {
         this.color = color;
     }
 

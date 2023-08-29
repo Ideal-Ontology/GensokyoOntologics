@@ -9,7 +9,7 @@ import net.minecraftforge.client.MinecraftForgeClient;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class BloodySkyRenderer implements ISkyRenderHandler {
+public class ScarletSkyRenderer implements ISkyRenderHandler {
     @Override
     @SuppressWarnings("deprecation")
     public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc) {

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.renderer.block;
+package github.thelawf.gensokyoontology.client.renderer.tileentity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -17,7 +17,7 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 
 public class SpaceFissureRenderer extends TileEntityRenderer<SpaceFissureTileEntity> {
     public static final ResourceLocation SPACE_FISSURE_TEX = new ResourceLocation(
-            GensokyoOntology.MODID,"block/space_fissure_block");
+            GensokyoOntology.MODID,"tileentity/space_fissure_block");
 
     public SpaceFissureRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);

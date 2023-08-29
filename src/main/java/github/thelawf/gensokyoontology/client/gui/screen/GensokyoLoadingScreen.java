@@ -18,7 +18,7 @@ public class GensokyoLoadingScreen extends Screen {
     private final int height;
 
     public static final ResourceLocation GSKO_LOADING_TEXTURE = new ResourceLocation(
-            "minecraft", "textures/block/chiseled_stone_bricks"
+            "minecraft", "textures/tileentity/chiseled_stone_bricks"
     );
 
     public static final ResourceLocation INYO_JADE_TEXTURE = new ResourceLocation(

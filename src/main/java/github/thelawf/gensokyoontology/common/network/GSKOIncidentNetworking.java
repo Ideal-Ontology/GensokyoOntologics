@@ -1,19 +1,22 @@
 package github.thelawf.gensokyoontology.common.network;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.network.packet.BloodyMistPacket;
+import github.thelawf.gensokyoontology.common.network.packet.ScarletMistPacket;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.NetworkSystem;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
 
 public class GSKOIncidentNetworking {
 
     public static SimpleChannel BLOODY_MIST;
-    public static SimpleChannel ETERNAL_NIGHT;
+    public static SimpleChannel IMPERISHABLE_NIGHT;
     public static SimpleChannel BANQUET_INCIDENT;
     public static SimpleChannel FANTASY_FADING;
     public static final String VERSION_BLOODY_MIST = "1.1.0";
-    public static final String VERSION_ETERNAL_NIGHT = "2.1.0";
+    public static final String VERSION_IMPERISHABLE_NIGHT = "2.1.0";
     public static final String VERSION_BANQUET = "3.1.0";
     public static final String VERSION_FANTASY_FADING = "514.1.0";
     private static int ID = 0;
@@ -29,11 +32,11 @@ public class GSKOIncidentNetworking {
                 (version) -> version.equals(VERSION_BLOODY_MIST),
                 (version) -> version.equals(VERSION_BLOODY_MIST));
 
-        // ETERNAL_NIGHT = NetworkRegistry.newSimpleChannel(
-        //         new ResourceLocation(GensokyoOntology.MODID, "eternal_night_incident"),
-        //         () -> VERSION_ETERNAL_NIGHT,
-        //         (version) -> version.equals(VERSION_ETERNAL_NIGHT),
-        //         (version) -> version.equals(VERSION_ETERNAL_NIGHT));
+        IMPERISHABLE_NIGHT = NetworkRegistry.newSimpleChannel(
+                new ResourceLocation(GensokyoOntology.MODID, "imperishable_night_incident"),
+                () -> VERSION_IMPERISHABLE_NIGHT,
+                (version) -> version.equals(VERSION_IMPERISHABLE_NIGHT),
+                (version) -> version.equals(VERSION_IMPERISHABLE_NIGHT));
 //
         // BANQUET_INCIDENT = NetworkRegistry.newSimpleChannel(
         //         new ResourceLocation(GensokyoOntology.MODID, "banquet_incident"),
@@ -47,10 +50,10 @@ public class GSKOIncidentNetworking {
         //         (version) -> version.equals(VERSION_FANTASY_FADING),
         //         (version) -> version.equals(VERSION_FANTASY_FADING));
 
-        BLOODY_MIST.messageBuilder(BloodyMistPacket.class, nextId())
-                .encoder(BloodyMistPacket::toBytes)
-                .decoder(BloodyMistPacket::new)
-                .consumer(BloodyMistPacket::handler)
+        BLOODY_MIST.messageBuilder(ScarletMistPacket.class, nextId())
+                .encoder(ScarletMistPacket::toBytes)
+                .decoder(ScarletMistPacket::new)
+                .consumer(ScarletMistPacket::handler)
                 .add();
     }
 }

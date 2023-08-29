@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.renderer.block;
+package github.thelawf.gensokyoontology.client.renderer.tileentity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;

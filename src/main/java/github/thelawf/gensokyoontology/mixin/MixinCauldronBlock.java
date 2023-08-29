@@ -90,7 +90,7 @@ public class MixinCauldronBlock extends Block{
         ci.cancel();
     }
 
-    // @Redirect(method = "onBlockActivated", at = @At(value = "INVOKE", target = "Lnet/minecraft/block/CauldronBlock;onBlockActivated(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/Direction;FFF)Z"))
+    // @Redirect(method = "onBlockActivated", at = @At(value = "INVOKE", target = "Lnet/minecraft/tileentity/CauldronBlock;onBlockActivated(Lnet/minecraft/tileentity/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/entity/player/PlayerEntity;Lnet/minecraft/util/Hand;Lnet/minecraft/util/math/Direction;FFF)Z"))
     // private ActionResultType redirectToOnBlockClick(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn,
     //                                     BlockRayTraceResult hit) {
     //     return onBlockRightClick(state, worldIn, pos, player, handIn, hit);

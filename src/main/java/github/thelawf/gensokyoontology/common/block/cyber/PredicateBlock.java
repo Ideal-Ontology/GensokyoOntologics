@@ -1,7 +1,7 @@
 /*
-package github.thelawf.gensokyoontology.common.block.cyber;
+package github.thelawf.gensokyoontology.common.tileentity.cyber;
 
-import net.minecraft.block.*;
+import net.minecraft.tileentity.*;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.Property;

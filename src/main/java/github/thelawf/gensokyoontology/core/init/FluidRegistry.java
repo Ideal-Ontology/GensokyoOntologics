@@ -12,8 +12,8 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public final class FluidRegistry {
-    public static final ResourceLocation STILL_HOTSPRING_TEX = new ResourceLocation("block/water_still");
-    public static final ResourceLocation FLOW_HOTSPRING_TEX = new ResourceLocation("block/water_flow");
+    public static final ResourceLocation STILL_HOTSPRING_TEX = new ResourceLocation("tileentity/water_still");
+    public static final ResourceLocation FLOW_HOTSPRING_TEX = new ResourceLocation("tileentity/water_flow");
 
     public static final ResourceLocation SAKE_WINE_STILL_TEX = STILL_HOTSPRING_TEX;
     public static final ResourceLocation SAKE_WINE_FLOW_TEX = FLOW_HOTSPRING_TEX;
