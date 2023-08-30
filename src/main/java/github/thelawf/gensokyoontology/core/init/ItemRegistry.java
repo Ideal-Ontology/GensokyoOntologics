@@ -233,6 +233,9 @@ public final class ItemRegistry {
             () -> new AyaFans(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<GapItem> GAP_ITEM = ITEMS.register("gap",
             () -> new GapItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
+            "eiri_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<KoishiEyeOpen> KOISHI_EYE_OPEN = ITEMS.register(
             "koishi_eye_open", () -> new KoishiEyeOpen(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -452,26 +455,38 @@ public final class ItemRegistry {
     /////////////////////////// 所有颜色的大弹 ////////////////////////////////
     public static final RegistryObject<Item> LARGE_SHOT_RED = ITEMS.register(
             "large_shot_red", () -> new LargeShot(DanmakuType.LARGE_SHOT));
+    public static final RegistryObject<Item> LARGE_SHOT_ORANGE = ITEMS.register(
+            "large_shot_orange", () -> new LargeShot(DanmakuType.LARGE_SHOT));
     public static final RegistryObject<Item> LARGE_SHOT_YELLOW = ITEMS.register(
             "large_shot_yellow", () -> new LargeShot(DanmakuType.LARGE_SHOT));
     public static final RegistryObject<Item> LARGE_SHOT_GREEN = ITEMS.register(
             "large_shot_green", () -> new LargeShot(DanmakuType.LARGE_SHOT));
+    public static final RegistryObject<Item> LARGE_SHOT_AQUA = ITEMS.register(
+            "large_shot_aqua", () -> new LargeShot(DanmakuType.LARGE_SHOT));
     public static final RegistryObject<Item> LARGE_SHOT_BLUE = ITEMS.register(
             "large_shot_blue", () -> new LargeShot(DanmakuType.LARGE_SHOT));
     public static final RegistryObject<Item> LARGE_SHOT_PURPLE = ITEMS.register(
             "large_shot_purple", () -> new LargeShot(DanmakuType.LARGE_SHOT));
+    public static final RegistryObject<Item> LARGE_SHOT_MAGENTA = ITEMS.register(
+            "large_shot_magenta", () -> new LargeShot(DanmakuType.LARGE_SHOT));
 
     /////////////////////////// 所有颜色的小弹 ////////////////////////////////
     public static final RegistryObject<Item> SMALL_SHOT_RED = ITEMS.register(
             "small_shot_red", () -> new SmallShot(DanmakuType.SMALL_SHOT));
+    public static final RegistryObject<Item> SMALL_SHOT_ORANGE = ITEMS.register(
+            "small_shot_orange", () -> new SmallShot(DanmakuType.SMALL_SHOT));
     public static final RegistryObject<Item> SMALL_SHOT_YELLOW = ITEMS.register(
             "small_shot_yellow", () -> new SmallShot(DanmakuType.SMALL_SHOT));
     public static final RegistryObject<Item> SMALL_SHOT_GREEN = ITEMS.register(
             "small_shot_green", () -> new SmallShot(DanmakuType.SMALL_SHOT));
+    public static final RegistryObject<Item> SMALL_SHOT_AQUA = ITEMS.register(
+            "small_shot_aqua", () -> new SmallShot(DanmakuType.SMALL_SHOT));
     public static final RegistryObject<Item> SMALL_SHOT_BLUE = ITEMS.register(
             "small_shot_blue", () -> new SmallShot(DanmakuType.SMALL_SHOT));
     public static final RegistryObject<Item> SMALL_SHOT_PURPLE = ITEMS.register(
             "small_shot_purple", () -> new SmallShot(DanmakuType.SMALL_SHOT));
+    public static final RegistryObject<Item> SMALL_SHOT_MAGENTA = ITEMS.register(
+            "small_shot_magenta", () -> new SmallShot(DanmakuType.SMALL_SHOT));
 
     ////////////////////////////// 所有颜色的心弹  /////////////////////////////////
     public static final RegistryObject<Item> HEART_SHOT_PINK = ITEMS.register(

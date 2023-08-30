@@ -47,10 +47,15 @@ public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAs
         IItemProvider item = null;
         switch (getDanmakuColor()) {
             case RED:
+                item = ItemRegistry.LARGE_SHOT_RED.get();
+                break;
+            case ORANGE:
+                item = ItemRegistry.LARGE_SHOT_ORANGE.get();
+                break;
             case NONE:
             case PINK:
             case AQUA:
-                item = ItemRegistry.LARGE_SHOT_RED.get();
+                item = ItemRegistry.LARGE_SHOT_AQUA.get();
                 break;
             case YELLOW:
                 item = ItemRegistry.LARGE_SHOT_YELLOW.get();
@@ -63,6 +68,9 @@ public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAs
                 break;
             case PURPLE:
                 item = ItemRegistry.LARGE_SHOT_PURPLE.get();
+                break;
+            case MAGENTA:
+                item = ItemRegistry.LARGE_SHOT_MAGENTA.get();
                 break;
         }
 

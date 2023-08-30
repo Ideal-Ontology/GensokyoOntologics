@@ -39,10 +39,17 @@ public class SmallShotEntity extends AbstractDanmakuEntity{
         
         switch (getDanmakuColor()) {
             case RED:
+                item = ItemRegistry.SMALL_SHOT_RED.get();
+                break;
             case AQUA:
+                item = ItemRegistry.SMALL_SHOT_AQUA.get();
+                break;
             case PINK:
             case NONE:
                 item = ItemRegistry.SMALL_SHOT_RED.get();
+                break;
+            case ORANGE:
+                item = ItemRegistry.SMALL_SHOT_ORANGE.get();
                 break;
             case YELLOW:
                 item = ItemRegistry.SMALL_SHOT_YELLOW.get();
@@ -55,6 +62,9 @@ public class SmallShotEntity extends AbstractDanmakuEntity{
                 break;
             case PURPLE:
                 item = ItemRegistry.SMALL_SHOT_PURPLE.get();
+                break;
+            case MAGENTA:
+                item = ItemRegistry.SMALL_SHOT_MAGENTA.get();
                 break;
         }
         

@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
+import github.thelawf.gensokyoontology.common.network.packet.ImperishableNightPacket;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.projectile.AbstractArrowEntity;
@@ -8,7 +9,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 public class EirinYagokoroArrowEntity extends AbstractArrowEntity {
@@ -46,7 +49,16 @@ public class EirinYagokoroArrowEntity extends AbstractArrowEntity {
     @Override
     public void tick() {
         super.tick();
-
+        if (this.world.getDayTime() > 12000) {
+            double moonAngle = Math.PI / 12000 * (this.world.getDayTime() - 12000);
+            if (this.rotationYaw > moonAngle - Math.PI / 10 &&
+            this.rotationYaw < moonAngle + Math.PI / 10) {
+                if (this.getShooter() != null) {
+                    this.getShooter().sendMessage(new TranslationTextComponent("你发动了永夜异变"),
+                            this.getShooter().getUniqueID());
+                }
+            }
+        }
     }
 
     // 在这里添加新的伤害来源，使得在虚假之月的事件之下，被该箭矢杀死的生物将掉落月之碎片。

@@ -8,6 +8,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraftforge.items.IItemHandler;
@@ -37,7 +38,7 @@ public class SorceryExtractorContainer extends Container {
 
     private final IWorldPosCallable POS_CALLABLE = IWorldPosCallable.DUMMY;
 
-    private final Inventory ingredientInventory = new Inventory(5);
+    private final Inventory ingredientInventory = new Inventory(4);
     private final Inventory resultInventory = new Inventory(1);
     public SorceryExtractorContainer(int id, PlayerInventory playerInventory, PlayerEntity player) {
         super(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(), id);
@@ -46,11 +47,12 @@ public class SorceryExtractorContainer extends Container {
 
         addPlayerInventorySlots(0, 120);
 
-        addSlot(new Slot(this.ingredientInventory, 0, 71, 4));
-        addSlot(new Slot(this.ingredientInventory, 1, 26, 48));
-        addSlot(new Slot(this.ingredientInventory, 2, 116, 48));
-        addSlot(new Slot(this.ingredientInventory, 3, 71, 93));
-        addResultSlot(this.resultInventory, 4, 71, 48);
+        addIngredientSlot(this.ingredientInventory, 0, 71, 4);
+        addIngredientSlot(this.ingredientInventory, 1, 26, 48);
+        addIngredientSlot(this.ingredientInventory, 2, 116, 48);
+        addIngredientSlot(this.ingredientInventory, 3, 71, 93);
+        addResultSlot(this.resultInventory, 0, 71, 48);
+
 
     }
 
@@ -69,28 +71,35 @@ public class SorceryExtractorContainer extends Container {
     public void onCraftMatrixChanged(IInventory inventoryIn) {
         super.onCraftMatrixChanged(inventoryIn);
 
-
         Logger logger = LogManager.getLogger();
-        logger.info(this.resultInventory.getStackInSlot(0));
+        // logger.info(RECIPES.size());
+    }
 
-        for (List<ItemStack> recipe : RECIPES) {
-            if (matches(this.ingredientInventory, recipe)) {
-                this.resultInventory.setInventorySlotContents(0, recipe.get(recipe.size()-1));
+    private void addIngredientSlot(IInventory inventory, int index, int xPos, int yPos) {
+        addSlot(new Slot(inventory, index, xPos, yPos){
+            @Override
+            public void onSlotChanged() {
+                super.onSlotChanged();
+                for (List<ItemStack> recipe : RECIPES) {
+                    if (matches(ingredientInventory, recipe)) {
+                        resultInventory.setInventorySlotContents(0, recipe.get(recipe.size()-1));
+                    }
+                }
             }
-        }
+        });
     }
 
 
     private void addResultSlot(IInventory inventory, int index, int xPos, int yPos) {
         addSlot(new Slot(inventory, index, xPos, yPos){
+
             @Override
-            public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
-                for (int i = 0; i < 5; i++) {
+            @NotNull
+            public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
+                for (int i = 0; i < 4; i++) {
                     SorceryExtractorContainer.this.ingredientInventory.removeStackFromSlot(i);
                 }
                 detectAndSendChanges();
-                SorceryExtractorContainer.this.onCraftMatrixChanged(
-                        SorceryExtractorContainer.this.ingredientInventory);
                 return super.onTake(thePlayer, stack);
             }
         });
@@ -111,7 +120,7 @@ public class SorceryExtractorContainer extends Container {
             }
         }
         for (int i = 0; i < 4; i++) {
-            if (inventory.getStackInSlot(i).equals(recipes.get(recipes.size()-1))) {
+            if (inventory.getStackInSlot(i).equals(recipes.get(i))) {
                 matchCount++;
             }
         }
@@ -152,12 +161,12 @@ public class SorceryExtractorContainer extends Container {
             itemstack = itemstack1.copy();
             if (index == 0) {
 
-                if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
+                if (!this.mergeItemStack(itemstack1, 10, 42, true)) {
                     return ItemStack.EMPTY;
                 }
 
                 slot.onSlotChange(itemstack1, itemstack);
-            } else if (index >= 10 && index < 46) {
+            } else if (index >= 10 && index < 42) {
                 if (!this.mergeItemStack(itemstack1, 1, 10, false)) {
                     if (index < 37) {
                         if (!this.mergeItemStack(itemstack1, 37, 46, false)) {

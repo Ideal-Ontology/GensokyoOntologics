@@ -92,16 +92,22 @@
 
   "item.gensokyoontology.chimata_market_license": "天弓千亦的市场许可证",
   "item.gensokyoontology.large_shot_red": "大弹（红）",
+  "item.gensokyoontology.large_shot_orange": "Large Shot Orange",
   "item.gensokyoontology.large_shot_yellow": "大弹（黄）",
   "item.gensokyoontology.large_shot_green": "大弹（绿）",
+  "item.gensokyoontology.large_shot_aqua": "Large Shot Aqua",
   "item.gensokyoontology.large_shot_blue": "大弹（蓝）",
   "item.gensokyoontology.large_shot_purple": "大弹（紫）",
+  "item.gensokyoontology.large_shot_magenta": "Large Shot Magenta",
 
   "item.gensokyoontology.small_shot_red": "小弹（红）",
+  "item.gensokyoontology.small_shot_orange": "Small Shot Orange",
   "item.gensokyoontology.small_shot_yellow": "小弹（黄）",
   "item.gensokyoontology.small_shot_green": "小弹（绿）",
+  "item.gensokyoontology.small_shot_aqua": "Small Shot Orange",
   "item.gensokyoontology.small_shot_blue": "小弹（蓝）",
   "item.gensokyoontology.small_shot_purple": "小弹（紫）",
+  "item.gensokyoontology.small_shot_magenta": "Small Shot Magenta",
 
   "item.gensokyoontology.heart_shot_pink": "心弹（粉）",
   "item.gensokyoontology.heart_shot_red": "心弹（红）",

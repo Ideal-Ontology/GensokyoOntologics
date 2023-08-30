@@ -12,6 +12,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -30,12 +31,14 @@ public class KoishiEyeClosed extends Item {
 
         if (playerIn instanceof ServerPlayerEntity) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) playerIn;
-            if (playerIn.getCooldownTracker().hasCooldown(this) &&
-                    serverPlayer.interactionManager.getGameType() != GameType.CREATIVE)
+
+            if (playerIn.getCooldownTracker().hasCooldown(this))
                 return ActionResult.resultPass(playerIn.getHeldItem(handIn));
+
+            if (serverPlayer.interactionManager.getGameType() != GameType.CREATIVE)
+                playerIn.getCooldownTracker().setCooldown(this, 300);
         }
 
-        playerIn.getCooldownTracker().setCooldown(this, 300);
         // 获取绝对坐标
         Vector3d playerPos = playerIn.getPositionVec();
         Logger logger = LogManager.getLogger();
@@ -60,18 +63,15 @@ public class KoishiEyeClosed extends Item {
                 AxisAlignedBB aabb3 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos.add(posVertical)),
                         GSKOMathUtil.vecCeil(rayPos.add(posVertical)));
 
-                entities.addAll(worldIn.getEntitiesWithinAABB(AbstractDanmakuEntity.class, aabb));
-                entities.addAll(worldIn.getEntitiesWithinAABB(AbstractDanmakuEntity.class, aabb1));
-                entities.addAll(worldIn.getEntitiesWithinAABB(AbstractDanmakuEntity.class, aabb2));
-                entities.addAll(worldIn.getEntitiesWithinAABB(AbstractDanmakuEntity.class, aabb3));
+                entities.addAll(worldIn.getEntitiesWithinAABB(AbstractDanmakuEntity.class, aabb.grow(2)));
+                entities.addAll(worldIn.getEntitiesWithinAABB(AbstractDanmakuEntity.class, aabb1.grow(2)));
+                entities.addAll(worldIn.getEntitiesWithinAABB(AbstractDanmakuEntity.class, aabb2.grow(2)));
+                entities.addAll(worldIn.getEntitiesWithinAABB(AbstractDanmakuEntity.class, aabb3.grow(2)));
 
                 entities.forEach(Entity::remove);
-                logger.info(aabb);
-            }
-            logger.info(entities.size());
-            entities.forEach(entity -> logger.info(entity.getName()));
-        }
 
+            }
+        }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

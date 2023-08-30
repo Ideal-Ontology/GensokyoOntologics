@@ -24,7 +24,7 @@ public class GSKOGUIUtil {
                 new ItemStack(ItemRegistry.GITSUNE_TUBE_FULL.get()),
                 new ItemStack(ItemRegistry.TALES_OCCULT_BALL.get()),
                 ItemStack.EMPTY,
-                new ItemStack(ItemRegistry.SORCERY_SCARLET_MIST.get())));
+                new ItemStack(ItemRegistry.OCCULT_BALL.get())));
         return recipes;
     }
 
