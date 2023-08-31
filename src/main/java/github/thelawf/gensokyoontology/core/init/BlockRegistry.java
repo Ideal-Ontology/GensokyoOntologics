@@ -167,6 +167,8 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> ISHI_ZAKURA = BLOCKS.register("ishi_zakura", IshiZakuraBlock::new);
 
     // ============================== 矿石类方块 ================================== //
+    public static final RegistryObject<Block> IZANAGI_OBJECT_ORE = BLOCKS.register(
+            "izanagi_object_ore", IzanagiObjectOre::new);
     public static final RegistryObject<Block> DRAGON_SPHERE_ORE = BLOCKS.register(
             "dragon_sphere_ore", DragonSphereOre::new);
     public static final RegistryObject<Block> CRIMSON_ALLOY_BLOCK = BLOCKS.register(
@@ -203,7 +205,6 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
             "space_fissure_block", SpaceFissureBlock::new);
 
-    public static final RegistryObject<Block> GAP_BLOCK = BLOCKS.register("gap",
-            GapBlock::new);
+    public static final RegistryObject<Block> GAP_BLOCK = BLOCKS.register("gap", GapBlock::new);
 
 }

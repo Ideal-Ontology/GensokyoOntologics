@@ -11,7 +11,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HugeMushroomBlock;
 import net.minecraft.fluid.Fluids;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -19,17 +18,14 @@ import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.structure.BastionRemantsStructure;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
-import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
-import net.minecraft.world.gen.placement.IPlacementConfig;
-import net.minecraft.world.gen.placement.Placement;
-import net.minecraft.world.gen.placement.TopSolidRangeConfig;
+import net.minecraft.world.gen.placement.*;
 import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
-import net.minecraftforge.registries.ForgeRegistries;
 
 public class GSKOFeatures {
 
@@ -141,7 +137,17 @@ public class GSKOFeatures {
     //         Feature.TREE.withConfiguration());
 
     //-------------------------------------------矿物生成-----------------------------------------//
-    public static final ConfiguredFeature<?, ?> FORMER_HELL_JADE_ORE = Feature.ORE.withConfiguration(
+    public static final ConfiguredFeature<?, ?> ORE_IZANAGI_OBJECT = Feature.ORE.withConfiguration(
+            new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+                    BlockRegistry.IZANAGI_OBJECT_ORE.get().getDefaultState(),
+                    GSKOOreType.IZANAGI_OBJECT.getMaxVeinSize())).withPlacement(
+                            Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
+    public static final ConfiguredFeature<?, ?> ORE_GENSOKYO_JADE = Feature.ORE.withConfiguration(
+            new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+                    BlockRegistry.JADE_ORE.get().getDefaultState(),
+                    GSKOOreType.JADE_GENSOKYO.getMaxVeinSize())).withPlacement(
+            Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
+    public static final ConfiguredFeature<?, ?> ORE_FORMER_HELL_JADE = Feature.ORE.withConfiguration(
             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
                     BlockRegistry.JADE_ORE.get().getDefaultState(),
                     GSKOOreType.JADE_FORMER_HELL.getMaxVeinSize())).withPlacement(
@@ -194,7 +200,8 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree_hakurei_shrine"), SAKURA_TREE_HAKUREI_SHRINE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "gsko_oak_tree"), GSKO_OAK);
 
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "former_hell_jade_ore"), FORMER_HELL_JADE_ORE);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "ore_former_hell_jade"), ORE_FORMER_HELL_JADE);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "ore_gensokyo_jade"), ORE_GENSOKYO_JADE);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_blue_mushroom"), HUGE_BLUE_MUSHROOM);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_purple_mushroom"), HUGE_PURPLE_MUSHROOM);

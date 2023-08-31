@@ -206,18 +206,32 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> CHIREIDEN_COLORED_GLASS = ITEMS.register(
             "chireiden_colored_glass", () -> new BlockItem(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> ISHI_ZAKURA_ITEM = ITEMS.register(
+            "ishi_zakura", () -> new BlockItem(BlockRegistry.ISHI_ZAKURA.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：功能性方块 =========================//
+    //----------------------------- 合成台 --------------------------//
     public static final RegistryObject<BlockItem> DANMAKU_TABLE_ITEM = ITEMS.register(
             "danmaku_table", () -> new BlockItem(BlockRegistry.DANMAKU_TABLE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SORCERY_EXTRACTOR_ITEM = ITEMS.register(
             "sorcery_extractor", () -> new BlockItem(BlockRegistry.SORCERY_EXTRACTOR.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<BlockItem> ISHI_ZAKURA_ITEM = ITEMS.register(
-            "ishi_zakura", () -> new BlockItem(BlockRegistry.ISHI_ZAKURA.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    // -------------------------------- 矿石 ---------------------------------//
+    public static final RegistryObject<BlockItem> IZANAGI_OBJECT_ORE_ITEM = ITEMS.register(
+            "izanagi_object_ore", () -> new BlockItem(BlockRegistry.IZANAGI_OBJECT_ORE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> DRAGON_SPHERE_ORE_ITEM = ITEMS.register(
+            "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> JADE_ORE_ITEM = ITEMS.register(
+            "jade_ore", () -> new BlockItem(BlockRegistry.JADE_ORE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> CRIMSON_METAL_ORE_ITEM = ITEMS.register(
+            "crimson_metal_ore", () -> new BlockItem(BlockRegistry.CRIMSON_ORE_BLOCK.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：道具类物品 =========================//
     // ----------------------- 东方project特殊功能道具 ----------------------//
@@ -410,10 +424,7 @@ public final class ItemRegistry {
     // public static final RegistryObject<Item> GAME_COIN = ITEMS.register("game_coin",
     //         () -> new GameCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    // ======================== GSKO 实用类方块 ===========================//
-    public static final RegistryObject<BlockItem> DRAGON_SPHERE_ORE_ITEM = ITEMS.register(
-            "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
 
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//
