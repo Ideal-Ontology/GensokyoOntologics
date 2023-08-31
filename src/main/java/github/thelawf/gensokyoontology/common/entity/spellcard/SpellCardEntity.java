@@ -131,7 +131,6 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         if (ticksExisted >= lifeSpan) {
             this.remove();
         }
-
     }
 
     protected <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d muzzle) {

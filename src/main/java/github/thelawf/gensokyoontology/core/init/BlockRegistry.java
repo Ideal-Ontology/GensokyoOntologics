@@ -2,8 +2,6 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
-import github.thelawf.gensokyoontology.common.block.cyber.ComputerBlock;
-import github.thelawf.gensokyoontology.common.block.cyber.HashLeaves;
 import github.thelawf.gensokyoontology.common.block.decoration.ChireitenColoredGlassBlock;
 import github.thelawf.gensokyoontology.common.block.nature.*;
 import github.thelawf.gensokyoontology.common.block.ore.*;
@@ -210,40 +208,5 @@ public final class BlockRegistry {
 
     public static final RegistryObject<Block> GAP_BLOCK = BLOCKS.register("gap",
             GapBlock::new);
-
-    //======================= ↓ The Mod Cyber Statistics ↓ ==================//
-    public static final RegistryObject<Block> HASH_LOG = BLOCKS.register("hash_log",
-            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
-
-    public static final RegistryObject<Block> HASH_LEAVES = BLOCKS.register(
-            "hash_leaves", HashLeaves::new);
-
-    public static final RegistryObject<Block> FRACTAL_LOG = BLOCKS.register("fractal_log",
-            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
-
-    // public static final RegistryObject<Block> FRACTAL_LEAVES = BLOCKS.register("magic_leaves",
-    //         FractalLeaves::new);
-
-    public static final RegistryObject<Block> IC_BOARD_LOG = BLOCKS.register("ic_board_log",
-            () -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.OAK_LOG)));
-
-    public static final RegistryObject<Block> IC_LEAVES = BLOCKS.register("ic_leaves", () ->
-            new LeavesBlock(AbstractBlock.Properties.create(Material.LEAVES).tickRandomly().sound(SoundType.PLANT)));
-
-    //======================= ↑ The Mod Cyber Statistics ↑ ====================//
-    public static final RegistryObject<Block> COMPUTER_BLOCK = BLOCKS.register("computer",
-            ComputerBlock::new);
-
-    public static final RegistryObject<Block> RAIL_TRACK_BLOCK = BLOCKS.register("rail_track",
-            RailTrackBlock::new);
-
-    public static final RegistryObject<Block> RAIL_NODE_BLOCK = BLOCKS.register("rail_node",
-            RailNodeBlock::new);
-
-    public static final RegistryObject<Block> DAKIMAKURA = BLOCKS.register("dakimakura",
-            Dakimakura::new);
-
-    public static final RegistryObject<Block> ROTATE_FRAME = BLOCKS.register("rotate_frame",
-            RotateFrameBlock::new);
 
 }

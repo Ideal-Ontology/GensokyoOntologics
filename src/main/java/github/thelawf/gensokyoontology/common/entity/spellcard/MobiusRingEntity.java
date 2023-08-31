@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +47,7 @@ public class MobiusRingEntity extends SpellCardEntity{
 
         // 迭代 MN 和 NA 的旋转角度
         horizonVec = horizonVec.rotateYaw((float) Math.PI / 60 * ticksExisted);
-        verticalVec = verticalVec.rotatePitch((float) Math.PI / 10 * 2 * ticksExisted);
+        verticalVec = verticalVec.rotatePitch((float) Math.PI / 50 * 2 * ticksExisted);
 
         List<DanmakuColor> colors = getRainbowColoredDanmaku();
 
@@ -63,6 +64,7 @@ public class MobiusRingEntity extends SpellCardEntity{
     }
 
     @Override
+    @NotNull
     public ItemStack getItem() {
         return new ItemStack(ItemRegistry.SPELL_CARD_BLANK.get());
     }

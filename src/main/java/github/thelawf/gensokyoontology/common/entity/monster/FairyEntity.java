@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import github.thelawf.gensokyoontology.common.entity.ai.goal.FairyAttackGoal;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -39,10 +40,12 @@ public class FairyEntity extends MonsterEntity {
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(1, new FairyAttackGoal(this, 50, 0.3f));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.3D));
         this.goalSelector.addGoal(5, new FairyEntity.RandomFlyGoal(this));
-        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8f));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 0.8f));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+
     }
 
     @Override

@@ -11,6 +11,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.HugeMushroomBlock;
 import net.minecraft.fluid.Fluids;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
@@ -28,6 +29,7 @@ import net.minecraft.world.gen.placement.Placement;
 import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
+import net.minecraftforge.registries.ForgeRegistries;
 
 public class GSKOFeatures {
 
@@ -36,7 +38,6 @@ public class GSKOFeatures {
     public static final BlockState PURPLE_MUSHROOM_DOWN = BlockRegistry.BLUE_MUSHROOM_BLOCK.get().getDefaultState().with(
             HugeMushroomBlock.DOWN, Boolean.FALSE);
     public static final BlockState MUSHROOM_STEM = Blocks.MUSHROOM_STEM.getDefaultState().with(HugeMushroomBlock.UP, Boolean.valueOf(false)).with(HugeMushroomBlock.DOWN, Boolean.valueOf(false));
-
 
 
     /** 特征地物生成目前遇到了三大坑：
@@ -66,6 +67,7 @@ public class GSKOFeatures {
                     new FancyTrunkPlacer(8, 2, 1),
                     new TwoLayerFeature(1,1,2)).setIgnoreVines().build());
 
+    //------------------------------------------树木----------------------------------------------//
     /**
      * 从这里开始是初始化世界中自然生成的树木特征的配置
      */
@@ -121,6 +123,8 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(2, 0.4f, 2)));
 
+
+    //-----------------------------------------蘑菇-----------------------------------------------//
     public static final ConfiguredFeature<BigMushroomFeatureConfig, ?> HUGE_BLUE_MUSHROOM = Feature.HUGE_RED_MUSHROOM.withConfiguration(
             new BigMushroomFeatureConfig(new SimpleBlockStateProvider(BLUE_MUSHROOM_DOWN),
                           new SimpleBlockStateProvider(MUSHROOM_STEM),6));
@@ -136,13 +140,14 @@ public class GSKOFeatures {
     // public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SHINBOKU = register(new ResourceLocation(GensokyoOntology.MODID, "shinboku"),
     //         Feature.TREE.withConfiguration());
 
+    //-------------------------------------------矿物生成-----------------------------------------//
     public static final ConfiguredFeature<?, ?> FORMER_HELL_JADE_ORE = Feature.ORE.withConfiguration(
             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
                     BlockRegistry.JADE_ORE.get().getDefaultState(),
                     GSKOOreType.JADE_FORMER_HELL.getMaxVeinSize())).withPlacement(
                             Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
 
-    // 生成彼岸花
+    //-------------------------------------------花草生成------------------------------------------//
     public static final ConfiguredFeature<?,?> LYCORIS = Feature.FLOWER.withConfiguration(
                     new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(
                             BlockRegistry.LYCORIS_RADIATA.get().getDefaultState()),
@@ -155,11 +160,13 @@ public class GSKOFeatures {
                             SimpleBlockPlacer.PLACER).tries(2).build())
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3);
 
+    //-------------------------------------------特征生成------------------------------------------//
     public static final ConfiguredFeature<?, ?> WATERFALL = FeatureRegistry.WATERFALL.get()
             .withConfiguration(new LiquidsConfig(Fluids.WATER.getDefaultState(), true, 4, 1, ImmutableSet.of(
                     Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE))).withPlacement(
                             Placement.RANGE_BIASED.configure(new TopSolidRangeConfig(8, 8, 256))).square().count(50);
 
+    //-------------------------------------------建筑生成------------------------------------------//
     public static final StructureFeature<?, ?> MYSTIA_STRUCTURE = StructureRegistry.MYSTIA_IZAKAYA.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static final StructureFeature<?, ?> HAKUREI_STRUCTURE = StructureRegistry.HAKUREI_SHRINE.get()
@@ -175,6 +182,7 @@ public class GSKOFeatures {
 
     public static void registerFeature() {
         Registry<ConfiguredFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_FEATURE;
+
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "lycoris"), LYCORIS);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "wasabi"), WASABI);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "bamboo"), BAMBOO);
