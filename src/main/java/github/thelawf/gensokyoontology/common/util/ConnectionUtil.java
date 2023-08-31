@@ -2,9 +2,7 @@ package github.thelawf.gensokyoontology.common.util;
 
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.block.RailTrackBlock;
 import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
-import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import org.apache.logging.log4j.LogManager;
@@ -16,23 +14,6 @@ import java.util.List;
 public class ConnectionUtil {
     public static final Logger LOGGER = LogManager.getLogger();
 
-    /** 尝试连接两处轨道方块，需要返回一个布尔值让render方法和客户端方法自动检测，
-     * RailWrench 本身只有在点击轨道方块时才能添加NBT数据标签，所以此处不需要检测方块状态
-     *
-     * @param startState 第一次点击的方块
-     * @param endState 第二次点击的方块
-     * @param startPos 第一次点击的方块位置
-     * @param endPos 第二次点击的方块位置
-     * @deprecated 暂时废弃，看会不会报错
-     * @return 是否允许连接
-     */
-    @Deprecated
-    public static boolean tryConnect(BlockState startState, BlockState endState, BlockPos startPos, BlockPos endPos){
-        if (startState.getBlock() instanceof RailTrackBlock) {
-            endState.getBlock();
-        }
-        return false;
-    }
 
     public static boolean tryConnect(BlockPos startPos, BlockPos endPos) {
         if (startPos.getY() == endPos.getY()) {
