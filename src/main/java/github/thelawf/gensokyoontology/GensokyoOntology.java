@@ -128,8 +128,8 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.MAPLE_LEAVES.get(),
                         RenderType.getCutout());
-                // RenderTypeLookup.setRenderLayer(BlockRegistry.MAGIC_LEAVES.get(),
-                //         RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.MAGIC_LEAVES.get(),
+                        RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.HASH_LEAVES.get(),
                         RenderType.getCutout());
 

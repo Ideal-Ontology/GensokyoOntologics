@@ -89,6 +89,7 @@
   "item.gensokyoontology.sc_ido_no_kaiho": "本能「本我的解放」",
   "item.gensokyoontology.sc_hell_eclipse": "狱符「地狱月食」",
   "item.gensokyoontology.sc_mountain_of_faith": "「信仰之山」",
+  "item.gensokyoontology.sc_mobius_ring_world": "「莫比乌斯环世界」",
 
   "item.gensokyoontology.chimata_market_license": "天弓千亦的市场许可证",
   "item.gensokyoontology.large_shot_red": "大弹（红）",
@@ -250,6 +251,7 @@
   "entity.gensokyoontology.spellcard.sc_ido_no_kaiho": "本能「本我的解放」",
   "entity.gensokyoontology.spellcard.sc_hell_eclipse": "狱符「地狱月食」",
   "entity.gensokyoontology.spellcard.sc_mountain_of_faith": "「信仰之山」",
+  "entity.gensokyoontology.spellcard.sc_mobius_ring_world": "「莫比乌斯环世界」",
 
   "entity.gensokyoontology.fairy": "妖精",
   "entity.gensokyoontology.inyo_jade": "阴阳玉",
@@ -283,6 +285,8 @@
   "gui.gensokyoontology.text_field.rotation_yaw": "0",
   "gui.gensokyoontology.text_field.rotation_pitch": "0",
 
+  "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "你释放了符卡: 「莫比乌斯环世界」",
+
   "nbt.gensokyoontology.start_pos": "轨道起点：",
   "nbt.gensokyoontology.end_pos": "轨道终点： ",
 
@@ -308,6 +312,9 @@
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "「三种神器　玉」",
   "tooltip.gensokyoontology.three_sacred_treasures.mirror": "「三种神器　镜」",
   "tooltip.gensokyoontology.three_sacred_treasures.country": "「三种神器　乡」",
+
+  "tooltip.gensokyoontology.spell_card.mobius_ring_world.info_line_1": "Mobius Ring, an impossible object in 2D World.",
+  "tooltip.gensokyoontology.spell_card.mobius_ring_world.info_line_2": "Probably, it could also be an indication of somewhere otherworldly(Laughter).",
 
   "patchouli.gensokyoontology.book.name": "幻想存有论",
   "patchouli.gensokyoontology.book.landing_text": "前言",

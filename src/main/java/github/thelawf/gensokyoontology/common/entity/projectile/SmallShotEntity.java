@@ -12,9 +12,9 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class SmallShotEntity extends AbstractDanmakuEntity{
-
 
     public static final EntityType<SmallShotEntity> SMALL_SHOT = EntityType.Builder.<SmallShotEntity>create(
                     SmallShotEntity::new, EntityClassification.MISC).size(0.3F,0.3F).trackingRange(4)
@@ -34,16 +34,12 @@ public class SmallShotEntity extends AbstractDanmakuEntity{
     }
 
     @Override
+    @NotNull
     public ItemStack getItem() {
         IItemProvider item = null;
         
         switch (getDanmakuColor()) {
             case RED:
-                item = ItemRegistry.SMALL_SHOT_RED.get();
-                break;
-            case AQUA:
-                item = ItemRegistry.SMALL_SHOT_AQUA.get();
-                break;
             case PINK:
             case NONE:
                 item = ItemRegistry.SMALL_SHOT_RED.get();
@@ -56,6 +52,9 @@ public class SmallShotEntity extends AbstractDanmakuEntity{
                 break;
             case GREEN:
                 item = ItemRegistry.SMALL_SHOT_GREEN.get();
+                break;
+            case AQUA:
+                item = ItemRegistry.SMALL_SHOT_AQUA.get();
                 break;
             case BLUE:
                 item = ItemRegistry.SMALL_SHOT_BLUE.get();

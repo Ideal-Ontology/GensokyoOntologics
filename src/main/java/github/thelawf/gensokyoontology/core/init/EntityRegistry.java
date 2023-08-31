@@ -81,7 +81,8 @@ public final class EntityRegistry {
 
     public static final RegistryObject<EntityType<MountainOfFaithEntity>> MOUNTAIN_OF_FAITH_ENTITY =
             ENTITIES.register("mountain_of_faith", () -> MountainOfFaithEntity.MOUNTAIN_OF_FAITH_ENTITY);
-
+    public static final RegistryObject<EntityType<MobiusRingEntity>> MOBIUS_RING_WORLD_ENTITY =
+            ENTITIES.register("mobius_ring_world", () -> MobiusRingEntity.MOBIUS_RING_ENTITY);
     // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
    //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);
 

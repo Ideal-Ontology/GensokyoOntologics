@@ -264,11 +264,11 @@ public final class ItemRegistry {
     public static final RegistryObject<ChimataMarketLicense> CHIMATA_MARKET_LICENSE = ITEMS.register(
             "chimata_market_license", () -> new ChimataMarketLicense(new Item.Properties()));
 
-    //魔法道具
+    // 魔法道具
     public static final RegistryObject<SorceryScarletMist> SORCERY_SCARLET_MIST = ITEMS.register(
             "sorcery_scarlet_mmist", () -> new SorceryScarletMist(new Item.Properties()));
 
-    // ---------------------------- 杂项物品 -------------------------------//
+    // ----------------------------------- 杂项物品 --------------------------------------//
     public static final RegistryObject<Item> HOTSPRING_BUCKET = ITEMS.register("hotspring_bucket",
             () -> new BucketItem(FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)
@@ -280,7 +280,7 @@ public final class ItemRegistry {
                     .maxStackSize(1).containerItem(BUCKET)));
 
 
-    // ======================= GSKO杂项：合成消耗品 =========================//
+    // ========================== GSKO杂项：合成消耗品 =========================//
 
     // public static final RegistryObject<Item> ISHI_ZAKURA = ITEMS.register("ishi_zakura",
     //         () -> new IshiZakuraBlock(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -348,20 +348,15 @@ public final class ItemRegistry {
     public static final RegistryObject<CakeScarletDemon> CAKE_SCARLET_DEMON =
             ITEMS.register("cake_scarlet_demon", CakeScarletDemon::new);
 
-    public static final RegistryObject<Lingoame> LINGOAME = ITEMS.register(
-            "lingoame",Lingoame::new);
+    public static final RegistryObject<Lingoame> LINGOAME = ITEMS.register("lingoame",Lingoame::new);
 
-    public static final RegistryObject<TakoYaki> TAKO_YAKI = ITEMS.register(
-            "tako_yaki", TakoYaki::new);
+    public static final RegistryObject<TakoYaki> TAKO_YAKI = ITEMS.register("tako_yaki", TakoYaki::new);
 
-    public static final RegistryObject<WhiteSnow> WHITE_SNOW = ITEMS.register(
-            "white_snow", WhiteSnow::new);
+    public static final RegistryObject<WhiteSnow> WHITE_SNOW = ITEMS.register("white_snow", WhiteSnow::new);
 
-    public static final RegistryObject<BurgerMeatRaw> BURGER_MEAT_RAW =
-            ITEMS.register("burger_meat_raw", BurgerMeatRaw::new);
+    public static final RegistryObject<BurgerMeatRaw> BURGER_MEAT_RAW = ITEMS.register("burger_meat_raw", BurgerMeatRaw::new);
 
-    public static final RegistryObject<BugerMeat> BURGER_MEAT = ITEMS.register(
-            "burger_meat", BugerMeat::new);
+    public static final RegistryObject<BugerMeat> BURGER_MEAT = ITEMS.register("burger_meat", BugerMeat::new);
 
     // ---------------------------- 意识形态 ------------------------------//
     // public static final RegistryObject<SpiritStar> SPIRIT_STAR = ITEMS.register(
@@ -446,6 +441,9 @@ public final class ItemRegistry {
             "sc_mountain_of_faith", () -> new SC_MountainOfFaith(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
 
+    public static final RegistryObject<SC_MobiusRingWorld> SC_MOBIUS_RING_WORLD = ITEMS.register(
+            "sc_mobius_ring_world", () -> new SC_MobiusRingWorld(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
 

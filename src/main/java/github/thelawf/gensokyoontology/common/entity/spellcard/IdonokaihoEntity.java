@@ -11,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,6 +38,7 @@ public class IdonokaihoEntity extends SpellCardEntity {
     }
 
     @Override
+    @NotNull
     public ItemStack getItem() {
         return new ItemStack(ItemRegistry.SC_IDO_NO_KAIHO.get());
     }
@@ -44,9 +46,6 @@ public class IdonokaihoEntity extends SpellCardEntity {
     @Override
     public void tick() {
         super.tick();
-
-        PlayerEntity player = this.hasOwner() ? this.world.getPlayerByUuid(
-                this.dataManager.get(DATA_OWNER_UUID).get()) : null;
 
         for (int i = 0; i < 6; i++) {
             if (ticksExisted % 3 == 0) {

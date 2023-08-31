@@ -89,6 +89,7 @@
   "item.gensokyoontology.sc_ido_no_kaiho": "Instinct \"Release of the Id\"",
   "item.gensokyoontology.sc_hell_eclipse": "Hell Sign \"Hell Eclipse\"",
   "item.gensokyoontology.sc_mountain_of_faith": "\"Mountain Of Faith\"",
+  "item.gensokyoontology.sc_mobius_ring_world": "\"Mobius Ring World\"",
 
   "item.gensokyoontology.chimata_market_license": "Chimata Market License",
   "item.gensokyoontology.large_shot_red": "Large Shot Red",
@@ -250,6 +251,7 @@
   "entity.gensokyoontology.spellcard.sc_ido_no_kaiho": "Spell Card「Ido no Kaiho」",
   "entity.gensokyoontology.spellcard.sc_hell_eclipse": "Spell Card「Hell Eclipse」",
   "entity.gensokyoontology.spellcard.sc_mountain_of_faith": "「Mountain Of Faith」",
+  "entity.gensokyoontology.spellcard.sc_mobius_ring_world": "\"Mobius Ring World\"",
 
   "entity.gensokyoontology.fairy": "Fairy",
   "entity.gensokyoontology.inyo_jade": "Inyo Jade",
@@ -283,6 +285,8 @@
   "gui.gensokyoontology.text_field.rotation_yaw": "0",
   "gui.gensokyoontology.text_field.rotation_pitch": "0",
 
+  "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "You Released Spell Card: \"Mobius Ring World\"",
+
   "nbt.gensokyoontology.start_pos": "Rail Connection Start at: ",
   "nbt.gensokyoontology.end_pos": "Rail Connection End at: ",
 
@@ -308,6 +312,9 @@
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "Three Sacred Treasures - Orb",
   "tooltip.gensokyoontology.three_sacred_treasures.mirror": "Three Sacred Treasures - Mirror",
   "tooltip.gensokyoontology.three_sacred_treasures.country": "Three Sacred Treasures - Country",
+
+  "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_1": "Mobius Ring, an impossible object in 2D World.",
+  "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_2": "Probably, it could also be an indication of somewhere otherworldly(Laughter).",
 
   "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
   "patchouli.gensokyoontology.book.landing_text": "Fore Words",
