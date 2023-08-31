@@ -413,7 +413,7 @@ public final class ItemRegistry {
     // ======================== GSKO 实用类方块 ===========================//
     public static final RegistryObject<BlockItem> DRAGON_SPHERE_ORE_ITEM = ITEMS.register(
             "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
-                    new Item.Properties()));
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//
