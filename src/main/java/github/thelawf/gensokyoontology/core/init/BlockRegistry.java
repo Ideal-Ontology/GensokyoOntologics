@@ -169,9 +169,6 @@ public final class BlockRegistry {
     // ============================== 矿石类方块 ================================== //
     public static final RegistryObject<Block> DRAGON_SPHERE_ORE = BLOCKS.register(
             "dragon_sphere_ore", DragonSphereOre::new);
-    public static final RegistryObject<Block> CRIMSON_METAL_ORE = BLOCKS.register(
-            "crimson_metal_ore", CrimsonOreBlock::new);
-
     public static final RegistryObject<Block> CRIMSON_ALLOY_BLOCK = BLOCKS.register(
             "crimson_alloy_block", CrimsonAlloyBlock::new);
     public static final RegistryObject<Block> CRIMSON_METAL_BLOCK = BLOCKS.register(

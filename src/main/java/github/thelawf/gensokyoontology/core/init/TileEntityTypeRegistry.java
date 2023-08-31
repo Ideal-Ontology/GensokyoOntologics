@@ -23,12 +23,4 @@ public final class TileEntityTypeRegistry {
     public static final RegistryObject<TileEntityType<SorceryExtractorTileEntity>> SORCERY_EXTRACTOR_TILE_ENTITY =
             TILE_ENTITIES.register("sorcery_tileentity", () -> TileEntityType.Builder.create(
                     SorceryExtractorTileEntity::new, BlockRegistry.SORCERY_EXTRACTOR.get()).build(null));
-
-    public static final RegistryObject<TileEntityType<ComputerTileEntity>> COMPUTER_TILE_ENTITY =
-            TILE_ENTITIES.register("computer_tileentity", () -> TileEntityType.Builder.create(
-                    ComputerTileEntity::new, BlockRegistry.COMPUTER_BLOCK.get()).build(null));
-
-    public static final RegistryObject<TileEntityType<RailTrackTileEntity>> RAIL_TRACK_TILE =
-            TILE_ENTITIES.register("rail_track_tileentity", () -> TileEntityType.Builder.create(
-                    RailTrackTileEntity::new, BlockRegistry.RAIL_TRACK_BLOCK.get()).build(null));
 }

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.renderer.world;
+/*package github.thelawf.gensokyoontology.client.renderer.world;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.datafixers.util.Pair;
@@ -44,7 +44,7 @@ public class InWorldRenderer {
      * 2. 大致计算需要多少个单独的轨道节点才能连接，然后将个数作为迭代次数，开始计算离散贝塞尔曲线<br>
      * 3. 每次迭代返回一对数据，分别为方块的坐标和欧拉角，以三维向量的形式存储，使用matrix矩阵变换至这些位置并渲染。<br>
      * @param event 渲染世界事件
-     */
+
     @OnlyIn(value = Dist.CLIENT)
     public static void renderBezierRail(RenderWorldLastEvent event) {
 
@@ -88,3 +88,4 @@ public class InWorldRenderer {
     }
 
 }
+ */
