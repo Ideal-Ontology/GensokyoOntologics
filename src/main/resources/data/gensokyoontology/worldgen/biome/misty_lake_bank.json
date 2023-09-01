@@ -1,20 +1,19 @@
 {
-  "depth": 0.2,
-  "scale": 0.75,
-  "downfall": 0.6,
-  "temperature": 0.55,
-  "category": "extreme_hills",
+  "depth": 0.01,
+  "scale": 0.21,
+  "downfall": 0.01,
+  "temperature": 0.75,
+  "category": "plains",
   "temperature_modifier": "none",
-  "player_spawn_friendly": false,
-  "creature_spawn_probability": 0.4,
+  "player_spawn_friendly": true,
+  "creature_spawn_probability": 0.8,
   "precipitation": "rain",
-  "surface_builder": "minecraft:mountain",
+  "surface_builder": "minecraft:grass",
   "effects": {
-    "sky_color": 7907327,
-    "fog_color": 12248771,
-    "water_color": 3574990,
-    "water_fog_color": 329011
-
+    "sky_color": 6141433,
+    "fog_color": 12638463,
+    "water_color": 4364016,
+    "water_fog_color": 799137
   },
   "spawn_costs": {
     "minecraft:sheep": {
@@ -54,10 +53,8 @@
     [],
     [],
     [
-      "gensokyoontology:sakura_tree",
-      "gensokyoontology:sakura_tree",
-      "gensokyoontology:maple_tree",
-      "gensokyoontology:maple_tree"
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_sugar_cane"
     ],
     []
   ],
@@ -71,8 +68,6 @@
       "minecraft:underwater_canyon"
     ]
   },
-  "spawners": {
-
-  },
+  "spawners": {},
   "starts": []
 }

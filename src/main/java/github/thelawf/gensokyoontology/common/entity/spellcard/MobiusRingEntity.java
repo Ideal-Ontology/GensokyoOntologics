@@ -1,8 +1,10 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
+import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -36,28 +38,35 @@ public class MobiusRingEntity extends SpellCardEntity{
         super.tick();
 
         // 创建圆环的水平面：
-        // 定义一个位于 X-Z 平面的 MN 向量，以M为圆心形成单位圆
-        Vector3d horizonVec = new Vector3d(Vector3f.XP);
-        horizonVec = horizonVec.scale(1.2);
+        // 定义一个位于 X-Z 平面的 PQ 向量，以P为圆心形成圆P
+        Vector3d horizonVec = new Vector3d(Vector3f.ZP);
+        horizonVec = horizonVec.scale(4);
 
         // 创建竖圆：
-        // 定义一个位于 X-Y 平面的 NA 向量， 以N为圆心
-        Vector3d verticalVec = new Vector3d(Vector3f.XP);
-        verticalVec = verticalVec.scale(0.8);
+        /*
+        定义一个位于 X-Y 平面的 QA 向量， 以Q为球心，做一个以QA为半径向量的球
+        在球Q上，N点和S点分别代表北极点和南极点，连接NS，经过Q点。
+        现在，让点A绕球Q的0度经线旋转30度，
+         */
+        Vector3d verticalVec = new Vector3d(Vector3f.ZP);
+        verticalVec = verticalVec.scale(1.5);
 
         // 迭代 MN 和 NA 的旋转角度
-        horizonVec = horizonVec.rotateYaw((float) Math.PI / 60 * ticksExisted);
-        verticalVec = verticalVec.rotatePitch((float) Math.PI / 50 * 2 * ticksExisted);
+        horizonVec = horizonVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
 
         List<DanmakuColor> colors = getRainbowColoredDanmaku();
 
-        for (int j = 0; j < colors.size(); j++) {
+        for (int i = 0; i < colors.size(); i++) {
             SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
-                    DanmakuType.SMALL_SHOT, colors.get(j));
-            verticalVec = verticalVec.rotateYaw((float) Math.PI / 60 * ticksExisted).rotatePitch(
-                    (float) Math.PI / j * 2 * ticksExisted);
+                    DanmakuType.SMALL_SHOT, colors.get(i));
 
-            setDanmakuInit(smallShot, verticalVec.add(horizonVec).add(this.getPositionVec()));
+            verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
+            verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
+            //verticalVec = GSKOMathUtil.rotateCircleDot(verticalVec,
+            //        0, Math.PI / 80 * 2 * ticksExisted);
+
+            // setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
+            setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
             smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), 0.35f, 0f);
             world.addEntity(smallShot);
         }

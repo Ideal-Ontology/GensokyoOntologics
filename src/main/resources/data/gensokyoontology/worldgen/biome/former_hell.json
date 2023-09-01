@@ -49,8 +49,7 @@
     [
       "minecraft:ore_gold_nether",
       "minecraft:ore_quartz_nether",
-      "minecraft:ore_gravel_nether",
-      "gensokyoontology:ore_former_hell_jade"
+      "minecraft:ore_gravel_nether"
     ],
     [],
     [],

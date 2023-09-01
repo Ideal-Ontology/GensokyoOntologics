@@ -78,7 +78,6 @@ public class GSKOEntityEvents {
                     event.getEntityLiving().getEntityWorld().setEntityState(player, (byte) 2);
                 }
             }
-
         }
     }
 

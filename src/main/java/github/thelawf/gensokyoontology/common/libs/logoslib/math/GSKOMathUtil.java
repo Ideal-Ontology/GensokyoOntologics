@@ -8,6 +8,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
+import org.lwjgl.system.CallbackI;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -324,31 +325,52 @@ public class GSKOMathUtil {
 
     /**
      * 球坐标转直角坐标，注意计算机图形学中的空间坐标与数学的空间坐标不同，x, z轴为水平轴，而y轴为竖直轴，
-     * @param sc 球坐标对象，是一个三维的向量
-     * @return 返回空间直角坐标系对象
+     * @param sc 球坐标的三维的向量，成员属性 x 为球坐标半径Radius，y 为球坐标天顶角theta，z为球坐标方位角phi
+     * @return 返回空间直角坐标系的三维向量
      */
     public static Vector3d toRectVec(Vector3d sc) {
-        return new Vector3d(sc.x * Math.sin(sc.x) * Math.cos(sc.z),
-                sc.x * Math.cos(sc.x),
-                sc.x * Math.sin(sc.x) * Math.sin(sc.z));
+        return new Vector3d(sc.x * Math.sin(sc.y) * Math.cos(sc.z),
+                sc.x * Math.sin(sc.y) * Math.sin(sc.z),
+                sc.x * Math.cos(sc.y));
     }
 
     /**
-     * 直角坐标转球坐标，注意计算机图形学中的空间坐标与数学的空间坐标不同，x, z轴为水平轴，而y轴为竖直轴，
-     * @param rc 空间直角坐标系对象，同样是一个三维的向量
-     * @return 返回球坐标系对象
+     * 直角坐标转球坐标
+     * @param rc 空间直角坐标系的三维向量
+     * @return 返回球坐标系的三维向量
      */
     public static Vector3d toSphereVec(Vector3d rc) {
         double r = GSKOMathUtil.toModulus3D(rc.x, rc.y, rc.z);
-        return new Vector3d(r, Math.acos(rc.y / r), Math.atan(rc.z / rc.x));
+        return new Vector3d(r, Math.acos(rc.z / r), Math.atan(rc.y / rc.x));
     }
 
     public static Vector3d toSphereVec(double x, double y, double z) {
         return toSphereVec(new Vector3d(x, y, z));
     }
 
-    public static Vector3d toLocalCoordinate(Vector3d newOriginIn,
-                                                          Vector3d globalIn) {
+    /**
+     * 思路是：先将一个圆的所有点的集合传进来，这个集合中存放的点是使用的平面直角坐标系，然后，将这些点转为球坐标系表示，并执行球坐标上的天顶角和方位角旋转。
+     * @param circleDots 组成一个圆周的所有点的平面直角坐标
+     * @param thetaRotation 天顶角的旋转度数，取值为 0 ~ π
+     * @return 旋转之后该圆周的每个新的点的平面直角坐标
+     */
+    public static List<Vector3d> rotateCircle(List<Vector3d> circleDots, double thetaRotation, double phiRotation) {
+        List<Vector3d> nextCircleDots = new ArrayList<>();
+        for (Vector3d dotOnCircle : circleDots) {
+
+            Vector3d prevSphereVec = toSphereVec(dotOnCircle);
+            Vector3d nextSphereVec = new Vector3d(prevSphereVec.x, prevSphereVec.y + thetaRotation, prevSphereVec.z + phiRotation);
+            nextCircleDots.add(toRectVec(nextSphereVec));
+        }
+        return nextCircleDots;
+    }
+
+    public static Vector3d rotateCircleDot(Vector3d rectVec, double thetaRotation, double phiRotation) {
+        Vector3d sphereVec = toSphereVec(rectVec);
+        return new Vector3d(sphereVec.x, sphereVec.y + thetaRotation, sphereVec.z + phiRotation);
+    }
+
+    public static Vector3d toLocalCoordinate(Vector3d newOriginIn, Vector3d globalIn) {
         return new Vector3d(globalIn.getX() - newOriginIn.getX(),
                 globalIn.getY() - newOriginIn.getY(),
                 globalIn.getZ() - newOriginIn.getZ());
@@ -364,6 +386,14 @@ public class GSKOMathUtil {
      */
     public static double[] toRotations(double x, double y, double z) {
         return new double[]{Math.atan(x / z), Math.atan(y / x), Math.atan(z / y)};
+    }
+
+    public static Vector3d rotateZXY(Vector3d prevVec, Vector3d rotation) {
+        return prevVec.rotatePitch((float) rotation.z).rotateRoll((float) rotation.x).rotateYaw((float) rotation.y);
+    }
+
+    public static Vector3d rotateZXY(Vector3d prevVec, float roll, float yaw, float pitch) {
+        return rotateZXY(prevVec, new Vector3d(roll, yaw, pitch));
     }
 
     /**
