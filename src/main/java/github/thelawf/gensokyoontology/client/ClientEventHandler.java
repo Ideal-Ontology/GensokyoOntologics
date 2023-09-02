@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.client;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.renderer.entity.CitizenRenderer;
-import github.thelawf.gensokyoontology.client.renderer.entity.FairyRenderer;
-import github.thelawf.gensokyoontology.client.renderer.entity.HumanResidentRenderer;
-import github.thelawf.gensokyoontology.client.renderer.entity.YukariRenderer;
+import github.thelawf.gensokyoontology.client.renderer.entity.*;
 import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.InyoJadeMonsterEntity;
@@ -44,6 +41,9 @@ public class ClientEventHandler {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 0.5f, false));
         RenderingRegistry.registerEntityRenderingHandler(LargeStarShotEntity.STAR_SHOT_LARGE,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.5f, false));
+
+        RenderingRegistry.registerEntityRenderingHandler(TalismanShotEntity.TALISMAN_SHOT,
+                manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 0.85f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(FakeLunarEntity.FAKE_LUNAR,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 5.0f, false));

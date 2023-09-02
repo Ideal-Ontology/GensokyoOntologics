@@ -17,10 +17,8 @@ import org.jetbrains.annotations.NotNull;
 public class SmallStarShotEntity extends AbstractDanmakuEntity {
 
     public static final EntityType<SmallStarShotEntity> STAR_SHOT_SMALL =
-            EntityType.Builder.<SmallStarShotEntity>create(SmallStarShotEntity::new,
-                            EntityClassification.MISC).size(0.5F,0.5F)
-                    .trackingRange(4).updateInterval(2).build("star_shot_small");
-
+            EntityType.Builder.<SmallStarShotEntity>create(SmallStarShotEntity::new, EntityClassification.MISC)
+                    .size(0.5F,0.5F).trackingRange(4).updateInterval(2).build("star_shot_small");
 
     protected SmallStarShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
         super(STAR_SHOT_SMALL, worldIn);

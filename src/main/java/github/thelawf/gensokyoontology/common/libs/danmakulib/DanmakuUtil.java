@@ -62,6 +62,11 @@ public class DanmakuUtil {
 
     }
 
+    // public static <T extends AbstractDanmakuEntity> void shootVectorDanmaku(World worldIn, PlayerEntity playerIn,
+    //                                                                         T danmakuEntityType, float velocity, float inaccuracy) {
+    //
+    // }
+
     public static <T extends AbstractDanmakuEntity> void shootWaveAndParticle(@NotNull World worldIn, PlayerEntity playerIn,
                                                                               float velocity, float inaccuracy,
                                                                               int ticksExisted) {

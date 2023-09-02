@@ -56,6 +56,9 @@ public final class EntityRegistry {
             "star_shot_small", () -> SmallStarShotEntity.STAR_SHOT_SMALL);
     public static final RegistryObject<EntityType<SmallStarShotEntity>> STAR_SHOT_LARGE_ENTITY = ENTITIES.register(
             "start_shot_large", () -> LargeStarShotEntity.STAR_SHOT_LARGE);
+
+    public static final RegistryObject<EntityType<TalismanShotEntity>> TALISMAN_SHOT_ENTITY = ENTITIES.register(
+            "talisman_shot", () -> TalismanShotEntity.TALISMAN_SHOT);
     public static final RegistryObject<EntityType<FakeLunarEntity>> FAKE_LUNAR_ENTITY = ENTITIES.register(
             "fake_lunar", () -> FakeLunarEntity.FAKE_LUNAR);
 
