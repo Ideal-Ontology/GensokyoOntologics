@@ -10,7 +10,6 @@ import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.*;
 import net.minecraft.entity.EntityType;
-import net.minecraft.item.ShieldItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -53,10 +52,10 @@ public final class EntityRegistry {
             "large_shot", () -> LargeShotEntity.LARGE_SHOT);
     public static final RegistryObject<EntityType<SmallShotEntity>> SMALL_SHOT_ENTITY = ENTITIES.register(
             "small_shot", () -> SmallShotEntity.SMALL_SHOT);
-    public static final RegistryObject<EntityType<StarShotEntity>> STAR_SHOT_SMALL_ENTITY = ENTITIES.register(
-            "star_shot_small", () -> StarShotEntity.STAR_SHOT_SMALL);
-    public static final RegistryObject<EntityType<StarShotEntity>> STAR_SHOT_LARGE_ENTITY = ENTITIES.register(
-            "start_shot_large", () -> StarShotEntity.STAR_SHOT_LARGE);
+    public static final RegistryObject<EntityType<SmallStarShotEntity>> STAR_SHOT_SMALL_ENTITY = ENTITIES.register(
+            "star_shot_small", () -> SmallStarShotEntity.STAR_SHOT_SMALL);
+    public static final RegistryObject<EntityType<SmallStarShotEntity>> STAR_SHOT_LARGE_ENTITY = ENTITIES.register(
+            "start_shot_large", () -> LargeStarShotEntity.STAR_SHOT_LARGE);
     public static final RegistryObject<EntityType<FakeLunarEntity>> FAKE_LUNAR_ENTITY = ENTITIES.register(
             "fake_lunar", () -> FakeLunarEntity.FAKE_LUNAR);
 

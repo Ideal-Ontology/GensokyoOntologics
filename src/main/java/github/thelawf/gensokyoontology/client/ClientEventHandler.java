@@ -19,7 +19,6 @@ import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -41,9 +40,9 @@ public class ClientEventHandler {
         RenderingRegistry.registerEntityRenderingHandler(SmallShotEntity.SMALL_SHOT,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 0.6f, false));
 
-        RenderingRegistry.registerEntityRenderingHandler(StarShotEntity.STAR_SHOT_SMALL,
+        RenderingRegistry.registerEntityRenderingHandler(SmallStarShotEntity.STAR_SHOT_SMALL,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 0.5f, false));
-        RenderingRegistry.registerEntityRenderingHandler(StarShotEntity.STAR_SHOT_LARGE,
+        RenderingRegistry.registerEntityRenderingHandler(LargeStarShotEntity.STAR_SHOT_LARGE,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.5f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(FakeLunarEntity.FAKE_LUNAR,

@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.danmaku;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.projectile.StarShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.SmallStarShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
@@ -52,7 +52,7 @@ public class StarShot extends DanmakuItem {
                 break;
         }
 
-        StarShotEntity starShot = new StarShotEntity(playerIn, worldIn, DanmakuType.LARGE_SHOT, danmakuColor);
+        SmallStarShotEntity starShot = new SmallStarShotEntity(playerIn, worldIn, DanmakuType.LARGE_SHOT, danmakuColor);
         DanmakuUtil.shootDanmaku(worldIn, playerIn, starShot, 0.6f, 0f);
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
