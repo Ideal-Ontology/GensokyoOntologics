@@ -4,6 +4,8 @@
     "#gensokyoontology:danmaku/large_shots",
     "#gensokyoontology:danmaku/small_shots",
     "#gensokyoontology:danmaku/heart_shots",
-    "#gensokyoontology:danmaku/star_shots"
+    "#gensokyoontology:danmaku/small_star_shots",
+    "#gensokyoontology:danmaku/large_star_shots",
+    "#gensokyoontology:danmaku/talisman_shots"
   ]
 }
