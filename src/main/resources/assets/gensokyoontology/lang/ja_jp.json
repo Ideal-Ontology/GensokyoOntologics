@@ -234,6 +234,8 @@
   "description.gensokyoontology.idealism_sword_description": "(But I haven't finished that yet!)",
   "description.gensokyoontology.praxis_sword_description": "§6Now this is it. Go into Praxis, man ~",
 
+  "death.attack.danmaku.player": "Player is get",
+
   "effect.gensokyoontology.love_potion": "Love Potion",
   "effect.gensokyoontology.hypnosis": "催眠",
   "effect.gensokyoontology.mania": "Mania",
@@ -313,8 +315,8 @@
   "tooltip.gensokyoontology.three_sacred_treasures.mirror": "「三種の神器　鏡」",
   "tooltip.gensokyoontology.three_sacred_treasures.country": "「三種の神器　郷」",
 
-  "tooltip.gensokyoontology.spell_card.mobius_ring_world.info_line_1": "Mobius Ring, an impossible object in 2D World.",
-  "tooltip.gensokyoontology.spell_card.mobius_ring_world.info_line_2": "Probably, it could also be an indication of somewhere otherworldly(Laughter).",
+  "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_1": "Mobius Ring, an impossible object in 2D World.",
+  "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_2": "Probably, it could also be an indication of somewhere otherworldly(Laughter).",
 
   "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
   "patchouli.gensokyoontology.book.landing_text": "$(l)Fore Words:$(br)Stay $(4)S$(b)A$(d)N$(2)E!$() You're now in the $(k)(m)meaningless network$() of $(l)ideologies.$() Be $(l)$(#ff0000)CLEAR AWARE$() of this!",
@@ -388,5 +390,7 @@
   "block.gensokyoontology.sukima": "隙間",
   "item.gensokyoontology.extra_life": "Extra Life",
   "item.gensokyoontology.koishi_eye": "こいしのサードアイ",
-  "item.gensokyoontology.sc_circle_cross": "Spell Card Circle Cross (Experimental)"
+  "item.gensokyoontology.sc_circle_cross": "Spell Card Circle Cross (Experimental)",
+  "tooltip.gensokyoontology.spell_card.mobius_ring_world.info_line_1": "Mobius Ring, an impossible object in 2D World.",
+  "tooltip.gensokyoontology.spell_card.mobius_ring_world.info_line_2": "Probably, it could also be an indication of somewhere otherworldly(Laughter)."
 }

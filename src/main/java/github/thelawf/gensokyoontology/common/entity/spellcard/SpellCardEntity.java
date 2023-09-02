@@ -25,7 +25,7 @@ import java.util.*;
 
 public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
 
-    private int lifeSpan = 500;
+    protected int lifeSpan = 500;
     protected UUID owner;
     private int ownerId;
 
@@ -124,11 +124,10 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         super.tick();
 
         if (!this.dataManager.get(DATA_OWNER_UUID).isPresent()) {
-            LOGGER.info("Player Not Present here");
             this.remove();
         }
 
-        if (ticksExisted >= lifeSpan) {
+        if (ticksExisted >= this.lifeSpan) {
             this.remove();
         }
     }

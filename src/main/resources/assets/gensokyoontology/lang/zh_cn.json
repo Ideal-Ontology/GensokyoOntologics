@@ -234,6 +234,8 @@
   "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
   "description.gensokyoontology.praxis_sword_description": "§6现在，你知道了所有的故事，那么，请开始实践吧~",
 
+  "death.attack.danmaku.player": "Player is get",
+
   "effect.gensokyoontology.love_potion": "迷恋",
   "effect.gensokyoontology.hypnosis": "催眠",
   "effect.gensokyoontology.mania": "躁狂",
@@ -306,15 +308,15 @@
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗§c32个火焰弹§r和§a一个B点§r发射极限火花",
 
   "tooltip.gensokyoontology.occult_ball.biome": "§d神秘地点: ",
-  "tooltip.gensokyoontology.occult_ball.hint": "A mysterious sphere that can send you to the another world.",
+  "tooltip.gensokyoontology.occult_ball.hint": "一个也许能将人送到另外一个世界的奇怪宝珠。",
 
   "tooltip.gensokyoontology.three_sacred_treasures.sword": "「三种神器　剑」",
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "「三种神器　玉」",
   "tooltip.gensokyoontology.three_sacred_treasures.mirror": "「三种神器　镜」",
   "tooltip.gensokyoontology.three_sacred_treasures.country": "「三种神器　乡」",
 
-  "tooltip.gensokyoontology.spell_card.mobius_ring_world.info_line_1": "Mobius Ring, an impossible object in 2D World.",
-  "tooltip.gensokyoontology.spell_card.mobius_ring_world.info_line_2": "Probably, it could also be an indication of somewhere otherworldly(Laughter).",
+  "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_1": "§o莫比乌斯带，不可能存在于二维空间的物体。",
+  "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_2": "§o但也许，这正是在隐喻那个无何有的世界吧（笑）",
 
   "patchouli.gensokyoontology.book.name": "幻想存有论",
   "patchouli.gensokyoontology.book.landing_text": "前言",
@@ -382,9 +384,5 @@
 
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "block.gensokyoontology.sukima": "隙间",
-  "item.gensokyoontology.koishi_eye": "恋之瞳",
-  "item.gensokyoontology.sc_circle_cross": "原创实验性符卡01"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})"
 }

@@ -1,10 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -21,6 +19,8 @@ import java.util.List;
 
 public class MobiusRingEntity extends SpellCardEntity{
 
+    private int lifeSpan = 1000;
+
     public static final EntityType<MobiusRingEntity> MOBIUS_RING_ENTITY =
             EntityType.Builder.<MobiusRingEntity>create(MobiusRingEntity::new,
                             EntityClassification.MISC).size(1F,1F).trackingRange(4)
@@ -35,7 +35,6 @@ public class MobiusRingEntity extends SpellCardEntity{
 
     @Override
     public void tick() {
-        super.tick();
 
         // 创建圆环的水平面：
         // 定义一个位于 X-Z 平面的 PQ 向量，以P为圆心形成圆P
@@ -52,7 +51,14 @@ public class MobiusRingEntity extends SpellCardEntity{
         verticalVec = verticalVec.scale(1.5);
 
         // 迭代 MN 和 NA 的旋转角度
-        horizonVec = horizonVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
+        float rotation = (float) (Math.PI / 80 * 2 * ticksExisted);
+        boolean isClockWise = false;
+        boolean isAccelerating = true;
+
+        if (ticksExisted % 200 > 100) {
+            rotation = -rotation;
+        }
+        horizonVec = horizonVec.rotateYaw(rotation);
 
         List<DanmakuColor> colors = getRainbowColoredDanmaku();
 
@@ -67,9 +73,14 @@ public class MobiusRingEntity extends SpellCardEntity{
 
             // setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
             setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
-            smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), 0.35f, 0f);
+            smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), 0.1f, 0f);
             world.addEntity(smallShot);
         }
+        if (ticksExisted >= this.lifeSpan) {
+            this.remove();
+        }
+
+        super.tick();
     }
 
     @Override
