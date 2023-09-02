@@ -104,7 +104,7 @@ public class DanmakuCraftingContainer extends Container {
                 this.prevStacks.set(0, stack);
             }
             else if (matches(inventoryIn, starShotSlots)) {
-                ItemStack stack = new ItemStack(ItemRegistry.STAR_SHOT_BLUE.get());
+                ItemStack stack = new ItemStack(ItemRegistry.SMALL_STAR_SHOT_BLUE.get());
                 stack.setCount(getMinStackCount(starShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);

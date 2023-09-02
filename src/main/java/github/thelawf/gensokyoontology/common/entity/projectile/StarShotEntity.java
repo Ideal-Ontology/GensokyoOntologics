@@ -47,22 +47,22 @@ public class StarShotEntity extends AbstractDanmakuEntity {
             case RED:
             case PINK:
             case NONE:
-                item = ItemRegistry.STAR_SHOT_RED.get();
+                item = ItemRegistry.SMALL_STAR_SHOT_RED.get();
                 break;
             case YELLOW:
-                item = ItemRegistry.STAR_SHOT_YELLOW.get();
+                item = ItemRegistry.SMALL_STAR_SHOT_YELLOW.get();
                 break;
             case GREEN:
-                item = ItemRegistry.STAR_SHOT_GREEN.get();
+                item = ItemRegistry.SMALL_STAR_SHOT_GREEN.get();
                 break;
             case AQUA:
-                item = ItemRegistry.STAR_SHOT_AQUA.get();
+                item = ItemRegistry.SMALL_STAR_SHOT_AQUA.get();
                 break;
             case BLUE:
-                item = ItemRegistry.STAR_SHOT_BLUE.get();
+                item = ItemRegistry.SMALL_STAR_SHOT_BLUE.get();
                 break;
             case PURPLE:
-                item = ItemRegistry.STAR_SHOT_PURPLE.get();
+                item = ItemRegistry.SMALL_STAR_SHOT_PURPLE.get();
                 break;
         }
 

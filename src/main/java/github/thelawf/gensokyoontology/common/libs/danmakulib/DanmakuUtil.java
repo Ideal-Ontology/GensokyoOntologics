@@ -62,9 +62,9 @@ public class DanmakuUtil {
 
     }
 
-    public static <T extends AbstractDanmakuEntity> void shootWaveAndParticle (@NotNull World worldIn, PlayerEntity playerIn,
-                                                                               float velocity, float inaccuracy,
-                                                                               int ticksExisted) {
+    public static <T extends AbstractDanmakuEntity> void shootWaveAndParticle(@NotNull World worldIn, PlayerEntity playerIn,
+                                                                              float velocity, float inaccuracy,
+                                                                              int ticksExisted) {
         SpellData spellData = new SpellData(new HashMap<>());
         // 在具体的符卡类中，这里初始化的弹幕实体类应该写成泛型强制类型转换：
         // if (muzzle.getDanmaku() instanceof LargeshotEntity) {
@@ -80,7 +80,7 @@ public class DanmakuUtil {
                 (float) muzzle.y, (float) muzzle.z);
     }
 
-    public static void applyOperation (ArrayList<VectorOperations> operations, TransformFunction function, Vector3d prevVec) {
+    public static void applyOperation(ArrayList<VectorOperations> operations, TransformFunction function, Vector3d prevVec) {
         // operations.forEach(operation -> getTransform(operation, function, prevVec));
     }
 
@@ -88,26 +88,20 @@ public class DanmakuUtil {
         if (function.scaling > 0F) {
             if (operation == VectorOperations.ROTATE_YAW) {
                 return prevVec.rotateYaw(function.scaling);
-            }
-            else if (operation == VectorOperations.ROTATE_ROLL) {
+            } else if (operation == VectorOperations.ROTATE_ROLL) {
                 return prevVec.rotateRoll(function.scaling);
-            }
-            else if (operation == VectorOperations.ROTATE_PITCH) {
+            } else if (operation == VectorOperations.ROTATE_PITCH) {
                 return prevVec.rotatePitch(function.scaling);
-            }
-            else if (operation == VectorOperations.VECTOR_SCALE) {
+            } else if (operation == VectorOperations.VECTOR_SCALE) {
                 return prevVec.scale(function.scaling);
             }
-        }
-        else if (function.acceleration != null) {
+        } else if (function.acceleration != null) {
             if (operation == VectorOperations.VECTOR_ADD) {
                 return prevVec.add(function.acceleration);
-            }
-            else if (operation == VectorOperations.VECTOR_SUBTRACT) {
+            } else if (operation == VectorOperations.VECTOR_SUBTRACT) {
                 return prevVec.subtract(function.acceleration);
             }
-        }
-        else if (operation == VectorOperations.ARCHIMEDE_SPIRAL) {
+        } else if (operation == VectorOperations.ARCHIMEDE_SPIRAL) {
             return getArchimedeSpiral(prevVec, 1.0f, Math.PI);
         }
 
@@ -136,12 +130,6 @@ public class DanmakuUtil {
         danmakuItems.add(ItemRegistry.HEART_SHOT_RED.get());
         danmakuItems.add(ItemRegistry.HEART_SHOT_PINK.get());
         danmakuItems.add(ItemRegistry.HEART_SHOT_AQUA.get());
-
-        danmakuItems.add(ItemRegistry.STAR_SHOT_AQUA.get());
-        danmakuItems.add(ItemRegistry.STAR_SHOT_BLUE.get());
-        danmakuItems.add(ItemRegistry.STAR_SHOT_RED.get());
-        danmakuItems.add(ItemRegistry.STAR_SHOT_GREEN.get());
-        danmakuItems.add(ItemRegistry.STAR_SHOT_YELLOW.get());
 
         return danmakuItems;
     }

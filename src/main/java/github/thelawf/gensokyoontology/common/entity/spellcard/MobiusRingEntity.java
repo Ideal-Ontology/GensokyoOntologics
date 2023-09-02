@@ -51,13 +51,17 @@ public class MobiusRingEntity extends SpellCardEntity{
         verticalVec = verticalVec.scale(1.5);
 
         // 迭代 MN 和 NA 的旋转角度
-        float rotation = (float) (Math.PI / 80 * 2 * ticksExisted);
-        boolean isClockWise = false;
-        boolean isAccelerating = true;
+        // float rotSpeed = (float) ticksExisted / 5;
+        // float acceleration = 0.01f;
+        // float velocity = 0.1f;
 
-        if (ticksExisted % 200 > 100) {
-            rotation = -rotation;
-        }
+        float velocity = 0.25f;
+        float rotation = (float) (Math.PI / 180 * ticksExisted);
+
+        // rotation = ticksExisted % 180 > 90 ? (float) -(Math.PI / 180 * ticksExisted) : rotation;
+        // velocity = ticksExisted % 200 > 100 ? this.getSpeedFactor() - acceleration * (ticksExisted % 100):
+        //         this.getSpeedFactor() + acceleration * (ticksExisted % 100);
+
         horizonVec = horizonVec.rotateYaw(rotation);
 
         List<DanmakuColor> colors = getRainbowColoredDanmaku();
@@ -65,15 +69,19 @@ public class MobiusRingEntity extends SpellCardEntity{
         for (int i = 0; i < colors.size(); i++) {
             SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
                     DanmakuType.SMALL_SHOT, colors.get(i));
+            SmallShotEntity smallShot1 = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
+                    DanmakuType.SMALL_SHOT, colors.get(i));
 
             verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
-            verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
-            //verticalVec = GSKOMathUtil.rotateCircleDot(verticalVec,
-            //        0, Math.PI / 80 * 2 * ticksExisted);
+            verticalVec = verticalVec.rotateYaw((float) Math.PI / 180 * ticksExisted);
 
-            // setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
             setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
-            smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), 0.1f, 0f);
+            smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
+
+            // setDanmakuInit(smallShot1, horizonVec.scale(-1).add(this.getPositionVec()));
+            // smallShot1.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
+//
+            // world.addEntity(smallShot1);
             world.addEntity(smallShot);
         }
         if (ticksExisted >= this.lifeSpan) {

@@ -16,6 +16,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.UUID;
@@ -136,6 +137,7 @@ public class MountainOfFaithEntity extends SpellCardEntity{
     }
 
     @Override
+    @NotNull
     public ItemStack getItem() {
         // return new ItemStack(ItemRegistry.SC_MOUNTAIN_OF_FAITH.get());
         return new ItemStack(ItemRegistry.SPELL_CARD_BLANK.get());
