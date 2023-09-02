@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "forge:gems/inyo_jade"
+      "tag": "gensokyoontology:danmaku/large_shots"
     },
     {
       "item": "minecraft:black_dye"

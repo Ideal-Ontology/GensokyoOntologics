@@ -536,15 +536,15 @@ public final class ItemRegistry {
 
     ////////////////////////////// 所有颜色的札弹  /////////////////////////////////
     public static final RegistryObject<Item> TALISMAN_SHOT_RED = ITEMS.register(
-            "talisman_shot_red", () -> new TalismanShot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            "talisman_shot_red", TalismanShot::new);
     public static final RegistryObject<Item> TALISMAN_SHOT_GREEN = ITEMS.register(
-            "talisman_shot_green", () -> new TalismanShot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            "talisman_shot_green", TalismanShot::new);
     public static final RegistryObject<Item> TALISMAN_SHOT_AQUA = ITEMS.register(
-            "talisman_shot_aqua", () -> new TalismanShot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            "talisman_shot_aqua", TalismanShot::new);
     public static final RegistryObject<Item> TALISMAN_SHOT_BLUE = ITEMS.register(
-            "talisman_shot_blue", () -> new TalismanShot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            "talisman_shot_blue", TalismanShot::new);
     public static final RegistryObject<Item> TALISMAN_SHOT_PURPLE = ITEMS.register(
-            "talisman_shot_purple", () -> new TalismanShot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            "talisman_shot_purple", TalismanShot::new);
 
     ////////////////////////////// 所有颜色的阴阳玉 ///////////////////////////////////
     public static final RegistryObject<Item> INYO_JADE_BLACK = ITEMS.register(

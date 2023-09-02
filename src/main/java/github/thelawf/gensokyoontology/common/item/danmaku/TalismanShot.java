@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.entity.projectile.TalismanShotEnti
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
+import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -13,8 +14,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
 public class TalismanShot extends DanmakuItem {
-    public TalismanShot(Properties properties) {
-        super(properties);
+    public TalismanShot() {
+        super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
     }
 
     @Override
