@@ -70,9 +70,9 @@
   "item.gensokyoontology.praxis_sword": "实践",
 
   "item.gensokyoontology.danmaku_shot": "弹幕之点",
-  "item.gensokyoontology.large_shot": "Large Shot",
-  "item.gensokyoontology.heart_shot": "Heart Shot",
-  "item.gensokyoontology.star_shot": "Star Shot",
+  "item.gensokyoontology.large_shot": "大弹",
+  "item.gensokyoontology.heart_shot": "心弹",
+  "item.gensokyoontology.star_shot": "星弹",
   "item.gensokyoontology.fake_lunar": "虚假之月",
 
   "item.gensokyoontology.bomb_item": "B点",
@@ -115,12 +115,19 @@
   "item.gensokyoontology.heart_shot_aqua": "心弹（淡蓝）",
   "item.gensokyoontology.heart_shot_blue": "心弹（蓝）",
 
-  "item.gensokyoontology.star_shot_red": "星弹（红）",
-  "item.gensokyoontology.star_shot_yellow": "星弹（黄）",
-  "item.gensokyoontology.star_shot_green": "星弹（绿）",
-  "item.gensokyoontology.star_shot_blue": "星弹（蓝）",
-  "item.gensokyoontology.star_shot_aqua": "星弹（淡蓝）",
-  "item.gensokyoontology.star_shot_purple": "星弹（紫）",
+  "item.gensokyoontology.small_star_shot_red": "小型星弹（红）",
+  "item.gensokyoontology.small_star_shot_yellow": "小型星弹（黄）",
+  "item.gensokyoontology.small_star_shot_green": "小型星弹（绿）",
+  "item.gensokyoontology.small_star_shot_blue": "小型星弹（蓝）",
+  "item.gensokyoontology.small_star_shot_aqua": "小型星弹（淡蓝）",
+  "item.gensokyoontology.small_star_shot_purple": "小型星弹（紫）",
+
+  "item.gensokyoontology.large_star_shot_red": "大型星弹（红）",
+  "item.gensokyoontology.large_star_shot_yellow": "大型星弹（黄）",
+  "item.gensokyoontology.large_star_shot_green": "大型星弹（绿）",
+  "item.gensokyoontology.large_star_shot_blue": "大型星弹（蓝）",
+  "item.gensokyoontology.large_star_shot_aqua": "大型星弹（淡蓝）",
+  "item.gensokyoontology.large_star_shot_purple": "大型星弹（紫）",
 
   "item.gensokyoontology.inyo_jade_black": "阴阳玉（黑）",
   "item.gensokyoontology.inyo_jade_red": "阴阳玉（红）",
@@ -129,6 +136,12 @@
   "item.gensokyoontology.inyo_jade_aqua": "阴阳玉（淡蓝）",
   "item.gensokyoontology.inyo_jade_blue": "阴阳玉（蓝）",
   "item.gensokyoontology.inyo_jade_purple": "阴阳玉（紫）",
+
+  "item.gensokyoontology.talisman_shot_red": "札弹（红）",
+  "item.gensokyoontology.talisman_shot_green": "札弹（绿）",
+  "item.gensokyoontology.talisman_shot_aqua": "札弹（淡蓝）",
+  "item.gensokyoontology.talisman_shot_blue": "札弹（蓝）",
+  "item.gensokyoontology.talisman_shot_purple": "札弹（紫）",
 
   "item.gensokyoontology.jade_level_b": "玉石 (品质 B)",
   "item.gensokyoontology.jade_level_a": "玉石 (品质 A)",
@@ -245,8 +258,10 @@
 
   "entity.gensokyoontology.danmaku_entity": "弹幕实体",
   "entity.gensokyoontology.large_shot": "大弹",
+  "entity.gensokyoontology.small_shot": "Small Shot",
   "entity.gensokyoontology.heart_shot": "心弹",
-  "entity.gensokyoontology.star_shot": "星弹",
+  "entity.gensokyoontology.star_shot_small": "Star Shot Small",
+  "entity.gensokyoontology.star_shot_large": "Star Shot Large",
   "entity.gensokyoontology.fake_lunar": "虚假之月",
 
   "entity.gensokyoontology.spellcard.wave_and_particle": "境符「波与粒的境界」",

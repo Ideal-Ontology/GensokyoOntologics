@@ -8,7 +8,6 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
 import org.jetbrains.annotations.NotNull;
 
@@ -29,9 +28,10 @@ public class StarShotRenderer extends SpriteRenderer<AbstractDanmakuEntity> {
 
         matrixStackIn.scale(this.scale, this.scale, this.scale);
         matrixStackIn.rotate(this.renderManager.getCameraOrientation());
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw)));
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
+        //matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw)));
 
-        itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GUI,
+        itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GROUND,
                 packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         matrixStackIn.pop();
     }

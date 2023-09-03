@@ -14,6 +14,7 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class FakeLunarEntity extends AbstractDanmakuEntity {
 
@@ -35,7 +36,7 @@ public class FakeLunarEntity extends AbstractDanmakuEntity {
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult result) {
+    protected void onEntityHit(@NotNull EntityRayTraceResult result) {
         Entity shooter = getShooter();
 
         if (result.getEntity() instanceof AbstractDanmakuEntity){

@@ -48,15 +48,15 @@ public class MobiusRingEntity extends SpellCardEntity{
         现在，让点A绕球Q的0度经线旋转30度，
          */
         Vector3d verticalVec = new Vector3d(Vector3f.ZP);
-        verticalVec = verticalVec.scale(1.5);
+        verticalVec = verticalVec.scale(3);
 
         // 迭代 MN 和 NA 的旋转角度
         // float rotSpeed = (float) ticksExisted / 5;
         // float acceleration = 0.01f;
         // float velocity = 0.1f;
 
-        float velocity = 0.25f;
-        float rotation = (float) (Math.PI / 180 * ticksExisted);
+        float velocity = 0.35f;
+        float rotation = (float) (Math.PI / 80 * 2 * ticksExisted);
 
         // rotation = ticksExisted % 180 > 90 ? (float) -(Math.PI / 180 * ticksExisted) : rotation;
         // velocity = ticksExisted % 200 > 100 ? this.getSpeedFactor() - acceleration * (ticksExisted % 100):
@@ -69,19 +69,13 @@ public class MobiusRingEntity extends SpellCardEntity{
         for (int i = 0; i < colors.size(); i++) {
             SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
                     DanmakuType.SMALL_SHOT, colors.get(i));
-            SmallShotEntity smallShot1 = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
-                    DanmakuType.SMALL_SHOT, colors.get(i));
 
             verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
-            verticalVec = verticalVec.rotateYaw((float) Math.PI / 180 * ticksExisted);
+            verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
 
             setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
             smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
 
-            // setDanmakuInit(smallShot1, horizonVec.scale(-1).add(this.getPositionVec()));
-            // smallShot1.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
-//
-            // world.addEntity(smallShot1);
             world.addEntity(smallShot);
         }
         if (ticksExisted >= this.lifeSpan) {

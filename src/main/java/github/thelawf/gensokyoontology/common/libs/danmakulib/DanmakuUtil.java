@@ -4,6 +4,8 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.core.SpellCardRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketBuffer;
@@ -11,11 +13,11 @@ import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.IntIdentityHashBiMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class DanmakuUtil {
@@ -50,8 +52,8 @@ public class DanmakuUtil {
         registerSerializer(SPELL_DATA);
     }
 
-    public static <T extends AbstractDanmakuEntity> void shootDanmaku(@NotNull World worldIn, PlayerEntity playerIn,
-                                                                      T danmakuEntityType, float velocity, float inaccuracy) {
+    public static <D extends AbstractDanmakuEntity> void shootDanmaku(@NotNull World worldIn, PlayerEntity playerIn,
+                                                                      D danmakuEntityType, float velocity, float inaccuracy) {
         Vector3d lookVec = playerIn.getLookVec();
 
         danmakuEntityType.setNoGravity(true);
@@ -62,28 +64,25 @@ public class DanmakuUtil {
 
     }
 
-    // public static <T extends AbstractDanmakuEntity> void shootVectorDanmaku(World worldIn, PlayerEntity playerIn,
-    //                                                                         T danmakuEntityType, float velocity, float inaccuracy) {
-    //
-    // }
+    public static <D extends AbstractDanmakuEntity> void shootDanmaku(@NotNull World worldIn, Entity entityIn,
+                                                                      D danmakuEntityType, Vector3d shootVec,
+                                                                      float velocity, float inaccuracy) {
+        Vector3d lookVec = entityIn.getLookVec();
 
-    public static <T extends AbstractDanmakuEntity> void shootWaveAndParticle(@NotNull World worldIn, PlayerEntity playerIn,
-                                                                              float velocity, float inaccuracy,
-                                                                              int ticksExisted) {
-        SpellData spellData = new SpellData(new HashMap<>());
-        // 在具体的符卡类中，这里初始化的弹幕实体类应该写成泛型强制类型转换：
-        // if (muzzle.getDanmaku() instanceof LargeshotEntity) {
-        //    LargeShotEntity danmaku = (LargeShotEntity) muzzle.getDanmaku();
-        // }
-        // 先判断muzzle里面弹幕的类型是否和符卡需要的类型一致，再初始化弹幕
+        danmakuEntityType.setNoGravity(true);
+        danmakuEntityType.setLocationAndAngles(entityIn.getPosX(), entityIn.getPosY() + entityIn.getEyeHeight(), entityIn.getPosZ(),
+                (float) lookVec.y, (float) lookVec.z);
+        danmakuEntityType.shoot(shootVec.x, shootVec.y, shootVec.z, velocity, inaccuracy);
+        worldIn.addEntity(danmakuEntityType);
 
     }
 
-    public static <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d muzzle) {
-        danmaku.setNoGravity(true);
-        danmaku.setLocationAndAngles(muzzle.getX(), muzzle.getY(), muzzle.getZ(),
-                (float) muzzle.y, (float) muzzle.z);
+    public static <D extends AbstractDanmakuEntity> void initDanmaku(DanmakuData<D> data) {
+        data.danmaku.setNoGravity(true);
+        data.danmaku.setLocationAndAngles(data.shooter.getPosX(), data.shooter.getPosY() + data.shooter.getEyeHeight(),
+                data.shooter.getPosZ(), data.initRotation.x, data.initRotation.y);
     }
+
 
     public static void applyOperation(ArrayList<VectorOperations> operations, TransformFunction function, Vector3d prevVec) {
         // operations.forEach(operation -> getTransform(operation, function, prevVec));
@@ -137,5 +136,29 @@ public class DanmakuUtil {
         danmakuItems.add(ItemRegistry.HEART_SHOT_AQUA.get());
 
         return danmakuItems;
+    }
+
+    public static <D extends AbstractDanmakuEntity> void shootSpherical(DanmakuData<D> data, double radius,
+                                                                        int latitudeCount, int longitudeCount,
+                                                                        int i, int j) {
+
+        AbstractDanmakuEntity danmaku = data.danmaku;
+
+        Vector3d vector3d = new Vector3d(Vector3f.ZP).scale(radius);
+        vector3d.rotatePitch((float) Math.PI / latitudeCount * i);
+        vector3d.rotateYaw((float) Math.PI / longitudeCount * j);
+
+        initDanmaku(data);
+        danmaku.shoot(vector3d.getX(), vector3d.getY(), vector3d.getZ(), data.speed, 0f);
+        data.world.addEntity(danmaku);
+
+    }
+
+    public static void shootSpiral() {
+
+    }
+
+    public static void shootRadial() {
+
     }
 }

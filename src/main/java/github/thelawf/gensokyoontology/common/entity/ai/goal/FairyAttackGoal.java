@@ -65,7 +65,7 @@ public class FairyAttackGoal extends Goal {
             fairy.setNoGravity(true);
             if (withInRangeTime > MAX_WITH_IN_RANGE_TIME) {
                 float percent = (float) (distance / minDistance);
-                // fairy.performRangedAttack(target, 1 - percent);
+                fairy.performDanmakuAttack(target);
                 withInRangeTime = 0;
             }
         } else {

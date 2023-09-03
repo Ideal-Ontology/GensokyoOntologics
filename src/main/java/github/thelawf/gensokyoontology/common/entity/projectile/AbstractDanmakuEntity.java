@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.FireballEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
@@ -75,6 +76,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         this.danmakuColor = danmakuColorIn.ordinal();
         this.setWorld(worldIn);
         this.setDanmakuColor(danmakuColorIn);
+        this.setShooter(throwerIn);
     }
 
     public void setMaxLivingTick(int maxLivingTick) {
@@ -160,7 +162,18 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     }
 
     @Override
-    protected void onEntityHit(EntityRayTraceResult result) {
+    protected void onEntityHit(@NotNull EntityRayTraceResult result) {
+        if (this.getShooter() instanceof MonsterEntity) {
+            if (result.getEntity() instanceof PlayerEntity) {
+                PlayerEntity player = (PlayerEntity) result.getEntity();
+                if (this instanceof FakeLunarEntity) {
+                    player.attackEntityFrom(GSKODamageSource.DANMAKU, 12f);
+                }
+                player.attackEntityFrom(GSKODamageSource.DANMAKU, this.damage);
+            }
+            this.remove();
+            return;
+        }
 
         if (result.getEntity() instanceof AbstractDanmakuEntity) {
             AbstractDanmakuEntity danmakuEntity = (AbstractDanmakuEntity) result.getEntity();
@@ -168,7 +181,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
                 this.remove();
                 return;
             }
-            return;
         }
 
         if (!(result.getEntity() instanceof LivingEntity)) {
