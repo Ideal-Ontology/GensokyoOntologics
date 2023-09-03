@@ -38,9 +38,9 @@ public class ClientEventHandler {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 0.6f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(SmallStarShotEntity.STAR_SHOT_SMALL,
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 0.5f, false));
+                manager -> new StarShotRenderer(manager, itemRenderer, 0.5f, false));
         RenderingRegistry.registerEntityRenderingHandler(LargeStarShotEntity.STAR_SHOT_LARGE,
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.5f, false));
+                manager -> new StarShotRenderer(manager, itemRenderer, 3.5f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(TalismanShotEntity.TALISMAN_SHOT,
                 manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 0.85f, false));

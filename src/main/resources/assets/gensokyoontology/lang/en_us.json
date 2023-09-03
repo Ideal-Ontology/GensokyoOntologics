@@ -115,12 +115,19 @@
   "item.gensokyoontology.heart_shot_aqua": "Heart Shot Aqua",
   "item.gensokyoontology.heart_shot_blue": "Heart Shot Blue",
 
-  "item.gensokyoontology.star_shot_red": "Star Shot Red",
-  "item.gensokyoontology.star_shot_yellow": "Star Shot Yellow",
-  "item.gensokyoontology.star_shot_green": "Star Shot Green",
-  "item.gensokyoontology.star_shot_blue": "Star Shot Blue",
-  "item.gensokyoontology.star_shot_aqua": "Star Shot Aqua",
-  "item.gensokyoontology.star_shot_purple": "Star Shot Purple",
+  "item.gensokyoontology.small_star_shot_red": "Small Star Shot Red",
+  "item.gensokyoontology.small_star_shot_yellow": "Small Star Shot Yellow",
+  "item.gensokyoontology.small_star_shot_green": "Small Star Shot Green",
+  "item.gensokyoontology.small_star_shot_blue": "Small Star Shot Blue",
+  "item.gensokyoontology.small_star_shot_aqua": "Small Star Shot Aqua",
+  "item.gensokyoontology.small_star_shot_purple": "Small Star Shot Purple",
+
+  "item.gensokyoontology.large_star_shot_red": "Large Star Shot Red",
+  "item.gensokyoontology.large_star_shot_yellow": "Large Star Shot Yellow",
+  "item.gensokyoontology.large_star_shot_green": "Large Star Shot Green",
+  "item.gensokyoontology.large_star_shot_blue": "Large Star Shot Blue",
+  "item.gensokyoontology.large_star_shot_aqua": "Large Star Shot Aqua",
+  "item.gensokyoontology.large_star_shot_purple": "Large Star Shot Purple",
 
   "item.gensokyoontology.inyo_jade_black": "Yin-Yang Orb Black",
   "item.gensokyoontology.inyo_jade_red": "Yin-Yang Orb Red",
@@ -129,6 +136,12 @@
   "item.gensokyoontology.inyo_jade_aqua": "Yin-Yang Orb Aqua",
   "item.gensokyoontology.inyo_jade_blue": "Yin-Yang Orb Blue",
   "item.gensokyoontology.inyo_jade_purple": "Yin-Yang Orb Purple",
+
+  "item.gensokyoontology.talisman_shot_red": "Talisman Shot Red",
+  "item.gensokyoontology.talisman_shot_green": "Talisman Shot Green",
+  "item.gensokyoontology.talisman_shot_aqua": "Talisman Shot Aqua",
+  "item.gensokyoontology.talisman_shot_blue": "Talisman Shot Blue",
+  "item.gensokyoontology.talisman_shot_purple": "Talisman Shot Purple",
 
   "item.gensokyoontology.jade_level_b": "Jade (Level B)",
   "item.gensokyoontology.jade_level_a": "Jade (Level A)",
@@ -245,8 +258,10 @@
 
   "entity.gensokyoontology.danmaku_entity": "Danmaku Shot",
   "entity.gensokyoontology.large_shot": "Large Shot",
+  "entity.gensokyoontology.small_shot": "Small Shot",
   "entity.gensokyoontology.heart_shot": "Heart Shot",
-  "entity.gensokyoontology.star_shot": "Star Shot",
+  "entity.gensokyoontology.star_shot_small": "Star Shot Small",
+  "entity.gensokyoontology.star_shot_large": "Star Shot Large",
   "entity.gensokyoontology.fake_lunar": "Fake Lunar",
 
   "entity.gensokyoontology.spellcard.wave_and_particle": "Spell Card「Wave And Particle」",
