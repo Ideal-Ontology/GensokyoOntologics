@@ -57,7 +57,8 @@ public class GSKOEntityEvents {
             FairyEntity fairy = (FairyEntity) event.getEntityLiving();
             Random random = new Random();
             if (event.getSource() == GSKODamageSource.DANMAKU) {
-                if (random.nextInt(100) < 23) {
+                if (random.nextInt(100) < 8) {
+                    // fairy.entityDropItem(new ItemStack(random.nextInt() % 2 == 0 ? ItemRegistry.LIFE_FRAGMENT.get() : ItemRegistry.BOMB_FRAGMENT.get()));
                     fairy.entityDropItem(new ItemStack(ItemRegistry.LIFE_FRAGMENT.get()));
                 }
                 for (int i = 0; i < random.nextInt(3); i++) {
