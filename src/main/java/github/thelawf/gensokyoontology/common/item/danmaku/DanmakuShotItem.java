@@ -21,14 +21,14 @@ public class DanmakuShotItem extends DanmakuItem {
         this.danmaku = danmaku;
     }
 
-    @Override
-    @NotNull
-    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        SpellData spellData = new SpellData(null, DanmakuType.DANMAKU_SHOT,
-                DanmakuColor.NONE, false, false);
-        DanmakuUtil.shootDanmaku(worldIn, playerIn, new DanmakuShotEntity(playerIn, worldIn, spellData),
-                0.5f, 0.6f);
-        return super.onItemRightClick(worldIn, playerIn, handIn);
-    }
+    // @Override
+    // @NotNull
+    // public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
+    //     SpellData = new SpellData(null, DanmakuType.DANMAKU_SHOT,
+    //             DanmakuColor.NONE, false, false);
+    //     DanmakuUtil.shootDanmaku(worldIn, playerIn, new DanmakuShotEntity(playerIn, worldIn, spellData),
+    //             0.5f, 0.6f);
+    //     return super.onItemRightClick(worldIn, playerIn, handIn);
+    // }
 
 }
