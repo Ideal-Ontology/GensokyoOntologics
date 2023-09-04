@@ -497,6 +497,11 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> SMALL_SHOT_MAGENTA = ITEMS.register(
             "small_shot_magenta", () -> new SmallShot(DanmakuType.SMALL_SHOT));
 
+    ////////////////////////////// 所有颜色的米弹  /////////////////////////////////
+    public static final RegistryObject<Item> RICE_SHOT_RED = ITEMS.register("rice_shot_red", RiceShot::new);
+    public static final RegistryObject<Item> RICE_SHOT_BLUE = ITEMS.register("rice_shot_blue", RiceShot::new);
+    public static final RegistryObject<Item> RICE_SHOT_PURPLE = ITEMS.register("rice_shot_purple", RiceShot::new);
+
     ////////////////////////////// 所有颜色的心弹  /////////////////////////////////
     public static final RegistryObject<Item> HEART_SHOT_PINK = ITEMS.register(
             "heart_shot_pink", () -> new HeartShot(DanmakuType.HEART_SHOT));
