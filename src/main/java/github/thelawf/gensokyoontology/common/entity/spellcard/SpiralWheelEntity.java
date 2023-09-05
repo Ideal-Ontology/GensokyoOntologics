@@ -12,6 +12,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -47,55 +48,12 @@ public class SpiralWheelEntity extends SpellCardEntity {
             global = global.rotateYaw((float) (Math.PI / 50 * ticksExisted)).add(this.getPositionVec());
 
             HashMap<Integer, TransformFunction> map = new HashMap<>();
-            SpellData spellData = new SpellData(map, DanmakuType.LARGE_SHOT, DanmakuColor.PINK, false, false);
 
             SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.YELLOW);
-            setDanmakuInit(smallShot, global);
+            setDanmakuInit(smallShot, global, new Vector2f((float) shootAngle.x, (float) shootAngle.z));
 
             smallShot.shoot(shootAngle.x, shootAngle.y, shootAngle.z, 0.6f, 0f);
             world.addEntity(smallShot);
-        }
-    }
-
-    private void shootDanmakuPattern () {
-        PlayerEntity player = world.getPlayers().get(0);
-        Vector3d muzzle = new Vector3d(Vector3f.XP);
-
-        if (ticksExisted % 10 == 0) {
-            for (int i = 0; i < 50; i++) {
-                LargeShotEntity largeShot = new LargeShotEntity(player, world, new SpellData(new HashMap<>()));
-                Vector3d nextShootAngle = muzzle.rotateYaw((float) (Math.PI / 50) * i);
-
-                initDanmaku(largeShot, muzzle);
-                largeShot.shoot(nextShootAngle.x, 0F, nextShootAngle.z, 0.5F, 0F);
-                world.addEntity(largeShot);
-            }
-            for (int i = 0; i < 50; i++) {
-                LargeShotEntity largeShot = new LargeShotEntity(player, world, new SpellData(new HashMap<>()));
-                Vector3d nextShootAngle = muzzle.rotateYaw((float) -(Math.PI / 50) * i);
-
-                initDanmaku(largeShot, muzzle);
-                largeShot.shoot(nextShootAngle.x, 0F, nextShootAngle.z, 0.5F, 0F);
-                world.addEntity(largeShot);
-            }
-        }
-        else if (ticksExisted % 10 == 5){
-            for (int i = 0; i < 50; i++) {
-                LargeShotEntity largeShot = new LargeShotEntity(player, world, new SpellData(new HashMap<>()));
-                Vector3d nextShootAngle = muzzle.rotateYaw((float) (Math.PI / 50) * i).rotateYaw((float) (Math.PI / 100));
-
-                initDanmaku(largeShot, muzzle);
-                largeShot.shoot(nextShootAngle.x, 0F, nextShootAngle.z, 0.5F, 0F);
-                world.addEntity(largeShot);
-            }
-            for (int i = 0; i < 50; i++) {
-                LargeShotEntity largeShot = new LargeShotEntity(player, world, new SpellData(new HashMap<>()));
-                Vector3d nextShootAngle = muzzle.rotateYaw((float) -(Math.PI / 50) * i).rotateYaw((float) (Math.PI / 100));
-
-                initDanmaku(largeShot, muzzle);
-                largeShot.shoot(nextShootAngle.x, 0F, nextShootAngle.z, 0.5F, 0F);
-                world.addEntity(largeShot);
-            }
         }
     }
 

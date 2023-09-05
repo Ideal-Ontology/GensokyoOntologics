@@ -15,7 +15,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public class ScaleShot extends Item {
+public class ScaleShot extends DanmakuItem {
     public ScaleShot() {
         super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
     }
@@ -25,12 +25,9 @@ public class ScaleShot extends Item {
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
         final String typeName = String.valueOf(this.getItem().getRegistryName());
         final String modid = GensokyoOntology.MODID + ":";
-        DanmakuColor danmakuColor = DanmakuColor.NONE;
+        DanmakuColor danmakuColor;
 
         switch (typeName) {
-            case modid + "scale_shot_red":
-                danmakuColor = DanmakuColor.RED;
-                break;
             case modid + "scale_shot_yellow":
                 danmakuColor = DanmakuColor.YELLOW;
                 break;
@@ -43,6 +40,7 @@ public class ScaleShot extends Item {
             case modid + "scale_shot_purple":
                 danmakuColor = DanmakuColor.PURPLE;
                 break;
+            case modid + "scale_shot_red":
             default:
                 danmakuColor = DanmakuColor.RED;
                 break;

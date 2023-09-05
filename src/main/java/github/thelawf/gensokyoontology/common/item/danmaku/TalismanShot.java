@@ -25,22 +25,22 @@ public class TalismanShot extends DanmakuItem {
         DanmakuColor danmakuColor = DanmakuColor.NONE;
 
         switch (typeName) {
-            case modid + "star_shot_red":
+            case modid + "talisman_shot_red":
                 danmakuColor = DanmakuColor.RED;
                 break;
-            case modid + "star_shot_yellow":
+            case modid + "talisman_shot_yellow":
                 danmakuColor = DanmakuColor.YELLOW;
                 break;
-            case modid + "star_shot_green":
+            case modid + "talisman_shot_green":
                 danmakuColor = DanmakuColor.GREEN;
                 break;
-            case modid + "star_shot_blue":
+            case modid + "talisman_shot_blue":
                 danmakuColor = DanmakuColor.BLUE;
                 break;
-            case modid + "star_shot_aqua":
+            case modid + "talisman_shot_aqua":
                 danmakuColor = DanmakuColor.AQUA;
                 break;
-            case modid + "star_shot_purple":
+            case modid + "talisman_shot_purple":
                 danmakuColor = DanmakuColor.PURPLE;
                 break;
             default:

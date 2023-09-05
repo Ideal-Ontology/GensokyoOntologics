@@ -18,14 +18,17 @@ import org.jetbrains.annotations.NotNull;
 public class DanmakuNormalVectorRenderer extends SpriteRenderer<AbstractDanmakuEntity> {
 
     private final ItemRenderer itemRenderer;
-    public DanmakuNormalVectorRenderer(EntityRendererManager manager, ItemRenderer itemRenderer, float p_i226035_3_, boolean p_i226035_4_) {
-        super(manager, itemRenderer, p_i226035_3_, p_i226035_4_);
+    private final float scale;
+    public DanmakuNormalVectorRenderer(EntityRendererManager manager, ItemRenderer itemRenderer, float scale, boolean p_i226035_4_) {
+        super(manager, itemRenderer, scale, p_i226035_4_);
         this.itemRenderer = itemRenderer;
+        this.scale = scale;
     }
 
     @Override
     public void render(@NotNull AbstractDanmakuEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
     matrixStackIn.push();
+    matrixStackIn.scale(scale, scale, scale);
     matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw) - 90f));
     matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch) - 90f));
 

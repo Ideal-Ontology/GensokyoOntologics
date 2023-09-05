@@ -13,6 +13,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -89,9 +90,7 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         if (entityIn != null) {
             this.owner = entityIn.getUniqueID();
             this.setOwnerId(this.owner);
-            LOGGER.info("Is Owner {} Present?", this.owner);
         }
-        LOGGER.info("Is Owner {} Present?", this.owner);
     }
 
     private void setOwnerId(UUID uuid) {
@@ -132,15 +131,24 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         }
     }
 
-    protected <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d muzzle) {
+    protected <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku) {
         danmaku.setNoGravity(true);
         danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
                 this.rotationYaw, this.rotationPitch);
     }
 
-    protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d muzzle) {
+    protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition) {
         danmaku.setNoGravity(true);
-        danmaku.setLocationAndAngles(muzzle.x, muzzle.y, muzzle.z, this.rotationYaw, this.rotationPitch);
+        danmaku.setLocationAndAngles(initPosition.x, initPosition.y, initPosition.z, this.rotationYaw, this.rotationPitch);
+    }
+
+    protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition, Vector2f initRotation) {
+        danmaku.setNoGravity(true);
+        danmaku.setLocationAndAngles(initPosition.x, initPosition.y, initPosition.z, initRotation.x, initRotation.y);
+    }
+
+    protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition, double rotationYaw, double rotationPitch) {
+        setDanmakuInit(danmaku, initPosition, new Vector2f((float) rotationYaw, (float) rotationPitch));
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {

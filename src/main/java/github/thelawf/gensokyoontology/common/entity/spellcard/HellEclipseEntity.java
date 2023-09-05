@@ -70,7 +70,6 @@ public class HellEclipseEntity extends SpellCardEntity{
             smallShot.setNoGravity(true);
 
             smallShot.shoot(vector3d.x, 0, vector3d.z, 0.5F, 0F);
-
             world.addEntity(smallShot);
         }
 

@@ -56,7 +56,7 @@ public class IdonokaihoEntity extends SpellCardEntity {
                 // Vector3d shootAngle = angle.add(angle.rotateYaw((float) Math.PI / 2));
 
                 this.setMotion(shootAngle);
-                initDanmaku(heartShot, muzzle);
+                setDanmakuInit(heartShot, muzzle);
                 heartShot.shoot(shootAngle.getX(), shootAngle.y, shootAngle.getZ(), 0.4F, 0);
                 world.addEntity(heartShot);
 
@@ -65,7 +65,7 @@ public class IdonokaihoEntity extends SpellCardEntity {
                 Vector3d nextMotion2 = muzzle2.rotateYaw((float) (-Math.PI / 120) * ticksExisted);
 
                 this.setMotion(nextMotion2);
-                initDanmaku(heartShot2, muzzle2);
+                setDanmakuInit(heartShot2, muzzle2);
                 heartShot2.shoot(nextMotion2.getX(), nextMotion2.y, nextMotion2.getZ(), 0.4F, 0);
                 world.addEntity(heartShot2);
 

@@ -41,7 +41,7 @@ public class RiceShot extends DanmakuItem {
                 break;
         }
 
-        RiceShotEntity riceShot = new RiceShotEntity(playerIn, worldIn, DanmakuType.LARGE_SHOT, danmakuColor);
+        RiceShotEntity riceShot = new RiceShotEntity(playerIn, worldIn, DanmakuType.RICE_SHOT, danmakuColor);
         DanmakuUtil.shootDanmaku(worldIn, playerIn, riceShot, 0.6f, 0f);
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
