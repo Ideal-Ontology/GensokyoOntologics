@@ -261,7 +261,7 @@
   "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
   "description.gensokyoontology.praxis_sword_description": "§6现在，你知道了所有的故事，那么，请开始实践吧~",
 
-  "death.attack.danmaku.player": "Player is get",
+  "death.attack.danmaku": "你被弹幕打得满身疮痍",
 
   "effect.gensokyoontology.love_potion": "迷恋",
   "effect.gensokyoontology.hypnosis": "催眠",

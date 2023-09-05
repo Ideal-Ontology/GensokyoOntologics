@@ -261,7 +261,7 @@
   "description.gensokyoontology.idealism_sword_description": "Cause 12 damage each tick",
   "description.gensokyoontology.praxis_sword_description": "§6Go into Praxis, man ~",
 
-  "death.attack.danmaku.player": "Player is get",
+  "death.attack.danmaku": "Player is get",
 
   "effect.gensokyoontology.love_potion": "Love Effect",
   "effect.gensokyoontology.hypnosis": "Hypnosis",
