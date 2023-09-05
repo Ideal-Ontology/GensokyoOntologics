@@ -276,6 +276,8 @@
   "entity.gensokyoontology.heart_shot": "Heart Shot",
   "entity.gensokyoontology.star_shot_small": "Star Shot Small",
   "entity.gensokyoontology.star_shot_large": "Star Shot Large",
+  "entity.gensokyoontology.rice_shot": "Rice Shot",
+  "entity.gensokyoontology.scale_shot": "Scale Shot",
   "entity.gensokyoontology.fake_lunar": "Fake Lunar",
 
   "entity.gensokyoontology.spellcard.wave_and_particle": "Spell Card「Wave And Particle」",

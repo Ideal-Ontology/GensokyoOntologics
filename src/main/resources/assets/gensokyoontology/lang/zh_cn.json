@@ -122,6 +122,20 @@
   "item.gensokyoontology.small_star_shot_aqua": "小型星弹（淡蓝）",
   "item.gensokyoontology.small_star_shot_purple": "小型星弹（紫）",
 
+  "item.gensokyoontology.rice_shot_red": "米弹（红）",
+  "item.gensokyoontology.rice_shot_yellow": "米弹（黄）",
+  "item.gensokyoontology.rice_shot_green": "米弹（绿）",
+  "item.gensokyoontology.rice_shot_blue": "米弹（蓝）",
+  "item.gensokyoontology.rice_shot_aqua": "米弹（淡蓝）",
+  "item.gensokyoontology.rice_shot_purple": "米弹（紫）",
+
+  "item.gensokyoontology.scale_shot_red": "鳞弹（红）",
+  "item.gensokyoontology.scale_shot_yellow": "鳞弹（黄）",
+  "item.gensokyoontology.scale_shot_green": "鳞弹（绿）",
+  "item.gensokyoontology.scale_shot_blue": "鳞弹（蓝）",
+  "item.gensokyoontology.scale_shot_aqua": "鳞弹（淡蓝）",
+  "item.gensokyoontology.scale_shot_purple": "鳞弹（紫）",
+
   "item.gensokyoontology.large_star_shot_red": "大型星弹（红）",
   "item.gensokyoontology.large_star_shot_yellow": "大型星弹（黄）",
   "item.gensokyoontology.large_star_shot_green": "大型星弹（绿）",
@@ -260,8 +274,10 @@
   "entity.gensokyoontology.large_shot": "大弹",
   "entity.gensokyoontology.small_shot": "Small Shot",
   "entity.gensokyoontology.heart_shot": "心弹",
-  "entity.gensokyoontology.star_shot_small": "Star Shot Small",
-  "entity.gensokyoontology.star_shot_large": "Star Shot Large",
+  "entity.gensokyoontology.star_shot_small": "小型星弹",
+  "entity.gensokyoontology.star_shot_large": "大型星弹",
+  "entity.gensokyoontology.rice_shot": "米弹",
+  "entity.gensokyoontology.scale_shot": "鳞弹",
   "entity.gensokyoontology.fake_lunar": "虚假之月",
 
   "entity.gensokyoontology.spellcard.wave_and_particle": "境符「波与粒的境界」",

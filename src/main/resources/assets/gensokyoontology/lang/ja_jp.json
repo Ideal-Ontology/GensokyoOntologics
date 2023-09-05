@@ -122,6 +122,20 @@
   "item.gensokyoontology.small_star_shot_aqua": "Small Star Shot Aqua",
   "item.gensokyoontology.small_star_shot_purple": "Small Star Shot Purple",
 
+  "item.gensokyoontology.rice_shot_red": "Rice Shot Red",
+  "item.gensokyoontology.rice_shot_yellow": "Rice Shot Yellow",
+  "item.gensokyoontology.rice_shot_green": "Rice Shot Green",
+  "item.gensokyoontology.rice_shot_blue": "Rice Shot Blue",
+  "item.gensokyoontology.rice_shot_aqua": "Rice Shot Aqua",
+  "item.gensokyoontology.rice_shot_purple": "Rice Shot Purple",
+
+  "item.gensokyoontology.scale_shot_red": "Scale Shot Red",
+  "item.gensokyoontology.scale_shot_yellow": "Scale Shot Yellow",
+  "item.gensokyoontology.scale_shot_green": "Scale Shot Green",
+  "item.gensokyoontology.scale_shot_blue": "Scale Shot Blue",
+  "item.gensokyoontology.scale_shot_aqua": "Scale Shot Aqua",
+  "item.gensokyoontology.scale_shot_purple": "Scale Shot Purple",
+
   "item.gensokyoontology.large_star_shot_red": "Large Star Shot Red",
   "item.gensokyoontology.large_star_shot_yellow": "Large Star Shot Yellow",
   "item.gensokyoontology.large_star_shot_green": "Large Star Shot Green",
@@ -262,6 +276,8 @@
   "entity.gensokyoontology.heart_shot": "Heart Shot",
   "entity.gensokyoontology.star_shot_small": "Star Shot Small",
   "entity.gensokyoontology.star_shot_large": "Star Shot Large",
+  "entity.gensokyoontology.rice_shot": "Rice Shot",
+  "entity.gensokyoontology.scale_shot": "Scale Shot",
   "entity.gensokyoontology.fake_lunar": "偽の月",
 
   "entity.gensokyoontology.spellcard.wave_and_particle": "境符「波与粒的境界」",
@@ -400,19 +416,5 @@
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "a": "b",
-  "block.gensokyoontology.sukima": "隙間",
-  "entity.gensokyoontology.star_shot": "Star Shot",
-  "item.gensokyoontology.extra_life": "Extra Life",
-  "item.gensokyoontology.koishi_eye": "こいしのサードアイ",
-  "item.gensokyoontology.sc_circle_cross": "Spell Card Circle Cross (Experimental)",
-  "item.gensokyoontology.star_shot_aqua": "星弹（淡蓝）",
-  "item.gensokyoontology.star_shot_blue": "星弹（蓝）",
-  "item.gensokyoontology.star_shot_green": "星弹（绿）",
-  "item.gensokyoontology.star_shot_purple": "星弹（紫）",
-  "item.gensokyoontology.star_shot_red": "星弹（红）",
-  "item.gensokyoontology.star_shot_yellow": "星弹（黄）",
-  "tooltip.gensokyoontology.spell_card.mobius_ring_world.info_line_1": "Mobius Ring, an impossible object in 2D World.",
-  "tooltip.gensokyoontology.spell_card.mobius_ring_world.info_line_2": "Probably, it could also be an indication of somewhere otherworldly(Laughter)."
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }
