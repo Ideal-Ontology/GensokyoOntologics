@@ -61,7 +61,7 @@ public class MixinCauldronBlock extends Block{
         }
     }
 
-    @Inject(method = "onEntityCollision", at = @At("HEAD"), cancellable = true, remap = true)
+    @Inject(method = "onEntityCollision", at = @At("HEAD"), cancellable = true)
     public void onEntityEnter(BlockState state, World worldIn, BlockPos pos, Entity entityIn, CallbackInfo ci) {
         int i = state.get(LEVEL);
         float f = (float)pos.getY() + (6.0F + (float)(3 * i)) / 16.0F;
