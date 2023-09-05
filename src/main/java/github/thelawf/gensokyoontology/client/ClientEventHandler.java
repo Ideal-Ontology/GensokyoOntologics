@@ -46,6 +46,8 @@ public class ClientEventHandler {
                 manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 0.85f, false));
         RenderingRegistry.registerEntityRenderingHandler(RiceShotEntity.RICE_SHOT,
                 manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 0.4f, false));
+        RenderingRegistry.registerEntityRenderingHandler(ScaleShotEntity.SCALE_SHOT,
+                manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 0.2f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(FakeLunarEntity.FAKE_LUNAR,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 5.0f, false));

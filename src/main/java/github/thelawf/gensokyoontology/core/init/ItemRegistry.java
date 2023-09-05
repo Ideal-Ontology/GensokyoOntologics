@@ -502,6 +502,12 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> RICE_SHOT_BLUE = ITEMS.register("rice_shot_blue", RiceShot::new);
     public static final RegistryObject<Item> RICE_SHOT_PURPLE = ITEMS.register("rice_shot_purple", RiceShot::new);
 
+    ////////////////////////////// 所有颜色的鳞弹  /////////////////////////////////
+    public static final RegistryObject<Item> SCALE_SHOT_RED = ITEMS.register("scale_shot_red", ScaleShot::new);
+    public static final RegistryObject<Item> SCALE_SHOT_YELLOW = ITEMS.register("scale_shot_yellow",ScaleShot::new);
+    public static final RegistryObject<Item> SCALE_SHOT_GREEN = ITEMS.register("scale_shot_green", ScaleShot::new);
+    public static final RegistryObject<Item> SCALE_SHOT_BLUE = ITEMS.register("scale_shot_blue", ScaleShot::new);
+    public static final RegistryObject<Item> SCALE_SHOT_PURPLE = ITEMS.register("scale_shot_purple", ScaleShot::new);
     ////////////////////////////// 所有颜色的心弹  /////////////////////////////////
     public static final RegistryObject<Item> HEART_SHOT_PINK = ITEMS.register(
             "heart_shot_pink", () -> new HeartShot(DanmakuType.HEART_SHOT));
@@ -512,7 +518,7 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> HEART_SHOT_BLUE = ITEMS.register(
             "heart_shot_blue", () -> new HeartShot(DanmakuType.HEART_SHOT));
 
-    ////////////////////////////// 所有颜色的星弹  /////////////////////////////////
+    ////////////////////////////// 所有颜色的小型星弹  /////////////////////////////////
     public static final RegistryObject<Item> SMALL_STAR_SHOT_RED = ITEMS.register(
             "small_star_shot_red", () -> new StarShot(DanmakuType.STAR_SHOT_SMALL));
     public static final RegistryObject<Item> SMALL_STAR_SHOT_YELLOW = ITEMS.register(
@@ -526,6 +532,7 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> SMALL_STAR_SHOT_PURPLE = ITEMS.register(
             "small_star_shot_purple", () -> new StarShot(DanmakuType.STAR_SHOT_SMALL));
 
+    ////////////////////////////// 所有颜色的大型星弹  /////////////////////////////////
     public static final RegistryObject<Item> LARGE_STAR_SHOT_RED = ITEMS.register(
             "large_star_shot_red", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
     public static final RegistryObject<Item> LARGE_STAR_SHOT_YELLOW = ITEMS.register(
