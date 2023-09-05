@@ -131,17 +131,36 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         }
     }
 
+    /**
+     * 根据符卡实体的生成位置和旋转设置弹幕的初始位置和旋转
+     * @param <D> 所有弹幕实体的类型
+     * @param danmaku 弹幕形参
+     */
     protected <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku) {
         danmaku.setNoGravity(true);
         danmaku.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(),
                 this.rotationYaw, this.rotationPitch);
     }
 
+    /**
+     * 根据旋转设置弹幕的旋转
+     * @param <D> 所有弹幕实体的类型
+     * @param danmaku 弹幕形参
+     * @param initPosition 弹幕的初始化位置
+     */
     protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition) {
         danmaku.setNoGravity(true);
         danmaku.setLocationAndAngles(initPosition.x, initPosition.y, initPosition.z, this.rotationYaw, this.rotationPitch);
     }
 
+    /**
+     * 根据传入的初始化位置和旋转设置弹幕的位置和旋转。<br>
+     * 注意：传入的旋转角度将决定着弹幕的法向渲染。
+     * @param <D> 所有弹幕实体的类型
+     * @param danmaku 弹幕形参
+     * @param initPosition 弹幕的初始化位置
+     * @param initRotation 弹幕的旋转
+     */
     protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition, Vector2f initRotation) {
         danmaku.setNoGravity(true);
         danmaku.setLocationAndAngles(initPosition.x, initPosition.y, initPosition.z, initRotation.x, initRotation.y);
