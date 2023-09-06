@@ -25,6 +25,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -48,7 +49,6 @@ public class MixinCauldronBlock extends Block{
     public void cauldronBlock$Init(Properties properties, CallbackInfo ci) {
         this.thelawf$setFluidState(CauldronFluid.EMPTY);
     }
-
 
     @Nullable
     @Override

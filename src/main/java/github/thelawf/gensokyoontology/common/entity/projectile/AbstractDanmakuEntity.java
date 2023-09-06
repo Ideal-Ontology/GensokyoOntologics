@@ -168,6 +168,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
                 PlayerEntity player = (PlayerEntity) result.getEntity();
                 if (this instanceof FakeLunarEntity) {
                     player.attackEntityFrom(GSKODamageSource.DANMAKU, 12f);
+                    // player.applyKnockback(0.1f, 0.05, 0.05);
                 }
                 player.attackEntityFrom(GSKODamageSource.DANMAKU, this.damage);
             }

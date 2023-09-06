@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "gensokyoontology:danmaku/large_shot"
+      "tag": "gensokyoontology:danmaku/large_shots"
     },
     {
       "item": "minecraft:light_blue_dye"

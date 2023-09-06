@@ -1,22 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "###",
+    "#$#",
     "XOX",
-    "AAA"
+    "###"
   ],
   "key": {
     "#": {
       "tag": "minecraft:planks"
     },
-    "A": {
-      "item": "minecraft:quartz_slab"
+    "$": {
+      "item": "gensokyoontology:inyo_jade_carpet"
     },
     "X": {
-      "item": "minecraft:obsidian"
+      "item": "minecraft:book"
     },
     "O": {
-      "item": "minecraft:lapis_lazuli"
+      "item": "gensokyoontology:danmaku_shot"
     }
   },
   "result": {

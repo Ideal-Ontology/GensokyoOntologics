@@ -88,24 +88,4 @@ public class ClientEventHandler {
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
     }
 
-    // @SubscribeEvent
-    // public static void onOverlayRender(RenderGameOverlayEvent event) {
-    //     if (event.getType() != RenderGameOverlayEvent.ElementType.ALL) {
-    //         return;
-    //     }
-    //     // Class<ItemRegistry> registryClass = ItemRegistry.class;
-    //     // List<Field> fields = Arrays.asList(registryClass.getFields());
-    //     // fields.removeIf(f -> f.getType() != RegistryObject.class);
-    //     if (Minecraft.getInstance().player == null || Minecraft.getInstance().player.getHeldItem(Hand.MAIN_HAND).getItem() != ItemRegistry.HAKUREI_GOHEI.get()) {
-    //         return;
-    //     }
-//
-    //     GSKOCapabilityHud gskoHud = new GSKOCapabilityHud(event.getMatrixStack());
-    //     gskoHud.render();
-    // }
-
-    // @SubscribeEvent
-    // public static void onRenderPlayer(RenderPlayerEvent.Pre event) {
-    //
-    // }
 }

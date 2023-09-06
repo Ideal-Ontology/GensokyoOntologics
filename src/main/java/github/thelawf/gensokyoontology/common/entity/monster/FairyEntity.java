@@ -48,6 +48,7 @@ public class FairyEntity extends MonsterEntity {
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new FairyAttackGoal(this, 8, 0.3f));
+        this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.3D));
         this.goalSelector.addGoal(5, new FairyEntity.RandomFlyGoal(this));
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 0.8f));

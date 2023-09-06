@@ -20,8 +20,7 @@ public class LootTableGenerator extends LootTableProvider {
     }
 
     private final List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>>
-            tables = ImmutableList.of(
-                    Pair.of(GSKOEntityLoot::new, LootParameterSets.ENTITY));
+            tables = ImmutableList.of(Pair.of(GSKOEntityLoot::new, LootParameterSets.ENTITY));
 
     @Override
     public List<Pair<Supplier<Consumer<BiConsumer<ResourceLocation, LootTable.Builder>>>, LootParameterSet>> getTables() {

@@ -17,6 +17,7 @@ import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +28,8 @@ public class KoishiEyeClosed extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, Hand handIn) {
 
         if (playerIn instanceof ServerPlayerEntity) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) playerIn;

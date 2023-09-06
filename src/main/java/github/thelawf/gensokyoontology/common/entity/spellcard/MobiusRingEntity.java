@@ -39,7 +39,7 @@ public class MobiusRingEntity extends SpellCardEntity{
         // 创建圆环的水平面：
         // 定义一个位于 X-Z 平面的 PQ 向量，以P为圆心形成圆P
         Vector3d horizonVec = new Vector3d(Vector3f.ZP);
-        horizonVec = horizonVec.scale(4);
+        horizonVec = horizonVec.scale(6);
 
         // 创建竖圆：
         /*
@@ -77,9 +77,6 @@ public class MobiusRingEntity extends SpellCardEntity{
             smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
 
             world.addEntity(smallShot);
-        }
-        if (ticksExisted >= this.lifeSpan) {
-            this.remove();
         }
 
         super.tick();

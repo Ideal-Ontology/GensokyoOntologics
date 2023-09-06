@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.api.INormalVectorDanmaku;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
 import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
@@ -14,7 +13,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public class TalismanShotEntity extends AbstractDanmakuEntity implements INormalVectorDanmaku {
+public class TalismanShotEntity extends AbstractDanmakuEntity {
 
     public static final EntityType<TalismanShotEntity> TALISMAN_SHOT =
             EntityType.Builder.<TalismanShotEntity>create(TalismanShotEntity::new, EntityClassification.MISC)
@@ -65,8 +64,4 @@ public class TalismanShotEntity extends AbstractDanmakuEntity implements INormal
         }
     }
 
-    @Override
-    public void setRenderRotation() {
-
-    }
 }
