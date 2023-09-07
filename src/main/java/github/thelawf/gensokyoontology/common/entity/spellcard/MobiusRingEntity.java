@@ -55,7 +55,7 @@ public class MobiusRingEntity extends SpellCardEntity{
         // float acceleration = 0.01f;
         // float velocity = 0.1f;
 
-        float velocity = 0.35f;
+        float velocity = 0.2f;
         float rotation = (float) (Math.PI / 80 * 2 * ticksExisted);
 
         // rotation = ticksExisted % 180 > 90 ? (float) -(Math.PI / 180 * ticksExisted) : rotation;

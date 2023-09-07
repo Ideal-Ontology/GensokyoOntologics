@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
+import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
@@ -14,6 +15,7 @@ import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
@@ -41,21 +43,22 @@ public class SpiralWheelEntity extends SpellCardEntity {
         Vector3d center = new Vector3d(Vector3f.XP);
 
         for (int i = 0; i < 8; i++) {
-            Vector3d global = center.add(3,0,0).rotateYaw((float) (Math.PI / 4 * i));
-            Vector3d shootAngle = global.normalize().inverse().rotateYaw((float) Math.PI / 12);
+            Vector3d global = center.add(20,0,0).rotateYaw((float) (Math.PI / 4 * i));
+            Vector3d shootAngle = global.normalize().inverse().rotateYaw((float) Math.PI / 50);
             global = global.rotateYaw((float) (Math.PI / 50 * ticksExisted)).add(this.getPositionVec());
 
             HashMap<Integer, TransformFunction> map = new HashMap<>();
 
-            SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.YELLOW);
-            setDanmakuInit(smallShot, global, new Vector2f((float) shootAngle.x, (float) shootAngle.z));
+            HeartShotEntity heartShot = new HeartShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.YELLOW);
+            setDanmakuInit(heartShot, global, new Vector2f((float) shootAngle.x, (float) shootAngle.z));
 
-            smallShot.shoot(shootAngle.x, shootAngle.y, shootAngle.z, 0.6f, 0f);
-            world.addEntity(smallShot);
+            heartShot.shoot(shootAngle.x, shootAngle.y, shootAngle.z, 0.6f, 0f);
+            world.addEntity(heartShot);
         }
     }
 
     @Override
+    @NotNull
     public ItemStack getItem() {
         return new ItemStack(ItemRegistry.SPELL_CARD_BLANK.get());
     }

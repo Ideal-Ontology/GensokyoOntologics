@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuE
 import github.thelawf.gensokyoontology.core.SpellCardRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.network.PacketBuffer;
@@ -144,8 +145,8 @@ public class DanmakuUtil {
         AbstractDanmakuEntity danmaku = data.danmaku;
 
         Vector3d vector3d = new Vector3d(Vector3f.ZP).scale(radius);
-        vector3d.rotatePitch((float) Math.PI / latitudeCount * i);
-        vector3d.rotateYaw((float) Math.PI / longitudeCount * j);
+        vector3d = vector3d.rotatePitch((float) Math.PI / latitudeCount * i);
+        vector3d = vector3d.rotateYaw((float) Math.PI / longitudeCount * j);
 
         initDanmaku(data);
         danmaku.shoot(vector3d.getX(), vector3d.getY(), vector3d.getZ(), data.speed, 0f);
@@ -158,6 +159,10 @@ public class DanmakuUtil {
     }
 
     public static void shootRadial() {
+
+    }
+
+    public static <D extends AbstractDanmakuEntity> void shootAimingAt(DanmakuData<D> data, LivingEntity target) {
 
     }
 }

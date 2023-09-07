@@ -178,7 +178,7 @@ public class GSKOFeatures {
     public static final StructureFeature<?, ?> HAKUREI_STRUCTURE = StructureRegistry.HAKUREI_SHRINE.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static final StructureFeature<?, ?> CHIREIDEN = StructureRegistry.CHIREIDEN.get()
-            .withConfiguration(new MineshaftConfig(0.1F, MineshaftStructure.Type.NORMAL));
+            .withConfiguration(new NoFeatureConfig());
 
     public static final StructureFeature<?, ?> CIRNO_ICE_HOUSE = StructureRegistry.CIRNO_ICE_HOUSE.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);

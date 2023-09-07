@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.world.feature.structure.*;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftConfig;
 import net.minecraft.world.gen.feature.structure.MineshaftStructure;
@@ -32,8 +33,8 @@ public final class StructureRegistry {
     public static final RegistryObject<Structure<NoFeatureConfig>> HAKUREI_SHRINE = STRUCTURES.register(
             "hakurei_shrine", () -> new HakureiShrineStructure(NoFeatureConfig.CODEC));
 
-    public static final RegistryObject<Structure<MineshaftConfig>> CHIREIDEN = STRUCTURES.register(
-            "chireiden", () -> new ChireidenStructure(MineshaftConfig.field_236541_a_));
+    public static final RegistryObject<Structure<NoFeatureConfig>> CHIREIDEN = STRUCTURES.register(
+            "chireiden", () -> new ChireidenStructure(NoFeatureConfig.CODEC));
 
     public static final RegistryObject<Structure<NoFeatureConfig>> CIRNO_ICE_HOUSE = STRUCTURES.register(
             "cirno_ice_house", () -> new CirnoIceHouseStructure(NoFeatureConfig.CODEC));

@@ -3,9 +3,13 @@
     "icon": {
       "item": "minecraft:writable_book"
     },
-    "title": "advancement.gensokyoontology.story.title",
-    "description": "advancement.gensokyoontology.story.description",
-    "background": "gensokyoontology:block/sakura_leaves",
+    "title": {
+      "translate": "advancement.gensokyoontology.story_01.title"
+    },
+    "description": {
+      "translate": "advancement.gensokyoontology.story_01.description"
+    },
+    "background": "gensokyoontology:block/sakura_planks",
     "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,

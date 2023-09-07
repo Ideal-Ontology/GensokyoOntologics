@@ -8,11 +8,7 @@ import net.minecraft.pathfinding.Path;
 import net.minecraft.util.math.vector.Vector3d;
 
 /**
- * Copy From TouHou Little Maid. Copyright (c) of Tartaric Acid. <br>
- * 由于酒石酸大佬用的是官方映射表，于是在这里写出MCP映射名和官方映射名的区别：<br><br>
- *          MCP名（本模组使用）                    官方映射名（车万女仆使用）<br>
- *       MobEntity#getNavigator()
- * @see <a href="https://github.com/TartaricAcid/TouhouLittleMaid/blob/1.16.5/src/main/java/com/github/tartaricacid/touhoulittlemaid/entity/ai/goal/FairyAttackGoal.java#L12">车万女仆中有关妖精AI的GitHub仓库界面</a>
+ * Copy from <a href="https://github.com/TartaricAcid/TouhouLittleMaid/blob/1.16.5/src/main/java/com/github/tartaricacid/touhoulittlemaid/entity/ai/goal/FairyAttackGoal.java#L12">车万女仆中有关妖精AI的GitHub仓库界面</a>
  * <br>
  *
  */

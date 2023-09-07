@@ -5,7 +5,7 @@
     },
     "title": "advancement.gensokyoontology.retreat_leviathan.title",
     "description": "advancement.gensokyoontology.retreat_leviathan.description",
-    "background": "gensokyoontology:block/sakura_leaves",
+    "background": "gensokyoontology:block/sakura_planks",
     "frame": "challenge",
     "show_toast": true,
     "announce_to_chat": true,

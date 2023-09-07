@@ -44,12 +44,12 @@ public class FairyEntity extends MonsterEntity {
 
     @Override
     protected void registerGoals() {
-        this.goalSelector.addGoal(1, new FairyAttackGoal(this, 8, 0.3f));
+        goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new FairyAttackGoal(this, 30, 0.3f));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.3D));
-        this.goalSelector.addGoal(5, new FairyEntity.RandomFlyGoal(this));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 0.8f));
-        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0));
+        this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
+        this.goalSelector.addGoal(5, new LookRandomlyGoal(this));
 
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
@@ -61,7 +61,7 @@ public class FairyEntity extends MonsterEntity {
 
     @Override
     @NotNull
-    protected PathNavigator createNavigator(World worldIn) {
+    protected PathNavigator createNavigator(@NotNull World worldIn) {
         FlyingPathNavigator navigator = new FlyingPathNavigator(this, worldIn);
         navigator.setCanOpenDoors(false);
         navigator.setCanEnterDoors(true);
@@ -70,11 +70,12 @@ public class FairyEntity extends MonsterEntity {
     }
 
     @Override
-    public void onKillEntity(ServerWorld world, LivingEntity killedEntity) {
+    public void onKillEntity(@NotNull ServerWorld world, @NotNull LivingEntity killedEntity) {
         super.onKillEntity(world, killedEntity);
     }
 
     @Override
+    @NotNull
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
@@ -88,7 +89,7 @@ public class FairyEntity extends MonsterEntity {
     }
 
     @Override
-    public boolean canSpawn(IWorld worldIn, SpawnReason spawnReasonIn) {
+    public boolean canSpawn(@NotNull IWorld worldIn, @NotNull SpawnReason spawnReasonIn) {
         return super.canSpawn(worldIn, spawnReasonIn);
     }
 
@@ -152,6 +153,7 @@ public class FairyEntity extends MonsterEntity {
     public void performDanmakuAttack(LivingEntity target) {
 
         Vector3d vector3d = new Vector3d(Vector3f.ZP).scale(2);
+        Random random = this.getRNG();
 
         for (int i = 0; i < 12; i++) {
             for (int j = 0; j < 12; j++) {
@@ -162,17 +164,6 @@ public class FairyEntity extends MonsterEntity {
 
                 DanmakuUtil.shootDanmaku(world, this, smallShot, vector3d, 0.4f, 0f);
             }
-        }
-    }
-
-    static class FlyToPlayerGoal extends Goal {
-        public FlyToPlayerGoal() {
-            super();
-        }
-
-        @Override
-        public boolean shouldExecute() {
-            return false;
         }
     }
 
