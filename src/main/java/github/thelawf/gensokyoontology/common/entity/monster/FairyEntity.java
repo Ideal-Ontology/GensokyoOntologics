@@ -2,10 +2,9 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.common.entity.ai.goal.FairyAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuData;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -19,14 +18,12 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;

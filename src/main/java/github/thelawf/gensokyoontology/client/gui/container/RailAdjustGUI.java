@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.client.gui.container;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
+import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;

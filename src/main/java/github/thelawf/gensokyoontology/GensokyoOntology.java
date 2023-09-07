@@ -1,9 +1,8 @@
 package github.thelawf.gensokyoontology;
 
-import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
 import github.thelawf.gensokyoontology.common.CommonSetUp;
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
@@ -12,15 +11,12 @@ import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
 import net.minecraft.client.gui.ScreenManager;
-import net.minecraft.client.network.play.ClientPlayNetHandler;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.MinecraftForgeClient;
-import net.minecraftforge.client.event.ClientPlayerNetworkEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -31,7 +27,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
-import org.apache.http.cookie.SM;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

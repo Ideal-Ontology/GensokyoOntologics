@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.core;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DataSerializerEntry;
 import net.minecraftforge.registries.DeferredRegister;

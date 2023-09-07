@@ -1,9 +1,11 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.*;
 import github.thelawf.gensokyoontology.common.util.DanmakuEntityPool;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
+import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -19,7 +21,6 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 public class MountainOfFaithEntity extends SpellCardEntity{
 

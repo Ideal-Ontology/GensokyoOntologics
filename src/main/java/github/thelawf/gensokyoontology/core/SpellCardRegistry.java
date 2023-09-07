@@ -1,13 +1,17 @@
 package github.thelawf.gensokyoontology.core;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.*;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
+import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.registries.*;
+import net.minecraftforge.registries.DeferredRegister;
+import net.minecraftforge.registries.IForgeRegistry;
+import net.minecraftforge.registries.RegistryBuilder;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class SpellCardRegistry {

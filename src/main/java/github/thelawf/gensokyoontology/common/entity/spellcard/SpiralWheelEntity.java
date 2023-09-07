@@ -1,11 +1,9 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
+import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;

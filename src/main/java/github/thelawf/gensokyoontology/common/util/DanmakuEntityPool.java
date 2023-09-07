@@ -1,16 +1,14 @@
 package github.thelawf.gensokyoontology.common.util;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 

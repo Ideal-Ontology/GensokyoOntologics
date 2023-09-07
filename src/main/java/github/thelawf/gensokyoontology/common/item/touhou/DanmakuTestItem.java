@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
-import github.thelawf.gensokyoontology.common.libs.danmakulib.TransformFunction;
+import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

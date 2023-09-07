@@ -11,7 +11,7 @@ import github.thelawf.gensokyoontology.common.item.ore.JadeItem;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.touhou.*;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.inventory.EquipmentSlotType;

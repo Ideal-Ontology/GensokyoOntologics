@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.libs.logoslib.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -12,7 +12,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;

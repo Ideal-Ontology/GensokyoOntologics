@@ -1,10 +1,11 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.*;
-import github.thelawf.gensokyoontology.core.SerializerRegistry;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
+import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -14,10 +15,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 
 import java.util.HashMap;
-import java.util.UUID;
 
 public class HellEclipseEntity extends SpellCardEntity{
 

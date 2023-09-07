@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuMuzzle;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuMuzzle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;

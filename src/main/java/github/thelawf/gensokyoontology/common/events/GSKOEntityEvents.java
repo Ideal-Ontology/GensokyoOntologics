@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.common.events;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.GSKODamageSource;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;

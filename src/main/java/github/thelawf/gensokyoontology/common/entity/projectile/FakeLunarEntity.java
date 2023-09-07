@@ -1,9 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuColor;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.DanmakuType;
-import github.thelawf.gensokyoontology.common.libs.danmakulib.SpellData;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
