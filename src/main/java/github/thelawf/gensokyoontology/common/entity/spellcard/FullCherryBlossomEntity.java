@@ -2,13 +2,23 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuData;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FullCherryBlossomEntity extends SpellCardEntity{
 
@@ -23,26 +33,30 @@ public class FullCherryBlossomEntity extends SpellCardEntity{
     @Override
     public void tick() {
         super.tick();
-        double radius = 5;
-        double blossomWidth = 7;
-        double blossomCount = 5;
-        double x,y;
 
-        for (int i = 0; i < 90; i++) {
-            x = radius * Math.cos((blossomCount / blossomWidth) * Math.PI / ((double) ticksExisted / 100))
-                    * Math.cos(Math.PI / ticksExisted);
+        // DanmakuData<RiceShotEntity> riceShotData = new DanmakuData<>(
+        //         this.world, riceShot, this.getPositionVec(), Vector2f.UNIT_X)
 
-            y = radius * Math.cos((blossomCount / blossomWidth) * Math.PI / ((double) ticksExisted / 100))
-                    * Math.sin(Math.PI / ticksExisted);
+        List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos(5, 7, 5, 600);
+        List<Vector2f> shootVectors = new ArrayList<>();
+        roseLinePos.forEach(vector3d -> shootVectors.add(GSKOMathUtil.getEulerAngle(new Vector3d(Vector3f.ZP), vector3d)));
 
-            RiceShotEntity riceShot = new RiceShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
+        if (ticksExisted % 8 == 0) {
+            for (int i = 0; i < roseLinePos.size(); i++) {
+                RiceShotEntity riceShot = new RiceShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
+                setDanmakuInit(riceShot, roseLinePos.get(i), shootVectors.get(i));
 
-            // setDanmakuInit(riceShot, new Vector3d(x, y, 0), );
+                Vector3d vector3d = new Vector3d(shootVectors.get(i).x, shootVectors.get(i).y, 0);
+                riceShot.shoot(vector3d.x, vector3d.y, vector3d.z, 0.3f, 0f);
+                world.addEntity(riceShot);
+            }
         }
+
     }
 
     @Override
+    @NotNull
     public ItemStack getItem() {
-        return null;
+        return ItemStack.EMPTY;
     }
 }

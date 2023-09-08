@@ -13,16 +13,12 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.IntIdentityHashBiMap;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -172,30 +168,60 @@ public class DanmakuUtil {
 
     }
 
+    public static <D extends AbstractDanmakuEntity> void shootWithRoseLine(D danmaku, Plane planeIn, Vector3d offsetRotation,
+                                                                           double radius, double count, double size, int density) {
+        List<Vector3d> roseLinePos = getRoseLinePos(radius, count, size, density);
+        // List<Vector2f> shootVectors = new ArrayList<>();
+        // roseLinePos.forEach(vector3d -> shootVectors.add(GSKOMathUtil.getEulerAngle(new Vector3d(Vector3f.ZP), vector3d)));
+    }
+
     /**
      * 按照玫瑰线来初始化弹幕的位置和旋转
      * @param radius 玫瑰线的半径
      * @param count 玫瑰线花瓣/叶片的数量
+     * @param size 玫瑰线花瓣的大小
      * @param density 玫瑰线上的弹幕密度
      */
-    public static void getRoseLinePos(double radius, double count, int density) {
+    public static List<Vector3d> getRoseLinePos(double radius, double count, double size, int density) {
+        // double blossomWidth = 7;
+        // double blossomCount = 5;
+        double x,y;
+        List<Vector3d> positions = new ArrayList<>();
 
+        for (int i = 0; i < density; i++) {
+            // double n = Math.cos((blossomCount / blossomWidth) * (Math.PI * blossomCount) / i);
+
+            // x = radius * n * Math.cos(Math.PI * blossomCount / i);
+            // y = radius * n * Math.sin(Math.PI * blossomCount / i);
+
+            double n = Math.cos((count / size) * (Math.PI * count) / i);
+            x = radius * n * Math.cos(Math.PI * count / i);
+            y = radius * n * Math.sin(Math.PI * count / i);
+
+            positions.add(new Vector3d((float) x, (float) y, 0));
+
+        }
+        return positions;
     }
 
-    public static List<Vector2f> getHeartLinePos(float radius) {
+    public static List<Vector3d> getHeartLinePos(float radius) {
         double t = 0;
         double vt = 0.01;
         double maxT = 2 * Math.PI;
-        List<Vector2f> positions = new ArrayList<>();
+        List<Vector3d> positions = new ArrayList<>();
 
         for (int i = 0; i < Math.ceil(maxT / vt); i++) {
             float x = (float) (16 * GSKOMathUtil.pow3(Math.sin(t)));
             float y = (float) (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
             t += vt;
-            positions.add(new Vector2f(x * radius, y * radius));
+            positions.add(new Vector3d(x * radius, y * radius, 0));
         }
-        Vector3d v = new Vector3d(Vector3f.ZP);
         return positions;
     }
 
+    public static enum Plane {
+        XZ,
+        XY,
+        YZ;
+    }
 }
