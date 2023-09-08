@@ -186,19 +186,12 @@ public class DanmakuUtil {
      * @param delta 决定着玫瑰线上的弹幕之间的间隔
      */
     public static List<Vector3d> getRoseLinePos(double count, double size, double delta) {
-        // double blossomWidth = 7;
-        // double blossomCount = 5;
         double x,y;
         List<Vector3d> positions = new ArrayList<>();
 
         for (double i = 0; i < 2 * Math.PI; i += delta) {
-            // double n = Math.cos((blossomCount / blossomWidth) * (Math.PI * blossomCount) / i);
-
-            // x = radius * n * Math.cos(Math.PI * blossomCount / i);
-            // y = radius * n * Math.sin(Math.PI * blossomCount / i);
 
             double r = Math.sin(count * i);
-
             x = r * Math.cos(i) * size;
             y = r * Math.sin(i) * size;
 
