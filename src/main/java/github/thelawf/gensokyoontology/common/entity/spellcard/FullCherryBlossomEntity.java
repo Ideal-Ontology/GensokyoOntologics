@@ -37,7 +37,7 @@ public class FullCherryBlossomEntity extends SpellCardEntity{
         // DanmakuData<RiceShotEntity> riceShotData = new DanmakuData<>(
         //         this.world, riceShot, this.getPositionVec(), Vector2f.UNIT_X)
 
-        List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos(5, 3, 0.03);
+        List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos((double) 3 / 2, 3, 0.05);
         // List<Vector2f> shootVectors = new ArrayList<>();
         // roseLinePos.forEach(vector3d -> shootVectors.add(GSKOMathUtil.getEulerAngle(new Vector3d(Vector3f.ZP), vector3d)));
 

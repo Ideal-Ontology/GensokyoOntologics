@@ -189,7 +189,7 @@ public class DanmakuUtil {
         double x,y;
         List<Vector3d> positions = new ArrayList<>();
 
-        for (double i = 0; i < 2 * Math.PI; i += delta) {
+        for (double i = 0; i < 4 * Math.PI; i += delta) {
 
             double r = Math.sin(count * i);
             x = r * Math.cos(i) * size;
