@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.client.gui.container;
 
-import github.thelawf.gensokyoontology.common.util.tree.TriMap;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,7 +9,6 @@ import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.FurnaceContainer;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IWorldPosCallable;
@@ -21,7 +19,9 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * 弹幕合成界面UV数据：<br><br>
@@ -330,14 +330,6 @@ public class DanmakuCraftingContainer extends Container {
     private List<Integer> createRecipeIndexes(Integer... slots) {
         List<Integer> list = new ArrayList<>();
         return new ArrayList<>(Arrays.asList(slots));
-    }
-
-    private List<TriMap<Integer, String, ItemStack>> createRecipeMap(int index, String pattern, ItemStack stack) {
-        List<TriMap<Integer, String, ItemStack>> list = new ArrayList<>();
-        TriMap<Integer, String, ItemStack> triMap = new TriMap<>();
-        triMap.put(index, pattern, stack);
-        list.add(triMap);
-        return list;
     }
 
     private boolean matches (IInventory inventoryIn, List<Integer> list) {

@@ -329,8 +329,22 @@ public class GSKOMathUtil {
                 Math.floor(vec.getZ()));
     }
 
-    public static Vector2f getEulerAngle(Vector3d vec1, Vector3d vec2) {
-        return Vector2f.NEGATIVE_UNIT_X;
+    public static Vector2f getEulerAngle(Vector3d vectorA, Vector3d vectorB) {
+        // 计算旋转矩阵的第一行
+        double m11 = vectorA.x * vectorB.x + vectorA.y * vectorB.y;
+        double m12 = vectorA.x * vectorB.y - vectorA.y * vectorB.x;
+        double m13 = vectorA.z * vectorB.x;
+
+        // 计算旋转矩阵的第三行
+        double m31 = -vectorA.y;
+        double m32 = vectorA.x;
+        double m33 = 0;
+
+        // 计算 yaw、pitch 和 roll 欧拉角
+        double yaw = Math.atan2(m12, m11);
+        double pitch = Math.asin(m31);
+
+        return new Vector2f((float) yaw, (float) pitch);
     }
 
     public static int randomRange(int min, int max) {

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.util.danmaku;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.SpellCardRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.Entity;
@@ -12,11 +13,16 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.IntIdentityHashBiMap;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Rotation;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,7 +124,7 @@ public class DanmakuUtil {
     }
 
     public static List<Item> getAllDanmakuItem() {
-        final List<Item> danmakuItems = new ArrayList<>();
+        List<Item> danmakuItems = new ArrayList<>();
         danmakuItems.add(ItemRegistry.LARGE_SHOT_RED.get());
         danmakuItems.add(ItemRegistry.LARGE_SHOT_PURPLE.get());
         danmakuItems.add(ItemRegistry.LARGE_SHOT_BLUE.get());
@@ -175,4 +181,21 @@ public class DanmakuUtil {
     public static void getRoseLinePos(double radius, double count, int density) {
 
     }
+
+    public static List<Vector2f> getHeartLinePos(float radius) {
+        double t = 0;
+        double vt = 0.01;
+        double maxT = 2 * Math.PI;
+        List<Vector2f> positions = new ArrayList<>();
+
+        for (int i = 0; i < Math.ceil(maxT / vt); i++) {
+            float x = (float) (16 * GSKOMathUtil.pow3(Math.sin(t)));
+            float y = (float) (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+            t += vt;
+            positions.add(new Vector2f(x * radius, y * radius));
+        }
+        Vector3d v = new Vector3d(Vector3f.ZP);
+        return positions;
+    }
+
 }

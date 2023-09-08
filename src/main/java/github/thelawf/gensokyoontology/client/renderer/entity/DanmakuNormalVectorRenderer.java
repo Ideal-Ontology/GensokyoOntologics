@@ -27,14 +27,16 @@ public class DanmakuNormalVectorRenderer extends SpriteRenderer<AbstractDanmakuE
 
     @Override
     public void render(@NotNull AbstractDanmakuEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-    matrixStackIn.push();
-    matrixStackIn.scale(scale, scale, scale);
-    matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw) - 90f));
-    matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch) - 90f));
+        if (entityIn.ticksExisted >= 2 || !(this.renderManager.info.getRenderViewEntity().getDistanceSq(entityIn) < 12.25D)) {
+            matrixStackIn.push();
+            matrixStackIn.scale(scale, scale, scale);
+            matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw) - 90f));
+            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch) - 90f));
 
-    matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90.f));
-    itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GUI,
-            packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
-    matrixStackIn.pop();
+            matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90.f));
+            itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GUI,
+                    packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
+            matrixStackIn.pop();
+        }
     }
 }
