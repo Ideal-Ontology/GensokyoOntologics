@@ -49,7 +49,7 @@ public class SpiralWheelEntity extends SpellCardEntity {
 
             HashMap<Integer, TransformFunction> map = new HashMap<>();
 
-            HeartShotEntity heartShot = new HeartShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.YELLOW);
+            HeartShotEntity heartShot = new HeartShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.AQUA);
             setDanmakuInit(heartShot, global, new Vector2f((float) shootAngle.x, (float) shootAngle.z));
 
             heartShot.shoot(shootAngle.x, shootAngle.y, shootAngle.z, 0.6f, 0f);

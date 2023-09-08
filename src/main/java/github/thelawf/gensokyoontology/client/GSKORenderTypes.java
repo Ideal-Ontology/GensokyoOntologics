@@ -17,6 +17,7 @@ public class GSKORenderTypes extends RenderType {
                            boolean useDelegateIn, boolean needsSortingIn, Runnable setupTaskIn, Runnable clearTaskIn,
                            double width) {
         super(nameIn, formatIn, drawModeIn, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);
+
     }
 
     public static final RenderType LASER_LINE_THICK = makeType("laser_line_thick",

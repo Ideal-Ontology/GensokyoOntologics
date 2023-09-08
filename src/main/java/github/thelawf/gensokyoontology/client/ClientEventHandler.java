@@ -74,6 +74,7 @@ public class ClientEventHandler {
 
         // =========================== 人形生物的渲染器 ========================= //
         RenderingRegistry.registerEntityRenderingHandler(FairyEntity.FAIRY, FairyRenderer::new);
+        // RenderingRegistry.registerEntityRenderingHandler();
         RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(HumanResidentEntity.HUMAN_RESIDENT,

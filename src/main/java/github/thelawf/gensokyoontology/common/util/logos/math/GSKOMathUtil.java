@@ -3,8 +3,10 @@ package github.thelawf.gensokyoontology.common.util.logos.math;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
@@ -41,124 +43,6 @@ public class GSKOMathUtil {
 
     public static double distanceOf3D(double x1, double y1, double z1, double x2, double y2, double z2) {
         return Math.pow(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 + z2, 2), 0.5);
-    }
-
-    public static Vector3d intersection2D(LineSegment l1, LineSegment l2) {
-        return intersection2D(new Point(l1.dotA), new Point(l1.dotB),
-                new Point(l2.dotA), new Point(l2.dotB));
-    }
-
-    /**
-     * 获取平面上两条直线的交点坐标
-     * @param p1 直线1的起点
-     * @param p2 直线1的终点
-     * @param p3 直线2的起点
-     * @param p4 直线2的终点
-     * @return 交点的平面直角坐标
-     */
-    public static Vector3d intersection2D(Point p1, Point p2, Point p3, Point p4) {
-
-        double a1 = p1.getY() - p2.getY();
-        double b1 = p2.getX() - p1.getX();
-        double c1 = a1 * p1.getX() + b1 * p1.getY();
-
-        double a2 = p3.getY() - p4.getY();
-        double b2 = p4.getX() - p3.getX();
-        double c2 = a2 * p3.getX() + b2 * p3.getY();
-
-        double detK = a1 * b2 - a2 * b1;
-
-        if(Math.abs(detK)<0.00001){
-            return null;
-        }
-
-        double a = b2 / detK;
-        double b = -1 * b1 / detK;
-        double c = -1 * a2 / detK;
-        double d = a1 / detK;
-
-        double x = a * c1 + b * c2;
-        double y = c * c1 + d * c2;
-
-        return new Vector3d(x, y,0);
-
-    }
-
-    public static Vector3d intersection3D(LineSegment3D l1, LineSegment3D l2) {
-        try {
-            return intersection3D(l1.x1, l1.y1, l1.z1, l1.x2, l1.y2, l1.z2,
-                    l2.x1, l2.y1, l2.z1, l2.x2, l2.y2, l2.z2);
-        } catch (PointNonExistException e) {
-            throw new RuntimeException();
-        }
-    }
-
-    /**
-     * 设两条线段的端点分别为 (x1,y1,z1), (x2,y2,z2) 和 （x3,y3,z3), (x4,y4,z4)，那么第一条线段方程为U(t1)
-     * <p>
-     * x=x1+(x2-x1)t1
-     * <p>
-     * y=y1+(y2-y1)t1
-     * <p>
-     * z=z1+(z2-z1)t1
-     * <p>
-     * 0<=t<=1
-     * <p>
-     * 同样，第二条线段方程为V(t2)
-     * <p>
-     * x=x3+(x4-x3)t2
-     * <p>
-     * y=y3+(y4-y3)t2
-     * <p>
-     * z=z3+(z4-z3)t2
-     * <p>
-     * 0<=t<=1
-     * <p>
-     * 我们的问题就成为是否存在t1,t2,使得U(t1)=V(t2)，也就是求t1,t2,使得
-     * <p>
-     * x1+(x2-x1)t1=x3+(x4-x3)t2
-     * <p>
-     * y1+(y2-y1)t1=y3+(y4-y3)t2
-     * <p>
-     * z1+(z2-z1)t1=z3+(z4-z3)t2
-     * <p>
-     * 可以通过前面两条方程求出t1,t2,然后带入第三条方程进行检验解是否符合。此外还要求0<=t1,t2<=1，否则还是不相交
-     * <p>
-     * @param x1 直线1的起点x坐标
-     * @param y1 直线1的起点y坐标
-     * @param z1 直线1的起点z坐标
-     * @param x2 直线1的终点x坐标
-     * @param y2 直线1的终点y坐标
-     * @param z2 直线1的终点z坐标
-     * @param x3 直线2的起点x坐标
-     * @param y3 直线2的起点y坐标
-     * @param z3 直线2的起点z坐标
-     * @param x4 直线2的终点x坐标
-     * @param y4 直线2的终点y坐标
-     * @param z4 直线2的终点z坐标
-     * @throws PointNonExistException 直线不存在交点
-     * @return 直线1和直线2的交点在三维空间中的坐标
-     */
-    public static Vector3d intersection3D(double x1, double y1, double z1,
-                                                       double x2, double y2, double z2,
-                                                       double x3, double y3, double z3,
-                                                       double x4, double y4, double z4)
-            throws PointNonExistException{
-
-        double t1 = ((y1 -y3) * (x3 - x4) - (y3 - y4) * (x1 - x3)) /
-                ((y3 - y1) * (x1 - x2) - (x3 -x4) * (y1 - y2));
-        double t2 = ((x1 - x3) + (x1 - x2) * t1) / (x3 - x4);
-
-        if (t1 <= 0 || t1 >= 1 || t2 <= 0 || t2 >= 1) {
-            throw new PointNonExistException("两直线平行或线性相关，不存在交点");
-        }
-        else {
-            double x = x1 + (x1 - x2) * t1;
-            double y = y1 + (y1 - y2) * t1;
-            double z = z1 + (z1 - z2) * t1;
-            return new Vector3d(x,y,z);
-        }
-
     }
 
     public static Vector3d getIntersectVec(Vector3d p1, Vector3d v1,
@@ -445,6 +329,10 @@ public class GSKOMathUtil {
                 Math.floor(vec.getZ()));
     }
 
+    public static Vector2f getEulerAngle(Vector3d vec1, Vector3d vec2) {
+        return Vector2f.NEGATIVE_UNIT_X;
+    }
+
     public static int randomRange(int min, int max) {
         return new Random().nextInt(max - min + 1) + min;
     }
@@ -533,7 +421,7 @@ public class GSKOMathUtil {
         }
     }
 
-    public static ArrayList<Vector3d> generateBlockOnBezierCurve(BlockPos start, BlockPos end) {
+    public static ArrayList<Vector3d> getBlocksOnBezierCurve(BlockPos start, BlockPos end) {
         // 获取起点和终点之间的距离
         double dist = start.distanceSq(end);
         ArrayList<Vector3d> vecList = new ArrayList<>();

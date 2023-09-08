@@ -47,7 +47,7 @@ public class IdonokaihoEntity extends SpellCardEntity {
         for (int i = 0; i < 6; i++) {
             if (ticksExisted % 3 == 0) {
 
-                HeartShotEntity heartShot = new HeartShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.HEART_SHOT, DanmakuColor.PINK);
+                HeartShotEntity heartShot = new HeartShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.HEART_SHOT, DanmakuColor.BLUE);
                 Vector3d muzzle = new Vector3d(Vector3f.XP).rotateYaw((float) (Math.PI / 3 * i));
                 Vector3d shootAngle = muzzle.rotateYaw((float) (Math.PI / 120) * ticksExisted);
                 // Vector3d shootAngle = angle.add(angle.rotateYaw((float) Math.PI / 2));

@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3d;
@@ -36,7 +37,7 @@ public class WaveAndParticleEntity extends SpellCardEntity{
         super.tick();
 
         for (int i = 0; i < 3; i++) {
-            RiceShotEntity riceShot = new RiceShotEntity((PlayerEntity) this.getOwner(), world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
+            RiceShotEntity riceShot = new RiceShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
 
             Vector3d muzzle = this.getLookVec().rotateYaw((float) Math.PI * 2 / 3 * i);
             Vector3d shootAngle = muzzle.rotateYaw((float) (Math.PI / 180 *

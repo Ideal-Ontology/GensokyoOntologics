@@ -165,4 +165,14 @@ public class DanmakuUtil {
     public static <D extends AbstractDanmakuEntity> void shootAimingAt(DanmakuData<D> data, LivingEntity target) {
 
     }
+
+    /**
+     * 按照玫瑰线来初始化弹幕的位置和旋转
+     * @param radius 玫瑰线的半径
+     * @param count 玫瑰线花瓣/叶片的数量
+     * @param density 玫瑰线上的弹幕密度
+     */
+    public static void getRoseLinePos(double radius, double count, int density) {
+
+    }
 }

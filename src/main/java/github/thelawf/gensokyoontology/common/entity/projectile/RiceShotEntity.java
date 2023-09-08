@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
@@ -21,8 +22,8 @@ public class RiceShotEntity extends AbstractDanmakuEntity{
         super(RICE_SHOT, worldIn);
     }
 
-    public RiceShotEntity(PlayerEntity playerIn, World worldIn, DanmakuType danmakuType, DanmakuColor danmakuColor) {
-        super(RICE_SHOT, playerIn, worldIn, danmakuType, danmakuColor);
+    public RiceShotEntity(LivingEntity livingIn, World worldIn, DanmakuType danmakuType, DanmakuColor danmakuColor) {
+        super(RICE_SHOT, livingIn, worldIn, danmakuType, danmakuColor);
     }
 
     @Override
