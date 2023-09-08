@@ -17,7 +17,7 @@ import java.util.UUID;
 public class LilyWhiteEntity extends TameableEntity implements IAngerable {
     public static final EntityType<LilyWhiteEntity> LILY_WHITE = EntityType.Builder.create(
                     LilyWhiteEntity::new, EntityClassification.CREATURE).updateInterval(2)
-            .size(0.6f, 1.5f).trackingRange(10).build("fairy");
+            .size(0.6f, 1.5f).trackingRange(10).build("lily_white");
 
     protected LilyWhiteEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
@@ -25,7 +25,7 @@ public class LilyWhiteEntity extends TameableEntity implements IAngerable {
 
     @Nullable
     @Override
-    public AgeableEntity createChild(ServerWorld world, AgeableEntity mate) {
+    public AgeableEntity createChild(@NotNull ServerWorld world, @NotNull AgeableEntity mate) {
         return null;
     }
 

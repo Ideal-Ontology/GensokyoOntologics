@@ -164,39 +164,43 @@ public class DanmakuUtil {
 
     }
 
-    public static <D extends AbstractDanmakuEntity> void shootAimingAt(DanmakuData<D> data, LivingEntity target) {
-
+    public static <D extends AbstractDanmakuEntity> void shootAimingAt(DanmakuData<D> data,LivingEntity thrower, LivingEntity target) {
+        if (!data.world.isRemote) {
+            float offset = (float) (0.3f / target.getYOffset());
+            data.danmaku.shoot(target.getPosX() - thrower.getPosX(), target.getPosY() - thrower.getPosY() - offset, target.getPosZ() - thrower.getPosZ(), data.speed, 0);
+            data.world.addEntity(data.danmaku);
+        }
     }
 
     public static <D extends AbstractDanmakuEntity> void shootWithRoseLine(D danmaku, Plane planeIn, Vector3d offsetRotation,
                                                                            double radius, double count, double size, int density) {
-        List<Vector3d> roseLinePos = getRoseLinePos(radius, count, size, density);
+        // List<Vector3d> roseLinePos = getRoseLinePos(radius, count, size, density);
         // List<Vector2f> shootVectors = new ArrayList<>();
         // roseLinePos.forEach(vector3d -> shootVectors.add(GSKOMathUtil.getEulerAngle(new Vector3d(Vector3f.ZP), vector3d)));
     }
 
     /**
      * 按照玫瑰线来初始化弹幕的位置和旋转
-     * @param radius 玫瑰线的半径
      * @param count 玫瑰线花瓣/叶片的数量
      * @param size 玫瑰线花瓣的大小
-     * @param density 玫瑰线上的弹幕密度
+     * @param delta 决定着玫瑰线上的弹幕之间的间隔
      */
-    public static List<Vector3d> getRoseLinePos(double radius, double count, double size, int density) {
+    public static List<Vector3d> getRoseLinePos(double count, double size, double delta) {
         // double blossomWidth = 7;
         // double blossomCount = 5;
         double x,y;
         List<Vector3d> positions = new ArrayList<>();
 
-        for (int i = 0; i < density; i++) {
+        for (double i = 0; i < 2 * Math.PI; i += delta) {
             // double n = Math.cos((blossomCount / blossomWidth) * (Math.PI * blossomCount) / i);
 
             // x = radius * n * Math.cos(Math.PI * blossomCount / i);
             // y = radius * n * Math.sin(Math.PI * blossomCount / i);
 
-            double n = Math.cos((count / size) * (Math.PI * count) / i);
-            x = radius * n * Math.cos(Math.PI * count / i);
-            y = radius * n * Math.sin(Math.PI * count / i);
+            double r = Math.sin(count * i);
+
+            x = r * Math.cos(i) * size;
+            y = r * Math.sin(i) * size;
 
             positions.add(new Vector3d((float) x, (float) y, 0));
 
@@ -222,6 +226,7 @@ public class DanmakuUtil {
     public static enum Plane {
         XZ,
         XY,
-        YZ;
+        YZ,
+        XYZ;
     }
 }

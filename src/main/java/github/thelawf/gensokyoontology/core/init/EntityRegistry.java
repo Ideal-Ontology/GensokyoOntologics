@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.InyoJadeMonsterEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.CitizenEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
@@ -28,10 +29,10 @@ public final class EntityRegistry {
     // ================================ 怪物 ==================================== //
     public static final RegistryObject<EntityType<InyoJadeMonsterEntity>> INYO_JADE_ENTITY = ENTITIES.register(
             "inyo_jade", () -> InyoJadeMonsterEntity.INYO_JADE_MONSTER);
-
     public static final RegistryObject<EntityType<FairyEntity>> FAIRY_ENTITY = ENTITIES.register(
             "fairy", () -> FairyEntity.FAIRY);
-
+    public static final RegistryObject<EntityType<LilyWhiteEntity>> LILY_WHITE_ENTITY = ENTITIES.register(
+            "lily_white", () -> LilyWhiteEntity.LILY_WHITE);
     public static final RegistryObject<EntityType<SpectreEntity>> SPECTRE_ENTITY = ENTITIES.register(
             "spectre", () -> SpectreEntity.SPECTRE);
 
@@ -88,11 +89,14 @@ public final class EntityRegistry {
             ENTITIES.register("mountain_of_faith", () -> MountainOfFaithEntity.MOUNTAIN_OF_FAITH_ENTITY);
     public static final RegistryObject<EntityType<MobiusRingEntity>> MOBIUS_RING_WORLD_ENTITY =
             ENTITIES.register("mobius_ring_world", () -> MobiusRingEntity.MOBIUS_RING_ENTITY);
-    // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
-   //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);
+    public static final RegistryObject<EntityType<FullCherryBlossomEntity>> FULL_CHERRY_BLOSSOM_ENTITY =
+            ENTITIES.register("full_cherry_blossom", () -> FullCherryBlossomEntity.FULL_CHERRY_BLOSSOM);
 
-   // public static final RegistryObject<EntityType<PhantasmSphereEntity>> PH_SPHERE_ENTITY = GSKO_ENTITIES.register(
-   //         "phantasm_sphere", () -> PhantasmSphereEntity.PH_SPHERE_TYPE);
+    // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
+    //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);
+
+    // public static final RegistryObject<EntityType<PhantasmSphereEntity>> PH_SPHERE_ENTITY = GSKO_ENTITIES.register(
+    //         "phantasm_sphere", () -> PhantasmSphereEntity.PH_SPHERE_TYPE);
 }
 
 

@@ -2,10 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.projectile;
 
 import github.thelawf.gensokyoontology.common.util.danmaku.*;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRendersAsItem;
-import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
@@ -156,7 +153,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
 
     @Override
     protected void onEntityHit(@NotNull EntityRayTraceResult result) {
-        if (this.getShooter() instanceof MonsterEntity) {
+        if (this.getShooter() instanceof MonsterEntity || this.getShooter() instanceof IAngerable) {
             if (result.getEntity() instanceof PlayerEntity) {
                 PlayerEntity player = (PlayerEntity) result.getEntity();
                 if (this instanceof FakeLunarEntity) {

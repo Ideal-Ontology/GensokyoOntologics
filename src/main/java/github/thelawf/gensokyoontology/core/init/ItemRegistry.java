@@ -435,26 +435,24 @@ public final class ItemRegistry {
     public static final RegistryObject<SC_WaveAndParticle> SC_WAVE_AND_PARTICLE = ITEMS.register(
             "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
-
     public static final RegistryObject<SC_IdoNoKaiho> SC_IDO_NO_KAIHO = ITEMS.register(
             "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB), 600));
-
     public static final RegistryObject<SC_SpiralWheel> SC_SPIRAL_WHEEL = ITEMS.register(
             "sc_spiral_wheel", () -> new SC_SpiralWheel(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
-
     public static final RegistryObject<SC_HellEclipse> SC_HELL_ECLIPSE = ITEMS.register(
             "sc_hell_eclipse", () -> new SC_HellEclipse(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
-
     public static final RegistryObject<SC_MountainOfFaith> SC_MOUNTAIN_OF_FAITH = ITEMS.register(
             "sc_mountain_of_faith", () -> new SC_MountainOfFaith(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
-
     public static final RegistryObject<SC_MobiusRingWorld> SC_MOBIUS_RING_WORLD = ITEMS.register(
             "sc_mobius_ring_world", () -> new SC_MobiusRingWorld(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<SC_FullCherryBlossom> SC_FULL_CHERRY_BLOSSOM = ITEMS.register(
+            "sc_full_cherry_blossom", () -> new SC_FullCherryBlossom(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
 
