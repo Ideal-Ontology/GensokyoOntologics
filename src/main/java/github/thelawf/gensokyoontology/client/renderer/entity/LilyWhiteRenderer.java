@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class LilyWhiteRenderer extends LivingRenderer<LilyWhiteEntity, LilyWhiteModel> {
 
     public static final ResourceLocation LILY_WHITE_TEX = new ResourceLocation(
-            GensokyoOntology.MODID, "textures/entity/lily_white");
+            GensokyoOntology.MODID, "textures/entity/lily_white.png");
 
     public LilyWhiteRenderer(EntityRendererManager rendererManager, LilyWhiteModel entityModelIn, float shadowSizeIn) {
         super(rendererManager, entityModelIn, shadowSizeIn);
