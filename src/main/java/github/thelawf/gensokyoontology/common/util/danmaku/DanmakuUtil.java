@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.util.danmaku;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.SpellCardRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -13,7 +14,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.IntIdentityHashBiMap;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -79,10 +79,10 @@ public class DanmakuUtil {
 
     }
 
-    public static <D extends AbstractDanmakuEntity> void initDanmaku(DanmakuData<D> data) {
-        data.danmaku.setNoGravity(true);
-        data.danmaku.setLocationAndAngles(data.shooter.getPosX(), data.shooter.getPosY() + data.shooter.getEyeHeight(),
-                data.shooter.getPosZ(), data.initRotation.x, data.initRotation.y);
+    public static <D extends AbstractDanmakuEntity> void initDanmaku(DanmakuData data) {
+        // data.danmaku.setNoGravity(true);
+        // data.danmaku.setLocationAndAngles(data.shooter.getPosX(), data.shooter.getPosY() + data.shooter.getEyeHeight(),
+        //         data.shooter.getPosZ(), data.initRotation.x, data.initRotation.y);
     }
 
 
@@ -140,19 +140,18 @@ public class DanmakuUtil {
         return danmakuItems;
     }
 
-    public static <D extends AbstractDanmakuEntity> void shootSpherical(DanmakuData<D> data, double radius,
+    public static <D extends AbstractDanmakuEntity> void shootSpherical(Class<D> danmaku, double radius,
                                                                         int latitudeCount, int longitudeCount,
                                                                         int i, int j) {
 
-        AbstractDanmakuEntity danmaku = data.danmaku;
 
         Vector3d vector3d = new Vector3d(Vector3f.ZP).scale(radius);
         vector3d = vector3d.rotatePitch((float) Math.PI / latitudeCount * i);
         vector3d = vector3d.rotateYaw((float) Math.PI / longitudeCount * j);
 
-        initDanmaku(data);
-        danmaku.shoot(vector3d.getX(), vector3d.getY(), vector3d.getZ(), data.speed, 0f);
-        data.world.addEntity(danmaku);
+        // initDanmaku(data);
+        // danmaku.shoot(vector3d.getX(), vector3d.getY(), vector3d.getZ(), data.speed, 0f);
+        // data.world.addEntity(danmaku);
 
     }
 
@@ -164,11 +163,12 @@ public class DanmakuUtil {
 
     }
 
-    public static <D extends AbstractDanmakuEntity> void shootAimingAt(DanmakuData<D> data,LivingEntity thrower, LivingEntity target) {
+    public static void shootAimingAt(DanmakuData data, LivingEntity target) {
         if (!data.world.isRemote) {
             float offset = (float) (0.3f / target.getYOffset());
-            data.danmaku.shoot(target.getPosX() - thrower.getPosX(), target.getPosY() - thrower.getPosY() - offset, target.getPosZ() - thrower.getPosZ(), data.speed, 0);
-            data.world.addEntity(data.danmaku);
+            LivingEntity thrower = data.shooter;
+            // data.danmaku.shoot(target.getPosX() - thrower.getPosX(), target.getPosY() - thrower.getPosY() - offset, target.getPosZ() - thrower.getPosZ(), data.speed, 0);
+            // data.world.addEntity(data.danmaku);
         }
     }
 
@@ -216,7 +216,7 @@ public class DanmakuUtil {
         return positions;
     }
 
-    public static enum Plane {
+    public enum Plane {
         XZ,
         XY,
         YZ,

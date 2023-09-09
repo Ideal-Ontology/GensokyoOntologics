@@ -34,12 +34,8 @@ public class FullCherryBlossomEntity extends SpellCardEntity{
     public void tick() {
         super.tick();
 
-        // DanmakuData<RiceShotEntity> riceShotData = new DanmakuData<>(
-        //         this.world, riceShot, this.getPositionVec(), Vector2f.UNIT_X)
 
         List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos((double) 3 / 2, 3, 0.05);
-        // List<Vector2f> shootVectors = new ArrayList<>();
-        // roseLinePos.forEach(vector3d -> shootVectors.add(GSKOMathUtil.getEulerAngle(new Vector3d(Vector3f.ZP), vector3d)));
 
         if (ticksExisted % 40 == 0) {
 

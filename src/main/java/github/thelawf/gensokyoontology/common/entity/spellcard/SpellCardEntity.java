@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuMuzzle;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
@@ -22,7 +21,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Optional;
+import java.util.UUID;
 
 public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
 
@@ -34,8 +34,6 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
      * 初始化设置弹幕的射击方位为X轴正方向，即游戏中的东方
      */
     protected Vector3d shootAngle = new Vector3d(Vector3f.XP);
-
-    public List<DanmakuMuzzle<? extends AbstractDanmakuEntity>> muzzles = new ArrayList<>();
 
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
             SpellCardEntity.class, DataSerializers.VARINT);
