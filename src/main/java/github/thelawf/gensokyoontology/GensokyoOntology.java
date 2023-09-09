@@ -160,6 +160,12 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5D)
                     .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.8D).create());
 
+            event.put(EntityRegistry.LILY_WHITE_ENTITY.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 100D)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 7D)
+                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.4D).create());
+
             // event.put(EntityRegistry.SUMIREKO_ENTITY.get(), TameableEntity.func_233666_p_()
             //         .createMutableAttribute(Attributes.MAX_HEALTH, 20D).create());
 //

@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
@@ -17,6 +19,7 @@ import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -424,7 +427,13 @@ public final class ItemRegistry {
     // public static final RegistryObject<Item> GAME_COIN = ITEMS.register("game_coin",
     //         () -> new GameCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-
+    // ============================ GSKO生物刷怪蛋 ================================//
+    public static final RegistryObject<ForgeSpawnEggItem> FAIRY_SPAWN_EGG = ITEMS.register(
+            "fairy_spawn_egg", () -> new ForgeSpawnEggItem(() -> FairyEntity.FAIRY,
+                    0x0E51D5, 0xFAEB1C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> LILY_WHITE_SPAWN_EGG = ITEMS.register(
+            "lily_white_spawn_egg", () -> new ForgeSpawnEggItem(() -> LilyWhiteEntity.LILY_WHITE,
+                    0xFFFFE2, 0xF52C2C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//

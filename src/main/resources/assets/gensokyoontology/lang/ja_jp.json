@@ -83,6 +83,10 @@
   "item.gensokyoontology.dark_spirit": "Dark Spirit",
   "item.gensokyoontology.light_spirit": "Light Spirit",
 
+  "item.gensokyoontology.fairy_spawn_egg": "Fairy Spawn Egg",
+  "item.gensokyoontology.lily_white_spawn_egg": "Lily White Spawn Egg",
+
+
   "item.gensokyoontology.spell_card_blank": "Spell Card Blank",
   "item.gensokyoontology.sc_spiral_wheel": "Spell Card Original: Spiral Wheel",
   "item.gensokyoontology.sc_wave_and_particle": "境符「波と粒の境界」",
@@ -90,6 +94,7 @@
   "item.gensokyoontology.sc_hell_eclipse": "獄符「ヘルエクリプス」",
   "item.gensokyoontology.sc_mountain_of_faith": "「マウンテン・オブ・フェイス」",
   "item.gensokyoontology.sc_mobius_ring_world": " 「メビウスリングワルド」",
+  "item.gensokyoontology.sc_full_cherry_blossom": "\"Full Cherry Blossom\"",
 
   "item.gensokyoontology.chimata_market_license": "天弓千亦的市场许可证",
   "item.gensokyoontology.large_shot_red": "大弹（红）",
@@ -287,6 +292,8 @@
   "entity.gensokyoontology.spellcard.sc_mobius_ring_world": "「メビウスリングワルド」",
 
   "entity.gensokyoontology.fairy": "妖精",
+  "entity.gensokyoontology.lily_white": "Lily White",
+
   "entity.gensokyoontology.inyo_jade": "陰陽玉",
   "entity.gensokyoontology.spectre": "幽霊",
   "entity.gensokyoontology.human_resident": "Human Resident",

@@ -15,6 +15,7 @@ import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.FlyingEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
@@ -53,6 +54,11 @@ public class CommonSetUp {
                     EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
                     Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                     MonsterEntity::canMonsterSpawn);
+
+            EntitySpawnPlacementRegistry.register(EntityRegistry.LILY_WHITE_ENTITY.get(),
+                    EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
+                    Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
+                    TameableEntity::canAnimalSpawn);
 
             CapabilityManager.INSTANCE.register(
                     IIdeologyCapability.class,

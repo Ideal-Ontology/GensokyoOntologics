@@ -83,6 +83,10 @@
   "item.gensokyoontology.dark_spirit": "Dark Spirit",
   "item.gensokyoontology.light_spirit": "Light Spirit",
 
+  "item.gensokyoontology.fairy_spawn_egg": "Fairy Spawn Egg",
+  "item.gensokyoontology.lily_white_spawn_egg": "Lily White Spawn Egg",
+
+
   "item.gensokyoontology.spell_card_blank": "Spell Card Blank",
   "item.gensokyoontology.sc_spiral_wheel": "Spell Card Original: Spiral Wheel",
   "item.gensokyoontology.sc_wave_and_particle": "Border Sign \"Boundary of Wave and Particle\"",
@@ -90,6 +94,7 @@
   "item.gensokyoontology.sc_hell_eclipse": "Hell Sign \"Hell Eclipse\"",
   "item.gensokyoontology.sc_mountain_of_faith": "\"Mountain Of Faith\"",
   "item.gensokyoontology.sc_mobius_ring_world": "\"Mobius Ring World\"",
+  "item.gensokyoontology.sc_full_cherry_blossom": "\"Full Cherry Blossom\"",
 
   "item.gensokyoontology.chimata_market_license": "Chimata Market License",
   "item.gensokyoontology.large_shot_red": "Large Shot Red",
@@ -287,6 +292,8 @@
   "entity.gensokyoontology.spellcard.sc_mobius_ring_world": "\"Mobius Ring World\"",
 
   "entity.gensokyoontology.fairy": "Fairy",
+  "entity.gensokyoontology.lily_white": "Lily White",
+
   "entity.gensokyoontology.inyo_jade": "Inyo Jade",
   "entity.gensokyoontology.spectre": "Spectre",
   "entity.gensokyoontology.human_resident": "Human Resident",

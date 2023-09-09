@@ -12,7 +12,7 @@ public class LilyWhiteRenderer extends EntityRenderer<LilyWhiteEntity> {
     public static final ResourceLocation LILY_WHITE_TEX = new ResourceLocation(
             GensokyoOntology.MODID, "textures/entity/lily_white");
 
-    protected LilyWhiteRenderer(EntityRendererManager renderManager) {
+    public LilyWhiteRenderer(EntityRendererManager renderManager) {
         super(renderManager);
     }
 

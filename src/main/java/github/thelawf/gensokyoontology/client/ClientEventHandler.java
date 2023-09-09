@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.client.renderer.entity.*;
 import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.InyoJadeMonsterEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.CitizenEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
@@ -76,7 +77,7 @@ public class ClientEventHandler {
 
         // =========================== 人形生物的渲染器 ========================= //
         RenderingRegistry.registerEntityRenderingHandler(FairyEntity.FAIRY, FairyRenderer::new);
-        // RenderingRegistry.registerEntityRenderingHandler();
+        RenderingRegistry.registerEntityRenderingHandler(LilyWhiteEntity.LILY_WHITE, LilyWhiteRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(HumanResidentEntity.HUMAN_RESIDENT,

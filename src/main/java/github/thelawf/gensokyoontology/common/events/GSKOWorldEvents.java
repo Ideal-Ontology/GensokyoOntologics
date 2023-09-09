@@ -3,7 +3,9 @@ package github.thelawf.gensokyoontology.common.events;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
+import github.thelawf.gensokyoontology.common.world.GSKOEntityGenerator;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.entity.EntityClassification;
@@ -52,6 +54,11 @@ public class GSKOWorldEvents {
 
         spawners.add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(),
                 38,2,4));
+    }
+
+    @SubscribeEvent
+    public static void trySpawnBoss(WorldEvent.PotentialSpawns event) {
+        // GSKOEntityGenerator.trySpawnLilyWhite(event, new LilyWhiteEntity());
     }
 
     @SubscribeEvent

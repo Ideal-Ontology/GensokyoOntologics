@@ -19,7 +19,7 @@ public class LilyWhiteEntity extends TameableEntity implements IAngerable {
                     LilyWhiteEntity::new, EntityClassification.CREATURE).updateInterval(2)
             .size(0.6f, 1.5f).trackingRange(10).build("lily_white");
 
-    protected LilyWhiteEntity(EntityType<? extends TameableEntity> type, World worldIn) {
+    public LilyWhiteEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
     }
 

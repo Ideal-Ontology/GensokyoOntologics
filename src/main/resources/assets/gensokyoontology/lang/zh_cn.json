@@ -83,6 +83,10 @@
   "item.gensokyoontology.dark_spirit": "阴爻",
   "item.gensokyoontology.light_spirit": "阳爻",
 
+  "item.gensokyoontology.fairy_spawn_egg": "Fairy Spawn Egg",
+  "item.gensokyoontology.lily_white_spawn_egg": "Lily White Spawn Egg",
+
+
   "item.gensokyoontology.spell_card_blank": "空白符卡",
   "item.gensokyoontology.sc_spiral_wheel": "实验性符卡: 螺旋车轮",
   "item.gensokyoontology.sc_wave_and_particle": "境符「波与粒的境界」",
@@ -90,6 +94,7 @@
   "item.gensokyoontology.sc_hell_eclipse": "狱符「地狱月食」",
   "item.gensokyoontology.sc_mountain_of_faith": "「信仰之山」",
   "item.gensokyoontology.sc_mobius_ring_world": "「莫比乌斯环世界」",
+  "item.gensokyoontology.sc_full_cherry_blossom": "莉莉白一非",
 
   "item.gensokyoontology.chimata_market_license": "天弓千亦的市场许可证",
   "item.gensokyoontology.large_shot_red": "大弹（红）",
@@ -287,6 +292,8 @@
   "entity.gensokyoontology.spellcard.sc_mobius_ring_world": "「莫比乌斯环世界」",
 
   "entity.gensokyoontology.fairy": "妖精",
+  "entity.gensokyoontology.lily_white": "莉莉白",
+
   "entity.gensokyoontology.inyo_jade": "阴阳玉",
   "entity.gensokyoontology.spectre": "幽灵",
   "entity.gensokyoontology.human_resident": "人里居民",
