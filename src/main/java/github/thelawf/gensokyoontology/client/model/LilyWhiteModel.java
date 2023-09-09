@@ -5,11 +5,14 @@ package github.thelawf.gensokyoontology.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class LilyWhiteModel extends EntityModel<Entity> {
+public class LilyWhiteModel extends BipedModel<LilyWhiteEntity> {
 	private final ModelRenderer lilywhite;
 	private final ModelRenderer hand;
 	private final ModelRenderer leftArm;
@@ -25,7 +28,8 @@ public class LilyWhiteModel extends EntityModel<Entity> {
 	private final ModelRenderer rightLeg;
 	private final ModelRenderer leftLeg;
 
-	public LilyWhiteModel() {
+	public LilyWhiteModel(float modelSize) {
+		super(RenderType::getEntityTranslucent, modelSize, 0.0F, 64, 64);
 		this.textureWidth = 64;
 		this.textureHeight = 64;
 
@@ -59,7 +63,6 @@ public class LilyWhiteModel extends EntityModel<Entity> {
 		wing = new ModelRenderer(this);
 		wing.setRotationPoint(0.0F, 0.0F, 0.0F);
 		body.addChild(wing);
-		
 
 		wingRight2 = new ModelRenderer(this);
 		wingRight2.setRotationPoint(-5.5929F, -16.8132F, 4.0102F);
@@ -111,12 +114,12 @@ public class LilyWhiteModel extends EntityModel<Entity> {
 	}
 
 	@Override
-	public void setRotationAngles(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+	public void setRotationAngles(LilyWhiteEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
 
 	}
 
 	@Override
-	public void setLivingAnimations(Entity entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
+	public void setLivingAnimations(LilyWhiteEntity entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
 		super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
 	}
 
