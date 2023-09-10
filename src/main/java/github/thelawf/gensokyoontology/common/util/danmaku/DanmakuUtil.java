@@ -14,6 +14,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.IntIdentityHashBiMap;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -185,15 +186,17 @@ public class DanmakuUtil {
      * @param size 玫瑰线花瓣的大小
      * @param delta 决定着玫瑰线上的弹幕之间的间隔
      */
-    public static List<Vector3d> getRoseLinePos(double count, double size, double delta) {
+    public static List<Vector3d> getRoseLinePos(double radius, double count, double size, double delta) {
         double x,y;
         List<Vector3d> positions = new ArrayList<>();
+
+        count = count / size;
 
         for (double i = 0; i < 4 * Math.PI; i += delta) {
 
             double r = Math.sin(count * i);
-            x = r * Math.cos(i) * size;
-            y = r * Math.sin(i) * size;
+            x = r * Math.cos(i) * radius;
+            y = r * Math.sin(i) * radius;
 
             positions.add(new Vector3d((float) x, (float) y, 0));
 
@@ -211,6 +214,30 @@ public class DanmakuUtil {
             float y = (float) (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
             t += delta;
             positions.add(new Vector3d(x * radius, y * radius, 0));
+        }
+        return positions;
+    }
+
+    public static List<Vector3d> getStarLinePos(float radius, double t, Plane planeIn) {
+        List<Vector3d> positions = new ArrayList<>();
+
+        for (int i = 0; i < Math.PI * 2; i += t) {
+            double x = radius * GSKOMathUtil.pow3(Math.cos(t));
+            double y = radius * GSKOMathUtil.pow3(Math.sin(t));
+
+            switch (planeIn) {
+                case XY:
+                    positions.add(new Vector3d(x,y,0));
+                    break;
+                default:
+                case XZ:
+                    positions.add(new Vector3d(x,0,y));
+                    break;
+                case YZ:
+                    positions.add(new Vector3d(0,y,x));
+                    break;
+            }
+
         }
         return positions;
     }

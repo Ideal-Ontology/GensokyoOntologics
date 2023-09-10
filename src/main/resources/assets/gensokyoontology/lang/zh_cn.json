@@ -83,9 +83,8 @@
   "item.gensokyoontology.dark_spirit": "阴爻",
   "item.gensokyoontology.light_spirit": "阳爻",
 
-  "item.gensokyoontology.fairy_spawn_egg": "Fairy Spawn Egg",
-  "item.gensokyoontology.lily_white_spawn_egg": "Lily White Spawn Egg",
-
+  "item.gensokyoontology.fairy_spawn_egg": "妖精刷怪蛋",
+  "item.gensokyoontology.lily_white_spawn_egg": "莉莉白刷怪蛋",
 
   "item.gensokyoontology.spell_card_blank": "空白符卡",
   "item.gensokyoontology.sc_spiral_wheel": "实验性符卡: 螺旋车轮",
@@ -93,8 +92,10 @@
   "item.gensokyoontology.sc_ido_no_kaiho": "本能「本我的解放」",
   "item.gensokyoontology.sc_hell_eclipse": "狱符「地狱月食」",
   "item.gensokyoontology.sc_mountain_of_faith": "「信仰之山」",
+
   "item.gensokyoontology.sc_mobius_ring_world": "「莫比乌斯环世界」",
   "item.gensokyoontology.sc_full_cherry_blossom": "莉莉白一非",
+  "item.gensokyoontology.sc_mania_depress": "心符「忧郁的躁狂」",
 
   "item.gensokyoontology.chimata_market_license": "天弓千亦的市场许可证",
   "item.gensokyoontology.large_shot_red": "大弹（红）",

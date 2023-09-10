@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
@@ -16,9 +15,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class ManiaDepressEntity extends SpellCardEntity{
 
@@ -37,7 +34,7 @@ public class ManiaDepressEntity extends SpellCardEntity{
     @Override
     public void tick() {
         super.tick();
-        List<Vector3d> positions = DanmakuUtil.getHeartLinePos(1.2f, 0.07);
+        List<Vector3d> positions = DanmakuUtil.getHeartLinePos(0.5f, 0.07);
 
         if (ticksExisted % 20 == 0) {
             for (Vector3d vector3d : positions) {
