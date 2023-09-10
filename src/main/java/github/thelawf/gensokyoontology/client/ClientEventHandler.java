@@ -71,9 +71,12 @@ public class ClientEventHandler {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(MountainOfFaithEntity.MOUNTAIN_OF_FAITH_ENTITY,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+
         RenderingRegistry.registerEntityRenderingHandler(MobiusRingEntity.MOBIUS_RING_ENTITY,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(FullCherryBlossomEntity.FULL_CHERRY_BLOSSOM,
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(ManiaDepressEntity.MANIA_DEPRESS,
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // =========================== 人形生物的渲染器 ========================= //

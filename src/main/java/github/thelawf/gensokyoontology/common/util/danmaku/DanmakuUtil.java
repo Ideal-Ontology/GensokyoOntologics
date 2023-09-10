@@ -201,25 +201,38 @@ public class DanmakuUtil {
         return positions;
     }
 
-    public static List<Vector3d> getHeartLinePos(float radius) {
+    public static List<Vector3d> getHeartLinePos(float radius, double delta) {
         double t = 0;
-        double vt = 0.01;
         double maxT = 2 * Math.PI;
         List<Vector3d> positions = new ArrayList<>();
 
-        for (int i = 0; i < Math.ceil(maxT / vt); i++) {
+        for (int i = 0; i < Math.ceil(maxT / delta); i++) {
             float x = (float) (16 * GSKOMathUtil.pow3(Math.sin(t)));
             float y = (float) (13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
-            t += vt;
+            t += delta;
             positions.add(new Vector3d(x * radius, y * radius, 0));
         }
         return positions;
     }
 
+    /**
+     * 这里的旋转角度是弧度制
+     * @param prevPositions 之前的弹幕图案的坐标列表
+     * @param yaw 对每一个坐标执行的 yaw 旋转角度
+     * @param pitch 对每一个坐标执行的 pitch 旋转角度
+     * */
+    public static List<Vector3d> getRotatedPos(List<Vector3d> prevPositions, float yaw, float pitch) {
+        List<Vector3d> newPos = new ArrayList<>();
+        for (Vector3d prevPos : prevPositions) {
+            newPos.add(prevPos.rotatePitch(pitch).rotateYaw(yaw));
+        }
+        return newPos;
+    }
+
     public enum Plane {
         XZ,
         XY,
-        YZ,
-        XYZ;
+        YZ;
     }
+
 }

@@ -34,7 +34,6 @@ public class FullCherryBlossomEntity extends SpellCardEntity{
     public void tick() {
         super.tick();
 
-
         List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos((double) 3 / 2, 3, 0.05);
 
         if (ticksExisted % 40 == 0) {

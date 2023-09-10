@@ -91,7 +91,8 @@ public final class EntityRegistry {
             ENTITIES.register("mobius_ring_world", () -> MobiusRingEntity.MOBIUS_RING_ENTITY);
     public static final RegistryObject<EntityType<FullCherryBlossomEntity>> FULL_CHERRY_BLOSSOM_ENTITY =
             ENTITIES.register("full_cherry_blossom", () -> FullCherryBlossomEntity.FULL_CHERRY_BLOSSOM);
-
+    public static final RegistryObject<EntityType<ManiaDepressEntity>> MANIA_DEPRESS_ENTITY =
+            ENTITIES.register("mania_depress", () -> ManiaDepressEntity.MANIA_DEPRESS);
     // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
     //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);
 
