@@ -30,6 +30,7 @@ public class StarShotRenderer extends SpriteRenderer<AbstractDanmakuEntity> {
         matrixStackIn.rotate(this.renderManager.getCameraOrientation());
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
         //matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw)));
+        //matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch)));
 
         itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GROUND,
                 packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);

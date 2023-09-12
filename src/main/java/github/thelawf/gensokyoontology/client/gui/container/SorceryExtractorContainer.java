@@ -109,11 +109,7 @@ public class SorceryExtractorContainer extends Container {
 
         int totalCount = 0;
         int matchCount = 0;
-        //for (int i = 0; i < recipes.size()-1; i++) {
-        //    if (recipes.get(i).hasTag()) {
-        //
-        //    }
-        //}
+
         for (int i = 0; i < 4; i++) {
             if (!recipes.get(i).equals(ItemStack.EMPTY)) {
                 totalCount++;

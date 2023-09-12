@@ -22,6 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 弹幕合成界面UV数据：<br><br>
@@ -91,19 +92,19 @@ public class DanmakuCraftingContainer extends Container {
             List<Integer> largeShotSlots = createRecipeIndexes(0,1,2,3,4,5,9,10,14,15,19,20,24);
 
 
-            if (matches(inventoryIn, heartShotSlots)) {
+            if (matches(craftingMatrix, heartShotSlots)) {
                 ItemStack stack = new ItemStack(ItemRegistry.HEART_SHOT_RED.get());
                 stack.setCount(getMinStackCount(heartShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
             }
-            else if (matches(inventoryIn, largeShotSlots)) {
+            else if (matches(craftingMatrix, largeShotSlots)) {
                 ItemStack stack = new ItemStack(ItemRegistry.LARGE_SHOT_PURPLE.get());
                 stack.setCount(getMinStackCount(largeShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
             }
-            else if (matches(inventoryIn, starShotSlots)) {
+            else if (matches(craftingMatrix, starShotSlots)) {
                 ItemStack stack = new ItemStack(ItemRegistry.SMALL_STAR_SHOT_BLUE.get());
                 stack.setCount(getMinStackCount(starShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
@@ -340,6 +341,21 @@ public class DanmakuCraftingContainer extends Container {
             }
         }
         return matchCount == list.size();
+    }
+
+    private boolean matches (IInventory inventoryIn, Map<Integer, ItemStack> stackMap) {
+        int matchCount = 0;
+        int emptyCount = 0;
+        List<Object> list = Arrays.asList(stackMap.keySet().toArray());
+        for (int i = 0; i < inventoryIn.getSizeInventory(); i++){
+            if (list.get(i).equals(i)) {
+                matchCount++;
+            }
+            else {
+                emptyCount++;
+            }
+        }
+        return matchCount == stackMap.size() && matchCount + emptyCount == inventoryIn.getSizeInventory();
     }
 
     private boolean isResultMatrixChange (IInventory inventory) {

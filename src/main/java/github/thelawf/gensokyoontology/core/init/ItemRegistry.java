@@ -461,10 +461,10 @@ public final class ItemRegistry {
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<SC_FullCherryBlossom> SC_FULL_CHERRY_BLOSSOM = ITEMS.register(
             "sc_full_cherry_blossom", () -> new SC_FullCherryBlossom(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<SC_ManiaDepress> SC_MANIA_DEPRESS = ITEMS.register(
             "sc_mania_depress", () -> new SC_ManiaDepress(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
 

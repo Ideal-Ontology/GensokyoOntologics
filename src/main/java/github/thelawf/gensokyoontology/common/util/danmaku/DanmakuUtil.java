@@ -15,6 +15,7 @@ import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.IntIdentityHashBiMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -254,6 +255,23 @@ public class DanmakuUtil {
             newPos.add(prevPos.rotatePitch(pitch).rotateYaw(yaw));
         }
         return newPos;
+    }
+
+    public static List<Vector3d> getParaboloidPos(Vector2f range, double a, double b, double delta) {
+        List<Vector3d> positions = new ArrayList<>();
+        for (int i = 0; i < range.x; i += delta) {
+            for (int j = 0; j < range.y; j += delta) {
+                double z = GSKOMathUtil.pow2(i) / GSKOMathUtil.pow2(a) -
+                        GSKOMathUtil.pow2(j) / GSKOMathUtil.pow2(b);
+                positions.add(new Vector3d(i, j, z));
+            }
+        }
+        return positions;
+    }
+
+    public static List<Vector3d> getEllipticParaboloidPos(Vector2f start, Vector2f end, double a, double b, double delta) {
+        List<Vector3d> positions = new ArrayList<>();
+        return positions;
     }
 
     public enum Plane {

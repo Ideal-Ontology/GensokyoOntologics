@@ -1,11 +1,11 @@
 {
   "replace": false,
   "values": [
-    "gensokyoontology:small_star_shot_red",
-    "gensokyoontology:small_star_shot_yellow",
-    "gensokyoontology:small_star_shot_green",
-    "gensokyoontology:small_star_shot_aqua",
-    "gensokyoontology:small_star_shot_blue",
-    "gensokyoontology:small_star_shot_purple"
+    "gensokyoontology:small_shot_red",
+    "gensokyoontology:small_shot_yellow",
+    "gensokyoontology:small_shot_green",
+    "gensokyoontology:small_shot_aqua",
+    "gensokyoontology:small_shot_blue",
+    "gensokyoontology:small_shot_purple"
   ]
 }

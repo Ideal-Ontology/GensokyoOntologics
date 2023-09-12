@@ -168,6 +168,11 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         setDanmakuInit(danmaku, initPosition, new Vector2f((float) rotationYaw, (float) rotationPitch));
     }
 
+    protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition, double rotationYaw, double rotationPitch, boolean hasGravity) {
+        danmaku.setNoGravity(false);
+        setDanmakuInit(danmaku, initPosition, new Vector2f((float) rotationYaw, (float) rotationPitch));
+    }
+
     public static AttributeModifierMap.MutableAttribute registerAttributes() {
         return AttributeModifierMap.createMutableAttribute().createMutableAttribute(Attributes.MAX_HEALTH).createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE).createMutableAttribute(Attributes.MOVEMENT_SPEED).createMutableAttribute(Attributes.ARMOR).createMutableAttribute(Attributes.ARMOR_TOUGHNESS).createMutableAttribute(net.minecraftforge.common.ForgeMod.SWIM_SPEED.get()).createMutableAttribute(net.minecraftforge.common.ForgeMod.NAMETAG_DISTANCE.get()).createMutableAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
     }
