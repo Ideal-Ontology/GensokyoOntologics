@@ -81,51 +81,51 @@ public final class ItemRegistry {
                     new Item.Properties().group(ItemGroup.REDSTONE)));
 
     //////////////////////////////// 榉树木 ////////////////////////////////
-    // public static final RegistryObject<BlockItem> FAGUS_SAPLING_ITEM = ITEMS.register(
-    //         "fagus_sapling.json", () -> new BlockItem(BlockRegistry.FAGUS_SAPLING.get(),
+    // public static final RegistryObject<BlockItem> ZELKOVA_SAPLING_ITEM = ITEMS.register(
+    //         "fagus_sapling.json", () -> new BlockItem(BlockRegistry.ZELKOVA_SAPLING.get(),
     //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<BlockItem> FAGUS_LEAVES_ITEM = ITEMS.register(
-            "fagus_leaves", () -> new BlockItem(BlockRegistry.FAGUS_LEAVES.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_LEAVES_ITEM = ITEMS.register(
+            "fagus_leaves", () -> new BlockItem(BlockRegistry.ZELKOVA_LEAVES.get(),
                     new Item.Properties()));
 
-    public static final RegistryObject<BlockItem> FAGUS_LOG_ITEM = ITEMS.register(
-            "fagus_log", () -> new BlockItem(BlockRegistry.FAGUS_LOG.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_LOG_ITEM = ITEMS.register(
+            "fagus_log", () -> new BlockItem(BlockRegistry.ZELKOVA_LOG.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<BlockItem> FAGUS_PLANKS_ITEM = ITEMS.register(
-            "fagus_planks", () -> new BlockItem(BlockRegistry.FAGUS_PLANKS.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_PLANKS_ITEM = ITEMS.register(
+            "fagus_planks", () -> new BlockItem(BlockRegistry.ZELKOVA_PLANKS.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<BlockItem> FAGUS_BUTTON_ITEM = ITEMS.register(
-            "fagus_button", () -> new BlockItem(BlockRegistry.FAGUS_BUTTON.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_BUTTON_ITEM = ITEMS.register(
+            "fagus_button", () -> new BlockItem(BlockRegistry.ZELKOVA_BUTTON.get(),
                     new Item.Properties().group(ItemGroup.REDSTONE)));
 
-    public static final RegistryObject<BlockItem> FAGUS_SLAB_ITEM = ITEMS.register(
-            "fagus_slab", () -> new BlockItem(BlockRegistry.FAGUS_SLAB.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_SLAB_ITEM = ITEMS.register(
+            "fagus_slab", () -> new BlockItem(BlockRegistry.ZELKOVA_SLAB.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<BlockItem> FAGUS_STAIRS_ITEM = ITEMS.register(
-            "fagus_stairs", () -> new BlockItem(BlockRegistry.FAGUS_STAIRS.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_STAIRS_ITEM = ITEMS.register(
+            "fagus_stairs", () -> new BlockItem(BlockRegistry.ZELKOVA_STAIRS.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<BlockItem> FAGUS_DOOR_ITEM = ITEMS.register(
-            "fagus_door", () -> new BlockItem(BlockRegistry.FAGUS_DOOR.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_DOOR_ITEM = ITEMS.register(
+            "fagus_door", () -> new BlockItem(BlockRegistry.ZELKOVA_DOOR.get(),
                     new Item.Properties()));
 
-    public static final RegistryObject<BlockItem> FAGUS_FENCE_ITEM = ITEMS.register(
-            "fagus_fence", () -> new BlockItem(BlockRegistry.FAGUS_FENCE.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_FENCE_ITEM = ITEMS.register(
+            "fagus_fence", () -> new BlockItem(BlockRegistry.ZELKOVA_FENCE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<BlockItem> FAGUS_FENCE_GATE_ITEM = ITEMS.register(
-            "fagus_fence_gate", () -> new BlockItem(BlockRegistry.FAGUS_FENCE_GATE.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_FENCE_GATE_ITEM = ITEMS.register(
+            "fagus_fence_gate", () -> new BlockItem(BlockRegistry.ZELKOVA_FENCE_GATE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<BlockItem> FAGUS_TRAPDOOR_ITEM = ITEMS.register(
-            "fagus_trapdoor", () -> new BlockItem(BlockRegistry.FAGUS_TRAPDOOR.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_TRAPDOOR_ITEM = ITEMS.register(
+            "fagus_trapdoor", () -> new BlockItem(BlockRegistry.ZELKOVA_TRAPDOOR.get(),
                     new Item.Properties()));
 
-    public static final RegistryObject<BlockItem> FAGUS_PRESSRUE_PLATE_ITEM = ITEMS.register(
-            "fagus_pressure_plate", () -> new BlockItem(BlockRegistry.FAGUS_PRESSRUE_PLATE.get(),
+    public static final RegistryObject<BlockItem> ZELKOVA_PRESSRUE_PLATE_ITEM = ITEMS.register(
+            "fagus_pressure_plate", () -> new BlockItem(BlockRegistry.ZELKOVA_PRESSRUE_PLATE.get(),
                     new Item.Properties().group(ItemGroup.REDSTONE)));
 
     //////////////////////////////// 枫木 ////////////////////////////////

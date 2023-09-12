@@ -4,8 +4,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.LeavesBlock;
 import net.minecraft.block.SoundType;
 
-public class FagusLeaves extends LeavesBlock {
-    public FagusLeaves() {
+public class ZelkovaLeaves extends LeavesBlock {
+    public ZelkovaLeaves() {
         super(Properties.from(Blocks.OAK_LEAVES).tickRandomly().sound(SoundType.WOOD));
     }
 }

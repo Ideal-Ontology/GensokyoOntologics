@@ -36,4 +36,5 @@ public class StarShotRenderer extends SpriteRenderer<AbstractDanmakuEntity> {
                 packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         matrixStackIn.pop();
     }
+
 }

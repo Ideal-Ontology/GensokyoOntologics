@@ -4,8 +4,8 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.DoorBlock;
 import net.minecraft.block.SoundType;
 
-public class FagusDoor extends DoorBlock {
-    public FagusDoor() {
+public class ZelkovaDoor extends DoorBlock {
+    public ZelkovaDoor() {
         super(Properties.from(Blocks.OAK_DOOR).sound(SoundType.WOOD));
     }
 }

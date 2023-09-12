@@ -67,41 +67,41 @@ public final class BlockRegistry {
                     AbstractBlock.Properties.from(Blocks.ACACIA_PRESSURE_PLATE)));
 
     //////////////////////////////// 榉树木 ////////////////////////////////
-    // public static final RegistryObject<Block> FAGUS_SAPLING = BLOCKS.register(
-    //         "fagus_sapling", () -> new SaplingBlock(new MapleTree(),
+    // public static final RegistryObject<Block> ZELKOVA_SAPLING = BLOCKS.register(
+    //         "zelkova_sapling", () -> new SaplingBlock(new MapleTree(),
     //                 AbstractBlock.Properties.from(Blocks.ACACIA_SAPLING)));
-    public static final RegistryObject<Block> FAGUS_LEAVES = BLOCKS.register(
-            "fagus_leaves", FagusLeaves::new);
+    public static final RegistryObject<Block> ZELKOVA_LEAVES = BLOCKS.register(
+            "zelkova_leaves", ZelkovaLeaves::new);
 
-    public static final RegistryObject<Block> FAGUS_LOG = BLOCKS.register(
-            "fagus_log", FagusLog::new);
+    public static final RegistryObject<Block> ZELKOVA_LOG = BLOCKS.register(
+            "zelkova_log", ZelkovaLog::new);
 
-    public static final RegistryObject<Block> FAGUS_PLANKS = BLOCKS.register(
-            "fagus_planks", FagusPlanks::new);
+    public static final RegistryObject<Block> ZELKOVA_PLANKS = BLOCKS.register(
+            "zelkova_planks", ZelkovaPlanks::new);
 
-    public static final RegistryObject<Block> FAGUS_BUTTON = BLOCKS.register(
-            "fagus_button", FagusButton::new);
+    public static final RegistryObject<Block> ZELKOVA_BUTTON = BLOCKS.register(
+            "zelkova_button", ZelkovaButton::new);
 
-    public static final RegistryObject<Block> FAGUS_STAIRS = BLOCKS.register(
-            "fagus_stairs", FagusStairs::new);
+    public static final RegistryObject<Block> ZELKOVA_STAIRS = BLOCKS.register(
+            "zelkova_stairs", ZelkovaStairs::new);
 
-    public static final RegistryObject<Block> FAGUS_SLAB = BLOCKS.register(
-            "fagus_slab", FagusSlab::new);
+    public static final RegistryObject<Block> ZELKOVA_SLAB = BLOCKS.register(
+            "zelkova_slab", ZelkovaSlab::new);
 
-    public static final RegistryObject<Block> FAGUS_DOOR = BLOCKS.register(
-            "fagus_door", FagusDoor::new);
+    public static final RegistryObject<Block> ZELKOVA_DOOR = BLOCKS.register(
+            "zelkova_door", ZelkovaDoor::new);
 
-    public static final RegistryObject<Block> FAGUS_FENCE = BLOCKS.register(
-            "fagus_fence", FagusFence::new);
+    public static final RegistryObject<Block> ZELKOVA_FENCE = BLOCKS.register(
+            "zelkova_fence", ZelkovaFence::new);
 
-    public static final RegistryObject<Block> FAGUS_FENCE_GATE = BLOCKS.register(
-            "fagus_fence_gate", FagusFenceGate::new);
+    public static final RegistryObject<Block> ZELKOVA_FENCE_GATE = BLOCKS.register(
+            "zelkova_fence_gate", ZelkovaFenceGate::new);
 
-    public static final RegistryObject<Block> FAGUS_TRAPDOOR = BLOCKS.register(
-            "fagus_trapdoor", FagusTrapdoor::new);
+    public static final RegistryObject<Block> ZELKOVA_TRAPDOOR = BLOCKS.register(
+            "zelkova_trapdoor", ZelkovaTrapdoor::new);
 
-    public static final RegistryObject<Block> FAGUS_PRESSRUE_PLATE = BLOCKS.register(
-            "fagus_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
+    public static final RegistryObject<Block> ZELKOVA_PRESSRUE_PLATE = BLOCKS.register(
+            "zelkova_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
                     AbstractBlock.Properties.from(Blocks.ACACIA_PRESSURE_PLATE)));
 
     //////////////////////////////// 枫木 ////////////////////////////////
