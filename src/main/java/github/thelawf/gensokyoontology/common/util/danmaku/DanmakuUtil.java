@@ -21,6 +21,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class DanmakuUtil {
 
@@ -140,14 +141,29 @@ public class DanmakuUtil {
         return danmakuItems;
     }
 
-    public static Vector3d getRandomPosWithin(Vector3d range, long seed) {
-        return range;
-    }
+    public static Vector3d getRandomPosWithin(Vector3f radius, Plane planeIn) {
+        double x = GSKOMathUtil.randomRange(-radius.getX(), radius.getX());
+        double y = GSKOMathUtil.randomRange(-radius.getY(), radius.getY());
+        double z = GSKOMathUtil.randomRange(-radius.getZ(), radius.getZ());
 
-    public static Vector3d getRandomPosWithin(Vector3d range) {
-        return range;
-    }
+        Vector3d vector3d = Vector3d.ZERO;
 
+        switch (planeIn) {
+            case XY:
+                vector3d = new Vector3d(x, y, 0);
+                break;
+            case XZ:
+                vector3d = new Vector3d(x, 0, z);
+                break;
+            case YZ:
+                vector3d = new Vector3d(0, y, z);
+                break;
+            case XYZ:
+                vector3d = new Vector3d(x, y, z);
+                break;
+        }
+        return vector3d;
+    }
 
     public static <D extends AbstractDanmakuEntity> void shootSpherical(Class<D> danmaku, double radius,
                                                                         int latitudeCount, int longitudeCount,
@@ -276,10 +292,26 @@ public class DanmakuUtil {
         return positions;
     }
 
+    public static List<DanmakuColor> getRainbowColoredDanmaku() {
+        List<DanmakuColor> colors = new ArrayList<>();
+
+        colors.add(DanmakuColor.RED);
+        colors.add(DanmakuColor.ORANGE);
+        colors.add(DanmakuColor.YELLOW);
+        colors.add(DanmakuColor.GREEN);
+        colors.add(DanmakuColor.AQUA);
+        colors.add(DanmakuColor.BLUE);
+        colors.add(DanmakuColor.PURPLE);
+        colors.add(DanmakuColor.MAGENTA);
+
+        return colors;
+    }
+
     public enum Plane {
         XZ,
         XY,
-        YZ;
+        YZ,
+        XYZ;
     }
 
 }

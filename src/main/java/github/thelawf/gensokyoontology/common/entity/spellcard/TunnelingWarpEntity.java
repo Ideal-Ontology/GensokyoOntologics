@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallStarShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -39,8 +40,7 @@ public class TunnelingWarpEntity extends SpellCardEntity {
 
         Vector3d tunnelPos = new Vector3d(Vector3f.XP).scale(3.4);
 
-
-        List<DanmakuColor> colors = getRainbowColoredDanmaku();
+        List<DanmakuColor> colors = DanmakuUtil.getRainbowColoredDanmaku();
 
         if (ticksExisted % 3 == 0) {
             for (int i = 0; i < colors.size(); i++) {
@@ -70,18 +70,4 @@ public class TunnelingWarpEntity extends SpellCardEntity {
         return new ItemStack(ItemRegistry.SPELL_CARD_BLANK.get());
     }
 
-    private List<DanmakuColor> getRainbowColoredDanmaku() {
-        List<DanmakuColor> colors = new ArrayList<>();
-
-        colors.add(DanmakuColor.RED);
-        colors.add(DanmakuColor.ORANGE);
-        colors.add(DanmakuColor.YELLOW);
-        colors.add(DanmakuColor.GREEN);
-        colors.add(DanmakuColor.AQUA);
-        colors.add(DanmakuColor.BLUE);
-        colors.add(DanmakuColor.PURPLE);
-        colors.add(DanmakuColor.MAGENTA);
-
-        return colors;
-    }
 }

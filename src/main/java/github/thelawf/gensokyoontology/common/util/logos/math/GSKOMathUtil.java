@@ -351,6 +351,10 @@ public class GSKOMathUtil {
         return new Random().nextInt(max - min + 1) + min;
     }
 
+    public static float randomRange(float min, float max) {
+        return (float) new Random().nextInt((int) (max - min + 1)) + min;
+    }
+
     public static <V> V rollByWeight(int total, int weight, V value) {
         return new Random().nextInt(total) < weight ? null : value;
     }

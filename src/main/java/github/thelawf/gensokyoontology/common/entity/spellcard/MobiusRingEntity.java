@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class MobiusRingEntity extends SpellCardEntity{
 
-    private final int lifeSpan = 1000;
+    private final int lifeSpan = 100;
 
     public static final EntityType<MobiusRingEntity> MOBIUS_RING_ENTITY =
             EntityType.Builder.<MobiusRingEntity>create(MobiusRingEntity::new,
@@ -59,7 +60,20 @@ public class MobiusRingEntity extends SpellCardEntity{
 
         horizonVec = horizonVec.rotateYaw(rotation);
 
-        List<DanmakuColor> colors = getRainbowColoredDanmaku();
+        List<DanmakuColor> colors = DanmakuUtil.getRainbowColoredDanmaku();
+
+        // for (int i = 0; i < colors.size(); i++) {
+        //     SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
+        //             DanmakuType.SMALL_SHOT, colors.get(i));
+//
+        //     verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
+        //     verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
+//
+        //     setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
+        //     smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
+//
+        //     world.addEntity(smallShot);
+        // }
 
         for (int i = 0; i < colors.size(); i++) {
             SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
@@ -68,11 +82,15 @@ public class MobiusRingEntity extends SpellCardEntity{
             verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
             verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
 
+            // setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
+            Vector3d vector3d = new Vector3d(this.getPositionVec().x, this.getPositionVec().y + (i * 0.3), this.getPositionVec().z);
+            vector3d.rotatePitch((float) Math.PI / colors.size() * i);
             setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
-            smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
+            // smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
 
             world.addEntity(smallShot);
         }
+
         if (ticksExisted >= this.lifeSpan) {
             this.remove();
         }
@@ -85,18 +103,4 @@ public class MobiusRingEntity extends SpellCardEntity{
         return new ItemStack(ItemRegistry.SPELL_CARD_BLANK.get());
     }
 
-    private List<DanmakuColor> getRainbowColoredDanmaku() {
-        List<DanmakuColor> colors = new ArrayList<>();
-
-        colors.add(DanmakuColor.RED);
-        colors.add(DanmakuColor.ORANGE);
-        colors.add(DanmakuColor.YELLOW);
-        colors.add(DanmakuColor.GREEN);
-        colors.add(DanmakuColor.AQUA);
-        colors.add(DanmakuColor.BLUE);
-        colors.add(DanmakuColor.PURPLE);
-        colors.add(DanmakuColor.MAGENTA);
-
-        return colors;
-    }
 }
