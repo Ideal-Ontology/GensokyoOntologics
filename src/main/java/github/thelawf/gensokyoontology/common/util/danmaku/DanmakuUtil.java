@@ -79,10 +79,10 @@ public class DanmakuUtil {
 
     }
 
-    public static <D extends AbstractDanmakuEntity> void initDanmaku(DanmakuData data) {
-        // data.danmaku.setNoGravity(true);
-        // data.danmaku.setLocationAndAngles(data.shooter.getPosX(), data.shooter.getPosY() + data.shooter.getEyeHeight(),
-        //         data.shooter.getPosZ(), data.initRotation.x, data.initRotation.y);
+    public static <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d globalPos, Vector2f rotation, boolean noGravity) {
+        danmaku.setNoGravity(noGravity);
+        danmaku.setLocationAndAngles(globalPos.getX(), globalPos.getY(), globalPos.getZ(),
+                rotation.x, rotation.y);
     }
 
 
@@ -148,10 +148,10 @@ public class DanmakuUtil {
         return range;
     }
 
+
     public static <D extends AbstractDanmakuEntity> void shootSpherical(Class<D> danmaku, double radius,
                                                                         int latitudeCount, int longitudeCount,
                                                                         int i, int j) {
-
 
         Vector3d vector3d = new Vector3d(Vector3f.ZP).scale(radius);
         vector3d = vector3d.rotatePitch((float) Math.PI / latitudeCount * i);

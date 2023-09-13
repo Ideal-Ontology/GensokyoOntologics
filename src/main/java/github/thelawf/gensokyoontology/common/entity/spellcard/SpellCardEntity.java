@@ -156,7 +156,7 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
      * 注意：传入的旋转角度将决定着弹幕的法向渲染。
      * @param <D> 所有弹幕实体的类型
      * @param danmaku 弹幕形参
-     * @param initPosition 弹幕的初始化位置
+     * @param initPosition 弹幕的初始化位置，应该为全局坐标系
      * @param initRotation 弹幕的旋转
      */
     protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition, Vector2f initRotation) {
@@ -168,9 +168,9 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         setDanmakuInit(danmaku, initPosition, new Vector2f((float) rotationYaw, (float) rotationPitch));
     }
 
-    protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition, double rotationYaw, double rotationPitch, boolean hasGravity) {
-        danmaku.setNoGravity(false);
-        setDanmakuInit(danmaku, initPosition, new Vector2f((float) rotationYaw, (float) rotationPitch));
+    protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition, float rotationYaw, float rotationPitch, boolean noGravity) {
+        danmaku.setNoGravity(noGravity);
+        setDanmakuInit(danmaku, initPosition, new Vector2f(rotationYaw, rotationPitch));
     }
 
     public static AttributeModifierMap.MutableAttribute registerAttributes() {

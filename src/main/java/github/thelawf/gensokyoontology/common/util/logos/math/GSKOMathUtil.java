@@ -121,7 +121,7 @@ public class GSKOMathUtil {
         }
     }
 
-    public static Vector3d bezier2(Vector3d start, Vector3d p, Vector3d end, float time) {
+    public static Vector3d bezier2(Vector3d start, Vector3d end, Vector3d p, float time) {
         return lerp(time, lerp(time, start, p), lerp(time, p, end));
     }
 
@@ -133,7 +133,7 @@ public class GSKOMathUtil {
      * @param time 步长
      * @return 在控制点的作用下，以起止点为基准的下一个点在曲线上的位置
      */
-    public static Vector3d bezier2(Vector3d start,Vector3d end,  Vector3d p, double time) {
+    public static Vector3d bezier2(Vector3d start, Vector3d end,  Vector3d p, double time) {
         if (time > 1 || time < 0)
             return null;
         Vector3d v1 = start.scale(pow2(1 - time));

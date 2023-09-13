@@ -1,9 +1,13 @@
 package github.thelawf.gensokyoontology.common.util.logos.math;
 
+import net.minecraft.util.math.vector.Vector3d;
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
 
-public class BezierSegment {
+public class BezierUtil {
 
     /**
      * @param time    线性插值的步长，小于1，起点一般为0.001，用于曲线精度的测定
@@ -25,13 +29,11 @@ public class BezierSegment {
         return points[0];
     }
 
-    // public void drawBezier(Graphics g, Point2D[] p)
-    // {
-    //     for(double t = 0; t < 1; t+=0.002)
-    //     {
-    //         Point2D p1= cubicBezier(t,p);
-    //         Point2D p2 = cubicBezier(t+0.001,p);
-    //         g.drawLine((int)Math.round(p1.getX()),(int)Math.round(p1.getY()),(int)Math.round(p2.getX()),(int)Math.round(p2.getY()));
-    //     }
-    //}
+    public static List<Vector3d> getBezierPos(Vector3d start, Vector3d end, Vector3d p, float time) {
+        List<Vector3d> bezierPositions = new ArrayList<>();
+        for (int i = 0; i < 1; i += time) {
+            bezierPositions.add(GSKOMathUtil.bezier2(start, end, p , time));
+        }
+        return bezierPositions;
+    }
 }

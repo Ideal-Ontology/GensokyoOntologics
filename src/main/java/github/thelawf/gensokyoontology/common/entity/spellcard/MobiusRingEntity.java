@@ -50,11 +50,6 @@ public class MobiusRingEntity extends SpellCardEntity{
         Vector3d verticalVec = new Vector3d(Vector3f.ZP);
         verticalVec = verticalVec.scale(3);
 
-        // 迭代 MN 和 NA 的旋转角度
-        // float rotSpeed = (float) ticksExisted / 5;
-        // float acceleration = 0.01f;
-        // float velocity = 0.1f;
-
         float velocity = 0.2f;
         float rotation = (float) (Math.PI / 80 * 2 * ticksExisted);
 

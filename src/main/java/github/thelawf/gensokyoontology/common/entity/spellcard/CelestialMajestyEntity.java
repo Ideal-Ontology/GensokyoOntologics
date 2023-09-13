@@ -25,6 +25,7 @@ public class CelestialMajestyEntity extends SpellCardEntity{
     public void tick() {
         List<Vector3d> starPositions = DanmakuUtil.getStarLinePos(0.3f, 0.11, DanmakuUtil.Plane.XY);
 
+
     }
 
     @Override
