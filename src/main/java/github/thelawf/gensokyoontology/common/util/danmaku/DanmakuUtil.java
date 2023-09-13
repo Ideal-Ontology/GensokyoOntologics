@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.common.util.danmaku;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.SpellCardRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -14,7 +13,6 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.IntIdentityHashBiMap;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -142,6 +140,14 @@ public class DanmakuUtil {
         return danmakuItems;
     }
 
+    public static Vector3d getRandomPosWithin(Vector3d range, long seed) {
+        return range;
+    }
+
+    public static Vector3d getRandomPosWithin(Vector3d range) {
+        return range;
+    }
+
     public static <D extends AbstractDanmakuEntity> void shootSpherical(Class<D> danmaku, double radius,
                                                                         int latitudeCount, int longitudeCount,
                                                                         int i, int j) {
@@ -165,13 +171,9 @@ public class DanmakuUtil {
 
     }
 
-    public static void shootAimingAt(DanmakuData data, LivingEntity target) {
-        if (!data.world.isRemote) {
-            float offset = (float) (0.3f / target.getYOffset());
-            LivingEntity thrower = data.shooter;
-            // data.danmaku.shoot(target.getPosX() - thrower.getPosX(), target.getPosY() - thrower.getPosY() - offset, target.getPosZ() - thrower.getPosZ(), data.speed, 0);
-            // data.world.addEntity(data.danmaku);
-        }
+    public static Vector3d getAimingShootVec(LivingEntity thrower, LivingEntity target) {
+        float offset = (float) (0.3f / target.getYOffset());
+        return new Vector3d(target.getPosX() - thrower.getPosX(), target.getPosY() - thrower.getPosY() - offset, target.getPosZ() - thrower.getPosZ());
     }
 
     public static <D extends AbstractDanmakuEntity> void shootWithRoseLine(D danmaku, Plane planeIn, Vector3d offsetRotation,

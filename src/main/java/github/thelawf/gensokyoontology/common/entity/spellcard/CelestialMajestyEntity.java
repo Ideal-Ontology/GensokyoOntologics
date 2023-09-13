@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+/** 寰宇「神圣天穹」 */
 public class CelestialMajestyEntity extends SpellCardEntity{
     public CelestialMajestyEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
         super(entityTypeIn, worldIn, player);
