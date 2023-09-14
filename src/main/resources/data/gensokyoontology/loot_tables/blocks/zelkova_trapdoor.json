@@ -6,15 +6,12 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "gensokyoontology:fagus_leaves"
+          "name": "gensokyoontology:zelkova_trapdoor"
         }
       ],
       "conditions": [
         {
-          "condition": "minecraft:match_tool",
-          "predicate": {
-            "item": "minecraft:shears"
-          }
+          "condition": "minecraft:survives_explosion"
         }
       ]
     }

@@ -82,50 +82,50 @@ public final class ItemRegistry {
 
     //////////////////////////////// 榉树木 ////////////////////////////////
     // public static final RegistryObject<BlockItem> ZELKOVA_SAPLING_ITEM = ITEMS.register(
-    //         "fagus_sapling.json", () -> new BlockItem(BlockRegistry.ZELKOVA_SAPLING.get(),
+    //         "zelkova_sapling.json", () -> new BlockItem(BlockRegistry.ZELKOVA_SAPLING.get(),
     //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ZELKOVA_LEAVES_ITEM = ITEMS.register(
-            "fagus_leaves", () -> new BlockItem(BlockRegistry.ZELKOVA_LEAVES.get(),
+            "zelkova_leaves", () -> new BlockItem(BlockRegistry.ZELKOVA_LEAVES.get(),
                     new Item.Properties()));
 
     public static final RegistryObject<BlockItem> ZELKOVA_LOG_ITEM = ITEMS.register(
-            "fagus_log", () -> new BlockItem(BlockRegistry.ZELKOVA_LOG.get(),
+            "zelkova_log", () -> new BlockItem(BlockRegistry.ZELKOVA_LOG.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> ZELKOVA_PLANKS_ITEM = ITEMS.register(
-            "fagus_planks", () -> new BlockItem(BlockRegistry.ZELKOVA_PLANKS.get(),
+            "zelkova_planks", () -> new BlockItem(BlockRegistry.ZELKOVA_PLANKS.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> ZELKOVA_BUTTON_ITEM = ITEMS.register(
-            "fagus_button", () -> new BlockItem(BlockRegistry.ZELKOVA_BUTTON.get(),
+            "zelkova_button", () -> new BlockItem(BlockRegistry.ZELKOVA_BUTTON.get(),
                     new Item.Properties().group(ItemGroup.REDSTONE)));
 
     public static final RegistryObject<BlockItem> ZELKOVA_SLAB_ITEM = ITEMS.register(
-            "fagus_slab", () -> new BlockItem(BlockRegistry.ZELKOVA_SLAB.get(),
+            "zelkova_slab", () -> new BlockItem(BlockRegistry.ZELKOVA_SLAB.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> ZELKOVA_STAIRS_ITEM = ITEMS.register(
-            "fagus_stairs", () -> new BlockItem(BlockRegistry.ZELKOVA_STAIRS.get(),
+            "zelkova_stairs", () -> new BlockItem(BlockRegistry.ZELKOVA_STAIRS.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> ZELKOVA_DOOR_ITEM = ITEMS.register(
-            "fagus_door", () -> new BlockItem(BlockRegistry.ZELKOVA_DOOR.get(),
+            "zelkova_door", () -> new BlockItem(BlockRegistry.ZELKOVA_DOOR.get(),
                     new Item.Properties()));
 
     public static final RegistryObject<BlockItem> ZELKOVA_FENCE_ITEM = ITEMS.register(
-            "fagus_fence", () -> new BlockItem(BlockRegistry.ZELKOVA_FENCE.get(),
+            "zelkova_fence", () -> new BlockItem(BlockRegistry.ZELKOVA_FENCE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> ZELKOVA_FENCE_GATE_ITEM = ITEMS.register(
-            "fagus_fence_gate", () -> new BlockItem(BlockRegistry.ZELKOVA_FENCE_GATE.get(),
+            "zelkova_fence_gate", () -> new BlockItem(BlockRegistry.ZELKOVA_FENCE_GATE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> ZELKOVA_TRAPDOOR_ITEM = ITEMS.register(
-            "fagus_trapdoor", () -> new BlockItem(BlockRegistry.ZELKOVA_TRAPDOOR.get(),
+            "zelkova_trapdoor", () -> new BlockItem(BlockRegistry.ZELKOVA_TRAPDOOR.get(),
                     new Item.Properties()));
 
     public static final RegistryObject<BlockItem> ZELKOVA_PRESSRUE_PLATE_ITEM = ITEMS.register(
-            "fagus_pressure_plate", () -> new BlockItem(BlockRegistry.ZELKOVA_PRESSRUE_PLATE.get(),
+            "zelkova_pressure_plate", () -> new BlockItem(BlockRegistry.ZELKOVA_PRESSRUE_PLATE.get(),
                     new Item.Properties().group(ItemGroup.REDSTONE)));
 
     //////////////////////////////// 枫木 ////////////////////////////////

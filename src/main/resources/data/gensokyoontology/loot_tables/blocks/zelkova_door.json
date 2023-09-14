@@ -9,13 +9,13 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "gensokyoontology:sakura_door",
+              "block": "gensokyoontology:zelkova_door",
               "properties": {
                 "half": "lower"
               }
             }
           ],
-          "name": "gensokyoontology:sakura_door"
+          "name": "gensokyoontology:zelkova_door"
         }
       ],
       "conditions": [
