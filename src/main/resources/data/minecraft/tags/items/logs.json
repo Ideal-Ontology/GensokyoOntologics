@@ -1,7 +1,8 @@
 {
   "replace": false,
   "values": [
-    "#gensokyoontology:sakura_logs",
-    "#gensokyoontology:maple_logs"
+    "gensokyoontology:sakura_log",
+    "gensokyoontology:maple_log",
+    "gensokyoontology:zelkova_log"
   ]
 }

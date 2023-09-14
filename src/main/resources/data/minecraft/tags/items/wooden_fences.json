@@ -1,6 +1,8 @@
 {
   "replace": false,
   "values": [
-
+    "gensokyoontology:sakura_fence",
+    "gensokyoontology:maple_fence",
+    "gensokyoontology:zelkova_fence"
   ]
 }

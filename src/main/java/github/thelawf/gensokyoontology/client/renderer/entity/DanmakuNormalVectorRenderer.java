@@ -37,6 +37,7 @@ public class DanmakuNormalVectorRenderer extends SpriteRenderer<AbstractDanmakuE
             itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GUI,
                     packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
             matrixStackIn.pop();
+
         }
     }
 }

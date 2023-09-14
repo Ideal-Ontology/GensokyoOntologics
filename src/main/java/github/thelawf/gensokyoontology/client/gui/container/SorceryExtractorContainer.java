@@ -53,7 +53,6 @@ public class SorceryExtractorContainer extends Container {
         addIngredientSlot(this.ingredientInventory, 3, 71, 93);
         addResultSlot(this.resultInventory, 0, 71, 48);
 
-
     }
 
     @Override
@@ -81,8 +80,8 @@ public class SorceryExtractorContainer extends Container {
             public void onSlotChanged() {
                 super.onSlotChanged();
                 for (List<ItemStack> recipe : RECIPES) {
-                    if (matches(ingredientInventory, recipe)) {
-                        resultInventory.setInventorySlotContents(0, recipe.get(recipe.size()-1));
+                    if (matches(SorceryExtractorContainer.this.ingredientInventory, recipe)) {
+                        SorceryExtractorContainer.this.resultInventory.setInventorySlotContents(0, recipe.get(recipe.size()-1));
                     }
                 }
             }

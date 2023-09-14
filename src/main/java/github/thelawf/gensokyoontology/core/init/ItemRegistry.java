@@ -1,9 +1,11 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.block.IshiZakuraBlock;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.item.*;
+import github.thelawf.gensokyoontology.common.item.IshiZakuraFragment;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
 import github.thelawf.gensokyoontology.common.item.ore.CrimsonAlloyIngot;
@@ -209,9 +211,6 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> CHIREIDEN_COLORED_GLASS = ITEMS.register(
             "chireiden_colored_glass", () -> new BlockItem(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<BlockItem> ISHI_ZAKURA_ITEM = ITEMS.register(
-            "ishi_zakura", () -> new BlockItem(BlockRegistry.ISHI_ZAKURA.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：功能性方块 =========================//
     //----------------------------- 合成台 --------------------------//
@@ -299,8 +298,14 @@ public final class ItemRegistry {
 
     // ========================== GSKO杂项：合成消耗品 =========================//
 
-    // public static final RegistryObject<Item> ISHI_ZAKURA = ITEMS.register("ishi_zakura",
-    //         () -> new IshiZakuraBlock(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> ISHI_ZAKURA_FRAGMENT = ITEMS.register("ishi_zakura_fragment",
+            () -> new IshiZakuraFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> ISHI_ZAKURA = ITEMS.register("ishi_zakura",
+            () -> new BlockItem(BlockRegistry.ISHI_ZAKURA.get(), new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> CHERRY_BLOSSOM = ITEMS.register("cherry_blossom",
+            () -> new CherryBlossom(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> WANDERING_SOUL = ITEMS.register("wandering_soul",
             () -> new WanderingSoul(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -403,7 +408,7 @@ public final class ItemRegistry {
     //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
     //                 .maxStackSize(16)));
 //
-    // --------------------------- 被遗忘的传说 ------------------------------//
+    //////////////////////////////////// 被遗忘的传说 /////////////////////////////////
     public static final RegistryObject<Item> TALES_SCARLET_MIST = ITEMS.register(
             "oblivious_tales_scarlet_mist", () -> new ObliviousTales(new CompoundNBT()));
     public static final RegistryObject<Item> TALES_SPRING_SNOWS = ITEMS.register(
