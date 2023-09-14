@@ -2,14 +2,14 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "gensokyoontology:danmaku/large_shots"
+      "tag": "gensokyoontology:danmaku/talisman_shots"
     },
     {
       "item": "minecraft:red_dye"
     }
   ],
   "result": {
-    "item": "gensokyoontology:large_shot_red",
+    "item": "gensokyoontology:talisman_shot_red",
     "count": 1
   }
 }
