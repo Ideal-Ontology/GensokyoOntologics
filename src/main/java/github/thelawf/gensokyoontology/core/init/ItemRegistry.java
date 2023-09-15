@@ -379,8 +379,7 @@ public final class ItemRegistry {
     public static final RegistryObject<BurgerMeatRaw> BURGER_MEAT_RAW = ITEMS.register("burger_meat_raw", BurgerMeatRaw::new);
 
     public static final RegistryObject<BugerMeat> BURGER_MEAT = ITEMS.register("burger_meat", BugerMeat::new);
-
-    // ---------------------------- 意识形态 ------------------------------//
+    
     // public static final RegistryObject<SpiritStar> SPIRIT_STAR = ITEMS.register(
     //         "spirit_star", () -> new SpiritStar(new Item.Properties()
     //                 .group(GSKOItemTab.GSKO_ITEM_TAB)

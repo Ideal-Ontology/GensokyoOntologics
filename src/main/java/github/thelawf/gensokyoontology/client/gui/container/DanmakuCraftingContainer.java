@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.client.gui.container;
 
+import github.thelawf.gensokyoontology.common.util.GSKOGUIUtil;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,6 +40,7 @@ public class DanmakuCraftingContainer extends Container {
     private final IItemHandler playerInventory;
 
     public static final Logger LOGGER = LogManager.getLogger();
+    public static final List<List<Integer>> RECIPES = GSKOGUIUtil.makeDanmakuRecipes();
 
     private final IWorldPosCallable POS_CALLABLE = IWorldPosCallable.DUMMY;
 
@@ -85,7 +87,7 @@ public class DanmakuCraftingContainer extends Container {
         if (!player.world.isRemote()) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) this.player;
             // 大型星弹的槽位
-            List<Integer> starShotSlots = createRecipeIndexes(2,7,10,11,12,13,14,16,18,20,24);
+            List<Integer> largeStarShotSlots = createRecipeIndexes(2,7,10,11,12,13,14,16,18,20,24);
             // 心弹的槽位
             List<Integer> heartShotSlots = createRecipeIndexes(1,3,5,7,9,10,14,16,18,22);
             // 大弹的槽位
@@ -104,9 +106,9 @@ public class DanmakuCraftingContainer extends Container {
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
             }
-            else if (matches(craftingMatrix, starShotSlots)) {
-                ItemStack stack = new ItemStack(ItemRegistry.SMALL_STAR_SHOT_BLUE.get());
-                stack.setCount(getMinStackCount(starShotSlots));
+            else if (matches(craftingMatrix, largeStarShotSlots)) {
+                ItemStack stack = new ItemStack(ItemRegistry.LARGE_STAR_SHOT_BLUE.get());
+                stack.setCount(getMinStackCount(largeStarShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
             }

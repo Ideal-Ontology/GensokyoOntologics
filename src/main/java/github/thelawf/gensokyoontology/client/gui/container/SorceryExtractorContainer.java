@@ -38,8 +38,8 @@ public class SorceryExtractorContainer extends Container {
 
     private final IWorldPosCallable POS_CALLABLE = IWorldPosCallable.DUMMY;
 
-    private final Inventory ingredientInventory = new Inventory(4);
-    private final Inventory resultInventory = new Inventory(1);
+    private final IInventory ingredientInventory = new Inventory(4);
+    private final IInventory resultInventory = new Inventory(1);
     public SorceryExtractorContainer(int id, PlayerInventory playerInventory, PlayerEntity player) {
         super(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(), id);
         this.player = player;
@@ -62,7 +62,7 @@ public class SorceryExtractorContainer extends Container {
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean canInteractWith(@NotNull PlayerEntity playerIn) {
         return true;
     }
 
@@ -78,12 +78,14 @@ public class SorceryExtractorContainer extends Container {
         addSlot(new Slot(inventory, index, xPos, yPos){
             @Override
             public void onSlotChanged() {
-                super.onSlotChanged();
+
                 for (List<ItemStack> recipe : RECIPES) {
                     if (matches(SorceryExtractorContainer.this.ingredientInventory, recipe)) {
                         SorceryExtractorContainer.this.resultInventory.setInventorySlotContents(0, recipe.get(recipe.size()-1));
                     }
                 }
+                detectAndSendChanges();
+                super.onSlotChanged();
             }
         });
     }
@@ -91,7 +93,6 @@ public class SorceryExtractorContainer extends Container {
 
     private void addResultSlot(IInventory inventory, int index, int xPos, int yPos) {
         addSlot(new Slot(inventory, index, xPos, yPos){
-
             @Override
             @NotNull
             public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
@@ -119,6 +120,8 @@ public class SorceryExtractorContainer extends Container {
                 matchCount++;
             }
         }
+        Logger logger = LogManager.getLogger();
+        logger.info("该配方共含有 {} 个原材料，已匹配 {} 个物品，匹配结果：{}",totalCount, matchCount, totalCount == matchCount);
         return totalCount == matchCount;
     }
 
