@@ -37,7 +37,6 @@ public class FullCherryBlossomEntity extends SpellCardEntity{
         List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos(1.2, 3, 2, 0.05);
 
         if (ticksExisted % 40 == 0) {
-
             for (Vector3d vector3d : roseLinePos) {
                 RiceShotEntity riceShot = new RiceShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
                 Vector3d shootVec = new Vector3d(vector3d.x, vector3d.y, vector3d.z);

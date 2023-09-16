@@ -11,14 +11,6 @@ public class GSKOGUIUtil {
 
     public static List<List<ItemStack>> makeRecipes() {
         List<List<ItemStack>> recipes = new ArrayList<>();
-
-        recipes.add(GSKOGUIUtil.createExtractorRecipe(
-                new ItemStack(ItemRegistry.ORB_JADE.get()),
-                new ItemStack(ItemRegistry.TALES_SCARLET_MIST.get()),
-                ItemStack.EMPTY,
-                ItemStack.EMPTY,
-                new ItemStack(ItemRegistry.SORCERY_SCARLET_MIST.get())));
-
         recipes.add(GSKOGUIUtil.createExtractorRecipe(
                 new ItemStack(Items.ENDER_EYE),
                 new ItemStack(ItemRegistry.GITSUNE_TUBE_FULL.get()),
@@ -56,10 +48,4 @@ public class GSKOGUIUtil {
         return stacks;
     }
 
-    public enum Type{
-        LARGE_SHOT,
-        SMALL_SHOT,
-        STAR_SHOT_SMALL
-        ;
-    }
 }

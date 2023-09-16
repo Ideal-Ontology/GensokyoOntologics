@@ -84,7 +84,7 @@ public class DanmakuCraftingContainer extends Container {
 
     @Override
     public void onCraftMatrixChanged(@NotNull IInventory inventoryIn) {
-        if (!player.world.isRemote()) {
+        if (!player.world.isRemote() && inventoryIn == this.craftingMatrix) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) this.player;
             // 大型星弹的槽位
             List<Integer> largeStarShotSlots = createRecipeIndexes(2,7,10,11,12,13,14,16,18,20,24);
@@ -183,7 +183,8 @@ public class DanmakuCraftingContainer extends Container {
                     @NotNull
                     public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
                         for (int k = 0; k < 25; k++) {
-                            DanmakuCraftingContainer.this.craftingMatrix.removeStackFromSlot(k);
+                            // DanmakuCraftingContainer.this.craftingMatrix.removeStackFromSlot(k);
+                            DanmakuCraftingContainer.this.craftingMatrix.decrStackSize(k, stack.getCount());
                         }
                         detectAndSendChanges();
                         DanmakuCraftingContainer.this.onCraftMatrixChanged(DanmakuCraftingContainer.this.craftingMatrix);
