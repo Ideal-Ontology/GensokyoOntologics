@@ -26,8 +26,8 @@ import java.util.List;
  * 各个槽位的位置：<br>
  * 上方槽位：(98, 11)<br>
  * 左边槽位：(53, 55)<br>
- * 【合成结果槽位】中间槽位：(143, 55)<br>
- * 右边槽位：(116, 48)<br>
+ * 【合成结果槽位】中间槽位：(98, 55)<br>
+ * 右边槽位：(143, 48)<br>
  * 下方槽位：(98, 100)<br>
  */
 public class SorceryExtractorContainer extends Container {
@@ -46,18 +46,18 @@ public class SorceryExtractorContainer extends Container {
         this.player = player;
         this.playerInventory = new InvWrapper(playerInventory);
 
-        addPlayerInventorySlots(27, 126);
+        addPlayerInventorySlots(28, 128);
 
         // addSlot(new Slot(this.ingredientInventory, 0, 71, 4));
         // addSlot(new Slot(this.ingredientInventory, 1, 26, 48));
         // addSlot(new Slot(this.ingredientInventory, 2, 116, 48));
         // addSlot(new Slot(this.ingredientInventory, 3, 71, 93));
 
-        addIngredientSlot(this.ingredientInventory, 0, 71, 4);
-        addIngredientSlot(this.ingredientInventory, 1, 26, 48);
-        addIngredientSlot(this.ingredientInventory, 2, 116, 48);
-        addIngredientSlot(this.ingredientInventory, 3, 71, 93);
-        addResultSlot(this.resultInventory, 0, 71, 48);
+        addIngredientSlot(this.ingredientInventory, 0, 99, 12);
+        addIngredientSlot(this.ingredientInventory, 1, 54, 56);
+        addIngredientSlot(this.ingredientInventory, 2, 145, 56);
+        addIngredientSlot(this.ingredientInventory, 3, 99, 101);
+        addResultSlot(this.resultInventory, 0, 99, 56);
 
     }
 

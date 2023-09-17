@@ -7,7 +7,6 @@ import net.minecraft.block.SoundType;
 
 public class SakuraLeaves extends LeavesBlock {
     public SakuraLeaves() {
-        super(Properties.from(Blocks.ACACIA_LEAVES)
-                .tickRandomly().sound(SoundType.PLANT));
+        super(Properties.from(Blocks.ACACIA_LEAVES).tickRandomly().sound(SoundType.PLANT));
     }
 }

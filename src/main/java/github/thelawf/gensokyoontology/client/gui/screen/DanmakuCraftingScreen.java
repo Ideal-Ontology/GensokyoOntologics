@@ -18,8 +18,8 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
 
     public DanmakuCraftingScreen(DanmakuCraftingContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
-        this.xSize = 141;
-        this.ySize = 192;
+        this.xSize = 217;
+        this.ySize = 211;
         this.playerInventoryTitleX = 15;
         this.playerInventoryTitleY = 111;
     }

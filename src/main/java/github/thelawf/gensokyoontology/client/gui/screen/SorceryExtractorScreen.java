@@ -17,8 +17,8 @@ public class SorceryExtractorScreen extends ContainerScreen<SorceryExtractorCont
         super(screenContainer, inv, titleIn);
         this.xSize = 217;
         this.ySize = 211;
-        this.playerInventoryTitleX = 0;
-        this.playerInventoryTitleY = 112;
+        this.playerInventoryTitleX = 15;
+        this.playerInventoryTitleY = 118;
     }
 
     @Override
