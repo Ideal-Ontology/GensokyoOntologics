@@ -42,8 +42,6 @@ public class KoishiEyeClosed extends Item {
 
         // 获取绝对坐标
         Vector3d playerPos = playerIn.getPositionVec();
-        Logger logger = LogManager.getLogger();
-        logger.info(playerPos);
 
         List<AbstractDanmakuEntity> entities = new ArrayList<>();
         if (!worldIn.isRemote) {

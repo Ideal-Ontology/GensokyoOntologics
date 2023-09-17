@@ -1,29 +1,38 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.IRayTraceItem;
+import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * 魔理沙的八卦炉
  */
-public class MarisaHakkeiro extends Item {
+public class MarisaHakkeiro extends Item implements IRayTraceItem {
     public MarisaHakkeiro(Properties properties) {
         super(properties);
     }
@@ -77,15 +86,55 @@ public class MarisaHakkeiro extends Item {
         // 然后通过向量加法和向量数乘法，在这个位置的基础上再加上20倍的玩家视角向量
         Vector3d explodeStartPos = playerIn.getEyePosition(1.0F).add(
                 playerIn.getLookVec().scale(8));
+        Vector3d playerPos = playerIn.getPositionVec();
 
         // 循环引发50次爆炸，每次爆炸前先获取距离 explodeStartPos i格外的向量位置，
         // 通过同样的向量加法和数乘法确定下一个引爆的位置
+        List<LivingEntity> entities = new ArrayList<>();
         if (!worldIn.isRemote) {
-            for (int i = 0; i < 50; i++) {
-                Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
-                worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
-                        explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
+            // for (int i = 0; i < 50; i++) {
+            //     Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
+            //     worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
+            //             explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
+//
+            //     Vector3d lookVec = playerIn.getLookVec().scale(i);
+            //     Vector3d posRow = new Vector3d(lookVec.x > 0 ? Vector3f.XP : Vector3f.XN);
+            //     Vector3d posColumn = new Vector3d(lookVec.z > 0 ? Vector3f.ZP : Vector3f.ZN);
+            //     Vector3d posVertical = new Vector3d(lookVec.y > 0 ? Vector3f.YP : Vector3f.YN);
+//
+            //     Vector3d rayPos = playerPos.add(lookVec);
+//
+            //     AxisAlignedBB aabb = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos),
+            //             GSKOMathUtil.vecCeil(rayPos));
+            //     AxisAlignedBB aabb1 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos.add(posRow)),
+            //             GSKOMathUtil.vecCeil(rayPos.add(posRow)));
+            //     AxisAlignedBB aabb2 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos.add(posColumn)),
+            //             GSKOMathUtil.vecCeil(rayPos.add(posColumn)));
+            //     AxisAlignedBB aabb3 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos.add(posVertical)),
+            //             GSKOMathUtil.vecCeil(rayPos.add(posVertical)));
+//
+            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.grow(2)));
+            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb1.grow(2)));
+            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb2.grow(2)));
+            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb3.grow(2)));
+            //
+            // }
+
+            List<List<AxisAlignedBB>> boxes = getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 1.75f);
+            for (List<AxisAlignedBB> aabb : boxes) {
+                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(0)));
+                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(1)));
+                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(2)));
+                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(3)));
             }
+
+            entities.forEach(e -> {
+                if (e instanceof MonsterEntity) {
+                    e.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 30f);
+                }
+            });
+
+            getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 2);
             // damageItem(playerIn.getHeldItemMainhand(), 1, playerIn, player -> player.getHeldItemMainhand().shrink(1));
             if (handIn == Hand.MAIN_HAND) {
                 return ActionResult.resultSuccess(playerIn.getHeldItem(Hand.MAIN_HAND));
