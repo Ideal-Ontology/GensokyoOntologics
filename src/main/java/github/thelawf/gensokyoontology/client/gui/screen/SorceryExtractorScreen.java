@@ -15,8 +15,8 @@ public class SorceryExtractorScreen extends ContainerScreen<SorceryExtractorCont
     );
     public SorceryExtractorScreen(SorceryExtractorContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
-        this.xSize = 159;
-        this.ySize = 192;
+        this.xSize = 217;
+        this.ySize = 211;
         this.playerInventoryTitleX = 0;
         this.playerInventoryTitleY = 112;
     }

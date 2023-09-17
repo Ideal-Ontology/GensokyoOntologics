@@ -24,11 +24,11 @@ import java.util.List;
 
 /**
  * 各个槽位的位置：<br>
- * 上方槽位：(71, 4)<br>
- * 左边槽位：(26, 48)<br>
- * 【合成结果槽位】中间槽位：(71, 48)<br>
+ * 上方槽位：(98, 11)<br>
+ * 左边槽位：(53, 55)<br>
+ * 【合成结果槽位】中间槽位：(143, 55)<br>
  * 右边槽位：(116, 48)<br>
- * 下方槽位：(71, 93)<br>
+ * 下方槽位：(98, 100)<br>
  */
 public class SorceryExtractorContainer extends Container {
     private final PlayerEntity player;
@@ -46,7 +46,7 @@ public class SorceryExtractorContainer extends Container {
         this.player = player;
         this.playerInventory = new InvWrapper(playerInventory);
 
-        addPlayerInventorySlots(0, 120);
+        addPlayerInventorySlots(27, 126);
 
         // addSlot(new Slot(this.ingredientInventory, 0, 71, 4));
         // addSlot(new Slot(this.ingredientInventory, 1, 26, 48));

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X#",
+    "&&&"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:quartz_stairs"
+    },
+    "X": {
+      "item": "gensokyoontology:ishi_zakura_fragment"
+    },
+    "&": {
+      "item": "minecraft:quartz_slab"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:sorcery_extractor",
+    "count": 1
+  }
+}
