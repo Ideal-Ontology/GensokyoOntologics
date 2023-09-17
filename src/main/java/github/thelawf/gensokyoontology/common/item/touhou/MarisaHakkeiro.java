@@ -78,7 +78,7 @@ public class MarisaHakkeiro extends Item {
         Vector3d explodeStartPos = playerIn.getEyePosition(1.0F).add(
                 playerIn.getLookVec().scale(8));
 
-        // 循环引发100次爆炸，每次爆炸前先获取距离 explodeStartPos i格外的向量位置，
+        // 循环引发50次爆炸，每次爆炸前先获取距离 explodeStartPos i格外的向量位置，
         // 通过同样的向量加法和数乘法确定下一个引爆的位置
         if (!worldIn.isRemote) {
             for (int i = 0; i < 50; i++) {

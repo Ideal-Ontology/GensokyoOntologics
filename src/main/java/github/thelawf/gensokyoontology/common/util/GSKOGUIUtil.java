@@ -11,6 +11,7 @@ public class GSKOGUIUtil {
 
     public static List<List<ItemStack>> makeRecipes() {
         List<List<ItemStack>> recipes = new ArrayList<>();
+
         recipes.add(GSKOGUIUtil.createExtractorRecipe(
                 new ItemStack(Items.ENDER_EYE),
                 new ItemStack(ItemRegistry.GITSUNE_TUBE_FULL.get()),
