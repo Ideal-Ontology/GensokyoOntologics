@@ -92,10 +92,11 @@ public class MarisaHakkeiro extends Item implements IRayTraceItem {
         // 通过同样的向量加法和数乘法确定下一个引爆的位置
         List<LivingEntity> entities = new ArrayList<>();
         if (!worldIn.isRemote) {
-            // for (int i = 0; i < 50; i++) {
-            //     Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
-            //     worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
-            //             explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
+            for (int i = 0; i < 50; i++) {
+                Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
+                worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
+                        explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
+            }
 //
             //     Vector3d lookVec = playerIn.getLookVec().scale(i);
             //     Vector3d posRow = new Vector3d(lookVec.x > 0 ? Vector3f.XP : Vector3f.XN);

@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X#",
+    "X#X",
+    "#X#"
+
+  ],
+  "key": {
+    "#": {
+      "item": "gensokyoontology:ishi_zakura_fragment"
+    },
+    "X": {
+      "item": "gensokyoontology:cherry_blossom"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:ishi_zakura",
+    "count": 1
+  }
+}
