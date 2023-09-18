@@ -141,7 +141,7 @@ public class GSKOFeatures {
             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
                     BlockRegistry.IZANAGI_OBJECT_ORE.get().getDefaultState(),
                     GSKOOreType.IZANAGI_OBJECT.getMaxVeinSize())).withPlacement(
-                            Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
+                            Placement.SQUARE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
     public static final ConfiguredFeature<?, ?> ORE_GENSOKYO_JADE = Feature.ORE.withConfiguration(
             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
                     BlockRegistry.JADE_ORE.get().getDefaultState(),
@@ -186,6 +186,7 @@ public class GSKOFeatures {
     // public static final StructureFeature<?, ?> WATERFALL_FEATURE = StructureRegistry.WATERFALL_NINE_HEAVEN.get()
     //         .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
+
     public static void registerFeature() {
         Registry<ConfiguredFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_FEATURE;
 
@@ -222,6 +223,5 @@ public class GSKOFeatures {
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CIRNO_ICE_HOUSE.get(), CIRNO_ICE_HOUSE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CHIREIDEN.get(), CHIREIDEN);
     }
-
 
 }

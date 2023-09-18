@@ -22,14 +22,16 @@ import java.util.Random;
 
 public class GSKOEntityGenerator {
 
+    @SafeVarargs
     public static void addEntityExceptBiomes(final BiomeLoadingEvent event, EntityType<?> type,
-                                         int weight, int minCount, int maxCount, RegistryKey<Biome>... biomes) {
+                                             int weight, int minCount, int maxCount, RegistryKey<Biome>... biomes) {
         boolean isSelected = Arrays.stream(biomes).map(RegistryKey::getLocation).map(Objects::toString)
                 .anyMatch(obj -> obj.equals(event.getName().toString()));
 
         if (!isSelected) addEntityGeneration(event, type, weight, minCount, maxCount);
     }
 
+    @SafeVarargs
     public static void addEntityToBiomes(final BiomeLoadingEvent event, EntityType<?> type,
                                          int weight, int minCount, int maxCount, RegistryKey<Biome>... biomes) {
         boolean isSelected = Arrays.stream(biomes).map(RegistryKey::getLocation).map(Objects::toString)
