@@ -13,7 +13,13 @@
     "sky_color": 9090047,
     "fog_color": 12237498,
     "water_color": 4159204,
-    "water_fog_color": 270131
+    "water_fog_color": 270131,
+    "music": {
+      "sound": "gensokyoontology:music_gensokyo",
+      "min_delay": 8000,
+      "max_delay": 12000,
+      "replace_current_music": false
+    }
   },
   "starts": [
     "gensokyoontology:mystia_izakaya"

@@ -22,7 +22,7 @@ public final class DispenserRegister {
                             new DefaultDispenseItemBehavior();
 
                     /**
-                     * Dispense the specified stack, play the dispensed sound and spawn particles.
+                     * Dispense the specified stack, play the dispensed sounds and spawn particles.
                      *
                      */
                     @Override
@@ -48,7 +48,7 @@ public final class DispenserRegister {
                             new DefaultDispenseItemBehavior();
 
                     /**
-                     * Dispense the specified stack, play the dispensed sound and spawn particles.
+                     * Dispense the specified stack, play the dispensed sounds and spawn particles.
                      *
                      */
                     @Override
