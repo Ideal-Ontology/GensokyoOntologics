@@ -2,5 +2,28 @@
   "parent": "item/generated",
   "textures": {
     "layer0": "gensokyoontology:item/gap"
+  },
+  "display": {
+    "thirdperson_righthand": {
+      "scale": [0.6, 0.6, 0.6]
+    },
+    "thirdperson_lefthand": {
+      "scale": [0.6, 0.6, 0.6]
+    },
+    "firstperson_righthand": {
+      "scale": [0.6, 0.6, 0.6]
+    },
+    "firstperson_lefthand": {
+      "scale": [0.6, 0.6, 0.6]
+    },
+    "ground": {
+      "scale": [0.6, 0.6, 0.6]
+    },
+    "gui": {
+      "scale": [0.6, 0.6, 0.6]
+    },
+    "fixed": {
+      "scale": [0.6, 0.6, 0.6]
+    }
   }
 }

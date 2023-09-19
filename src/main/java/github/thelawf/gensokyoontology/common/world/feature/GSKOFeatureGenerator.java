@@ -3,15 +3,10 @@ package github.thelawf.gensokyoontology.common.world.feature;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKOOreType;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
-import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
-import github.thelawf.gensokyoontology.core.init.StructureRegistry;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.BiomeMaker;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.*;
 import net.minecraft.world.gen.placement.AtSurfaceWithExtraConfig;
@@ -116,6 +111,18 @@ public class GSKOFeatureGenerator {
         }
     }
 
+    public static void generateOverworldOre(final BiomeLoadingEvent event) {
+        GSKOOreType ore = GSKOOreType.IZANAGI_OBJECT;
+
+        OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+                ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
+        ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
+                new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
+
+        ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeOreFeature(ore, config, placement);
+        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, oreFeature);
+    }
+
     public static void generateOres(final BiomeLoadingEvent event) {
         for (GSKOOreType ore :  GSKOOreType.values()) {
             OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
@@ -123,7 +130,7 @@ public class GSKOFeatureGenerator {
             ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
                     new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
 
-            ConfiguredFeature<?, ?> oreFeature = registerOreFeature(ore, config, placement);
+            ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeOreFeature(ore, config, placement);
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, oreFeature);
         }
     }
@@ -166,8 +173,4 @@ public class GSKOFeatureGenerator {
         }
     }
 
-    private static ConfiguredFeature<?, ?> registerOreFeature(GSKOOreType oreType, OreFeatureConfig config, ConfiguredPlacement placement) {
-        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, oreType.getLazyBlock().get().getRegistryName(),
-                Feature.ORE.withConfiguration(config).withPlacement(placement).square().count(oreType.getMaxVeinSize()));
-    }
 }

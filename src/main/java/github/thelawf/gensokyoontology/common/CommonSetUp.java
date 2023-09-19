@@ -42,6 +42,7 @@ public class CommonSetUp {
             StructureRegistry.setupStructures();
             PlacerRegistry.registerPlacers();
             GSKOFeatures.registerStructure();
+            GSKOFeatures.registerOre();
             GSKOFeatures.registerFeature();
 
             Registry.register(Registry.BIOME_PROVIDER_CODEC,

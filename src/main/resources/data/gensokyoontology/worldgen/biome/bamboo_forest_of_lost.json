@@ -97,7 +97,8 @@
       "minecraft:ore_gold",
       "minecraft:ore_lapis",
       "minecraft:ore_redstone",
-      "minecraft:ore_diamond"
+      "minecraft:ore_diamond",
+      "gensokyoontology:izanagi_object"
     ],
     [],
     [],

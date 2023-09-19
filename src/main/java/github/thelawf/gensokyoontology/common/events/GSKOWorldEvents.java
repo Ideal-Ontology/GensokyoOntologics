@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.GSKOEntityGenerator;
+import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatureGenerator;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.entity.EntityClassification;
@@ -134,6 +135,7 @@ public class GSKOWorldEvents {
         // GSKOFeatureGenerator.generateHerbPlants(event);
 
         // GSKOFeatureGenerator.addWaterfall(event);
+        GSKOFeatureGenerator.generateOverworldOre(event);
     }
 
 

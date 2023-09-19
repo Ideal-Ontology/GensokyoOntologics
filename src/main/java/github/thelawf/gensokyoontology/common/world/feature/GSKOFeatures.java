@@ -18,9 +18,6 @@ import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 import net.minecraft.world.gen.feature.*;
-import net.minecraft.world.gen.feature.structure.BastionRemantsStructure;
-import net.minecraft.world.gen.feature.structure.MineshaftConfig;
-import net.minecraft.world.gen.feature.structure.MineshaftStructure;
 import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
 import net.minecraft.world.gen.placement.*;
@@ -224,4 +221,22 @@ public class GSKOFeatures {
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CHIREIDEN.get(), CHIREIDEN);
     }
 
+    public static ConfiguredFeature<?, ?> makeOreFeature(GSKOOreType oreType, OreFeatureConfig config, ConfiguredPlacement placement) {
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, oreType.getLazyBlock().get().getRegistryName(),
+                Feature.ORE.withConfiguration(config).withPlacement(placement).square().count(oreType.getMaxVeinSize()));
+    }
+
+    public static void registerOre() {
+        Registry<ConfiguredFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_FEATURE;
+
+        for (GSKOOreType ore :  GSKOOreType.values()) {
+            OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+                    ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
+            ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
+                    new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
+
+            Registry.register(registry, ore.getLazyBlock().get().getRegistryName(),
+                    Feature.ORE.withConfiguration(config).withPlacement(placement).square().count(ore.getMaxVeinSize()));
+        }
+    }
 }
