@@ -49,6 +49,19 @@ allprojects {
 group = 'com.github.thelawf'
 version = 'forge-1.16.5-pre-alpha-0.1.3'
 
+repositories {
+    maven {
+        // location of the maven that hosts JEI files
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl"
+    }
+}
+
 java {
     archivesBaseName = 'gensokyoontology'
     toolchain.languageVersion = JavaLanguageVersion.of(8)
@@ -167,6 +180,11 @@ dependencies {
     //jarJar(group: 'com.jozufozu.flywheel', name: "flywheel-forge-1.16.5", version: '[0.6.4,0.6.5)') {
     //  jarJar.pin(it, project.flywheel_version)
     //}
+
+    // compile against the JEI API but do not include it at runtime
+    compileOnly fg.deobf("mezz.jei:jei-1.16.5:7.7.1.153:api")
+    // at runtime, use the full JEI jar
+    runtimeOnly fg.deobf("mezz.jei:jei-1.16.5:7.7.1.153")
 
     //implementation fg.deobf("com.jozufozu.flywheel:flywheel-forge-${flywheel_minecraft_version}:${flywheel_version}")
     // Real mod deobf dependency examples - these get remapped to your current mappings

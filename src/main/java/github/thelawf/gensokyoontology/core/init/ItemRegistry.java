@@ -8,10 +8,7 @@ import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.IshiZakuraFragment;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
-import github.thelawf.gensokyoontology.common.item.ore.CrimsonAlloyIngot;
-import github.thelawf.gensokyoontology.common.item.ore.CrimsonMetalFragment;
-import github.thelawf.gensokyoontology.common.item.ore.CrimsonMetalIngot;
-import github.thelawf.gensokyoontology.common.item.ore.JadeItem;
+import github.thelawf.gensokyoontology.common.item.ore.*;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.touhou.*;
@@ -233,6 +230,10 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> CRIMSON_METAL_ORE_ITEM = ITEMS.register(
             "crimson_metal_ore", () -> new BlockItem(BlockRegistry.CRIMSON_ORE_BLOCK.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> IZANAGI_OBJECT_FRAGMENT = ITEMS.register(
+            "izanagi_object_fragment", () -> new IzanagiObjectFragment(
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：道具类物品 =========================//
