@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.common.network;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.network.packet.KickPlayerPacket;
-import net.minecraft.command.impl.GameRuleCommand;
-import net.minecraft.command.impl.ListCommand;
-import net.minecraft.command.impl.LocateCommand;
+import github.thelawf.gensokyoontology.common.network.packet.CountdownStartPacket;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -25,10 +22,10 @@ public class GSKODemoNetworking {
                 (version) -> version.equals(VERSION_KICK_PLAYER),
                 (version) -> version.equals(VERSION_KICK_PLAYER));
 
-        KICK_PLAYER.messageBuilder(KickPlayerPacket.class, nextId())
-                .encoder(KickPlayerPacket::toBytes)
-                .decoder(KickPlayerPacket::new)
-                .consumer(KickPlayerPacket::handle)
+        KICK_PLAYER.messageBuilder(CountdownStartPacket.class, nextId())
+                .encoder(CountdownStartPacket::toBytes)
+                .decoder(CountdownStartPacket::new)
+                .consumer(CountdownStartPacket::handle)
                 .add();
 
     }

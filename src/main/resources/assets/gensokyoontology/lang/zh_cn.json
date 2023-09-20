@@ -330,6 +330,10 @@
 
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "你释放了符卡: 「莫比乌斯环世界」",
 
+  "network.gensokyoontology.countdown.end": "倒计时已结束",
+  "network.gensokyoontology.disconnection.demo_end": "试玩时间结束，欢迎下次游玩~",
+  "network.gensokyoontology.disconnection.explore_later": "前面的区域，以后再来探索吧（）",
+
   "nbt.gensokyoontology.start_pos": "轨道起点：",
   "nbt.gensokyoontology.end_pos": "轨道终点： ",
 

@@ -330,6 +330,10 @@
 
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "You Released Spell Card: \"Mobius Ring World\"",
 
+  "network.gensokyoontology.countdown.end": "Countdown End",
+  "network.gensokyoontology.disconnection.demo_end": "Your game demonstration time is over. Looking forward to your next play!",
+  "network.gensokyoontology.disconnection.explore_later": "Explore the following area in the future!",
+
   "nbt.gensokyoontology.start_pos": "Rail Connection Start at: ",
   "nbt.gensokyoontology.end_pos": "Rail Connection End at: ",
 

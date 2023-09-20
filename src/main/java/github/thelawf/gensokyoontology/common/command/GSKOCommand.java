@@ -6,15 +6,12 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.brigadier.tree.LiteralCommandNode;
-import github.thelawf.gensokyoontology.common.network.packet.KickPlayerPacket;
-import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
+import github.thelawf.gensokyoontology.common.network.GSKODemoNetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CountdownStartPacket;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraftforge.fml.network.NetworkHooks;
-
-import java.util.List;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 public class GSKOCommand {
     // 实现一个可以显示 GUI的指令
@@ -29,18 +26,29 @@ public class GSKOCommand {
             "startCountDown", "endCountDown");
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
-        LiteralArgumentBuilder<CommandSource> literalargumentbuilder = Commands.literal("gsko").requires(
-                (p_198491_0_) -> p_198491_0_.hasPermissionLevel(2));
+        LiteralArgumentBuilder<CommandSource> literalargumentbuilder = Commands.literal("gsko");
 
         for (String literalCmd : GSKO_CMD_LITERALS) {
             literalargumentbuilder = literalargumentbuilder.then(Commands.literal(literalCmd).executes(
                     (context -> execute(context.getSource(), literalCmd))));
 
         }
+        dispatcher.register(literalargumentbuilder);
     }
 
     private static int execute(CommandSource source, String cmdIn) throws CommandSyntaxException {
-
+        if (!source.getWorld().isRemote && cmdIn.equals("startCountDown")) {
+            GSKODemoNetworking.KICK_PLAYER.send(PacketDistributor.PLAYER.with(
+                    () -> {
+                        try {
+                            return source.asPlayer();
+                        } catch (CommandSyntaxException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+            ), new CountdownStartPacket(1000));
+        }
         return 1;
     }
+
 }

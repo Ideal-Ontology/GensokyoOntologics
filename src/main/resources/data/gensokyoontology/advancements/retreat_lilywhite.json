@@ -1,27 +1,27 @@
 {
   "display": {
     "icon": {
-      "item": "minecraft:vex_spawn_egg"
+      "item": "gensokyoontology:lilywhite_spawn_egg"
     },
     "title": {
-      "translate": "advancement.gensokyoontology.retreat_leviathan.title"
+      "translate": "advancement.gensokyoontology.retreat_lilywhite.title"
     },
     "description": {
-      "translate": "advancement.gensokyoontology.retreat_leviathan.description"
+      "translate": "advancement.gensokyoontology.retreat_lilywhite.description"
     },
     "background": "gensokyoontology:block/sakura_planks",
-    "frame": "challenge",
+    "frame": "task",
     "show_toast": true,
-    "announce_to_chat": true,
+    "annouce_to_chat": true,
     "hidden": false
   },
-  "parent": "gensokyoontology:retreat_yukari",
+  "parent": "gensokyoontology:root",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:player_killed_entity",
       "conditions": {
         "player": {
-          "type": "gensokyoontology:leviathan"
+          "type": "gensokyoontology:lilywhite"
         }
       }
     }
