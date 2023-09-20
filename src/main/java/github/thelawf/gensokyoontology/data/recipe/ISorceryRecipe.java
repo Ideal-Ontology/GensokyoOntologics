@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 
 public interface ISorceryRecipe extends IRecipe<IInventory> {
-    ResourceLocation RECIPE_ID = new ResourceLocation(GensokyoOntology.MODID, "danmaku");
+    ResourceLocation RECIPE_ID = new ResourceLocation(GensokyoOntology.MODID, "sorcery");
 
     @Override
     default IRecipeType<?> getType(){

@@ -25,7 +25,7 @@ public class GSKOIncidentNetworking {
         return ID++;
     }
 
-    public static void  registerMessage() {
+    public static void registerMessage() {
         SCARLET_MIST = NetworkRegistry.newSimpleChannel(
                 new ResourceLocation(GensokyoOntology.MODID, "scarlet_mist_incident"),
                 () -> VERSION_SCARLET_MIST,
