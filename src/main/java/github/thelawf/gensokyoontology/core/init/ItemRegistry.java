@@ -180,7 +180,7 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAGIC_LOG_ITEM = ITEMS.register(
             "magic_log", () -> new BlockItem(BlockRegistry.MAGIC_LOG.get(),
-                    new Item.Properties()));
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // --------------------------- 草本植物类方块：----------------------------//
     public static final RegistryObject<BlockItem> BLUE_ROSE_ITEM = ITEMS.register(
