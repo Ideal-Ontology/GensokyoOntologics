@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
 import github.thelawf.gensokyoontology.common.world.TeleportHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -17,9 +18,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Random;
+
 public class GapBlock extends Block {
+
     public GapBlock() {
-        super(Properties.create(Material.PORTAL).hardnessAndResistance(11400.f));
+        super(Properties.from(Blocks.NETHER_PORTAL));
     }
 
     @Override

@@ -11,6 +11,9 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.Nullable;
 
 public class SorceryRecipe implements ISorceryRecipe{
+
+    // private final ResourceLocation id;
+    // private final ItemStack output;
     @Override
     public boolean matches(IInventory inv, World worldIn) {
         return false;
