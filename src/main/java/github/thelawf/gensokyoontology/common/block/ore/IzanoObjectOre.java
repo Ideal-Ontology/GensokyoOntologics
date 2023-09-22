@@ -8,8 +8,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
-public class IzanagiObjectOre extends OreBlock {
-    public IzanagiObjectOre() {
+public class IzanoObjectOre extends OreBlock {
+    public IzanoObjectOre() {
         super(Properties.from(Blocks.LAPIS_ORE).setRequiresTool()
                 .hardnessAndResistance(3.0f,3.0f)
                 .sound(SoundType.STONE));

@@ -13,8 +13,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
-import java.util.Properties;
-
 public final class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, GensokyoOntology.MODID);
@@ -130,8 +128,8 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> ISHI_ZAKURA = BLOCKS.register("ishi_zakura", IshiZakuraBlock::new);
 
     // ============================== 矿石类方块 ================================== //
-    public static final RegistryObject<Block> IZANAGI_OBJECT_ORE = BLOCKS.register(
-            "izanagi_object_ore", IzanagiObjectOre::new);
+    public static final RegistryObject<Block> IZANO_OBJECT_ORE = BLOCKS.register(
+            "izano_object_ore", IzanoObjectOre::new);
     public static final RegistryObject<Block> DRAGON_SPHERE_ORE = BLOCKS.register(
             "dragon_sphere_ore", DragonSphereOre::new);
     public static final RegistryObject<Block> CRIMSON_ALLOY_BLOCK = BLOCKS.register(
@@ -139,7 +137,7 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> CRIMSON_METAL_BLOCK = BLOCKS.register(
             "crimson_metal_block", CrimsonMetalBlock::new);
     public static final RegistryObject<Block> CRIMSON_ORE_BLOCK = BLOCKS.register(
-            "crimson_ore_block", CrimsonOreBlock::new);
+            "crimson_ore_block", ImmemorialAlloyBlock::new);
 
     public static final RegistryObject<Block> JADE_ORE = BLOCKS.register(
             "jade_ore", JadeOreBlock::new);

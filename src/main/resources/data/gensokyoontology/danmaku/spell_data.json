@@ -1,0 +1,56 @@
+{
+  "behaviors": [
+    {
+      "ticks_existed": {
+        "value": 200,
+        "range": [0,1000]
+      },
+      "shoot_vector": {
+        "prev": {
+          "value": ["x","y","z"]
+        },
+        "motion_function": [
+          {
+            "next_vec": {
+              "for_i_loop": {
+                "i": 0,
+                "max": 3,
+                "iterate_plus": 1,
+                "iterator_id": "i",
+                "rotate_yaw": {
+                  "value": {
+                    "operations": [
+                      {
+                        "id": "opt1",
+                        "division":{
+                          "left": {
+                            "type": "number",
+                            "value": 3.14159265358979
+                          },
+                          "right": 3
+                        }
+                      },
+                      {
+                        "id": "opt2",
+                        "mul": {
+                          "left":{
+                            "type": "reference",
+                            "value": "#opt1"
+                          },
+                          "right":{
+                            "type": "reference",
+                            "value": "#i"
+                          }
+                        }
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -136,7 +136,7 @@ public class GSKOFeatures {
     //-------------------------------------------矿物生成-----------------------------------------//
     public static final ConfiguredFeature<?, ?> ORE_IZANAGI_OBJECT = Feature.ORE.withConfiguration(
             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                    BlockRegistry.IZANAGI_OBJECT_ORE.get().getDefaultState(),
+                    BlockRegistry.IZANO_OBJECT_ORE.get().getDefaultState(),
                     GSKOOreType.IZANAGI_OBJECT.getMaxVeinSize())).withPlacement(
                             Placement.SQUARE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
     public static final ConfiguredFeature<?, ?> ORE_GENSOKYO_JADE = Feature.ORE.withConfiguration(

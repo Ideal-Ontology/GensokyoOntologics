@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.block.IshiZakuraBlock;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.item.*;
@@ -219,8 +218,8 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // -------------------------------- 矿石 ---------------------------------//
-    public static final RegistryObject<BlockItem> IZANAGI_OBJECT_ORE_ITEM = ITEMS.register(
-            "izanagi_object_ore", () -> new BlockItem(BlockRegistry.IZANAGI_OBJECT_ORE.get(),
+    public static final RegistryObject<BlockItem> IZANO_OBJECT_ORE_ITEM = ITEMS.register(
+            "izano_object_ore", () -> new BlockItem(BlockRegistry.IZANO_OBJECT_ORE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> DRAGON_SPHERE_ORE_ITEM = ITEMS.register(
             "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
