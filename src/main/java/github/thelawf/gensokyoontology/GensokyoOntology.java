@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
+import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
@@ -71,6 +72,7 @@ public class GensokyoOntology {
         StructureRegistry.STRUCTURES.register(eventBus);
         PlacerRegistry.FOLIAGE_PLACERS.register(eventBus);
 
+        RecipeRegistry.register(eventBus);
         GSKOSoundEvents.registerSound(eventBus);
     }
 
