@@ -1,5 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.BossBattleGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.LilyWhiteBossBattleGoal;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -14,6 +17,8 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 public class LilyWhiteEntity extends TameableEntity implements IAngerable {
@@ -27,7 +32,12 @@ public class LilyWhiteEntity extends TameableEntity implements IAngerable {
 
     @Override
     protected void registerGoals() {
+        Map<BossBattleGoal.Type, Pair<Float, Integer>> stages = new HashMap<>();
+        stages.put(BossBattleGoal.Type.NON_SPELL, Pair.of(50f, 2000));
+        stages.put(BossBattleGoal.Type.SPELL_CARD_BREAKABLE, Pair.of(50f, 2000));
+
         this.goalSelector.addGoal(0, new SwimGoal(this));
+        this.goalSelector.addGoal(1, new LilyWhiteBossBattleGoal(this, stages, 0.4f));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0));
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(5, new LookRandomlyGoal(this));
