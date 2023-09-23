@@ -157,7 +157,7 @@ public final class ItemRegistry {
 
     //////////////////////////////// 红杉木 ////////////////////////////////
     public static final RegistryObject<BlockItem> REDWOOD_LEAVES_ITEM = ITEMS.register(
-            "redwood_leaves", () -> new BlockItem(BlockRegistry.GINKGO_LEAVES.get(),
+            "redwood_leaves", () -> new BlockItem(BlockRegistry.REDWOOD_LEAVES.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // --------------------------- 草本植物类方块：----------------------------//

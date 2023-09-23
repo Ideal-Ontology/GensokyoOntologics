@@ -131,6 +131,10 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.MAGIC_LEAVES.get(),
                         RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.GINKGO_LEAVES.get(),
+                        RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.REDWOOD_LEAVES.get(),
+                        RenderType.getCutout());
 
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SORCERY_EXTRACTOR.get(),
                         RenderType.getTranslucent());
