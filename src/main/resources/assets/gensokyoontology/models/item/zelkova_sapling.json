@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "gensokyoontology:block/fagus_sapling"
+    "layer0": "gensokyoontology:block/zelkova_sapling"
   }
 }
