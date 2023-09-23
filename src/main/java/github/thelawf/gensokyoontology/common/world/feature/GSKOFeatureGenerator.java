@@ -119,7 +119,8 @@ public class GSKOFeatureGenerator {
         ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
                 new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
 
-        ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeOreFeature(ore, config, placement);
+        // ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeOreFeature(ore, config, placement);
+        ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeIzanoOreFeature(ore, config);
         event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, oreFeature);
     }
 

@@ -24,7 +24,7 @@
                   }
                 }
               ],
-              "name": "gensokyoontology:izanagi_object_ore"
+              "name": "gensokyoontology:izano_object_ore"
             },
             {
               "type": "minecraft:item",
@@ -38,7 +38,7 @@
                   "function": "minecraft:explosion_decay"
                 }
               ],
-              "name": "gensokyoontology:izano_object_fragment"
+              "name": "gensokyoontology:izano_object"
             }
           ]
         }

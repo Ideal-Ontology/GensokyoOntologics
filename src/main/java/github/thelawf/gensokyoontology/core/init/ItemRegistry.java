@@ -209,10 +209,8 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> IMMEMORIAL_ALLOY_BLOCK_ITEM = ITEMS.register(
             "immemorial_alloy_block", () -> new BlockItem(BlockRegistry.IMMEMORIAL_ALLOY_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
-    public static final RegistryObject<Item> IZANO_OBJECT_FRAGMENT = ITEMS.register(
-            "izano_object_fragment", () -> new IzanoObjectFragment(
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> IZANO_OBJECT = ITEMS.register(
+            "izano_object", () -> new IzanoObject(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：道具类物品 =========================//
     // ----------------------- 东方project特殊功能道具 ----------------------//

@@ -6,6 +6,6 @@ import net.minecraft.block.SoundType;
 
 public class ZelkovaLeaves extends LeavesBlock {
     public ZelkovaLeaves() {
-        super(Properties.from(Blocks.OAK_LEAVES).tickRandomly().sound(SoundType.WOOD));
+        super(Properties.from(Blocks.OAK_LEAVES).tickRandomly().sound(SoundType.PLANT));
     }
 }

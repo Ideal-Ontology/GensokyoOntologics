@@ -221,9 +221,15 @@ public class GSKOFeatures {
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CHIREIDEN.get(), CHIREIDEN);
     }
 
-    public static ConfiguredFeature<?, ?> makeOreFeature(GSKOOreType oreType, OreFeatureConfig config, ConfiguredPlacement placement) {
+    public static ConfiguredFeature<?, ?> makeOreFeature(GSKOOreType oreType, OreFeatureConfig config, ConfiguredPlacement<?> placement) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, oreType.getLazyBlock().get().getRegistryName(),
                 Feature.ORE.withConfiguration(config).withPlacement(placement).square().count(oreType.getMaxVeinSize()));
+    }
+
+    public static ConfiguredFeature<?, ?> makeIzanoOreFeature(GSKOOreType oreType, OreFeatureConfig config) {
+        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, oreType.getLazyBlock().get().getRegistryName(),
+                Feature.ORE.withConfiguration(config).withPlacement(Placement.EMERALD_ORE.configure(
+                        IPlacementConfig.NO_PLACEMENT_CONFIG)).square().count(oreType.getMaxVeinSize()));
     }
 
     public static void registerOre() {

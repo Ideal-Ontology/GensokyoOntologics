@@ -32,7 +32,7 @@ public class KudaGitsuneTube extends Item {
             return ActionResultType.func_233537_a_(playerIn.world.isRemote());
         }
         else if (target instanceof GhastEntity) {
-            target.remove();
+            // target.remove();
             stack.shrink(1);
             CompoundNBT nbt = new CompoundNBT();
             nbt.putString("story", "story."+ GensokyoOntology.MODID +".spectre");
