@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/template_fence_gate_wall",
   "textures": {
-    "texture": "gensokyoontology:block/fagus_planks"
+    "texture": "gensokyoontology:block/zelkova_planks"
   }
 }

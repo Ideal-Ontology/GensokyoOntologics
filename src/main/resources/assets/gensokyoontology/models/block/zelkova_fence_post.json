@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/fence_post",
   "textures": {
-    "texture": "gensokyoontology:block/fagus_planks"
+    "texture": "gensokyoontology:block/zelkova_planks"
   }
 }

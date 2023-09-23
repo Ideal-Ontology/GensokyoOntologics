@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:block/cube_all",
   "textures": {
-    "all": "gensokyoontology:block/fagus_planks"
+    "all": "gensokyoontology:block/zelkova_planks"
   }
 }
