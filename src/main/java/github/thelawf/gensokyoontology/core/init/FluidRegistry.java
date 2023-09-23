@@ -12,8 +12,10 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public final class FluidRegistry {
-    public static final ResourceLocation STILL_HOTSPRING_TEX = new ResourceLocation("tileentity/water_still");
-    public static final ResourceLocation FLOW_HOTSPRING_TEX = new ResourceLocation("tileentity/water_flow");
+    public static final ResourceLocation STILL_HOTSPRING_TEX = new ResourceLocation(
+            GensokyoOntology.MODID, "tileentity/water_still");
+    public static final ResourceLocation FLOW_HOTSPRING_TEX = new ResourceLocation(
+            GensokyoOntology.MODID, "tileentity/water_flow");
 
     public static final ResourceLocation SAKE_WINE_STILL_TEX = STILL_HOTSPRING_TEX;
     public static final ResourceLocation SAKE_WINE_FLOW_TEX = FLOW_HOTSPRING_TEX;
@@ -30,6 +32,13 @@ public final class FluidRegistry {
     public static final RegistryObject<FlowingFluid> HOT_SPRING_FLOWING = FLUIDS.register(
             "hot_spring_fluid_flowing",
             () -> new ForgeFlowingFluid.Flowing(FluidRegistry.HOT_SPRING_PROPERTIES));
+
+    public static final RegistryObject<FlowingFluid> PAPER_PULP_SOURCE = FLUIDS.register(
+            "paper_pulp_fluid",
+            () -> new ForgeFlowingFluid.Source(FluidRegistry.PAPER_PULP_PROPERTIES));
+    public static final RegistryObject<FlowingFluid> PAPER_PULP_FLOWING = FLUIDS.register(
+            "paper_pulp_fluid_flowing",
+            () -> new ForgeFlowingFluid.Flowing(FluidRegistry.PAPER_PULP_PROPERTIES));
 
     public static final RegistryObject<FlowingFluid> SAKE_WINE_SOURCE = FLUIDS.register(
             "sake_wine_fluid", () -> new ForgeFlowingFluid.Source(FluidRegistry.SAKE_WINE_PROPERTIES));
@@ -51,5 +60,12 @@ public final class FluidRegistry {
             .block(BlockRegistry.SAKE_WINE_BLOCK)
             .slopeFindDistance(3).explosionResistance(100F);
 
-
+    public static final ForgeFlowingFluid.Properties PAPER_PULP_PROPERTIES = new ForgeFlowingFluid.Properties(
+            SAKE_WINE_SOURCE, SAKE_WINE_FLOWING, FluidAttributes.builder(SAKE_WINE_STILL_TEX, SAKE_WINE_FLOW_TEX)
+            .color(0x33AA00DD)
+            .density(4500)
+            .viscosity(3800))
+            .bucket(ItemRegistry.SAKE_BUCKET)
+            .block(BlockRegistry.SAKE_WINE_BLOCK)
+            .slopeFindDistance(3).explosionResistance(100F);
 }

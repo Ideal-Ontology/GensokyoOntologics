@@ -266,12 +266,15 @@ public final class ItemRegistry {
             () -> new BucketItem(FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)
                     .maxStackSize(1).containerItem(BUCKET)));
-
     public static final RegistryObject<Item> SAKE_BUCKET = ITEMS.register("sake_bucket",
             () -> new BucketItem(FluidRegistry.SAKE_WINE_SOURCE, new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)
                     .maxStackSize(1).containerItem(BUCKET)));
 
+    public static final RegistryObject<Item> PAPER_PULP_BUCKET = ITEMS.register("paper_pulp_bucket",
+            () -> new BucketItem(FluidRegistry.PAPER_PULP_SOURCE, new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)
+                    .maxStackSize(1).containerItem(BUCKET)));
 
     // ========================== GSKO杂项：合成消耗品 =========================//
 

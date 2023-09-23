@@ -1,0 +1,21 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "ingredients": [
+    {
+      "item": "minecraft:water_bucket"
+    },
+    {
+      "item": "minecraft:grass"
+    },
+    {
+      "item": "minecraft:fern"
+    },
+    {
+      "item": "minecraft:paper"
+    }
+  ],
+  "result": {
+    "item": "gensokyoontology:paper_pulp_bucket",
+    "count": 1
+  }
+}

@@ -2,21 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "#A#",
-    "O O",
+    "$ $",
     "#$#"
   ],
   "key": {
     "A": {
-      "item": "minecraft:oak_button"
-    },
-    "#": {
-      "item": "minecraft:glass_pane"
-    },
-    "O": {
-      "item": "minecraft:diamond"
+      "tag": "minecraft:wooden_buttons"
     },
     "$": {
-      "item": "gensokyoontology:spirit_fragment"
+      "item": "minecraft:diamond"
+    },
+    "#": {
+      "item": "gensokyoontology:izano_object"
     }
   },
   "result": {
