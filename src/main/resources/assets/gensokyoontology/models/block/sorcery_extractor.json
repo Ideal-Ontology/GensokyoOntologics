@@ -1,6 +1,25 @@
 {
-  "parent": "minecraft:block/cube_all",
+  "parent": "gensokyoontology:sorcery_extractor.obj",
   "textures": {
     "all": "gensokyoontology:block/sorcery_extractor"
+  },
+  "display": {
+    "fixed": {
+      "rotation": [
+        0,
+        0,
+        0
+      ],
+      "translation": [
+        0.5,
+        0.5,
+        0.5
+      ],
+      "scale": [
+        0,
+        0,
+        0
+      ]
+    }
   }
 }

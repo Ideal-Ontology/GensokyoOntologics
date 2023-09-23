@@ -136,8 +136,8 @@ public final class BlockRegistry {
             "crimson_alloy_block", CrimsonAlloyBlock::new);
     public static final RegistryObject<Block> CRIMSON_METAL_BLOCK = BLOCKS.register(
             "crimson_metal_block", CrimsonMetalBlock::new);
-    public static final RegistryObject<Block> CRIMSON_ORE_BLOCK = BLOCKS.register(
-            "crimson_ore_block", ImmemorialAlloyBlock::new);
+    public static final RegistryObject<Block> IMMEMORIAL_ALLOY_BLOCK = BLOCKS.register(
+            "immemorial_alloy_block", ImmemorialAlloyBlock::new);
 
     public static final RegistryObject<Block> JADE_ORE = BLOCKS.register(
             "jade_ore", JadeOreBlock::new);

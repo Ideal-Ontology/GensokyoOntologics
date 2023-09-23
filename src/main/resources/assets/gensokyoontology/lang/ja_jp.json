@@ -52,6 +52,7 @@
   "item.gensokyoontology.crimson_alloy_ingot": "緋々色金",
   "item.gensokyoontology.crimson_metal_ingot": "Crimson Metal Ingot",
   "item.gensokyoontology.crimson_metal_fragment": "緋々色金の欠片",
+  "item.gensokyoontology.izano_object_fragment": "Izano Object Fragment",
 
   "item.gensokyoontology.spirit_star": "Spirit Star",
   "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
@@ -255,6 +256,7 @@
   "block.gensokyoontology.sorcery_extractor": "Sorcery Extractor",
 
   "block.gensokyoontology.izano_object_ore": "Izano Object Ore",
+  "block.gensokyoontology.immemorial_alloy_block": "Immemorial Alloy Block",
 
   "block.gensokyoontology.blue_mushroom_block": "蓝色蘑菇方块",
   "block.gensokyoontology.purple_mushroom_block": "紫色蘑菇方块",

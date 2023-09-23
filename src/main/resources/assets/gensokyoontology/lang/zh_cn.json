@@ -52,6 +52,7 @@
   "item.gensokyoontology.crimson_alloy_ingot": "绯色合金锭",
   "item.gensokyoontology.crimson_metal_ingot": "绯色金属锭",
   "item.gensokyoontology.crimson_metal_fragment": "绯色金属碎片",
+  "item.gensokyoontology.izano_object_fragment": "Izano Object Fragment",
 
   "item.gensokyoontology.spirit_star": "灵魂之星",
   "item.gensokyoontology.spirit_fragment": "意识形态碎片",
@@ -255,6 +256,7 @@
   "block.gensokyoontology.sorcery_extractor": "魔力提取台",
 
   "block.gensokyoontology.izano_object_ore": "伊奘诺物质矿石",
+  "block.gensokyoontology.immemorial_alloy_block": "超古代合金方块",
 
   "block.gensokyoontology.blue_mushroom_block": "蓝色蘑菇方块",
   "block.gensokyoontology.purple_mushroom_block": "紫色蘑菇方块",

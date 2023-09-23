@@ -227,12 +227,12 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> JADE_ORE_ITEM = ITEMS.register(
             "jade_ore", () -> new BlockItem(BlockRegistry.JADE_ORE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<BlockItem> CRIMSON_METAL_ORE_ITEM = ITEMS.register(
-            "crimson_metal_ore", () -> new BlockItem(BlockRegistry.CRIMSON_ORE_BLOCK.get(),
+    public static final RegistryObject<BlockItem> IMMEMORIAL_ALLOY_BLOCK_ITEM = ITEMS.register(
+            "immemorial_alloy_block", () -> new BlockItem(BlockRegistry.IMMEMORIAL_ALLOY_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<Item> IZANAGI_OBJECT_FRAGMENT = ITEMS.register(
-            "izanagi_object_fragment", () -> new IzanagiObjectFragment(
+    public static final RegistryObject<Item> IZANO_OBJECT_FRAGMENT = ITEMS.register(
+            "izano_object_fragment", () -> new IzanoObjectFragment(
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：道具类物品 =========================//

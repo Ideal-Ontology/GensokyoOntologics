@@ -2,9 +2,9 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {},
-    "model": "gensokyoontology:dakimakura.obj"
+    "model": "gensokyoontology:sorcery_extractor.obj"
   },
   "variants": {
-    "": {"model": "gensokyoontology:dakimakura.obj"}
+    "": {"model": "gensokyoontology:sorcery_extractor.obj"}
   }
 }
