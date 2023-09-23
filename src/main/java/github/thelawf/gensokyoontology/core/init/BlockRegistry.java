@@ -21,7 +21,7 @@ public final class BlockRegistry {
     /////////////                     装饰类方块                          ///////////////
     ///////////////////////////////////////////////////////////////////////////////////
 
-    //////////////////////////////// 魔法树木 ////////////////////////////////
+    ////////////////////////////////////////// 魔法树木 //////////////////////////////////////////
     public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register("magic_leaves", MagicLeaves::new);
 
     public static final RegistryObject<Block> MAGIC_LOG = BLOCKS.register("magic_log", MagicLog::new);
@@ -39,7 +39,7 @@ public final class BlockRegistry {
     public static final RegistryObject<StandingSignBlock> MAGIC_SIGN_BLOCK = BLOCKS.register("magic_sign",
             () -> new StandingSignBlock(AbstractBlock.Properties.from(Blocks.ACACIA_SIGN), WoodType.create("magic")));
 
-    //////////////////////////////// 樱花树木 ////////////////////////////////
+    ////////////////////////////////////////// 樱花树木 //////////////////////////////////////////
     public static final RegistryObject<Block> SAKURA_SAPLING = BLOCKS.register(
             "sakura_sapling", () -> new SaplingBlock(new SakuraTree(),
                     AbstractBlock.Properties.from(Blocks.ACACIA_SAPLING)));
@@ -61,7 +61,7 @@ public final class BlockRegistry {
     public static final RegistryObject<StandingSignBlock> SAKURA_SIGN_BLOCK = BLOCKS.register("sakura_sign",
             () -> new StandingSignBlock(AbstractBlock.Properties.from(Blocks.ACACIA_SIGN), WoodType.create("sakura")));
 
-    //////////////////////////////// 榉树木 ////////////////////////////////
+    ////////////////////////////////////////// 榉树木 //////////////////////////////////////////
 
     // public static final RegistryObject<Block> ZELKOVA_SAPLING = BLOCKS.register(
     //         "zelkova_sapling", () -> new SaplingBlock(new MapleTree(),
@@ -82,7 +82,7 @@ public final class BlockRegistry {
     public static final RegistryObject<StandingSignBlock> ZELKOVA_SIGN_BLOCK = BLOCKS.register("zelkova_sign",
             () -> new StandingSignBlock(AbstractBlock.Properties.from(Blocks.ACACIA_SIGN), WoodType.create("zelkova")));
 
-    //////////////////////////////// 枫木 ////////////////////////////////
+    ////////////////////////////////////////// 枫木 //////////////////////////////////////////
     public static final RegistryObject<Block> MAPLE_SAPLING = BLOCKS.register(
             "maple_sapling", () -> new SaplingBlock(new MapleTree(),
                     AbstractBlock.Properties.from(Blocks.ACACIA_SAPLING)));
@@ -96,6 +96,12 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> MAPLE_FENCE = BLOCKS.register("maple_fence", MapleFence::new);
     public static final RegistryObject<Block> MAPLE_FENCE_GATE = BLOCKS.register("maple_fence_gate", MapleFenceGate::new);
     public static final RegistryObject<Block> MAPLE_TRAPDOOR = BLOCKS.register("maple_trapdoor", MapleTrapdoor::new);
+
+    ////////////////////////////////////////// 银杏木 //////////////////////////////////////////
+    public static final RegistryObject<Block> GINKGO_LEAVES = BLOCKS.register("ginkgo_leaves", GinkgoLeaves::new);
+
+    ////////////////////////////////////////// 红杉木 //////////////////////////////////////////
+    public static final RegistryObject<Block> REDWOOD_LEAVES = BLOCKS.register("redwood_leaves", RedwoodLeaves::new);
 
     public static final RegistryObject<Block> MAPLE_PRESSURE_PLATE = BLOCKS.register(
             "maple_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
