@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.world.feature.structure;
+package github.thelawf.gensokyoontology.common.world.structure;
 
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
@@ -15,9 +15,7 @@ import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.structure.VillageConfig;
-import net.minecraft.world.gen.feature.template.StructureProcessor;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import org.apache.logging.log4j.LogManager;
 
 public class WaterfallNineHeavenStructure extends Structure<NoFeatureConfig> {
     public WaterfallNineHeavenStructure(Codec<NoFeatureConfig> codec) {

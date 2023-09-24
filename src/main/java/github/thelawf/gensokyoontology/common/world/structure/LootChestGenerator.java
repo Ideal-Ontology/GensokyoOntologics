@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.world.feature.structure;
+package github.thelawf.gensokyoontology.common.world.structure;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-@Deprecated
 public final class LootChestGenerator implements IStructurePieceType {
     @Override
     public StructurePiece load(TemplateManager p_load_1_, CompoundNBT p_load_2_) {

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.world.feature.structure;
+package github.thelawf.gensokyoontology.common.world.structure;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
@@ -13,7 +13,6 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.ISeedReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.biome.provider.BiomeProvider;
@@ -24,11 +23,9 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
 import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Random;
 
 // seed: -1241385503433286442
 public class MystiaIzakayaStructure extends Structure<NoFeatureConfig> {

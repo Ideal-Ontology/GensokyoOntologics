@@ -5,25 +5,25 @@
   },
   "display": {
     "thirdperson_righthand": {
-      "scale": [0.6, 0.6, 0.6]
+      "scale": [2, 1, 1]
     },
     "thirdperson_lefthand": {
-      "scale": [0.6, 0.6, 0.6]
+      "scale": [2, 1, 1]
     },
     "firstperson_righthand": {
-      "scale": [0.6, 0.6, 0.6]
+      "scale": [2, 1, 1]
     },
     "firstperson_lefthand": {
-      "scale": [0.6, 0.6, 0.6]
+      "scale": [2, 1, 1]
     },
     "ground": {
-      "scale": [0.6, 0.6, 0.6]
+      "scale": [2, 1, 1]
     },
     "gui": {
-      "scale": [1.2, 1.2, 1.2]
+      "scale": [2, 1, 1]
     },
     "fixed": {
-      "scale": [0.6, 0.6, 0.6]
+      "scale": [2, 1, 1]
     }
   }
 }

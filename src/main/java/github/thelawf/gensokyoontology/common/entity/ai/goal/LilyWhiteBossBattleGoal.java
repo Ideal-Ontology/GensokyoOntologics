@@ -48,6 +48,7 @@ public class LilyWhiteBossBattleGoal extends BossBattleGoal {
         if (this.lilyWhite.getEntitySenses().canSee(target)) {
             this.lilyWhite.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
             this.lilyWhite.setNoGravity(true);
+
         }
     }
 

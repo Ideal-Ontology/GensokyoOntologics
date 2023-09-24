@@ -1,8 +1,9 @@
-package github.thelawf.gensokyoontology.common.world.feature.structure;
+package github.thelawf.gensokyoontology.common.world.structure;
 
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
@@ -18,16 +19,12 @@ import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
-import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructureStart;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
+import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
-public class HakureiShrineStructure extends Structure<NoFeatureConfig> {
-    public HakureiShrineStructure(Codec<NoFeatureConfig> codec) {
+public class ChireidenStructure extends Structure<NoFeatureConfig> {
+    public ChireidenStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
     }
 
@@ -38,13 +35,14 @@ public class HakureiShrineStructure extends Structure<NoFeatureConfig> {
     }
 
     @Override
-    public @NotNull IStartFactory<NoFeatureConfig> getStartFactory() {
-        return HakureiShrineStructure.Start::new;
+    public IStartFactory<NoFeatureConfig> getStartFactory() {
+        return ChireidenStructure.Start::new;
     }
 
     /** isFeaturedChunk()
      * <br>
-     * 用于判断传入的区块是否是可以生成特征的区块
+     * 用于判断传入的区块是否是可以生成特征的区块<br>
+     * 通过MC原版高度图修改下方的 landHeight 本地变量以控制建筑的生成高度
      * @param chunkGenerator 区块生成器
      * @param provider 生物群系提供器
      * @param seed 地图种子
@@ -68,7 +66,7 @@ public class HakureiShrineStructure extends Structure<NoFeatureConfig> {
         IBlockReader columnOfBlocks = chunkGenerator.func_230348_a_(centerOfChunk.getX(), centerOfChunk.getZ());
         BlockState topBlock = columnOfBlocks.getBlockState(centerOfChunk.up(landHeight));
 
-        return topBlock.getFluidState().isEmpty();
+        return topBlock.getFluidState().isEmpty() && topBlock.getBlockState().equals(Blocks.STONE.getDefaultState());
     }
 
     public static class Start extends StructureStart<NoFeatureConfig> {
@@ -77,6 +75,7 @@ public class HakureiShrineStructure extends Structure<NoFeatureConfig> {
                      int referenceIn, long seedIn) {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
         }
+
         /** generatePieces()
          * <br>
          * 生成建筑的每一个部分，应该是从模板池中取出对应的建筑部分
@@ -98,9 +97,18 @@ public class HakureiShrineStructure extends Structure<NoFeatureConfig> {
             // addPieces() Method
             JigsawManager.func_242837_a(dynamicRegistry,
                     new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "hakurei_shrine/start_pool")),
+                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "chireiden/start_pool")),
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     pos, this.components, this.rand, false, true);
+
+            JigsawManager.func_242837_a(dynamicRegistry,
+                    new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
+                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "chireiden/chireiden_hall")),
+                            10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
+                    pos, this.components, this.rand, false, true);
+
+            // int j = chunkGenerator.getSeaLevel() - this.bounds.maxY + this.bounds.getYSize() / 2 + 5;
+            // this.bounds.offset(0, 48, 0);
 
             this.components.forEach(piece -> piece.offset(0, 1, 0));
             this.components.forEach(piece -> piece.getBoundingBox().minX -= 1);

@@ -1,10 +1,8 @@
-package github.thelawf.gensokyoontology.common.world.feature.structure;
+package github.thelawf.gensokyoontology.common.world.structure;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
@@ -14,7 +12,6 @@ import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
@@ -28,20 +25,10 @@ import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-
-public class CirnoIceHouseStructure extends Structure<NoFeatureConfig> {
-    public CirnoIceHouseStructure(Codec<NoFeatureConfig> codec) {
+public class HakureiShrineStructure extends Structure<NoFeatureConfig> {
+    public HakureiShrineStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
     }
-
-    private static final List<MobSpawnInfo.Spawners> MONSTERS = ImmutableList.of(
-            new MobSpawnInfo.Spawners(EntityType.ILLUSIONER, 3, 1, 2)
-    );
-
-    private static final List<MobSpawnInfo.Spawners> CREATURES = ImmutableList.of(
-            new MobSpawnInfo.Spawners(EntityType.RABBIT, 7, 1, 3)
-    );
 
     @Override
     @NotNull
@@ -49,25 +36,9 @@ public class CirnoIceHouseStructure extends Structure<NoFeatureConfig> {
         return GenerationStage.Decoration.SURFACE_STRUCTURES;
     }
 
-
     @Override
-    public IStartFactory<NoFeatureConfig> getStartFactory() {
-        return CirnoIceHouseStructure.Start::new;
-    }
-
-    @Override
-    public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
-        return MONSTERS;
-    }
-
-    @Override
-    public List<MobSpawnInfo.Spawners> getDefaultCreatureSpawnList() {
-        return CREATURES;
-    }
-
-    @Override
-    public boolean getDefaultRestrictsSpawnsToInside() {
-        return true;
+    public @NotNull IStartFactory<NoFeatureConfig> getStartFactory() {
+        return HakureiShrineStructure.Start::new;
     }
 
     /** isFeaturedChunk()
@@ -105,7 +76,6 @@ public class CirnoIceHouseStructure extends Structure<NoFeatureConfig> {
                      int referenceIn, long seedIn) {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
         }
-
         /** generatePieces()
          * <br>
          * 生成建筑的每一个部分，应该是从模板池中取出对应的建筑部分
@@ -127,7 +97,7 @@ public class CirnoIceHouseStructure extends Structure<NoFeatureConfig> {
             // addPieces() Method
             JigsawManager.func_242837_a(dynamicRegistry,
                     new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "mystia_izakaya/start_pool")),
+                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "hakurei_shrine/start_pool")),
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     pos, this.components, this.rand, false, true);
 
@@ -137,5 +107,4 @@ public class CirnoIceHouseStructure extends Structure<NoFeatureConfig> {
             this.recalculateStructureSize();
         }
     }
-
 }
