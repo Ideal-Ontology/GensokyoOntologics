@@ -1,6 +1,0 @@
-{
-  "parent": "block/cube_all",
-  "textures": {
-    "texture": "gensokyoontology:block/false"
-  }
-}
