@@ -153,11 +153,12 @@ public final class BlockRegistry {
     // ==============================流体方块 ================================== //
     public static final RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
             () -> new HotSpringBlock(FluidRegistry.HOT_SPRING_SOURCE,
-            Block.Properties.create(Material.WATER).doesNotBlockMovement()
-                                .hardnessAndResistance(100.0f).noDrops()));
-
+                    AbstractBlock.Properties.from(Blocks.WATER)));
     public static final RegistryObject<FlowingFluidBlock> SAKE_WINE_BLOCK = BLOCKS.register("sake_wine_block",
             () -> new FlowingFluidBlock(FluidRegistry.SAKE_WINE_SOURCE,
+                    AbstractBlock.Properties.from(Blocks.WATER)));
+    public static final RegistryObject<FlowingFluidBlock> PAPER_PULP_BLOCK = BLOCKS.register("paper_pulp_block",
+            () -> new FlowingFluidBlock(FluidRegistry.PAPER_PULP_SOURCE,
                     AbstractBlock.Properties.from(Blocks.WATER)));
 
     public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(

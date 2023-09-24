@@ -14,6 +14,7 @@ import github.thelawf.gensokyoontology.common.item.touhou.*;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;

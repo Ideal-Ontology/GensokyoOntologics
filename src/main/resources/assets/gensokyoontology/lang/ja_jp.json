@@ -39,8 +39,10 @@
   "itemGroup.gensokyoontology_items": "幻想的なアントロジ：物品",
   "itemGroup.gensokyoontology_combat": "幻想的なアントロジ：戦闘",
 
-  "item.gensokyoontology.sake_bucket": "Sake Bucket",
   "item.gensokyoontology.hotspring_bucket": "温泉水バケツ",
+  "item.gensokyoontology.sake_bucket": "Sake Bucket",
+  "item.gensokyoontology.paper_pulp_bucket": "Paper Pulp Bucket",
+
   "item.gensokyoontology.wandering_soul": "Wnadering Soul",
   "item.gensokyoontology.washi_paper": "和紙",
   "item.gensokyoontology.paper_shide": "紙垂",
@@ -52,7 +54,7 @@
   "item.gensokyoontology.crimson_alloy_ingot": "緋々色金",
   "item.gensokyoontology.crimson_metal_ingot": "Crimson Metal Ingot",
   "item.gensokyoontology.crimson_metal_fragment": "緋々色金の欠片",
-  "item.gensokyoontology.izano_object_fragment": "Izano Object Fragment",
+  "item.gensokyoontology.ishi_zakura_fragment": "Ishizakura Fragment",
 
   "item.gensokyoontology.spirit_star": "Spirit Star",
   "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
@@ -226,6 +228,7 @@
   "block.gensokyoontology.sakura_fence": "Sakura Fence",
   "block.gensokyoontology.sakura_fence_gate": "Sakura Fence Gate",
   "block.gensokyoontology.sakura_trapdoor": "Sakura Trapdoor",
+  "block.gensokyoontology.sakura_pressure_plate": "Sakura Pressure Plate",
 
   "block.gensokyoontology.magic_leaves": "魔法树叶",
   "block.gensokyoontology.magic_log": "魔法树原木",
@@ -240,6 +243,7 @@
   "block.gensokyoontology.maple_fence": "枫树栅栏",
   "block.gensokyoontology.maple_fence_gate": "枫树栅栏门",
   "block.gensokyoontology.maple_trapdoor": "枫树活板门",
+  "block.gensokyoontology.maple_pressure_plate": "Maple Pressure Plate",
 
   "block.gensokyoontology.zelkova_button": "Zelkova Button",
   "block.gensokyoontology.zelkova_leaves": "Zelkova Leaves",
@@ -251,6 +255,7 @@
   "block.gensokyoontology.zelkova_fence": "Zelkova Fence",
   "block.gensokyoontology.zelkova_fence_gate": "Zelkova Fence Gate",
   "block.gensokyoontology.zelkova_trapdoor": "Zelkova Trapdoor",
+  "block.gensokyoontology.zelkova_pressure_plate": "Zelkova Pressure Plate",
 
   "block.gensokyoontology.ginkgo_leaves": "Ginkgo Leaves",
   "block.gensokyoontology.redwood_leaves": "Redwood Leaves",
@@ -259,6 +264,8 @@
   "block.gensokyoontology.danmaku_table": "Danmaku Table",
   "block.gensokyoontology.sorcery_extractor": "Sorcery Extractor",
 
+  "block.gensokyoontology.dragon_sphere_ore": "Dragon Sphere Ore",
+  "block.gensokyoontology.jade_ore": "Jade Ore",
   "block.gensokyoontology.izano_object_ore": "Izano Object Ore",
   "block.gensokyoontology.immemorial_alloy_block": "Immemorial Alloy Block",
 
@@ -313,6 +320,10 @@
   "entity.gensokyoontology.komeiji_koishi": "古明地こいし",
   "entity.gensokyoontology.usami_sumireko": "宇佐見菫子",
   "entity.gensokyoontology.yakumo_yukari": "八雲紫",
+
+  "fluid.gensokyoontology.hot_spring_fluid": "Hot Spring",
+  "fluid.gensokyoontology.sake_wine_fluid": "Sake Wine",
+  "fluid.gensokyoontology.paper_pulp_fluid": "Paper Pulp",
 
   "gui.gensokyoontology.rail_adjust.title": "Rail Adjustment",
   "gui.gensokyoontology.button.increase_roll": "+",
@@ -438,5 +449,6 @@
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "item.gensokyoontology.izano_object_fragment": "Izano Object Fragment"
 }

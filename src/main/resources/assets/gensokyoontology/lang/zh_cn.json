@@ -39,8 +39,10 @@
   "itemGroup.gensokyoontology_items": "幻想存有论：物品",
   "itemGroup.gensokyoontology_combat": "幻想存有论：战斗",
 
-  "item.gensokyoontology.sake_bucket": "清酒桶",
   "item.gensokyoontology.hotspring_bucket": "温泉水桶",
+  "item.gensokyoontology.sake_bucket": "清酒桶",
+  "item.gensokyoontology.paper_pulp_bucket": "纸浆桶",
+
   "item.gensokyoontology.wandering_soul": "游荡的灵魂",
   "item.gensokyoontology.washi_paper": "和纸",
   "item.gensokyoontology.paper_shide": "纸垂",
@@ -52,7 +54,7 @@
   "item.gensokyoontology.crimson_alloy_ingot": "绯色合金锭",
   "item.gensokyoontology.crimson_metal_ingot": "绯色金属锭",
   "item.gensokyoontology.crimson_metal_fragment": "绯色金属碎片",
-  "item.gensokyoontology.izano_object_fragment": "Izano Object Fragment",
+  "item.gensokyoontology.ishi_zakura_fragment": "石樱碎片",
 
   "item.gensokyoontology.spirit_star": "灵魂之星",
   "item.gensokyoontology.spirit_fragment": "意识形态碎片",
@@ -194,7 +196,7 @@
   "item.gensokyoontology.onion": "洋葱",
 
   "item.gensokyoontology.cherry_blossom": "樱花",
-  "item.gensokyoontology.izano_object": "Izano Object",
+  "item.gensokyoontology.izano_object": "伊奘诺物质",
 
   "item.gensokyoontology.kitchen_knife": "菜刀",
   "item.gensokyoontology.burger_meat_raw": "生汉堡肉",
@@ -226,6 +228,7 @@
   "block.gensokyoontology.sakura_fence": "樱花木栅栏",
   "block.gensokyoontology.sakura_fence_gate": "樱花木栅栏门",
   "block.gensokyoontology.sakura_trapdoor": "樱花木活板门",
+  "block.gensokyoontology.sakura_pressure_plate": "樱花木压力板",
 
   "block.gensokyoontology.magic_leaves": "魔法树叶",
   "block.gensokyoontology.magic_log": "魔法树原木",
@@ -240,6 +243,7 @@
   "block.gensokyoontology.maple_fence": "枫树栅栏",
   "block.gensokyoontology.maple_fence_gate": "枫树栅栏门",
   "block.gensokyoontology.maple_trapdoor": "枫树活板门",
+  "block.gensokyoontology.maple_pressure_plate": "枫树压力板",
 
   "block.gensokyoontology.zelkova_button": "榉树按钮",
   "block.gensokyoontology.zelkova_leaves": "榉树树叶",
@@ -251,6 +255,7 @@
   "block.gensokyoontology.zelkova_fence": "榉树栅栏",
   "block.gensokyoontology.zelkova_fence_gate": "榉树栅栏门",
   "block.gensokyoontology.zelkova_trapdoor": "榉树活板门",
+  "block.gensokyoontology.zelkova_pressure_plate": "榉树压力板",
 
   "block.gensokyoontology.ginkgo_leaves": "银杏树叶",
   "block.gensokyoontology.redwood_leaves": "红杉树叶",
@@ -259,6 +264,8 @@
   "block.gensokyoontology.danmaku_table": "弹幕合成台",
   "block.gensokyoontology.sorcery_extractor": "魔力提取台",
 
+  "block.gensokyoontology.dragon_sphere_ore": "龙珠矿石",
+  "block.gensokyoontology.jade_ore": "玉石原矿",
   "block.gensokyoontology.izano_object_ore": "伊奘诺物质矿石",
   "block.gensokyoontology.immemorial_alloy_block": "超古代合金方块",
 
@@ -288,7 +295,7 @@
 
   "entity.gensokyoontology.danmaku_entity": "弹幕实体",
   "entity.gensokyoontology.large_shot": "大弹",
-  "entity.gensokyoontology.small_shot": "Small Shot",
+  "entity.gensokyoontology.small_shot": "小弹",
   "entity.gensokyoontology.heart_shot": "心弹",
   "entity.gensokyoontology.star_shot_small": "小型星弹",
   "entity.gensokyoontology.star_shot_large": "大型星弹",
@@ -313,6 +320,10 @@
   "entity.gensokyoontology.komeiji_koishi": "古明地恋",
   "entity.gensokyoontology.usami_sumireko": "宇佐见堇子",
   "entity.gensokyoontology.yakumo_yukari": "八云紫",
+
+  "fluid.gensokyoontology.hot_spring_fluid": "温泉",
+  "fluid.gensokyoontology.sake_wine_fluid": "清酒",
+  "fluid.gensokyoontology.paper_pulp_fluid": "纸浆",
 
   "gui.gensokyoontology.rail_adjust.title": "轨道调整",
   "gui.gensokyoontology.button.increase_roll": "+",
@@ -438,5 +449,6 @@
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "item.gensokyoontology.izano_object_fragment": "Izano Object Fragment"
 }

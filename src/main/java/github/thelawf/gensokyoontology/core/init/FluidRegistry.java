@@ -54,18 +54,18 @@ public final class FluidRegistry {
     public static final ForgeFlowingFluid.Properties SAKE_WINE_PROPERTIES = new ForgeFlowingFluid.Properties(
             SAKE_WINE_SOURCE, SAKE_WINE_FLOWING, FluidAttributes.builder(SAKE_WINE_STILL_TEX, SAKE_WINE_FLOW_TEX)
             .color(0xFF8888BB)
-            .density(4500)
+            .density(3000)
             .viscosity(3800))
             .bucket(ItemRegistry.SAKE_BUCKET)
             .block(BlockRegistry.SAKE_WINE_BLOCK)
             .slopeFindDistance(3).explosionResistance(100F);
 
     public static final ForgeFlowingFluid.Properties PAPER_PULP_PROPERTIES = new ForgeFlowingFluid.Properties(
-            SAKE_WINE_SOURCE, SAKE_WINE_FLOWING, FluidAttributes.builder(SAKE_WINE_STILL_TEX, SAKE_WINE_FLOW_TEX)
+            PAPER_PULP_SOURCE, PAPER_PULP_FLOWING, FluidAttributes.builder(PAPER_PULP_STILL_TEX, PAPER_PULP_FLOW_TEX)
             .color(0x33AA00DD)
-            .density(4500)
-            .viscosity(3800))
-            .bucket(ItemRegistry.SAKE_BUCKET)
-            .block(BlockRegistry.SAKE_WINE_BLOCK)
+            .density(6000)
+            .viscosity(2800))
+            .bucket(ItemRegistry.PAPER_PULP_BUCKET)
+            .block(BlockRegistry.PAPER_PULP_BLOCK)
             .slopeFindDistance(3).explosionResistance(100F);
 }

@@ -101,6 +101,10 @@ public class GensokyoOntology {
                         RenderType.getTranslucent());
                 RenderTypeLookup.setRenderLayer(FluidRegistry.SAKE_WINE_FLOWING.get(),
                         RenderType.getTranslucent());
+                RenderTypeLookup.setRenderLayer(FluidRegistry.PAPER_PULP_SOURCE.get(),
+                        RenderType.getTranslucent());
+                RenderTypeLookup.setRenderLayer(FluidRegistry.PAPER_PULP_FLOWING.get(),
+                        RenderType.getTranslucent());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
                         RenderType.getTranslucent());
 

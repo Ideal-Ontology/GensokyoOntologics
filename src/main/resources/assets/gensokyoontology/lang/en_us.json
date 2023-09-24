@@ -39,8 +39,10 @@
   "itemGroup.gensokyoontology_items": "Gensokyo Ontology: Items",
   "itemGroup.gensokyoontology_combat": "Gensokyo Ontology: Combat",
 
-  "item.gensokyoontology.sake_bucket": "Sake Bucket",
   "item.gensokyoontology.hotspring_bucket": "Hot Spring Bucket",
+  "item.gensokyoontology.sake_bucket": "Sake Bucket",
+  "item.gensokyoontology.paper_pulp_bucket": "Paper Pulp Bucket",
+
   "item.gensokyoontology.wandering_soul": "Wnadering Soul",
   "item.gensokyoontology.washi_paper": "Washi Paper",
   "item.gensokyoontology.paper_shide": "Paper Shide",
@@ -52,7 +54,7 @@
   "item.gensokyoontology.crimson_alloy_ingot": "Crimson Alloy Ingot",
   "item.gensokyoontology.crimson_metal_ingot": "Crimson Metal Ingot",
   "item.gensokyoontology.crimson_metal_fragment": "Crimson Metal Fragment",
-  "item.gensokyoontology.izano_object_fragment": "Izano Object Fragment",
+  "item.gensokyoontology.ishi_zakura_fragment": "Ishizakura Fragment",
 
   "item.gensokyoontology.spirit_star": "Spirit Star",
   "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
@@ -226,6 +228,7 @@
   "block.gensokyoontology.sakura_fence": "Sakura Fence",
   "block.gensokyoontology.sakura_fence_gate": "Sakura Fence Gate",
   "block.gensokyoontology.sakura_trapdoor": "Sakura Trapdoor",
+  "block.gensokyoontology.sakura_pressure_plate": "Sakura Pressure Plate",
 
   "block.gensokyoontology.magic_leaves": "Magic Leaves",
   "block.gensokyoontology.magic_log": "Magic Log",
@@ -240,6 +243,7 @@
   "block.gensokyoontology.maple_fence": "Maple Fence",
   "block.gensokyoontology.maple_fence_gate": "Maple Fence Gate",
   "block.gensokyoontology.maple_trapdoor": "Maple Trapdoor",
+  "block.gensokyoontology.maple_pressure_plate": "Maple Pressure Plate",
 
   "block.gensokyoontology.zelkova_button": "Zelkova Button",
   "block.gensokyoontology.zelkova_leaves": "Zelkova Leaves",
@@ -251,6 +255,7 @@
   "block.gensokyoontology.zelkova_fence": "Zelkova Fence",
   "block.gensokyoontology.zelkova_fence_gate": "Zelkova Fence Gate",
   "block.gensokyoontology.zelkova_trapdoor": "Zelkova Trapdoor",
+  "block.gensokyoontology.zelkova_pressure_plate": "Zelkova Pressure Plate",
 
   "block.gensokyoontology.ginkgo_leaves": "Ginkgo Leaves",
   "block.gensokyoontology.redwood_leaves": "Redwood Leaves",
@@ -259,6 +264,8 @@
   "block.gensokyoontology.danmaku_table": "Danmaku Table",
   "block.gensokyoontology.sorcery_extractor": "Sorcery Extractor",
 
+  "block.gensokyoontology.dragon_sphere_ore": "Dragon Sphere Ore",
+  "block.gensokyoontology.jade_ore": "Jade Ore",
   "block.gensokyoontology.izano_object_ore": "Izano Object Ore",
   "block.gensokyoontology.immemorial_alloy_block": "Immemorial Alloy Block",
 
@@ -313,6 +320,10 @@
   "entity.gensokyoontology.komeiji_koishi": "Komeiji Koishi",
   "entity.gensokyoontology.usami_sumireko": "Usami Sumireko",
   "entity.gensokyoontology.yakumo_yukari": "Yakumo Yukari",
+
+  "fluid.gensokyoontology.hot_spring_fluid": "Hot Spring",
+  "fluid.gensokyoontology.sake_wine_fluid": "Sake Wine",
+  "fluid.gensokyoontology.paper_pulp_fluid": "Paper Pulp",
 
   "gui.gensokyoontology.rail_adjust.title": "Rail Adjustment",
   "gui.gensokyoontology.button.increase_roll": "+",

@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.entity.projectile.GSKODamageSource
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
+import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Pose;
@@ -44,9 +45,9 @@ public class GSKOEntityEvents {
     public static void onWineIn(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() != null && event.getEntityLiving().isInWater()) {
             BlockState blockState = event.getEntityLiving().getBlockState();
-            if (blockState.getBlockState().getBlock() instanceof HotSpringBlock &&
-                    !(event.getEntityLiving() instanceof PlayerEntity)) {
-                event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.NAUSEA));
+            if (blockState.getBlockState().getBlock().equals(BlockRegistry.SAKE_WINE_BLOCK.get()) &&
+                    event.getEntityLiving() instanceof PlayerEntity) {
+                event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.NAUSEA, 2*100));
             }
         }
     }
