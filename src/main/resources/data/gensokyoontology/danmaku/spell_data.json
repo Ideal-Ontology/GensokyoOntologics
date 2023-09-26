@@ -3,7 +3,8 @@
     {
       "ticks_existed": {
         "value": 200,
-        "range": [0,1000]
+        "range": [0,1000],
+        "mod": 30
       },
       "shoot_vector": {
         "prev": {
@@ -11,12 +12,12 @@
         },
         "motion_function": [
           {
-            "next_vec": {
-              "for_i_loop": {
-                "i": 0,
-                "max": 3,
-                "iterate_plus": 1,
-                "iterator_id": "i",
+            "for_i_loop": {
+              "i": 0,
+              "max": 3,
+              "iterate_plus": 1,
+              "iterator_id": "i",
+              "next_shoot_vector": {
                 "rotate_yaw": {
                   "value": {
                     "operations": [
@@ -46,7 +47,8 @@
                     ]
                   }
                 }
-              }
+              },
+              "next_position": {}
             }
           }
         ]

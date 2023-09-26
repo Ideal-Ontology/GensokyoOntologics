@@ -123,6 +123,12 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     }
 
     /**
+     * 这个方法是为了方便其它类在外部调用符卡的弹幕演出
+     */
+    public void onTick(int ticksExisted) {
+    }
+
+    /**
      * 使用tick()方法让弹幕在每个游戏刻执行不同的操作，将实体类中的 tickExisted 参数作为变换函数 increment 增加值的迭代单位，
      * 因为这个参数的存在，实体类的tick方法比单纯继承了 ITickable 接口的类更加便捷好用。
      */

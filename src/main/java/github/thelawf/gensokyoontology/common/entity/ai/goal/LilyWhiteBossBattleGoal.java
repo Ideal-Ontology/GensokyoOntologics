@@ -1,13 +1,16 @@
 package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
 
+import java.util.List;
 import java.util.Map;
 
 public class LilyWhiteBossBattleGoal extends BossBattleGoal {
@@ -18,7 +21,7 @@ public class LilyWhiteBossBattleGoal extends BossBattleGoal {
     // private final List<Integer> stageTimes;
     // private final int totalTime;
 
-    public LilyWhiteBossBattleGoal(LilyWhiteEntity lilyWhite, Map<Type, Pair<Float, Integer>> stages, float speedIn) {
+    public LilyWhiteBossBattleGoal(LilyWhiteEntity lilyWhite, List<Stage> stages, float speedIn) {
         super(stages);
         this.lilyWhite = lilyWhite;
         this.speedIn = speedIn;
@@ -53,8 +56,8 @@ public class LilyWhiteBossBattleGoal extends BossBattleGoal {
             this.lilyWhite.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
             this.lilyWhite.setNoGravity(true);
 
-            FullCherryBlossomEntity fullCherryBlossom = new FullCherryBlossomEntity(this.lilyWhite.world, this.lilyWhite);
-            this.lilyWhite.spellCardAttack(fullCherryBlossom);
+            this.lilyWhite.spellCardAttack(this.stages.get(0).spellCard, ticksExisted);
+
         }
 
     }

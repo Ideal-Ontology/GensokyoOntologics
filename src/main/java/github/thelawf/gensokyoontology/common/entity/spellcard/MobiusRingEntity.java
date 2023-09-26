@@ -20,8 +20,6 @@ import java.util.List;
 
 public class MobiusRingEntity extends SpellCardEntity{
 
-    private final int lifeSpan = 100;
-
     public static final EntityType<MobiusRingEntity> MOBIUS_RING_ENTITY =
             EntityType.Builder.<MobiusRingEntity>create(MobiusRingEntity::new,
                             EntityClassification.MISC).size(1F,1F).trackingRange(4)
@@ -91,7 +89,8 @@ public class MobiusRingEntity extends SpellCardEntity{
         //     world.addEntity(smallShot);
         // }
 
-        if (ticksExisted >= this.lifeSpan) {
+        int lifeSpan = 1000;
+        if (ticksExisted >= lifeSpan) {
             this.remove();
         }
         super.tick();

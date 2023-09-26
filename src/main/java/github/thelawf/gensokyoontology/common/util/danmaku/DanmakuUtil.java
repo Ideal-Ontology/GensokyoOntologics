@@ -141,6 +141,16 @@ public class DanmakuUtil {
         return danmakuItems;
     }
 
+    public static Vector3d rotateRandomAngle(Vector3d preVec, float yawBounds, float pitchBounds) {
+        Vector3d nextVec = preVec.rotateYaw(GSKOMathUtil.randomRange(0f, yawBounds));
+        nextVec = nextVec.rotatePitch(GSKOMathUtil.randomRange(0f, pitchBounds));
+        return nextVec;
+    }
+
+    public static Vector3d getRandomPosWithin(float radius, Plane planeIn) {
+        return getRandomPosWithin(new Vector3f(radius, radius, radius), planeIn);
+    }
+
     public static Vector3d getRandomPosWithin(Vector3f radius, Plane planeIn) {
         double x = GSKOMathUtil.randomRange(-radius.getX(), radius.getX());
         double y = GSKOMathUtil.randomRange(-radius.getY(), radius.getY());

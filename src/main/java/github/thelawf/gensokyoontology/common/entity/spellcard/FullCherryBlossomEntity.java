@@ -31,9 +31,8 @@ public class FullCherryBlossomEntity extends SpellCardEntity{
     }
 
     @Override
-    public void tick() {
-        super.tick();
-
+    public void onTick(int ticksExisted) {
+        super.onTick(ticksExisted);
         List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos(1.2, 3, 2, 0.05);
 
         if (ticksExisted % 40 == 0) {
@@ -47,7 +46,12 @@ public class FullCherryBlossomEntity extends SpellCardEntity{
                 world.addEntity(riceShot);
             }
         }
+    }
 
+    @Override
+    public void tick() {
+        super.tick();
+        onTick(ticksExisted);
     }
 
     @Override
