@@ -33,7 +33,7 @@ public class GSKOLayerUtil extends Layer {
     }
 
 
-    /** 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格
+    /** 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格 <br>
      * Biome 数字id 的位置：{@link BiomeRegistry}
      */
     public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> buildBiomes(final LongFunction<C> context, Registry<Biome> registry) {

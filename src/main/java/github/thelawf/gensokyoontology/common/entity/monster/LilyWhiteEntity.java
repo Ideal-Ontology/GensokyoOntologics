@@ -53,6 +53,9 @@ public class LilyWhiteEntity extends TameableEntity implements IAngerable, ISpel
 
     @Override
     public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
+        if (spellCard == null) {
+            return;
+        }
 
         if (ticksIn % 20 == 0) {
             GensokyoOntology.LOGGER.info("Called?");

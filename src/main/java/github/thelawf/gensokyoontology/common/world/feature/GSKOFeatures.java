@@ -65,7 +65,8 @@ public class GSKOFeatures {
      * 从这里开始是初始化世界中自然生成的树木特征的配置
      */
     public static final ConfiguredFeature<?, ?> SAKURA_TREE = Feature.TREE.withConfiguration(
-                    new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.SAKURA_LOG.get().getDefaultState()),
+                    new BaseTreeFeatureConfig.Builder(
+                            new SimpleBlockStateProvider(BlockRegistry.SAKURA_LOG.get().getDefaultState()),
                             new SimpleBlockStateProvider(BlockRegistry.SAKURA_LEAVES.get().getDefaultState()),
                             new FancyFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1), 2),
                             new FancyTrunkPlacer(8,3,2),
@@ -73,7 +74,8 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square();
 
     public static final ConfiguredFeature<?, ?> SAKURA_TREE_HAKUREI_SHRINE = Feature.TREE.withConfiguration(
-            new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.SAKURA_LOG.get().getDefaultState()),
+            new BaseTreeFeatureConfig.Builder(
+                    new SimpleBlockStateProvider(BlockRegistry.SAKURA_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(BlockRegistry.SAKURA_LEAVES.get().getDefaultState()),
                     new FancyFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1), 2),
                     new FancyTrunkPlacer(8,3,2),
@@ -82,7 +84,8 @@ public class GSKOFeatures {
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(3, 0.4f, 3)));
 
     public static final ConfiguredFeature<?, ?> MAGIC_TREE = Feature.TREE.withConfiguration(
-            new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState()),
+            new BaseTreeFeatureConfig.Builder(
+                    new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(BlockRegistry.MAGIC_LEAVES.get().getDefaultState()),
                     new MagicFoliagePlacer(FeatureSpread.create(1), FeatureSpread.create(1)),
                     new StraightTrunkPlacer(12, -1, 3),
@@ -91,7 +94,8 @@ public class GSKOFeatures {
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(4, 0.8f, 6)));
 
     public static final ConfiguredFeature<?, ?> MAPLE_TREE = Feature.TREE.withConfiguration(
-                    new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
+                    new BaseTreeFeatureConfig.Builder(
+                            new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
                             new SimpleBlockStateProvider(BlockRegistry.MAPLE_LEAVES.get().getDefaultState()),
                             new BlobFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1,2), 2),
                             new FancyTrunkPlacer(6, 2, 1),
@@ -99,7 +103,8 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square();
 
     public static final ConfiguredFeature<?, ?> MAPLE_TREE_MOUNTAIN = Feature.TREE.withConfiguration(
-                    new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
+                    new BaseTreeFeatureConfig.Builder(
+                            new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
                             new SimpleBlockStateProvider(BlockRegistry.MAPLE_LEAVES.get().getDefaultState()),
                             new BlobFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1,3), 2),
                             new FancyTrunkPlacer(5, 2, 1),
@@ -107,8 +112,9 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(2, 0.33f, 3)));
 
-    public static final ConfiguredFeature<?, ?> GSKO_OAK = Feature.TREE.withConfiguration(
-            new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState()),
+    public static final ConfiguredFeature<?, ?> SHINBOKU_TREE = Feature.TREE.withConfiguration(
+            new BaseTreeFeatureConfig.Builder(
+                    new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState()),
                     new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState()),
                     new BlobFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1), 2),
                     new FancyTrunkPlacer(15,0,1),
@@ -196,7 +202,7 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_mountain"), MAPLE_TREE_MOUNTAIN);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree"), SAKURA_TREE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree_hakurei_shrine"), SAKURA_TREE_HAKUREI_SHRINE);
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "gsko_oak_tree"), GSKO_OAK);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "shinboku_tree"), SHINBOKU_TREE);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "ore_former_hell_jade"), ORE_FORMER_HELL_JADE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "ore_gensokyo_jade"), ORE_GENSOKYO_JADE);

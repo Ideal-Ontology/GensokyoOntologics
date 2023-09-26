@@ -56,10 +56,10 @@ public class LilyWhiteBossBattleGoal extends BossBattleGoal {
             this.lilyWhite.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
             this.lilyWhite.setNoGravity(true);
 
-            this.lilyWhite.spellCardAttack(this.stages.get(0).spellCard, ticksExisted);
+            this.lilyWhite.spellCardAttack(this.lilyWhite.getHealth() > this.lilyWhite.getMaxHealth() ?
+            this.stages.get(0).spellCard : null, ticksExisted);
 
         }
-
     }
 
     @Override
