@@ -175,7 +175,7 @@ public class GSKOWorldEvents {
         //                 new AtSurfaceWithExtraConfig(1, 0.8f, 2))));
     }
 
-    private static void spawnEntityIn (Biome biome, List<ResourceLocation> biomeIds,
+    private static void spawnEntityIn(Biome biome, List<ResourceLocation> biomeIds,
                                        EntityClassification classification) {
         List<EntityType<?>> entityTypes = ImmutableList.of(
                 EntityRegistry.FAIRY_ENTITY.get()

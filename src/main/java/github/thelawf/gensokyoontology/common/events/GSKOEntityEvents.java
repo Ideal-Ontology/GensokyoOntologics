@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
+import github.thelawf.gensokyoontology.common.capability.BloodyMistCapability;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
@@ -19,13 +21,19 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = "gensokyoontology",bus = Mod.EventBusSubscriber.Bus.FORGE)
@@ -49,6 +57,24 @@ public class GSKOEntityEvents {
                     event.getEntityLiving() instanceof PlayerEntity) {
                 event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.NAUSEA, 2*100));
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onLivingEnterBiome(TickEvent.PlayerTickEvent event) {
+        if (event.player.getEntityWorld() instanceof ServerWorld) {
+            PlayerEntity player = event.player;
+            ServerWorld serverWorld = (ServerWorld) event.player.world;
+            LazyOptional<BloodyMistCapability> cap = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
+            cap.ifPresent((capability -> {
+                List<RegistryKey<Biome>> biomes = capability.getBiomes();
+                biomes.forEach((biomeRegistryKey -> {
+                    if (Objects.equals(serverWorld.getBiome(event.player.getPosition()).getRegistryName(),
+                            biomeRegistryKey.getRegistryName()) && capability.isTriggered) {
+                        player.attackEntityFrom(DamageSource.MAGIC, 0.01f);
+                    }
+                }));
+            }));
         }
     }
 

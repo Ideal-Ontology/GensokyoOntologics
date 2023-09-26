@@ -3,8 +3,8 @@ package github.thelawf.gensokyoontology.common.capability;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 
-public class GSKOCapability {
+public class GSKOCapabilities {
 
-    @CapabilityInject(IIdeologyCapability.class)
-    public static Capability<IIdeologyCapability> DOMAIN_CAPABILITY;
+    @CapabilityInject(BloodyMistCapability.class)
+    public static Capability<BloodyMistCapability> BLOODY_MIST;
 }
