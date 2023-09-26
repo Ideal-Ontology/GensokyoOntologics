@@ -58,13 +58,12 @@ public class LilyWhiteEntity extends TameableEntity implements IAngerable, ISpel
         }
 
         if (ticksIn % 20 == 0) {
-            GensokyoOntology.LOGGER.info("Called?");
             // spellCard.onTick(ticksIn);
 
             List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos(1.2, 3, 2, 0.05);
 
             for (Vector3d vector3d : roseLinePos) {
-                RiceShotEntity riceShot = new RiceShotEntity(this.getOwner(), world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
+                RiceShotEntity riceShot = new RiceShotEntity(this, world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
                 Vector3d shootVec = new Vector3d(vector3d.x, vector3d.y, vector3d.z);
                 shootVec = DanmakuUtil.rotateRandomAngle(shootVec, (float) Math.PI * 2, (float) Math.PI * 2);
                 vector3d = vector3d.add(DanmakuUtil.getRandomPosWithin(3.5f, DanmakuUtil.Plane.XYZ));

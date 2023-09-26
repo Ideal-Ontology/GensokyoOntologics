@@ -57,6 +57,7 @@ public class BloodyMistCapability implements IIncidentCapability {
             for (INBT inbt : listNBT) {
                 if (inbt instanceof CompoundNBT) {
                     CompoundNBT compound = (CompoundNBT) inbt;
+                    //GensokyoOntology.LOGGER.info("NBT里面是否为空"+ compound.getString("biome"));
                     biomeRegistries.add(RegistryKey.getOrCreateKey(Registry.BIOME_KEY,
                             new ResourceLocation(compound.getString("biome"))));
                 }

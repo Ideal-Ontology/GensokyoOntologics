@@ -1,0 +1,41 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "ABC",
+    "D#E",
+    "FGH"
+  ],
+  "key": {
+    "A": {
+      "item": "gensokyoontology:small_shot_red"
+    },
+    "B": {
+      "item": "gensokyoontology:small_shot_orange"
+    },
+    "C": {
+      "item": "gensokyoontology:small_shot_yellow"
+    },
+    "D": {
+      "item": "gensokyoontology:small_shot_green"
+    },
+    "E": {
+      "item": "gensokyoontology:small_shot_aqua"
+    },
+    "F": {
+      "item": "gensokyoontology:small_shot_blue"
+    },
+    "G": {
+      "item": "gensokyoontology:small_shot_purple"
+    },
+    "H": {
+      "item": "gensokyoontology:small_shot_magenta"
+    },
+    "#": {
+      "item": "gensokyoontology:spell_card_blank"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:sc_mobius_ring_world",
+    "count": 1
+  }
+}
