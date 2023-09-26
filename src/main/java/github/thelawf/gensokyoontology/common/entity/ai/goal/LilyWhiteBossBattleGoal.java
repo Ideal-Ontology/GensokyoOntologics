@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,6 +11,7 @@ import net.minecraft.pathfinding.Path;
 import java.util.Map;
 
 public class LilyWhiteBossBattleGoal extends BossBattleGoal {
+    private int ticksExisted;
     private final LilyWhiteEntity lilyWhite;
     private Path path;
     private final float speedIn;
@@ -39,6 +41,8 @@ public class LilyWhiteBossBattleGoal extends BossBattleGoal {
 
     @Override
     public void tick() {
+        ticksExisted++;
+
         LivingEntity target = this.lilyWhite.getAttackTarget();
         if (target == null || !target.isAlive()) {
             return;
@@ -49,7 +53,10 @@ public class LilyWhiteBossBattleGoal extends BossBattleGoal {
             this.lilyWhite.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
             this.lilyWhite.setNoGravity(true);
 
+            FullCherryBlossomEntity fullCherryBlossom = new FullCherryBlossomEntity(this.lilyWhite.world, this.lilyWhite);
+            this.lilyWhite.spellCardAttack(fullCherryBlossom);
         }
+
     }
 
     @Override

@@ -1,8 +1,10 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.api.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.BossBattleGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.LilyWhiteBossBattleGoal;
+import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -21,7 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class LilyWhiteEntity extends TameableEntity implements IAngerable {
+public class LilyWhiteEntity extends TameableEntity implements IAngerable, ISpellCardUser {
     public static final EntityType<LilyWhiteEntity> LILY_WHITE = EntityType.Builder.create(
                     LilyWhiteEntity::new, EntityClassification.CREATURE).updateInterval(2)
             .size(0.6f, 1.5f).trackingRange(10).build("lily_white");
@@ -43,6 +45,11 @@ public class LilyWhiteEntity extends TameableEntity implements IAngerable {
         this.goalSelector.addGoal(5, new LookRandomlyGoal(this));
 
         this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
+    }
+
+    @Override
+    public void spellCardAttack(SpellCardEntity spellCard) {
+        int duration = spellCard.getLifeSpan();
     }
 
     @Nullable

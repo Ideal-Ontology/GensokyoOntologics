@@ -22,8 +22,8 @@ public class FullCherryBlossomEntity extends SpellCardEntity{
             EntityType.Builder.<FullCherryBlossomEntity>create(FullCherryBlossomEntity::new, EntityClassification.MISC)
                     .size(1F,1F).trackingRange(4).updateInterval(2).build("full_cherry_blossom");
 
-    public FullCherryBlossomEntity(World worldIn, PlayerEntity player) {
-        super(FULL_CHERRY_BLOSSOM, worldIn, player);
+    public FullCherryBlossomEntity(World worldIn, LivingEntity living) {
+        super(FULL_CHERRY_BLOSSOM, worldIn, living);
     }
 
     public FullCherryBlossomEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {

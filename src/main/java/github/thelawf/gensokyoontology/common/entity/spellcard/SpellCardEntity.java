@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuE
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -41,6 +42,11 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     public static final DataParameter<Optional<UUID>> DATA_OWNER_UUID = EntityDataManager.createKey(
             SpellCardEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
+    public SpellCardEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, LivingEntity living) {
+        this(entityTypeIn, worldIn);
+        this.setPosition(living.getPosX(), living.getPosY(), living.getPosZ());
+        this.setOwner(living);
+    }
 
     public SpellCardEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
         this(entityTypeIn, worldIn);
@@ -110,6 +116,10 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     @Nullable
     public UUID getOwnerId() {
         return this.dataManager.get(DATA_OWNER_UUID).orElse(null);
+    }
+
+    public int getLifeSpan() {
+        return lifeSpan;
     }
 
     /**

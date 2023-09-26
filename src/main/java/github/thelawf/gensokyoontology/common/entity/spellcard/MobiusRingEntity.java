@@ -62,6 +62,19 @@ public class MobiusRingEntity extends SpellCardEntity{
 
         List<DanmakuColor> colors = DanmakuUtil.getRainbowColoredDanmaku();
 
+        for (int i = 0; i < colors.size(); i++) {
+            SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
+                    DanmakuType.SMALL_SHOT, colors.get(i));
+//
+            verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
+            verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
+//
+            setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
+            smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
+//
+            world.addEntity(smallShot);
+        }
+
         // for (int i = 0; i < colors.size(); i++) {
         //     SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
         //             DanmakuType.SMALL_SHOT, colors.get(i));
@@ -69,27 +82,14 @@ public class MobiusRingEntity extends SpellCardEntity{
         //     verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
         //     verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
 //
+        //     // setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
+        //     Vector3d vector3d = new Vector3d(this.getPositionVec().x, this.getPositionVec().y + (i * 0.3), this.getPositionVec().z);
+        //     vector3d.rotatePitch((float) Math.PI / colors.size() * i);
         //     setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
-        //     smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
+        //     // smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
 //
         //     world.addEntity(smallShot);
         // }
-
-        for (int i = 0; i < colors.size(); i++) {
-            SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
-                    DanmakuType.SMALL_SHOT, colors.get(i));
-
-            verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
-            verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
-
-            // setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
-            Vector3d vector3d = new Vector3d(this.getPositionVec().x, this.getPositionVec().y + (i * 0.3), this.getPositionVec().z);
-            vector3d.rotatePitch((float) Math.PI / colors.size() * i);
-            setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
-            // smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
-
-            world.addEntity(smallShot);
-        }
 
         if (ticksExisted >= this.lifeSpan) {
             this.remove();
