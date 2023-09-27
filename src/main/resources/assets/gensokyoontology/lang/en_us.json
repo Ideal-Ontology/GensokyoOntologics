@@ -32,6 +32,9 @@
   "gensokyoontology:wind_goddess_lake": "Wind Goddess Lake",
   "gensokyoontology:gensokyo_plains": "Gensokyo Plains",
   "gensokyoontology:gensokyo_forest": "Gensokuo Forest",
+
+  "gensokyoontology:hakurei_shrine_precincts": "Hakurei Shine Precincts",
+
   "gensokyoontology:hakurei_shrine": "Hakurei Shine",
   "gensokyoontology:mystia_izakaya": "Mystia Izakaya",
 
@@ -209,6 +212,11 @@
   "advancement.gensokyoontology.root.description": "Get Story Pages Chapter 1.1",
   "advancement.gensokyoontology.login_gensokyo.title": "Love From Gensokyo ♥~",
   "advancement.gensokyoontology.login_gensokyo.description": "Player change to Gensokyo dimension",
+
+  "advancement.gensokyoontology.retreat_lilywhite.title": "Is Spring Come?",
+  "advancement.gensokyoontology.retreat_lilywhite.description": "Retreat Lily White",
+  "advancement.gensokyoontology.gensokyo_traveller.title": "Gensokyo Traveller",
+  "advancement.gensokyoontology.gensokyo_traveller.description": "Travelled to All the Biomes in Gensokyo",
 
   "block.gensokyoontology.wasabi": "Wasabi",
   "block.gensokyoontology.lycoris_radiata": "Lycoris Radiata",

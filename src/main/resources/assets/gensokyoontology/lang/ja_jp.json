@@ -32,6 +32,9 @@
   "gensokyoontology:wind_goddess_lake": "风神之湖",
   "gensokyoontology:gensokyo_plains": "幻想平原",
   "gensokyoontology:gensokyo_forest": "幻想森林",
+
+  "gensokyoontology:hakurei_shrine_precincts": "Hakurei Shine Precincts",
+
   "gensokyoontology:hakurei_shrine": "博丽神社",
   "gensokyoontology:mystia_izakaya": "米斯蒂娅的烧烤店",
 
@@ -209,6 +212,11 @@
   "advancement.gensokyoontology.root.description": "Get Story Pages Chapter 1.1",
   "advancement.gensokyoontology.login_gensokyo.title": "Player off Land",
   "advancement.gensokyoontology.login_gensokyo.description": "Player change to Gensokyo dimension",
+
+  "advancement.gensokyoontology.retreat_lilywhite.title": "Is Spring Come?",
+  "advancement.gensokyoontology.retreat_lilywhite.description": "Retreat Lily White",
+  "advancement.gensokyoontology.gensokyo_traveller.title": "Gensokyo Traveller",
+  "advancement.gensokyoontology.gensokyo_traveller.description": "Travelled to All the Biomes in Gensokyo",
 
   "block.gensokyoontology.wasabi": "山葵",
   "block.gensokyoontology.lycoris_radiata": "リコリス",

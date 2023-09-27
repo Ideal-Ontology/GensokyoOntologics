@@ -21,7 +21,7 @@
       "trigger": "minecraft:player_killed_entity",
       "conditions": {
         "player": {
-          "type": "gensokyoontology:lilywhite"
+          "type": "gensokyoontology:lily_white"
         }
       }
     }

@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.world;
 
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;

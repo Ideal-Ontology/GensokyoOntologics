@@ -32,6 +32,9 @@
   "gensokyoontology:wind_goddess_lake": "风神之湖",
   "gensokyoontology:gensokyo_plains": "幻想平原",
   "gensokyoontology:gensokyo_forest": "幻想森林",
+
+  "gensokyoontology:hakurei_shrine_precincts": "博丽神社境内",
+
   "gensokyoontology:hakurei_shrine": "博丽神社",
   "gensokyoontology:mystia_izakaya": "米斯蒂娅的烧烤店",
 
@@ -209,6 +212,11 @@
   "advancement.gensokyoontology.root.description": "获得被遗忘的传说",
   "advancement.gensokyoontology.login_gensokyo.title": "爱来自幻想乡♥",
   "advancement.gensokyoontology.login_gensokyo.description": "进入幻想乡维度",
+
+  "advancement.gensokyoontology.retreat_lilywhite.title": "春天她真的来了吗？",
+  "advancement.gensokyoontology.retreat_lilywhite.description": "退治莉莉白",
+  "advancement.gensokyoontology.gensokyo_traveller.title": "幻想乡旅行团",
+  "advancement.gensokyoontology.gensokyo_traveller.description": "到访幻想乡的各个生物群系",
 
   "block.gensokyoontology.wasabi": "山葵",
   "block.gensokyoontology.lycoris_radiata": "红花石蒜",
