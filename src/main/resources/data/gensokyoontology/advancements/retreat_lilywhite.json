@@ -1,7 +1,7 @@
 {
   "display": {
     "icon": {
-      "item": "gensokyoontology:lilywhite_spawn_egg"
+      "item": "gensokyoontology:lily_white_spawn_egg"
     },
     "title": {
       "translate": "advancement.gensokyoontology.retreat_lilywhite.title"
@@ -12,17 +12,23 @@
     "background": "gensokyoontology:block/sakura_planks",
     "frame": "task",
     "show_toast": true,
-    "annouce_to_chat": true,
+    "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "gensokyoontology:root",
+  "parent": "gensokyoontology:login_gensokyo",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:player_killed_entity",
       "conditions": {
-        "player": {
-          "type": "gensokyoontology:lily_white"
-        }
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "gensokyoontology:lily_white"
+            },
+            "entity": "this"
+          }
+        ]
       }
     }
   }
