@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.item.*;
@@ -14,14 +15,26 @@ import github.thelawf.gensokyoontology.common.item.touhou.*;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.*;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 import static net.minecraft.item.Items.BUCKET;
 
@@ -206,7 +219,35 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> JADE_ORE_ITEM = ITEMS.register(
             "jade_ore", () -> new BlockItem(BlockRegistry.JADE_ORE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)){
+                @Override
+                @NotNull
+                public ActionResultType onItemUse(@NotNull ItemUseContext context) {
+                    World world = context.getWorld();
+                    Block block = world.getBlockState(context.getPos()).getBlock();
+                    Random random = new Random();
+                    if (context.getPlayer() != null) {
+                        context.getPlayer().playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT, 1.0f, 1.0f);
+                    }
+
+                    if (!world.isRemote && Screen.hasShiftDown() && block.matchesBlock(Blocks.STONECUTTER) &&
+                            random.nextInt(6) == 1) {
+                        if (context.getItem().getCount() >= 10) {
+                            context.getItem().shrink(10);
+                            for (int i = 0; i < 10; i++) {
+                                Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world, context.getItem(),
+                                        150, 440, 2000, 6000));
+                            }
+                            return ActionResultType.CONSUME;
+                        }
+
+                        context.getItem().shrink(1);
+                        Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world, context.getItem()));
+
+                    }
+                    return ActionResultType.PASS;
+                }
+            });
     public static final RegistryObject<BlockItem> IMMEMORIAL_ALLOY_BLOCK_ITEM = ITEMS.register(
             "immemorial_alloy_block", () -> new BlockItem(BlockRegistry.IMMEMORIAL_ALLOY_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));

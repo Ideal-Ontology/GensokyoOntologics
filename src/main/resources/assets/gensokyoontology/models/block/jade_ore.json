@@ -1,0 +1,8 @@
+{
+  "parent": "minecraft:block/cube_top_down",
+  "textures": {
+    "side": "gensokyoontology:block/jade_ore_side",
+    "down": "gensokyoontology:block/jade_ore_down",
+    "up": "gensokyoontology:block/jade_ore_up"
+  }
+}
