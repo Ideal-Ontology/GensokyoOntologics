@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.world.feature;
 import com.google.common.collect.ImmutableSet;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKOOreType;
+import github.thelawf.gensokyoontology.common.world.feature.config.GSKOWGConfigs;
 import github.thelawf.gensokyoontology.common.world.feature.placer.MagicFoliagePlacer;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
@@ -65,7 +66,7 @@ public class GSKOFeatures {
      * 从这里开始是初始化世界中自然生成的树木特征的配置
      */
     public static final ConfiguredFeature<?, ?> SAKURA_TREE = Feature.TREE.withConfiguration(
-                    new BaseTreeFeatureConfig.Builder(
+            new BaseTreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(BlockRegistry.SAKURA_LOG.get().getDefaultState()),
                             new SimpleBlockStateProvider(BlockRegistry.SAKURA_LEAVES.get().getDefaultState()),
                             new FancyFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1), 2),
@@ -234,21 +235,29 @@ public class GSKOFeatures {
 
     public static ConfiguredFeature<?, ?> makeIzanoOreFeature(GSKOOreType oreType, OreFeatureConfig config) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, oreType.getLazyBlock().get().getRegistryName(),
-                Feature.ORE.withConfiguration(config).withPlacement(Placement.EMERALD_ORE.configure(
-                        IPlacementConfig.NO_PLACEMENT_CONFIG)).square().count(oreType.getMaxVeinSize()));
+                Feature.NO_SURFACE_ORE.withConfiguration(config).withPlacement(Placement.RANGE.configure(
+                        new TopSolidRangeConfig(2, 4, 20))).square().count(oreType.getMaxVeinSize()));
     }
 
     public static void registerOre() {
         Registry<ConfiguredFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_FEATURE;
 
-        for (GSKOOreType ore :  GSKOOreType.values()) {
-            OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                    ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
-            ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
-                    new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
+        Registry.register(registry, GSKOWGConfigs.ORE_CRIMSON_METAL.getLazyBlock().get().getRegistryName(),
+                withOreFeature(Feature.NO_SURFACE_ORE, GSKOWGConfigs.ORE_CRIMSON_ALLOY_CONFIG,
+                        GSKOWGConfigs.CRIMSON_ALLOY_PLACEMENT));
 
-            Registry.register(registry, ore.getLazyBlock().get().getRegistryName(),
-                    Feature.ORE.withConfiguration(config).withPlacement(placement).square().count(ore.getMaxVeinSize()));
-        }
+        // for (GSKOOreType ore :  GSKOOreType.values()) {
+        //     OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+        //             ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
+        //     ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
+        //             new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
+//
+        //     Registry.register(registry, ore.getLazyBlock().get().getRegistryName(),
+        //             Feature.NO_SURFACE_ORE.withConfiguration(config).withPlacement(placement).square().count(ore.getMaxVeinSize()));
+        // }
+    }
+
+    public static ConfiguredFeature<?, ?> withOreFeature(Feature<OreFeatureConfig> featureIn, OreFeatureConfig configIn, ConfiguredPlacement<?> placementIn) {
+        return featureIn.withConfiguration(configIn).withPlacement(placementIn);
     }
 }
