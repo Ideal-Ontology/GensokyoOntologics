@@ -62,7 +62,7 @@ public final class FluidRegistry {
 
     public static final ForgeFlowingFluid.Properties PAPER_PULP_PROPERTIES = new ForgeFlowingFluid.Properties(
             PAPER_PULP_SOURCE, PAPER_PULP_FLOWING, FluidAttributes.builder(PAPER_PULP_STILL_TEX, PAPER_PULP_FLOW_TEX)
-            .color(0xFF33AAFF)
+            .color(0xE10000ff)
             .density(6000)
             .viscosity(2800))
             .bucket(ItemRegistry.PAPER_PULP_BUCKET)
