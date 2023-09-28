@@ -1,71 +1,29 @@
-# GensokyoOntologics  
+# GensokyoOntology  
 
-This mod is a derivative work of Touhou Project based on Minecraft 1.16.5. There will be a lot of differences from the original work. Please take it easy. If you can accept them, then here we go.  
-<font color=red> Red Colored</font> items listed below is still on the paper. I may add them all to minecraft in further future cause it really takes me a long time...  
+This mod is a derivative work of Touhou Project based on Minecraft 1.16.5. There will be a lot of differences from the original work. Please take it easy. If you can accept them, then here we go.
    
 ## Introduction:  
-  *Gensokyo, a place where mankind and youkai live within side by side keeping a dedicated balance. It is also
-the place that hold every forgotten stuffs from the realities. As you can see, me, Sumireko Usami, is deeply
-involved in this phantasy.*  
+  *Gensokyo, a place where mankind and youkai live within side by side keeping a dedicated balance. It is said that things
+  being forgotten by the outside world will come to gensokyo, where there will be the experts to solve the big crisis called the "Incient".*  
 <br>
-    *幻想乡，一个人与妖怪两相对立却又彼此依存的世界，其承载着一切被现实所遗忘之物。而正如你所见，我，宇佐见堇子，早已深陷于其中……*
+    *幻想乡，一个人与妖怪两相对立却又彼此依存的世界。*   
+    *一直以来，妖怪袭击人类，人类退治妖怪的规律维持着幻想乡微妙的平衡。据说，被外界的人们所遗忘的事物便会来到幻想乡。而一旦幻想乡出现一种名为“异变”的巨大危机时，解决异变的专家们便开始出动，寻找发动异变的元凶。*
+  
+  
+This mod is an adventure mod aiming at putting the terrains of gensokyo, altogether with its unique cultural panorama, combat mechanics and structure discovery
+ to Minecraft. Gensokyo Ontology(GSKO) add Gensokyo dimension with its varieties of stylistic biomes. Some biomes will generate structure
+for players to discover. Players can deal with incidents, fight against with fairies and collect items in th overworld and enter gensokyo, 
+try to find out the initiator of the incidents.<br><br>
+本模组是一个旨在还原幻想乡场景地形、人文风貌、战斗探索与建筑结构的冒险类模组，为Minecraft添加了一个幻想乡维度及其附带的多个生物群系，并且为部分生物群系添加了
+幻想乡特有的建筑结构供玩家探索冒险。玩家需要在主世界处理异变，收集材料，制作道具前往幻想乡，找出发动异变的元凶。还有更多有趣的机制和美观的装饰方块等待着大家的探索哦。
 
-## New Game Elements:  
-### Ideology Forms:  
-- Ideology Dialetics: used for crafting and special capability  
-- Ideology Utopian: Same as Above  
+## Game Features
+- A story of realities and fantasies. A discovery with immortal and immemorial beings.
+- A brand-new fantasy world with immersive experience for your journey in Gensokyo.<br>
+- Retreating hostile creatures to find out their stories.<br>
+- Get along with all the beings in Gensokyo though it lasts short.<br>
 
-### New Items:  
-- Yattsume Una: used for crafting foods, of 50% probabilities when kill salmons to drop.
-  
-### New Foods and Recipes:  
-- Yattsume Una Yaki: food from Touhou doujin game -- Mystia's Izakaya. All the foods below are the same.  
-- White Snow: made by yattsume una, pufferFish, dried kelp and bowl with shapless crafting.  
-- Koishi Hat Mousse: no recipes to craft yet. This mousse will give invisibility effect.  
-- Cake Scarlet Demon: made by pumpkin pie * 6, water potion, egg and honey bottle. This cake will give health boost effct.  
-  
-### New Plants:  
-- Lycoris Radiata: used for crafting, dimension entering and special capability(Now solving the problem of texure missing)  
-  
-### New Fluid:  
-- Hot Spring: Entity can get instant health effect when enjoy soaking in it(Now solving the problem that entity will get infinite effect duration once it got into any fluid)
-  
-### New Dimension and Biomes:  
-Dimension List:  
-- Gensokyo: A wonder land that holds all the forgotten things where human and youkai live together side by side with a delicate balance.  
-- <font color=red>Mekkai</font>
-- <font color=red>Former Hell</font>  
-- <font color=red>Dream World</font>
-
-Biome List:
-- Yamotsu Hirasaka: An overworld biome having been considered as the pathway to the nether lands in Japanese tales;
-- Hell Valley: Overworld Biome;
-- Mountain YatsugaTake: Overworld Biome;
-- Gensokyo Forest: One of the most common biomes in Gensokyo;
-- Gensokyo Plain: One of the most common biomes in Gensokyo;
-- Youkai Mountain: A giant mountain in the southwest of Gensokyo;
-- Human Village: A large place in the center of Gensokyo for human to live;
-- Magic Forest: A mysterious forest biome with many strange mushrooms;
-- Bamboo Forest of Lost: A bamboo forest where stands the House of Eternity;
-- <font color="red">Misty Lake</font>
-   
-## 2022/11/14 Update:    
-- Danmaku entity can now be added to world by Danmaku Test Item  
-  
-## 2023/1/10 Update:  
-- Add new Dimension: Gensokyo to Minecraft (Though there is just a single layer of bedrocks)  
-  
-## 2023/4/19 Update:  
-- Add More Biomes to Gensokyo Dimension and Overworld. Generate the terrain of Gensokyo Dimension with Minecraft Vanilla chunk generator;  
-  
-## 2023/5/8 Update:  
-- Add a new feature plant: wasabi;  
-- Add a new wooden block series: Sakura Blocks to Minecraft;  
-- Add a generator to place the sakura tree;  
-- Add fairy entity in THKaguyaMod to 1.16.5, override its loot table to make it drop the mod item;  
-- Add new NPC called Human Resident that will summon in human village structure in human village biome in Gensokyo Dimension;  
-- Add Marisa's Mini Hakkeiro with obj item model in game;
 <br>
 <br>
 <br>
-Original Author: KK, ZUN/Team ShanghaiAlice
+Original Author: ZUN/Team ShanghaiAlice

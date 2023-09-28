@@ -217,6 +217,9 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> DRAGON_SPHERE_ORE_ITEM = ITEMS.register(
             "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    /**
+     * 在玉石方块的物品类中重写其与方块的交互逻辑，实现用玉石原矿赌石的功能
+     */
     public static final RegistryObject<BlockItem> JADE_ORE_ITEM = ITEMS.register(
             "jade_ore", () -> new BlockItem(BlockRegistry.JADE_ORE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)){
