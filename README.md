@@ -1,4 +1,6 @@
-# GensokyoOntology  
+<p align="center">
+    <img width="600" src="https://ideal-ontology.github.io/icon_publish_ver_final.png" alt="title">
+</p>
 
 This mod is a derivative work of Touhou Project based on Minecraft 1.16.5. There will be a lot of differences from the original work. Please take it easy. If you can accept them, then here we go.
    
@@ -8,7 +10,8 @@ This mod is a derivative work of Touhou Project based on Minecraft 1.16.5. There
 <br>
     *幻想乡，一个人与妖怪两相对立却又彼此依存的世界。*   
     *一直以来，妖怪袭击人类，人类退治妖怪的规律维持着幻想乡微妙的平衡。据说，被外界的人们所遗忘的事物便会来到幻想乡。而一旦幻想乡出现一种名为“异变”的巨大危机时，解决异变的专家们便开始出动，寻找发动异变的元凶。*
-  
+
+<img align="center" src="https://ideal-ontology.github.io/2023-07-14_01.08.04.png" alt="幻想乡">
   
 This mod is an adventure mod aiming at putting the terrains of gensokyo, altogether with its unique cultural panorama, combat mechanics and structure discovery
  to Minecraft. Gensokyo Ontology(GSKO) add Gensokyo dimension with its varieties of stylistic biomes. Some biomes will generate structure
