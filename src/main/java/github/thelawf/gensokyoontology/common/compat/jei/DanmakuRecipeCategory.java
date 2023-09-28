@@ -13,6 +13,7 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class DanmakuRecipeCategory implements IRecipeCategory<DanmakuRecipe> {
@@ -66,7 +67,20 @@ public class DanmakuRecipeCategory implements IRecipeCategory<DanmakuRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, DanmakuRecipe recipe, IIngredients ingredients) {
+        //recipeLayout.getItemStacks().init(ingredients.);
+        int x = 16;
+        int y = 21;
+        int index = 0;
 
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                recipeLayout.getItemStacks().init(index, true, x + i * 16, y + j * 16);
+                index++;
+            }
+        }
+
+        recipeLayout.getItemStacks().init(26, false, 149, 41);
+        recipeLayout.getItemStacks().set(ingredients);
     }
 
 }

@@ -6,14 +6,14 @@ import net.minecraft.util.registry.Registry;
 
 import java.util.HashMap;
 
-public class GSKORecipe {
+public class GSKORecipes {
     public HashMap<String, RegistryKey<?>> patternMap;
 
-    public GSKORecipe(HashMap<String, RegistryKey<?>> patternMap) {
+    public GSKORecipes(HashMap<String, RegistryKey<?>> patternMap) {
         this.patternMap = patternMap;
     }
 
-    public GSKORecipe(String pattern, String registryName) {
+    public GSKORecipes(String pattern, String registryName) {
         this.patternMap = new HashMap<>();
         patternMap.put(pattern, RegistryKey.getOrCreateKey(Registry.ITEM_KEY, new ResourceLocation(registryName)));
     }

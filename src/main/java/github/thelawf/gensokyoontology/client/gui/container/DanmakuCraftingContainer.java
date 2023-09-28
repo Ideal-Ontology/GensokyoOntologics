@@ -198,7 +198,6 @@ public class DanmakuCraftingContainer extends Container {
         }
     }
 
-
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {
             addSlot(new SlotItemHandler(handler, index, x, y));
@@ -215,6 +214,13 @@ public class DanmakuCraftingContainer extends Container {
         }
     }
 
+    private void addSlotBox(IInventory inventory, int index, int x, int y, int horAmount, int verAmount,int dx,  int dy) {
+        for (int j = 0; j < verAmount; j++) {
+            index = addSlotRange(inventory, index, x, y, horAmount, dx);
+            y += dy;
+        }
+    }
+
     private int addSlotRange(IInventory inventory, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {
             addSlot(new Slot(inventory, index, x, y));
@@ -223,13 +229,6 @@ public class DanmakuCraftingContainer extends Container {
         }
 
         return index;
-    }
-
-    private void addSlotBox(IInventory inventory, int index, int x, int y, int horAmount, int verAmount,int dx,  int dy) {
-        for (int j = 0; j < verAmount; j++) {
-            index = addSlotRange(inventory, index, x, y, horAmount, dx);
-            y += dy;
-        }
     }
 
     private void layoutPlayerInventorySlots(int leftCol, int topRow) {

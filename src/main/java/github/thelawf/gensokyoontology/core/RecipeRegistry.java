@@ -1,15 +1,18 @@
 package github.thelawf.gensokyoontology.core;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import github.thelawf.gensokyoontology.data.recipe.SorceryRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.item.crafting.*;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.Optional;
 
 public class RecipeRegistry {
 
@@ -18,8 +21,11 @@ public class RecipeRegistry {
 
     public static final RegistryObject<SorceryRecipe.Serializer> SORCERY_SERIALIZER = RECIPE_SERIALIZERS.register(
             "sorcery_serializer", SorceryRecipe.Serializer::new);
+    public static final RegistryObject<DanmakuRecipe.Serializer> DANMAKU_CRAFT_SERIALIZER = RECIPE_SERIALIZERS.register(
+            "danmaku_craft_serializer", DanmakuRecipe.Serializer::new);
 
     public static final IRecipeType<SorceryRecipe> SORCERY_RECIPE = new SorceryRecipe.SorceryRecipeType();
+    public static final IRecipeType<ICraftingRecipe> DANMAKU_RECIPE = IRecipeType.CRAFTING;
 
     public static void register(IEventBus eventBus) {
         RECIPE_SERIALIZERS.register(eventBus);

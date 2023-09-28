@@ -2,9 +2,12 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
+import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
+import github.thelawf.gensokyoontology.data.recipe.SorceryRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
@@ -18,6 +21,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class SorceryExtractorTileEntity extends TileEntity {
     private final ItemStackHandler itemHandler = createItemHandler();
@@ -69,5 +74,14 @@ public class SorceryExtractorTileEntity extends TileEntity {
                 return super.insertItem(slot, stack, simulate);
             }
         };
+    }
+
+    public void onRecipeCraft() {
+        Inventory inv = new Inventory(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
+        }
+        Optional<SorceryRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
+
     }
 }
