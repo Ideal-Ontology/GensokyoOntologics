@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "gensokyoontology:block/jade_ore_cube_all"
+      "model": "gensokyoontology:block/jade_ore"
     }
   }
 }

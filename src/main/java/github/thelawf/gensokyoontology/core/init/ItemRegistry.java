@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.core.init;
 
+import com.mojang.serialization.codecs.KeyDispatchCodec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
@@ -214,9 +215,10 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> IZANO_OBJECT_ORE_ITEM = ITEMS.register(
             "izano_object_ore", () -> new BlockItem(BlockRegistry.IZANO_OBJECT_ORE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<BlockItem> DRAGON_SPHERE_ORE_ITEM = ITEMS.register(
-            "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    // public static final RegistryObject<BlockItem> DRAGON_SPHERE_ORE_ITEM = ITEMS.register(
+    //         "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
+    //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     /**
      * 在玉石方块的物品类中重写其与方块的交互逻辑，实现用玉石原矿赌石的功能
      */
@@ -229,12 +231,14 @@ public final class ItemRegistry {
                     World world = context.getWorld();
                     Block block = world.getBlockState(context.getPos()).getBlock();
                     Random random = new Random();
-                    if (context.getPlayer() != null) {
+
+                    if (context.getPlayer() != null && block.matchesBlock(Blocks.STONECUTTER)) {
                         context.getPlayer().playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT, 1.0f, 1.0f);
                     }
 
                     if (!world.isRemote && Screen.hasShiftDown() && block.matchesBlock(Blocks.STONECUTTER) &&
                             random.nextInt(6) == 1) {
+
                         if (context.getItem().getCount() >= 10) {
                             context.getItem().shrink(10);
                             for (int i = 0; i < 10; i++) {
@@ -248,7 +252,7 @@ public final class ItemRegistry {
                         Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world, context.getItem()));
 
                     }
-                    return ActionResultType.PASS;
+                    return super.onItemUse(context);
                 }
             });
     public static final RegistryObject<BlockItem> IMMEMORIAL_ALLOY_BLOCK_ITEM = ITEMS.register(
@@ -271,9 +275,11 @@ public final class ItemRegistry {
             () -> new AyaFans(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<GapItem> GAP_ITEM = ITEMS.register("gap",
             () -> new GapItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
-            "eiri_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    // public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
+    //         "eirin_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
+    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     public static final RegistryObject<KoishiEyeOpen> KOISHI_EYE_OPEN = ITEMS.register(
             "koishi_eye_open", () -> new KoishiEyeOpen(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));

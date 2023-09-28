@@ -64,6 +64,7 @@ public class SorceryRecipe implements ISorceryRecipe {
     }
 
     @Override
+    @NotNull
     public IRecipeSerializer<?> getSerializer() {
         return RecipeRegistry.SORCERY_SERIALIZER.get();
     }
