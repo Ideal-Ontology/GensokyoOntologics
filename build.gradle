@@ -28,7 +28,7 @@ plugins {
 mixin {
     add sourceSets.main, "mixins.gensokyoontology.refmap.json"
     config 'mixins.gensokyoontology.json'
-    // add sourceSets.main, "patchouli.refmap.json"
+    add sourceSets.main, "patchouli.refmap.json"
 
 }
 
@@ -50,6 +50,7 @@ group = 'com.github.thelawf'
 version = 'forge-1.16.5-preview-0.0.1'
 
 repositories {
+    maven { url 'https://maven.blamejared.com' }
     maven {
         // location of the maven that hosts JEI files
         name = "Progwml6 maven"
@@ -166,8 +167,8 @@ repositories {
 }
 
 dependencies {
-    // compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:api")
-    // runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:")
+   compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:api")
+   runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:")
 
     implementation 'org.jetbrains:annotations:23.0.0'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'

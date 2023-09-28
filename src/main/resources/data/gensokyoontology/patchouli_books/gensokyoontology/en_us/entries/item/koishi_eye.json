@@ -2,10 +2,10 @@
   "name": "patchouli.gensokyoontology.item.koishi_eye.title",
   "icon": "gensokyoontology:koishi_eye",
   "category": "item",
-  "advancement": "",
   "pages": [
     {
-      "type": "text",
+      "type": "spotlight",
+      "item": "gensokyoontology:koishi_eye_open",
       "text": "patchouli.gensokyoontology.item.koishi_eye.introduction"
     }
   ]

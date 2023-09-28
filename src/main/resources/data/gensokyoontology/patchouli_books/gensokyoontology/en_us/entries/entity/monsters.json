@@ -1,0 +1,20 @@
+{
+  "name": "patchouli.gensokyoontology.entity.fairy.title",
+  "icon": "gensokyoontology:fairy_spawn_egg",
+  "category": "entity",
+  "advancement": "gensokyoontology.login_gensokyo",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.fairy.introduction"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.fairy.standing_paint"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.fairy.model"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "name": "patchouli.gensokyoontology.item.jade.title",
+  "icon": "gensokyoontology:jade_level_ss",
+  "category": "item",
+  "advancement": "",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.item.jade_ore.introduction"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.item.jade.introduction"
+    }
+  ]
+}

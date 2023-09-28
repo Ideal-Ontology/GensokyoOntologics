@@ -422,7 +422,7 @@
   "patchouli.gensokyoontology.chapter.structure.title": "About Places",
   "patchouli.gensokyoontology.chapter.structure.outside_city": "First, is the most familiar place -- the city where we live.",
 
-  "patchouli.gensokyoontology.entity.mob.title": "Meme Entities",
+  "patchouli.gensokyoontology.entity.monsters.title": "Fantasy Monsters and Youkai",
   "patchouli.gensokyoontology.entity.fairy_introduction": "The most common and normal creature in Gensokyo. But it is abnormal to see them spawn in Overworld. These creature seems undying because when I was in Gensokyo, I killed a lot of them, but they will soon respawn elsewhere.",
   "patchouli.gensokyoontology.entity.butterfly_fairy_introduction": "The big version of the fairy, possessing tougher health but having a large probabilities to drop Bomb Item.",
   "patchouli.gensokyoontology.entity.inyo_jade_entity_introduction": "Entity Inyo Jade never drops Bomb Point Item, but the fragments of jade and the spirit fragments it dropped may be useful?",
@@ -432,6 +432,9 @@
   "patchouli.gensokyoontology.entity.object_a.introduction": "Object a, she is the one you authentically desire to. She could block your truly wantings and force you to worship on items. That's crazy, but thanks to koishi's eye, if you have koishi's eye in any of your inventory slot, you will not be added with fetish effect!",
   "patchouli.gensokyoontology.entity.object_a.spell_card": "$(li)$(sc_object_a)Spell Card 1: ",
 
+  "patchouli.gensokyoontology.entity.lily_white.title": "Lily White",
+  "patchouli.gensokyoontology.entity.lily_white.introduction": "You can see this fairy in the biomes with sakura trees. Because Lily White is such a fairy to call the message of coming spring.",
+
   "patchouli.gensokyoontology.entity.koishi.title": "Komeiji Koishi",
   "patchouli.gensokyoontology.entity.koishi.introduction": "Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
 
@@ -440,6 +443,13 @@
 
   "patchouli.gensokyoontology.entity.yukari.title": "Yakumo Yukari",
   "patchouli.gensokyoontology.entity.yukari.introduction": "An evil, old, grandma, devil gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)Ah-la, if you dare to call me like that... $(ff0000)YOU WILL BE THE SAME WITH THIS GIRL!$()",
+
+  "patchouli.gensokyoontology.item.koishi_eye.title": "Koishi Eye",
+  "patchouli.gensokyoontology.item.koishi_eye.introduction": "Koishi's third eye. This item has two phase, when it is opened, it can be used to eliminate the danmaku on the path of the user's eyesight.",
+
+  "patchouli.gensokyoontology.item.jade.title": "Jade",
+  "patchouli.gensokyoontology.item.jade_ore.introduction": "This ore will generate at 40 to 50 blocks under the sea level in gensokyo. But it is known to us all that, the gem-quality jade is hard to find. So if you want the highest quality of the jade, you'd better to come to youkai mountain to mine more.",
+  "patchouli.gensokyoontology.item.jade.introduction": "A very precious gem in gensokyo. A famous jewelry collector in the village ranged the jade into 5 degrees from level B to level SSS. If you mine the raw jade block, you can hold the jade ore and cut it on the stone cutter in sneaking pose.",
 
   "patchouli.gensokyoontology.task.ideology.magnificent.title": "How to get Hochfliegend",
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
