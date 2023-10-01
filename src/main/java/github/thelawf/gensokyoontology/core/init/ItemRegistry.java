@@ -329,8 +329,8 @@ public final class ItemRegistry {
 
     // ========================== GSKO杂项：合成消耗品 =========================//
 
-    public static final RegistryObject<Item> ISHI_ZAKURA_FRAGMENT = ITEMS.register("ishi_zakura_fragment",
-            () -> new IshiZakuraFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    // public static final RegistryObject<Item> ISHI_ZAKURA_FRAGMENT = ITEMS.register("ishi_zakura_fragment",
+    //         () -> new IshiZakuraFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ISHI_ZAKURA = ITEMS.register("ishi_zakura",
             () -> new BlockItem(BlockRegistry.ISHI_ZAKURA.get(), new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -344,8 +344,8 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> WASHI_PAPER = ITEMS.register("washi_paper",
             () -> new WashiPaper(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<Item> PAPER_SHIDE = ITEMS.register("paper_shide",
-            () -> new PaperShide(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    // public static final RegistryObject<Item> PAPER_SHIDE = ITEMS.register("paper_shide",
+    //         () -> new PaperShide(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> CRIMSON_ALLOY_INGOT = ITEMS.register("crimson_alloy_ingot",
             () -> new CrimsonAlloyIngot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));

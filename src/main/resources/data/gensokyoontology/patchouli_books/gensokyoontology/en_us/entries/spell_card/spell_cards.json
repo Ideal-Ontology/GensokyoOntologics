@@ -1,11 +1,11 @@
 {
-  "name": "patchouli.gensokyoontology.item.spell_cards.title",
+  "name": "patchouli.gensokyoontology.spell_cards.title",
   "icon": "gensokyoontology:spell_card_blank",
   "category": "item",
   "pages": [
     {
       "type": "text",
-      "text": "patchouli.gensokyoontology.item.spell_cards.introduction"
+      "text": "patchouli.gensokyoontology.spell_cards.introduction"
     }
   ]
 }

@@ -404,7 +404,7 @@
   "patchouli.gensokyoontology.category.entity.description": "Some entities that might summon everywhere. This is not a good sign.$(br)\t\t -- Usami Sumireko",
   "patchouli.gensokyoontology.category.item.description": "Special items that can help you sometimes",
   "patchouli.gensokyoontology.category.task.description": "Follow these rules to go into that dimension!",
-  "patchouli.gensokyoontology.category.spell_card.description": "Super ablilities used by youkai or human?",
+  "patchouli.gensokyoontology.category.spell_card.description": "Spell Card Introductions",
 
   "patchouli.gensokyoontology.chapter.intro.title": "Introduction Overview",
   "patchouli.gensokyoontology.chapter.introduction_p1": "Hello, my name is Usami Sumireko, the founder of Hifuu Club. When you see this book, that means I have already lost in that fictional dimension. Or otherwise, me, myself, even you who are reading this book is also part of the fiction itself. I can feel that Hakurei Keikkai is... very unstable, something wrong will happen.",
@@ -420,10 +420,11 @@
   "patchouli.gensokyoontology.chapter.combat.entity_loot_01": "Fairy Loots",
 
   "patchouli.gensokyoontology.chapter.structure.title": "About Places",
-  "patchouli.gensokyoontology.chapter.structure.outside_city": "First, is the most familiar place -- the city where we live.",
+  "patchouli.gensokyoontology.chapter.structure.hakurei_shrine": "A Japanese-styled shrine located in the border of gensokyo and the outside world.",
 
   "patchouli.gensokyoontology.entity.monsters.title": "Fantasy Monsters and Youkai",
-  "patchouli.gensokyoontology.entity.fairy_introduction": "The most common and normal creature in Gensokyo. But it is abnormal to see them spawn in Overworld. These creature seems undying because when I was in Gensokyo, I killed a lot of them, but they will soon respawn elsewhere.",
+  "patchouli.gensokyoontology.entity.fairy.introduction": "The most common and normal creature in Gensokyo is the fairies. But it is abnormal to see them spawn in Overworld. These creature seems undying because when I was in Gensokyo, I killed a lot of them, but they will soon respawn elsewhere.",
+
   "patchouli.gensokyoontology.entity.butterfly_fairy_introduction": "The big version of the fairy, possessing tougher health but having a large probabilities to drop Bomb Item.",
   "patchouli.gensokyoontology.entity.inyo_jade_entity_introduction": "Entity Inyo Jade never drops Bomb Point Item, but the fragments of jade and the spirit fragments it dropped may be useful?",
   "patchouli.gensokyoontology.entity.spectre_introduction": "These are the wandering souls who once were killed but holding with desperate shame or unwilling mind",
@@ -457,6 +458,9 @@
 
   "patchouli.gensokyoontology.task.spirit.title": "Spirit",
   "patchouli.gensokyoontology.task.spirit_fragment.title": "Spirit Fragment",
+
+  "patchouli.gensokyoontology.spell_cards.title": "Spell Cards",
+  "patchouli.gensokyoontology.spell_cards.introduction": "This is the chapter to introduce all the spell cards including the ideas of danmaku design and its user.",
 
   "patchouli.gensokyoontology.spell_card.sc_koishi.title": "Koishi's Spell Card",
   "patchouli.gensokyoontology.spell_card.sc_yukari.title": "Yukari's Spell Card",

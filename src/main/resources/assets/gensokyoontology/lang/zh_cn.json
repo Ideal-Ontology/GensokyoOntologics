@@ -400,30 +400,31 @@
   "patchouli.gensokyoontology.category.spell_card": "Spell Cards",
   "patchouli.gensokyoontology.category.task": "Crafting Manual",
 
-  "patchouli.gensokyoontology.category.chapter.description": "Gensokyo, a world where human and youkai live together within side by side keeping a dedicate balance.",
-  "patchouli.gensokyoontology.category.entity.description": "Some entities that might summon everywhere. This is not a good sign.$(br)\t\t -- Usami Sumireko",
-  "patchouli.gensokyoontology.category.item.description": "Special items that can help you sometimes",
+  "patchouli.gensokyoontology.category.chapter.description": "幻想乡，一个人类与妖怪两相对立却又彼此依存的世界，一直以来，妖怪袭击人类，人类退治妖怪的规律维持着幻想乡微妙的平衡。",
+  "patchouli.gensokyoontology.category.entity.description": "那些生物可能会出现在任何地方，这可不是一个好的征兆。$(br)\t\t -- Usami Sumireko",
+  "patchouli.gensokyoontology.category.item.description": "一些能够帮的上忙的特殊道具",
   "patchouli.gensokyoontology.category.task.description": "Follow these rules to go into that dimension!",
-  "patchouli.gensokyoontology.category.spell_card.description": "Super ablilities used by youkai or human?",
+  "patchouli.gensokyoontology.category.spell_card.description": "符卡介绍",
 
   "patchouli.gensokyoontology.chapter.intro.title": "总体介绍",
   "patchouli.gensokyoontology.chapter.introduction_p1": "你好，我是宇佐见堇子，秘封俱乐部的创始人，当你看见这本书的时候，那就意味着我已经迷失在了那个虚构的国度。也许我，我自己，甚至是正在阅读着这段文字的你，不过也同样是这幻想的一员罢了。我能感受到博丽大结界……十分的不稳定，一场异变马上就要到来了。",
   "patchouli.gensokyoontology.chapter.introduction_p2": "我将自己的能力的一部分转移到了这本书里，这样，当我进入幻想之时，这本书便会出现在这座图书馆。如果我失败了，请带上这本书，本书中残余的能量或许能够帮助到你。我想请求你，帮我找到解决这场异变的办法！",
 
-  "patchouli.gensokyoontology.chapter.chapter_01.title": "Chapter 1: New Crisis",
-  "patchouli.gensokyoontology.chapter_01.content_01": "$(l)\"Signs often appears before the real crisis.\" -- Her voice haunted me even though she is no longer be here. I don't know when did those meme entities come into being in our world, but I know that fighting against with those entities for too long will lost one's ego -- and that is how she left me.$(br) Her eyes turned into jewels which could show the images of those entities on the paper, and I am collecting the loots from those monsters:",
+  "patchouli.gensokyoontology.chapter.chapter_01.title": "第一章：新的异变？",
+  "patchouli.gensokyoontology.chapter_01.content_01": "怪物们会掉落这样的传说，可是为什么呢？",
 
-  "patchouli.gensokyoontology.chapter.gensokyo.title": "Chapter Gensokyo: To Step Within",
-  "patchouli.gensokyoontology.chapter.gensokyo.introduction": "Though making a very complete preperation, it still shocks me the first time when I entered gensokyo. The first thing you have to do is to make sure where you are. Different places in gensokyo have different danger level. ",
+  "patchouli.gensokyoontology.chapter.gensokyo.title": "章节：幻想入",
+  "patchouli.gensokyoontology.chapter.gensokyo.introduction": "你需要去挖掘伊奘诺物质的矿石，合成魔力提取台，用这个东西提取出末影之眼、被遗忘的传说：神秘珠和管狐那个装满的试管的魔力，合成出神秘珠。",
 
   "patchouli.gensokyoontology.chapter.combat.title": "Chapter Combat: How to Get Level Up",
   "patchouli.gensokyoontology.chapter.combat.entity_loot_01": "Fairy Loots",
 
-  "patchouli.gensokyoontology.chapter.structure.title": "About Places",
-  "patchouli.gensokyoontology.chapter.structure.outside_city": "First, is the most familiar place -- the city where we live.",
+  "patchouli.gensokyoontology.chapter.structure.title": "章节：场景地点",
+  "patchouli.gensokyoontology.chapter.structure.hakurei_shrine": "一座日式神社，坐落于博丽大结界的边境处。",
 
-  "patchouli.gensokyoontology.entity.monsters.title": "Fantasy Monsters and Youkai",
-  "patchouli.gensokyoontology.entity.fairy_introduction": "The most common and normal creature in Gensokyo. But it is abnormal to see them spawn in Overworld. These creature seems undying because when I was in Gensokyo, I killed a lot of them, but they will soon respawn elsewhere.",
+  "patchouli.gensokyoontology.entity.monsters.title": "幻想中的妖怪们",
+  "patchouli.gensokyoontology.entity.fairy.introduction": "妖精，幻想乡中最常见的生物。但是她们在主世界出现的时候就有些反常了。而且这些生物似乎是能够不断重生的。",
+
   "patchouli.gensokyoontology.entity.butterfly_fairy_introduction": "The big version of the fairy, possessing tougher health but having a large probabilities to drop Bomb Item.",
   "patchouli.gensokyoontology.entity.inyo_jade_entity_introduction": "Entity Inyo Jade never drops Bomb Point Item, but the fragments of jade and the spirit fragments it dropped may be useful?",
   "patchouli.gensokyoontology.entity.spectre_introduction": "These are the wandering souls who once were killed but holding with desperate shame or unwilling mind",
@@ -432,8 +433,8 @@
   "patchouli.gensokyoontology.entity.object_a.introduction": "Object a, she is the one you authentically desire to. She could block your truly wantings and force you to worship on items. That's crazy, but thanks to koishi's eye, if you have koishi's eye in any of your inventory slot, you will not be added with fetish effect!",
   "patchouli.gensokyoontology.entity.object_a.spell_card": "$(li)$(sc_object_a)Spell Card 1: ",
 
-  "patchouli.gensokyoontology.entity.lily_white.title": "Lily White",
-  "patchouli.gensokyoontology.entity.lily_white.introduction": "You can see this fairy in the biomes with sakura trees. Because Lily White is such a fairy to call the message of coming spring.",
+  "patchouli.gensokyoontology.entity.lily_white.title": "莉莉白",
+  "patchouli.gensokyoontology.entity.lily_white.introduction": "莉莉白是告知春天来临的妖精，所以你经常能在有樱花树的群系看见她们。",
 
   "patchouli.gensokyoontology.entity.koishi.title": "古明地恋",
   "patchouli.gensokyoontology.entity.koishi.introduction": "$(l)Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
@@ -444,8 +445,8 @@
   "patchouli.gensokyoontology.entity.yukari.title": "八云紫",
   "patchouli.gensokyoontology.entity.yukari.introduction": "$(l)一个凶狠、邪恶、老不死的隙间妖怪gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)啊啦，如果你敢这么称呼我的话……$(ff0000)你也会落得和这个女孩儿一样的下场哟!$()",
 
-  "patchouli.gensokyoontology.item.koishi_eye.title": "Koishi Eye",
-  "patchouli.gensokyoontology.item.koishi_eye.introduction": "Koishi's third eye. This item has two phase, when it is opened, it can be used to eliminate the danmaku on the path of the user's eyesight.",
+  "patchouli.gensokyoontology.item.koishi_eye.title": "恋恋的眼睛",
+  "patchouli.gensokyoontology.item.koishi_eye.introduction": "恋恋的第三只眼，睁开时可以清除玩家视线路径上的大范围弹幕。",
 
   "patchouli.gensokyoontology.item.jade.title": "Jade",
   "patchouli.gensokyoontology.item.jade_ore.introduction": "This ore will generate at 40 to 50 blocks under the sea level in gensokyo. But it is known to us all that, the gem-quality jade is hard to find. So if you want the highest quality of the jade, you'd better to come to youkai mountain to mine more.",
@@ -457,6 +458,9 @@
 
   "patchouli.gensokyoontology.task.spirit.title": "意识形态",
   "patchouli.gensokyoontology.task.spirit_fragment.title": "意识形态碎片",
+
+  "patchouli.gensokyoontology.spell_cards.title": "Spell Cards",
+  "patchouli.gensokyoontology.spell_cards.introduction": "This is the chapter to introduce all the spell cards including the ideas of danmaku design and its user.",
 
   "patchouli.gensokyoontology.spell_card.sc_koishi.title": "恋恋的符卡",
   "patchouli.gensokyoontology.spell_card.sc_yukari.title": "紫的符卡",

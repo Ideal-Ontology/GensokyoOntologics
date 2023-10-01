@@ -1,7 +1,7 @@
 {
   "parent": "gensokyoontology:block/sorcery_extractor.obj",
   "textures": {
-    "all": "gensokyoontology:block/sorcery_extractor"
+    "particle": "gensokyoontology:block/sorcery_extractor"
   },
   "display": {
     "fixed": {

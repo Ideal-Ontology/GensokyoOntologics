@@ -12,16 +12,27 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class SorceryExtractorBlock extends Block {
     public SorceryExtractorBlock() {
         super(Properties.from(Blocks.ENCHANTING_TABLE));
     }
 
+    public static final VoxelShape shape;
+    static {
+        VoxelShape terrace = Block.makeCuboidShape(0,0,0, 16,7,16);
+        VoxelShape crystal = Block.makeCuboidShape(7,7,9, 7,16,9);
+        shape = VoxelShapes.or(terrace, crystal);
+    }
+
     @SuppressWarnings("deprecation")
     @Override
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+    @NotNull
+    public ActionResultType onBlockActivated(@NotNull BlockState state, World worldIn, @NotNull BlockPos pos, @NotNull PlayerEntity player, @NotNull Hand handIn, @NotNull BlockRayTraceResult hit) {
         if (worldIn.isRemote) {
             return ActionResultType.SUCCESS;
         } else {

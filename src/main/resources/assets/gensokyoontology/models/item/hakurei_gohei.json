@@ -1,3 +1,6 @@
 {
-  "parent": "gensokyoontology:block/hakurei_gohei_model"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "gensokyoontology:item/hakurei_gohei"
+  }
 }

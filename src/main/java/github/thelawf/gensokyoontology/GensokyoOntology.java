@@ -142,6 +142,8 @@ public class GensokyoOntology {
 
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SORCERY_EXTRACTOR.get(),
                         RenderType.getTranslucent());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.ISHI_ZAKURA.get(),
+                        RenderType.getTranslucent());
 
                 ScreenManager.registerFactory(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(),
                         DanmakuCraftingScreen::new);
