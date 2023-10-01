@@ -26,8 +26,8 @@ plugins {
 // apply plugin: 'org.spongepowered.mixin'
 
 mixin {
-    add sourceSets.main, "mixins.gensokyoontology.refmap.json"
-    config 'mixins.gensokyoontology.json'
+   //  add sourceSets.main, "mixins.gensokyoontology.refmap.json"
+    // config 'mixins.gensokyoontology.json'
     add sourceSets.main, "patchouli.refmap.json"
 
 }
