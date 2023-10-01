@@ -411,33 +411,7 @@ public final class ItemRegistry {
 
     public static final RegistryObject<BugerMeat> BURGER_MEAT = ITEMS.register("burger_meat", BugerMeat::new);
     
-    // public static final RegistryObject<SpiritStar> SPIRIT_STAR = ITEMS.register(
-    //         "spirit_star", () -> new SpiritStar(new Item.Properties()
-    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
-    //                 .maxStackSize(16)));
-//
-    // public static final RegistryObject<SpiritFragment> SPIRIT_FRAGMENT = ITEMS.register(
-    //         "spirit_fragment", () -> new SpiritFragment(new Item.Properties()
-    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
-    //                 .maxStackSize(16)));
-    // public static final RegistryObject<Item> SPIRIT_DIALECTICS = ITEMS.register(
-    //         "dialectic_spirit", () -> new Item(new Item.Properties()
-    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
-    //                 .maxStackSize(16)));
-    // public static final RegistryObject<Item> SPIRIT_UTOPIAN = ITEMS.register(
-    //         "utopian_spirit", () -> new Item(new Item.Properties()
-    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
-    //                 .maxStackSize(16)));
-    // public static final RegistryObject<Item> SPIRIT_THEOLOGY = ITEMS.register(
-    //         "theology_spirit", () -> new Item(new Item.Properties()
-    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
-    //                 .maxStackSize(16)));
-//
-    // public static final RegistryObject<Item> SPIRIT_CREATIVE = ITEMS.register(
-    //         "creative_spirit",() -> new Item(new Item.Properties()
-    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)
-    //                 .maxStackSize(16)));
-//
+
     //////////////////////////////////// 被遗忘的传说 /////////////////////////////////
     public static final RegistryObject<Item> TALES_SCARLET_MIST = ITEMS.register(
             "oblivious_tales_scarlet_mist", () -> new ObliviousTales(new CompoundNBT()));
@@ -456,11 +430,6 @@ public final class ItemRegistry {
     // public static final RegistryObject<Item> PRAXIS_SWORD = ITEMS.register(
     //         "praxis_sword", PraxisSword::new);
 
-    // public static final RegistryObject<Item> BYTE_COIN = ITEMS.register("bytecoin",
-    //         () -> new ByteCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-//
-    // public static final RegistryObject<Item> GAME_COIN = ITEMS.register("game_coin",
-    //         () -> new GameCoin(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ============================ GSKO生物刷怪蛋 ================================//
     public static final RegistryObject<ForgeSpawnEggItem> FAIRY_SPAWN_EGG = ITEMS.register(

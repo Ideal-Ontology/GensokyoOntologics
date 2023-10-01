@@ -1,5 +1,5 @@
 {
-  "parent": "gensokyoontology:sorcery_extractor.obj",
+  "parent": "gensokyoontology:block/sorcery_extractor.obj",
   "textures": {
     "all": "gensokyoontology:block/sorcery_extractor"
   },
