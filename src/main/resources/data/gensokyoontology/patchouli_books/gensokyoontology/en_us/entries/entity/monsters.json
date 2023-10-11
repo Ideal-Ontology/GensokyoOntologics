@@ -6,15 +6,20 @@
   "pages": [
     {
       "type": "text",
-      "text": "patchouli.gensokyoontology.entity.introduction"
+      "text": "patchouli.gensokyoontology.entity.monster.introduction_1"
+    },
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.entity.monster.introduction_2"
+    },
+    {
+      "type": "entity",
+      "entity": "gensokyoontology:fairy",
+      "text": "patchouli.gensokyoontology.entity.fairy.notes"
     },
     {
       "type": "text",
       "text": "patchouli.gensokyoontology.entity.fairy.introduction"
-    },
-    {
-      "type": "text",
-      "text": "patchouli.gensokyoontology.entity.fairy.model"
     }
   ]
 }

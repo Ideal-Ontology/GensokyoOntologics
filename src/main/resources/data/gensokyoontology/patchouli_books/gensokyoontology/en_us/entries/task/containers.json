@@ -1,0 +1,21 @@
+{
+  "name": "patchouli.gensokyoontology.task.containers.title",
+  "icon": "gensokyoontology:danmaku_table",
+  "category": "task",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.task.containers.text"
+    },
+    {
+      "type": "crafting",
+      "recipe": "gensokyoontology:danmaku_table",
+      "text": "patchouli.gensokyoontology.task.danmaku_table.crafting_introduction"
+    },
+    {
+      "type": "crafting",
+      "recipe": "gensokyoontology:sorcery_extractor",
+      "text": "patchouli.gensokyoontology.task.sorcery_extractor.crafting_introduction"
+    }
+  ]
+}

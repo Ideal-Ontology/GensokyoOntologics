@@ -356,6 +356,7 @@
   "gui.gensokyoontology.text_field.rotation_pitch": "0",
 
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "你释放了符卡: 「莫比乌斯环世界」",
+  "msg.gensokyoontology.item_use.jade_cut_failed": "只有在幻想乡里才能出货哟~",
 
   "network.gensokyoontology.countdown.end": "倒计时已结束",
   "network.gensokyoontology.disconnection.demo_end": "试玩时间结束，欢迎下次游玩~",
@@ -394,11 +395,11 @@
   "patchouli.gensokyoontology.book.landing_text": "前言",
   "patchouli.gensokyoontology.book.subtitle": "——作者：宇佐见堇子",
 
-  "patchouli.gensokyoontology.category.chapter": "Chapters",
-  "patchouli.gensokyoontology.category.entity": "Fantasy Entities",
-  "patchouli.gensokyoontology.category.item": "Items",
-  "patchouli.gensokyoontology.category.spell_card": "Spell Cards",
-  "patchouli.gensokyoontology.category.task": "Crafting Manual",
+  "patchouli.gensokyoontology.category.chapter": "幻想乡的故事",
+  "patchouli.gensokyoontology.category.entity": "生物实体",
+  "patchouli.gensokyoontology.category.item": "道具",
+  "patchouli.gensokyoontology.category.spell_card": "符卡与弹幕",
+  "patchouli.gensokyoontology.category.task": "合成机制与其它机制",
 
   "patchouli.gensokyoontology.category.chapter.description": "幻想乡，一个人类与妖怪两相对立却又彼此依存的世界，一直以来，妖怪袭击人类，人类退治妖怪的规律维持着幻想乡微妙的平衡。",
   "patchouli.gensokyoontology.category.entity.description": "那些生物可能会出现在任何地方，这可不是一个好的征兆。$(br)\t\t -- Usami Sumireko",
@@ -423,6 +424,9 @@
   "patchouli.gensokyoontology.chapter.structure.hakurei_shrine": "一座日式神社，坐落于博丽大结界的边境处。",
 
   "patchouli.gensokyoontology.entity.monsters.title": "幻想中的妖怪们",
+  "patchouli.gensokyoontology.entity.monster.introduction_1": "",
+  "patchouli.gensokyoontology.entity.monster.introduction_2": "",
+  "patchouli.gensokyoontology.entity.fairy.notes": "The model of Fairy",
   "patchouli.gensokyoontology.entity.fairy.introduction": "妖精，幻想乡中最常见的生物。但是她们在主世界出现的时候就有些反常了。而且这些生物似乎是能够不断重生的。",
 
   "patchouli.gensokyoontology.entity.butterfly_fairy_introduction": "The big version of the fairy, possessing tougher health but having a large probabilities to drop Bomb Item.",
@@ -435,6 +439,7 @@
 
   "patchouli.gensokyoontology.entity.lily_white.title": "莉莉白",
   "patchouli.gensokyoontology.entity.lily_white.introduction": "莉莉白是告知春天来临的妖精，所以你经常能在有樱花树的群系看见她们。",
+  "patchouli.gensokyoontology.entity.lily_white.notes": "The model of Lily White",
 
   "patchouli.gensokyoontology.entity.koishi.title": "古明地恋",
   "patchouli.gensokyoontology.entity.koishi.introduction": "$(l)Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
@@ -446,11 +451,12 @@
   "patchouli.gensokyoontology.entity.yukari.introduction": "$(l)一个凶狠、邪恶、老不死的隙间妖怪gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)啊啦，如果你敢这么称呼我的话……$(ff0000)你也会落得和这个女孩儿一样的下场哟!$()",
 
   "patchouli.gensokyoontology.item.koishi_eye.title": "恋恋的眼睛",
-  "patchouli.gensokyoontology.item.koishi_eye.introduction": "恋恋的第三只眼，睁开时可以清除玩家视线路径上的大范围弹幕。",
+  "patchouli.gensokyoontology.item.koishi_eye.text": "Koishi's third eye. ",
+  "patchouli.gensokyoontology.item.koishi_eye.introduction": "恋恋的第三只眼，在其闭合时使用可以清除玩家视线路径上的大范围弹幕。",
 
-  "patchouli.gensokyoontology.item.jade.title": "Jade",
-  "patchouli.gensokyoontology.item.jade_ore.introduction": "This ore will generate at 40 to 50 blocks under the sea level in gensokyo. But it is known to us all that, the gem-quality jade is hard to find. So if you want the highest quality of the jade, you'd better to come to youkai mountain to mine more.",
-  "patchouli.gensokyoontology.item.jade.introduction": "A very precious gem in gensokyo. A famous jewelry collector in the village ranged the jade into 5 degrees from level B to level SSS. If you mine the raw jade block, you can hold the jade ore and cut it on the stone cutter in sneaking pose.",
+  "patchouli.gensokyoontology.item.jade.title": "玉石",
+  "patchouli.gensokyoontology.item.jade_ore.introduction": "一种在幻想乡中生成的珍贵矿石，人里的珠宝商将幻想乡玉石的品质分为了B级、A级、S级、SS级和SSS级。这种矿石会生成在幻想乡海平面以下40至50格的位置。而且听饭纲丸龙说妖怪之山下面有丰富的玉石矿脉，就是不知道妖怪的情报可不可靠。",
+  "patchouli.gensokyoontology.item.jade_cut.introduction": "在潜行状态下手持玉石原矿对着切石机多次右键可以获取里面的玉石宝石。只有在幻想乡中使用切石机才能获取到宝石级别的玉石，在其它维度使用切石机只能获得圆石。可恶的玉石奸商还说如果手上的玉石多于10个的话出货概率会高一点。",
 
   "patchouli.gensokyoontology.task.ideology.magnificent.title": "How to get Hochfliegend",
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
@@ -459,8 +465,8 @@
   "patchouli.gensokyoontology.task.spirit.title": "意识形态",
   "patchouli.gensokyoontology.task.spirit_fragment.title": "意识形态碎片",
 
-  "patchouli.gensokyoontology.spell_cards.title": "Spell Cards",
-  "patchouli.gensokyoontology.spell_cards.introduction": "This is the chapter to introduce all the spell cards including the ideas of danmaku design and its user.",
+  "patchouli.gensokyoontology.spell_cards.title": "符卡",
+  "patchouli.gensokyoontology.spell_cards.introduction": "本章是符卡设计理念及其使用者的介绍",
 
   "patchouli.gensokyoontology.spell_card.sc_koishi.title": "恋恋的符卡",
   "patchouli.gensokyoontology.spell_card.sc_yukari.title": "紫的符卡",
@@ -469,6 +475,12 @@
   "patchouli.gensokyoontology.spell_card.sc_object_a.title": "对象a的符卡",
 
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
+
+  "patchouli.gensokyoontology.task.touhou_item.text": "仅参与合成过程的物品",
+  "patchouli.gensokyoontology.task.soul_tube.usage": "手持该物品右键狐狸获得管狐的试管。",
+  "patchouli.gensokyoontology.task.kuda_gitsune_tube.usage": "手持该物品右键恶魂或幽灵可以获得一个带有这两种生物NBT标签的装满的灵魂试管。",
+  "patchouli.gensokyoontology.task.gitsune_tube_full.usage": "用于放入魔力提取台进行合成",
+
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"

@@ -4,8 +4,12 @@
   "category": "item",
   "pages": [
     {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.item.koishi_eye.text"
+    },
+    {
       "type": "spotlight",
-      "item": "gensokyoontology:koishi_eye_open",
+      "item": "gensokyoontology:koishi_eye_closed",
       "text": "patchouli.gensokyoontology.item.koishi_eye.introduction"
     }
   ]

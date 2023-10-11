@@ -6,11 +6,16 @@
   "pages": [
     {
       "type": "text",
+      "text": "patchouli.gensokyoontology.item.jade_cut.text"
+    },
+    {
+      "type": "spotlight",
+      "item": "gensokyoontology:jade_ore",
       "text": "patchouli.gensokyoontology.item.jade_ore.introduction"
     },
     {
       "type": "text",
-      "text": "patchouli.gensokyoontology.item.jade.introduction"
+      "text": "patchouli.gensokyoontology.item.jade_cut.introduction"
     }
   ]
 }

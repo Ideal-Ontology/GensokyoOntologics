@@ -420,6 +420,8 @@ public final class ItemRegistry {
             "oblivious_tales_scarlet_mist", () -> new ObliviousTales(new CompoundNBT()));
     public static final RegistryObject<Item> TALES_SPRING_SNOWS = ITEMS.register(
             "oblivious_tales_spring_snows", () -> new ObliviousTales(new CompoundNBT()));
+    public static final RegistryObject<Item> TALES_IMPERISHABLE_NIGHT = ITEMS.register(
+            "oblivious_tales_imperishable_night", () -> new ObliviousTales(new CompoundNBT()));
     public static final RegistryObject<Item> TALES_OCCULT_BALL = ITEMS.register(
             "oblivious_tales_occult_ball", () -> new ObliviousTales(new CompoundNBT()));
 

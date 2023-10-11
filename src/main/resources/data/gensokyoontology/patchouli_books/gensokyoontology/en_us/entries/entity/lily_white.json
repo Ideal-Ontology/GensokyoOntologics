@@ -9,12 +9,9 @@
       "text": "patchouli.gensokyoontology.entity.lily_white.introduction"
     },
     {
-      "type": "text",
-      "text": "patchouli.gensokyoontology.entity.lily_white.standing_paint"
-    },
-    {
-      "type": "text",
-      "text": "patchouli.gensokyoontology.entity.lily_white.model"
+      "type": "entity",
+      "entity": "gensokyoontology:lily_white",
+      "text": "patchouli.gensokyoontology.entity.lily_white.notes"
     }
   ]
 }

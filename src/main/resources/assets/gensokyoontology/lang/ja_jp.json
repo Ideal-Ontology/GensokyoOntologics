@@ -356,6 +356,7 @@
   "gui.gensokyoontology.text_field.rotation_pitch": "0",
 
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "You Released Spell Card: \"Mobius Ring World\"",
+  "msg.gensokyoontology.item_use.jade_cut_failed": "It seems only works in Gensokyo...",
 
   "network.gensokyoontology.countdown.end": "Countdown End",
   "network.gensokyoontology.disconnection.demo_end": "Your game demonstration time is over. Looking forward to your next play!",
@@ -423,6 +424,9 @@
   "patchouli.gensokyoontology.chapter.structure.hakurei_shrine": "A Japanese-styled shrine located in the border of gensokyo and the outside world.",
 
   "patchouli.gensokyoontology.entity.monsters.title": "Fantasy Monsters and Youkai",
+  "patchouli.gensokyoontology.entity.monster.introduction_1": "",
+  "patchouli.gensokyoontology.entity.monster.introduction_2": "",
+  "patchouli.gensokyoontology.entity.fairy.notes": "",
   "patchouli.gensokyoontology.entity.fairy.introduction": "The most common and normal creature in Gensokyo is the fairies. But it is abnormal to see them spawn in Overworld. These creature seems undying because when I was in Gensokyo, I killed a lot of them, but they will soon respawn elsewhere.",
 
   "patchouli.gensokyoontology.entity.butterfly_fairy_introduction": "The big version of the fairy, possessing tougher health but having a large probabilities to drop Bomb Item.",
@@ -435,6 +439,7 @@
 
   "patchouli.gensokyoontology.entity.lily_white.title": "Lily White",
   "patchouli.gensokyoontology.entity.lily_white.introduction": "You can see this fairy in the biomes with sakura trees. Because Lily White is such a fairy to call the message of coming spring.",
+  "patchouli.gensokyoontology.entity.lily_white.notes": "The model of Lily White",
 
   "patchouli.gensokyoontology.entity.koishi.title": "Komeiji Koishi",
   "patchouli.gensokyoontology.entity.koishi.introduction": "Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
@@ -446,11 +451,12 @@
   "patchouli.gensokyoontology.entity.yukari.introduction": "An evil, old, grandma, devil gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)Ah-la, if you dare to call me like that... $(ff0000)YOU WILL BE THE SAME WITH THIS GIRL!$()",
 
   "patchouli.gensokyoontology.item.koishi_eye.title": "Koishi Eye",
+  "patchouli.gensokyoontology.item.koishi_eye.text": "Koishi's third eye. ",
   "patchouli.gensokyoontology.item.koishi_eye.introduction": "Koishi's third eye. This item has two phase, when it is opened, it can be used to eliminate the danmaku on the path of the user's eyesight.",
 
   "patchouli.gensokyoontology.item.jade.title": "Jade",
   "patchouli.gensokyoontology.item.jade_ore.introduction": "This ore will generate at 40 to 50 blocks under the sea level in gensokyo. But it is known to us all that, the gem-quality jade is hard to find. So if you want the highest quality of the jade, you'd better to come to youkai mountain to mine more.",
-  "patchouli.gensokyoontology.item.jade.introduction": "A very precious gem in gensokyo. A famous jewelry collector in the village ranged the jade into 5 degrees from level B to level SSS. If you mine the raw jade block, you can hold the jade ore and cut it on the stone cutter in sneaking pose.",
+  "patchouli.gensokyoontology.item.jade_cut.introduction": "If you mine the raw jade block, you can hold the jade ore and cut it on the stone cutter in sneaking pose.",
 
   "patchouli.gensokyoontology.task.ideology.magnificent.title": "How to get Hochfliegend",
   "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
@@ -471,5 +477,6 @@
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "patchouli.gensokyoontology.item.jade.introduction": "A very precious gem in gensokyo. A famous jewelry collector in the village ranged the jade into 5 degrees from level B to level SSS. If you mine the raw jade block, you can hold the jade ore and cut it on the stone cutter in sneaking pose."
 }

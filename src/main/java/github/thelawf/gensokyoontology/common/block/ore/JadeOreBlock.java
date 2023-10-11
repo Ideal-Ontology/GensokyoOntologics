@@ -30,7 +30,7 @@ public class JadeOreBlock extends OreBlock {
         if (!worldIn.isRemote) {
             int probability = new Random().nextInt(10000);
             if (dimension.equals(GSKODimensions.GENSOKYO)) {
-                return getItemToDrop(worldIn, 50, 300, 1050, 3000);
+                return getItemToDrop(worldIn, 50, 180, 470, 3000);
             }
             else {
                 playerIn.sendMessage(new TranslationTextComponent("msg."+ GensokyoOntology.MODID +"item_use.jade_cut_failed"),
