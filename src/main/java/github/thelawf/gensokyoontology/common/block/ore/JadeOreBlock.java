@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.block.ore;
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -9,8 +10,13 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.OreBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.stats.Stats;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.Dimension;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 
 import java.util.Random;
@@ -20,31 +26,25 @@ public class JadeOreBlock extends OreBlock {
         super(Properties.from(Blocks.NETHERITE_BLOCK).harvestLevel(5));
     }
 
-    public static ItemStack getItemToDrop(World worldIn, ItemStack prevStack) {
+    public static ItemStack getItemToDrop(World worldIn, PlayerEntity playerIn, RegistryKey<World> dimension) {
         if (!worldIn.isRemote) {
             int probability = new Random().nextInt(10000);
-            if (worldIn.getDimensionKey().equals(GSKODimensions.GENSOKYO)) {
-                if (probability <= 50) {
-                    return new ItemStack(ItemRegistry.JADE_LEVEL_SSS.get());
-                }
-                else if (probability > 51 && probability <= 300) {
-                    return new ItemStack(ItemRegistry.JADE_LEVEL_SS.get());
-                }
-                else if (probability > 301 && probability <= 1050) {
-                    return new ItemStack(ItemRegistry.JADE_LEVEL_S.get());
-                }
-                else if (probability > 1051 && probability <= 3000) {
-                    return new ItemStack(ItemRegistry.JADE_LEVEL_A.get());
-                }
-                else {
-                    return new ItemStack(ItemRegistry.JADE_LEVEL_B.get());
-                }
+            if (dimension.equals(GSKODimensions.GENSOKYO)) {
+                return getItemToDrop(worldIn, 50, 300, 1050, 3000);
+            }
+            else {
+                playerIn.sendMessage(new TranslationTextComponent("msg."+ GensokyoOntology.MODID +"item_use.jade_cut_failed"),
+                        playerIn.getUniqueID());
+                return new ItemStack(Items.COBBLESTONE);
             }
         }
-        return prevStack;
+        return ItemStack.EMPTY;
     }
 
-    public static ItemStack getItemToDrop(World worldIn,ItemStack prevStack, int sss, int ss, int s, int a){
+    /**
+     * 玉石矿在不同的世界会存在着不同的掉落概率
+     */
+    public static ItemStack getItemToDrop(World worldIn, int sss, int ss, int s, int a){
         if (!worldIn.isRemote) {
             int probability = new Random().nextInt(10000);
             if (worldIn.getDimensionKey().equals(GSKODimensions.GENSOKYO)) {
@@ -65,7 +65,7 @@ public class JadeOreBlock extends OreBlock {
                 }
             }
         }
-        return prevStack;
+        return ItemStack.EMPTY;
     }
 
     public static void spawnDropByWeight(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {

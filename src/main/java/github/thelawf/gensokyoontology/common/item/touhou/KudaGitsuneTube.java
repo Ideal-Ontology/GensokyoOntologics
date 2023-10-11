@@ -35,8 +35,8 @@ public class KudaGitsuneTube extends Item {
             // target.remove();
             stack.shrink(1);
             CompoundNBT nbt = new CompoundNBT();
-            nbt.putString("story", "story."+ GensokyoOntology.MODID +".spectre");
-            nbt.putString("entity_stored", "entity.mineraft.ghast");
+            nbt.putString("story", "story."+ GensokyoOntology.MODID +".ghast");
+            nbt.putString("entity_stored", "entity.minecraft.ghast");
 
             playerIn.inventory.addItemStackToInventory(new ItemStack(
                     ItemRegistry.GITSUNE_TUBE_FULL.get(), 1, nbt));

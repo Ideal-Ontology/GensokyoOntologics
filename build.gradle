@@ -47,7 +47,7 @@ allprojects {
 }
 
 group = 'com.github.thelawf'
-version = 'forge-1.16.5-preview-0.0.1'
+version = 'forge-1.16.5-preview-0.0.002'
 
 repositories {
     maven { url 'https://maven.blamejared.com' }

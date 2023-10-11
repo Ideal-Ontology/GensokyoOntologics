@@ -28,6 +28,7 @@ import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.*;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -237,19 +238,21 @@ public final class ItemRegistry {
                     }
 
                     if (!world.isRemote && Screen.hasShiftDown() && block.matchesBlock(Blocks.STONECUTTER) &&
-                            random.nextInt(6) == 1) {
+                            random.nextInt(6) == 1 &&
+                            !JadeOreBlock.getItemToDrop(world, 150,440, 2000, 6000).equals(ItemStack.EMPTY)) {
 
+                        ServerWorld serverWorld = (ServerWorld) world;
                         if (context.getItem().getCount() >= 10) {
                             context.getItem().shrink(10);
                             for (int i = 0; i < 10; i++) {
-                                Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world, context.getItem(),
+                                Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world,
                                         150, 440, 2000, 6000));
                             }
                             return ActionResultType.CONSUME;
                         }
-
                         context.getItem().shrink(1);
-                        Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world, context.getItem()));
+                        Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world, context.getPlayer(),
+                                serverWorld.getDimensionKey()));
 
                     }
                     return super.onItemUse(context);
@@ -299,7 +302,7 @@ public final class ItemRegistry {
             "kuda_gitsune_tube", () -> new KudaGitsuneTube(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> GITSUNE_TUBE_FULL = ITEMS.register(
-            "gitsune_tube_full", () -> new KudaGitsuneTube(new Item.Properties()
+            "gitsune_tube_full", () -> new GitsuneTubeFull(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).containerItem(ItemRegistry.SPIRIT_TUBE.get())));
 
     public static final RegistryObject<OccultBall> OCCULT_BALL = ITEMS.register(
