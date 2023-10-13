@@ -1,12 +1,12 @@
 {
-  "depth": 0.03,
-  "scale": 0.25,
+  "depth": 0.01,
+  "scale": 0.15,
   "downfall": 0.05,
   "temperature": 0.68,
   "category": "plains",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
-  "creature_spawn_probability": 0.4,
+  "creature_spawn_probability": 0.1,
   "precipitation": "rain",
   "surface_builder": "minecraft:grass",
   "effects": {
@@ -20,7 +20,7 @@
     "monster": [
       {
         "type": "gensokyoontology:fairy",
-        "weight": 15,
+        "weight": 9,
         "minCount": 5,
         "maxCount": 8
       },
@@ -53,26 +53,6 @@
         "weight": 3,
         "minCount": 3,
         "maxCount": 5
-      }
-    ],
-    "creature": [
-      {
-        "type": "minecraft:sheep",
-        "weight": 8,
-        "minCount": 4,
-        "maxCount": 8
-      },
-      {
-        "type": "minecraft:cow",
-        "weight": 8,
-        "minCount": 4,
-        "maxCount": 8
-      },
-      {
-        "type": "minecraft:chicken",
-        "weight": 8,
-        "minCount": 4,
-        "maxCount": 8
       }
     ]
   },
@@ -124,7 +104,7 @@
     [],
     [],
     [
-      "gensokyoontology:lycoris_higan"
+      "gensokyoontology:higan_lycoris"
     ],
     []
   ]

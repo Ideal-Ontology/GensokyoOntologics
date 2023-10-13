@@ -51,7 +51,8 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
             GSKOBiomes.SUNFLOWER_GARDEN_KEY,
             GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
-            GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY
+            GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY,
+            GSKOBiomes.HIGAN_KEY
     );
 
 

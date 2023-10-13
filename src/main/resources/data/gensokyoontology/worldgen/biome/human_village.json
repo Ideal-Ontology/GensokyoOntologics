@@ -1,12 +1,12 @@
 {
   "depth": 0.01,
-  "scale": 0.21,
+  "scale": 0.12,
   "downfall": 0.01,
   "temperature": 0.75,
   "category": "plains",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
-  "creature_spawn_probability": 0.8,
+  "creature_spawn_probability": 0.4,
   "precipitation": "rain",
   "surface_builder": "minecraft:grass",
   "effects": {

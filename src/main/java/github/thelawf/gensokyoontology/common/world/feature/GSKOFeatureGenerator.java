@@ -93,7 +93,7 @@ public class GSKOFeatureGenerator {
             List<Supplier<ConfiguredFeature<?,?>>> base = event.getGeneration().getFeatures(
                     GenerationStage.Decoration.VEGETAL_DECORATION);
 
-            base.add(() -> GSKOFeatures.LYCORIS);
+            base.add(() -> GSKOFeatures.HIGAN_LYCORIS);
         }
 
     }

@@ -1,0 +1,16 @@
+{
+  "name": "patchouli.gensokyoontology.item.occult_ball.title",
+  "icon": "gensokyoontology:occult_ball",
+  "category": "item",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.item.occult_ball.text"
+    },
+    {
+      "type": "spotlight",
+      "item": "gensokyoontology:occult_ball",
+      "text": "patchouli.gensokyoontology.item.occult_ball.introduction"
+    }
+  ]
+}

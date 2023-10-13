@@ -50,9 +50,9 @@ public class GSKOFeatures {
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE_BASE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(BlockRegistry.MAGIC_LEAVES.get().getDefaultState()),
-                    new BlobFoliagePlacer(FeatureSpread.create(2,3), FeatureSpread.create(1,2), 2),
-                    new FancyTrunkPlacer(1,2,3),
-                    new TwoLayerFeature(1,0,0)).setIgnoreVines().build());
+                    new MagicFoliagePlacer(FeatureSpread.create(5), FeatureSpread.create(3)),
+                    new FancyTrunkPlacer(12, 2, 5),
+                    new TwoLayerFeature(1,3,1)).setIgnoreVines().build());
 
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAPLE_TREE_BASE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
@@ -88,9 +88,9 @@ public class GSKOFeatures {
             new BaseTreeFeatureConfig.Builder(
                     new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(BlockRegistry.MAGIC_LEAVES.get().getDefaultState()),
-                    new MagicFoliagePlacer(FeatureSpread.create(1), FeatureSpread.create(1)),
-                    new StraightTrunkPlacer(12, -1, 3),
-                    new TwoLayerFeature(1,0,0)).setIgnoreVines().build())
+                    new MagicFoliagePlacer(FeatureSpread.create(5), FeatureSpread.create(3)),
+                    new FancyTrunkPlacer(12, 2, 5),
+                    new TwoLayerFeature(1,3,1)).setIgnoreVines().build())
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(4, 0.8f, 6)));
 
@@ -98,7 +98,7 @@ public class GSKOFeatures {
                     new BaseTreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
                             new SimpleBlockStateProvider(BlockRegistry.MAPLE_LEAVES.get().getDefaultState()),
-                            new BlobFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1,2), 2),
+                            new BlobFoliagePlacer(FeatureSpread.create(4), FeatureSpread.create(2), 2),
                             new FancyTrunkPlacer(6, 2, 1),
                             new TwoLayerFeature(1,2,2)).setIgnoreVines().build())
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square();
@@ -132,10 +132,7 @@ public class GSKOFeatures {
     public static final ConfiguredFeature<BigMushroomFeatureConfig, ?> HUGE_PURPLE_MUSHROOM = Feature.HUGE_RED_MUSHROOM.withConfiguration(
             new BigMushroomFeatureConfig(new SimpleBlockStateProvider(PURPLE_MUSHROOM_DOWN),
                     new SimpleBlockStateProvider(PURPLE_MUSHROOM_DOWN),5));
-    public static final ConfiguredFeature<?, ?> BAMBOO = Feature.BAMBOO.withConfiguration(new ProbabilityConfig(0.9f))
-            .withPlacement(Features.Placements.BAMBOO_PLACEMENT)
-            .square()
-            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(9, 0.99f, 8)));
+
 
     // public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SHINBOKU = register(new ResourceLocation(GensokyoOntology.MODID, "shinboku"),
     //         Feature.TREE.withConfiguration());
@@ -158,11 +155,11 @@ public class GSKOFeatures {
                             Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
 
     //-------------------------------------------花草生成------------------------------------------//
-    public static final ConfiguredFeature<?,?> LYCORIS = Feature.FLOWER.withConfiguration(
-                    new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(
-                            BlockRegistry.LYCORIS_RADIATA.get().getDefaultState()),
-                            SimpleBlockPlacer.PLACER).tries(3).build()).withPlacement(
-                                    Features.Placements.HEIGHTMAP_PLACEMENT);
+    public static final ConfiguredFeature<?,?> HIGAN_LYCORIS = Feature.RANDOM_PATCH
+            .withConfiguration(new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.LYCORIS_RADIATA.get().getDefaultState()),
+                    SimpleBlockPlacer.PLACER).tries(32).build())
+            .withPlacement(Features.Placements.BAMBOO_PLACEMENT).square()
+            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(9, 0.95f, 9)));
 
     public static final ConfiguredFeature<?,?> WASABI = Feature.RANDOM_PATCH.withConfiguration(
                     new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(
@@ -170,12 +167,20 @@ public class GSKOFeatures {
                             SimpleBlockPlacer.PLACER).tries(2).build())
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3);
 
+    public static final ConfiguredFeature<?, ?> BAMBOO = Feature.BAMBOO.withConfiguration(new ProbabilityConfig(0.9f))
+            .withPlacement(Features.Placements.BAMBOO_PLACEMENT)
+            .square()
+            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(9, 0.99f, 8)));
+
     //-------------------------------------------特征生成------------------------------------------//
     public static final ConfiguredFeature<?, ?> WATERFALL = FeatureRegistry.WATERFALL.get()
             .withConfiguration(new LiquidsConfig(Fluids.WATER.getDefaultState(), true, 4, 1, ImmutableSet.of(
                     Blocks.STONE, Blocks.GRANITE, Blocks.DIORITE, Blocks.ANDESITE))).withPlacement(
                             Placement.RANGE_BIASED.configure(new TopSolidRangeConfig(8, 8, 256))).square().count(50);
 
+    public static final ConfiguredFeature<?, ?> GSKO_STONE_PILE = Feature.BLOCK_PILE.withConfiguration(
+            new BlockStateProvidingFeatureConfig(new SimpleBlockStateProvider(Blocks.STONE.getDefaultState())))
+            .withPlacement(Placement.HEIGHTMAP_WORLD_SURFACE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
     //-------------------------------------------建筑生成------------------------------------------//
     public static final StructureFeature<?, ?> MYSTIA_STRUCTURE = StructureRegistry.MYSTIA_IZAKAYA.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
@@ -194,7 +199,7 @@ public class GSKOFeatures {
     public static void registerFeature() {
         Registry<ConfiguredFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_FEATURE;
 
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "lycoris"), LYCORIS);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "higan_lycoris"), HIGAN_LYCORIS);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "wasabi"), WASABI);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "bamboo"), BAMBOO);
 
@@ -212,6 +217,7 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_purple_mushroom"), HUGE_PURPLE_MUSHROOM);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "waterfall"), WATERFALL);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "gsko_stone_cluster"), GSKO_STONE_PILE);
     }
 
     public static void registerStructure() {
