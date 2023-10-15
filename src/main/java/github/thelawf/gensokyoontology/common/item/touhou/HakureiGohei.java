@@ -1,15 +1,22 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.IModelBuilder;
+import net.minecraftforge.client.model.IModelLoader;
+import net.minecraftforge.client.model.geometry.IModelGeometry;
 
 import java.util.List;
 
@@ -38,4 +45,5 @@ public class HakureiGohei extends Item {
         }
         return ActionResult.resultPass(playerIn.getHeldItem(handIn));
     }
+
 }

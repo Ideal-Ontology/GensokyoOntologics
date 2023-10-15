@@ -101,11 +101,18 @@
       "minecraft:ore_gold",
       "minecraft:ore_lapis",
       "minecraft:ore_redstone",
-      "minecraft:ore_diamond"
+      "minecraft:ore_diamond",
+
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand"
     ],
     [],
     [],
     [
+      "minecraft:flower_default",
+      "minecraft:flower_forest",
+
       "minecraft:patch_grass_normal",
       "minecraft:patch_grass_plain",
       "minecraft:patch_tall_grass_2",

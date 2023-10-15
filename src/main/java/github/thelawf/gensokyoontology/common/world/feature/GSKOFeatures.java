@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.world.feature;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKOOreType;
@@ -23,6 +24,7 @@ import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
 import net.minecraft.world.gen.placement.*;
 import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
+import net.minecraft.world.gen.trunkplacer.ForkyTrunkPlacer;
 import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 
 public class GSKOFeatures {
@@ -31,8 +33,16 @@ public class GSKOFeatures {
             HugeMushroomBlock.DOWN, Boolean.FALSE);
     public static final BlockState PURPLE_MUSHROOM_DOWN = BlockRegistry.BLUE_MUSHROOM_BLOCK.get().getDefaultState().with(
             HugeMushroomBlock.DOWN, Boolean.FALSE);
-    public static final BlockState MUSHROOM_STEM = Blocks.MUSHROOM_STEM.getDefaultState().with(HugeMushroomBlock.UP, Boolean.valueOf(false)).with(HugeMushroomBlock.DOWN, Boolean.valueOf(false));
+    public static final BlockState MUSHROOM_STEM = Blocks.MUSHROOM_STEM.getDefaultState().with(HugeMushroomBlock.UP, Boolean.FALSE).with(HugeMushroomBlock.DOWN, Boolean.FALSE);
 
+    //-----------------------------------------蘑菇-----------------------------------------------//
+    public static final ConfiguredFeature<BigMushroomFeatureConfig, ?> HUGE_BLUE_MUSHROOM = Feature.HUGE_RED_MUSHROOM.withConfiguration(
+            new BigMushroomFeatureConfig(new SimpleBlockStateProvider(BLUE_MUSHROOM_DOWN),
+                    new SimpleBlockStateProvider(MUSHROOM_STEM),3));
+
+    public static final ConfiguredFeature<BigMushroomFeatureConfig, ?> HUGE_PURPLE_MUSHROOM = Feature.HUGE_RED_MUSHROOM.withConfiguration(
+            new BigMushroomFeatureConfig(new SimpleBlockStateProvider(PURPLE_MUSHROOM_DOWN),
+                    new SimpleBlockStateProvider(PURPLE_MUSHROOM_DOWN),4));
 
     /** 特征地物生成目前遇到了三大坑：
      * 1. MC特有的两套注册系统，且非要你注册之后才能用，特有的将面向过程编程变成面向json编程<br>
@@ -50,16 +60,24 @@ public class GSKOFeatures {
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE_BASE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(BlockRegistry.MAGIC_LEAVES.get().getDefaultState()),
-                    new MagicFoliagePlacer(FeatureSpread.create(5), FeatureSpread.create(3)),
-                    new FancyTrunkPlacer(12, 2, 5),
+                    new FancyFoliagePlacer(FeatureSpread.create(4), FeatureSpread.create(3), 2),
+                    new FancyTrunkPlacer(8, 2, 3),
                     new TwoLayerFeature(1,3,1)).setIgnoreVines().build());
 
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAPLE_TREE_BASE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(BlockRegistry.MAPLE_LEAVES.get().getDefaultState()),
-                    new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(0), 2),
+                    new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(1), 2),
                     new FancyTrunkPlacer(8, 2, 1),
                     new TwoLayerFeature(1,1,2)).setIgnoreVines().build());
+
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SHINBOKU_BASE = Feature.TREE.withConfiguration(
+            new BaseTreeFeatureConfig.Builder(
+                    new SimpleBlockStateProvider(Blocks.OAK_LOG.getDefaultState()),
+                    new SimpleBlockStateProvider(Blocks.OAK_LEAVES.getDefaultState()),
+                    new FancyFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1), 2),
+                    new FancyTrunkPlacer(9,2,1),
+                    new TwoLayerFeature(1,2,2)).setIgnoreVines().build());
 
     //------------------------------------------树木----------------------------------------------//
     /**
@@ -84,17 +102,26 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(3, 0.4f, 3)));
 
-    public static final ConfiguredFeature<?, ?> MAGIC_TREE = Feature.TREE.withConfiguration(
-            new BaseTreeFeatureConfig.Builder(
-                    new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState()),
-                    new SimpleBlockStateProvider(BlockRegistry.MAGIC_LEAVES.get().getDefaultState()),
-                    new MagicFoliagePlacer(FeatureSpread.create(5), FeatureSpread.create(3)),
-                    new FancyTrunkPlacer(12, 2, 5),
-                    new TwoLayerFeature(1,3,1)).setIgnoreVines().build())
-            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
-            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(4, 0.8f, 6)));
+    public static final ConfiguredFeature<?, ?> MAGIC_FOREST_VEGETATION = Feature.RANDOM_SELECTOR.withConfiguration(
+            new MultipleRandomFeatureConfig(ImmutableList.of(
+                    MAGIC_TREE_BASE.withChance(0.94f),
+                    HUGE_BLUE_MUSHROOM.withChance(0.025f),
+                    HUGE_PURPLE_MUSHROOM.withChance(0.025f)),
+                    MAGIC_TREE_BASE))
+            .withPlacement(Placement.DARK_OAK_TREE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)).square()
+            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(3, 0.9f, 3)));;
 
-    public static final ConfiguredFeature<?, ?> MAPLE_TREE = Feature.TREE.withConfiguration(
+    public static final ConfiguredFeature<?, ?> BEAST_PATH_VEGETATION = Feature.RANDOM_SELECTOR.withConfiguration(
+                    new MultipleRandomFeatureConfig(ImmutableList.of(
+                            MAGIC_TREE_BASE.withChance(0.25f),
+                            SHINBOKU_BASE.withChance(0.35f),
+                            Features.FANCY_OAK.withChance(0.25f),
+                            Features.SPRING_DELTA.withChance(0.12f)),
+                            SHINBOKU_BASE))
+            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
+            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(4, 0.9f, 5)));
+
+    public static final ConfiguredFeature<?, ?> MAPLE_TREE_VEGETATION = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
                             new SimpleBlockStateProvider(BlockRegistry.MAPLE_LEAVES.get().getDefaultState()),
@@ -111,7 +138,7 @@ public class GSKOFeatures {
                             new FancyTrunkPlacer(5, 2, 1),
                             new TwoLayerFeature(1,0,2)).setIgnoreVines().build())
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
-            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(2, 0.33f, 3)));
+            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(2, 0.5f, 3)));
 
     public static final ConfiguredFeature<?, ?> SHINBOKU_TREE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(
@@ -123,15 +150,6 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(2, 0.4f, 2)));
 
-
-    //-----------------------------------------蘑菇-----------------------------------------------//
-    public static final ConfiguredFeature<BigMushroomFeatureConfig, ?> HUGE_BLUE_MUSHROOM = Feature.HUGE_RED_MUSHROOM.withConfiguration(
-            new BigMushroomFeatureConfig(new SimpleBlockStateProvider(BLUE_MUSHROOM_DOWN),
-                          new SimpleBlockStateProvider(MUSHROOM_STEM),6));
-
-    public static final ConfiguredFeature<BigMushroomFeatureConfig, ?> HUGE_PURPLE_MUSHROOM = Feature.HUGE_RED_MUSHROOM.withConfiguration(
-            new BigMushroomFeatureConfig(new SimpleBlockStateProvider(PURPLE_MUSHROOM_DOWN),
-                    new SimpleBlockStateProvider(PURPLE_MUSHROOM_DOWN),5));
 
 
     // public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SHINBOKU = register(new ResourceLocation(GensokyoOntology.MODID, "shinboku"),
@@ -203,12 +221,14 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "wasabi"), WASABI);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "bamboo"), BAMBOO);
 
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_tree"), MAGIC_TREE);
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree"), MAPLE_TREE);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_forest_vegetation"), MAGIC_FOREST_VEGETATION);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_vegetation"), MAPLE_TREE_VEGETATION);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_mountain"), MAPLE_TREE_MOUNTAIN);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree"), SAKURA_TREE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree_hakurei_shrine"), SAKURA_TREE_HAKUREI_SHRINE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "shinboku_tree"), SHINBOKU_TREE);
+
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "beast_path_vegetation"), BEAST_PATH_VEGETATION);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "ore_former_hell_jade"), ORE_FORMER_HELL_JADE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "ore_gensokyo_jade"), ORE_GENSOKYO_JADE);

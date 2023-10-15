@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.client;
 
+import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.LilyWhiteModel;
+import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
 import github.thelawf.gensokyoontology.client.renderer.entity.*;
 import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
@@ -13,17 +15,60 @@ import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.*;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.client.renderer.model.IBakedModel;
+import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.SeparatePerspectiveModel;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GensokyoOntology.MODID, value = Dist.CLIENT)
 public class ClientEventHandler {
+
+    private static final List<ModelResourceLocation> MODELS = Lists.newArrayList();
+    @SubscribeEvent
+    public static void registerItemModel(RegistryEvent.Register<Item> event) {
+        addItemModel(ItemRegistry.HAKUREI_GOHEI.get());
+    }
+
+    @SubscribeEvent
+    public static void onModelBaked(ModelBakeEvent event) {
+        Map<ResourceLocation, IBakedModel> registryMap = event.getModelRegistry();
+        for (ModelResourceLocation mrl : MODELS) {
+            PerspectiveItemModel model = new PerspectiveItemModel(registryMap.get(mrl));
+            registryMap.put(mrl, model);
+        }
+    }
+
+    @SubscribeEvent
+    public static void registerModels(ModelRegistryEvent event) {
+        MODELS.forEach(ModelLoader::addSpecialModel);
+    }
+
+    public static void addItemModel(Item item) {
+        ResourceLocation location = item.getRegistryName();
+        if (location != null) {
+            ModelResourceLocation modelName = ModelLoader.getInventoryVariant(location.toString());
+            MODELS.add(modelName);
+        }
+    }
 
     @SubscribeEvent
     public static void onClientSetUp(FMLClientSetupEvent event) {

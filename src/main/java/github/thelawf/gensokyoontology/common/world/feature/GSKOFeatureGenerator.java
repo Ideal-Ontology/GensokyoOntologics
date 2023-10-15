@@ -41,7 +41,7 @@ public class GSKOFeatureGenerator {
                     .withPlacement(Placement.COUNT_EXTRA.configure(
                             new AtSurfaceWithExtraConfig(1,0.05f, 2))));
 
-            base.add(() -> GSKOFeatures.MAGIC_TREE
+            base.add(() -> GSKOFeatures.MAGIC_FOREST_VEGETATION
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
                     .withPlacement(Placement.COUNT_EXTRA.configure(
                             new AtSurfaceWithExtraConfig(1, 0.25f, 2))));

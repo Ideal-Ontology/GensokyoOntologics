@@ -98,11 +98,18 @@
       "minecraft:ore_lapis",
       "minecraft:ore_redstone",
       "minecraft:ore_diamond",
-      "gensokyoontology:izanagi_object"
+      "gensokyoontology:izanagi_object",
+
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand"
     ],
     [],
     [],
     [
+      "minecraft:flower_default",
+      "minecraft:flower_forest",
+
       "gensokyoontology:bamboo",
       "gensokyoontology:bamboo",
       "minecraft:bamboo_vegetation",

@@ -2,7 +2,7 @@
   "depth": 0.01,
   "scale": 0.12,
   "downfall": 0.01,
-  "temperature": 0.75,
+  "temperature": 0.68,
   "category": "plains",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
@@ -48,11 +48,19 @@
       "minecraft:ore_gold",
       "minecraft:ore_lapis",
       "minecraft:ore_redstone",
-      "minecraft:ore_diamond"
+      "minecraft:ore_diamond",
+
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand"
     ],
     [],
     [],
     [
+      "minecraft:flower_default",
+      "minecraft:flower_forest",
+      "minecraft:flower_plain",
+
       "minecraft:patch_tall_grass_2",
       "minecraft:patch_grass_normal",
       "minecraft:patch_grass_plain",

@@ -2,7 +2,7 @@
   "depth": 0.01,
   "scale": 0.15,
   "downfall": 0.05,
-  "temperature": 0.68,
+  "temperature": 0.6,
   "category": "plains",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
@@ -10,10 +10,10 @@
   "precipitation": "rain",
   "surface_builder": "minecraft:grass",
   "effects": {
-    "sky_color": 7907327,
-    "fog_color": 16121854,
-    "water_color": 4364016,
-    "water_fog_color": 270131
+    "sky_color": 13881254,
+    "fog_color": 16705214,
+    "water_color": 4026065,
+    "water_fog_color": 329011
   },
   "starts": [],
   "spawners": {
@@ -99,7 +99,11 @@
       "minecraft:ore_gold",
       "minecraft:ore_lapis",
       "minecraft:ore_redstone",
-      "minecraft:ore_diamond"
+      "minecraft:ore_diamond",
+
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand"
     ],
     [],
     [],

@@ -1,6 +1,6 @@
 {
   "depth": 0.2,
-  "scale": 0.75,
+  "scale": 0.5,
   "downfall": 0.6,
   "temperature": 0.55,
   "category": "extreme_hills",
@@ -8,7 +8,7 @@
   "player_spawn_friendly": false,
   "creature_spawn_probability": 0.4,
   "precipitation": "rain",
-  "surface_builder": "minecraft:mountain",
+  "surface_builder": "minecraft:grass",
   "effects": {
     "sky_color": 7907327,
     "fog_color": 12248771,
@@ -54,10 +54,14 @@
     [],
     [],
     [
-      "gensokyoontology:sakura_tree",
-      "gensokyoontology:sakura_tree",
-      "gensokyoontology:maple_tree",
-      "gensokyoontology:maple_tree"
+      "minecraft:patch_tall_grass_2",
+      "minecraft:patch_grass_forest",
+
+      "minecraft:patch_sugar_cane",
+      "minecraft:patch_pumpkin",
+      "minecraft:pile_melon",
+
+      "gensokyoontology:beast_path_vegetation"
     ],
     []
   ],

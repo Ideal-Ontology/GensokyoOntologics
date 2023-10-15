@@ -2,7 +2,7 @@
   "depth": 0.12,
   "scale": 0.3,
   "downfall": 0.75,
-  "temperature": 0.8,
+  "temperature": 0.45,
   "category": "forest",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
@@ -13,9 +13,7 @@
     "sky_color": 9090047,
     "fog_color": 5994087,
     "water_color": 5290221,
-    "water_fog_color": 270131,
-    "grass_color": 962329,
-    "foliage_color": 1867546
+    "water_fog_color": 270131
   },
   "spawn_costs": {
     "minecraft:sheep": {
@@ -48,13 +46,20 @@
       "minecraft:ore_gold",
       "minecraft:ore_lapis",
       "minecraft:ore_redstone",
-      "minecraft:ore_diamond"
+      "minecraft:ore_diamond",
+
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand"
     ],
     [],
     [],
     [
-      "minecraft:brown_mushroom_giant",
-      "minecraft:huge_red_mushroom",
+      "minecraft:flower_default",
+      "minecraft:flower_forest",
+
+      "minecraft:patch_brown_mushroom",
+      "minecraft:patch_red_mushroom",
       "minecraft:patch_tall_grass_2",
       "minecraft:patch_grass_forest",
 
@@ -62,10 +67,9 @@
       "minecraft:patch_pumpkin",
       "minecraft:pile_melon",
 
-      "gensokyoontology:sakura_tree",
-      "gensokyoontology:magic_tree",
-      "gensokyoontology:huge_blue_mushroom",
-      "gensokyoontology:huge_purple_mushroom"
+      "gensokyoontology:magic_forest_vegetation",
+      "gensokyoontology:magic_forest_vegetation",
+      "gensokyoontology:magic_forest_vegetation"
     ],
     []
   ],
