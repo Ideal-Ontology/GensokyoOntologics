@@ -24,8 +24,8 @@ import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.jetbrains.annotations.NotNull;
 
-public class ChireidenStructure extends Structure<NoFeatureConfig> {
-    public ChireidenStructure(Codec<NoFeatureConfig> codec) {
+public class BeastPathStructure extends Structure<NoFeatureConfig> {
+    public BeastPathStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
     }
 
@@ -36,8 +36,9 @@ public class ChireidenStructure extends Structure<NoFeatureConfig> {
     }
 
     @Override
+    @NotNull
     public IStartFactory<NoFeatureConfig> getStartFactory() {
-        return ChireidenStructure.Start::new;
+        return BeastPathStructure.Start::new;
     }
 
     /** isFeaturedChunk()
@@ -98,12 +99,9 @@ public class ChireidenStructure extends Structure<NoFeatureConfig> {
             // addPieces() Method
             JigsawManager.func_242837_a(dynamicRegistry,
                     new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "chireiden/start_pool")),
+                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "beast_path/start_pool")),
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     pos, this.components, this.rand, false, true);
-
-            // int j = chunkGenerator.getSeaLevel() - this.bounds.maxY + this.bounds.getYSize() / 2 + 5;
-            // this.bounds.offset(0, 48, 0);
 
             this.components.forEach(piece -> piece.offset(0, 1, 0));
             this.components.forEach(piece -> piece.getBoundingBox().minX -= 1);

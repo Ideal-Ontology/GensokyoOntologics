@@ -78,5 +78,7 @@
   "spawners": {
 
   },
-  "starts": []
+  "starts": [
+    "gensokyoontology:beast_path"
+  ]
 }

@@ -120,6 +120,9 @@ public class GSKOWorldEvents {
             tempMap.putIfAbsent(StructureRegistry.CHIREIDEN.get(),
                     DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.CHIREIDEN.get()));
 
+            tempMap.putIfAbsent(StructureRegistry.BEAST_PATH.get(),
+                    DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.BEAST_PATH.get()));
+
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }

@@ -34,7 +34,8 @@ public class GSKOLayerUtil extends Layer {
 
 
     /** 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格 <br>
-     * Biome 数字id 的位置：{@link BiomeRegistry}
+     * Biome 数字id 的位置：{@link BiomeRegistry} <br>
+     * 原版生物群系Layer 的生成逻辑的位置： {@link LayerUtil}
      */
     public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> buildBiomes(final LongFunction<C> context, Registry<Biome> registry) {
         IAreaFactory<T> area = GenerateCommonLayer.INSTANCE.setUp(registry).apply(context.apply(1L));
