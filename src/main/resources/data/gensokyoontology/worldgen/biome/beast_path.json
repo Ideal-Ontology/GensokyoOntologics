@@ -17,9 +17,8 @@
 
   },
   "starts": [
-    "gensokyoontology:beast_pathway",
     "gensokyoontology:mystia_izakaya",
-    "gensokyoontology:cirno_ice_house"
+    "gensokyoontology:beast_pathway"
   ],
   "spawn_costs": {
     "minecraft:sheep": {

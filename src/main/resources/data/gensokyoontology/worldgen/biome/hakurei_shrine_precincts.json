@@ -111,6 +111,7 @@
     [],
     [
       "minecraft:flower_default",
+      "minecraft:flower_plain",
 
       "minecraft:patch_grass_normal",
       "minecraft:patch_grass_plain",
