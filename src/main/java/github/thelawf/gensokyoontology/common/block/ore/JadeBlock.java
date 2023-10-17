@@ -6,6 +6,6 @@ import net.minecraft.block.SoundType;
 
 public class JadeBlock extends Block {
     public JadeBlock() {
-        super(Properties.from(Blocks.DIAMOND_BLOCK).sound(SoundType.GLASS).harvestLevel(5));
+        super(Properties.from(Blocks.GLASS).sound(SoundType.GLASS).harvestLevel(5));
     }
 }

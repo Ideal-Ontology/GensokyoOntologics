@@ -23,7 +23,7 @@ import java.util.Random;
 
 public class JadeOreBlock extends OreBlock {
     public JadeOreBlock() {
-        super(Properties.from(Blocks.NETHERITE_BLOCK).harvestLevel(5));
+        super(Properties.from(Blocks.DIAMOND_BLOCK).harvestLevel(4));
     }
 
     public static ItemStack getItemToDrop(World worldIn, PlayerEntity playerIn, RegistryKey<World> dimension) {

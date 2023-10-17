@@ -58,6 +58,9 @@
     [],
     [],
     [
+      "minecraft:flower_default",
+      "minecraft:flower_plain",
+
       "minecraft:patch_tall_grass_2",
       "minecraft:patch_grass_forest",
 

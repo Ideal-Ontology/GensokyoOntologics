@@ -112,14 +112,11 @@ public class GSKOFeatureGenerator {
     }
 
     public static void generateOverworldOre(final BiomeLoadingEvent event) {
-        GSKOOreType ore = GSKOOreType.IZANAGI_OBJECT;
+        GSKOOreType ore = GSKOOreType.IZANO_OBJECT;
 
         OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
                 ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
-        ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
-                new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
 
-        // ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeOreFeature(ore, config, placement);
         ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeIzanoOreFeature(ore, config);
         event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, oreFeature);
     }
@@ -131,7 +128,7 @@ public class GSKOFeatureGenerator {
             ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
                     new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
 
-            ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeOreFeature(ore, config, placement);
+            ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeOreFeature(ore, Feature.NO_SURFACE_ORE, config, placement);
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, oreFeature);
         }
     }

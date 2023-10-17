@@ -156,7 +156,7 @@ public class GSKOFeatures {
     public static final ConfiguredFeature<?, ?> ORE_IZANAGI_OBJECT = Feature.ORE.withConfiguration(
             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
                     BlockRegistry.IZANO_OBJECT_ORE.get().getDefaultState(),
-                    GSKOOreType.IZANAGI_OBJECT.getMaxVeinSize())).withPlacement(
+                    GSKOOreType.IZANO_OBJECT.getMaxVeinSize())).withPlacement(
                             Placement.SQUARE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
     public static final ConfiguredFeature<?, ?> ORE_GENSOKYO_JADE = Feature.ORE.withConfiguration(
             new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
@@ -256,33 +256,25 @@ public class GSKOFeatures {
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CHIREIDEN.get(), CHIREIDEN);
     }
 
-    public static ConfiguredFeature<?, ?> makeOreFeature(GSKOOreType oreType, OreFeatureConfig config, ConfiguredPlacement<?> placement) {
+    public static ConfiguredFeature<?, ?> makeOreFeature(GSKOOreType oreType, Feature<OreFeatureConfig> oreFeature,
+                                                         OreFeatureConfig config, ConfiguredPlacement<?> placement) {
         return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, oreType.getLazyBlock().get().getRegistryName(),
-                Feature.ORE.withConfiguration(config).withPlacement(placement).square().count(oreType.getMaxVeinSize()));
+                oreFeature.withConfiguration(config).withPlacement(placement).square().count(oreType.getMaxVeinSize()));
     }
 
     public static ConfiguredFeature<?, ?> makeIzanoOreFeature(GSKOOreType oreType, OreFeatureConfig config) {
-        return Registry.register(WorldGenRegistries.CONFIGURED_FEATURE, oreType.getLazyBlock().get().getRegistryName(),
-                Feature.NO_SURFACE_ORE.withConfiguration(config).withPlacement(Placement.RANGE.configure(
-                        new TopSolidRangeConfig(2, 4, 20))).square().count(oreType.getMaxVeinSize()));
+        return makeOreFeature(oreType, Feature.NO_SURFACE_ORE, config, Placement.RANGE.configure(
+                new TopSolidRangeConfig(2, 4, 20))).square().count(oreType.getMaxVeinSize());
     }
 
     public static void registerOre() {
         Registry<ConfiguredFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_FEATURE;
 
-        Registry.register(registry, GSKOWGConfigs.ORE_CRIMSON_METAL.getLazyBlock().get().getRegistryName(),
-                withOreFeature(Feature.NO_SURFACE_ORE, GSKOWGConfigs.ORE_CRIMSON_ALLOY_CONFIG,
-                        GSKOWGConfigs.CRIMSON_ALLOY_PLACEMENT));
+        Registry.register(registry, GSKOOreType.CRIMSON_ALLOY.getLazyBlock().get().getRegistryName(),
+                withOreFeature(Feature.NO_SURFACE_ORE, GSKOWGConfigs.ORE_CRIMSON_ALLOY_CONFIG, GSKOWGConfigs.CRIMSON_ALLOY_PLACEMENT));
 
-        // for (GSKOOreType ore :  GSKOOreType.values()) {
-        //     OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-        //             ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
-        //     ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
-        //             new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
-//
-        //     Registry.register(registry, ore.getLazyBlock().get().getRegistryName(),
-        //             Feature.NO_SURFACE_ORE.withConfiguration(config).withPlacement(placement).square().count(ore.getMaxVeinSize()));
-        // }
+        Registry.register(registry, GSKOOreType.JADE_GENSOKYO.getLazyBlock().get().getRegistryName(),
+                withOreFeature(Feature.NO_SURFACE_ORE, GSKOWGConfigs.ORE_JADE_GENSOKYO_CONFIG, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT));
     }
 
     public static ConfiguredFeature<?, ?> withOreFeature(Feature<OreFeatureConfig> featureIn, OreFeatureConfig configIn, ConfiguredPlacement<?> placementIn) {

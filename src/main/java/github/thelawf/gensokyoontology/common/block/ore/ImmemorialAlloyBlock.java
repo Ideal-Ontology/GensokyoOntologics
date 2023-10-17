@@ -5,6 +5,6 @@ import net.minecraft.block.OreBlock;
 
 public class ImmemorialAlloyBlock extends OreBlock {
     public ImmemorialAlloyBlock() {
-        super(Properties.from(Blocks.DIAMOND_ORE).harvestLevel(4));
+        super(Properties.from(Blocks.NETHERITE_BLOCK).harvestLevel(4));
     }
 }

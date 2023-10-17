@@ -13,9 +13,13 @@ import net.minecraft.world.gen.placement.TopSolidRangeConfig;
 public class GSKOWGConfigs {
 
     public static final GSKOOreType ORE_CRIMSON_METAL = GSKOOreType.CRIMSON_ALLOY;
+    public static final GSKOOreType ORE_JADE_GENSOKYO = GSKOOreType.JADE_GENSOKYO;
     public static final OreFeatureConfig ORE_CRIMSON_ALLOY_CONFIG = getOreConfig(GSKOOreType.CRIMSON_ALLOY);
+    public static final OreFeatureConfig ORE_JADE_GENSOKYO_CONFIG = getOreConfig(GSKOOreType.JADE_GENSOKYO);
     public static final ConfiguredPlacement<TopSolidRangeConfig> CRIMSON_ALLOY_PLACEMENT = Placement.RANGE.configure(
             new TopSolidRangeConfig(ORE_CRIMSON_METAL.getMinHeight(), ORE_CRIMSON_METAL.getMinHeight(), ORE_CRIMSON_METAL.getMaxHeight()));
+    public static final ConfiguredPlacement<TopSolidRangeConfig> JADE_GENSOKYO_PLANCEMENT = Placement.RANGE.configure(
+            new TopSolidRangeConfig(ORE_JADE_GENSOKYO.getMinHeight(), ORE_JADE_GENSOKYO.getMinHeight(), ORE_JADE_GENSOKYO.getMaxHeight()));
 
     public static OreFeatureConfig getOreConfig(GSKOOreType ore) {
         return new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
