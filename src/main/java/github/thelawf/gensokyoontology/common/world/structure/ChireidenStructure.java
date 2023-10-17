@@ -32,7 +32,7 @@ public class ChireidenStructure extends Structure<NoFeatureConfig> {
     @Override
     @NotNull
     public GenerationStage.Decoration getDecorationStage() {
-        return GenerationStage.Decoration.SURFACE_STRUCTURES;
+        return GenerationStage.Decoration.UNDERGROUND_STRUCTURES;
     }
 
     @Override
@@ -67,7 +67,7 @@ public class ChireidenStructure extends Structure<NoFeatureConfig> {
         IBlockReader columnOfBlocks = chunkGenerator.func_230348_a_(centerOfChunk.getX(), centerOfChunk.getZ());
         BlockState topBlock = columnOfBlocks.getBlockState(centerOfChunk.up(landHeight));
 
-        return topBlock.getFluidState().isEmpty() && topBlock.getBlockState().equals(Blocks.STONE.getDefaultState());
+        return topBlock.getFluidState().isEmpty();
     }
 
     public static class Start extends StructureStart<NoFeatureConfig> {

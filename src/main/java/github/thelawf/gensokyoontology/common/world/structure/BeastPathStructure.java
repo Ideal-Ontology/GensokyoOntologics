@@ -68,7 +68,7 @@ public class BeastPathStructure extends Structure<NoFeatureConfig> {
         IBlockReader columnOfBlocks = chunkGenerator.func_230348_a_(centerOfChunk.getX(), centerOfChunk.getZ());
         BlockState topBlock = columnOfBlocks.getBlockState(centerOfChunk.up(landHeight));
 
-        return topBlock.getFluidState().isEmpty() && topBlock.getBlockState().equals(Blocks.STONE.getDefaultState());
+        return topBlock.getFluidState().isEmpty();
     }
 
     public static class Start extends StructureStart<NoFeatureConfig> {
@@ -99,19 +99,19 @@ public class BeastPathStructure extends Structure<NoFeatureConfig> {
             // addPieces() Method
             JigsawManager.func_242837_a(dynamicRegistry,
                     new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "beast_path/start_pool")),
+                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "beast_pathway/start_pool")),
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     pos, this.components, this.rand, false, true);
 
             this.components.forEach(piece -> piece.offset(0, 1, 0));
             this.components.forEach(piece -> piece.getBoundingBox().minX -= 1);
 
-            Vector3i structureCenter = this.getComponents().get(0).getBoundingBox().getLength();
-            int xOffset = pos.getX() - structureCenter.getX();
-            int zOffset = pos.getZ() - structureCenter.getZ();
-            for(StructurePiece structurePiece : this.components){
-                structurePiece.offset(xOffset, 0, zOffset);
-            }
+            // Vector3i structureCenter = this.getComponents().get(0).getBoundingBox().getLength();
+            // int xOffset = pos.getX() - structureCenter.getX();
+            // int zOffset = pos.getZ() - structureCenter.getZ();
+            // for(StructurePiece structurePiece : this.components){
+            //     structurePiece.offset(xOffset, 0, zOffset);
+            // }
 
             this.recalculateStructureSize();
         }

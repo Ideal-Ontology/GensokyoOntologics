@@ -127,7 +127,7 @@ public class CirnoIceHouseStructure extends Structure<NoFeatureConfig> {
             // addPieces() Method
             JigsawManager.func_242837_a(dynamicRegistry,
                     new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "mystia_izakaya/start_pool")),
+                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "cirno_ice_house/start_pool")),
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     pos, this.components, this.rand, false, true);
 

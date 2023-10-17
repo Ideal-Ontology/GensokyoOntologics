@@ -5,7 +5,6 @@ import com.google.common.collect.ImmutableSet;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKOOreType;
 import github.thelawf.gensokyoontology.common.world.feature.config.GSKOWGConfigs;
-import github.thelawf.gensokyoontology.common.world.feature.placer.MagicFoliagePlacer;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
@@ -24,8 +23,6 @@ import net.minecraft.world.gen.foliageplacer.BlobFoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
 import net.minecraft.world.gen.placement.*;
 import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
-import net.minecraft.world.gen.trunkplacer.ForkyTrunkPlacer;
-import net.minecraft.world.gen.trunkplacer.StraightTrunkPlacer;
 
 public class GSKOFeatures {
 
@@ -205,10 +202,10 @@ public class GSKOFeatures {
     public static final StructureFeature<?, ?> HAKUREI_STRUCTURE = StructureRegistry.HAKUREI_SHRINE.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static final StructureFeature<?, ?> CHIREIDEN = StructureRegistry.CHIREIDEN.get()
-            .withConfiguration(new NoFeatureConfig());
+            .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
-    public static final StructureFeature<?, ?> BEAST_PATH = StructureRegistry.BEAST_PATH.get()
-            .withConfiguration(new NoFeatureConfig());
+    public static final StructureFeature<?, ?> BEAST_PATHWAY = StructureRegistry.BEAST_PATHWAY.get()
+            .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
     public static final StructureFeature<?, ?> CIRNO_ICE_HOUSE = StructureRegistry.CIRNO_ICE_HOUSE.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
@@ -250,12 +247,12 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "hakurei_shrine"), HAKUREI_STRUCTURE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "cirno_ice_house"), CIRNO_ICE_HOUSE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "chireiden"), CHIREIDEN);
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "beast_path"), BEAST_PATH);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "beast_pathway"), BEAST_PATHWAY);
 
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.MYSTIA_IZAKAYA.get(), MYSTIA_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.HAKUREI_SHRINE.get(), HAKUREI_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CIRNO_ICE_HOUSE.get(), CIRNO_ICE_HOUSE);
-        FlatGenerationSettings.STRUCTURES.put(StructureRegistry.BEAST_PATH.get(), BEAST_PATH);
+        FlatGenerationSettings.STRUCTURES.put(StructureRegistry.BEAST_PATHWAY.get(), BEAST_PATHWAY);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CHIREIDEN.get(), CHIREIDEN);
     }
 

@@ -3,9 +3,7 @@ package github.thelawf.gensokyoontology.common.events;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
-import github.thelawf.gensokyoontology.common.world.GSKOEntityGenerator;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatureGenerator;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
@@ -120,8 +118,8 @@ public class GSKOWorldEvents {
             tempMap.putIfAbsent(StructureRegistry.CHIREIDEN.get(),
                     DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.CHIREIDEN.get()));
 
-            tempMap.putIfAbsent(StructureRegistry.BEAST_PATH.get(),
-                    DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.BEAST_PATH.get()));
+            tempMap.putIfAbsent(StructureRegistry.BEAST_PATHWAY.get(),
+                    DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.BEAST_PATHWAY.get()));
 
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }

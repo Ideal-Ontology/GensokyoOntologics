@@ -32,7 +32,7 @@ public class GSKOBiomes {
     public static final RegistryKey<Biome> GSKO_PLAINS_KEY = makeKey("gensokyo_plains");
     public static final RegistryKey<Biome> GSKO_RIVER_KEY = makeKey("gensokyo_river");
     public static final RegistryKey<Biome> HAKUREI_SHRINE_PRECINCTS_KEY = makeKey("hakurei_shrine_precincts");
-    public static final RegistryKey<Biome> BEAST_PATH_KEY = makeKey("beast_path");
+    public static final RegistryKey<Biome> BEAST_PATH_KEY = makeKey("beast_pathway");
     public static final RegistryKey<Biome> UNTRODDEN_VALLEY_KEY = makeKey("untrodden_valley");
     public static final RegistryKey<Biome> YOUKAI_JUKAI_KEY = makeKey("youkai_jukai");
     public static final RegistryKey<Biome> YOUKAI_MOUNTAIN_KEY = makeKey("youkai_mountain");

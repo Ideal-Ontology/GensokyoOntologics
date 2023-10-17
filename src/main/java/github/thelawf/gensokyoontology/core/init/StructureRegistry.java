@@ -31,8 +31,8 @@ public final class StructureRegistry {
 
     public static final RegistryObject<Structure<NoFeatureConfig>> CHIREIDEN = STRUCTURES.register(
             "chireiden", () -> new ChireidenStructure(NoFeatureConfig.CODEC));
-    public static final RegistryObject<Structure<NoFeatureConfig>> BEAST_PATH = STRUCTURES.register(
-            "beast_path", () -> new BeastPathStructure(NoFeatureConfig.CODEC));
+    public static final RegistryObject<Structure<NoFeatureConfig>> BEAST_PATHWAY = STRUCTURES.register(
+            "beast_pathway", () -> new BeastPathStructure(NoFeatureConfig.CODEC));
 
     public static final RegistryObject<Structure<NoFeatureConfig>> CIRNO_ICE_HOUSE = STRUCTURES.register(
             "cirno_ice_house", () -> new CirnoIceHouseStructure(NoFeatureConfig.CODEC));
@@ -44,8 +44,8 @@ public final class StructureRegistry {
         setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(),new StructureSeparationSettings(20, 10, 1023567897), true);
         setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(30, 20, 51392147), true);
         setupMapSpacingAndLand(CHIREIDEN.get(), new StructureSeparationSettings(80, 50, 413054656), true);
-        setupMapSpacingAndLand(CIRNO_ICE_HOUSE.get(), new StructureSeparationSettings(25, 15, 164916420), true);
-        setupMapSpacingAndLand(BEAST_PATH.get(), new StructureSeparationSettings(8, 3, 14251466),true);
+        setupMapSpacingAndLand(CIRNO_ICE_HOUSE.get(), new StructureSeparationSettings(25, 15, 64916420), true);
+        setupMapSpacingAndLand(BEAST_PATHWAY.get(), new StructureSeparationSettings(8, 3, 994251466),true);
         // setupMapSpacingAndLand(WATERFALL_NINE_HEAVEN.get(), new StructureSeparationSettings(40, 30, 95323460), true);
     }
 

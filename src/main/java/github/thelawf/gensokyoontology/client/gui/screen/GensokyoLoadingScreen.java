@@ -18,7 +18,7 @@ public class GensokyoLoadingScreen extends Screen {
     private final int height;
 
     public static final ResourceLocation GSKO_LOADING_TEXTURE = new ResourceLocation(
-            "minecraft", "textures/tileentity/chiseled_stone_bricks"
+            "minecraft", "textures/block/chiseled_stone_bricks"
     );
 
     public static final ResourceLocation INYO_JADE_TEXTURE = new ResourceLocation(
@@ -34,7 +34,9 @@ public class GensokyoLoadingScreen extends Screen {
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
-        this.minecraft.getTextureManager().bindTexture(GSKO_LOADING_TEXTURE);
+        if (this.minecraft != null) {
+            this.minecraft.getTextureManager().bindTexture(GSKO_LOADING_TEXTURE);
+        }
         float i = this.width * 0.9f;
         float j = this.height * 0.9f;
         String text = I18n.format("screen." + GensokyoOntology.MODID + ".loading");

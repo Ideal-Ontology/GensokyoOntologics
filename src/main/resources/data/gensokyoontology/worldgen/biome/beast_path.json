@@ -16,6 +16,11 @@
     "water_fog_color": 329011
 
   },
+  "starts": [
+    "gensokyoontology:beast_pathway",
+    "gensokyoontology:mystia_izakaya",
+    "gensokyoontology:cirno_ice_house"
+  ],
   "spawn_costs": {
     "minecraft:sheep": {
       "energy_budget": 0.01,
@@ -77,8 +82,5 @@
   },
   "spawners": {
 
-  },
-  "starts": [
-    "gensokyoontology:beast_path"
-  ]
+  }
 }
