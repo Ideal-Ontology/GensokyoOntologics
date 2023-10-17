@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.world.feature;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKOOreType;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
+import github.thelawf.gensokyoontology.common.world.feature.config.GSKOWGConfigs;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -117,8 +118,15 @@ public class GSKOFeatureGenerator {
         OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
                 ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
 
-        ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeIzanoOreFeature(ore, config);
-        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, oreFeature);
+        ConfiguredFeature<?, ?> izanoOreFeature = GSKOFeatures.makeIzanoOreFeature(ore, config);
+        ConfiguredFeature<?, ?> jadeOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.JADE_GENSOKYO,
+                Feature.ORE, config, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT);
+        ConfiguredFeature<?, ?> dragonSphereOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.DRAGON_SPHERE,
+                Feature.ORE, config, GSKOWGConfigs.DRAGON_SPHERE_PLACEMENT);
+
+        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, izanoOreFeature);
+        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, jadeOreFeature);
+        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, dragonSphereOreFeature);
     }
 
     public static void generateOres(final BiomeLoadingEvent event) {

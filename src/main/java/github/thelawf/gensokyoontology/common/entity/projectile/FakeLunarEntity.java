@@ -18,8 +18,7 @@ import org.jetbrains.annotations.NotNull;
 public class FakeLunarEntity extends AbstractDanmakuEntity {
 
     public static final EntityType<FakeLunarEntity> FAKE_LUNAR =
-            EntityType.Builder.<FakeLunarEntity>create(FakeLunarEntity::new,
-                            EntityClassification.MISC).size(2.8F,2.8F)
+            EntityType.Builder.<FakeLunarEntity>create(FakeLunarEntity::new, EntityClassification.MISC).size(2.8F,2.8F)
                     .trackingRange(4).updateInterval(2).build("fake_lunar");
 
     public FakeLunarEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
@@ -28,10 +27,12 @@ public class FakeLunarEntity extends AbstractDanmakuEntity {
 
     public FakeLunarEntity(LivingEntity throwerIn, World world, SpellData spellData) {
         super(FAKE_LUNAR, throwerIn, world, spellData);
+        this.damage = 10.0f;
     }
 
     public FakeLunarEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
         super(FAKE_LUNAR, throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
+        this.damage = 10.0f;
     }
 
     @Override

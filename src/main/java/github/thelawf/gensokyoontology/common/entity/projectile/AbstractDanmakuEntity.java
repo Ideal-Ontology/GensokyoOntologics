@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class AbstractDanmakuEntity extends ThrowableEntity implements IRendersAsItem {
     private int maxLivingTick = 125;
-    public float damage = 2.0f;
+    protected float damage = 2.0f;
 
     private int danmakuColor;
     public static final DataParameter<Integer> DATA_COLOR = EntityDataManager.createKey(
