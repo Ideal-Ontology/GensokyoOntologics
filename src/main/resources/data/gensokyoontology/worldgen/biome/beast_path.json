@@ -53,7 +53,16 @@
       "minecraft:ore_gold",
       "minecraft:ore_lapis",
       "minecraft:ore_redstone",
-      "minecraft:ore_diamond"
+      "minecraft:ore_diamond",
+
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+
+      "gensokyoontology:immemorial_alloy_block",
+      "gensokyoontology:dragon_sphere_ore",
+      "gensokyoontology:izano_object",
+      "gensokyoontology:jade_ore"
     ],
     [],
     [],

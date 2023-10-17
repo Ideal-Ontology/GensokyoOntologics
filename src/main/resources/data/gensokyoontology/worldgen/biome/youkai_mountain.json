@@ -50,7 +50,10 @@
       "minecraft:ore_redstone",
       "minecraft:ore_diamond",
 
-      "gensokyoontology:jade_ore"
+      "gensokyoontology:jade_ore",
+      "gensokyoontology:jade_ore",
+      "gensokyoontology:dragon_sphere_ore",
+      "gensokyoontology:immemorial_alloy_block"
     ],
     [],
     [],

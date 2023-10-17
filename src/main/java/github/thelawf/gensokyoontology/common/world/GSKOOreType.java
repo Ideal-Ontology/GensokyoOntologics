@@ -7,7 +7,7 @@ import net.minecraftforge.common.util.Lazy;
 public enum GSKOOreType {
     IZANO_OBJECT(Lazy.of(BlockRegistry.IZANO_OBJECT_ORE), 4, 10, 30),
     DRAGON_SPHERE(Lazy.of(BlockRegistry.DRAGON_SPHERE_ORE), 4, 15, 30),
-    CRIMSON_ALLOY(Lazy.of(BlockRegistry.IMMEMORIAL_ALLOY_BLOCK), 2, 3, 10),
+    IMMEMORIAL_ALLOY(Lazy.of(BlockRegistry.IMMEMORIAL_ALLOY_BLOCK), 2, 3, 10),
     JADE_GENSOKYO(Lazy.of(BlockRegistry.JADE_ORE), 8, 10, 20),
     JADE_FORMER_HELL(Lazy.of(BlockRegistry.JADE_ORE), 8, 7, 12);
 

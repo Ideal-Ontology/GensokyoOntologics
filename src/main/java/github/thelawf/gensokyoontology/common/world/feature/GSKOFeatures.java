@@ -105,18 +105,23 @@ public class GSKOFeatures {
                     HUGE_BLUE_MUSHROOM.withChance(0.025f),
                     HUGE_PURPLE_MUSHROOM.withChance(0.025f)),
                     MAGIC_TREE_BASE))
-            .withPlacement(Placement.DARK_OAK_TREE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)).square()
-            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(3, 0.9f, 3)));;
+            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
+            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(3, 0.9f, 3))).square();;
 
     public static final ConfiguredFeature<?, ?> BEAST_PATH_VEGETATION = Feature.RANDOM_SELECTOR.withConfiguration(
-                    new MultipleRandomFeatureConfig(ImmutableList.of(
-                            MAGIC_TREE_BASE.withChance(0.25f),
-                            SHINBOKU_BASE.withChance(0.35f),
-                            Features.FANCY_OAK.withChance(0.25f),
-                            Features.SPRING_DELTA.withChance(0.12f)),
-                            SHINBOKU_BASE))
+            new MultipleRandomFeatureConfig(ImmutableList.of(
+                    MAGIC_TREE_BASE.withChance(0.25f),
+                    SHINBOKU_BASE.withChance(0.35f),
+                    Features.FANCY_OAK.withChance(0.25f),
+                    Features.SPRING_DELTA.withChance(0.12f)),
+                    SHINBOKU_BASE))
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(4, 0.9f, 5)));
+
+    public static final ConfiguredFeature<?, ?> MAGIC_TREE_FOREST = Feature.TREE.withConfiguration(
+                    MAGIC_TREE_BASE.getConfig())
+            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
+            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(2, 0.95f, 3)));
 
     public static final ConfiguredFeature<?, ?> MAPLE_TREE_VEGETATION = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(
@@ -223,6 +228,8 @@ public class GSKOFeatures {
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_forest_vegetation"), MAGIC_FOREST_VEGETATION);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_vegetation"), MAPLE_TREE_VEGETATION);
+
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_tree_forest"), MAGIC_TREE_FOREST);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_mountain"), MAPLE_TREE_MOUNTAIN);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree"), SAKURA_TREE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree_hakurei_shrine"), SAKURA_TREE_HAKUREI_SHRINE);
@@ -270,11 +277,14 @@ public class GSKOFeatures {
     public static void registerOre() {
         Registry<ConfiguredFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_FEATURE;
 
-        Registry.register(registry, GSKOOreType.CRIMSON_ALLOY.getLazyBlock().get().getRegistryName(),
-                withOreFeature(Feature.NO_SURFACE_ORE, GSKOWGConfigs.ORE_CRIMSON_ALLOY_CONFIG, GSKOWGConfigs.CRIMSON_ALLOY_PLACEMENT));
+        Registry.register(registry, GSKOOreType.IMMEMORIAL_ALLOY.getLazyBlock().get().getRegistryName(),
+                withOreFeature(Feature.NO_SURFACE_ORE, GSKOWGConfigs.CRIMSON_ALLOY_CONFIG, GSKOWGConfigs.IMMEMORIAL_ALLOY_PLACEMENT));
 
         Registry.register(registry, GSKOOreType.JADE_GENSOKYO.getLazyBlock().get().getRegistryName(),
-                withOreFeature(Feature.NO_SURFACE_ORE, GSKOWGConfigs.ORE_JADE_GENSOKYO_CONFIG, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT));
+                withOreFeature(Feature.NO_SURFACE_ORE, GSKOWGConfigs.JADE_GENSOKYO_CONFIG, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT));
+
+        Registry.register(registry, GSKOOreType.DRAGON_SPHERE.getLazyBlock().get().getRegistryName(),
+                withOreFeature(Feature.NO_SURFACE_ORE, GSKOWGConfigs.DRAGON_SPHERE_CONFIG, GSKOWGConfigs.DRAGON_SPHERE_PLACEMENT));
     }
 
     public static ConfiguredFeature<?, ?> withOreFeature(Feature<OreFeatureConfig> featureIn, OreFeatureConfig configIn, ConfiguredPlacement<?> placementIn) {

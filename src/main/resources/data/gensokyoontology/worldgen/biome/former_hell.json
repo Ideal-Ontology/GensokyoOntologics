@@ -47,9 +47,11 @@
     [],
     [],
     [
-      "minecraft:ore_gold_nether",
-      "minecraft:ore_quartz_nether",
-      "minecraft:ore_gravel_nether"
+      "minecraft:disk_clay",
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand",
+
+      "gensokyoontology:immemorial_alloy_block",
     ],
     [],
     [],
