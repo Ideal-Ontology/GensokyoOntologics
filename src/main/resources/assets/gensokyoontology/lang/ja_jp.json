@@ -53,6 +53,7 @@
   "item.gensokyoontology.oblivious_tales_scarlet_mist": "Oblivious Tales: Scarlet Mist",
   "item.gensokyoontology.oblivious_tales_spring_snows": "Oblivious Tales: Spring Snows",
   "item.gensokyoontology.oblivious_tales_occult_ball": "Oblivious Tales: Occult Ball",
+  "item.gensokyoontology.oblivious_tales_imperishable_night": "Oblivious Tales: Imperishable Night",
 
   "item.gensokyoontology.crimson_alloy_ingot": "Crimson Alloy Ingot",
   "item.gensokyoontology.crimson_metal_ingot": "Crimson Metal Ingot",
@@ -475,6 +476,12 @@
   "patchouli.gensokyoontology.spell_card.sc_object_a.title": "Object a's Spell Card",
 
   "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
+
+  "patchouli.gensokyoontology.task.touhou_item.text": "Items only for crafting use.",
+  "patchouli.gensokyoontology.task.soul_tube.usage": "Right click Fox holding this item to get Kuda Gitsune Tube.",
+  "patchouli.gensokyoontology.task.kuda_gitsune_tube.usage": "Right click Ghast or Spectre holding this item to get Kuda Gitsune Tube Full. This will save the tag of either Ghast or Spectre into the item stack.",
+  "patchouli.gensokyoontology.task.gitsune_tube_full.usage": "Taken part in the Sorcery Extractor crafting.",
+
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
