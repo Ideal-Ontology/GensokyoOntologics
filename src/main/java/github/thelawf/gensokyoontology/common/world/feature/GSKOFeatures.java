@@ -15,6 +15,7 @@ import net.minecraft.fluid.Fluids;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
+import net.minecraft.world.biome.BiomeMaker;
 import net.minecraft.world.gen.FlatGenerationSettings;
 import net.minecraft.world.gen.blockplacer.SimpleBlockPlacer;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
@@ -105,23 +106,20 @@ public class GSKOFeatures {
                     HUGE_BLUE_MUSHROOM.withChance(0.025f),
                     HUGE_PURPLE_MUSHROOM.withChance(0.025f)),
                     MAGIC_TREE_BASE))
-            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
-            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(3, 0.9f, 3))).square();;
+            .withPlacement(Placement.DARK_OAK_TREE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)).square();;
 
     public static final ConfiguredFeature<?, ?> BEAST_PATH_VEGETATION = Feature.RANDOM_SELECTOR.withConfiguration(
             new MultipleRandomFeatureConfig(ImmutableList.of(
                     MAGIC_TREE_BASE.withChance(0.25f),
                     SHINBOKU_BASE.withChance(0.35f),
-                    Features.FANCY_OAK.withChance(0.25f),
-                    Features.SPRING_DELTA.withChance(0.12f)),
+                    Features.FANCY_OAK.withChance(0.25f)),
                     SHINBOKU_BASE))
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(4, 0.9f, 5)));
 
     public static final ConfiguredFeature<?, ?> MAGIC_TREE_FOREST = Feature.TREE.withConfiguration(
                     MAGIC_TREE_BASE.getConfig())
-            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
-            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(2, 0.95f, 3)));
+            .withPlacement(Placement.DARK_OAK_TREE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)).square();
 
     public static final ConfiguredFeature<?, ?> MAPLE_TREE_VEGETATION = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(

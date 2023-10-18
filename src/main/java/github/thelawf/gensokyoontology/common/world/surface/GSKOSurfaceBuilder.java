@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.world.layer;
+package github.thelawf.gensokyoontology.common.world.surface;
 
 import net.minecraft.block.BlockState;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;

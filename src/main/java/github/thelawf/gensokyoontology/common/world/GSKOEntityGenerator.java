@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.world;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.boss.dragon.EnderDragonEntity;
@@ -48,19 +49,18 @@ public class GSKOEntityGenerator {
         spawners.add(new MobSpawnInfo.Spawners(type, weight, minCount, maxCount));
     }
 
-    public static void trySpawnLilyWhite(WorldEvent.PotentialSpawns event, LilyWhiteEntity lilyWhite) {
+    public static void trySpawnLilyWhite(WorldEvent.PotentialSpawns event) {
         if (event.getWorld() instanceof ServerWorld) {
-            ServerWorld world = (ServerWorld) event.getWorld();
+            ServerWorld serverWorld = (ServerWorld) event.getWorld();
 
             Random random = new Random();
-            ResourceLocation biomeRegistryName = world.getBiome(event.getPos()).getRegistryName();
+            ResourceLocation biomeRegistryName = serverWorld.getBiome(event.getPos()).getRegistryName();
             if (random.nextInt(100) < 3 && biomeRegistryName != null) {
-                if (biomeRegistryName.equals(GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY.getRegistryName())) {
-                    world.addEntity(lilyWhite);
+                if (biomeRegistryName.equals(GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY.getRegistryName()) &&
+                        serverWorld.getEntities().noneMatch(entity -> entity.getType() == EntityRegistry.LILY_WHITE_ENTITY.get())) {
+                    event.getWorld().addEntity(new LilyWhiteEntity(LilyWhiteEntity.LILY_WHITE, (World) event.getWorld()));
                 }
             }
-
-            world.addEntity(lilyWhite);
         }
     }
 

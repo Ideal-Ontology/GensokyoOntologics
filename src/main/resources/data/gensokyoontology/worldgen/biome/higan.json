@@ -5,7 +5,7 @@
   "temperature": 0.6,
   "category": "plains",
   "temperature_modifier": "none",
-  "player_spawn_friendly": true,
+  "player_spawn_friendly": false,
   "creature_spawn_probability": 0.1,
   "precipitation": "rain",
   "surface_builder": "minecraft:grass",

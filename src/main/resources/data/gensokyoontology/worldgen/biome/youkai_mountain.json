@@ -2,7 +2,7 @@
   "depth": 3.2,
   "scale": 0.75,
   "downfall": 0.6,
-  "temperature": 0.95,
+  "temperature": 0.23,
   "category": "extreme_hills",
   "temperature_modifier": "none",
   "player_spawn_friendly": false,

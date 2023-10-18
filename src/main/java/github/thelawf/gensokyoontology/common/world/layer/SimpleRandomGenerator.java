@@ -5,6 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import java.util.ArrayList;
 import java.util.Random;
 
+@Deprecated
 public class SimpleRandomGenerator {
     ArrayList<Integer> location = new ArrayList<>();
     ArrayList<ArrayList<Integer>> locations = new ArrayList<>();
