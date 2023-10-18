@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.events;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.capability.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
@@ -10,6 +11,7 @@ import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.advancements.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -23,12 +25,14 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
@@ -57,6 +61,22 @@ public class GSKOEntityEvents {
                     event.getEntityLiving() instanceof PlayerEntity) {
                 event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.NAUSEA, 2*100));
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onAdvancementDone(TickEvent.PlayerTickEvent event) {
+        if (event.player instanceof ServerPlayerEntity) {
+            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) event.player;
+            PlayerAdvancements advancement  = serverPlayer.getAdvancements();
+            if (serverPlayer.world.getServer() == null) return;
+
+            AdvancementManager manager = serverPlayer.world.getServer().getAdvancementManager();
+            ResourceLocation location = new ResourceLocation(GensokyoOntology.MODID, "gensokyo_traveller");
+
+            if (manager.getAdvancement(location) == null) return;
+
+            AdvancementProgress progress = advancement.getProgress(manager.getAdvancement(location));
         }
     }
 
