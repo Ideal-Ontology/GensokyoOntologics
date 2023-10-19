@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.common.entity.projectile.GSKODamageSource
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.advancements.*;
@@ -26,6 +27,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
@@ -82,9 +84,13 @@ public class GSKOEntityEvents {
 
     @SubscribeEvent
     public static void onLivingEnterBiome(TickEvent.PlayerTickEvent event) {
-        if (event.player.getEntityWorld() instanceof ServerWorld) {
-            PlayerEntity player = event.player;
+        if (event.player.getEntityWorld() instanceof ServerWorld && event.player instanceof ServerPlayerEntity) {
+            ServerPlayerEntity player = (ServerPlayerEntity) event.player;
             ServerWorld serverWorld = (ServerWorld) event.player.world;
+
+            if (serverWorld.getBiome(player.getPosition()).getRegistryName() == GSKOBiomes.NAMELESS_HILL_KEY.getRegistryName()) {
+                player.addPotionEffect(new EffectInstance(Effects.POISON, 2*50));
+            }
             LazyOptional<BloodyMistCapability> cap = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
             cap.ifPresent((capability -> {
                 List<RegistryKey<Biome>> biomes = capability.getBiomes();

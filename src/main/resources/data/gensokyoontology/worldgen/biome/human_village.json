@@ -88,5 +88,7 @@
     ]
   },
   "spawners": {},
-  "starts": []
+  "starts": [
+    "gensokyoontology:human_village"
+  ]
 }

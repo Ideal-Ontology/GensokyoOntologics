@@ -127,6 +127,9 @@ public class GSKOWorldEvents {
             tempMap.putIfAbsent(StructureRegistry.BEAST_PATHWAY.get(),
                     DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.BEAST_PATHWAY.get()));
 
+            tempMap.putIfAbsent(StructureRegistry.HUMAN_VILLAGE.get(),
+                    DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.HUMAN_VILLAGE.get()));
+
             serverWorld.getChunkProvider().generator.func_235957_b_().field_236193_d_ = tempMap;
         }
     }

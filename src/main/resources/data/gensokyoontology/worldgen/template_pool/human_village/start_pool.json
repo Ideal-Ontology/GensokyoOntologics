@@ -5,7 +5,7 @@
     {
       "weight": 1,
       "element": {
-        "location": "gensokyoontology:human_village",
+        "location": "gensokyoontology:human_village_center_house",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

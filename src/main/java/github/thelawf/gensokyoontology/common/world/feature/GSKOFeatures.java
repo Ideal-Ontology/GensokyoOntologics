@@ -214,6 +214,9 @@ public class GSKOFeatures {
     public static final StructureFeature<?, ?> CIRNO_ICE_HOUSE = StructureRegistry.CIRNO_ICE_HOUSE.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
+    public static final StructureFeature<?, ?> HUMAN_VILLAGE = StructureRegistry.HUMAN_VILLAGE.get()
+            .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
+
     // public static final StructureFeature<?, ?> WATERFALL_FEATURE = StructureRegistry.WATERFALL_NINE_HEAVEN.get()
     //         .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
 
@@ -251,11 +254,13 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "cirno_ice_house"), CIRNO_ICE_HOUSE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "chireiden"), CHIREIDEN);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "beast_pathway"), BEAST_PATHWAY);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "human_village"), HUMAN_VILLAGE);
 
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.MYSTIA_IZAKAYA.get(), MYSTIA_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.HAKUREI_SHRINE.get(), HAKUREI_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CIRNO_ICE_HOUSE.get(), CIRNO_ICE_HOUSE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.BEAST_PATHWAY.get(), BEAST_PATHWAY);
+        FlatGenerationSettings.STRUCTURES.put(StructureRegistry.HUMAN_VILLAGE.get(), HUMAN_VILLAGE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CHIREIDEN.get(), CHIREIDEN);
     }
 

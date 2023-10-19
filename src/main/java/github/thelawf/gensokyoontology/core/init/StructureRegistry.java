@@ -37,6 +37,9 @@ public final class StructureRegistry {
     public static final RegistryObject<Structure<NoFeatureConfig>> CIRNO_ICE_HOUSE = STRUCTURES.register(
             "cirno_ice_house", () -> new CirnoIceHouseStructure(NoFeatureConfig.CODEC));
 
+    public static final RegistryObject<Structure<NoFeatureConfig>> HUMAN_VILLAGE = STRUCTURES.register(
+            "human_village", () -> new HumanVillageStructure(NoFeatureConfig.CODEC));
+
     // public static final RegistryObject<Structure<NoFeatureConfig>> WATERFALL_NINE_HEAVEN = STRUCTURES.register(
     //         "water_of_nine_heaven", () -> new WaterfallNineHeavenStructure(NoFeatureConfig.CODEC));
 
@@ -46,6 +49,7 @@ public final class StructureRegistry {
         setupMapSpacingAndLand(CHIREIDEN.get(), new StructureSeparationSettings(80, 50, 413054656), true);
         setupMapSpacingAndLand(CIRNO_ICE_HOUSE.get(), new StructureSeparationSettings(25, 15, 64916420), true);
         setupMapSpacingAndLand(BEAST_PATHWAY.get(), new StructureSeparationSettings(8, 3, 994251466),true);
+        setupMapSpacingAndLand(HUMAN_VILLAGE.get(), new StructureSeparationSettings(20, 10, 854694869), true);
         // setupMapSpacingAndLand(WATERFALL_NINE_HEAVEN.get(), new StructureSeparationSettings(40, 30, 95323460), true);
     }
 
