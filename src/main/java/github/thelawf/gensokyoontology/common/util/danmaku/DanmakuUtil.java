@@ -1,11 +1,13 @@
 package github.thelawf.gensokyoontology.common.util.danmaku;
 
+import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.SpellCardRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -19,9 +21,13 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Vector;
+import java.util.function.Supplier;
 
 public class DanmakuUtil {
 
@@ -53,6 +59,15 @@ public class DanmakuUtil {
 
     static {
         registerSerializer(SPELL_DATA);
+    }
+
+    public static <D extends AbstractDanmakuEntity> List<D> newDanmakuPool(Supplier<D> danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        List<D> danmakuPool = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Constructor<D> constructor = danmakuClass.getDeclaredConstructor(EntityType.class, World.class, Entity.class, DanmakuType.class, DanmakuColor.class);
+            constructor.newInstance(danmaku.get().getType(), danmaku.get().world, danmaku.get().getShooter(),danmaku.get().getDanmakuType(), danmaku.get().getDanmakuColor());
+        }
+        return danmakuPool;
     }
 
     public static <D extends AbstractDanmakuEntity> void shootDanmaku(@NotNull World worldIn, PlayerEntity playerIn,

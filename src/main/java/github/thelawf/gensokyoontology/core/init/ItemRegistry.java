@@ -1,12 +1,10 @@
 package github.thelawf.gensokyoontology.core.init;
 
-import com.mojang.serialization.codecs.KeyDispatchCodec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.item.*;
-import github.thelawf.gensokyoontology.common.item.IshiZakuraFragment;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.Butter;
 import github.thelawf.gensokyoontology.common.item.ore.*;
@@ -17,12 +15,8 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
@@ -34,7 +28,6 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
@@ -290,7 +283,7 @@ public final class ItemRegistry {
             "koishi_eye_closed", () -> new KoishiEyeClosed(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ArmorItem> KOISHI_HAT = ITEMS.register(
-            "koishi_hat", () -> new ArmorItem(GSKOArmorMaterial.EMPATHY,
+            "koishi_hat", () -> new ArmorItem(GSKOArmorMaterial.JADE,
                     EquipmentSlotType.HEAD, (new Item.Properties())));
     public static final RegistryObject<SatoriEye> SATORI_EYE = ITEMS.register(
             "satori_eye", () -> new SatoriEye(new Item.Properties()

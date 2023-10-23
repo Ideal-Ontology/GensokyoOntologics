@@ -30,3 +30,24 @@
 // east:  1, 0, 0
 // up:    0, 1, 0
 // down:  0,-1, 0
+
+“Gensokyo, a world where human and youkai live together within side by side, keeping a delicate balance. It is said that things forgotten by people from the outside world would fall into Gensokyo.”
+
+Welcome to the world of fantasy! This is a derivative work of Touhou Project. Please take it easy.
+
+Features:
+A bran new dimension: Gensokyo with its unique biomes and structures.
+Stylistic danmaku combat and spell card system.
+New ways of crafting materials and items.
+
+Getting Started:
+1. To mine a new type of ore called the izano object in the overworld.
+
+2. Craft the soul tube and the sorcery extractor by using izano objects.
+
+3. Hold the soul tube to right-click fox to get kuda gitsune tube item, hold kuda gitsune tube item right-click ghast to get gitsune tube full item.
+
+4. Slain ender man, and collect oblivious tales: occult ball to put the ender eye on sorcery extractor container to the top slot, gitsune tube full to the left slot and obvious tales: occult ball to the right slot to get occult ball.
+
+5. Right-click the occult ball item at a higher placer to start your journey in Gensokyo.
+Screen Shots
