@@ -28,12 +28,12 @@ public class SC_FullCherryBlossom extends SpellCardItem {
         if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
-        try {
-            List<SmallShotEntity> suppliers = DanmakuUtil.newDanmakuPool(() -> new SmallShotEntity(
-                    playerIn, worldIn, DanmakuType.SMALL_SHOT, DanmakuColor.RED), SmallShotEntity.class, 500);
-        } catch (ReflectiveOperationException e) {
-            throw new RuntimeException(e);
-        }
+        // try {
+        //     List<SmallShotEntity> suppliers = DanmakuUtil.newDanmakuPool(() -> new SmallShotEntity(
+        //             playerIn, worldIn, DanmakuType.SMALL_SHOT, DanmakuColor.RED), SmallShotEntity.class, 500);
+        // } catch (ReflectiveOperationException e) {
+        //     throw new RuntimeException(e);
+        // }
 
         if (worldIn instanceof ServerWorld) {
 

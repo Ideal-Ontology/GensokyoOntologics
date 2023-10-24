@@ -30,17 +30,28 @@ public class FeatureUtil {
         }
     }
 
-    private static void placeBlock(IWorldGenerationReader reader, BlockPos pos, Random random, BlockStateProvider state) {
-        BlockState leafState = state.getBlockState(random, pos);
-        reader.setBlockState(pos, leafState, 3);
+    private static void placeTrunk(IWorldGenerationReader reader, BlockPos pos, Random random, BlockStateProvider state) {
+        BlockState trunkState = state.getBlockState(random, pos);
+        reader.setBlockState(pos, trunkState, 3);
     }
 
-    public static void placeLinealTrunks(IWorldGenerationReader reader, Random random, BlockPos start, BlockStateProvider state, int width,int height) {
+    private static void placeBlock(IWorldGenerationReader reader, BlockPos pos, Random random, BlockStateProvider state) {
+        BlockState blockState = state.getBlockState(random, pos);
+        reader.setBlockState(pos, blockState, 3);
+    }
+
+    public static void placeDiagonalTrunks(IWorldGenerationReader reader, Random random, BlockPos start, BlockStateProvider state, int width, int height) {
         BlockPos end = new BlockPos(start.getX() + width, start.getY() + height,0);
         float distance = start.manhattanDistance(end);
         for (int i = 0; i < (int) distance; i++) {
             BlockPos pos = GSKOMathUtil.lerp(i / distance, start, end);
             placeBlock(reader, pos, random, state);
+        }
+    }
+
+    public static void placeStraightTruncks(IWorldGenerationReader reader, Random random, BlockPos start, BlockStateProvider state, int height) {
+        for (int i = 0; i < height; i++) {
+            placeBlock(reader, new BlockPos(start.getX(), start.getY() + i, start.getZ()), random, state);
         }
     }
 

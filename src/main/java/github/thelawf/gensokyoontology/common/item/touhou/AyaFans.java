@@ -1,11 +1,26 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.MobEntity;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
+import java.util.Random;
 
 public class AyaFans extends Item {
     public AyaFans(Properties properties) {
@@ -13,7 +28,24 @@ public class AyaFans extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World p_77659_1_, PlayerEntity p_77659_2_, Hand p_77659_3_) {
-        return super.onItemRightClick(p_77659_1_, p_77659_2_, p_77659_3_);
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+
+        AxisAlignedBB aabb = new AxisAlignedBB(playerIn.getPositionVec().subtract(new Vector3d(5,1,5)),
+                playerIn.getPositionVec().add(new Vector3d(5,10,5)));
+
+        List<LivingEntity> entities = worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb);
+
+        entities.forEach(entity -> {
+            if (playerIn.getPositionVec().distanceTo(entity.getPositionVec()) <= 5 &&
+                    entity instanceof MonsterEntity) {
+                entity.applyKnockback(12.0f, 1.D, 1.D);
+            }
+        });
+
+        Vector3d lookVec = playerIn.getLookVec();
+        worldIn.addParticle(ParticleTypes.CLOUD, false, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(),
+                lookVec.x + random.nextDouble(), lookVec.y + random.nextDouble(), lookVec.z + random.nextDouble());
+        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }

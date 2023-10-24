@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.world.feature.placer;
 
-import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import github.thelawf.gensokyoontology.common.util.FeatureUtil;
@@ -59,18 +58,22 @@ public class MagicTrunkPlacer extends AbstractTrunkPlacer {
         List<FoliagePlacer.Foliage> foliages = new ArrayList<>();
         for (int y = 0; y < this.baseHeight; y++) {
             if (y <= this.baseHeight / 2) {
-                FeatureUtil.fillEllipse(reader,startPos, random, config.trunkProvider, this.trunkWidth - y, this.trunkWidth - y);
+                FeatureUtil.placeStraightTruncks(reader, random, startPos, config.trunkProvider, baseHeight);
+
+                //FeatureUtil.fillEllipse(reader,startPos, random, config.trunkProvider, this.trunkWidth - y, this.trunkWidth - y);
             }
             else {
-                FeatureUtil.fillEllipse(reader,startPos, random, config.trunkProvider, this.trunkWidth + y - this.baseHeight / 2,
-                        this.trunkWidth + y - this.baseHeight / 2);
+                generateBranch(reader, random, startPos, trunkBlocks, bounds, config);
+                FeatureUtil.placeDiagonalTrunks(reader, random, startPos, config.trunkProvider, this.trunkWidth, baseHeight);
+                // FeatureUtil.fillEllipse(reader,startPos, random, config.trunkProvider, this.trunkWidth + y - this.baseHeight / 2,
+                //         this.trunkWidth + y - this.baseHeight / 2);
             }
         }
         foliages.add(new FoliagePlacer.Foliage(startPos.up(this.baseHeight), 0, false));
         return foliages;
     }
 
-    // private void generateBranch (IWorldGenerationReader reader, Random random, BlockPos startPos, Set<BlockPos> trunkBlocks, MutableBoundingBox bounds, BaseTreeFeatureConfig config) {
-    //     FeatureUtil.placeLinealTrunks(reader, random, startPos, config.trunkProvider, this.heightRandA, this.heightRandB);
-    // }
+    private void generateBranch(IWorldGenerationReader reader, Random random, BlockPos startPos, Set<BlockPos> trunkBlocks, MutableBoundingBox bounds, BaseTreeFeatureConfig config) {
+        FeatureUtil.placeDiagonalTrunks(reader, random, startPos, config.trunkProvider, this.trunkWidth, this.minHeight);
+    }
 }

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.world.feature.placer;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import github.thelawf.gensokyoontology.common.util.FeatureUtil;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;
@@ -30,6 +31,9 @@ public class MagicFoliagePlacer extends FoliagePlacer {
         return PlacerRegistry.MAGIC_FOLIAGE_PLACER.get();
     }
 
+    /**
+     * generateFoliage() 方法
+     */
     @Override
     protected void func_230372_a_(IWorldGenerationReader reader, Random random, BaseTreeFeatureConfig config,
                                   int trunkHeight, Foliage foliage, int foliageHeight, int radius,
@@ -37,11 +41,12 @@ public class MagicFoliagePlacer extends FoliagePlacer {
         BlockPos pos = foliage.func_236763_a_();
         this.func_236753_a_(reader, random, config, pos, foliage.func_236764_b_(), leaves, 1, foliage.func_236765_c_(), mutableBoundingBox);
         this.func_236753_a_(reader, random, config, pos, foliage.func_236764_b_() + 1, leaves, 0, foliage.func_236765_c_(), mutableBoundingBox);
+        FeatureUtil.fillEllipse(reader, pos, random, config.leavesProvider, radius, radius + offset);
     }
 
     @Override
     public int func_230374_a_(Random random, int i, BaseTreeFeatureConfig config) {
-        return 0;
+        return config.trunkPlacer.getHeight(random);
     }
 
     @Override

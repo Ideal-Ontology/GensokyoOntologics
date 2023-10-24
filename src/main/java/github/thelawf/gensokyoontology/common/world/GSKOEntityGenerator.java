@@ -55,10 +55,13 @@ public class GSKOEntityGenerator {
 
             Random random = new Random();
             ResourceLocation biomeRegistryName = serverWorld.getBiome(event.getPos()).getRegistryName();
-            if (random.nextInt(100) < 3 && biomeRegistryName != null) {
+            if (random.nextInt(100) == 0 && biomeRegistryName != null) {
                 if (biomeRegistryName.equals(GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY.getRegistryName()) &&
                         serverWorld.getEntities().noneMatch(entity -> entity.getType() == EntityRegistry.LILY_WHITE_ENTITY.get())) {
-                    event.getWorld().addEntity(new LilyWhiteEntity(LilyWhiteEntity.LILY_WHITE, (World) event.getWorld()));
+
+                    LilyWhiteEntity lilyWhite = new LilyWhiteEntity(LilyWhiteEntity.LILY_WHITE, (World) event.getWorld());
+                    lilyWhite.setPosition(event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());
+                    event.getWorld().addEntity(lilyWhite);
                 }
             }
         }

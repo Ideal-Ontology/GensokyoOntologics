@@ -23,6 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -61,11 +62,21 @@ public class DanmakuUtil {
         registerSerializer(SPELL_DATA);
     }
 
+    /**
+     * 这是个怪方法，请不要理睬（）
+     * @param <D> 弹幕实体的具体类
+     * @param danmaku 弹幕的提供器，在这里初始化弹幕
+     * @param danmakuClass 需要初始化的弹幕的类
+     * @param count 弹幕对象池的大小
+     * @return 弹幕对象池
+     * @throws IllegalAccessException 非法访问
+     */
     public static <D extends AbstractDanmakuEntity> List<D> newDanmakuPool(Supplier<D> danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         List<D> danmakuPool = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             Constructor<D> constructor = danmakuClass.getDeclaredConstructor(EntityType.class, World.class, Entity.class, DanmakuType.class, DanmakuColor.class);
-            constructor.newInstance(danmaku.get().getType(), danmaku.get().world, danmaku.get().getShooter(),danmaku.get().getDanmakuType(), danmaku.get().getDanmakuColor());
+            danmakuPool.add(constructor.newInstance(danmaku.get().getType(), danmaku.get().world,
+                    danmaku.get().getShooter(),danmaku.get().getDanmakuType(), danmaku.get().getDanmakuColor()));
         }
         return danmakuPool;
     }
@@ -318,18 +329,16 @@ public class DanmakuUtil {
     }
 
     public static List<DanmakuColor> getRainbowColoredDanmaku() {
-        List<DanmakuColor> colors = new ArrayList<>();
 
-        colors.add(DanmakuColor.RED);
-        colors.add(DanmakuColor.ORANGE);
-        colors.add(DanmakuColor.YELLOW);
-        colors.add(DanmakuColor.GREEN);
-        colors.add(DanmakuColor.AQUA);
-        colors.add(DanmakuColor.BLUE);
-        colors.add(DanmakuColor.PURPLE);
-        colors.add(DanmakuColor.MAGENTA);
-
-        return colors;
+        return Lists.newArrayList(
+                DanmakuColor.RED,
+                DanmakuColor.ORANGE,
+                DanmakuColor.YELLOW,
+                DanmakuColor.GREEN,
+                DanmakuColor.AQUA,
+                DanmakuColor.BLUE,
+                DanmakuColor.PURPLE,
+                DanmakuColor.MAGENTA);
     }
 
     public enum Plane {

@@ -13,7 +13,9 @@ import java.util.function.Supplier;
 
 public enum GSKOArmorMaterial implements IArmorMaterial {
     JADE("jade", 37, 10, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE,
-            5.0F, 0.4F, () -> Ingredient.fromItems(ItemRegistry.JADE_LEVEL_SS.get())),
+            5.0F, 0.3F, () -> Ingredient.fromItems(ItemRegistry.JADE_LEVEL_S.get())),
+    CRIMSON("crimson", 41, 12, SoundEvents.ITEM_ARMOR_EQUIP_NETHERITE, 10.0F, 1.2F,
+            () -> Ingredient.fromItems(ItemRegistry.CRIMSON_METAL_INGOT.get()))
     ;
 
     private final String name;
