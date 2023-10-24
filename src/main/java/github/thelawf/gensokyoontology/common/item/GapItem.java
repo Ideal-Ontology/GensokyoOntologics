@@ -12,6 +12,7 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 
 public class GapItem extends Item {
     public GapItem(Properties properties) {
@@ -19,6 +20,7 @@ public class GapItem extends Item {
     }
 
     @Override
+    @NotNull
     public ActionResultType onItemUse(ItemUseContext context) {
         World worldIn = context.getWorld();
         BlockPos pos = context.getPos();

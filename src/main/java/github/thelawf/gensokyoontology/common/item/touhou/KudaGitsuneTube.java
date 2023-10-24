@@ -20,7 +20,7 @@ public class KudaGitsuneTube extends Item {
 
     @Override
     @NotNull
-    public ActionResultType itemInteractionForEntity(ItemStack stack, PlayerEntity playerIn, LivingEntity target, Hand hand) {
+    public ActionResultType itemInteractionForEntity(@NotNull ItemStack stack, @NotNull PlayerEntity playerIn, @NotNull LivingEntity target, Hand hand) {
         if (target instanceof SpectreEntity) {
             stack.shrink(1);
             CompoundNBT nbt = new CompoundNBT();

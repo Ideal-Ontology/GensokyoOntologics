@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.*;
+import org.jetbrains.annotations.NotNull;
 
 public class KitchenKnife extends SwordItem {
 
@@ -26,12 +27,12 @@ public class KitchenKnife extends SwordItem {
     }
 
     @Override
-    public boolean isEnchantable(ItemStack stack) {
+    public boolean isEnchantable(@NotNull ItemStack stack) {
         return false;
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public boolean hitEntity(@NotNull ItemStack stack, @NotNull LivingEntity target, @NotNull LivingEntity attacker) {
         // 使用菜刀攻击牛可以掉落肥牛卷
         return super.hitEntity(stack, target, attacker);
     }

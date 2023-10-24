@@ -24,6 +24,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
@@ -45,7 +46,8 @@ public class MarisaHakkeiro extends Item implements IRayTraceItem {
      * @return 物品的操作结果
      */
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
 
         if (playerIn.getCooldownTracker().hasCooldown(this) && !playerIn.isCreative())
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
@@ -131,7 +133,7 @@ public class MarisaHakkeiro extends Item implements IRayTraceItem {
 
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
         tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID +
                 ".marisa_hakkeiro"));
         if (Screen.hasShiftDown()) {

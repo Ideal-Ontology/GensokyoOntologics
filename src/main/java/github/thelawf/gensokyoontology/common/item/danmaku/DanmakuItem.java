@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class DanmakuItem extends Item {
     public DanmakuItem(Properties properties) {
@@ -14,7 +15,8 @@ public class DanmakuItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
 
         if (playerIn.getHeldItem(Hand.MAIN_HAND).getItem() instanceof DanmakuItem) {
             ItemStack stack = playerIn.getHeldItem(Hand.MAIN_HAND);

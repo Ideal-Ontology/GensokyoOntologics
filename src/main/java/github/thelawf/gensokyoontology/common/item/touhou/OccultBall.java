@@ -17,6 +17,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -26,11 +27,10 @@ public class OccultBall extends Item {
     public OccultBall(Properties properties) {
         super(properties);
     }
-    private boolean canTravelToGensokyo = true;
 
     @Override
     @Nonnull
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (stack.hasTag()) {
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
@@ -47,7 +47,6 @@ public class OccultBall extends Item {
         stack.setTag(nbt);
 
         if (!worldIn.isRemote() && nbt.getBoolean("can_travel_to_gensokyo") && playerIn instanceof ServerPlayerEntity) {
-            this.canTravelToGensokyo = false;
             nbt.remove("can_travel_to_gensokyo");
             nbt.putBoolean("can_travel_to_gensokyo", false);
             stack.setTag(nbt);

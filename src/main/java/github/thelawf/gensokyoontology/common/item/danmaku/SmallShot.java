@@ -23,7 +23,7 @@ public class SmallShot extends DanmakuItem {
 
     @Override
     @NotNull
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         final String typeName = String.valueOf(this.getItem().getRegistryName());
         final String modid = GensokyoOntology.MODID + ":";
         DanmakuColor danmakuColor = DanmakuColor.NONE;

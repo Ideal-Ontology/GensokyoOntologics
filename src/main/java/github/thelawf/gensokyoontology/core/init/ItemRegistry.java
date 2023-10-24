@@ -405,7 +405,7 @@ public final class ItemRegistry {
 
     public static final RegistryObject<BurgerMeatRaw> BURGER_MEAT_RAW = ITEMS.register("burger_meat_raw", BurgerMeatRaw::new);
 
-    public static final RegistryObject<BugerMeat> BURGER_MEAT = ITEMS.register("burger_meat", BugerMeat::new);
+    public static final RegistryObject<BurgerMeat> BURGER_MEAT = ITEMS.register("burger_meat", BurgerMeat::new);
     
 
     //////////////////////////////////// 被遗忘的传说 /////////////////////////////////
