@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
@@ -45,19 +46,19 @@ public class GapBlock extends Block {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+    public void onEntityCollision(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull Entity entityIn) {
         super.onEntityCollision(state, worldIn, pos, entityIn);
         if (!worldIn.isRemote && entityIn instanceof ServerPlayerEntity) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             if (serverWorld.getTileEntity(pos) instanceof GapTileEntity) {
 
-                // 这里是获取 depatureWorld 的隙间方块实体
-                GapTileEntity depatureSukima = (GapTileEntity) serverWorld.getTileEntity(pos);
-                if (depatureSukima != null) {
-                    RegistryKey<World> destinationKey = depatureSukima.getDestinationWorld();
+                // 这里是获取 departureWorld 的隙间方块实体
+                GapTileEntity departureSukima = (GapTileEntity) serverWorld.getTileEntity(pos);
+                if (departureSukima != null) {
+                    RegistryKey<World> destinationKey = departureSukima.getDestinationWorld();
                     ServerWorld destinationWorld = serverWorld.getServer().getWorld(destinationKey);
                     ServerPlayerEntity serverPlayer = (ServerPlayerEntity) entityIn;
-                    TeleportHelper.teleport(serverPlayer, destinationWorld, pos);
+                    TeleportHelper.teleport(serverPlayer, destinationWorld, departureSukima.getDestinationPos());
                 }
             }
         }

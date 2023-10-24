@@ -81,7 +81,10 @@ public class SorceryExtractorTileEntity extends TileEntity {
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
         }
+        if (world == null) return;
+
         Optional<SorceryRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
+
 
     }
 }

@@ -64,7 +64,7 @@ public class OccultBall extends Item {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
         tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID + ".occult_ball.hint"));
         if (stack.getTag() != null && stack.getTag().contains("biome")) {
             String info = "tooltip." + GensokyoOntology.MODID + ".occult_ball.biome";

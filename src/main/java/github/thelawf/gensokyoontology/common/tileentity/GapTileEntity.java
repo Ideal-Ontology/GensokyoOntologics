@@ -12,6 +12,7 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -31,6 +32,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     }
 
     @Override
+    @NotNull
     public CompoundNBT getUpdateTag() {
         return super.getUpdateTag();
     }

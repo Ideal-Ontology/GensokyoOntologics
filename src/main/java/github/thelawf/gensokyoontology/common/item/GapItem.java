@@ -23,7 +23,7 @@ public class GapItem extends Item {
     @NotNull
     public ActionResultType onItemUse(ItemUseContext context) {
         World worldIn = context.getWorld();
-        BlockPos pos = context.getPos();
+        BlockPos pos = context.getPos().up();
 
         CompoundNBT nbt = new CompoundNBT();
         nbt.putBoolean("is_first_placement", true);
@@ -31,8 +31,8 @@ public class GapItem extends Item {
 
         if (!worldIn.isRemote && context.getPlayer() != null) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
-            RegistryKey<World> dimension = serverWorld.getDimensionKey();
-            nbt.putString("DepatureWorld", dimension.getLocation().toString());
+            RegistryKey<World> departureWorld = serverWorld.getDimensionKey();
+            nbt.putString("DepartureWorld", departureWorld.getLocation().toString());
 
             PlayerEntity player = context.getPlayer();
             ItemStack itemStack = player.getActiveItemStack();
@@ -51,9 +51,18 @@ public class GapItem extends Item {
                     GapTileEntity secondPlacedSukima = (GapTileEntity) worldIn.getTileEntity(pos);
                     GapTileEntity firstPlacedSukima = (GapTileEntity) worldIn.getTileEntity(
                             BlockPos.fromLong(nbt.getLong("FirstPos")));
+
+                    RegistryKey<World> arrivalWorld = serverWorld.getDimensionKey();
+                    nbt.putString("ArrivalWorld", arrivalWorld.getLocation().toString());
+
                     if (secondPlacedSukima != null) {
                         secondPlacedSukima.setDestinationPos(pos);
-                        secondPlacedSukima.setDestinationWorld(dimension);
+                        secondPlacedSukima.setDestinationWorld(departureWorld);
+
+                    }
+                    if (firstPlacedSukima != null) {
+                        firstPlacedSukima.setDestinationPos(BlockPos.fromLong(nbt.getLong("FirstPos")));
+                        firstPlacedSukima.setDestinationWorld(arrivalWorld);
                     }
                 }
             }

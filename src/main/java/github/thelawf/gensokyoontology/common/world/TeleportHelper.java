@@ -55,6 +55,7 @@ public class TeleportHelper {
                 return true;
             }
             else {
+                LogManager.getLogger().info("Other Condition");
                 return isValidPos(destination, pos, lowerPos, upperPos);
             }
         }
