@@ -30,15 +30,8 @@ public class KoishiEyeClosed extends Item {
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, Hand handIn) {
 
-        if (playerIn instanceof ServerPlayerEntity) {
-            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) playerIn;
-
-            if (playerIn.getCooldownTracker().hasCooldown(this))
-                return ActionResult.resultPass(playerIn.getHeldItem(handIn));
-
-            if (serverPlayer.interactionManager.getGameType() != GameType.CREATIVE)
-                playerIn.getCooldownTracker().setCooldown(this, 300);
-        }
+        if (playerIn.getCooldownTracker().hasCooldown(this) && !playerIn.isCreative())
+            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         // 获取绝对坐标
         Vector3d playerPos = playerIn.getPositionVec();
@@ -47,6 +40,7 @@ public class KoishiEyeClosed extends Item {
         if (!worldIn.isRemote) {
             for (int i = 0; i < 50; i++) {
                 Vector3d lookVec = playerIn.getLookVec().scale(i);
+
                 Vector3d posLine = new Vector3d(lookVec.x > 0 ? Vector3f.XP : Vector3f.XN);
                 Vector3d posColumn = new Vector3d(lookVec.z > 0 ? Vector3f.ZP : Vector3f.ZN);
                 Vector3d posVertical = new Vector3d(lookVec.y > 0 ? Vector3f.YP : Vector3f.YN);

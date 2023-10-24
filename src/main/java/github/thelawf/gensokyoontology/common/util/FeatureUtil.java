@@ -16,6 +16,9 @@ import java.util.Set;
 
 public class FeatureUtil {
 
+    /**
+     * Modified from Twilight Forest.
+     */
     public static void fillEllipse(IWorldGenerationReader reader, BlockPos center, Random random, BlockStateProvider state, int radiusX, int radiusZ) {
         // 遍历圆的每个坐标位置，计算当前位置到圆心的距离，判断位置是否在圆内。加0.5是为了使树叶圆形效果更好
         BlockPos.Mutable mutable = center.toMutable();
@@ -40,6 +43,7 @@ public class FeatureUtil {
         reader.setBlockState(pos, blockState, 3);
     }
 
+
     public static void placeDiagonalTrunks(IWorldGenerationReader reader, Random random, BlockPos start, BlockStateProvider state, int width, int height) {
         BlockPos end = new BlockPos(start.getX() + width, start.getY() + height,0);
         float distance = start.manhattanDistance(end);
@@ -49,7 +53,7 @@ public class FeatureUtil {
         }
     }
 
-    public static void placeStraightTruncks(IWorldGenerationReader reader, Random random, BlockPos start, BlockStateProvider state, int height) {
+    public static void placeStraightBlocks(IWorldGenerationReader reader, Random random, BlockPos start, BlockStateProvider state, int height) {
         for (int i = 0; i < height; i++) {
             placeBlock(reader, new BlockPos(start.getX(), start.getY() + i, start.getZ()), random, state);
         }
@@ -84,21 +88,5 @@ public class FeatureUtil {
         return Direction.UP;
     }
 
-    public static void genRandContour(ISeedReader reader, BlockPos pos, Set<Block> blocks,
-                                      int repetition, int step) {
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < repetition; j++) {
-                switch (i) {
-                    case 0:
-                        pos.add(step, pos.getY(), pos.getZ()+1);
-                        break;
-                    case 1:
-                        pos.add(pos.getX() + 1, pos.getY(), step);
-                        break;
-                    case 2:
-                        break;
-                }
-            }
-        }
-    }
+
 }

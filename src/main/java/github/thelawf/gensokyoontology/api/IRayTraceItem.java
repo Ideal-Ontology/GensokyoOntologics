@@ -3,9 +3,11 @@ package github.thelawf.gensokyoontology.api;
 import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.Explosion;
+import net.minecraftforge.common.extensions.IForgeItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,4 +43,5 @@ public interface IRayTraceItem {
         }
         return boxes;
     }
+
 }

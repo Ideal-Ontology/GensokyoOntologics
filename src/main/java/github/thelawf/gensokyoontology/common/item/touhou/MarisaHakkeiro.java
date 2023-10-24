@@ -47,7 +47,7 @@ public class MarisaHakkeiro extends Item implements IRayTraceItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
 
-        if (playerIn.getCooldownTracker().hasCooldown(this))
+        if (playerIn.getCooldownTracker().hasCooldown(this) && !playerIn.isCreative())
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         playerIn.getCooldownTracker().setCooldown(this, 1800);
@@ -97,29 +97,6 @@ public class MarisaHakkeiro extends Item implements IRayTraceItem {
                 worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
                         explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
             }
-//
-            //     Vector3d lookVec = playerIn.getLookVec().scale(i);
-            //     Vector3d posRow = new Vector3d(lookVec.x > 0 ? Vector3f.XP : Vector3f.XN);
-            //     Vector3d posColumn = new Vector3d(lookVec.z > 0 ? Vector3f.ZP : Vector3f.ZN);
-            //     Vector3d posVertical = new Vector3d(lookVec.y > 0 ? Vector3f.YP : Vector3f.YN);
-//
-            //     Vector3d rayPos = playerPos.add(lookVec);
-//
-            //     AxisAlignedBB aabb = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos),
-            //             GSKOMathUtil.vecCeil(rayPos));
-            //     AxisAlignedBB aabb1 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos.add(posRow)),
-            //             GSKOMathUtil.vecCeil(rayPos.add(posRow)));
-            //     AxisAlignedBB aabb2 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos.add(posColumn)),
-            //             GSKOMathUtil.vecCeil(rayPos.add(posColumn)));
-            //     AxisAlignedBB aabb3 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos.add(posVertical)),
-            //             GSKOMathUtil.vecCeil(rayPos.add(posVertical)));
-//
-            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.grow(2)));
-            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb1.grow(2)));
-            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb2.grow(2)));
-            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb3.grow(2)));
-            //
-            // }
 
             List<List<AxisAlignedBB>> boxes = getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 1.75f);
             for (List<AxisAlignedBB> aabb : boxes) {

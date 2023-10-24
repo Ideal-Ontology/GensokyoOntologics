@@ -5,4 +5,5 @@ import net.minecraft.util.math.vector.Vector3d;
 
 public interface IDanmakuBehavior {
 
+    void animateTick(int tickIn);
 }

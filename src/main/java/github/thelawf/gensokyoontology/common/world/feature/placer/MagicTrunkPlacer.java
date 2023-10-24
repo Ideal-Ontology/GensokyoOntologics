@@ -58,7 +58,7 @@ public class MagicTrunkPlacer extends AbstractTrunkPlacer {
         List<FoliagePlacer.Foliage> foliages = new ArrayList<>();
         for (int y = 0; y < this.baseHeight; y++) {
             if (y <= this.baseHeight / 2) {
-                FeatureUtil.placeStraightTruncks(reader, random, startPos, config.trunkProvider, baseHeight);
+                FeatureUtil.placeStraightBlocks(reader, random, startPos, config.trunkProvider, baseHeight);
 
                 //FeatureUtil.fillEllipse(reader,startPos, random, config.trunkProvider, this.trunkWidth - y, this.trunkWidth - y);
             }

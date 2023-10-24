@@ -29,13 +29,14 @@ public class AyaFans extends Item {
 
     @Override
     @NotNull
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+        if (playerIn.getCooldownTracker().hasCooldown(this) && !playerIn.isCreative())
+            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         AxisAlignedBB aabb = new AxisAlignedBB(playerIn.getPositionVec().subtract(new Vector3d(5,1,5)),
                 playerIn.getPositionVec().add(new Vector3d(5,10,5)));
 
         List<LivingEntity> entities = worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb);
-
         entities.forEach(entity -> {
             if (playerIn.getPositionVec().distanceTo(entity.getPositionVec()) <= 5 &&
                     entity instanceof MonsterEntity) {
