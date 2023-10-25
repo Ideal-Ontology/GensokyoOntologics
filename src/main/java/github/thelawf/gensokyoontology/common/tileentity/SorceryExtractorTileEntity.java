@@ -2,15 +2,19 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
+import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
 import github.thelawf.gensokyoontology.data.recipe.SorceryRecipe;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -19,12 +23,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
-public class SorceryExtractorTileEntity extends TileEntity {
+public class SorceryExtractorTileEntity extends TileEntity implements ITickableTileEntity {
     private final ItemStackHandler itemHandler = createItemHandler();
     private final LazyOptional<IItemHandler> optionalHandler = LazyOptional.of(() -> itemHandler);
     public static final TranslationTextComponent CONTAINER_NAME = new TranslationTextComponent("container." +
@@ -36,16 +40,29 @@ public class SorceryExtractorTileEntity extends TileEntity {
     public static INamedContainerProvider createContainer(World worldIn, BlockPos posIn) {
         return new INamedContainerProvider() {
             @Override
+            @NotNull
             public ITextComponent getDisplayName() {
                 return CONTAINER_NAME;
             }
 
-            @Nullable
             @Override
-            public Container createMenu(int winwdowId, PlayerInventory playerInventory, PlayerEntity player) {
-                return new DanmakuCraftingContainer(winwdowId, playerInventory, player);
+            public Container createMenu(int winwdowId, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
+                return new SorceryExtractorContainer(winwdowId, playerInventory, player);
             }
         };
+    }
+
+    @Override
+    public void read(@NotNull BlockState state, CompoundNBT nbt) {
+        itemHandler.deserializeNBT(nbt.getCompound("inv"));
+        super.read(state, nbt);
+    }
+
+    @Override
+    @NotNull
+    public CompoundNBT write(CompoundNBT compound) {
+        compound.put("inv", itemHandler.serializeNBT());
+        return super.write(compound);
     }
 
     private ItemStackHandler createItemHandler() {
@@ -76,7 +93,7 @@ public class SorceryExtractorTileEntity extends TileEntity {
         };
     }
 
-    public void onRecipeCraft() {
+    public void checkCraft() {
         Inventory inv = new Inventory(itemHandler.getSlots());
         for (int i = 0; i < itemHandler.getSlots(); i++) {
             inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
@@ -85,6 +102,27 @@ public class SorceryExtractorTileEntity extends TileEntity {
 
         Optional<SorceryRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
 
+        if (!recipe.isPresent()){
+            LogManager.getLogger().info("Recipe Non Exist.");
+        }
 
+        recipe.ifPresent(iRecipe -> {
+            extract();
+            itemHandler.insertItem(4, iRecipe.getRecipeOutput(), false);
+        });
+
+        markDirty();
+    }
+
+    private void extract() {
+        itemHandler.extractItem(0, 1, false);
+        itemHandler.extractItem(1, 1, false);
+        itemHandler.extractItem(2, 1, false);
+        itemHandler.extractItem(3, 1, false);
+    }
+
+    @Override
+    public void tick() {
+        checkCraft();
     }
 }

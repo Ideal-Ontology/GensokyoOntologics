@@ -39,8 +39,7 @@ public class SorceryExtractorContainer extends Container {
 
     private final IWorldPosCallable POS_CALLABLE = IWorldPosCallable.DUMMY;
 
-    private final IInventory ingredientInventory = new Inventory(4);
-    private final IInventory resultInventory = new Inventory(1);
+    private final IInventory inventory = new Inventory(5);
     public SorceryExtractorContainer(int id, PlayerInventory playerInventory, PlayerEntity player) {
         super(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(), id);
         this.player = player;
@@ -48,23 +47,19 @@ public class SorceryExtractorContainer extends Container {
 
         addPlayerInventorySlots(28, 128);
 
-        // addSlot(new Slot(this.ingredientInventory, 0, 71, 4));
-        // addSlot(new Slot(this.ingredientInventory, 1, 26, 48));
-        // addSlot(new Slot(this.ingredientInventory, 2, 116, 48));
-        // addSlot(new Slot(this.ingredientInventory, 3, 71, 93));
-
-        addIngredientSlot(this.ingredientInventory, 0, 99, 12);
-        addIngredientSlot(this.ingredientInventory, 1, 54, 56);
-        addIngredientSlot(this.ingredientInventory, 2, 145, 56);
-        addIngredientSlot(this.ingredientInventory, 3, 99, 101);
-        addResultSlot(this.resultInventory, 0, 99, 56);
+        // 顺序是上-左-右-下
+        addInventorySlot(this.inventory, 0, 99, 12);
+        addInventorySlot(this.inventory, 1, 54, 56);
+        addInventorySlot(this.inventory, 2, 145, 56);
+        addInventorySlot(this.inventory, 3, 99, 101);
+        addInventorySlot(this.inventory, 4, 99, 56);
 
     }
 
     @Override
     public void onContainerClosed(@NotNull PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);
-        this.clearContainer(playerIn, playerIn.world, this.ingredientInventory);
+        this.clearContainer(playerIn, playerIn.world, this.inventory);
     }
 
     @Override
@@ -78,30 +73,8 @@ public class SorceryExtractorContainer extends Container {
 
     }
 
-    private void addIngredientSlot(IInventory inventory, int index, int xPos, int yPos) {
-        addSlot(new Slot(inventory, index, xPos, yPos){
-            @Override
-            public void onSlotChanged() {
-                super.onSlotChanged();
-
-                for (List<ItemStack> recipe : RECIPES) {
-                    // LOGGER.info("匹配结果：{}", matches(SorceryExtractorContainer.this.ingredientInventory, recipe));
-
-                    if (matches(SorceryExtractorContainer.this.ingredientInventory, recipe)) {
-                        ItemStack stack = new ItemStack(recipe.get(recipe.size()-1).getItem());
-                        stack.setCount(1);
-                        SorceryExtractorContainer.this.resultInventory.setInventorySlotContents(0, stack);
-                    }
-                    detectAndSendChanges();
-                }
-            }
-
-            @Override
-            public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
-                SorceryExtractorContainer.this.resultInventory.setInventorySlotContents(0, ItemStack.EMPTY);
-                return super.onTake(thePlayer, stack);
-            }
-        });
+    private void addInventorySlot(IInventory inventory, int index, int xPos, int yPos) {
+        addSlot(new Slot(inventory, index, xPos, yPos));
     }
 
     private Pair<IInventory, Integer> getMinStack(IInventory inventory) {
@@ -113,22 +86,7 @@ public class SorceryExtractorContainer extends Container {
     }
 
     private void addResultSlot(IInventory inventory, int index, int xPos, int yPos) {
-        addSlot(new Slot(inventory, index, xPos, yPos){
-            @Override
-            @NotNull
-            public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
-                for (int i = 0; i < 4; i++) {
-                    SorceryExtractorContainer.this.ingredientInventory.decrStackSize(i, stack.getCount());
-                }
-                detectAndSendChanges();
-                return super.onTake(thePlayer, stack);
-            }
-
-            @Override
-            protected void onCrafting(ItemStack stack) {
-                super.onCrafting(stack);
-            }
-        });
+        addSlot(new Slot(inventory, index, xPos, yPos));
     }
 
     private boolean matches(IInventory inventory, List<ItemStack> recipes) {

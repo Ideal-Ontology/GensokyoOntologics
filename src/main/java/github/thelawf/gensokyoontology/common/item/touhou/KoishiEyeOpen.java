@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.common.entity.projectile.GSKODamageSource
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -12,6 +13,7 @@ import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -25,13 +27,12 @@ public class KoishiEyeOpen extends Item {
 
     @Override
     @NotNull
-    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
-        if (playerIn.getCooldownTracker().hasCooldown(this) && !playerIn.isCreative())
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
+        if (((ServerPlayerEntity) playerIn).interactionManager.getGameType() == GameType.SURVIVAL &&
+                playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
-        Vector3d vector3d = playerIn.getLookVec().add(playerIn.getPositionVec());
         RayTraceResult rayTraceResult = playerIn.pick(20.D, 1.0F,false);
-
         if (rayTraceResult.getType() != RayTraceResult.Type.ENTITY) return ActionResult.resultFail(playerIn.getHeldItem(handIn));
 
         EntityRayTraceResult result = (EntityRayTraceResult) rayTraceResult;

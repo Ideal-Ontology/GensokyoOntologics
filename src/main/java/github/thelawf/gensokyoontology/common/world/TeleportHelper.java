@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.world;
 
+import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.block.BlockState;
@@ -24,8 +25,10 @@ public class TeleportHelper {
                 @Override
                 public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld,
                                           float yaw, Function<Boolean, Entity> repositionEntity) {
+                    BlockPos validPos = findValidPos(destination, pos).getSecond();
+
                     entity = repositionEntity.apply(false);
-                    entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
+                    entity.setPosition(validPos.getX(), validPos.getY(), validPos.getZ());
                     return entity;
                 }
             });
@@ -56,27 +59,27 @@ public class TeleportHelper {
             }
             else {
                 LogManager.getLogger().info("Other Condition");
-                return isValidPos(destination, pos, lowerPos, upperPos);
+                return isValidPos(destination, pos);
             }
         }
         return false;
     }
 
-    public static boolean isValidPos (ServerWorld destination, BlockPos pos, BlockPos lowerPos, BlockPos upperPos) {
-        return findValidPos(destination, pos, lowerPos, upperPos) == null;
+    public static boolean isValidPos (ServerWorld destination, BlockPos pos) {
+        return findValidPos(destination, pos).getFirst();
     }
 
-    public static BlockPos findValidPos(ServerWorld destination, BlockPos pos, BlockPos lowerPos, BlockPos upperPos) {
+    public static Pair<Boolean, BlockPos> findValidPos(ServerWorld destination, BlockPos pos) {
         for (int i = 0; i < 255; i++) {
             BlockPos playerPos = new BlockPos(pos.getX(), i, pos.getZ());
-            BlockPos standPos = new BlockPos(lowerPos.getX(), i, lowerPos.getZ());
-            BlockPos eyePos = new BlockPos(upperPos.getX(), i, lowerPos.getZ());
+            BlockPos standPos = new BlockPos(pos.down().getX(), i, pos.down().getZ());
+            BlockPos eyePos = new BlockPos(pos.up().getX(), i, pos.up().getZ());
             if (!destination.getBlockState(standPos).getBlock().equals(Blocks.AIR) &&
                 destination.getBlockState(playerPos).getBlock().equals(Blocks.AIR) &&
                     destination.getBlockState(eyePos).getBlock().equals(Blocks.AIR)){
-                return playerPos;
+                return Pair.of(true, playerPos);
             }
         }
-        return null;
+        return Pair.of(false, pos);
     }
 }

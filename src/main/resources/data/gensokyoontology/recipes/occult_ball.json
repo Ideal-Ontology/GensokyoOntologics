@@ -9,6 +9,9 @@
     },
     {
       "right": "gensokyoontology:oblivious_tales_occult_ball"
+    },
+    {
+      "down": "minecraft:air"
     }
   ],
   "output": {

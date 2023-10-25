@@ -2,13 +2,18 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
+import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
+import github.thelawf.gensokyoontology.data.recipe.SorceryRecipe;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -21,6 +26,11 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Optional;
 
 public class DanmakuTabelTileEntity extends TileEntity {
     public DanmakuTabelTileEntity() {
@@ -45,6 +55,19 @@ public class DanmakuTabelTileEntity extends TileEntity {
                 return new DanmakuCraftingContainer(winwdowId, playerInventory, player);
             }
         };
+    }
+
+    @Override
+    public void read(@NotNull BlockState state, CompoundNBT nbt) {
+        itemHandler.deserializeNBT(nbt.getCompound("inv"));
+        super.read(state, nbt);
+    }
+
+    @Override
+    @NotNull
+    public CompoundNBT write(CompoundNBT compound) {
+        compound.put("inv", itemHandler.serializeNBT());
+        return super.write(compound);
     }
 
     private ItemStackHandler createItemHandler() {
@@ -91,7 +114,32 @@ public class DanmakuTabelTileEntity extends TileEntity {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return optionalHandler.cast();
         }
-
         return super.getCapability(cap);
+    }
+
+    public void checkCraft() {
+        Inventory inv = new Inventory(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
+        }
+        if (world == null) return;
+
+        Optional<SorceryRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
+
+        recipe.ifPresent(iRecipe -> {
+            craft();
+        });
+
+        markDirty();
+    }
+
+    private void craft() {
+        List<ItemStack> stacks = new ArrayList<>();
+        for (int i = 0; i < itemHandler.getSlots(); i++) {
+            stacks.add(itemHandler.getStackInSlot(i));
+        }
+        Optional<ItemStack> optional = stacks.stream().min(Comparator.comparing(ItemStack::getCount));
+        optional.ifPresent(stack1 -> itemHandler.insertItem(25, stack1, false));
+
     }
 }

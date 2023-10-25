@@ -64,6 +64,6 @@ public class SorceryRecipeCategory implements IRecipeCategory<SorceryRecipe> {
 
     @Override
     public void setRecipe(@NotNull IRecipeLayout recipeLayout, @NotNull SorceryRecipe recipe, @NotNull IIngredients ingredients) {
-        // recipeLayout.getItemStacks().init();
+        // recipeLayout.getItemStacks().init(0, ingredients.getInputs());
     }
 }

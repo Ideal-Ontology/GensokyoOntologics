@@ -36,17 +36,20 @@ public class AyaFans extends Item {
         AxisAlignedBB aabb = new AxisAlignedBB(playerIn.getPositionVec().subtract(new Vector3d(5,1,5)),
                 playerIn.getPositionVec().add(new Vector3d(5,10,5)));
 
+        Vector3d lookVec = playerIn.getLookVec();
         List<LivingEntity> entities = worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb);
+
         entities.forEach(entity -> {
             if (playerIn.getPositionVec().distanceTo(entity.getPositionVec()) <= 5 &&
                     entity instanceof MonsterEntity) {
-                entity.applyKnockback(12.0f, 1.D, 1.D);
+                entity.applyKnockback(5.0f, -lookVec.x, -lookVec.z);
             }
         });
 
-        Vector3d lookVec = playerIn.getLookVec();
-        worldIn.addParticle(ParticleTypes.CLOUD, false, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(),
-                lookVec.x + random.nextDouble(), lookVec.y + random.nextDouble(), lookVec.z + random.nextDouble());
+        for (int i = 0; i < GSKOMathUtil.randomRange(10, 30); i++) {
+            worldIn.addParticle(ParticleTypes.CLOUD, false, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(),
+                    lookVec.x + random.nextDouble(), lookVec.y + random.nextDouble(), lookVec.z + random.nextDouble());
+        }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }

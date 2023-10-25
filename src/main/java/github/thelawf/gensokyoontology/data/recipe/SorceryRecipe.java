@@ -39,21 +39,24 @@ public class SorceryRecipe implements ISorceryRecipe {
     }
 
     @Override
-    public boolean matches(IInventory inv, World worldIn) {
+    public boolean matches(@NotNull IInventory inv, @NotNull World worldIn) {
         return false;
     }
 
     @Override
-    public ItemStack getCraftingResult(IInventory inv) {
+    @NotNull
+    public ItemStack getCraftingResult(@NotNull IInventory inv) {
         return this.output;
     }
 
     @Override
+    @NotNull
     public ItemStack getRecipeOutput() {
         return this.output.copy();
     }
 
     @Override
+    @NotNull
     public ResourceLocation getId() {
         return this.id;
     }
