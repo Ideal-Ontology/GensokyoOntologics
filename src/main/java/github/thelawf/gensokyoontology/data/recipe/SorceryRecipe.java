@@ -35,12 +35,13 @@ public class SorceryRecipe implements ISorceryRecipe {
         this.down = down;
 
         this.output = output;
-        inputs = NonNullList.withSize(4, Ingredient.fromItems(up.getItem(), left.getItem(), right.getItem(), down.getItem()));
+        this.inputs = NonNullList.withSize(4, Ingredient.fromItems(up.getItem(), left.getItem(), right.getItem(), down.getItem()));
     }
 
     @Override
     public boolean matches(@NotNull IInventory inv, @NotNull World worldIn) {
-        return false;
+        return this.inputs.get(0).test(up) && this.inputs.get(1).test(left) &&
+                this.inputs.get(2).test(right) && this.inputs.get(3).test(down);
     }
 
     @Override

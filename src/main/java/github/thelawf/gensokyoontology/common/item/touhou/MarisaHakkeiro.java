@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.IRayTraceItem;
-import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -19,7 +17,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
@@ -33,7 +30,7 @@ import java.util.List;
 /**
  * 魔理沙的八卦炉
  */
-public class MarisaHakkeiro extends Item implements IRayTraceItem {
+public class MarisaHakkeiro extends Item implements IRayTraceReader {
     public MarisaHakkeiro(Properties properties) {
         super(properties);
     }
@@ -49,7 +46,7 @@ public class MarisaHakkeiro extends Item implements IRayTraceItem {
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
 
-        if (playerIn.getCooldownTracker().hasCooldown(this) && !playerIn.isCreative())
+        if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         playerIn.getCooldownTracker().setCooldown(this, 1800);
@@ -101,6 +98,7 @@ public class MarisaHakkeiro extends Item implements IRayTraceItem {
             }
 
             List<List<AxisAlignedBB>> boxes = getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 1.75f);
+
             for (List<AxisAlignedBB> aabb : boxes) {
                 entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(0)));
                 entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(1)));

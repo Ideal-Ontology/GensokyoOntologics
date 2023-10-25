@@ -65,6 +65,7 @@ public class KoishiEyeClosed extends Item {
             }
         }
 
+        playerIn.getCooldownTracker().setCooldown(this, 300);
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 

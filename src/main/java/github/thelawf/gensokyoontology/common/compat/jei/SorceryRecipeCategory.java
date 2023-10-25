@@ -16,7 +16,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class SorceryRecipeCategory implements IRecipeCategory<SorceryRecipe> {
 
-    public static final ResourceLocation UID = new ResourceLocation(GensokyoOntology.MODID, "sorcery");
+    public static final ResourceLocation UID = new ResourceLocation(GensokyoOntology.MODID, "sorcery_extract");
     public static final ResourceLocation TEXTURE = SorceryExtractorScreen.SORCERY_GUI_TEXTURE;
 
     private final IDrawable background;

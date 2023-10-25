@@ -1,26 +1,37 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.projectile.GSKODamageSource;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.command.impl.data.DataCommand;
+import net.minecraft.command.impl.data.EntityDataAccessor;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
-public class KoishiEyeOpen extends Item {
+public class KoishiEyeOpen extends Item implements IRayTraceReader {
     public KoishiEyeOpen(Properties properties) {
         super(properties);
     }
@@ -28,20 +39,36 @@ public class KoishiEyeOpen extends Item {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        if (((ServerPlayerEntity) playerIn).interactionManager.getGameType() == GameType.SURVIVAL &&
-                playerIn.getCooldownTracker().hasCooldown(this))
+        if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
-        RayTraceResult rayTraceResult = playerIn.pick(20.D, 1.0F,false);
-        if (rayTraceResult.getType() != RayTraceResult.Type.ENTITY) return ActionResult.resultFail(playerIn.getHeldItem(handIn));
+        playerIn.sendMessage(new StringTextComponent("Player In Creative Mode? -- " + playerIn.isCreative()), playerIn.getUniqueID());
+        AxisAlignedBB box = new AxisAlignedBB(playerIn.getPositionVec().subtract(new Vector3d(12,12,12)),
+                playerIn.getPositionVec().add(new Vector3d(12,12,12)));
 
-        EntityRayTraceResult result = (EntityRayTraceResult) rayTraceResult;
-        if (result.getEntity() instanceof LivingEntity) {
-            LivingEntity entity = (LivingEntity) result.getEntity();
-            entity.attackEntityFrom(GSKODamageSource.LASER, 8.0F);
-        }
+        // getSphericalTrace(worldIn, LivingEntity.class, box, 10).stream()
+        //         .filter(living -> isIntersecting(playerIn.getPositionVec(), playerIn.getLookVec(), 15F, living.getBoundingBox()))
+        //         .collect(Collectors.toList())
+        //         .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F));
 
+        Predicate<LivingEntity> predicate = living -> !(living instanceof PlayerEntity);
+        getSphericalTrace(worldIn, LivingEntity.class, predicate, box, 10).stream()
+                .filter(living -> isIntersecting(playerIn.getPositionVec(), playerIn.getLookVec(), 15F, living.getBoundingBox()))
+                .collect(Collectors.toList())
+                .forEach(living -> {
+                    living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F);
+                    Function<String, DataCommand.IDataProvider> accessor = EntityDataAccessor.DATA_PROVIDER;
+                    playerIn.sendMessage(new StringTextComponent("LivingEntity: " + living.getName()), playerIn.getUniqueID());
+                } );
+        //LogManager.getLogger().info(entities.size());
+
+        playerIn.getCooldownTracker().setCooldown(this, 100);
         return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    @Override
+    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        return super.hitEntity(stack, target, attacker);
     }
 
     @Override
