@@ -45,7 +45,6 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
         if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
-        playerIn.sendMessage(new StringTextComponent("Player In Creative Mode? -- " + playerIn.isCreative()), playerIn.getUniqueID());
         AxisAlignedBB box = new AxisAlignedBB(playerIn.getPositionVec().subtract(new Vector3d(12,12,12)),
                 playerIn.getPositionVec().add(new Vector3d(12,12,12)));
 
@@ -56,14 +55,16 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
 
         Predicate<LivingEntity> predicate = living -> !(living instanceof PlayerEntity);
         Vector3d start = playerIn.getPositionVec();
-        Vector3d end = playerIn.getLookVec().subtract(new Vector3d(0, 1, 0)).add(start);
+        Vector3d end = playerIn.getLookVec().add(start).scale(10);
         getSphericalTrace(worldIn, LivingEntity.class, predicate, box, 12F).stream()
                 .filter(living -> isIntersecting(start, end, living.getBoundingBox()))
                 .collect(Collectors.toList())
                 .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F));
-        //LogManager.getLogger().info(entities.size());
 
-        //playerIn.getCooldownTracker().setCooldown(this, 100);
+        if (playerIn.isCreative())
+            return super.onItemRightClick(worldIn, playerIn, handIn);
+
+        playerIn.getCooldownTracker().setCooldown(this, 100);
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 

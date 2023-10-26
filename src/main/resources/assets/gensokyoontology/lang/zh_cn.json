@@ -53,7 +53,7 @@
   "item.gensokyoontology.oblivious_tales_scarlet_mist": "被遗忘的传说: 红雾往事",
   "item.gensokyoontology.oblivious_tales_spring_snows": "被遗忘的传说: 春天飞雪",
   "item.gensokyoontology.oblivious_tales_occult_ball": "被遗忘的传说: 神秘珠",
-  "item.gensokyoontology.oblivious_tales_imperishable_night": "Oblivious Tales: Imperishable Night",
+  "item.gensokyoontology.oblivious_tales_imperishable_night": "被遗忘的传说: 永远之夜",
 
   "item.gensokyoontology.crimson_alloy_ingot": "绯色合金锭",
   "item.gensokyoontology.crimson_metal_ingot": "绯色金属锭",
@@ -294,6 +294,7 @@
   "description.gensokyoontology.praxis_sword_description": "§6现在，你知道了所有的故事，那么，请开始实践吧~",
 
   "death.attack.danmaku": "你被弹幕打得满身疮痍",
+  "dialog.gensokyoontology.hello": "你好（）",
 
   "effect.gensokyoontology.love_potion": "迷恋",
   "effect.gensokyoontology.hypnosis": "催眠",
@@ -378,6 +379,9 @@
   "tooltip.gensokyoontology.praxis_sword_shift": "过于OP，已被弃用",
 
   "tooltip.blank_line": "",
+
+  "tooltip.gensokyoontology.koishi_eye_open": "§7§lKoishi is watching you ~",
+
   "tooltip.gensokyoontology.marisa_hakkeiro": "§e魔理沙的强力道具，能够发出可以破坏地形的极限火花",
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗§c32个火焰弹§r和§a一个B点§r发射极限火花",
 

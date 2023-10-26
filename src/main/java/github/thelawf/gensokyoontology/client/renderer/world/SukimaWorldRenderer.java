@@ -5,28 +5,24 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.RenderTypeBuffers;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.ISkyRenderHandler;
 
 @OnlyIn(Dist.CLIENT)
-public class SukimaWorldRenderer extends WorldRenderer {
-    public SukimaWorldRenderer(Minecraft mcIn, RenderTypeBuffers rainTimeBuffersIn) {
-        super(mcIn, rainTimeBuffersIn);
-    }
+public class SukimaWorldRenderer implements ISkyRenderHandler {
 
     public static final ResourceLocation SUKIMA_SKY_TEX = new ResourceLocation(GensokyoOntology.MODID,
             "textures/environment/sukima_sky.png");
 
     @SuppressWarnings("deprecation")
-    private void renderSkyEnd(MatrixStack matrixStackIn) {
-        Minecraft mc = Minecraft.getInstance();
+    private void renderSukimaSky(MatrixStack matrixStackIn, Minecraft mc) {
         RenderSystem.disableAlphaTest();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
@@ -71,5 +67,10 @@ public class SukimaWorldRenderer extends WorldRenderer {
         RenderSystem.enableTexture();
         RenderSystem.disableBlend();
         RenderSystem.enableAlphaTest();
+    }
+
+    @Override
+    public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc) {
+        renderSukimaSky(matrixStack, mc);
     }
 }

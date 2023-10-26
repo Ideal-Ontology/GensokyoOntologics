@@ -60,15 +60,14 @@ public class CountdownStartPacket {
     public void handle(Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             int countdownTicks = this.ticks;
-            // final String reason1 = "network." + GensokyoOntology.MODID + ".disconnection.demo_end";
-            // final String reason2 = "network." + GensokyoOntology.MODID + ".disconnection.explore_later";
-            // Random random = new Random();
+            ServerPlayerEntity serverPlayer = ctx.get().getSender();
+            if (serverPlayer == null) return;
+            serverPlayer.sendMessage(new TranslationTextComponent("network."+ GensokyoOntology.MODID +
+                    ".countdown.start"), serverPlayer.getUniqueID());
 
             new Thread(() -> {
-                ServerPlayerEntity serverPlayer = ctx.get().getSender();
-                if (serverPlayer == null) return;
                 serverPlayer.sendMessage(new TranslationTextComponent("network."+ GensokyoOntology.MODID +
-                                ".countdown.start"), serverPlayer.getUniqueID());
+                                ".countdown_thread.start"), serverPlayer.getUniqueID());
                 this.entity.canUpdate(false);
                 try {
                     Thread.sleep(countdownTicks);

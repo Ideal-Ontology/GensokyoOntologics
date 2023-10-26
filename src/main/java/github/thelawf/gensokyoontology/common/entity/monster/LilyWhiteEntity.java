@@ -3,6 +3,8 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.ISpellCardUser;
+import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
+import github.thelawf.gensokyoontology.api.dialog.IConversationalEntity;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.BossBattleGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.LilyWhiteBossBattleGoal;
 import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
@@ -27,7 +29,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class LilyWhiteEntity extends TameableEntity implements IAngerable, ISpellCardUser {
+public class LilyWhiteEntity extends TameableEntity implements IAngerable, ISpellCardUser, IConversationalEntity {
     public static final EntityType<LilyWhiteEntity> LILY_WHITE = EntityType.Builder.create(
                     LilyWhiteEntity::new, EntityClassification.CREATURE).updateInterval(2)
             .size(0.6f, 1.5f).trackingRange(10).build("lily_white");
@@ -113,5 +115,10 @@ public class LilyWhiteEntity extends TameableEntity implements IAngerable, ISpel
     @Override
     public void func_230258_H__() {
 
+    }
+    @Override
+    public DialogTreeNode getNextDialog(int optionIndex) {
+        return optionIndex == 0 ? new DialogTreeNode("root").accessBranch(optionIndex) :
+                new DialogTreeNode("root");
     }
 }

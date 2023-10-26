@@ -8,6 +8,7 @@ import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -41,7 +42,8 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         if (!worldIn.isRemote() && stack.getOrCreateTag().getLong("cooldown") < worldIn.getGameTime()) {
@@ -63,7 +65,6 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
                     LivingEntity living = (LivingEntity) entity;
                     speed.set(living.getAIMoveSpeed());
                     living.setAIMoveSpeed(0);
-
                 }
             });
 
@@ -73,11 +74,7 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
                     entities.forEach(entity -> {
                         if (entity instanceof ProjectileEntity) {
                             entity.setNoGravity(false);
-                            entity.setMotion(
-                                    vector3d.get().x,
-                                    vector3d.get().y,
-                                    vector3d.get().z);
-
+                            entity.setMotion(vector3d.get().x, vector3d.get().y, vector3d.get().z);
                             entity.velocityChanged = true;
                         }
                         else if (entity instanceof LivingEntity && !(entity instanceof PlayerEntity)) {
@@ -102,8 +99,8 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
             playerIn.sendMessage(new StringTextComponent("和实体发生了互动"), playerIn.getUniqueID());
 
             target.canUpdate(false);
-            CountDownNetworking.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(
-                    () -> target), new CountdownStartPacket(200, target, serverWorld.getDimensionKey()));
+            CountDownNetworking.INSTANCE.send(PacketDistributor.PLAYER.with(
+                    () -> (ServerPlayerEntity) playerIn), new CountdownStartPacket(200, target, serverWorld.getDimensionKey()));
         }
         return super.itemInteractionForEntity(stack, playerIn, target, hand);
     }

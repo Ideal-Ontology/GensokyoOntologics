@@ -293,7 +293,8 @@
   "description.gensokyoontology.idealism_sword_description": "Cause 12 damage each tick",
   "description.gensokyoontology.praxis_sword_description": "§6Go into Praxis, man ~",
 
-  "death.attack.danmaku": "Player is get",
+  "death.attack.danmaku": "Player is killed by danmaku",
+  "dialog.gensokyoontology.hello": "おはよう～",
 
   "effect.gensokyoontology.love_potion": "Love Effect",
   "effect.gensokyoontology.hypnosis": "Hypnosis",
@@ -378,6 +379,9 @@
   "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality.",
 
   "tooltip.blank_line": "",
+
+  "tooltip.gensokyoontology.koishi_eye_open": "§7§lKoishi is watching you ~",
+
   "tooltip.gensokyoontology.marisa_hakkeiro": "§eMarisa's powerful item",
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "Spend§c32 Fire Charges§r and§a 1 Bomb§r to generate Master Spark on right click",
 
