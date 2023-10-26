@@ -105,6 +105,12 @@ public interface IRayTraceReader {
         return (!(tMin > tzMax)) && (!(tzMin > tMax));
     }
 
+    default boolean isIntersecting(Vector3d start, Vector3d end, AxisAlignedBB aabb) {
+        return isIntersecting(start, end,
+                new Vector3d(aabb.minX, aabb.minY, aabb.minZ),
+                new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
+    }
+
     default boolean isIntersecting(Vector3d start, Vector3d direction, double distance, AxisAlignedBB aabb) {
         return isIntersecting(start, start.add(direction).scale(distance),
                 new Vector3d(aabb.minX, aabb.minY, aabb.minZ),

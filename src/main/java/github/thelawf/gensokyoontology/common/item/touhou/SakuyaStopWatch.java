@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.common.network.CountDownNetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CountdownStartPacket;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,12 +11,16 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.fml.network.PacketDistributor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Timer;
@@ -33,17 +39,7 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
-        if (!worldIn.isRemote) {
-            ServerWorld serverWorld = (ServerWorld) worldIn;
-            BlockPos playerPos = playerIn.getPosition();
-            getSphericalTrace(worldIn, LivingEntity.class, playerIn.getBoundingBox().grow(8), 10F).forEach(
-                    living -> {
-                        CompoundNBT nbt = new CompoundNBT();
-                        nbt.putBoolean("NoAI", true);
-                        living.writeAdditional(nbt);
-                    });
-        }
-        /*
+
         if (!worldIn.isRemote() && stack.getOrCreateTag().getLong("cooldown") < worldIn.getGameTime()) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             BlockPos playerPos = playerIn.getPosition();
@@ -87,9 +83,26 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
                     });
                 }
             }, 5000);
-        }*/
+        }
         stack.getOrCreateTag().putLong("cooldown", worldIn.getGameTime() + 6000);
         playerIn.getCooldownTracker().setCooldown(stack.getItem(), 6000);
         return ActionResult.resultPass(stack);
+    }
+
+    @Override
+    @NotNull
+    public ActionResultType itemInteractionForEntity(@NotNull ItemStack stack, PlayerEntity playerIn, @NotNull LivingEntity target, @NotNull Hand hand) {
+
+        if (!playerIn.getEntityWorld().isRemote) {
+            ServerWorld serverWorld = (ServerWorld) playerIn.getEntityWorld();
+            playerIn.sendMessage(new StringTextComponent("和实体发生了互动"), playerIn.getUniqueID());
+
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putBoolean("NoAI", true);
+            target.writeAdditional(nbt);
+            CountDownNetworking.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(
+                    () -> target), new CountdownStartPacket(200, target, serverWorld.getDimensionKey()));
+        }
+        return super.itemInteractionForEntity(stack, playerIn, target, hand);
     }
 }

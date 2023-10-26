@@ -1,16 +1,13 @@
 package github.thelawf.gensokyoontology.common.command;
 
 import com.google.common.collect.ImmutableList;
-import com.mojang.brigadier.Command;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
-import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import github.thelawf.gensokyoontology.common.network.GSKODemoNetworking;
+import github.thelawf.gensokyoontology.common.network.CountDownNetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CountdownStartPacket;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.fml.network.PacketDistributor;
 
 public class GSKOCommand {
@@ -38,7 +35,7 @@ public class GSKOCommand {
 
     private static int execute(CommandSource source, String cmdIn) throws CommandSyntaxException {
         if (!source.getWorld().isRemote && cmdIn.equals("startCountDown")) {
-            GSKODemoNetworking.KICK_PLAYER.send(PacketDistributor.PLAYER.with(
+            CountDownNetworking.INSTANCE.send(PacketDistributor.PLAYER.with(
                     () -> {
                         try {
                             return source.asPlayer();
