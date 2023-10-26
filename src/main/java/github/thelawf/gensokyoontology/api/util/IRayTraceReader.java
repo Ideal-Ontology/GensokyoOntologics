@@ -61,6 +61,14 @@ public interface IRayTraceReader {
         }
     }
 
+    /**
+     * 计算线段与方形碰撞箱是否相交的检测函数
+     * @param start 线段起点
+     * @param end 线段终点
+     * @param boxMin 碰撞箱所有顶点中的最小坐标
+     * @param boxMax 碰撞箱所有顶点中的最大坐标
+     * @return 是否相交
+     */
     default boolean isIntersecting(Vector3d start, Vector3d end, Vector3d boxMin, Vector3d boxMax) {
         // 计算射线的参数
         double tMin = (boxMin.x - start.x) / (end.x - start.x);
@@ -105,18 +113,41 @@ public interface IRayTraceReader {
         return (!(tMin > tzMax)) && (!(tzMin > tMax));
     }
 
+    /**
+     * 计算线段与方形碰撞箱是否相交的检测函数。
+     * @param start 线段起点
+     * @param end 线段终点
+     * @param aabb 碰撞箱
+     * @return 是否相交
+     */
     default boolean isIntersecting(Vector3d start, Vector3d end, AxisAlignedBB aabb) {
         return isIntersecting(start, end,
                 new Vector3d(aabb.minX, aabb.minY, aabb.minZ),
                 new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
     }
 
+    /**
+     * 计算线段与方形碰撞箱是否相交的检测函数。
+     * @param start 线段起点
+     * @param direction 玩家视线看向的方向
+     * @param distance 向玩家视线方向延伸的长度
+     * @param aabb 碰撞箱
+     * @return 是否相交
+     */
     default boolean isIntersecting(Vector3d start, Vector3d direction, double distance, AxisAlignedBB aabb) {
         return isIntersecting(start, start.add(direction).scale(distance),
                 new Vector3d(aabb.minX, aabb.minY, aabb.minZ),
                 new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
     }
 
+    /**
+     * 以传入的碰撞箱体的中心为圆心，获取所有位于这个球形的碰撞区域以内的生物。
+     * @param worldIn 世界
+     * @param entityClass 生物的类
+     * @param radius 球形的半径
+     * @param aabb 碰撞箱
+     * @return 位于球形碰撞箱内的生物的列表
+     */
     default <T extends Entity> List<T> getSphericalTrace(World worldIn, Class<? extends T> entityClass,
                                                          AxisAlignedBB aabb, float radius) {
         return worldIn.getEntitiesWithinAABB(entityClass, aabb).stream()
@@ -124,6 +155,15 @@ public interface IRayTraceReader {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 以传入的碰撞箱体的中心为圆心，获取所有位于这个球形的碰撞区域以内，以及同时满足其它条件的生物。
+     * @param worldIn 世界
+     * @param entityClass 生物的类
+     * @param radius 球形的半径
+     * @param predicate 其它必要条件
+     * @param aabb 碰撞箱
+     * @return 位于球形碰撞箱内且满足其它条件的所有生物的列表
+     */
     default <T extends Entity> List<T> getSphericalTrace(World worldIn, Class<? extends T> entityClass,
                                                          Predicate<? super T> predicate, AxisAlignedBB aabb, float radius) {
         return worldIn.getEntitiesWithinAABB(entityClass, aabb).stream()

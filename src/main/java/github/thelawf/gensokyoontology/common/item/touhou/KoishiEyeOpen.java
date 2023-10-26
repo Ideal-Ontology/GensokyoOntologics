@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.projectile.GSKODamageSource;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.command.impl.data.DataCommand;
 import net.minecraft.command.impl.data.EntityDataAccessor;
@@ -20,6 +22,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
@@ -52,28 +55,23 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
         //         .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F));
 
         Predicate<LivingEntity> predicate = living -> !(living instanceof PlayerEntity);
+        Vector3d start = playerIn.getPositionVec();
+        Vector3d end = playerIn.getLookVec().subtract(new Vector3d(0, 1, 0)).add(start);
         getSphericalTrace(worldIn, LivingEntity.class, predicate, box, 12F).stream()
-                .filter(living -> isIntersecting(playerIn.getPositionVec(), playerIn.getLookVec().scale(10), living.getBoundingBox()))
+                .filter(living -> isIntersecting(start, end, living.getBoundingBox()))
                 .collect(Collectors.toList())
-                .forEach(living -> {
-                    living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F);
-                    Function<String, DataCommand.IDataProvider> accessor = EntityDataAccessor.DATA_PROVIDER;
-                    playerIn.sendMessage(new StringTextComponent("LivingEntity: " + living.getName()), playerIn.getUniqueID());
-                } );
+                .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F));
         //LogManager.getLogger().info(entities.size());
 
-        playerIn.getCooldownTracker().setCooldown(this, 100);
+        //playerIn.getCooldownTracker().setCooldown(this, 100);
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        return super.hitEntity(stack, target, attacker);
-    }
-
-    @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        // tooltip.add(new TranslationTextComponent("tooltip."+ GensokyoOntology.MODID +".koishi_eye_open"));
+        if (Screen.hasShiftDown()) {
+            tooltip.add(new TranslationTextComponent("tooltip."+ GensokyoOntology.MODID +".koishi_eye_open"));
+        }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 }

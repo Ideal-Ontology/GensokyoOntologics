@@ -15,32 +15,38 @@ import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.*;
+import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.client.world.DimensionRenderInfo;
 import net.minecraft.item.Item;
-import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.SeparatePerspectiveModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GensokyoOntology.MODID, value = Dist.CLIENT)
-public class ClientEventHandler {
+public class GSKOClientEvents {
+
+    public static int TIMER = 0;
 
     private static final List<ModelResourceLocation> MODELS = Lists.newArrayList();
     @SubscribeEvent
@@ -68,6 +74,37 @@ public class ClientEventHandler {
             ModelResourceLocation modelName = ModelLoader.getInventoryVariant(location.toString());
             MODELS.add(modelName);
         }
+    }
+
+    @SubscribeEvent
+    public static void onRenderTick(TickEvent.RenderTickEvent event) {
+        if (event.phase == TickEvent.Phase.START) {
+            Minecraft minecraft = Minecraft.getInstance();
+
+            // only fire if we're in the twilight forest
+            if (minecraft.world != null && GSKODimensions.GENSOKYO.getRegistryName().equals(
+                    minecraft.world.getDimensionKey().getLocation())) {
+                if (minecraft.ingameGUI != null) {
+                    minecraft.ingameGUI.prevVignetteBrightness = 0.0F;
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) return;
+        TIMER++;
+
+        Minecraft mc = Minecraft.getInstance();
+        float partial = mc.getRenderPartialTicks();
+
+        // DimensionRenderInfo info = DimensionRenderInfo.field_239208_a_.get(new ResourceLocation(GensokyoOntology.MODID, "render"));
+    }
+
+    @SubscribeEvent
+    public static void onRenderWorldLast(RenderWorldLastEvent event) {
+
     }
 
     @SubscribeEvent

@@ -3,6 +3,8 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.network.CountDownNetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CountdownStartPacket;
+import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,9 +21,12 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 
+import javax.swing.text.JTextComponent;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -38,7 +43,6 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-
 
         if (!worldIn.isRemote() && stack.getOrCreateTag().getLong("cooldown") < worldIn.getGameTime()) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
@@ -97,9 +101,7 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
             ServerWorld serverWorld = (ServerWorld) playerIn.getEntityWorld();
             playerIn.sendMessage(new StringTextComponent("和实体发生了互动"), playerIn.getUniqueID());
 
-            CompoundNBT nbt = new CompoundNBT();
-            nbt.putBoolean("NoAI", true);
-            target.writeAdditional(nbt);
+            target.canUpdate(false);
             CountDownNetworking.INSTANCE.send(PacketDistributor.TRACKING_ENTITY.with(
                     () -> target), new CountdownStartPacket(200, target, serverWorld.getDimensionKey()));
         }
