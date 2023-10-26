@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
+import net.minecraft.command.impl.data.DataCommand;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -65,8 +66,6 @@ public class AyaFans extends Item implements IRayTraceReader {
         AxisAlignedBB box = new AxisAlignedBB(playerIn.getPositionVec().subtract(new Vector3d(12,12,12)),
                 playerIn.getPositionVec().add(new Vector3d(12,12,12)));
 
-        // worldIn.getEntitiesInAABBexcluding(null, box, entity -> playerIn.getPositionVec().distanceTo(entity.getPositionVec()) <= 12);
-
         getSphericalTrace(worldIn, ProjectileEntity.class, box, 12).forEach(projectile ->
                 applyProjectileKnockback(projectile, 3.0f, -lookVec.x, -lookVec.z));
 
@@ -80,7 +79,7 @@ public class AyaFans extends Item implements IRayTraceReader {
     private void applyProjectileKnockback(ProjectileEntity projectile, float strength, double ratioX, double ratioZ) {
         if (!(strength <= 0.0F)) {
             Vector3d vector3d = projectile.getMotion();
-            Vector3d vector3d1 = (new Vector3d(ratioX, 0.0D, ratioZ)).normalize().scale((double)strength);
+            Vector3d vector3d1 = (new Vector3d(ratioX, 0.0D, ratioZ)).normalize().scale(strength);
             projectile.setMotion(vector3d.x / 2.0D - vector3d1.x, projectile.isOnGround() ? Math.min(0.4D, vector3d.y / 2.0D + (double)strength) : vector3d.y, vector3d.z / 2.0D - vector3d1.z);
         }
     }

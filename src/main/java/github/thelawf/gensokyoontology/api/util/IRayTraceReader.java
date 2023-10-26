@@ -106,7 +106,7 @@ public interface IRayTraceReader {
     }
 
     default boolean isIntersecting(Vector3d start, Vector3d direction, double distance, AxisAlignedBB aabb) {
-        return isIntersecting(start, start.add(direction).normalize().scale(distance),
+        return isIntersecting(start, start.add(direction).scale(distance),
                 new Vector3d(aabb.minX, aabb.minY, aabb.minZ),
                 new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
     }

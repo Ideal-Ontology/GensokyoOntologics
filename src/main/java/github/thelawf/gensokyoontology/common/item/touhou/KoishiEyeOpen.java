@@ -52,8 +52,8 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
         //         .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F));
 
         Predicate<LivingEntity> predicate = living -> !(living instanceof PlayerEntity);
-        getSphericalTrace(worldIn, LivingEntity.class, predicate, box, 10).stream()
-                .filter(living -> isIntersecting(playerIn.getPositionVec(), playerIn.getLookVec(), 15F, living.getBoundingBox()))
+        getSphericalTrace(worldIn, LivingEntity.class, predicate, box, 12F).stream()
+                .filter(living -> isIntersecting(playerIn.getPositionVec(), playerIn.getLookVec().scale(10), 15F, living.getBoundingBox()))
                 .collect(Collectors.toList())
                 .forEach(living -> {
                     living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F);

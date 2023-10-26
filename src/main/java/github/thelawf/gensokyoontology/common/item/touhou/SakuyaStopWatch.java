@@ -1,11 +1,13 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -22,15 +24,26 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * 咲夜的怀表物品
  */
-public class SakuyaStopWatch extends Item {
+public class SakuyaStopWatch extends Item implements IRayTraceReader {
     public SakuyaStopWatch(Properties properties) {
         super(properties);
     }
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack stack = playerIn.getHeldItemMainhand();
+        ItemStack stack = playerIn.getHeldItem(handIn);
 
+        if (!worldIn.isRemote) {
+            ServerWorld serverWorld = (ServerWorld) worldIn;
+            BlockPos playerPos = playerIn.getPosition();
+            getSphericalTrace(worldIn, LivingEntity.class, playerIn.getBoundingBox().grow(8), 10F).forEach(
+                    living -> {
+                        CompoundNBT nbt = new CompoundNBT();
+                        nbt.putBoolean("NoAI", true);
+                        living.writeAdditional(nbt);
+                    });
+        }
+        /*
         if (!worldIn.isRemote() && stack.getOrCreateTag().getLong("cooldown") < worldIn.getGameTime()) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             BlockPos playerPos = playerIn.getPosition();
@@ -74,11 +87,9 @@ public class SakuyaStopWatch extends Item {
                     });
                 }
             }, 5000);
-
-            stack.getOrCreateTag().putLong("cooldown", worldIn.getGameTime() + 6000);
-            playerIn.getCooldownTracker().setCooldown(stack.getItem(), 6000);
-            return ActionResult.resultSuccess(stack);
-        }
-        return ActionResult.resultFail(stack);
+        }*/
+        stack.getOrCreateTag().putLong("cooldown", worldIn.getGameTime() + 6000);
+        playerIn.getCooldownTracker().setCooldown(stack.getItem(), 6000);
+        return ActionResult.resultPass(stack);
     }
 }

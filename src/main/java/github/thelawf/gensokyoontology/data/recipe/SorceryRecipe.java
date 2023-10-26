@@ -13,6 +13,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistryEntry;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,6 +41,7 @@ public class SorceryRecipe implements ISorceryRecipe {
 
     @Override
     public boolean matches(@NotNull IInventory inv, @NotNull World worldIn) {
+        LogManager.getLogger().info("Match Checking!");
         return this.inputs.get(0).test(up) && this.inputs.get(1).test(left) &&
                 this.inputs.get(2).test(right) && this.inputs.get(3).test(down);
     }
@@ -87,10 +89,10 @@ public class SorceryRecipe implements ISorceryRecipe {
             ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
             JsonArray ingredients = JSONUtils.getJsonArray(json, "ingredients");
 
-            ItemStack upStack = JSONUtils.getItem(json, "up").getDefaultInstance();
-            ItemStack leftStack = JSONUtils.getItem(json, "left").getDefaultInstance();
-            ItemStack rightStack = JSONUtils.getItem(json, "right").getDefaultInstance();
-            ItemStack downStack = JSONUtils.getItem(json, "down").getDefaultInstance();
+            ItemStack upStack = JSONUtils.getItem(ingredients, "up").getDefaultInstance();
+            ItemStack leftStack = JSONUtils.getItem(ingredients, "left").getDefaultInstance();
+            ItemStack rightStack = JSONUtils.getItem(ingredients, "right").getDefaultInstance();
+            ItemStack downStack = JSONUtils.getItem(ingredients, "down").getDefaultInstance();
 
             return new SorceryRecipe(recipeId, output, upStack, leftStack, rightStack, downStack);
         }
