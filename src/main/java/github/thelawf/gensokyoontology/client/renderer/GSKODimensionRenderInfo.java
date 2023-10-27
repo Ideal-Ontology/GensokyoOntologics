@@ -6,13 +6,14 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ISkyRenderHandler;
+import net.minecraftforge.common.ForgeMod;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class GSKODimensionRenderInfo extends DimensionRenderInfo {
-    public GSKODimensionRenderInfo(float p_i241259_1_, boolean p_i241259_2_, FogType fogType, boolean p_i241259_4_, boolean p_i241259_5_) {
-        super(p_i241259_1_, p_i241259_2_, fogType, p_i241259_4_, p_i241259_5_);
+    public GSKODimensionRenderInfo(float couldHeight, boolean placebo, FogType fogType, boolean brightenLightMap, boolean entityLightingBottomsLit) {
+        super(couldHeight, placebo, fogType, brightenLightMap, entityLightingBottomsLit);
     }
 
     @Override

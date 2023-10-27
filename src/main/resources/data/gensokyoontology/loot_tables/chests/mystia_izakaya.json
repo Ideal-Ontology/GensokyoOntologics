@@ -49,7 +49,19 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "gensokyoontology:oblivious_tales_spring_snows"
+          "name": "gensokyoontology:oblivious_tales_imperishable_night",
+          "functions": [
+            {
+              "function": "minecraft:set_count",
+              "count": 1
+            }
+          ],
+          "conditions": [
+            {
+              "condition": "minecraft:random_chance",
+              "chance": 0.333333
+            }
+          ]
         }
       ]
     }

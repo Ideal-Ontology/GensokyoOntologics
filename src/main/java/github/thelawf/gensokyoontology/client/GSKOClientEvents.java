@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.LilyWhiteModel;
 import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
+import github.thelawf.gensokyoontology.client.renderer.GSKODimensionRenderInfo;
 import github.thelawf.gensokyoontology.client.renderer.entity.*;
 import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
@@ -45,8 +46,6 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GensokyoOntology.MODID, value = Dist.CLIENT)
 public class GSKOClientEvents {
-
-    public static int TIMER = 0;
 
     private static final List<ModelResourceLocation> MODELS = Lists.newArrayList();
     @SubscribeEvent

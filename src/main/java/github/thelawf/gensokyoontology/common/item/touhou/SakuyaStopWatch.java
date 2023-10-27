@@ -89,7 +89,7 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
                             living.setAIMoveSpeed(speed.get());
                         }
                     });
-                    playerIn.sendMessage(GensokyoOntology.withTranslation("network.", ".countdown.start"),
+                    playerIn.sendMessage(GensokyoOntology.withTranslation("network.", ".sakuya_watch.right_click"),
                             playerIn.getUniqueID());
                 }
             }, 200);
@@ -111,8 +111,8 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
 
             // 检测，如果目标实体允许更新则禁止其更新，反之亦然。
             target.canUpdate(!target.canUpdate());
-            CountDownNetworking.INSTANCE.send(PacketDistributor.PLAYER.with(
-                    () -> (ServerPlayerEntity) playerIn), new CountdownStartPacket(200, target, serverWorld.getDimensionKey()));
+            CountDownNetworking.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(
+                    () -> target), new CountdownStartPacket(200, target, serverWorld.getDimensionKey()));
         }
         return super.itemInteractionForEntity(stack, playerIn, target, hand);
     }
