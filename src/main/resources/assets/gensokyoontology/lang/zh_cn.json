@@ -360,6 +360,7 @@
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "你释放了符卡: 「莫比乌斯环世界」",
   "msg.gensokyoontology.item_use.jade_cut_failed": "只有在幻想乡里才能出货哟~",
 
+  "network.gensokyoontology.countdown.start": "Countdown Start",
   "network.gensokyoontology.countdown.end": "倒计时已结束",
   "network.gensokyoontology.disconnection.demo_end": "试玩时间结束，欢迎下次游玩~",
   "network.gensokyoontology.disconnection.explore_later": "前面的区域，以后再来探索吧（）",
@@ -380,7 +381,13 @@
 
   "tooltip.blank_line": "",
 
+  "tooltip.gensokyoontology.aya_fans": "§eRight click to release Ten-gu Wind to blow up entities away.",
+  "tooltip.gensokyoontology.sakuya_stop_watch": "§eRight click entity to freeze or unfreeze it.",
+
   "tooltip.gensokyoontology.koishi_eye_open": "§7§lKoishi is watching you ~",
+  "tooltip.gensokyoontology.koishi_eye_closed": "§9Righ click to clear danmaku",
+  "tooltip.gensokyoontology.koishi_eye_open.comment": "§7§lKoishi is watching you ~",
+  "tooltip.gensokyoontology.koishi_eye_closed.comment": "§7§lYou can see me? Wow! This is the secret between us~",
 
   "tooltip.gensokyoontology.marisa_hakkeiro": "§e魔理沙的强力道具，能够发出可以破坏地形的极限火花",
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗§c32个火焰弹§r和§a一个B点§r发射极限火花",
@@ -395,6 +402,9 @@
 
   "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_1": "§o莫比乌斯带，不可能存在于二维空间的物体。",
   "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_2": "§o但也许，这正是在隐喻那个无何有的世界吧（笑）",
+
+  "tooltip.gensokyoontology.spirit_tube": "§eRight click Fox to get Kuda Gitsune's Tube",
+  "tooltip.gensokyoontology.kuda_gitsune_tube": "§eRight click Ghast to fill it",
 
   "patchouli.gensokyoontology.book.name": "幻想存有论",
   "patchouli.gensokyoontology.book.landing_text": "前言",

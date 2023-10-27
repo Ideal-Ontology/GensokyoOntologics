@@ -49,7 +49,7 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
         if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
-        playerIn.getCooldownTracker().setCooldown(this, 1800);
+
         // 获取玩家的物品栏对象
         IInventory inventory = playerIn.inventory;
 
@@ -114,13 +114,23 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
 
             getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 2);
             // damageItem(playerIn.getHeldItemMainhand(), 1, playerIn, player -> player.getHeldItemMainhand().shrink(1));
+            int cooldownTicks = 1800;
             if (handIn == Hand.MAIN_HAND) {
+                if (playerIn.isCreative()){
+                    return super.onItemRightClick(worldIn, playerIn, Hand.MAIN_HAND);
+                }
+                playerIn.getCooldownTracker().setCooldown(this, cooldownTicks);
                 return ActionResult.resultSuccess(playerIn.getHeldItem(Hand.MAIN_HAND));
             }
             else {
+                if (playerIn.isCreative()){
+                    return super.onItemRightClick(worldIn, playerIn, Hand.MAIN_HAND);
+                }
+                playerIn.getCooldownTracker().setCooldown(this, cooldownTicks);
                 return ActionResult.resultSuccess(playerIn.getHeldItem(Hand.OFF_HAND));
             }
         }
+
         return ActionResult.resultPass(playerIn.getHeldItem(handIn));
     }
 

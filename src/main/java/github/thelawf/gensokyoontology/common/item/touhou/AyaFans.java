@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.command.impl.data.DataCommand;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -21,9 +23,12 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.common.extensions.IForgeItem;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
@@ -82,5 +87,11 @@ public class AyaFans extends Item implements IRayTraceReader {
             Vector3d vector3d1 = (new Vector3d(ratioX, 0.0D, ratioZ)).normalize().scale(strength);
             projectile.setMotion(vector3d.x / 2.0D - vector3d1.x, projectile.isOnGround() ? Math.min(0.4D, vector3d.y / 2.0D + (double)strength) : vector3d.y, vector3d.z / 2.0D - vector3d1.z);
         }
+    }
+
+    @Override
+    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
+        tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".aya_fans"));
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 }

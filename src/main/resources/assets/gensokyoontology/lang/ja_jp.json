@@ -360,6 +360,7 @@
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "You Released Spell Card: \"Mobius Ring World\"",
   "msg.gensokyoontology.item_use.jade_cut_failed": "It seems only works in Gensokyo...",
 
+  "network.gensokyoontology.countdown.start": "Countdown Start",
   "network.gensokyoontology.countdown.end": "Countdown End",
   "network.gensokyoontology.disconnection.demo_end": "Your game demonstration time is over. Looking forward to your next play!",
   "network.gensokyoontology.disconnection.explore_later": "Explore the following area in the future!",
@@ -380,7 +381,13 @@
 
   "tooltip.blank_line": "",
 
+  "tooltip.gensokyoontology.aya_fans": "§eRight click to release Ten-gu Wind to blow up entities away.",
+  "tooltip.gensokyoontology.sakuya_stop_watch": "§eRight click entity to freeze or unfreeze it.",
+
   "tooltip.gensokyoontology.koishi_eye_open": "§7§lKoishi is watching you ~",
+  "tooltip.gensokyoontology.koishi_eye_closed": "§9Righ click to clear danmaku",
+  "tooltip.gensokyoontology.koishi_eye_open.comment": "§7§lKoishi is watching you ~",
+  "tooltip.gensokyoontology.koishi_eye_closed.comment": "§7§lYou can see me? Wow! This is the secret between us~",
 
   "tooltip.gensokyoontology.marisa_hakkeiro": "§eMarisa's powerful item",
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "Spend§c32 Fire Charges§r and§a 1 Bomb§r to generate Master Spark on right click",
@@ -395,6 +402,9 @@
 
   "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_1": "Mobius Ring, an impossible object in 2D World.",
   "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_2": "Probably, it could also be an indication of somewhere otherworldly(Laughter).",
+
+  "tooltip.gensokyoontology.spirit_tube": "§eRight click Fox to get Kuda Gitsune's Tube",
+  "tooltip.gensokyoontology.kuda_gitsune_tube": "§eRight click Ghast to fill it",
 
   "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
   "patchouli.gensokyoontology.book.landing_text": "Fore Words",

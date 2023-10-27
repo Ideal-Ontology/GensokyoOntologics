@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.GhastEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,7 +12,12 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class KudaGitsuneTube extends Item {
     public KudaGitsuneTube(Properties properties) {
@@ -43,5 +49,11 @@ public class KudaGitsuneTube extends Item {
             return ActionResultType.func_233537_a_(playerIn.world.isRemote());
         }
         return super.itemInteractionForEntity(stack, playerIn, target, hand);
+    }
+
+    @Override
+    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
+        tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".kuda_gitsune_tube"));
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 }

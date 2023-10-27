@@ -261,7 +261,7 @@ public final class ItemRegistry {
     // ----------------------- 东方project特殊功能道具 ----------------------//
     public static final RegistryObject<HakureiGohei> HAKUREI_GOHEI = ITEMS.register(
             "hakurei_gohei", () -> new HakureiGohei(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<MarisaHakkeiro> MARISA_HAKKEIRO = ITEMS.register(
             "marisa_hakkeiro", () -> new MarisaHakkeiro(
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));

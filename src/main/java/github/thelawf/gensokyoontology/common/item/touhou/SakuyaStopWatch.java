@@ -1,9 +1,11 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.network.CountDownNetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CountdownStartPacket;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -19,13 +21,16 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.text.JTextComponent;
 import java.util.List;
@@ -45,6 +50,8 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
+        // ItemStack stack = playerIn.getHeldItem(handIn == Hand.MAIN_HAND ? Hand.MAIN_HAND : Hand.OFF_HAND)
+        //         .equals(new ItemStack(this)) ? playerIn.getHeldItem(Hand.MAIN_HAND) : playerIn.getHeldItem(Hand.OFF_HAND);
 
         if (!worldIn.isRemote() && stack.getOrCreateTag().getLong("cooldown") < worldIn.getGameTime()) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
@@ -82,9 +89,14 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
                             living.setAIMoveSpeed(speed.get());
                         }
                     });
+                    playerIn.sendMessage(GensokyoOntology.withTranslation("network.", ".countdown.start"),
+                            playerIn.getUniqueID());
                 }
-            }, 5000);
+            }, 200);
         }
+        if (playerIn.isCreative())
+            return super.onItemRightClick(worldIn, playerIn, handIn);
+
         stack.getOrCreateTag().putLong("cooldown", worldIn.getGameTime() + 6000);
         playerIn.getCooldownTracker().setCooldown(stack.getItem(), 6000);
         return ActionResult.resultPass(stack);
@@ -96,12 +108,18 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
 
         if (!playerIn.getEntityWorld().isRemote) {
             ServerWorld serverWorld = (ServerWorld) playerIn.getEntityWorld();
-            playerIn.sendMessage(new StringTextComponent("和实体发生了互动"), playerIn.getUniqueID());
 
-            target.canUpdate(false);
+            // 检测，如果目标实体允许更新则禁止其更新，反之亦然。
+            target.canUpdate(!target.canUpdate());
             CountDownNetworking.INSTANCE.send(PacketDistributor.PLAYER.with(
                     () -> (ServerPlayerEntity) playerIn), new CountdownStartPacket(200, target, serverWorld.getDimensionKey()));
         }
         return super.itemInteractionForEntity(stack, playerIn, target, hand);
+    }
+
+    @Override
+    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
+        tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".sakuya_stop_watch"));
+        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 }

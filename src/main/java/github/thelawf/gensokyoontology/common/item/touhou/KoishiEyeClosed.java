@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,7 +31,7 @@ public class KoishiEyeClosed extends Item {
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
 
-        if (playerIn.getCooldownTracker().hasCooldown(this) && !playerIn.isCreative())
+        if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         // 获取绝对坐标
@@ -65,13 +67,19 @@ public class KoishiEyeClosed extends Item {
             }
         }
 
+        if (playerIn.isCreative())
+            return super.onItemRightClick(worldIn, playerIn, handIn);
+
         playerIn.getCooldownTracker().setCooldown(this, 300);
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     @Override
-    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        // tooltip.add(new TranslationTextComponent("tooltip."+ GensokyoOntology.MODID +".koishi_eye_closed"));
+    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
+        tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".koishi_eye_closed"));
+        if (Screen.hasShiftDown()) {
+            tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".koishi_eye_closed.comment"));
+        }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 }

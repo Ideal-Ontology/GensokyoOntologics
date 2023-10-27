@@ -76,6 +76,7 @@ public class GSKOClientEvents {
         }
     }
 
+    /*
     @SubscribeEvent
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
         if (event.phase == TickEvent.Phase.START) {
@@ -101,11 +102,7 @@ public class GSKOClientEvents {
 
         // DimensionRenderInfo info = DimensionRenderInfo.field_239208_a_.get(new ResourceLocation(GensokyoOntology.MODID, "render"));
     }
-
-    @SubscribeEvent
-    public static void onRenderWorldLast(RenderWorldLastEvent event) {
-
-    }
+    */
 
     @SubscribeEvent
     public static void onClientSetUp(FMLClientSetupEvent event) {
