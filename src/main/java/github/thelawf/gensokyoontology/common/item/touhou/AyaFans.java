@@ -15,6 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
@@ -93,5 +94,11 @@ public class AyaFans extends Item implements IRayTraceReader {
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
         tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".aya_fans"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    @Override
+    @NotNull
+    public UseAction getUseAction(@NotNull ItemStack stack) {
+        return UseAction.BLOCK;
     }
 }

@@ -12,6 +12,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
@@ -148,5 +149,11 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
             tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID +
                     ".marisa_hakkeiro.info"));
         }
+    }
+
+    @Override
+    @NotNull
+    public UseAction getUseAction(@NotNull ItemStack stack) {
+        return UseAction.BLOCK;
     }
 }

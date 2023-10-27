@@ -9,6 +9,7 @@ import net.minecraft.entity.monster.GhastEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -55,5 +56,11 @@ public class KudaGitsuneTube extends Item {
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
         tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".kuda_gitsune_tube"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    @Override
+    @NotNull
+    public UseAction getUseAction(@NotNull ItemStack stack) {
+        return UseAction.BLOCK;
     }
 }

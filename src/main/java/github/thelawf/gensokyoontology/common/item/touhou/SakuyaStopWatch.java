@@ -14,6 +14,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.entity.projectile.ProjectileEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
@@ -121,5 +122,11 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
         tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".sakuya_stop_watch"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
+    }
+
+    @Override
+    @NotNull
+    public UseAction getUseAction(@NotNull ItemStack stack) {
+        return UseAction.BLOCK;
     }
 }

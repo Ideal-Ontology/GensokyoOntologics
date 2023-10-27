@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -17,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.model.IModelBuilder;
 import net.minecraftforge.client.model.IModelLoader;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -46,4 +48,9 @@ public class HakureiGohei extends Item {
         return ActionResult.resultPass(playerIn.getHeldItem(handIn));
     }
 
+    @Override
+    @NotNull
+    public UseAction getUseAction(@NotNull ItemStack stack) {
+        return UseAction.BLOCK;
+    }
 }

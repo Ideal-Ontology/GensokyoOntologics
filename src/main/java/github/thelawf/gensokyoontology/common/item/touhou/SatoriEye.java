@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -25,5 +26,11 @@ public class SatoriEye extends Item {
             playerIn.sendMessage(new TranslationTextComponent("dialog." + GensokyoOntology.MODID +".hello"), playerIn.getUniqueID());
         }
         return super.itemInteractionForEntity(stack, playerIn, target, hand);
+    }
+
+    @Override
+    @NotNull
+    public UseAction getUseAction(@NotNull ItemStack stack) {
+        return UseAction.BLOCK;
     }
 }

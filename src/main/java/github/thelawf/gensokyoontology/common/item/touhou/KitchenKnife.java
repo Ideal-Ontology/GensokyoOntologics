@@ -36,4 +36,10 @@ public class KitchenKnife extends SwordItem {
         // 使用菜刀攻击牛可以掉落肥牛卷
         return super.hitEntity(stack, target, attacker);
     }
+
+    @Override
+    @NotNull
+    public UseAction getUseAction(@NotNull ItemStack stack) {
+        return UseAction.BLOCK;
+    }
 }
