@@ -360,6 +360,9 @@
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "You Released Spell Card: \"Mobius Ring World\"",
   "msg.gensokyoontology.item_use.jade_cut_failed": "It seems only works in Gensokyo...",
 
+  "msg.gensokyoontology.enter_danger_biome.scarlet_mansion_precincts": "§cThis area is now covered by scarlet mist which will make you suffocate.",
+  "msg.gensokyoontology.enter_danger_biome.nameless_hill": "§5Lily of the valley are oozing poisonous smell...",
+
   "network.gensokyoontology.countdown.start": "Countdown Start",
   "network.gensokyoontology.countdown.end": "Countdown End",
   "network.gensokyoontology.disconnection.demo_end": "Your game demonstration time is over. Looking forward to your next play!",

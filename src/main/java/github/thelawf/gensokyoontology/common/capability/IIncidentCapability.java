@@ -5,5 +5,5 @@ import net.minecraftforge.common.util.INBTSerializable;
 
 public interface IIncidentCapability extends INBTSerializable<CompoundNBT> {
 
-    void applyIncident();
+    void isTriggered();
 }

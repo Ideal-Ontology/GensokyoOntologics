@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.capability;
 
-import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.RegistryKey;
@@ -16,10 +15,12 @@ import java.util.List;
 
 public class BloodyMistCapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT> {
     private BloodyMistCapability capability;
-    private final List<RegistryKey<Biome>> biomes;
+    private final List<String> biomeRegistryNames;
+    private boolean isTriggered;
 
-    public BloodyMistCapabilityProvider(List<RegistryKey<Biome>> biomes) {
-        this.biomes = biomes;
+    public BloodyMistCapabilityProvider(List<String> biomeRegistryNames, boolean isTriggered) {
+        this.biomeRegistryNames = biomeRegistryNames;
+        this.isTriggered = isTriggered;
     }
 
     @NotNull
@@ -30,8 +31,8 @@ public class BloodyMistCapabilityProvider implements ICapabilityProvider, INBTSe
 
     @NotNull
     BloodyMistCapability getOrCreateCapability () {
-        if (capability == null) {
-            this.capability = new BloodyMistCapability(biomes);
+        if (this.capability == null) {
+            this.capability = new BloodyMistCapability(this.biomeRegistryNames, this.isTriggered);
         }
         return this.capability;
     }
@@ -46,11 +47,4 @@ public class BloodyMistCapabilityProvider implements ICapabilityProvider, INBTSe
         getOrCreateCapability().deserializeNBT(nbt);
     }
 
-    public void addBiome(RegistryKey<Biome> biome) {
-        this.biomes.add(biome);
-    }
-
-    public void removeBiome(RegistryKey<Biome> biome) {
-        this.biomes.remove(biome);
-    }
 }

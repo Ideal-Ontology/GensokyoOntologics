@@ -16,6 +16,7 @@ import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.BlockState;
+import net.minecraft.command.impl.TitleCommand;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.monster.IMob;
@@ -29,6 +30,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
@@ -87,17 +89,22 @@ public class GSKOEntityEvents {
         if (event.player.getEntityWorld() instanceof ServerWorld && event.player instanceof ServerPlayerEntity) {
             ServerPlayerEntity player = (ServerPlayerEntity) event.player;
             ServerWorld serverWorld = (ServerWorld) event.player.world;
+            ResourceLocation location = serverWorld.getBiome(player.getPosition()).getRegistryName();
 
             if (serverWorld.getBiome(player.getPosition()).getRegistryName() == GSKOBiomes.NAMELESS_HILL_KEY.getRegistryName()) {
                 player.addPotionEffect(new EffectInstance(Effects.POISON, 2*50));
             }
+
+            boolean precondition = player.ticksExisted % 20 == 0 && location != null;
+
             LazyOptional<BloodyMistCapability> cap = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
             cap.ifPresent((capability -> {
-                List<RegistryKey<Biome>> biomes = capability.getBiomes();
-                biomes.forEach((biomeRegistryKey -> {
-                    if (Objects.equals(serverWorld.getBiome(event.player.getPosition()).getRegistryName(),
-                            biomeRegistryKey.getRegistryName()) && capability.isTriggered) {
-                        player.attackEntityFrom(DamageSource.MAGIC, 0.01f);
+                List<String> biomes = capability.getBiomeRegistryNames();
+                biomes.forEach((biomeRegistryName -> {
+                    if (precondition && Objects.equals(location.toString(), biomeRegistryName) && capability.isTriggered) {
+                        player.sendStatusMessage(GensokyoOntology.withTranslation(
+                                "msg.", ".enter_danger_biome.scarlet_mansion_precincts"), true);
+                        player.attackEntityFrom(DamageSource.IN_WALL, 1f);
                     }
                 }));
             }));
@@ -169,4 +176,5 @@ public class GSKOEntityEvents {
     private static void performLovePotion(LivingEvent.LivingUpdateEvent event, LovePotionEffect effect) {
 
     }
+
 }

@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.command.GSKOCommand;
 import github.thelawf.gensokyoontology.common.command.GUICommand;
 import github.thelawf.gensokyoontology.common.network.CountDownNetworking;
@@ -37,6 +38,7 @@ public class CommonSetUp {
             GSKOFeatures.registerFeature();
 
             GSKOIncidentNetworking.registerMessage();
+            GSKOCapabilities.register();
             CountDownNetworking.registerMessage();
 
             Registry.register(Registry.BIOME_PROVIDER_CODEC,

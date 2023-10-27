@@ -360,6 +360,9 @@
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "你释放了符卡: 「莫比乌斯环世界」",
   "msg.gensokyoontology.item_use.jade_cut_failed": "只有在幻想乡里才能出货哟~",
 
+  "msg.gensokyoontology.enter_danger_biome.scarlet_mansion_precincts": "§c这片区域正被一片能使人窒息的红雾笼罩",
+  "msg.gensokyoontology.enter_danger_biome.nameless_hill": "§5这里遍地盛开的铃兰散发着有毒的花香",
+
   "network.gensokyoontology.countdown.start": "Countdown Start",
   "network.gensokyoontology.countdown.end": "倒计时已结束",
   "network.gensokyoontology.disconnection.demo_end": "试玩时间结束，欢迎下次游玩~",

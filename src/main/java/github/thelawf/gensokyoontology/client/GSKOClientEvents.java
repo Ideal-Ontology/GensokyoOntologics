@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.client.model.LilyWhiteModel;
 import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
 import github.thelawf.gensokyoontology.client.renderer.GSKODimensionRenderInfo;
 import github.thelawf.gensokyoontology.client.renderer.entity.*;
+import github.thelawf.gensokyoontology.client.renderer.world.LaserRenderer;
 import github.thelawf.gensokyoontology.common.entity.*;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.InyoJadeMonsterEntity;
@@ -173,6 +174,7 @@ public class GSKOClientEvents {
         //        manager -> new NamespaceDomainRenderer(manager, new DomainFieldModel()));
 
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
+        MinecraftForge.EVENT_BUS.addListener(LaserRenderer::render);
     }
 
 }

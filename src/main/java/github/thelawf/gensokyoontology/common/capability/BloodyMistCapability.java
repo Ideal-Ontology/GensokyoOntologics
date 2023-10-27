@@ -8,26 +8,25 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BloodyMistCapability implements IIncidentCapability {
+public class BloodyMistCapability implements INBTSerializable<CompoundNBT> {
 
-    private List<RegistryKey<Biome>> biomes;
+    private List<String> biomeRegistryNames;
     public boolean isTriggered;
 
-    public BloodyMistCapability(List<RegistryKey<Biome>> biomes) {
-        this.biomes = biomes;
-        this.isTriggered = false;
+    public BloodyMistCapability(List<String> biomes, boolean isTriggered) {
+        this.biomeRegistryNames = biomes;
+        this.isTriggered = isTriggered;
     }
-    public List<RegistryKey<Biome>> getBiomes() {
-        return this.biomes;
+    public List<String> getBiomeRegistryNames() {
+        return this.biomeRegistryNames;
     }
 
-
-    @Override
-    public void applyIncident() {
+    public void isTriggered() {
         this.isTriggered = true;
     }
 
@@ -36,19 +35,19 @@ public class BloodyMistCapability implements IIncidentCapability {
         CompoundNBT nbt = new CompoundNBT();
         ListNBT listNBT = new ListNBT();
 
-        for (RegistryKey<Biome> registryKey : this.biomes) {
+        for (String registryName : this.biomeRegistryNames) {
             CompoundNBT biomeNbt = new CompoundNBT();
-            biomeNbt.putString("biome", registryKey.getRegistryName().toString());
+            biomeNbt.putString("biome", registryName);
             listNBT.add(biomeNbt);
         }
-        nbt.putBoolean("is_triggered", isTriggered);
+        nbt.putBoolean("is_triggered", this.isTriggered);
         nbt.put("biome_list", listNBT);
         return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        List<RegistryKey<Biome>> biomeRegistries = new ArrayList<>();
+        List<String> biomeNames = new ArrayList<>();
         if (nbt.get("biome_list") instanceof ListNBT) {
             ListNBT listNBT = (ListNBT) nbt.get("biome_list");
 
@@ -57,16 +56,11 @@ public class BloodyMistCapability implements IIncidentCapability {
             for (INBT inbt : listNBT) {
                 if (inbt instanceof CompoundNBT) {
                     CompoundNBT compound = (CompoundNBT) inbt;
-                    //GensokyoOntology.LOGGER.info("NBT里面是否为空"+ compound.getString("biome"));
-                    biomeRegistries.add(RegistryKey.getOrCreateKey(Registry.BIOME_KEY,
-                            new ResourceLocation(compound.getString("biome"))));
+                    biomeNames.add(compound.getString("biome"));
                 }
-
             }
         }
-        this.biomes = biomeRegistries;
+        this.biomeRegistryNames = biomeNames;
         this.isTriggered = nbt.getBoolean("is_triggered");
     }
-
-
 }
