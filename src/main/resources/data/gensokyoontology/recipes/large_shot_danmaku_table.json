@@ -1,0 +1,14 @@
+{
+  "type": "gensokyoontology:danmaku_craft",
+  "pattern": [
+    "#####",
+    "#   #",
+    "#   #",
+    "#   #",
+    "#####"
+  ],
+  "result": {
+    "item": "gensokyoontology:large_shot_blue",
+    "count": 1
+  }
+}

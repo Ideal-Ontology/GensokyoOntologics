@@ -21,29 +21,41 @@ public class SorceryRecipe implements ISorceryRecipe {
 
     private final ResourceLocation id;
     private final ItemStack output;
-    private final ItemStack up;
-    private final ItemStack left;
-    private final ItemStack right;
-    private final ItemStack down;
+    // private final ItemStack up;
+    // private final ItemStack left;
+    // private final ItemStack right;
+    // private final ItemStack down;
 
     private final NonNullList<Ingredient> inputs;
 
-    public SorceryRecipe(ResourceLocation id, ItemStack output, ItemStack up, ItemStack left, ItemStack right, ItemStack down) {
-        this.id = id;
-        this.up = up;
-        this.left = left;
-        this.right = right;
-        this.down = down;
+    // public SorceryRecipe(ResourceLocation id, ItemStack output, ItemStack up, ItemStack left, ItemStack right, ItemStack down) {
+    //     this.id = id;
+    //     this.up = up;
+    //     this.left = left;
+    //     this.right = right;
+    //     this.down = down;
+//
+    //     this.output = output;
+    //     this.inputs = NonNullList.withSize(4, Ingredient.fromItems(up.getItem(), left.getItem(), right.getItem(), down.getItem()));
+    // }
 
+    public SorceryRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputs) {
+        this.id = id;
+        this.inputs = inputs;
         this.output = output;
-        this.inputs = NonNullList.withSize(4, Ingredient.fromItems(up.getItem(), left.getItem(), right.getItem(), down.getItem()));
     }
+
+    // @Override
+    // public boolean matches(@NotNull IInventory inv, @NotNull World worldIn) {
+    //     LogManager.getLogger().info("Match Checking!");
+    //     return this.inputs.get(0).test(up) && this.inputs.get(1).test(left) &&
+    //             this.inputs.get(2).test(right) && this.inputs.get(3).test(down);
+    // }
 
     @Override
     public boolean matches(@NotNull IInventory inv, @NotNull World worldIn) {
-        LogManager.getLogger().info("Match Checking!");
-        return this.inputs.get(0).test(up) && this.inputs.get(1).test(left) &&
-                this.inputs.get(2).test(right) && this.inputs.get(3).test(down);
+        return this.inputs.get(0).test(inv.getStackInSlot(0)) && this.inputs.get(1).test(inv.getStackInSlot(1)) &&
+                this.inputs.get(2).test(inv.getStackInSlot(2)) && this.inputs.get(3).test(inv.getStackInSlot(3));
     }
 
     @Override
@@ -66,7 +78,7 @@ public class SorceryRecipe implements ISorceryRecipe {
 
     @NotNull
     public NonNullList<Ingredient> getIngredients() {
-        return NonNullList.withSize(4, Ingredient.fromItems(up.getItem(), left.getItem(), right.getItem(), down.getItem()));
+        return this.inputs;
     }
 
     @Override
@@ -89,12 +101,18 @@ public class SorceryRecipe implements ISorceryRecipe {
             ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
             JsonArray ingredients = JSONUtils.getJsonArray(json, "ingredients");
 
-            ItemStack upStack = JSONUtils.getItem(ingredients, "up").getDefaultInstance();
-            ItemStack leftStack = JSONUtils.getItem(ingredients, "left").getDefaultInstance();
-            ItemStack rightStack = JSONUtils.getItem(ingredients, "right").getDefaultInstance();
-            ItemStack downStack = JSONUtils.getItem(ingredients, "down").getDefaultInstance();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(4, Ingredient.EMPTY);
 
-            return new SorceryRecipe(recipeId, output, upStack, leftStack, rightStack, downStack);
+            // ItemStack upStack = JSONUtils.getItem(ingredients, "up").getDefaultInstance();
+            // ItemStack leftStack = JSONUtils.getItem(ingredients, "left").getDefaultInstance();
+            // ItemStack rightStack = JSONUtils.getItem(ingredients, "right").getDefaultInstance();
+            // ItemStack downStack = JSONUtils.getItem(ingredients, "down").getDefaultInstance();
+
+            for (int i = 0; i < ingredients.size(); i++) {
+                inputs.set(i, Ingredient.deserialize(ingredients.get(i)));
+            }
+
+            return new SorceryRecipe(recipeId, output, inputs);
         }
 
         @Nullable
@@ -105,11 +123,12 @@ public class SorceryRecipe implements ISorceryRecipe {
             inputs.replaceAll(ignored -> Ingredient.read(buffer));
 
             ItemStack output = buffer.readItemStack();
-            return new SorceryRecipe(recipeId, output,
-                    Ingredient.read(buffer).getMatchingStacks()[0],
-                    Ingredient.read(buffer).getMatchingStacks()[1],
-                    Ingredient.read(buffer).getMatchingStacks()[2],
-                    Ingredient.read(buffer).getMatchingStacks()[3]);
+            return new SorceryRecipe(recipeId, output, inputs);
+            // return new SorceryRecipe(recipeId, output,
+            //         Ingredient.read(buffer).getMatchingStacks()[0],
+            //         Ingredient.read(buffer).getMatchingStacks()[1],
+            //         Ingredient.read(buffer).getMatchingStacks()[2],
+            //         Ingredient.read(buffer).getMatchingStacks()[3]);
         }
 
         @Override

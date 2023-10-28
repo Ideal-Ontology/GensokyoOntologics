@@ -27,9 +27,9 @@ import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
 
 public class GSKOFeatures {
 
-    public static final BlockState BLUE_MUSHROOM_DOWN = BlockRegistry.PURPLE_MUSHROOM_BLOCK.get().getDefaultState().with(
+    public static final BlockState BLUE_MUSHROOM_DOWN = BlockRegistry.BLUE_MUSHROOM_BLOCK.get().getDefaultState().with(
             HugeMushroomBlock.DOWN, Boolean.FALSE);
-    public static final BlockState PURPLE_MUSHROOM_DOWN = BlockRegistry.BLUE_MUSHROOM_BLOCK.get().getDefaultState().with(
+    public static final BlockState PURPLE_MUSHROOM_DOWN = BlockRegistry.PURPLE_MUSHROOM_BLOCK.get().getDefaultState().with(
             HugeMushroomBlock.DOWN, Boolean.FALSE);
     public static final BlockState MUSHROOM_STEM = Blocks.MUSHROOM_STEM.getDefaultState().with(HugeMushroomBlock.UP, Boolean.FALSE).with(HugeMushroomBlock.DOWN, Boolean.FALSE);
 
@@ -40,7 +40,7 @@ public class GSKOFeatures {
 
     public static final ConfiguredFeature<BigMushroomFeatureConfig, ?> HUGE_PURPLE_MUSHROOM = Feature.HUGE_RED_MUSHROOM.withConfiguration(
             new BigMushroomFeatureConfig(new SimpleBlockStateProvider(PURPLE_MUSHROOM_DOWN),
-                    new SimpleBlockStateProvider(PURPLE_MUSHROOM_DOWN),4));
+                    new SimpleBlockStateProvider(MUSHROOM_STEM),4));
 
     /** 特征地物生成目前遇到了三大坑：
      * 1. MC特有的两套注册系统，且非要你注册之后才能用，特有的将面向过程编程变成面向json编程<br>
@@ -100,13 +100,9 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(3, 0.4f, 3)));
 
-    public static final ConfiguredFeature<?, ?> MAGIC_FOREST_VEGETATION = Feature.RANDOM_SELECTOR.withConfiguration(
-            new MultipleRandomFeatureConfig(ImmutableList.of(
-                    MAGIC_TREE_BASE.withChance(0.94f),
-                    HUGE_BLUE_MUSHROOM.withChance(0.025f),
-                    HUGE_PURPLE_MUSHROOM.withChance(0.025f)),
-                    MAGIC_TREE_BASE))
-            .withPlacement(Placement.DARK_OAK_TREE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)).square();;
+    public static final ConfiguredFeature<?, ?> MAGIC_FOREST_VEGETATION = MAGIC_TREE_BASE
+            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
+            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 1, 14)));
 
     public static final ConfiguredFeature<?, ?> BEAST_PATH_VEGETATION = Feature.RANDOM_SELECTOR.withConfiguration(
             new MultipleRandomFeatureConfig(ImmutableList.of(

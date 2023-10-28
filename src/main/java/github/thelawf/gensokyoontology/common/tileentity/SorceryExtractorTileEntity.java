@@ -103,8 +103,10 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
         Optional<SorceryRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
 
         recipe.ifPresent(iRecipe -> {
-            extract();
-            itemHandler.insertItem(4, iRecipe.getRecipeOutput(), false);
+            if (iRecipe.matches(inv, world)) {
+                extract();
+                itemHandler.insertItem(4, iRecipe.getRecipeOutput(), false);
+            }
         });
 
         markDirty();

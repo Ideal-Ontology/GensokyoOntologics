@@ -53,10 +53,6 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
                 .filter(living -> isIntersecting(start, end, living.getBoundingBox().offset(0,-1,0)))
                 .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F));
 
-        MouseHelper helper = new MouseHelper(Minecraft.getInstance());
-
-        playerIn.sendMessage(new StringTextComponent(String.valueOf(helper.isRightDown())), playerIn.getUniqueID());
-
         if (playerIn.isCreative())
             return super.onItemRightClick(worldIn, playerIn, handIn);
 

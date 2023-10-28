@@ -1,8 +1,8 @@
 {
   "depth": 0.12,
-  "scale": 0.3,
+  "scale": 0.2,
   "downfall": 0.75,
-  "temperature": 0.45,
+  "temperature": 0.65,
   "category": "forest",
   "temperature_modifier": "none",
   "player_spawn_friendly": true,
@@ -75,7 +75,11 @@
       "minecraft:patch_pumpkin",
       "minecraft:pile_melon",
 
-      "gensokyoontology:magic_forest_vegetation"
+      "gensokyoontology:magic_forest_vegetation",
+      "gensokyoontology:magic_tree_forest",
+
+      "gensokyoontology:huge_blue_mushroom",
+      "gensokyoontology:huge_purple_mushroom"
     ],
     []
   ],

@@ -8,12 +8,17 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHelper;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.util.InputMappings;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
+import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
 import javax.swing.plaf.basic.BasicTableHeaderUI;
@@ -22,16 +27,17 @@ import javax.swing.plaf.basic.BasicTableHeaderUI;
 public class LaserRenderer {
     public static int TIMER = 0;
 
-    public static void render(RenderWorldLastEvent event) {
+    public static void render(RenderLivingEvent.Post<PlayerEntity, EntityModel<PlayerEntity>> event) {
         Minecraft mc = Minecraft.getInstance();
         ClientPlayerEntity clientPlayer = mc.player;
 
         if (clientPlayer == null) return;
         MouseHelper helper = new MouseHelper(mc);
 
-        if (clientPlayer.getHeldItemMainhand().getItem() == ItemRegistry.KOISHI_EYE_OPEN.get()) {
+        if (helper.isRightDown() && event.getEntity() instanceof PlayerEntity &&
+                clientPlayer.getHeldItemMainhand().getItem() == ItemRegistry.KOISHI_EYE_OPEN.get()) {
             Vector3d start = clientPlayer.getPositionVec();
-            Vector3d end = start.add(clientPlayer.getLookVec().scale(10));
+            Vector3d end = clientPlayer.getLookVec().scale(10);
             showLaser(event.getMatrixStack(), start, end);
         }
     }
@@ -53,8 +59,7 @@ public class LaserRenderer {
         }
         else {
             TIMER++;
-            drawLaser(builder, matrix4f, (float) start.x, (float) start.y, (float) start.z,
-                    (float) end.x, (float) end.y, (float) end.z);
+            drawLaser(builder, matrix4f, 0, 0.5F, 0, (float) end.x, (float) end.y, (float) end.z);
         }
     }
 }
