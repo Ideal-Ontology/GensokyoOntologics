@@ -99,6 +99,7 @@ public final class BlockRegistry {
 
     ////////////////////////////////////////// 银杏木 //////////////////////////////////////////
     public static final RegistryObject<Block> GINKGO_LEAVES = BLOCKS.register("ginkgo_leaves", GinkgoLeaves::new);
+    public static final RegistryObject<Block> GINKGO_LOG = BLOCKS.register("ginkgo_log", GinkgoLog::new);
 
     ////////////////////////////////////////// 红杉木 //////////////////////////////////////////
     public static final RegistryObject<Block> REDWOOD_LEAVES = BLOCKS.register("redwood_leaves", RedwoodLeaves::new);

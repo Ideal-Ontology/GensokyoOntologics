@@ -78,21 +78,23 @@ public class GSKOBiomesProvider extends BiomeProvider {
      * data/modid/worldgen/biome 路径之下
      */
     public static final List<RegistryKey<Biome>> GSKO_BIOMES = ImmutableList.of(
+            GSKOBiomes.SCARLET_MANSION_PRECINCTS_KEY,
             GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY,
-            GSKOBiomes.MISTY_LAKE_KEY,
-            GSKOBiomes.WIND_GODDESS_LAKE_KEY,
-            GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
-            GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
+            GSKOBiomes.WIND_GODDESS_LAKE_KEY,
             GSKOBiomes.SUNFLOWER_GARDEN_KEY,
+            GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
+            GSKOBiomes.NAMELESS_HILL_KEY,
             GSKOBiomes.HUMAN_VILLAGE_KEY,
+            GSKOBiomes.MAGIC_FOREST_KEY,
+            GSKOBiomes.SANZU_RIVER_KEY,
+            GSKOBiomes.MISTY_LAKE_KEY,
             GSKOBiomes.HIGAN_KEY,
+            GSKOBiomes.MUENZUKA,
             GSKOBiomes.GSKO_PLAINS_KEY,
             GSKOBiomes.GSKO_FOREST_KEY,
-            GSKOBiomes.GSKO_RIVER_KEY,
-            GSKOBiomes.NAMELESS_HILL_KEY,
-            GSKOBiomes.MUENZUKA,
-            GSKOBiomes.SANZU_RIVER_KEY
+            GSKOBiomes.GSKO_RIVER_KEY
+
     );
 
     public GSKOBiomesProvider(long seed, Registry<Biome> biomeRegistry) {

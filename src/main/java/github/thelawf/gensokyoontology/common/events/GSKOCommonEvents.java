@@ -31,8 +31,7 @@ public class GSKOCommonEvents {
     public static void onCapabilityAttachToWorld(AttachCapabilitiesEvent<World> event) {
         if (event.getObject() instanceof World) {
             List<String> biomes = new ArrayList<>();
-            biomes.add("gensokyoontology:misty_lake");
-            biomes.add("gensokyoontology:human_village");
+            biomes.add("gensokyoontology:scarlet_mansion_precincts");
             BloodyMistCapabilityProvider provider = new BloodyMistCapabilityProvider(biomes, true);
             event.addCapability(new ResourceLocation(GensokyoOntology.MODID, "bloody_mist"), provider);
         }
