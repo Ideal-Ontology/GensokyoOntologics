@@ -164,6 +164,10 @@ public final class ItemRegistry {
             "ginkgo_leaves", () -> new BlockItem(BlockRegistry.GINKGO_LEAVES.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    public static final RegistryObject<BlockItem> GINKGO_LOG_ITEM = ITEMS.register(
+            "ginkgo_log", () -> new BlockItem(BlockRegistry.GINKGO_LOG.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     //////////////////////////////// 红杉木 ////////////////////////////////
     public static final RegistryObject<BlockItem> REDWOOD_LEAVES_ITEM = ITEMS.register(
             "redwood_leaves", () -> new BlockItem(BlockRegistry.REDWOOD_LEAVES.get(),

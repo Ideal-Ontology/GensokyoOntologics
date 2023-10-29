@@ -267,6 +267,7 @@
   "block.gensokyoontology.zelkova_pressure_plate": "榉树压力板",
 
   "block.gensokyoontology.ginkgo_leaves": "银杏树叶",
+  "block.gensokyoontology.ginkgo_log": "银杏原木",
   "block.gensokyoontology.redwood_leaves": "红杉树叶",
 
   "block.gensokyoontology.gap": "隙间",
@@ -384,13 +385,13 @@
 
   "tooltip.blank_line": "",
 
-  "tooltip.gensokyoontology.aya_fans": "§eRight click to release Ten-gu Wind to blow up entities away.",
-  "tooltip.gensokyoontology.sakuya_stop_watch": "§eRight click entity to freeze or unfreeze it.",
+  "tooltip.gensokyoontology.aya_fans": "§e右键点击时释放可以将生物和弹幕吹走的天狗风",
+  "tooltip.gensokyoontology.sakuya_stop_watch": "§6右键点击实体以暂停或恢复其运动",
 
-  "tooltip.gensokyoontology.koishi_eye_open": "§7§lKoishi is watching you ~",
-  "tooltip.gensokyoontology.koishi_eye_closed": "§9Righ click to clear danmaku",
-  "tooltip.gensokyoontology.koishi_eye_open.comment": "§7§lKoishi is watching you ~",
-  "tooltip.gensokyoontology.koishi_eye_closed.comment": "§7§lYou can see me? Wow! This is the secret between us~",
+  "tooltip.gensokyoontology.koishi_eye_open": "§a右键点击时对指向的生物实体造成巨额伤害",
+  "tooltip.gensokyoontology.koishi_eye_closed": "§9右键点击时清除弹幕",
+  "tooltip.gensokyoontology.koishi_eye_open.comment": "§7恋恋在看着你呢~",
+  "tooltip.gensokyoontology.koishi_eye_closed.comment": "§7你能看得见恋恋吗！哇，这是我们之间的秘密哦~",
 
   "tooltip.gensokyoontology.marisa_hakkeiro": "§e魔理沙的强力道具，能够发出可以破坏地形的极限火花",
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗§c32个火焰弹§r和§a一个B点§r发射极限火花",
@@ -406,8 +407,8 @@
   "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_1": "§o莫比乌斯带，不可能存在于二维空间的物体。",
   "tooltip.gensokyoontology.spellcard.mobius_ring_world.info_line_2": "§o但也许，这正是在隐喻那个无何有的世界吧（笑）",
 
-  "tooltip.gensokyoontology.spirit_tube": "§eRight click Fox to get Kuda Gitsune's Tube",
-  "tooltip.gensokyoontology.kuda_gitsune_tube": "§eRight click Ghast to fill it",
+  "tooltip.gensokyoontology.spirit_tube": "§e右键点击狐狸以获得管狐的试管",
+  "tooltip.gensokyoontology.kuda_gitsune_tube": "§e右键点击恶魂来装满它",
 
   "patchouli.gensokyoontology.book.name": "幻想存有论",
   "patchouli.gensokyoontology.book.landing_text": "前言",

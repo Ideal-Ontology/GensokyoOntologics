@@ -267,6 +267,7 @@
   "block.gensokyoontology.zelkova_pressure_plate": "Zelkova Pressure Plate",
 
   "block.gensokyoontology.ginkgo_leaves": "Ginkgo Leaves",
+  "block.gensokyoontology.ginkgo_log": "Ginkgo Log",
   "block.gensokyoontology.redwood_leaves": "Redwood Leaves",
 
   "block.gensokyoontology.gap": "Gap",
@@ -389,8 +390,8 @@
 
   "tooltip.gensokyoontology.koishi_eye_open": "§aRight click cause player damage to the living you point at",
   "tooltip.gensokyoontology.koishi_eye_closed": "§9Righ click to clear danmaku",
-  "tooltip.gensokyoontology.koishi_eye_open.comment": "§7§lKoishi is watching you ~",
-  "tooltip.gensokyoontology.koishi_eye_closed.comment": "§7§lYou can see me? Wow! This is the secret between us~",
+  "tooltip.gensokyoontology.koishi_eye_open.comment": "§7Koishi is watching you ~",
+  "tooltip.gensokyoontology.koishi_eye_closed.comment": "§7You can see me? Wow! This is the secret between us~",
 
   "tooltip.gensokyoontology.marisa_hakkeiro": "§eMarisa's powerful item",
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "Spend§c32 Fire Charges§r and§a 1 Bomb§r to generate Master Spark on right click",
