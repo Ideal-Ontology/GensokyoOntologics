@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -37,7 +38,7 @@ public class DanmakuNormalVectorRenderer extends SpriteRenderer<AbstractDanmakuE
             itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GUI,
                     packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
             matrixStackIn.pop();
-
+            super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         }
     }
 }

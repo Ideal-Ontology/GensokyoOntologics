@@ -101,7 +101,7 @@ public class GSKOEntityEvents {
             cap.ifPresent((capability -> {
                 List<String> biomes = capability.getBiomeRegistryNames();
                 biomes.forEach((biomeRegistryName -> {
-                    if (precondition && Objects.equals(location.toString(), biomeRegistryName) && capability.isTriggered) {
+                    if (precondition && Objects.equals(location.toString(), biomeRegistryName) && capability.isTriggered()) {
                         player.sendStatusMessage(GensokyoOntology.withTranslation(
                                 "msg.", ".enter_danger_biome.scarlet_mansion_precincts"), true);
                         player.attackEntityFrom(DamageSource.IN_WALL, 1f);

@@ -1,22 +1,16 @@
 package github.thelawf.gensokyoontology.common.capability;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraftforge.common.util.INBTSerializable;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BloodyMistCapability implements INBTSerializable<CompoundNBT> {
+public class BloodyMistCapability implements IIncidentCapability {
 
     private List<String> biomeRegistryNames;
-    public boolean isTriggered;
+    private boolean isTriggered;
 
     public BloodyMistCapability(List<String> biomes, boolean isTriggered) {
         this.biomeRegistryNames = biomes;
@@ -26,8 +20,14 @@ public class BloodyMistCapability implements INBTSerializable<CompoundNBT> {
         return this.biomeRegistryNames;
     }
 
-    public void isTriggered() {
-        this.isTriggered = true;
+    @Override
+    public void setTriggered(boolean triggered) {
+        this.isTriggered = triggered;
+    }
+
+    @Override
+    public boolean isTriggered() {
+        return this.isTriggered;
     }
 
     @Override

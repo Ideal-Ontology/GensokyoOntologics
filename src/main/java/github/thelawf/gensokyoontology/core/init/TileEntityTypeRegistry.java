@@ -17,7 +17,7 @@ public final class TileEntityTypeRegistry {
     public static final RegistryObject<TileEntityType<DanmakuTabelTileEntity>> DANMAKU_TABLE_TILE =
             TILE_ENTITIES.register("danmaku_table_tileentity", () -> TileEntityType.Builder.create(
                     DanmakuTabelTileEntity::new, BlockRegistry.DANMAKU_TABLE.get()).build(null));
-    public static final RegistryObject<TileEntityType<GapTileEntity>> SUKIMA_TILE_ENTITY =
+    public static final RegistryObject<TileEntityType<GapTileEntity>> GAP_TILE_ENTITY =
             TILE_ENTITIES.register("sukima_tileentity", () -> TileEntityType.Builder.create(
                     GapTileEntity::new, BlockRegistry.GAP_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<SorceryExtractorTileEntity>> SORCERY_EXTRACTOR_TILE_ENTITY =

@@ -25,48 +25,58 @@ public class GapItem extends Item {
         World worldIn = context.getWorld();
         BlockPos pos = context.getPos().up();
 
-        CompoundNBT nbt = new CompoundNBT();
-        nbt.putBoolean("is_first_placement", true);
-        nbt.putLong("FirstPos", pos.toLong());
+        CompoundNBT itemNBT = new CompoundNBT();
+        itemNBT.putBoolean("is_first_placement", true);
+        itemNBT.putLong("FirstPos", pos.toLong());
 
         if (!worldIn.isRemote && context.getPlayer() != null) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             RegistryKey<World> departureWorld = serverWorld.getDimensionKey();
-            nbt.putString("DepartureWorld", departureWorld.getLocation().toString());
+            itemNBT.putString("DepartureWorld", departureWorld.getLocation().toString());
 
             PlayerEntity player = context.getPlayer();
             ItemStack itemStack = player.getActiveItemStack();
-            itemStack.setTag(nbt);
+            itemStack.setTag(itemNBT);
 
-            if (nbt.getBoolean("is_first_placement")) {
+            if (itemNBT.getBoolean("is_first_placement")) {
                 itemStack.setCount(1);
-                worldIn.setBlockState(pos, BlockRegistry.GAP_BLOCK.get().getDefaultState());
 
-                nbt.remove("is_first_placement");
-                nbt.putBoolean("is_first_placement", false);
-                itemStack.setTag(nbt);
+                itemNBT.remove("is_first_placement");
+                itemNBT.putBoolean("is_first_placement", false);
+                itemStack.setTag(itemNBT);
+                setBlockTileFirst(worldIn, pos);
             }
             else {
-                if (worldIn.getTileEntity(pos) instanceof GapTileEntity) {
-                    GapTileEntity secondPlacedSukima = (GapTileEntity) worldIn.getTileEntity(pos);
-                    GapTileEntity firstPlacedSukima = (GapTileEntity) worldIn.getTileEntity(
-                            BlockPos.fromLong(nbt.getLong("FirstPos")));
-
-                    RegistryKey<World> arrivalWorld = serverWorld.getDimensionKey();
-                    nbt.putString("ArrivalWorld", arrivalWorld.getLocation().toString());
-
-                    if (secondPlacedSukima != null) {
-                        secondPlacedSukima.setDestinationPos(pos);
-                        secondPlacedSukima.setDestinationWorld(departureWorld);
-
-                    }
-                    if (firstPlacedSukima != null) {
-                        firstPlacedSukima.setDestinationPos(BlockPos.fromLong(nbt.getLong("FirstPos")));
-                        firstPlacedSukima.setDestinationWorld(arrivalWorld);
-                    }
-                }
+                setBlockTileSecond(worldIn, pos, itemNBT, serverWorld, departureWorld);
             }
         }
         return super.onItemUse(context);
+    }
+
+    private void setBlockTileFirst(World worldIn, BlockPos pos) {
+        worldIn.setBlockState(pos, BlockRegistry.GAP_BLOCK.get().getDefaultState());
+        worldIn.setTileEntity(pos, new GapTileEntity());
+    }
+
+    private void setBlockTileSecond(World worldIn, BlockPos pos, CompoundNBT itemNBT, ServerWorld serverWorld, RegistryKey<World> departureWorld) {
+        if (worldIn.getTileEntity(pos) instanceof GapTileEntity) {
+            CompoundNBT tileNBT = new CompoundNBT();
+            GapTileEntity secondPlacedSukima = (GapTileEntity) worldIn.getTileEntity(pos);
+            GapTileEntity firstPlacedSukima = (GapTileEntity) worldIn.getTileEntity(
+                    BlockPos.fromLong(itemNBT.getLong("FirstPos")));
+
+            RegistryKey<World> arrivalWorld = serverWorld.getDimensionKey();
+            tileNBT.putString("ArrivalWorld", arrivalWorld.getLocation().toString());
+
+            if (secondPlacedSukima != null) {
+                secondPlacedSukima.setDestinationPos(pos);
+                secondPlacedSukima.setDestinationWorld(departureWorld);
+
+            }
+            if (firstPlacedSukima != null) {
+                firstPlacedSukima.setDestinationPos(BlockPos.fromLong(itemNBT.getLong("FirstPos")));
+                firstPlacedSukima.setDestinationWorld(arrivalWorld);
+            }
+        }
     }
 }

@@ -23,7 +23,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     private RegistryKey<World> destinationWorld;
 
     public GapTileEntity() {
-        super(TileEntityTypeRegistry.SUKIMA_TILE_ENTITY.get());
+        super(TileEntityTypeRegistry.GAP_TILE_ENTITY.get());
     }
 
     @Override
