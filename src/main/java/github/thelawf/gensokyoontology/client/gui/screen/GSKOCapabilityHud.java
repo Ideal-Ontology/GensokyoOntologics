@@ -12,7 +12,7 @@ public class GSKOCapabilityHud extends AbstractGui {
     private final int width;
     private final int height;
     private final Minecraft minecraft;
-    private final ResourceLocation HUD = new ResourceLocation(GensokyoOntology.MODID, "textures/gui/hud.png");
+    private final ResourceLocation HUD = new ResourceLocation(GensokyoOntology.MODID, "textures/client/hud.png");
     private MatrixStack matrixStack;
     public GSKOCapabilityHud(MatrixStack matrixStack) {
         this.minecraft = Minecraft.getInstance();

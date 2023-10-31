@@ -18,14 +18,14 @@ public class ConsoleGUI extends Screen {
     TextFieldWidget codeField;
     Button compileButton;
     Button runButton;
-    TranslationTextComponent titleText = new TranslationTextComponent("gui." +
+    TranslationTextComponent titleText = new TranslationTextComponent("client." +
             GensokyoOntology.MODID + ".title");
 
     final ResourceLocation CONSOLE_TEX = new ResourceLocation(GensokyoOntology.MODID,
-            "textures/gui/console.png");
+            "textures/client/console.png");
 
     public ConsoleGUI() {
-        super(new TranslationTextComponent("gui." + GensokyoOntology.MODID +
+        super(new TranslationTextComponent("client." + GensokyoOntology.MODID +
                 "console_gui.title"));
     }
 
@@ -37,12 +37,12 @@ public class ConsoleGUI extends Screen {
 
         this.codeField = new TextFieldWidget(this.font,(window.getWidth() - this.width)/2
                 ,(window.getHeight() - this.height)/2,200,136,new TranslationTextComponent(
-                        "gui." + GensokyoOntology.MODID + ".code_field.content"));
+                        "client." + GensokyoOntology.MODID + ".code_field.content"));
         this.children.add(codeField);
 
         this.compileButton = new Button((window.getWidth() - this.width)/2 + this.width / 2,
                 (window.getHeight() - this.height)/2 + this.height / 2, 80, 20,
-                new TranslationTextComponent("gui." + GensokyoOntology.MODID + ".compile"), (button) -> {
+                new TranslationTextComponent("client." + GensokyoOntology.MODID + ".compile"), (button) -> {
             String code = codeField.getText();
         });
 

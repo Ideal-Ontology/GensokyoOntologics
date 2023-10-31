@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.util.tree;
+package github.thelawf.gensokyoontology.api.util.tree;
 
 import java.util.ArrayList;
 import java.util.List;

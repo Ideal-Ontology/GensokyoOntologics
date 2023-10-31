@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.client.gui.container;
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.util.GSKOGUIUtil;
+import github.thelawf.gensokyoontology.common.util.client.GSKOGUIUtil;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;

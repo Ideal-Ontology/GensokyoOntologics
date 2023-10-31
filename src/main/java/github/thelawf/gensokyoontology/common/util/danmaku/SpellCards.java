@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.util;
+package github.thelawf.gensokyoontology.common.util.danmaku;
 
 import github.thelawf.gensokyoontology.api.IDanmakuBehavior;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;

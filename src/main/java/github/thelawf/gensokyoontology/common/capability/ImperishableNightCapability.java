@@ -18,6 +18,11 @@ public class ImperishableNightCapability implements IImperishableNight{
     }
 
     @Override
+    public int getDayTime() {
+        return this.time;
+    }
+
+    @Override
     public void setTriggered(boolean triggered) {
         this.isTriggered = triggered;
     }

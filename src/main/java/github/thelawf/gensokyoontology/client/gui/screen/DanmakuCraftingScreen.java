@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
 public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContainer> {
 
     public static final ResourceLocation DANMAKU_CRAFTING_TEXTURE = new ResourceLocation(
-            GensokyoOntology.MODID, "textures/gui/danmaku_crafting.png"
+            GensokyoOntology.MODID, "textures/client/danmaku_crafting.png"
     );
 
     public DanmakuCraftingScreen(DanmakuCraftingContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {

@@ -17,7 +17,7 @@ public class GUICommand implements Command<CommandSource> {
 
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         LiteralCommandNode<CommandSource> commandNode = dispatcher.register(
-                Commands.literal("gui").executes(GUI_COMMAND)
+                Commands.literal("client").executes(GUI_COMMAND)
         );
     }
 

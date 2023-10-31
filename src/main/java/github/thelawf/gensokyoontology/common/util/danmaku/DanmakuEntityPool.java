@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.util;
+package github.thelawf.gensokyoontology.common.util.danmaku;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;

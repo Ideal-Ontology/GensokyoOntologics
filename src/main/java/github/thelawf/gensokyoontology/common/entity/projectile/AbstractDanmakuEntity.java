@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
+import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.danmaku.*;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
 import net.minecraft.entity.*;
@@ -18,8 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.List;
-import java.util.Vector;
 
 /**
  * 抽象弹幕类，用于处理所有继承于该类的弹幕实体的那些相似的逻辑，包含如下几个方面：<br>

@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.math.logos.LineSegment3D;
 import github.thelawf.gensokyoontology.common.util.math.logos.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.util.ConnectionUtil;
+import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.block.BlockState;

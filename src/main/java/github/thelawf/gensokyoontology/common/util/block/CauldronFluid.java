@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.util;
+package github.thelawf.gensokyoontology.common.util.block;
 
 import net.minecraft.util.IStringSerializable;
 import org.jetbrains.annotations.NotNull;

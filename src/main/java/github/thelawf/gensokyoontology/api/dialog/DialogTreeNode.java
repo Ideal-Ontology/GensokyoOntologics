@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.api.dialog;
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.util.tree.TreeNode;
+import github.thelawf.gensokyoontology.api.util.tree.TreeNode;
 
 import java.util.List;
 

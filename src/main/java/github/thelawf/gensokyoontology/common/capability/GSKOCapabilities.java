@@ -17,32 +17,50 @@ public class GSKOCapabilities {
     @CapabilityInject(ImperishableNightCapability.class)
     public static Capability<ImperishableNightCapability> IMPERISHABLE_NIGHT;
 
-    public static void registerIncidents() {
-        CapabilityManager.INSTANCE.register(BloodyMistCapability.class, new Capability.IStorage<BloodyMistCapability>() {
+    public static void registerCapabilities() {
+        register(BloodyMistCapability.class);
+        register(ImperishableNightCapability.class);
+
+        // CapabilityManager.INSTANCE.register(BloodyMistCapability.class, new Capability.IStorage<BloodyMistCapability>() {
+        //     @Nullable
+        //     @Override
+        //     public INBT writeNBT(Capability<BloodyMistCapability> capability, BloodyMistCapability instance, Direction side) {
+        //         return instance.serializeNBT();
+        //     }
+//
+        //     @Override
+        //     public void readNBT(Capability<BloodyMistCapability> capability, BloodyMistCapability instance, Direction side, INBT nbt) {
+        //         instance.deserializeNBT((CompoundNBT) nbt);
+        //     }
+        // }, () -> null);
+//
+        // CapabilityManager.INSTANCE.register(ImperishableNightCapability.class, new Capability.IStorage<ImperishableNightCapability>() {
+        //     @Nullable
+        //     @Override
+        //     public INBT writeNBT(Capability<ImperishableNightCapability> capability, ImperishableNightCapability instance, Direction side) {
+        //         return instance.serializeNBT();
+        //     }
+//
+        //     @Override
+        //     public void readNBT(Capability<ImperishableNightCapability> capability, ImperishableNightCapability instance, Direction side, INBT nbt) {
+        //         instance.deserializeNBT((CompoundNBT) nbt);
+        //     }
+        // }, () -> null);
+    }
+
+
+    private static <T extends INBTSerializable<CompoundNBT>> void register(Class<T> capClass) {
+        CapabilityManager.INSTANCE.register(capClass, new Capability.IStorage<T>() {
             @Nullable
             @Override
-            public INBT writeNBT(Capability<BloodyMistCapability> capability, BloodyMistCapability instance, Direction side) {
+            public INBT writeNBT(Capability<T> capability, T instance, Direction side) {
                 return instance.serializeNBT();
             }
 
             @Override
-            public void readNBT(Capability<BloodyMistCapability> capability, BloodyMistCapability instance, Direction side, INBT nbt) {
-                instance.deserializeNBT((CompoundNBT) nbt);
-            }
-        }, () -> null);
-
-        CapabilityManager.INSTANCE.register(ImperishableNightCapability.class, new Capability.IStorage<ImperishableNightCapability>() {
-            @Nullable
-            @Override
-            public INBT writeNBT(Capability<ImperishableNightCapability> capability, ImperishableNightCapability instance, Direction side) {
-                return instance.serializeNBT();
-            }
-
-            @Override
-            public void readNBT(Capability<ImperishableNightCapability> capability, ImperishableNightCapability instance, Direction side, INBT nbt) {
+            public void readNBT(Capability<T> capability, T instance, Direction side, INBT nbt) {
                 instance.deserializeNBT((CompoundNBT) nbt);
             }
         }, () -> null);
     }
-
 }

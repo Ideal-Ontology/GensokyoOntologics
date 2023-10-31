@@ -1,6 +1,5 @@
-package github.thelawf.gensokyoontology.common.util;
+package github.thelawf.gensokyoontology.common.util.client;
 
-import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;

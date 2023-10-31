@@ -20,19 +20,19 @@ import org.jetbrains.annotations.Nullable;
 public class DanmakuBehaviorCreatorContainer extends Container {
 
     private static final ResourceLocation MAIN = new ResourceLocation(GensokyoOntology.MODID +
-            "textures/gui/dan_creator_main.png");
+            "textures/client/dan_creator_main.png");
 
     private static final ResourceLocation SIDE_BAR = new ResourceLocation(GensokyoOntology.MODID +
-            "textures/gui/dan_creator_sidebar.png");
+            "textures/client/dan_creator_sidebar.png");
 
     private static final ResourceLocation TOOL_TAB = new ResourceLocation(GensokyoOntology.MODID +
-            "textures/gui/dan_creator_tab.png");
+            "textures/client/dan_creator_tab.png");
 
     private static final ResourceLocation SCRIPT_TYPE = new ResourceLocation(GensokyoOntology.MODID +
-            "textures/gui/script_type.png");
+            "textures/client/script_type.png");
 
     private static final ResourceLocation BUTTON = new ResourceLocation(GensokyoOntology.MODID +
-            "textures/gui/dan_creator_buttons.png");
+            "textures/client/dan_creator_buttons.png");
 
     private ImageButton whileLoop;
     private ImageButton foriLoop;

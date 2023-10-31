@@ -3,7 +3,6 @@ package github.thelawf.gensokyoontology.common.world.feature.placer;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import github.thelawf.gensokyoontology.common.util.FeatureUtil;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MutableBoundingBox;

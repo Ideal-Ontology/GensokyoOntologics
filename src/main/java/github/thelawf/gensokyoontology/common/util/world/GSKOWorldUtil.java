@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.util;
+package github.thelawf.gensokyoontology.common.util.world;
 
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;

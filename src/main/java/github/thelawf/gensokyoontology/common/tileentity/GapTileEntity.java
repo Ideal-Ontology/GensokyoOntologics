@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
-import github.thelawf.gensokyoontology.common.util.GSKOWorldUtil;
+import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;

@@ -14,7 +14,7 @@ import net.minecraft.util.text.ITextComponent;
 
 public class SorceryExtractorScreen extends ContainerScreen<SorceryExtractorContainer> {
     public static final ResourceLocation SORCERY_GUI_TEXTURE = new ResourceLocation(
-            GensokyoOntology.MODID, "textures/gui/sorcery_extractor.png"
+            GensokyoOntology.MODID, "textures/client/sorcery_extractor.png"
     );
     public SorceryExtractorScreen(SorceryExtractorContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);

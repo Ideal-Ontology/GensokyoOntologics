@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.util;
+package github.thelawf.gensokyoontology.common.util.client;
 
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 

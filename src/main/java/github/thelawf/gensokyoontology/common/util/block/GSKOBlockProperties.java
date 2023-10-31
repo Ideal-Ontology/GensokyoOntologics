@@ -1,11 +1,8 @@
-package github.thelawf.gensokyoontology.common.util;
+package github.thelawf.gensokyoontology.common.util.block;
 
 import net.minecraft.block.BlockState;
-import net.minecraft.client.gui.screen.EditStructureScreen;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.Property;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
