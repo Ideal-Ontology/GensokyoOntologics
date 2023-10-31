@@ -34,11 +34,19 @@ public class ImperishableNightCapability implements IImperishableNight{
 
     @Override
     public CompoundNBT serializeNBT() {
-        return null;
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putInt("time", this.time);
+        nbt.putBoolean("is_triggered", this.isTriggered);
+        return nbt;
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-
+        if (nbt.contains("time")) {
+            this.time = nbt.getInt("time");
+        }
+        if (nbt.contains("is_triggered")) {
+            this.isTriggered = nbt.getBoolean("is_triggered");
+        }
     }
 }

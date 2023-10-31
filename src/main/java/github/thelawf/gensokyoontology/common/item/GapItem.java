@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.item;
 
 import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
+import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

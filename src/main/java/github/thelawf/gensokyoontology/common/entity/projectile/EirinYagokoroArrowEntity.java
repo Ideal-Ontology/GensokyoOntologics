@@ -55,7 +55,7 @@ public class EirinYagokoroArrowEntity extends AbstractArrowEntity {
 
     @Override
     protected ItemStack getArrowStack() {
-        return null;
+        return new ItemStack(ItemRegistry.EIRIN_YAGOKORO_ARROW.get());
     }
 
     @Override

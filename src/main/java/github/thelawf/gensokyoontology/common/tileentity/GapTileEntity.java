@@ -12,6 +12,7 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,11 +25,13 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
 
     public GapTileEntity() {
         super(TileEntityTypeRegistry.GAP_TILE_ENTITY.get());
+
     }
 
     @Override
     public void tick() {
-
+        LogManager.getLogger().info(this.destinationWorld.getLocation().toString());
+        LogManager.getLogger().info(this.destinationPos);
     }
 
     @Override
@@ -70,6 +73,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     public CompoundNBT write(CompoundNBT compound) {
         compound.putString("DestinationWorld", this.destinationWorld.getLocation().toString());
         compound.putLong("DestinationPos", this.destinationPos.toLong());
+
         markDirty();
         return compound;
     }

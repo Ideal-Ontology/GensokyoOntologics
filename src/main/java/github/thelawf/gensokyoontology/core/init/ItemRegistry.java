@@ -276,9 +276,9 @@ public final class ItemRegistry {
     public static final RegistryObject<GapItem> GAP_ITEM = ITEMS.register("gap",
             () -> new GapItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    // public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
-    //         "eirin_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
-    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
+            "eirin_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<KoishiEyeOpen> KOISHI_EYE_OPEN = ITEMS.register(
             "koishi_eye_open", () -> new KoishiEyeOpen(new Item.Properties()
