@@ -1,16 +1,13 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
-import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.ISpellCardUser;
 import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
-import github.thelawf.gensokyoontology.api.dialog.IConversationalEntity;
+import github.thelawf.gensokyoontology.api.dialog.IEntityDialog;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.BossBattleGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.LilyWhiteBossBattleGoal;
 import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import github.thelawf.gensokyoontology.common.util.SpellCards;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
@@ -29,7 +26,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
-public class LilyWhiteEntity extends TameableEntity implements IAngerable, ISpellCardUser, IConversationalEntity {
+public class LilyWhiteEntity extends TameableEntity implements IAngerable, ISpellCardUser, IEntityDialog {
     public static final EntityType<LilyWhiteEntity> LILY_WHITE = EntityType.Builder.create(
                     LilyWhiteEntity::new, EntityClassification.CREATURE).updateInterval(2)
             .size(0.6f, 1.5f).trackingRange(10).build("lily_white");

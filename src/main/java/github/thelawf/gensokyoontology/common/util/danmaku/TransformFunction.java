@@ -1,8 +1,8 @@
 package github.thelawf.gensokyoontology.common.util.danmaku;
 
-import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.util.logos.math.LineSegment;
-import github.thelawf.gensokyoontology.common.util.logos.math.LineSegment3D;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.LineSegment;
+import github.thelawf.gensokyoontology.common.util.math.LineSegment3D;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;

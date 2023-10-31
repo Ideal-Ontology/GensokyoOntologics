@@ -1,9 +1,8 @@
-package github.thelawf.gensokyoontology.common.util.logos.math;
+package github.thelawf.gensokyoontology.common.util.math;
 
 
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.entity.passive.ParrotEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector2f;

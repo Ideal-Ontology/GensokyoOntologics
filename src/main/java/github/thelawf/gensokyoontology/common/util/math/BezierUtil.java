@@ -1,11 +1,10 @@
-package github.thelawf.gensokyoontology.common.util.logos.math;
+package github.thelawf.gensokyoontology.common.util.math;
 
 import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 public class BezierUtil {
 

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.util.logos.math;
+package github.thelawf.gensokyoontology.common.util.math;
 
 import java.awt.*;
 

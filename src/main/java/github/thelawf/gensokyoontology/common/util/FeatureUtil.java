@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.util;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.block.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;

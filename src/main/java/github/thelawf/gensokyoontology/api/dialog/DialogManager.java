@@ -1,4 +1,4 @@
 package github.thelawf.gensokyoontology.api.dialog;
 
-public class ConversationManager {
+public class DialogManager {
 }

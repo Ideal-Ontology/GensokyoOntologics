@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.util.logos.math;
+package github.thelawf.gensokyoontology.common.util.math;
 
 public class LineSegment3D extends LineSegment{
     double z1, z2 = 0d;

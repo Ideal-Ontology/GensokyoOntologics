@@ -4,8 +4,13 @@ import net.minecraft.nbt.CompoundNBT;
 
 public class ImperishableNightCapability implements IImperishableNight{
 
-    private int time = 18000;
+    private int time;
     private boolean isTriggered;
+
+    public ImperishableNightCapability(int time, boolean isTriggered) {
+        this.time = time;
+        this.isTriggered = isTriggered;
+    }
 
     @Override
     public void setDayTime(int time) {

@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.util;
 
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import org.apache.logging.log4j.LogManager;

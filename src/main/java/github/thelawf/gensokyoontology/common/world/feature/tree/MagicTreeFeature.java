@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.world.feature.tree;
 
 import com.mojang.serialization.Codec;
-import github.thelawf.gensokyoontology.common.util.logos.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.world.feature.config.MagicTreeConfig;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.block.BlockState;

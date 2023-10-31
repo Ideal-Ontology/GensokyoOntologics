@@ -38,7 +38,7 @@ public class CommonSetUp {
             GSKOFeatures.registerFeature();
 
             GSKOIncidentNetworking.registerMessage();
-            GSKOCapabilities.register();
+            GSKOCapabilities.registerIncidents();
             CountDownNetworking.registerMessage();
 
             Registry.register(Registry.BIOME_PROVIDER_CODEC,
