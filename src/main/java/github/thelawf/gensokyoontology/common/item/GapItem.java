@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.item;
 import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -11,9 +12,14 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
 
 public class GapItem extends Item {
     public GapItem(Properties properties) {
@@ -28,15 +34,15 @@ public class GapItem extends Item {
 
         CompoundNBT itemNBT = new CompoundNBT();
         itemNBT.putBoolean("is_first_placement", true);
-        itemNBT.putLong("FirstPos", pos.toLong());
+        itemNBT.putLong("first_pos", pos.toLong());
 
         if (!worldIn.isRemote && context.getPlayer() != null) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             RegistryKey<World> departureWorld = serverWorld.getDimensionKey();
-            itemNBT.putString("DepartureWorld", departureWorld.getLocation().toString());
+            itemNBT.putString("departure_world", departureWorld.getLocation().toString());
 
             PlayerEntity player = context.getPlayer();
-            ItemStack itemStack = player.getActiveItemStack();
+            ItemStack itemStack = player.getHeldItemMainhand();
             itemStack.setTag(itemNBT);
 
             if (itemNBT.getBoolean("is_first_placement")) {
@@ -64,7 +70,7 @@ public class GapItem extends Item {
             CompoundNBT tileNBT = new CompoundNBT();
             GapTileEntity secondPlacedSukima = (GapTileEntity) worldIn.getTileEntity(pos);
             GapTileEntity firstPlacedSukima = (GapTileEntity) worldIn.getTileEntity(
-                    BlockPos.fromLong(itemNBT.getLong("FirstPos")));
+                    BlockPos.fromLong(itemNBT.getLong("departure_world")));
 
             RegistryKey<World> arrivalWorld = serverWorld.getDimensionKey();
             tileNBT.putString("ArrivalWorld", arrivalWorld.getLocation().toString());
@@ -75,9 +81,18 @@ public class GapItem extends Item {
 
             }
             if (firstPlacedSukima != null) {
-                firstPlacedSukima.setDestinationPos(BlockPos.fromLong(itemNBT.getLong("FirstPos")));
+                firstPlacedSukima.setDestinationPos(BlockPos.fromLong(itemNBT.getLong("departure_world")));
                 firstPlacedSukima.setDestinationWorld(arrivalWorld);
             }
+        }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        if (stack.getTag() != null && stack.getTag().contains("first_pos")) {
+            CompoundNBT nbt = stack.getTag();
+            tooltip.add(new StringTextComponent("First Pos: " +BlockPos.fromLong(nbt.getLong("first_pos"))));
         }
     }
 }

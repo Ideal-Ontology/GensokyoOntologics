@@ -25,13 +25,14 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
 
     public GapTileEntity() {
         super(TileEntityTypeRegistry.GAP_TILE_ENTITY.get());
-
+        this.setDestinationWorld(World.OVERWORLD);
+        this.setDestinationPos(BlockPos.ZERO.up(64));
     }
 
     @Override
     public void tick() {
-        LogManager.getLogger().info(this.destinationWorld.getLocation().toString());
-        LogManager.getLogger().info(this.destinationPos);
+        // LogManager.getLogger().info(this.destinationWorld.getLocation().toString());
+        // LogManager.getLogger().info(this.destinationPos);
     }
 
     @Override
@@ -80,10 +81,12 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
 
     public void setDestinationPos(BlockPos destinationPos) {
         this.destinationPos = destinationPos;
+        markDirty();
     }
 
     public void setDestinationWorld(RegistryKey<World> destinationWorld) {
         this.destinationWorld = destinationWorld;
+        markDirty();
     }
 
     public BlockPos getDestinationPos() {
