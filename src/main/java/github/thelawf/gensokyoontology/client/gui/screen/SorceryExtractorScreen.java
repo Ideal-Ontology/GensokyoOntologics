@@ -11,10 +11,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import org.jetbrains.annotations.NotNull;
 
 public class SorceryExtractorScreen extends ContainerScreen<SorceryExtractorContainer> {
     public static final ResourceLocation SORCERY_GUI_TEXTURE = new ResourceLocation(
-            GensokyoOntology.MODID, "textures/client/sorcery_extractor.png"
+            GensokyoOntology.MODID, "textures/gui/sorcery_extractor.png"
     );
     public SorceryExtractorScreen(SorceryExtractorContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
@@ -25,7 +26,7 @@ public class SorceryExtractorScreen extends ContainerScreen<SorceryExtractorCont
     }
 
     @Override
-    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.renderHoveredTooltip(matrixStack, mouseX, mouseY);

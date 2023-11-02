@@ -1,15 +1,21 @@
 package github.thelawf.gensokyoontology.common.block;
 
+import github.thelawf.gensokyoontology.api.util.INBTReader;
+import github.thelawf.gensokyoontology.api.util.INBTRunnable;
+import github.thelawf.gensokyoontology.api.util.INBTWriter;
 import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
 import github.thelawf.gensokyoontology.common.world.TeleportHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.NetherPortalBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
@@ -25,8 +31,11 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
+import java.util.function.Predicate;
 
-public class GapBlock extends Block {
+public class GapBlock extends Block implements INBTWriter, INBTReader, INBTRunnable {
+
+    private BlockPos tilePos;
 
     // public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
     protected static final VoxelShape SUKIMA_PLANE_X = Block.makeCuboidShape(-4.0D, 0.0D, 4.0D, 20.0D, 16.0D, 4.0D);
@@ -55,7 +64,26 @@ public class GapBlock extends Block {
 
     @Override
     public void onBlockPlacedBy(@NotNull World worldIn, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+        final String isFirstPlacement = "is_first_placement";
+        final String depatureWorld = "depature_world";
+        final String depaturePos = "depature_pos";
+
+        writeBooleanIf(itemStack -> containsKey(stack, isFirstPlacement), stack, "is_first_placement", true);
+        writeStringIf(itemStack -> containsKey(stack, depatureWorld), stack, "depature_world", worldIn.getDimensionKey().getLocation().toString());
+        writeBlockPosIf(itemStack -> containsKey(stack, depaturePos), stack, "depature_pos", pos);
+
+        if (!(placer instanceof PlayerEntity)) return;
+        PlayerEntity player = (PlayerEntity) placer;
+
+        runIf(itemStack -> getNBTBoolean(stack, "is_first_placement") && !player.isCreative(), stack, () -> {
+            stack.grow(1);
+            mergeBoolean(stack, isFirstPlacement, false);
+        });
+
+        runIf(itemStack -> getNBTBoolean(stack, "is_first_placement") && player.isCreative(), stack, () -> {
+            mergeBoolean(stack, isFirstPlacement, false);
+        });
+
     }
 
     @Override
@@ -64,18 +92,27 @@ public class GapBlock extends Block {
         super.onEntityCollision(state, worldIn, pos, entityIn);
         if (!worldIn.isRemote && entityIn instanceof ServerPlayerEntity) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
-            if (serverWorld.getTileEntity(pos) instanceof GapTileEntity) {
-
-                // 这里是获取 departureWorld 的隙间方块实体
-                GapTileEntity departureSukima = (GapTileEntity) serverWorld.getTileEntity(pos);
-                if (departureSukima != null) {
-                    RegistryKey<World> destinationKey = departureSukima.getDestinationWorld();
-                    ServerWorld destinationWorld = serverWorld.getServer().getWorld(destinationKey);
-                    ServerPlayerEntity serverPlayer = (ServerPlayerEntity) entityIn;
-                    TeleportHelper.teleport(serverPlayer, destinationWorld, departureSukima.getDestinationPos());
-                }
+            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) entityIn;
+            if (isDestinationValid(serverWorld, pos) && !serverPlayer.hasPortalCooldown()){
+                GapTileEntity departureGap = getGapTile(serverWorld, pos);
+                ServerWorld destinationWorld = worldIn.getServer().getWorld(departureGap.getDestinationWorld());
+                TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap.getDestinationPos());
+                serverPlayer.setPortalCooldown();
             }
+
         }
+    }
+
+    public boolean isDestinationValid(ServerWorld serverWorld, BlockPos depaturePos) {
+        if (serverWorld.getTileEntity(depaturePos) instanceof GapTileEntity) {
+            GapTileEntity departureGap = (GapTileEntity) serverWorld.getTileEntity(depaturePos);
+            return departureGap != null && departureGap.isAllowTeleport();
+        }
+        return false;
+    }
+
+    public GapTileEntity getGapTile(ServerWorld serverWorld, BlockPos pos) {
+        return (GapTileEntity) serverWorld.getTileEntity(pos);
     }
 
     public GapTileEntity getDestinationSukimaTile(ServerWorld serverWorld, BlockPos pos, RegistryKey<World> destination) {

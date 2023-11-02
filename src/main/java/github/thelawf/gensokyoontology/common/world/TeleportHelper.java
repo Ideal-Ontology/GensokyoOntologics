@@ -18,10 +18,10 @@ import org.apache.logging.log4j.LogManager;
 import java.util.function.Function;
 
 public class TeleportHelper {
-    public static void teleport(ServerPlayerEntity entity, ServerWorld destination, BlockPos pos) {
+    public static void teleport(ServerPlayerEntity player, ServerWorld destination, BlockPos pos) {
 
         if (canTeleport(destination, pos)) {
-            entity.changeDimension(destination, new ITeleporter() {
+            player.changeDimension(destination, new ITeleporter() {
                 @Override
                 public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld,
                                           float yaw, Function<Boolean, Entity> repositionEntity) {
@@ -33,6 +33,17 @@ public class TeleportHelper {
                 }
             });
         }
+    }
+
+    public static void applyGapTeleport(ServerPlayerEntity player, ServerWorld destination, BlockPos pos) {
+        player.changeDimension(destination, new ITeleporter() {
+            @Override
+            public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
+                entity = repositionEntity.apply(false);
+                entity.setPosition(pos.getX() + 2, pos.getY(), pos.getZ());
+                return entity;
+            }
+        });
     }
 
     /** 获取目的地世界对应位置的方块状态，如果玩家位置是空气且玩家脚下的方块是固态方块则进行传送 */
@@ -58,7 +69,6 @@ public class TeleportHelper {
                 return true;
             }
             else {
-                LogManager.getLogger().info("Other Condition");
                 return isValidPos(destination, pos);
             }
         }
@@ -66,6 +76,7 @@ public class TeleportHelper {
     }
 
     public static boolean isValidPos (ServerWorld destination, BlockPos pos) {
+        LogManager.getLogger().info("Other Condition is: " + findValidPos(destination, pos).getFirst());
         return findValidPos(destination, pos).getFirst();
     }
 

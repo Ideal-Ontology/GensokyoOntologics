@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.tileentity;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.NetherPortalBlock;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -18,21 +19,22 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
-public class GapTileEntity extends TileEntity implements ITickableTileEntity {
+public class GapTileEntity extends TileEntity {
 
+    private boolean allowTeleport;
     private BlockPos destinationPos;
     private RegistryKey<World> destinationWorld;
 
-    public GapTileEntity() {
+    public GapTileEntity(RegistryKey<World> destinationWorld, BlockPos destinationPos) {
         super(TileEntityTypeRegistry.GAP_TILE_ENTITY.get());
-        this.setDestinationWorld(World.OVERWORLD);
-        this.setDestinationPos(BlockPos.ZERO.up(64));
+        this.setDestinationWorld(destinationWorld);
+        this.setDestinationPos(destinationPos);
     }
 
-    @Override
-    public void tick() {
-        // LogManager.getLogger().info(this.destinationWorld.getLocation().toString());
-        // LogManager.getLogger().info(this.destinationPos);
+    public GapTileEntity() {
+        super(TileEntityTypeRegistry.GAP_TILE_ENTITY.get());
+        this.setDestinationWorld(destinationWorld);
+        this.setDestinationPos(destinationPos);
     }
 
     @Override
@@ -58,7 +60,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT nbt) {
+    public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
         super.read(state, nbt);
         if (nbt.contains("DestinationPos")) {
             this.destinationPos = BlockPos.fromLong(nbt.getLong("DestinationPos"));
@@ -67,13 +69,18 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
             this.destinationWorld = GSKOWorldUtil.getWorldDimension(new ResourceLocation(
                     nbt.getString("DestinationWorld")));
         }
+        if (nbt.contains("AllowTeleport")) {
+            this.allowTeleport = nbt.getBoolean("AllowTeleport");
+        }
     }
 
     @Override
     @Nonnull
     public CompoundNBT write(CompoundNBT compound) {
+        super.write(compound);
         compound.putString("DestinationWorld", this.destinationWorld.getLocation().toString());
         compound.putLong("DestinationPos", this.destinationPos.toLong());
+        compound.putBoolean("AllowTeleport", this.allowTeleport);
 
         markDirty();
         return compound;
@@ -86,6 +93,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
 
     public void setDestinationWorld(RegistryKey<World> destinationWorld) {
         this.destinationWorld = destinationWorld;
+        this.allowTeleport = true;
         markDirty();
     }
 
@@ -97,4 +105,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
         return destinationWorld;
     }
 
+    public boolean isAllowTeleport() {
+        return this.allowTeleport;
+    }
 }
