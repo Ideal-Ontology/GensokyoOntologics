@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 
 public class GapTileEntity extends TileEntity {
 
-    private boolean allowTeleport;
+    private boolean allowTeleport = false;
     private BlockPos destinationPos;
     private RegistryKey<World> destinationWorld;
 

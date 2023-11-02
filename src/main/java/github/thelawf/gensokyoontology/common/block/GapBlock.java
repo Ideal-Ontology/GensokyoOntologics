@@ -85,7 +85,7 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
         // 第一次放置时需要判断物品内部是否含有tag，如果没有tag则添加对应的tag
         writeBooleanIf(itemStack -> containsKey(stack, isFirstPlacement), stack, isFirstPlacement, true);
         writeStringIf(itemStack -> containsKey(stack, depatureWorld), stack, depatureWorld, worldIn.getDimensionKey().getLocation().toString());
-        writeBlockPosIf(itemStack -> containsKey(stack, depaturePos), stack, depaturePos, pos);
+        writeBlockPosIf(itemStack -> containsKey(stack, depaturePos), stack, depaturePos, pos.up(1));
 
         if (!(placer instanceof PlayerEntity)) return;
         PlayerEntity player = (PlayerEntity) placer;
@@ -108,6 +108,7 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
             if (firstTile instanceof GapTileEntity && getNBTBlockPos(stack, depaturePos) != BlockPos.ZERO &&
                     !Objects.equals(getNBTString(stack, depatureWorld), "NULL")) {
                 GapTileEntity depatureGap = (GapTileEntity) firstTile;
+                player.sendMessage(new StringTextComponent(depatureGap.getDestinationWorld().getLocation().toString()), player.getUniqueID());
                 depatureGap.setDestinationPos(getNBTBlockPos(stack, depaturePos));
                 depatureGap.setDestinationWorld(RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
                         new ResourceLocation(getNBTString(stack, depatureWorld))));

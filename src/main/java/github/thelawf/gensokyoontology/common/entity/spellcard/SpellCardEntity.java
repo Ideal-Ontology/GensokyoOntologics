@@ -125,7 +125,7 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     /**
      * 这个方法是为了方便其它类在外部调用符卡的弹幕演出
      */
-    public void onTick(int ticksExisted) {
+    public static void onTick(int ticksExisted) {
     }
 
     /**
