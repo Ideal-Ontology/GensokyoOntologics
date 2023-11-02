@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.dialog.IEntityDialog;
+import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -20,8 +21,8 @@ public class SatoriEye extends Item {
     @Override
     @NotNull
     public ActionResultType itemInteractionForEntity(@NotNull ItemStack stack, @NotNull PlayerEntity playerIn, @NotNull LivingEntity target, @NotNull Hand hand) {
-        if (target instanceof IEntityDialog) {
-            playerIn.sendMessage(new TranslationTextComponent("dialog." + GensokyoOntology.MODID +".hello"), playerIn.getUniqueID());
+        if (target instanceof ConversationalEntity) {
+            playerIn.sendMessage(new TranslationTextComponent(((ConversationalEntity) target).getDialog().name), playerIn.getUniqueID());
         }
         return super.itemInteractionForEntity(stack, playerIn, target, hand);
     }

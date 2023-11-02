@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.api.dialog.IEntityDialog;
 import net.minecraft.entity.EntityType;
@@ -20,6 +21,7 @@ public abstract class ConversationalEntity extends TameableEntity implements IAn
 
     protected ConversationalEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
+        this.dialog = new DialogTreeNode("dialog." + GensokyoOntology.MODID + ".hello");
     }
 
     @Override
@@ -42,7 +44,13 @@ public abstract class ConversationalEntity extends TameableEntity implements IAn
         compound.putString("dialog_key", this.dialog.getName());
     }
 
+    @Override
     public DialogTreeNode getDialog() {
         return this.dialog;
+    }
+
+    @Override
+    public void setDialog(DialogTreeNode dialog) {
+        this.dialog = dialog;
     }
 }

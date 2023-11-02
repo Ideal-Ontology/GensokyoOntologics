@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.api;
+package github.thelawf.gensokyoontology.api.entity;
 
 public interface IDanmakuBehavior {
 

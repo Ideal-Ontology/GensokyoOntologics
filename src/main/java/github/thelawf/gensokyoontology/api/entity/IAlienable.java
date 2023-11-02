@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.api;
+package github.thelawf.gensokyoontology.api.entity;
 
 import net.minecraft.entity.Entity;
 

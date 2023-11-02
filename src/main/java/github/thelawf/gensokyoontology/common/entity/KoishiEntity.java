@@ -1,20 +1,14 @@
 package github.thelawf.gensokyoontology.common.entity;
 
-import github.thelawf.gensokyoontology.api.ISpellCardUser;
+import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.client.renderer.entity.model.VillagerModel;
-import net.minecraft.client.renderer.entity.model.ZombieModel;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IAngerable;
 import net.minecraft.entity.ai.goal.LeapAtTargetGoal;
 import net.minecraft.entity.ai.goal.LookAtGoal;
 import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
-import net.minecraft.entity.monster.VindicatorEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -59,13 +53,13 @@ public class KoishiEntity extends ConversationalEntity implements ISpellCardUser
     }
 
     @Override
-    public void writeAdditional(CompoundNBT compound) {
+    public void writeAdditional(@NotNull CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putInt(KEY_FAVORABILITY, getFavorability());
     }
 
     @Override
-    public void readAdditional(CompoundNBT compound) {
+    public void readAdditional(@NotNull CompoundNBT compound) {
         super.readAdditional(compound);
     }
 
