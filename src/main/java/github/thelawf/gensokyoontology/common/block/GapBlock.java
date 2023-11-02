@@ -42,7 +42,7 @@ import java.util.Objects;
 import java.util.Random;
 import java.util.function.Predicate;
 
-public class GapBlock extends Block implements INBTWriter, INBTReader, INBTRunnable {
+public class GapBlock extends Block implements INBTWriter, INBTRunnable {
 
     private BlockPos tilePos;
 

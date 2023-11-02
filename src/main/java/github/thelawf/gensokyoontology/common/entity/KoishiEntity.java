@@ -1,5 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity;
 
+import github.thelawf.gensokyoontology.api.ISpellCardUser;
+import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
+import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.client.renderer.entity.model.VillagerModel;
 import net.minecraft.client.renderer.entity.model.ZombieModel;
@@ -22,11 +25,12 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class KoishiEntity extends TameableEntity implements IAngerable {
+public class KoishiEntity extends ConversationalEntity implements ISpellCardUser {
 
     private int angerTime;
     private UUID angerTarget;
@@ -102,7 +106,19 @@ public class KoishiEntity extends TameableEntity implements IAngerable {
     }
 
     @Override
+    @NotNull
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    @Override
+    public DialogTreeNode getNextDialog(int optionIndex) {
+        return optionIndex == 0 ? new DialogTreeNode("root").accessBranch(optionIndex) :
+                new DialogTreeNode("root");
+    }
+
+    @Override
+    public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
+
     }
 }
