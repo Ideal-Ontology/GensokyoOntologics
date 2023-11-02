@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.api.util;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.BlockPos;
 
 import java.util.Optional;
 
@@ -18,14 +19,20 @@ public interface INBTReader {
         return getOrEmptyTag(stack).isPresent() && getOrEmptyTag(stack).get().contains(key);
     }
 
-    default Optional<String> getNBTString(ItemStack stack, String key) {
+    default String getNBTString(ItemStack stack, String key) {
         return containsKey(stack, key) && getOrEmptyTag(stack).isPresent() ?
-                Optional.of(getOrEmptyTag(stack).get().getString(key)) :
-                Optional.of("NULL");
+                getOrEmptyTag(stack).get().getString(key) :
+                "NULL";
     }
 
     default boolean getNBTBoolean(ItemStack stack, String key) {
         return containsKey(stack, key) && getOrEmptyTag(stack).isPresent() &&
                 getOrEmptyTag(stack).get().getBoolean(key);
+    }
+
+    default BlockPos getNBTBlockPos(ItemStack stack, String key) {
+        return containsKey(stack, key) && getOrEmptyTag(stack).isPresent() ?
+                BlockPos.fromLong(getOrEmptyTag(stack).get().getLong(key)) :
+                BlockPos.ZERO;
     }
 }
