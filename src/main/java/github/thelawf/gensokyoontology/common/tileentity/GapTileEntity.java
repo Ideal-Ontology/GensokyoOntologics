@@ -3,7 +3,6 @@ package github.thelawf.gensokyoontology.common.tileentity;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.NetherPortalBlock;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -13,17 +12,18 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
-public class GapTileEntity extends TileEntity {
+public class GapTileEntity extends TileEntity implements ITickableTileEntity {
 
+    private static final int MAX_COOLDOWN_TICK = 400;
     private boolean allowTeleport = false;
     private BlockPos destinationPos;
     private RegistryKey<World> destinationWorld;
+    private int cooldown = MAX_COOLDOWN_TICK;
 
     public GapTileEntity(RegistryKey<World> destinationWorld, BlockPos destinationPos) {
         super(TileEntityTypeRegistry.GAP_TILE_ENTITY.get());
@@ -61,7 +61,7 @@ public class GapTileEntity extends TileEntity {
 
     @Override
     public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
-        super.read(state, nbt);
+
         if (nbt.contains("DestinationPos")) {
             this.destinationPos = BlockPos.fromLong(nbt.getLong("DestinationPos"));
         }
@@ -72,6 +72,10 @@ public class GapTileEntity extends TileEntity {
         if (nbt.contains("AllowTeleport")) {
             this.allowTeleport = nbt.getBoolean("AllowTeleport");
         }
+        if (nbt.contains("Cooldown")) {
+            setCooldown(nbt.getInt("Cooldown"));
+        }
+        super.read(state, nbt);
     }
 
     @Override
@@ -79,22 +83,27 @@ public class GapTileEntity extends TileEntity {
     public CompoundNBT write(CompoundNBT compound) {
         super.write(compound);
         compound.putString("DestinationWorld", this.destinationWorld.getLocation().toString());
-        compound.putLong("DestinationPos", this.destinationPos.toLong());
         compound.putBoolean("AllowTeleport", this.allowTeleport);
+        compound.putInt("Cooldown", this.cooldown);
+        compound.putLong("DestinationPos", this.destinationPos.toLong());
+        // compound.putInt("DestinationX", this.destinationPos.getX());
+        // compound.putInt("DestinationY", this.destinationPos.getY());
+        // compound.putInt("DestinationZ", this.destinationPos.getZ());
 
-        markDirty();
         return compound;
     }
 
     public void setDestinationPos(BlockPos destinationPos) {
         this.destinationPos = destinationPos;
-        markDirty();
     }
 
     public void setDestinationWorld(RegistryKey<World> destinationWorld) {
         this.destinationWorld = destinationWorld;
         this.allowTeleport = true;
-        markDirty();
+    }
+
+    public void setCooldown(int cooldown) {
+        this.cooldown = cooldown;
     }
 
     public BlockPos getDestinationPos() {
@@ -107,5 +116,21 @@ public class GapTileEntity extends TileEntity {
 
     public boolean isAllowTeleport() {
         return this.allowTeleport;
+    }
+    public void setAllowTeleport(boolean isAllowTeleport) {
+        this.allowTeleport = isAllowTeleport;
+    }
+
+    @Override
+    public void tick() {
+        if (this.world != null && !this.world.isRemote) {
+            if (this.cooldown >= MAX_COOLDOWN_TICK) {
+                setAllowTeleport(true);
+                this.cooldown = 0;
+            }
+            setAllowTeleport(false);
+            this.cooldown++;
+        }
+        markDirty();
     }
 }

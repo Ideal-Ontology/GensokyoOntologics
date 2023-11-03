@@ -19,6 +19,17 @@ public interface INBTReader {
         return getOrEmptyTag(stack).isPresent() && getOrEmptyTag(stack).get().contains(key);
     }
 
+    default int getNBTInt (CompoundNBT nbt, String key) {
+        return nbt.getInt(key);
+    }
+
+    default int getIntOrThrow(ItemStack stack, String key) {
+        if (stack.getTag() == null) {
+            throw new NullPointerException("Item stack has no key like: " + key);
+        }
+        return stack.getTag().getInt(key);
+    }
+
     default String getNBTString(ItemStack stack, String key) {
         return containsKey(stack, key) && getOrEmptyTag(stack).isPresent() ?
                 getOrEmptyTag(stack).get().getString(key) :

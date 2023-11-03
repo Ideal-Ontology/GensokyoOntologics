@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.world;
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.block.BlockState;
@@ -35,7 +36,9 @@ public class TeleportHelper {
         }
     }
 
-    public static void applyGapTeleport(ServerPlayerEntity player, ServerWorld destination, BlockPos pos) {
+    public static void applyGapTeleport(ServerPlayerEntity player, ServerWorld destination, GapTileEntity gapTile) {
+        // if (!gapTile.isAllowTeleport()) return;
+        BlockPos pos = gapTile.getDestinationPos();
         player.changeDimension(destination, new ITeleporter() {
             @Override
             public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
@@ -44,6 +47,10 @@ public class TeleportHelper {
                 return entity;
             }
         });
+    }
+
+    public static void applyStructureTeleport(ServerWorld destination) {
+
     }
 
     /** 获取目的地世界对应位置的方块状态，如果玩家位置是空气且玩家脚下的方块是固态方块则进行传送 */
@@ -86,8 +93,8 @@ public class TeleportHelper {
             BlockPos standPos = new BlockPos(pos.down().getX(), i, pos.down().getZ());
             BlockPos eyePos = new BlockPos(pos.up().getX(), i, pos.up().getZ());
             if (!destination.getBlockState(standPos).getBlock().equals(Blocks.AIR) &&
-                destination.getBlockState(playerPos).getBlock().equals(Blocks.AIR) &&
-                    destination.getBlockState(eyePos).getBlock().equals(Blocks.AIR)){
+                    destination.getBlockState(playerPos).getBlock().equals(Blocks.AIR) &&
+                    destination.getBlockState(eyePos).getBlock().equals(Blocks.AIR)) {
                 return Pair.of(true, playerPos);
             }
         }

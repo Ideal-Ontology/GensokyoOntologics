@@ -19,11 +19,11 @@ public interface INBTWriter extends INBTReader{
         stack.setTag(nbt);
     }
 
+
     default void writeBlockPos(ItemStack stack, String key, BlockPos pos) {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putLong(key, pos.toLong());
         stack.setTag(nbt);
-
     }
 
     default void mergeBoolean(ItemStack stack, String key, Boolean value) {
@@ -45,6 +45,17 @@ public interface INBTWriter extends INBTReader{
         nbt.putLong(key, pos.toLong());
         stack.setTag(nbt);
 
+    }
+
+
+    default void mergeBlockPos(ItemStack stack, String xKey, String yKey, String zKey, BlockPos pos) {
+        CompoundNBT nbt = getOrCreateTag(stack);
+        CompoundNBT newNBT = new CompoundNBT();
+        newNBT.putInt(xKey, pos.getX());
+        newNBT.putInt(yKey, pos.getY());
+        newNBT.putInt(zKey, pos.getZ());
+        nbt.merge(newNBT);
+        stack.setTag(nbt);
     }
 
     default void writeStringIf(Predicate<ItemStack> predicate, ItemStack stack, String key, String value) {

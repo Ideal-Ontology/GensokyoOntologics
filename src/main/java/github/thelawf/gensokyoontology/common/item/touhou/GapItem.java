@@ -44,7 +44,7 @@ public class GapItem extends BlockItem implements INBTWriter, INBTRunnable {
 
             if (stack.hasTag()) {
                 CompoundNBT nbt = stack.getTag();
-                setBlockTileSecond(player, worldIn, pos, nbt);
+                // setBlockTileSecond(player, worldIn, pos, nbt);
                 stack.setTag(new CompoundNBT());
                 stack.shrink(1);
                 return super.onBlockPlaced(pos, worldIn, player, stack, state);
@@ -52,68 +52,10 @@ public class GapItem extends BlockItem implements INBTWriter, INBTRunnable {
             }
         }
 
-        setBlockTileFirst(worldIn, player, pos);
+        // setBlockTileFirst(worldIn, player, pos);
         return super.onBlockPlaced(pos, worldIn, player, stack, state);
     }
 
-    private void setBlockTileFirst(World worldIn, PlayerEntity player, BlockPos pos) {
-        CompoundNBT itemNBT = new CompoundNBT();
-        itemNBT.putBoolean("is_first_placement", true);
-        itemNBT.putLong("first_pos", pos.toLong());
-
-        if (!worldIn.isRemote) {
-            ServerWorld serverWorld = (ServerWorld) worldIn;
-            RegistryKey<World> departureWorld = serverWorld.getDimensionKey();
-            itemNBT.putString("departure_world", departureWorld.getLocation().toString());
-
-            ItemStack itemStack = player.getHeldItemMainhand();
-            itemStack.setTag(itemNBT);
-
-            itemStack.setCount(1);
-            mergeBoolean(itemStack, "is_first_placement", false);
-        }
-
-        worldIn.setBlockState(pos, BlockRegistry.GAP_BLOCK.get().getDefaultState());
-        if (worldIn.getTileEntity(pos) instanceof GapTileEntity) {
-            GapTileEntity gapTile = (GapTileEntity) worldIn.getTileEntity(pos);
-            if (gapTile != null) {
-                gapTile.markDirty();
-            }
-        }
-    }
-
-    private void setBlockTileSecond(PlayerEntity player, World worldIn, BlockPos pos, CompoundNBT itemNBT) {
-        worldIn.setBlockState(pos, BlockRegistry.GAP_BLOCK.get().getDefaultState());
-
-        if (!worldIn.isRemote && worldIn.getTileEntity(pos) instanceof GapTileEntity) {
-
-            RegistryKey<World> departureKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(itemNBT.getString("departure_world")));
-            if (worldIn.getServer() == null) return;
-            ServerWorld depatureWorld = worldIn.getServer().getWorld(departureKey);
-            if (depatureWorld == null) return;
-
-            ServerWorld arrivalWorld = (ServerWorld) worldIn;
-            RegistryKey<World> arrivalKey = arrivalWorld.getDimensionKey();
-
-            GapTileEntity secondPlacedSukima = (GapTileEntity) arrivalWorld.getTileEntity(pos);
-            GapTileEntity firstPlacedSukima = (GapTileEntity) depatureWorld.getTileEntity(
-                    BlockPos.fromLong(itemNBT.getLong("first_pos")));
-
-            if (secondPlacedSukima != null) {
-                player.sendMessage(new StringTextComponent("2nd Gap is Present"), player.getUniqueID());
-                secondPlacedSukima.setDestinationPos(pos);
-                secondPlacedSukima.setDestinationWorld(departureKey);
-                secondPlacedSukima.markDirty();
-
-            }
-            if (firstPlacedSukima != null) {
-                player.sendMessage(new StringTextComponent("1st Gap is Present"), player.getUniqueID());
-                firstPlacedSukima.setDestinationPos(BlockPos.fromLong(itemNBT.getLong("first_pos")));
-                firstPlacedSukima.setDestinationWorld(arrivalKey);
-                firstPlacedSukima.markDirty();
-            }
-        }
-    }
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, ITooltipFlag flagIn) {
@@ -122,7 +64,7 @@ public class GapItem extends BlockItem implements INBTWriter, INBTRunnable {
             CompoundNBT nbt = stack.getTag();
             if (nbt.contains("first_pos")) {
                 BlockPos pos = BlockPos.fromLong(nbt.getLong("first_pos"));
-                tooltip.add(new StringTextComponent("第一处隙间设置为: "+ pos.getX() +", "+ pos.getY() + ", " + pos.getZ()));
+                tooltip.add(new StringTextComponent("第一处隙间设置为: "+ pos.getCoordinatesAsString()));
             }
             if (nbt.contains("departure_world")) {
                 tooltip.add(new TranslationTextComponent(nbt.getString("departure_world")));

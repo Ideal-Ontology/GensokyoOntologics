@@ -1,16 +1,13 @@
 package github.thelawf.gensokyoontology.common.block;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.util.INBTReader;
 import github.thelawf.gensokyoontology.api.util.INBTRunnable;
 import github.thelawf.gensokyoontology.api.util.INBTWriter;
 import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
 import github.thelawf.gensokyoontology.common.world.TeleportHelper;
+import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.block.NetherPortalBlock;
-import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -18,10 +15,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -38,9 +32,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.Random;
-import java.util.function.Predicate;
 
 public class GapBlock extends Block implements INBTWriter, INBTRunnable {
 
@@ -71,122 +62,120 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
         return new GapTileEntity();
     }
 
-    // @Override
-    // public void onBlockPlacedBy(@NotNull World worldIn, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
-    //     super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-//
-    //     final String isFirstPlacement = "is_first_placement";
-    //     final String depatureWorld = "depature_world";
-    //     final String depaturePos = "depature_pos";
-//
-    //     final String arrivalWorld = "arrival_world";
-    //     final String arrivalPos = "arrival_pos";
-//
-    //     // 第一次放置时需要判断物品内部是否含有tag，如果没有tag则添加对应的tag
-    //     writeBoolean(stack, isFirstPlacement, true);
-    //     writeString(stack, depatureWorld, worldIn.getDimensionKey().getLocation().toString());
-    //     writeBlockPos(stack, depaturePos, pos.up(1));
-//
-    //     // writeBooleanIf(itemStack -> containsKey(stack, isFirstPlacement), stack, isFirstPlacement, true);
-    //     // writeStringIf(itemStack -> containsKey(stack, depatureWorld), stack, depatureWorld, worldIn.getDimensionKey().getLocation().toString());
-    //     // writeBlockPosIf(itemStack -> containsKey(stack, depaturePos), stack, depaturePos, pos.up(1));
-//
-    //     if (!(placer instanceof PlayerEntity)) return;
-    //     PlayerEntity player = (PlayerEntity) placer;
-//
-    //     /* 第一次放置时 is_first_placement 为 true，所以调用这里的runIf(), 增加一个物品，同时将is_first_placement
-    //      * 设置为 false，nbt内部的合并方法会将旧值替换为新值
-    //      */
-    //     if (getNBTBoolean(stack, isFirstPlacement) && !player.isCreative()) {
-    //         stack.grow(1);
-    //         mergeBoolean(stack, isFirstPlacement, false);
-    //         return;
-    //     }
-//
-    //     // runIf(itemStack -> getNBTBoolean(stack, isFirstPlacement) && player.isCreative(), stack, () -> mergeBoolean(stack, isFirstPlacement, false));
-//
-    //     /* 第二次放置时 is_first_placement 为 false，所以调用这里的runIf()，在坐标
-    //      */
-    //     runIf(itemStack -> !getNBTBoolean(stack, isFirstPlacement), stack, () -> {
-    //         TileEntity firstTile = worldIn.getTileEntity(getNBTBlockPos(stack, depaturePos));
-    //         if (firstTile instanceof GapTileEntity && getNBTBlockPos(stack, depaturePos) != BlockPos.ZERO &&
-    //                 !Objects.equals(getNBTString(stack, depatureWorld), "NULL")) {
-    //             GapTileEntity depatureGap = (GapTileEntity) firstTile;
-    //             player.sendMessage(new StringTextComponent(depatureGap.getPos().getCoordinatesAsString()), player.getUniqueID());
-    //             depatureGap.setDestinationPos(getNBTBlockPos(stack, depaturePos));
-    //             depatureGap.setDestinationWorld(RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-    //                     new ResourceLocation(getNBTString(stack, depatureWorld))));
-    //         }
-//
-    //         mergeString(stack, arrivalWorld, worldIn.getDimensionKey().getLocation().toString());
-    //         mergeBlockPos(stack, arrivalPos, pos);
-//
-    //         TileEntity secondTile = worldIn.getTileEntity(pos);
-    //         if (secondTile instanceof GapTileEntity && getNBTBlockPos(stack, depaturePos) != BlockPos.ZERO &&
-    //                 !Objects.equals(getNBTString(stack, depatureWorld), "NULL")) {
-    //             GapTileEntity arrivalGap = (GapTileEntity) secondTile;
-    //             arrivalGap.setDestinationPos(pos);
-    //             arrivalGap.setDestinationWorld(worldIn.getDimensionKey());
-    //         }
-    //     });
-//
-    //     // 将物品NBT设置为空，以开始下一次的循环
-    //     stack.setTag(new CompoundNBT());
-    // }
+    @Override
+    public void onBlockPlacedBy(@NotNull World worldIn, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+
+        if (!(placer instanceof PlayerEntity)) return;
+        PlayerEntity player = (PlayerEntity) placer;
+
+        if (stack.hasTag()) {
+            CompoundNBT nbt = stack.getTag();
+            setBlockTileSecond(player, worldIn, pos, nbt);
+            stack.setTag(new CompoundNBT());
+            stack.shrink(1);
+            return;
+        }
+
+        setBlockTileFirst(worldIn, player, pos);
+    }
 
     @Override
     @SuppressWarnings("deprecation")
     public void onEntityCollision(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull Entity entityIn) {
         super.onEntityCollision(state, worldIn, pos, entityIn);
+
         if (!worldIn.isRemote && entityIn instanceof ServerPlayerEntity) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) entityIn;
-            if (isDestinationValid(serverWorld, pos) && !serverPlayer.hasPortalCooldown()){
+
+            if (checkCanTeleport(serverWorld, pos)){
                 GapTileEntity departureGap = getGapTile(serverWorld, pos);
                 ServerWorld destinationWorld = worldIn.getServer().getWorld(departureGap.getDestinationWorld());
-                TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap.getDestinationPos());
-                serverPlayer.setPortalCooldown();
+                TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
             }
 
         }
     }
 
+    private void setBlockTileFirst(World worldIn, PlayerEntity player, BlockPos firstPos) {
+        CompoundNBT itemNBT = new CompoundNBT();
+        itemNBT.putBoolean("is_first_placement", true);
+        itemNBT.putLong("first_pos", firstPos.toLong());
+
+        if (!worldIn.isRemote) {
+            ServerWorld serverWorld = (ServerWorld) worldIn;
+            RegistryKey<World> departureWorld = serverWorld.getDimensionKey();
+            itemNBT.putString("departure_world", departureWorld.getLocation().toString());
+
+            ItemStack itemStack = player.getHeldItemMainhand();
+            mergeBlockPos(itemStack, "pos_x", "pos_y", "pos_z", firstPos);
+            mergeBoolean(itemStack, "is_first_placement", false);
+            itemStack.setCount(1);
+        }
+
+        worldIn.setBlockState(firstPos, BlockRegistry.GAP_BLOCK.get().getDefaultState());
+        if (worldIn.getTileEntity(firstPos) instanceof GapTileEntity) {
+            GapTileEntity gapTile = (GapTileEntity) worldIn.getTileEntity(firstPos);
+            if (gapTile != null) {
+                gapTile.markDirty();
+            }
+        }
+    }
+
+    private void setBlockTileSecond(PlayerEntity player, World worldIn, BlockPos secondPos, @NotNull CompoundNBT itemNBT) {
+        worldIn.setBlockState(secondPos, BlockRegistry.GAP_BLOCK.get().getDefaultState());
+
+        if (!worldIn.isRemote && worldIn.getTileEntity(secondPos) instanceof GapTileEntity) {
+
+            RegistryKey<World> departureKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(itemNBT.getString("departure_world")));
+            if (worldIn.getServer() == null) return;
+            ServerWorld depatureWorld = worldIn.getServer().getWorld(departureKey);
+            if (depatureWorld == null) return;
+
+            ServerWorld arrivalWorld = (ServerWorld) worldIn;
+            RegistryKey<World> arrivalKey = arrivalWorld.getDimensionKey();
+            BlockPos firstPos = new BlockPos(getNBTInt(itemNBT, "pos_x"), getNBTInt(itemNBT, "pos_y"), getNBTInt(itemNBT, "pos_z"));
+
+            GapTileEntity secondPlacedSukima = (GapTileEntity) arrivalWorld.getTileEntity(secondPos);
+            GapTileEntity firstPlacedSukima = (GapTileEntity) depatureWorld.getTileEntity(firstPos);
+
+            if (secondPlacedSukima != null) {
+                player.sendMessage(new StringTextComponent("2nd Gap is Present"), player.getUniqueID());
+                secondPlacedSukima.setDestinationPos(firstPos);
+                secondPlacedSukima.setDestinationWorld(departureKey);
+                secondPlacedSukima.markDirty();
+
+            }
+            if (firstPlacedSukima != null) {
+                player.sendMessage(new StringTextComponent("1st Gap is Present"), player.getUniqueID());
+                firstPlacedSukima.setDestinationPos(secondPos);
+                firstPlacedSukima.setDestinationWorld(arrivalKey);
+                firstPlacedSukima.markDirty();
+            }
+        }
+    }
+
+
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        final String t = "tooltip.";
-        final String gap = ".gap_block";
-
-        final String isFirstPlacement = gap + ".is_first_placement";
-        final String depatureWorld = gap + ".depature_world";
-        final String depaturePos = gap + ".depature_pos";
-
-        final String arrivalWorld = gap + ".arrival_world";
-        final String arrivalPos = gap + ".arrival_pos";
-
-        runIf(itemStack -> containsKey(stack, isFirstPlacement), stack, () ->
-                tooltip.add(GensokyoOntology.withTranslation(t, isFirstPlacement)));
-
-        runIf(itemStack -> containsKey(stack, depatureWorld), stack, () ->
-                tooltip.add(GensokyoOntology.withTranslation(t, depatureWorld)));
-
-        runIf(itemStack -> containsKey(stack, depaturePos), stack, () -> {
-            BlockPos pos = getNBTBlockPos(stack, depaturePos);
-            tooltip.add(GensokyoOntology.withTranslation(t, depaturePos));
-            tooltip.add(new StringTextComponent(pos.getX() +", "+ pos.getY() + ", " + pos.getZ()));
-        });
-
-        runIf(itemStack -> containsKey(stack, arrivalWorld), stack, () ->
-                tooltip.add(GensokyoOntology.withTranslation(t, arrivalWorld)));
-
-        runIf(itemStack -> containsKey(stack, arrivalPos), stack, () -> {
-            BlockPos pos = getNBTBlockPos(stack, arrivalPos);
-            tooltip.add(GensokyoOntology.withTranslation(t, arrivalPos));
-            tooltip.add(new StringTextComponent(pos.getX() +", "+ pos.getY() + ", " + pos.getZ()));
-        });
+        if (stack.getTag() != null && stack.getTag().contains("first_pos")) {
+            CompoundNBT nbt = stack.getTag();
+            if (nbt.contains("first_pos")) {
+                BlockPos pos = BlockPos.fromLong(nbt.getLong("first_pos"));
+                tooltip.add(new StringTextComponent("第一处隙间设置为: "+ pos.getCoordinatesAsString()));
+            }
+            if (nbt.contains("departure_world")) {
+                tooltip.add(new TranslationTextComponent(nbt.getString("departure_world")));
+            }
+            if (nbt.contains("is_first_placement")) {
+                tooltip.add(new StringTextComponent("是否是第一次点击：" + nbt.getBoolean("is_first_placement")));
+            }
+        }
     }
 
-    public boolean isDestinationValid(ServerWorld serverWorld, BlockPos depaturePos) {
+    public boolean checkCanTeleport(ServerWorld serverWorld, BlockPos depaturePos) {
         if (serverWorld.getTileEntity(depaturePos) instanceof GapTileEntity) {
             GapTileEntity departureGap = (GapTileEntity) serverWorld.getTileEntity(depaturePos);
             return departureGap != null && departureGap.isAllowTeleport();
