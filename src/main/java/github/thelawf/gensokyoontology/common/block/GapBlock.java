@@ -32,6 +32,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Objects;
 
 public class GapBlock extends Block implements INBTWriter, INBTRunnable {
 
@@ -92,8 +93,12 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
             if (checkCanTeleport(serverWorld, pos)){
                 GapTileEntity departureGap = getGapTile(serverWorld, pos);
                 ServerWorld destinationWorld = worldIn.getServer().getWorld(departureGap.getDestinationWorld());
-                TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
-                departureGap.setCooldown(400);
+                if (destinationWorld != null) {
+                    // tryTeleport(serverWorld, destinationWorld, serverPlayer, departureGap);
+                    GapTileEntity arrivalGap = getGapTile(destinationWorld, departureGap.getDestinationPos());
+                    arrivalGap.setCooldown(400);
+                    TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
+                }
             }
 
         }
@@ -191,6 +196,10 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
         return (GapTileEntity) serverWorld.getTileEntity(pos);
     }
 
+    private static boolean isInSameDimension(RegistryKey<World> departureWorld, RegistryKey<World> destination) {
+        return departureWorld == destination;
+    }
+
     public GapTileEntity getDestinationSukimaTile(ServerWorld serverWorld, BlockPos pos, RegistryKey<World> destination) {
         ServerWorld destinationWorld = serverWorld.getServer().getWorld(destination);
         if (destinationWorld != null && destinationWorld.getTileEntity(pos) instanceof GapTileEntity) {
@@ -199,4 +208,7 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
         return null;
     }
 
+    private void tryTeleport(ServerWorld departureWorld, ServerWorld destinationWorld, ServerPlayerEntity serverPlayer, GapTileEntity departureGap) {
+
+    }
 }

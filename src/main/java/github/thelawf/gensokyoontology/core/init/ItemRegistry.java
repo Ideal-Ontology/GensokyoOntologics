@@ -273,8 +273,9 @@ public final class ItemRegistry {
             "sakuya_stop_watch", () -> new SakuyaStopWatch(new Item.Properties()));
     public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register("aya_fans",
             () -> new AyaFans(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<GapItem> GAP_ITEM = ITEMS.register("gap",
-            () -> new GapItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    // public static final RegistryObject<GapItem> GAP_ITEM = ITEMS.register("gap",
+    //         () -> new GapItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> GAP_BLOCK = ITEMS.register("gap_block",
             () -> new BlockItem(BlockRegistry.GAP_BLOCK.get(),

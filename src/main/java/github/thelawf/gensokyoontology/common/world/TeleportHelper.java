@@ -6,9 +6,13 @@ import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.command.impl.TeleportCommand;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.structure.WoodlandMansionPieces;
 import net.minecraft.world.gen.feature.structure.WoodlandMansionStructure;
 import net.minecraft.world.server.ServerWorld;
@@ -37,14 +41,29 @@ public class TeleportHelper {
     }
 
     public static void applyGapTeleport(ServerPlayerEntity player, ServerWorld destination, GapTileEntity gapTile) {
-        // if (!gapTile.isAllowTeleport()) return;
         BlockPos pos = gapTile.getDestinationPos();
+
+        if (isInSameDimension(player.world.getDimensionKey(), destination.getDimensionKey())) {
+            player.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
+            gapTile.setCooldown(400);
+            return;
+        }
+
         player.changeDimension(destination, new ITeleporter() {
             @Override
             public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
+                player.sendMessage(new StringTextComponent("Different Dimension Destination Pos: " + pos.getCoordinatesAsString()), player.getUniqueID());
+                // player.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
                 entity = repositionEntity.apply(false);
-                entity.setPosition(pos.getX() + 2, pos.getY(), pos.getZ());
-                return entity;
+                entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
+                player.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
+                gapTile.setCooldown(400);
+                return player;
+            }
+
+            @Override
+            public boolean playTeleportSound(ServerPlayerEntity player, ServerWorld sourceWorld, ServerWorld destWorld) {
+                return false;
             }
         });
     }
@@ -99,5 +118,9 @@ public class TeleportHelper {
             }
         }
         return Pair.of(false, pos);
+    }
+
+    private static boolean isInSameDimension(RegistryKey<World> departureWorld, RegistryKey<World> destination) {
+        return departureWorld == destination;
     }
 }

@@ -42,7 +42,11 @@ public class LaserRenderer {
 
     }
 
-        private static void showLaser(Vector3d start, Vector3d end) {
+    private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, Vector3f start, Vector3f end) {
+
+    }
+
+    private static void showLaser(Vector3d start, Vector3d end) {
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
 
         RenderSystem.enableDepthTest();

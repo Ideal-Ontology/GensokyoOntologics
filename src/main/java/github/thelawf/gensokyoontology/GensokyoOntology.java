@@ -114,7 +114,7 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.ONION_CROP_BLOCK.get(),
                         RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.SPACE_FISSURE_BLOCK.get(),
+                RenderTypeLookup.setRenderLayer(BlockRegistry.GAP_BLOCK.get(),
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.WASABI_BLOCK.get(),
                         RenderType.getCutout());
