@@ -33,8 +33,8 @@ public class GapTileEntity extends TileEntity {
 
     public GapTileEntity() {
         super(TileEntityTypeRegistry.GAP_TILE_ENTITY.get());
-        this.setDestinationWorld(destinationWorld);
-        this.setDestinationPos(destinationPos);
+        this.setDestinationWorld(World.OVERWORLD);
+        this.setDestinationPos(BlockPos.ZERO);
     }
 
     @Override

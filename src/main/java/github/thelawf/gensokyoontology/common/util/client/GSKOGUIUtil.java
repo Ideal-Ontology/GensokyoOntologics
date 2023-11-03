@@ -17,6 +17,14 @@ public class GSKOGUIUtil {
                 new ItemStack(ItemRegistry.TALES_OCCULT_BALL.get()),
                 ItemStack.EMPTY,
                 new ItemStack(ItemRegistry.OCCULT_BALL.get())));
+
+        recipes.add(GSKOGUIUtil.createExtractorRecipe(
+                new ItemStack(ItemRegistry.MAPLE_LEAVES_ITEM.get()),
+                new ItemStack(ItemRegistry.ISHI_ZAKURA.get()),
+                new ItemStack(ItemRegistry.ISHI_ZAKURA.get()),
+                new ItemStack(ItemRegistry.ORB_JADE.get()),
+                new ItemStack(ItemRegistry.AYA_FANS.get())));
+
         return recipes;
     }
 

@@ -108,7 +108,7 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
             if (firstTile instanceof GapTileEntity && getNBTBlockPos(stack, depaturePos) != BlockPos.ZERO &&
                     !Objects.equals(getNBTString(stack, depatureWorld), "NULL")) {
                 GapTileEntity depatureGap = (GapTileEntity) firstTile;
-                player.sendMessage(new StringTextComponent(depatureGap.getDestinationWorld().getLocation().toString()), player.getUniqueID());
+                player.sendMessage(new StringTextComponent(depatureGap.getPos().getCoordinatesAsString()), player.getUniqueID());
                 depatureGap.setDestinationPos(getNBTBlockPos(stack, depaturePos));
                 depatureGap.setDestinationWorld(RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
                         new ResourceLocation(getNBTString(stack, depatureWorld))));

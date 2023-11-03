@@ -44,6 +44,8 @@ public class GapItem extends Item {
             itemNBT.putString("departure_world", departureWorld.getLocation().toString());
 
             PlayerEntity player = context.getPlayer();
+            player.sendMessage(new StringTextComponent(pos.getCoordinatesAsString()), player.getUniqueID());
+
             ItemStack itemStack = player.getHeldItemMainhand();
             itemStack.setTag(itemNBT);
 
@@ -68,6 +70,7 @@ public class GapItem extends Item {
     }
 
     private void setBlockTileSecond(World worldIn, BlockPos pos, CompoundNBT itemNBT, ServerWorld serverWorld, RegistryKey<World> departureWorld) {
+
         if (worldIn.getTileEntity(pos) instanceof GapTileEntity) {
             CompoundNBT tileNBT = new CompoundNBT();
             GapTileEntity secondPlacedSukima = (GapTileEntity) worldIn.getTileEntity(pos);
