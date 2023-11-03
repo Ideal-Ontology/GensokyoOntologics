@@ -71,64 +71,68 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
         return new GapTileEntity();
     }
 
-    @Override
-    public void onBlockPlacedBy(@NotNull World worldIn, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
-        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
-
-        final String isFirstPlacement = "is_first_placement";
-        final String depatureWorld = "depature_world";
-        final String depaturePos = "depature_pos";
-
-        final String arrivalWorld = "arrival_world";
-        final String arrivalPos = "arrival_pos";
-
-        // 第一次放置时需要判断物品内部是否含有tag，如果没有tag则添加对应的tag
-        writeBooleanIf(itemStack -> containsKey(stack, isFirstPlacement), stack, isFirstPlacement, true);
-        writeStringIf(itemStack -> containsKey(stack, depatureWorld), stack, depatureWorld, worldIn.getDimensionKey().getLocation().toString());
-        writeBlockPosIf(itemStack -> containsKey(stack, depaturePos), stack, depaturePos, pos.up(1));
-
-        if (!(placer instanceof PlayerEntity)) return;
-        PlayerEntity player = (PlayerEntity) placer;
-
-        /* 第一次放置时 is_first_placement 为 true，所以调用这里的runIf(), 增加一个物品，同时将is_first_placement
-         * 设置为 false，nbt内部的合并方法会将旧值替换为新值
-         */
-        if (getNBTBoolean(stack, isFirstPlacement) && !player.isCreative()) {
-            stack.grow(1);
-            mergeBoolean(stack, isFirstPlacement, false);
-            return;
-        }
-
-        // runIf(itemStack -> getNBTBoolean(stack, isFirstPlacement) && player.isCreative(), stack, () -> mergeBoolean(stack, isFirstPlacement, false));
-
-        /* 第二次放置时 is_first_placement 为 false，所以调用这里的runIf()，在坐标
-         */
-        runIf(itemStack -> !getNBTBoolean(stack, isFirstPlacement), stack, () -> {
-            TileEntity firstTile = worldIn.getTileEntity(getNBTBlockPos(stack, depaturePos));
-            if (firstTile instanceof GapTileEntity && getNBTBlockPos(stack, depaturePos) != BlockPos.ZERO &&
-                    !Objects.equals(getNBTString(stack, depatureWorld), "NULL")) {
-                GapTileEntity depatureGap = (GapTileEntity) firstTile;
-                player.sendMessage(new StringTextComponent(depatureGap.getPos().getCoordinatesAsString()), player.getUniqueID());
-                depatureGap.setDestinationPos(getNBTBlockPos(stack, depaturePos));
-                depatureGap.setDestinationWorld(RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-                        new ResourceLocation(getNBTString(stack, depatureWorld))));
-            }
-
-            mergeString(stack, arrivalWorld, worldIn.getDimensionKey().getLocation().toString());
-            mergeBlockPos(stack, arrivalPos, pos);
-
-            TileEntity secondTile = worldIn.getTileEntity(pos);
-            if (secondTile instanceof GapTileEntity && getNBTBlockPos(stack, depaturePos) != BlockPos.ZERO &&
-                    !Objects.equals(getNBTString(stack, depatureWorld), "NULL")) {
-                GapTileEntity arrivalGap = (GapTileEntity) secondTile;
-                arrivalGap.setDestinationPos(pos);
-                arrivalGap.setDestinationWorld(worldIn.getDimensionKey());
-            }
-        });
-
-        // 将物品NBT设置为空，以开始下一次的循环
-        stack.setTag(new CompoundNBT());
-    }
+    // @Override
+    // public void onBlockPlacedBy(@NotNull World worldIn, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
+    //     super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+//
+    //     final String isFirstPlacement = "is_first_placement";
+    //     final String depatureWorld = "depature_world";
+    //     final String depaturePos = "depature_pos";
+//
+    //     final String arrivalWorld = "arrival_world";
+    //     final String arrivalPos = "arrival_pos";
+//
+    //     // 第一次放置时需要判断物品内部是否含有tag，如果没有tag则添加对应的tag
+    //     writeBoolean(stack, isFirstPlacement, true);
+    //     writeString(stack, depatureWorld, worldIn.getDimensionKey().getLocation().toString());
+    //     writeBlockPos(stack, depaturePos, pos.up(1));
+//
+    //     // writeBooleanIf(itemStack -> containsKey(stack, isFirstPlacement), stack, isFirstPlacement, true);
+    //     // writeStringIf(itemStack -> containsKey(stack, depatureWorld), stack, depatureWorld, worldIn.getDimensionKey().getLocation().toString());
+    //     // writeBlockPosIf(itemStack -> containsKey(stack, depaturePos), stack, depaturePos, pos.up(1));
+//
+    //     if (!(placer instanceof PlayerEntity)) return;
+    //     PlayerEntity player = (PlayerEntity) placer;
+//
+    //     /* 第一次放置时 is_first_placement 为 true，所以调用这里的runIf(), 增加一个物品，同时将is_first_placement
+    //      * 设置为 false，nbt内部的合并方法会将旧值替换为新值
+    //      */
+    //     if (getNBTBoolean(stack, isFirstPlacement) && !player.isCreative()) {
+    //         stack.grow(1);
+    //         mergeBoolean(stack, isFirstPlacement, false);
+    //         return;
+    //     }
+//
+    //     // runIf(itemStack -> getNBTBoolean(stack, isFirstPlacement) && player.isCreative(), stack, () -> mergeBoolean(stack, isFirstPlacement, false));
+//
+    //     /* 第二次放置时 is_first_placement 为 false，所以调用这里的runIf()，在坐标
+    //      */
+    //     runIf(itemStack -> !getNBTBoolean(stack, isFirstPlacement), stack, () -> {
+    //         TileEntity firstTile = worldIn.getTileEntity(getNBTBlockPos(stack, depaturePos));
+    //         if (firstTile instanceof GapTileEntity && getNBTBlockPos(stack, depaturePos) != BlockPos.ZERO &&
+    //                 !Objects.equals(getNBTString(stack, depatureWorld), "NULL")) {
+    //             GapTileEntity depatureGap = (GapTileEntity) firstTile;
+    //             player.sendMessage(new StringTextComponent(depatureGap.getPos().getCoordinatesAsString()), player.getUniqueID());
+    //             depatureGap.setDestinationPos(getNBTBlockPos(stack, depaturePos));
+    //             depatureGap.setDestinationWorld(RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
+    //                     new ResourceLocation(getNBTString(stack, depatureWorld))));
+    //         }
+//
+    //         mergeString(stack, arrivalWorld, worldIn.getDimensionKey().getLocation().toString());
+    //         mergeBlockPos(stack, arrivalPos, pos);
+//
+    //         TileEntity secondTile = worldIn.getTileEntity(pos);
+    //         if (secondTile instanceof GapTileEntity && getNBTBlockPos(stack, depaturePos) != BlockPos.ZERO &&
+    //                 !Objects.equals(getNBTString(stack, depatureWorld), "NULL")) {
+    //             GapTileEntity arrivalGap = (GapTileEntity) secondTile;
+    //             arrivalGap.setDestinationPos(pos);
+    //             arrivalGap.setDestinationWorld(worldIn.getDimensionKey());
+    //         }
+    //     });
+//
+    //     // 将物品NBT设置为空，以开始下一次的循环
+    //     stack.setTag(new CompoundNBT());
+    // }
 
     @Override
     @SuppressWarnings("deprecation")

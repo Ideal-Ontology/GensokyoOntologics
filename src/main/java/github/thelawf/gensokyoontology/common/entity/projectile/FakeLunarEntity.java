@@ -28,12 +28,10 @@ public class FakeLunarEntity extends AbstractDanmakuEntity {
 
     public FakeLunarEntity(LivingEntity throwerIn, World world, SpellData spellData) {
         super(FAKE_LUNAR, throwerIn, world, spellData);
-        this.damage = 10.0f;
     }
 
     public FakeLunarEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
         super(FAKE_LUNAR, throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
-        this.damage = 10.0f;
     }
 
     @Override
@@ -46,7 +44,7 @@ public class FakeLunarEntity extends AbstractDanmakuEntity {
         }
         else if (!(result.getEntity() instanceof PlayerEntity)) {
             // entityHit.addPotionEffect(new EffectInstance(EffectRegistry.LOVE_EFFECT.get(), 5 * 40));
-            result.getEntity().attackEntityFrom(GSKODamageSource.DANMAKU,this.dataManager.get(DATA_DAMAGE));
+            result.getEntity().attackEntityFrom(GSKODamageSource.DANMAKU, 12F);
             this.remove();
         }
     }

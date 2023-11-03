@@ -163,6 +163,12 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
                 }
                 player.attackEntityFrom(GSKODamageSource.DANMAKU, this.damage);
             }
+            else if (result.getEntity() instanceof LivingEntity) {
+                LivingEntity living = (LivingEntity) result.getEntity();
+                if (this instanceof FakeLunarEntity) {
+                    living.attackEntityFrom(GSKODamageSource.DANMAKU, 12f);
+                }
+            }
             this.remove();
             return;
         }
@@ -178,8 +184,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         if (!(result.getEntity() instanceof LivingEntity)) {
             return;
         }
-
-        //Logger logger = LogManager.getLogger();
 
         LivingEntity entityHit = (LivingEntity) result.getEntity();
         if (!(entityHit instanceof PlayerEntity)) {

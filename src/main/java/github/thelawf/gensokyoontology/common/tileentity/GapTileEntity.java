@@ -98,7 +98,7 @@ public class GapTileEntity extends TileEntity {
     }
 
     public BlockPos getDestinationPos() {
-        return destinationPos;
+        return this.destinationPos;
     }
 
     public RegistryKey<World> getDestinationWorld() {

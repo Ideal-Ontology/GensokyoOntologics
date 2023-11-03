@@ -21,13 +21,12 @@ public abstract class ConversationalEntity extends TameableEntity implements IAn
 
     protected ConversationalEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
-        this.dialog = new DialogTreeNode("dialog." + GensokyoOntology.MODID + ".hello");
     }
 
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(DATA_DIALOG_KEY, this.dialog.getName());
+        this.dataManager.register(DATA_DIALOG_KEY, new DialogTreeNode("dialog." + GensokyoOntology.MODID + ".hello").getName());
     }
 
     @Override

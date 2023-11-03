@@ -33,6 +33,7 @@ public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardU
 
     public LilyWhiteEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
+        this.setDialog(new DialogTreeNode("lily_white"));
     }
 
     @Override
