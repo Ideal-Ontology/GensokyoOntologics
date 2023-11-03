@@ -48,6 +48,13 @@ public interface INBTWriter extends INBTReader{
     }
 
 
+    default CompoundNBT withBlockPos(CompoundNBT nbt, String xKey, String yKey, String zKey, BlockPos pos) {
+        nbt.putInt(xKey, pos.getX());
+        nbt.putInt(yKey, pos.getY());
+        nbt.putInt(zKey, pos.getZ());
+        return nbt;
+    }
+
     default void mergeBlockPos(ItemStack stack, String xKey, String yKey, String zKey, BlockPos pos) {
         CompoundNBT nbt = getOrCreateTag(stack);
         CompoundNBT newNBT = new CompoundNBT();

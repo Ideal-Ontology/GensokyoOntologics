@@ -69,7 +69,7 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
         if (!(placer instanceof PlayerEntity)) return;
         PlayerEntity player = (PlayerEntity) placer;
 
-        if (stack.hasTag()) {
+        if (stack.getTag() != null) {
             CompoundNBT nbt = stack.getTag();
             setBlockTileSecond(player, worldIn, pos, nbt);
             stack.setTag(new CompoundNBT());
@@ -93,6 +93,7 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
                 GapTileEntity departureGap = getGapTile(serverWorld, pos);
                 ServerWorld destinationWorld = worldIn.getServer().getWorld(departureGap.getDestinationWorld());
                 TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
+                departureGap.setCooldown(400);
             }
 
         }
@@ -107,11 +108,13 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             RegistryKey<World> departureWorld = serverWorld.getDimensionKey();
             itemNBT.putString("departure_world", departureWorld.getLocation().toString());
+            itemNBT.putInt("pos_x", firstPos.getX());
+            itemNBT.putInt("pos_y", firstPos.getY());
+            itemNBT.putInt("pos_z", firstPos.getZ());
 
             ItemStack itemStack = player.getHeldItemMainhand();
-            mergeBlockPos(itemStack, "pos_x", "pos_y", "pos_z", firstPos);
-            mergeBoolean(itemStack, "is_first_placement", false);
-            itemStack.setCount(1);
+            itemStack.setTag(itemNBT);
+            itemStack.grow(1);
         }
 
         worldIn.setBlockState(firstPos, BlockRegistry.GAP_BLOCK.get().getDefaultState());
@@ -154,6 +157,7 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
                 firstPlacedSukima.markDirty();
             }
         }
+
     }
 
 
@@ -178,7 +182,7 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
     public boolean checkCanTeleport(ServerWorld serverWorld, BlockPos depaturePos) {
         if (serverWorld.getTileEntity(depaturePos) instanceof GapTileEntity) {
             GapTileEntity departureGap = (GapTileEntity) serverWorld.getTileEntity(depaturePos);
-            return departureGap != null && departureGap.isAllowTeleport();
+            return departureGap != null && departureGap.getCooldown() == 0;
         }
         return false;
     }

@@ -68,34 +68,27 @@ public interface IRayTraceReader {
         // 计算射线的参数
         double tMin = (boxMin.x - start.x) / (end.x - start.x);
         double tMax = (boxMax.x - start.x) / (end.x - start.x);
-
         if (tMin > tMax) {
             double temp = tMin;
             tMin = tMax;
             tMax = temp;
         }
-
         double tyMin = (boxMin.y - start.y) / (end.y - start.y);
         double tyMax = (boxMax.y - start.y) / (end.y - start.y);
-
         if (tyMin > tyMax) {
             double temp = tyMin;
             tyMin = tyMax;
             tyMax = temp;
         }
-
         if ((tMin > tyMax) || (tyMin > tMax)) {
             return false;
         }
-
         if (tyMin > tMin) {
             tMin = tyMin;
         }
-
         if (tyMax < tMax) {
             tMax = tyMax;
         }
-
         double tzMin = (boxMin.z - start.z) / (end.z - start.z);
         double tzMax = (boxMax.z - start.z) / (end.z - start.z);
 

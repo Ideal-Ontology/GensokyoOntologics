@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.client.renderer.world.LaserRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.MouseHelper;
 import net.minecraft.client.gui.screen.Screen;
@@ -38,13 +39,11 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
         if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
+        // LaserRenderer.render();
+
         AxisAlignedBB box = new AxisAlignedBB(playerIn.getPositionVec().subtract(new Vector3d(12,12,12)),
                 playerIn.getPositionVec().add(new Vector3d(12,12,12)));
 
-        // getSphericalTrace(worldIn, LivingEntity.class, box, 10).stream()
-        //         .filter(living -> isIntersecting(playerIn.getPositionVec(), playerIn.getLookVec(), 15F, living.getBoundingBox()))
-        //         .collect(Collectors.toList())
-        //         .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F));
         Predicate<LivingEntity> predicate = living -> !(living instanceof PlayerEntity);
         Vector3d start = playerIn.getPositionVec();
         Vector3d end = start.add(playerIn.getLookVec().scale(10));

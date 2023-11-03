@@ -174,7 +174,7 @@ public class GSKOClientEvents {
         //        manager -> new NamespaceDomainRenderer(manager, new DomainFieldModel()));
 
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
-        MinecraftForge.EVENT_BUS.addListener(LaserRenderer::render);
+        //MinecraftForge.EVENT_BUS.addListener(LaserRenderer::render);
     }
 
 }

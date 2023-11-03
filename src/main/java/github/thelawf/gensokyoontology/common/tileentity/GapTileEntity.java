@@ -23,7 +23,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     private boolean allowTeleport = false;
     private BlockPos destinationPos;
     private RegistryKey<World> destinationWorld;
-    private int cooldown = MAX_COOLDOWN_TICK;
+    private int cooldown = 0;
 
     public GapTileEntity(RegistryKey<World> destinationWorld, BlockPos destinationPos) {
         super(TileEntityTypeRegistry.GAP_TILE_ENTITY.get());
@@ -62,8 +62,8 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     @Override
     public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
 
-        if (nbt.contains("DestinationPos")) {
-            this.destinationPos = BlockPos.fromLong(nbt.getLong("DestinationPos"));
+        if (nbt.contains("DestinationX") && nbt.contains("DestinationY") && nbt.contains("DestinationZ")) {
+            this.destinationPos = new BlockPos(nbt.getInt("DestinationX"), nbt.getInt("DestinationY"), nbt.getInt("DestinationZ"));
         }
         if (nbt.contains("DestinationWorld")) {
             this.destinationWorld = GSKOWorldUtil.getWorldDimension(new ResourceLocation(
@@ -85,10 +85,9 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
         compound.putString("DestinationWorld", this.destinationWorld.getLocation().toString());
         compound.putBoolean("AllowTeleport", this.allowTeleport);
         compound.putInt("Cooldown", this.cooldown);
-        compound.putLong("DestinationPos", this.destinationPos.toLong());
-        // compound.putInt("DestinationX", this.destinationPos.getX());
-        // compound.putInt("DestinationY", this.destinationPos.getY());
-        // compound.putInt("DestinationZ", this.destinationPos.getZ());
+        compound.putInt("DestinationX", this.destinationPos.getX());
+        compound.putInt("DestinationY", this.destinationPos.getY());
+        compound.putInt("DestinationZ", this.destinationPos.getZ());
 
         return compound;
     }
@@ -117,6 +116,10 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     public boolean isAllowTeleport() {
         return this.allowTeleport;
     }
+
+    public int getCooldown() {
+        return this.cooldown;
+    }
     public void setAllowTeleport(boolean isAllowTeleport) {
         this.allowTeleport = isAllowTeleport;
     }
@@ -124,13 +127,14 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     @Override
     public void tick() {
         if (this.world != null && !this.world.isRemote) {
-            if (this.cooldown >= MAX_COOLDOWN_TICK) {
-                setAllowTeleport(true);
-                this.cooldown = 0;
+            if (this.cooldown > 0) {
+                this.cooldown--;
             }
-            setAllowTeleport(false);
-            this.cooldown++;
+            else {
+                this.cooldown++;
+            }
         }
+
         markDirty();
     }
 }
