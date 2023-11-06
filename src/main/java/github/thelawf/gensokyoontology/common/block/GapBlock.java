@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.block;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.INBTRunnable;
 import github.thelawf.gensokyoontology.api.util.INBTWriter;
 import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
@@ -25,7 +26,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.GameRules;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -33,7 +33,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class GapBlock extends Block implements INBTWriter, INBTRunnable {
@@ -99,18 +98,7 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
         if (!worldIn.isRemote && entityIn instanceof ServerPlayerEntity) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) entityIn;
-
-            if (checkCanTeleport(serverWorld, pos)){
-                GapTileEntity departureGap = getGapTile(serverWorld, pos);
-                ServerWorld destinationWorld = worldIn.getServer().getWorld(departureGap.getDestinationWorld());
-                if (destinationWorld != null) {
-                    // tryTeleport(serverWorld, destinationWorld, serverPlayer, departureGap);
-                    GapTileEntity arrivalGap = getGapTile(destinationWorld, departureGap.getDestinationPos());
-                    arrivalGap.setCooldown(400);
-                    TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
-                }
-            }
-
+            tryTeleport(serverWorld, serverPlayer, pos);
         }
     }
 
@@ -188,18 +176,26 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
             if (nbt.contains("departure_world")) {
                 tooltip.add(new TranslationTextComponent(nbt.getString("departure_world")));
             }
-            if (nbt.contains("is_first_placement")) {
-                tooltip.add(new StringTextComponent("是否是第一次点击：" + nbt.getBoolean("is_first_placement")));
-            }
         }
     }
 
-    public boolean checkCanTeleport(ServerWorld serverWorld, BlockPos depaturePos) {
-        if (serverWorld.getTileEntity(depaturePos) instanceof GapTileEntity) {
-            GapTileEntity departureGap = (GapTileEntity) serverWorld.getTileEntity(depaturePos);
-            return departureGap != null && departureGap.getCooldown() == 0;
+    public void tryTeleport(ServerWorld departureWorld, ServerPlayerEntity serverPlayer, BlockPos depaturePos) {
+        if (departureWorld.getTileEntity(depaturePos) instanceof GapTileEntity) {
+            GapTileEntity departureGap = getGapTile(departureWorld, depaturePos);
+            ServerWorld destinationWorld = departureWorld.getServer().getWorld(departureGap.getDestinationWorld());
+
+            if (destinationWorld != null) {
+                if (getGapTile(destinationWorld, departureGap.getDestinationPos()) == null) {
+                    serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.arrival_gap_not_present"), true);
+                    return;
+                }
+                GapTileEntity arrivalGap = getGapTile(destinationWorld, departureGap.getDestinationPos());
+                arrivalGap.setCooldown(400);
+                TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
+            }
+            else serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.destination_not_present"), true);
+
         }
-        return false;
     }
 
     public GapTileEntity getGapTile(ServerWorld serverWorld, BlockPos pos) {
@@ -218,7 +214,4 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
         return null;
     }
 
-    private void tryTeleport(ServerWorld departureWorld, ServerWorld destinationWorld, ServerPlayerEntity serverPlayer, GapTileEntity departureGap) {
-
-    }
 }
