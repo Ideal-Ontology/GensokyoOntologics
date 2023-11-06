@@ -96,15 +96,53 @@ public class TeleportHelper {
                 return isValidPos(destination, pos);
             }
         }
-        return false;
+        else {
+            if (standBlock.getBlock().equals(Blocks.AIR)) {
+                return clearAndSetBlocks(destination, pos);
+            }
+            return clearBlocks(destination, pos);
+        }
     }
 
-    public static boolean isValidPos (ServerWorld destination, BlockPos pos) {
+    private static boolean clearAndSetBlocks(ServerWorld destination, BlockPos pos) {
+        final BlockState air = Blocks.AIR.getDefaultState();
+        final BlockState sakuraPlanks = BlockRegistry.SAKURA_PLANKS.get().getDefaultState();
+        destination.setBlockState(pos, air);
+
+        for (int x = 0; x < 2; x++) {
+            for (int z = 0; z < 2; z++) {
+                destination.setBlockState(pos.toMutable().move(x, pos.getY(), z), sakuraPlanks);
+                destination.setBlockState(pos.toMutable().move(-x, pos.getY(), -z), sakuraPlanks);
+                for (int y = 0; y < 2; y++) {
+                    destination.setBlockState(pos.toMutable().move(x, y, z), air);
+                    destination.setBlockState(pos.toMutable().move(-x, y, -z), air);
+                }
+            }
+        }
+        return true;
+    }
+
+    private static boolean clearBlocks(ServerWorld destination, BlockPos pos) {
+        final BlockState air = Blocks.AIR.getDefaultState();
+        destination.setBlockState(pos, air);
+
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 2; j++) {
+                for (int k = 0; k < 2; k++) {
+                    destination.setBlockState(pos.toMutable().move(i, j, k), air);
+                    destination.setBlockState(pos.toMutable().move(-i, j, -k), air);
+                }
+            }
+        }
+        return true;
+    }
+
+    private static boolean isValidPos (ServerWorld destination, BlockPos pos) {
         LogManager.getLogger().info("Other Condition is: " + findValidPos(destination, pos).getFirst());
         return findValidPos(destination, pos).getFirst();
     }
 
-    public static Pair<Boolean, BlockPos> findValidPos(ServerWorld destination, BlockPos pos) {
+    private static Pair<Boolean, BlockPos> findValidPos(ServerWorld destination, BlockPos pos) {
         for (int i = 0; i < 255; i++) {
             BlockPos playerPos = new BlockPos(pos.getX(), i, pos.getZ());
             BlockPos standPos = new BlockPos(pos.down().getX(), i, pos.down().getZ());
