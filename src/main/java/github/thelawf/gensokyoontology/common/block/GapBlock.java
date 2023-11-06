@@ -149,14 +149,14 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
             GapTileEntity firstPlacedSukima = (GapTileEntity) depatureWorld.getTileEntity(firstPos);
 
             if (secondPlacedSukima != null) {
-                player.sendMessage(new StringTextComponent("2nd Gap is Present"), player.getUniqueID());
+                // player.sendMessage(new StringTextComponent("2nd Gap is Present"), player.getUniqueID());
                 secondPlacedSukima.setDestinationPos(firstPos);
                 secondPlacedSukima.setDestinationWorld(departureKey);
                 secondPlacedSukima.markDirty();
 
             }
             if (firstPlacedSukima != null) {
-                player.sendMessage(new StringTextComponent("1st Gap is Present"), player.getUniqueID());
+                // player.sendMessage(new StringTextComponent("1st Gap is Present"), player.getUniqueID());
                 firstPlacedSukima.setDestinationPos(secondPos);
                 firstPlacedSukima.setDestinationWorld(arrivalKey);
                 firstPlacedSukima.markDirty();

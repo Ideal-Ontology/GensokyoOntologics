@@ -52,8 +52,6 @@ public class TeleportHelper {
         player.changeDimension(destination, new ITeleporter() {
             @Override
             public Entity placeEntity(Entity entity, ServerWorld currentWorld, ServerWorld destWorld, float yaw, Function<Boolean, Entity> repositionEntity) {
-                player.sendMessage(new StringTextComponent("Different Dimension Destination Pos: " + pos.getCoordinatesAsString()), player.getUniqueID());
-                // player.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
                 entity = repositionEntity.apply(false);
                 entity.setPosition(pos.getX(), pos.getY(), pos.getZ());
                 player.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);

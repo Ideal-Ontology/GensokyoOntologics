@@ -39,8 +39,8 @@ public final class EntityRegistry {
     // =============================== 可驯服的生物 ============================ //
     // public static final RegistryObject<EntityType<KoishiEntity>> KOISHI_ENTITY = ENTITIES.register(
     //         "komeiji_koishi", () -> KoishiEntity.KOISHI);
-    // public static final RegistryObject<EntityType<SumirekoEntity>> SUMIREKO_ENTITY = ENTITIES.register(
-    //         "usami_sumireko", () -> SumirekoEntity.SUMIREKO);
+    // public static final RegistryObject<EntityType<FlandreScarletEntity>> SUMIREKO_ENTITY = ENTITIES.register(
+    //         "usami_sumireko", () -> FlandreScarletEntity.SUMIREKO);
     // public static final RegistryObject<EntityType<YukariEntity>> YUKARI_ENTITY = ENTITIES.register(
     //         "yakumo_yukari", () -> YukariEntity.YUKARI);
 

@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.common.entity.AbstractHumanEntity;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.merchant.IMerchant;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.world.World;
 
