@@ -118,9 +118,15 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
             ItemStack itemStack = player.getHeldItemMainhand();
             itemStack.setTag(itemNBT);
             itemStack.grow(1);
+
+            player.sendMessage(GensokyoOntology.withTranslation("msg. ", ".gap_block.set_first_gap"), player.getUniqueID());
+            player.sendMessage(new StringTextComponent(firstPos.getCoordinatesAsString()), player.getUniqueID());
+            player.sendMessage(GensokyoOntology.withTranslation("msg. ", ".gap_block.in_dimension"), player.getUniqueID());
+            player.sendMessage(new TranslationTextComponent(departureWorld.getLocation().toString()), player.getUniqueID());
         }
 
         worldIn.setBlockState(firstPos, BlockRegistry.GAP_BLOCK.get().getDefaultState());
+
         if (worldIn.getTileEntity(firstPos) instanceof GapTileEntity) {
             GapTileEntity gapTile = (GapTileEntity) worldIn.getTileEntity(firstPos);
             if (gapTile != null) {
@@ -158,6 +164,11 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
                 firstPlacedSukima.setDestinationPos(secondPos);
                 firstPlacedSukima.setDestinationWorld(arrivalKey);
                 firstPlacedSukima.markDirty();
+
+                player.sendMessage(GensokyoOntology.withTranslation("msg. ", ".gap_block.set_second_gap"), player.getUniqueID());
+                player.sendMessage(new StringTextComponent("§3" + firstPos.getCoordinatesAsString()), player.getUniqueID());
+                player.sendMessage(GensokyoOntology.withTranslation("msg. ", ".gap_block.in_dimension"), player.getUniqueID());
+                player.sendMessage(new TranslationTextComponent("§a" + arrivalKey.getLocation()), player.getUniqueID());
             }
         }
 
@@ -203,18 +214,6 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
 
     public GapTileEntity getGapTile(ServerWorld serverWorld, BlockPos pos) {
         return (GapTileEntity) serverWorld.getTileEntity(pos);
-    }
-
-    private static boolean isInSameDimension(RegistryKey<World> departureWorld, RegistryKey<World> destination) {
-        return departureWorld == destination;
-    }
-
-    public GapTileEntity getDestinationSukimaTile(ServerWorld serverWorld, BlockPos pos, RegistryKey<World> destination) {
-        ServerWorld destinationWorld = serverWorld.getServer().getWorld(destination);
-        if (destinationWorld != null && destinationWorld.getTileEntity(pos) instanceof GapTileEntity) {
-            return (GapTileEntity) destinationWorld.getTileEntity(pos);
-        }
-        return null;
     }
 
 }

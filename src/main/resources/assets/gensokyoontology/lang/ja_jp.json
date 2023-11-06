@@ -360,10 +360,12 @@
 
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "You Released Spell Card: \"Mobius Ring World\"",
   "msg.gensokyoontology.item_use.jade_cut_failed": "It seems only works in Gensokyo...",
-
   "msg.gensokyoontology.enter_danger_biome.scarlet_mansion_precincts": "§cThis area is now covered by scarlet mist which will make you suffocate.",
   "msg.gensokyoontology.enter_danger_biome.nameless_hill": "§5Lily of the valley everywhere are oozing toxic odor...",
 
+  "msg.gensokyoontology.gap_block.set_first_gap": "The first Gap is placed at: ",
+  "msg.gensokyoontology.gap_block.set_second_gap": "The second Gap is placed at: ",
+  "msg.gensokyoontology.gap_block.in_dimension": "in dimension -- ",
   "msg.gensokyoontology.gap_block.teleport_fail.illegal_position": "§cIllegal Position",
   "msg.gensokyoontology.gap_block.teleport_fail.destination_not_present": "§cDestination World Not Present",
   "msg.gensokyoontology.gap_block.teleport_fail.arrival_gap_not_present": "§cArrival Gap Not Present",
