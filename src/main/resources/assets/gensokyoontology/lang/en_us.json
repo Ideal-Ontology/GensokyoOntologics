@@ -364,8 +364,9 @@
   "msg.gensokyoontology.enter_danger_biome.scarlet_mansion_precincts": "§cThis area is now covered by scarlet mist which will make you suffocate.",
   "msg.gensokyoontology.enter_danger_biome.nameless_hill": "§5Lily of the valley are oozing poisonous smell...",
 
+  "msg.gensokyoontology.gap_block.teleport_fail.illegal_position": "§cIllegal Position",
   "msg.gensokyoontology.gap_block.teleport_fail.destination_not_present": "§cDestination World Not Present",
-  "msg.gensokyoontology.gap_block.teleport_fail.arrival_gap_not_present": "§dArrival Gap Not Present",
+  "msg.gensokyoontology.gap_block.teleport_fail.arrival_gap_not_present": "§cArrival Gap Not Present",
 
   "network.gensokyoontology.countdown.start": "Countdown Start",
   "network.gensokyoontology.countdown.end": "Countdown End",

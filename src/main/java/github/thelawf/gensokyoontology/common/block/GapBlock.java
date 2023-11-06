@@ -193,6 +193,9 @@ public class GapBlock extends Block implements INBTWriter, INBTRunnable {
                 arrivalGap.setCooldown(400);
                 TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
             }
+            else if (departureGap.getDestinationPos() == BlockPos.ZERO) {
+                serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.illegal_position"), true);
+            }
             else serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.destination_not_present"), true);
 
         }
