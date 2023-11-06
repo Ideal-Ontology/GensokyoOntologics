@@ -268,7 +268,7 @@ public class GSKOFeatures {
 
     public static ConfiguredFeature<?, ?> makeIzanoOreFeature(GSKOOreType oreType, OreFeatureConfig config) {
         return makeOreFeature(oreType, Feature.NO_SURFACE_ORE, config, Placement.RANGE.configure(
-                new TopSolidRangeConfig(2, 4, 20))).square().count(oreType.getMaxVeinSize());
+                new TopSolidRangeConfig(2, 4, 12))).square().count(oreType.getMaxVeinSize());
     }
 
     public static void registerOre() {

@@ -120,9 +120,9 @@ public class GSKOFeatureGenerator {
 
         ConfiguredFeature<?, ?> izanoOreFeature = GSKOFeatures.makeIzanoOreFeature(ore, config);
         ConfiguredFeature<?, ?> jadeOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.JADE_GENSOKYO,
-                Feature.ORE, config, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT);
+                Feature.NO_SURFACE_ORE, GSKOWGConfigs.JADE_GENSOKYO_CONFIG, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT);
         ConfiguredFeature<?, ?> dragonSphereOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.DRAGON_SPHERE,
-                Feature.ORE, config, GSKOWGConfigs.DRAGON_SPHERE_PLACEMENT);
+                Feature.NO_SURFACE_ORE, GSKOWGConfigs.DRAGON_SPHERE_CONFIG, GSKOWGConfigs.DRAGON_SPHERE_PLACEMENT);
 
         event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, izanoOreFeature);
         event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, jadeOreFeature);
