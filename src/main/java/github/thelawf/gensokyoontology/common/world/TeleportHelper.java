@@ -58,11 +58,6 @@ public class TeleportHelper {
                 gapTile.setCooldown(400);
                 return player;
             }
-
-            @Override
-            public boolean playTeleportSound(ServerPlayerEntity player, ServerWorld sourceWorld, ServerWorld destWorld) {
-                return false;
-            }
         });
     }
 
