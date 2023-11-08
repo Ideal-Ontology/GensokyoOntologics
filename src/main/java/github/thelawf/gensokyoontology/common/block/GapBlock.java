@@ -35,7 +35,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class GapBlock extends Block implements INBTWriter, INBTRunnable {
+public class GapBlock extends Block implements INBTWriter {
 
     private BlockPos tilePos;
 

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
+import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
@@ -31,20 +32,13 @@ public class HakureiGohei extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         playerIn.getCooldownTracker().setCooldown(this, 1200);
 
-        if (!worldIn.isRemote) {
-            Vector3d position = playerIn.getPositionVec();
-            AxisAlignedBB aabb = new AxisAlignedBB(position.add(-6,position.y,-6), position.add(6,position.y + 5,6));
-            List<Entity> entities = worldIn.getEntitiesWithinAABB(AbstractDanmakuEntity.class, aabb);
-            for (Entity entity : entities) {
-                entity.remove();
-            }
-        }
         return ActionResult.resultPass(playerIn.getHeldItem(handIn));
     }
 
@@ -52,5 +46,10 @@ public class HakureiGohei extends Item {
     @NotNull
     public UseAction getUseAction(@NotNull ItemStack stack) {
         return UseAction.BLOCK;
+    }
+
+    public enum Mode {
+        DANMAKU,
+        SPELL_CARD
     }
 }

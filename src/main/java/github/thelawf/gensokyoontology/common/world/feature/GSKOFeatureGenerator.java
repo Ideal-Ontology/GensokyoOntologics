@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.world.feature;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKOOreType;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.common.world.feature.config.GSKOWGConfigs;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -18,6 +19,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -127,6 +129,12 @@ public class GSKOFeatureGenerator {
         event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, izanoOreFeature);
         event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, jadeOreFeature);
         event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, dragonSphereOreFeature);
+    }
+
+    public static void generateGensokyoOres(final BiomeLoadingEvent event) {
+        GSKOBiomesProvider.GSKO_BIOMES.stream()
+                .filter(biomeKey -> biomeKey.getRegistryName().equals(event.getName()))
+                .forEach(biomeKey -> generateOverworldOre(event));
     }
 
     public static void generateOres(final BiomeLoadingEvent event) {
