@@ -81,10 +81,6 @@
     "air": [
       "minecraft:cave",
       "minecraft:canyon"
-    ],
-    "liquid": [
-      "minecraft:underwater_cave",
-      "minecraft:underwater_canyon"
     ]
   },
   "spawners": {},

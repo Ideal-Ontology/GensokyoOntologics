@@ -121,32 +121,36 @@ public class GSKOFeatureGenerator {
                 ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
 
         ConfiguredFeature<?, ?> izanoOreFeature = GSKOFeatures.makeIzanoOreFeature(ore, config);
-        ConfiguredFeature<?, ?> jadeOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.JADE_GENSOKYO,
-                Feature.NO_SURFACE_ORE, GSKOWGConfigs.JADE_GENSOKYO_CONFIG, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT);
-        ConfiguredFeature<?, ?> dragonSphereOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.DRAGON_SPHERE,
-                Feature.NO_SURFACE_ORE, GSKOWGConfigs.DRAGON_SPHERE_CONFIG, GSKOWGConfigs.DRAGON_SPHERE_PLACEMENT);
-
         event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, izanoOreFeature);
-        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, jadeOreFeature);
-        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, dragonSphereOreFeature);
+
+        // ConfiguredFeature<?, ?> jadeOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.JADE_GENSOKYO,
+        //         Feature.NO_SURFACE_ORE, GSKOWGConfigs.JADE_GENSOKYO_CONFIG, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT);
+        // ConfiguredFeature<?, ?> dragonSphereOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.DRAGON_SPHERE,
+        //         Feature.NO_SURFACE_ORE, GSKOWGConfigs.DRAGON_SPHERE_CONFIG, GSKOWGConfigs.DRAGON_SPHERE_PLACEMENT);
+
+        // event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, jadeOreFeature);
+        // event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, dragonSphereOreFeature);
     }
 
-    public static void generateGensokyoOres(final BiomeLoadingEvent event) {
+    public static void generateGesokyoOres(final BiomeLoadingEvent event) {
         GSKOBiomesProvider.GSKO_BIOMES.stream()
                 .filter(biomeKey -> biomeKey.getRegistryName().equals(event.getName()))
-                .forEach(biomeKey -> generateOverworldOre(event));
+                .forEach(biomeKey -> {
+                    generateOre(event, GSKOOreType.JADE_GENSOKYO);
+                    generateOre(event, GSKOOreType.IZANO_OBJECT);
+                    generateOre(event, GSKOOreType.DRAGON_SPHERE);
+                });
     }
 
-    public static void generateOres(final BiomeLoadingEvent event) {
-        for (GSKOOreType ore :  GSKOOreType.values()) {
-            OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                    ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
-            ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
-                    new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
+    public static void generateOre(final BiomeLoadingEvent event, GSKOOreType ore) {
+        OreFeatureConfig config = new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
+                ore.getLazyBlock().get().getDefaultState(), ore.getMaxVeinSize());
+        ConfiguredPlacement<TopSolidRangeConfig> placement = Placement.RANGE.configure(
+                new TopSolidRangeConfig(ore.getMinHeight(), ore.getMinHeight(), ore.getMaxHeight()));
 
-            ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeOreFeature(ore, Feature.NO_SURFACE_ORE, config, placement);
-            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, oreFeature);
-        }
+        ConfiguredFeature<?, ?> oreFeature = GSKOFeatures.makeOreFeature(ore, Feature.NO_SURFACE_ORE, config, placement);
+        event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, oreFeature);
+
     }
 
     public static void generateGSKOStructures(final BiomeLoadingEvent event) {

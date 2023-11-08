@@ -8,10 +8,7 @@ import github.thelawf.gensokyoontology.client.renderer.GSKODimensionRenderInfo;
 import github.thelawf.gensokyoontology.client.renderer.entity.*;
 import github.thelawf.gensokyoontology.client.renderer.world.LaserRenderer;
 import github.thelawf.gensokyoontology.common.entity.*;
-import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
-import github.thelawf.gensokyoontology.common.entity.monster.InyoJadeMonsterEntity;
-import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
-import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.*;
 import github.thelawf.gensokyoontology.common.entity.passive.CitizenEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
@@ -162,6 +159,8 @@ public class GSKOClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(FairyEntity.FAIRY, FairyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(LilyWhiteEntity.LILY_WHITE,
                 manager -> new LilyWhiteRenderer(manager, new LilyWhiteModel(1.0f), 0.8f));
+
+        RenderingRegistry.registerEntityRenderingHandler(FlandreScarletEntity.FLANDRE_SCARLET, FlandreScarletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(HumanResidentEntity.HUMAN_RESIDENT,

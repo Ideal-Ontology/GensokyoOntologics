@@ -12,8 +12,8 @@ public class FlandreScarletRenderer extends MobRenderer<FlandreScarletEntity, Fl
 
     public static final ResourceLocation FLANDRE_TEXTURE = GensokyoOntology.withRL("textures/entity/flandre_scarlet.png");
 
-    public FlandreScarletRenderer(EntityRendererManager renderManagerIn, FlandreScarletModel entityModelIn, float shadowSizeIn) {
-        super(renderManagerIn, entityModelIn, shadowSizeIn);
+    public FlandreScarletRenderer(EntityRendererManager renderManagerIn) {
+        super(renderManagerIn, new FlandreScarletModel(1.0f), 0.9f);
     }
 
     @Override

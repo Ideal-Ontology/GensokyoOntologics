@@ -132,16 +132,8 @@ public class GSKOWorldEvents {
 
     @SubscribeEvent
     public static void onBiomeLoad(final BiomeLoadingEvent event) {
-        // GSKOFeatureGenerator.generateOverworldStructures(event);
-        // GSKOFeatureGenerator.generateGSKOStructures(event);
-
-        // GSKOFeatureGenerator.generateOverworldTrees(event);
-        // GSKOFeatureGenerator.generateGensokyoTrees(event);
-        // GSKOFeatureGenerator.generateFlowers(event);
-        // GSKOFeatureGenerator.generateHerbPlants(event);
-
-        // GSKOFeatureGenerator.addWaterfall(event);
         GSKOFeatureGenerator.generateOverworldOre(event);
+        GSKOFeatureGenerator.generateGesokyoOres(event);
     }
 
 

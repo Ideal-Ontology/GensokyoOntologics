@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
-import github.thelawf.gensokyoontology.common.entity.monster.InyoJadeMonsterEntity;
-import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
-import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.*;
 import github.thelawf.gensokyoontology.common.entity.passive.CitizenEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
@@ -31,11 +28,14 @@ public final class EntityRegistry {
             "inyo_jade", () -> InyoJadeMonsterEntity.INYO_JADE_MONSTER);
     public static final RegistryObject<EntityType<FairyEntity>> FAIRY_ENTITY = ENTITIES.register(
             "fairy", () -> FairyEntity.FAIRY);
-    public static final RegistryObject<EntityType<LilyWhiteEntity>> LILY_WHITE_ENTITY = ENTITIES.register(
-            "lily_white", () -> LilyWhiteEntity.LILY_WHITE);
     public static final RegistryObject<EntityType<SpectreEntity>> SPECTRE_ENTITY = ENTITIES.register(
             "spectre", () -> SpectreEntity.SPECTRE);
 
+    public static final RegistryObject<EntityType<LilyWhiteEntity>> LILY_WHITE_ENTITY = ENTITIES.register(
+            "lily_white", () -> LilyWhiteEntity.LILY_WHITE);
+
+    public static final RegistryObject<EntityType<FlandreScarletEntity>> FLANDRE_SCARLET = ENTITIES.register(
+            "flandre_scarlet", () -> FlandreScarletEntity.FLANDRE_SCARLET);
     // =============================== 可驯服的生物 ============================ //
     // public static final RegistryObject<EntityType<KoishiEntity>> KOISHI_ENTITY = ENTITIES.register(
     //         "komeiji_koishi", () -> KoishiEntity.KOISHI);
