@@ -10,9 +10,9 @@ import org.jetbrains.annotations.Nullable;
 
 public class TsumiBukuroEntity extends AbstractHumanEntity {
 
-    public static final EntityType<TsumiBukuroEntity> HUMAN_RESIDENT = EntityType.Builder.create(
+    public static final EntityType<TsumiBukuroEntity> TSUMI_BUKURO = EntityType.Builder.create(
                     TsumiBukuroEntity::new, EntityClassification.CREATURE).updateInterval(2)
-            .size(0.6f, 1.8f).trackingRange(10).build("human_resident");
+            .size(0.6f, 1.8f).trackingRange(10).build("tsumi_bukuro");
 
     protected TsumiBukuroEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
         super(type, worldIn);

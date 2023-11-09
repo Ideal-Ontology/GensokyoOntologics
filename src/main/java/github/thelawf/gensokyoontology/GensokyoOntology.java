@@ -187,10 +187,12 @@ public class GensokyoOntology {
 
             event.put(EntityRegistry.FLANDRE_SCARLET.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 500D)
-                    .createMutableAttribute(Attributes.ARMOR, 24D)
-                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 8D)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4F)
+                    .createMutableAttribute(Attributes.FLYING_SPEED, 0.5F)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10D)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 50D)
+                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 8D)
+                    .createMutableAttribute(Attributes.ARMOR, 24D)
                     .create());
 //
             // event.put(EntityRegistry.KOISHI_ENTITY.get(), TameableEntity.func_233666_p_()
