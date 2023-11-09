@@ -153,6 +153,7 @@ public class GSKOEntityEvents {
                 }
             }
         }
+        world.getCapability(GSKOCapabilities.IMPERISHABLE_NIGHT).ifPresent(cap -> cap.setTriggered(false));
     }
 
     @SubscribeEvent

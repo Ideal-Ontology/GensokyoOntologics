@@ -116,6 +116,13 @@ public class FlandreScarletEntity extends YoukaiEntity {
         return animation;
     }
 
+    public static class Doppelganger extends FlandreScarletEntity {
+
+        public Doppelganger(EntityType<? extends TameableEntity> type, World worldIn) {
+            super(type, worldIn);
+        }
+    }
+
     public enum Animation {
         IDLE,
         DIVING,

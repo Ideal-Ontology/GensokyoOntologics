@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.renderer;
+package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.EirinYagokoroArrowEntity;
