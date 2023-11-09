@@ -267,23 +267,23 @@ public final class ItemRegistry {
             "hakurei_gohei", () -> new HakureiGohei(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<MarisaHakkeiro> MARISA_HAKKEIRO = ITEMS.register(
-            "marisa_hakkeiro", () -> new MarisaHakkeiro(
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+            "marisa_hakkeiro", () -> new MarisaHakkeiro(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
-            "sakuya_stop_watch", () -> new SakuyaStopWatch(new Item.Properties()));
-    public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register("aya_fans",
-            () -> new AyaFans(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
-    // public static final RegistryObject<GapItem> GAP_ITEM = ITEMS.register("gap",
-    //         () -> new GapItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
-    public static final RegistryObject<BlockItem> GAP_BLOCK = ITEMS.register("gap_block",
-            () -> new BlockItem(BlockRegistry.GAP_BLOCK.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            "sakuya_stop_watch", () -> new SakuyaStopWatch(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+    public static final RegistryObject<Laevatein> LAEVATEIN = ITEMS.register(
+            "laevatein", () -> new Laevatein(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+    public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register(
+            "aya_fans", () -> new AyaFans(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+    public static final RegistryObject<BlockItem> GAP_BLOCK = ITEMS.register(
+            "gap_block", () -> new BlockItem(BlockRegistry.GAP_BLOCK.get(), new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
             "eirin_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
-
     public static final RegistryObject<KoishiEyeOpen> KOISHI_EYE_OPEN = ITEMS.register(
             "koishi_eye_open", () -> new KoishiEyeOpen(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
