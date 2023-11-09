@@ -17,6 +17,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -25,12 +27,16 @@ import java.util.UUID;
 
 public class FlandreScarletEntity extends YoukaiEntity {
 
+    @OnlyIn(Dist.CLIENT)
+    private Animation animation = Animation.IDLE;
+
     public static final EntityType<FlandreScarletEntity> FLANDRE_SCARLET = EntityType.Builder.create(
                     FlandreScarletEntity::new, EntityClassification.CREATURE).setShouldReceiveVelocityUpdates(true)
             .size(0.6f, 1.5f).trackingRange(10).build("flandre_scarlet");
 
-    protected FlandreScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
+    public FlandreScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
+        this.favorability = -10;
     }
 
 
@@ -66,6 +72,10 @@ public class FlandreScarletEntity extends YoukaiEntity {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
+    @Override
+    public void onDeath(@NotNull DamageSource cause) {
+        super.onDeath(cause);
+    }
 
     @Override
     public int getAngerTime() {
@@ -91,5 +101,23 @@ public class FlandreScarletEntity extends YoukaiEntity {
     @Override
     public void func_230258_H__() {
         super.func_230258_H__();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void setAnimation(Animation animation) {
+        this.animation = animation;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public Animation getAnimation() {
+        return animation;
+    }
+
+    public enum Animation {
+        IDLE,
+        DIVING,
+        FLYING,
+        SITTING,
+        SPELL_CARD_ATTACK
     }
 }

@@ -1,8 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IAngerable;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
@@ -14,9 +12,13 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class YoukaiEntity extends RetreatableEntity {
 
-    private boolean isRetreated = false;
-    public static final DataParameter<Boolean> DATA_IS_RETREATED = EntityDataManager.createKey(
+    /** 是否被退治 */
+    protected boolean isRetreated = false;
+    /** 好感度 */
+    protected int favorability = 0;
+    public static final DataParameter<Boolean> DATA_RETREATED = EntityDataManager.createKey(
             YoukaiEntity.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Integer> DATA_FAVORABILITY = EntityDataManager.createKey(YoukaiEntity.class, DataSerializers.VARINT);
 
     protected YoukaiEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
@@ -25,7 +27,8 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(DATA_IS_RETREATED, this.isRetreated);
+        this.dataManager.register(DATA_RETREATED, this.isRetreated);
+        this.dataManager.register(DATA_FAVORABILITY, this.favorability);
     }
 
     @Override
@@ -40,12 +43,20 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         super.onDeath(cause);
     }
 
+    public int getFavorability() {
+        return this.dataManager.get(DATA_FAVORABILITY);
+    }
+
+    public void setFavorability(int favorabilityIn) {
+        this.dataManager.set(DATA_FAVORABILITY, favorabilityIn);
+    }
+
     public void setRetreated(boolean isRetreated) {
-        this.dataManager.set(DATA_IS_RETREATED, isRetreated);
+        this.dataManager.set(DATA_RETREATED, isRetreated);
     }
 
     public boolean isRetreated () {
-        return this.isRetreated;
+        return this.dataManager.get(DATA_RETREATED);
     }
 
 }

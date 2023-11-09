@@ -2,12 +2,8 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
-import github.thelawf.gensokyoontology.client.renderer.world.LaserRenderer;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.MouseHelper;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -19,8 +15,6 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -48,7 +42,7 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
         Vector3d start = playerIn.getPositionVec();
         Vector3d end = start.add(playerIn.getLookVec().scale(10));
 
-        getSphericalTrace(worldIn, LivingEntity.class, predicate, box, 12F).stream()
+        getEntityWithinSphere(worldIn, LivingEntity.class, predicate, box, 12F).stream()
                 .filter(living -> isIntersecting(start, end, living.getBoundingBox().offset(0,-1,0)))
                 .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F));
 

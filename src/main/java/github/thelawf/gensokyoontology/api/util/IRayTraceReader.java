@@ -136,8 +136,8 @@ public interface IRayTraceReader {
      * @param aabb 碰撞箱
      * @return 位于球形碰撞箱内的生物的列表
      */
-    default <T extends Entity> List<T> getSphericalTrace(World worldIn, Class<? extends T> entityClass,
-                                                         AxisAlignedBB aabb, float radius) {
+    default <T extends Entity> List<T> getEntityWithinSphere(World worldIn, Class<? extends T> entityClass,
+                                                             AxisAlignedBB aabb, float radius) {
         return worldIn.getEntitiesWithinAABB(entityClass, aabb).stream()
                 .filter(t -> aabb.getCenter().distanceTo(t.getPositionVec()) <= radius)
                 .collect(Collectors.toList());
@@ -152,8 +152,8 @@ public interface IRayTraceReader {
      * @param aabb 碰撞箱
      * @return 位于球形碰撞箱内且满足其它条件的所有生物的列表
      */
-    default <T extends Entity> List<T> getSphericalTrace(World worldIn, Class<? extends T> entityClass,
-                                                         Predicate<? super T> predicate, AxisAlignedBB aabb, float radius) {
+    default <T extends Entity> List<T> getEntityWithinSphere(World worldIn, Class<? extends T> entityClass,
+                                                             Predicate<? super T> predicate, AxisAlignedBB aabb, float radius) {
         return worldIn.getEntitiesWithinAABB(entityClass, aabb).stream()
                 .filter(t -> aabb.getCenter().distanceTo(t.getPositionVec()) <= radius && predicate.test(t))
                 .collect(Collectors.toList());

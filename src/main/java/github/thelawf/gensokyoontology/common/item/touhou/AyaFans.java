@@ -48,7 +48,7 @@ public class AyaFans extends Item implements IRayTraceReader {
         // });
 
         Predicate<LivingEntity> predicate = living -> !(living instanceof PlayerEntity);
-        getSphericalTrace(worldIn, LivingEntity.class, predicate, aabb, 12F).forEach(living -> {
+        getEntityWithinSphere(worldIn, LivingEntity.class, predicate, aabb, 12F).forEach(living -> {
                     living.applyKnockback(3.0f, -lookVec.x, -lookVec.z);
                 });
 
@@ -58,7 +58,7 @@ public class AyaFans extends Item implements IRayTraceReader {
         AxisAlignedBB box = new AxisAlignedBB(playerIn.getPositionVec().subtract(new Vector3d(12,12,12)),
                 playerIn.getPositionVec().add(new Vector3d(12,12,12)));
 
-        getSphericalTrace(worldIn, ProjectileEntity.class, box, 12).forEach(projectile ->
+        getEntityWithinSphere(worldIn, ProjectileEntity.class, box, 12).forEach(projectile ->
                 applyProjectileKnockback(projectile, 3.0f, -lookVec.x, -lookVec.z));
 
         for (int i = 0; i < GSKOMathUtil.randomRange(30, 60); i++) {
