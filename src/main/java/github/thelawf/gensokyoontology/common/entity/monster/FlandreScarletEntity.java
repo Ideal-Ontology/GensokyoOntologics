@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -8,6 +9,7 @@ import net.minecraft.entity.monster.PillagerEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -37,6 +39,7 @@ public class FlandreScarletEntity extends YoukaiEntity {
     public FlandreScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
         this.favorability = -10;
+        this.setHeldItem(Hand.MAIN_HAND, new ItemStack(ItemRegistry.LAEVATEIN.get()));
     }
 
 
