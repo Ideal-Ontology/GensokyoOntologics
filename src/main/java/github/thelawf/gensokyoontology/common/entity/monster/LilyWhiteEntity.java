@@ -3,21 +3,15 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
-import github.thelawf.gensokyoontology.common.entity.ai.goal.BossBattleGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.SpellCardBattleGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.LilyWhiteBossBattleGoal;
-import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -38,9 +32,9 @@ public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardU
 
     @Override
     protected void registerGoals() {
-        List<BossBattleGoal.Stage> stages = new ArrayList<>();
-        stages.add(new BossBattleGoal.Stage(BossBattleGoal.Type.NON_SPELL, new FullCherryBlossomEntity(world, this), 500, true));
-        // stages.put(BossBattleGoal.Type.SPELL_CARD_BREAKABLE, Pair.of(50f, 2000));
+        List<SpellCardBattleGoal.Stage> stages = new ArrayList<>();
+        stages.add(new SpellCardBattleGoal.Stage(SpellCardBattleGoal.Type.NON_SPELL, new FullCherryBlossomEntity(world, this), 500, true));
+        // stages.put(SpellCardBattleGoal.Type.SPELL_CARD_BREAKABLE, Pair.of(50f, 2000));
 
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new LilyWhiteBossBattleGoal(this, stages, 0.4f));

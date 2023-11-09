@@ -1,24 +1,16 @@
 package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
-import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.MobiusRingEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
-import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
-public class LilyWhiteBossBattleGoal extends BossBattleGoal {
+public class LilyWhiteBossBattleGoal extends SpellCardBattleGoal {
     private int ticksExisted;
     private final LilyWhiteEntity lilyWhite;
     private Path path;
