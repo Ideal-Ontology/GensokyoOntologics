@@ -27,6 +27,8 @@ public class TsumiBukuroEntity extends AbstractHumanEntity {
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8f));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, YoukaiEntity.class, true));
     }
 
     @Nullable

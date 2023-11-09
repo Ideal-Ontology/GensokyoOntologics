@@ -23,11 +23,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class FlandreScarletEntity extends TameableEntity implements IAngerable {
-
-    private boolean isRetreated = false;
-    public static final DataParameter<Boolean> DATA_IS_RETREATED = EntityDataManager.createKey(
-            FlandreScarletEntity.class, DataSerializers.BOOLEAN);
+public class FlandreScarletEntity extends YoukaiEntity {
 
     public static final EntityType<FlandreScarletEntity> FLANDRE_SCARLET = EntityType.Builder.create(
                     FlandreScarletEntity::new, EntityClassification.CREATURE).setShouldReceiveVelocityUpdates(true)
@@ -37,36 +33,6 @@ public class FlandreScarletEntity extends TameableEntity implements IAngerable {
         super(type, worldIn);
     }
 
-    @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(DATA_IS_RETREATED, this.isRetreated);
-    }
-
-    @Override
-    protected void onDeathUpdate() {
-        super.onDeathUpdate();
-    }
-
-    @Override
-    public void onDeath(@NotNull DamageSource cause) {
-        if (!this.isRetreated) {
-            this.setHealth(this.getMaxHealth());
-            this.setOwnerId(cause.getTrueSource() instanceof PlayerEntity && cause.getTrueSource() == null ?
-                    cause.getTrueSource().getUniqueID() : null);
-            if (this.getOwnerId() != null) this.setRetreated(true);
-            return;
-        }
-        super.onDeath(cause);
-    }
-
-    public void setRetreated(boolean isRetreated) {
-        this.dataManager.set(DATA_IS_RETREATED, isRetreated);
-    }
-
-    public boolean isRetreated () {
-        return this.isRetreated;
-    }
 
     @Nullable
     @Override
@@ -80,7 +46,6 @@ public class FlandreScarletEntity extends TameableEntity implements IAngerable {
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
-
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8f));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
 
@@ -104,26 +69,27 @@ public class FlandreScarletEntity extends TameableEntity implements IAngerable {
 
     @Override
     public int getAngerTime() {
-        return 0;
+        return super.getAngerTime();
     }
 
     @Override
     public void setAngerTime(int time) {
-
+        super.setAngerTime(time);
     }
 
     @Nullable
     @Override
     public UUID getAngerTarget() {
-        return null;
+        return super.getAngerTarget();
     }
 
     @Override
     public void setAngerTarget(@Nullable UUID target) {
+        super.setAngerTarget(target);
     }
 
     @Override
     public void func_230258_H__() {
-
+        super.func_230258_H__();
     }
 }
