@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.renderer.entity;
+package github.thelawf.gensokyoontology.client.renderer.entity.creature;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.YukairiModel;

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.renderer.entity;
+package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
