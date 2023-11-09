@@ -181,9 +181,11 @@ public class GensokyoOntology {
 
             event.put(EntityRegistry.LILY_WHITE_ENTITY.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 100D)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35F)
+                    .createMutableAttribute(Attributes.FLYING_SPEED, 0.4F)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 7D)
-                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.4D).create());
+                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.1D).create());
 
             event.put(EntityRegistry.FLANDRE_SCARLET.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 500D)
