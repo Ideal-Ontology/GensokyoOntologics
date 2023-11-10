@@ -364,6 +364,8 @@
   "msg.gensokyoontology.enter_danger_biome.scarlet_mansion_precincts": "§cThis area is now covered by scarlet mist which will make you suffocate.",
   "msg.gensokyoontology.enter_danger_biome.nameless_hill": "§5Lily of the valley are oozing poisonous smell...",
 
+  "spawn_msg.gensokyoontology.flandre_scarlet.character_line": "Are you going to play with Flan? big brother~",
+
   "msg.gensokyoontology.gap_block.set_first_gap": "The first Gap is placed at: ",
   "msg.gensokyoontology.gap_block.set_second_gap": "The second Gap is placed at: ",
   "msg.gensokyoontology.gap_block.in_dimension": "in dimension -- ",

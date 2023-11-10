@@ -364,6 +364,8 @@
   "msg.gensokyoontology.enter_danger_biome.scarlet_mansion_precincts": "§c这片区域正被一片能使人窒息的红雾笼罩",
   "msg.gensokyoontology.enter_danger_biome.nameless_hill": "§5这里遍地盛开的铃兰散发着有毒的花香",
 
+  "spawn_msg.gensokyoontology.flandre_scarlet.character_line": "诶，你是来陪芙兰玩的吗？大哥哥~",
+
   "msg.gensokyoontology.gap_block.set_first_gap": "§3第一处隙间被放置在坐标： ",
   "msg.gensokyoontology.gap_block.set_second_gap": "§a第二处隙间被放置在坐标： ",
   "msg.gensokyoontology.gap_block.in_dimension": "且位于该世界维度：",

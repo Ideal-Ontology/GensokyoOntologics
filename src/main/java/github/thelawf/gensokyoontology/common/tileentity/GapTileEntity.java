@@ -61,7 +61,6 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
 
     @Override
     public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
-
         if (nbt.contains("DestinationX") && nbt.contains("DestinationY") && nbt.contains("DestinationZ")) {
             this.destinationPos = new BlockPos(nbt.getInt("DestinationX"), nbt.getInt("DestinationY"), nbt.getInt("DestinationZ"));
         }

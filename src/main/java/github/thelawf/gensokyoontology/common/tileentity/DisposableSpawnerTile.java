@@ -59,7 +59,7 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
             Optional<EntityType<?>> optionalEntity = EntityType.readEntityType(compound);
             optionalEntity.ifPresent(type -> type.spawn(serverWorld, null, null, blockPos.toImmutable(), SpawnReason.SPAWNER, false, false));
 
-            triggeredPlayer.sendMessage(GensokyoOntology.withTranslation("msg.", ".fladre_scarlet.character_lines"),
+            triggeredPlayer.sendMessage(GensokyoOntology.withTranslation("spawn_msg.", ".flandre_scarlet.character_lines"),
                     triggeredPlayer.getUniqueID());
             this.canContinueSpawn = false;
             markDirty();
