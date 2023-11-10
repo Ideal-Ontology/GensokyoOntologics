@@ -171,9 +171,7 @@ public class GapBlock extends Block implements INBTWriter {
                 player.sendMessage(new TranslationTextComponent("§a" + arrivalKey.getLocation()), player.getUniqueID());
             }
         }
-
     }
-
 
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
@@ -195,20 +193,23 @@ public class GapBlock extends Block implements INBTWriter {
             GapTileEntity departureGap = getGapTile(departureWorld, depaturePos);
             ServerWorld destinationWorld = departureWorld.getServer().getWorld(departureGap.getDestinationWorld());
 
-            if (destinationWorld != null) {
-                if (getGapTile(destinationWorld, departureGap.getDestinationPos()) == null) {
-                    serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.arrival_gap_not_present"), true);
-                    return;
-                }
-                GapTileEntity arrivalGap = getGapTile(destinationWorld, departureGap.getDestinationPos());
-                arrivalGap.setCooldown(400);
-                TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
+            if (departureGap.getCooldown() > 1 ) return;
+            if (destinationWorld == null) {
+                serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.destination_not_present"), true);
+                return;
             }
-            else if (departureGap.getDestinationPos() == BlockPos.ZERO) {
+
+            if (getGapTile(destinationWorld, departureGap.getDestinationPos()) == null) {
+                serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.arrival_gap_not_present"), true);
+                return;
+            }
+            GapTileEntity arrivalGap = getGapTile(destinationWorld, departureGap.getDestinationPos());
+            arrivalGap.setCooldown(400);
+            TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
+
+            if (departureGap.getDestinationPos() == BlockPos.ZERO) {
                 serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.illegal_position"), true);
             }
-            else serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.destination_not_present"), true);
-
         }
     }
 

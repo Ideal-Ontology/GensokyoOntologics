@@ -38,6 +38,7 @@ public class SC_FullCherryBlossom extends SpellCardItem {
         if (worldIn instanceof ServerWorld) {
 
             FullCherryBlossomEntity fullCherryBlossom = new FullCherryBlossomEntity(worldIn, playerIn);
+            fullCherryBlossom.setOwner(playerIn);
             worldIn.addEntity(fullCherryBlossom);
             playerIn.getCooldownTracker().setCooldown(this, 1200);
         }

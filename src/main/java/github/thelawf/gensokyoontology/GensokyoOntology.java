@@ -112,11 +112,14 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.LYCORIS_RADIATA.get(),
                         RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.WASABI_BLOCK.get(),
+                        RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.ONION_CROP_BLOCK.get(),
                         RenderType.getCutout());
+
                 RenderTypeLookup.setRenderLayer(BlockRegistry.GAP_BLOCK.get(),
                         RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.WASABI_BLOCK.get(),
+                RenderTypeLookup.setRenderLayer(BlockRegistry.DISPOSABLE_SPAWNER.get(),
                         RenderType.getCutout());
 
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_DOOR.get(),
@@ -124,15 +127,16 @@ public class GensokyoOntology {
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_TRAPDOOR.get(),
                         RenderType.getCutout());
 
-                RenderTypeLookup.setRenderLayer(BlockRegistry.MAPLE_SAPLING.get(),
-                        RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_SAPLING.get(),
                         RenderType.getCutout());
-
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),
+                        RenderType.getCutout());
+
+                RenderTypeLookup.setRenderLayer(BlockRegistry.MAPLE_SAPLING.get(),
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.MAPLE_LEAVES.get(),
                         RenderType.getCutout());
+
                 RenderTypeLookup.setRenderLayer(BlockRegistry.MAGIC_LEAVES.get(),
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.GINKGO_LEAVES.get(),
