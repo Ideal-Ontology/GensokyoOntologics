@@ -15,7 +15,6 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,14 +58,16 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
             Optional<EntityType<?>> optionalEntity = EntityType.readEntityType(compound);
             optionalEntity.ifPresent(type -> type.spawn(serverWorld, null, null, blockPos.toImmutable(), SpawnReason.SPAWNER, false, false));
 
-            triggeredPlayer.sendMessage(GensokyoOntology.withTranslation("spawn_msg.", ".flandre_scarlet.character_lines"),
-                    triggeredPlayer.getUniqueID());
             this.canContinueSpawn = false;
             markDirty();
             this.world.setBlockState(this.pos, Blocks.AIR.getDefaultState());
         }
     }
 
+    public void setEntityType(EntityType<?> entityTypeIn) {
+        this.entityType = entityTypeIn;
+        markDirty();
+    }
 
     public EntityType<?> getSpawnEntity() {
         return this.entityType;
@@ -83,7 +84,8 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
     @NotNull
     public CompoundNBT write(@NotNull CompoundNBT compound) {
         super.write(compound);
-        compound.putString("id", GensokyoOntology.withRL("flandre_scarlet").toString());
+        compound.putString("id", this.getSpawnEntity().getRegistryName() == null ?
+                GensokyoOntology.withRL("flandre_scarlet").toString() : this.getSpawnEntity().getRegistryName().toString());
         compound.putBoolean("can_continue_spawn", this.canContinueSpawn);
         return compound;
     }
