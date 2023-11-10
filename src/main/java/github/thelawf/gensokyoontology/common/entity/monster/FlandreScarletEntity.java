@@ -1,5 +1,11 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.FlandreSpellAttackGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.SpellCardAttackGoal;
+import github.thelawf.gensokyoontology.common.entity.spellcard.FourOfAKindEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
@@ -18,16 +24,18 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
-public class FlandreScarletEntity extends YoukaiEntity {
+public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser {
 
     @OnlyIn(Dist.CLIENT)
     private Animation animation = Animation.IDLE;
 
     public static final EntityType<FlandreScarletEntity> FLANDRE_SCARLET = EntityType.Builder.create(
                     FlandreScarletEntity::new, EntityClassification.CREATURE).setShouldReceiveVelocityUpdates(true)
-            .size(0.6f, 1.5f).trackingRange(10).build("flandre_scarlet");
+            .size(0.6f, 1.55f).trackingRange(10).build("flandre_scarlet");
 
     public FlandreScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
@@ -109,10 +117,33 @@ public class FlandreScarletEntity extends YoukaiEntity {
         return animation;
     }
 
+    @Override
+    public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
+        if (spellCard == null) return;
+        spellCard.onTick(this.world, this, ticksIn);
+    }
+
     public static class Doppelganger extends FlandreScarletEntity {
+        public static final EntityType<Doppelganger> FLANDRE_DOPPELGANGER = EntityType.Builder.create(
+                        Doppelganger::new, EntityClassification.CREATURE).setShouldReceiveVelocityUpdates(true)
+                .size(0.6f, 1.55f).trackingRange(10).build("flandre_doppelganger");
 
         public Doppelganger(EntityType<? extends TameableEntity> type, World worldIn) {
             super(type, worldIn);
+        }
+
+        @Override
+        protected void registerGoals() {
+            List<SpellCardAttackGoal.Stage> stages = new ArrayList<>();
+            stages.add(new SpellCardAttackGoal.Stage(SpellCardAttackGoal.Type.SPELL_CARD_BREAKABLE, new FullCherryBlossomEntity(world, this), 500, true));
+
+            this.goalSelector.addGoal(1, new SwimGoal(this));
+            this.goalSelector.addGoal(2, new SitGoal(this));
+            this.goalSelector.addGoal(3, new FlandreSpellAttackGoal(this, stages, 0.4F));
+            this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+            this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4F));
+            this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8F));
+            this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         }
     }
 

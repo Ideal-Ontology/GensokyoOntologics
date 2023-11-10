@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
+import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -194,5 +195,7 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
+    public void onTick(World world, LivingEntity living, int ticksIn) {
+    }
 }
 

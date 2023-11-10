@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
@@ -39,10 +40,13 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
 
     @Override
     public void tick() {
-        if (this.world != null) {
-            AxisAlignedBB aabb = new AxisAlignedBB(0,0,0,10,10,10);
+        if (this.world != null && this.world.isRemote) {
+            AxisAlignedBB aabb = new AxisAlignedBB(0, 0, 0, 10, 10, 10);
+            PlayerEntity player = this.world.getClosestPlayer(this.pos.getX(), this.pos.getY(), this.pos.getZ(), 10, false);
+            if (player == null) return;
+
             Predicate<DisposableSpawnerTile> predicate = tileEntity ->
-                    tileEntity.getSpawnEntity() != null && tileEntity.canContinueSpawn &&
+                    tileEntity.getSpawnEntity() != null && tileEntity.canContinueSpawn && !player.isCreative() &&
                             getEntityWithinSphere(this.world, PlayerEntity.class, aabb.offset(this.pos), 10).size() > 0;
             spawn(predicate);
             markDirty();
@@ -57,6 +61,8 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
             Optional<EntityType<?>> optionalEntity = EntityType.readEntityType(compound);
             optionalEntity.ifPresent(type -> type.spawn(serverWorld, null, null, blockPos.toImmutable(), SpawnReason.SPAWNER, false, false));
             this.canContinueSpawn = false;
+            markDirty();
+            this.world.setBlockState(this.pos, Blocks.AIR.getDefaultState());
         }
     }
 
@@ -66,7 +72,7 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT nbt) {
+    public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
         super.read(state, nbt);
         Optional<EntityType<?>> entityOptional = EntityType.readEntityType(nbt);
         entityOptional.ifPresent(type -> this.entityType = entityOptional.get());

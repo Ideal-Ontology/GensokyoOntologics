@@ -33,7 +33,7 @@ public class FullCherryBlossomEntity extends SpellCardEntity{
     /**
      * 这个方法是为了方便其它类在外部调用符卡的弹幕演出
      */
-    public static void onTick(World world, LivingEntity living, int ticksExisted) {
+    public void onTick(World world, LivingEntity living, int ticksExisted) {
         List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos(1.2, 3, 2, 0.05);
 
         if (ticksExisted % 20 == 0) {
@@ -54,7 +54,7 @@ public class FullCherryBlossomEntity extends SpellCardEntity{
     @Override
     public void tick() {
         super.tick();
-        FullCherryBlossomEntity.onTick(this.world, (LivingEntity) this.getOwner(), ticksExisted);
+        onTick(this.world, (LivingEntity) this.getOwner(), ticksExisted);
     }
 
     @Override
