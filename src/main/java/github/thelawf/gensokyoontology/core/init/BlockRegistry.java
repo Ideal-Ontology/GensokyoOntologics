@@ -171,6 +171,9 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> SORCERY_EXTRACTOR = BLOCKS.register(
             "sorcery_extractor", SorceryExtractorBlock::new);
 
+    public static final RegistryObject<Block> DISPOSABLE_SPAWNER = BLOCKS.register(
+            "disposable_spawner", DisposableSpawnerBlock::new);
+
     public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
             "space_fissure_block", SpaceFissureBlock::new);
 

@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -30,8 +31,8 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
     private EntityType<?> entityType;
     private boolean canContinueSpawn;
 
-    public DisposableSpawnerTile(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public DisposableSpawnerTile() {
+        super(TileEntityTypeRegistry.DISPOSABLE_SPAWNER_TILE_ENTITY.get());
         this.canContinueSpawn = true;
         this.entityType = FlandreScarletEntity.FLANDRE_SCARLET;
     }

@@ -23,4 +23,8 @@ public final class TileEntityTypeRegistry {
     public static final RegistryObject<TileEntityType<SorceryExtractorTileEntity>> SORCERY_EXTRACTOR_TILE_ENTITY =
             TILE_ENTITIES.register("sorcery_tileentity", () -> TileEntityType.Builder.create(
                     SorceryExtractorTileEntity::new, BlockRegistry.SORCERY_EXTRACTOR.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<DisposableSpawnerTile>> DISPOSABLE_SPAWNER_TILE_ENTITY =
+            TILE_ENTITIES.register("disposable_spawnertile_entity", () -> TileEntityType.Builder.create(
+                    DisposableSpawnerTile::new, BlockRegistry.DISPOSABLE_SPAWNER.get()).build(null));
 }
