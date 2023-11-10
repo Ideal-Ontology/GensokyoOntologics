@@ -40,7 +40,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     public FlandreScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
         this.favorability = -10;
-        this.setHeldItem(Hand.MAIN_HAND, new ItemStack(ItemRegistry.CLOCK_HAND_ITEM.get()));
+        // this.setHeldItem(Hand.MAIN_HAND, new ItemStack(ItemRegistry.CLOCK_HAND_ITEM.get()));
     }
 
 

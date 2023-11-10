@@ -5,13 +5,14 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.FlandreScarletModel;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
-public class FlandreScarletRenderer extends MobRenderer<FlandreScarletEntity, FlandreScarletModel> {
+public class FlandreScarletRenderer extends BipedRenderer<FlandreScarletEntity, FlandreScarletModel> {
 
     public static final ResourceLocation FLANDRE_TEXTURE = GensokyoOntology.withRL("textures/entity/flandre_scarlet.png");
 

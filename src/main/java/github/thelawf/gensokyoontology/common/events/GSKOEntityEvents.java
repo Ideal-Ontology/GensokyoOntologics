@@ -16,11 +16,14 @@ import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import github.thelawf.gensokyoontology.core.init.EffectRegistry;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.inventory.MerchantScreen;
 import net.minecraft.client.particle.TotemOfUndyingParticle;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
@@ -33,6 +36,7 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.potion.Effect;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
@@ -167,12 +171,22 @@ public class GSKOEntityEvents {
         }
     }
 
-    public static void onPotionActivate(LivingEvent.LivingUpdateEvent event) {
-        event.getEntityLiving().getActivePotionEffects().forEach(effect -> {
-            if (effect.getPotion() instanceof HypnosisEffect) {
-                performHypnosis(event, (HypnosisEffect) effect.getPotion());
-            }
-        });
+    public static void onHakureiBless(LivingEvent.LivingUpdateEvent event) {
+        //if (event.getEntityLiving().getActivePotionEffect(EffectRegistry.HAKUREI_BLESS_EFFECT.get()) == null) return;
+        EffectInstance effect = event.getEntityLiving().getActivePotionEffect(EffectRegistry.HAKUREI_BLESS_EFFECT.get());
+        if (effect == null) return;
+        World world = event.getEntity().world;
+        LivingEntity living = event.getEntityLiving();
+        if (effect.getDuration() > 0 && world instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld) world;
+            LazyOptional<BloodyMistCapability> bloodyMist = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
+            bloodyMist.ifPresent(capability -> capability.setTriggered(false));
+        }
+        else if (effect.getDuration() <= 0 && world instanceof ServerWorld){
+            ServerWorld serverWorld = (ServerWorld) world;
+            LazyOptional<BloodyMistCapability> bloodyMist = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
+            bloodyMist.ifPresent(capability -> capability.setTriggered(true));
+        }
     }
 
     private static void fairyDropDanmaku(LivingDeathEvent event) {

@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.potion.DepressionEffect;
-import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
-import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
-import github.thelawf.gensokyoontology.common.potion.ManiaEffect;
+import github.thelawf.gensokyoontology.common.potion.*;
 import net.minecraft.potion.Effect;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -23,4 +20,6 @@ public final class EffectRegistry {
 
     public static final RegistryObject<Effect> DEPRESSION_EFFECT = POTION_EFFECTS.register("depression",
             DepressionEffect::new);
+
+    public static final RegistryObject<Effect> HAKUREI_BLESS_EFFECT = POTION_EFFECTS.register("hakurei_bless", HakureiBlessEffect::new);
 }
