@@ -36,7 +36,7 @@ public class MansionTowerClockHandBlock extends Block {
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBlockHarvested(worldIn, pos, state, player);
-        spawnDrops(state, worldIn, pos, null, player, new ItemStack(ItemRegistry.LAEVATEIN.get()));
+        spawnDrops(state, worldIn, pos, null, player, new ItemStack(ItemRegistry.CLOCK_HAND_ITEM.get()));
     }
 
     @Nullable

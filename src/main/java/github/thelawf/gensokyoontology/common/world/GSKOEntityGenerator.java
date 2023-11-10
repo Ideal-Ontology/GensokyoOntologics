@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -56,9 +57,11 @@ public class GSKOEntityGenerator {
                 if (biomeRegistryName.equals(GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY.getRegistryName()) &&
                         serverWorld.getEntities().noneMatch(entity -> entity.getType() == EntityRegistry.LILY_WHITE_ENTITY.get())) {
 
-                    LilyWhiteEntity lilyWhite = new LilyWhiteEntity(LilyWhiteEntity.LILY_WHITE, (World) event.getWorld());
-                    lilyWhite.setPosition(event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());
-                    event.getWorld().addEntity(lilyWhite);
+                    EntityType<LilyWhiteEntity> entityType = LilyWhiteEntity.LILY_WHITE;
+                    entityType.spawn(serverWorld, null, null, event.getPos(), SpawnReason.EVENT, false, false);
+                    // LilyWhiteEntity lilyWhite = new LilyWhiteEntity(LilyWhiteEntity.LILY_WHITE, (World) event.getWorld());
+                    // lilyWhite.setPosition(event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());
+                    // event.getWorld().addEntity(lilyWhite);
                 }
             }
         }

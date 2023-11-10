@@ -272,8 +272,8 @@ public final class ItemRegistry {
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
             "sakuya_stop_watch", () -> new SakuyaStopWatch(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
-    public static final RegistryObject<Laevatein> LAEVATEIN = ITEMS.register(
-            "laevatein", () -> new Laevatein(new Item.Properties()
+    public static final RegistryObject<ClockHandItem> CLOCK_HAND_ITEM = ITEMS.register(
+            "clock_hand_item", () -> new ClockHandItem(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register(
             "aya_fans", () -> new AyaFans(new Item.Properties()

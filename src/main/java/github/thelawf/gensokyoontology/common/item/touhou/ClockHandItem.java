@@ -7,8 +7,8 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
-public class Laevatein extends Item {
-    public Laevatein(Properties properties) {
+public class ClockHandItem extends Item {
+    public ClockHandItem(Properties properties) {
         super(properties);
     }
 
