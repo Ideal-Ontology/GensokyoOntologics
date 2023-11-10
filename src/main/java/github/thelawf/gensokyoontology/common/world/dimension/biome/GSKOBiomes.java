@@ -26,7 +26,7 @@ public class GSKOBiomes {
     public static final Biome HELL_VALLEY = GSKOBiomeMaker.makeHellValley();
     public static final Biome OUTSIDE_CITY = GSKOBiomeMaker.makeOutsideCityBiome();
 
-    public static final Biome SAKURA_FOREST = GSKOBiomeMaker.makeSakuraForest();
+    // public static final Biome SAKURA_FOREST = GSKOBiomeMaker.makeSakuraForest();
 
     public static final RegistryKey<Biome> GSKO_FOREST_KEY = makeKey("gensokyo_forest");
     public static final RegistryKey<Biome> GSKO_PLAINS_KEY = makeKey("gensokyo_plains");

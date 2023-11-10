@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public class RiceShot extends DanmakuItem {
-    public RiceShot() {
-        super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
+    public RiceShot(Properties properties) {
+        super(properties);
     }
 
     @Override

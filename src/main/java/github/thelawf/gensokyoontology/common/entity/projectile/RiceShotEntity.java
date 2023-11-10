@@ -11,6 +11,8 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class RiceShotEntity extends AbstractDanmakuEntity{
@@ -26,6 +28,7 @@ public class RiceShotEntity extends AbstractDanmakuEntity{
         super(RICE_SHOT, livingIn, worldIn, danmakuType, danmakuColor);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {

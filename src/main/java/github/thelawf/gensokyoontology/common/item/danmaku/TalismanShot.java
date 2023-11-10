@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public class TalismanShot extends DanmakuItem {
-    public TalismanShot() {
-        super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
+    public TalismanShot(Properties properties) {
+        super(properties);
     }
 
     @Override

@@ -30,25 +30,6 @@ public class GSKOFeatureGenerator {
         RegistryKey<Biome> biomeKey = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biomeKey);
 
-        if (event.getName().equals(GSKOBiomes.SAKURA_FOREST.getRegistryName())) {
-            List<Supplier<ConfiguredFeature<?,?>>> base = event.getGeneration().getFeatures(
-                    GenerationStage.Decoration.VEGETAL_DECORATION);
-
-            base.add(() -> GSKOFeatures.SAKURA_TREE
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1, 0.65f, 2))));
-
-            base.add(() -> Features.OAK
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-                    .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1,0.05f, 2))));
-
-            base.add(() -> GSKOFeatures.MAGIC_FOREST_VEGETATION
-                    .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
-                    .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1, 0.25f, 2))));
-        }
 
     }
 

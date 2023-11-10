@@ -14,8 +14,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public class ScaleShot extends DanmakuItem {
-    public ScaleShot() {
-        super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
+    public ScaleShot(Properties properties) {
+        super(properties);
     }
 
     @Override
