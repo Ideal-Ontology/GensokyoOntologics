@@ -8,6 +8,7 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 public class FlandreScarletRenderer extends MobRenderer<FlandreScarletEntity, FlandreScarletModel> {
@@ -27,5 +28,26 @@ public class FlandreScarletRenderer extends MobRenderer<FlandreScarletEntity, Fl
     @Override
     public void render(FlandreScarletEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+    }
+
+    public void onAnimate(FlandreScarletEntity entityIn, float partialTicks){
+        switch (entityIn.getAnimation()) {
+            case IDLE:
+                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(2), MathHelper.clamp(
+                        entityIn.limbSwingAmount, 0 + partialTicks, 1F + partialTicks ), 0, 0);
+                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(3), MathHelper.clamp(
+                        entityIn.limbSwingAmount, 0 + partialTicks, 1F + partialTicks ), 0, 0);
+                break;
+            case WALKING:
+                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(0), 0, 0, MathHelper.clamp(
+                        entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
+                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(1), 0, 0, MathHelper.clamp(
+                        entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
+                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(2), 0, 0, MathHelper.clamp(
+                        entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
+                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(3), 0, 0, MathHelper.clamp(
+                        entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
+                break;
+        }
     }
 }

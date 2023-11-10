@@ -46,4 +46,13 @@ public abstract class RetreatableEntity extends TameableEntity implements IAnger
     public void func_230258_H__() {
 
     }
+    public enum Animation {
+        IDLE,
+        WALKING,
+        DIVING,
+        FLYING,
+        SITTING,
+        SPELL_CARD_ATTACK
+    }
+
 }

@@ -353,9 +353,9 @@ public class FlandreScarletModel extends BipedModel<FlandreScarletEntity> {
         gam2_1_r1.setTextureOffset(0, 71).addBox(-4.5F, -0.5F, -0.5F, 9.0F, 1.0F, 1.0F, 0.0F, false);
     }
 
-    @NotNull
-    protected Iterable<ModelRenderer> getBodyParts() {
-        return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.bipedLeftLeg, this.bipedRightLeg, this.bipedLeftArm, this.bipedRightArm, this.bipedBody));
+
+    public List<ModelRenderer> getBodyParts() {
+        return ImmutableList.of(this.bipedLeftLeg, this.bipedRightLeg, this.bipedLeftArm, this.bipedRightArm, this.bipedBody);
     }
 
     @Override
