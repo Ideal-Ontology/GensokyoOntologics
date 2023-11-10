@@ -149,6 +149,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
 
     public enum Animation {
         IDLE,
+        WALKING,
         DIVING,
         FLYING,
         SITTING,
