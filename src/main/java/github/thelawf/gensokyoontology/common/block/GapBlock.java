@@ -119,9 +119,9 @@ public class GapBlock extends Block implements INBTWriter {
             itemStack.setTag(itemNBT);
             itemStack.grow(1);
 
-            player.sendMessage(GensokyoOntology.withTranslation("msg. ", ".gap_block.set_first_gap"), player.getUniqueID());
+            player.sendMessage(GensokyoOntology.withTranslation("msg.", ".gap_block.set_first_gap"), player.getUniqueID());
             player.sendMessage(new StringTextComponent(firstPos.getCoordinatesAsString()), player.getUniqueID());
-            player.sendMessage(GensokyoOntology.withTranslation("msg. ", ".gap_block.in_dimension"), player.getUniqueID());
+            player.sendMessage(GensokyoOntology.withTranslation("msg.", ".gap_block.in_dimension"), player.getUniqueID());
             player.sendMessage(new TranslationTextComponent(departureWorld.getLocation().toString()), player.getUniqueID());
         }
 
@@ -165,9 +165,9 @@ public class GapBlock extends Block implements INBTWriter {
                 firstPlacedSukima.setDestinationWorld(arrivalKey);
                 firstPlacedSukima.markDirty();
 
-                player.sendMessage(GensokyoOntology.withTranslation("msg. ", ".gap_block.set_second_gap"), player.getUniqueID());
+                player.sendMessage(GensokyoOntology.withTranslation("msg.", ".gap_block.set_second_gap"), player.getUniqueID());
                 player.sendMessage(new StringTextComponent("§3" + firstPos.getCoordinatesAsString()), player.getUniqueID());
-                player.sendMessage(GensokyoOntology.withTranslation("msg. ", ".gap_block.in_dimension"), player.getUniqueID());
+                player.sendMessage(GensokyoOntology.withTranslation("msg.", ".gap_block.in_dimension"), player.getUniqueID());
                 player.sendMessage(new TranslationTextComponent("§a" + arrivalKey.getLocation()), player.getUniqueID());
             }
         }

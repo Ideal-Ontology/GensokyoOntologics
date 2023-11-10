@@ -44,12 +44,6 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
             PlayerEntity player = this.world.getClosestPlayer(this.pos.getX(), this.pos.getY(), this.pos.getZ(), 10, false);
             if (player == null) return;
 
-            player.sendMessage(new StringTextComponent("Is true: " + (this.world instanceof ServerWorld)), player.getUniqueID());
-            if (player.ticksExisted % 50 == 0) {
-                player.sendMessage(new StringTextComponent("Is entity null: " + this.getSpawnEntity()), player.getUniqueID());
-                player.sendMessage(new StringTextComponent("Is world null: " + this.world), player.getUniqueID());
-            }
-
             Predicate<DisposableSpawnerTile> predicate = tileEntity ->
                     tileEntity.getSpawnEntity() != null && !player.isCreative();
             spawn(predicate, player);

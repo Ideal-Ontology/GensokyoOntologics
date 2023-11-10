@@ -261,6 +261,10 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> IZANO_OBJECT = ITEMS.register(
             "izano_object", () -> new IzanoObject(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    // ------------------------------- 技术性方块 ----------------------------------//
+    public static final RegistryObject<BlockItem> DISPOSABLE_SPAWNER_ITEM = ITEMS.register(
+            "disposable_spawner", () -> new BlockItem(BlockRegistry.DISPOSABLE_SPAWNER.get(), new Item.Properties()));
+
     // ======================= GSKO杂项：道具类物品 =========================//
     // ----------------------- 东方project特殊功能道具 ----------------------//
     public static final RegistryObject<HakureiGohei> HAKUREI_GOHEI = ITEMS.register(
