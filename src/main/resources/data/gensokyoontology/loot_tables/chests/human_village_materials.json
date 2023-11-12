@@ -36,7 +36,7 @@
         {
           "type": "minecraft:item",
           "weight": 3,
-          "name": "gensokyoontology:jade_level_SS",
+          "name": "gensokyoontology:jade_level_ss",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -51,7 +51,7 @@
         {
           "type": "minecraft:item",
           "weight": 1,
-          "name": "gensokyoontology:jade_level_SSS",
+          "name": "gensokyoontology:jade_level_sss",
           "functions": [
             {
               "function": "minecraft:set_count",

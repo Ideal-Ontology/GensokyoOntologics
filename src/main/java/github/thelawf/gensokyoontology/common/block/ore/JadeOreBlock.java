@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.block.ore;
 
-import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
@@ -15,8 +14,6 @@ import net.minecraft.stats.Stats;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.Dimension;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 
 import java.util.Random;

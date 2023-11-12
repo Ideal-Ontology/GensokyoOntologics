@@ -20,7 +20,7 @@
       ],
       "conditions": [
         {
-          "condition": "gensokyoontology:survives_explosion"
+          "condition": "minecraft:survives_explosion"
         }
       ]
     }
