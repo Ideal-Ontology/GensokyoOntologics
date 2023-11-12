@@ -58,11 +58,11 @@ public class SimpleNoise {
      * pos00这个坐标的高度的绝对平均值;<br>
      * 4. 最后将两个绝对平均值与其对应的比率相乘，并将其平均值返回为整形的高度值。
      *
-     * @param pos00 区块左下角的全局坐标
-     * @param pos01 区块右下角的全局坐标
-     * @param pos10 区块左上角的全局坐标
+     * @param pos00    区块左下角的全局坐标
+     * @param pos01    区块右下角的全局坐标
+     * @param pos10    区块左上角的全局坐标
      * @param chunkPos 区块内的方块坐标点
-     * @param diff 地形延展广度，用以控制该地形有多大
+     * @param diff     地形延展广度，用以控制该地形有多大
      * @return 根据区块角点的高度插值得来的区块内各点的高度值
      */
     public static int getSmoothY(Vector3d pos00, Vector3d pos01, Vector3d pos10,

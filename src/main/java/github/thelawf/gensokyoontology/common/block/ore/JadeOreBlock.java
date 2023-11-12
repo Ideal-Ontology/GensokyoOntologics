@@ -31,9 +31,8 @@ public class JadeOreBlock extends OreBlock {
             int probability = new Random().nextInt(10000);
             if (dimension.equals(GSKODimensions.GENSOKYO)) {
                 return getItemToDrop(worldIn, 50, 180, 470, 3000);
-            }
-            else {
-                playerIn.sendMessage(new TranslationTextComponent("msg."+ GensokyoOntology.MODID +"item_use.jade_cut_failed"),
+            } else {
+                playerIn.sendMessage(new TranslationTextComponent("msg." + GensokyoOntology.MODID + "item_use.jade_cut_failed"),
                         playerIn.getUniqueID());
                 return new ItemStack(Items.COBBLESTONE);
             }
@@ -44,23 +43,19 @@ public class JadeOreBlock extends OreBlock {
     /**
      * 玉石矿在不同的世界会存在着不同的掉落概率
      */
-    public static ItemStack getItemToDrop(World worldIn, int sss, int ss, int s, int a){
+    public static ItemStack getItemToDrop(World worldIn, int sss, int ss, int s, int a) {
         if (!worldIn.isRemote) {
             int probability = new Random().nextInt(10000);
             if (worldIn.getDimensionKey().equals(GSKODimensions.GENSOKYO)) {
                 if (probability <= sss) {
                     return new ItemStack(ItemRegistry.JADE_LEVEL_SSS.get());
-                }
-                else if (probability > sss + 1 && probability <= ss) {
+                } else if (probability > sss + 1 && probability <= ss) {
                     return new ItemStack(ItemRegistry.JADE_LEVEL_SS.get());
-                }
-                else if (probability > ss + 1 && probability <= s) {
+                } else if (probability > ss + 1 && probability <= s) {
                     return new ItemStack(ItemRegistry.JADE_LEVEL_S.get());
-                }
-                else if (probability > s + 1 && probability <= a) {
+                } else if (probability > s + 1 && probability <= a) {
                     return new ItemStack(ItemRegistry.JADE_LEVEL_A.get());
-                }
-                else {
+                } else {
                     return new ItemStack(ItemRegistry.JADE_LEVEL_B.get());
                 }
             }
@@ -74,17 +69,13 @@ public class JadeOreBlock extends OreBlock {
             if (worldIn.getDimensionKey().equals(GSKODimensions.GENSOKYO)) {
                 if (probability <= 5) {
                     spawnDrops(state, worldIn, pos, null, player, new ItemStack(ItemRegistry.JADE_LEVEL_SSS.get()));
-                }
-                else if (probability > 6 && probability <= 20) {
+                } else if (probability > 6 && probability <= 20) {
                     spawnDrops(state, worldIn, pos, null, player, new ItemStack(ItemRegistry.JADE_LEVEL_SS.get()));
-                }
-                else if (probability > 20 && probability <= 45) {
+                } else if (probability > 20 && probability <= 45) {
                     spawnDrops(state, worldIn, pos, null, player, new ItemStack(ItemRegistry.JADE_LEVEL_S.get()));
-                }
-                else if (probability > 45 && probability <= 80) {
+                } else if (probability > 45 && probability <= 80) {
                     spawnDrops(state, worldIn, pos, null, player, new ItemStack(ItemRegistry.JADE_LEVEL_A.get()));
-                }
-                else {
+                } else {
                     spawnDrops(state, worldIn, pos, null, player, new ItemStack(ItemRegistry.JADE_LEVEL_B.get()));
                 }
                 player.addStat(Stats.BLOCK_MINED.get(BlockRegistry.JADE_ORE.get()), 1);

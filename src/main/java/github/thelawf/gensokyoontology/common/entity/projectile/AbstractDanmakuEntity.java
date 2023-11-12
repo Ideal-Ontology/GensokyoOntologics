@@ -14,6 +14,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -27,6 +29,7 @@ import javax.annotation.Nonnull;
  * 弹幕击中生物时的逻辑<br>
  * （待补充……）
  */
+@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public abstract class AbstractDanmakuEntity extends ThrowableEntity implements IRendersAsItem {
     private int maxLivingTick = 125;
     protected float damage = 2.0f;
@@ -49,6 +52,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     protected SpellData spellData;
     public TransformFunction function;
     public CompoundNBT compoundNBT = new CompoundNBT();
+
     protected AbstractDanmakuEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -162,8 +166,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
                     // player.applyKnockback(0.1f, 0.05, 0.05);
                 }
                 player.attackEntityFrom(GSKODamageSource.DANMAKU, this.damage);
-            }
-            else if (result.getEntity() instanceof LivingEntity) {
+            } else if (result.getEntity() instanceof LivingEntity) {
                 LivingEntity living = (LivingEntity) result.getEntity();
                 if (this instanceof FakeLunarEntity) {
                     living.attackEntityFrom(GSKODamageSource.DANMAKU, 12f);

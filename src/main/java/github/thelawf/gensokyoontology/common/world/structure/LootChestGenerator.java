@@ -23,6 +23,7 @@ public final class LootChestGenerator implements IStructurePieceType {
     public StructurePiece load(TemplateManager p_load_1_, CompoundNBT p_load_2_) {
         return null;
     }
+
     public static class GSKOPiece extends AbstractVillagePiece {
 
         public GSKOPiece(TemplateManager p_i242036_1_, JigsawPiece p_i242036_2_, BlockPos p_i242036_3_, int p_i242036_4_, Rotation p_i242036_5_, MutableBoundingBox p_i242036_6_) {

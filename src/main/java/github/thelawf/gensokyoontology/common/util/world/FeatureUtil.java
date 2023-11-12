@@ -45,7 +45,7 @@ public class FeatureUtil {
 
 
     public static void placeDiagonalTrunks(IWorldGenerationReader reader, Random random, BlockPos start, BlockStateProvider state, int width, int height) {
-        BlockPos end = new BlockPos(start.getX() + width, start.getY() + height,0);
+        BlockPos end = new BlockPos(start.getX() + width, start.getY() + height, 0);
         float distance = start.manhattanDistance(end);
         for (int i = 0; i < (int) distance; i++) {
             BlockPos pos = GSKOMathUtil.lerp(i / distance, start, end);
@@ -70,18 +70,16 @@ public class FeatureUtil {
     public static Direction getValidDirection(ISeedReader reader, BlockPos blockPos, Set<Block> blocks) {
         return getValidDirection(reader, blockPos, blocks, 1);
     }
+
     public static Direction getValidDirection(ISeedReader reader, BlockPos blockPos, Set<Block> blocks, int count) {
         for (int i = 0; i < count; i++) {
             if (blocks.contains(reader.getBlockState(blockPos.east(i)).getBlock())) {
                 return Direction.EAST;
-            }
-            else if (blocks.contains(reader.getBlockState(blockPos.south(i)).getBlock())) {
+            } else if (blocks.contains(reader.getBlockState(blockPos.south(i)).getBlock())) {
                 return Direction.SOUTH;
-            }
-            else if (blocks.contains(reader.getBlockState(blockPos.west(i)).getBlock())) {
+            } else if (blocks.contains(reader.getBlockState(blockPos.west(i)).getBlock())) {
                 return Direction.WEST;
-            }
-            else if (blocks.contains(reader.getBlockState(blockPos.north(i)).getBlock())) {
+            } else if (blocks.contains(reader.getBlockState(blockPos.north(i)).getBlock())) {
                 return Direction.NORTH;
             }
         }

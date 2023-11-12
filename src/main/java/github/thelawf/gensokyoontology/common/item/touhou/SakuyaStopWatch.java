@@ -66,10 +66,9 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
                 if (entity instanceof ProjectileEntity) {
                     entity.setNoGravity(true);
                     vector3d.set(entity.getMotion());
-                    entity.setMotion(0,0,0);
+                    entity.setMotion(0, 0, 0);
                     entity.velocityChanged = true;
-                }
-                else if (entity instanceof LivingEntity && !(entity instanceof PlayerEntity)) {
+                } else if (entity instanceof LivingEntity && !(entity instanceof PlayerEntity)) {
                     LivingEntity living = (LivingEntity) entity;
                     speed.set(living.getAIMoveSpeed());
                     living.setAIMoveSpeed(0);
@@ -84,8 +83,7 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
                             entity.setNoGravity(false);
                             entity.setMotion(vector3d.get().x, vector3d.get().y, vector3d.get().z);
                             entity.velocityChanged = true;
-                        }
-                        else if (entity instanceof LivingEntity && !(entity instanceof PlayerEntity)) {
+                        } else if (entity instanceof LivingEntity && !(entity instanceof PlayerEntity)) {
                             LivingEntity living = (LivingEntity) entity;
                             living.setAIMoveSpeed(speed.get());
                         }

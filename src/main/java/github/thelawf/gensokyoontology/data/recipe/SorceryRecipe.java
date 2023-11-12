@@ -87,7 +87,7 @@ public class SorceryRecipe implements ISorceryRecipe {
         return RecipeRegistry.SORCERY_SERIALIZER.get();
     }
 
-    public static class SorceryRecipeType implements IRecipeType<SorceryRecipe>{
+    public static class SorceryRecipeType implements IRecipeType<SorceryRecipe> {
         @Override
         public String toString() {
             return SorceryRecipe.RECIPE_ID.toString();

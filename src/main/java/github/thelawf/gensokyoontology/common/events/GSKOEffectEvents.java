@@ -18,14 +18,14 @@ import java.util.Objects;
 import java.util.UUID;
 
 @Deprecated
-@Mod.EventBusSubscriber(modid = "gensokyoontology",bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = "gensokyoontology", bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GSKOEffectEvents {
     @SubscribeEvent
-    public static void onLoveEffectActivate(PotionEvent event){
+    public static void onLoveEffectActivate(PotionEvent event) {
         // 恋爱效果（迫真）的实现
         LivingEntity living = event.getEntityLiving();
         if (!(living instanceof PlayerEntity) &&
-        event.getEntityLiving().isPotionActive(EffectRegistry.LOVE_EFFECT.get())) {
+                event.getEntityLiving().isPotionActive(EffectRegistry.LOVE_EFFECT.get())) {
             System.out.println("OK");
         }
         if (living instanceof PlayerEntity) {
@@ -37,7 +37,7 @@ public class GSKOEffectEvents {
         }
     }
 
-    public static void onHypnosisEffectActivate(PotionEvent event){
+    public static void onHypnosisEffectActivate(PotionEvent event) {
         // 更改玩家姿态的代码在 PlayerEntity.java的updatePose()方法中实现。
         // 在这个事件中我设置玩家睡觉的姿态，并跳过10000个游戏刻的时间。
 
@@ -53,7 +53,7 @@ public class GSKOEffectEvents {
     }
 
     @SubscribeEvent
-    public static void onInsomniaEffectActivate(PotionEvent event){
+    public static void onInsomniaEffectActivate(PotionEvent event) {
 
     }
 

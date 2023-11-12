@@ -17,7 +17,7 @@ public class HotSpringWater extends ForgeFlowingFluid implements IForgeFluid {
     public HotSpringWater(Properties properties) {
         super(properties);
     }
-    
+
     @Override
     public boolean isSource(@Nullable FluidState state) {
         return false;
@@ -48,6 +48,7 @@ public class HotSpringWater extends ForgeFlowingFluid implements IForgeFluid {
 
 
     }
+
     protected boolean canConvertToSource() {
         return true;
     }

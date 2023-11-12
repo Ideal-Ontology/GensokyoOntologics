@@ -48,7 +48,7 @@ public class GSKONBTUtil {
         return BlockPos.ZERO;
     }
 
-    public static CompoundNBT removeAllChildNBT (CompoundNBT nbt) {
+    public static CompoundNBT removeAllChildNBT(CompoundNBT nbt) {
         if (nbt != null) {
             for (String key : nbt.keySet()) {
                 nbt.remove(key);
@@ -57,7 +57,7 @@ public class GSKONBTUtil {
         return nbt;
     }
 
-    public static CompoundNBT removeAllChildNBT(ItemStack stack, CompoundNBT nbt){
+    public static CompoundNBT removeAllChildNBT(ItemStack stack, CompoundNBT nbt) {
         if (stack.getTag() == nbt && nbt != null) {
             for (String key : nbt.keySet()) {
                 nbt.remove(key);
@@ -76,14 +76,14 @@ public class GSKONBTUtil {
         return nbt;
     }
 
-    public static CompoundNBT putRandomStory (List<String> stories) {
+    public static CompoundNBT putRandomStory(List<String> stories) {
         String key = "story";
         CompoundNBT nbt = new CompoundNBT();
         nbt.putString(key, stories.get(new Random().nextInt(stories.size())));
         return nbt;
     }
 
-    public static <T> CompoundNBT putStoryIf (Predicate<T> predicate, T t) {
+    public static <T> CompoundNBT putStoryIf(Predicate<T> predicate, T t) {
         if (predicate.test(t)) {
             String key = "story";
             CompoundNBT nbt = new CompoundNBT();

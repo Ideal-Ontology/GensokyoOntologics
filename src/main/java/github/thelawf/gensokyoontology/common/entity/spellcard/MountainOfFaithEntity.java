@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
@@ -16,26 +17,23 @@ import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
-public class MountainOfFaithEntity extends SpellCardEntity{
-
-    public static final EntityType<MountainOfFaithEntity> MOUNTAIN_OF_FAITH_ENTITY =
-            EntityType.Builder.<MountainOfFaithEntity>create(MountainOfFaithEntity::new,
-                            EntityClassification.MISC).size(1F,1F).trackingRange(4)
-                    .updateInterval(2).build("mountain_of_faith");
+public class MountainOfFaithEntity extends SpellCardEntity {
 
     public MountainOfFaithEntity(World worldIn, PlayerEntity player) {
-        super(MOUNTAIN_OF_FAITH_ENTITY, worldIn, player);
+        super(EntityRegistry.MOUNTAIN_OF_FAITH_ENTITY.get(), worldIn, player);
         this.setOwner(player.getEntity());
     }
 
     public MountainOfFaithEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
-        super(MOUNTAIN_OF_FAITH_ENTITY, worldIn);
+        super(entityTypeIn, worldIn);
     }
 
     @Override
@@ -101,8 +99,7 @@ public class MountainOfFaithEntity extends SpellCardEntity{
                     Vector3d centerLocal;
                     if (i % 2 == 0) {
                         centerLocal = origin.add(i * 2, 0, 0).rotateYaw((float) (Math.PI / track * j * 2));
-                    }
-                    else {
+                    } else {
                         centerLocal = origin.add(i * 2, 0, 0).rotateYaw((float) (Math.PI / track * j * 2))
                                 .rotateYaw((float) (Math.PI / track * j));
                     }
@@ -114,7 +111,7 @@ public class MountainOfFaithEntity extends SpellCardEntity{
                     // LargeShotEntity smallShot = new LargeShotEntity(player, world, DanmakuType.LARGE_SHOT, DanmakuColor.GREEN);
                     // setDanmakuInit(smallShot, muzzleGlobal);
                     // smallShot.shoot(muzzleNext.x, muzzleNext.y, muzzleNext.z, 0.1F, 0F);
-                    DanmakuEntityPool<SmallShotEntity> pool = new DanmakuEntityPool<>(SmallShotEntity.SMALL_SHOT,
+                    DanmakuEntityPool<SmallShotEntity> pool = new DanmakuEntityPool<>(EntityRegistry.SMALL_SHOT_ENTITY.get(),
                             (LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
                     SmallShotEntity smallShot = pool.acquireProjectile(new SmallShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED),
                             muzzleGlobal, Vector2f.ZERO);
@@ -137,6 +134,7 @@ public class MountainOfFaithEntity extends SpellCardEntity{
 
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {

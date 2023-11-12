@@ -42,7 +42,7 @@ public class KoishiEntity extends ConversationalEntity implements ISpellCardUser
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(DATA_FAVORABILITY,0);
+        this.dataManager.register(DATA_FAVORABILITY, 0);
     }
 
     @Override

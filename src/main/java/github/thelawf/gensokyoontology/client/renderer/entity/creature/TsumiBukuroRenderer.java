@@ -14,7 +14,7 @@ public class TsumiBukuroRenderer extends LivingRenderer<TsumiBukuroEntity, Villa
     public static final ResourceLocation TSUMI_BUKURO_TEXTURE = new ResourceLocation(
             GensokyoOntology.MODID, "textures/entity/tsumi_bukuro.png");
 
-    public TsumiBukuroRenderer(EntityRendererManager rendererManager,VillagerModel<TsumiBukuroEntity> entityModelIn, float shadowSizeIn) {
+    public TsumiBukuroRenderer(EntityRendererManager rendererManager, VillagerModel<TsumiBukuroEntity> entityModelIn, float shadowSizeIn) {
         super(rendererManager, entityModelIn, shadowSizeIn);
     }
 

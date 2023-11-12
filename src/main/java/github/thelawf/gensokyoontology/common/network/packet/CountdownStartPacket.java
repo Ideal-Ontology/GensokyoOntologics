@@ -62,23 +62,23 @@ public class CountdownStartPacket {
             int countdownTicks = this.ticks;
             ServerPlayerEntity serverPlayer = ctx.get().getSender();
             if (serverPlayer == null) return;
-            serverPlayer.sendMessage(new TranslationTextComponent("network."+ GensokyoOntology.MODID +
+            serverPlayer.sendMessage(new TranslationTextComponent("network." + GensokyoOntology.MODID +
                     ".countdown.start"), serverPlayer.getUniqueID());
 
             new Thread(() -> {
-                serverPlayer.sendMessage(new TranslationTextComponent("network."+ GensokyoOntology.MODID +
-                                ".countdown_thread.start"), serverPlayer.getUniqueID());
+                serverPlayer.sendMessage(new TranslationTextComponent("network." + GensokyoOntology.MODID +
+                        ".countdown_thread.start"), serverPlayer.getUniqueID());
                 this.entity.canUpdate(false);
                 try {
                     Thread.sleep(countdownTicks);
                     serverPlayer.sendMessage(new TranslationTextComponent("network." + GensokyoOntology.MODID +
-                                    ".countdown.end"), serverPlayer.getUniqueID());
+                            ".countdown.end"), serverPlayer.getUniqueID());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
                 this.entity.canUpdate(true);
             }).start();
-            });
+        });
 
         ctx.get().setPacketHandled(true);
     }

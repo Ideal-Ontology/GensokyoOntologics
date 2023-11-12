@@ -14,8 +14,9 @@ import org.jetbrains.annotations.NotNull;
 public class IshiZakuraBlock extends Block {
 
     private static final VoxelShape shape;
+
     static {
-        VoxelShape voxelShape = Block.makeCuboidShape(4,0,4,12,6,12);
+        VoxelShape voxelShape = Block.makeCuboidShape(4, 0, 4, 12, 6, 12);
         shape = VoxelShapes.or(voxelShape);
     }
 

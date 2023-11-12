@@ -4,8 +4,8 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
@@ -13,27 +13,26 @@ import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
 
+@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAsItem {
-
-    public static final EntityType<HeartShotEntity> HEART_SHOT = EntityType.Builder.<HeartShotEntity>create(
-                    HeartShotEntity::new, EntityClassification.MISC).size(0.5F,0.5F).trackingRange(4)
-            .updateInterval(2).build("heart_shot");
 
     public HeartShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
     public HeartShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
-        super(HEART_SHOT, throwerIn, world, spellData);
+        super(EntityRegistry.HEART_SHOT_ENTITY.get(), throwerIn, world, spellData);
     }
 
     public HeartShotEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
-        super(HEART_SHOT, throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
+        super(EntityRegistry.HEART_SHOT_ENTITY.get(), throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
     }
 
     @Override
@@ -55,6 +54,7 @@ public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAs
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {
@@ -80,8 +80,7 @@ public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAs
 
         if (item == null) {
             return ItemStack.EMPTY;
-        }
-        else {
+        } else {
             return new ItemStack(item);
         }
     }

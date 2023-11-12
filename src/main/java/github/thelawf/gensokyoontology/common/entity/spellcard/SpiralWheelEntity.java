@@ -1,12 +1,11 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,6 +14,8 @@ import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -22,17 +23,13 @@ import java.util.HashMap;
 public class SpiralWheelEntity extends SpellCardEntity {
 
     private final int lifeSpan = 100;
-    public static final EntityType<SpiralWheelEntity> SPIRAL_WHEEL_ENTITY =
-            EntityType.Builder.<SpiralWheelEntity>create(SpiralWheelEntity::new,
-                            EntityClassification.MISC).size(1F,1F).trackingRange(4)
-                    .updateInterval(2).build("spiral_wheel");
 
     public SpiralWheelEntity(World worldIn, PlayerEntity player) {
-        super(SPIRAL_WHEEL_ENTITY, worldIn, player);
+        super(EntityRegistry.SPIRAL_WHEEL_ENTITY.get(), worldIn, player);
     }
 
     public SpiralWheelEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
-        super(SPIRAL_WHEEL_ENTITY, worldIn);
+        super(entityTypeIn, worldIn);
     }
 
     @Override
@@ -43,7 +40,7 @@ public class SpiralWheelEntity extends SpellCardEntity {
         Vector3d center = new Vector3d(Vector3f.XP);
 
         for (int i = 0; i < 8; i++) {
-            Vector3d global = center.add(20,0,0).rotateYaw((float) (Math.PI / 4 * i));
+            Vector3d global = center.add(20, 0, 0).rotateYaw((float) (Math.PI / 4 * i));
             Vector3d shootAngle = global.normalize().inverse().rotateYaw((float) Math.PI / 50);
             global = global.rotateYaw((float) (Math.PI / 50 * ticksExisted)).add(this.getPositionVec());
 
@@ -57,6 +54,7 @@ public class SpiralWheelEntity extends SpellCardEntity {
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {

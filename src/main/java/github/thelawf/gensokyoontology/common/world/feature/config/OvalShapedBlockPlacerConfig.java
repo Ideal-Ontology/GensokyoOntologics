@@ -15,15 +15,15 @@ public class OvalShapedBlockPlacerConfig implements IFeatureConfig {
     public final int height;
 
     public static final Codec<OvalShapedBlockPlacerConfig> CODEC = RecordCodecBuilder.create(instance ->
-        instance.group(
-                BlockStateProvider.CODEC.fieldOf("trunk_provider").forGetter(obj -> obj.trunkProvider),
-                BlockStateProvider.CODEC.fieldOf("foliage_provider").forGetter(obj -> obj.foliageProvider),
-                Codec.INT.fieldOf("oval_length").orElse(8).forGetter(obj -> obj.ovalLength),
-                Codec.INT.fieldOf("oval_width").orElse(8).forGetter(obj -> obj.ovalWidth),
-                Codec.INT.fieldOf("height").orElse(12).forGetter(obj -> obj.height)
-        ).apply(instance, OvalShapedBlockPlacerConfig::new));
+            instance.group(
+                    BlockStateProvider.CODEC.fieldOf("trunk_provider").forGetter(obj -> obj.trunkProvider),
+                    BlockStateProvider.CODEC.fieldOf("foliage_provider").forGetter(obj -> obj.foliageProvider),
+                    Codec.INT.fieldOf("oval_length").orElse(8).forGetter(obj -> obj.ovalLength),
+                    Codec.INT.fieldOf("oval_width").orElse(8).forGetter(obj -> obj.ovalWidth),
+                    Codec.INT.fieldOf("height").orElse(12).forGetter(obj -> obj.height)
+            ).apply(instance, OvalShapedBlockPlacerConfig::new));
 
-    public OvalShapedBlockPlacerConfig(BlockStateProvider trunkProvider, BlockStateProvider foliageProvider,int ovalLength, int ovalWidth, int height) {
+    public OvalShapedBlockPlacerConfig(BlockStateProvider trunkProvider, BlockStateProvider foliageProvider, int ovalLength, int ovalWidth, int height) {
         this.ovalLength = ovalLength;
         this.ovalWidth = ovalWidth;
         this.height = height;
@@ -31,7 +31,7 @@ public class OvalShapedBlockPlacerConfig implements IFeatureConfig {
         this.foliageProvider = foliageProvider;
     }
 
-    public static class Builder{
+    public static class Builder {
         private final int ovalLength;
         private final int ovalWidth;
         private final int height;
@@ -49,7 +49,7 @@ public class OvalShapedBlockPlacerConfig implements IFeatureConfig {
 
         public OvalShapedBlockPlacerConfig build() {
             return new OvalShapedBlockPlacerConfig(this.trunkProvider, this.foliageProvider,
-                    this.ovalLength, this.ovalWidth, this.height );
+                    this.ovalLength, this.ovalWidth, this.height);
         }
     }
 }

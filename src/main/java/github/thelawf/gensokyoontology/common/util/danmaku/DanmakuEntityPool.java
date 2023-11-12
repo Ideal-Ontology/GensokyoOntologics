@@ -12,8 +12,8 @@ import net.minecraft.world.World;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-/**用于优化性能的弹幕实体对象池
- *
+/**
+ * 用于优化性能的弹幕实体对象池
  */
 public class DanmakuEntityPool<D extends AbstractDanmakuEntity> {
     public Queue<D> pool;

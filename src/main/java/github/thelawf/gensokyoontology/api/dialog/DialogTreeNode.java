@@ -19,6 +19,7 @@ public class DialogTreeNode extends TreeNode<String> {
         super(name);
         hasChoiceOption = true;
     }
+
     @Override
     public String get() {
         return this.text;
@@ -37,7 +38,7 @@ public class DialogTreeNode extends TreeNode<String> {
         return (DialogTreeNode) this.children.get(0);
     }
 
-    public boolean hasChoiceOption(){
+    public boolean hasChoiceOption() {
         return hasChoiceOption;
     }
 }

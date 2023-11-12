@@ -21,9 +21,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 
 public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardUser {
-    public static final EntityType<LilyWhiteEntity> LILY_WHITE = EntityType.Builder.create(
-                    LilyWhiteEntity::new, EntityClassification.CREATURE).updateInterval(2)
-            .size(0.6f, 1.5f).trackingRange(10).build("lily_white");
 
     public LilyWhiteEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);

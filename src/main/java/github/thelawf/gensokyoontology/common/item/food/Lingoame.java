@@ -11,6 +11,7 @@ public class Lingoame extends Item {
             .hunger(6)
             .setAlwaysEdible()
             .build();
+
     public Lingoame() {
         super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB).food(food));
     }

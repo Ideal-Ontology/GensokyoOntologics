@@ -15,11 +15,12 @@ public interface INBTReader {
     default CompoundNBT getOrCreateTag(ItemStack stack) {
         return stack.getTag() == null ? new CompoundNBT() : stack.getTag();
     }
+
     default boolean containsKey(ItemStack stack, String key) {
         return getOrEmptyTag(stack).isPresent() && getOrEmptyTag(stack).get().contains(key);
     }
 
-    default int getNBTInt (CompoundNBT nbt, String key) {
+    default int getNBTInt(CompoundNBT nbt, String key) {
         return nbt.getInt(key);
     }
 

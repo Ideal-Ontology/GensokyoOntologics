@@ -12,7 +12,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
-public class SC_IdoNoKaiho extends SpellCardItem{
+public class SC_IdoNoKaiho extends SpellCardItem {
     public SC_IdoNoKaiho(Properties properties, int duration) {
         super(properties, duration);
     }

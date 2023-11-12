@@ -12,7 +12,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public final class ContainerRegistry {
 
-    public static final  DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(
+    public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(
             ForgeRegistries.CONTAINERS, GensokyoOntology.MODID);
 
     public static final RegistryObject<ContainerType<DanmakuCraftingContainer>> DANMAKU_CRAFTING_CONTAINER =

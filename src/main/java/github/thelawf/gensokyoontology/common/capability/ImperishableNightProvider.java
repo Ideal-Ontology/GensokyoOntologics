@@ -26,7 +26,7 @@ public class ImperishableNightProvider implements ICapabilityProvider, INBTSeria
     }
 
     @NotNull
-    ImperishableNightCapability getOrCreateCapability () {
+    ImperishableNightCapability getOrCreateCapability() {
         if (this.capability == null) {
             this.capability = new ImperishableNightCapability(this.time, this.isTriggered);
         }

@@ -42,7 +42,7 @@ public class RailAdjustGUI extends Screen {
     TextFieldWidget rotationPitch;
 
     public RailAdjustGUI() {
-        super(new TranslationTextComponent("client."+ GensokyoOntology.MODID +
+        super(new TranslationTextComponent("client." + GensokyoOntology.MODID +
                 "rail_adjust.title"));
     }
 
@@ -59,29 +59,35 @@ public class RailAdjustGUI extends Screen {
 
     public void addAdjustButtons(int x, int y) {
 
-        increaseRoll = new Button(x+120, y, 20, 20,
+        increaseRoll = new Button(x + 120, y, 20, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
-                        ".button.increase_roll"), (button) -> {});
+                        ".button.increase_roll"), (button) -> {
+        });
 
         decreaseRoll = new Button(x, y, 20, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
-                        ".button.decrease_roll"), (button) -> {});
+                        ".button.decrease_roll"), (button) -> {
+        });
 
-        increaseYaw = new Button(x+120, y+30, 20, 20,
+        increaseYaw = new Button(x + 120, y + 30, 20, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
-                        ".button.increase_yaw"), (button) -> {});
+                        ".button.increase_yaw"), (button) -> {
+        });
 
-        decreaseYaw = new Button(x, y+30, 20, 20,
+        decreaseYaw = new Button(x, y + 30, 20, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
-                        ".button.decrease_yaw"), (button) -> {});
+                        ".button.decrease_yaw"), (button) -> {
+        });
 
-        increasePitch = new Button(x+120, y+60, 20, 20,
+        increasePitch = new Button(x + 120, y + 60, 20, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
-                        ".button.decrease_yaw"), (button) -> {});
+                        ".button.decrease_yaw"), (button) -> {
+        });
 
-        decreasePicth = new Button(x, y+60, 20, 20,
+        decreasePicth = new Button(x, y + 60, 20, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
-                        ".button.decrease_yaw"), (button) -> {});
+                        ".button.decrease_yaw"), (button) -> {
+        });
 
         increaseRoll.setMessage(new TranslationTextComponent("client." + GensokyoOntology.MODID +
                 ".button.increase_roll.msg"));
@@ -110,13 +116,15 @@ public class RailAdjustGUI extends Screen {
         String prevYawData = this.rotationYaw.getText();
         String prevPitchData = this.rotationPitch.getText();
 
-        smooth = new Button(x, y+150, 60, 20,
+        smooth = new Button(x, y + 150, 60, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
-                        ".button.smooth"), (button) -> {});
-        reset = new Button(x+70, y+150, 60, 20,
+                        ".button.smooth"), (button) -> {
+        });
+        reset = new Button(x + 70, y + 150, 60, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
-                        ".button.reset"), (button) -> {});
-        confirm = new Button(x+140, y+150, 60, 20,
+                        ".button.reset"), (button) -> {
+        });
+        confirm = new Button(x + 140, y + 150, 60, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
                         ".button.confirm"), (button) -> {
             String rotYaw = this.rotationYaw.getText();
@@ -134,31 +142,28 @@ public class RailAdjustGUI extends Screen {
             // rotRoll.matches("^-?\\d+$")
             // rotPitch.matches("^-?\\d+$")
 
-            if (rotRoll.matches("^-?\\d+$"))  {
+            if (rotRoll.matches("^-?\\d+$")) {
                 roll = Integer.parseInt(rotRoll);
-            }
-            else {
+            } else {
                 String strRoll = m.replaceAll("").trim();
                 roll = Integer.parseInt(strRoll);
             }
 
             if (rotYaw.matches("^-?\\d+$")) {
                 yaw = Integer.parseInt(rotYaw);
-            }
-            else {
+            } else {
                 String strYaw = m.replaceAll("").trim();
                 yaw = Integer.parseInt(strYaw);
             }
 
             if (rotPitch.matches("^-?\\d+$")) {
                 pitch = Integer.parseInt(rotPitch);
-            }
-            else {
+            } else {
                 String strPitch = m.replaceAll("").trim();
                 pitch = Integer.parseInt(strPitch);
             }
 
-            Vector3d rotation = new Vector3d(roll,yaw,pitch);
+            Vector3d rotation = new Vector3d(roll, yaw, pitch);
 
             // Invoke RailRenderer Here----v
 
@@ -166,13 +171,13 @@ public class RailAdjustGUI extends Screen {
     }
 
     public void addTextFields() {
-        rotationRoll = new TextFieldWidget(this.font, this.width / 2 - 20, 46,100,20,
+        rotationRoll = new TextFieldWidget(this.font, this.width / 2 - 20, 46, 100, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
                         "text_field.rotation_roll"));
-        rotationYaw = new TextFieldWidget(this.font, this.width / 2 - 20, 76,100,20,
+        rotationYaw = new TextFieldWidget(this.font, this.width / 2 - 20, 76, 100, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
                         "text_field.rotation_yaw"));
-        rotationPitch = new TextFieldWidget(this.font, this.width / 2 - 20, 106,100,20,
+        rotationPitch = new TextFieldWidget(this.font, this.width / 2 - 20, 106, 100, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID +
                         "text_field.rotation_pitch"));
 
@@ -185,19 +190,19 @@ public class RailAdjustGUI extends Screen {
     @SuppressWarnings("all")
     public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
-        RenderSystem.color4f(1.0f,1.0f,1.0f,1.0f);
+        RenderSystem.color4f(1.0f, 1.0f, 1.0f, 1.0f);
         // this.drawString(matrixStack, this.font, new TranslationTextComponent("client." + GensokyoOntology.MODID + "main.test"),this.width / 2 - 10, 30, 0xeb0505);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
     @Override
     public void renderBackground(MatrixStack matrixStack) {
-        matrixStack.translate(0,0,0);
+        matrixStack.translate(0, 0, 0);
         super.renderBackground(matrixStack);
         this.getMinecraft().textureManager.bindTexture(MAIN);
         int texWidth = 166;
         int texHeight = 252;
-        this.blit(matrixStack,0,0,0,0,texWidth,texHeight);
+        this.blit(matrixStack, 0, 0, 0, 0, texWidth, texHeight);
 
     }
 

@@ -10,10 +10,11 @@ import java.awt.*;
 
 public class SpaceFissureParticle extends SpriteTexturedParticle {
     private final IAnimatedSprite spriteWithAge;
+
     protected SpaceFissureParticle(ClientWorld world, double x, double y, double z, Vector3d speed, Color color, float diameter, IAnimatedSprite spriteWithAge) {
         super(world, x, y, z);
         this.spriteWithAge = spriteWithAge;
-        this.particleScale = 1.0F - (float)diameter * 0.5F;
+        this.particleScale = 1.0F - (float) diameter * 0.5F;
     }
 
     public int getBrightnessForRender(float partialTick) {
@@ -38,16 +39,19 @@ public class SpaceFissureParticle extends SpriteTexturedParticle {
 
     public static class Factory implements IParticleFactory<SpaceFissureParticleData> {
         private final IAnimatedSprite spriteSet;
+
         public Factory(IAnimatedSprite spriteSet) {
             this.spriteSet = spriteSet;
         }
+
         private Factory() {
             throw new UnsupportedOperationException("Use the SpaceFissureParticle.Factory(IAnimatedSprite sprite) constructor");
         }
+
         @Nullable
         @Override
         public Particle makeParticle(SpaceFissureParticleData typeIn, ClientWorld worldIn, double x, double y, double z, double xSpeed, double ySpeed, double zSpeed) {
-            SpaceFissureParticle sfParticle = new SpaceFissureParticle(worldIn,x,y,z,typeIn.getSpeed(),typeIn.getColor(),typeIn.getDiameter(),spriteSet);
+            SpaceFissureParticle sfParticle = new SpaceFissureParticle(worldIn, x, y, z, typeIn.getSpeed(), typeIn.getColor(), typeIn.getDiameter(), spriteSet);
             sfParticle.selectSpriteWithAge(spriteSet);
             return sfParticle;
         }

@@ -7,13 +7,8 @@ import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.DanmakuNormalVectorRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.StarShotRenderer;
-import github.thelawf.gensokyoontology.common.entity.*;
-import github.thelawf.gensokyoontology.common.entity.monster.*;
-import github.thelawf.gensokyoontology.common.entity.passive.CitizenEntity;
-import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.*;
-// import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.*;
+import github.thelawf.gensokyoontology.common.entity.YukariEntity;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -27,7 +22,6 @@ import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.model.animation.AnimationStateMachine;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
@@ -42,6 +36,7 @@ import java.util.Map;
 public class GSKOClientEvents {
 
     private static final List<ModelResourceLocation> MODELS = Lists.newArrayList();
+
     @SubscribeEvent
     public static void registerItemModel(RegistryEvent.Register<Item> event) {
         addItemModel(ItemRegistry.HAKUREI_GOHEI.get());
@@ -102,66 +97,68 @@ public class GSKOClientEvents {
         ItemRenderer itemRenderer = event.getMinecraftSupplier().get().getItemRenderer();
 
         // ========================== 弹幕的渲染器 ======================== //
-        RenderingRegistry.registerEntityRenderingHandler(DanmakuShotEntity.DANMAKU,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer));
-        RenderingRegistry.registerEntityRenderingHandler(HeartShotEntity.HEART_SHOT,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HEART_SHOT_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(LargeShotEntity.LARGE_SHOT,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LARGE_SHOT_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(SmallShotEntity.SMALL_SHOT,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SMALL_SHOT_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 0.6f, false));
 
-        RenderingRegistry.registerEntityRenderingHandler(SmallStarShotEntity.STAR_SHOT_SMALL,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_SMALL_ENTITY.get(),
                 manager -> new StarShotRenderer(manager, itemRenderer, 0.5f, false));
-        RenderingRegistry.registerEntityRenderingHandler(LargeStarShotEntity.STAR_SHOT_LARGE,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_LARGE_ENTITY.get(),
                 manager -> new StarShotRenderer(manager, itemRenderer, 3.5f, false));
 
-        RenderingRegistry.registerEntityRenderingHandler(TalismanShotEntity.TALISMAN_SHOT,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.TALISMAN_SHOT_ENTITY.get(),
                 manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 1f, false));
-        RenderingRegistry.registerEntityRenderingHandler(RiceShotEntity.RICE_SHOT,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RICE_SHOT_ENTITY.get(),
                 manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 0.4f, false));
-        RenderingRegistry.registerEntityRenderingHandler(ScaleShotEntity.SCALE_SHOT,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SCALE_SHOT_ENTITY.get(),
                 manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 0.3f, false));
 
-        RenderingRegistry.registerEntityRenderingHandler(FakeLunarEntity.FAKE_LUNAR,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAKE_LUNAR_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 5.0f, false));
 
         // ======================== 贴图类怪物的渲染器 ==================== //
-        RenderingRegistry.registerEntityRenderingHandler(InyoJadeMonsterEntity.INYO_JADE_MONSTER,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(SpectreEntity.SPECTRE,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SPECTRE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // ======================== 符卡实体的渲染器 ======================= //
-        RenderingRegistry.registerEntityRenderingHandler(WaveAndParticleEntity.WAVE_AND_PARTICLE,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(IdonokaihoEntity.IDONOKAIHO_ENTITY,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.IDO_NO_KAIHO_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(SpiralWheelEntity.SPIRAL_WHEEL_ENTITY,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SPIRAL_WHEEL_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(HellEclipseEntity.HELL_ECLIPSE_ENTITY,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HELL_ECLIPSE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(MountainOfFaithEntity.MOUNTAIN_OF_FAITH_ENTITY,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MOUNTAIN_OF_FAITH_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
-        RenderingRegistry.registerEntityRenderingHandler(MobiusRingEntity.MOBIUS_RING_ENTITY,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MOBIUS_RING_WORLD_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(FullCherryBlossomEntity.FULL_CHERRY_BLOSSOM,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FULL_CHERRY_BLOSSOM_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(ManiaDepressEntity.MANIA_DEPRESS,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MANIA_DEPRESS_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // =========================== 人形生物的渲染器 ========================= //
-        RenderingRegistry.registerEntityRenderingHandler(FairyEntity.FAIRY, FairyRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(LilyWhiteEntity.LILY_WHITE,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAIRY_ENTITY.get(), FairyRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LILY_WHITE_ENTITY.get(),
                 manager -> new LilyWhiteRenderer(manager, new LilyWhiteModel(1.0f), 0.8f));
 
-        RenderingRegistry.registerEntityRenderingHandler(FlandreScarletEntity.FLANDRE_SCARLET, FlandreScarletRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FLANDRE_SCARLET.get(), FlandreScarletRenderer::new);
+
+        //TODO EntityRegistry里面没注册紫妈
         RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
 
-        RenderingRegistry.registerEntityRenderingHandler(HumanResidentEntity.HUMAN_RESIDENT,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(),
                 HumanResidentRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(CitizenEntity.CITIZEN,
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CITIZEN.get(),
                 CitizenRenderer::new);
 
         // ====================== 奇怪实体的渲染器 ===================== //

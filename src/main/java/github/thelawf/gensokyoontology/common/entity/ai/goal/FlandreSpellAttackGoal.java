@@ -8,7 +8,7 @@ import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.List;
 
-public class FlandreSpellAttackGoal extends SpellCardAttackGoal{
+public class FlandreSpellAttackGoal extends SpellCardAttackGoal {
 
     private final FlandreScarletEntity flandre;
     private Path path;
@@ -46,7 +46,7 @@ public class FlandreSpellAttackGoal extends SpellCardAttackGoal{
 
             // this.flandre.spellCardAttack(this.flandre.getHealth() > this.flandre.getMaxHealth() ?
             // this.stages.get(0).spellCard : null, ticksExisted);
-        }else if (!this.flandre.getEntitySenses().canSee(target)) {
+        } else if (!this.flandre.getEntitySenses().canSee(target)) {
             this.flandre.getNavigator().clearPath();
         }
     }

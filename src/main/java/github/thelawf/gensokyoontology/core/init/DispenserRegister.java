@@ -15,9 +15,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
 public final class DispenserRegister {
     @SubscribeEvent
-    public static void onDispenseRegister(FMLCommonSetupEvent event){
+    public static void onDispenseRegister(FMLCommonSetupEvent event) {
         DispenserBlock.registerDispenseBehavior(ItemRegistry.HOTSPRING_BUCKET.get(),
-                new DefaultDispenseItemBehavior(){
+                new DefaultDispenseItemBehavior() {
                     private final DefaultDispenseItemBehavior behavior =
                             new DefaultDispenseItemBehavior();
 
@@ -26,24 +26,23 @@ public final class DispenserRegister {
                      *
                      */
                     @Override
-                    public ItemStack dispenseStack(IBlockSource source, ItemStack stack){
+                    public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                         BucketItem bucketItem = (BucketItem) stack.getItem();
                         BlockPos blockPos = source.getBlockPos().offset(source.getBlockState()
                                 .get(DispenserBlock.FACING));
                         World world = source.getWorld();
-                        if (bucketItem.tryPlaceContainedLiquid(null,world,
-                                blockPos,null)) {
-                            bucketItem.onLiquidPlaced(world,stack,blockPos);
+                        if (bucketItem.tryPlaceContainedLiquid(null, world,
+                                blockPos, null)) {
+                            bucketItem.onLiquidPlaced(world, stack, blockPos);
                             return new ItemStack(Items.BUCKET);
-                        }
-                        else {
-                            return this.behavior.dispense(source,stack);
+                        } else {
+                            return this.behavior.dispense(source, stack);
                         }
                     }
                 });
 
         DispenserBlock.registerDispenseBehavior(ItemRegistry.SAKE_BUCKET.get(),
-                new DefaultDispenseItemBehavior(){
+                new DefaultDispenseItemBehavior() {
                     private final DefaultDispenseItemBehavior behavior =
                             new DefaultDispenseItemBehavior();
 
@@ -52,18 +51,17 @@ public final class DispenserRegister {
                      *
                      */
                     @Override
-                    public ItemStack dispenseStack(IBlockSource source, ItemStack stack){
+                    public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
                         BucketItem bucketItem = (BucketItem) stack.getItem();
                         BlockPos blockPos = source.getBlockPos().offset(source.getBlockState()
                                 .get(DispenserBlock.FACING));
                         World world = source.getWorld();
-                        if (bucketItem.tryPlaceContainedLiquid(null,world,
-                                blockPos,null)) {
-                            bucketItem.onLiquidPlaced(world,stack,blockPos);
+                        if (bucketItem.tryPlaceContainedLiquid(null, world,
+                                blockPos, null)) {
+                            bucketItem.onLiquidPlaced(world, stack, blockPos);
                             return new ItemStack(Items.BUCKET);
-                        }
-                        else {
-                            return this.behavior.dispense(source,stack);
+                        } else {
+                            return this.behavior.dispense(source, stack);
                         }
                     }
                 });

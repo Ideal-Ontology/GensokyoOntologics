@@ -22,7 +22,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
-public class FourOfAKindEntity extends SpellCardEntity{
+public class FourOfAKindEntity extends SpellCardEntity {
 
     private int userIndex = 0;
 
@@ -30,7 +30,7 @@ public class FourOfAKindEntity extends SpellCardEntity{
 
     public static final EntityType<FourOfAKindEntity> FOUR_OF_A_KIND =
             EntityType.Builder.<FourOfAKindEntity>create(FourOfAKindEntity::new, EntityClassification.MISC)
-                    .size(1F,1F).trackingRange(4).updateInterval(2).build("four_of_a_kind");
+                    .size(1F, 1F).trackingRange(4).updateInterval(2).build("four_of_a_kind");
 
     public FourOfAKindEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
         super(FOUR_OF_A_KIND, worldIn);

@@ -48,7 +48,7 @@ public class MagicTreeFeature extends Feature<MagicTreeConfig> {
         int leavesHeight = GSKOMathUtil.randomRange(3, 5);
         int x = GSKOMathUtil.randomRange(4, 9);
         int y = GSKOMathUtil.randomRange(5, 8);
-        int layerOffset = GSKOMathUtil.randomRange(1,3);
+        int layerOffset = GSKOMathUtil.randomRange(1, 3);
 
         if (pos.getY() > 1 && pos.getY() + 7 + 1 < reader.getHeight()) {
             for (int i = pos.getY(); i < pos.getY() + trunkHeight + 1; i++) {
@@ -69,8 +69,7 @@ public class MagicTreeFeature extends Feature<MagicTreeConfig> {
     private boolean isAirOrLeaves(IWorldGenerationBaseReader reader, BlockPos pos) {
         if (!(reader instanceof IWorldReader)) {
             return reader.hasBlockState(pos, state -> state.isAir() || state.isIn(BlockTags.LEAVES));
-        }
-        else {
+        } else {
             return reader.hasBlockState(pos, state -> state.canBeReplacedByLeaves((IWorldReader) reader, pos));
         }
     }

@@ -16,6 +16,7 @@ public class YattsumeUnaYaki extends Item {
             .hunger(4)
             .setAlwaysEdible()
             .build();
+
     public YattsumeUnaYaki() {
         super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB).food(food));
     }

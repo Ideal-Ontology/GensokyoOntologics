@@ -3,15 +3,15 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.FlandreSpellAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.SpellCardAttackGoal;
-import github.thelawf.gensokyoontology.common.entity.spellcard.FourOfAKindEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.*;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
@@ -33,16 +33,11 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     @OnlyIn(Dist.CLIENT)
     private Animation animation = Animation.IDLE;
 
-    public static final EntityType<FlandreScarletEntity> FLANDRE_SCARLET = EntityType.Builder.create(
-                    FlandreScarletEntity::new, EntityClassification.CREATURE).setShouldReceiveVelocityUpdates(true)
-            .size(0.6f, 1.55f).trackingRange(10).build("flandre_scarlet");
-
     public FlandreScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
         this.favorability = -10;
         // this.setHeldItem(Hand.MAIN_HAND, new ItemStack(ItemRegistry.CLOCK_HAND_ITEM.get()));
     }
-
 
     @Nullable
     @Override
@@ -76,8 +71,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         super.livingTick();
         if (this.getIdleTime() == 0 && this.getAnimation() == Animation.IDLE) {
             this.setAnimation(Animation.WALKING);
-        }
-        else {
+        } else {
             this.setAnimation(Animation.IDLE);
         }
     }

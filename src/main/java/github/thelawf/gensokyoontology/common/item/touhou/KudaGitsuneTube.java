@@ -31,18 +31,17 @@ public class KudaGitsuneTube extends Item {
         if (target instanceof SpectreEntity) {
             stack.shrink(1);
             CompoundNBT nbt = new CompoundNBT();
-            nbt.putString("story", "story."+ GensokyoOntology.MODID +".spectre");
-            nbt.putString("entity_stored", "entity."+ GensokyoOntology.MODID +".spectre");
+            nbt.putString("story", "story." + GensokyoOntology.MODID + ".spectre");
+            nbt.putString("entity_stored", "entity." + GensokyoOntology.MODID + ".spectre");
 
             playerIn.inventory.addItemStackToInventory(new ItemStack(
                     ItemRegistry.GITSUNE_TUBE_FULL.get(), 1, nbt));
             return ActionResultType.func_233537_a_(playerIn.world.isRemote());
-        }
-        else if (target instanceof GhastEntity) {
+        } else if (target instanceof GhastEntity) {
             // target.remove();
             stack.shrink(1);
             CompoundNBT nbt = new CompoundNBT();
-            nbt.putString("story", "story."+ GensokyoOntology.MODID +".ghast");
+            nbt.putString("story", "story." + GensokyoOntology.MODID + ".ghast");
             nbt.putString("entity_stored", "entity.minecraft.ghast");
 
             playerIn.inventory.addItemStackToInventory(new ItemStack(

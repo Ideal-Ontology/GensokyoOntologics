@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public abstract class TreeNode<O> implements ITreeNode<O>{
+public abstract class TreeNode<O> implements ITreeNode<O> {
 
     public O object;
     public String name;

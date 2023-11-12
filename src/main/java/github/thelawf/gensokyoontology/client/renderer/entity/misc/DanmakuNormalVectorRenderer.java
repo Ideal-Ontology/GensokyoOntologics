@@ -20,6 +20,7 @@ public class DanmakuNormalVectorRenderer extends SpriteRenderer<AbstractDanmakuE
 
     private final ItemRenderer itemRenderer;
     private final float scale;
+
     public DanmakuNormalVectorRenderer(EntityRendererManager manager, ItemRenderer itemRenderer, float scale, boolean p_i226035_4_) {
         super(manager, itemRenderer, scale, p_i226035_4_);
         this.itemRenderer = itemRenderer;
@@ -39,7 +40,7 @@ public class DanmakuNormalVectorRenderer extends SpriteRenderer<AbstractDanmakuE
         itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GUI,
                 packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         matrixStackIn.pop();
-            // super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        // super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 
     }
 }

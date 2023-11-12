@@ -179,7 +179,7 @@ public final class ItemRegistry {
             "blue_rose_bush", () -> new BlockItem(BlockRegistry.BLUE_ROSE_BUSH.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> LYCORIS_RADIATA =
-            ITEMS.register("lycoris_radiata",() -> new BlockItem(
+            ITEMS.register("lycoris_radiata", () -> new BlockItem(
                     BlockRegistry.LYCORIS_RADIATA.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
@@ -223,7 +223,7 @@ public final class ItemRegistry {
      */
     public static final RegistryObject<BlockItem> JADE_ORE_ITEM = ITEMS.register(
             "jade_ore", () -> new BlockItem(BlockRegistry.JADE_ORE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)){
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)) {
                 @Override
                 @NotNull
                 public ActionResultType onItemUse(@NotNull ItemUseContext context) {
@@ -237,7 +237,7 @@ public final class ItemRegistry {
 
                     if (!world.isRemote && Screen.hasShiftDown() && block.matchesBlock(Blocks.STONECUTTER) &&
                             random.nextInt(6) == 1 &&
-                            !JadeOreBlock.getItemToDrop(world, 150,440, 2000, 6000).equals(ItemStack.EMPTY)) {
+                            !JadeOreBlock.getItemToDrop(world, 150, 440, 2000, 6000).equals(ItemStack.EMPTY)) {
 
                         ServerWorld serverWorld = (ServerWorld) world;
                         if (context.getItem().getCount() >= 10) {
@@ -304,7 +304,7 @@ public final class ItemRegistry {
     public static final RegistryObject<SpiritTube> SPIRIT_TUBE = ITEMS.register(
             "spirit_tube", () -> new SpiritTube(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<KudaGitsuneTube> KUDA_GITSUNE_TUBE =ITEMS.register(
+    public static final RegistryObject<KudaGitsuneTube> KUDA_GITSUNE_TUBE = ITEMS.register(
             "kuda_gitsune_tube", () -> new KudaGitsuneTube(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> GITSUNE_TUBE_FULL = ITEMS.register(
@@ -387,17 +387,17 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register(
             "kitchen_knife", KitchenKnife::new);
     public static final RegistryObject<Butter> BUTTER = ITEMS.register("butter",
-            () -> new Butter(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB) ));
+            () -> new Butter(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<MilkBottle> MILK_BOTTLE = ITEMS.register(
             "milk_bottle", MilkBottle::new);
 
     public static final RegistryObject<SquidTentacle> SQUID_TENTACLE = ITEMS.register(
             "squid_tentacle", SquidTentacle::new);
     public static final RegistryObject<Item> ONION = ITEMS.register("onion", () ->
-            new BlockItem(BlockRegistry.ONION_CROP_BLOCK.get(),new Item.Properties().group(
+            new BlockItem(BlockRegistry.ONION_CROP_BLOCK.get(), new Item.Properties().group(
                     GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<YattsumeUna> YATTSUME_UNA =
-            ITEMS.register("yattsume_una",() -> new YattsumeUna(
+            ITEMS.register("yattsume_una", () -> new YattsumeUna(
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ------------------------------- 食物 -------------------------------//
@@ -410,7 +410,7 @@ public final class ItemRegistry {
     public static final RegistryObject<CakeScarletDemon> CAKE_SCARLET_DEMON =
             ITEMS.register("cake_scarlet_demon", CakeScarletDemon::new);
 
-    public static final RegistryObject<Lingoame> LINGOAME = ITEMS.register("lingoame",Lingoame::new);
+    public static final RegistryObject<Lingoame> LINGOAME = ITEMS.register("lingoame", Lingoame::new);
 
     public static final RegistryObject<TakoYaki> TAKO_YAKI = ITEMS.register("tako_yaki", TakoYaki::new);
 
@@ -419,7 +419,7 @@ public final class ItemRegistry {
     public static final RegistryObject<BurgerMeatRaw> BURGER_MEAT_RAW = ITEMS.register("burger_meat_raw", BurgerMeatRaw::new);
 
     public static final RegistryObject<BurgerMeat> BURGER_MEAT = ITEMS.register("burger_meat", BurgerMeat::new);
-    
+
 
     //////////////////////////////////// 被遗忘的传说 /////////////////////////////////
     public static final RegistryObject<Item> TALES_SCARLET_MIST = ITEMS.register(
@@ -444,13 +444,13 @@ public final class ItemRegistry {
 
     // ============================ GSKO生物刷怪蛋 ================================//
     public static final RegistryObject<ForgeSpawnEggItem> FAIRY_SPAWN_EGG = ITEMS.register(
-            "fairy_spawn_egg", () -> new ForgeSpawnEggItem(() -> FairyEntity.FAIRY,
+            "fairy_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.FAIRY_ENTITY,
                     0x0E51D5, 0xFAEB1C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> LILY_WHITE_SPAWN_EGG = ITEMS.register(
-            "lily_white_spawn_egg", () -> new ForgeSpawnEggItem(() -> LilyWhiteEntity.LILY_WHITE,
+            "lily_white_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.LILY_WHITE_ENTITY,
                     0xFFFFE2, 0xF52C2C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> FLANDRE_SCARLET_SPAWN_EGG = ITEMS.register(
-            "flandre_scarlet_spawn_egg", () -> new ForgeSpawnEggItem(() -> FlandreScarletEntity.FLANDRE_SCARLET,
+            "flandre_scarlet_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.FLANDRE_SCARLET,
                     0xDC143C, 0xFDFD78, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================== GSKO战斗类物品 ============================//

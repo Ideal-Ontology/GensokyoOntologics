@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.capability;
 
 import net.minecraft.nbt.CompoundNBT;
 
-public class ImperishableNightCapability implements IImperishableNight{
+public class ImperishableNightCapability implements IImperishableNight {
 
     private int time;
     private boolean isTriggered;

@@ -16,6 +16,7 @@ public enum GSKORiverLayer implements ICastleTransformer {
     INSTANCE;
 
     private Registry<Biome> registry;
+
     public GSKORiverLayer setUp(Registry<Biome> registry) {
         this.registry = registry;
         return this;

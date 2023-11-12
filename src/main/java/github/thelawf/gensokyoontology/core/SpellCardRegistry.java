@@ -26,7 +26,7 @@ public class SpellCardRegistry {
     }
 
     public static final DeferredRegister<SpellData> SPELL_DATA = DeferredRegister.create(
-            SPELL_CARD_REGISTRY,GensokyoOntology.MODID);
+            SPELL_CARD_REGISTRY, GensokyoOntology.MODID);
 
     public static final RegistryObject<SpellData> IDO_NO_KAIHO_DATA = SPELL_DATA.register(
             "ido_no_kaiho_data", SpellCardRegistry::initSpell);

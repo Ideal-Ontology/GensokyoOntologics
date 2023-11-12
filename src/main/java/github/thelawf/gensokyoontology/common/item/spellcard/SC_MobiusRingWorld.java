@@ -16,7 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class SC_MobiusRingWorld extends SpellCardItem{
+public class SC_MobiusRingWorld extends SpellCardItem {
     public SC_MobiusRingWorld(Properties properties) {
         super(properties);
     }
@@ -31,7 +31,7 @@ public class SC_MobiusRingWorld extends SpellCardItem{
             worldIn.addEntity(spellCard);
             playerIn.getCooldownTracker().setCooldown(this, 1200);
             playerIn.sendMessage(new TranslationTextComponent("msg." + GensokyoOntology.MODID +
-                            ".spell_card_announcement.mobius_ring_world"), playerIn.getUniqueID());
+                    ".spell_card_announcement.mobius_ring_world"), playerIn.getUniqueID());
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

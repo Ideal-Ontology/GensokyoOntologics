@@ -18,6 +18,6 @@ public enum ClockHandDirection implements IStringSerializable {
 
     @Override
     public String getString() {
-        return String.valueOf(this.ordinal()+1);
+        return String.valueOf(this.ordinal() + 1);
     }
 }

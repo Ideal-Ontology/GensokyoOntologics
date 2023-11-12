@@ -1,24 +1,23 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class InyoJadeMonsterEntity extends MonsterEntity implements IRendersAsItem {
 
-    public static final EntityType<InyoJadeMonsterEntity> INYO_JADE_MONSTER = EntityType.Builder.create(
-                    InyoJadeMonsterEntity::new, EntityClassification.CREATURE).updateInterval(2)
-            .size(0.8f, 0.8f).trackingRange(10).build("human_resident");
-
-    protected InyoJadeMonsterEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
+    public InyoJadeMonsterEntity(EntityType<? extends MonsterEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {

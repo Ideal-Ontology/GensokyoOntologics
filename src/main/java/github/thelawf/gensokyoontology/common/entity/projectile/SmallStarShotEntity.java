@@ -4,34 +4,33 @@ package github.thelawf.gensokyoontology.common.entity.projectile;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class SmallStarShotEntity extends AbstractDanmakuEntity {
 
-    public static final EntityType<SmallStarShotEntity> STAR_SHOT_SMALL =
-            EntityType.Builder.<SmallStarShotEntity>create(SmallStarShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F,0.5F).trackingRange(4).updateInterval(2).build("star_shot_small");
-
-    protected SmallStarShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
-        super(STAR_SHOT_SMALL, worldIn);
+    public SmallStarShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
+        super(type, worldIn);
     }
 
     public SmallStarShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
-        super(STAR_SHOT_SMALL, throwerIn, world, spellData);
+        super(EntityRegistry.STAR_SHOT_SMALL_ENTITY.get(), throwerIn, world, spellData);
     }
 
     public SmallStarShotEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
-        super(STAR_SHOT_SMALL, throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
+        super(EntityRegistry.STAR_SHOT_SMALL_ENTITY.get(), throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {
@@ -61,8 +60,7 @@ public class SmallStarShotEntity extends AbstractDanmakuEntity {
 
         if (item == null) {
             return ItemStack.EMPTY;
-        }
-        else {
+        } else {
             return new ItemStack(item);
         }
     }

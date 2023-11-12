@@ -14,12 +14,12 @@ public interface ISorceryRecipe extends IRecipe<IInventory> {
 
     @Override
     @NotNull
-    default IRecipeType<?> getType(){
+    default IRecipeType<?> getType() {
         return Registry.RECIPE_TYPE.getOptional(RECIPE_ID).get();
     }
 
     @Override
-    default boolean canFit(int width, int height){
+    default boolean canFit(int width, int height) {
         return true;
     }
 

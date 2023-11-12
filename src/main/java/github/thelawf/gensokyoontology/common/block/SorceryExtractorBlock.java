@@ -28,9 +28,10 @@ public class SorceryExtractorBlock extends Block {
     }
 
     public static final VoxelShape shape;
+
     static {
-        VoxelShape terrace = Block.makeCuboidShape(0,0,0, 16,7,16);
-        VoxelShape crystal = Block.makeCuboidShape(7,7,9, 7,16,9);
+        VoxelShape terrace = Block.makeCuboidShape(0, 0, 0, 16, 7, 16);
+        VoxelShape crystal = Block.makeCuboidShape(7, 7, 9, 7, 16, 9);
         shape = VoxelShapes.or(terrace, crystal);
     }
 
@@ -54,8 +55,7 @@ public class SorceryExtractorBlock extends Block {
             if (tileEntity instanceof SorceryExtractorTileEntity) {
                 INamedContainerProvider provider = SorceryExtractorTileEntity.createContainer(worldIn, pos);
                 NetworkHooks.openGui((ServerPlayerEntity) player, provider, tileEntity.getPos());
-            }
-            else {
+            } else {
                 throw new IllegalStateException("Missing Container Provider");
             }
         }

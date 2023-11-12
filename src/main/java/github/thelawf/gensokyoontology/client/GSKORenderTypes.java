@@ -31,7 +31,7 @@ public class GSKORenderTypes extends RenderType {
                     .build(false));
 
     public static final RenderType LASER_BEAM = makeType("laser_beam",
-            DefaultVertexFormats.POSITION_TEX ,GL11.GL_QUADS, 256,
+            DefaultVertexFormats.POSITION_TEX, GL11.GL_QUADS, 256,
             RenderType.State.getBuilder().texture(BLOCK_SHEET)
                     .layer(VIEW_OFFSET_Z_LAYERING)
                     .transparency(TRANSLUCENT_TRANSPARENCY)

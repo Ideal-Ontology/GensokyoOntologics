@@ -3,42 +3,42 @@ package github.thelawf.gensokyoontology.common.entity.projectile;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAsItem {
 
-    public static final EntityType<LargeShotEntity> LARGE_SHOT = EntityType.Builder.<LargeShotEntity>create(
-                    LargeShotEntity::new, EntityClassification.MISC).size(0.5F,0.5F).trackingRange(4)
-            .updateInterval(2).build("large_shot");
-
     public LargeShotEntity(World worldIn) {
-        super(LARGE_SHOT, worldIn);
+        super(EntityRegistry.LARGE_SHOT_ENTITY.get(), worldIn);
     }
 
     public LargeShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
-        super(LARGE_SHOT, throwerIn, world, spellData);
+        super(EntityRegistry.LARGE_SHOT_ENTITY.get(), throwerIn, world, spellData);
     }
 
     public LargeShotEntity(EntityType<LargeShotEntity> entityType, World worldIn) {
-        super(LARGE_SHOT, worldIn);
+        super(entityType, worldIn);
     }
 
     public LargeShotEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
-        super(LARGE_SHOT, throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
+        super(EntityRegistry.LARGE_SHOT_ENTITY.get(), throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
     }
 
     public LargeShotEntity(EntityType<LargeShotEntity> entityType, LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
         super(entityType, throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {
@@ -74,8 +74,7 @@ public class LargeShotEntity extends AbstractDanmakuEntity implements IRendersAs
 
         if (item == null) {
             return ItemStack.EMPTY;
-        }
-        else {
+        } else {
             return new ItemStack(item);
         }
     }

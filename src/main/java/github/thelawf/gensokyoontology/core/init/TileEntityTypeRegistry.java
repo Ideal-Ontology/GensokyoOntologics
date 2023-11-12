@@ -12,7 +12,7 @@ public final class TileEntityTypeRegistry {
             ForgeRegistries.TILE_ENTITIES, GensokyoOntology.MODID);
 
     public static final RegistryObject<TileEntityType<SpaceFissureTileEntity>> SPACE_FISSURE_TILE_ENTITY =
-            TILE_ENTITIES.register("space_fissure_tileentity",() -> TileEntityType.Builder.create(
+            TILE_ENTITIES.register("space_fissure_tileentity", () -> TileEntityType.Builder.create(
                     SpaceFissureTileEntity::new, BlockRegistry.SPACE_FISSURE_BLOCK.get()).build(null));
     public static final RegistryObject<TileEntityType<DanmakuTabelTileEntity>> DANMAKU_TABLE_TILE =
             TILE_ENTITIES.register("danmaku_table_tileentity", () -> TileEntityType.Builder.create(

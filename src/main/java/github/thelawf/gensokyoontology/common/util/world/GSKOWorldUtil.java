@@ -13,7 +13,7 @@ public class GSKOWorldUtil {
         return RegistryKey.getOrCreateKey(Registry.WORLD_KEY, location);
     }
 
-    public static boolean isEntityInDimension (Entity entity, RegistryKey<World> worldKey) {
+    public static boolean isEntityInDimension(Entity entity, RegistryKey<World> worldKey) {
         return entity.getEntityWorld().getDimensionKey().equals(worldKey);
     }
 }

@@ -14,6 +14,7 @@ public enum AddBeastPathLayer implements ICastleTransformer {
         this.biomeRegistry = biomeRegistry;
         return this;
     }
+
     @Override
     public int apply(INoiseRandom context, int north, int west, int south, int east, int center) {
         return 0;

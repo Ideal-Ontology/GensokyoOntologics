@@ -15,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
-public class SC_MountainOfFaith extends SpellCardItem{
+public class SC_MountainOfFaith extends SpellCardItem {
     public SC_MountainOfFaith(Properties properties, int duration) {
         super(properties, duration);
     }
@@ -26,8 +26,8 @@ public class SC_MountainOfFaith extends SpellCardItem{
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         if (worldIn instanceof ServerWorld) {
-           MountainOfFaithEntity spellCard = new MountainOfFaithEntity(worldIn, playerIn);
-           worldIn.addEntity(spellCard);
+            MountainOfFaithEntity spellCard = new MountainOfFaithEntity(worldIn, playerIn);
+            worldIn.addEntity(spellCard);
             playerIn.getCooldownTracker().setCooldown(this, 1200);
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);

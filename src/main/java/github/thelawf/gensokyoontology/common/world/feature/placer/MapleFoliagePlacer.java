@@ -18,8 +18,8 @@ public class MapleFoliagePlacer extends FoliagePlacer {
     private final int layerCount;
 
     public static final Codec<MapleFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            FeatureSpread.createCodec(0,4,4).fieldOf("radius").forGetter(o -> o.radius),
-            FeatureSpread.createCodec(0,3,3).fieldOf("offset").forGetter(o -> o.offset),
+            FeatureSpread.createCodec(0, 4, 4).fieldOf("radius").forGetter(o -> o.radius),
+            FeatureSpread.createCodec(0, 3, 3).fieldOf("offset").forGetter(o -> o.offset),
             Codec.INT.fieldOf("layer_count").forGetter(o -> o.layerCount)
     ).apply(instance, MapleFoliagePlacer::new));
 
@@ -42,8 +42,9 @@ public class MapleFoliagePlacer extends FoliagePlacer {
 
     /**
      * getFoliageHeight();
+     *
      * @param random 随机值
-     * @param i 不知道
+     * @param i      不知道
      * @param config 生成树的配置项目
      * @return 树叶应该生成的高度
      */

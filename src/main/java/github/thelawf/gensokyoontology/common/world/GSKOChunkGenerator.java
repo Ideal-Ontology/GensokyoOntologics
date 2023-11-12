@@ -34,18 +34,18 @@ public final class GSKOChunkGenerator extends NoiseChunkGenerator {
     public static final Logger LOGGER = LogManager.getLogger();
     private long seed;
 
-    public GSKOChunkGenerator(BiomeProvider provider,long seed, Supplier<DimensionSettings> settings) {
+    public GSKOChunkGenerator(BiomeProvider provider, long seed, Supplier<DimensionSettings> settings) {
         super(provider, seed, settings);
         this.seed = seed;
         LOGGER.info("Gensokyo Chunk Generator Registered");
     }
 
     public static final Codec<Settings> SETTINGS_CODEC = RecordCodecBuilder.create(instance ->
-        instance.group(
-                Codec.INT.fieldOf("base").forGetter(Settings::getBaseHeight),
-                Codec.FLOAT.fieldOf("verticalvariance").forGetter(Settings::getVerticalVariance),
-                Codec.FLOAT.fieldOf("horizontalvariance").forGetter(Settings::getHorizontalVariance)
-        ).apply(instance, Settings::new));
+            instance.group(
+                    Codec.INT.fieldOf("base").forGetter(Settings::getBaseHeight),
+                    Codec.FLOAT.fieldOf("verticalvariance").forGetter(Settings::getVerticalVariance),
+                    Codec.FLOAT.fieldOf("horizontalvariance").forGetter(Settings::getHorizontalVariance)
+            ).apply(instance, Settings::new));
 
 
     public Registry<Biome> getBiomeRegistry() {
@@ -72,7 +72,7 @@ public final class GSKOChunkGenerator extends NoiseChunkGenerator {
 
         ChunkPos chunkPos = chunk.getPos();
 
-        int x,z;
+        int x, z;
         BlockPos.Mutable positions = new BlockPos.Mutable();
 
         // 先在y=0的位置铺一层基岩
@@ -96,7 +96,7 @@ public final class GSKOChunkGenerator extends NoiseChunkGenerator {
                 int globalX = chunkPos.x * 16 + x;
                 int globalZ = chunkPos.z * 16 + z;
                 chunk.setBlockState(positions.add(globalX, SimpleNoise.getNoiseHeight(
-                        seed, new BlockPos(globalX, 0, globalZ), 64, 60),
+                                seed, new BlockPos(globalX, 0, globalZ), 64, 60),
                         globalZ), grassBlock, false);
                 chunk.setBlockState(positions.add(globalX, SimpleNoise.getNoiseHeight(
                                 seed, new BlockPos(globalX, 0, globalZ), 64, 55),

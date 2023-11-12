@@ -64,7 +64,7 @@ public class GapItem extends BlockItem implements INBTWriter, INBTRunnable {
             CompoundNBT nbt = stack.getTag();
             if (nbt.contains("first_pos")) {
                 BlockPos pos = BlockPos.fromLong(nbt.getLong("first_pos"));
-                tooltip.add(new StringTextComponent("第一处隙间设置为: "+ pos.getCoordinatesAsString()));
+                tooltip.add(new StringTextComponent("第一处隙间设置为: " + pos.getCoordinatesAsString()));
             }
             if (nbt.contains("departure_world")) {
                 tooltip.add(new TranslationTextComponent(nbt.getString("departure_world")));

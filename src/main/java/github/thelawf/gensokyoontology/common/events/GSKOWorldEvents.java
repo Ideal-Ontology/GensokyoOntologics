@@ -46,14 +46,14 @@ public class GSKOWorldEvents {
     @SubscribeEvent
     public static void onLivingSpawn(BiomeLoadingEvent event) {
         if (event.getCategory().equals(Biome.Category.THEEND) ||
-        event.getCategory().equals(Biome.Category.NETHER)) {
+                event.getCategory().equals(Biome.Category.NETHER)) {
             return;
         }
         List<MobSpawnInfo.Spawners> spawners = event.getSpawns().getSpawner(
                 EntityRegistry.FAIRY_ENTITY.get().getClassification());
 
         spawners.add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(),
-                38,2,4));
+                38, 2, 4));
     }
 
     @SubscribeEvent
@@ -174,7 +174,7 @@ public class GSKOWorldEvents {
     }
 
     private static void spawnEntityIn(Biome biome, List<ResourceLocation> biomeIds,
-                                       EntityClassification classification) {
+                                      EntityClassification classification) {
         List<EntityType<?>> entityTypes = ImmutableList.of(
                 EntityRegistry.FAIRY_ENTITY.get()
         );

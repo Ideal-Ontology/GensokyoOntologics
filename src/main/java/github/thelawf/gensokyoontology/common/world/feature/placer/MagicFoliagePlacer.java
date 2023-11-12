@@ -18,8 +18,8 @@ import java.util.Set;
 public class MagicFoliagePlacer extends FoliagePlacer {
 
     public static final Codec<MagicFoliagePlacer> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            FeatureSpread.createCodec(3,6,5).fieldOf("radius").forGetter(o -> o.radius),
-            FeatureSpread.createCodec(2,3,3).fieldOf("offset").forGetter(o -> o.offset)
+            FeatureSpread.createCodec(3, 6, 5).fieldOf("radius").forGetter(o -> o.radius),
+            FeatureSpread.createCodec(2, 3, 3).fieldOf("offset").forGetter(o -> o.offset)
     ).apply(instance, MagicFoliagePlacer::new));
 
     public MagicFoliagePlacer(FeatureSpread radius, FeatureSpread offset) {

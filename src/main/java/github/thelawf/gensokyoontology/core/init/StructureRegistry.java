@@ -44,16 +44,16 @@ public final class StructureRegistry {
     //         "water_of_nine_heaven", () -> new WaterfallNineHeavenStructure(NoFeatureConfig.CODEC));
 
     public static void setupStructures() {
-        setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(),new StructureSeparationSettings(20, 10, 1023567897), true);
+        setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(), new StructureSeparationSettings(20, 10, 1023567897), true);
         setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(30, 20, 51392147), true);
         setupMapSpacingAndLand(CHIREIDEN.get(), new StructureSeparationSettings(80, 50, 413054656), true);
         setupMapSpacingAndLand(CIRNO_ICE_HOUSE.get(), new StructureSeparationSettings(25, 15, 64916420), true);
-        setupMapSpacingAndLand(BEAST_PATHWAY.get(), new StructureSeparationSettings(8, 3, 994251466),true);
+        setupMapSpacingAndLand(BEAST_PATHWAY.get(), new StructureSeparationSettings(8, 3, 994251466), true);
         setupMapSpacingAndLand(HUMAN_VILLAGE.get(), new StructureSeparationSettings(20, 10, 854694869), true);
         // setupMapSpacingAndLand(WATERFALL_NINE_HEAVEN.get(), new StructureSeparationSettings(40, 30, 95323460), true);
     }
 
-        /**
+    /**
      * 本方法中的反混淆映射名如下：
      * <br><br>
      * srg名：Structure.field_236384_t<br>
@@ -70,10 +70,11 @@ public final class StructureRegistry {
      * 反混淆名：structures<br>
      * 类型：Map< Structure< ?>, StructureSeparationSettings><br>
      * 作用：存放建筑结构和建筑生成设置的映射Map
-     * @param structure 建筑结构
+     *
+     * @param structure                   建筑结构
      * @param structureSeparationSettings 建筑结构分布设置
-     * @param transformSurroundingLand 是否转变建筑周围的地形
-     * @param <F> 建筑结构类型形参
+     * @param transformSurroundingLand    是否转变建筑周围的地形
+     * @param <F>                         建筑结构类型形参
      */
     public static <F extends Structure<?>> void setupMapSpacingAndLand(F structure,
                                                                        StructureSeparationSettings structureSeparationSettings,
@@ -97,7 +98,7 @@ public final class StructureRegistry {
          *
          * NOISE_AFFECTING_FEATURES requires AccessTransformer  (See resources/META-INF/accesstransformer.cfg)
          */
-        if(transformSurroundingLand){
+        if (transformSurroundingLand) {
             Structure.field_236384_t_ = ImmutableList.<Structure<?>>builder()
                     .addAll(Structure.field_236384_t_)
                     .add(structure)

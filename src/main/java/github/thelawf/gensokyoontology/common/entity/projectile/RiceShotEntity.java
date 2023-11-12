@@ -2,11 +2,10 @@ package github.thelawf.gensokyoontology.common.entity.projectile;
 
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
@@ -15,17 +14,14 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-public class RiceShotEntity extends AbstractDanmakuEntity{
-    public static final EntityType<RiceShotEntity> RICE_SHOT =
-            EntityType.Builder.<RiceShotEntity>create(RiceShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F,0.5F).trackingRange(4).updateInterval(2).build("rice_shot");
+public class RiceShotEntity extends AbstractDanmakuEntity {
 
-    protected RiceShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
-        super(RICE_SHOT, worldIn);
+    public RiceShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
+        super(type, worldIn);
     }
 
     public RiceShotEntity(LivingEntity livingIn, World worldIn, DanmakuType danmakuType, DanmakuColor danmakuColor) {
-        super(RICE_SHOT, livingIn, worldIn, danmakuType, danmakuColor);
+        super(EntityRegistry.RICE_SHOT_ENTITY.get(), livingIn, worldIn, danmakuType, danmakuColor);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -52,8 +48,7 @@ public class RiceShotEntity extends AbstractDanmakuEntity{
 
         if (item == null) {
             return ItemStack.EMPTY;
-        }
-        else {
+        } else {
             return new ItemStack(item);
         }
     }

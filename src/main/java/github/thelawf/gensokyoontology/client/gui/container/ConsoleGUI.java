@@ -35,13 +35,13 @@ public class ConsoleGUI extends Screen {
         MainWindow window = getMinecraft().getMainWindow();
         Objects.requireNonNull(this.minecraft).keyboardListener.enableRepeatEvents(true);
 
-        this.codeField = new TextFieldWidget(this.font,(window.getWidth() - this.width)/2
-                ,(window.getHeight() - this.height)/2,200,136,new TranslationTextComponent(
-                        "client." + GensokyoOntology.MODID + ".code_field.content"));
+        this.codeField = new TextFieldWidget(this.font, (window.getWidth() - this.width) / 2
+                , (window.getHeight() - this.height) / 2, 200, 136, new TranslationTextComponent(
+                "client." + GensokyoOntology.MODID + ".code_field.content"));
         this.children.add(codeField);
 
-        this.compileButton = new Button((window.getWidth() - this.width)/2 + this.width / 2,
-                (window.getHeight() - this.height)/2 + this.height / 2, 80, 20,
+        this.compileButton = new Button((window.getWidth() - this.width) / 2 + this.width / 2,
+                (window.getHeight() - this.height) / 2 + this.height / 2, 80, 20,
                 new TranslationTextComponent("client." + GensokyoOntology.MODID + ".compile"), (button) -> {
             String code = codeField.getText();
         });

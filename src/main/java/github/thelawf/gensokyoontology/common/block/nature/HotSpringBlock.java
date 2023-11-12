@@ -32,7 +32,7 @@ public class HotSpringBlock extends FlowingFluidBlock implements IForgeFluid {
     public boolean isEntityInside(FluidState state, IWorldReader world, BlockPos pos, Entity entity, double yToTest, Tag<Fluid> tag, boolean testingHead) {
         if (entity instanceof LivingEntity) {
             LivingEntity living = (LivingEntity) entity;
-            living.addPotionEffect(new EffectInstance(Effects.INSTANT_HEALTH,2*10,1));
+            living.addPotionEffect(new EffectInstance(Effects.INSTANT_HEALTH, 2 * 10, 1));
         }
         return true;
     }
@@ -44,7 +44,7 @@ public class HotSpringBlock extends FlowingFluidBlock implements IForgeFluid {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void animateTick(@Nonnull BlockState stateIn,@Nonnull World worldIn,@Nonnull BlockPos pos,@Nonnull Random rand) {
+    public void animateTick(@Nonnull BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
         // Direction direction
         double dx = (double) pos.getX() + 0.5D;
         double dy = (double) pos.getY() + 1.0D;
@@ -59,8 +59,8 @@ public class HotSpringBlock extends FlowingFluidBlock implements IForgeFluid {
 
         if (rand.nextDouble() < SPAWN_PROBABILITY / 25.0D) {
             for (int i = 0; i < 2; i++) {
-                worldIn.addParticle(ParticleTypes.CLOUD,false,
-                        dx,dy,dz,speedX + rand.nextDouble()/18, speedY, speedZ + rand.nextDouble()/18);
+                worldIn.addParticle(ParticleTypes.CLOUD, false,
+                        dx, dy, dz, speedX + rand.nextDouble() / 18, speedY, speedZ + rand.nextDouble() / 18);
             }
 
         }

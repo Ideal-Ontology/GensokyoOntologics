@@ -88,10 +88,10 @@ public class GensokyoOntology {
         }
     }
 
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD,value = Dist.CLIENT)
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class RenderTypeRegistry {
         @SubscribeEvent
-        public static void onRenderTypeSetUp(FMLClientSetupEvent event){
+        public static void onRenderTypeSetUp(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
                 RenderTypeLookup.setRenderLayer(FluidRegistry.HOT_SPRING_SOURCE.get(),
                         RenderType.getTranslucent());
@@ -157,13 +157,14 @@ public class GensokyoOntology {
 
         }
     }
+
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class AttributesSetEvent {
         @SubscribeEvent
         public static void setupAttributes(EntityAttributeCreationEvent event) {
             double randomHealthFairy = GSKOMathUtil.randomRange(2, 20);
             double randomHealthInyojade = GSKOMathUtil.randomRange(4, 10);
-            double randomHealthSpectre = GSKOMathUtil.randomRange(2,10);
+            double randomHealthSpectre = GSKOMathUtil.randomRange(2, 10);
 
             event.put(EntityRegistry.FAIRY_ENTITY.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthFairy)

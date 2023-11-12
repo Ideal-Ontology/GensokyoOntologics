@@ -22,7 +22,7 @@ public class ChunkPlacement extends HeightmapBasedPlacement<ChunkAverageConfig> 
         return IntStream.range(0, 16).mapToObj(value -> {
             int x = rand.nextInt(16) + pos.getX();
             int z = rand.nextInt(16) + pos.getZ();
-            return new BlockPos(x ,helper.func_242893_a(this.func_241858_a(config),x,z),z);
+            return new BlockPos(x, helper.func_242893_a(this.func_241858_a(config), x, z), z);
         });
     }
 

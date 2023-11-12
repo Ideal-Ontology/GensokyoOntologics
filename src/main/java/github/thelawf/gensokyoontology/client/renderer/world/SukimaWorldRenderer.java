@@ -31,7 +31,7 @@ public class SukimaWorldRenderer implements ISkyRenderHandler {
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
 
-        for(int i = 0; i < 6; ++i) {
+        for (int i = 0; i < 6; ++i) {
             matrixStackIn.push();
             if (i == 1) {
                 matrixStackIn.rotate(Vector3f.XP.rotationDegrees(90.0F));

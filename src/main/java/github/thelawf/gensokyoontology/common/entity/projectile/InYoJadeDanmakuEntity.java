@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 public class InYoJadeDanmakuEntity extends AbstractDanmakuEntity {
     public static final EntityType<InYoJadeDanmakuEntity> INYO_JADE_DANMAKU = EntityType.Builder.<InYoJadeDanmakuEntity>create(
-                    InYoJadeDanmakuEntity::new, EntityClassification.MISC).size(0.5F,0.5F).trackingRange(4)
+                    InYoJadeDanmakuEntity::new, EntityClassification.MISC).size(0.5F, 0.5F).trackingRange(4)
             .updateInterval(2).build("inyo_jade_entity");
 
     protected InYoJadeDanmakuEntity(EntityType<InYoJadeDanmakuEntity> type, World worldIn) {

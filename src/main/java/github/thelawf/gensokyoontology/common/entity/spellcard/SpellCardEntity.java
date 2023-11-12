@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -19,6 +18,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
@@ -26,6 +27,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
+@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
 
     protected int lifeSpan = 500;
@@ -143,7 +145,8 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
 
     /**
      * 根据符卡实体的生成位置和旋转设置弹幕的初始位置和旋转
-     * @param <D> 所有弹幕实体的类型
+     *
+     * @param <D>     所有弹幕实体的类型
      * @param danmaku 弹幕形参
      */
     protected <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku) {
@@ -154,8 +157,9 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
 
     /**
      * 根据旋转设置弹幕的旋转
-     * @param <D> 所有弹幕实体的类型
-     * @param danmaku 弹幕形参
+     *
+     * @param <D>          所有弹幕实体的类型
+     * @param danmaku      弹幕形参
      * @param initPosition 弹幕的初始化位置
      */
     protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition) {
@@ -166,8 +170,9 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     /**
      * 根据传入的初始化位置和旋转设置弹幕的位置和旋转。<br>
      * 注意：传入的旋转角度将决定着弹幕的法向渲染。
-     * @param <D> 所有弹幕实体的类型
-     * @param danmaku 弹幕形参
+     *
+     * @param <D>          所有弹幕实体的类型
+     * @param danmaku      弹幕形参
      * @param initPosition 弹幕的初始化位置，应该为全局坐标系
      * @param initRotation 弹幕的旋转
      */

@@ -42,18 +42,20 @@ public class HumanVillageStructure extends Structure<NoFeatureConfig> {
         return HumanVillageStructure.Start::new;
     }
 
-    /** isFeaturedChunk()
+    /**
+     * isFeaturedChunk()
      * <br>
      * 用于判断传入的区块是否是可以生成特征的区块
+     *
      * @param chunkGenerator 区块生成器
-     * @param provider 生物群系提供器
-     * @param seed 地图种子
-     * @param chunkRandom 随机种子
-     * @param chunkX 区块坐标X
-     * @param chunkZ 区块坐标Z
-     * @param biome 生物群系
-     * @param chunkPos 区块坐标
-     * @param config 特征设置
+     * @param provider       生物群系提供器
+     * @param seed           地图种子
+     * @param chunkRandom    随机种子
+     * @param chunkX         区块坐标X
+     * @param chunkZ         区块坐标Z
+     * @param biome          生物群系
+     * @param chunkPos       区块坐标
+     * @param config         特征设置
      * @return 可以生成建筑就返回true
      */
     @Override

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.world.dimension.biome;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.*;
@@ -16,8 +17,7 @@ import java.util.List;
 public final class GSKOBiomeMaker {
 
 
-    private static BiomeGenerationSettings.Builder makeDefaultBuilder()
-    {
+    private static BiomeGenerationSettings.Builder makeDefaultBuilder() {
         //抄原版用来装饰群系(这句话来自模组 Ashihara，作者：遗失唐伞绘卷屋)
         BiomeGenerationSettings.Builder biomegenerationSettings
                 = (new BiomeGenerationSettings.Builder()
@@ -72,8 +72,7 @@ public final class GSKOBiomeMaker {
         return biomegenerationSettings;
     }
 
-    private static BiomeGenerationSettings.Builder makeCustomBuilder()
-    {
+    private static BiomeGenerationSettings.Builder makeCustomBuilder() {
         //抄原版用来装饰群系(这句话来自模组 Ashihara，作者：遗失唐伞绘卷屋)
         BiomeGenerationSettings.Builder biomegenerationSettings
                 = (new BiomeGenerationSettings.Builder()
@@ -181,7 +180,7 @@ public final class GSKOBiomeMaker {
                 .precipitation(Biome.RainType.RAIN)
                 .withMobSpawnSettings(new MobSpawnInfo.Builder().withSpawner(
                         EntityClassification.MONSTER, new MobSpawnInfo.Spawners(
-                                FairyEntity.FAIRY, 68, 3,5)).build())
+                                EntityRegistry.FAIRY_ENTITY.get(), 68, 3, 5)).build())
                 .withGenerationSettings(addFeatureIfContains(features).build())
                 .withTemperatureModifier(Biome.TemperatureModifier.NONE)
                 .setEffects(new BiomeAmbience.Builder().setWaterColor(0x0DA7D6)

@@ -62,8 +62,7 @@ public class LaserRenderer {
 
         if (TIMER > maxRenderTick) {
             TIMER = 0;
-        }
-        else {
+        } else {
             TIMER++;
             builder.pos(start.getX(), start.getY(), start.getZ()).color(1.0F, 0F, 0F, 0.5F).endVertex();
             builder.pos(end.getX(), end.getY(), end.getZ()).color(1.0F, 0F, 0F, 0.5F).endVertex();

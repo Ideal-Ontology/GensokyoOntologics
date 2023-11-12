@@ -1,7 +1,8 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
-public class LineSegment3D extends LineSegment{
+public class LineSegment3D extends LineSegment {
     double z1, z2 = 0d;
+
     public LineSegment3D(double x1, double y1, double x2, double y2) {
         super(x1, y1, x2, y2);
     }

@@ -35,15 +35,15 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
 
         // LaserRenderer.render();
 
-        AxisAlignedBB box = new AxisAlignedBB(playerIn.getPositionVec().subtract(new Vector3d(12,12,12)),
-                playerIn.getPositionVec().add(new Vector3d(12,12,12)));
+        AxisAlignedBB box = new AxisAlignedBB(playerIn.getPositionVec().subtract(new Vector3d(12, 12, 12)),
+                playerIn.getPositionVec().add(new Vector3d(12, 12, 12)));
 
         Predicate<LivingEntity> predicate = living -> !(living instanceof PlayerEntity);
         Vector3d start = playerIn.getPositionVec();
         Vector3d end = start.add(playerIn.getLookVec().scale(10));
 
         getEntityWithinSphere(worldIn, LivingEntity.class, predicate, box, 12F).stream()
-                .filter(living -> isIntersecting(start, end, living.getBoundingBox().offset(0,-1,0)))
+                .filter(living -> isIntersecting(start, end, living.getBoundingBox().offset(0, -1, 0)))
                 .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F));
 
         if (playerIn.isCreative())

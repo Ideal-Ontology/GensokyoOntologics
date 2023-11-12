@@ -6,7 +6,7 @@ import net.minecraft.world.gen.placement.IPlacementConfig;
 
 public class ChunkAverageConfig implements IPlacementConfig {
     public static final Codec<ChunkAverageConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
-            Codec.intRange(1,5).fieldOf("count").orElse(3).forGetter(o -> o.count)
+            Codec.intRange(1, 5).fieldOf("count").orElse(3).forGetter(o -> o.count)
     ).apply(instance, ChunkAverageConfig::new));
 
     public final int count;

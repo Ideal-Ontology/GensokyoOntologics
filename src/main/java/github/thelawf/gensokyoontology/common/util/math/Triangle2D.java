@@ -43,7 +43,7 @@ public class Triangle2D {
         this.angelGamma = angelGamma;
     }
 
-    public Triangle2D(double angleAIn, double angleBIn, LineSegment anySideIn){
+    public Triangle2D(double angleAIn, double angleBIn, LineSegment anySideIn) {
 
     }
 

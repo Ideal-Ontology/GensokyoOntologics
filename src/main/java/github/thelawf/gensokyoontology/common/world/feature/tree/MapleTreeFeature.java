@@ -23,8 +23,7 @@ public class MapleTreeFeature extends Feature<NoFeatureConfig> {
     private boolean isAirOrLeaves(IWorldGenerationBaseReader reader, BlockPos pos) {
         if (!(reader instanceof IWorldReader)) {
             return reader.hasBlockState(pos, state -> state.isAir() || state.isIn(BlockTags.LEAVES));
-        }
-        else {
+        } else {
             return reader.hasBlockState(pos, state -> state.canBeReplacedByLeaves((IWorldReader) reader, pos));
         }
     }

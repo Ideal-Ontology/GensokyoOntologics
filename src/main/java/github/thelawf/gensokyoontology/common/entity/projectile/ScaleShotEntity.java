@@ -2,29 +2,29 @@ package github.thelawf.gensokyoontology.common.entity.projectile;
 
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-public class ScaleShotEntity extends AbstractDanmakuEntity{
-    public static final EntityType<ScaleShotEntity> SCALE_SHOT =
-            EntityType.Builder.<ScaleShotEntity>create(ScaleShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F,0.5F).trackingRange(4).updateInterval(2).build("scale_shot");
+public class ScaleShotEntity extends AbstractDanmakuEntity {
 
-    protected ScaleShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
-        super(SCALE_SHOT, worldIn);
+    public ScaleShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
+        super(type, worldIn);
     }
 
     public ScaleShotEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
-        super(SCALE_SHOT, throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
+        super(EntityRegistry.SCALE_SHOT_ENTITY.get(), throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {
@@ -34,9 +34,6 @@ public class ScaleShotEntity extends AbstractDanmakuEntity{
             case PINK:
             case NONE:
             case ORANGE:
-            default:
-                item = ItemRegistry.SCALE_SHOT_RED.get();
-                break;
             case YELLOW:
                 item = ItemRegistry.SCALE_SHOT_YELLOW.get();
                 break;
@@ -51,13 +48,11 @@ public class ScaleShotEntity extends AbstractDanmakuEntity{
             case PURPLE:
                 item = ItemRegistry.SCALE_SHOT_PURPLE.get();
                 break;
+            default:
+                item = ItemRegistry.SCALE_SHOT_RED.get();
+                break;
         }
 
-        if (item == null) {
-            return ItemStack.EMPTY;
-        }
-        else {
-            return new ItemStack(item);
-        }
+        return new ItemStack(item);
     }
 }

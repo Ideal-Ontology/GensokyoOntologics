@@ -11,6 +11,7 @@ public enum AddMistyLakeLayer implements ICastleTransformer {
     INSTANCE;
 
     private Registry<Biome> registry;
+
     public AddMistyLakeLayer setUp(Registry<Biome> biomeRegistry) {
         this.registry = biomeRegistry;
         return this;
@@ -18,12 +19,13 @@ public enum AddMistyLakeLayer implements ICastleTransformer {
 
     /**
      * 如果东南西北四个角落有任一群系是红魔馆的那片森林的话，就将中间的群系转变为雾之湖
+     *
      * @param context 世界地形生成的随机数
-     * @param center 中间的生物群系数字id
-     * @param east 东边的生物群系数字id
-     * @param north 南边的生物群系数字id
-     * @param west 西边的生物群系数字id
-     * @param south 北边的生物群系数字id
+     * @param center  中间的生物群系数字id
+     * @param east    东边的生物群系数字id
+     * @param north   南边的生物群系数字id
+     * @param west    西边的生物群系数字id
+     * @param south   北边的生物群系数字id
      * @return 转换之后的中间区块的生物群系数字id
      */
     @Override

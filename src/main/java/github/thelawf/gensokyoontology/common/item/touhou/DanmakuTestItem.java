@@ -19,8 +19,9 @@ import java.util.List;
 import java.util.function.Predicate;
 
 @Deprecated
-public class DanmakuTestItem extends ShootableItem{
+public class DanmakuTestItem extends ShootableItem {
     public static final Logger LOGGER = LogManager.getLogger();
+
     public DanmakuTestItem(Properties properties) {
         super(properties);
     }

@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 public class MasterSparkEntity extends ThrowableEntity {
     public final int LIFE_SPAN = 200;
     public static final EntityType<MasterSparkEntity> MASTER_SPARK = EntityType.Builder.<MasterSparkEntity>create(
-                    MasterSparkEntity::new, EntityClassification.MISC).size(2F,25F).trackingRange(4)
+                    MasterSparkEntity::new, EntityClassification.MISC).size(2F, 25F).trackingRange(4)
             .updateInterval(2).build("master_spark_entity");
 
 

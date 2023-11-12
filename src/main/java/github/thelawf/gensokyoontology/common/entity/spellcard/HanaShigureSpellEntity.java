@@ -7,8 +7,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-/** 春符「花时雨」 */
-public class HanaShigureSpellEntity extends SpellCardEntity{
+/**
+ * 春符「花时雨」
+ */
+public class HanaShigureSpellEntity extends SpellCardEntity {
     public HanaShigureSpellEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
         super(entityTypeIn, worldIn, player);
     }

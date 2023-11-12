@@ -29,7 +29,8 @@ public class EirinYagokoroArrow extends ArrowItem {
         if (worldIn.isRemote) return super.onItemRightClick(worldIn, playerIn, handIn);
         ServerWorld serverWorld = (ServerWorld) worldIn;
         serverWorld.setDayTime(16000);
-        if (serverWorld.getDimensionKey() != GSKODimensions.GENSOKYO) return super.onItemRightClick(worldIn, playerIn, handIn);
+        if (serverWorld.getDimensionKey() != GSKODimensions.GENSOKYO)
+            return super.onItemRightClick(worldIn, playerIn, handIn);
 
         serverWorld.getCapability(GSKOCapabilities.IMPERISHABLE_NIGHT).ifPresent(cap -> {
             cap.setTriggered(true);

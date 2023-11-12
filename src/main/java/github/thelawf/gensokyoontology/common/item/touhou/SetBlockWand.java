@@ -54,9 +54,8 @@ public class SetBlockWand extends Item {
                 nbt.putInt("centerZ", pos.getZ());
                 itemStack.setTag(nbt);
                 context.getPlayer().sendMessage(new TranslationTextComponent("set_block_item.message.set_center",
-                        pos.getX(), pos.getY(), pos.getZ()),context.getPlayer().getUniqueID());
-            }
-            else { // 如果物品已经有标签，就设置半径
+                        pos.getX(), pos.getY(), pos.getZ()), context.getPlayer().getUniqueID());
+            } else { // 如果物品已经有标签，就设置半径
                 CompoundNBT nbt = itemStack.getTag();
                 int centerX, centerY, centerZ, radius;
 
@@ -70,7 +69,7 @@ public class SetBlockWand extends Item {
                     nbt.putInt("radius", radius);
 
                     itemStack.setTag(nbt);
-                    context.getPlayer().sendMessage(new TranslationTextComponent("item.message.set_radius", radius),context.getPlayer().getUniqueID());
+                    context.getPlayer().sendMessage(new TranslationTextComponent("item.message.set_radius", radius), context.getPlayer().getUniqueID());
                     placeCircleBlock(new BlockPos(centerX, centerY, centerZ), radius);
 
                     nbt.remove("centerX");
@@ -93,24 +92,24 @@ public class SetBlockWand extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         if (Screen.hasAltDown()) {
-           switch (mode){
-               case CIRCLE:
-                   mode = Mode.ECLIPSE;
-                   this.nbt = GSKONBTUtil.removeAllChildNBT(nbt);
-                   break;
-               case ECLIPSE:
-                   mode = Mode.RECTANGLE;
-                   this.nbt = GSKONBTUtil.removeAllChildNBT(nbt);
-                   break;
-               case RECTANGLE:
-                   mode = Mode.BEZIER_CURVE;
-                   this.nbt = GSKONBTUtil.removeAllChildNBT(nbt);
-                   break;
-               case BEZIER_CURVE:
-                   mode = Mode.CIRCLE;
-                   this.nbt = GSKONBTUtil.removeAllChildNBT(nbt);
-                   break;
-           }
+            switch (mode) {
+                case CIRCLE:
+                    mode = Mode.ECLIPSE;
+                    this.nbt = GSKONBTUtil.removeAllChildNBT(nbt);
+                    break;
+                case ECLIPSE:
+                    mode = Mode.RECTANGLE;
+                    this.nbt = GSKONBTUtil.removeAllChildNBT(nbt);
+                    break;
+                case RECTANGLE:
+                    mode = Mode.BEZIER_CURVE;
+                    this.nbt = GSKONBTUtil.removeAllChildNBT(nbt);
+                    break;
+                case BEZIER_CURVE:
+                    mode = Mode.CIRCLE;
+                    this.nbt = GSKONBTUtil.removeAllChildNBT(nbt);
+                    break;
+            }
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -125,13 +124,14 @@ public class SetBlockWand extends Item {
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
-    public enum Mode{
+    public enum Mode {
         CIRCLE("circle_mode"),
         ECLIPSE("eclipse_mode"),
         RECTANGLE("rectangle_mode"),
         BEZIER_CURVE("bezier_mode");
 
         public final String id;
+
         Mode(String id) {
             this.id = id;
         }

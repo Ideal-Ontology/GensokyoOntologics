@@ -26,8 +26,9 @@ public class SpaceFissureBlock extends Block {
 
     public static final Logger LOGGER = LogManager.getLogger();
     private static final VoxelShape shape;
+
     static {
-        VoxelShape portalPane = Block.makeCuboidShape(1,0,8,15,24,8);
+        VoxelShape portalPane = Block.makeCuboidShape(1, 0, 8, 15, 24, 8);
         shape = VoxelShapes.or(portalPane);
     }
 
@@ -42,7 +43,7 @@ public class SpaceFissureBlock extends Block {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state,IBlockReader worldIn) {
+    public TileEntity createTileEntity(BlockState state, IBlockReader worldIn) {
         return new SpaceFissureTileEntity();
     }
 
@@ -51,8 +52,7 @@ public class SpaceFissureBlock extends Block {
     public void onEntityCollision(BlockState state, @NotNull World worldIn, BlockPos pos, Entity entityIn) {
         if (worldIn instanceof ServerWorld && !(entityIn instanceof PlayerEntity)) {
             entityIn.attackEntityFrom(DamageSource.OUT_OF_WORLD, 12.0F);
-        }
-        else if (worldIn instanceof ServerWorld && !entityIn.isPassenger() &&
+        } else if (worldIn instanceof ServerWorld && !entityIn.isPassenger() &&
                 !entityIn.isBeingRidden() && entityIn.canChangeDimension()) {
             RegistryKey<World> dimensionKey = entityIn.world.getDimensionKey() == World.OVERWORLD ? GSKODimensions.GENSOKYO : World.OVERWORLD;
             ServerWorld world = ((ServerWorld) worldIn).getServer().getWorld(dimensionKey);

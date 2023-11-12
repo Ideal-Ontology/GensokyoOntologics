@@ -10,7 +10,7 @@ package github.thelawf.gensokyoontology.common.world;
 @Deprecated
 public final class GSKOBiomeDistributor {
 
-    public static final class GensokyoDistributor{
+    public static final class GensokyoDistributor {
     }
 
     public static final class LunarCapitalDistributor {

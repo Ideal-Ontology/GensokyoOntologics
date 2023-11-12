@@ -4,8 +4,8 @@ import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,23 +13,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class MobiusRingEntity extends SpellCardEntity{
-
-    public static final EntityType<MobiusRingEntity> MOBIUS_RING_ENTITY =
-            EntityType.Builder.<MobiusRingEntity>create(MobiusRingEntity::new,
-                            EntityClassification.MISC).size(1F,1F).trackingRange(4)
-                    .updateInterval(2).build("mobius_ring_world");
+public class MobiusRingEntity extends SpellCardEntity {
 
     public MobiusRingEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
     }
+
     public MobiusRingEntity(World worldIn, PlayerEntity player) {
-        super(MOBIUS_RING_ENTITY, worldIn, player);
+        super(EntityRegistry.MOBIUS_RING_WORLD_ENTITY.get(), worldIn, player);
     }
 
     @Override
@@ -80,6 +77,7 @@ public class MobiusRingEntity extends SpellCardEntity{
         super.tick();
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {

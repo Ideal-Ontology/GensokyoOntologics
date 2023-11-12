@@ -18,7 +18,7 @@ public class GSKOBlockProperties {
         return world.getBlockState(pos).with(property, value);
     }
 
-    public static List<VoxelShape> makeClockVoxel(){
+    public static List<VoxelShape> makeClockVoxel() {
         List<VoxelShape> voxelShapes = new ArrayList<>();
         for (int i = 0; i < 12; i++) {
             // voxelShapes.add(Block.makeCuboidShape());

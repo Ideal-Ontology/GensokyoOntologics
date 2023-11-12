@@ -36,6 +36,7 @@ public class GSKOTags {
 
     public static class GSKOBlockTag {
         public static final Tags.IOptionalNamedTag<Block> ONION_CROP = makeForgeTag("crops/onion");
+
         private static Tags.IOptionalNamedTag<Block> makeForgeTag(String name) {
             return BlockTags.createOptional(new ResourceLocation("forge", name));
         }

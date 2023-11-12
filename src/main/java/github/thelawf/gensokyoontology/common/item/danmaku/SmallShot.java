@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public class SmallShot extends DanmakuItem {
 
     public DanmakuType type;
+
     public SmallShot(DanmakuType type) {
         super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
         this.type = type;

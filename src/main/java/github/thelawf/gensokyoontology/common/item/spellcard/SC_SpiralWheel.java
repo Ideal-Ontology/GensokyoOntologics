@@ -8,7 +8,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-public class SC_SpiralWheel extends SpellCardItem{
+public class SC_SpiralWheel extends SpellCardItem {
     public SC_SpiralWheel(Properties properties, int duration) {
         super(properties, duration);
     }

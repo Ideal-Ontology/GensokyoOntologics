@@ -30,7 +30,7 @@ public class BloodyMistCapabilityProvider implements ICapabilityProvider, INBTSe
     }
 
     @NotNull
-    BloodyMistCapability getOrCreateCapability () {
+    BloodyMistCapability getOrCreateCapability() {
         if (this.capability == null) {
             this.capability = new BloodyMistCapability(this.biomeRegistryNames, this.isTriggered);
         }

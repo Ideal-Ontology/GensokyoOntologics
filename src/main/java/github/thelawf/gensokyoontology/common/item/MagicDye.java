@@ -9,7 +9,7 @@ public class MagicDye extends Block {
     private final DyeColor color;
 
     public MagicDye(DyeColor color) {
-        super(Properties.create(Material.CLAY).hardnessAndResistance(2.0f,2.f).sound(SoundType.STONE));
+        super(Properties.create(Material.CLAY).hardnessAndResistance(2.0f, 2.f).sound(SoundType.STONE));
         this.color = color;
     }
 

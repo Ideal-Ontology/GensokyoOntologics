@@ -61,10 +61,11 @@ public class DanmakuUtil {
 
     /**
      * 这是个怪方法，请不要理睬（）
-     * @param <D> 弹幕实体的具体类
-     * @param danmaku 弹幕的提供器，在这里初始化弹幕
+     *
+     * @param <D>          弹幕实体的具体类
+     * @param danmaku      弹幕的提供器，在这里初始化弹幕
      * @param danmakuClass 需要初始化的弹幕的类
-     * @param count 弹幕对象池的大小
+     * @param count        弹幕对象池的大小
      * @return 弹幕对象池
      * @throws IllegalAccessException 非法访问
      */
@@ -73,7 +74,7 @@ public class DanmakuUtil {
         for (int i = 0; i < count; i++) {
             Constructor<D> constructor = danmakuClass.getDeclaredConstructor(EntityType.class, World.class, Entity.class, DanmakuType.class, DanmakuColor.class);
             danmakuPool.add(constructor.newInstance(danmaku.get().getType(), danmaku.get().world,
-                    danmaku.get().getShooter(),danmaku.get().getDanmakuType(), danmaku.get().getDanmakuColor()));
+                    danmaku.get().getShooter(), danmaku.get().getDanmakuType(), danmaku.get().getDanmakuColor()));
         }
         return danmakuPool;
     }
@@ -234,12 +235,13 @@ public class DanmakuUtil {
 
     /**
      * 按照玫瑰线来初始化弹幕的位置和旋转
+     *
      * @param count 玫瑰线花瓣/叶片的数量
-     * @param size 玫瑰线花瓣的大小
+     * @param size  玫瑰线花瓣的大小
      * @param delta 决定着玫瑰线上的弹幕之间的间隔
      */
     public static List<Vector3d> getRoseLinePos(double radius, double count, double size, double delta) {
-        double x,y;
+        double x, y;
         List<Vector3d> positions = new ArrayList<>();
 
         count = count / size;
@@ -279,14 +281,14 @@ public class DanmakuUtil {
 
             switch (planeIn) {
                 case XY:
-                    positions.add(new Vector3d(x,y,0));
+                    positions.add(new Vector3d(x, y, 0));
                     break;
                 default:
                 case XZ:
-                    positions.add(new Vector3d(x,0,y));
+                    positions.add(new Vector3d(x, 0, y));
                     break;
                 case YZ:
-                    positions.add(new Vector3d(0,y,x));
+                    positions.add(new Vector3d(0, y, x));
                     break;
             }
 
@@ -296,10 +298,11 @@ public class DanmakuUtil {
 
     /**
      * 这里的旋转角度是弧度制
+     *
      * @param prevPositions 之前的弹幕图案的坐标列表
-     * @param yaw 对每一个坐标执行的 yaw 旋转角度
-     * @param pitch 对每一个坐标执行的 pitch 旋转角度
-     * */
+     * @param yaw           对每一个坐标执行的 yaw 旋转角度
+     * @param pitch         对每一个坐标执行的 pitch 旋转角度
+     */
     public static List<Vector3d> getRotatedPos(List<Vector3d> prevPositions, float yaw, float pitch) {
         List<Vector3d> newPos = new ArrayList<>();
         for (Vector3d prevPos : prevPositions) {

@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.Mod;
 public class GSKOClientListener {
     private static int TIMER = 0;
     private final Minecraft mc = Minecraft.getInstance();
+
     @SubscribeEvent
     public void onTerrainGUIOpen(GuiOpenEvent event) {
         if (event.getGui() instanceof DownloadTerrainScreen && this.mc.player != null) {

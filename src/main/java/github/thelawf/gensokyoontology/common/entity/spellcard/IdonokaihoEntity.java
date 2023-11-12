@@ -3,8 +3,8 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,24 +14,19 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-/**恋恋的符卡：本我的解放
- *
+/**
+ * 恋恋的符卡：本我的解放
  */
 public class IdonokaihoEntity extends SpellCardEntity {
 
     protected final int lifespan = 600;
 
-    public static final EntityType<IdonokaihoEntity> IDONOKAIHO_ENTITY =
-            EntityType.Builder.<IdonokaihoEntity>create(IdonokaihoEntity::new,
-                            EntityClassification.MISC).size(1F,1F).trackingRange(4)
-                    .updateInterval(2).build("ido_no_kaiho");
-
     public IdonokaihoEntity(World worldIn, PlayerEntity player) {
-        super(IDONOKAIHO_ENTITY, worldIn, player);
+        super(EntityRegistry.IDO_NO_KAIHO_ENTITY.get(), worldIn, player);
     }
 
     public IdonokaihoEntity(EntityType<IdonokaihoEntity> entityTypeIn, World worldIn) {
-        super(IDONOKAIHO_ENTITY, worldIn);
+        super(entityTypeIn, worldIn);
     }
 
     @Override
