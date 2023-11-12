@@ -4,8 +4,8 @@ import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,22 +13,20 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ManiaDepressEntity extends SpellCardEntity{
-
-    public static final EntityType<ManiaDepressEntity> MANIA_DEPRESS =
-            EntityType.Builder.<ManiaDepressEntity>create(ManiaDepressEntity::new, EntityClassification.MISC)
-                    .size(1F,1F).trackingRange(4).updateInterval(2).build("mania_depress");
+public class ManiaDepressEntity extends SpellCardEntity {
 
     public ManiaDepressEntity(World worldIn, PlayerEntity player) {
-        super(MANIA_DEPRESS, worldIn, player);
+        super(EntityRegistry.MANIA_DEPRESS_ENTITY.get(), worldIn, player);
     }
 
     public ManiaDepressEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
-        super(MANIA_DEPRESS, worldIn);
+        super(entityTypeIn, worldIn);
     }
 
     @Override
@@ -68,6 +66,7 @@ public class ManiaDepressEntity extends SpellCardEntity{
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {

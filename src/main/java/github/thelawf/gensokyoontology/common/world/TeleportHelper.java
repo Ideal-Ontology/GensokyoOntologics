@@ -65,13 +65,15 @@ public class TeleportHelper {
 
     }
 
-    /** 获取目的地世界对应位置的方块状态，如果玩家位置是空气且玩家脚下的方块是固态方块则进行传送 */
+    /**
+     * 获取目的地世界对应位置的方块状态，如果玩家位置是空气且玩家脚下的方块是固态方块则进行传送
+     */
     public static boolean canTeleport(ServerWorld destination, BlockPos pos) {
         if (destination == null)
             return false;
 
-        BlockPos lowerPos = new BlockPos(pos.getX(), pos.getY()-1, pos.getZ());
-        BlockPos upperPos = new BlockPos(pos.getX(), pos.getY()+1, pos.getZ());
+        BlockPos lowerPos = new BlockPos(pos.getX(), pos.getY() - 1, pos.getZ());
+        BlockPos upperPos = new BlockPos(pos.getX(), pos.getY() + 1, pos.getZ());
         BlockState eyeBlock = destination.getBlockState(upperPos);
         BlockState playerBlock = destination.getBlockState(pos);
         BlockState standBlock = destination.getBlockState(lowerPos);
@@ -81,17 +83,14 @@ public class TeleportHelper {
                 destination.setBlockState(lowerPos, BlockRegistry.SAKURA_PLANKS.get().getDefaultState());
                 LogManager.getLogger().info("Position Valid");
                 return true;
-            }
-            else if (standBlock.getBlock() instanceof IFluidBlock) {
+            } else if (standBlock.getBlock() instanceof IFluidBlock) {
                 destination.setBlockState(lowerPos, BlockRegistry.SAKURA_PLANKS.get().getDefaultState());
                 LogManager.getLogger().info("Stand Position Has Fluids");
                 return true;
-            }
-            else {
+            } else {
                 return isValidPos(destination, pos);
             }
-        }
-        else {
+        } else {
             if (standBlock.getBlock().equals(Blocks.AIR)) {
                 return clearAndSetBlocks(destination, pos);
             }
@@ -132,7 +131,7 @@ public class TeleportHelper {
         return true;
     }
 
-    private static boolean isValidPos (ServerWorld destination, BlockPos pos) {
+    private static boolean isValidPos(ServerWorld destination, BlockPos pos) {
         LogManager.getLogger().info("Other Condition is: " + findValidPos(destination, pos).getFirst());
         return findValidPos(destination, pos).getFirst();
     }

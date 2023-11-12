@@ -31,13 +31,13 @@ public class FlandreScarletRenderer extends BipedRenderer<FlandreScarletEntity, 
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
-    public void onAnimate(FlandreScarletEntity entityIn, float partialTicks){
+    public void onAnimate(FlandreScarletEntity entityIn, float partialTicks) {
         switch (entityIn.getAnimation()) {
             case IDLE:
                 this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(2), MathHelper.clamp(
-                        entityIn.limbSwingAmount, 0 + partialTicks, 1F + partialTicks ), 0, 0);
+                        entityIn.limbSwingAmount, 0 + partialTicks, 1F + partialTicks), 0, 0);
                 this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(3), MathHelper.clamp(
-                        entityIn.limbSwingAmount, 0 + partialTicks, 1F + partialTicks ), 0, 0);
+                        entityIn.limbSwingAmount, 0 + partialTicks, 1F + partialTicks), 0, 0);
                 break;
             case WALKING:
                 this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(0), 0, 0, MathHelper.clamp(

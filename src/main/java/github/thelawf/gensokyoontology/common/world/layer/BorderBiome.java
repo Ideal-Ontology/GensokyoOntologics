@@ -30,6 +30,7 @@ public enum BorderBiome implements ICastleTransformer {
             this.registry = registry;
             return this;
         }
+
         @Override
         public int apply(INoiseRandom context, int north, int west, int south, int east, int center) {
             int youkaiJukai = GSKOBiomeID.getID(registry, GSKOBiomes.YOUKAI_JUKAI_KEY);

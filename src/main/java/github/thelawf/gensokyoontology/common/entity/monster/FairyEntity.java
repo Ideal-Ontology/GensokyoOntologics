@@ -5,18 +5,15 @@ import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.brain.task.WalkRandomlyTask;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
-import net.minecraft.entity.boss.dragon.EnderDragonEntity;
 import net.minecraft.entity.monster.GhastEntity;
 import net.minecraft.entity.monster.MonsterEntity;
-import net.minecraft.entity.monster.ZombieEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
@@ -27,19 +24,18 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.EnumSet;
 import java.util.Random;
 
+@OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class FairyEntity extends MonsterEntity implements IFlyingAnimal {
 
     private static final int MAX_LIVING_TICK = 3000;
-
-    public static final EntityType<FairyEntity> FAIRY = EntityType.Builder.<FairyEntity>create(
-            FairyEntity::new, EntityClassification.MONSTER).updateInterval(2)
-            .size(0.6f, 1.5f).trackingRange(10).build("fairy");
 
     public FairyEntity(EntityType<? extends MonsterEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
@@ -107,8 +103,8 @@ public class FairyEntity extends MonsterEntity implements IFlyingAnimal {
         super.setNoGravity(true);
     }
 
-    /** Copy below from Minecraft vanilla {@link GhastEntity}
-     *
+    /**
+     * Copy below from Minecraft vanilla {@link GhastEntity}
      */
     static class RandomFlyGoal extends Goal {
         private final FairyEntity parentEntity;
@@ -147,9 +143,9 @@ public class FairyEntity extends MonsterEntity implements IFlyingAnimal {
          */
         public void startExecuting() {
             Random random = this.parentEntity.getRNG();
-            double d0 = this.parentEntity.getPosX() + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            double d1 = this.parentEntity.getPosY() + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
-            double d2 = this.parentEntity.getPosZ() + (double)((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            double d0 = this.parentEntity.getPosX() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            double d1 = this.parentEntity.getPosY() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
+            double d2 = this.parentEntity.getPosZ() + (double) ((random.nextFloat() * 2.0F - 1.0F) * 16.0F);
             this.parentEntity.getMoveHelper().setMoveTo(d0, d1, d2, 0.45D);
         }
     }

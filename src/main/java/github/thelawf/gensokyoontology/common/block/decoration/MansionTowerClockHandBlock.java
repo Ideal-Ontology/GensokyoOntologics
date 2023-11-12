@@ -45,7 +45,7 @@ public class MansionTowerClockHandBlock extends Block {
         return super.getStateForPlacement(context);
     }
 
-    public void switchHandRotState(){
+    public void switchHandRotState() {
         if (CLOCK_HAND.getAllowedValues().contains(ClockHandDirection.CLOCK_12)) {
             this.setDefaultState(this.getDefaultState().with(CLOCK_HAND, ClockHandDirection.CLOCK_1));
         }

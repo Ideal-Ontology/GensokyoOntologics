@@ -10,12 +10,12 @@ import net.minecraft.world.World;
 public final class GSKODimensions {
     public static long seed;
     public static final RegistryKey<World> GENSOKYO = RegistryKey.getOrCreateKey(Registry.WORLD_KEY,
-            new ResourceLocation(GensokyoOntology.MODID,"gensokyo"));
+            new ResourceLocation(GensokyoOntology.MODID, "gensokyo"));
     public static final RegistryKey<DimensionType> GENSOKYO_TYPE = RegistryKey.getOrCreateKey(
-            Registry.DIMENSION_TYPE_KEY, new ResourceLocation(GensokyoOntology.MODID,"gensokyo"));
+            Registry.DIMENSION_TYPE_KEY, new ResourceLocation(GensokyoOntology.MODID, "gensokyo"));
 
     public static final RegistryKey<World> FORMER_HELL_WORLD = RegistryKey.getOrCreateKey(
-            Registry.WORLD_KEY,new ResourceLocation(GensokyoOntology.MODID, "former_hell"));
+            Registry.WORLD_KEY, new ResourceLocation(GensokyoOntology.MODID, "former_hell"));
     public static final RegistryKey<DimensionType> FORMER_HELL_TYPE = RegistryKey.getOrCreateKey(
             Registry.DIMENSION_TYPE_KEY, new ResourceLocation(GensokyoOntology.MODID, "former_hell"));
 }

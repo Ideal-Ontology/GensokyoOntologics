@@ -25,11 +25,13 @@ import java.util.UUID;
 
 public class LovePotionEntity extends PotionEntity implements IRendersAsItem {
     public static final EntityType<LovePotionEntity> LOVE_POTION_TYPE = EntityType.Builder.<LovePotionEntity>create(
-            LovePotionEntity::new, EntityClassification.MISC).size(0.25F, 0.25F).trackingRange(4)
+                    LovePotionEntity::new, EntityClassification.MISC).size(0.25F, 0.25F).trackingRange(4)
             .updateInterval(10).build("love_potion_entity");
+
     public LovePotionEntity(EntityType<? extends PotionEntity> type, World worldIn) {
         super(type, worldIn);
     }
+
     private static final DataParameter<Optional<UUID>> LOVE_MASTER = EntityDataManager.createKey(
             LovePotionEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
@@ -61,7 +63,7 @@ public class LovePotionEntity extends PotionEntity implements IRendersAsItem {
         AxisAlignedBB axisalignedbb = this.getBoundingBox().grow(4.0D, 2.0D, 4.0D);
         List<LivingEntity> list = this.world.getEntitiesWithinAABB(LivingEntity.class, axisalignedbb);
         if (!list.isEmpty()) {
-            for(LivingEntity livingentity : list) {
+            for (LivingEntity livingentity : list) {
                 if (livingentity.canBeHitWithPotion()) {
                     double d0 = this.getDistanceSq(livingentity);
                     if (d0 < 16.0D) {
@@ -70,12 +72,12 @@ public class LovePotionEntity extends PotionEntity implements IRendersAsItem {
                             d1 = 1.0D;
                         }
 
-                        for(EffectInstance effectinstance : listIn) {
+                        for (EffectInstance effectinstance : listIn) {
                             Effect effect = effectinstance.getPotion();
                             if (effect.isInstant()) {
                                 effect.affectEntity(this, this.getShooter(), livingentity, effectinstance.getAmplifier(), d1);
                             } else {
-                                int i = (int)(d1 * (double)effectinstance.getDuration() + 0.5D);
+                                int i = (int) (d1 * (double) effectinstance.getDuration() + 0.5D);
                                 if (i > 20) {
                                     livingentity.addPotionEffect(new EffectInstance(effect, i, effectinstance.getAmplifier(), effectinstance.isAmbient(), effectinstance.doesShowParticles()));
                                 }

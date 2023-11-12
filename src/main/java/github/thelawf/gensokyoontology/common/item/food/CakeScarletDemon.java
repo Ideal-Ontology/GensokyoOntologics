@@ -12,8 +12,9 @@ public class CakeScarletDemon extends Item {
             .saturation(8)
             .hunger(10)
             .setAlwaysEdible()
-            .effect(() -> new EffectInstance(Effects.HEALTH_BOOST,5*100,2),0.5f)
+            .effect(() -> new EffectInstance(Effects.HEALTH_BOOST, 5 * 100, 2), 0.5f)
             .build();
+
     public CakeScarletDemon() {
         super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB).food(food));
     }

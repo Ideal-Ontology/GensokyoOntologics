@@ -90,8 +90,7 @@ public class DanmakuTabelTileEntity extends TileEntity {
             public int getSlotLimit(int slot) {
                 if (slot >= 0 && slot < 25) {
                     return 1;
-                }
-                else {
+                } else {
                     return super.getSlotLimit(slot);
                 }
             }

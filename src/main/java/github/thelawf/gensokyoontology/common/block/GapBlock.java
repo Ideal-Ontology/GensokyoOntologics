@@ -42,6 +42,7 @@ public class GapBlock extends Block implements INBTWriter {
     // public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
     protected static final VoxelShape SUKIMA_PLANE_X = Block.makeCuboidShape(-4.0D, 0.0D, 4.0D, 20.0D, 16.0D, 4.0D);
     protected static final VoxelShape SUKIMA_PLANE_Z = Block.makeCuboidShape(4.0D, 0.0D, -4.0D, 4.0D, 16.0D, 20.0D);
+
     @Override
     @NotNull
     @SuppressWarnings("deprecation")
@@ -180,7 +181,7 @@ public class GapBlock extends Block implements INBTWriter {
             CompoundNBT nbt = stack.getTag();
             if (nbt.contains("first_pos")) {
                 BlockPos pos = BlockPos.fromLong(nbt.getLong("first_pos"));
-                tooltip.add(new StringTextComponent("第一处隙间设置为: "+ pos.getCoordinatesAsString()));
+                tooltip.add(new StringTextComponent("第一处隙间设置为: " + pos.getCoordinatesAsString()));
             }
             if (nbt.contains("departure_world")) {
                 tooltip.add(new TranslationTextComponent(nbt.getString("departure_world")));
@@ -193,14 +194,14 @@ public class GapBlock extends Block implements INBTWriter {
             GapTileEntity departureGap = getGapTile(departureWorld, depaturePos);
             ServerWorld destinationWorld = departureWorld.getServer().getWorld(departureGap.getDestinationWorld());
 
-            if (departureGap.getCooldown() > 1 ) return;
+            if (departureGap.getCooldown() > 1) return;
             if (destinationWorld == null) {
-                serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.destination_not_present"), true);
+                serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.", ".gap_block.teleport_fail.destination_not_present"), true);
                 return;
             }
 
             if (getGapTile(destinationWorld, departureGap.getDestinationPos()) == null) {
-                serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.arrival_gap_not_present"), true);
+                serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.", ".gap_block.teleport_fail.arrival_gap_not_present"), true);
                 return;
             }
             GapTileEntity arrivalGap = getGapTile(destinationWorld, departureGap.getDestinationPos());
@@ -208,7 +209,7 @@ public class GapBlock extends Block implements INBTWriter {
             TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
 
             if (departureGap.getDestinationPos() == BlockPos.ZERO) {
-                serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".gap_block.teleport_fail.illegal_position"), true);
+                serverPlayer.sendStatusMessage(GensokyoOntology.withTranslation("msg.", ".gap_block.teleport_fail.illegal_position"), true);
             }
         }
     }

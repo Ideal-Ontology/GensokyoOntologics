@@ -10,13 +10,15 @@ import net.minecraft.world.gen.layer.traits.ICastleTransformer;
 
 public class GSKOEdgeLayer {
 
-    public enum YoukaiJukai implements ICastleTransformer{
+    public enum YoukaiJukai implements ICastleTransformer {
         INSTANCE;
         private Registry<Biome> registry;
+
         public YoukaiJukai setup(Registry<Biome> registry) {
             this.registry = registry;
             return this;
         }
+
         @Override
         public int apply(INoiseRandom context, int north, int west, int south, int east, int center) {
             int youkai_mountain_id = GSKOBiomeID.getID(registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY);
@@ -31,6 +33,7 @@ public class GSKOEdgeLayer {
         INSTANCE;
 
         private Registry<Biome> registry;
+
         public MistyLake setup(Registry<Biome> registry) {
             this.registry = registry;
             return this;

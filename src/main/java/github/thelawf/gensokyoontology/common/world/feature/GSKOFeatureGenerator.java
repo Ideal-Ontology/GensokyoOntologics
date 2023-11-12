@@ -41,7 +41,7 @@ public class GSKOFeatureGenerator {
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(key);
 
         if (types.contains(GSKOBiomes.GSKO_FOREST_KEY)) {
-            List<Supplier<ConfiguredFeature<?,?>>> base = event.getGeneration().getFeatures(
+            List<Supplier<ConfiguredFeature<?, ?>>> base = event.getGeneration().getFeatures(
                     GenerationStage.Decoration.VEGETAL_DECORATION);
 
             base.add(() -> GSKOFeatures.SAKURA_TREE
@@ -52,11 +52,11 @@ public class GSKOFeatureGenerator {
             base.add(() -> Features.FANCY_OAK
                     .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
                     .withPlacement(Placement.COUNT_EXTRA.configure(
-                            new AtSurfaceWithExtraConfig(1,0.15f, 2))));
+                            new AtSurfaceWithExtraConfig(1, 0.15f, 2))));
         }
 
         if (event.getName().equals(GSKOBiomes.BAMBOO_FOREST_LOST_KEY.getRegistryName())) {
-            List<Supplier<ConfiguredFeature<?,?>>> base = event.getGeneration().getFeatures(
+            List<Supplier<ConfiguredFeature<?, ?>>> base = event.getGeneration().getFeatures(
                     GenerationStage.Decoration.VEGETAL_DECORATION);
 
             base.add(() -> Features.BAMBOO_VEGETATION
@@ -73,8 +73,8 @@ public class GSKOFeatureGenerator {
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biomeKey);
 
         if (types.contains(BiomeDictionary.Type.WET) || types.contains(BiomeDictionary.Type.FOREST) ||
-        types.contains(BiomeDictionary.Type.SWAMP)) {
-            List<Supplier<ConfiguredFeature<?,?>>> base = event.getGeneration().getFeatures(
+                types.contains(BiomeDictionary.Type.SWAMP)) {
+            List<Supplier<ConfiguredFeature<?, ?>>> base = event.getGeneration().getFeatures(
                     GenerationStage.Decoration.VEGETAL_DECORATION);
 
             base.add(() -> GSKOFeatures.HIGAN_LYCORIS);
@@ -89,7 +89,7 @@ public class GSKOFeatureGenerator {
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biomeKey);
 
         if (types.contains(BiomeDictionary.Type.FOREST)) {
-            List<Supplier<ConfiguredFeature<?,?>>> base = event.getGeneration().getFeatures(
+            List<Supplier<ConfiguredFeature<?, ?>>> base = event.getGeneration().getFeatures(
                     GenerationStage.Decoration.VEGETAL_DECORATION);
             base.add(() -> GSKOFeatures.WASABI);
         }
@@ -141,7 +141,7 @@ public class GSKOFeatureGenerator {
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biomeKey);
 
         if (biomeKey.getRegistryName().equals(bambooForestOfLost)) {
-            List<Supplier<ConfiguredFeature<?,?>>> features = event.getGeneration().getFeatures(
+            List<Supplier<ConfiguredFeature<?, ?>>> features = event.getGeneration().getFeatures(
                     GenerationStage.Decoration.SURFACE_STRUCTURES);
             features.add(() -> GSKOFeatures.WATERFALL);
 
@@ -159,14 +159,14 @@ public class GSKOFeatureGenerator {
         // }
     }
 
-    public static void addWaterfall (final BiomeLoadingEvent event) {
+    public static void addWaterfall(final BiomeLoadingEvent event) {
         RegistryKey<Biome> biomeKey = RegistryKey.getOrCreateKey(Registry.BIOME_KEY, event.getName());
         ResourceLocation bambooForestOfLost = new ResourceLocation(GensokyoOntology.MODID, "bamboo_forest_of_lost");
 
         Set<BiomeDictionary.Type> types = BiomeDictionary.getTypes(biomeKey);
 
         if (types.contains(BiomeDictionary.Type.MOUNTAIN)) {
-            List<Supplier<ConfiguredFeature<?,?>>> features = event.getGeneration().getFeatures(
+            List<Supplier<ConfiguredFeature<?, ?>>> features = event.getGeneration().getFeatures(
                     GenerationStage.Decoration.VEGETAL_DECORATION);
             features.add(() -> GSKOFeatures.WATERFALL);
         }

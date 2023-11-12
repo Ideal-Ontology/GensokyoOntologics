@@ -20,7 +20,7 @@ import java.util.Set;
 
 public class MagicTrunkPlacer extends AbstractTrunkPlacer {
 
-     // private final List<BlockPos> positionList;
+    // private final List<BlockPos> positionList;
     private final int trunkWidth;
     private final int minHeight;
 
@@ -61,8 +61,7 @@ public class MagicTrunkPlacer extends AbstractTrunkPlacer {
                 FeatureUtil.placeStraightBlocks(reader, random, startPos, config.trunkProvider, baseHeight);
 
                 //FeatureUtil.fillEllipse(reader,startPos, random, config.trunkProvider, this.trunkWidth - y, this.trunkWidth - y);
-            }
-            else {
+            } else {
                 generateBranch(reader, random, startPos, trunkBlocks, bounds, config);
                 FeatureUtil.placeDiagonalTrunks(reader, random, startPos, config.trunkProvider, this.trunkWidth, baseHeight);
                 // FeatureUtil.fillEllipse(reader,startPos, random, config.trunkProvider, this.trunkWidth + y - this.baseHeight / 2,

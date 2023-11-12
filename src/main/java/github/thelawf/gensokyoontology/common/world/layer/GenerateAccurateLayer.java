@@ -34,14 +34,11 @@ public enum GenerateAccurateLayer implements IAreaTransformer1 {
             if (z < -300 && z > -500 - context.random(200)) {
                 return GSKOLayerUtil.getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY);
             }
-        }
-
-        else if (x > -100 + context.random(150) && x < 400) {
+        } else if (x > -100 + context.random(150) && x < 400) {
             if (z > -150 && z < 200 - context.random(100)) {
                 return GSKOLayerUtil.getId(this.registry, GSKOBiomes.HUMAN_VILLAGE_KEY);
             }
-        }
-        else if (x > 200 && x < 500 + context.random(220)) {
+        } else if (x > 200 && x < 500 + context.random(220)) {
             if (z > 230 - context.random(50) && z < 800) {
                 return GSKOLayerUtil.getId(this.registry, GSKOBiomes.BAMBOO_FOREST_LOST_KEY);
             }

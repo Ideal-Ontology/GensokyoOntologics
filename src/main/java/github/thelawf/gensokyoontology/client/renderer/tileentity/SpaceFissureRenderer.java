@@ -18,18 +18,18 @@ import org.jetbrains.annotations.NotNull;
 
 public class SpaceFissureRenderer extends TileEntityRenderer<GapTileEntity> {
     public static final ResourceLocation SPACE_FISSURE_TEX = new ResourceLocation(
-            GensokyoOntology.MODID,"tileentity/space_fissure_block");
+            GensokyoOntology.MODID, "tileentity/space_fissure_block");
 
     public SpaceFissureRenderer(TileEntityRendererDispatcher rendererDispatcherIn) {
         super(rendererDispatcherIn);
     }
 
     private void add(IVertexBuilder builderIn, MatrixStack stack, float x, float y, float z,
-                     float u, float v){
+                     float u, float v) {
         builderIn.pos(stack.getLast().getMatrix(), x, y, z)
-                .tex(u,v)
-                .lightmap(0,240)
-                .normal(1,0,0)
+                .tex(u, v)
+                .lightmap(0, 240)
+                .normal(1, 0, 0)
                 .endVertex();
     }
 
@@ -40,15 +40,15 @@ public class SpaceFissureRenderer extends TileEntityRenderer<GapTileEntity> {
         IVertexBuilder builder = bufferIn.getBuffer(RenderType.getTranslucent());
 
         matrixStackIn.push();
-        add(builder,matrixStackIn,0, 0, 0.5f, sprite.getMinU(), sprite.getMinV());
-        add(builder,matrixStackIn,1, 0, 0.5f, sprite.getMaxU(), sprite.getMinV());
-        add(builder,matrixStackIn,1, 1, 0.5f, sprite.getMaxU(), sprite.getMaxV());
-        add(builder,matrixStackIn,0, 1, 0.5f, sprite.getMinU(), sprite.getMaxV());
+        add(builder, matrixStackIn, 0, 0, 0.5f, sprite.getMinU(), sprite.getMinV());
+        add(builder, matrixStackIn, 1, 0, 0.5f, sprite.getMaxU(), sprite.getMinV());
+        add(builder, matrixStackIn, 1, 1, 0.5f, sprite.getMaxU(), sprite.getMaxV());
+        add(builder, matrixStackIn, 0, 1, 0.5f, sprite.getMinU(), sprite.getMaxV());
 
-        add(builder,matrixStackIn,0, 1, 0.5f, sprite.getMinU(), sprite.getMaxV());
-        add(builder,matrixStackIn,1, 1, 0.5f, sprite.getMaxU(), sprite.getMaxV());
-        add(builder,matrixStackIn,1, 0, 0.5f, sprite.getMaxU(), sprite.getMinV());
-        add(builder,matrixStackIn,0, 0, 0.5f, sprite.getMinU(), sprite.getMinV());
+        add(builder, matrixStackIn, 0, 1, 0.5f, sprite.getMinU(), sprite.getMaxV());
+        add(builder, matrixStackIn, 1, 1, 0.5f, sprite.getMaxU(), sprite.getMaxV());
+        add(builder, matrixStackIn, 1, 0, 0.5f, sprite.getMaxU(), sprite.getMinV());
+        add(builder, matrixStackIn, 0, 0, 0.5f, sprite.getMinU(), sprite.getMinV());
         matrixStackIn.pop();
     }
 

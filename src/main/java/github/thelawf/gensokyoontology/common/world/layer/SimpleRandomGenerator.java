@@ -25,8 +25,7 @@ public class SimpleRandomGenerator {
         for (int i = 0; i < 256; i++) {
             if (this.random.nextBoolean()) {
                 location.add(0);
-            }
-            else {
+            } else {
                 location.add(1);
             }
             locations.add(location);
@@ -41,8 +40,7 @@ public class SimpleRandomGenerator {
         for (int i = 0; i < 256; i++) {
             if (this.random.nextBoolean()) {
                 location.add(0);
-            }
-            else {
+            } else {
                 location.add(1);
             }
             locations.add(location);
@@ -52,6 +50,7 @@ public class SimpleRandomGenerator {
     /**
      * 如果某个位置的值是1，且周围的八个位置中有四个位置的值等于0，则该位置的值变为0，
      * 如果某个位置的值是0，且周围的八个位置中有五个位置的值等于1，则该位置变为1
+     *
      * @param indexX
      * @param indexY
      * @param posIn
@@ -60,15 +59,15 @@ public class SimpleRandomGenerator {
     public boolean getNeighbors(ArrayList<ArrayList<Integer>> posIn, int indexX, int indexY) {
         ArrayList<Integer> neighbors = new ArrayList<>();
 
-        neighbors.add(posIn.get(indexX-1).get(indexY));
-        neighbors.add(posIn.get(indexX).get(indexY-1));
-        neighbors.add(posIn.get(indexX+1).get(indexY));
-        neighbors.add(posIn.get(indexX).get(indexY+1));
+        neighbors.add(posIn.get(indexX - 1).get(indexY));
+        neighbors.add(posIn.get(indexX).get(indexY - 1));
+        neighbors.add(posIn.get(indexX + 1).get(indexY));
+        neighbors.add(posIn.get(indexX).get(indexY + 1));
 
-        neighbors.add(posIn.get(indexX-1).get(indexY-1));
-        neighbors.add(posIn.get(indexX+1).get(indexY+1));
-        neighbors.add(posIn.get(indexX-1).get(indexY+1));
-        neighbors.add(posIn.get(indexX+1).get(indexY-1));
+        neighbors.add(posIn.get(indexX - 1).get(indexY - 1));
+        neighbors.add(posIn.get(indexX + 1).get(indexY + 1));
+        neighbors.add(posIn.get(indexX - 1).get(indexY + 1));
+        neighbors.add(posIn.get(indexX + 1).get(indexY - 1));
 
         int count = 0;
 
@@ -81,8 +80,7 @@ public class SimpleRandomGenerator {
             if (count == 4) {
                 posIn.get(indexX).set(indexY, 0);
             }
-        }
-        else if (posIn.get(indexX).get(indexY) == 1) {
+        } else if (posIn.get(indexX).get(indexY) == 1) {
             for (int value : neighbors) {
                 if (value == 1) {
                     count++;

@@ -14,6 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FakeLunarItem extends DanmakuItem {
     public DanmakuType type;
+
     public FakeLunarItem(DanmakuType type) {
         super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
         this.type = type;

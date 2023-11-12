@@ -3,34 +3,29 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-
-/** 八云紫的经典符卡：【境符】波与粒的境界 */
-public class WaveAndParticleEntity extends SpellCardEntity{
-
-    public static final EntityType<WaveAndParticleEntity> WAVE_AND_PARTICLE =
-            EntityType.Builder.<WaveAndParticleEntity>create(WaveAndParticleEntity::new,
-                    EntityClassification.MISC).size(1F,1F).trackingRange(4)
-            .updateInterval(2).build("wave_and_particle");
-
+/**
+ * 八云紫的经典符卡：【境符】波与粒的境界
+ */
+public class WaveAndParticleEntity extends SpellCardEntity {
     public WaveAndParticleEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
-        super(WAVE_AND_PARTICLE, worldIn);
+        super(entityTypeIn, worldIn);
     }
 
     public WaveAndParticleEntity(World worldIn, PlayerEntity player) {
-        super(WAVE_AND_PARTICLE, worldIn, player);
+        super(EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get(), worldIn, player);
     }
-
-
 
     @Override
     public void tick() {
@@ -51,6 +46,7 @@ public class WaveAndParticleEntity extends SpellCardEntity{
 
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public @NotNull ItemStack getItem() {
         return new ItemStack(ItemRegistry.SC_WAVE_AND_PARTICLE.get());

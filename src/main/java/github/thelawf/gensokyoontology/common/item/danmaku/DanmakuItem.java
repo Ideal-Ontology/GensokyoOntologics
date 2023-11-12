@@ -22,13 +22,11 @@ public class DanmakuItem extends Item {
             ItemStack stack = playerIn.getHeldItem(Hand.MAIN_HAND);
             stack.shrink(1);
             return ActionResult.resultConsume(stack);
-        }
-        else if (playerIn.getHeldItem(Hand.OFF_HAND).getItem() instanceof DanmakuItem) {
+        } else if (playerIn.getHeldItem(Hand.OFF_HAND).getItem() instanceof DanmakuItem) {
             ItemStack stack = playerIn.getHeldItem(Hand.OFF_HAND);
             stack.shrink(1);
             return ActionResult.resultConsume(stack);
-        }
-        else {
+        } else {
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
         }
     }

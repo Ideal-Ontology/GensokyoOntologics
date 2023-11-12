@@ -16,10 +16,12 @@ import java.util.Random;
 
 public class GSKOMathUtil {
 
-    private GSKOMathUtil() {}
+    private GSKOMathUtil() {
+    }
 
     /**
      * 这里的Point类是java.awt里面的类
+     *
      * @param p1 第一个点
      * @param p2 第二个点
      * @return 上述两点间的距离
@@ -30,13 +32,14 @@ public class GSKOMathUtil {
 
     /**
      * 传入四个双精度浮点数
+     *
      * @param x1 第一个点的x坐标
      * @param y1 第一个点的y坐标
      * @param x2 第二个点的x坐标
      * @param y2 第二个点的y坐标
      * @return 上述两点间的距离
      */
-    public static double distanceOf2D(double x1, double y1, double x2, double y2){
+    public static double distanceOf2D(double x1, double y1, double x2, double y2) {
         return Math.sqrt(square(x1 - x2) + square(y1 - y2));
     }
 
@@ -47,8 +50,7 @@ public class GSKOMathUtil {
     public static Vector3d getIntersectVec(Vector3d p1, Vector3d v1,
                                            Vector3d p2, Vector3d v2) {
         Vector3d intersection = Vector3d.ZERO;
-        if (v1.dotProduct(v2) == 1)
-        {
+        if (v1.dotProduct(v2) == 1) {
             // 两线平行
             return null;
         }
@@ -59,15 +61,14 @@ public class GSKOMathUtil {
         double num = startPointSeg.dotProduct(vecS1);
 
         // 判断两这直线是否共面
-        if (num >= 1E-05f || num <= -1E-05f)
-        {
+        if (num >= 1E-05f || num <= -1E-05f) {
             return null;
         }
 
         // 有向面积比值，利用点乘是因为结果可能是正数或者负数
         double num2 = vecS2.dotProduct(vecS1) / vecS1.lengthSquared();
 
-        Vector3d vector3d = new Vector3d(v1.x * num2, v1.y * num2, v1.z* num2 );
+        Vector3d vector3d = new Vector3d(v1.x * num2, v1.y * num2, v1.z * num2);
         intersection = p1.add(vector3d);
 
         return intersection;
@@ -75,14 +76,14 @@ public class GSKOMathUtil {
 
 
     public static ArrayList<Vector3d> getCirclePoints2D(Vector3d center,
-                                                           double radius, int count) {
+                                                        double radius, int count) {
 
         ArrayList<Vector3d> coordinates = new ArrayList<>();
         double radians = (Math.PI / 180) * Math.round(360d / count);
         for (int i = 0; i < count; i++) {
             double x = center.getX() + radius * Math.sin(radians * i);
             double y = center.getY() + radius * Math.cos(radians * i);
-            Vector3d coordinate = new Vector3d(x,y,0);
+            Vector3d coordinate = new Vector3d(x, y, 0);
             coordinates.add(coordinate);
         }
         return coordinates;
@@ -108,14 +109,12 @@ public class GSKOMathUtil {
             double x = (lengthX * lengthY) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
             double y = (lengthX * lengthY * Math.tan(angle)) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
             return new Vector3d(center.getX() + x, center.getY() + y, 0);
-        }
-        else if (lengthX < lengthY) {
+        } else if (lengthX < lengthY) {
             double y = (lengthX * lengthY) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
             double x = (lengthX * lengthY * Math.tan(angle)) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
             return new Vector3d(center.getX() + x, center.getY() + y, 0);
 
-        }
-        else {
+        } else {
             return getPointOnCircle(center, lengthX, toDegree(angle));
         }
     }
@@ -126,13 +125,14 @@ public class GSKOMathUtil {
 
     /**
      * 用于小于等于90度的水平转弯
+     *
      * @param start 起始点
-     * @param p 控制点
-     * @param end 终点
-     * @param time 步长
+     * @param p     控制点
+     * @param end   终点
+     * @param time  步长
      * @return 在控制点的作用下，以起止点为基准的下一个点在曲线上的位置
      */
-    public static Vector3d bezier2(Vector3d start, Vector3d end,  Vector3d p, double time) {
+    public static Vector3d bezier2(Vector3d start, Vector3d end, Vector3d p, double time) {
         if (time > 1 || time < 0)
             return null;
         Vector3d v1 = start.scale(pow2(1 - time));
@@ -168,15 +168,14 @@ public class GSKOMathUtil {
         int x = MathHelper.floor(MathHelper.lerp(progress, start.getX(), end.getX()));
         int y = MathHelper.floor(MathHelper.lerp(progress, start.getY(), end.getY()));
         int z = MathHelper.floor(MathHelper.lerp(progress, start.getZ(), end.getZ()));
-        return new BlockPos(x,y,z);
+        return new BlockPos(x, y, z);
     }
 
     /**
-     *
-     * @param start 本地坐标系的起点向量
-     * @param end 本地坐标系的终点向量
+     * @param start            本地坐标系的起点向量
+     * @param end              本地坐标系的终点向量
      * @param startRotationRad 起点向量基于自身的本地坐标系的旋转角度（弧度值）
-     * @param endRotationRad 终点向量基于自身的本地坐标系的旋转角度（弧度值）
+     * @param endRotationRad   终点向量基于自身的本地坐标系的旋转角度（弧度值）
      * @return 起点到终点的弧长
      */
     public static double getArcLengthFormTo(Vector3d start,
@@ -191,6 +190,7 @@ public class GSKOMathUtil {
 
     /**
      * 求三维向量模长的运算
+     *
      * @param x 三维向量的x坐标
      * @param y 三维向量的y坐标
      * @param z 三维向量的z坐标
@@ -206,6 +206,7 @@ public class GSKOMathUtil {
 
     /**
      * 球坐标转直角坐标，注意计算机图形学中的空间坐标与数学的空间坐标不同，x, z轴为水平轴，而y轴为竖直轴，
+     *
      * @param sc 球坐标的三维的向量，成员属性 x 为球坐标半径Radius，y 为球坐标天顶角theta，z为球坐标方位角phi
      * @return 返回空间直角坐标系的三维向量
      */
@@ -217,6 +218,7 @@ public class GSKOMathUtil {
 
     /**
      * 直角坐标转球坐标
+     *
      * @param rc 空间直角坐标系的三维向量
      * @return 返回球坐标系的三维向量
      */
@@ -231,7 +233,8 @@ public class GSKOMathUtil {
 
     /**
      * 思路是：先将一个圆的所有点的集合传进来，这个集合中存放的点是使用的平面直角坐标系，然后，将这些点转为球坐标系表示，并执行球坐标上的天顶角和方位角旋转。
-     * @param circleDots 组成一个圆周的所有点的平面直角坐标
+     *
+     * @param circleDots    组成一个圆周的所有点的平面直角坐标
      * @param thetaRotation 天顶角的旋转度数，取值为 0 ~ π
      * @return 旋转之后该圆周的每个新的点的平面直角坐标
      */
@@ -259,7 +262,6 @@ public class GSKOMathUtil {
     }
 
     /**
-     *
      * @param x 空间向量的x坐标
      * @param y 空间向量的y坐标
      * @param z 空间向量的z坐标
@@ -288,15 +290,16 @@ public class GSKOMathUtil {
      * <p>
      * 4. 联立方程①②可得：
      * <p>
-     *     x = a * y;
+     * x = a * y;
      * <p>
-     *     a^2 * y^2 + y^2 = r^2;
+     * a^2 * y^2 + y^2 = r^2;
      * <p>
-     *     y^2 * (a^2 + 1) = r^2;
+     * y^2 * (a^2 + 1) = r^2;
      * <p>
-     *   ∴ y = √(z^2 / a^2 + 1)
+     * ∴ y = √(z^2 / a^2 + 1)
+     *
      * @param hypotenuse 斜边长，即空间向量在该平面上的投影线段
-     * @param roll 斜边与y轴的夹角
+     * @param roll       斜边与y轴的夹角
      * @return 返回一个仅有可知的两边组成的平面向量坐标
      */
     public static Vector3d toRollCoordinate(double hypotenuse, double roll) {
@@ -305,12 +308,12 @@ public class GSKOMathUtil {
     }
 
     public static Vector3d toYawCoordinate(double hypotenuse, double yaw) {
-        double z = Math.sqrt(Math.pow(hypotenuse, 2) /  Math.pow(Math.tan(yaw), 2) + 1);
+        double z = Math.sqrt(Math.pow(hypotenuse, 2) / Math.pow(Math.tan(yaw), 2) + 1);
         return new Vector3d(Math.tan(yaw) * z, 0, z);
     }
 
     public static Vector3d toPitchCoordinate(double hypotenuse, double pitch) {
-        double y = Math.sqrt(Math.pow(hypotenuse, 2) /  Math.pow(Math.tan(pitch), 2) + 1);
+        double y = Math.sqrt(Math.pow(hypotenuse, 2) / Math.pow(Math.tan(pitch), 2) + 1);
         return new Vector3d(0, y, Math.tan(pitch) * y);
     }
 
@@ -321,7 +324,7 @@ public class GSKOMathUtil {
                 Math.ceil(vec.getZ()));
     }
 
-    public static Vector3d vecFloor (Vector3d vec) {
+    public static Vector3d vecFloor(Vector3d vec) {
         return new Vector3d(
                 Math.floor(vec.getX()),
                 Math.floor(vec.getY()),
@@ -360,6 +363,7 @@ public class GSKOMathUtil {
 
     /**
      * 弧度值除以Math.PI的结果为【180度的几分之几】
+     *
      * @param radIn 弧度值
      * @return 角度值
      */
@@ -369,6 +373,7 @@ public class GSKOMathUtil {
 
     /**
      * Math.PI 除以180度的结果为【每一角度等于多少弧度】
+     *
      * @param degIn 角度值
      * @return 弧度值
      */
@@ -384,7 +389,7 @@ public class GSKOMathUtil {
         return cube(base);
     }
 
-    public static double square(double base){
+    public static double square(double base) {
         return base * base;
     }
 
@@ -395,7 +400,7 @@ public class GSKOMathUtil {
     /**
      * 快速傅里叶变换算法
      */
-    public static List<Complex> fft (List<Complex> complexes) {
+    public static List<Complex> fft(List<Complex> complexes) {
         int n = complexes.size();
 
         List<Complex> list = new ArrayList<>();
@@ -406,11 +411,13 @@ public class GSKOMathUtil {
         return list;
     }
 
-    /** Generate this code field by ChatGPT
+    /**
+     * Generate this code field by ChatGPT
+     *
      * @param world 世界
      * @param block 将要被放置的方块
      * @param start 起始点
-     * @param end 终点
+     * @param end   终点
      */
     public static void generateBlockOnBezierCurve(World world, Block block, BlockPos start, BlockPos end) {
         // 获取起点和终点之间的距离

@@ -20,6 +20,7 @@ import net.minecraftforge.client.model.obj.OBJModel;
 
 public class KoishiHatLayerRenderer extends LayerRenderer<PlayerEntity, PlayerModel<PlayerEntity>> {
     private final ItemRenderer itemRenderer;
+
     public KoishiHatLayerRenderer(IEntityRenderer entityRendererIn, ItemRenderer itemRenderer) {
         super(entityRendererIn);
         this.itemRenderer = itemRenderer;

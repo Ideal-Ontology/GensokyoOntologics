@@ -27,7 +27,7 @@ public class SpellData extends ForgeRegistryEntry<SpellData> {
 
     public SpellData(@Nullable HashMap<Integer, TransformFunction> keyTransforms, DanmakuType danmakuType,
                      DanmakuColor danmakuColor, boolean canHurtPlayer, boolean hasTeamHurt) {
-       this.keyTransforms = keyTransforms;
+        this.keyTransforms = keyTransforms;
         this.danmakuType = danmakuType;
         this.danmakuColor = danmakuColor;
         this.canHurtPlayer = canHurtPlayer;

@@ -31,11 +31,11 @@ public class GSKOGUIUtil {
     public static List<List<Integer>> makeDanmakuRecipes() {
         List<List<Integer>> recipeIndexes = new ArrayList<>();
         // 大型星弹的槽位
-        recipeIndexes.add(createRecipeIndexes(2,7,10,11,12,13,14,16,18,20,24));
+        recipeIndexes.add(createRecipeIndexes(2, 7, 10, 11, 12, 13, 14, 16, 18, 20, 24));
         // 心弹的槽位
-        recipeIndexes.add(createRecipeIndexes(1,3,5,7,9,10,14,16,18,22));
+        recipeIndexes.add(createRecipeIndexes(1, 3, 5, 7, 9, 10, 14, 16, 18, 22));
         // 大弹的槽位
-        recipeIndexes.add(createRecipeIndexes(0,1,2,3,4,5,9,10,14,15,19,20,24));
+        recipeIndexes.add(createRecipeIndexes(0, 1, 2, 3, 4, 5, 9, 10, 14, 15, 19, 20, 24));
 
         return recipeIndexes;
     }

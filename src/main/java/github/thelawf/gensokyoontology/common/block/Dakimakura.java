@@ -23,6 +23,7 @@ public class Dakimakura extends Block {
     public static final BooleanProperty FRONT = BooleanProperty.create("front");
     public static final BooleanProperty BACK = BooleanProperty.create("back");
     public static final DirectionProperty FACING = BlockStateProperties.FACING;
+
     public Dakimakura() {
         super(Properties.create(Material.WOOL).hardnessAndResistance(1.f).notSolid());
     }
@@ -35,8 +36,7 @@ public class Dakimakura extends Block {
             state.cycleValue(FRONT);
             worldIn.setBlockState(pos, state);
             return ActionResultType.func_233537_a_(worldIn.isRemote);
-        }
-        else if (worldIn.isRemote && handIn == Hand.MAIN_HAND && state.get(FRONT)) {
+        } else if (worldIn.isRemote && handIn == Hand.MAIN_HAND && state.get(FRONT)) {
             state.cycleValue(BACK);
             worldIn.setBlockState(pos, state);
             return ActionResultType.func_233537_a_(worldIn.isRemote);

@@ -19,7 +19,7 @@ public class InWorldRenderEvent {
     }
 
     public static void renderScarletSky(RenderWorldLastEvent event) {
-       // ScarletSkyRenderer renderer = new ScarletSkyRenderer();
-       // renderer.render(event.getContext().tick(), event.getPartialTicks(), event.getMatrixStack(), );
+        // ScarletSkyRenderer renderer = new ScarletSkyRenderer();
+        // renderer.render(event.getContext().tick(), event.getPartialTicks(), event.getMatrixStack(), );
     }
 }

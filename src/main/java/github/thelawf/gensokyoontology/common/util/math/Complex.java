@@ -5,8 +5,8 @@ public class Complex {
     public final double real;
     public final double imaginary;
 
-    public static final Complex ZERO = new Complex(0,0);
-    public static final Complex UNIT_COMPLEX = new Complex(1,1);
+    public static final Complex ZERO = new Complex(0, 0);
+    public static final Complex UNIT_COMPLEX = new Complex(1, 1);
 
     public Complex(double real, double imaginary) {
         this.real = real;

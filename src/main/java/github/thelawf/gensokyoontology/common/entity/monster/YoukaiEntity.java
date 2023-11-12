@@ -12,9 +12,13 @@ import org.jetbrains.annotations.NotNull;
 
 public abstract class YoukaiEntity extends RetreatableEntity {
 
-    /** 是否被退治 */
+    /**
+     * 是否被退治
+     */
     protected boolean isRetreated = false;
-    /** 好感度 */
+    /**
+     * 好感度
+     */
     protected int favorability = 0;
     public static final DataParameter<Boolean> DATA_RETREATED = EntityDataManager.createKey(
             YoukaiEntity.class, DataSerializers.BOOLEAN);
@@ -55,7 +59,7 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         this.dataManager.set(DATA_RETREATED, isRetreated);
     }
 
-    public boolean isRetreated () {
+    public boolean isRetreated() {
         return this.dataManager.get(DATA_RETREATED);
     }
 

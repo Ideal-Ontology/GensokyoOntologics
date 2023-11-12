@@ -99,7 +99,7 @@ public class WaterfallFeature extends Feature<LiquidsConfig> {
 
     private void placeBlocks(ISeedReader reader, int size, BlockPos pos, BlockState state, Set<Block> blocks) {
         for (int i = 0; i < size; i++) {
-            placeWaterIfValid(reader, i, pos,state, blocks);
+            placeWaterIfValid(reader, i, pos, state, blocks);
         }
     }
 

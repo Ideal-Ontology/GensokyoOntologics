@@ -31,7 +31,7 @@ public class BezierUtil {
     public static List<Vector3d> getBezierPos(Vector3d start, Vector3d end, Vector3d p, float time) {
         List<Vector3d> bezierPositions = new ArrayList<>();
         for (int i = 0; i < 1; i += time) {
-            bezierPositions.add(GSKOMathUtil.bezier2(start, end, p , time));
+            bezierPositions.add(GSKOMathUtil.bezier2(start, end, p, time));
         }
         return bezierPositions;
     }

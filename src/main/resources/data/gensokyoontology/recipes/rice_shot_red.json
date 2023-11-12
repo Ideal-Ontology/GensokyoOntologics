@@ -2,7 +2,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "tag": "gensokyoontology:danmaku/rice_shot"
+      "tag": "gensokyoontology:danmaku/rice_shots"
     },
     {
       "item": "minecraft:red_dye"

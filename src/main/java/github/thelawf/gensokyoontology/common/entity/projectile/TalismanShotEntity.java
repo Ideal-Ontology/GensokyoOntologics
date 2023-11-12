@@ -3,34 +3,33 @@ package github.thelawf.gensokyoontology.common.entity.projectile;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class TalismanShotEntity extends AbstractDanmakuEntity {
 
-    public static final EntityType<TalismanShotEntity> TALISMAN_SHOT =
-            EntityType.Builder.<TalismanShotEntity>create(TalismanShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F,0.5F).trackingRange(4).updateInterval(2).build("talisman_shot");
-
-    protected TalismanShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
-        super(TALISMAN_SHOT, worldIn);
+    public TalismanShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
+        super(type, worldIn);
     }
 
     public TalismanShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
-        super(TALISMAN_SHOT, throwerIn, world, spellData);
+        super(EntityRegistry.TALISMAN_SHOT_ENTITY.get(), throwerIn, world, spellData);
     }
 
     public TalismanShotEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
-        super(TALISMAN_SHOT, throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
+        super(EntityRegistry.TALISMAN_SHOT_ENTITY.get(), throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     @NotNull
     public ItemStack getItem() {
@@ -58,8 +57,7 @@ public class TalismanShotEntity extends AbstractDanmakuEntity {
 
         if (item == null) {
             return ItemStack.EMPTY;
-        }
-        else {
+        } else {
             return new ItemStack(item);
         }
     }

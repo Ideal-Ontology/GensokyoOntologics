@@ -15,7 +15,7 @@ import java.util.List;
 public class GSKORegistryEvent {
 
     @SubscribeEvent
-    public static void onRegister (RegistryEvent.Register<FoliagePlacerType<?>> event) {
+    public static void onRegister(RegistryEvent.Register<FoliagePlacerType<?>> event) {
         // List<FoliagePlacerType<?>> types = new ArrayList<>();
         // types.add(PlacerRegistry.OVAL_FOLIAGE_PLACER.get());
         // event.getRegistry().registerAll(types.toArray(new FoliagePlacerType<?>[0]));

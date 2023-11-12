@@ -37,6 +37,7 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
     public SorceryExtractorTileEntity() {
         super(TileEntityTypeRegistry.SORCERY_EXTRACTOR_TILE_ENTITY.get());
     }
+
     public static INamedContainerProvider createContainer(World worldIn, BlockPos posIn) {
         return new INamedContainerProvider() {
             @Override
@@ -76,8 +77,7 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
             public int getSlotLimit(int slot) {
                 if (slot >= 0 && slot < 25) {
                     return 1;
-                }
-                else {
+                } else {
                     return super.getSlotLimit(slot);
                 }
             }

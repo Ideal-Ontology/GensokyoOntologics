@@ -113,8 +113,7 @@ public class NamespaceDomain extends DomainFieldEntity {
             public int getSlotLimit(int slot) {
                 if (slot >= 0 && slot < 25) {
                     return 1;
-                }
-                else {
+                } else {
                     return super.getSlotLimit(slot);
                 }
             }
@@ -137,7 +136,7 @@ public class NamespaceDomain extends DomainFieldEntity {
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return optionalHandler.cast();
         }
-        
+
         return super.getCapability(cap);
     }
 }

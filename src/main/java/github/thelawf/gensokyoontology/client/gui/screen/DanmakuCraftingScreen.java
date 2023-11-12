@@ -40,6 +40,6 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
 
         int left = this.guiLeft;
         int top = this.guiTop;
-        this.blit(matrixStack, left, top, 0,0, 256, 256);
+        this.blit(matrixStack, left, top, 0, 0, 256, 256);
     }
 }

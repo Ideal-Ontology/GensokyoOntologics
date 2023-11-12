@@ -17,6 +17,7 @@ public class SorceryExtractorScreen extends ContainerScreen<SorceryExtractorCont
     public static final ResourceLocation SORCERY_GUI_TEXTURE = new ResourceLocation(
             GensokyoOntology.MODID, "textures/gui/sorcery_extractor.png"
     );
+
     public SorceryExtractorScreen(SorceryExtractorContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
         this.xSize = 217;
@@ -41,6 +42,6 @@ public class SorceryExtractorScreen extends ContainerScreen<SorceryExtractorCont
 
         int left = this.guiLeft;
         int top = this.guiTop;
-        this.blit(matrixStack, left, top, 0,0, 256, 256);
+        this.blit(matrixStack, left, top, 0, 0, 256, 256);
     }
 }

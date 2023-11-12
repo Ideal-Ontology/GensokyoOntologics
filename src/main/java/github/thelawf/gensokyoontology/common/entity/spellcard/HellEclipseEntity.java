@@ -6,10 +6,8 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementProgress;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,24 +15,23 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.HashMap;
 
-public class HellEclipseEntity extends SpellCardEntity{
+public class HellEclipseEntity extends SpellCardEntity {
 
     FakeLunarEntity fakeLunar;
-    public static final EntityType<HellEclipseEntity> HELL_ECLIPSE_ENTITY =
-            EntityType.Builder.<HellEclipseEntity>create(HellEclipseEntity::new, EntityClassification.MISC)
-                    .size(1F,1F).trackingRange(4).updateInterval(2).build("circle_cross");
 
     public HellEclipseEntity(World worldIn, PlayerEntity player) {
-        super(HELL_ECLIPSE_ENTITY, worldIn, player);
+        super(EntityRegistry.HELL_ECLIPSE_ENTITY.get(), worldIn, player);
         this.setOwner(player.getEntity());
     }
 
-    public HellEclipseEntity(EntityType<?> entityTypeIn, World world) {
-        super(HELL_ECLIPSE_ENTITY, world);
-        fakeLunar = new FakeLunarEntity(FakeLunarEntity.FAKE_LUNAR, world);
+    public HellEclipseEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World world) {
+        super(entityTypeIn, world);
+        fakeLunar = new FakeLunarEntity(EntityRegistry.FAKE_LUNAR_ENTITY.get(), world);
         world.addEntity(fakeLunar);
         HashMap<Integer, TransformFunction> map = new HashMap<>();
         fakeLunar.setSpellData(new SpellData(map, DanmakuType.FAKE_LUNAR, DanmakuColor.PINK, false, false));
@@ -54,10 +51,10 @@ public class HellEclipseEntity extends SpellCardEntity{
         HashMap<Integer, TransformFunction> map = new HashMap<>();
         SpellData spellData = new SpellData(map, DanmakuType.LARGE_SHOT, DanmakuColor.PINK, false, false);
 
-        Vector3d local = center.add(4,0,0).rotateYaw((float) (Math.PI / 60 * ticksExisted));
+        Vector3d local = center.add(4, 0, 0).rotateYaw((float) (Math.PI / 60 * ticksExisted));
         Vector3d global = local.add(this.getPositionVec());
 
-        Vector3d lunarLocal = center.add(4,0,0).rotateYaw((float) -(Math.PI / 60 * ticksExisted));
+        Vector3d lunarLocal = center.add(4, 0, 0).rotateYaw((float) -(Math.PI / 60 * ticksExisted));
         Vector3d lunarGlobal = lunarLocal.add(this.getPositionVec());
 
         for (int i = 0; i < 8; i++) {
@@ -76,6 +73,7 @@ public class HellEclipseEntity extends SpellCardEntity{
 
     }
 
+    @OnlyIn(Dist.CLIENT)
     @Override
     public ItemStack getItem() {
         return new ItemStack(ItemRegistry.SPELL_CARD_BLANK.get());

@@ -43,8 +43,8 @@ public class GensokyoLoadingScreen extends Screen {
 
         matrixStack.push();
         matrixStack.translate(i, j, 0);
-        this.font.drawStringWithShadow(matrixStack, text, 0,0,0xEEEEEE);
-        matrixStack.rotate(new Quaternion(0.1f,0.1f,0.1f,0.1f));
+        this.font.drawStringWithShadow(matrixStack, text, 0, 0, 0xEEEEEE);
+        matrixStack.rotate(new Quaternion(0.1f, 0.1f, 0.1f, 0.1f));
         matrixStack.pop();
         RenderSystem.color4f(1f, 1f, 1f, 1f);
     }

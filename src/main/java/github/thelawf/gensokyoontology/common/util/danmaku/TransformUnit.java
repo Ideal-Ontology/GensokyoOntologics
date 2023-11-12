@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.common.util.danmaku;
 import net.minecraft.util.math.vector.Vector3d;
 
 public class TransformUnit {
-    private final float yaw,roll,pitch;
+    private final float yaw, roll, pitch;
     private final float scaling;
     private final Vector3d acceleration, subtraction;
 

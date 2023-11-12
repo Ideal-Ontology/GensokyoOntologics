@@ -11,9 +11,10 @@ public class KoishiHatMousse extends Item {
     private static final Food food = (new Food.Builder())
             .saturation(12)
             .hunger(10)
-            .effect(() -> new EffectInstance(Effects.INVISIBILITY, 5*150),0.8f)
+            .effect(() -> new EffectInstance(Effects.INVISIBILITY, 5 * 150), 0.8f)
             .setAlwaysEdible()
             .build();
+
     public KoishiHatMousse() {
         super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB).food(food));
     }

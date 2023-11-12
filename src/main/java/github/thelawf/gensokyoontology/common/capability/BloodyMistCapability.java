@@ -16,6 +16,7 @@ public class BloodyMistCapability implements IIncidentCapability {
         this.biomeRegistryNames = biomes;
         this.isTriggered = isTriggered;
     }
+
     public List<String> getBiomeRegistryNames() {
         return this.biomeRegistryNames;
     }

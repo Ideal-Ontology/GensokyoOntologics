@@ -6,7 +6,7 @@ import net.minecraft.util.math.BlockPos;
 
 import java.util.function.Predicate;
 
-public interface INBTWriter extends INBTReader{
+public interface INBTWriter extends INBTReader {
     default void writeBoolean(ItemStack stack, String key, Boolean value) {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putBoolean(key, value);
@@ -29,7 +29,7 @@ public interface INBTWriter extends INBTReader{
     default void mergeBoolean(ItemStack stack, String key, Boolean value) {
         CompoundNBT nbt = getOrCreateTag(stack);
         CompoundNBT newNBT = new CompoundNBT();
-        newNBT.putBoolean(key,value);
+        newNBT.putBoolean(key, value);
         nbt.merge(newNBT);
         stack.setTag(nbt);
     }
@@ -83,7 +83,7 @@ public interface INBTWriter extends INBTReader{
 
     default void writeBlockPosIf(Predicate<ItemStack> predicate, ItemStack stack, String key, BlockPos pos) {
         CompoundNBT nbt = new CompoundNBT();
-        if (predicate.test(stack)){
+        if (predicate.test(stack)) {
             nbt.putLong(key, pos.toLong());
             stack.setTag(nbt);
         }
@@ -107,7 +107,7 @@ public interface INBTWriter extends INBTReader{
 
     default void mergeBlockPosIf(Predicate<ItemStack> predicate, ItemStack stack, String key, BlockPos pos) {
         CompoundNBT nbt = new CompoundNBT();
-        if (predicate.test(stack)){
+        if (predicate.test(stack)) {
             nbt.putLong(key, pos.toLong());
             stack.setTag(nbt);
         }

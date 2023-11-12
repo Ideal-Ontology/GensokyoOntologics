@@ -20,7 +20,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-/** 跃迁「超时空隧道折跃」 */
+/**
+ * 跃迁「超时空隧道折跃」
+ */
 public class TunnelingWarpEntity extends SpellCardEntity {
     public TunnelingWarpEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
         super(entityTypeIn, worldIn, player);

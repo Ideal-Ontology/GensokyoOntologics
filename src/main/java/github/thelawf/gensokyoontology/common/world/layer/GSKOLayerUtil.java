@@ -33,7 +33,8 @@ public class GSKOLayerUtil extends Layer {
     }
 
 
-    /** 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格 <br>
+    /**
+     * 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格 <br>
      * Biome 数字id 的位置：{@link BiomeRegistry} <br>
      * 原版生物群系Layer 的生成逻辑的位置： {@link LayerUtil#setupOverworldLayer(boolean, int, int, LongFunction)}
      */
@@ -69,8 +70,8 @@ public class GSKOLayerUtil extends Layer {
     public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> repeat(long seed, IAreaTransformer1 parent, IAreaFactory<T> p_202829_3_, int count, LongFunction<C> contextFactory) {
         IAreaFactory<T> iareafactory = p_202829_3_;
 
-        for(int i = 0; i < count; ++i) {
-            iareafactory = parent.apply(contextFactory.apply(seed + (long)i), iareafactory);
+        for (int i = 0; i < count; ++i) {
+            iareafactory = parent.apply(contextFactory.apply(seed + (long) i), iareafactory);
         }
 
         return iareafactory;

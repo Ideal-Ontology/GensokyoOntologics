@@ -20,7 +20,8 @@ public class YukairiModel extends EntityModel<YukariEntity> {
     private final ModelRenderer wingLeft;
     private final ModelRenderer wingRight;
     private final ModelRenderer legLeft;
-    private final ModelRenderer legRight;;
+    private final ModelRenderer legRight;
+    ;
 
     public YukairiModel() {
         textureWidth = 64;

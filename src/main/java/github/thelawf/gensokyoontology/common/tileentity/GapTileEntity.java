@@ -119,6 +119,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     public int getCooldown() {
         return this.cooldown;
     }
+
     public void setAllowTeleport(boolean isAllowTeleport) {
         this.allowTeleport = isAllowTeleport;
     }
@@ -128,8 +129,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
         if (this.world != null && !this.world.isRemote) {
             if (this.cooldown > 0) {
                 this.cooldown--;
-            }
-            else {
+            } else {
                 this.cooldown++;
             }
         }

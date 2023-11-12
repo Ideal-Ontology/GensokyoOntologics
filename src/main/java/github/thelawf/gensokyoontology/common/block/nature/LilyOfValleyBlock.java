@@ -22,7 +22,7 @@ public class LilyOfValleyBlock extends FlowerBlock {
         super.onEntityCollision(state, worldIn, pos, entityIn);
         if (!worldIn.isRemote && entityIn instanceof LivingEntity) {
             LivingEntity living = (LivingEntity) entityIn;
-            living.addPotionEffect(new EffectInstance(Effects.POISON, 2*50));
+            living.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 50));
         }
     }
 }

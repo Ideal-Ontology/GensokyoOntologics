@@ -38,9 +38,10 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
 
     /**
      * 当玩家手持魔理沙的八卦炉右键单击时在玩家视角看向位置20格的距离开始，每增加一格就引发1次爆炸，共引爆100次
-     * @param worldIn 引发爆炸的服务端世界
+     *
+     * @param worldIn  引发爆炸的服务端世界
      * @param playerIn 玩家
-     * @param handIn 玩家持有该物品的手
+     * @param handIn   玩家持有该物品的手
      * @return 物品的操作结果
      */
     @Override
@@ -66,9 +67,8 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
             if (stack.getItem().equals(ItemRegistry.BOMB_ITEM.get())) {
                 hasBomb = true;
                 bomb = stack;
-            }
-            else if (stack.getItem().equals(Items.FIRE_CHARGE) &&
-            stack.getCount() >= 32) {
+            } else if (stack.getItem().equals(Items.FIRE_CHARGE) &&
+                    stack.getCount() >= 32) {
                 has32FireCharge = true;
                 fireCharge = stack;
             }
@@ -117,14 +117,13 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
             // damageItem(playerIn.getHeldItemMainhand(), 1, playerIn, player -> player.getHeldItemMainhand().shrink(1));
             int cooldownTicks = 1800;
             if (handIn == Hand.MAIN_HAND) {
-                if (playerIn.isCreative()){
+                if (playerIn.isCreative()) {
                     return super.onItemRightClick(worldIn, playerIn, Hand.MAIN_HAND);
                 }
                 playerIn.getCooldownTracker().setCooldown(this, cooldownTicks);
                 return ActionResult.resultSuccess(playerIn.getHeldItem(Hand.MAIN_HAND));
-            }
-            else {
-                if (playerIn.isCreative()){
+            } else {
+                if (playerIn.isCreative()) {
                     return super.onItemRightClick(worldIn, playerIn, Hand.MAIN_HAND);
                 }
                 playerIn.getCooldownTracker().setCooldown(this, cooldownTicks);

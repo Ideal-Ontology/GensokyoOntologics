@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -21,8 +22,8 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-/** 一次性刷怪笼
- *
+/**
+ * 一次性刷怪笼
  */
 public class DisposableSpawnerTile extends TileEntity implements ITickableTileEntity, IRayTraceReader {
 
@@ -32,7 +33,7 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
     public DisposableSpawnerTile() {
         super(TileEntityTypeRegistry.DISPOSABLE_SPAWNER_TILE_ENTITY.get());
         this.canContinueSpawn = true;
-        this.entityType = FlandreScarletEntity.FLANDRE_SCARLET;
+        this.entityType = EntityRegistry.FLANDRE_SCARLET.get();
     }
 
     @Override
@@ -50,11 +51,11 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
         }
     }
 
-    private void spawn(Predicate<DisposableSpawnerTile> predicate, PlayerEntity triggeredPlayer){
+    private void spawn(Predicate<DisposableSpawnerTile> predicate, PlayerEntity triggeredPlayer) {
         if (this.getSpawnEntity() != null && !triggeredPlayer.isCreative() && this.world instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) this.world;
             CompoundNBT compound = this.write(new CompoundNBT());
-            BlockPos.Mutable blockPos = this.pos.toMutable().move(GSKOMathUtil.randomRange(-3,3), 1, GSKOMathUtil.randomRange(-3,3));
+            BlockPos.Mutable blockPos = this.pos.toMutable().move(GSKOMathUtil.randomRange(-3, 3), 1, GSKOMathUtil.randomRange(-3, 3));
             Optional<EntityType<?>> optionalEntity = EntityType.readEntityType(compound);
             optionalEntity.ifPresent(type -> type.spawn(serverWorld, null, null, blockPos.toImmutable(), SpawnReason.SPAWNER, false, false));
 

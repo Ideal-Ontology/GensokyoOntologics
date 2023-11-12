@@ -6,6 +6,7 @@ import net.minecraft.world.gen.layer.traits.IAreaTransformer1;
 
 public enum AddHakureiPrecincts implements IAreaTransformer1 {
     INSTANCE;
+
     @Override
     public int apply(IExtendedNoiseRandom<?> context, IArea area, int x, int z) {
         return 0;

@@ -10,7 +10,7 @@ public interface IEffectHandler {
         return playerName;
     }
 
-    default String getEntityId(String entityId){
+    default String getEntityId(String entityId) {
         return entityId;
     }
 }

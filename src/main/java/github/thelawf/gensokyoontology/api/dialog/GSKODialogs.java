@@ -5,7 +5,9 @@ package github.thelawf.gensokyoontology.api.dialog;
  */
 public class GSKODialogs {
 
-    /** 这里注册了一个与恋恋交流的对话树，传入DialogTreeNode的参数为本地化键名 */
+    /**
+     * 这里注册了一个与恋恋交流的对话树，传入DialogTreeNode的参数为本地化键名
+     */
     public static final DialogTreeNode DIALOG_WITH_KOISHI = new DialogTreeNode("koishi")
             .addDialog(new DialogTreeNode("koishi.1")
                     .addDialog(new DialogTreeNode("koishi.1.1"))

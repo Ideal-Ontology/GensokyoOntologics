@@ -20,7 +20,7 @@ public class SpaceFissureParticleType extends ParticleType<SpaceFissureParticleD
     @Override
     @Nonnull
     public Codec<SpaceFissureParticleData> func_230522_e_() {
-        return Codec.unit(new SpaceFissureParticleData(new Vector3d(0,0,0),
-                new Color(0),0));
+        return Codec.unit(new SpaceFissureParticleData(new Vector3d(0, 0, 0),
+                new Color(0), 0));
     }
 }

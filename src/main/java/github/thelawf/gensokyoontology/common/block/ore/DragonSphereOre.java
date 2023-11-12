@@ -16,13 +16,13 @@ import java.util.Random;
 public class DragonSphereOre extends OreBlock {
     public DragonSphereOre() {
         super(Properties.from(Blocks.DIAMOND_ORE).setRequiresTool()
-                .hardnessAndResistance(3.0f,3.0f)
+                .hardnessAndResistance(3.0f, 3.0f)
                 .sound(SoundType.STONE));
     }
 
     @Override
     protected int getExperience(@NotNull Random rand) {
-        return MathHelper.nextInt(rand, 5,9);
+        return MathHelper.nextInt(rand, 5, 9);
     }
 
     @Override

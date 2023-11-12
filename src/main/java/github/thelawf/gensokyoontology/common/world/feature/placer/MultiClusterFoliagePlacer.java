@@ -27,7 +27,7 @@ public class MultiClusterFoliagePlacer extends FoliagePlacer {
 
     public static final Codec<MultiClusterFoliagePlacer> CODEC = RecordCodecBuilder.create(
             instance -> instance.group(
-                    FeatureSpread.createCodec(0,5,5).fieldOf("offset").forGetter(o -> o.offset),
+                    FeatureSpread.createCodec(0, 5, 5).fieldOf("offset").forGetter(o -> o.offset),
                     Codec.INT.fieldOf("count").forGetter(o -> o.count),
                     Codec.INT.fieldOf("offsetX").forGetter(o -> o.offsetX),
                     Codec.INT.fieldOf("offsetY").forGetter(o -> o.offsetY),
@@ -51,16 +51,15 @@ public class MultiClusterFoliagePlacer extends FoliagePlacer {
     }
 
     /**
-     *
-     * @param reader 树叶生成的世界
+     * @param reader             树叶生成的世界
      * @param random
-     * @param config 树木生成配置
-     * @param trunkHeight 树干的高度
+     * @param config             树木生成配置
+     * @param trunkHeight        树干的高度
      * @param foliage
      * @param foliageHeight
-     * @param radius 树叶的半径
-     * @param foliageSet 所有树叶的集合
-     * @param offset 偏移值
+     * @param radius             树叶的半径
+     * @param foliageSet         所有树叶的集合
+     * @param offset             偏移值
      * @param mutableBoundingBox
      */
     @Override

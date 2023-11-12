@@ -34,12 +34,12 @@ public class GSKOEntityGenerator {
     public static void addEntityToBiomes(final BiomeLoadingEvent event, EntityType<?> type,
                                          int weight, int minCount, int maxCount, RegistryKey<Biome>... biomes) {
         boolean isSelected = Arrays.stream(biomes).map(RegistryKey::getLocation).map(Objects::toString)
-                 .anyMatch(obj -> obj.equals(event.getName().toString()));
+                .anyMatch(obj -> obj.equals(event.getName().toString()));
 
         if (isSelected) addEntityGeneration(event, type, weight, minCount, maxCount);
     }
 
-    public static void addEntityGeneration(final BiomeLoadingEvent event,EntityType<?> type,
+    public static void addEntityGeneration(final BiomeLoadingEvent event, EntityType<?> type,
                                            int weight, int minCount, int maxCount) {
         List<MobSpawnInfo.Spawners> spawners = event.getSpawns().getSpawner(
                 type.getClassification());
@@ -57,7 +57,7 @@ public class GSKOEntityGenerator {
                 if (biomeRegistryName.equals(GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY.getRegistryName()) &&
                         serverWorld.getEntities().noneMatch(entity -> entity.getType() == EntityRegistry.LILY_WHITE_ENTITY.get())) {
 
-                    EntityType<LilyWhiteEntity> entityType = LilyWhiteEntity.LILY_WHITE;
+                    EntityType<LilyWhiteEntity> entityType = EntityRegistry.LILY_WHITE_ENTITY.get();
                     entityType.spawn(serverWorld, null, null, event.getPos(), SpawnReason.EVENT, false, false);
                     // LilyWhiteEntity lilyWhite = new LilyWhiteEntity(LilyWhiteEntity.LILY_WHITE, (World) event.getWorld());
                     // lilyWhite.setPosition(event.getPos().getX(), event.getPos().getY(), event.getPos().getZ());

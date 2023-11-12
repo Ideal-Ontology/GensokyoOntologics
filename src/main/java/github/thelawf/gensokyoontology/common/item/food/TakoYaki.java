@@ -11,6 +11,7 @@ public class TakoYaki extends Item {
             .hunger(5)
             .setAlwaysEdible()
             .build();
+
     public TakoYaki() {
         super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB).food(food));
     }

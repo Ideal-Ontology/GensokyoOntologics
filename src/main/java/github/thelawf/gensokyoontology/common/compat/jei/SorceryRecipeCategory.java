@@ -26,6 +26,7 @@ public class SorceryRecipeCategory implements IRecipeCategory<SorceryRecipe> {
         this.background = helper.createDrawable(TEXTURE, 0, 0, 217, 211);
         this.icon = helper.createDrawableIngredient(new ItemStack(BlockRegistry.SORCERY_EXTRACTOR.get()));
     }
+
     @Override
     @NotNull
     public ResourceLocation getUid() {

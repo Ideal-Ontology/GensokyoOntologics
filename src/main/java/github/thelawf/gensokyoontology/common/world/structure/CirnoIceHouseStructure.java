@@ -70,18 +70,20 @@ public class CirnoIceHouseStructure extends Structure<NoFeatureConfig> {
         return true;
     }
 
-    /** isFeaturedChunk()
+    /**
+     * isFeaturedChunk()
      * <br>
      * 用于判断传入的区块是否是可以生成特征的区块
+     *
      * @param chunkGenerator 区块生成器
-     * @param provider 生物群系提供器
-     * @param seed 地图种子
-     * @param chunkRandom 随机种子
-     * @param chunkX 区块坐标X
-     * @param chunkZ 区块坐标Z
-     * @param biome 生物群系
-     * @param chunkPos 区块坐标
-     * @param config 特征设置
+     * @param provider       生物群系提供器
+     * @param seed           地图种子
+     * @param chunkRandom    随机种子
+     * @param chunkX         区块坐标X
+     * @param chunkZ         区块坐标Z
+     * @param biome          生物群系
+     * @param chunkPos       区块坐标
+     * @param config         特征设置
      * @return 可以生成建筑就返回true
      */
     @Override
@@ -106,16 +108,18 @@ public class CirnoIceHouseStructure extends Structure<NoFeatureConfig> {
             super(structureIn, chunkX, chunkZ, mutableBoundingBox, referenceIn, seedIn);
         }
 
-        /** generatePieces()
+        /**
+         * generatePieces()
          * <br>
          * 生成建筑的每一个部分，应该是从模板池中取出对应的建筑部分
-         * @param dynamicRegistry 注册
-         * @param chunkGenerator 区块生成器
+         *
+         * @param dynamicRegistry   注册
+         * @param chunkGenerator    区块生成器
          * @param templateManagerIn 建筑模板池
-         * @param chunkX 区块坐标X
-         * @param chunkZ 区块坐标Z
-         * @param biome 生物群系
-         * @param config 特征设置
+         * @param chunkX            区块坐标X
+         * @param chunkZ            区块坐标Z
+         * @param biome             生物群系
+         * @param config            特征设置
          */
         @Override
         public void func_230364_a_(DynamicRegistries dynamicRegistry, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn,

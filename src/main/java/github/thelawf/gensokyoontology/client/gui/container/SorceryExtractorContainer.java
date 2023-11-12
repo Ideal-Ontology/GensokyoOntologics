@@ -41,6 +41,7 @@ public class SorceryExtractorContainer extends Container {
 
     private final IInventory ingredientInventory = new Inventory(4);
     private final IInventory resultInventory = new Inventory(1);
+
     public SorceryExtractorContainer(int id, PlayerInventory playerInventory, PlayerEntity player) {
         super(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(), id);
         this.player = player;
@@ -79,7 +80,7 @@ public class SorceryExtractorContainer extends Container {
     }
 
     private void addIngredientSlot(IInventory inventory, int index, int xPos, int yPos) {
-        addSlot(new Slot(inventory, index, xPos, yPos){
+        addSlot(new Slot(inventory, index, xPos, yPos) {
             @Override
             public void onSlotChanged() {
                 super.onSlotChanged();
@@ -88,7 +89,7 @@ public class SorceryExtractorContainer extends Container {
                     // LOGGER.info("匹配结果：{}", matches(SorceryExtractorContainer.this.ingredientInventory, recipe));
 
                     if (matches(SorceryExtractorContainer.this.ingredientInventory, recipe)) {
-                        ItemStack stack = new ItemStack(recipe.get(recipe.size()-1).getItem());
+                        ItemStack stack = new ItemStack(recipe.get(recipe.size() - 1).getItem());
                         stack.setCount(1);
                         SorceryExtractorContainer.this.resultInventory.setInventorySlotContents(0, stack);
                     }
@@ -113,7 +114,7 @@ public class SorceryExtractorContainer extends Container {
     }
 
     private void addResultSlot(IInventory inventory, int index, int xPos, int yPos) {
-        addSlot(new Slot(inventory, index, xPos, yPos){
+        addSlot(new Slot(inventory, index, xPos, yPos) {
             @Override
             @NotNull
             public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
@@ -162,7 +163,7 @@ public class SorceryExtractorContainer extends Container {
         return index;
     }
 
-    private void addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int verAmount,int dx, int dy) {
+    private void addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int verAmount, int dx, int dy) {
         for (int j = 0; j < verAmount; j++) {
             index = addSlotRange(handler, index, x, y, horAmount, dx);
             y += dy;

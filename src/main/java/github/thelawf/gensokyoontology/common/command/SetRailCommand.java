@@ -23,9 +23,9 @@ public class SetRailCommand {
             return literal.hasPermissionLevel(2);
         }).then(Commands.argument("pos_a", BlockPosArgument.blockPos()).then(
                 Commands.argument("pos_b", BlockPosArgument.blockPos()).executes((context -> {
-            return setRail(context.getSource(), BlockPosArgument.getBlockPos(context, "pos_a"),
-                    BlockPosArgument.getBlockPos(context, "pos_b"));
-        })))));
+                    return setRail(context.getSource(), BlockPosArgument.getBlockPos(context, "pos_a"),
+                            BlockPosArgument.getBlockPos(context, "pos_b"));
+                })))));
     }
     /*
     @Override

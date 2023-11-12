@@ -12,19 +12,19 @@ public enum DanmakuType {
     HEART_SHOT("heart_shot", 1.5f, 3.5f),
 
     // 蝶弹
-    BUTTERFLY_SHOT("butterfly_shot",1.5f,3f),
+    BUTTERFLY_SHOT("butterfly_shot", 1.5f, 3f),
 
     // 小玉
-    SMALL_SHOT("small_shot", 0.5f,2f),
+    SMALL_SHOT("small_shot", 0.5f, 2f),
 
     // 中玉
-    ORB_SHOT("orb_shot",1.5f,1.5f),
+    ORB_SHOT("orb_shot", 1.5f, 1.5f),
 
     // 环玉
-    CIRCLE_SHOT("circle_shot",1.0f, 1.0f),
+    CIRCLE_SHOT("circle_shot", 1.0f, 1.0f),
 
     // 大玉
-    LARGE_SHOT("large_shot",2.5f, 5.5f),
+    LARGE_SHOT("large_shot", 2.5f, 5.5f),
 
     // 小星弹
     STAR_SHOT_SMALL("small_star_shot", 0.5f, 0.5f),
@@ -33,13 +33,13 @@ public enum DanmakuType {
     STAR_SHOT_LARGE("large_star_shot", 1.5f, 3.0f),
 
     // 光弹
-    LIGHT_SHOT("light_shot",1.0f,1.0f),
+    LIGHT_SHOT("light_shot", 1.0f, 1.0f),
 
     // 大光弹
-    BIG_LIGHT_SHOT("big_light_shot",1.5f,2.5f),
+    BIG_LIGHT_SHOT("big_light_shot", 1.5f, 2.5f),
 
     // 米弹
-    RICE_SHOT("rice_shot", 0.5f,1f),
+    RICE_SHOT("rice_shot", 0.5f, 1f),
 
     // PEARL_SHOT("pearl_shot",1.0f,1.2f,(Effect) null),
 
@@ -74,8 +74,9 @@ public enum DanmakuType {
     public final float damage;
     public final float size;
     public final Effect[] effect;
+
     // charm, amulet, medallion, talisman, vignettes
-    DanmakuType(String name, float size, float damage, @Nullable Effect... effect){
+    DanmakuType(String name, float size, float damage, @Nullable Effect... effect) {
         this.name = name;
         this.damage = damage;
         this.size = size;

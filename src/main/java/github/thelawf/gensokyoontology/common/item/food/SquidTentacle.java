@@ -12,8 +12,9 @@ public class SquidTentacle extends Item {
     private static final Food food = (new Food.Builder())
             .saturation(1)
             .hunger(1)
-            .effect(() -> new EffectInstance(Effects.MINING_FATIGUE,2*80,2),0.75F)
+            .effect(() -> new EffectInstance(Effects.MINING_FATIGUE, 2 * 80, 2), 0.75F)
             .build();
+
     public SquidTentacle() {
         super(new Properties().group(ItemGroup.FOOD).food(food));
     }

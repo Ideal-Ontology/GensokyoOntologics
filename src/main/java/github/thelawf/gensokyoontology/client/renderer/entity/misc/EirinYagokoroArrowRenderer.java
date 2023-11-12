@@ -10,6 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class EirinYagokoroArrowRenderer extends EntityRenderer<EirinYagokoroArrowEntity> {
     public static final ResourceLocation EIRIN_ARROW_TEXTURE = new ResourceLocation(GensokyoOntology.MODID,
             "entity/eirin_yagokoro_arrow");
+
     protected EirinYagokoroArrowRenderer(EntityRendererManager renderManager) {
         super(renderManager);
     }

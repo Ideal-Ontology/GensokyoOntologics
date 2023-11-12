@@ -52,8 +52,8 @@ public class DanmakuCraftingContainer extends Container {
     };
 
     public DanmakuCraftingContainer(int windowId,
-                                       PlayerInventory playerInventory,
-                                       PlayerEntity player) {
+                                    PlayerInventory playerInventory,
+                                    PlayerEntity player) {
         super(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(), windowId);
         // this.fieldEntity = (DomainFieldEntity) world.getEntityByID(entityId);
         this.player = player;
@@ -65,7 +65,7 @@ public class DanmakuCraftingContainer extends Container {
             prevStacks.add(ItemStack.EMPTY);
         }
 
-        addSlotBox(this.craftingMatrix, 0, 16, 21,5,5,18,18);
+        addSlotBox(this.craftingMatrix, 0, 16, 21, 5, 5, 18, 18);
         addResultSlots();
         // addIngredientSlots();
     }
@@ -87,11 +87,11 @@ public class DanmakuCraftingContainer extends Container {
         if (!player.world.isRemote() && inventoryIn == this.craftingMatrix) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) this.player;
             // 大型星弹的槽位
-            List<Integer> largeStarShotSlots = createRecipeIndexes(2,7,10,11,12,13,14,16,18,20,24);
+            List<Integer> largeStarShotSlots = createRecipeIndexes(2, 7, 10, 11, 12, 13, 14, 16, 18, 20, 24);
             // 心弹的槽位
-            List<Integer> heartShotSlots = createRecipeIndexes(1,3,5,7,9,10,14,16,18,22);
+            List<Integer> heartShotSlots = createRecipeIndexes(1, 3, 5, 7, 9, 10, 14, 16, 18, 22);
             // 大弹的槽位
-            List<Integer> largeShotSlots = createRecipeIndexes(0,1,2,3,4,5,9,10,14,15,19,20,24);
+            List<Integer> largeShotSlots = createRecipeIndexes(0, 1, 2, 3, 4, 5, 9, 10, 14, 15, 19, 20, 24);
 
 
             if (matches(craftingMatrix, heartShotSlots)) {
@@ -99,20 +99,17 @@ public class DanmakuCraftingContainer extends Container {
                 stack.setCount(getMinStackCount(heartShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
-            }
-            else if (matches(craftingMatrix, largeShotSlots)) {
+            } else if (matches(craftingMatrix, largeShotSlots)) {
                 ItemStack stack = new ItemStack(ItemRegistry.LARGE_SHOT_PURPLE.get());
                 stack.setCount(getMinStackCount(largeShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
-            }
-            else if (matches(craftingMatrix, largeStarShotSlots)) {
+            } else if (matches(craftingMatrix, largeStarShotSlots)) {
                 ItemStack stack = new ItemStack(ItemRegistry.LARGE_STAR_SHOT_BLUE.get());
                 stack.setCount(getMinStackCount(largeStarShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
-            }
-            else {
+            } else {
                 for (int i = 0; i < this.resultsMatrix.getSizeInventory(); i++) {
                     this.resultsMatrix.setInventorySlotContents(i, ItemStack.EMPTY);
                     this.prevStacks.set(i, ItemStack.EMPTY);
@@ -124,7 +121,7 @@ public class DanmakuCraftingContainer extends Container {
 
             for (int i = 0; i < this.resultsMatrix.getSizeInventory(); i++) {
                 if (this.resultsMatrix.getStackInSlot(i).isEmpty() && !this.prevStacks.get(i).isEmpty()) {
-                    flag= true;
+                    flag = true;
                     detectAndSendChanges();
                     break;
                 }
@@ -206,14 +203,14 @@ public class DanmakuCraftingContainer extends Container {
         return index;
     }
 
-    private void addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int verAmount,int dx, int dy) {
+    private void addSlotBox(IItemHandler handler, int index, int x, int y, int horAmount, int verAmount, int dx, int dy) {
         for (int j = 0; j < verAmount; j++) {
             index = addSlotRange(handler, index, x, y, horAmount, dx);
             y += dy;
         }
     }
 
-    private void addSlotBox(IInventory inventory, int index, int x, int y, int horAmount, int verAmount,int dx,  int dy) {
+    private void addSlotBox(IInventory inventory, int index, int x, int y, int horAmount, int verAmount, int dx, int dy) {
         for (int j = 0; j < verAmount; j++) {
             index = addSlotRange(inventory, index, x, y, horAmount, dx);
             y += dy;
@@ -328,6 +325,7 @@ public class DanmakuCraftingContainer extends Container {
      * "A___A"    -> 合成 心弹物品<br>
      * "_A_A_"<br>
      * "__A__"<br>
+     *
      * @param slots 槽位的索引
      * @return 能够合成出物品的槽位的索引集合
      */
@@ -336,7 +334,7 @@ public class DanmakuCraftingContainer extends Container {
         return new ArrayList<>(Arrays.asList(slots));
     }
 
-    private boolean matches (IInventory inventoryIn, List<Integer> list) {
+    private boolean matches(IInventory inventoryIn, List<Integer> list) {
         int matchCount = 0;
         for (int i : list) {
             if (inventoryIn.getStackInSlot(i).getItem() == ItemRegistry.DANMAKU_SHOT.get()) {
@@ -346,22 +344,21 @@ public class DanmakuCraftingContainer extends Container {
         return matchCount == list.size();
     }
 
-    private boolean matches (IInventory inventoryIn, Map<Integer, ItemStack> stackMap) {
+    private boolean matches(IInventory inventoryIn, Map<Integer, ItemStack> stackMap) {
         int matchCount = 0;
         int emptyCount = 0;
         List<Object> list = Arrays.asList(stackMap.keySet().toArray());
-        for (int i = 0; i < inventoryIn.getSizeInventory(); i++){
+        for (int i = 0; i < inventoryIn.getSizeInventory(); i++) {
             if (list.get(i).equals(i)) {
                 matchCount++;
-            }
-            else {
+            } else {
                 emptyCount++;
             }
         }
         return matchCount == stackMap.size() && matchCount + emptyCount == inventoryIn.getSizeInventory();
     }
 
-    private boolean isResultMatrixChange (IInventory inventory) {
+    private boolean isResultMatrixChange(IInventory inventory) {
         for (Slot inventorySlot : this.inventorySlots) {
             return inventorySlot.getHasStack();
         }

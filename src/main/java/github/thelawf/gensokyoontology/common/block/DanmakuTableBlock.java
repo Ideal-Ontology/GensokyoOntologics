@@ -37,8 +37,7 @@ public class DanmakuTableBlock extends Block {
             if (tileEntity instanceof DanmakuTabelTileEntity) {
                 INamedContainerProvider provider = DanmakuTabelTileEntity.createContainer(worldIn, pos);
                 NetworkHooks.openGui((ServerPlayerEntity) player, provider, tileEntity.getPos());
-            }
-            else {
+            } else {
                 throw new IllegalStateException("Missing Container Provider");
             }
         }

@@ -16,9 +16,11 @@ public class MemoryStoryPageGUI extends Screen {
     protected void init() {
         super.init();
         nextPage = new Button(this.width, this.height, 140, 40, new TranslationTextComponent(
-                "client.gensokyoontology.story_page.next"), onPress -> {});
+                "client.gensokyoontology.story_page.next"), onPress -> {
+        });
         prevPage = new Button(0, this.height, 140, 40, new TranslationTextComponent(
-                "client.gensokyoontology.story_page.prev"), onPress -> {});
+                "client.gensokyoontology.story_page.prev"), onPress -> {
+        });
     }
 
     private final ItemStack storyPageItem;

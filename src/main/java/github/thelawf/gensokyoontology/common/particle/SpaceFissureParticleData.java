@@ -69,16 +69,16 @@ public class SpaceFissureParticleData implements IParticleData {
     };
 
     @Override
-        public void write(PacketBuffer buffer) {
-            buffer.writeDouble(this.speed.x);
-            buffer.writeDouble(this.speed.y);
-            buffer.writeDouble(this.speed.z);
-            buffer.writeInt(this.color.getRed());
-            buffer.writeInt(this.color.getGreen());
-            buffer.writeInt(this.color.getBlue());
-            buffer.writeInt(this.color.getAlpha());
-            buffer.writeFloat(this.diameter);
-        }
+    public void write(PacketBuffer buffer) {
+        buffer.writeDouble(this.speed.x);
+        buffer.writeDouble(this.speed.y);
+        buffer.writeDouble(this.speed.z);
+        buffer.writeInt(this.color.getRed());
+        buffer.writeInt(this.color.getGreen());
+        buffer.writeInt(this.color.getBlue());
+        buffer.writeInt(this.color.getAlpha());
+        buffer.writeFloat(this.diameter);
+    }
 
     @Override
     @Nonnull

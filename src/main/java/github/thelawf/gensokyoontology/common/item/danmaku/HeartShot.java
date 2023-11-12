@@ -16,6 +16,7 @@ import org.jetbrains.annotations.NotNull;
 public class HeartShot extends DanmakuItem {
 
     DanmakuType type;
+
     public HeartShot(DanmakuType type) {
         super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
         this.type = type;

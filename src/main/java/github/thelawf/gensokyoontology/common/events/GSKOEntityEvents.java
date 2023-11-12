@@ -54,10 +54,10 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-@Mod.EventBusSubscriber(modid = "gensokyoontology",bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = "gensokyoontology", bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GSKOEntityEvents {
     @SubscribeEvent
-    public static void onHotSpringIn(LivingEvent.LivingUpdateEvent event){
+    public static void onHotSpringIn(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() != null && event.getEntityLiving().isInWater()) {
             BlockState blockState = event.getEntityLiving().getBlockState();
             if (blockState.getBlockState().getBlock() instanceof HotSpringBlock &&
@@ -73,7 +73,7 @@ public class GSKOEntityEvents {
             BlockState blockState = event.getEntityLiving().getBlockState();
             if (blockState.getBlockState().getBlock().equals(BlockRegistry.SAKE_WINE_BLOCK.get()) &&
                     event.getEntityLiving() instanceof PlayerEntity) {
-                event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.NAUSEA, 2*100));
+                event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.NAUSEA, 2 * 100));
             }
         }
     }
@@ -82,7 +82,7 @@ public class GSKOEntityEvents {
     public static void onAdvancementDone(TickEvent.PlayerTickEvent event) {
         if (event.player instanceof ServerPlayerEntity) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) event.player;
-            PlayerAdvancements advancement  = serverPlayer.getAdvancements();
+            PlayerAdvancements advancement = serverPlayer.getAdvancements();
             if (serverPlayer.world.getServer() == null) return;
 
             AdvancementManager manager = serverPlayer.world.getServer().getAdvancementManager();
@@ -102,7 +102,7 @@ public class GSKOEntityEvents {
             ResourceLocation location = serverWorld.getBiome(player.getPosition()).getRegistryName();
 
             if (serverWorld.getBiome(player.getPosition()).getRegistryName() == GSKOBiomes.NAMELESS_HILL_KEY.getRegistryName()) {
-                player.addPotionEffect(new EffectInstance(Effects.POISON, 2*50));
+                player.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 50));
             }
 
             boolean precondition = player.ticksExisted % 20 == 0 && location != null;
@@ -181,8 +181,7 @@ public class GSKOEntityEvents {
             ServerWorld serverWorld = (ServerWorld) world;
             LazyOptional<BloodyMistCapability> bloodyMist = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
             bloodyMist.ifPresent(capability -> capability.setTriggered(false));
-        }
-        else if (effect.getDuration() <= 0 && world instanceof ServerWorld){
+        } else if (effect.getDuration() <= 0 && world instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) world;
             LazyOptional<BloodyMistCapability> bloodyMist = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
             bloodyMist.ifPresent(capability -> capability.setTriggered(true));

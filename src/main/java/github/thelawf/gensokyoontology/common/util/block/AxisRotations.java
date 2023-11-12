@@ -8,13 +8,13 @@ import javax.annotation.Nullable;
 
 public enum AxisRotations implements IStringSerializable {
 
-    NONE("none",0F),
+    NONE("none", 0F),
     ROLL_22_5("roll_22_5", 22.5F),
-    ROLL_45("roll_45",45F),
+    ROLL_45("roll_45", 45F),
     ROLL_67_5("roll_67_5", 67.5F),
-    ROLL_90("roll_90",90F),
+    ROLL_90("roll_90", 90F),
     ROLL_112_5("roll_112_5", 112.5F),
-    ROLL_135("roll_135",135F),
+    ROLL_135("roll_135", 135F),
     ROLL_157_5("roll_157_5", 157.5F),
 
     YAW_22_5("ywa_22_5", 22.5F),
@@ -30,7 +30,7 @@ public enum AxisRotations implements IStringSerializable {
     public final String registryName;
     public final float rotation;
 
-    AxisRotations(String registryName, float rotation){
+    AxisRotations(String registryName, float rotation) {
         this.registryName = registryName;
         this.rotation = rotation;
     }
@@ -47,16 +47,17 @@ public enum AxisRotations implements IStringSerializable {
     }
 
     public enum AlignedPlane {
-        SIDED_E("east_side", true,Direction.EAST),
-        SIDED_W("west_side", true,Direction.WEST),
-        SIDED_S("south_side", true,Direction.SOUTH),
-        SIDED_N("north_side", true,Direction.NORTH),
+        SIDED_E("east_side", true, Direction.EAST),
+        SIDED_W("west_side", true, Direction.WEST),
+        SIDED_S("south_side", true, Direction.SOUTH),
+        SIDED_N("north_side", true, Direction.NORTH),
         TOP("top_side", true, null),
         BOTTOM("bottom_side", true, null);
 
         public final String registryName;
         public final boolean isAligned;
-        AlignedPlane(String registryName, boolean isAligned, @Nullable Direction sidedPlane){
+
+        AlignedPlane(String registryName, boolean isAligned, @Nullable Direction sidedPlane) {
             this.registryName = registryName;
             this.isAligned = isAligned;
         }

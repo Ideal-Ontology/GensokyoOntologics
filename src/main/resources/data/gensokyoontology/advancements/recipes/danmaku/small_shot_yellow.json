@@ -67,7 +67,7 @@
       "conditions": {
         "items": [
           {
-            "tag": "gensokyoontology:small_shots"
+            "tag": "gensokyoontology:danmaku/small_shots"
           }
         ]
       }
