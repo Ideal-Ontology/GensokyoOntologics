@@ -139,7 +139,7 @@ public final class EntityRegistry {
     //TODO 这个符卡的注册名是不是写错了
     public static final RegistryObject<EntityType<HellEclipseEntity>> HELL_ECLIPSE_ENTITY =
             ENTITIES.register("hell_eclipse", () -> EntityType.Builder.<HellEclipseEntity>create(HellEclipseEntity::new, EntityClassification.MISC)
-                    .size(1F, 1F).trackingRange(4).updateInterval(2).build("circle_cross"));
+                    .size(1F, 1F).trackingRange(4).updateInterval(2).build("hell_eclipse"));
 
     public static final RegistryObject<EntityType<MountainOfFaithEntity>> MOUNTAIN_OF_FAITH_ENTITY =
             ENTITIES.register("mountain_of_faith", () -> EntityType.Builder.<MountainOfFaithEntity>create(MountainOfFaithEntity::new,

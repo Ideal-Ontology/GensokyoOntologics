@@ -277,11 +277,8 @@ public final class ItemRegistry {
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
             "sakuya_stop_watch", () -> new SakuyaStopWatch(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
-    public static final RegistryObject<ClockHandItem> CLOCK_HAND_ITEM = ITEMS.register(
-            "clock_hand_item", () -> new ClockHandItem(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
-    public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register(
-            "aya_fans", () -> new AyaFans(new Item.Properties()
+    public static final RegistryObject<LaevateinItem> LAEVATEIN_ITEM = ITEMS.register(
+            "laevatein", () -> new LaevateinItem(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<BlockItem> GAP_BLOCK = ITEMS.register(
             "gap_block", () -> new BlockItem(BlockRegistry.GAP_BLOCK.get(), new Item.Properties()
@@ -289,6 +286,9 @@ public final class ItemRegistry {
     public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
             "eirin_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register(
+            "aya_fans", () -> new AyaFans(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<KoishiEyeOpen> KOISHI_EYE_OPEN = ITEMS.register(
             "koishi_eye_open", () -> new KoishiEyeOpen(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));

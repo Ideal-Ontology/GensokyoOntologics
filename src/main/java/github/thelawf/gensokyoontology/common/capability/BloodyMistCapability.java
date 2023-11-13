@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.capability;
 
+import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
@@ -11,6 +12,7 @@ public class BloodyMistCapability implements IIncidentCapability {
 
     private List<String> biomeRegistryNames;
     private boolean isTriggered;
+    private List<Pair<String, Boolean>> biomes;
 
     public BloodyMistCapability(List<String> biomes, boolean isTriggered) {
         this.biomeRegistryNames = biomes;
