@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.*;
 import github.thelawf.gensokyoontology.common.entity.passive.CitizenEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
@@ -119,7 +120,7 @@ public final class EntityRegistry {
     // public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
     //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
 
-    // ============================ 技术性实体：符卡 ============================= //
+    // ============================ 技术性实体：符卡以及特殊技能 ============================= //
 
     public static final RegistryObject<EntityType<WaveAndParticleEntity>> WAVE_AND_PARTICLE_ENTITY = ENTITIES.register(
             "wave_and_particle", () -> EntityType.Builder.<WaveAndParticleEntity>create(WaveAndParticleEntity::new,
@@ -136,7 +137,8 @@ public final class EntityRegistry {
                             EntityClassification.MISC).size(1F, 1F).trackingRange(4)
                     .updateInterval(2).build("spiral_wheel"));
 
-    //TODO 这个符卡的注册名是不是写错了
+    // 这个符卡的注册名是不是写错了
+    // 已修改
     public static final RegistryObject<EntityType<HellEclipseEntity>> HELL_ECLIPSE_ENTITY =
             ENTITIES.register("hell_eclipse", () -> EntityType.Builder.<HellEclipseEntity>create(HellEclipseEntity::new, EntityClassification.MISC)
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("hell_eclipse"));
@@ -158,6 +160,10 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<ManiaDepressEntity>> MANIA_DEPRESS_ENTITY =
             ENTITIES.register("mania_depress", () -> EntityType.Builder.<ManiaDepressEntity>create(ManiaDepressEntity::new, EntityClassification.MISC)
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("mania_depress"));
+
+    public static final RegistryObject<EntityType<DestructiveEyeEntity>> DESTRUCTIVE_EYE_ENTITY =
+            ENTITIES.register("destructive_eye", () -> EntityType.Builder.create(DestructiveEyeEntity::new, EntityClassification.MISC)
+                    .size(3F, 3F). trackingRange(10).updateInterval(2).build("destructive_eye"));
 
     // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
     //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);

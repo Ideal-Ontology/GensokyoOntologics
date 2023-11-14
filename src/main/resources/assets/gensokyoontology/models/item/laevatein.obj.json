@@ -5,10 +5,10 @@
   "gui_light": "front",
   "display": {
     "thirdperson_righthand": {
-      "translation": [2, 4.75, 3.5]
+      "translation": [8, 12.75, 7.5]
     },
     "thirdperson_lefthand": {
-      "translation": [-2, 4.75, 3.5]
+      "translation": [-6, 12.75, 7.5]
     },
     "firstperson_righthand": {
       "rotation": [-25.75, 0, 0],
@@ -22,9 +22,9 @@
       "translation": [7, 3.5, 7]
     },
     "gui": {
+      "translation": [8, -3, 0],
       "rotation": [0, 90, 0],
-      "translation": [3, -3, 0],
-      "scale": [0.5, 0.5, 0.5]
+      "scale": [1.2, 1.2, 1.2]
     },
     "fixed": {
       "translation": [2, -4.25, 0],
