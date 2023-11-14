@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.DanmakuNormalVectorRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.StarShotRenderer;
+import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.entity.YukariEntity;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -154,7 +155,9 @@ public class GSKOClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FLANDRE_SCARLET.get(), FlandreScarletRenderer::new);
 
         //TODO EntityRegistry里面没注册紫妈
-        RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
+        // 没画贴图，模型也没来得及做（）
+
+        // RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(),
                 HumanResidentRenderer::new);
@@ -166,7 +169,7 @@ public class GSKOClientEvents {
         //        manager -> new NamespaceDomainRenderer(manager, new DomainFieldModel()));
 
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
-        //MinecraftForge.EVENT_BUS.addListener(LaserRenderer::render);
+        MinecraftForge.EVENT_BUS.addListener(GSKOKeyboardManager::onActivateKoishiEye);
     }
 
 }

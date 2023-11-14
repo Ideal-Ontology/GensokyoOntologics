@@ -13,12 +13,11 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GensokyoOntology.MODID, value = Dist.CLIENT)
+// @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GensokyoOntology.MODID, value = Dist.CLIENT)
 public class InWorldRenderEvent {
 
-    @SubscribeEvent
     public static void renderLaser(RenderWorldLastEvent event) {
-        GSKOKeyboardManager.onActivateKoishiEye();
+        // GSKOKeyboardManager.onActivateKoishiEye(event);
     }
 
     public static void renderScarletSky(RenderWorldLastEvent event) {
