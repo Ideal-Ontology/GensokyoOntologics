@@ -7,37 +7,29 @@ import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
-import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
-import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
-import net.minecraftforge.fml.common.Mod;
-import org.apache.logging.log4j.LogManager;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber
+@OnlyIn(Dist.CLIENT)
 public class GSKOKeyboardManager {
 
     public static int RENDER_TICK = 80;
 
     public static final List<KeyBinding> KEY_BINDINGS = Lists.newArrayList();
     public static final KeyBinding MOUSE_RIGHT = new KeyBinding("mouse_right", KeyConflictContext.IN_GAME,
-            InputMappings.Type.MOUSE, 0, GensokyoOntology.withAffix("key.category.",""));
+            InputMappings.Type.MOUSE, 1, GensokyoOntology.withAffix("key.category.",""));
     public static final KeyBinding EYE_BOX_FORWARD = new GSKOKeyBinding("eye_box_forward", KeyConflictContext.IN_GAME,
             InputMappings.Type.KEYSYM, 265, GensokyoOntology.withAffix("key.category.",""));
     public static final KeyBinding EYE_BOX_BACKWARD = new GSKOKeyBinding("eye_box_backward", KeyConflictContext.IN_GAME,
@@ -50,7 +42,6 @@ public class GSKOKeyboardManager {
     }
 
     @OnlyIn(Dist.CLIENT)
-    @SubscribeEvent
     public static void onSummonDestructiveEye(InputEvent.MouseInputEvent event) {
         // if (MOUSE_RIGHT.isPressed()) {
         //     Minecraft mc = Minecraft.getInstance();
@@ -71,20 +62,13 @@ public class GSKOKeyboardManager {
         // }
     }
 
+    @OnlyIn(Dist.CLIENT)
     public static void onActivateKoishiEye(RenderLivingEvent.Post<?,?> event) {
         Minecraft mc = Minecraft.getInstance();
         ClientPlayerEntity player = mc.player;
         if (player == null) return;
         if (player.getHeldItemMainhand().getItem() != ItemRegistry.KOISHI_EYE_OPEN.get()) return;
         LaserRenderer.render(event, player);
-
-        if (!MOUSE_RIGHT.isPressed()) {
-            RENDER_TICK = 80;
-            return;
-        }
-
-        // LaserRenderer.render(event, player, RENDER_TICK);
-        RENDER_TICK--;
     }
 
     private static void trySpawnFromClient(ClientPlayerEntity player) {

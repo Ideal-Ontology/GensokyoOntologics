@@ -3,9 +3,10 @@ package github.thelawf.gensokyoontology.client.renderer.world;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -16,8 +17,6 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.RenderLivingEvent;
-
-import static github.thelawf.gensokyoontology.common.util.Vec3fConstants.ZERO;
 
 @OnlyIn(Dist.CLIENT)
 public class LaserRenderer {
@@ -42,20 +41,25 @@ public class LaserRenderer {
     }
 
     public static void render(RenderLivingEvent.Post<?, ?> event, ClientPlayerEntity player) {
-        if (!(event.getEntity() instanceof PlayerEntity)) {
+        if (!(event.getEntity() instanceof PlayerEntity) && !GSKOKeyboardManager.MOUSE_RIGHT.isKeyDown()) {
             return;
         }
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE_THICK);
-        Quaternion rotation = Vector3f.YP.rotation(player.rotationYaw);
+        Quaternion rotationPitch = Vector3f.XP.rotation(player.rotationPitch);
+        Quaternion rotationYaw = Vector3f.YP.rotation(player.rotationYaw);
 
         MatrixStack matrixStack = event.getMatrixStack();
         Matrix4f matrix4f = matrixStack.getLast().getMatrix();
 
         matrixStack.push();
-        // Vector3d vector3d = Minecraft.getInstance().gameRenderer.getActiveRenderInfo().getProjectedView();
-        // matrixStack.translate(-vector3d.x, -vector3d.y, -vector3d.z);
-        drawLaser(builder, matrix4f, 0F, 0.5F, 0F, 0F, 2F, 0F);
+        ActiveRenderInfo info = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
+        Vector3d vector3d = info.getProjectedView();
+
+        matrixStack.translate(-vector3d.x, -vector3d.y, -vector3d.z);
+        matrixStack.rotate(rotationPitch);
+        matrixStack.rotate(rotationYaw);
+        drawLaser(builder, matrix4f, 0F, 0.5F, 0F, 2F, 0F, 0F);
         matrixStack.pop();
         // player.sendChatMessage("Render times: " + renderTick);
     }
