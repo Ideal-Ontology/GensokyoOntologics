@@ -38,6 +38,6 @@ public class DestructiveEyeEntity extends CollideDamageEntity implements IRender
 
     @Override
     public ItemStack getItem() {
-        return null;
+        return ItemStack.EMPTY;
     }
 }

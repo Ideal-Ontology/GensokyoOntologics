@@ -28,7 +28,7 @@ public class GSKOKeyboardManager {
     public static int RENDER_TICK = 80;
 
     public static final List<KeyBinding> KEY_BINDINGS = Lists.newArrayList();
-    public static final KeyBinding MOUSE_RIGHT = new KeyBinding("mouse_right", KeyConflictContext.IN_GAME,
+    public static final KeyBinding MOUSE_RIGHT = new GSKOKeyBinding("mouse_right", KeyConflictContext.IN_GAME,
             InputMappings.Type.MOUSE, 1, GensokyoOntology.withAffix("key.category.",""));
     public static final KeyBinding EYE_BOX_FORWARD = new GSKOKeyBinding("eye_box_forward", KeyConflictContext.IN_GAME,
             InputMappings.Type.KEYSYM, 265, GensokyoOntology.withAffix("key.category.",""));

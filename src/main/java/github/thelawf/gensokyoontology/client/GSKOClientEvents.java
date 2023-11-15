@@ -128,6 +128,10 @@ public class GSKOClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SPECTRE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
+        // ======================== 技术性实体的渲染器 ======================= //
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get(),
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 9.0f, false));
+
         // ======================== 符卡实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
@@ -154,8 +158,8 @@ public class GSKOClientEvents {
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FLANDRE_SCARLET.get(), FlandreScarletRenderer::new);
 
-        //TODO EntityRegistry里面没注册紫妈
-        // 没画贴图，模型也没来得及做（）
+        // TODO EntityRegistry里面没注册紫妈
+        // 暂时删除，因为没画贴图，模型也没做（）
 
         // RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
 
@@ -164,10 +168,7 @@ public class GSKOClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CITIZEN.get(),
                 CitizenRenderer::new);
 
-        // ====================== 奇怪实体的渲染器 ===================== //
-        // RenderingRegistry.registerEntityRenderingHandler(NamespaceDomain.NAMESPACE_DOMAIN,
-        //        manager -> new NamespaceDomainRenderer(manager, new DomainFieldModel()));
-
+        // ======================== 自定义渲染器 ======================= //
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
         MinecraftForge.EVENT_BUS.addListener(GSKOKeyboardManager::onActivateKoishiEye);
     }
