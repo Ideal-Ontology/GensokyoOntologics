@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.client;
 
 import github.thelawf.gensokyoontology.client.renderer.world.LaserRenderer;
+import github.thelawf.gensokyoontology.client.renderer.world.LaserViewRenderer;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
@@ -22,21 +23,5 @@ public class GSKORenderHandler {
         // renderer.render(event.getContext().tick(), event.getPartialTicks(), event.getMatrixStack(), );
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public static void onRenderThirdPerson(RenderLivingEvent.Post<?,?> event) {
-        Minecraft mc = Minecraft.getInstance();
-        ClientPlayerEntity player = mc.player;
-        if (player == null) return;
-        if (player.getHeldItemMainhand().getItem() != ItemRegistry.KOISHI_EYE_OPEN.get()) return;
-        LaserRenderer.renderThirdPersonView(event, player);
-    }
 
-    @OnlyIn(Dist.CLIENT)
-    public static void onRenderFirstPerson(EntityViewRenderEvent event) {
-        Minecraft mc = Minecraft.getInstance();
-        ClientPlayerEntity player = mc.player;
-        if (player == null) return;
-        if (player.getHeldItemMainhand().getItem() != ItemRegistry.KOISHI_EYE_OPEN.get()) return;
-        LaserRenderer.renderFirstPersonView(event, player);
-    }
 }

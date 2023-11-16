@@ -7,6 +7,8 @@ import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.DanmakuNormalVectorRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.StarShotRenderer;
+import github.thelawf.gensokyoontology.client.renderer.world.LaserRenderer;
+import github.thelawf.gensokyoontology.client.renderer.world.LaserViewRenderer;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -168,7 +170,8 @@ public class GSKOClientEvents {
 
         // ======================== 自定义渲染器 ======================= //
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
-        MinecraftForge.EVENT_BUS.addListener(GSKORenderHandler::onRenderThirdPerson);
+        MinecraftForge.EVENT_BUS.addListener(LaserRenderer::onRenderThirdPerson);
+        // MinecraftForge.EVENT_BUS.addListener(LaserViewRenderer::onRenderFirstPerson);
     }
 
 }

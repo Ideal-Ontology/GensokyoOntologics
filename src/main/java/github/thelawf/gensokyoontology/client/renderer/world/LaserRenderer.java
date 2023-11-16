@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.ActiveRenderInfo;
@@ -41,8 +42,18 @@ public class LaserRenderer {
         return new Vector3f((float) vector3d.x, (float) vector3d.y, (float) vector3d.z);
     }
 
+
+    public static void onRenderThirdPerson(RenderLivingEvent.Post<?,?> event) {
+        Minecraft mc = Minecraft.getInstance();
+        ClientPlayerEntity player = mc.player;
+        if (player == null) return;
+        if (player.getHeldItemMainhand().getItem() != ItemRegistry.KOISHI_EYE_OPEN.get()) return;
+        LaserRenderer.renderThirdPersonView(event, player);
+    }
+
+
     public static void renderThirdPersonView(RenderLivingEvent.Post<?, ?> event, ClientPlayerEntity player) {
-        if (event.getEntity() instanceof PlayerEntity && GSKOKeyboardManager.MOUSE_RIGHT.isKeyDown()) {
+        if (!(event.getEntity() instanceof PlayerEntity) && GSKOKeyboardManager.MOUSE_RIGHT.isKeyDown()) {
             IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
             IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE_THICK);
 
@@ -51,23 +62,10 @@ public class LaserRenderer {
             Vector3f lookVec = toVector3f(player.getLookVec().scale(2));
 
             matrixStack.push();
-            drawLaser(builder, matrix4f, 0F, 2F, 0F, lookVec.getX(), lookVec.getY(), lookVec.getZ());
+            drawLaser(builder, matrix4f, 0F, 2F, 0F, lookVec.getX(),1.8F + lookVec.getY(), lookVec.getZ());
             matrixStack.pop();
         }
 
-        // if (player.ticksExisted % 50 == 0) player.sendChatMessage("Playe Pitch: " + player.rotationPitch);
-    }
-
-    public static void renderFirstPersonView(EntityViewRenderEvent event, ClientPlayerEntity player) {
-        if (!GSKOKeyboardManager.MOUSE_RIGHT.isKeyDown()) {
-            return;
-        }
-        IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE_THICK);
-
-        Matrix4f matrix4f = event.getRenderer().getProjectionMatrix(event.getInfo(), (float) event.getRenderPartialTicks(), false);
-        drawLaser(builder, matrix4f, 0F, 0.5F, 0F, 2F, 0F, 0F);
-
-        // player.sendChatMessage("Render times: " + renderTick);
+        // if (player.ticksExisted % 10 == 0) player.sendChatMessage("Playe Look AT -- " + player.getLookVec());
     }
 }
