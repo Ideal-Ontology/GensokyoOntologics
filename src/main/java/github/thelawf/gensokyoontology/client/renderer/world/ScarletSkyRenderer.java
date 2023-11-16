@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ISkyRenderHandler;
@@ -28,11 +29,9 @@ public class ScarletSkyRenderer implements ISkyRenderHandler {
         RenderSystem.translatef(0.0F, 0.0F, -200.0F);
     }
 
-    public static void startRender() {
+    public void shouldRender(ServerWorld serverWorld) {
 
     }
 
-    public static void stopRender() {
 
-    }
 }
