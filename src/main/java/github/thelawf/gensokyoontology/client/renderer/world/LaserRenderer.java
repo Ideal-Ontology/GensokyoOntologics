@@ -16,6 +16,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.RenderLivingEvent;
 
 @OnlyIn(Dist.CLIENT)
@@ -40,28 +41,33 @@ public class LaserRenderer {
         return new Vector3f((float) vector3d.x, (float) vector3d.y, (float) vector3d.z);
     }
 
-    public static void render(RenderLivingEvent.Post<?, ?> event, ClientPlayerEntity player) {
-        if (!(event.getEntity() instanceof PlayerEntity) && !GSKOKeyboardManager.MOUSE_RIGHT.isKeyDown()) {
+    public static void renderThirdPersonView(RenderLivingEvent.Post<?, ?> event, ClientPlayerEntity player) {
+        if (event.getEntity() instanceof PlayerEntity && GSKOKeyboardManager.MOUSE_RIGHT.isKeyDown()) {
+            IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
+            IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE_THICK);
+
+            MatrixStack matrixStack = event.getMatrixStack();
+            Matrix4f matrix4f = matrixStack.getLast().getMatrix();
+            Vector3f lookVec = toVector3f(player.getLookVec().scale(2));
+
+            matrixStack.push();
+            drawLaser(builder, matrix4f, 0F, 2F, 0F, lookVec.getX(), lookVec.getY(), lookVec.getZ());
+            matrixStack.pop();
+        }
+
+        // if (player.ticksExisted % 50 == 0) player.sendChatMessage("Playe Pitch: " + player.rotationPitch);
+    }
+
+    public static void renderFirstPersonView(EntityViewRenderEvent event, ClientPlayerEntity player) {
+        if (!GSKOKeyboardManager.MOUSE_RIGHT.isKeyDown()) {
             return;
         }
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE_THICK);
-        Quaternion rotationPitch = Vector3f.XP.rotation(player.rotationPitch);
-        Quaternion rotationYaw = Vector3f.YP.rotation(player.rotationYaw);
 
-        MatrixStack matrixStack = event.getMatrixStack();
-        Matrix4f matrix4f = matrixStack.getLast().getMatrix();
-
-        matrixStack.push();
-        ActiveRenderInfo info = Minecraft.getInstance().gameRenderer.getActiveRenderInfo();
-        Vector3d vector3d = info.getProjectedView();
-
-        matrixStack.translate(-vector3d.x, -vector3d.y, -vector3d.z);
-        matrixStack.rotate(rotationPitch);
-        matrixStack.rotate(rotationYaw);
+        Matrix4f matrix4f = event.getRenderer().getProjectionMatrix(event.getInfo(), (float) event.getRenderPartialTicks(), false);
         drawLaser(builder, matrix4f, 0F, 0.5F, 0F, 2F, 0F, 0F);
-        matrixStack.pop();
+
         // player.sendChatMessage("Render times: " + renderTick);
     }
-
 }

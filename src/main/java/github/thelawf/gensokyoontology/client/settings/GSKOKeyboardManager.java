@@ -62,15 +62,6 @@ public class GSKOKeyboardManager {
         // }
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public static void onActivateKoishiEye(RenderLivingEvent.Post<?,?> event) {
-        Minecraft mc = Minecraft.getInstance();
-        ClientPlayerEntity player = mc.player;
-        if (player == null) return;
-        if (player.getHeldItemMainhand().getItem() != ItemRegistry.KOISHI_EYE_OPEN.get()) return;
-        LaserRenderer.render(event, player);
-    }
-
     private static void trySpawnFromClient(ClientPlayerEntity player) {
         if (player.world instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) player.world;

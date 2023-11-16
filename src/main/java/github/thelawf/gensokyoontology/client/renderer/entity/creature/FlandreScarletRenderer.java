@@ -34,21 +34,29 @@ public class FlandreScarletRenderer extends BipedRenderer<FlandreScarletEntity, 
     public void onAnimate(FlandreScarletEntity entityIn, float partialTicks) {
         switch (entityIn.getAnimation()) {
             case IDLE:
-                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(2), MathHelper.clamp(
-                        entityIn.limbSwingAmount, 0 + partialTicks, 1F + partialTicks), 0, 0);
-                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(3), MathHelper.clamp(
-                        entityIn.limbSwingAmount, 0 + partialTicks, 1F + partialTicks), 0, 0);
+                playIdleAnimation(entityIn, partialTicks);
                 break;
             case WALKING:
-                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(0), 0, 0, MathHelper.clamp(
-                        entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
-                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(1), 0, 0, MathHelper.clamp(
-                        entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
-                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(2), 0, 0, MathHelper.clamp(
-                        entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
-                this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(3), 0, 0, MathHelper.clamp(
-                        entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
+                playWalkAnimation(entityIn, partialTicks);
                 break;
         }
+    }
+
+    private void playIdleAnimation(FlandreScarletEntity entityIn, float partialTicks){
+        this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(2), MathHelper.clamp(
+                entityIn.limbSwingAmount, 0 + partialTicks, 1F + partialTicks), 0, 0);
+        this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(3), MathHelper.clamp(
+                entityIn.limbSwingAmount, 0 + partialTicks, 1F + partialTicks), 0, 0);
+    }
+
+    private void playWalkAnimation(FlandreScarletEntity entityIn, float partialTicks) {
+        this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(0), 0, 0, MathHelper.clamp(
+                entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
+        this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(1), 0, 0, MathHelper.clamp(
+                entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
+        this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(2), 0, 0, MathHelper.clamp(
+                entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
+        this.entityModel.setRotationAngle(this.entityModel.getBodyParts().get(3), 0, 0, MathHelper.clamp(
+                entityIn.limbSwingAmount, 0 + partialTicks, 3F + partialTicks));
     }
 }

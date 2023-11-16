@@ -7,8 +7,6 @@ import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.DanmakuNormalVectorRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.StarShotRenderer;
-import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
-import github.thelawf.gensokyoontology.common.entity.YukariEntity;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -170,7 +168,7 @@ public class GSKOClientEvents {
 
         // ======================== 自定义渲染器 ======================= //
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
-        MinecraftForge.EVENT_BUS.addListener(GSKOKeyboardManager::onActivateKoishiEye);
+        MinecraftForge.EVENT_BUS.addListener(GSKORenderHandler::onRenderThirdPerson);
     }
 
 }
