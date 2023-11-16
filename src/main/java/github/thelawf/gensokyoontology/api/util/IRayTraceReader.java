@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.api.util;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -43,6 +44,10 @@ public interface IRayTraceReader {
             boxes.add(aabb);
         }
         return boxes;
+    }
+
+    default AxisAlignedBB createCubeBox(Vector3d pos, int radius) {
+        return new AxisAlignedBB(pos.subtract(new Vector3d(radius, radius, radius)), pos.add(new Vector3d(radius, radius, radius)));
     }
 
     default <T extends Entity> List<T> getEntityWithin(World worldIn, Class<? extends T> entityClass, AxisAlignedBB aabb,
