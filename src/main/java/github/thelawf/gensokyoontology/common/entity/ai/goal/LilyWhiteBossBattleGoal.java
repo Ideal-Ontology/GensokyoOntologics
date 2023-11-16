@@ -27,9 +27,8 @@ public class LilyWhiteBossBattleGoal extends SpellCardAttackGoal {
     @Override
     public boolean shouldExecute() {
         LivingEntity target = this.lilyWhite.getAttackTarget();
-        if (target == null || !target.isAlive()) {
-            return false;
-        }
+        if (target == null || !target.isAlive()) return false;
+
         this.path = this.lilyWhite.getNavigator().pathfind(target, 0);
         return path != null;
     }
@@ -44,9 +43,8 @@ public class LilyWhiteBossBattleGoal extends SpellCardAttackGoal {
         ticksExisted++;
 
         LivingEntity target = this.lilyWhite.getAttackTarget();
-        if (target == null || !target.isAlive()) {
-            return;
-        }
+        if (target == null || !target.isAlive()) return;
+
         this.lilyWhite.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
         double distance = this.lilyWhite.getDistanceSq(target);
         if (this.lilyWhite.getEntitySenses().canSee(target)) {
