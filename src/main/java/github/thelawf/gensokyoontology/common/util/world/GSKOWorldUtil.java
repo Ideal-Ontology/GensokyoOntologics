@@ -8,6 +8,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+// 种子：-7023638334721123514
 public class GSKOWorldUtil {
 
     public static RegistryKey<World> getWorldDimension(ResourceLocation location) {

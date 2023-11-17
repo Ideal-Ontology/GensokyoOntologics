@@ -16,12 +16,12 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class MansionTowerClockHandBlock extends Block {
+public class ClockNeedleBlock extends Block {
 
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
     public static final EnumProperty<ClockHandDirection> CLOCK_HAND = EnumProperty.create("clock", ClockHandDirection.class);
 
-    public MansionTowerClockHandBlock() {
+    public ClockNeedleBlock() {
         super(Properties.from(Blocks.IRON_BLOCK));
     }
 
@@ -36,7 +36,7 @@ public class MansionTowerClockHandBlock extends Block {
     @Override
     public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
         super.onBlockHarvested(worldIn, pos, state, player);
-        spawnDrops(state, worldIn, pos, null, player, new ItemStack(ItemRegistry.LAEVATEIN_ITEM.get()));
+        spawnDrops(state, worldIn, pos, null, player, new ItemStack(ItemRegistry.CROOKED_CLOCK_NEEDLE.get()));
     }
 
     @Nullable
