@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.capability;
+package github.thelawf.gensokyoontology.common.capability.world;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.common.util.INBTSerializable;

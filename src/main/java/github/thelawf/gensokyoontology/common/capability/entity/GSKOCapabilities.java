@@ -1,5 +1,7 @@
-package github.thelawf.gensokyoontology.common.capability;
+package github.thelawf.gensokyoontology.common.capability.entity;
 
+import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
+import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.Direction;

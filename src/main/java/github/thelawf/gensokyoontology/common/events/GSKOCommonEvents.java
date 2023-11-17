@@ -1,11 +1,14 @@
 package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.capability.*;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
+import github.thelawf.gensokyoontology.common.capability.world.BloodyMistProvider;
+import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapability;
+import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightProvider;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
@@ -13,7 +16,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.event.world.PistonEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -33,7 +35,7 @@ public class GSKOCommonEvents {
             biomes.add("gensokyoontology:scarlet_mansion_precincts");
             biomes.add("gensokyoontology:misty_lake");
 
-            BloodyMistCapabilityProvider bloodyMist = new BloodyMistCapabilityProvider(biomes, true);
+            BloodyMistProvider bloodyMist = new BloodyMistProvider(biomes, true);
             ImperishableNightProvider imperishableNight = new ImperishableNightProvider(18000, false);
 
             event.addCapability(GensokyoOntology.withRL("bloody_mist"), bloodyMist);

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.capability;
+package github.thelawf.gensokyoontology.common.capability.world;
 
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.nbt.CompoundNBT;

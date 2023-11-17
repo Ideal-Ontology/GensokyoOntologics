@@ -91,7 +91,6 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
     public void onPlayerStoppedUsing(@NotNull ItemStack stack, @NotNull World worldIn, @NotNull LivingEntity entityLiving, int timeLeft) {
         super.onPlayerStoppedUsing(stack, worldIn, entityLiving, timeLeft);
         stack.setTag(new CompoundNBT());
-
     }
 
     @Override

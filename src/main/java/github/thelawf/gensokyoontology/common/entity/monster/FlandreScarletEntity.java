@@ -11,6 +11,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.ActionResultType;
@@ -49,6 +50,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2D, true));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8f));

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.capability;
+package github.thelawf.gensokyoontology.common.capability.world;
 
 import java.util.List;
 

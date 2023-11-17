@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.capability;
+package github.thelawf.gensokyoontology.common.capability.world;
 
 public interface IImperishableNight extends IIncidentCapability {
 

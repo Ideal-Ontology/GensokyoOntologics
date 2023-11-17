@@ -1,9 +1,8 @@
-package github.thelawf.gensokyoontology.common.capability;
+package github.thelawf.gensokyoontology.common.capability.world;
 
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOCapabilities;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -11,28 +10,26 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
-public class BloodyMistCapabilityProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT> {
-    private BloodyMistCapability capability;
-    private List<String> biomeRegistryNames;
+public class ImperishableNightProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT> {
+    private int time;
     private boolean isTriggered;
+    private ImperishableNightCapability capability;
 
-    public BloodyMistCapabilityProvider(List<String> biomeRegistryNames, boolean isTriggered) {
-        this.biomeRegistryNames = biomeRegistryNames;
+    public ImperishableNightProvider(int time, boolean isTriggered) {
+        this.time = time;
         this.isTriggered = isTriggered;
     }
 
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return cap == GSKOCapabilities.BLOODY_MIST ? LazyOptional.of(this::getOrCreateCapability).cast() : LazyOptional.empty();
+        return cap == GSKOCapabilities.IMPERISHABLE_NIGHT ? LazyOptional.of(this::getOrCreateCapability).cast() : LazyOptional.empty();
     }
 
     @NotNull
-    BloodyMistCapability getOrCreateCapability() {
+    ImperishableNightCapability getOrCreateCapability() {
         if (this.capability == null) {
-            this.capability = new BloodyMistCapability(this.biomeRegistryNames, this.isTriggered);
+            this.capability = new ImperishableNightCapability(this.time, this.isTriggered);
         }
         return this.capability;
     }
@@ -46,5 +43,4 @@ public class BloodyMistCapabilityProvider implements ICapabilityProvider, INBTSe
     public void deserializeNBT(CompoundNBT nbt) {
         getOrCreateCapability().deserializeNBT(nbt);
     }
-
 }

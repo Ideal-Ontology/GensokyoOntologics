@@ -1,12 +1,9 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
-import github.thelawf.gensokyoontology.common.capability.ImperishableNightCapability;
-import github.thelawf.gensokyoontology.common.network.packet.ImperishableNightPacket;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.command.impl.TimeCommand;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -16,11 +13,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;

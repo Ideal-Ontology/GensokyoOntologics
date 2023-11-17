@@ -1,18 +1,13 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
-import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArrowItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
