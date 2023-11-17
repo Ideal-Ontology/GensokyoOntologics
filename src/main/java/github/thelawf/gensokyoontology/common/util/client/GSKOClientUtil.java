@@ -8,7 +8,6 @@ import org.jetbrains.annotations.Nullable;
 
 public class GSKOClientUtil {
 
-
     public static ServerWorld getServerWorldFromClient(RegistryKey<World> dimensionKey) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.world != null && mc.world.getServer() != null) {

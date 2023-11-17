@@ -19,7 +19,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 import java.util.function.Supplier;
 
@@ -113,7 +112,20 @@ public class GSKOFeatureGenerator {
         // event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, dragonSphereOreFeature);
     }
 
-    public static void generateGesokyoOres(final BiomeLoadingEvent event) {
+    public static void generateGensokyoOre(final BiomeLoadingEvent event) {
+        if (event.getName() != null && event.getName().getNamespace().equals(GensokyoOntology.MODID)) {
+            ConfiguredFeature<?, ?> jadeOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.JADE_GENSOKYO,
+                    Feature.NO_SURFACE_ORE, GSKOWGConfigs.JADE_GENSOKYO_CONFIG, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT);
+            ConfiguredFeature<?, ?> dragonSphereOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.DRAGON_SPHERE,
+                    Feature.NO_SURFACE_ORE, GSKOWGConfigs.DRAGON_SPHERE_CONFIG, GSKOWGConfigs.DRAGON_SPHERE_PLACEMENT);
+
+            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, jadeOreFeature);
+            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, dragonSphereOreFeature);
+        }
+
+    }
+
+    public static void generateGensokyoOres(final BiomeLoadingEvent event) {
         GSKOBiomesProvider.GSKO_BIOMES.stream()
                 .filter(biomeKey -> biomeKey.getRegistryName().equals(event.getName()))
                 .forEach(biomeKey -> {
