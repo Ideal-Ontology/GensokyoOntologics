@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
@@ -15,8 +16,12 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class DestructiveEyeEntity extends CollideDamageEntity implements IRendersAsItem {
-    public DestructiveEyeEntity(EntityType<?> entityTypeIn, World worldIn) {
-        super(entityTypeIn, worldIn);
+    public DestructiveEyeEntity(EntityType entityType, World worldIn) {
+        super(entityType, worldIn);
+    }
+
+    public DestructiveEyeEntity(World worldIn) {
+        super(EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get(), worldIn);
     }
 
     @Override

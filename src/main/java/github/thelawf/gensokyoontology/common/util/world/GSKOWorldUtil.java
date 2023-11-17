@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.util.world;
 
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -15,5 +16,9 @@ public class GSKOWorldUtil {
 
     public static boolean isEntityInDimension(Entity entity, RegistryKey<World> worldKey) {
         return entity.getEntityWorld().getDimensionKey().equals(worldKey);
+    }
+
+    public static boolean isGensokyoBiome(ServerWorld serverWorld, ResourceLocation biomeName) {
+        return GSKOBiomesProvider.GSKO_BIOMES.stream().anyMatch(biome -> biome.getRegistryName().equals(biomeName));
     }
 }

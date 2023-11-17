@@ -162,7 +162,7 @@ public final class EntityRegistry {
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("mania_depress"));
 
     public static final RegistryObject<EntityType<DestructiveEyeEntity>> DESTRUCTIVE_EYE_ENTITY =
-            ENTITIES.register("destructive_eye", () -> EntityType.Builder.create(DestructiveEyeEntity::new, EntityClassification.MISC)
+            ENTITIES.register("destructive_eye", () -> EntityType.Builder.<DestructiveEyeEntity>create(DestructiveEyeEntity::new, EntityClassification.MISC)
                     .size(3F, 3F). trackingRange(10).updateInterval(2).build("destructive_eye"));
 
     // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(

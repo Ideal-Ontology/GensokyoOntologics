@@ -133,7 +133,7 @@ public class GSKOWorldEvents {
     @SubscribeEvent
     public static void onBiomeLoad(final BiomeLoadingEvent event) {
         GSKOFeatureGenerator.generateOverworldOre(event);
-        GSKOFeatureGenerator.generateGensokyoOres(event);
+        GSKOFeatureGenerator.generateGensokyoOre(event);
     }
 
 

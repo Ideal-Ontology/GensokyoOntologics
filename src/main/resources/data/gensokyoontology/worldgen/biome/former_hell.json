@@ -49,9 +49,7 @@
     [
       "minecraft:disk_clay",
       "minecraft:disk_gravel",
-      "minecraft:disk_sand",
-
-      "gensokyoontology:immemorial_alloy_block",
+      "minecraft:disk_sand"
     ],
     [],
     [],

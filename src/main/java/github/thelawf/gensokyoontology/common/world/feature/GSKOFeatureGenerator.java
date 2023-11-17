@@ -102,14 +102,6 @@ public class GSKOFeatureGenerator {
 
         ConfiguredFeature<?, ?> izanoOreFeature = GSKOFeatures.makeIzanoOreFeature(ore, config);
         event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, izanoOreFeature);
-
-        // ConfiguredFeature<?, ?> jadeOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.JADE_GENSOKYO,
-        //         Feature.NO_SURFACE_ORE, GSKOWGConfigs.JADE_GENSOKYO_CONFIG, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT);
-        // ConfiguredFeature<?, ?> dragonSphereOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.DRAGON_SPHERE,
-        //         Feature.NO_SURFACE_ORE, GSKOWGConfigs.DRAGON_SPHERE_CONFIG, GSKOWGConfigs.DRAGON_SPHERE_PLACEMENT);
-
-        // event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, jadeOreFeature);
-        // event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, dragonSphereOreFeature);
     }
 
     public static void generateGensokyoOre(final BiomeLoadingEvent event) {
@@ -123,16 +115,6 @@ public class GSKOFeatureGenerator {
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, dragonSphereOreFeature);
         }
 
-    }
-
-    public static void generateGensokyoOres(final BiomeLoadingEvent event) {
-        GSKOBiomesProvider.GSKO_BIOMES.stream()
-                .filter(biomeKey -> biomeKey.getRegistryName().equals(event.getName()))
-                .forEach(biomeKey -> {
-                    generateOre(event, GSKOOreType.JADE_GENSOKYO);
-                    generateOre(event, GSKOOreType.IZANO_OBJECT);
-                    generateOre(event, GSKOOreType.DRAGON_SPHERE);
-                });
     }
 
     public static void generateOre(final BiomeLoadingEvent event, GSKOOreType ore) {

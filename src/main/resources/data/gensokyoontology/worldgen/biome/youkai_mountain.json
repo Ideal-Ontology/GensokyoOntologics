@@ -48,12 +48,7 @@
       "minecraft:ore_gold",
       "minecraft:ore_lapis",
       "minecraft:ore_redstone",
-      "minecraft:ore_diamond",
-
-      "gensokyoontology:jade_ore",
-      "gensokyoontology:jade_ore",
-      "gensokyoontology:dragon_sphere_ore",
-      "gensokyoontology:immemorial_alloy_block"
+      "minecraft:ore_diamond"
     ],
     [],
     [],
@@ -71,10 +66,6 @@
     "air": [
       "minecraft:cave",
       "minecraft:canyon"
-    ],
-    "liquid": [
-      "minecraft:underwater_cave",
-      "minecraft:underwater_canyon"
     ]
   },
   "spawners": {

@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
-import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
@@ -10,8 +9,6 @@ import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
 
 public class ExtraLifeProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT> {
 
