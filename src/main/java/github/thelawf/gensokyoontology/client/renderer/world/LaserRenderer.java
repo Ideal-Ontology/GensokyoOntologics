@@ -53,16 +53,19 @@ public class LaserRenderer {
 
 
     public static void renderThirdPersonView(RenderLivingEvent.Post<?, ?> event, ClientPlayerEntity player) {
-        if (!(event.getEntity() instanceof PlayerEntity) && GSKOKeyboardManager.MOUSE_RIGHT.isKeyDown()) {
+        if (event.getEntity() instanceof PlayerEntity && GSKOKeyboardManager.MOUSE_RIGHT.isKeyDown()) {
             IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
             IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE_THICK);
 
             MatrixStack matrixStack = event.getMatrixStack();
             Matrix4f matrix4f = matrixStack.getLast().getMatrix();
-            Vector3f lookVec = toVector3f(player.getLookVec().scale(2));
 
             matrixStack.push();
-            drawLaser(builder, matrix4f, 0F, 2F, 0F, lookVec.getX(),1.8F + lookVec.getY(), lookVec.getZ());
+            for (int i = 0; i < 8; i++) {
+                Vector3d vector3d = player.getLookVec().scale(8).rotateYaw((float) Math.PI * 2 / 8 * i);
+                Vector3f lookVec = toVector3f(vector3d);
+                drawLaser(builder, matrix4f, 0F, 1F, 0F, lookVec.getX(), 1F, lookVec.getZ());
+            }
             matrixStack.pop();
         }
 
