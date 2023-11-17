@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.capability.world;
 
-import github.thelawf.gensokyoontology.common.capability.entity.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;

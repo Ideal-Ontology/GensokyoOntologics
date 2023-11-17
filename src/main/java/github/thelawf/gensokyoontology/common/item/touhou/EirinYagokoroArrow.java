@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
-import github.thelawf.gensokyoontology.common.capability.entity.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ArrowItem;

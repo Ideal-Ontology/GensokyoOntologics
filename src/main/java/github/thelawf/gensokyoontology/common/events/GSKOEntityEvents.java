@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.common.events;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
-import github.thelawf.gensokyoontology.common.capability.entity.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;

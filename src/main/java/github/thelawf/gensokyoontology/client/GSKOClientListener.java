@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.client;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
-import github.thelawf.gensokyoontology.common.capability.entity.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.chat.NarratorChatListener;
