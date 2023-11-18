@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.client;
 
+import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
@@ -17,10 +18,9 @@ public class GSKORenderTypes extends RenderType {
                            boolean useDelegateIn, boolean needsSortingIn, Runnable setupTaskIn, Runnable clearTaskIn,
                            double width) {
         super(nameIn, formatIn, drawModeIn, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);
-
     }
 
-    public static final RenderType LASER_LINE_THICK = makeType("laser_line_thick",
+    public static final RenderType LASER_LINE = makeType("laser_line_thick",
             DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 256,
             RenderType.State.getBuilder().line(getLaserLine(5.0))
                     .layer(VIEW_OFFSET_Z_LAYERING)
@@ -30,12 +30,19 @@ public class GSKORenderTypes extends RenderType {
                     .lightmap(LIGHTMAP_DISABLED)
                     .build(false));
 
-    public static final RenderType LASER_BEAM = makeType("laser_beam",
-            DefaultVertexFormats.POSITION_TEX, GL11.GL_QUADS, 256,
-            RenderType.State.getBuilder().texture(BLOCK_SHEET)
+    public static final RenderType LASER_DIFFUSE = makeType("laser_beam",
+            DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 256,
+            RenderType.State.getBuilder().line(getLaserLine(10.0))
                     .layer(VIEW_OFFSET_Z_LAYERING)
                     .transparency(TRANSLUCENT_TRANSPARENCY)
-                    .depthTest(DEPTH_ALWAYS)
+                    .cull(CULL_ENABLED)
+                    .lightmap(LIGHTMAP_DISABLED)
+                    .build(false));
+    public static final RenderType LASER_BEAM = makeType("laser_beam",
+            DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 256,
+            RenderType.State.getBuilder().line(getLaserLine(18.0))
+                    .layer(VIEW_OFFSET_Z_LAYERING)
+                    .transparency(TRANSLUCENT_TRANSPARENCY)
                     .cull(CULL_ENABLED)
                     .lightmap(LIGHTMAP_DISABLED)
                     .build(false));

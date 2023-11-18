@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.*;
 import github.thelawf.gensokyoontology.common.entity.passive.CitizenEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
@@ -127,15 +128,14 @@ public final class EntityRegistry {
                             EntityClassification.MISC).size(1F, 1F).trackingRange(4)
                     .updateInterval(2).build("wave_and_particle"));
 
-    public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY =
-            ENTITIES.register("ido_no_kaiho", () -> EntityType.Builder.<IdonokaihoEntity>create(IdonokaihoEntity::new,
+    public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY = ENTITIES.register(
+            "ido_no_kaiho", () -> EntityType.Builder.<IdonokaihoEntity>create(IdonokaihoEntity::new,
                             EntityClassification.MISC).size(1F, 1F).trackingRange(4)
                     .updateInterval(2).build("ido_no_kaiho"));
 
-    public static final RegistryObject<EntityType<SpiralWheelEntity>> SPIRAL_WHEEL_ENTITY =
-            ENTITIES.register("spiral_wheel", () -> EntityType.Builder.<SpiralWheelEntity>create(SpiralWheelEntity::new,
-                            EntityClassification.MISC).size(1F, 1F).trackingRange(4)
-                    .updateInterval(2).build("spiral_wheel"));
+    public static final RegistryObject<EntityType<SpiralWheelEntity>> SPIRAL_WHEEL_ENTITY = ENTITIES.register(
+            "spiral_wheel", () -> EntityType.Builder.<SpiralWheelEntity>create(SpiralWheelEntity::new,
+                    EntityClassification.MISC).size(1F, 1F).trackingRange(4).updateInterval(2).build("spiral_wheel"));
 
     // 这个符卡的注册名是不是写错了
     // 已修改
@@ -160,6 +160,10 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<ManiaDepressEntity>> MANIA_DEPRESS_ENTITY =
             ENTITIES.register("mania_depress", () -> EntityType.Builder.<ManiaDepressEntity>create(ManiaDepressEntity::new, EntityClassification.MISC)
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("mania_depress"));
+
+    public static final RegistryObject<EntityType<LaserSourceEntity>> LASER_SOURCE_ENTITY = ENTITIES.register(
+            "laser_source", () -> EntityType.Builder.<LaserSourceEntity>create(LaserSourceEntity::new,
+                    EntityClassification.MISC).size(1F, 1F).trackingRange(4).updateInterval(2).build("laser_source"));
 
     public static final RegistryObject<EntityType<DestructiveEyeEntity>> DESTRUCTIVE_EYE_ENTITY =
             ENTITIES.register("destructive_eye", () -> EntityType.Builder.<DestructiveEyeEntity>create(DestructiveEyeEntity::new, EntityClassification.MISC)

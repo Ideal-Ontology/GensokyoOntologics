@@ -53,8 +53,7 @@ public class SpaceFissureRenderer extends TileEntityRenderer<GapTileEntity> {
     }
 
     public static void register() {
-        ClientRegistry.bindTileEntityRenderer(TileEntityTypeRegistry.GAP_TILE_ENTITY.get(),
-                SpaceFissureRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(TileEntityTypeRegistry.GAP_TILE_ENTITY.get(), SpaceFissureRenderer::new);
     }
 
 }

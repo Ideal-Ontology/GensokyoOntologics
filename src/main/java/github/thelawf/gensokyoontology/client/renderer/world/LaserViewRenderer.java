@@ -8,14 +8,12 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.client.event.RenderLivingEvent;
 
 public class LaserViewRenderer {
 
@@ -42,7 +40,7 @@ public class LaserViewRenderer {
             return;
         }
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE_THICK);
+        IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
         MatrixStack matrixStack = new MatrixStack();
         Vector3f lookVec = toVector3f(player.getLookVec().scale(2));
 
