@@ -59,7 +59,7 @@ public abstract class AffiliatedEntity extends Entity {
         }
     }
 
-    protected void setDataOwner() {
+    public void setDataOwner() {
         if (this.world instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) this.world;
             Optional<UUID> optionalUUID = this.getDataManager().get(DATA_OWNER);

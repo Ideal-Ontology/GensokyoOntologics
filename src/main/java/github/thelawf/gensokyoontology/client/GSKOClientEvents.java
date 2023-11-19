@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.client.model.LilyWhiteModel;
 import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.DanmakuNormalVectorRenderer;
+import github.thelawf.gensokyoontology.client.renderer.entity.misc.LaserEntityRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.StarShotRenderer;
 import github.thelawf.gensokyoontology.client.renderer.world.LaserRenderer;
 import github.thelawf.gensokyoontology.client.renderer.world.LaserViewRenderer;
@@ -131,6 +132,8 @@ public class GSKOClientEvents {
         // ======================== 技术性实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 9.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LASER_SOURCE_ENTITY.get(),
+                LaserEntityRenderer::new);
 
         // ======================== 符卡实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get(),

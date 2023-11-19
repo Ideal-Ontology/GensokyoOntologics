@@ -3,7 +3,6 @@ package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.util.Vec3fConstants;
 import net.minecraft.client.Minecraft;
@@ -21,20 +20,23 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
 
-    public static final RenderType LASER_TYPE = RenderType.getEntityTranslucent(
-            GensokyoOntology.withRL("textures/entity/laser_beam.png"));
+    public static final ResourceLocation LASER_SOURCE_TEX = GensokyoOntology.withRL("textures/entity/laser_source.png");
+    public static final ResourceLocation LASER_BEAM_TEX = GensokyoOntology.withRL("textures/entity/laser_beam.png");
+    public static final RenderType LASER_BEAM = RenderType.getEntityTranslucent(LASER_BEAM_TEX);
 
-    protected LaserEntityRenderer(EntityRendererManager renderManager) {
+    public LaserEntityRenderer(EntityRendererManager renderManager) {
         super(renderManager);
     }
 
     @Override
-    public ResourceLocation getEntityTexture(LaserSourceEntity entity) {
-        return null;
+    @NotNull
+    public ResourceLocation getEntityTexture(@NotNull LaserSourceEntity entity) {
+        return LASER_SOURCE_TEX;
     }
 
     private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, int r, int g, int b) {
@@ -57,7 +59,7 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
     public void render(LaserSourceEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        IVertexBuilder laser = buffer.getBuffer(LASER_TYPE);
+        IVertexBuilder laser = buffer.getBuffer(LASER_BEAM);
         // IVertexBuilder lineVertex = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
         // IVertexBuilder beamVertex = buffer.getBuffer(GSKORenderTypes.LASER_BEAM);
         // IVertexBuilder diffuseVertex = buffer.getBuffer(GSKORenderTypes.LASER_DIFFUSE);
@@ -66,8 +68,9 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         Vector3d vector3d = entityIn.getLookVec().scale(20);
         Vector3f lookVec = new Vector3f(toVector3f(vector3d).getX(), 0F, toVector3f(vector3d).getZ());
 
-    matrixStackIn.push();
-        drawLaser(laser, matrix4f, Vec3fConstants.ZERO, lookVec, 1F, 1F, 1F, 1F);
+        matrixStackIn.push();
+        renderLaserUsingMojangsShit(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        // drawLaser(laser, matrix4f, Vec3fConstants.ZERO, lookVec, 1F, 1F, 1F, 1F);
         // drawLaser(beamVertex, matrix4f, Vec3fConstants.ZERO, lookVec, 0F, 0F, 0F, 1F);
         // drawLaser(diffuseVertex, matrix4f, Vec3fConstants.ZERO, lookVec, 1F, 0F, 0F, 0.5F);
         matrixStackIn.pop();
@@ -88,66 +91,66 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
      * In GuardianRenderer, Mojang official use these codes below only for rendering
      * Guardian Entity's laser.
      */
-    private void renderLaserUsingMojangsShit(GuardianEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
-        LivingEntity livingentity = entityIn.getTargetedEntity();
-        if (livingentity != null) {
-            float scale = entityIn.getAttackAnimationScale(partialTicks);
-            float f1 = (float)entityIn.world.getGameTime() + partialTicks;
-            float f2 = f1 * 0.5F % 1.0F;
-            float eyeHeight = entityIn.getEyeHeight();
-            matrixStackIn.push();
-            matrixStackIn.translate(0.0D, eyeHeight, 0.0D);
-            Vector3d vector3d = this.getPosition(livingentity, (double)livingentity.getHeight() * 0.5D, partialTicks);
-            Vector3d vector3d1 = this.getPosition(entityIn, eyeHeight, partialTicks);
-            Vector3d vector3d2 = vector3d.subtract(vector3d1);
-            float f4 = (float)(vector3d2.length() + 1.0D);
-            vector3d2 = vector3d2.normalize();
-            float f5 = (float)Math.acos(vector3d2.y);
-            float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
-            matrixStackIn.rotate(Vector3f.YP.rotationDegrees((((float)Math.PI / 2F) - f6) * (180F / (float)Math.PI)));
-            matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180F / (float)Math.PI)));
-            float f7 = f1 * 0.05F * -1.5F;
-            float f8 = scale * scale;
-            int j = 64 + (int)(f8 * 191.0F);
-            int k = 32 + (int)(f8 * 191.0F);
-            int l = 128 - (int)(f8 * 64.0F);
-            float f11 = MathHelper.cos(f7 + 2.3561945F) * 0.282F;
-            float f12 = MathHelper.sin(f7 + 2.3561945F) * 0.282F;
-            float f13 = MathHelper.cos(f7 + ((float)Math.PI / 4F)) * 0.282F;
-            float f14 = MathHelper.sin(f7 + ((float)Math.PI / 4F)) * 0.282F;
-            float f15 = MathHelper.cos(f7 + 3.926991F) * 0.282F;
-            float f16 = MathHelper.sin(f7 + 3.926991F) * 0.282F;
-            float f17 = MathHelper.cos(f7 + 5.4977875F) * 0.282F;
-            float f18 = MathHelper.sin(f7 + 5.4977875F) * 0.282F;
-            float f19 = MathHelper.cos(f7 + (float)Math.PI) * 0.2F;
-            float f20 = MathHelper.sin(f7 + (float)Math.PI) * 0.2F;
-            float f21 = MathHelper.cos(f7 + 0.0F) * 0.2F;
-            float f22 = MathHelper.sin(f7 + 0.0F) * 0.2F;
-            float f23 = MathHelper.cos(f7 + ((float)Math.PI / 2F)) * 0.2F;
-            float f24 = MathHelper.sin(f7 + ((float)Math.PI / 2F)) * 0.2F;
-            float f25 = MathHelper.cos(f7 + ((float)Math.PI * 1.5F)) * 0.2F;
-            float f26 = MathHelper.sin(f7 + ((float)Math.PI * 1.5F)) * 0.2F;
-            float f29 = -1.0F + f2;
-            float f30 = f4 * 2.5F + f29;
-            IVertexBuilder ivertexbuilder = bufferIn.getBuffer(LASER_TYPE);
-            MatrixStack.Entry matrixstack$entry = matrixStackIn.getLast();
-            Matrix4f matrix4f = matrixstack$entry.getMatrix();
-            Matrix3f matrix3f = matrixstack$entry.getNormal();
+    private void renderLaserUsingMojangsShit(LaserSourceEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
+        //LivingEntity livingentity = entityIn.getTargetedEntity();
 
-            // Idea都看不下去了，帮忙模块化成了下面的样子：
-            draw(f4, j, k, l, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
-            draw(f4, j, k, l, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
-            float f31 = 0.0F;
-            if (entityIn.ticksExisted % 2 == 0) {
-                f31 = 0.5F;
-            }
+        float scale = 0.5f;
+        float f1 = (float)entityIn.world.getGameTime() + partialTicks;
+        float f2 = f1 * 0.5F % 1.0F;
+        float eyeHeight = entityIn.getEyeHeight();
+        matrixStackIn.push();
+        matrixStackIn.translate(0.0D, eyeHeight, 0.0D);
+        Vector3d vector3d = entityIn.getPositionVec();
+        Vector3d vector3d1 = new Vector3d(entityIn.getPosX(), eyeHeight, entityIn.getPosZ()); //  this.getPosition(entityIn, eyeHeight, partialTicks);
+        Vector3d vector3d2 = vector3d.subtract(vector3d1);
+        float f4 = (float)(vector3d2.length() + 1.0D);
+        vector3d2 = vector3d2.normalize();
+        float f5 = (float)Math.acos(vector3d2.y);
+        float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees((((float)Math.PI / 2F) - f6) * (180F / (float)Math.PI)));
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180F / (float)Math.PI)));
+        float f7 = f1 * 0.05F * -1.5F;
+        float f8 = scale * scale;
+        int j = 64 + (int)(f8 * 191.0F);
+        int k = 32 + (int)(f8 * 191.0F);
+        int l = 128 - (int)(f8 * 64.0F);
+        float f11 = MathHelper.cos(f7 + 2.3561945F) * 0.282F;
+        float f12 = MathHelper.sin(f7 + 2.3561945F) * 0.282F;
+        float f13 = MathHelper.cos(f7 + ((float)Math.PI / 4F)) * 0.282F;
+        float f14 = MathHelper.sin(f7 + ((float)Math.PI / 4F)) * 0.282F;
+        float f15 = MathHelper.cos(f7 + 3.926991F) * 0.282F;
+        float f16 = MathHelper.sin(f7 + 3.926991F) * 0.282F;
+        float f17 = MathHelper.cos(f7 + 5.4977875F) * 0.282F;
+        float f18 = MathHelper.sin(f7 + 5.4977875F) * 0.282F;
+        float f19 = MathHelper.cos(f7 + (float)Math.PI) * 0.2F;
+        float f20 = MathHelper.sin(f7 + (float)Math.PI) * 0.2F;
+        float f21 = MathHelper.cos(f7 + 0.0F) * 0.2F;
+        float f22 = MathHelper.sin(f7 + 0.0F) * 0.2F;
+        float f23 = MathHelper.cos(f7 + ((float)Math.PI / 2F)) * 0.2F;
+        float f24 = MathHelper.sin(f7 + ((float)Math.PI / 2F)) * 0.2F;
+        float f25 = MathHelper.cos(f7 + ((float)Math.PI * 1.5F)) * 0.2F;
+        float f26 = MathHelper.sin(f7 + ((float)Math.PI * 1.5F)) * 0.2F;
+        float f29 = -1.0F + f2;
+        float f30 = f4 * 2.5F + f29;
+        IVertexBuilder ivertexbuilder = bufferIn.getBuffer(LASER_BEAM);
+        MatrixStack.Entry matrixstack$entry = matrixStackIn.getLast();
+        Matrix4f matrix4f = matrixstack$entry.getMatrix();
+        Matrix3f matrix3f = matrixstack$entry.getNormal();
 
-            drawLaser(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, j, k, l, 0.5F, f31 + 0.5F);
-            drawLaser(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, j, k, l, 1.0F, f31 + 0.5F);
-            drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, j, k, l, 1.0F, f31);
-            drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, j, k, l, 0.5F, f31);
-            matrixStackIn.pop();
+        // Idea都看不下去了，帮忙模块化成了下面的样子：
+        draw(f4, j, k, l, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
+        draw(f4, j, k, l, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
+        float f31 = 0.0F;
+        if (entityIn.ticksExisted % 2 == 0) {
+            f31 = 0.5F;
         }
+
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, j, k, l, 0.5F, f31 + 0.5F);
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, j, k, l, 1.0F, f31 + 0.5F);
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, j, k, l, 1.0F, f31);
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, j, k, l, 0.5F, f31);
+        matrixStackIn.pop();
+
     }
 
     private void draw(float f4, int j, int k, int l, float f19, float f20, float f21, float f22, float f29, float f30, IVertexBuilder ivertexbuilder, Matrix4f matrix4f, Matrix3f matrix3f) {
