@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.common.util.operation;
 
+import github.thelawf.gensokyoontology.common.util.operation.enums.Operator;
+
 public class BinaryOperation extends Operation<Object> {
     public final Operator operator;
     public final String varId;

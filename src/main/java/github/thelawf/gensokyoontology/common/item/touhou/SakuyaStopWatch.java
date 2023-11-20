@@ -45,64 +45,37 @@ import java.util.function.Predicate;
  * 咲夜的怀表物品
  */
 public class SakuyaStopWatch extends Item implements IRayTraceReader{
-    private int pauseTicks = 100;
-    private AtomicReference<Vector3d> vector3d = new AtomicReference<>(new Vector3d(0, 0, 0));
-    private AtomicReference<Float> speed = new AtomicReference<>();
+    public static int pauseTicks = 100;
+    public static int totalTicks = 0;
+
     public SakuyaStopWatch(Properties properties) {
         super(properties);
     }
 
     @Override
     @NotNull
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
-        if (!worldIn.isRemote() && stack.getOrCreateTag().getLong("cooldown") < worldIn.getGameTime()) {
-            ServerWorld serverWorld = (ServerWorld) worldIn;
-            BlockPos playerPos = playerIn.getPosition();
+        if (stack.getTag() != null && stack.hasTag()) {
+            stack.setTag(new CompoundNBT());
+            totalTicks = 0;
 
-            CompoundNBT nbt = new CompoundNBT();
-            nbt.putInt("pause_ticks", this.pauseTicks);
-            stack.setTag(nbt);
-
+            if (playerIn.isCreative()) return super.onItemRightClick(worldIn, playerIn, handIn);
+            playerIn.getCooldownTracker().setCooldown(this, 6000);
+            return ActionResult.resultPass(stack);
         }
+
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putBoolean("pause_start", true);
+        stack.setTag(nbt);
+        totalTicks = pauseTicks + playerIn.ticksExisted;
+
         if (playerIn.isCreative())
             return super.onItemRightClick(worldIn, playerIn, handIn);
 
-        stack.getOrCreateTag().putLong("cooldown", worldIn.getGameTime() + 6000);
-        playerIn.getCooldownTracker().setCooldown(stack.getItem(), 6000);
+        playerIn.getCooldownTracker().setCooldown(this, 6000);
         return ActionResult.resultPass(stack);
-    }
-
-    private void freezeEntities(World world, Class<Entity> entityClass,@Nullable Predicate<Entity> predicate, AxisAlignedBB aabb, float radius) {
-        if (predicate == null) {
-            getEntityWithinSphere(world, entityClass, aabb, radius).forEach(entity -> entity.canUpdate(false));
-            return;
-        }
-        getEntityWithinSphere(world, entityClass, predicate, aabb, radius).forEach(entity -> entity.canUpdate(false));
-    }
-
-    private void unfreezeEntities(World world, Class<Entity> entityClass,@Nullable Predicate<Entity> predicate, AxisAlignedBB aabb, float radius) {
-        if (predicate == null) {
-            getEntityWithinSphere(world, entityClass, aabb, radius).forEach(entity -> entity.canUpdate(true));
-            return;
-        }
-        getEntityWithinSphere(world, entityClass, predicate, aabb, radius).forEach(entity -> entity.canUpdate(true));
-    }
-
-    @Override
-    @NotNull
-    public ActionResultType itemInteractionForEntity(@NotNull ItemStack stack, PlayerEntity playerIn, @NotNull LivingEntity target, @NotNull Hand hand) {
-
-        if (!playerIn.getEntityWorld().isRemote) {
-            ServerWorld serverWorld = (ServerWorld) playerIn.getEntityWorld();
-
-            // 检测，如果目标实体允许更新则禁止其更新，反之亦然。
-            target.canUpdate(!target.canUpdate());
-            CountDownNetworking.INSTANCE.send(PacketDistributor.TRACKING_ENTITY_AND_SELF.with(
-                    () -> target), new CountdownStartPacket(200, target, serverWorld.getDimensionKey()));
-        }
-        return super.itemInteractionForEntity(stack, playerIn, target, hand);
     }
 
     @Override
