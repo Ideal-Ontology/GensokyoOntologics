@@ -39,10 +39,16 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         return LASER_SOURCE_TEX;
     }
 
-    private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, int r, int g, int b) {
+    private static void drawSprite(IVertexBuilder builder, Matrix4f matrix4f, int r, int g, int b) {
         builder.pos(matrix4f, 0,0,1).color(r, g, b, 255).endVertex();
         builder.pos(matrix4f, 1,0,1).color(r, g, b, 255).endVertex();
         builder.pos(matrix4f, 1,1,1).color(r, g, b, 255).endVertex();
+        builder.pos(matrix4f, 0,1,1).color(r, g, b, 255).endVertex();
+
+        builder.pos(matrix4f, 0,1,1).color(r, g, b, 255).endVertex();
+        builder.pos(matrix4f, 1,1,1).color(r, g, b, 255).endVertex();
+        builder.pos(matrix4f, 1,0,1).color(r, g, b, 255).endVertex();
+        builder.pos(matrix4f, 0,0,1).color(r, g, b, 255).endVertex();
     }
 
     private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, Vector3f start, Vector3f end, float r, float g, float b, float alpha) {
@@ -59,20 +65,15 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
     public void render(LaserSourceEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        IVertexBuilder laser = buffer.getBuffer(LASER_BEAM);
-        // IVertexBuilder lineVertex = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
-        // IVertexBuilder beamVertex = buffer.getBuffer(GSKORenderTypes.LASER_BEAM);
-        // IVertexBuilder diffuseVertex = buffer.getBuffer(GSKORenderTypes.LASER_DIFFUSE);
+        IVertexBuilder laser = buffer.getBuffer(RenderType.getEntityTranslucent(LASER_SOURCE_TEX));
 
         Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
         Vector3d vector3d = entityIn.getLookVec().scale(20);
         Vector3f lookVec = new Vector3f(toVector3f(vector3d).getX(), 0F, toVector3f(vector3d).getZ());
 
         matrixStackIn.push();
+        //drawSprite(laser, matrix4f, 255, 255, 255);
         renderLaserUsingMojangsShit(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        // drawLaser(laser, matrix4f, Vec3fConstants.ZERO, lookVec, 1F, 1F, 1F, 1F);
-        // drawLaser(beamVertex, matrix4f, Vec3fConstants.ZERO, lookVec, 0F, 0F, 0F, 1F);
-        // drawLaser(diffuseVertex, matrix4f, Vec3fConstants.ZERO, lookVec, 1F, 0F, 0F, 0.5F);
         matrixStackIn.pop();
     }
 

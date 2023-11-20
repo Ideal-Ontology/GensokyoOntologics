@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -41,6 +42,11 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
             stack.setTag(nbt);
         }
 
+        LaserSourceEntity laserSource = new LaserSourceEntity(worldIn, playerIn);
+        laserSource.init(200, 40, 35);
+        laserSource.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
+        worldIn.addEntity(laserSource);
+
         playerIn.setActiveHand(handIn);
         if (stack.getTag() != null && playerIn.ticksExisted < stack.getTag().getInt("total_count")) {
             if (playerIn.ticksExisted < stack.getTag().getInt("total_count")) {
@@ -68,7 +74,6 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
         if (predicate.test(user)) {
             PlayerEntity player = (PlayerEntity) user;
             if (player.getCooldownTracker().hasCooldown(this)) return;
-            // player.sendMessage(new StringTextComponent("Ticking!"), player.getUniqueID());
             AxisAlignedBB box = createCubeBox(player.getPositionVec(), radius);
 
             Vector3d start = player.getPositionVec();

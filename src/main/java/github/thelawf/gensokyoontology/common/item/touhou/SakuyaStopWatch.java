@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.network.CountDownNetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CountdownStartPacket;
+import net.minecraft.client.renderer.texture.ITickable;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.client.util.InputMappings;
@@ -38,11 +39,15 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Predicate;
 
 /**
  * 咲夜的怀表物品
  */
-public class SakuyaStopWatch extends Item implements IRayTraceReader {
+public class SakuyaStopWatch extends Item implements IRayTraceReader{
+    private int pauseTicks = 100;
+    private AtomicReference<Vector3d> vector3d = new AtomicReference<>(new Vector3d(0, 0, 0));
+    private AtomicReference<Float> speed = new AtomicReference<>();
     public SakuyaStopWatch(Properties properties) {
         super(properties);
     }
@@ -51,47 +56,15 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        // ItemStack stack = playerIn.getHeldItem(handIn == Hand.MAIN_HAND ? Hand.MAIN_HAND : Hand.OFF_HAND)
-        //         .equals(new ItemStack(this)) ? playerIn.getHeldItem(Hand.MAIN_HAND) : playerIn.getHeldItem(Hand.OFF_HAND);
 
         if (!worldIn.isRemote() && stack.getOrCreateTag().getLong("cooldown") < worldIn.getGameTime()) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             BlockPos playerPos = playerIn.getPosition();
-            List<Entity> entities = serverWorld.getEntitiesWithinAABBExcludingEntity(playerIn,
-                    new AxisAlignedBB(playerPos).grow(32));
 
-            AtomicReference<Vector3d> vector3d = new AtomicReference<>(new Vector3d(0, 0, 0));
-            AtomicReference<Float> speed = new AtomicReference<>();
-            entities.forEach(entity -> {
-                if (entity instanceof ProjectileEntity) {
-                    entity.setNoGravity(true);
-                    vector3d.set(entity.getMotion());
-                    entity.setMotion(0, 0, 0);
-                    entity.velocityChanged = true;
-                } else if (entity instanceof LivingEntity && !(entity instanceof PlayerEntity)) {
-                    LivingEntity living = (LivingEntity) entity;
-                    speed.set(living.getAIMoveSpeed());
-                    living.setAIMoveSpeed(0);
-                }
-            });
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putInt("pause_ticks", this.pauseTicks);
+            stack.setTag(nbt);
 
-            new Timer().schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    entities.forEach(entity -> {
-                        if (entity instanceof ProjectileEntity) {
-                            entity.setNoGravity(false);
-                            entity.setMotion(vector3d.get().x, vector3d.get().y, vector3d.get().z);
-                            entity.velocityChanged = true;
-                        } else if (entity instanceof LivingEntity && !(entity instanceof PlayerEntity)) {
-                            LivingEntity living = (LivingEntity) entity;
-                            living.setAIMoveSpeed(speed.get());
-                        }
-                    });
-                    playerIn.sendMessage(GensokyoOntology.withTranslation("network.", ".sakuya_watch.right_click"),
-                            playerIn.getUniqueID());
-                }
-            }, 200);
         }
         if (playerIn.isCreative())
             return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -99,6 +72,22 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
         stack.getOrCreateTag().putLong("cooldown", worldIn.getGameTime() + 6000);
         playerIn.getCooldownTracker().setCooldown(stack.getItem(), 6000);
         return ActionResult.resultPass(stack);
+    }
+
+    private void freezeEntities(World world, Class<Entity> entityClass,@Nullable Predicate<Entity> predicate, AxisAlignedBB aabb, float radius) {
+        if (predicate == null) {
+            getEntityWithinSphere(world, entityClass, aabb, radius).forEach(entity -> entity.canUpdate(false));
+            return;
+        }
+        getEntityWithinSphere(world, entityClass, predicate, aabb, radius).forEach(entity -> entity.canUpdate(false));
+    }
+
+    private void unfreezeEntities(World world, Class<Entity> entityClass,@Nullable Predicate<Entity> predicate, AxisAlignedBB aabb, float radius) {
+        if (predicate == null) {
+            getEntityWithinSphere(world, entityClass, aabb, radius).forEach(entity -> entity.canUpdate(true));
+            return;
+        }
+        getEntityWithinSphere(world, entityClass, predicate, aabb, radius).forEach(entity -> entity.canUpdate(true));
     }
 
     @Override
@@ -127,4 +116,5 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader {
     public UseAction getUseAction(@NotNull ItemStack stack) {
         return UseAction.BLOCK;
     }
+
 }

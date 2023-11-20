@@ -27,6 +27,7 @@ import javax.annotation.Nonnull;
  * 弹幕的生命周期或存在时间：125 个游戏刻<br>
  * 弹幕的tick()方法<br>
  * 弹幕击中生物时的逻辑<br>
+ * TODO: 弹幕攻击伤害的数值设定 <br>
  * （待补充……）
  */
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)

@@ -27,6 +27,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
 
+// TODO: 按照符卡的强度决定其登场和获取顺序
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
 
