@@ -173,7 +173,7 @@ public class GSKOClientEvents {
 
         // ======================== 自定义渲染器 ======================= //
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
-        MinecraftForge.EVENT_BUS.addListener(LaserRenderer::onRenderThirdPerson);
+        // MinecraftForge.EVENT_BUS.addListener(LaserRenderer::onRenderThirdPerson);
         // MinecraftForge.EVENT_BUS.addListener(LaserViewRenderer::onRenderFirstPerson);
     }
 

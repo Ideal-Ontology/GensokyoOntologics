@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.util.Vec3fConstants;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
@@ -45,11 +46,9 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         return LASER_SOURCE_TEX;
     }
 
-    private static void drawSprite(IVertexBuilder builder, Matrix4f matrix4f, int r, int g, int b) {
-        builder.pos(matrix4f, 0,0,1).color(r, g, b, 255).endVertex();
-        builder.pos(matrix4f, 1,0,1).color(r, g, b, 255).endVertex();
-        builder.pos(matrix4f, 1,1,1).color(r, g, b, 255).endVertex();
-        builder.pos(matrix4f, 0,1,1).color(r, g, b, 255).endVertex();
+    private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, int r, int g, int b) {
+        builder.pos(matrix4f, 0F,0.5F,0F).color(r, g, b, 255).endVertex();
+        builder.pos(matrix4f, 0F,2F,0F).color(r, g, b, 255).endVertex();
     }
 
     private static void drawSprite(IVertexBuilder builder, Matrix4f matrix4f, TextureAtlasSprite sprite) {
@@ -78,7 +77,10 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(LASER_SOURCE_TEX);
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder laser = buffer.getBuffer(RenderType.getEntityTranslucent(LASER_SOURCE_TEX));
+        IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
 
+        Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
+        // drawLaser(builder, matrix4f, 255, 255, 255);
         renderLaserUsingMojangsShit(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 
     }

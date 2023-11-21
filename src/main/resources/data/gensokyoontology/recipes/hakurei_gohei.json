@@ -2,15 +2,18 @@
   "type": "minecraft:crafting_shaped",
   "pattern": [
     "  I",
-    " I#",
+    " IO",
     "I #"
   ],
   "key": {
     "I": {
       "item": "minecraft:stick"
     },
+    "O": {
+      "tag": "forge:gems/inyo_jade"
+    },
     "#": {
-      "item": "gensokyoontology:paper_shide"
+      "item": "gensokyoontology:washi_paper"
     }
   },
   "result": {

@@ -38,26 +38,25 @@ public class LaserRenderer {
     }
 
     private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, float dx1, float dy1, float dz1, float dx2, float dy2, float dz2) {
-        builder.pos(matrix4f, dx1, dy1, dz1).color(1.0F, 0F, 0F, 0.5F).endVertex();
-        builder.pos(matrix4f, dx2, dy2, dz2).color(1.0F, 0F, 0F, 0.5F).endVertex();
+        builder.pos(matrix4f, dx1, dy1, dz1).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
+        builder.pos(matrix4f, dx2, dy2, dz2).color(1.0F, 1.0F, 1.0F, 1.0F).endVertex();
     }
 
     private static Vector3f toVector3f(Vector3d vector3d) {
         return new Vector3f((float) vector3d.x, (float) vector3d.y, (float) vector3d.z);
     }
 
-
     public static void onRenderThirdPerson(RenderLivingEvent.Post<?,?> event) {
         Minecraft mc = Minecraft.getInstance();
         ClientPlayerEntity player = mc.player;
         if (player == null) return;
         if (player.getHeldItemMainhand().getItem() != ItemRegistry.KOISHI_EYE_OPEN.get()) return;
-        LaserRenderer.renderThirdPersonView(event, player);
+        LaserRenderer.renderThirdPersonView(event);
     }
 
 
-    public static void renderThirdPersonView(RenderLivingEvent.Post<?, ?> event, ClientPlayerEntity player) {
-        if (event.getEntity() instanceof PlayerEntity && GSKOKeyboardManager.MOUSE_RIGHT.isKeyDown()) {
+    public static void renderThirdPersonView(RenderLivingEvent.Post<?, ?> event) {
+        if (event.getEntity() instanceof PlayerEntity) {
             IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
             IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_DIFFUSE);
             //GuardianRenderer
@@ -66,13 +65,7 @@ public class LaserRenderer {
             Matrix4f matrix4f = matrixStack.getLast().getMatrix();
 
             matrixStack.push();
-            for (int i = 0; i < 8; i++) {
-                Vector3d vector3d = player.getLookVec().scale(8).rotateYaw((float) Math.PI * 2 / 8 * i);
-                Vector3f lookVec = new Vector3f(toVector3f(vector3d).getX(), 1F, toVector3f(vector3d).getZ());
-                // Vector 3f lookVec = toVector3f(vector3d);
-                drawLaser(builder, matrix4f, 0F, 1F, 0F, lookVec.getX(), 1F, lookVec.getZ());
-                // drawLaser(builder, matrix4f, Vector3f.YP, lookVec, 1F, 0F, 0F, 0.5F);
-            }
+            drawLaser(builder, matrix4f, 0.5F, -2F, 0F, 0.5F, 2F, 0F);
             matrixStack.pop();
         }
 
