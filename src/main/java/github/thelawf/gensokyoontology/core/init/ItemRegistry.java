@@ -387,11 +387,9 @@ public final class ItemRegistry {
             "kitchen_knife", KitchenKnife::new);
     public static final RegistryObject<Butter> BUTTER = ITEMS.register("butter",
             () -> new Butter(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<MilkBottle> MILK_BOTTLE = ITEMS.register(
-            "milk_bottle", MilkBottle::new);
+    public static final RegistryObject<MilkBottle> MILK_BOTTLE = ITEMS.register("milk_bottle", MilkBottle::new);
 
-    public static final RegistryObject<SquidTentacle> SQUID_TENTACLE = ITEMS.register(
-            "squid_tentacle", SquidTentacle::new);
+    public static final RegistryObject<SquidTentacle> SQUID_TENTACLE = ITEMS.register("squid_tentacle", SquidTentacle::new);
     public static final RegistryObject<Item> ONION = ITEMS.register("onion", () ->
             new BlockItem(BlockRegistry.ONION_CROP_BLOCK.get(), new Item.Properties().group(
                     GSKOItemTab.GSKO_ITEM_TAB)));
