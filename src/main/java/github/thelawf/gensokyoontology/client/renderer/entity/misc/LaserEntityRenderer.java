@@ -6,10 +6,12 @@ import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.util.Vec3fConstants;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.GuardianRenderer;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.Texture;
@@ -20,9 +22,11 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.*;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
@@ -70,27 +74,13 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
     public void render(@NotNull LaserSourceEntity entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 
+        // TODO: 实现激光源头的贴图渲染
         TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(LASER_SOURCE_TEX);
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder laser = buffer.getBuffer(RenderType.getEntityTranslucent(LASER_SOURCE_TEX));
 
-        Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
-        Vector3d vector3d = entityIn.getLookVec().scale(20);
-        Vector3f lookVec = new Vector3f(toVector3f(vector3d).getX(), 0F, toVector3f(vector3d).getZ());
+        renderLaserUsingMojangsShit(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 
-        // matrixStackIn.push();
-        // matrixStackIn.translate(0, 0.1, 0);
-        // matrixStackIn.rotate(this.renderManager.getCameraOrientation());
-        // matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.F));
-        // drawSprite(laser, matrix4f, sprite);
-        // matrixStackIn.pop();
-
-        matrixStackIn.push();
-        matrixStackIn.translate(0.5, 0.5, 0.5);
-        matrixStackIn.rotate(Vector3f.YP.rotation(entityIn.rotationYaw));
-        matrixStackIn.rotate(Vector3f.XP.rotation(entityIn.rotationPitch));
-        renderLaserUsingMojangsShit(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        matrixStackIn.pop();
     }
 
     private static Vector3f toVector3f(Vector3d vector3d) {
@@ -98,10 +88,10 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
     }
 
     /** Render laser using Mojang's shit. <br>
-     * In GuardianRenderer, Mojang official use these codes below only for rendering
+     * Copy from {@link net.minecraft.client.renderer.entity.GuardianRenderer}. Mojang official uses these codes below only for rendering
      * Guardian Entity's laser.
      */
-    private void renderLaserUsingMojangsShit(LaserSourceEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
+    private void renderLaserUsingMojangsShit(LaserSourceEntity entityIn, @Nullable Vector3d lookVec, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
         //LivingEntity livingentity = entityIn.getTargetedEntity();
 
         float scale = 0.5f;
@@ -111,14 +101,16 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         matrixStackIn.push();
         matrixStackIn.translate(0.0D, eyeHeight, 0.0D);
         Vector3d vector3d = entityIn.getPositionVec();
-        Vector3d vector3d1 = new Vector3d(entityIn.getPosX(), eyeHeight, entityIn.getPosZ()); //  this.getPosition(entityIn, eyeHeight, partialTicks);
-        Vector3d vector3d2 = vector3d.subtract(vector3d1);
-        float f4 = (float)(vector3d2.length() + 1.0D);
-        vector3d2 = vector3d2.normalize();
+
+        // Using this.getPosition(entityIn, eyeHeight, partialTicks);
+        Vector3d vector3d1 = entityIn.getLookVec().scale(entityIn.getRange());
+        float f4 = (float)(vector3d1.length() + 1.0D);
+
+        Vector3d vector3d2 = entityIn.getLookVec();
         float f5 = (float)Math.acos(vector3d2.y);
         float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees((((float)Math.PI / 2F) - f6) * (180F / (float)Math.PI)));
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180F / (float)Math.PI)));
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((float)Math.PI / 2 - f6) * (180 / (float)Math.PI)));
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180 / (float)Math.PI)));
         float f7 = f1 * 0.05F * -1.5F;
         float f8 = scale * scale;
         int j = 64 + (int)(f8 * 191.0F);
@@ -147,7 +139,6 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         Matrix4f matrix4f = matrixstack$entry.getMatrix();
         Matrix3f matrix3f = matrixstack$entry.getNormal();
 
-        // Idea都看不下去了，帮忙模块化成了下面的样子：
         draw(f4, j, k, l, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
         draw(f4, j, k, l, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
         float f31 = 0.0F;
@@ -160,7 +151,6 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, j, k, l, 1.0F, f31);
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, j, k, l, 0.5F, f31);
         matrixStackIn.pop();
-
     }
 
     private void draw(float f4, int j, int k, int l, float f19, float f20, float f21, float f22, float f29, float f30, IVertexBuilder ivertexbuilder, Matrix4f matrix4f, Matrix3f matrix3f) {

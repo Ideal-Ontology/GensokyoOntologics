@@ -4,7 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import github.thelawf.gensokyoontology.data.recipe.SorceryRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -34,7 +34,7 @@ import java.util.Optional;
 
 public class DanmakuTabelTileEntity extends TileEntity {
     public DanmakuTabelTileEntity() {
-        super(TileEntityTypeRegistry.DANMAKU_TABLE_TILE.get());
+        super(TileEntityRegistry.DANMAKU_TABLE_TILE.get());
     }
 
     private final ItemStackHandler itemHandler = createItemHandler();

@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
-import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
@@ -26,13 +26,13 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     private int cooldown = 0;
 
     public GapTileEntity(RegistryKey<World> destinationWorld, BlockPos destinationPos) {
-        super(TileEntityTypeRegistry.GAP_TILE_ENTITY.get());
+        super(TileEntityRegistry.GAP_TILE_ENTITY.get());
         this.setDestinationWorld(destinationWorld);
         this.setDestinationPos(destinationPos);
     }
 
     public GapTileEntity() {
-        super(TileEntityTypeRegistry.GAP_TILE_ENTITY.get());
+        super(TileEntityRegistry.GAP_TILE_ENTITY.get());
         this.setDestinationWorld(World.OVERWORLD);
         this.setDestinationPos(BlockPos.ZERO);
     }

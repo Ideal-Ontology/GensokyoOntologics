@@ -1,24 +1,21 @@
 package github.thelawf.gensokyoontology.client.gui.screen;
 
+import com.google.gson.Gson;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.container.SpellCardContainer;
+import github.thelawf.gensokyoontology.client.gui.container.SpellCardConsoleContainer;
+import github.thelawf.gensokyoontology.common.util.operation.AssignOperation;
 import github.thelawf.gensokyoontology.common.util.operation.Operation;
 import github.thelawf.gensokyoontology.common.util.operation.enums.BasicDataTypes;
-import github.thelawf.gensokyoontology.common.util.operation.enums.Instances;
-import net.minecraft.client.gui.screen.CreateWorldScreen;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
-import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 
 import java.util.List;
 import java.util.Stack;
 
-public class SpellCardScreen extends ContainerScreen<SpellCardContainer> {
+public class SpellCardConsoleScreen extends ContainerScreen<SpellCardConsoleContainer> {
 
     /** Menu Hierarchy of Danmaku Command Table 弹幕控制台的菜单层级 */
 
@@ -39,17 +36,19 @@ public class SpellCardScreen extends ContainerScreen<SpellCardContainer> {
     Button saveAll;
 
     // Hierarchy of Vector3d Behavior Control 向量行为控制的层级
-    //
 
     // Hierarchy of SpellCard Behavior Control 符卡行为控制的层级
 
-    public SpellCardScreen(SpellCardContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public SpellCardConsoleScreen(SpellCardConsoleContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }
 
     @Override
     protected void init() {
         super.init();
+        this.saveAll = this.addButton(new Button(0,0,30,30, title, button -> operations.add(new AssignOperation<>("x", 0))));
+        Gson gson = new Gson();
+        String s = gson.toJson(operations);
     }
 
     @Override

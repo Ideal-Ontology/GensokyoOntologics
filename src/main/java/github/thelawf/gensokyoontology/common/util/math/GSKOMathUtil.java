@@ -5,8 +5,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 
 import java.awt.*;
@@ -468,5 +470,20 @@ public class GSKOMathUtil {
             vecList.add(new Vector3d(x, y, z));
         }
         return vecList;
+    }
+
+    public static Quaternion conjugate(Quaternion quaternionIn) {
+        return new Quaternion(-quaternionIn.getX(), -quaternionIn.getY(), -quaternionIn.getZ(), quaternionIn.getW());
+    }
+
+    public static Quaternion vecToQuaternion(Vector3d vector3d) {
+        double yaw = Math.atan2(vector3d.z, vector3d.x);
+        double pitch = Math.asin(vector3d.y);
+
+        // 将角度转为四元数
+        Quaternion quaternion = new Quaternion(Vector3f.YP, (float) Math.toDegrees(-yaw), true);// 设置水平旋转
+        quaternion.multiply(new Quaternion(Vector3f.XP, (float) Math.toDegrees(pitch), true)); // 设置垂直旋转
+
+        return quaternion;
     }
 }

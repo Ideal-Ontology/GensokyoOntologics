@@ -4,6 +4,7 @@ import java.util.function.Consumer;
 
 // 参考资料：
 // 1. ふつうのコンパイラをつくろう
+// TODO: 这个是符卡控制台界面保存的内容
 public abstract class Operation<T> {
     protected boolean isBasicDataType;
     protected T obj;

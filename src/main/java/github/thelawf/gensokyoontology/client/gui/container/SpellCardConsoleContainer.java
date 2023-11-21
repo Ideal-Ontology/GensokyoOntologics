@@ -5,8 +5,8 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import org.jetbrains.annotations.Nullable;
 
-public class SpellCardContainer extends Container {
-    protected SpellCardContainer(@Nullable ContainerType<?> type, int id) {
+public class SpellCardConsoleContainer extends Container {
+    protected SpellCardConsoleContainer(@Nullable ContainerType<?> type, int id) {
         super(type, id);
     }
 

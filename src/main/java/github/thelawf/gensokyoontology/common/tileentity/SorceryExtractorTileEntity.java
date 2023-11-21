@@ -1,10 +1,9 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
-import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import github.thelawf.gensokyoontology.data.recipe.SorceryRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
@@ -23,7 +22,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
@@ -35,7 +33,7 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
             GensokyoOntology.MODID + ".sorcery_extractor.title");
 
     public SorceryExtractorTileEntity() {
-        super(TileEntityTypeRegistry.SORCERY_EXTRACTOR_TILE_ENTITY.get());
+        super(TileEntityRegistry.SORCERY_EXTRACTOR_TILE_ENTITY.get());
     }
 
     public static INamedContainerProvider createContainer(World worldIn, BlockPos posIn) {

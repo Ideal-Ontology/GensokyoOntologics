@@ -62,7 +62,7 @@ public class GensokyoOntology {
         BlockRegistry.BLOCKS.register(eventBus);
         GSKOParticleRegistry.PARTICLE_TYPES.register(eventBus);
         EffectRegistry.POTION_EFFECTS.register(eventBus);
-        TileEntityTypeRegistry.TILE_ENTITIES.register(eventBus);
+        TileEntityRegistry.TILE_ENTITIES.register(eventBus);
         EntityRegistry.ENTITIES.register(eventBus);
         ContainerRegistry.CONTAINERS.register(eventBus);
         SerializerRegistry.SPELL_DATA_SERIALIZER.register(eventBus);

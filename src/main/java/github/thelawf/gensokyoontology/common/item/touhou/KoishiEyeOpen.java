@@ -44,7 +44,8 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
 
         LaserSourceEntity laserSource = new LaserSourceEntity(worldIn, playerIn);
         laserSource.init(200, 40, 35);
-        laserSource.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
+        laserSource.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight() * 0.5,
+                playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
         worldIn.addEntity(laserSource);
 
         playerIn.setActiveHand(handIn);
@@ -55,9 +56,6 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
             }
             else onItemUseFinish(stack, worldIn, playerIn);
         }
-        // getEntityWithinSphere(worldIn, LivingEntity.class, predicate, box, 12F).stream()
-        //         .filter(living -> isIntersecting(start, end, living.getBoundingBox().offset(0, -1, 0)))
-        //         .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 12F));
 
         if (playerIn.isCreative()) return super.onItemRightClick(worldIn, playerIn, handIn);
         // playerIn.getCooldownTracker().setCooldown(this, 100);
@@ -86,7 +84,7 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
                 Vector3d end = vector3d.rotateYaw((float) Math.PI * 2 / 8 * i).rotateYaw((float) angle);
                 getEntityWithinSphere(worldIn, LivingEntity.class, predicate.negate(), box, 12F).stream()
                         .filter(living -> isIntersecting(start, end, living.getBoundingBox().offset(0, -1, 0)))
-                        .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(player), 4F));
+                        .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(player), 8F));
                 if (angle >= Math.PI * 2) totalCount = 0;
             }
         }

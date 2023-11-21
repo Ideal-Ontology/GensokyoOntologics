@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
-import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
@@ -10,7 +10,7 @@ public class SpaceFissureTileEntity extends TileEntity implements ITickableTileE
     protected long elapsedTime = 0L;
 
     public SpaceFissureTileEntity() {
-        super(TileEntityTypeRegistry.SPACE_FISSURE_TILE_ENTITY.get());
+        super(TileEntityRegistry.SPACE_FISSURE_TILE_ENTITY.get());
     }
 
     @Override

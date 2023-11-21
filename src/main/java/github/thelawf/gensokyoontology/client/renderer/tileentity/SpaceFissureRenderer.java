@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
-import github.thelawf.gensokyoontology.core.init.TileEntityTypeRegistry;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -53,7 +53,7 @@ public class SpaceFissureRenderer extends TileEntityRenderer<GapTileEntity> {
     }
 
     public static void register() {
-        ClientRegistry.bindTileEntityRenderer(TileEntityTypeRegistry.GAP_TILE_ENTITY.get(), SpaceFissureRenderer::new);
+        ClientRegistry.bindTileEntityRenderer(TileEntityRegistry.GAP_TILE_ENTITY.get(), SpaceFissureRenderer::new);
     }
 
 }
