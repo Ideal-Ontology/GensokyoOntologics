@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.util.Vec3fConstants;
@@ -9,15 +10,16 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.renderer.texture.Texture;
+import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.GuardianEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Matrix3f;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -44,11 +46,13 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         builder.pos(matrix4f, 1,0,1).color(r, g, b, 255).endVertex();
         builder.pos(matrix4f, 1,1,1).color(r, g, b, 255).endVertex();
         builder.pos(matrix4f, 0,1,1).color(r, g, b, 255).endVertex();
+    }
 
-        builder.pos(matrix4f, 0,1,1).color(r, g, b, 255).endVertex();
-        builder.pos(matrix4f, 1,1,1).color(r, g, b, 255).endVertex();
-        builder.pos(matrix4f, 1,0,1).color(r, g, b, 255).endVertex();
-        builder.pos(matrix4f, 0,0,1).color(r, g, b, 255).endVertex();
+    private static void drawSprite(IVertexBuilder builder, Matrix4f matrix4f, TextureAtlasSprite sprite) {
+        builder.pos(matrix4f, 0,0,1).color(255, 255, 255, 255).tex(sprite.getMinU(), sprite.getMinV()).lightmap(0, 240).endVertex();
+        builder.pos(matrix4f, 1,0,1).color(255, 255, 255, 255).tex(sprite.getMaxU(), sprite.getMinV()).lightmap(0, 240).endVertex();
+        builder.pos(matrix4f, 1,1,1).color(255, 255, 255, 255).tex(sprite.getMaxU(), sprite.getMaxV()).lightmap(0, 240).endVertex();
+        builder.pos(matrix4f, 0,1,1).color(255, 255, 255, 255).tex(sprite.getMinU(), sprite.getMaxV()).lightmap(0, 240).endVertex();
     }
 
     private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, Vector3f start, Vector3f end, float r, float g, float b, float alpha) {
@@ -62,8 +66,11 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
     }
 
     @Override
-    public void render(LaserSourceEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    @SuppressWarnings("deprecation")
+    public void render(@NotNull LaserSourceEntity entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+
+        TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(LASER_SOURCE_TEX);
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder laser = buffer.getBuffer(RenderType.getEntityTranslucent(LASER_SOURCE_TEX));
 
@@ -71,21 +78,23 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         Vector3d vector3d = entityIn.getLookVec().scale(20);
         Vector3f lookVec = new Vector3f(toVector3f(vector3d).getX(), 0F, toVector3f(vector3d).getZ());
 
+        // matrixStackIn.push();
+        // matrixStackIn.translate(0, 0.1, 0);
+        // matrixStackIn.rotate(this.renderManager.getCameraOrientation());
+        // matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.F));
+        // drawSprite(laser, matrix4f, sprite);
+        // matrixStackIn.pop();
+
         matrixStackIn.push();
-        //drawSprite(laser, matrix4f, 255, 255, 255);
+        matrixStackIn.translate(0.5, 0.5, 0.5);
+        matrixStackIn.rotate(Vector3f.YP.rotation(entityIn.rotationYaw));
+        matrixStackIn.rotate(Vector3f.XP.rotation(entityIn.rotationPitch));
         renderLaserUsingMojangsShit(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.pop();
     }
 
     private static Vector3f toVector3f(Vector3d vector3d) {
         return new Vector3f((float) vector3d.x, (float) vector3d.y, (float) vector3d.z);
-    }
-
-    private Vector3d getPosition(LivingEntity entityLivingBaseIn, double p_177110_2_, float p_177110_4_) {
-        double d0 = MathHelper.lerp(p_177110_4_, entityLivingBaseIn.lastTickPosX, entityLivingBaseIn.getPosX());
-        double d1 = MathHelper.lerp(p_177110_4_, entityLivingBaseIn.lastTickPosY, entityLivingBaseIn.getPosY()) + p_177110_2_;
-        double d2 = MathHelper.lerp(p_177110_4_, entityLivingBaseIn.lastTickPosZ, entityLivingBaseIn.getPosZ());
-        return new Vector3d(d0, d1, d2);
     }
 
     /** Render laser using Mojang's shit. <br>
