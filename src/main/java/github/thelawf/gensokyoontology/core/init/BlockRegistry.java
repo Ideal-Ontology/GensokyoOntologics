@@ -169,13 +169,11 @@ public final class BlockRegistry {
             "danmaku_table", DanmakuTableBlock::new);
     public static final RegistryObject<Block> SORCERY_EXTRACTOR = BLOCKS.register(
             "sorcery_extractor", SorceryExtractorBlock::new);
-
     public static final RegistryObject<Block> DISPOSABLE_SPAWNER = BLOCKS.register(
             "disposable_spawner", DisposableSpawnerBlock::new);
-
     public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
             "space_fissure_block", SpaceFissureBlock::new);
-
     public static final RegistryObject<Block> GAP_BLOCK = BLOCKS.register("gap", GapBlock::new);
+    public static final RegistryObject<Block> SPELL_CARD_CONSOLE = BLOCKS.register("spell_card_console", SpellCardConsoleBlock::new);
 
 }

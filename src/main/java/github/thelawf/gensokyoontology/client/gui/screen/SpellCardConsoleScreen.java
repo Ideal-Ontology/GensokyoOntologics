@@ -15,6 +15,7 @@ import net.minecraft.util.text.ITextComponent;
 import java.util.List;
 import java.util.Stack;
 
+// TODO: 面向硬核自定义符卡行为的玩家而写的符卡控制台面板，用于接受玩家的自定义行为
 public class SpellCardConsoleScreen extends ContainerScreen<SpellCardConsoleContainer> {
 
     /** Menu Hierarchy of Danmaku Command Table 弹幕控制台的菜单层级 */

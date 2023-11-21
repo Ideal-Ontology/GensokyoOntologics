@@ -23,8 +23,10 @@ public final class TileEntityRegistry {
     public static final RegistryObject<TileEntityType<SorceryExtractorTileEntity>> SORCERY_EXTRACTOR_TILE_ENTITY =
             TILE_ENTITIES.register("sorcery_tileentity", () -> TileEntityType.Builder.create(
                     SorceryExtractorTileEntity::new, BlockRegistry.SORCERY_EXTRACTOR.get()).build(null));
-
     public static final RegistryObject<TileEntityType<DisposableSpawnerTile>> DISPOSABLE_SPAWNER_TILE_ENTITY =
-            TILE_ENTITIES.register("disposable_spawnertile_entity", () -> TileEntityType.Builder.create(
+            TILE_ENTITIES.register("disposable_spawner_tileentity", () -> TileEntityType.Builder.create(
                     DisposableSpawnerTile::new, BlockRegistry.DISPOSABLE_SPAWNER.get()).build(null));
+    public static final RegistryObject<TileEntityType<SpellConsoleTileEntity>> SPELL_CONSOLE_TILE_ENTITY =
+            TILE_ENTITIES.register("spell_console_tileentity", () -> TileEntityType.Builder.create(
+                    SpellConsoleTileEntity::new, BlockRegistry.SPELL_CARD_CONSOLE.get()).build(null));
 }
