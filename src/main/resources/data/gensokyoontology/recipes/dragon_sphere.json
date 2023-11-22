@@ -1,0 +1,15 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##",
+    "##"
+  ],
+  "key": {
+    "#": {
+      "item": "gensokyoontology:dragon_sphere_fragment"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:dragon_sphere"
+  }
+}

@@ -25,6 +25,13 @@ public class GSKOGUIUtil {
                 new ItemStack(ItemRegistry.ORB_JADE.get()),
                 new ItemStack(ItemRegistry.AYA_FANS.get())));
 
+        recipes.add(createExtractorRecipe(
+                new ItemStack(ItemRegistry.JADE_LEVEL_SS.get()),
+                new ItemStack(ItemRegistry.DRAGON_SPHERE.get()),
+                new ItemStack(ItemRegistry.IZANO_OBJECT.get()),
+                ItemStack.EMPTY,
+                new ItemStack(ItemRegistry.ORB_JADE.get())));
+
         return recipes;
     }
 

@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "gensokyoontology:immemorial_alloy_block"
+  },
+  "result": "gensokyoontology:crimson_alloy_fragment",
+  "experience": 1.2,
+  "cookingtime": 300
+}

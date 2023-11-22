@@ -256,8 +256,6 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> IMMEMORIAL_ALLOY_BLOCK_ITEM = ITEMS.register(
             "immemorial_alloy_block", () -> new BlockItem(BlockRegistry.IMMEMORIAL_ALLOY_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<Item> IZANO_OBJECT = ITEMS.register(
-            "izano_object", () -> new IzanoObject(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ------------------------------- 技术性道具 ----------------------------------//
     public static final RegistryObject<BlockItem> DISPOSABLE_SPAWNER_ITEM = ITEMS.register(
@@ -355,13 +353,20 @@ public final class ItemRegistry {
     // public static final RegistryObject<Item> PAPER_SHIDE = ITEMS.register("paper_shide",
     //         () -> new PaperShide(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
+    public static final RegistryObject<Item> IZANO_OBJECT = ITEMS.register("izano_object",
+            () -> new IzanoObject(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> DRAGON_SPHERE_FRAGMENT = ITEMS.register("dragon_sphere_fragment",
+            () -> new DragonSphere(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> DRAGON_SPHERE = ITEMS.register("dragon_sphere",
+            () -> new DragonSphere(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     public static final RegistryObject<Item> CRIMSON_ALLOY_INGOT = ITEMS.register("crimson_alloy_ingot",
             () -> new CrimsonAlloyIngot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> CRIMSON_METAL_INGOT = ITEMS.register("crimson_metal_ingot",
             () -> new CrimsonMetalIngot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<Item> CRIMSON_METAL_FRAGMENT = ITEMS.register("crimson_metal_fragment",
+    public static final RegistryObject<Item> CRIMSON_ALLOY_FRAGMENT = ITEMS.register("crimson_alloy_fragment",
             () -> new CrimsonMetalFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     ////////////////////////////////////  各个等级的玉石  ///////////////////////////////////////

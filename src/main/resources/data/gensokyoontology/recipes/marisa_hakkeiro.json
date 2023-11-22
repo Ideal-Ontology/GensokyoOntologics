@@ -10,7 +10,7 @@
       "item": "minecraft:quartz_block"
     },
     "X": {
-      "item": "gensokyoontology:spirit_star"
+      "tag": "gensokyoontology:danmaku/large_star_shots"
     },
     "#": {
       "item": "minecraft:obsidian"
