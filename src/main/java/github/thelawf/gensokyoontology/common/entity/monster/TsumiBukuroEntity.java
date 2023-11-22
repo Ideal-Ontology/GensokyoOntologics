@@ -12,11 +12,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class TsumiBukuroEntity extends AbstractHumanEntity {
 
-    public static final EntityType<TsumiBukuroEntity> TSUMI_BUKURO = EntityType.Builder.create(
-                    TsumiBukuroEntity::new, EntityClassification.CREATURE).updateInterval(2)
-            .size(0.6f, 1.8f).trackingRange(10).build("tsumi_bukuro");
-
-    protected TsumiBukuroEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
+    public TsumiBukuroEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
         super(type, worldIn);
     }
 

@@ -243,7 +243,7 @@ public final class ItemRegistry {
                                 Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world,
                                         150, 440, 2000, 6000));
                             }
-                            return ActionResultType.CONSUME;
+                            return ActionResultType.FAIL;
                         }
                         context.getItem().shrink(1);
                         Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world, context.getPlayer(),

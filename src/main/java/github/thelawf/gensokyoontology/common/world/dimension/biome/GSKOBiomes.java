@@ -5,10 +5,12 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.*;
+import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.Objects;
 import java.util.function.Supplier;
 
 public class GSKOBiomes {
@@ -60,6 +62,11 @@ public class GSKOBiomes {
     public static final RegistryKey<Biome> NETHER_VOID_KEY = makeKey("nether_void");
     public static final RegistryKey<Biome> NETHER_LAND_KEY = makeKey("nether_land");
     public static final RegistryKey<Biome> NETHER_SAKURA_FOREST_KEY = makeKey("nether_sakura_forest");
+
+    public static boolean isGensokyoBiome(final BiomeLoadingEvent event) {
+        return GSKOBiomesProvider.GSKO_BIOMES.stream().map(RegistryKey::getLocation).map(Objects::toString)
+                .anyMatch(obj -> obj.equals(event.getName().toString()));
+    }
 
     private static RegistryKey<Biome> makeKey(String name) {
         return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(GensokyoOntology.MODID, name));

@@ -163,13 +163,11 @@ public class GSKOClientEvents {
 
         // TODO EntityRegistry里面没注册紫妈
         // 暂时删除，因为没画贴图，模型也没做（）
-
         // RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
 
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(),
-                HumanResidentRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CITIZEN.get(),
-                CitizenRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.TSUMI_BUKURO_ENTITY.get(), TsumiBukuroRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), HumanResidentRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CITIZEN.get(), CitizenRenderer::new);
 
         // ======================== 自定义渲染器 ======================= //
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());

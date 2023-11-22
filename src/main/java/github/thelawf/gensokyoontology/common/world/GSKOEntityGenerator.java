@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.world;
 
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
@@ -37,6 +38,13 @@ public class GSKOEntityGenerator {
                 .anyMatch(obj -> obj.equals(event.getName().toString()));
 
         if (isSelected) addEntityGeneration(event, type, weight, minCount, maxCount);
+    }
+
+    public static void addEntityToGensokyo(final BiomeLoadingEvent event, EntityType<?> entity,
+                                           int weight, int minCount, int maxCount) {
+        if (GSKOBiomes.isGensokyoBiome(event)) {
+            addEntityGeneration(event, entity, weight, minCount, maxCount);
+        }
     }
 
     public static void addEntityGeneration(final BiomeLoadingEvent event, EntityType<?> type,

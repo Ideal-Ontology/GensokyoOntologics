@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.world.feature;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.events.GSKOWorldEvents;
 import github.thelawf.gensokyoontology.common.world.GSKOOreType;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
@@ -106,13 +107,17 @@ public class GSKOFeatureGenerator {
 
     public static void generateGensokyoOre(final BiomeLoadingEvent event) {
         if (event.getName() != null && event.getName().getNamespace().equals(GensokyoOntology.MODID)) {
+
             ConfiguredFeature<?, ?> jadeOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.JADE_GENSOKYO,
                     Feature.NO_SURFACE_ORE, GSKOWGConfigs.JADE_GENSOKYO_CONFIG, GSKOWGConfigs.JADE_GENSOKYO_PLANCEMENT);
             ConfiguredFeature<?, ?> dragonSphereOreFeature = GSKOFeatures.makeOreFeature(GSKOOreType.DRAGON_SPHERE,
                     Feature.NO_SURFACE_ORE, GSKOWGConfigs.DRAGON_SPHERE_CONFIG, GSKOWGConfigs.DRAGON_SPHERE_PLACEMENT);
+            ConfiguredFeature<?, ?> immemorialAlloyFeature = GSKOFeatures.makeOreFeature(GSKOOreType.IMMEMORIAL_ALLOY,
+                    Feature.NO_SURFACE_ORE, GSKOWGConfigs.CRIMSON_ALLOY_CONFIG, GSKOWGConfigs.IMMEMORIAL_ALLOY_PLACEMENT);
 
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, jadeOreFeature);
             event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, dragonSphereOreFeature);
+            event.getGeneration().withFeature(GenerationStage.Decoration.UNDERGROUND_ORES, immemorialAlloyFeature);
         }
 
     }
