@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "gensokyoontology:izano_object_ore"
+  },
+  "result":  "gensokyoontology:izano_object",
+  "experience": 0.2,
+  "cookingtime": 100
+}

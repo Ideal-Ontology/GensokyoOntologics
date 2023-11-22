@@ -55,10 +55,13 @@
   "item.gensokyoontology.oblivious_tales_occult_ball": "被遗忘的传说: 神秘珠",
   "item.gensokyoontology.oblivious_tales_imperishable_night": "被遗忘的传说: 永远之夜",
 
+
+  "item.gensokyoontology.izano_object": "伊奘诺物质",
+  "item.gensokyoontology.dragon_sphere": "龙珠",
   "item.gensokyoontology.crimson_alloy_ingot": "绯色合金锭",
-  "item.gensokyoontology.crimson_metal_ingot": "绯色金属锭",
-  "item.gensokyoontology.crimson_metal_fragment": "绯色金属碎片",
   "item.gensokyoontology.ishi_zakura_fragment": "石樱碎片",
+  "item.gensokyoontology.dragon_sphere_fragment": "龙珠碎片",
+  "item.gensokyoontology.crimson_alloy_fragment": "绯色合金碎片",
 
   "item.gensokyoontology.spirit_star": "灵魂之星",
   "item.gensokyoontology.spirit_fragment": "意识形态碎片",
@@ -204,7 +207,6 @@
   "item.gensokyoontology.onion": "洋葱",
 
   "item.gensokyoontology.cherry_blossom": "樱花",
-  "item.gensokyoontology.izano_object": "伊奘诺物质",
 
   "item.gensokyoontology.kitchen_knife": "菜刀",
   "item.gensokyoontology.burger_meat_raw": "生汉堡肉",
@@ -226,7 +228,6 @@
   "block.gensokyoontology.wasabi": "山葵",
   "block.gensokyoontology.lycoris_radiata": "红花石蒜",
   "block.gensokyoontology.onion_crop": "洋葱",
-
   "block.gensokyoontology.blue_rose_bush": "蓝蔷薇",
   "block.gensokyoontology.ishi_zakura": "石樱",
 
@@ -515,5 +516,7 @@
 
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "item.gensokyoontology.crimson_metal_fragment": "绯色金属碎片",
+  "item.gensokyoontology.crimson_metal_ingot": "绯色金属锭"
 }

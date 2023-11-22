@@ -32,6 +32,13 @@ public class GSKOGUIUtil {
                 ItemStack.EMPTY,
                 new ItemStack(ItemRegistry.ORB_JADE.get())));
 
+        recipes.add(createExtractorRecipe(
+                new ItemStack(ItemRegistry.CRIMSON_ALLOY_FRAGMENT.get()),
+                new ItemStack(ItemRegistry.CRIMSON_ALLOY_FRAGMENT.get()),
+                new ItemStack(ItemRegistry.CRIMSON_ALLOY_FRAGMENT.get()),
+                new ItemStack(ItemRegistry.CRIMSON_ALLOY_FRAGMENT.get()),
+                new ItemStack(ItemRegistry.CRIMSON_ALLOY_INGOT.get())));
+
         return recipes;
     }
 

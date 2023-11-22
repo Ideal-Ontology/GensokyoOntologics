@@ -55,10 +55,13 @@
   "item.gensokyoontology.oblivious_tales_occult_ball": "Oblivious Tales: Occult Ball",
   "item.gensokyoontology.oblivious_tales_imperishable_night": "Oblivious Tales: Imperishable Night",
 
+
+  "item.gensokyoontology.izano_object": "Izano Object",
+  "item.gensokyoontology.dragon_sphere": "Dragon Sphere",
   "item.gensokyoontology.crimson_alloy_ingot": "Crimson Alloy Ingot",
-  "item.gensokyoontology.crimson_metal_ingot": "Crimson Metal Ingot",
-  "item.gensokyoontology.crimson_metal_fragment": "Crimson Metal Fragment",
   "item.gensokyoontology.ishi_zakura_fragment": "Ishizakura Fragment",
+  "item.gensokyoontology.dragon_sphere_fragment": "Dragon Sphere Fragment",
+  "item.gensokyoontology.crimson_alloy_fragment": "Crimson Alloy Fragment",
 
   "item.gensokyoontology.spirit_star": "Spirit Star",
   "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
@@ -204,7 +207,6 @@
   "item.gensokyoontology.onion": "Onion",
 
   "item.gensokyoontology.cherry_blossom": "Cherry Blossom",
-  "item.gensokyoontology.izano_object": "Izano Object",
 
   "item.gensokyoontology.kitchen_knife": "Kitchen Knife",
   "item.gensokyoontology.burger_meat_raw": "Burger Meat Raw",
@@ -226,7 +228,6 @@
   "block.gensokyoontology.wasabi": "Wasabi",
   "block.gensokyoontology.lycoris_radiata": "Lycoris Radiata",
   "block.gensokyoontology.onion_crop": "Onion",
-
   "block.gensokyoontology.blue_rose_bush": "Blue Rose Bush",
   "block.gensokyoontology.ishi_zakura": "Ishi Zakura",
 

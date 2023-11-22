@@ -55,10 +55,13 @@
   "item.gensokyoontology.oblivious_tales_occult_ball": "Oblivious Tales: Occult Ball",
   "item.gensokyoontology.oblivious_tales_imperishable_night": "Oblivious Tales: Imperishable Night",
 
+
+  "item.gensokyoontology.izano_object": "Izano Object",
+  "item.gensokyoontology.dragon_sphere": "Dragon Sphere",
   "item.gensokyoontology.crimson_alloy_ingot": "Crimson Alloy Ingot",
-  "item.gensokyoontology.crimson_metal_ingot": "Crimson Metal Ingot",
-  "item.gensokyoontology.crimson_metal_fragment": "Crimson Metal Fragment",
   "item.gensokyoontology.ishi_zakura_fragment": "Ishizakura Fragment",
+  "item.gensokyoontology.dragon_sphere_fragment": "Dragon Sphere Fragment",
+  "item.gensokyoontology.crimson_alloy_fragment": "Crimson Metal Fragment",
 
   "item.gensokyoontology.spirit_star": "Spirit Star",
   "item.gensokyoontology.spirit_fragment": "Spirit Fragment",
@@ -204,7 +207,6 @@
   "item.gensokyoontology.onion": "Onion",
 
   "item.gensokyoontology.cherry_blossom": "Cherry Blossom",
-  "item.gensokyoontology.izano_object": "Izano Object",
 
   "item.gensokyoontology.kitchen_knife": "Kitchen Knife",
   "item.gensokyoontology.burger_meat_raw": "Burger Meat Raw",
@@ -226,7 +228,6 @@
   "block.gensokyoontology.wasabi": "Wasabi",
   "block.gensokyoontology.lycoris_radiata": "Lycoris Radiata",
   "block.gensokyoontology.onion_crop": "Onion",
-
   "block.gensokyoontology.blue_rose_bush": "Blue Rose Bush",
   "block.gensokyoontology.ishi_zakura": "Ishi Zakura",
 
@@ -516,5 +517,7 @@
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "item.gensokyoontology.crimson_metal_fragment": "Crimson Metal Fragment",
+  "item.gensokyoontology.crimson_metal_ingot": "Crimson Metal Ingot",
   "patchouli.gensokyoontology.item.jade.introduction": "A very precious gem in gensokyo. A famous jewelry collector in the village ranged the jade into 5 degrees from level B to level SSS. If you mine the raw jade block, you can hold the jade ore and cut it on the stone cutter in sneaking pose."
 }
