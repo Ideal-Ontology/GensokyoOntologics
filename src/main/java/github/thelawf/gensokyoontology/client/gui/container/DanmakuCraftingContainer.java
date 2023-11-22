@@ -95,17 +95,17 @@ public class DanmakuCraftingContainer extends Container {
 
 
             if (matches(craftingMatrix, heartShotSlots)) {
-                ItemStack stack = new ItemStack(ItemRegistry.HEART_SHOT_RED.get());
+                ItemStack stack = new ItemStack(ItemRegistry.HEART_SHOT.get());
                 stack.setCount(getMinStackCount(heartShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
             } else if (matches(craftingMatrix, largeShotSlots)) {
-                ItemStack stack = new ItemStack(ItemRegistry.LARGE_SHOT_PURPLE.get());
+                ItemStack stack = new ItemStack(ItemRegistry.LARGE_SHOT.get());
                 stack.setCount(getMinStackCount(largeShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
             } else if (matches(craftingMatrix, largeStarShotSlots)) {
-                ItemStack stack = new ItemStack(ItemRegistry.LARGE_STAR_SHOT_BLUE.get());
+                ItemStack stack = new ItemStack(ItemRegistry.LARGE_STAR_SHOT.get());
                 stack.setCount(getMinStackCount(largeStarShotSlots));
                 this.resultsMatrix.setInventorySlotContents(0, stack);
                 this.prevStacks.set(0, stack);
