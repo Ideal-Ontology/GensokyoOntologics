@@ -49,12 +49,12 @@
   "item.gensokyoontology.wandering_soul": "游荡的灵魂",
   "item.gensokyoontology.washi_paper": "和纸",
   "item.gensokyoontology.paper_shide": "纸垂",
+  "item.gensokyoontology.chimata_market_license": "天弓千亦的市场许可证",
 
   "item.gensokyoontology.oblivious_tales_scarlet_mist": "被遗忘的传说: 红雾往事",
   "item.gensokyoontology.oblivious_tales_spring_snows": "被遗忘的传说: 春天飞雪",
   "item.gensokyoontology.oblivious_tales_occult_ball": "被遗忘的传说: 神秘珠",
   "item.gensokyoontology.oblivious_tales_imperishable_night": "被遗忘的传说: 永远之夜",
-
 
   "item.gensokyoontology.izano_object": "伊奘诺物质",
   "item.gensokyoontology.dragon_sphere": "龙珠",
@@ -79,12 +79,6 @@
   "item.gensokyoontology.idealism_sword": "观念论之剑",
   "item.gensokyoontology.praxis_sword": "实践",
 
-  "item.gensokyoontology.danmaku_shot": "弹幕之点",
-  "item.gensokyoontology.large_shot": "大弹",
-  "item.gensokyoontology.heart_shot": "心弹",
-  "item.gensokyoontology.star_shot": "星弹",
-  "item.gensokyoontology.fake_lunar": "虚假之月",
-
   "item.gensokyoontology.bomb_item": "B点",
   "item.gensokyoontology.extend_item": "Extend Item",
   "item.gensokyoontology.bomb_fragment": "B点碎片",
@@ -108,7 +102,17 @@
   "item.gensokyoontology.sc_full_cherry_blossom": "莉莉白一非",
   "item.gensokyoontology.sc_mania_depress": "心符「忧郁的躁狂」",
 
-  "item.gensokyoontology.chimata_market_license": "天弓千亦的市场许可证",
+  "item.gensokyoontology.danmaku_shot": "弹幕之点",
+  "item.gensokyoontology.large_shot": "大弹",
+  "item.gensokyoontology.small_shot": "小弹",
+  "item.gensokyoontology.heart_shot": "心弹",
+  "item.gensokyoontology.large_star_shot": "大型星弹",
+  "item.gensokyoontology.small_star_shot": "小型星弹",
+  "item.gensokyoontology.rice_shot": "米弹",
+  "item.gensokyoontology.talisman_shot": "札弹",
+  "item.gensokyoontology.scale_shot": "鳞弹",
+  "item.gensokyoontology.fake_lunar": "虚假之月",
+
   "item.gensokyoontology.large_shot_red": "大弹（红）",
   "item.gensokyoontology.large_shot_orange": "大弹（橙）",
   "item.gensokyoontology.large_shot_yellow": "大弹（黄）",
@@ -516,7 +520,5 @@
 
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "item.gensokyoontology.crimson_metal_fragment": "绯色金属碎片",
-  "item.gensokyoontology.crimson_metal_ingot": "绯色金属锭"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }

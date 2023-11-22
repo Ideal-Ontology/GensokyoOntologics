@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "gensokyoontology:scale_shot",
     "gensokyoontology:scale_shot_red",
     "gensokyoontology:scale_shot_yellow",
     "gensokyoontology:scale_shot_green",

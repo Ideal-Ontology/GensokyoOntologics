@@ -1,6 +1,7 @@
 {
   "replace": false,
   "values": [
+    "gensokyoontology:heart_shot",
     "gensokyoontology:heart_shot_red",
     "gensokyoontology:heart_shot_aqua",
     "gensokyoontology:heart_shot_blue",

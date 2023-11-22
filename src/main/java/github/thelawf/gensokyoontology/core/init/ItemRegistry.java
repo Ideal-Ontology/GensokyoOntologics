@@ -492,6 +492,9 @@ public final class ItemRegistry {
             () -> new DanmakuShotItem(DanmakuType.DANMAKU_SHOT));
 
     /////////////////////////// 所有颜色的大弹 ////////////////////////////////
+
+    public static final RegistryObject<Item> LARGE_SHOT = ITEMS.register(
+            "large_shot", () -> new LargeShot(DanmakuType.LARGE_SHOT));
     public static final RegistryObject<Item> LARGE_SHOT_RED = ITEMS.register(
             "large_shot_red", () -> new LargeShot(DanmakuType.LARGE_SHOT));
     public static final RegistryObject<Item> LARGE_SHOT_ORANGE = ITEMS.register(
@@ -510,6 +513,8 @@ public final class ItemRegistry {
             "large_shot_magenta", () -> new LargeShot(DanmakuType.LARGE_SHOT));
 
     /////////////////////////// 所有颜色的小弹 ////////////////////////////////
+    public static final RegistryObject<Item> SMALL_SHOT = ITEMS.register(
+            "small_shot", () -> new SmallShot(DanmakuType.SMALL_SHOT));
     public static final RegistryObject<Item> SMALL_SHOT_RED = ITEMS.register(
             "small_shot_red", () -> new SmallShot(DanmakuType.SMALL_SHOT));
     public static final RegistryObject<Item> SMALL_SHOT_ORANGE = ITEMS.register(
@@ -528,6 +533,8 @@ public final class ItemRegistry {
             "small_shot_magenta", () -> new SmallShot(DanmakuType.SMALL_SHOT));
 
     ////////////////////////////// 所有颜色的米弹  /////////////////////////////////
+    public static final RegistryObject<Item> RICE_SHOT = ITEMS.register("rice_shot",
+            () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> RICE_SHOT_RED = ITEMS.register("rice_shot_red",
             () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> RICE_SHOT_BLUE = ITEMS.register("rice_shot_blue",
@@ -536,6 +543,8 @@ public final class ItemRegistry {
             () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     ////////////////////////////// 所有颜色的鳞弹  /////////////////////////////////
+    public static final RegistryObject<Item> SCALE_SHOT = ITEMS.register("scale_shot",
+            () -> new ScaleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> SCALE_SHOT_RED = ITEMS.register("scale_shot_red",
             () -> new ScaleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> SCALE_SHOT_YELLOW = ITEMS.register("scale_shot_yellow",
@@ -546,7 +555,10 @@ public final class ItemRegistry {
             () -> new ScaleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> SCALE_SHOT_PURPLE = ITEMS.register("scale_shot_purple",
             () -> new ScaleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+
     ////////////////////////////// 所有颜色的心弹  /////////////////////////////////
+    public static final RegistryObject<Item> HEART_SHOT = ITEMS.register(
+            "heart_shot", () -> new HeartShot(DanmakuType.HEART_SHOT));
     public static final RegistryObject<Item> HEART_SHOT_PINK = ITEMS.register(
             "heart_shot_pink", () -> new HeartShot(DanmakuType.HEART_SHOT));
     public static final RegistryObject<Item> HEART_SHOT_RED = ITEMS.register(
@@ -557,6 +569,8 @@ public final class ItemRegistry {
             "heart_shot_blue", () -> new HeartShot(DanmakuType.HEART_SHOT));
 
     ////////////////////////////// 所有颜色的小型星弹  /////////////////////////////////
+    public static final RegistryObject<Item> SMALL_STAR_SHOT = ITEMS.register(
+            "small_star_shot", () -> new StarShot(DanmakuType.STAR_SHOT_SMALL));
     public static final RegistryObject<Item> SMALL_STAR_SHOT_RED = ITEMS.register(
             "small_star_shot_red", () -> new StarShot(DanmakuType.STAR_SHOT_SMALL));
     public static final RegistryObject<Item> SMALL_STAR_SHOT_YELLOW = ITEMS.register(
@@ -571,6 +585,8 @@ public final class ItemRegistry {
             "small_star_shot_purple", () -> new StarShot(DanmakuType.STAR_SHOT_SMALL));
 
     ////////////////////////////// 所有颜色的大型星弹  /////////////////////////////////
+    public static final RegistryObject<Item> LARGE_STAR_SHOT = ITEMS.register(
+            "large_star_shot", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
     public static final RegistryObject<Item> LARGE_STAR_SHOT_RED = ITEMS.register(
             "large_star_shot_red", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
     public static final RegistryObject<Item> LARGE_STAR_SHOT_YELLOW = ITEMS.register(
@@ -585,6 +601,8 @@ public final class ItemRegistry {
             "large_star_shot_purple", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
 
     ////////////////////////////// 所有颜色的札弹  /////////////////////////////////
+    public static final RegistryObject<Item> TALISMAN_SHOT = ITEMS.register(
+            "talisman_shot", () -> new TalismanShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> TALISMAN_SHOT_RED = ITEMS.register("talisman_shot_red",
             () -> new TalismanShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> TALISMAN_SHOT_GREEN = ITEMS.register("talisman_shot_green",

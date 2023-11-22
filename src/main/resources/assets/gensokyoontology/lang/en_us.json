@@ -49,12 +49,12 @@
   "item.gensokyoontology.wandering_soul": "Wnadering Soul",
   "item.gensokyoontology.washi_paper": "Washi Paper",
   "item.gensokyoontology.paper_shide": "Paper Shide",
+  "item.gensokyoontology.chimata_market_license": "Chimata Market License",
 
   "item.gensokyoontology.oblivious_tales_scarlet_mist": "Oblivious Tales: Scarlet Mist",
   "item.gensokyoontology.oblivious_tales_spring_snows": "Oblivious Tales: Spring Snows",
   "item.gensokyoontology.oblivious_tales_occult_ball": "Oblivious Tales: Occult Ball",
   "item.gensokyoontology.oblivious_tales_imperishable_night": "Oblivious Tales: Imperishable Night",
-
 
   "item.gensokyoontology.izano_object": "Izano Object",
   "item.gensokyoontology.dragon_sphere": "Dragon Sphere",
@@ -79,12 +79,6 @@
   "item.gensokyoontology.idealism_sword": "Idealism Sword",
   "item.gensokyoontology.praxis_sword": "Praxis Sword",
 
-  "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
-  "item.gensokyoontology.large_shot": "Large Shot",
-  "item.gensokyoontology.heart_shot": "Heart Shot",
-  "item.gensokyoontology.star_shot": "Star Shot",
-  "item.gensokyoontology.fake_lunar": "Fake Lunar",
-
   "item.gensokyoontology.bomb_item": "Bomb",
   "item.gensokyoontology.extend_item": "Extend Item",
   "item.gensokyoontology.bomb_fragment": "Bomb Fragment",
@@ -108,7 +102,17 @@
   "item.gensokyoontology.sc_full_cherry_blossom": "\"Full Cherry Blossom\"",
   "item.gensokyoontology.sc_mania_depress": "Heart Spell \"Mania Depress\"",
 
-  "item.gensokyoontology.chimata_market_license": "Chimata Market License",
+  "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
+  "item.gensokyoontology.large_shot": "Large Shot",
+  "item.gensokyoontology.small_shot": "Small Shot",
+  "item.gensokyoontology.heart_shot": "Heart Shot",
+  "item.gensokyoontology.large_star_shot": "Large Star Shot",
+  "item.gensokyoontology.small_star_shot": "Small Star Shot",
+  "item.gensokyoontology.rice_shot": "Rice Shot",
+  "item.gensokyoontology.talisman_shot": "Talisman Shot",
+  "item.gensokyoontology.scale_shot": "Scale Shot",
+  "item.gensokyoontology.fake_lunar": "Fake Lunar",
+
   "item.gensokyoontology.large_shot_red": "Large Shot Red",
   "item.gensokyoontology.large_shot_orange": "Large Shot Orange",
   "item.gensokyoontology.large_shot_yellow": "Large Shot Yellow",

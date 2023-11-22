@@ -49,12 +49,12 @@
   "item.gensokyoontology.wandering_soul": "Wnadering Soul",
   "item.gensokyoontology.washi_paper": "Washi Paper",
   "item.gensokyoontology.paper_shide": "Paper Shide",
+  "item.gensokyoontology.chimata_market_license": "Chimata Market License",
 
   "item.gensokyoontology.oblivious_tales_scarlet_mist": "Oblivious Tales: Scarlet Mist",
   "item.gensokyoontology.oblivious_tales_spring_snows": "Oblivious Tales: Spring Snows",
   "item.gensokyoontology.oblivious_tales_occult_ball": "Oblivious Tales: Occult Ball",
   "item.gensokyoontology.oblivious_tales_imperishable_night": "Oblivious Tales: Imperishable Night",
-
 
   "item.gensokyoontology.izano_object": "Izano Object",
   "item.gensokyoontology.dragon_sphere": "Dragon Sphere",
@@ -79,12 +79,6 @@
   "item.gensokyoontology.idealism_sword": "Idealism Sword",
   "item.gensokyoontology.praxis_sword": "Praxis Sword",
 
-  "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
-  "item.gensokyoontology.large_shot": "Large Shot",
-  "item.gensokyoontology.heart_shot": "Heart Shot",
-  "item.gensokyoontology.star_shot": "Star Shot",
-  "item.gensokyoontology.fake_lunar": "Fake Lunar",
-
   "item.gensokyoontology.bomb_item": "Bomb",
   "item.gensokyoontology.extend_item": "Extend Item",
   "item.gensokyoontology.bomb_fragment": "Bomb Fragment",
@@ -108,7 +102,17 @@
   "item.gensokyoontology.sc_full_cherry_blossom": "\"Full Cherry Blossom\"",
   "item.gensokyoontology.sc_mania_depress": "Heart Spell \"Mania Depress\"",
 
-  "item.gensokyoontology.chimata_market_license": "Chimata Market License",
+  "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
+  "item.gensokyoontology.large_shot": "Large Shot",
+  "item.gensokyoontology.small_shot": "Small Shot",
+  "item.gensokyoontology.heart_shot": "Heart Shot",
+  "item.gensokyoontology.large_star_shot": "Large Star Shot",
+  "item.gensokyoontology.small_star_shot": "Small Star Shot",
+  "item.gensokyoontology.rice_shot": "Rice Shot",
+  "item.gensokyoontology.talisman_shot": "Talisman Shot",
+  "item.gensokyoontology.scale_shot": "Scale Shot",
+  "item.gensokyoontology.fake_lunar": "Fake Lunar",
+
   "item.gensokyoontology.large_shot_red": "Large Shot Red",
   "item.gensokyoontology.large_shot_orange": "Large Shot Orange",
   "item.gensokyoontology.large_shot_yellow": "Large Shot Yellow",
@@ -516,8 +520,5 @@
 
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "item.gensokyoontology.crimson_metal_fragment": "Crimson Metal Fragment",
-  "item.gensokyoontology.crimson_metal_ingot": "Crimson Metal Ingot",
-  "patchouli.gensokyoontology.item.jade.introduction": "A very precious gem in gensokyo. A famous jewelry collector in the village ranged the jade into 5 degrees from level B to level SSS. If you mine the raw jade block, you can hold the jade ore and cut it on the stone cutter in sneaking pose."
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }
