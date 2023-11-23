@@ -29,11 +29,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+// 种子：-8902379324748255918 坐标：1519 76 441 维度：幻想乡 群系：博丽神社周边
 @OnlyIn(Dist.CLIENT)
 public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
 
     public static final ResourceLocation LASER_SOURCE_TEX = GensokyoOntology.withRL("textures/entity/laser_source.png");
-    public static final ResourceLocation LASER_BEAM_TEX = GensokyoOntology.withRL("textures/entity/laser_beam.png");
+    public static final ResourceLocation LASER_BEAM_TEX = GensokyoOntology.withRL("textures/entity/laser_beam_1.png");
     public static final RenderType LASER_BEAM = RenderType.getEntityTranslucent(LASER_BEAM_TEX);
 
     public LaserEntityRenderer(EntityRendererManager renderManager) {
@@ -124,9 +125,14 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         float f8 = scale * scale;
 
         // 这里是获取渲染颜色数值
-        int j = 64 + (int)(f8 * 191.0F); // Red: 111.75 -> 111
-        int k = 32 + (int)(f8 * 191.0F); // Green: 79.75 -> 79
-        int l = 128 - (int)(f8 * 64.0F); // Blue: 80.25 -> 80
+        // int j = 64 + (int)(f8 * 191.0F); // Red: 111.75 -> 111
+        // int k = 32 + (int)(f8 * 191.0F); // Green: 79.75 -> 79
+        // int l = 128 - (int)(f8 * 64.0F); // Blue: 80.25 -> 80
+
+        // entityIn.setARGB(0xFFFF0000);
+        int j = 255;
+        int k = 255;
+        int l = 255;
 
         int r = entityIn.getRed();
         int g = entityIn.getGreen();
@@ -158,6 +164,9 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
 
         draw(f4, j, k, l, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
         draw(f4, j, k, l, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
+
+        // draw(f4, r, g, b, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
+        // draw(f4, r, g, b, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
         float f31 = 0.0F;
         if (entityIn.ticksExisted % 2 == 0) {
             f31 = 0.5F;
@@ -167,6 +176,11 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, j, k, l, 1.0F, f31 + 0.5F);
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, j, k, l, 1.0F, f31);
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, j, k, l, 0.5F, f31);
+
+        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, r, g, b, 0.5F, f31 + 0.5F);
+        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, r, g, b, 1.0F, f31 + 0.5F);
+        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, r, g, b, 1.0F, f31);
+        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, r, g, b, 0.5F, f31);
         matrixStackIn.pop();
     }
 

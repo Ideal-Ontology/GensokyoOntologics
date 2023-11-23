@@ -21,6 +21,7 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
     private int lifespan = 100;
     private int preparation = 30;
     private float range = 30;
+    @OnlyIn(Dist.CLIENT)
     private int argb = 0xFFFFFFFF;
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Integer> DATA_PREPARATION = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
@@ -78,7 +79,7 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         if (this.ticksExisted % 2 == 0) {
             getEntityWithinSphere(this.world, LivingEntity.class, createCubeBox(start, (int) this.range), this.range).stream()
                     .filter(living -> isIntersecting(start, end, living.getBoundingBox()))
-                    .forEach(living -> living.attackEntityFrom(GSKODamageSource.LASER, 1));
+                    .forEach(living -> living.attackEntityFrom(GSKODamageSource.LASER, 3));
         }
     }
 

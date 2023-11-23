@@ -31,8 +31,6 @@ import java.util.UUID;
 
 public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser {
 
-    @OnlyIn(Dist.CLIENT)
-    private Animation animation = Animation.IDLE;
 
     public FlandreScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
@@ -84,6 +82,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     }
 
     @Override
+    @NotNull
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
@@ -119,15 +118,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         super.func_230258_H__();
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public void setAnimation(Animation animation) {
-        this.animation = animation;
-    }
 
-    @OnlyIn(Dist.CLIENT)
-    public Animation getAnimation() {
-        return animation;
-    }
 
     @Override
     public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {

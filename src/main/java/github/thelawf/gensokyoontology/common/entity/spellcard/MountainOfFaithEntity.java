@@ -8,7 +8,6 @@ import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;

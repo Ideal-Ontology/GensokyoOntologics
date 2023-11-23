@@ -8,6 +8,8 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class YoukaiEntity extends RetreatableEntity {
@@ -20,6 +22,9 @@ public abstract class YoukaiEntity extends RetreatableEntity {
      * 好感度
      */
     protected int favorability = 0;
+
+    @OnlyIn(Dist.CLIENT)
+    private Animation animation = Animation.IDLE;
     public static final DataParameter<Boolean> DATA_RETREATED = EntityDataManager.createKey(
             YoukaiEntity.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Integer> DATA_FAVORABILITY = EntityDataManager.createKey(YoukaiEntity.class, DataSerializers.VARINT);
@@ -62,5 +67,15 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     public boolean isRetreated() {
         return this.dataManager.get(DATA_RETREATED);
     }
+    @OnlyIn(Dist.CLIENT)
+    public void setAnimation(Animation animation) {
+        this.animation = animation;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public Animation getAnimation() {
+        return animation;
+    }
+
 
 }
