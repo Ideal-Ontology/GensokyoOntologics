@@ -24,7 +24,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.Nullable;
 
-public class AbstractHumanEntity extends AgeableEntity implements INPC, IMerchant {
+public abstract class AbstractHumanEntity extends AgeableEntity implements INPC {
     protected AbstractHumanEntity(EntityType<? extends AgeableEntity> type, World worldIn) {
         super(type, worldIn);
     }
@@ -59,58 +59,4 @@ public class AbstractHumanEntity extends AgeableEntity implements INPC, IMerchan
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-    @Override
-    public void setCustomer(@Nullable PlayerEntity player) {
-    }
-
-    @Nullable
-    @Override
-    public PlayerEntity getCustomer() {
-        return null;
-    }
-
-    @Override
-    public MerchantOffers getOffers() {
-        return null;
-    }
-
-    @Override
-    public void setClientSideOffers(@Nullable MerchantOffers offers) {
-
-    }
-
-    @Override
-    public void onTrade(MerchantOffer offer) {
-
-    }
-
-    @Override
-    public void verifySellingItem(ItemStack stack) {
-
-    }
-
-    @Override
-    public World getWorld() {
-        return null;
-    }
-
-    @Override
-    public int getXp() {
-        return 0;
-    }
-
-    @Override
-    public void setXP(int xpIn) {
-
-    }
-
-    @Override
-    public boolean hasXPBar() {
-        return false;
-    }
-
-    @Override
-    public SoundEvent getYesSound() {
-        return null;
-    }
 }

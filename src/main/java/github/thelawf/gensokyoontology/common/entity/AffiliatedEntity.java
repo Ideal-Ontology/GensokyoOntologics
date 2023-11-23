@@ -48,8 +48,8 @@ public abstract class AffiliatedEntity extends Entity {
         }
     }
 
-    public Entity getOwner() {
-        return owner;
+    public Optional<UUID> getOwnerID() {
+        return this.dataManager.get(DATA_OWNER);
     }
 
     public void setOwner(Entity owner) {

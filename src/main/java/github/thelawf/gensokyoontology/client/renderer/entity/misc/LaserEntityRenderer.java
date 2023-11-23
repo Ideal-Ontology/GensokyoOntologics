@@ -59,7 +59,7 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         builder.pos(matrix4f, 0,1,1).color(255, 255, 255, 255).tex(sprite.getMinU(), sprite.getMaxV()).lightmap(0, 240).endVertex();
     }
 
-    private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, Vector3f start, Vector3f end, float r, float g, float b, float alpha) {
+    private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, Vector3f start, Vector3f end, int r, int g, int b, int alpha) {
         builder.pos(matrix4f, start.getX(), start.getY(), start.getZ()).color(r, g, b, alpha).endVertex();
         builder.pos(matrix4f, end.getX(), end.getY(), end.getZ()).color(r, g, b, alpha).endVertex();
     }
@@ -82,13 +82,21 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         // TODO: 实现激光源头的贴图渲染
         TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(LASER_SOURCE_TEX);
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        IVertexBuilder laser = buffer.getBuffer(RenderType.getEntityTranslucent(LASER_SOURCE_TEX));
         IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
 
-        Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
         // drawLaser(builder, matrix4f, 255, 255, 255);
-        renderLaserUsingMojangsShit(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        if (entityIn.ticksExisted <= entityIn.getPreparation()) {
+            Vector3f start = Vec3fConstants.ZERO;
+            Vector3f end = toVector3f(entityIn.getLookVec().scale(entityIn.getRange()));
+            matrixStackIn.push();
+            Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
 
+            drawLaser(builder, matrix4f, start, end, entityIn.getRed(), entityIn.getGreen(), entityIn.getBlue(), entityIn.getAlpha());
+            matrixStackIn.pop();
+        }
+        else {
+            renderLaserUsingMojangsShit(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        }
     }
 
     private static Vector3f toVector3f(Vector3d vector3d) {
@@ -162,25 +170,25 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         Matrix4f matrix4f = matrixstack$entry.getMatrix();
         Matrix3f matrix3f = matrixstack$entry.getNormal();
 
-        draw(f4, j, k, l, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
-        draw(f4, j, k, l, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
+        // draw(f4, j, k, l, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
+        // draw(f4, j, k, l, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
 
-        // draw(f4, r, g, b, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
-        // draw(f4, r, g, b, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
+        draw(f4, r, g, b, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
+        draw(f4, r, g, b, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
         float f31 = 0.0F;
         if (entityIn.ticksExisted % 2 == 0) {
             f31 = 0.5F;
         }
 
-        drawLaser(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, j, k, l, 0.5F, f31 + 0.5F);
-        drawLaser(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, j, k, l, 1.0F, f31 + 0.5F);
-        drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, j, k, l, 1.0F, f31);
-        drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, j, k, l, 0.5F, f31);
+        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, j, k, l, 0.5F, f31 + 0.5F);
+        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, j, k, l, 1.0F, f31 + 0.5F);
+        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, j, k, l, 1.0F, f31);
+        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, j, k, l, 0.5F, f31);
 
-        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, r, g, b, 0.5F, f31 + 0.5F);
-        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, r, g, b, 1.0F, f31 + 0.5F);
-        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, r, g, b, 1.0F, f31);
-        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, r, g, b, 0.5F, f31);
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, r, g, b, 0.5F, f31 + 0.5F);
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, r, g, b, 1.0F, f31 + 0.5F);
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, r, g, b, 1.0F, f31);
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, r, g, b, 0.5F, f31);
         matrixStackIn.pop();
     }
 

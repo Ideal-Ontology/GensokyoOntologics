@@ -4,6 +4,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import org.jetbrains.annotations.NotNull;
 
 public class SaisenBoxTileEntity extends TileEntity {
     public SaisenBoxTileEntity(TileEntityType<?> tileEntityTypeIn) {
@@ -11,12 +12,13 @@ public class SaisenBoxTileEntity extends TileEntity {
     }
 
     @Override
-    public void read(BlockState state, CompoundNBT nbt) {
+    public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
         super.read(state, nbt);
     }
 
     @Override
-    public CompoundNBT write(CompoundNBT compound) {
+    @NotNull
+    public CompoundNBT write(@NotNull CompoundNBT compound) {
         return super.write(compound);
     }
 }

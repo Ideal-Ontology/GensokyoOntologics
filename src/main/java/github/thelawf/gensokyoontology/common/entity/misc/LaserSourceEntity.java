@@ -17,12 +17,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Predicate;
+
 public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceReader {
     private int lifespan = 100;
     private int preparation = 30;
     private float range = 30;
-    @OnlyIn(Dist.CLIENT)
-    private int argb = 0xFFFFFFFF;
+    public int argb = 0xFFFFFFFF;
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Integer> DATA_PREPARATION = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Float> DATA_RANGE = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.FLOAT);
@@ -57,7 +58,7 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         }
         if (compound.contains("range")) {
             this.range = compound.getFloat("range");
-            this.setRange(compound.getInt("range"));
+            this.setRange(compound.getFloat("range"));
         }
     }
 
@@ -66,7 +67,7 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         super.writeAdditional(compound);
         compound.putInt("lifespan", this.lifespan);
         compound.putInt("preparation", this.preparation);
-        compound.putFloat("range", this.range);
+        compound.putInt("argb", this.argb);
     }
 
     @Override
@@ -76,9 +77,10 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         if (!shouldEmit()) return;
         Vector3d start = this.getPositionVec();
         Vector3d end = this.getLookVec().scale(this.range).add(start);
+        Predicate<Entity> isOwner = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() == this.getOwnerID().get();
         if (this.ticksExisted % 2 == 0) {
             getEntityWithinSphere(this.world, LivingEntity.class, createCubeBox(start, (int) this.range), this.range).stream()
-                    .filter(living -> isIntersecting(start, end, living.getBoundingBox()))
+                    .filter(living -> isIntersecting(start, end, living.getBoundingBox()) && isOwner.test(living))
                     .forEach(living -> living.attackEntityFrom(GSKODamageSource.LASER, 3));
         }
     }

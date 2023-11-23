@@ -20,7 +20,7 @@ public class GSKORenderTypes extends RenderType {
         super(nameIn, formatIn, drawModeIn, bufferSizeIn, useDelegateIn, needsSortingIn, setupTaskIn, clearTaskIn);
     }
 
-    public static final RenderType LASER_LINE = makeType("laser_line_thick",
+    public static final RenderType LASER_LINE = makeType("laser_line",
             DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 256,
             RenderType.State.getBuilder().line(getLaserLine(5.0))
                     .layer(VIEW_OFFSET_Z_LAYERING)
@@ -30,7 +30,7 @@ public class GSKORenderTypes extends RenderType {
                     .lightmap(LIGHTMAP_DISABLED)
                     .build(false));
 
-    public static final RenderType LASER_DIFFUSE = makeType("laser_beam",
+    public static final RenderType LASER_DIFFUSE = makeType("laser_diffuse",
             DefaultVertexFormats.POSITION_COLOR, GL11.GL_LINES, 256,
             RenderType.State.getBuilder().line(getLaserLine(10.0))
                     .layer(VIEW_OFFSET_Z_LAYERING)
