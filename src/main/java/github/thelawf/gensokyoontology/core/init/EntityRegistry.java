@@ -24,7 +24,6 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<HumanResidentEntity>> HUMAN_RESIDENT_ENTITY = ENTITIES.register(
             "human_resident", () -> EntityType.Builder.create(HumanResidentEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.55f, 1.8f).trackingRange(10).build("human_resident"));
-
     public static final RegistryObject<EntityType<CitizenEntity>> CITIZEN = ENTITIES.register(
             "citizen", () -> EntityType.Builder.create(CitizenEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.6f, 1.8f).trackingRange(10).build("citizen"));
@@ -34,27 +33,24 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<InyoJadeMonsterEntity>> INYO_JADE_ENTITY = ENTITIES.register(
             "inyo_jade", () -> EntityType.Builder.create(InyoJadeMonsterEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.8f, 0.8f).trackingRange(10).build("inyo_jade_monster"));
-
     public static final RegistryObject<EntityType<FairyEntity>> FAIRY_ENTITY = ENTITIES.register(
             "fairy", () -> EntityType.Builder.create(FairyEntity::new, EntityClassification.MONSTER)
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("fairy"));
-
     public static final RegistryObject<EntityType<SpectreEntity>> SPECTRE_ENTITY = ENTITIES.register(
             "spectre", () -> EntityType.Builder.create(SpectreEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.65f, 0.65f).trackingRange(10).build("spectre"));
-
     public static final RegistryObject<EntityType<TsumiBukuroEntity>> TSUMI_BUKURO_ENTITY = ENTITIES.register(
             "tsumi_bukuro", () -> EntityType.Builder.create(TsumiBukuroEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.6f, 1.8f).trackingRange(10).build("tsumi_bukuro"));
-
     public static final RegistryObject<EntityType<LilyWhiteEntity>> LILY_WHITE_ENTITY = ENTITIES.register(
             "lily_white", () -> EntityType.Builder.create(LilyWhiteEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("lily_white"));
-
     public static final RegistryObject<EntityType<FlandreScarletEntity>> FLANDRE_SCARLET = ENTITIES.register(
             "flandre_scarlet", () -> EntityType.Builder.create(FlandreScarletEntity::new, EntityClassification.CREATURE)
                     .setShouldReceiveVelocityUpdates(true).size(0.6f, 1.55f).trackingRange(10).build("flandre_scarlet"));
-
+    public static final RegistryObject<EntityType<RemiliaScarletEntity>> REMILIA_SCARLET = ENTITIES.register(
+            "remilia_scarlet", () -> EntityType.Builder.create(RemiliaScarletEntity::new, EntityClassification.CREATURE)
+                    .setShouldReceiveVelocityUpdates(true).size(0.6f, 1.58f).trackingRange(10).build("remilia_scarlet"));
     // =============================== 可驯服的生物 ============================ //
 
     // public static final RegistryObject<EntityType<KoishiEntity>> KOISHI_ENTITY = ENTITIES.register(
@@ -69,39 +65,30 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<DanmakuShotEntity>> DANMAKU_ENTITY = ENTITIES.register(
             "danmaku_shot", () -> EntityType.Builder.<DanmakuShotEntity>create(DanmakuShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("danmaku_shot"));
-
     public static final RegistryObject<EntityType<HeartShotEntity>> HEART_SHOT_ENTITY = ENTITIES.register(
             "heart_shot", () -> EntityType.Builder.<HeartShotEntity>create(HeartShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("heart_shot"));
-
     public static final RegistryObject<EntityType<LargeShotEntity>> LARGE_SHOT_ENTITY = ENTITIES.register(
             "large_shot", () -> EntityType.Builder.<LargeShotEntity>create(LargeShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("large_shot"));
-
     public static final RegistryObject<EntityType<SmallShotEntity>> SMALL_SHOT_ENTITY = ENTITIES.register(
             "small_shot", () -> EntityType.Builder.<SmallShotEntity>create(SmallShotEntity::new, EntityClassification.MISC)
                     .size(0.3F, 0.3F).trackingRange(4).updateInterval(2).build("small_shot"));
-
     public static final RegistryObject<EntityType<SmallStarShotEntity>> STAR_SHOT_SMALL_ENTITY = ENTITIES.register(
             "star_shot_small", () -> EntityType.Builder.<SmallStarShotEntity>create(SmallStarShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("star_shot_small"));
-
     public static final RegistryObject<EntityType<LargeStarShotEntity>> STAR_SHOT_LARGE_ENTITY = ENTITIES.register(
             "start_shot_large", () -> EntityType.Builder.<LargeStarShotEntity>create(LargeStarShotEntity::new, EntityClassification.MISC)
                     .size(2.8F, 2.8F).trackingRange(4).updateInterval(2).build("star_shot_large"));
-
     public static final RegistryObject<EntityType<RiceShotEntity>> RICE_SHOT_ENTITY = ENTITIES.register(
             "rice_shot", () -> EntityType.Builder.<RiceShotEntity>create(RiceShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("rice_shot"));
-
     public static final RegistryObject<EntityType<ScaleShotEntity>> SCALE_SHOT_ENTITY = ENTITIES.register(
             "scale_shot", () -> EntityType.Builder.<ScaleShotEntity>create(ScaleShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("scale_shot"));
-
     public static final RegistryObject<EntityType<TalismanShotEntity>> TALISMAN_SHOT_ENTITY = ENTITIES.register(
             "talisman_shot", () -> EntityType.Builder.<TalismanShotEntity>create(TalismanShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("talisman_shot"));
-
     public static final RegistryObject<EntityType<FakeLunarEntity>> FAKE_LUNAR_ENTITY = ENTITIES.register(
             "fake_lunar", () -> EntityType.Builder.<FakeLunarEntity>create(FakeLunarEntity::new, EntityClassification.MISC).size(2.8F, 2.8F)
                     .trackingRange(4).updateInterval(2).build("fake_lunar"));

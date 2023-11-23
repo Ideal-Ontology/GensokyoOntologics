@@ -17,8 +17,8 @@ public class LilyWhiteRenderer extends LivingRenderer<LilyWhiteEntity, LilyWhite
     public static final ResourceLocation LILY_WHITE_TEX = new ResourceLocation(
             GensokyoOntology.MODID, "textures/entity/lily_white.png");
 
-    public LilyWhiteRenderer(EntityRendererManager rendererManager, LilyWhiteModel entityModelIn, float shadowSizeIn) {
-        super(rendererManager, entityModelIn, shadowSizeIn);
+    public LilyWhiteRenderer(EntityRendererManager rendererManager) {
+        super(rendererManager, new LilyWhiteModel(0.6F), 0.6F);
     }
 
     @Override

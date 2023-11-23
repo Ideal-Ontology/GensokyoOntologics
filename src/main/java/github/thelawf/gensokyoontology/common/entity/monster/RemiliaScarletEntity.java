@@ -7,12 +7,12 @@ import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.world.World;
 
 public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser {
-    protected RemiliaScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
+    public RemiliaScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
     @Override
     public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
-
+        spellCard.onTick(this.world, this, ticksIn);
     }
 }
