@@ -1,23 +1,28 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
+import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.entity.*;
+import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 public class InYoJadeDanmakuEntity extends AbstractDanmakuEntity {
-    public static final EntityType<InYoJadeDanmakuEntity> INYO_JADE_DANMAKU = EntityType.Builder.<InYoJadeDanmakuEntity>create(
-                    InYoJadeDanmakuEntity::new, EntityClassification.MISC).size(0.5F, 0.5F).trackingRange(4)
-            .updateInterval(2).build("inyo_jade_entity");
 
-    protected InYoJadeDanmakuEntity(EntityType<InYoJadeDanmakuEntity> type, World worldIn) {
-        super(type, worldIn);
+    public InYoJadeDanmakuEntity(World worldIn, Entity shooter) {
+        super(EntityRegistry.INYO_JADE_DANMAKU.get(), worldIn);
+        this.setShooter(shooter);
     }
 
-    public InYoJadeDanmakuEntity(LivingEntity throwerIn, World world, SpellData spellData) {
-        super(INYO_JADE_DANMAKU, throwerIn, world, spellData);
+    public InYoJadeDanmakuEntity(EntityType<? extends ThrowableEntity> type, World world) {
+        super(type, world);
     }
 
     @Override
@@ -26,7 +31,17 @@ public class InYoJadeDanmakuEntity extends AbstractDanmakuEntity {
     }
 
     @Override
+    protected void onEntityHit(@NotNull EntityRayTraceResult result) {
+        if (result.getEntity() instanceof YoukaiEntity) {
+            YoukaiEntity youkai = (YoukaiEntity) result.getEntity();
+            youkai.attackEntityFrom(DamageSource.WITHER, 5F);
+        }
+        super.onEntityHit(result);
+    }
+
+    @Override
+    @NotNull
     public ItemStack getItem() {
-        return null;
+        return new ItemStack(ItemRegistry.INYO_JADE_RED.get());
     }
 }

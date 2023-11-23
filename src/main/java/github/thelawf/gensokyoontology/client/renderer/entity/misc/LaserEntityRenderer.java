@@ -68,6 +68,11 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         builder.pos(matrix4f, dx1, dy1, dz1).color(r, g, b, 255).tex(u, v).overlay(OverlayTexture.NO_OVERLAY).lightmap(15728880).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
+    private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, Matrix3f matrix3f,
+                                  float dx1, float dy1, float dz1, int r, int g, int b, int a, float u, float v) {
+        builder.pos(matrix4f, dx1, dy1, dz1).color(r, g, b, a).tex(u, v).overlay(OverlayTexture.NO_OVERLAY).lightmap(15728880).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
+    }
+
     @Override
     @SuppressWarnings("deprecation")
     public void render(@NotNull LaserSourceEntity entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int packedLightIn) {
@@ -108,16 +113,26 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         Vector3d vector3d1 = entityIn.getLookVec().scale(entityIn.getRange());
         float f4 = (float)(vector3d1.length() + 1.0D);
 
+        // 获取激光光束的发射方向，根据这个方向旋转matrixStack到相应的位置进行渲染
         Vector3d vector3d2 = entityIn.getLookVec();
         float f5 = (float)Math.acos(vector3d2.y);
         float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((float)Math.PI / 2 - f6) * (180 / (float)Math.PI)));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180 / (float)Math.PI)));
+
         float f7 = f1 * 0.05F * -1.5F;
         float f8 = scale * scale;
-        int j = 64 + (int)(f8 * 191.0F);
-        int k = 32 + (int)(f8 * 191.0F);
-        int l = 128 - (int)(f8 * 64.0F);
+
+        // 这里是获取渲染颜色数值
+        int j = 64 + (int)(f8 * 191.0F); // Red: 111.75 -> 111
+        int k = 32 + (int)(f8 * 191.0F); // Green: 79.75 -> 79
+        int l = 128 - (int)(f8 * 64.0F); // Blue: 80.25 -> 80
+
+        int r = entityIn.getRed();
+        int g = entityIn.getGreen();
+        int b = entityIn.getBlue();
+        int a = entityIn.getAlpha();
+
         float f11 = MathHelper.cos(f7 + 2.3561945F) * 0.282F;
         float f12 = MathHelper.sin(f7 + 2.3561945F) * 0.282F;
         float f13 = MathHelper.cos(f7 + ((float)Math.PI / 4F)) * 0.282F;

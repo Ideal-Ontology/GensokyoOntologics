@@ -105,6 +105,10 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<FakeLunarEntity>> FAKE_LUNAR_ENTITY = ENTITIES.register(
             "fake_lunar", () -> EntityType.Builder.<FakeLunarEntity>create(FakeLunarEntity::new, EntityClassification.MISC).size(2.8F, 2.8F)
                     .trackingRange(4).updateInterval(2).build("fake_lunar"));
+    public static final RegistryObject<EntityType<InYoJadeDanmakuEntity>> INYO_JADE_DANMAKU = ENTITIES.register(
+            "inyo_jade_danmaku", () -> EntityType.Builder.<InYoJadeDanmakuEntity>create(InYoJadeDanmakuEntity::new, EntityClassification.MISC)
+                    .size(4F, 4F).trackingRange(4).updateInterval(2).build("inyo_jade_entity")
+    );
 
     // ================================ 不知道是什么的实体 ================================= //
 

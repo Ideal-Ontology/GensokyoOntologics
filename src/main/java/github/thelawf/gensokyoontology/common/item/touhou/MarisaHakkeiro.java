@@ -51,7 +51,6 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
         if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
-
         // 获取玩家的物品栏对象
         IInventory inventory = playerIn.inventory;
 

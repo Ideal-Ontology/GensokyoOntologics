@@ -122,6 +122,8 @@ public class GSKOClientEvents {
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAKE_LUNAR_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 5.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_DANMAKU.get(),
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 4f, false));
 
         // ======================== 贴图类怪物的渲染器 ==================== //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_ENTITY.get(),

@@ -13,12 +13,15 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceReader {
     private int lifespan = 100;
     private int preparation = 30;
     private float range = 30;
+    private int argb = 0xFFFFFFFF;
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Integer> DATA_PREPARATION = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Float> DATA_RANGE = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.FLOAT);
@@ -119,4 +122,35 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         this.range = range;
         this.dataManager.set(DATA_RANGE, range);
     }
+
+    @OnlyIn(Dist.CLIENT)
+    public void setARGB(int argb) {
+        this.argb = argb;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public int getARGB() {
+        return this.argb;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public int getAlpha() {
+        return (this.argb >> 24) & 0xFF;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public int getRed() {
+        return (this.argb >> 16) & 0xFF;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public int getGreen() {
+        return (this.argb >> 8) & 0xFF;
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public int getBlue() {
+        return this.argb & 0xFF;
+    }
+
 }

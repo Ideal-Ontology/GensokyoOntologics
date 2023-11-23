@@ -184,6 +184,13 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5D)
                     .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.8D).create());
 
+            event.put(EntityRegistry.TSUMI_BUKURO_ENTITY.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 40F)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4D)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4F)
+                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.3D)
+                    .createMutableAttribute(Attributes.ARMOR, 4D).create());
+
             event.put(EntityRegistry.LILY_WHITE_ENTITY.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 100D)
                     .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35F)

@@ -41,10 +41,6 @@
         {
           "type": "minecraft:item",
           "name": "minecraft:potato"
-        },
-        {
-          "type": "minecraft:item",
-          "name": "gensokyoontology:story_paper"
         }
       ],
       "conditions": [

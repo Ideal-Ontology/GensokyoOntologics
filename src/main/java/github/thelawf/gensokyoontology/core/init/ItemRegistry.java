@@ -363,9 +363,6 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> CRIMSON_ALLOY_INGOT = ITEMS.register("crimson_alloy_ingot",
             () -> new CrimsonAlloyIngot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    public static final RegistryObject<Item> CRIMSON_METAL_INGOT = ITEMS.register("crimson_metal_ingot",
-            () -> new CrimsonMetalIngot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
     public static final RegistryObject<Item> CRIMSON_ALLOY_FRAGMENT = ITEMS.register("crimson_alloy_fragment",
             () -> new CrimsonMetalFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 

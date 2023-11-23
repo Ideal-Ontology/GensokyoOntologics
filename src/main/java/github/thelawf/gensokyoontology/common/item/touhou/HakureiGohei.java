@@ -4,6 +4,8 @@ import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -37,8 +39,11 @@ public class HakureiGohei extends Item {
         if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
-        playerIn.getCooldownTracker().setCooldown(this, 1200);
+        InYoJadeDanmakuEntity inYoJade = new InYoJadeDanmakuEntity(worldIn, playerIn);
+        DanmakuUtil.shootDanmaku(worldIn, playerIn, inYoJade, 1F, 0F);
 
+        if (playerIn.isCreative()) return ActionResult.resultPass(playerIn.getHeldItem(handIn));
+        playerIn.getCooldownTracker().setCooldown(this, 10);
         return ActionResult.resultPass(playerIn.getHeldItem(handIn));
     }
 

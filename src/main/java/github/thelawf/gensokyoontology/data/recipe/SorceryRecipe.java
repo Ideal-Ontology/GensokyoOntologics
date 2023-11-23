@@ -124,11 +124,6 @@ public class SorceryRecipe implements ISorceryRecipe {
 
             ItemStack output = buffer.readItemStack();
             return new SorceryRecipe(recipeId, output, inputs);
-            // return new SorceryRecipe(recipeId, output,
-            //         Ingredient.read(buffer).getMatchingStacks()[0],
-            //         Ingredient.read(buffer).getMatchingStacks()[1],
-            //         Ingredient.read(buffer).getMatchingStacks()[2],
-            //         Ingredient.read(buffer).getMatchingStacks()[3]);
         }
 
         @Override

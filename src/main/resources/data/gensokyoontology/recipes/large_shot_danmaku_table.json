@@ -7,8 +7,11 @@
     "#   #",
     "#####"
   ],
+  "key": {
+    "#": "gensokyoontology:danmaku_shot"
+  },
   "result": {
-    "item": "gensokyoontology:large_shot_blue",
+    "item": "gensokyoontology:large_shot",
     "count": 1
   }
 }
