@@ -480,12 +480,13 @@
 
   "patchouli.gensokyoontology.entity.koishi.title": "Komeiji Koishi",
   "patchouli.gensokyoontology.entity.koishi.introduction": "Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
-
   "patchouli.gensokyoontology.entity.sumireko.title": "Usami Sumireko",
   "patchouli.gensokyoontology.entity.sumireko.introduction": "You want to know more about me! Yes, I am the one you called JK! And isn't it common to know that Japanese JK can use super powers right?www...",
-
   "patchouli.gensokyoontology.entity.yukari.title": "Yakumo Yukari",
   "patchouli.gensokyoontology.entity.yukari.introduction": "An evil, old, grandma, devil gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)Ah-la, if you dare to call me like that... $(ff0000)YOU WILL BE THE SAME WITH THIS GIRL!$()",
+
+  "patchouli.gensokyoontology.item.occult_ball.title": "Occult Ball",
+  "patchouli.gensokyoontology.item.occult_ball.introduction": "A mysterious Item which will send you to another world. See its crafting recipe on Task Chapter",
 
   "patchouli.gensokyoontology.item.koishi_eye.title": "Koishi Eye",
   "patchouli.gensokyoontology.item.koishi_eye.text": "Koishi's third eye. ",
@@ -494,13 +495,6 @@
   "patchouli.gensokyoontology.item.jade.title": "Jade",
   "patchouli.gensokyoontology.item.jade_ore.introduction": "This ore will generate at 40 to 50 blocks under the sea level in gensokyo. But it is known to us all that, the gem-quality jade is hard to find. So if you want the highest quality of the jade, you'd better to come to youkai mountain to mine more.",
   "patchouli.gensokyoontology.item.jade_cut.introduction": "If you mine the raw jade block, you can hold the jade ore and cut it on the stone cutter in sneaking pose.",
-
-  "patchouli.gensokyoontology.task.ideology.magnificent.title": "How to get Hochfliegend",
-  "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
-  "patchouli.gensokyoontology.ideology.magnificent.tutorial_p2": "This might be a picture?",
-
-  "patchouli.gensokyoontology.task.spirit.title": "Spirit",
-  "patchouli.gensokyoontology.task.spirit_fragment.title": "Spirit Fragment",
 
   "patchouli.gensokyoontology.spell_cards.title": "Spell Cards",
   "patchouli.gensokyoontology.spell_cards.introduction": "This is the chapter to introduce all the spell cards including the ideas of danmaku design and its user.",
@@ -511,9 +505,20 @@
   "patchouli.gensokyoontology.spell_card.sc_meme.title": "Entity Meme's Spell Card",
   "patchouli.gensokyoontology.spell_card.sc_object_a.title": "Object a's Spell Card",
 
-  "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
+  "patchouli.gensokyoontology.task.danmaku_table.title": "Danmaku Craft",
+  "patchouli.gensokyoontology.task.danmaku_table.introduction": "A block used for crafting danmaku.",
+  "patchouli.gensokyoontology.task.large_shot.recipe": "Large Shot Recipe",
+  "patchouli.gensokyoontology.task.heart_shot.recipe": "Heart Shot Recipe",
+  "patchouli.gensokyoontology.task.star_shot.recipe": "Star Shot Recipe",
 
-  "patchouli.gensokyoontology.task.touhou_item.text": "Items only for crafting use.",
+  "patchouli.gensokyoontology.task.sorcery_extract.title": "Sorcery Extract",
+  "patchouli.gensokyoontology.task.sorcery_extract.introduction": "A block used for extract magic from items.",
+  "patchouli.gensokyoontology.task.occult_ball.recipe": "Occult Ball Recipe",
+  "patchouli.gensokyoontology.task.orb_jade.recipe": "Orb Jade Recipe",
+  "patchouli.gensokyoontology.task.aya_fans.recipe": "Aya Fans Recipe",
+
+  "patchouli.gensokyoontology.task.ingredients.title": "Ingredients",
+  "patchouli.gensokyoontology.task.ingredients.text": "Items only for crafting use.",
   "patchouli.gensokyoontology.task.soul_tube.usage": "Right click Fox holding this item to get Kuda Gitsune Tube.",
   "patchouli.gensokyoontology.task.kuda_gitsune_tube.usage": "Right click Ghast or Spectre holding this item to get Kuda Gitsune Tube Full. This will save the tag of either Ghast or Spectre into the item stack.",
   "patchouli.gensokyoontology.task.gitsune_tube_full.usage": "Taken part in the Sorcery Extractor crafting.",

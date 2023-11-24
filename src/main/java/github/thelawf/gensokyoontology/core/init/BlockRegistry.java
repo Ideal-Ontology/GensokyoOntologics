@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.decoration.ChireitenColoredGlassBlock;
+import github.thelawf.gensokyoontology.common.block.decoration.SaisenBoxBlock;
 import github.thelawf.gensokyoontology.common.block.nature.*;
 import github.thelawf.gensokyoontology.common.block.ore.*;
 import github.thelawf.gensokyoontology.common.world.feature.tree.MapleTree;
@@ -165,15 +166,12 @@ public final class BlockRegistry {
             "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));
 
     /// 方块实体
-    public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register(
-            "danmaku_table", DanmakuTableBlock::new);
-    public static final RegistryObject<Block> SORCERY_EXTRACTOR = BLOCKS.register(
-            "sorcery_extractor", SorceryExtractorBlock::new);
-    public static final RegistryObject<Block> DISPOSABLE_SPAWNER = BLOCKS.register(
-            "disposable_spawner", DisposableSpawnerBlock::new);
-    public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register(
-            "space_fissure_block", SpaceFissureBlock::new);
+    public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register("danmaku_table", DanmakuTableBlock::new);
+    public static final RegistryObject<Block> SORCERY_EXTRACTOR = BLOCKS.register("sorcery_extractor", SorceryExtractorBlock::new);
+    public static final RegistryObject<Block> DISPOSABLE_SPAWNER = BLOCKS.register("disposable_spawner", DisposableSpawnerBlock::new);
+    public static final RegistryObject<Block> SPACE_FISSURE_BLOCK = BLOCKS.register("space_fissure_block", SpaceFissureBlock::new);
     public static final RegistryObject<Block> GAP_BLOCK = BLOCKS.register("gap", GapBlock::new);
+    public static final RegistryObject<Block> SAISEN_BOX = BLOCKS.register("saisen_box", SaisenBoxBlock::new);
     public static final RegistryObject<Block> SPELL_CARD_CONSOLE = BLOCKS.register("spell_card_console", SpellCardConsoleBlock::new);
 
 }

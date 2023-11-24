@@ -441,7 +441,7 @@
   "patchouli.gensokyoontology.category.chapter.description": "幻想乡，一个人类与妖怪两相对立却又彼此依存的世界，一直以来，妖怪袭击人类，人类退治妖怪的规律维持着幻想乡微妙的平衡。",
   "patchouli.gensokyoontology.category.entity.description": "那些生物可能会出现在任何地方，这可不是一个好的征兆。$(br)\t\t -- Usami Sumireko",
   "patchouli.gensokyoontology.category.item.description": "一些能够帮的上忙的特殊道具",
-  "patchouli.gensokyoontology.category.task.description": "Follow these rules to go into that dimension!",
+  "patchouli.gensokyoontology.category.task.description": "跟随着指引以前往那个世界！",
   "patchouli.gensokyoontology.category.spell_card.description": "符卡介绍",
 
   "patchouli.gensokyoontology.chapter.intro.title": "总体介绍",
@@ -476,16 +476,17 @@
 
   "patchouli.gensokyoontology.entity.lily_white.title": "莉莉白",
   "patchouli.gensokyoontology.entity.lily_white.introduction": "莉莉白是告知春天来临的妖精，所以你经常能在有樱花树的群系看见她们。",
-  "patchouli.gensokyoontology.entity.lily_white.notes": "The model of Lily White",
+  "patchouli.gensokyoontology.entity.lily_white.notes": "莉莉白的生物模型",
 
   "patchouli.gensokyoontology.entity.koishi.title": "古明地恋",
   "patchouli.gensokyoontology.entity.koishi.introduction": "$(l)Such a mystery girl, she once made friends with Hoshizora-chan, nevertheless, Hoshizora left, this girl does not remember me as well...",
-
   "patchouli.gensokyoontology.entity.sumireko.title": "宇佐见堇子",
   "patchouli.gensokyoontology.entity.sumireko.introduction": "$(l)You want to know more about me! Yes, I am the one you called JK! And isn't it common to know that Japanese JK can use super powers right?www...",
-
   "patchouli.gensokyoontology.entity.yukari.title": "八云紫",
   "patchouli.gensokyoontology.entity.yukari.introduction": "$(l)一个凶狠、邪恶、老不死的隙间妖怪gbyhnvucxfyhtgbnujjmik,utyrgf. $(k)gbyhnvucxfyhtgbnujjmik,utyrgf. $()$(l)啊啦，如果你敢这么称呼我的话……$(ff0000)你也会落得和这个女孩儿一样的下场哟!$()",
+
+  "patchouli.gensokyoontology.item.occult_ball.title": "神秘珠",
+  "patchouli.gensokyoontology.item.occult_ball.introduction": "一个能将人送入另一个世界的奇怪宝珠，在任务章节可查看获取方式。",
 
   "patchouli.gensokyoontology.item.koishi_eye.title": "恋恋的眼睛",
   "patchouli.gensokyoontology.item.koishi_eye.text": "Koishi's third eye. ",
@@ -494,13 +495,6 @@
   "patchouli.gensokyoontology.item.jade.title": "玉石",
   "patchouli.gensokyoontology.item.jade_ore.introduction": "一种在幻想乡中生成的珍贵矿石，人里的珠宝商将幻想乡玉石的品质分为了B级、A级、S级、SS级和SSS级。这种矿石会生成在幻想乡海平面以下40至50格的位置。而且听饭纲丸龙说妖怪之山下面有丰富的玉石矿脉，就是不知道妖怪的情报可不可靠。",
   "patchouli.gensokyoontology.item.jade_cut.introduction": "在潜行状态下手持玉石原矿对着切石机多次右键可以获取里面的玉石宝石。只有在幻想乡中使用切石机才能获取到宝石级别的玉石，在其它维度使用切石机只能获得圆石。可恶的玉石奸商还说如果手上的玉石多于10个的话出货概率会高一点。",
-
-  "patchouli.gensokyoontology.task.ideology.magnificent.title": "How to get Hochfliegend",
-  "patchouli.gensokyoontology.ideology.magnificent.tutorial_p1": "Well, it seems that you have to find a container to paint, follow the lead to paint on the correct pixel location with correct color type.",
-  "patchouli.gensokyoontology.ideology.magnificent.tutorial_p2": "This might be a picture?",
-
-  "patchouli.gensokyoontology.task.spirit.title": "意识形态",
-  "patchouli.gensokyoontology.task.spirit_fragment.title": "意识形态碎片",
 
   "patchouli.gensokyoontology.spell_cards.title": "符卡",
   "patchouli.gensokyoontology.spell_cards.introduction": "本章是符卡设计理念及其使用者的介绍",
@@ -511,9 +505,20 @@
   "patchouli.gensokyoontology.spell_card.sc_meme.title": "迷因实体的符卡",
   "patchouli.gensokyoontology.spell_card.sc_object_a.title": "对象a的符卡",
 
-  "patchouli.gensokyoontology.task.ideology.dialectic.title": "The Necessity of History",
+  "patchouli.gensokyoontology.task.danmaku_table.title": "弹幕合成",
+  "patchouli.gensokyoontology.task.danmaku_table.introduction": "用于合成弹幕的工作台",
+  "patchouli.gensokyoontology.task.large_shot.recipe": "大弹的合成配方",
+  "patchouli.gensokyoontology.task.heart_shot.recipe": "心弹的合成配方",
+  "patchouli.gensokyoontology.task.star_shot.recipe": "星弹的合成配方",
 
-  "patchouli.gensokyoontology.task.touhou_item.text": "仅参与合成过程的物品",
+  "patchouli.gensokyoontology.task.sorcery_extract.title": "魔力提取",
+  "patchouli.gensokyoontology.task.sorcery_extract.introduction": "用来提取物品中的魔力的魔法台",
+  "patchouli.gensokyoontology.task.occult_ball.recipe": "神秘珠的合成配方",
+  "patchouli.gensokyoontology.task.orb_jade.recipe": "勾玉的合成配方",
+  "patchouli.gensokyoontology.task.aya_fans.recipe": "文文扇子的合成配方",
+
+  "patchouli.gensokyoontology.task.ingredients.title": "合成材料",
+  "patchouli.gensokyoontology.task.ingredients.text": "仅参与合成的物品",
   "patchouli.gensokyoontology.task.soul_tube.usage": "手持该物品右键狐狸获得管狐的试管。",
   "patchouli.gensokyoontology.task.kuda_gitsune_tube.usage": "手持该物品右键恶魂或幽灵可以获得一个带有这两种生物NBT标签的装满的灵魂试管。",
   "patchouli.gensokyoontology.task.gitsune_tube_full.usage": "用于放入魔力提取台进行合成",

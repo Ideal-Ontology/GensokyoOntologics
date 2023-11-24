@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
+import github.thelawf.gensokyoontology.common.tileentity.SaisenBoxTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ContainerBlock;
@@ -15,6 +16,6 @@ public class SaisenBoxBlock extends ContainerBlock {
     @Nullable
     @Override
     public TileEntity createNewTileEntity(IBlockReader worldIn) {
-        return null;
+        return new SaisenBoxTileEntity();
     }
 }
