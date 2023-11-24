@@ -199,28 +199,6 @@ public class DanmakuUtil {
         return vector3d;
     }
 
-    public static <D extends AbstractDanmakuEntity> void shootSpherical(Class<D> danmaku, double radius,
-                                                                        int latitudeCount, int longitudeCount,
-                                                                        int i, int j) {
-
-        Vector3d vector3d = new Vector3d(Vector3f.ZP).scale(radius);
-        vector3d = vector3d.rotatePitch((float) Math.PI / latitudeCount * i);
-        vector3d = vector3d.rotateYaw((float) Math.PI / longitudeCount * j);
-
-        // initDanmaku(data);
-        // danmaku.shoot(vector3d.getX(), vector3d.getY(), vector3d.getZ(), data.speed, 0f);
-        // data.world.addEntity(danmaku);
-
-    }
-
-    public static void shootSpiral() {
-
-    }
-
-    public static void shootRadial() {
-
-    }
-
     public static Vector3d getAimingShootVec(LivingEntity thrower, LivingEntity target) {
         float offset = (float) (0.3f / target.getYOffset());
         return new Vector3d(target.getPosX() - thrower.getPosX(), target.getPosY() - thrower.getPosY() - offset, target.getPosZ() - thrower.getPosZ());

@@ -244,5 +244,11 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
             e.printStackTrace();
         }
     }
+
+    protected Vector2f lookVecToDegrees(Vector3d vector3d) {
+        float f1 = (float)Math.acos(vector3d.y);
+        float f2 = (float)Math.atan2(vector3d.z, vector3d.x);
+        return new Vector2f(f1, f2);
+    }
 }
 

@@ -149,6 +149,9 @@ public class GSKOClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MOUNTAIN_OF_FAITH_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HYPERBOLOID_LASER_ENTITY.get(),
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MOBIUS_RING_WORLD_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FULL_CHERRY_BLOSSOM_ENTITY.get(),

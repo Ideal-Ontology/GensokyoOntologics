@@ -115,39 +115,36 @@ public final class EntityRegistry {
             "ido_no_kaiho", () -> EntityType.Builder.<IdonokaihoEntity>create(IdonokaihoEntity::new,
                             EntityClassification.MISC).size(1F, 1F).trackingRange(4)
                     .updateInterval(2).build("ido_no_kaiho"));
-
     public static final RegistryObject<EntityType<SpiralWheelEntity>> SPIRAL_WHEEL_ENTITY = ENTITIES.register(
             "spiral_wheel", () -> EntityType.Builder.<SpiralWheelEntity>create(SpiralWheelEntity::new,
                     EntityClassification.MISC).size(1F, 1F).trackingRange(4).updateInterval(2).build("spiral_wheel"));
-
     // 这个符卡的注册名是不是写错了
     // 已修改
     public static final RegistryObject<EntityType<HellEclipseEntity>> HELL_ECLIPSE_ENTITY =
             ENTITIES.register("hell_eclipse", () -> EntityType.Builder.<HellEclipseEntity>create(HellEclipseEntity::new, EntityClassification.MISC)
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("hell_eclipse"));
-
     public static final RegistryObject<EntityType<MountainOfFaithEntity>> MOUNTAIN_OF_FAITH_ENTITY =
             ENTITIES.register("mountain_of_faith", () -> EntityType.Builder.<MountainOfFaithEntity>create(MountainOfFaithEntity::new,
                             EntityClassification.MISC).size(1F, 1F).trackingRange(4)
                     .updateInterval(2).build("mountain_of_faith"));
-
     public static final RegistryObject<EntityType<MobiusRingEntity>> MOBIUS_RING_WORLD_ENTITY =
             ENTITIES.register("mobius_ring_world", () -> EntityType.Builder.<MobiusRingEntity>create(MobiusRingEntity::new,
                             EntityClassification.MISC).size(1F, 1F).trackingRange(4)
                     .updateInterval(2).build("mobius_ring_world"));
-
     public static final RegistryObject<EntityType<FullCherryBlossomEntity>> FULL_CHERRY_BLOSSOM_ENTITY =
             ENTITIES.register("full_cherry_blossom", () -> EntityType.Builder.<FullCherryBlossomEntity>create(FullCherryBlossomEntity::new, EntityClassification.MISC)
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("full_cherry_blossom"));
-
     public static final RegistryObject<EntityType<ManiaDepressEntity>> MANIA_DEPRESS_ENTITY =
             ENTITIES.register("mania_depress", () -> EntityType.Builder.<ManiaDepressEntity>create(ManiaDepressEntity::new, EntityClassification.MISC)
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("mania_depress"));
+    public static final RegistryObject<EntityType<HyperboloidLaser>> HYPERBOLOID_LASER_ENTITY =
+            ENTITIES.register("hyperboloid_laser", () -> EntityType.Builder.<HyperboloidLaser>create(HyperboloidLaser::new,
+                    EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("hyperboloid_laser"));
 
+    // ============================================= 特殊能力实体 ====================================================//
     public static final RegistryObject<EntityType<LaserSourceEntity>> LASER_SOURCE_ENTITY = ENTITIES.register(
             "laser_source", () -> EntityType.Builder.<LaserSourceEntity>create(LaserSourceEntity::new,
                     EntityClassification.MISC).size(1F, 1F).trackingRange(4).updateInterval(2).build("laser_source"));
-
     public static final RegistryObject<EntityType<DestructiveEyeEntity>> DESTRUCTIVE_EYE_ENTITY =
             ENTITIES.register("destructive_eye", () -> EntityType.Builder.<DestructiveEyeEntity>create(DestructiveEyeEntity::new, EntityClassification.MISC)
                     .size(3F, 3F). trackingRange(10).updateInterval(2).build("destructive_eye"));
