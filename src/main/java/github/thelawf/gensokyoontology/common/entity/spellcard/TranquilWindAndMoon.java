@@ -12,14 +12,14 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 /**
- * 寰宇「神圣天穹」
+ * 虹光「光风霁月」
  */
-public class CelestialMajestyEntity extends SpellCardEntity {
-    public CelestialMajestyEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
+public class TranquilWindAndMoon extends SpellCardEntity {
+    public TranquilWindAndMoon(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
         super(entityTypeIn, worldIn, player);
     }
 
-    public CelestialMajestyEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
+    public TranquilWindAndMoon(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
     }
 

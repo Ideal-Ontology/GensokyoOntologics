@@ -82,7 +82,7 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
 
         // drawLaser(builder, matrix4f, 255, 255, 255);
         if (entityIn.ticksExisted <= entityIn.getPreparation()) {
-            Vector3f start = Vec3fConstants.ZERO;
+            Vector3f start = new Vector3f(0.5F, 0.5F, 0.5F);
             Vector3f end = toVector3f(entityIn.getLookVec().scale(entityIn.getRange()));
             matrixStackIn.push();
             Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();

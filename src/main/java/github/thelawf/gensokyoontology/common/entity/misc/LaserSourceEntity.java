@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.misc;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
+import github.thelawf.gensokyoontology.common.util.danmaku.SpellBehavior;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -17,6 +18,8 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceReader {
@@ -24,6 +27,7 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
     private int preparation = 30;
     private float range = 30;
     public int argb = 0xFFFFFFFF;
+    private final List<SpellBehavior> behaviors = new ArrayList<>();
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Integer> DATA_PREPARATION = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Float> DATA_RANGE = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.FLOAT);
@@ -75,6 +79,13 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         super.tick();
         if (getRemainingLife() <= 0) this.remove();
         if (!shouldEmit()) return;
+
+        behaviors.stream().filter(behavior -> ticksExisted == behavior.keyTick).forEach(
+                behavior -> {
+                    this.setLocationAndAngles(behavior.pos.x, behavior.pos.y, behavior.pos.z, behavior.rotation.x, behavior.rotation.y);
+                    this.setMotion(behavior.motion.x, behavior.motion.y, behavior.motion.z);
+                });
+
         Vector3d start = this.getPositionVec();
         Vector3d end = this.getLookVec().scale(this.range).add(start);
         Predicate<Entity> isOwner = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() == this.getOwnerID().get();

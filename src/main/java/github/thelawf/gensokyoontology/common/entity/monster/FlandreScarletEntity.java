@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.FlandreSpellAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.SpellCardAttackGoal;
@@ -117,8 +118,6 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     public void func_230258_H__() {
         super.func_230258_H__();
     }
-
-
 
     @Override
     public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {

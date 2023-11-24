@@ -59,9 +59,7 @@ public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEnti
             List<ItemEntity> itemEntities = world.getEntitiesWithinAABB(ItemEntity.class, aabb, EntityPredicates.IS_ALIVE).stream()
                     .filter(itemEntity -> itemEntity.getItem().equals(new ItemStack(ItemRegistry.VILLAGE_COIN.get())))
                     .collect(Collectors.toList());
-            itemEntities.forEach(itemEntity -> {
-
-            });
+            itemEntities.forEach(this::tryApplyBless);
             this.addCoinCount(itemEntities.size());
             markDirty();
         }
