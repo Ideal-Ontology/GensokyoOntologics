@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,6 +19,10 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.util.HashMap;
 
 public class HellEclipseEntity extends SpellCardEntity {
@@ -40,22 +45,18 @@ public class HellEclipseEntity extends SpellCardEntity {
     @Override
     public void tick() {
         super.tick();
+        onTick(world, this.getOwner(), ticksExisted);
+        onScriptTick(world, this.getOwner(), ticksExisted);
+    }
 
-        PlayerEntity player = this.hasOwner() ? this.world.getPlayerByUuid(
-                this.dataManager.get(DATA_OWNER_UUID).get()) : null;
-
-        double radius = 4;
-        double angle = Math.PI / 100;
-
+    @Override
+    public void onTick(World world, Entity entity, int ticksIn) {
+        super.onTick(world, entity, ticksIn);
         Vector3d center = new Vector3d(Vector3f.XP);
         HashMap<Integer, TransformFunction> map = new HashMap<>();
-        SpellData spellData = new SpellData(map, DanmakuType.LARGE_SHOT, DanmakuColor.PINK, false, false);
 
         Vector3d local = center.add(4, 0, 0).rotateYaw((float) (Math.PI / 60 * ticksExisted));
         Vector3d global = local.add(this.getPositionVec());
-
-        Vector3d lunarLocal = center.add(4, 0, 0).rotateYaw((float) -(Math.PI / 60 * ticksExisted));
-        Vector3d lunarGlobal = lunarLocal.add(this.getPositionVec());
 
         for (int i = 0; i < 8; i++) {
 
@@ -70,7 +71,6 @@ public class HellEclipseEntity extends SpellCardEntity {
             smallShot.shoot(vector3d.x, 0, vector3d.z, 0.5F, 0F);
             world.addEntity(smallShot);
         }
-
     }
 
     @OnlyIn(Dist.CLIENT)

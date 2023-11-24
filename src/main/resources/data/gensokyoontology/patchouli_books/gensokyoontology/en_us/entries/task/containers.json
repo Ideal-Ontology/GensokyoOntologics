@@ -11,11 +11,6 @@
       "type": "crafting",
       "recipe": "gensokyoontology:danmaku_table",
       "text": "patchouli.gensokyoontology.task.danmaku_table.crafting_introduction"
-    },
-    {
-      "type": "crafting",
-      "recipe": "gensokyoontology:sorcery_extractor",
-      "text": "patchouli.gensokyoontology.task.sorcery_extractor.crafting_introduction"
     }
   ]
 }

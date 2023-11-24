@@ -24,6 +24,10 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -196,12 +200,49 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     }
 
     @Override
+    public void baseTick() {
+        super.baseTick();
+        // onTick(world, this.getOwner(), ticksExisted);
+    }
+
+    @Override
     @NotNull
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-    public void onTick(World world, LivingEntity living, int ticksIn) {
+    public void onTick(World world, Entity entity, int ticksIn) {
+    }
+
+    public void onScriptTick(World world, Entity owner, int ticksIn){
+        ScriptEngine engine = new ScriptEngineManager().getEngineByName("Nashorn");
+        try {
+            engine.eval(
+                    "const SmallShot = Java.type(\"github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity\");\n" +
+                    "const Vector3d = Java.type(\"net.minecraft.util.math.vector.Vector3d\");\n" +
+                    "const DanmakuType = Java.type(\"github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType\");\n" +
+                    "const DanmakuColor = Java.type(\"github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor\");\n" +
+                    "\n" +
+                    "const onScriptTick = function (world, owner, ticksExisted) {\n" +
+                    "    let center = new Vector3d(1, 0, 0);\n" +
+                    "    const local = center.add(4, 0, 0).rotateYaw((float)(Math.PI / 60 * ticksExisted));\n" +
+                    "    const global = local.add(this.getPositionVec());\n" +
+                    "\n" +
+                    "    for (let i = 0; i < 8; i++) {\n" +
+                    "        const small_shot = new SmallShot(owner, world, DanmakuType.SMALL_SHOT, DanmakuColor.RED);\n" +
+                    "        let vector3d = center.rotateYaw(Math.PI / 4 * i).rotateYaw(Math.PI / 100 * ticksExisted);\n" +
+                    "        smallShot.setLocationAndAngles(global.x, global.y, global.z, center.y, center.z);\n" +
+                    "        smallShot.setNoGravity(true);\n" +
+                    "\n" +
+                    "        smallShot.shoot(vector3d.x, 0, vector3d.z, 0.5, 0);\n" +
+                    "        world.addEntity(smallShot);\n" +
+                    "    }\n" +
+                    "};");
+            Invocable invocable = (Invocable) engine;
+            invocable.invokeFunction("onScriptTick", world, owner, ticksIn);
+        } catch (ScriptException | NoSuchMethodException e){
+            e.printStackTrace();
+        }
     }
 }
 

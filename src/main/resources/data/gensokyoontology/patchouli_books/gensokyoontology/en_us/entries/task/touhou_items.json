@@ -8,7 +8,7 @@
       "text": "patchouli.gensokyoontology.task.touhou_item.text"
     },
     {
-      "type": "crafting",
+      "type": "spotlight",
       "recipe": "gensokyoontology:spirit_tube",
       "text": "patchouli.gensokyoontology.task.soul_tube.usage"
     },
