@@ -1,14 +1,14 @@
 {
-  "name": "patchouli.gensokyoontology.task.touhou_items.title",
+  "name": "patchouli.gensokyoontology.task.ingredients.title",
   "icon": "gensokyoontology:kuda_gitsune_tube",
   "category": "task",
   "pages": [
     {
       "type": "text",
-      "text": "patchouli.gensokyoontology.task.touhou_item.text"
+      "text": "patchouli.gensokyoontology.task.ingredients.text"
     },
     {
-      "type": "spotlight",
+      "type": "crafting",
       "recipe": "gensokyoontology:spirit_tube",
       "text": "patchouli.gensokyoontology.task.soul_tube.usage"
     },

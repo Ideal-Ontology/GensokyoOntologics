@@ -319,6 +319,7 @@ public final class ItemRegistry {
             "sorcery_scarlet_mmist", () -> new SorceryScarletMist(new Item.Properties()));
 
     // ----------------------------------- 杂项物品 --------------------------------------//
+    public static final RegistryObject<Item> VILLAGE_COIN = ITEMS.register("village_coin", () -> new VillageCoin(1F));
     public static final RegistryObject<Item> HOTSPRING_BUCKET = ITEMS.register("hotspring_bucket",
             () -> new BucketItem(FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)

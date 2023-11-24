@@ -5,8 +5,10 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.HumanNPCModel;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,13 +16,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class HumanResidentRenderer extends LivingRenderer<HumanResidentEntity, HumanNPCModel<HumanResidentEntity>> {
+public class HumanResidentRenderer extends LivingRenderer<HumanResidentEntity, BipedModel<HumanResidentEntity>> {
 
     public static final ResourceLocation HUMAN_RESIDENT_TEXTURE = new ResourceLocation(
             GensokyoOntology.MODID, "textures/entity/human_resident.png");
 
     public HumanResidentRenderer(EntityRendererManager rendererManager) {
-        super(rendererManager, new HumanNPCModel<>(1.0f), 0.8f);
+        super(rendererManager, new BipedModel<>(1.0f), 0.8f);
     }
 
     @Override

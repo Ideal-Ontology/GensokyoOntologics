@@ -20,14 +20,14 @@
       "images": [
         "gensokyoontology:textures/book/sorcery_extract_orb_jade.png"
       ],
-      "text": "patchouli.gensokyoontology.task.sorcery_extract_orb_jade.introduction"
+      "text": "patchouli.gensokyoontology.task.orb_jade.recipe"
     },
     {
       "type": "image",
       "images": [
         "gensokyoontology:textures/book/sorcery_extract_aya_fans.png"
       ],
-      "text": "patchouli.gensokyoontology.task.sorcery_extract_aya_fans.introduction"
+      "text": "patchouli.gensokyoontology.task.aya_fans.recipe"
     }
   ]
 }

@@ -9,4 +9,8 @@ public class CoinItem extends Item {
         super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB));
         this.value = value;
     }
+
+    public float getValue() {
+        return value;
+    }
 }
