@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
+import github.thelawf.gensokyoontology.common.entity.spellcard.ScriptedSpellCardEntity;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
@@ -457,37 +458,39 @@ public final class ItemRegistry {
     // ----------------------------- 符卡 --------------------------------//
     public static final RegistryObject<SpellCardBlank> SPELL_CARD_BLANK = ITEMS.register(
             "spell_card_blank", () -> new SpellCardBlank(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
     public static final RegistryObject<SC_HyperboloidLaser> SC_HYPERBOLOID_LASER = ITEMS.register(
             "sc_hyperboloid_laser", () -> new SC_HyperboloidLaser(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
     public static final RegistryObject<SC_WaveAndParticle> SC_WAVE_AND_PARTICLE = ITEMS.register(
             "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1), 500));
     public static final RegistryObject<SC_IdoNoKaiho> SC_IDO_NO_KAIHO = ITEMS.register(
             "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), 600));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1), 600));
     public static final RegistryObject<SC_SpiralWheel> SC_SPIRAL_WHEEL = ITEMS.register(
             "sc_spiral_wheel", () -> new SC_SpiralWheel(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1), 500));
     public static final RegistryObject<SC_HellEclipse> SC_HELL_ECLIPSE = ITEMS.register(
             "sc_hell_eclipse", () -> new SC_HellEclipse(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1), 500));
     public static final RegistryObject<SC_MountainOfFaith> SC_MOUNTAIN_OF_FAITH = ITEMS.register(
             "sc_mountain_of_faith", () -> new SC_MountainOfFaith(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1), 500));
     public static final RegistryObject<SC_MobiusRingWorld> SC_MOBIUS_RING_WORLD = ITEMS.register(
             "sc_mobius_ring_world", () -> new SC_MobiusRingWorld(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
     public static final RegistryObject<SC_FullCherryBlossom> SC_FULL_CHERRY_BLOSSOM = ITEMS.register(
             "sc_full_cherry_blossom", () -> new SC_FullCherryBlossom(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
     public static final RegistryObject<SC_ManiaDepress> SC_MANIA_DEPRESS = ITEMS.register(
             "sc_mania_depress", () -> new SC_ManiaDepress(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+    public static final RegistryObject<ScriptedSpellCard> SCRIPTED_SPELL_CARD = ITEMS.register(
+            "scripted_spell_card", () -> new ScriptedSpellCard(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
-
     public static final RegistryObject<DanmakuShotItem> DANMAKU_SHOT = ITEMS.register("danmaku_shot",
             () -> new DanmakuShotItem(DanmakuType.DANMAKU_SHOT));
 

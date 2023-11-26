@@ -4,7 +4,8 @@
       "ticks_existed": {
         "value": 200,
         "range": [0,1000],
-        "mod": 30
+        "mod": 30,
+        "str": "我在想，如果这么写的话会不会被黑客利用，然后去注入他的恶意代码"
       },
       "shoot_vector": {
         "prev": {

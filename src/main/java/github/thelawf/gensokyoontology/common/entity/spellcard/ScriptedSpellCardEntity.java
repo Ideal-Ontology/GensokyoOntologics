@@ -24,12 +24,14 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
 
     public ScriptedSpellCardEntity(World worldIn, LivingEntity living, String script) {
         super(EntityRegistry.SCRIPTED_SPELL_CARD_ENTITY.get(), worldIn, living);
+        this.setLocationAndAngles(living.getPosX(), living.getPosY(), living.getPosZ(), living.rotationYaw, living.rotationPitch);
         this.setScript(script);
     }
 
 
     public ScriptedSpellCardEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
+        this.setLocationAndAngles(0, 0, 0, 0, 0);
         this.setScript("");
     }
 

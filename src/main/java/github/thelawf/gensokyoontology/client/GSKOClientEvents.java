@@ -151,6 +151,8 @@ public class GSKOClientEvents {
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HYPERBOLOID_LASER_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SCRIPTED_SPELL_CARD_ENTITY.get(),
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MOBIUS_RING_WORLD_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
