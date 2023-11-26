@@ -52,13 +52,15 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
 
     public SpellCardEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, LivingEntity living) {
         this(entityTypeIn, worldIn);
-        this.setPosition(living.getPosX(), living.getPosY(), living.getPosZ());
+        // this.setPosition(living.getPosX(), living.getPosY(), living.getPosZ());
+        this.setLocationAndAngles(living.getPosX(), living.getPosY(), living.getPosZ(), living.rotationYaw, living.rotationPitch);
         this.setOwner(living);
     }
 
     public SpellCardEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
         this(entityTypeIn, worldIn);
-        this.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
+        // this.setPosition(player.getPosX(), player.getPosY(), player.getPosZ());
+        this.setLocationAndAngles(player.getPosX(),player.getPosY(), player.getPosZ(), player.rotationYaw, player.rotationPitch);
         this.setOwner(worldIn.getPlayerByUuid(player.getUniqueID()));
     }
 
@@ -194,11 +196,6 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         danmaku.setNoGravity(noGravity);
         setDanmakuInit(danmaku, initPosition, new Vector2f(rotationYaw, rotationPitch));
     }
-
-    public static AttributeModifierMap.MutableAttribute registerAttributes() {
-        return AttributeModifierMap.createMutableAttribute().createMutableAttribute(Attributes.MAX_HEALTH).createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE).createMutableAttribute(Attributes.MOVEMENT_SPEED).createMutableAttribute(Attributes.ARMOR).createMutableAttribute(Attributes.ARMOR_TOUGHNESS).createMutableAttribute(net.minecraftforge.common.ForgeMod.SWIM_SPEED.get()).createMutableAttribute(net.minecraftforge.common.ForgeMod.NAMETAG_DISTANCE.get()).createMutableAttribute(net.minecraftforge.common.ForgeMod.ENTITY_GRAVITY.get());
-    }
-
     @Override
     public void baseTick() {
         super.baseTick();
@@ -215,34 +212,7 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     }
 
     public void onScriptTick(World world, Entity owner, int ticksIn){
-        ScriptEngine engine = new ScriptEngineManager().getEngineByName("Nashorn");
-        try {
-            engine.eval(
-                    "const SmallShot = Java.type(\"github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity\");\n" +
-                    "const Vector3d = Java.type(\"net.minecraft.util.math.vector.Vector3d\");\n" +
-                    "const DanmakuType = Java.type(\"github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType\");\n" +
-                    "const DanmakuColor = Java.type(\"github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor\");\n" +
-                    "\n" +
-                    "const onScriptTick = function (world, owner, ticksExisted) {\n" +
-                    "    let center = new Vector3d(1, 0, 0);\n" +
-                    "    const local = center.add(4, 0, 0).rotateYaw((float)(Math.PI / 60 * ticksExisted));\n" +
-                    "    const global = local.add(this.getPositionVec());\n" +
-                    "\n" +
-                    "    for (let i = 0; i < 8; i++) {\n" +
-                    "        const small_shot = new SmallShot(owner, world, DanmakuType.SMALL_SHOT, DanmakuColor.RED);\n" +
-                    "        let vector3d = center.rotateYaw(Math.PI / 4 * i).rotateYaw(Math.PI / 100 * ticksExisted);\n" +
-                    "        smallShot.setLocationAndAngles(global.x, global.y, global.z, center.y, center.z);\n" +
-                    "        smallShot.setNoGravity(true);\n" +
-                    "\n" +
-                    "        smallShot.shoot(vector3d.x, 0, vector3d.z, 0.5, 0);\n" +
-                    "        world.addEntity(smallShot);\n" +
-                    "    }\n" +
-                    "};");
-            Invocable invocable = (Invocable) engine;
-            invocable.invokeFunction("onScriptTick", world, owner, ticksIn);
-        } catch (ScriptException | NoSuchMethodException e){
-            e.printStackTrace();
-        }
+
     }
 
     protected Vector2f lookVecToDegrees(Vector3d vector3d) {

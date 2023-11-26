@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.spellcard.HellEclipseEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.HyperboloidLaser;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

@@ -458,7 +458,9 @@ public final class ItemRegistry {
     public static final RegistryObject<SpellCardBlank> SPELL_CARD_BLANK = ITEMS.register(
             "spell_card_blank", () -> new SpellCardBlank(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
-
+    public static final RegistryObject<SC_HyperboloidLaser> SC_HYPERBOLOID_LASER = ITEMS.register(
+            "sc_hyperboloid_laser", () -> new SC_HyperboloidLaser(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<SC_WaveAndParticle> SC_WAVE_AND_PARTICLE = ITEMS.register(
             "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB), 500));

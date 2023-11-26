@@ -140,6 +140,9 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<HyperboloidLaser>> HYPERBOLOID_LASER_ENTITY =
             ENTITIES.register("hyperboloid_laser", () -> EntityType.Builder.<HyperboloidLaser>create(HyperboloidLaser::new,
                     EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("hyperboloid_laser"));
+    public static final RegistryObject<EntityType<ScriptedSpellCardEntity>> SCRIPTED_SPELL_CARD_ENTITY =
+            ENTITIES.register("scripted_spell_card", () -> EntityType.Builder.<ScriptedSpellCardEntity>create(ScriptedSpellCardEntity::new,
+                    EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("scripted_spell_card"));
 
     // ============================================= 特殊能力实体 ====================================================//
     public static final RegistryObject<EntityType<LaserSourceEntity>> LASER_SOURCE_ENTITY = ENTITIES.register(

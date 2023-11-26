@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.common.util.Vec3fConstants;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.AtlasTexture;
@@ -80,19 +81,19 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
 
-        // drawLaser(builder, matrix4f, 255, 255, 255);
-        if (entityIn.ticksExisted <= entityIn.getPreparation()) {
-            Vector3f start = new Vector3f(0.5F, 0.5F, 0.5F);
-            Vector3f end = toVector3f(entityIn.getLookVec().scale(entityIn.getRange()));
-            matrixStackIn.push();
-            Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
-
-            drawLaser(builder, matrix4f, start, end, entityIn.getRed(), entityIn.getGreen(), entityIn.getBlue(), entityIn.getAlpha());
-            matrixStackIn.pop();
-        }
-        else {
-            renderLaserUsingMojangsShit(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        }
+        // if (entityIn.ticksExisted <= entityIn.getPreparation()) {
+        //     Vector3f start = new Vector3f(0F, 0.5F, 0F);
+        //     Vector3f end = toVector3f(entityIn.getLookVec().scale(entityIn.getRange()));
+        //
+        //     matrixStackIn.push();
+        //     Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
+        //     drawLaser(builder, matrix4f, start, end, entityIn.getRed(), entityIn.getGreen(), entityIn.getBlue(), entityIn.getAlpha());
+        //     matrixStackIn.pop();
+        // }
+        // else {
+        //     renderLaserUsingMojangsShit(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        // }
+        renderLaserUsingMojangsShit(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 
     private static Vector3f toVector3f(Vector3d vector3d) {
@@ -186,6 +187,11 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, r, g, b, 1.0F, f31);
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, r, g, b, 0.5F, f31);
         matrixStackIn.pop();
+    }
+
+    @Override
+    public boolean shouldRender(LaserSourceEntity livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
+        return super.shouldRender(livingEntityIn, camera, camX, camY, camZ);
     }
 
     private void draw(float f4, int j, int k, int l, float f19, float f20, float f21, float f22, float f29, float f30, IVertexBuilder ivertexbuilder, Matrix4f matrix4f, Matrix3f matrix3f) {

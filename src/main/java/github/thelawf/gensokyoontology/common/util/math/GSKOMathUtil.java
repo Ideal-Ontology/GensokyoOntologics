@@ -21,6 +21,16 @@ public class GSKOMathUtil {
     private GSKOMathUtil() {
     }
 
+    public static double clamp(double number, double min, double max) {
+        return number % max - min == 0 && number / max <= 1 ? number :
+                number - max * Math.floor(number / max);
+    }
+
+    public static float clamp(float number, float min, float max) {
+        return number % max - min == 0 && number / max <= 1 ? number :
+                (float) (number - max * Math.floor(number / max));
+    }
+
     /**
      * 这里的Point类是java.awt里面的类
      *

@@ -17,6 +17,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -48,6 +49,7 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
         laserSource.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight() * 0.5,
                 playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
         worldIn.addEntity(laserSource);
+        LogManager.getLogger().info("Emit Vec: {}, {}", playerIn.rotationYaw, playerIn.rotationPitch);
 
         playerIn.setActiveHand(handIn);
         if (stack.getTag() != null && playerIn.ticksExisted < stack.getTag().getInt("total_count")) {
