@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
-import github.thelawf.gensokyoontology.common.entity.spellcard.ScriptedSpellCardEntity;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
@@ -207,6 +206,9 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> SORCERY_EXTRACTOR_ITEM = ITEMS.register(
             "sorcery_extractor", () -> new BlockItem(BlockRegistry.SORCERY_EXTRACTOR.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> SAISEN_BOX_ITEM = ITEMS.register(
+            "saisen_box", () -> new BlockItem(BlockRegistry.SAISEN_BOX.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // -------------------------------- 矿石 ---------------------------------//
     public static final RegistryObject<BlockItem> IZANO_OBJECT_ORE_ITEM = ITEMS.register(
@@ -320,7 +322,7 @@ public final class ItemRegistry {
             "sorcery_scarlet_mmist", () -> new SorceryScarletMist(new Item.Properties()));
 
     // ----------------------------------- 杂项物品 --------------------------------------//
-    public static final RegistryObject<Item> VILLAGE_COIN = ITEMS.register("village_coin", () -> new VillageCoin(1F));
+    public static final RegistryObject<Item> SILVER_COIN = ITEMS.register("silver_coin", () -> new CoinItem(1F));
     public static final RegistryObject<Item> HOTSPRING_BUCKET = ITEMS.register("hotspring_bucket",
             () -> new BucketItem(FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)

@@ -86,6 +86,7 @@
 
   "item.gensokyoontology.dark_spirit": "Dark Spirit",
   "item.gensokyoontology.light_spirit": "Light Spirit",
+  "item.gensokyoontology.silver_coin": "Silver Coin",
 
   "item.gensokyoontology.fairy_spawn_egg": "Fairy Spawn Egg",
   "item.gensokyoontology.lily_white_spawn_egg": "Lily White Spawn Egg",
@@ -101,6 +102,7 @@
   "item.gensokyoontology.sc_mobius_ring_world": "\"Mobius Ring World\"",
   "item.gensokyoontology.sc_full_cherry_blossom": "\"Full Cherry Blossom\"",
   "item.gensokyoontology.sc_mania_depress": "Heart Spell \"Mania Depress\"",
+  "item.gensokyoontology.scripted_spell_card": "Scripted Spell Card",
 
   "item.gensokyoontology.danmaku_shot": "Danmaku Shot",
   "item.gensokyoontology.large_shot": "Large Shot",
@@ -189,6 +191,8 @@
   "item.gensokyoontology.marisa_hakkeiro": "Marisa Hakkeiro",
   "item.gensokyoontology.clock_needle": "Clock Needle",
   "item.gensokyoontology.crooked_clock_needle": "Crooked Clock Needle",
+
+  "item.gensokyoontology.eirin_yagookoro_arrow": "Eirin Yagokoro Arrow",
 
   "item.gensokyoontology.koishi_eye_open": "Koishi's Third Eye (Open)",
   "item.gensokyoontology.koishi_eye_closed": "Koishi's Third Eye (Closed)",
@@ -283,6 +287,7 @@
   "block.gensokyoontology.disposable_spawner": "Disposable Spawner",
   "block.gensokyoontology.danmaku_table": "Danmaku Table",
   "block.gensokyoontology.sorcery_extractor": "Sorcery Extractor",
+  "block.gensokyoontology.saisen_box": "Saisen Box",
 
   "block.gensokyoontology.dragon_sphere_ore": "Dragon Sphere Ore",
   "block.gensokyoontology.jade_ore": "Jade Ore",
@@ -311,6 +316,7 @@
   "effect.gensokyoontology.hypnosis": "Hypnosis",
   "effect.gensokyoontology.mania": "Mania",
   "effect.gensokyoontology.depression": "Depression",
+  "effect.gensokyoontology.hakurei_bless": "Hakurei Bless",
 
   "entity.gensokyoontology.spell_card_entity": "Spell Card",
 

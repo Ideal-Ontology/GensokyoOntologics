@@ -100,7 +100,7 @@ public class GSKOEntityEvents {
                 player.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 50));
             }
 
-            boolean precondition = player.ticksExisted % 20 == 0 && location != null;
+            boolean precondition = player.ticksExisted % 20 == 0 && location != null && !player.isPotionActive(EffectRegistry.HAKUREI_BLESS_EFFECT.get());
 
             LazyOptional<BloodyMistCapability> cap = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
             cap.ifPresent((capability -> {

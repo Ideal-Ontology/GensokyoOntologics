@@ -8,19 +8,24 @@ import github.thelawf.gensokyoontology.core.init.EffectRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.HopperBlock;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.ItemEntity;
+import net.minecraft.entity.item.minecart.HopperMinecartEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
+import net.minecraft.tileentity.HopperTileEntity;
+import net.minecraft.tileentity.IHopper;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EntityPredicates;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.server.ServerWorld;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -29,6 +34,7 @@ public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEnti
     private int count;
     private UUID ownerId;
     private UUID throwerId;
+    public int ticks = 0;
     private static final List<Pair<Integer, BlessType>> BLESS_LIST = ImmutableList.of(
             Pair.of(50, BlessType.IMMUNE_POISON),
             Pair.of(100, BlessType.IMMUNE_BLOODY_MIST));
@@ -55,14 +61,18 @@ public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEnti
     @Override
     public void tick() {
         AxisAlignedBB aabb = new AxisAlignedBB(getPos().up());
+        if (ticks % 40 == 0) LogManager.getLogger().info(aabb.toString());
+
         if (world != null) {
             List<ItemEntity> itemEntities = world.getEntitiesWithinAABB(ItemEntity.class, aabb, EntityPredicates.IS_ALIVE).stream()
-                    .filter(itemEntity -> itemEntity.getItem().equals(new ItemStack(ItemRegistry.VILLAGE_COIN.get())))
+                    .filter(itemEntity -> itemEntity.getItem().getItem() == ItemRegistry.SILVER_COIN.get())
                     .collect(Collectors.toList());
+
             itemEntities.forEach(this::tryApplyBless);
             this.addCoinCount(itemEntities.size());
             markDirty();
         }
+        ticks++;
     }
 
     public void addCoinCount(int count){
@@ -76,7 +86,8 @@ public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEnti
         if (serverWorld.getEntityByUuid(itemEntity.getThrowerId()) instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) serverWorld.getEntityByUuid(itemEntity.getThrowerId());
             if (player == null) return;
-            justifyCount(player);
+            testCount(player);
+            itemEntity.getItem().shrink(itemEntity.getItem().getCount());
         }
     }
 
@@ -84,7 +95,7 @@ public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEnti
         return this.count;
     }
 
-    public void justifyCount(PlayerEntity player) {
+    public void testCount(PlayerEntity player) {
         for (int i = 0; i < BLESS_LIST.size(); i++) {
             if (this.getCount() >= BLESS_LIST.get(i).getFirst()) {
                 int duration = 6000 + 500 * i;

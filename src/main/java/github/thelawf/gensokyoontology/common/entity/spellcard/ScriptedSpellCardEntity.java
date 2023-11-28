@@ -18,6 +18,7 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
 public class ScriptedSpellCardEntity extends SpellCardEntity {
+    private String script = "";
 
     public static final DataParameter<String> DATA_SCRIPT = EntityDataManager.createKey(ScriptedSpellCardEntity.class,
             DataSerializers.STRING);
@@ -38,7 +39,7 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(DATA_SCRIPT, this.getScript());
+        this.dataManager.register(DATA_SCRIPT, this.script);
     }
 
     @Override

@@ -86,6 +86,7 @@
 
   "item.gensokyoontology.dark_spirit": "阴爻",
   "item.gensokyoontology.light_spirit": "阳爻",
+  "item.gensokyoontology.silver_coin": "银币",
 
   "item.gensokyoontology.fairy_spawn_egg": "妖精刷怪蛋",
   "item.gensokyoontology.lily_white_spawn_egg": "莉莉白刷怪蛋",
@@ -101,6 +102,7 @@
   "item.gensokyoontology.sc_mobius_ring_world": "「莫比乌斯环世界」",
   "item.gensokyoontology.sc_full_cherry_blossom": "莉莉白一非",
   "item.gensokyoontology.sc_mania_depress": "心符「忧郁的躁狂」",
+  "item.gensokyoontology.scripted_spell_card": "脚本化符卡",
 
   "item.gensokyoontology.danmaku_shot": "弹幕之点",
   "item.gensokyoontology.large_shot": "大弹",
@@ -189,6 +191,8 @@
   "item.gensokyoontology.marisa_hakkeiro": "八卦炉",
   "item.gensokyoontology.clock_needle": "钟楼指针",
   "item.gensokyoontology.crooked_clock_needle": "歪曲的钟楼指针",
+
+  "item.gensokyoontology.eirin_yagookoro_arrow": "永琳的箭矢",
 
   "item.gensokyoontology.koishi_eye_open": "恋恋的第三只眼 (睁开)",
   "item.gensokyoontology.koishi_eye_closed": "恋恋的第三只眼 (关闭)",
@@ -283,6 +287,7 @@
   "block.gensokyoontology.disposable_spawner": "一次性刷怪笼",
   "block.gensokyoontology.danmaku_table": "弹幕合成台",
   "block.gensokyoontology.sorcery_extractor": "魔力提取台",
+  "block.gensokyoontology.saisen_box": "赛钱箱",
 
   "block.gensokyoontology.dragon_sphere_ore": "龙珠矿石",
   "block.gensokyoontology.jade_ore": "玉石原矿",
@@ -311,6 +316,7 @@
   "effect.gensokyoontology.hypnosis": "催眠",
   "effect.gensokyoontology.mania": "躁狂",
   "effect.gensokyoontology.depression": "抑郁",
+  "effect.gensokyoontology.hakurei_bless": "博丽的祝福",
 
   "entity.gensokyoontology.spell_card_entity": "符卡实体",
 

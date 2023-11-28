@@ -19,10 +19,6 @@ public class ScriptedSpellCard extends SpellCardItem {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        if (playerIn.isSneaking() || !playerIn.getHeldItem(handIn).hasTag()) {
-            CompoundNBT nbt = new CompoundNBT();
-            return super.onItemRightClick(worldIn, playerIn, handIn);
-        }
 
         if (stack.getTag() != null && stack.getTag().contains("script")) {
             String script = stack.getTag().getString("script");
