@@ -61,7 +61,6 @@ public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEnti
     @Override
     public void tick() {
         AxisAlignedBB aabb = new AxisAlignedBB(getPos().up());
-        if (ticks % 40 == 0) LogManager.getLogger().info(aabb.toString());
 
         if (world != null) {
             List<ItemEntity> itemEntities = world.getEntitiesWithinAABB(ItemEntity.class, aabb, EntityPredicates.IS_ALIVE).stream()

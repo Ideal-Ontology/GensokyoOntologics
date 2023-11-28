@@ -26,6 +26,7 @@ import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
@@ -144,8 +145,12 @@ public class GensokyoOntology {
                 RenderTypeLookup.setRenderLayer(BlockRegistry.REDWOOD_LEAVES.get(),
                         RenderType.getCutout());
 
+                RenderTypeLookup.setRenderLayer(BlockRegistry.DANMAKU_TABLE.get(),
+                        RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SORCERY_EXTRACTOR.get(),
                         RenderType.getTranslucent());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.SAISEN_BOX.get(),
+                        RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.ISHI_ZAKURA.get(),
                         RenderType.getTranslucent());
 
