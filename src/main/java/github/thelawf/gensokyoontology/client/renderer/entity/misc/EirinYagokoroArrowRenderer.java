@@ -1,5 +1,5 @@
 package github.thelawf.gensokyoontology.client.renderer.entity.misc;
-
+/*
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.EirinYagokoroArrowEntity;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -21,3 +21,5 @@ public class EirinYagokoroArrowRenderer extends EntityRenderer<EirinYagokoroArro
         return EIRIN_ARROW_TEXTURE;
     }
 }
+
+ */

@@ -76,6 +76,6 @@ public class HellEclipseEntity extends SpellCardEntity {
     @OnlyIn(Dist.CLIENT)
     @Override
     public ItemStack getItem() {
-        return new ItemStack(ItemRegistry.SPELL_CARD_BLANK.get());
+        return new ItemStack(ItemRegistry.SC_HELL_ECLIPSE.get());
     }
 }

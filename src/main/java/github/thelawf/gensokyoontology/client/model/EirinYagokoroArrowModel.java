@@ -1,5 +1,5 @@
 package github.thelawf.gensokyoontology.client.model;
-
+/*
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.common.entity.projectile.EirinYagokoroArrowEntity;
@@ -16,3 +16,5 @@ public class EirinYagokoroArrowModel extends EntityModel<EirinYagokoroArrowEntit
 
     }
 }
+
+ */

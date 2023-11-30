@@ -60,7 +60,7 @@ public class HumanNPCModel<T extends AbstractHumanEntity> extends BipedModel<T> 
     }
 
     protected Iterable<ModelRenderer> getBodyParts() {
-        return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.bipedLeftLegwear, this.bipedRightLegwear, this.bipedLeftArmwear, this.bipedRightArmwear, this.bipedBodyWear));
+        return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.bipedLeftLeg, this.bipedRightLeg, this.bipedLeftArm, this.bipedRightArm, this.bipedBody));
     }
 
     public void renderEars(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn) {

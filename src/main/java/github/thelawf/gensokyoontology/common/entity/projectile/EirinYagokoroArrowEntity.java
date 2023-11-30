@@ -1,5 +1,5 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
-
+/*
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
@@ -50,7 +50,7 @@ public class EirinYagokoroArrowEntity extends AbstractArrowEntity {
 
     @Override
     protected ItemStack getArrowStack() {
-        return new ItemStack(ItemRegistry.EIRIN_YAGOKORO_ARROW.get());
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -100,3 +100,5 @@ public class EirinYagokoroArrowEntity extends AbstractArrowEntity {
         }
     }
 }
+
+ */

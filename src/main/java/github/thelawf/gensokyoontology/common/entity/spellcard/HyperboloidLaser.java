@@ -33,10 +33,12 @@ public class HyperboloidLaser extends SpellCardEntity{
         float yaw = -360 + (float) 360 / 20 * ticksExisted;
         Vector2f emitVec = new Vector2f(GSKOMathUtil.clamp(yaw, -360, 360), -75);
 
-        LaserSourceEntity laser = new LaserSourceEntity(world, this.getOwner());
-        laser.init(150, 30, 40);
-        laser.setLocationAndAngles(nextPos.x, nextPos.y, nextPos.z, emitVec.x, emitVec.y);
-        world.addEntity(laser);
+        if (ticksExisted <= 20) {
+            LaserSourceEntity laser = new LaserSourceEntity(world, this.getOwner());
+            laser.init(450, 30, 40);
+            laser.setLocationAndAngles(nextPos.x, nextPos.y, nextPos.z, emitVec.x, emitVec.y);
+            world.addEntity(laser);
+        }
 
         // onScriptTick(this.world, this.getOwner(), ticksExisted);
     }

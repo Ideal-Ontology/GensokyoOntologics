@@ -70,6 +70,6 @@ public class ManiaDepressEntity extends SpellCardEntity {
     @Override
     @NotNull
     public ItemStack getItem() {
-        return new ItemStack(ItemRegistry.SPELL_CARD_BLANK.get());
+        return new ItemStack(ItemRegistry.SC_MANIA_DEPRESS.get());
     }
 }

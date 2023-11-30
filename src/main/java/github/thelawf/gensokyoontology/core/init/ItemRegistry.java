@@ -21,6 +21,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.client.event.GuiContainerEvent;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -32,8 +33,8 @@ import java.util.Random;
 import static net.minecraft.item.Items.BUCKET;
 
 public final class ItemRegistry {
-    public static final DeferredRegister<Item> ITEMS =
-            DeferredRegister.create(ForgeRegistries.ITEMS, GensokyoOntology.MODID);
+    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(
+            ForgeRegistries.ITEMS, GensokyoOntology.MODID);
 
     // ======================= GSKO杂项：装饰类方块 ==========================//
     // ---------------------------- 树木类方块：------------------------------//
@@ -194,9 +195,9 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     ///////////////////////////////    工艺装饰类方块    //////////////////////////////////
-    public static final RegistryObject<BlockItem> CHIREIDEN_COLORED_GLASS = ITEMS.register(
-            "chireiden_colored_glass", () -> new BlockItem(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    // public static final RegistryObject<BlockItem> CHIREIDEN_COLORED_GLASS = ITEMS.register(
+    //         "chireiden_colored_glass", () -> new BlockItem(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
+    //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：功能性方块 =========================//
     //----------------------------- 合成台 --------------------------//
@@ -283,9 +284,9 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> GAP_BLOCK = ITEMS.register(
             "gap_block", () -> new BlockItem(BlockRegistry.GAP_BLOCK.get(), new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
-    public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
-            "eirin_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    // public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
+    //         "eirin_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
+    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register(
             "aya_fans", () -> new AyaFans(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
@@ -310,13 +311,10 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> GITSUNE_TUBE_FULL = ITEMS.register(
             "gitsune_tube_full", () -> new GitsuneTubeFull(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).containerItem(ItemRegistry.SPIRIT_TUBE.get())));
-
     public static final RegistryObject<OccultBall> OCCULT_BALL = ITEMS.register(
             "occult_ball", () -> new OccultBall(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
     public static final RegistryObject<ChimataMarketLicense> CHIMATA_MARKET_LICENSE = ITEMS.register(
             "chimata_market_license", () -> new ChimataMarketLicense(new Item.Properties()));
-
     // 魔法道具
     public static final RegistryObject<SorceryScarletMist> SORCERY_SCARLET_MIST = ITEMS.register(
             "sorcery_scarlet_mmist", () -> new SorceryScarletMist(new Item.Properties()));
@@ -383,14 +381,13 @@ public final class ItemRegistry {
             () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> ORB_JADE = ITEMS.register("orb_jade",
             () -> new OrbJade(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
     public static final RegistryObject<Item> DARK_SPIRIT = ITEMS.register("dark_spirit",
             () -> new DarkSpirit(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> LIGHT_SPIRIT = ITEMS.register("light_spirit",
             () -> new LightSpirit(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     // ---------------------------- 食物原材料 -----------------------------//
-    public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register(
-            "kitchen_knife", KitchenKnife::new);
+    public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register("kitchen_knife", KitchenKnife::new);
     public static final RegistryObject<Butter> BUTTER = ITEMS.register("butter",
             () -> new Butter(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<MilkBottle> MILK_BOTTLE = ITEMS.register("milk_bottle", MilkBottle::new);
@@ -404,23 +401,13 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ------------------------------- 食物 -------------------------------//
-    public static final RegistryObject<YattsumeUnaYaki> YATTSUME_UNA_YAKI =
-            ITEMS.register("yattsume_una_yaki", YattsumeUnaYaki::new);
-
-    public static final RegistryObject<KoishiHatMousse> KOISHI_HAT_MOUSSE =
-            ITEMS.register("koishi_hat_mousse", KoishiHatMousse::new);
-
-    public static final RegistryObject<CakeScarletDemon> CAKE_SCARLET_DEMON =
-            ITEMS.register("cake_scarlet_demon", CakeScarletDemon::new);
-
+    public static final RegistryObject<YattsumeUnaYaki> YATTSUME_UNA_YAKI = ITEMS.register("yattsume_una_yaki", YattsumeUnaYaki::new);
+    public static final RegistryObject<KoishiHatMousse> KOISHI_HAT_MOUSSE = ITEMS.register("koishi_hat_mousse", KoishiHatMousse::new);
+    public static final RegistryObject<CakeScarletDemon> CAKE_SCARLET_DEMON = ITEMS.register("cake_scarlet_demon", CakeScarletDemon::new);
     public static final RegistryObject<Lingoame> LINGOAME = ITEMS.register("lingoame", Lingoame::new);
-
     public static final RegistryObject<TakoYaki> TAKO_YAKI = ITEMS.register("tako_yaki", TakoYaki::new);
-
     public static final RegistryObject<WhiteSnow> WHITE_SNOW = ITEMS.register("white_snow", WhiteSnow::new);
-
     public static final RegistryObject<BurgerMeatRaw> BURGER_MEAT_RAW = ITEMS.register("burger_meat_raw", BurgerMeatRaw::new);
-
     public static final RegistryObject<BurgerMeat> BURGER_MEAT = ITEMS.register("burger_meat", BurgerMeat::new);
 
 
@@ -490,7 +477,7 @@ public final class ItemRegistry {
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
     public static final RegistryObject<ScriptedSpellCard> SCRIPTED_SPELL_CARD = ITEMS.register(
             "scripted_spell_card", () -> new ScriptedSpellCard(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
     public static final RegistryObject<DanmakuShotItem> DANMAKU_SHOT = ITEMS.register("danmaku_shot",
