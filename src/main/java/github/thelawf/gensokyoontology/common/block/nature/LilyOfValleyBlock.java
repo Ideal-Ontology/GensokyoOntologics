@@ -10,12 +10,14 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-
+// 它扩展了FlowerBlock类,所以是一个可以种植的花方块
+// 百合
 public class LilyOfValleyBlock extends FlowerBlock {
     public LilyOfValleyBlock() {
+        //蒲公英
         super(Effects.POISON, 2000, Properties.from(Blocks.DANDELION));
     }
-
+//onEntityCollision当生物体碰撞这个方块时调用,会使生物中毒2秒钟
     @Override
     @SuppressWarnings("deprecation")
     public void onEntityCollision(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull Entity entityIn) {

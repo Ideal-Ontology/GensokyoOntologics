@@ -21,13 +21,15 @@ import net.minecraftforge.fluids.FluidAttributes;
 import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.function.Supplier;
-
+// 它扩展了FlowingFluidBlock类,所以是一个可以流动的液体方块
+// 这个HotSpringBlock代表一个热泉液体方块,进入其中能获得生命回复BUFF,并会生成粒子效果来增强视觉效果。
+// 它继承了流体的相关机制和属性。
 public class HotSpringBlock extends FlowingFluidBlock implements IForgeFluid {
 
     public HotSpringBlock(Supplier<? extends FlowingFluid> supplier, Properties properties) {
         super(supplier, properties);
     }
-
+//isEntityInside方法会检测生物体是否在流体内,如果是的话给予生命回复的BUFF
     @Override
     public boolean isEntityInside(FluidState state, IWorldReader world, BlockPos pos, Entity entity, double yToTest, Tag<Fluid> tag, boolean testingHead) {
         if (entity instanceof LivingEntity) {
@@ -41,7 +43,7 @@ public class HotSpringBlock extends FlowingFluidBlock implements IForgeFluid {
     public FluidAttributes getAttributes() {
         return null;
     }
-
+//animateTick客户端方法会定期生成粒子效果,模拟热泉冒泡
     @Override
     @OnlyIn(Dist.CLIENT)
     public void animateTick(@Nonnull BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {

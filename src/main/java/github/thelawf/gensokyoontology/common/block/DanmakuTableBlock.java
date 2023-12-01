@@ -23,12 +23,12 @@ public class DanmakuTableBlock extends Block {
     public DanmakuTableBlock() {
         super(Properties.from(Blocks.CRAFTING_TABLE).sound(SoundType.WOOD));
     }
-
+//它重载了hasTileEntity方法,返回true,表示与一个TileEntity实体绑定
     @Override
     public boolean hasTileEntity(BlockState state) {
         return true;
     }
-
+//onBlockActivated方法在玩家点击时打开一个自定义的Gui容器界面
     @Override
     @NotNull
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
@@ -44,7 +44,7 @@ public class DanmakuTableBlock extends Block {
         return ActionResultType.SUCCESS;
     }
 
-
+//创建并返回一个DanmakuTabelTileEntity方块实体
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {

@@ -11,9 +11,12 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 // 7784774932680779809
-
+/**
+ * 季节性箱形块
+ */
 public class SaisenBoxBlock extends Block {
     public SaisenBoxBlock() {
+        //合成台
         super(Properties.from(Blocks.CRAFTING_TABLE));
     }
 
@@ -21,7 +24,7 @@ public class SaisenBoxBlock extends Block {
     public boolean hasTileEntity(BlockState state) {
         return true;
     }
-
+    // 对于方块实体
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, @NotNull IBlockReader worldIn) {

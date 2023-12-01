@@ -16,7 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
+// 一次性重生方块
 public class DisposableSpawnerBlock extends Block {
     public DisposableSpawnerBlock() {
         super(Properties.from(Blocks.SPAWNER));
@@ -26,7 +26,8 @@ public class DisposableSpawnerBlock extends Block {
     public boolean hasTileEntity(BlockState state) {
         return true;
     }
-
+  //onBlockActivated方法在玩家右键点击时被调用
+  //如果玩家手持一个刷怪蛋,则会设置方块实体的刷怪类型为蛋的类型
     @Override
     @NotNull
     @SuppressWarnings("deprecation")
@@ -41,7 +42,7 @@ public class DisposableSpawnerBlock extends Block {
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
-
+//createTileEntity方法创建并返回一个DisposableSpawnerTile方块实体
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {

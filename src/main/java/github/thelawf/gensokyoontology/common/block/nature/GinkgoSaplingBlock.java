@@ -7,7 +7,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
-
+// 银杏树苗
 public class GinkgoSaplingBlock extends SaplingBlock {
     public GinkgoSaplingBlock(Properties properties) {
         super(null, properties);

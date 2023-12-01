@@ -15,7 +15,10 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
+/**
+ * 时钟指针块
+ * 这个ClockNeedleBlock代表一个可交互的时钟指针方块,具有方向和旋转状态,可以被收获并掉落特定物品
+ */
 public class ClockNeedleBlock extends Block {
 
     public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;

@@ -34,11 +34,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
-
+//间隙方块
+// 它是一个可以放置的方块,扩展了Block类
 public class GapBlock extends Block implements INBTWriter {
 
     private BlockPos tilePos;
-
+//定义了两个VoxelShape作为隙间的形状
     // public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
     protected static final VoxelShape SUKIMA_PLANE_X = Block.makeCuboidShape(-4.0D, 0.0D, 4.0D, 20.0D, 16.0D, 4.0D);
     protected static final VoxelShape SUKIMA_PLANE_Z = Block.makeCuboidShape(4.0D, 0.0D, -4.0D, 4.0D, 16.0D, 20.0D);
@@ -58,7 +59,7 @@ public class GapBlock extends Block implements INBTWriter {
     public boolean hasTileEntity(BlockState state) {
         return true;
     }
-
+//与一个GapTileEntity方块实体绑定
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
@@ -72,7 +73,7 @@ public class GapBlock extends Block implements INBTWriter {
         //
         // }
     }
-
+//在放置时,会将两个隙间方块在NBT数据中关联起来
     @Override
     public void onBlockPlacedBy(@NotNull World worldIn, @NotNull BlockPos pos, @NotNull BlockState state, @Nullable LivingEntity placer, @NotNull ItemStack stack) {
         super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
@@ -90,7 +91,7 @@ public class GapBlock extends Block implements INBTWriter {
 
         setBlockTileFirst(worldIn, player, pos);
     }
-
+//当生物体碰撞时,如果是玩家,会尝试将其传送到另一个绑定的隙间方块
     @Override
     @SuppressWarnings("deprecation")
     public void onEntityCollision(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull Entity entityIn) {
@@ -173,7 +174,8 @@ public class GapBlock extends Block implements INBTWriter {
             }
         }
     }
-
+// 添加信息 
+// 添加了自定义物品tooltip显示隙间传送信息
     @Override
     public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
@@ -188,7 +190,7 @@ public class GapBlock extends Block implements INBTWriter {
             }
         }
     }
-
+// 尝试传送玩家
     public void tryTeleport(ServerWorld departureWorld, ServerPlayerEntity serverPlayer, BlockPos depaturePos) {
         if (departureWorld.getTileEntity(depaturePos) instanceof GapTileEntity) {
             GapTileEntity departureGap = getGapTile(departureWorld, depaturePos);
@@ -213,7 +215,7 @@ public class GapBlock extends Block implements INBTWriter {
             }
         }
     }
-
+// 返回方块实体
     public GapTileEntity getGapTile(ServerWorld serverWorld, BlockPos pos) {
         return (GapTileEntity) serverWorld.getTileEntity(pos);
     }
