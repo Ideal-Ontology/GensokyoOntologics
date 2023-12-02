@@ -24,18 +24,18 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-public class KoishiEntity extends ConversationalEntity implements ISpellCardUser {
+public class KomeijiKoishiEntity extends ConversationalEntity implements ISpellCardUser {
 
     private int angerTime;
     private UUID angerTarget;
-    private static final DataParameter<Integer> DATA_FAVORABILITY = EntityDataManager.createKey(KoishiEntity.class, DataSerializers.VARINT);
+    private static final DataParameter<Integer> DATA_FAVORABILITY = EntityDataManager.createKey(KomeijiKoishiEntity.class, DataSerializers.VARINT);
     public static final String KEY_FAVORABILITY = "favourability";
 
-    public static final EntityType<KoishiEntity> KOISHI = EntityType.Builder.create(
-                    KoishiEntity::new, EntityClassification.CREATURE).updateInterval(2)
+    public static final EntityType<KomeijiKoishiEntity> KOISHI = EntityType.Builder.create(
+                    KomeijiKoishiEntity::new, EntityClassification.CREATURE).updateInterval(2)
             .size(0.6f, 1.5f).trackingRange(10).build("koishi");
 
-    protected KoishiEntity(EntityType<? extends TameableEntity> type, World worldIn) {
+    public KomeijiKoishiEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
     }
 

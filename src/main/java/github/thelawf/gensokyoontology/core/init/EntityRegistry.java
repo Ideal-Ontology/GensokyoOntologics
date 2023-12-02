@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
+import github.thelawf.gensokyoontology.common.entity.KomeijiKoishiEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.*;
@@ -53,8 +55,12 @@ public final class EntityRegistry {
                     .setShouldReceiveVelocityUpdates(true).size(0.6f, 1.58f).trackingRange(10).build("remilia_scarlet"));
     // =============================== 可驯服的生物 ============================ //
 
-    // public static final RegistryObject<EntityType<KoishiEntity>> KOISHI_ENTITY = ENTITIES.register(
-    //         "komeiji_koishi", () -> KoishiEntity.KOISHI);
+    public static final RegistryObject<EntityType<HakureiReimuEntity>> HAKUREI_REIMU = ENTITIES.register(
+            "hakurei_reimu", () -> EntityType.Builder.create(HakureiReimuEntity::new, EntityClassification.CREATURE)
+                    .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("hakurei_reimu"));
+    public static final RegistryObject<EntityType<KomeijiKoishiEntity>> KOMEIJI_KOISHI = ENTITIES.register(
+            "komeiji_koishi", () -> EntityType.Builder.create(KomeijiKoishiEntity::new, EntityClassification.CREATURE)
+                    .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("komeiji_koishi"));
     // public static final RegistryObject<EntityType<FlandreScarletEntity>> SUMIREKO_ENTITY = ENTITIES.register(
     //         "usami_sumireko", () -> FlandreScarletEntity.SUMIREKO);
     // public static final RegistryObject<EntityType<YukariEntity>> YUKARI_ENTITY = ENTITIES.register(

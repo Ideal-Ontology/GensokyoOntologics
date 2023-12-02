@@ -162,11 +162,13 @@ public class GSKOClientEvents {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // =========================== 人形生物的渲染器 ========================= //
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HAKUREI_REIMU.get(), HakureiReimuRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAIRY_ENTITY.get(), FairyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LILY_WHITE_ENTITY.get(), LilyWhiteRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FLANDRE_SCARLET.get(), FlandreScarletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.REMILIA_SCARLET.get(), RemiliaScarletRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.KOMEIJI_KOISHI.get(), KomeijiKoishiRenderer::new);
         // TODO EntityRegistry里面没注册紫妈
         // 暂时删除，因为没画贴图，模型也没做（）
         // RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);

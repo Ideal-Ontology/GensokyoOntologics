@@ -171,6 +171,15 @@ public class GensokyoOntology {
             double randomHealthInyojade = GSKOMathUtil.randomRange(4, 10);
             double randomHealthSpectre = GSKOMathUtil.randomRange(2, 10);
 
+            event.put(EntityRegistry.HAKUREI_REIMU.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 200)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 8D)
+                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.5D)
+                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 4D)
+                    .createMutableAttribute(Attributes.ARMOR, 5D)
+                    .create());
+
             event.put(EntityRegistry.FAIRY_ENTITY.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthFairy)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
@@ -221,6 +230,16 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 50D)
                     .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 8D)
                     .createMutableAttribute(Attributes.ARMOR, 24D)
+                    .create());
+
+            event.put(EntityRegistry.KOMEIJI_KOISHI.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 800D)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4F)
+                    .createMutableAttribute(Attributes.FLYING_SPEED, 0.5F)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10D)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 50D)
+                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 10D)
+                    .createMutableAttribute(Attributes.ARMOR, 10D)
                     .create());
 //
             // event.put(EntityRegistry.KOISHI_ENTITY.get(), TameableEntity.func_233666_p_()
