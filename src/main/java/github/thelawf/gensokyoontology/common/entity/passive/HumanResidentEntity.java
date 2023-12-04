@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.passive;
 
 import github.thelawf.gensokyoontology.common.entity.AbstractHumanEntity;
+import github.thelawf.gensokyoontology.common.entity.trade.GSKOTrades;
+import net.minecraft.client.gui.screen.inventory.MerchantScreen;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
@@ -35,11 +37,10 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
 
     @Override
     protected void onVillagerTrade(MerchantOffer offer) {
-
     }
 
     @Override
     protected void populateTradeData() {
-
+        this.addTrades(this.getOffers(), GSKOTrades.HUMAN_RESIDENT_TRADE, 2);
     }
 }

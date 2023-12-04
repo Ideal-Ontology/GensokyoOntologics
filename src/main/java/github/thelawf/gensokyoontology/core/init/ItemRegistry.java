@@ -433,15 +433,24 @@ public final class ItemRegistry {
 
 
     // ============================ GSKO生物刷怪蛋 ================================//
+    public static final RegistryObject<ForgeSpawnEggItem> HAKURE_REIMU_SPAWN_EGG = ITEMS.register(
+            "hakurei_reimu_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.HAKUREI_REIMU,
+                    0xFF200A, 0xFFFFFC, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> FAIRY_SPAWN_EGG = ITEMS.register(
             "fairy_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.FAIRY_ENTITY,
                     0x0E51D5, 0xFAEB1C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> LILY_WHITE_SPAWN_EGG = ITEMS.register(
             "lily_white_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.LILY_WHITE_ENTITY,
-                    0xFFFFE2, 0xF52C2C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    0xFFF8E8, 0xF52C2C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> REMILIA_SCARLET_SAWN_EGG = ITEMS.register(
+            "remilia_scarlet_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.REMILIA_SCARLET,
+                    0x99CAFF, 0xFF0F3F, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> FLANDRE_SCARLET_SPAWN_EGG = ITEMS.register(
             "flandre_scarlet_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.FLANDRE_SCARLET,
                     0xDC143C, 0xFDFD78, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<ForgeSpawnEggItem> KOMEIJI_KOISHI_SAPWN_EGG = ITEMS.register(
+            "komeiji_koishi_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.KOMEIJI_KOISHI,
+                    0x42B983, 0xFCFA58, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//

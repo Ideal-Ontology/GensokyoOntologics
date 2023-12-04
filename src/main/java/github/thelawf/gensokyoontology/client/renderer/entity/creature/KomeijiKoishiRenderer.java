@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class KomeijiKoishiRenderer extends MobRenderer<KomeijiKoishiEntity, EntityModel<KomeijiKoishiEntity>> {
 
-    public static final ResourceLocation KOISHI_TEX = GensokyoOntology.withRL("textures/entity/komeiji_koishi");
+    public static final ResourceLocation KOISHI_TEX = GensokyoOntology.withRL("textures/entity/komeiji_koishi.png");
 
     public KomeijiKoishiRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new KomeijiKoishiModel(), 0.5F);
