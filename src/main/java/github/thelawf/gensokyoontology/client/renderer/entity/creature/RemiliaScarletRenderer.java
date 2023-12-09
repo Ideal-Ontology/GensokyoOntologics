@@ -5,11 +5,13 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.RemiliaScarletModel;
 import github.thelawf.gensokyoontology.common.entity.monster.RemiliaScarletEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
+import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.util.ResourceLocation;
 
-public class RemiliaScarletRenderer extends MobRenderer<RemiliaScarletEntity, RemiliaScarletModel> {
+public class RemiliaScarletRenderer extends BipedRenderer<RemiliaScarletEntity, RemiliaScarletModel> {
     public static final ResourceLocation REMILIA_TEX = GensokyoOntology.withRL("textures/entity/remilia_scarlet.png");
     public RemiliaScarletRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new RemiliaScarletModel(0.8F), 0.6F);

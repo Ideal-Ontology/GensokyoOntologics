@@ -102,17 +102,6 @@ public class HumanNPCModel<T extends AbstractHumanEntity> extends BipedModel<T> 
 
     }
 
-    public void setVisible(boolean visible) {
-        super.setVisible(visible);
-        this.bipedLeftArmwear.showModel = visible;
-        this.bipedRightArmwear.showModel = visible;
-        this.bipedLeftLegwear.showModel = visible;
-        this.bipedRightLegwear.showModel = visible;
-        this.bipedBodyWear.showModel = visible;
-        this.bipedCape.showModel = visible;
-        this.bipedDeadmau5Head.showModel = visible;
-    }
-
     public void translateHand(HandSide sideIn, MatrixStack matrixStackIn) {
         ModelRenderer modelrenderer = this.getArmForSide(sideIn);
         modelrenderer.translateRotate(matrixStackIn);

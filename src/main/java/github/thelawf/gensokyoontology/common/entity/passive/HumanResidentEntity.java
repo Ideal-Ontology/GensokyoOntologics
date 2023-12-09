@@ -12,7 +12,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.MerchantOffers;
 import net.minecraft.pathfinding.PathNavigator;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +40,19 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
 
     @Override
     protected void onVillagerTrade(MerchantOffer offer) {
+    }
+
+    @Override
+    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+        if (!this.isAlive() || this.hasCustomer() || this.isSleeping()) return super.getEntityInteractionResult(playerIn, hand);
+        if (this.getOffers().isEmpty()) return ActionResultType.func_233537_a_(this.world.isRemote);
+
+        if (!this.world.isRemote) {
+            this.setCustomer(playerIn);
+            this.openMerchantContainer(playerIn, this.getDisplayName(), 1);
+            return ActionResultType.func_233537_a_(this.world.isRemote);
+        }
+        return super.getEntityInteractionResult(playerIn, hand);
     }
 
     @Override
