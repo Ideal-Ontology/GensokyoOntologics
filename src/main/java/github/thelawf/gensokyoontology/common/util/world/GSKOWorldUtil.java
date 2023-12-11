@@ -5,7 +5,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
 
 // 种子：-7023638334721123514
@@ -17,6 +19,11 @@ public class GSKOWorldUtil {
 
     public static boolean isEntityInDimension(Entity entity, RegistryKey<World> worldKey) {
         return entity.getEntityWorld().getDimensionKey().equals(worldKey);
+    }
+
+    public static boolean isEntityInBiome(Entity entity, RegistryKey<Biome> biomeRegistry) {
+        ResourceLocation rl = entity.getEntityWorld().getBiome(entity.getPosition()).getRegistryName();
+        return rl != null && rl.toString().equals(biomeRegistry.getLocation().toString());
     }
 
     public static boolean isGensokyoBiome(ServerWorld serverWorld, ResourceLocation biomeName) {

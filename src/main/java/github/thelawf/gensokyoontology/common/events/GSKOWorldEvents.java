@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.events;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.spawn.LilyWhiteSpawner;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.GSKOEntityGenerator;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
@@ -11,8 +12,10 @@ import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
@@ -26,6 +29,7 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -61,12 +65,13 @@ public class GSKOWorldEvents {
     }
 
     @SubscribeEvent
-    public static void trySpawnBoss(WorldEvent.PotentialSpawns event) {
-        if (event.getWorld().isRemote()) return;
+    public static void trySpawnBoss(TickEvent.PlayerTickEvent event) {
+        if (!event.player.world.isRemote) {
+            ServerWorld serverWorld = (ServerWorld) event.player.world;
+            PlayerEntity player = event.player;
 
-        ServerWorld serverWorld = (ServerWorld) event.getWorld();
-        GSKOEntityGenerator.trySpawnLilyWhite(event);
-
+            LilyWhiteSpawner.spawn(serverWorld, player, player.getPosition(), player.ticksExisted, 0.002f);
+        }
     }
 
     @SubscribeEvent

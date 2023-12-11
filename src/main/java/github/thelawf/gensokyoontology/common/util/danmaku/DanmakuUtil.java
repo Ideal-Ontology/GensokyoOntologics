@@ -171,6 +171,14 @@ public class DanmakuUtil {
         return nextVec;
     }
 
+    public static Vector3d getRandomPos(Vector3d center, Vector3f radius) {
+        double x = GSKOMathUtil.randomRange(-radius.getX(), radius.getX());
+        double y = GSKOMathUtil.randomRange(-radius.getY(), radius.getY());
+        double z = GSKOMathUtil.randomRange(-radius.getZ(), radius.getZ());
+
+        return new Vector3d(center.x + x, center.y + y, center.z + z);
+    }
+
     public static Vector3d getRandomPosWithin(float radius, Plane planeIn) {
         return getRandomPosWithin(new Vector3f(radius, radius, radius), planeIn);
     }

@@ -2,10 +2,8 @@ package github.thelawf.gensokyoontology.client.renderer.entity.creature;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.model.HumanNPCModel;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.client.renderer.entity.model.BipedModel;

@@ -1,33 +1,25 @@
 package github.thelawf.gensokyoontology.client.model;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.client.resources.data.AnimationMetadataSection;
-import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.util.HandSide;
-import net.minecraftforge.client.model.animation.Animation;
-import net.minecraftforge.common.model.animation.AnimationStateMachine;
+import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Random;
 
-public class FlandreScarletModel extends BipedModel<FlandreScarletEntity> {
+public class FlandreScarletModel extends GSKOBipedModel<FlandreScarletEntity> {
 
     private List<ModelRenderer> modelRenderers = Lists.newArrayList();
 
     private final ModelRenderer flandre;
     private final ModelRenderer bipedHead;
-    private final ModelRenderer bipedLeftArm;
-    private final ModelRenderer bipedRightArm;
-    private final ModelRenderer body;
     private final ModelRenderer skirt;
     private final ModelRenderer skirtTable;
     private final ModelRenderer skirtPiece8;
@@ -38,9 +30,7 @@ public class FlandreScarletModel extends BipedModel<FlandreScarletEntity> {
     private final ModelRenderer skirt_piece_3;
     private final ModelRenderer skirt_piece_2;
     private final ModelRenderer skirt_piece_1;
-    private final ModelRenderer bipedRightLeg;
-    private final ModelRenderer bipedLeftLeg;
-    private final ModelRenderer wingLeft;
+    public final ModelRenderer wingLeft;
     private final ModelRenderer crystal;
     private final ModelRenderer l_2_r1;
     private final ModelRenderer crystal2;
@@ -56,7 +46,7 @@ public class FlandreScarletModel extends BipedModel<FlandreScarletEntity> {
     private final ModelRenderer gan;
     private final ModelRenderer g2_r1;
     private final ModelRenderer g1_r1;
-    private final ModelRenderer wingRight;
+    public final ModelRenderer wingRight;
     private final ModelRenderer crystal7;
     private final ModelRenderer l7_2_r1;
     private final ModelRenderer crystal8;
@@ -87,17 +77,17 @@ public class FlandreScarletModel extends BipedModel<FlandreScarletEntity> {
         bipedHead.setTextureOffset(0, 0).addBox(-4.0F, -31.25F, -3.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
         bipedHead.setTextureOffset(32, 0).addBox(-4.1F, -31.35F, -3.3F, 8.2F, 8.2F, 8.2F, 0.0F, false);
 
-        bipedLeftArm = new ModelRenderer(this);
-        bipedLeftArm.setRotationPoint(5.4F, -17.4F, 1.0F);
-        flandre.addChild(bipedLeftArm);
-        bipedLeftArm.setTextureOffset(51, 31).addBox(-1.6F, -6.0F, -2.1F, 3.2F, 12.0F, 4.2F, 0.0F, false);
-        bipedLeftArm.setTextureOffset(40, 17).addBox(-1.5F, -5.8F, -2.0F, 3.0F, 11.6F, 4.0F, 0.0F, false);
+        leftArm = new ModelRenderer(this);
+        leftArm.setRotationPoint(5.4F, -17.4F, 1.0F);
+        flandre.addChild(leftArm);
+        leftArm.setTextureOffset(51, 31).addBox(-1.6F, -6.0F, -2.1F, 3.2F, 12.0F, 4.2F, 0.0F, false);
+        leftArm.setTextureOffset(40, 17).addBox(-1.5F, -5.8F, -2.0F, 3.0F, 11.6F, 4.0F, 0.0F, false);
 
-        bipedRightArm = new ModelRenderer(this);
-        bipedRightArm.setRotationPoint(-5.6F, -17.4F, 1.0F);
-        flandre.addChild(bipedRightArm);
-        bipedRightArm.setTextureOffset(51, 31).addBox(-1.6F, -6.0F, -2.1F, 3.2F, 12.0F, 4.2F, 0.0F, false);
-        bipedRightArm.setTextureOffset(33, 48).addBox(-1.5F, -5.8F, -2.0F, 3.0F, 11.6F, 4.0F, 0.0F, false);
+        rightArm = new ModelRenderer(this);
+        rightArm.setRotationPoint(-5.6F, -17.4F, 1.0F);
+        flandre.addChild(rightArm);
+        rightArm.setTextureOffset(51, 31).addBox(-1.6F, -6.0F, -2.1F, 3.2F, 12.0F, 4.2F, 0.0F, false);
+        rightArm.setTextureOffset(33, 48).addBox(-1.5F, -5.8F, -2.0F, 3.0F, 11.6F, 4.0F, 0.0F, false);
 
         body = new ModelRenderer(this);
         body.setRotationPoint(0.0F, 0.0F, 0.0F);
@@ -163,17 +153,17 @@ public class FlandreScarletModel extends BipedModel<FlandreScarletEntity> {
         setRotationAngle(skirt_piece_1, -0.2618F, 0.0F, 0.0F);
         skirt_piece_1.setTextureOffset(25, 64).addBox(-4.0F, -4.2F, -0.4F, 8.0F, 8.0F, 2.0F, 0.0F, false);
 
-        bipedRightLeg = new ModelRenderer(this);
-        bipedRightLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
-        flandre.addChild(bipedRightLeg);
-        bipedRightLeg.setTextureOffset(0, 36).addBox(-4.1F, -7.9F, -1.1F, 4.0F, 8.0F, 4.2F, 0.0F, false);
-        bipedRightLeg.setTextureOffset(0, 17).addBox(-4.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
+        rightLeg = new ModelRenderer(this);
+        rightLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
+        flandre.addChild(rightLeg);
+        rightLeg.setTextureOffset(0, 36).addBox(-4.1F, -7.9F, -1.1F, 4.0F, 8.0F, 4.2F, 0.0F, false);
+        rightLeg.setTextureOffset(0, 17).addBox(-4.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
 
-        bipedLeftLeg = new ModelRenderer(this);
-        bipedLeftLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
-        flandre.addChild(bipedLeftLeg);
-        bipedLeftLeg.setTextureOffset(0, 51).addBox(0.1F, -7.9F, -1.1F, 4.0F, 8.0F, 4.2F, 0.0F, false);
-        bipedLeftLeg.setTextureOffset(17, 48).addBox(0.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
+        leftLeg = new ModelRenderer(this);
+        leftLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
+        flandre.addChild(leftLeg);
+        leftLeg.setTextureOffset(0, 51).addBox(0.1F, -7.9F, -1.1F, 4.0F, 8.0F, 4.2F, 0.0F, false);
+        leftLeg.setTextureOffset(17, 48).addBox(0.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
 
         wingLeft = new ModelRenderer(this);
         wingLeft.setRotationPoint(2.25F, 1.0F, 0.0F);
@@ -355,7 +345,7 @@ public class FlandreScarletModel extends BipedModel<FlandreScarletEntity> {
 
 
     public List<ModelRenderer> getBodyParts() {
-        return ImmutableList.of(this.bipedLeftLeg, this.bipedRightLeg, this.bipedLeftArm, this.bipedRightArm, this.bipedBody);
+        return ImmutableList.of(this.leftLeg, this.rightLeg, this.leftArm, this.rightArm, this.bipedBody);
     }
 
     @Override
@@ -371,6 +361,8 @@ public class FlandreScarletModel extends BipedModel<FlandreScarletEntity> {
     @Override
     public void setRotationAngles(@NotNull FlandreScarletEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        this.wingLeft.rotateAngleZ = MathHelper.lerp(this.swimAnimation, this.wingLeft.rotateAngleZ, 0.3F * MathHelper.cos(limbSwing * 0.33333334F));
+        this.wingRight.rotateAngleZ = MathHelper.lerp(this.swimAnimation, this.wingRight.rotateAngleZ, 0.3F * MathHelper.cos(limbSwing * 0.33333334F));
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
@@ -379,26 +371,4 @@ public class FlandreScarletModel extends BipedModel<FlandreScarletEntity> {
         modelRenderer.rotateAngleZ = z;
     }
 
-    public void setVisible(boolean visible) {
-        super.setVisible(visible);
-
-    }
-
-    public void translateHand(@NotNull HandSide sideIn, @NotNull MatrixStack matrixStackIn) {
-        ModelRenderer modelrenderer = this.getArmForSide(sideIn);
-        modelrenderer.translateRotate(matrixStackIn);
-
-    }
-
-    public ModelRenderer getRandomModelRenderer(Random randomIn) {
-        return this.modelRenderers.get(randomIn.nextInt(this.modelRenderers.size()));
-    }
-
-    public void accept(@NotNull ModelRenderer p_accept_1_) {
-        if (this.modelRenderers == null) {
-            this.modelRenderers = Lists.newArrayList();
-        }
-
-        this.modelRenderers.add(p_accept_1_);
-    }
 }

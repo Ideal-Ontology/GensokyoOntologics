@@ -31,16 +31,6 @@ public class GSKOMathUtil {
                 (float) (number - max * Math.floor(number / max));
     }
 
-    /**
-     * 这里的Point类是java.awt里面的类
-     *
-     * @param p1 第一个点
-     * @param p2 第二个点
-     * @return 上述两点间的距离
-     */
-    public static double distanceOf2D(Point p1, Point p2) {
-        return Math.pow(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2), 0.5);
-    }
 
     /**
      * 传入四个双精度浮点数
@@ -58,34 +48,6 @@ public class GSKOMathUtil {
     public static double distanceOf3D(double x1, double y1, double z1, double x2, double y2, double z2) {
         return Math.pow(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 + z2, 2), 0.5);
     }
-
-    public static Vector3d getIntersectVec(Vector3d p1, Vector3d v1,
-                                           Vector3d p2, Vector3d v2) {
-        Vector3d intersection = Vector3d.ZERO;
-        if (v1.dotProduct(v2) == 1) {
-            // 两线平行
-            return null;
-        }
-
-        Vector3d startPointSeg = p2.subtract(p1);
-        Vector3d vecS1 = v1.crossProduct(v2);            // 有向面积1
-        Vector3d vecS2 = startPointSeg.crossProduct(v2); // 有向面积2
-        double num = startPointSeg.dotProduct(vecS1);
-
-        // 判断两这直线是否共面
-        if (num >= 1E-05f || num <= -1E-05f) {
-            return null;
-        }
-
-        // 有向面积比值，利用点乘是因为结果可能是正数或者负数
-        double num2 = vecS2.dotProduct(vecS1) / vecS1.lengthSquared();
-
-        Vector3d vector3d = new Vector3d(v1.x * num2, v1.y * num2, v1.z * num2);
-        intersection = p1.add(vector3d);
-
-        return intersection;
-    }
-
 
     public static ArrayList<Vector3d> getCirclePoints2D(Vector3d center,
                                                         double radius, int count) {
@@ -108,28 +70,6 @@ public class GSKOMathUtil {
                 0, center.getZ() + radius * Math.sin(Math.toDegrees(angle)));
     }
 
-    public static Vector3d getPointOnOvalByAngle(Vector3d center,
-                                                 double lengthX, double lengthY, double angle) {
-        return new Vector3d(
-                center.getX() + lengthX * Math.cos(Math.toDegrees(angle)),
-                0, center.getY() + lengthY * Math.sin(Math.toDegrees(angle)));
-    }
-
-    public static Vector3d getPointOnOval(Vector3d center,
-                                          double lengthX, double lengthY, double angle) {
-        if (lengthX > lengthY) {
-            double x = (lengthX * lengthY) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
-            double y = (lengthX * lengthY * Math.tan(angle)) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
-            return new Vector3d(center.getX() + x, center.getY() + y, 0);
-        } else if (lengthX < lengthY) {
-            double y = (lengthX * lengthY) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
-            double x = (lengthX * lengthY * Math.tan(angle)) / Math.sqrt(square(lengthX) + square(lengthY) + square(Math.tan(angle)));
-            return new Vector3d(center.getX() + x, center.getY() + y, 0);
-
-        } else {
-            return getPointOnCircle(center, lengthX, toDegree(angle));
-        }
-    }
 
     public static Vector3d bezier2(Vector3d start, Vector3d end, Vector3d p, float time) {
         return lerp(time, lerp(time, start, p), lerp(time, p, end));
@@ -183,21 +123,6 @@ public class GSKOMathUtil {
         return new BlockPos(x, y, z);
     }
 
-    /**
-     * @param start            本地坐标系的起点向量
-     * @param end              本地坐标系的终点向量
-     * @param startRotationRad 起点向量基于自身的本地坐标系的旋转角度（弧度值）
-     * @param endRotationRad   终点向量基于自身的本地坐标系的旋转角度（弧度值）
-     * @return 起点到终点的弧长
-     */
-    public static double getArcLengthFormTo(Vector3d start,
-                                            Vector3d end,
-                                            double startRotationRad,
-                                            double endRotationRad) {
-        double middle = Math.abs(start.x - end.x) / 2;
-        double centerAngle = Math.PI / 4 - Math.abs(startRotationRad - endRotationRad);
-        return Math.PI * 2 * middle * (centerAngle / (Math.PI / 2));
-    }
 
 
     /**
@@ -273,23 +198,6 @@ public class GSKOMathUtil {
 
     }
 
-    /**
-     * @param x 空间向量的x坐标
-     * @param y 空间向量的y坐标
-     * @param z 空间向量的z坐标
-     * @return 返回一个空间向量在x-z平面上的投影同x轴的夹角， 在x-y平面上的投影同y轴的夹角，以及在z-y平面上的投影同z轴的夹角
-     */
-    public static double[] toRotations(double x, double y, double z) {
-        return new double[]{Math.atan(x / z), Math.atan(y / x), Math.atan(z / y)};
-    }
-
-    public static Vector3d rotateZXY(Vector3d prevVec, Vector3d rotation) {
-        return prevVec.rotatePitch((float) rotation.z).rotateRoll((float) rotation.x).rotateYaw((float) rotation.y);
-    }
-
-    public static Vector3d rotateZXY(Vector3d prevVec, float roll, float yaw, float pitch) {
-        return rotateZXY(prevVec, new Vector3d(roll, yaw, pitch));
-    }
 
     /**
      * 计算方法：设斜边为r，两条直角边为x和y，斜边与y轴夹角为d，那么——
@@ -495,5 +403,17 @@ public class GSKOMathUtil {
         quaternion.multiply(new Quaternion(Vector3f.XP, (float) Math.toDegrees(pitch), true)); // 设置垂直旋转
 
         return quaternion;
+    }
+
+    public static boolean isBetween(int num, int min, int max) {
+        return num >= min && num < max;
+    }
+
+    public static boolean isBetween(float num, float min, float max) {
+        return num >= min && num < max;
+    }
+
+    public static boolean isBetween(double num, double min, double max) {
+        return num >= min && num < max;
     }
 }

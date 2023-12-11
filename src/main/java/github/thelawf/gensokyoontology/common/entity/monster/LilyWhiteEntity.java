@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.entity.ai.goal.SpellCardAttackGoal
 import github.thelawf.gensokyoontology.common.entity.ai.goal.LilyWhiteBossBattleGoal;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
@@ -22,10 +23,11 @@ import java.util.*;
 
 public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardUser {
 
-    public LilyWhiteEntity(EntityType<? extends TameableEntity> type, World worldIn) {
+    public LilyWhiteEntity(EntityType<LilyWhiteEntity> type, World worldIn) {
         super(type, worldIn);
         this.setDialog(new DialogTreeNode("lily_white"));
     }
+
 
     @Override
     protected void registerGoals() {
