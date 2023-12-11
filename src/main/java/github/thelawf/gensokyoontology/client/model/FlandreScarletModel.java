@@ -169,7 +169,6 @@ public class FlandreScarletModel extends GSKOBipedModel<FlandreScarletEntity> {
         wingLeft.setRotationPoint(2.25F, 1.0F, 0.0F);
         flandre.addChild(wingLeft);
 
-
         crystal = new ModelRenderer(this);
         crystal.setRotationPoint(-18.3489F, -18.0429F, 3.5071F);
         wingLeft.addChild(crystal);
@@ -239,7 +238,6 @@ public class FlandreScarletModel extends GSKOBipedModel<FlandreScarletEntity> {
         gan = new ModelRenderer(this);
         gan.setRotationPoint(0.0F, 0.0F, 0.0F);
         wingLeft.addChild(gan);
-
 
         g2_r1 = new ModelRenderer(this);
         g2_r1.setRotationPoint(-14.5F, -22.5F, 3.5F);

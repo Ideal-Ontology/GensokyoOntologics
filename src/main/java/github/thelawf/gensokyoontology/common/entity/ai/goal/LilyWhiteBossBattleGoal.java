@@ -68,7 +68,14 @@ public class LilyWhiteBossBattleGoal extends SpellCardAttackGoal {
         LivingEntity target = this.lilyWhite.getAttackTarget();
         if (target == null || !target.isAlive()) {
             return false;
-        } else {
+        }
+        else if (!target.isAlive()) {
+            return false;
+        }
+        else if (!this.lilyWhite.isWithinHomeDistanceFromPosition(target.getPosition())) {
+            return false;
+        }
+        else {
             boolean isPlayerAndCanNotBeAttacked = target instanceof PlayerEntity
                     && (target.isSpectator() || ((PlayerEntity) target).isCreative());
             return !isPlayerAndCanNotBeAttacked;

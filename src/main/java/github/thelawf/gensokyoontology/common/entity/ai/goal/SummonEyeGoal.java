@@ -10,15 +10,15 @@ import net.minecraft.pathfinding.Path;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 public class SummonEyeGoal extends Goal {
     protected final MobEntity entity;
-    protected final PlayerEntity player;
     private static final int MAX_DISTANCE = 20;
     private Path path;
 
-    public SummonEyeGoal(MobEntity entity, PlayerEntity player) {
+    public SummonEyeGoal(MobEntity entity) {
         this.entity = entity;
-        this.player = player;
     }
 
     @Override
@@ -31,11 +31,7 @@ public class SummonEyeGoal extends Goal {
         double distance = this.entity.getDistanceSq(target);
         if (this.entity.getEntitySenses().canSee(target) && distance < MAX_DISTANCE) {
             this.entity.setNoGravity(true);
-
-            DestructiveEyeEntity eye = new DestructiveEyeEntity(entity.world);
-            eye.setLocationAndAngles(target.getPosX(), target.getPosY(), target.getPosZ(), 0F, 0F);
             generateEye(entity.world, target);
-            entity.world.addEntity(eye);
         }
     }
 
@@ -51,7 +47,8 @@ public class SummonEyeGoal extends Goal {
     @Override
     public boolean shouldExecute() {
         LivingEntity target = this.entity.getAttackTarget();
-        return target != null && target.isAlive();
+        Random random = new Random();
+        return this.entity.ticksExisted % 500 == 0 && target != null && target.isAlive();
     }
 
     @Override
@@ -66,7 +63,4 @@ public class SummonEyeGoal extends Goal {
         }
     }
 
-    public PlayerEntity getPlayer() {
-        return player;
-    }
 }

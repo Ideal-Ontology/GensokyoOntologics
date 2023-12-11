@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.FlandreSpellAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.SpellCardAttackGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.SummonEyeGoal;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import net.minecraft.entity.AgeableEntity;
@@ -12,6 +13,7 @@ import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
+import net.minecraft.entity.monster.SkeletonEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.passive.WolfEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -52,7 +54,8 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2D, true));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
+        this.goalSelector.addGoal(5, new SummonEyeGoal(this));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8f));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
 
