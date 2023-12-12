@@ -23,7 +23,6 @@ import java.util.*;
 
 public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardUser {
 
-    public final FullCherryBlossomEntity SPELL_CARD = new FullCherryBlossomEntity(world, this);
 
     public LilyWhiteEntity(EntityType<LilyWhiteEntity> type, World worldIn) {
         super(type, worldIn);
@@ -33,6 +32,7 @@ public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardU
 
     @Override
     protected void registerGoals() {
+        FullCherryBlossomEntity SPELL_CARD = new FullCherryBlossomEntity(world, this);
         SpellCardAttackGoal.Stage stage = new SpellCardAttackGoal.Stage(SpellCardAttackGoal.Type.NON_SPELL, SPELL_CARD, 500, true);
         // stages.put(SpellCardAttackGoal.Type.SPELL_CARD_BREAKABLE, Pair.of(50f, 2000));
 

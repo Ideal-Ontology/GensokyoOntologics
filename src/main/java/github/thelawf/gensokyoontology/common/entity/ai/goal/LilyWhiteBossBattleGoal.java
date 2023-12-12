@@ -15,6 +15,7 @@ public class LilyWhiteBossBattleGoal extends SpellCardAttackGoal {
     private final LilyWhiteEntity lilyWhite;
     private Path path;
     private final float speedIn;
+    private final Stage stage;
     // private final List<Integer> stageTimes;
     // private final int totalTime;
 
@@ -22,6 +23,7 @@ public class LilyWhiteBossBattleGoal extends SpellCardAttackGoal {
         super(stage);
         this.lilyWhite = lilyWhite;
         this.speedIn = speedIn;
+        this.stage = stage;
     }
 
     @Override
@@ -51,10 +53,10 @@ public class LilyWhiteBossBattleGoal extends SpellCardAttackGoal {
             this.lilyWhite.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
             this.lilyWhite.setNoGravity(true);
 
-            if (this.stages.get(0).spellCard == null) {
+            if (this.stage.spellCard == null) {
                 throw new NullPointerException("符卡未提供");
             }
-            this.lilyWhite.spellCardAttack(this.stages.get(0).spellCard, ticksExisted);
+            this.lilyWhite.spellCardAttack(this.stage.spellCard, ticksExisted);
 
             // this.lilyWhite.spellCardAttack(this.lilyWhite.getHealth() > this.lilyWhite.getMaxHealth() ?
             // this.stages.get(0).spellCard : null, ticksExisted);

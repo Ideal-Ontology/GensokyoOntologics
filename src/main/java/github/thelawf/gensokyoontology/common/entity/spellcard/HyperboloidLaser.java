@@ -40,7 +40,6 @@ public class HyperboloidLaser extends SpellCardEntity{
             world.addEntity(laser);
         }
 
-        // onScriptTick(this.world, this.getOwner(), ticksExisted);
     }
 
     @Override

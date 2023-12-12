@@ -21,6 +21,7 @@ public class FullCherryBlossomEntity extends SpellCardEntity {
 
     public FullCherryBlossomEntity(World worldIn, LivingEntity living) {
         super(EntityRegistry.FULL_CHERRY_BLOSSOM_ENTITY.get(), worldIn, living);
+        this.setOwner(living);
     }
 
     public FullCherryBlossomEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
@@ -39,7 +40,7 @@ public class FullCherryBlossomEntity extends SpellCardEntity {
                 Vector3d shootVec = new Vector3d(vector3d.x, vector3d.y, vector3d.z);
                 shootVec = DanmakuUtil.rotateRandomAngle(shootVec, (float) Math.PI * 2, (float) Math.PI * 2);
                 vector3d = vector3d.add(DanmakuUtil.getRandomPosWithin(3.5f, DanmakuUtil.Plane.XYZ));
-                vector3d = vector3d.add(living.getPositionVec());
+                vector3d = vector3d.add(this.getPositionVec());
 
                 DanmakuUtil.initDanmaku(riceShot, vector3d, new Vector2f((float) vector3d.x, (float) vector3d.y), true);
                 riceShot.shoot(shootVec.x, shootVec.y, shootVec.z, 0.3f, 0f);
@@ -51,7 +52,7 @@ public class FullCherryBlossomEntity extends SpellCardEntity {
     @Override
     public void tick() {
         super.tick();
-        onTick(this.world, (LivingEntity) this.getOwner(), ticksExisted);
+        onTick(world, (LivingEntity) this.getOwner(), ticksExisted);
     }
 
     @OnlyIn(Dist.CLIENT)

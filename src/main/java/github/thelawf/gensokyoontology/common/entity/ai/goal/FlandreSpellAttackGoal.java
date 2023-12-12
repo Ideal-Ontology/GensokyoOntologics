@@ -11,6 +11,7 @@ import java.util.List;
 public class FlandreSpellAttackGoal extends SpellCardAttackGoal {
 
     private final FlandreScarletEntity flandre;
+    private final Stage stage;
     private Path path;
     private final float speed;
     private int ticksExisted;
@@ -23,6 +24,7 @@ public class FlandreSpellAttackGoal extends SpellCardAttackGoal {
         super(stage);
         this.flandre = flandre;
         this.speed = speedIn;
+        this.stage = stage;
     }
 
     @Override
@@ -39,13 +41,11 @@ public class FlandreSpellAttackGoal extends SpellCardAttackGoal {
             this.flandre.getNavigator().tryMoveToEntityLiving(target, this.speed);
             this.flandre.setNoGravity(true);
 
-            if (this.stages.get(0).spellCard == null) {
+            if (this.stage.spellCard == null) {
                 throw new NullPointerException("符卡未提供");
             }
-            this.flandre.spellCardAttack(this.stages.get(0).spellCard, ticksExisted);
+            this.flandre.spellCardAttack(this.stage.spellCard, ticksExisted);
 
-            // this.flandre.spellCardAttack(this.flandre.getHealth() > this.flandre.getMaxHealth() ?
-            // this.stages.get(0).spellCard : null, ticksExisted);
         } else if (!this.flandre.getEntitySenses().canSee(target)) {
             this.flandre.getNavigator().clearPath();
         }
@@ -58,7 +58,12 @@ public class FlandreSpellAttackGoal extends SpellCardAttackGoal {
             return false;
         }
         this.path = this.flandre.getNavigator().pathfind(target, 0);
-        return path != null;
+        return path != null && this.stage.spellCard.ticksExisted >= this.stage.duration * 2;
+    }
+
+    @Override
+    public boolean shouldContinueExecuting() {
+        return !this.flandre.isDuringSpellCardAttack(true);
     }
 
     @Override
