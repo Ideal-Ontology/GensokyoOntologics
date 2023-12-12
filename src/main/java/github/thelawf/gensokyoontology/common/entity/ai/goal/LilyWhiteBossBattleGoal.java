@@ -18,8 +18,8 @@ public class LilyWhiteBossBattleGoal extends SpellCardAttackGoal {
     // private final List<Integer> stageTimes;
     // private final int totalTime;
 
-    public LilyWhiteBossBattleGoal(LilyWhiteEntity lilyWhite, List<Stage> stages, float speedIn) {
-        super(stages);
+    public LilyWhiteBossBattleGoal(LilyWhiteEntity lilyWhite, Stage stage, float speedIn) {
+        super(stage);
         this.lilyWhite = lilyWhite;
         this.speedIn = speedIn;
     }

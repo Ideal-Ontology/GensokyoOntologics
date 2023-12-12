@@ -23,6 +23,8 @@ import java.util.*;
 
 public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardUser {
 
+    public final FullCherryBlossomEntity SPELL_CARD = new FullCherryBlossomEntity(world, this);
+
     public LilyWhiteEntity(EntityType<LilyWhiteEntity> type, World worldIn) {
         super(type, worldIn);
         this.setDialog(new DialogTreeNode("lily_white"));
@@ -31,12 +33,11 @@ public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardU
 
     @Override
     protected void registerGoals() {
-        List<SpellCardAttackGoal.Stage> stages = new ArrayList<>();
-        stages.add(new SpellCardAttackGoal.Stage(SpellCardAttackGoal.Type.NON_SPELL, new FullCherryBlossomEntity(world, this), 500, true));
+        SpellCardAttackGoal.Stage stage = new SpellCardAttackGoal.Stage(SpellCardAttackGoal.Type.NON_SPELL, SPELL_CARD, 500, true);
         // stages.put(SpellCardAttackGoal.Type.SPELL_CARD_BREAKABLE, Pair.of(50f, 2000));
 
         this.goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new LilyWhiteBossBattleGoal(this, stages, 0.4f));
+        this.goalSelector.addGoal(1, new LilyWhiteBossBattleGoal(this, stage, 0.4f));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0));
         this.goalSelector.addGoal(3, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(4, new LookRandomlyGoal(this));
@@ -52,19 +53,6 @@ public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardU
 
         spellCard.onTick(world, this, ticksIn);
 
-        // List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos(1.2, 3, 2, 0.05);
-//
-        // for (Vector3d vector3d : roseLinePos) {
-        //     RiceShotEntity riceShot = new RiceShotEntity(this, world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
-        //     Vector3d shootVec = new Vector3d(vector3d.x, vector3d.y, vector3d.z);
-        //     shootVec = DanmakuUtil.rotateRandomAngle(shootVec, (float) Math.PI * 2, (float) Math.PI * 2);
-        //     vector3d = vector3d.add(DanmakuUtil.getRandomPosWithin(3.5f, DanmakuUtil.Plane.XYZ));
-        //     vector3d = vector3d.add(this.getPositionVec());
-//
-        //     DanmakuUtil.initDanmaku(riceShot, vector3d, new Vector2f((float) vector3d.x, (float) vector3d.y), true);
-        //     riceShot.shoot(shootVec.x, shootVec.y, shootVec.z, 0.3f, 0f);
-        //     world.addEntity(riceShot);
-        // }
     }
 
     @Nullable

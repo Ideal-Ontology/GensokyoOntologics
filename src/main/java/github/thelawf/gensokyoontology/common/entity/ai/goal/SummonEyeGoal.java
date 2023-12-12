@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -9,6 +10,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
@@ -48,6 +50,11 @@ public class SummonEyeGoal extends Goal {
     public boolean shouldExecute() {
         LivingEntity target = this.entity.getAttackTarget();
         Random random = new Random();
+        if (!entity.world.isRemote) {
+            ServerWorld serverWorld = (ServerWorld) entity.world;
+            long count = serverWorld.getEntities().filter(e -> e.getType() == EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get()).count();
+            if (count >= 8) return false;
+        }
         return this.entity.ticksExisted % 500 == 0 && target != null && target.isAlive();
     }
 

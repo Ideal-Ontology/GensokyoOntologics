@@ -50,6 +50,9 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<FlandreScarletEntity>> FLANDRE_SCARLET = ENTITIES.register(
             "flandre_scarlet", () -> EntityType.Builder.create(FlandreScarletEntity::new, EntityClassification.CREATURE)
                     .setShouldReceiveVelocityUpdates(true).size(0.6f, 1.55f).trackingRange(10).build("flandre_scarlet"));
+    public static final RegistryObject<EntityType<FlandreScarletEntity.Doppelganger>> FLANDRE_DOPPELDANGER = ENTITIES.register(
+            "flandre_doppelganger", () -> EntityType.Builder.create(FlandreScarletEntity.Doppelganger::new, EntityClassification.CREATURE)
+                    .setShouldReceiveVelocityUpdates(true).size(0.6f, 1.55f).trackingRange(10).build("flandre_doppelganger"));
     public static final RegistryObject<EntityType<RemiliaScarletEntity>> REMILIA_SCARLET = ENTITIES.register(
             "remilia_scarlet", () -> EntityType.Builder.create(RemiliaScarletEntity::new, EntityClassification.CREATURE)
                     .setShouldReceiveVelocityUpdates(true).size(0.6f, 1.58f).trackingRange(10).build("remilia_scarlet"));
