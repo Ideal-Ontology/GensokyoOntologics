@@ -481,6 +481,9 @@ public final class ItemRegistry {
     public static final RegistryObject<SC_FullCherryBlossom> SC_FULL_CHERRY_BLOSSOM = ITEMS.register(
             "sc_full_cherry_blossom", () -> new SC_FullCherryBlossom(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+    public static final RegistryObject<SC_HanaShigure> SC_HANA_SHIGURE = ITEMS.register(
+            "sc_hana_shigure", () -> new SC_HanaShigure(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
     public static final RegistryObject<SC_ManiaDepress> SC_MANIA_DEPRESS = ITEMS.register(
             "sc_mania_depress", () -> new SC_ManiaDepress(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));

@@ -314,6 +314,58 @@ public class DanmakuUtil {
         return positions;
     }
 
+    public static List<Vector3d> spherePos(Vector3d center, double radius, int count) {
+        List<Vector3d> coordinates = new ArrayList<>();
+
+        for (int i = 0; i < count; i++) {
+            double theta = 2.0 * Math.PI * i / count;
+            for (int j = 0; j < count; j++) {
+                double phi = Math.PI * j / (count - 1);
+
+                double x = center.x + radius * Math.sin(phi) * Math.cos(theta);
+                double y = center.y + radius * Math.sin(phi) * Math.sin(theta);
+                double z = center.z + radius * Math.cos(phi);
+
+                coordinates.add(new Vector3d(x, y, z));
+            }
+        }
+
+        return coordinates;
+    }
+
+    public static List<Vector3d> ellipticPos(Vector2f center, double radius, int count) {
+        ArrayList<Vector3d> coordinates = new ArrayList<>();
+
+        // 定义生成坐标的数量
+        // 计算每个点的角度间隔
+        double angleInterval = 2 * Math.PI / count;
+
+        // 生成坐标
+        for (int i = 0; i < count; i++) {
+            double angle = i * angleInterval;
+            double x = center.x + radius * Math.cos(angle);
+            double y = center.y + radius * Math.sin(angle);
+            coordinates.add(new Vector3d(x,0, y));
+        }
+
+        return coordinates;
+    }
+
+    public static List<Vector3d> ellipticPos(Vector3d center, double radius, int count) {
+        ArrayList<Vector3d> coordinates = new ArrayList<>();
+
+        // 定义生成坐标的数量
+        // 计算每个点的角度间隔
+        double angleInterval = 2 * Math.PI / count;
+
+        // 生成坐标
+        for (int i = 0; i < count; i++) {
+            coordinates.add(center.rotateYaw((float) Math.PI * 2 / count * i));
+        }
+
+        return coordinates;
+    }
+
     public static List<DanmakuColor> getRainbowColoredDanmaku() {
 
         return Lists.newArrayList(

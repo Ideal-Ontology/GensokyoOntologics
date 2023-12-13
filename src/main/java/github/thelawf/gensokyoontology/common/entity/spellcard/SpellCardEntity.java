@@ -196,6 +196,11 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         danmaku.setNoGravity(noGravity);
         setDanmakuInit(danmaku, initPosition, new Vector2f(rotationYaw, rotationPitch));
     }
+
+    protected <D extends AbstractDanmakuEntity> void setDanmakuInit(D danmaku, Vector3d initPosition, Vector2f initRotation, boolean noGravity) {
+        danmaku.setNoGravity(noGravity);
+        setDanmakuInit(danmaku, initPosition,initRotation);
+    }
     @Override
     public void baseTick() {
         super.baseTick();

@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
 
+import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -112,8 +114,8 @@ public class GSKOMathUtil {
                 .add(p2.scale(3 * t * t));
     }
 
-    public static Vector3d lerp(float p, Vector3d from, Vector3d to) {
-        return from.add(to.subtract(from).scale(p));
+    public static Vector3d lerp(float progress, Vector3d start, Vector3d end) {
+        return start.add(end.subtract(start).scale(progress));
     }
 
     public static BlockPos lerp(float progress, BlockPos start, BlockPos end) {
@@ -277,8 +279,54 @@ public class GSKOMathUtil {
         return (float) new Random().nextInt((int) (max - min + 1)) + min;
     }
 
+    public static double randomRange(double min, double max) {
+        Random random = new Random();
+        double randomValue = random.nextDouble();
+        return min + (randomValue * (max - min));
+    }
+
+    public static Vector3d randomVec(double min, double max) {
+        return new Vector3d(randomRange(min, max), randomRange(min, max), randomRange(min, max));
+    }
+
+    /** Random Spherical Range Algorithm, returns a pair of coordinates on the given surface of a sphere. */
+    public static Pair<Vector3d, Vector3d> rsr(Vector3d orientation, float yawRange, float pitchRange){
+        double yaw = toYawPitch(orientation).x;
+        double pitch = toYawPitch(orientation).y;
+        if (yaw < yawRange || yaw >= yawRange){
+            if (pitch > pitchRange) {
+                return Pair.of(fromYawPitch(yawRange, pitchRange), fromYawPitch(yawRange, pitchRange).inverse());
+            }
+            else if (pitch < pitchRange) {
+                return Pair.of(fromYawPitch(yawRange, pitchRange), fromYawPitch(yawRange, pitchRange).inverse());
+            }
+            else {
+                return Pair.of(fromYawPitch(yawRange, (float) pitch), fromYawPitch(yawRange, (float) pitch).inverse());
+            }
+        }
+        else {
+            if (pitch > pitchRange) {
+                return Pair.of(fromYawPitch(yawRange, pitchRange), fromYawPitch(yawRange, pitchRange).inverse());
+            }
+            else if (pitch < pitchRange) {
+                return Pair.of(fromYawPitch(yawRange, pitchRange), fromYawPitch(yawRange, pitchRange).inverse());
+            }
+            return Pair.of(orientation, orientation.inverse());
+        }
+    }
+
     public static <V> V rollByWeight(int total, int weight, V value) {
         return new Random().nextInt(total) < weight ? null : value;
+    }
+
+    public static Vector2f toYawPitch(Vector3d vector3d) {
+        double yaw = Math.atan2(vector3d.z, vector3d.x);
+        double pitch = Math.acos(vector3d.y);
+        return new Vector2f((float) toDegree(yaw), (float) toDegree(pitch));
+    }
+
+    public static Vector3d fromYawPitch(float yaw, float pitch) {
+        return new Vector3d(Math.cos(yaw) * Math.cos(pitch), Math.sin(yaw) * Math.sin(pitch), Math.sin(pitch));
     }
 
     /**

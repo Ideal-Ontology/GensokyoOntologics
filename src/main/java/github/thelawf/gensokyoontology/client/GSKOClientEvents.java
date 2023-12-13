@@ -160,6 +160,8 @@ public class GSKOClientEvents {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MANIA_DEPRESS_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HANA_SHIGURE_ENTITY.get(),
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // =========================== 人形生物的渲染器 ========================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HAKUREI_REIMU.get(), HakureiReimuRenderer::new);

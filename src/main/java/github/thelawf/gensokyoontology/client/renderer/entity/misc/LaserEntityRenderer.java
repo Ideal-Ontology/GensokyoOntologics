@@ -81,18 +81,6 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
 
-        // if (entityIn.ticksExisted <= entityIn.getPreparation()) {
-        //     Vector3f start = new Vector3f(0F, 0.5F, 0F);
-        //     Vector3f end = toVector3f(entityIn.getLookVec().scale(entityIn.getRange()));
-        //
-        //     matrixStackIn.push();
-        //     Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
-        //     drawLaser(builder, matrix4f, start, end, entityIn.getRed(), entityIn.getGreen(), entityIn.getBlue(), entityIn.getAlpha());
-        //     matrixStackIn.pop();
-        // }
-        // else {
-        //     renderLaserUsingMojangsShit(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-        // }
         renderLaserUsingMojangsShit(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }
 

@@ -1,6 +1,10 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.LargeStarShotEntity;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -15,7 +19,10 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import org.apache.logging.log4j.LogManager;
 
-public class HyperboloidLaser extends SpellCardEntity{
+import java.util.ArrayList;
+import java.util.List;
+
+public class HyperboloidLaser extends SpellCardEntity {
     public HyperboloidLaser(World worldIn, LivingEntity living) {
         super(EntityRegistry.HYPERBOLOID_LASER_ENTITY.get(), worldIn, living);
     }
@@ -38,6 +45,27 @@ public class HyperboloidLaser extends SpellCardEntity{
             laser.init(450, 30, 40);
             laser.setLocationAndAngles(nextPos.x, nextPos.y, nextPos.z, emitVec.x, emitVec.y);
             world.addEntity(laser);
+        }
+
+        if (ticksExisted % 20 == 0) {
+
+            List<Vector3d> pos1 = DanmakuUtil.ellipticPos(new Vector2f(0,0), 1, 20);
+            List<Vector3d> pos2 = new ArrayList<>();
+
+            for (int i = 0; i < pos1.size(); i++) {
+                for (int j = 0; j < pos1.size(); j++) {
+                    Vector3d vector3d = pos1.get(j).rotatePitch((float) Math.PI * 2 / pos1.size() * j);
+                    pos1.set(j, vector3d);
+                }
+                pos2.addAll(pos1);
+            }
+
+            pos2.forEach(vector3d -> {
+                LargeShotEntity largeShot = new LargeShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
+                setDanmakuInit(largeShot, this.getPositionVec().add(vector3d.x, 15, vector3d.y));
+                largeShot.shoot(vector3d.x, vector3d.y, vector3d.z, 0.6f, 0f);
+                world.addEntity(largeShot);
+            });
         }
 
     }

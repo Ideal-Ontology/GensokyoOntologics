@@ -58,8 +58,6 @@ public class LilyWhiteBossBattleGoal extends SpellCardAttackGoal {
             }
             this.lilyWhite.spellCardAttack(this.stage.spellCard, ticksExisted);
 
-            // this.lilyWhite.spellCardAttack(this.lilyWhite.getHealth() > this.lilyWhite.getMaxHealth() ?
-            // this.stages.get(0).spellCard : null, ticksExisted);
         } else if (!this.lilyWhite.getEntitySenses().canSee(target)) {
             this.lilyWhite.getNavigator().clearPath();
         }

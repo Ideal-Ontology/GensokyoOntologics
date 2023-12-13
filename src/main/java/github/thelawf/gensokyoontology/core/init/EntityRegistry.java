@@ -143,6 +143,10 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<FullCherryBlossomEntity>> FULL_CHERRY_BLOSSOM_ENTITY =
             ENTITIES.register("full_cherry_blossom", () -> EntityType.Builder.<FullCherryBlossomEntity>create(FullCherryBlossomEntity::new, EntityClassification.MISC)
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("full_cherry_blossom"));
+    public static final RegistryObject<EntityType<HanaShigureSpellEntity>> HANA_SHIGURE_ENTITY =
+            ENTITIES.register("hana_shigure", () -> EntityType.Builder.<HanaShigureSpellEntity>create(HanaShigureSpellEntity::new,
+                    EntityClassification.MISC).size(1F, 1F).trackingRange(4)
+                    .updateInterval(2).build("hana_shigure"));
     public static final RegistryObject<EntityType<ManiaDepressEntity>> MANIA_DEPRESS_ENTITY =
             ENTITIES.register("mania_depress", () -> EntityType.Builder.<ManiaDepressEntity>create(ManiaDepressEntity::new, EntityClassification.MISC)
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("mania_depress"));
