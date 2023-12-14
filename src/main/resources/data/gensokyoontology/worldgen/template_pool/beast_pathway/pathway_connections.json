@@ -1,9 +1,9 @@
 {
-  "name": "gensokyoontology:beast_path/pathway_connections",
+  "name": "gensokyoontology:beast_pathway/pathway_connections",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "location": "gensokyoontology:pathway_corner",
         "processors": "minecraft:empty",
@@ -21,9 +21,27 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "location": "gensokyoontology:pathway_diagonal_2",
+        "processors": "minecraft:empty",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "gensokyoontology:pathway_corner_01",
+        "processors": "minecraft:empty",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "gensokyoontology:pathway_corner_02",
         "processors": "minecraft:empty",
         "projection": "terrain_matching",
         "element_type": "minecraft:single_pool_element"

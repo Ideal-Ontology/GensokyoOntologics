@@ -149,7 +149,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
 
     @Override
     public void setNoGravity(boolean noGravity) {
-        super.setNoGravity(true);
+        super.setNoGravity(noGravity);
     }
 
     @Override

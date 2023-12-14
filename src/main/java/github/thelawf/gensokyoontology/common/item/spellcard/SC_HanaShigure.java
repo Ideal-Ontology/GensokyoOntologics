@@ -15,15 +15,14 @@ public class SC_HanaShigure extends SpellCardItem {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if (playerIn.getCooldownTracker().hasCooldown(this))
-            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
+        // if (playerIn.getCooldownTracker().hasCooldown(this))
+        //     return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         if (worldIn instanceof ServerWorld) {
 
             HanaShigureSpellEntity hanaShigure = new HanaShigureSpellEntity(worldIn, playerIn);
-            hanaShigure.setOwner(playerIn);
             worldIn.addEntity(hanaShigure);
-            playerIn.getCooldownTracker().setCooldown(this, 1200);
+            // playerIn.getCooldownTracker().setCooldown(this, 1200);
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

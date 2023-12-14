@@ -1,11 +1,11 @@
 {
-  "name": "gensokyoontology:human_village/house_with_roads_back",
+  "name": "gensokyoontology:human_village/road_pools",
   "fallback": "minecraft:empty",
   "elements": [
     {
       "weight": 1,
       "element": {
-        "location": "gensokyoontology:human_house_single",
+        "location": "gensokyoontology:village_road",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

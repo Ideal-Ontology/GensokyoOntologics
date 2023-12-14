@@ -1,9 +1,9 @@
 {
-  "name": "gensokyoontology:beast_pathway/pathway_branches",
+  "name": "gensokyoontology:beast_pathway/pathway_connections",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "location": "gensokyoontology:pathway_side_01",
         "processors": "minecraft:empty",
@@ -12,7 +12,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "location": "gensokyoontology:pathway_side_02",
         "processors": "minecraft:empty",
@@ -21,7 +21,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "location": "gensokyoontology:pathway_diagonal_1",
         "processors": "minecraft:empty",

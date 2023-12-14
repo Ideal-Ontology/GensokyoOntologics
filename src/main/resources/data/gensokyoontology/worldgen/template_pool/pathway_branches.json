@@ -1,5 +1,5 @@
 {
-  "name": "gensokyoontology:beast_path/pathway_branches",
+  "name": "gensokyoontology:beast_pathway/pathway_branches",
   "fallback": "minecraft:empty",
   "elements": [
     {
@@ -15,6 +15,24 @@
       "weight": 1,
       "element": {
         "location": "gensokyoontology:pathway_side_2",
+        "processors": "minecraft:empty",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "gensokyoontology:pathway_corner_01",
+        "processors": "minecraft:empty",
+        "projection": "terrain_matching",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "gensokyoontology:pathway_corner_02",
         "processors": "minecraft:empty",
         "projection": "terrain_matching",
         "element_type": "minecraft:single_pool_element"
