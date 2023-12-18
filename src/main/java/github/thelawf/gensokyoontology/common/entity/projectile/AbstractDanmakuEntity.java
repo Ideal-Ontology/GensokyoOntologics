@@ -32,7 +32,7 @@ import javax.annotation.Nonnull;
  */
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public abstract class AbstractDanmakuEntity extends ThrowableEntity implements IRendersAsItem {
-    private int maxLivingTick = 125;
+    private int lifespan = 125;
     protected float damage = 2.0f;
 
     private int danmakuColor;
@@ -75,12 +75,13 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         this.setShooter(throwerIn);
     }
 
-    public void setMaxLivingTick(int maxLivingTick) {
-        this.maxLivingTick = maxLivingTick;
+    public void setLifespan(int lifespan) {
+        this.lifespan = lifespan;
+        this.dataManager.set(DATA_LIFESPAN, lifespan);
     }
 
-    public int getMaxLivingTick() {
-        return maxLivingTick;
+    public int getLifespan() {
+        return this.dataManager.get(DATA_LIFESPAN);
     }
 
     @Override
@@ -91,7 +92,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
             return;
         }
 
-        if (this.ticksExisted >= maxLivingTick) {
+        if (this.ticksExisted >= lifespan) {
             this.remove();
         }
     }
@@ -110,6 +111,11 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         if (compound.contains("color")) {
             this.danmakuColor = compound.getInt("color");
         }
+
+        if (compound.contains("lifespan")) {
+            this.lifespan = compound.getInt("lifespan");
+            this.dataManager.set(DATA_LIFESPAN, this.lifespan);
+        }
     }
 
     @Override
@@ -117,6 +123,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         super.writeAdditional(compound);
         compound.putFloat("damage", this.damage);
         compound.putInt("color", this.danmakuColor);
+        compound.putInt("lifespan", this.getLifespan());
         if (this.getSpellData() != null) {
             compound.putString("SpellData", SerializerRegistry.SPELL_DATA.getId().toString());
         }
@@ -127,6 +134,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         this.dataManager.register(DATA_DAMAGE, this.damage);
         this.dataManager.register(DATA_SPELL, this.spellData);
         this.dataManager.register(DATA_COLOR, this.danmakuColor);
+        this.dataManager.register(DATA_LIFESPAN, this.lifespan);
     }
 
     @Override

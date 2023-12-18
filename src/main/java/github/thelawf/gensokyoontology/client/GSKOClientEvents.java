@@ -121,7 +121,7 @@ public class GSKOClientEvents {
                 manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 0.3f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAKE_LUNAR_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 5.0f, false));
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 8.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_DANMAKU.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 4f, false));
 

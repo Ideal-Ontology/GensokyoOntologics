@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
+import github.thelawf.gensokyoontology.common.util.Vec3fConstants;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
@@ -13,6 +14,8 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -27,11 +30,16 @@ import java.util.HashMap;
 
 public class HellEclipseEntity extends SpellCardEntity {
 
-    FakeLunarEntity fakeLunar;
+    private final FakeLunarEntity fakeLunar;
 
     public HellEclipseEntity(World worldIn, PlayerEntity player) {
         super(EntityRegistry.HELL_ECLIPSE_ENTITY.get(), worldIn, player);
         this.setOwner(player.getEntity());
+        this.fakeLunar = new FakeLunarEntity(player, world, DanmakuType.FAKE_LUNAR, DanmakuColor.NONE);
+        this.fakeLunar.setLifespan(this.lifeSpan);
+        setDanmakuInit(this.fakeLunar, this.getPositionVec(), new Vector2f(this.rotationYaw, this.rotationPitch));
+        worldIn.addEntity(this.fakeLunar);
+
     }
 
     public HellEclipseEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World world) {
@@ -53,10 +61,20 @@ public class HellEclipseEntity extends SpellCardEntity {
     public void onTick(World world, Entity entity, int ticksIn) {
         super.onTick(world, entity, ticksIn);
         Vector3d center = new Vector3d(Vector3f.XP);
-        HashMap<Integer, TransformFunction> map = new HashMap<>();
 
-        Vector3d local = center.add(4, 0, 0).rotateYaw((float) (Math.PI / 60 * ticksExisted));
+        float angle = (float) (Math.PI / 60 * ticksExisted);
+        float lunarAngle = (float) ((world.getGameTime() * 0.1f) % (Math.PI * 2));
+        float angle2 = (float) ((world.getGameTime() * 0.08f) % (Math.PI * 2));
+        float speed = 0.2F;
+        Vector3d local = center.add(4, 0, 0).rotateYaw(angle);
         Vector3d global = local.add(this.getPositionVec());
+
+        Vector3d lunarPos = this.fakeLunar.getPositionVec();
+        // Vector3d lunarPos = center.add(4, 0, 0).rotateYaw(-angle).add(this.getPositionVec());
+        Vector3d lunarMotion = new Vector3d(MathHelper.cos(lunarAngle) * speed, 0, MathHelper.sin(lunarAngle) * speed);
+        // this.fakeLunar.setPosition(lunarPos.x, lunarPos.y, lunarPos.z);
+        this.fakeLunar.setPosition(lunarPos.x + lunarMotion.x, lunarPos.y, lunarPos.z + lunarMotion.z);
+        this.fakeLunar.setMotion(lunarMotion);
 
         for (int i = 0; i < 8; i++) {
 
