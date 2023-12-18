@@ -5,6 +5,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.SpawnEggItem;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -31,8 +32,8 @@ public class DisposableSpawnerBlock extends Block {
     @NotNull
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, PlayerEntity player, @NotNull Hand handIn, @NotNull BlockRayTraceResult hit) {
-        if (player.getHeldItem(handIn).getItem() instanceof ForgeSpawnEggItem) {
-            ForgeSpawnEggItem spawnEgg = (ForgeSpawnEggItem) player.getHeldItem(handIn).getItem();
+        if (player.getHeldItem(handIn).getItem() instanceof SpawnEggItem) {
+            SpawnEggItem spawnEgg = (SpawnEggItem) player.getHeldItem(handIn).getItem();
             DisposableSpawnerTile spawnerTile = (DisposableSpawnerTile) worldIn.getTileEntity(pos);
 
             if (spawnerTile == null) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);

@@ -15,11 +15,15 @@ public abstract class SpellCardAttackGoal extends Goal {
      */
     protected List<Stage> stages;
 
+    protected float speed;
+    protected int ticksExisted;
+    protected Stage stage;
+
     /**
-     * @param stages 该形参是一个映射表类型，其索引值是符卡战斗的总共次数，其key表示符卡战斗的类型。Pair的第一个Float代表为了击破该符卡需要对BOSS造成的总伤害，第二个Integer表示该符卡提供给玩家的击破时间，单位为tick。
+     * @param stage 该形参是一个映射表类型，其索引值是符卡战斗的总共次数，其key表示符卡战斗的类型。Pair的第一个Float代表为了击破该符卡需要对BOSS造成的总伤害，第二个Integer表示该符卡提供给玩家的击破时间，单位为tick。
      */
     public SpellCardAttackGoal(Stage stage) {
-
+        this.stage = stage;
     }
 
     public enum Type {

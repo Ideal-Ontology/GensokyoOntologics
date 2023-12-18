@@ -55,13 +55,10 @@ public class GSKOWorldEvents {
         }
         List<MobSpawnInfo.Spawners> spawners = event.getSpawns().getSpawner(EntityRegistry.FAIRY_ENTITY.get().getClassification());
         spawners.add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(), 38, 2, 4));
-        GSKOEntityGenerator.addEntityToBiomes(
-                event, EntityRegistry.TSUMI_BUKURO_ENTITY.get(), 15, 2, 3,
-                GSKOBiomes.HIGAN_KEY,
-                GSKOBiomes.BEAST_PATH_KEY,
-                GSKOBiomes.HUMAN_VILLAGE_KEY,
-                GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
-                GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY);
+        // GSKOEntityGenerator.addEntityToBiomes(
+        //         event, EntityRegistry.TSUMI_BUKURO_ENTITY.get(), 15, 2, 3,
+        //         GSKOBiomes.BEAST_PATH_KEY,
+        //         GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY);
     }
 
     @SubscribeEvent
