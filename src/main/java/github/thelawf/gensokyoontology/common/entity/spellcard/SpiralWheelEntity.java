@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
@@ -44,13 +45,11 @@ public class SpiralWheelEntity extends SpellCardEntity {
             Vector3d shootAngle = global.normalize().inverse().rotateYaw((float) Math.PI / 50);
             global = global.rotateYaw((float) (Math.PI / 50 * ticksExisted)).add(this.getPositionVec());
 
-            HashMap<Integer, TransformFunction> map = new HashMap<>();
+            RiceShotEntity riceShot = new RiceShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.AQUA);
+            setDanmakuInit(riceShot, global, new Vector2f((float) shootAngle.x, (float) shootAngle.z));
 
-            HeartShotEntity heartShot = new HeartShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.AQUA);
-            setDanmakuInit(heartShot, global, new Vector2f((float) shootAngle.x, (float) shootAngle.z));
-
-            heartShot.shoot(shootAngle.x, shootAngle.y, shootAngle.z, 0.6f, 0f);
-            world.addEntity(heartShot);
+            riceShot.shoot(shootAngle.x, shootAngle.y, shootAngle.z, 0.6f, 0f);
+            world.addEntity(riceShot);
         }
     }
 
