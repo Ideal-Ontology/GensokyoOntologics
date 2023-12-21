@@ -8,6 +8,8 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class SC_GalacticSpiralArms extends SpellCardItem {
     public SC_GalacticSpiralArms(Properties properties) {
         super(properties);
@@ -17,7 +19,13 @@ public class SC_GalacticSpiralArms extends SpellCardItem {
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
         if (!worldIn.isRemote) {
-            GalacticArmSpellEntity galacticArm = new GalacticArmSpellEntity(worldIn, playerIn);
+            GalacticArmSpellEntity galacticArm;
+            try {
+                galacticArm = new GalacticArmSpellEntity(worldIn, playerIn);
+            } catch (InvocationTargetException | NoSuchMethodException | InstantiationException |
+                     IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
             worldIn.addEntity(galacticArm);
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);

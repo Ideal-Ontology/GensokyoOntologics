@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuEntityPool;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuPool;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
@@ -70,7 +70,7 @@ public class MountainOfFaithEntity extends SpellCardEntity {
         //         Vector3d muzzleNext = muzzleLocal.rotateYaw((float) (Math.PI / 50 * ticksExisted));
         //         Vector3d muzzleGlobal = muzzleNext.add(this.getPositionVec()).add(centerLocal);
         //
-        //         DanmakuEntityPool<SmallShotEntity> pool = new DanmakuEntityPool<>(SmallShotEntity.SMALL_SHOT,
+        //         DanmakuPool<SmallShotEntity> pool = new DanmakuPool<>(SmallShotEntity.SMALL_SHOT,
         //                 (LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
         //         SmallShotEntity smallShot = pool.acquireProjectile(new SmallShotEntity((LivingEntity) this.getOwner(),
         //                 world, DanmakuType.LARGE_SHOT, DanmakuColor.RED), muzzleGlobal, Vector2f.ZERO);
@@ -110,23 +110,23 @@ public class MountainOfFaithEntity extends SpellCardEntity {
                     // LargeShotEntity smallShot = new LargeShotEntity(player, world, DanmakuType.LARGE_SHOT, DanmakuColor.GREEN);
                     // setDanmakuInit(smallShot, muzzleGlobal);
                     // smallShot.shoot(muzzleNext.x, muzzleNext.y, muzzleNext.z, 0.1F, 0F);
-                    DanmakuEntityPool<SmallShotEntity> pool = new DanmakuEntityPool<>(EntityRegistry.SMALL_SHOT_ENTITY.get(),
-                            (LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
-                    SmallShotEntity smallShot = pool.acquireProjectile(new SmallShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED),
-                            muzzleGlobal, Vector2f.ZERO);
-                    setDanmakuInit(smallShot, muzzleGlobal);
-                    world.addEntity(smallShot);
-                    pool.releaseProjectile(smallShot);
+                    // DanmakuPool<SmallShotEntity> pool = new DanmakuPool<>(EntityRegistry.SMALL_SHOT_ENTITY.get(),
+                    //         (LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
+                    // SmallShotEntity smallShot = pool.acquireProjectile(new SmallShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED),
+                    //         muzzleGlobal, Vector2f.ZERO);
+                    // setDanmakuInit(smallShot, muzzleGlobal);
+                    // world.addEntity(smallShot);
+                    // pool.releaseProjectile(smallShot);
 
-                    float speed = 0.5F + (ticksExisted - 50) * 0.02F;
-                    if (smallShot.ticksExisted > 50) {
-                        smallShot.shoot(
-                                -muzzleNext.x,
-                                muzzleNext.y,
-                                -muzzleNext.z, 0.4f, 0f
-                        );
-                        LOGGER.info("Shoot!!");
-                    }
+                    // float speed = 0.5F + (ticksExisted - 50) * 0.02F;
+                    // if (smallShot.ticksExisted > 50) {
+                    //     smallShot.shoot(
+                    //             -muzzleNext.x,
+                    //             muzzleNext.y,
+                    //             -muzzleNext.z, 0.4f, 0f
+                    //     );
+                    //     LOGGER.info("Shoot!!");
+                    // }
                 }
             }
         }

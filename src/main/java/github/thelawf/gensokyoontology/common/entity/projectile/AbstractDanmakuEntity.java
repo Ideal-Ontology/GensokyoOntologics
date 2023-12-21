@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.projectile;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.danmaku.*;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,6 +14,8 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -21,6 +24,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.Deque;
 
 /**
  * 抽象弹幕类，用于处理所有继承于该类的弹幕实体的那些相似的逻辑，包含如下几个方面：<br>
@@ -151,8 +155,8 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
 
     @Nullable
     @Override
-    public Entity getShooter() {
-        return super.getShooter();
+    public LivingEntity getShooter() {
+        return (LivingEntity) super.getShooter();
     }
 
     @Override
@@ -163,6 +167,12 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     @Override
     public boolean canBeCollidedWith() {
         return true;
+    }
+
+    public <D extends AbstractDanmakuEntity> void release(Deque<D> deque, D danmaku) {
+        if (danmaku.ticksExisted >= danmaku.getLifespan()) {
+            deque.offerLast(danmaku);
+        }
     }
 
     @Override

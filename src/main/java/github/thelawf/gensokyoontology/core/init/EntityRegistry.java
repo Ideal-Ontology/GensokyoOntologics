@@ -17,6 +17,8 @@ import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.lang.reflect.InvocationTargetException;
+
 public final class EntityRegistry {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(
             ForgeRegistries.ENTITIES, GensokyoOntology.MODID);
@@ -154,7 +156,14 @@ public final class EntityRegistry {
             ENTITIES.register("hyperboloid_laser", () -> EntityType.Builder.<HyperboloidLaser>create(HyperboloidLaser::new,
                     EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("hyperboloid_laser"));
     public static final RegistryObject<EntityType<GalacticArmSpellEntity>> GALACTIC_ARM_SPELL_ENTITY =
-            ENTITIES.register("galactic_arm_spell", () -> EntityType.Builder.<GalacticArmSpellEntity>create(GalacticArmSpellEntity::new,
+            ENTITIES.register("galactic_arm_spell", () -> EntityType.Builder.<GalacticArmSpellEntity>create((entityTypeIn, worldIn) -> {
+                        try {
+                            return new GalacticArmSpellEntity(entityTypeIn, worldIn);
+                        } catch (InvocationTargetException | NoSuchMethodException | InstantiationException |
+                                 IllegalAccessException e) {
+                            throw new RuntimeException(e);
+                        }
+                    },
                     EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("galactic_arm_spell"));
     public static final RegistryObject<EntityType<ScriptedSpellCardEntity>> SCRIPTED_SPELL_CARD_ENTITY =
             ENTITIES.register("scripted_spell_card", () -> EntityType.Builder.<ScriptedSpellCardEntity>create(ScriptedSpellCardEntity::new,

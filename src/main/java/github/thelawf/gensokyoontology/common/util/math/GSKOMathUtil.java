@@ -23,6 +23,16 @@ public class GSKOMathUtil {
     private GSKOMathUtil() {
     }
 
+    /**
+     * 数值周期约束算法，比一般的约束算法多了一个判断周期的条件。周期的判定如下：<br>
+     * 当数值小于下限时，即number
+     * %
+     * max
+     * -
+     * min
+     * ==
+     * 0同时number / max <= 1时，返回number本身，否则，先获取数值除以上限之后的整数部分，表示数值是上限的多少倍，然后用上限乘以这个倍率，最后用数值与这个结果相减，得出数值在下限和上限约束的周期内的对应值。
+     */
     public static double clamp(double number, double min, double max) {
         return number % max - min == 0 && number / max <= 1 ? number :
                 number - max * Math.floor(number / max);
@@ -33,6 +43,10 @@ public class GSKOMathUtil {
                 (float) (number - max * Math.floor(number / max));
     }
 
+    public static float clamp(int number, int min, int max) {
+        return number % max - min == 0 && number / max <= 1 ? number :
+                (float) (number - max * Math.floor((double) number / max));
+    }
 
     /**
      * 传入四个双精度浮点数

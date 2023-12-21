@@ -1,45 +1,40 @@
 package github.thelawf.gensokyoontology.common.util.danmaku;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
 /**
  * 用于优化性能的弹幕实体对象池
  */
-public class DanmakuEntityPool<D extends AbstractDanmakuEntity> {
-    public Queue<D> pool;
+public class DanmakuPool<D extends AbstractDanmakuEntity> extends DanmakuUtil {
+    public Deque<D> pool;
     private final World world;
 
     private final EntityType<? extends AbstractDanmakuEntity> entityType;
 
     private final LivingEntity thrower;
 
-    public DanmakuType danmakuType;
-    public DanmakuColor danmakuColor;
 
-    public DanmakuEntityPool(EntityType<? extends AbstractDanmakuEntity> entityType, LivingEntity thrower,
-                             World world, DanmakuType danmakuType, DanmakuColor danmakuColor) {
+    public DanmakuPool(EntityType<? extends AbstractDanmakuEntity> entityType, LivingEntity thrower, World world) {
         this.thrower = thrower;
-        this.pool = new ConcurrentLinkedQueue<>();
+        this.pool = new LinkedList<>();
         this.world = world;
         this.entityType = entityType;
-        this.danmakuType = danmakuType;
-        this.danmakuColor = danmakuColor;
     }
 
-    // public DanmakuEntityPool
+    // public DanmakuPool
 
-    public D acquireProjectile(D danmaku, Vector3d positionVec, Vector2f rotationVec) {
-        D entity = pool.poll();
+    public D acquire(D danmaku, Vector3d positionVec, Vector2f rotationVec) {
+        D entity = pool.pollFirst();
         if (entity == null) {
             entity = danmaku; // 替换为你的自定义投掷物实体类
         } else {
@@ -49,8 +44,8 @@ public class DanmakuEntityPool<D extends AbstractDanmakuEntity> {
         return entity;
     }
 
-    public void releaseProjectile(D entity) {
-        pool.offer(entity);
+    public void release(D entity) {
+        pool.offerLast(entity);
     }
 
     public EntityType<? extends AbstractDanmakuEntity> getEntityType() {

@@ -1,12 +1,12 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.AttributeModifierMap;
-import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -14,6 +14,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -22,16 +23,13 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptEngineManager;
-import javax.script.ScriptException;
-import java.util.Optional;
-import java.util.UUID;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.util.*;
+import java.util.function.Supplier;
 
 // TODO: 按照符卡的强度决定其登场和获取顺序
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
@@ -221,6 +219,37 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
 
     public void onScriptTick(World world, Entity owner, int ticksIn){
 
+    }
+
+    /**
+     * 这是个怪方法，请不要理睬（）
+     *
+     * @param <D>          弹幕实体的具体类
+     * @param danmaku      弹幕的提供器，在这里初始化弹幕
+     * @param danmakuClass 需要初始化的弹幕的类
+     * @param count        弹幕对象池的大小
+     * @return 弹幕对象池
+     * @throws IllegalAccessException 非法访问
+     */
+    protected <D extends AbstractDanmakuEntity> List<D> newDanmakuPool(Supplier<D> danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        List<D> danmakuPool = new ArrayList<>();
+        for (int i = 0; i < count; i++) {
+            Constructor<D> constructor = danmakuClass.getDeclaredConstructor(LivingEntity.class, World.class, DanmakuType.class, DanmakuColor.class);
+            danmakuPool.add(constructor.newInstance(danmaku.get().getShooter(), danmaku.get().world,
+                     danmaku.get().getDanmakuType(), danmaku.get().getDanmakuColor()));
+        }
+        return danmakuPool;
+    }
+
+    public <D extends AbstractDanmakuEntity> D acquire(Deque<D> deque, Vector3d positionVec, Vector2f rotationVec) {
+        D entity = deque.pollFirst();
+        if (entity != null) {
+            entity.setNoGravity(true);
+            entity.setLocationAndAngles(positionVec.x, positionVec.y, positionVec.z, rotationVec.x, rotationVec.y);
+            return entity;
+        } else {
+            return null;
+        }
     }
 
     protected Vector2f lookVecToDegrees(Vector3d vector3d) {
