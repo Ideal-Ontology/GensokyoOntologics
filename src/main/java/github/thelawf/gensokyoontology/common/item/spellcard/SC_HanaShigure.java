@@ -16,7 +16,7 @@ public class SC_HanaShigure extends SpellCardItem {
 
     @Override
     @NotNull
-    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
 
         if (worldIn instanceof ServerWorld) {
 

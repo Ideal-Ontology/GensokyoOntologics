@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -16,10 +17,6 @@ public class GalacticArmSpellEntity extends SpellCardEntity{
         super(entityTypeIn, worldIn);
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-    }
 
     @Override
     public ItemStack getItem() {

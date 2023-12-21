@@ -15,7 +15,7 @@ public class SC_HyperboloidLaser extends SpellCardItem{
     }
 
     @Override
-    public @NotNull ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+    public @NotNull ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
         if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 

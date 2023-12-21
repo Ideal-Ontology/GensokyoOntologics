@@ -19,7 +19,7 @@ public class ScriptedSpellCard extends SpellCardItem {
 
     @Override
     @NotNull
-    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         if (stack.getTag() != null && stack.getTag().contains("script")) {

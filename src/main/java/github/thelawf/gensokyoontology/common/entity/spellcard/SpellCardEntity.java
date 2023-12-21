@@ -149,6 +149,7 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         if (ticksExisted >= this.lifeSpan) {
             this.remove();
         }
+        // onTick(world, getOwner(), ticksExisted);
     }
 
     /**
