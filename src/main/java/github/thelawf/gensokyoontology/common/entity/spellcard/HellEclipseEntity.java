@@ -21,6 +21,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
@@ -93,7 +94,7 @@ public class HellEclipseEntity extends SpellCardEntity {
 
     @OnlyIn(Dist.CLIENT)
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemStack(ItemRegistry.SC_HELL_ECLIPSE.get());
     }
 }

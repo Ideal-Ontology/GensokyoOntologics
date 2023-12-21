@@ -19,6 +19,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
@@ -83,7 +84,7 @@ public class FourOfAKindEntity extends SpellCardEntity {
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return ItemStack.EMPTY;
     }
 }

@@ -7,6 +7,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class GalacticArmSpellEntity extends SpellCardEntity{
     public GalacticArmSpellEntity(World worldIn, LivingEntity living) {
@@ -19,7 +20,7 @@ public class GalacticArmSpellEntity extends SpellCardEntity{
 
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemStack(ItemRegistry.SC_GALACTIC_SPIRAL_ARMS.get());
     }
 }

@@ -8,6 +8,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -227,5 +228,9 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
         float f2 = (float)Math.atan2(vector3d.z, vector3d.x);
         return new Vector2f(f1, f2);
     }
+
+    @Override
+    @NotNull
+    public abstract ItemStack getItem();
 }
 
