@@ -109,7 +109,7 @@ public class GSKOClientEvents {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 0.6f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_SMALL_ENTITY.get(),
-                manager -> new StarShotRenderer(manager, itemRenderer, 0.5f, false));
+                manager -> new StarShotRenderer(manager, itemRenderer, 0.8f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_LARGE_ENTITY.get(),
                 manager -> new StarShotRenderer(manager, itemRenderer, 3.5f, false));
 
