@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public abstract class SpellCardItem extends Item {
 
@@ -22,7 +23,11 @@ public abstract class SpellCardItem extends Item {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+        if (playerIn.getCooldownTracker().hasCooldown(this) && !playerIn.isCreative())
+            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
+
         if (playerIn.getHeldItem(handIn).getItem() instanceof DanmakuItem) {
             return ActionResult.resultConsume(playerIn.getHeldItem(handIn));
         }

@@ -13,6 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
@@ -24,16 +25,8 @@ public class SC_FullCherryBlossom extends SpellCardItem {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        if (playerIn.getCooldownTracker().hasCooldown(this))
-            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
-
-        // try {
-        //     List<SmallShotEntity> suppliers = DanmakuUtil.newDanmakuPool(() -> new SmallShotEntity(
-        //             playerIn, worldIn, DanmakuType.SMALL_SHOT, DanmakuColor.RED), SmallShotEntity.class, 500);
-        // } catch (ReflectiveOperationException e) {
-        //     throw new RuntimeException(e);
-        // }
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
 
         if (worldIn instanceof ServerWorld) {
 

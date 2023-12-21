@@ -7,6 +7,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 
 public class SC_HanaShigure extends SpellCardItem {
     public SC_HanaShigure(Properties properties) {
@@ -14,15 +15,14 @@ public class SC_HanaShigure extends SpellCardItem {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        // if (playerIn.getCooldownTracker().hasCooldown(this))
-        //     return ActionResult.resultPass(playerIn.getHeldItem(handIn));
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
 
         if (worldIn instanceof ServerWorld) {
 
             HanaShigureSpellEntity hanaShigure = new HanaShigureSpellEntity(worldIn, playerIn);
             worldIn.addEntity(hanaShigure);
-            // playerIn.getCooldownTracker().setCooldown(this, 1200);
+            playerIn.getCooldownTracker().setCooldown(this, 1200);
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

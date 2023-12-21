@@ -487,6 +487,9 @@ public final class ItemRegistry {
     public static final RegistryObject<SC_ManiaDepress> SC_MANIA_DEPRESS = ITEMS.register(
             "sc_mania_depress", () -> new SC_ManiaDepress(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+    public static final RegistryObject<SC_GalacticSpiralArms> SC_GALACTIC_SPIRAL_ARMS = ITEMS.register(
+            "sc_galactic_spiral_arms", () -> new SC_GalacticSpiralArms(new Item.Properties()
+                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
     public static final RegistryObject<ScriptedSpellCard> SCRIPTED_SPELL_CARD = ITEMS.register(
             "scripted_spell_card", () -> new ScriptedSpellCard(new Item.Properties()
                     .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));

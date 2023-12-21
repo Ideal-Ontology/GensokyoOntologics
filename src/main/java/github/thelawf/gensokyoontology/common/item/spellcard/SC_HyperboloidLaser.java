@@ -7,6 +7,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 
 public class SC_HyperboloidLaser extends SpellCardItem{
     public SC_HyperboloidLaser(Properties properties) {
@@ -14,7 +15,7 @@ public class SC_HyperboloidLaser extends SpellCardItem{
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    public @NotNull ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 

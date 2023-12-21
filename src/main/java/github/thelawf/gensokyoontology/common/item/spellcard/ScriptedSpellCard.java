@@ -10,6 +10,7 @@ import net.minecraft.tileentity.EnderChestTileEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 public class ScriptedSpellCard extends SpellCardItem {
     public ScriptedSpellCard(Properties properties) {
@@ -17,7 +18,8 @@ public class ScriptedSpellCard extends SpellCardItem {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
+    @NotNull
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
 
         if (stack.getTag() != null && stack.getTag().contains("script")) {
