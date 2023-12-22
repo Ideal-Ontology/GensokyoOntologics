@@ -123,7 +123,14 @@ public final class EntityRegistry {
                     .updateInterval(2).build("wave_and_particle"));
 
     public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY = ENTITIES.register(
-            "ido_no_kaiho", () -> EntityType.Builder.<IdonokaihoEntity>create(IdonokaihoEntity::new,
+            "ido_no_kaiho", () -> EntityType.Builder.<IdonokaihoEntity>create((entityTypeIn, worldIn) -> {
+                                try {
+                                    return new IdonokaihoEntity(entityTypeIn, worldIn);
+                                } catch (InvocationTargetException | NoSuchMethodException | InstantiationException |
+                                         IllegalAccessException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            },
                             EntityClassification.MISC).size(1F, 1F).trackingRange(4)
                     .updateInterval(2).build("ido_no_kaiho"));
     public static final RegistryObject<EntityType<SpiralWheelEntity>> SPIRAL_WHEEL_ENTITY = ENTITIES.register(

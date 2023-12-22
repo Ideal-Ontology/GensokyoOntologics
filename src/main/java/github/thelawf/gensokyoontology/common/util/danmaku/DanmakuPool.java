@@ -15,48 +15,21 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 /**
  * 用于优化性能的弹幕实体对象池
  */
-public class DanmakuPool<D extends AbstractDanmakuEntity> extends DanmakuUtil {
-    public Deque<D> pool;
-    private final World world;
-
-    private final EntityType<? extends AbstractDanmakuEntity> entityType;
-
-    private final LivingEntity thrower;
-
-
-    public DanmakuPool(EntityType<? extends AbstractDanmakuEntity> entityType, LivingEntity thrower, World world) {
-        this.thrower = thrower;
-        this.pool = new LinkedList<>();
-        this.world = world;
-        this.entityType = entityType;
-    }
-
+public class DanmakuPool<D extends AbstractDanmakuEntity> extends LinkedList<D> {
     // public DanmakuPool
 
-    public D acquire(D danmaku, Vector3d positionVec, Vector2f rotationVec) {
-        D entity = pool.pollFirst();
-        if (entity == null) {
-            entity = danmaku; // 替换为你的自定义投掷物实体类
-        } else {
-            entity.setNoGravity(true);
-            entity.setLocationAndAngles(positionVec.x, positionVec.y, positionVec.z, rotationVec.x, rotationVec.y);
+    public D acquire(Vector3d positionVec, Vector2f rotationVec, boolean noGravity) {
+
+        if (removeFirst() != null) {
+            D danmaku = removeFirst();
+            danmaku.setNoGravity(true);
+            DanmakuUtil.initDanmaku(danmaku, positionVec, rotationVec, noGravity);
         }
-        return entity;
+        return peekFirst();
     }
 
-    public void release(D entity) {
-        pool.offerLast(entity);
+    public void release(D danmaku) {
+        addLast(danmaku);
     }
 
-    public EntityType<? extends AbstractDanmakuEntity> getEntityType() {
-        return entityType;
-    }
-
-    public World getWorld() {
-        return world;
-    }
-
-    public LivingEntity getOwner() {
-        return thrower;
-    }
 }

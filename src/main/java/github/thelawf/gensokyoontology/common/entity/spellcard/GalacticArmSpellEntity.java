@@ -18,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class GalacticArmSpellEntity extends SpellCardEntity{
     private final List<SmallStarShotEntity> list;
@@ -28,22 +27,22 @@ public class GalacticArmSpellEntity extends SpellCardEntity{
 
     public GalacticArmSpellEntity(World worldIn, LivingEntity living) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         super(EntityRegistry.GALACTIC_ARM_SPELL_ENTITY.get(), worldIn, living);
-        list = newDanmakuPool(() -> new SmallStarShotEntity((LivingEntity) this.getOwner(), this.world, DanmakuType.STAR_SHOT_SMALL, DanmakuColor.BLUE),
-                SmallStarShotEntity.class, 75);
+        list = newDanmakuList(() -> new SmallStarShotEntity((LivingEntity) this.getOwner(), this.world, DanmakuType.STAR_SHOT_SMALL, DanmakuColor.BLUE),
+                SmallStarShotEntity.class, 100);
         for (int i = 0; i < 10; i++) {
-            starLists.add(newDanmakuPool(() -> new SmallStarShotEntity((LivingEntity) this.getOwner(), this.world, DanmakuType.STAR_SHOT_SMALL, DanmakuColor.BLUE),
-                    SmallStarShotEntity.class, 75));
+            starLists.add(newDanmakuList(() -> new SmallStarShotEntity((LivingEntity) this.getOwner(), this.world, DanmakuType.STAR_SHOT_SMALL, DanmakuColor.BLUE),
+                    SmallStarShotEntity.class, 100));
         }
         starLists.forEach(list -> list.forEach(entity -> entity.setLifespan(this.lifeSpan)));
     }
 
     public GalacticArmSpellEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) throws InvocationTargetException, NoSuchMethodException, InstantiationException, IllegalAccessException {
         super(entityTypeIn, worldIn);
-        list = newDanmakuPool(() -> new SmallStarShotEntity((LivingEntity) this.getOwner(), this.world, DanmakuType.STAR_SHOT_SMALL, DanmakuColor.BLUE),
-                SmallStarShotEntity.class, 75);
+        list = newDanmakuList(() -> new SmallStarShotEntity((LivingEntity) this.getOwner(), this.world, DanmakuType.STAR_SHOT_SMALL, DanmakuColor.BLUE),
+                SmallStarShotEntity.class, 100);
         for (int i = 0; i < 10; i++) {
-            starLists.add(newDanmakuPool(() -> new SmallStarShotEntity((LivingEntity) this.getOwner(), this.world, DanmakuType.STAR_SHOT_SMALL, DanmakuColor.BLUE),
-                    SmallStarShotEntity.class, 75));
+            starLists.add(newDanmakuList(() -> new SmallStarShotEntity((LivingEntity) this.getOwner(), this.world, DanmakuType.STAR_SHOT_SMALL, DanmakuColor.BLUE),
+                    SmallStarShotEntity.class, 100));
         }
         starLists.forEach(list -> list.forEach(entity -> entity.setLifespan(this.lifeSpan)));
     }
@@ -60,7 +59,7 @@ public class GalacticArmSpellEntity extends SpellCardEntity{
             float b = bs[i];
             for (int j = 0; j < starLists.get(i).size(); j++) {
                 SmallStarShotEntity smallStar = starLists.get(i).get(j);
-                double angle = ((world.getGameTime() + j) * 0.1) % (Math.PI * 2);
+                double angle = ((world.getGameTime() + j) * 0.12) % (Math.PI * 2);
 
                 Vector3d nextPos = new Vector3d(startPos.x + a * MathHelper.cos((float) angle), startPos.y,
                         startPos.z + b * MathHelper.sin((float) angle));
@@ -73,7 +72,7 @@ public class GalacticArmSpellEntity extends SpellCardEntity{
                 list.set(j, smallStar);
             }
             starLists.add(list);
-            SmallStarShotEntity smallStar = starLists.get(i).get((int) GSKOMathUtil.clamp(ticksExisted, 0, 49));
+            SmallStarShotEntity smallStar = starLists.get(i).get(GSKOMathUtil.clampPeriod(ticksExisted, 0, 49));
             world.addEntity(smallStar);
         }
     }

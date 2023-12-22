@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuPool;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -14,7 +15,6 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -231,12 +231,22 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
      * @return 弹幕对象池
      * @throws IllegalAccessException 非法访问
      */
-    protected <D extends AbstractDanmakuEntity> List<D> newDanmakuPool(Supplier<D> danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+    protected <D extends AbstractDanmakuEntity> List<D> newDanmakuList(Supplier<D> danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         List<D> danmakuPool = new ArrayList<>();
         for (int i = 0; i < count; i++) {
             Constructor<D> constructor = danmakuClass.getDeclaredConstructor(LivingEntity.class, World.class, DanmakuType.class, DanmakuColor.class);
             danmakuPool.add(constructor.newInstance(danmaku.get().getShooter(), danmaku.get().world,
                      danmaku.get().getDanmakuType(), danmaku.get().getDanmakuColor()));
+        }
+        return danmakuPool;
+    }
+
+    protected <D extends AbstractDanmakuEntity> DanmakuPool<D> newDanmakuPool(D danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        DanmakuPool<D> danmakuPool = new DanmakuPool<>();
+        for (int i = 0; i < count; i++) {
+            Constructor<D> constructor = danmakuClass.getDeclaredConstructor(LivingEntity.class, World.class, DanmakuType.class, DanmakuColor.class);
+            danmakuPool.add(constructor.newInstance(danmaku.getShooter(), danmaku.world,
+                    danmaku.getDanmakuType(), danmaku.getDanmakuColor()));
         }
         return danmakuPool;
     }

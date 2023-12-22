@@ -27,28 +27,33 @@ public class StarShot extends DanmakuItem {
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         final String typeName = String.valueOf(this.getItem().getRegistryName());
         final String modid = GensokyoOntology.MODID + ":";
-        DanmakuColor danmakuColor = DanmakuColor.NONE;
+        DanmakuColor danmakuColor;
 
         switch (typeName) {
-            case modid + "star_shot_red":
-                danmakuColor = DanmakuColor.RED;
-                break;
-            case modid + "star_shot_yellow":
+            case modid + "small_star_shot_yellow":
+            case modid + "large_star_shot_yellow":
                 danmakuColor = DanmakuColor.YELLOW;
                 break;
-            case modid + "star_shot_green":
+            case modid + "small_star_shot_green":
+            case modid + "large_star_shot_green":
                 danmakuColor = DanmakuColor.GREEN;
                 break;
-            case modid + "star_shot_blue":
+            case modid + "small_star_shot_blue":
+            case modid + "large_star_shot_blue":
                 danmakuColor = DanmakuColor.BLUE;
                 break;
-            case modid + "star_shot_aqua":
+            case modid + "small_star_shot_aqua":
+            case modid + "large_star_shot_aqua":
                 danmakuColor = DanmakuColor.AQUA;
                 break;
-            case modid + "star_shot_purple":
+            case modid + "small_star_shot_purple":
+            case modid + "large_star_shot_purple":
                 danmakuColor = DanmakuColor.PURPLE;
                 break;
+            case modid + "small_star_shot_red":
+            case modid + "large_star_shot_red":
             default:
+                danmakuColor = DanmakuColor.RED;
                 break;
         }
 

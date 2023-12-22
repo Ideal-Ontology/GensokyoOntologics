@@ -12,6 +12,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
+import java.lang.reflect.InvocationTargetException;
+
 public class SC_IdoNoKaiho extends SpellCardItem {
     public SC_IdoNoKaiho(Properties properties, int duration) {
         super(properties, duration);
@@ -24,9 +26,15 @@ public class SC_IdoNoKaiho extends SpellCardItem {
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         if (worldIn instanceof ServerWorld) {
-            IdonokaihoEntity idonokaiho = new IdonokaihoEntity(worldIn, playerIn);
+            IdonokaihoEntity idonokaiho;
+            try {
+                idonokaiho = new IdonokaihoEntity(worldIn, playerIn);
+            } catch (InvocationTargetException | NoSuchMethodException | InstantiationException |
+                     IllegalAccessException e) {
+                throw new RuntimeException(e);
+            }
             worldIn.addEntity(idonokaiho);
-            playerIn.getCooldownTracker().setCooldown(this, 1200);
+            if (!playerIn.isCreative()) playerIn.getCooldownTracker().setCooldown(this, 1200);
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);

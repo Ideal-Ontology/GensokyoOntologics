@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.common.util.math;
 
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -13,7 +12,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -33,19 +31,19 @@ public class GSKOMathUtil {
      * ==
      * 0同时number / max <= 1时，返回number本身，否则，先获取数值除以上限之后的整数部分，表示数值是上限的多少倍，然后用上限乘以这个倍率，最后用数值与这个结果相减，得出数值在下限和上限约束的周期内的对应值。
      */
-    public static double clamp(double number, double min, double max) {
+    public static double clampPeriod(double number, double min, double max) {
         return number % max - min == 0 && number / max <= 1 ? number :
                 number - max * Math.floor(number / max);
     }
 
-    public static float clamp(float number, float min, float max) {
+    public static float clampPeriod(float number, float min, float max) {
         return number % max - min == 0 && number / max <= 1 ? number :
                 (float) (number - max * Math.floor(number / max));
     }
 
-    public static float clamp(int number, int min, int max) {
+    public static int clampPeriod(int number, int min, int max) {
         return number % max - min == 0 && number / max <= 1 ? number :
-                (float) (number - max * Math.floor((double) number / max));
+                (int) (float) (number - max * Math.floor((double) number / max));
     }
 
     /**
@@ -478,4 +476,6 @@ public class GSKOMathUtil {
     public static boolean isBetween(double num, double min, double max) {
         return num >= min && num < max;
     }
+
+
 }
