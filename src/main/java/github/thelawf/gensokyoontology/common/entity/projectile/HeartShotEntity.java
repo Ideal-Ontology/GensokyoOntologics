@@ -35,15 +35,6 @@ public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAs
         super(EntityRegistry.HEART_SHOT_ENTITY.get(), throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-        if (this.spellData != null) {
-            if (this.spellData.keyTransforms != null) {
-                applyTransform(this.spellData.keyTransforms);
-            }
-        }
-    }
 
     private void applyTransform(HashMap<Integer, TransformFunction> keyTransforms) {
         for (Map.Entry<Integer, TransformFunction> entry : keyTransforms.entrySet()) {
