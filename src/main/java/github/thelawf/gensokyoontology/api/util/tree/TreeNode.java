@@ -1,8 +1,6 @@
 package github.thelawf.gensokyoontology.api.util.tree;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class TreeNode<O> implements ITreeNode<O> {
 
@@ -15,6 +13,8 @@ public abstract class TreeNode<O> implements ITreeNode<O> {
 
     public List<TreeNode<O>> ancestors = new ArrayList<>();
     public List<TreeNode<O>> children = new ArrayList<>();
+    public final HashMap<String, TreeNode<O>> treeMap = new HashMap<>();
+    public final HashMap<Integer, TreeNode<O>> indexingMap = new HashMap<>();
 
     public O get() {
         return this.object;
@@ -31,6 +31,11 @@ public abstract class TreeNode<O> implements ITreeNode<O> {
         }
         child.parent = this;
         this.children.add(child);
+        if (this.isRoot) {
+            treeMap.put(this.name, this);
+            indexingMap.put(id, this);
+        }
+        child.id = this.id++;
     }
 
     public boolean contains(String nameIn) {
@@ -81,6 +86,14 @@ public abstract class TreeNode<O> implements ITreeNode<O> {
         return null;
     }
 
+    public void sort(SortType sortType) {
+        switch (sortType){
+            case DEPTH_FIRST:
+            case WIDTH_FIRST:
+                break;
+        }
+    }
+
     public boolean hasChild() {
         return this.children.size() > 0;
     }
@@ -91,5 +104,10 @@ public abstract class TreeNode<O> implements ITreeNode<O> {
 
     public boolean hasAncestors() {
         return this.ancestors.size() > 0;
+    }
+
+    enum SortType{
+        DEPTH_FIRST,
+        WIDTH_FIRST
     }
 }

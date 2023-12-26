@@ -62,7 +62,7 @@ public class GalacticArmSpellEntity extends SpellCardEntity{
                      IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
-            // trySetDanmaku(serverWorld);
+            trySetDanmaku(serverWorld);
         }
     }
 
@@ -128,7 +128,6 @@ public class GalacticArmSpellEntity extends SpellCardEntity{
 
                 if (entity != null) {
                     setDanmakuInit(entity, startPos, new Vector2f(this.rotationYaw, this.rotationPitch));
-                    entity.setPosition(nextPos.x, nextPos.y, nextPos.z);
                     entity.setMotion(motionX, 0, motionZ);
                 }
             }

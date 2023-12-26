@@ -1,5 +1,5 @@
 {
-  "$comment": "behaviors is tick method",
+  "$comment": "behaviors list is called iteratively in each tick",
   "behaviors": [
     {
       "name": "set_location_and_angles",

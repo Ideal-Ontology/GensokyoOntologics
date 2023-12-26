@@ -234,11 +234,26 @@ public abstract class SpellCardEntity extends Entity implements IRendersAsItem {
     protected <D extends AbstractDanmakuEntity> List<D> newDanmakuList(Supplier<D> danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
         List<D> danmakuPool = new ArrayList<>();
         for (int i = 0; i < count; i++) {
-            Constructor<D> constructor = danmakuClass.getDeclaredConstructor(LivingEntity.class, World.class, DanmakuType.class, DanmakuColor.class);
-            danmakuPool.add(constructor.newInstance(danmaku.get().getShooter(), danmaku.get().world,
-                     danmaku.get().getDanmakuType(), danmaku.get().getDanmakuColor()));
+            danmakuPool.add(newDanmaku(danmaku.get(), danmakuClass));
         }
         return danmakuPool;
+    }
+
+    protected <D extends AbstractDanmakuEntity> Map<Integer, D> newDanmakuMap (D danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Map<Integer, D> danmakuMap = new HashMap<>();
+        for (int i = 0; i < count; i++) {
+            Constructor<D> constructor = danmakuClass.getDeclaredConstructor(LivingEntity.class, World.class, DanmakuType.class, DanmakuColor.class);
+            D instance = constructor.newInstance(danmaku.getShooter(), danmaku.world,
+                    danmaku.getDanmakuType(), danmaku.getDanmakuColor());
+            danmakuMap.put(instance.getEntityId(), instance);
+        }
+        return danmakuMap;
+    }
+
+    protected <D extends AbstractDanmakuEntity> D newDanmaku (D danmaku, Class<D> danmakuClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Constructor<D> constructor = danmakuClass.getDeclaredConstructor(LivingEntity.class, World.class, DanmakuType.class, DanmakuColor.class);
+        return constructor.newInstance(danmaku.getShooter(), danmaku.world,
+                danmaku.getDanmakuType(), danmaku.getDanmakuColor());
     }
 
     protected <D extends AbstractDanmakuEntity> DanmakuPool<D> newDanmakuPool(D danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
