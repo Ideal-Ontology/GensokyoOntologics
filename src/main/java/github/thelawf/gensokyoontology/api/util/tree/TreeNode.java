@@ -87,7 +87,7 @@ public abstract class TreeNode<O> implements ITreeNode<O> {
     }
 
     public void sort(SortType sortType) {
-        switch (sortType){
+        switch (sortType) {
             case DEPTH_FIRST:
             case WIDTH_FIRST:
                 break;
@@ -106,7 +106,7 @@ public abstract class TreeNode<O> implements ITreeNode<O> {
         return this.ancestors.size() > 0;
     }
 
-    enum SortType{
+    enum SortType {
         DEPTH_FIRST,
         WIDTH_FIRST
     }

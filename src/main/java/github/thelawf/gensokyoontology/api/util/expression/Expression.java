@@ -6,7 +6,7 @@ import github.thelawf.gensokyoontology.api.util.tree.TreeNode;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 
-public class Expression<T> extends SerializableExpression<T>{
+public class Expression<T> extends SerializableExpression<T> {
     @Override
     public String toJsonString() {
         return null;

@@ -95,9 +95,9 @@ public class IdonokaihoEntity extends SpellCardEntity {
 
             pool.add(map);
             HeartShotEntity heartShot = (HeartShotEntity) Arrays.stream(this.pool.get(i).values().toArray())
-                    .collect(Collectors.toList()).get(GSKOMathUtil.clampPeriod(ticksExisted, 0, map.size() -1));
+                    .collect(Collectors.toList()).get(GSKOMathUtil.clampPeriod(ticksExisted, 0, map.size() - 1));
             HeartShotEntity shot = (HeartShotEntity) Arrays.stream(this.pool.get(i).values().toArray())
-                    .collect(Collectors.toList()).get(GSKOMathUtil.clampPeriod(ticksExisted + 1, 0, map.size() -1));
+                    .collect(Collectors.toList()).get(GSKOMathUtil.clampPeriod(ticksExisted + 1, 0, map.size() - 1));
             world.addEntity(heartShot.removed ? heartShot : shot);
         }
     }

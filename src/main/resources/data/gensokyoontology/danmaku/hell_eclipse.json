@@ -3,12 +3,22 @@
   "behaviors": [
     {
       "name": "set_location_and_angles",
-      "value": [0,0,0,0,0]
+      "value": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
     },
     {
       "name": "new_vector3d",
       "field_id": "vector3d",
-      "value": [0,0,0]
+      "value": [
+        0,
+        0,
+        0
+      ]
     },
     {
       "name": "for_i_loop",
@@ -19,10 +29,8 @@
         {
           "name": "new_danmaku",
           "constructor": {
-
           },
           "setter": {
-
           }
         },
         {
@@ -38,7 +46,6 @@
               ]
             },
             {
-
             }
           ]
         }
