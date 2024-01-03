@@ -14,7 +14,6 @@ import java.util.List;
 public class ConnectionUtil {
     public static final Logger LOGGER = LogManager.getLogger();
 
-
     public static boolean tryConnect(BlockPos startPos, BlockPos endPos) {
         if (startPos.getY() == endPos.getY()) {
             return true;

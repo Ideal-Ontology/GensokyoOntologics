@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<xmmui texture_src="gensokyoontology:textures/gui/damaku_crafting.png">
+    <text_label type="translation" x="10" y="10">
+        xmmui.gensokyoontology.test_xmmui_screen.title
+    </text_label>
+</xmmui>

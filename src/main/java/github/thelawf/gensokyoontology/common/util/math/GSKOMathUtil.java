@@ -138,7 +138,6 @@ public class GSKOMathUtil {
     }
 
 
-
     /**
      * 求三维向量模长的运算
      *
@@ -301,26 +300,24 @@ public class GSKOMathUtil {
         return new Vector3d(randomRange(min, max), randomRange(min, max), randomRange(min, max));
     }
 
-    /** Random Spherical Range Algorithm, returns a pair of coordinates on the given surface of a sphere. */
-    public static Pair<Vector3d, Vector3d> rsr(Vector3d orientation, float yawRange, float pitchRange){
+    /**
+     * Random Spherical Range Algorithm, returns a pair of coordinates on the given surface of a sphere.
+     */
+    public static Pair<Vector3d, Vector3d> rsr(Vector3d orientation, float yawRange, float pitchRange) {
         double yaw = toYawPitch(orientation).x;
         double pitch = toYawPitch(orientation).y;
-        if (yaw < yawRange || yaw >= yawRange){
+        if (yaw < yawRange || yaw >= yawRange) {
             if (pitch > pitchRange) {
                 return Pair.of(fromYawPitch(yawRange, pitchRange), fromYawPitch(yawRange, pitchRange).inverse());
-            }
-            else if (pitch < pitchRange) {
+            } else if (pitch < pitchRange) {
                 return Pair.of(fromYawPitch(yawRange, pitchRange), fromYawPitch(yawRange, pitchRange).inverse());
-            }
-            else {
+            } else {
                 return Pair.of(fromYawPitch(yawRange, (float) pitch), fromYawPitch(yawRange, (float) pitch).inverse());
             }
-        }
-        else {
+        } else {
             if (pitch > pitchRange) {
                 return Pair.of(fromYawPitch(yawRange, pitchRange), fromYawPitch(yawRange, pitchRange).inverse());
-            }
-            else if (pitch < pitchRange) {
+            } else if (pitch < pitchRange) {
                 return Pair.of(fromYawPitch(yawRange, pitchRange), fromYawPitch(yawRange, pitchRange).inverse());
             }
             return Pair.of(orientation, orientation.inverse());
@@ -476,6 +473,5 @@ public class GSKOMathUtil {
     public static boolean isBetween(double num, double min, double max) {
         return num >= min && num < max;
     }
-
 
 }

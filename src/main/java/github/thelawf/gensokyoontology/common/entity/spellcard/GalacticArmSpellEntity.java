@@ -62,7 +62,7 @@ public class GalacticArmSpellEntity extends SpellCardEntity{
                      IllegalAccessException e) {
                 throw new RuntimeException(e);
             }
-            trySetDanmaku(serverWorld);
+            // trySetDanmaku(serverWorld);
         }
     }
 

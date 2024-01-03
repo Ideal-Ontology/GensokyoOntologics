@@ -33,7 +33,6 @@ public final class EntityRegistry {
                     .updateInterval(2).size(0.6f, 1.8f).trackingRange(10).build("citizen"));
 
     // ================================ 怪物 ==================================== //
-
     public static final RegistryObject<EntityType<InyoJadeMonsterEntity>> INYO_JADE_ENTITY = ENTITIES.register(
             "inyo_jade", () -> EntityType.Builder.create(InyoJadeMonsterEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.8f, 0.8f).trackingRange(10).build("inyo_jade_monster"));
@@ -58,21 +57,21 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<RemiliaScarletEntity>> REMILIA_SCARLET = ENTITIES.register(
             "remilia_scarlet", () -> EntityType.Builder.create(RemiliaScarletEntity::new, EntityClassification.CREATURE)
                     .setShouldReceiveVelocityUpdates(true).size(0.6f, 1.58f).trackingRange(10).build("remilia_scarlet"));
-    // =============================== 可驯服的生物 ============================ //
 
+    // =============================== 可驯服的生物 ============================ //
     public static final RegistryObject<EntityType<HakureiReimuEntity>> HAKUREI_REIMU = ENTITIES.register(
             "hakurei_reimu", () -> EntityType.Builder.create(HakureiReimuEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("hakurei_reimu"));
     public static final RegistryObject<EntityType<KomeijiKoishiEntity>> KOMEIJI_KOISHI = ENTITIES.register(
             "komeiji_koishi", () -> EntityType.Builder.create(KomeijiKoishiEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("komeiji_koishi"));
+
     // public static final RegistryObject<EntityType<FlandreScarletEntity>> SUMIREKO_ENTITY = ENTITIES.register(
     //         "usami_sumireko", () -> FlandreScarletEntity.SUMIREKO);
     // public static final RegistryObject<EntityType<YukariEntity>> YUKARI_ENTITY = ENTITIES.register(
     //         "yakumo_yukari", () -> YukariEntity.YUKARI);
 
     // =========================== 技术性实体：弹幕 ========================= //
-
     public static final RegistryObject<EntityType<DanmakuShotEntity>> DANMAKU_ENTITY = ENTITIES.register(
             "danmaku_shot", () -> EntityType.Builder.<DanmakuShotEntity>create(DanmakuShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("danmaku_shot"));
@@ -116,7 +115,6 @@ public final class EntityRegistry {
     //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
 
     // ============================ 技术性实体：符卡以及特殊技能 ============================= //
-
     public static final RegistryObject<EntityType<WaveAndParticleEntity>> WAVE_AND_PARTICLE_ENTITY = ENTITIES.register(
             "wave_and_particle", () -> EntityType.Builder.<WaveAndParticleEntity>create(WaveAndParticleEntity::new,
                             EntityClassification.MISC).size(1F, 1F).trackingRange(4)
@@ -136,6 +134,7 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<SpiralWheelEntity>> SPIRAL_WHEEL_ENTITY = ENTITIES.register(
             "spiral_wheel", () -> EntityType.Builder.<SpiralWheelEntity>create(SpiralWheelEntity::new,
                     EntityClassification.MISC).size(1F, 1F).trackingRange(4).updateInterval(2).build("spiral_wheel"));
+
     // 这个符卡的注册名是不是写错了
     // 已修改
     public static final RegistryObject<EntityType<HellEclipseEntity>> HELL_ECLIPSE_ENTITY =

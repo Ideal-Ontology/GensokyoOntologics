@@ -11,7 +11,6 @@ public class ButterflyShotEntity extends AbstractDanmakuEntity {
         super(type, worldIn);
     }
 
-
     @Override
     public ItemStack getItem() {
         return null;

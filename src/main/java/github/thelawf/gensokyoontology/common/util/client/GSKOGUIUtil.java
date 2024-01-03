@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 
+import java.io.File;
 import java.util.*;
 
 public class GSKOGUIUtil {
@@ -40,6 +41,10 @@ public class GSKOGUIUtil {
                 new ItemStack(ItemRegistry.CRIMSON_ALLOY_INGOT.get())));
 
         return recipes;
+    }
+
+    public static File withXMMUIFile(String xmlName){
+        return new File(System.getProperty("user.dir").replace("run","") + "/src/main/resources/assets/gensokyoontology/xmmui/" + xmlName);
     }
 
     public static List<List<Integer>> makeDanmakuRecipes() {
