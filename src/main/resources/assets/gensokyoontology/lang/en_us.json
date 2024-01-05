@@ -379,7 +379,7 @@
   "gui.gensokyoontology.text_field.rotation_pitch": "0",
 
   "xmmui.gensokyoontology.title": "This is a title of XMMUI Test Screen",
-  "xmmui.gensokyoontology.test_xmmui_screen.title": "Welcome using XMMUI as GUI display",
+  "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "Welcome!",
 
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "You Released Spell Card: \"Mobius Ring World\"",
   "msg.gensokyoontology.item_use.jade_cut_failed": "It seems only works in Gensokyo...",

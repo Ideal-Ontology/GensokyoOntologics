@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.util.client;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
 
 import java.io.File;
 import java.util.*;
@@ -45,6 +46,10 @@ public class GSKOGUIUtil {
 
     public static File withXMMUIFile(String xmlName){
         return new File(System.getProperty("user.dir").replace("run","") + "/src/main/resources/assets/gensokyoontology/xmmui/" + xmlName);
+    }
+
+    public static ResourceLocation withXMMUI(String modId, String location){
+        return new ResourceLocation(modId, location);
     }
 
     public static List<List<Integer>> makeDanmakuRecipes() {

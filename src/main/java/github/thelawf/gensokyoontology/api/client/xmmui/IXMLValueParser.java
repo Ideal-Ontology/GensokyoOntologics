@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.api.client.xmmui;
 
+import com.mojang.datafixers.util.Pair;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -15,6 +17,12 @@ public interface IXMLValueParser {
     default List<String> separateByComma(String value) {
         return Arrays.asList(value.split(","));
     }
+    default List<String> separateByBlank(String value) {
+        return Arrays.asList(value.split(" "));
+    }
+    default List<String> separateByColon(String value) {
+        return Arrays.asList(value.split(":"));
+    }
 
     default boolean getBoolValue(String value) {
         return Boolean.parseBoolean(value.split("=")[1]);
@@ -26,5 +34,12 @@ public interface IXMLValueParser {
 
     default int getIntValue(String value) {
         return Integer.parseInt(value);
+    }
+    default int parseRGBAColor(String hexColor) {
+        return hexColor.contains("#") ? Integer.parseInt(hexColor.substring(1,hexColor.length()-1)) : 0;
+    }
+
+    default float parsePercent(String percent) {
+        return percent.contains("%") ? Float.parseFloat(percent.substring(percent.length()-2, percent.length()-1)) / 100 : 0;
     }
 }
