@@ -5,6 +5,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IResource;
 import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
+import org.dom4j.DocumentException;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -24,7 +25,7 @@ public class UIHelper {
         }
     }
 
-    public static void displayXMMUI(){
+    public static void displayXMMUI() throws DocumentException {
         Minecraft minecraft = Minecraft.getInstance();
         minecraft.displayGuiScreen(new XMMUIScreen(GensokyoOntology.withTranslation("gui.", "title"),
                 getXMLText(new ResourceLocation(GensokyoOntology.MODID, "xmmui/test_xmmui_screen.xml"))) {

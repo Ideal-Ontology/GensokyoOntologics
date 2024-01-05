@@ -4,18 +4,18 @@ import org.dom4j.Element;
 
 public class XMMUITextData extends XMMUIWidgetData {
     public int fontSize = 0;
-    public int hexColor = 0;
+    public int hexColor = 16777215;
     public boolean isBold = false;
     public boolean isItalic = false;
     public boolean isDel = false;
 
     public XMMUITextData(Element element) {
         super(element);
-        this.fontSize = Integer.parseInt(element.attributeValue("font_size"));
-        this.hexColor = parseRGBAColor(element.attributeValue("color"));
-        this.isBold = Boolean.parseBoolean(element.attributeValue("bold"));
-        this.isItalic = Boolean.parseBoolean(element.attributeValue("italic"));
-        this.isDel = Boolean.parseBoolean(element.attributeValue("del"));
+        this.fontSize = Integer.parseInt(getOrDefault(element, "font_size", "20"));
+        //this.hexColor = parseRGBAColor(getOrDefault(element, "color", "#FFFFFFFF"));
+        this.isBold = Boolean.parseBoolean(getOrDefault(element, "bold", "false"));
+        this.isItalic = Boolean.parseBoolean(getOrDefault(element, "italic", "false"));
+        this.isDel = Boolean.parseBoolean(getOrDefault(element, "del", "false"));
     }
 
     public int getFontSize() {

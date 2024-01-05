@@ -9,15 +9,17 @@ public class XMMUIWidgetData implements IXMLValueParser {
     public int width = 100;
     public int height = 30;
     public String id = "";
+    public String text = "";
     public WidgetAligns align = WidgetAligns.NONE;
 
     public XMMUIWidgetData(Element element) {
         this.id = element.attributeValue("id");
+        this.text = element.getText();
         this.x = Integer.parseInt(element.attributeValue("x"));
         this.y = Integer.parseInt(element.attributeValue("y"));
-        this.width = Integer.parseInt(element.attributeValue("width"));
-        this.height = Integer.parseInt(element.attributeValue("height"));
-        this.align = getEnumValue(element.attributeValue("align"), WidgetAligns.class);
+        this.width = Integer.parseInt(getOrDefault(element, "width", "100"));
+        this.height = Integer.parseInt(getOrDefault(element, "height", "30"));
+        this.align = getEnumValue(getOrDefault(element, "align", "NONE"), WidgetAligns.class);
     }
 
     public int getX() {

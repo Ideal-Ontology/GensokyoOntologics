@@ -1,33 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <xmmui texture_src="gensokyoontology:textures/gui/test_screen.png">
-    <text_label align="xCentered" y="50">
+    <text_label x="20" y="50">
         xmmui.gensokyoonotlogy.test_xmmui_screen.title
     </text_label>
     <text_label x="100" y="100" size="50" color="#FFFFFFFF" bold="true" italic="false" del="false">
         xmmui.gensokyoontology.test_xmmui_screen.style_test
     </text_label>
-    <text_label left="20%" top="50%">
-        xmmui.gensokyoontology.test_xmmui_screen.percent_test
-    </text_label>
-    <form listener="github.thelawf.gensokyoontology.client.handler.ResourceHandler">
-        <input id="test_input_field" x="" y="" width="" height="" highlight="">
 
-        </input>
-        <button id="test_button" type="image"  texture_src="gensokyoontology:textures/gui/image_button.png"
-                on_cilck="onTestButtonClick">
-            xmmui.gensokyoontology.test_xmmui_screen.test_button_title
-        </button>
-    </form>
-    <form type="radio_template" id="radio_form" listener="github.thelawf.gensokyoontology.GensokyoOntology">
-
-        <button id="writing" type="radio" group="hobbies" value="writing">
-
-        </button>
-        <button id="gaming" type="radio" group="hobbies" value="gaming">
-
-        </button>
-        <text_lable visability="false">
-
-        </text_lable>
-    </form>
 </xmmui>

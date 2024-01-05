@@ -11,6 +11,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import org.dom4j.DocumentException;
 
 public class BombItem extends Item {
     public BombItem(Properties properties) {
@@ -20,9 +21,13 @@ public class BombItem extends Item {
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         Minecraft minecraft = Minecraft.getInstance();
-        minecraft.displayGuiScreen(new XMMUIScreen(GensokyoOntology.withTranslation("gui.", "title"),
-                UIHelper.getXMLText(new ResourceLocation(GensokyoOntology.MODID, "xmmui/test_xmmui_screen.xml"))) {
-        });
+        try {
+            minecraft.displayGuiScreen(new XMMUIScreen(GensokyoOntology.withTranslation("gui.", "title"),
+                    UIHelper.getXMLText(new ResourceLocation(GensokyoOntology.MODID, "xmmui/test_xmmui_screen.xml"))) {
+            });
+        } catch (DocumentException e) {
+            throw new RuntimeException(e);
+        }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }

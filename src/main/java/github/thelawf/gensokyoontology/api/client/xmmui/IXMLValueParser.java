@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.api.client.xmmui;
 
 import com.mojang.datafixers.util.Pair;
+import org.dom4j.Element;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +30,11 @@ public interface IXMLValueParser {
     }
 
     default <T extends Enum<T>> T getEnumValue(String value, Class<T> enumClass) {
-        return Enum.valueOf(enumClass, value.split("=")[1]);
+        return Enum.valueOf(enumClass, value);
+    }
+
+    default <T extends Enum<T>> T getEnumOrDefault(String value, Class<T> enumClass, T defaultValue) {
+        return Enum.valueOf(enumClass, value);
     }
 
     default int getIntValue(String value) {
@@ -41,5 +46,9 @@ public interface IXMLValueParser {
 
     default float parsePercent(String percent) {
         return percent.contains("%") ? Float.parseFloat(percent.substring(percent.length()-2, percent.length()-1)) / 100 : 0;
+    }
+
+    default String getOrDefault(Element element, String key, String defaultValue) {
+        return element.attributeValue(key) == null ? defaultValue : element.attributeValue(key);
     }
 }
