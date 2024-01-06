@@ -14,7 +14,7 @@ public class XMMUIWidgetData implements IXMLValueParser {
 
     public XMMUIWidgetData(Element element) {
         this.id = element.attributeValue("id");
-        this.text = element.getText();
+        this.text = element.getText().trim();
         this.x = Integer.parseInt(element.attributeValue("x"));
         this.y = Integer.parseInt(element.attributeValue("y"));
         this.width = Integer.parseInt(getOrDefault(element, "width", "100"));

@@ -20,14 +20,14 @@ public class BombItem extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        Minecraft minecraft = Minecraft.getInstance();
-        try {
-            minecraft.displayGuiScreen(new XMMUIScreen(GensokyoOntology.withTranslation("gui.", "title"),
-                    UIHelper.getXMLText(new ResourceLocation(GensokyoOntology.MODID, "xmmui/test_xmmui_screen.xml"))) {
-            });
-        } catch (DocumentException e) {
-            throw new RuntimeException(e);
-        }
+        // Minecraft minecraft = Minecraft.getInstance();
+        // try {
+        //     minecraft.displayGuiScreen(new XMMUIScreen(GensokyoOntology.withTranslation("gui.", "title"),
+        //             UIHelper.getXMLText(new ResourceLocation(GensokyoOntology.MODID, "xmmui/test_xmmui_screen.xml"))) {
+        //     });
+        // } catch (DocumentException e) {
+        //     throw new RuntimeException(e);
+        // }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }

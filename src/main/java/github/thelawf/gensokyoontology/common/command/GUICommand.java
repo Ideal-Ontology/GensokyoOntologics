@@ -26,7 +26,6 @@ public class GUICommand implements Command<CommandSource> {
     @Override
     public int run(CommandContext<CommandSource> context) throws CommandSyntaxException {
 
-
         return 1;
     }
 

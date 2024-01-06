@@ -3,8 +3,10 @@ package github.thelawf.gensokyoontology.api.client.xmmui;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.api.client.xmmui.data.XMMUIData;
 import github.thelawf.gensokyoontology.api.client.xmmui.data.XMMUITextData;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.Widget;
+import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -61,10 +63,16 @@ public abstract class XMMUIScreen extends Screen implements IXMLValueParser {
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         this.renderBackground(matrixStack);
-        this.textData.forEach(data -> drawString(matrixStack, this.font, data.text, data.x, data.y, data.hexColor));
+        this.textData.forEach(data -> drawString(matrixStack, this.font, new TranslationTextComponent(data.text),
+                data.x, data.y, data.hexColor));
     }
 
     public Widget getComponentById(String id){
         return widgetSet.get(id);
+    }
+
+    public void drawTranslatedString(MatrixStack matrixStack, FontRenderer font, ITextComponent text, int x, int y, int hexColor) {
+        IReorderingProcessor processor = text.func_241878_f();
+        font.drawTextWithShadow(matrixStack, processor, (float)(x - font.func_243245_a(processor) / 2), (float)y, hexColor);
     }
 }
