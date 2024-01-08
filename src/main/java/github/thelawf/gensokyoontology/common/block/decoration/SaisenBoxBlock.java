@@ -19,7 +19,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 // 7784774932680779809
-
 public class SaisenBoxBlock extends HorizontalBlock {
     public SaisenBoxBlock() {
         super(Properties.from(Blocks.CRAFTING_TABLE));

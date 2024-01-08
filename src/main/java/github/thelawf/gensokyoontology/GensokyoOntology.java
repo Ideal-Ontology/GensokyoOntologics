@@ -44,6 +44,10 @@ public class GensokyoOntology {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final String MODID = "gensokyoontology";
 
+    /**
+     * TODO:被紫妈踢出幻想乡后生成一个建筑，表示幻想乡是玩家做过的一场梦。清空玩家背包并将其中的物品放置在建筑内的箱子里。
+     * TODO:同时，玩家左键和右键使用物品时将会进入2-3秒的强制冷却。或者降低玩家最远攻击距离和最远方块交互距离。
+     */
     public GensokyoOntology() {
         // final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         // ClientOnlyRegistry cog = new ClientOnlyRegistry(modEventBus);
