@@ -11,7 +11,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public final class ContainerRegistry {
-
     public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(
             ForgeRegistries.CONTAINERS, GensokyoOntology.MODID);
 

@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.client;
 
 import com.google.common.collect.Lists;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.LilyWhiteModel;
 import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
@@ -22,7 +23,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.SeparatePerspectiveModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -71,7 +74,6 @@ public class GSKOClientEvents {
     public static void onRenderTick(TickEvent.RenderTickEvent event) {
         if (event.phase == TickEvent.Phase.START) {
             Minecraft minecraft = Minecraft.getInstance();
-
             // only fire if we're in the twilight forest
             if (minecraft.world != null && GSKODimensions.GENSOKYO.getRegistryName().equals(
                     minecraft.world.getDimensionKey().getLocation())) {

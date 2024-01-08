@@ -24,7 +24,7 @@ public class SaisenBoxBlock extends HorizontalBlock {
     public SaisenBoxBlock() {
         super(Properties.from(Blocks.CRAFTING_TABLE));
     }
-    public static VoxelShape SHAPE = Block.makeCuboidShape(2, 0, 2, 14, 12, 14);
+    public static final VoxelShape SHAPE = Block.makeCuboidShape(2, 0, 2, 14, 12, 14);
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
