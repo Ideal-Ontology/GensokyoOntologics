@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.util.block;
 
 import net.minecraft.util.IStringSerializable;
+import org.jetbrains.annotations.NotNull;
 
 public enum ClockHandDirection implements IStringSerializable {
     CLOCK_1,
@@ -17,6 +18,7 @@ public enum ClockHandDirection implements IStringSerializable {
     CLOCK_12;
 
     @Override
+    @NotNull
     public String getString() {
         return String.valueOf(this.ordinal() + 1);
     }
