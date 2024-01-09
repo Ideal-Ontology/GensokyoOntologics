@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.capability;
 import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeProvider;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
+import github.thelawf.gensokyoontology.common.capability.world.EternalSummerCapability;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -21,12 +22,14 @@ public class GSKOCapabilities {
     public static Capability<ImperishableNightCapability> IMPERISHABLE_NIGHT;
     @CapabilityInject(ExtraLifeCapability.class)
     public static Capability<ExtraLifeCapability> EXTRA_LIFE;
+    @CapabilityInject(EternalSummerCapability.class)
+    public static Capability<EternalSummerCapability> ETERNAL_SUMMER;
 
     public static void registerCapabilities() {
+        register(ExtraLifeProvider.class);
         register(BloodyMistCapability.class);
         register(ImperishableNightCapability.class);
-        register(ExtraLifeProvider.class);
-
+        register(EternalSummerCapability.class);
     }
 
     private static <T extends INBTSerializable<CompoundNBT>> void register(Class<T> capClass) {

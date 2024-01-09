@@ -4,9 +4,11 @@ import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.block.BlockPositions;
 import github.thelawf.gensokyoontology.common.util.block.BlockStateData;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.template.Template;
+import net.minecraft.world.server.ServerWorld;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,4 +36,7 @@ public class GSKOTemplateGenerator {
         pairs.forEach(pair -> worldIn.setBlockState(pair.getFirst().get(pairs.indexOf(pair)), pair.getSecond().get(pairs.indexOf(pair))));
     }
 
+    private Template getTemplate(ServerWorld serverWorld, ResourceLocation location) {
+        return serverWorld.getStructureTemplateManager().getTemplate(location);
+    }
 }

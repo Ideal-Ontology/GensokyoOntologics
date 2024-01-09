@@ -2,10 +2,7 @@ package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
-import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
-import github.thelawf.gensokyoontology.common.capability.world.BloodyMistProvider;
-import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapability;
-import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightProvider;
+import github.thelawf.gensokyoontology.common.capability.world.*;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
@@ -37,9 +34,11 @@ public class GSKOCommonEvents {
 
             BloodyMistProvider bloodyMist = new BloodyMistProvider(biomes, true);
             ImperishableNightProvider imperishableNight = new ImperishableNightProvider(18000, false);
+            EternalSummerCapProvider eternalSummer = new EternalSummerCapProvider(false);
 
             event.addCapability(GensokyoOntology.withRL("bloody_mist"), bloodyMist);
             event.addCapability(GensokyoOntology.withRL("imperishable_night"), imperishableNight);
+            event.addCapability(GensokyoOntology.withRL("eternal_summer"), eternalSummer);
         }
     }
 

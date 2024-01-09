@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
+import net.minecraft.command.impl.GameModeCommand;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.world.GameType;
 import net.minecraftforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.NotNull;
 
