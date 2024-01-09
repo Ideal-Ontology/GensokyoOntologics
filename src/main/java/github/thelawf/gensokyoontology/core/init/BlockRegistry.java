@@ -17,9 +17,9 @@ public final class BlockRegistry {
     public static final DeferredRegister<Block> BLOCKS =
             DeferredRegister.create(ForgeRegistries.BLOCKS, GensokyoOntology.MODID);
 
-    ///////////////////////////////////////////////////////////////////////////////////
-    /////////////                     装饰类方块                          ///////////////
-    ///////////////////////////////////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////                     装饰类方块                          /////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////
 
     ////////////////////////////////////////// 魔法树木 //////////////////////////////////////////
     public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register("magic_leaves", MagicLeaves::new);
@@ -44,6 +44,7 @@ public final class BlockRegistry {
             "sakura_sapling", () -> new SaplingBlock(new SakuraTree(),
                     AbstractBlock.Properties.from(Blocks.ACACIA_SAPLING)));
     public static final RegistryObject<Block> SAKURA_LEAVES = BLOCKS.register("sakura_leaves", SakuraLeaves::new);
+    public static final RegistryObject<Block> SAKURA_BLOSSOM_LEAVES = BLOCKS.register("sakura_blossom_leaves", SakuraBlossomLeaves::new);
     public static final RegistryObject<Block> SAKURA_LOG = BLOCKS.register("sakura_log", SakuraLog::new);
     public static final RegistryObject<Block> SAKURA_PLANKS = BLOCKS.register("sakura_planks", SakuraPlanks::new);
     public static final RegistryObject<Block> SAKURA_BUTTON = BLOCKS.register("sakura_button", SakuraButton::new);

@@ -51,7 +51,7 @@ public class GSKOFeatures {
      */
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SAKURA_TREE_BASE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.SAKURA_LOG.get().getDefaultState()),
-                    new SimpleBlockStateProvider(BlockRegistry.SAKURA_LEAVES.get().getDefaultState()),
+                    new SimpleBlockStateProvider(BlockRegistry.SAKURA_BLOSSOM_LEAVES.get().getDefaultState()),
                     new FancyFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1), 2),
                     new FancyTrunkPlacer(8, 3, 2),
                     new TwoLayerFeature(1, 1, 3)).setIgnoreVines().build());
@@ -85,7 +85,7 @@ public class GSKOFeatures {
     public static final ConfiguredFeature<?, ?> SAKURA_TREE = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(BlockRegistry.SAKURA_LOG.get().getDefaultState()),
-                            new SimpleBlockStateProvider(BlockRegistry.SAKURA_LEAVES.get().getDefaultState()),
+                            new SimpleBlockStateProvider(BlockRegistry.SAKURA_BLOSSOM_LEAVES.get().getDefaultState()),
                             new FancyFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1), 2),
                             new FancyTrunkPlacer(8, 3, 2),
                             new TwoLayerFeature(1, 1, 3)).setIgnoreVines().build())
@@ -94,7 +94,7 @@ public class GSKOFeatures {
     public static final ConfiguredFeature<?, ?> SAKURA_TREE_HAKUREI_SHRINE = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(BlockRegistry.SAKURA_LOG.get().getDefaultState()),
-                            new SimpleBlockStateProvider(BlockRegistry.SAKURA_LEAVES.get().getDefaultState()),
+                            new SimpleBlockStateProvider(BlockRegistry.SAKURA_BLOSSOM_LEAVES.get().getDefaultState()),
                             new FancyFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1), 2),
                             new FancyTrunkPlacer(8, 3, 2),
                             new TwoLayerFeature(1, 1, 3)).setIgnoreVines().build())

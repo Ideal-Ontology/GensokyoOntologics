@@ -6,18 +6,6 @@ import java.lang.reflect.*;
 
 public class ReflectHelper {
 
-
-    public static Object getFieldValue(Object obj, String fieldName) throws IllegalAccessException {
-        Field field = ObfuscationReflectionHelper.findField(obj.getClass(), fieldName);
-        return field.get(obj);
-    }
-
-    @SuppressWarnings("unchecked")
-    public static <O> O getFieldValue(Object obj, String fieldName, Class<O> tarClass, Class<Object> genericClass) throws IllegalAccessException {
-        Field field = ObfuscationReflectionHelper.findField(obj.getClass(), "blocks");
-        return isTypeEqual(field, tarClass, genericClass) ? (O) field.get(obj) : (O) obj;
-    }
-
     public static <D extends GenericDeclaration> boolean areTypeParametersEqual(Class<?> objClass, Class<?>... typeClasses) {
         int match = 0;
         for (TypeVariable<? extends Class<?>> variable : objClass.getTypeParameters()) {

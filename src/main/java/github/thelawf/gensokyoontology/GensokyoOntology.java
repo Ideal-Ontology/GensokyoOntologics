@@ -136,6 +136,8 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),
                         RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_BLOSSOM_LEAVES.get(),
+                        RenderType.getCutout());
 
                 RenderTypeLookup.setRenderLayer(BlockRegistry.MAPLE_SAPLING.get(),
                         RenderType.getCutout());

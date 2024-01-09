@@ -45,6 +45,9 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> SAKURA_LEAVES_ITEM = ITEMS.register(
             "sakura_leaves", () -> new BlockItem(BlockRegistry.SAKURA_LEAVES.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> SAKURA_BLOSSOM_LEAVES_ITEM = ITEMS.register(
+            "sakura_blossom_leaves", () -> new BlockItem(BlockRegistry.SAKURA_BLOSSOM_LEAVES.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_LOG_ITEM = ITEMS.register(
             "sakura_log", () -> new BlockItem(BlockRegistry.SAKURA_LOG.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));

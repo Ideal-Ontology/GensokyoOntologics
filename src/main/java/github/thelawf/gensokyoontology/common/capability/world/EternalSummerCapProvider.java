@@ -11,11 +11,11 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+// 2202532849087618747
 public class EternalSummerCapProvider implements ICapabilityProvider, INBTSerializable<CompoundNBT> {
     private EternalSummerCapability capability;
     private boolean isTriggered;
     public EternalSummerCapProvider(boolean isTriggered) {
-
         this.isTriggered = isTriggered;
     }
     @NotNull
@@ -26,17 +26,17 @@ public class EternalSummerCapProvider implements ICapabilityProvider, INBTSerial
 
     private EternalSummerCapability getOrCreateCapability() {
         if (this.capability == null) {
-            this.capability = new EternalSummerCapability();
+            this.capability = new EternalSummerCapability(this.isTriggered);
         }
         return this.capability;
     }
     @Override
     public CompoundNBT serializeNBT() {
-        return this.capability.serializeNBT();
+        return getOrCreateCapability().serializeNBT();
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        this.capability.deserializeNBT(nbt);
+        getOrCreateCapability().deserializeNBT(nbt);
     }
 }
