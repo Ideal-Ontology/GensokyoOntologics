@@ -232,10 +232,14 @@
   "advancement.gensokyoontology.login_gensokyo.title": "Love From Gensokyo ♥~",
   "advancement.gensokyoontology.login_gensokyo.description": "Player change to Gensokyo dimension",
 
-  "advancement.gensokyoontology.retreat_lilywhite.title": "Is Spring Come?",
-  "advancement.gensokyoontology.retreat_lilywhite.description": "Retreat Lily White",
   "advancement.gensokyoontology.gensokyo_traveller.title": "Gensokyo Traveller",
   "advancement.gensokyoontology.gensokyo_traveller.description": "Travelled to All the Biomes in Gensokyo",
+  "advancement.gensokyoontology.retreat_lilywhite.title": "Is Spring Come?",
+  "advancement.gensokyoontology.retreat_lilywhite.description": "Retreat Lily White",
+  "advancement.gensokyoontology.retreat_remilia.title": "カリスマ",
+  "advancement.gensokyoontology.retreat_remilia.description": "Retreat Remilia Scarlet",
+  "advancement.gensokyoontology.retreat_flandre.title": "最終鬼畜妹",
+  "advancement.gensokyoontology.retreat_flandre.description": "Retreat Flandre Scarlet",
 
   "block.gensokyoontology.wasabi": "Wasabi",
   "block.gensokyoontology.lycoris_radiata": "Lycoris Radiata",

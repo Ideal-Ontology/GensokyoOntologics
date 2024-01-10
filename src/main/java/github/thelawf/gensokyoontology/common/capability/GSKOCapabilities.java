@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.capability;
 
+import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeProvider;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
@@ -14,6 +15,8 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
+
 public class GSKOCapabilities {
 
     @CapabilityInject(BloodyMistCapability.class)
@@ -25,8 +28,9 @@ public class GSKOCapabilities {
     @CapabilityInject(EternalSummerCapability.class)
     public static Capability<EternalSummerCapability> ETERNAL_SUMMER;
 
+
     public static void registerCapabilities() {
-        register(ExtraLifeProvider.class);
+        register(ExtraLifeCapability.class);
         register(BloodyMistCapability.class);
         register(ImperishableNightCapability.class);
         register(EternalSummerCapability.class);

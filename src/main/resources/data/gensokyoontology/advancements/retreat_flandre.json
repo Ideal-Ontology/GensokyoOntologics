@@ -1,0 +1,35 @@
+{
+  "display": {
+    "icon": {
+      "item": "gensokyoontology:remilia_flandre_spawn_egg"
+    },
+    "title": {
+      "translate": "advancement.gensokyoontology.retreat_flandre.title"
+    },
+    "description": {
+      "translate": "advancement.gensokyoontology.retreat_flandre.description"
+    },
+    "background": "gensokyoontology:block/sakura_planks",
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "parent": "gensokyoontology:login_gensokyo",
+  "criteria": {
+    "requirement": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "gensokyoontology:flandre_scarlet"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  }
+}

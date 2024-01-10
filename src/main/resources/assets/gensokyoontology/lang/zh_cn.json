@@ -232,10 +232,14 @@
   "advancement.gensokyoontology.login_gensokyo.title": "爱来自幻想乡♥",
   "advancement.gensokyoontology.login_gensokyo.description": "进入幻想乡维度",
 
-  "advancement.gensokyoontology.retreat_lilywhite.title": "春天她真的来了吗？",
-  "advancement.gensokyoontology.retreat_lilywhite.description": "退治莉莉白",
   "advancement.gensokyoontology.gensokyo_traveller.title": "幻想乡旅行团",
   "advancement.gensokyoontology.gensokyo_traveller.description": "到访幻想乡的各个生物群系",
+  "advancement.gensokyoontology.retreat_lilywhite.title": "春天她真的来了吗？",
+  "advancement.gensokyoontology.retreat_lilywhite.description": "退治莉莉白",
+  "advancement.gensokyoontology.retreat_remilia.title": "威严满满大小姐",
+  "advancement.gensokyoontology.retreat_remilia.description": "退治蕾米莉亚·斯卡蕾特",
+  "advancement.gensokyoontology.retreat_flandre.title": "最终鬼畜妹",
+  "advancement.gensokyoontology.retreat_flandre.description": "退治芙兰朵露·斯卡蕾特",
 
   "block.gensokyoontology.wasabi": "山葵",
   "block.gensokyoontology.lycoris_radiata": "红花石蒜",

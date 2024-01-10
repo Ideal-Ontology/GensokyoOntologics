@@ -34,7 +34,7 @@ public class GSKOCommonEvents {
 
             BloodyMistProvider bloodyMist = new BloodyMistProvider(biomes, true);
             ImperishableNightProvider imperishableNight = new ImperishableNightProvider(18000, false);
-            EternalSummerCapProvider eternalSummer = new EternalSummerCapProvider(false);
+            EternalSummerCapProvider eternalSummer = new EternalSummerCapProvider(true);
 
             event.addCapability(GensokyoOntology.withRL("bloody_mist"), bloodyMist);
             event.addCapability(GensokyoOntology.withRL("imperishable_night"), imperishableNight);

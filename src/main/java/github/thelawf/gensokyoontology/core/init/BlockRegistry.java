@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.common.block.ore.*;
 import github.thelawf.gensokyoontology.common.world.feature.tree.MapleTree;
 import github.thelawf.gensokyoontology.common.world.feature.tree.SakuraTree;
 import net.minecraft.block.*;
+import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -44,7 +45,6 @@ public final class BlockRegistry {
             "sakura_sapling", () -> new SaplingBlock(new SakuraTree(),
                     AbstractBlock.Properties.from(Blocks.ACACIA_SAPLING)));
     public static final RegistryObject<Block> SAKURA_LEAVES = BLOCKS.register("sakura_leaves", SakuraLeaves::new);
-    public static final RegistryObject<Block> SAKURA_BLOSSOM_LEAVES = BLOCKS.register("sakura_blossom_leaves", SakuraBlossomLeaves::new);
     public static final RegistryObject<Block> SAKURA_LOG = BLOCKS.register("sakura_log", SakuraLog::new);
     public static final RegistryObject<Block> SAKURA_PLANKS = BLOCKS.register("sakura_planks", SakuraPlanks::new);
     public static final RegistryObject<Block> SAKURA_BUTTON = BLOCKS.register("sakura_button", SakuraButton::new);
