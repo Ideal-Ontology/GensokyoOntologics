@@ -36,6 +36,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
@@ -51,6 +52,23 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = "gensokyoontology", bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GSKOEntityEvents {
+    // @SubscribeEvent
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.player.getEntityWorld() instanceof ServerWorld && event.player instanceof ServerPlayerEntity) {
+            ServerPlayerEntity player = (ServerPlayerEntity) event.player;
+            ServerWorld serverWorld = (ServerWorld) event.player.world;
+            boolean precondition = player.ticksExisted % 40 == 0;
+
+            LazyOptional<ImperishableNightCapability> cap = serverWorld.getCapability(GSKOCapabilities.IMPERISHABLE_NIGHT);
+            cap.ifPresent((capability -> {
+                if (precondition && capability.isTriggered()) {
+                    player.sendMessage(new StringTextComponent("---Start---"), player.getUniqueID());
+                    player.sendMessage(new StringTextComponent(String.valueOf(capability.isTriggered())), player.getUniqueID());
+                    player.sendMessage(new StringTextComponent("---End---"), player.getUniqueID());
+                }
+            }));
+        }
+    }
     @SubscribeEvent
     public static void onHotSpringIn(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() != null && event.getEntityLiving().isInWater()) {

@@ -321,6 +321,8 @@ public final class ItemRegistry {
 
     // ----------------------------------- 杂项物品 --------------------------------------//
     public static final RegistryObject<Item> SILVER_COIN = ITEMS.register("silver_coin", () -> new CoinItem(1F));
+    public static final RegistryObject<Item> SAKE_WORM = ITEMS.register("sake_worm", () -> new SakeWormItem(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> HOTSPRING_BUCKET = ITEMS.register("hotspring_bucket",
             () -> new BucketItem(FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)

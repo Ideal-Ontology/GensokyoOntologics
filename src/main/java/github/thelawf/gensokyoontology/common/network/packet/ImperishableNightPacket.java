@@ -5,24 +5,9 @@ import net.minecraftforge.fml.network.NetworkEvent;
 
 import java.util.function.Supplier;
 
-public class ImperishableNightPacket {
+public class ImperishableNightPacket extends IncidentPacket{
 
-    public ImperishableNightPacket() {
-
-    }
-
-    public ImperishableNightPacket(PacketBuffer buf) {
-
-    }
-
-    public void toBytes(PacketBuffer buf) {
-
-    }
-
-    public void handle(Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> {
-
-        });
-        ctx.get().setPacketHandled(true);
+    public ImperishableNightPacket(PacketBuffer buffer) {
+        super(buffer);
     }
 }

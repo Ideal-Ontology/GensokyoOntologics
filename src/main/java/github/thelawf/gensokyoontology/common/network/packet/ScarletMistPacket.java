@@ -26,7 +26,7 @@ public class ScarletMistPacket {
         buf.writeVarInt(this.color);
     }
 
-    public void handler(Supplier<NetworkEvent.Context> context) {
+    public void handle(Supplier<NetworkEvent.Context> context) {
         if (context.get().getDirection().getReceptionSide().isClient()) {
             context.get().enqueueWork(() -> {
                 Minecraft minecraft = Minecraft.getInstance();

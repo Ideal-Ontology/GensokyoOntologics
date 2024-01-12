@@ -3,19 +3,26 @@ package github.thelawf.gensokyoontology.common.events;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.block.GapBlock;
 import github.thelawf.gensokyoontology.common.entity.spawn.LilyWhiteSpawner;
+import github.thelawf.gensokyoontology.common.item.touhou.GapItem;
+import github.thelawf.gensokyoontology.common.item.touhou.SakeWormItem;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
-import github.thelawf.gensokyoontology.common.world.GSKOEntityGenerator;
-import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatureGenerator;
+import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.BlockItem;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
@@ -30,6 +37,7 @@ import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.ChunkEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -44,6 +52,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID)
 public class GSKOWorldEvents {
@@ -59,6 +68,20 @@ public class GSKOWorldEvents {
         //         event, EntityRegistry.TSUMI_BUKURO_ENTITY.get(), 15, 2, 3,
         //         GSKOBiomes.BEAST_PATH_KEY,
         //         GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY);
+    }
+    
+    @SubscribeEvent
+    public static void onItemEntityTick(EntityEvent event) {
+        if (event.getEntity().getType() == EntityType.ITEM) {
+            ItemEntity itemEntity = (ItemEntity) event.getEntity();
+            World world = event.getEntity().getEntityWorld();
+            if (itemEntity.getItem().getItem() == ItemRegistry.SAKE_WORM.get() && itemEntity.ticksExisted >= 300 &&
+                    world.getBlockState(itemEntity.getPosition()).getBlock() == Blocks.WATER) {
+                world.setBlockState(itemEntity.getPosition(), BlockRegistry.SAKE_WINE_BLOCK.get().getDefaultState());
+            }
+            onGapEntityTick(itemEntity, ItemRegistry.GAP_BLOCK.get());
+
+        }
     }
 
     @SubscribeEvent
@@ -141,6 +164,20 @@ public class GSKOWorldEvents {
         GSKOFeatureGenerator.generateGensokyoOre(event);
     }
 
+    private static void onGapEntityTick(ItemEntity entity, BlockItem gapItem) {
+        if (entity.getItem().getItem() == gapItem) {
+            World world = entity.getEntityWorld();
+            Predicate<BlockPos> predicate = (pos) -> {
+                BlockPos.Mutable mutable = pos.toMutable();
+                return world.getBlockState(mutable).getBlock() == Blocks.WATER && world.getBlockState(mutable.north()).getBlock() == Blocks.WATER &&
+                        world.getBlockState(mutable.south()).getBlock() == Blocks.WATER && world.getBlockState(mutable.east()).getBlock() == Blocks.WATER &&
+                        world.getBlockState(mutable.west()).getBlock() == Blocks.WATER && world.getBlockState(mutable.add(1,0,1)).getBlock() == Blocks.WATER &&
+                        world.getBlockState(mutable.add(1,0,-1)).getBlock() == Blocks.WATER && world.getBlockState(mutable.add(-1,0,1)).getBlock() == Blocks.WATER &&
+                        world.getBlockState(mutable.add(-1,0,-1)).getBlock() == Blocks.WATER;
+            };
+        }
+    }
+
 
     private static void spawnEntityIn(ServerWorld serverWorld, EntityClassification classification,
                                       WorldEvent.PotentialSpawns event) {
@@ -165,6 +202,7 @@ public class GSKOWorldEvents {
         serverWorld.getChunkProvider().getChunkGenerator().getBiomeProvider()
                 .getBiomes().forEach(biome -> spawnEntityIn(biome, biomeIds, classification));
     }
+
 
     private static <FC extends IFeatureConfig, F extends Feature<FC>> void generateFeatureIn(Biome biome, ConfiguredFeature<FC, F> feature) {
 

@@ -70,12 +70,6 @@ public class GSKOCommonEvents {
             if (serverWorld != null) {
                 updateCapability(serverWorld, GSKOCapabilities.BLOODY_MIST);
                 updateCapability(serverWorld, GSKOCapabilities.IMPERISHABLE_NIGHT);
-
-                // LazyOptional<BloodyMistCapability> bloodyMistOld = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
-                // LazyOptional<BloodyMistCapability> bloodyMistNew = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
-                // if (bloodyMistOld.isPresent() && bloodyMistNew.isPresent()) {
-                //     bloodyMistNew.ifPresent(capNew -> bloodyMistOld.ifPresent(capOld -> capNew.deserializeNBT(capOld.serializeNBT())));
-                // }
             }
 
         }

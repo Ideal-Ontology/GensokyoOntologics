@@ -11,6 +11,7 @@ import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.util.ReflectHelper;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.ISuggestionProvider;
+import net.minecraft.command.impl.data.DataCommand;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;

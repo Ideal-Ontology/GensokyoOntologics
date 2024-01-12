@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.capability;
+package github.thelawf.gensokyoontology.common.capability.entity;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
