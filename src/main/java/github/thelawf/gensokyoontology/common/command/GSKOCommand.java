@@ -59,12 +59,10 @@ public class GSKOCommand {
 
     private static int getCapability(CommandSource source, LazyOptional<Capability<?>> optional) {
         optional.ifPresent(capability -> {
-            source.sendFeedback(new StringTextComponent(capability.getName()), true);
             try {
                 Class<?> clazz = Class.forName(capability.getName());
-                Constructor<?> constructor = clazz.getDeclaredConstructor();
-                List<Class<?>> params = Arrays.asList(constructor.getParameterTypes());
-            } catch (ClassNotFoundException | NoSuchMethodException e) {
+                source.sendFeedback(new StringTextComponent(clazz.getName()), true);
+            } catch (ClassNotFoundException e) {
                 throw new RuntimeException(e);
             }
         });

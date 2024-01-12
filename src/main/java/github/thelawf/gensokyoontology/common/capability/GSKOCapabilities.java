@@ -1,8 +1,8 @@
 package github.thelawf.gensokyoontology.common.capability;
 
-import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeCapability;
-import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeProvider;
+import github.thelawf.gensokyoontology.common.capability.entity.FaithCapability;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.capability.world.EternalSummerCapability;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
@@ -15,21 +15,24 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-
 public class GSKOCapabilities {
 
     @CapabilityInject(BloodyMistCapability.class)
     public static Capability<BloodyMistCapability> BLOODY_MIST;
     @CapabilityInject(ImperishableNightCapability.class)
     public static Capability<ImperishableNightCapability> IMPERISHABLE_NIGHT;
-    @CapabilityInject(ExtraLifeCapability.class)
-    public static Capability<ExtraLifeCapability> EXTRA_LIFE;
     @CapabilityInject(EternalSummerCapability.class)
     public static Capability<EternalSummerCapability> ETERNAL_SUMMER;
-
+    @CapabilityInject(GSKOPowerCapability.class)
+    public static Capability<GSKOPowerCapability> POWER;
+    @CapabilityInject(FaithCapability.class)
+    public static Capability<GSKOPowerCapability> FAITH;
+    @CapabilityInject(ExtraLifeCapability.class)
+    public static Capability<ExtraLifeCapability> EXTRA_LIFE;
 
     public static void registerCapabilities() {
+        register(GSKOPowerCapability.class);
+        register(FaithCapability.class);
         register(ExtraLifeCapability.class);
         register(BloodyMistCapability.class);
         register(ImperishableNightCapability.class);

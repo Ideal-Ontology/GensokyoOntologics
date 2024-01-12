@@ -1,9 +1,12 @@
 package github.thelawf.gensokyoontology.common.events;
 
+import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.GapBlock;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.entity.spawn.LilyWhiteSpawner;
 import github.thelawf.gensokyoontology.common.item.touhou.GapItem;
 import github.thelawf.gensokyoontology.common.item.touhou.SakeWormItem;
@@ -72,6 +75,7 @@ public class GSKOWorldEvents {
     
     @SubscribeEvent
     public static void onItemEntityTick(EntityEvent event) {
+        if (event.getEntity() == null) return;
         if (event.getEntity().getType() == EntityType.ITEM) {
             ItemEntity itemEntity = (ItemEntity) event.getEntity();
             World world = event.getEntity().getEntityWorld();
@@ -102,6 +106,16 @@ public class GSKOWorldEvents {
                 Biome biome = serverWorld.getBiome(chunk.getPos().asBlockPos());
                 final String modid = GensokyoOntology.MODID;
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPowerChangedTLM(TickEvent.WorldTickEvent event) {
+        if (TouhouLittleMaidCompat.isLoaded() && !event.world.isRemote) {
+            ServerWorld serverWorld = (ServerWorld) event.world;
+            serverWorld.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(cap ->
+                    serverWorld.getCapability(GSKOCapabilities.POWER).ifPresent(capability ->
+                            capability.setCount(cap.get())));
         }
     }
 

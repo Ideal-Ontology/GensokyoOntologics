@@ -1,18 +1,29 @@
 package github.thelawf.gensokyoontology.client;
 
+import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
+import com.github.tartaricacid.touhoulittlemaid.init.InitItems;
+import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screen.DownloadTerrainScreen;
+import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -80,6 +91,36 @@ public class GSKOClientListener {
     }
 
     private static void applyBloodyMistRender() {
+
+    }
+
+    /**
+     * Copy from Touhou Little Maid: {@link com.github.tartaricacid.touhoulittlemaid.client.event.ShowPowerEvent ShowPowerEvent}
+     *
+     */
+    @SubscribeEvent
+    public static void onRenderOverlay(RenderGameOverlayEvent event) {
+        if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {
+            ClientPlayerEntity player = Minecraft.getInstance().player;
+            if (player == null) {
+                return;
+            }
+
+            ItemStack stack = player.getHeldItemMainhand();
+            if (stack.getItem() != ItemRegistry.HAKUREI_GOHEI.get()) {
+                return;
+            }
+
+            ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
+            FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
+            final ItemStack POWER_ITEM = ItemRegistry.POWER_ITEM.get().getDefaultInstance();
+
+            itemRenderer.renderItemIntoGUI(POWER_ITEM, 5, 5);
+            player.getCapability(GSKOCapabilities.POWER).ifPresent((cap) -> {
+                fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD, cap.getCount()), 20.0F, 10.0F, 16777215);
+            });
+            RenderSystem.enableBlend();
+        }
 
     }
 }

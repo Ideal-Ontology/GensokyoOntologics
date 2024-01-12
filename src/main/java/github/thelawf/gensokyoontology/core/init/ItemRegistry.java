@@ -647,24 +647,22 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     //////////////////////////// 道具：B点、残机 ////////////////////////////////
-    public static final RegistryObject<Item> FAKE_LUNAR_ITEM = ITEMS.register(
-            "fake_lunar", () -> new FakeLunarItem(DanmakuType.FAKE_LUNAR));
+    public static final RegistryObject<Item> FAKE_LUNAR_ITEM = ITEMS.register("fake_lunar",
+            () -> new FakeLunarItem(DanmakuType.FAKE_LUNAR));
 
-    public static final RegistryObject<Item> BOMB_FRAGMENT = ITEMS.register(
-            "bomb_fragment", () -> new BombFragment(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> POWER_ITEM = ITEMS.register("power_item",
+            () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> BOMB_FRAGMENT = ITEMS.register("bomb_fragment",
+            () -> new BombFragment(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    public static final RegistryObject<Item> LIFE_FRAGMENT = ITEMS.register(
-            "life_fragment", () -> new LifeFragment(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> LIFE_FRAGMENT = ITEMS.register("life_fragment",
+            () -> new LifeFragment(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    public static final RegistryObject<Item> BOMB_ITEM = ITEMS.register(
-            "bomb_item", () -> new BombItem(
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> BOMB_ITEM = ITEMS.register("bomb_item",
+            () -> new BombItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    public static final RegistryObject<Item> EXTEND_ITEM = ITEMS.register(
-            "extend_item", () -> new ExtendItem(
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> EXTEND_ITEM = ITEMS.register("extend_item",
+            () -> new ExtendItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     // +++++++++++++++++++++++++++ Deprecated Items +++++++++++++++++++++++//
     // public static final RegistryObject<Item> RAIL_NODE = ITEMS.register(

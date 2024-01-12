@@ -2,16 +2,21 @@ package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerProvider;
 import github.thelawf.gensokyoontology.common.capability.world.*;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -42,9 +47,13 @@ public class GSKOCommonEvents {
         }
     }
 
-    //@SubscribeEvent
-    public static void onCapabilityAttachToPlayer(AttachCapabilitiesEvent<PlayerEntity> event) {
-
+    @SubscribeEvent
+    public static void onCapabilityAttachToEntity(AttachCapabilitiesEvent<Entity> event) {
+        Entity entity = event.getObject();
+        if (entity instanceof PlayerEntity) {
+            GSKOPowerProvider powerProvider = new GSKOPowerProvider(0f);
+            event.addCapability(GensokyoOntology.withRL("power"), powerProvider);
+        }
     }
 
     //@SubscribeEvent
@@ -63,6 +72,13 @@ public class GSKOCommonEvents {
     }
 
     @SubscribeEvent
+    public static void onPlayerCloned(PlayerEvent.Clone event) {
+        if (!event.isWasDeath()) {
+            updateCapability(event, GSKOCapabilities.POWER);
+        }
+    }
+
+    @SubscribeEvent
     public static void onWorldTickDuringIncident(WorldEvent.Load event) {
         if (event.getWorld() instanceof ServerWorld) {
             ServerWorld serverWorld = ((ServerWorld) event.getWorld()).getServer().getWorld(GSKODimensions.GENSOKYO);
@@ -72,6 +88,14 @@ public class GSKOCommonEvents {
                 updateCapability(serverWorld, GSKOCapabilities.IMPERISHABLE_NIGHT);
             }
 
+        }
+    }
+
+    private static <C extends INBTSerializable<CompoundNBT>> void updateCapability(PlayerEvent.Clone event, Capability<C> capability) {
+        LazyOptional<C> oldCapability = event.getOriginal().getCapability(capability);
+        LazyOptional<C> newCapability = event.getPlayer().getCapability(capability);
+        if (oldCapability.isPresent() && newCapability.isPresent()) {
+            newCapability.ifPresent(capNew -> oldCapability.ifPresent(capOld -> capNew.deserializeNBT(capOld.serializeNBT())));
         }
     }
 
