@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapabil
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
+import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
@@ -64,7 +65,6 @@ public class GSKOEntityEvents {
             PlayerEntity player = (PlayerEntity)event.getEntity();
             player.getCapability(GSKOCapabilities.POWER).ifPresent(GSKOPowerCapability::markDirty);
         }
-
     }
 
     /**
@@ -93,7 +93,7 @@ public class GSKOEntityEvents {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
             if (event.side == LogicalSide.CLIENT && event.phase == TickEvent.Phase.END) {
                 trySyncPower(serverPlayer);
-                trySyncPowerFromTLM(serverPlayer);
+                if (TouhouLittleMaidCompat.isLoaded()) trySyncPowerFromTLM(serverPlayer);
             }
         }
     }

@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.INBTSerializable;
 
 public class GSKOPowerCapability implements INBTSerializable<CompoundNBT> {
@@ -26,7 +27,7 @@ public class GSKOPowerCapability implements INBTSerializable<CompoundNBT> {
     }
 
     public void setCount(float count) {
-        this.count = count > MAX ? MAX : Math.max(count, MIN);
+        this.count = MathHelper.clamp(count, MIN, MAX);
     }
 
     public float getCount() {
@@ -34,7 +35,7 @@ public class GSKOPowerCapability implements INBTSerializable<CompoundNBT> {
     }
 
     public void add(float count) {
-        this.count = this.count + count > MAX ? MAX : Math.max(this.count + count, MIN);
+        this.count = MathHelper.clamp(this.count + count, MIN, MAX);
     }
 
     public void markDirty() {
