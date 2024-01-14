@@ -106,7 +106,6 @@ public class GSKOEntityEvents {
             }
         });
     }
-
     private static void trySyncPowerFromTLM(ServerPlayerEntity serverPlayer) {
         serverPlayer.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> serverPlayer.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(capability -> {
             if (cap.isDirty()) {
