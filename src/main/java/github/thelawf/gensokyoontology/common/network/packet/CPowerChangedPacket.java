@@ -38,9 +38,6 @@ public class CPowerChangedPacket {
     private static void sendToClient(CPowerChangedPacket packet) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.world != null && mc.player != null) {
-            if (TouhouLittleMaidCompat.isLoaded()) {
-                TouhouLittleMaidCompat.trySyncPower(packet, mc.player, TouhouLittleMaidCompat.SyncType.GSKO_TO_TLM);
-            }
             mc.player.getCapability(GSKOCapabilities.POWER).ifPresent((cap) -> cap.setCount(packet.count));
         }
     }

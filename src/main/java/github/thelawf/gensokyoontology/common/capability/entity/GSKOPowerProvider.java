@@ -6,6 +6,7 @@ import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -15,7 +16,7 @@ public class GSKOPowerProvider implements ICapabilitySerializable<CompoundNBT> {
     private GSKOPowerCapability capability;
     public GSKOPowerProvider(float count) {
         this.count = count;
-        this.capability = capability;
+        this.capability = GSKOCapabilities.POWER.getDefaultInstance();
     }
 
     public GSKOPowerCapability getOrCreate() {
@@ -28,7 +29,7 @@ public class GSKOPowerProvider implements ICapabilitySerializable<CompoundNBT> {
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return cap == GSKOCapabilities.POWER ? LazyOptional.of(this::getOrCreate).cast() : LazyOptional.empty();
+        return cap == GSKOCapabilities.POWER && this.capability != null ? LazyOptional.of(() -> this.capability).cast() : LazyOptional.empty();
     }
 
     @Override

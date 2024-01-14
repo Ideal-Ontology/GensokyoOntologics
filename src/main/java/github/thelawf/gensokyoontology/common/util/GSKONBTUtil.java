@@ -9,10 +9,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 public class GSKONBTUtil {
@@ -25,6 +23,18 @@ public class GSKONBTUtil {
             }
         }
         return false;
+    }
+
+    public static CompoundNBT getNonNullTag(ItemStack stack, String key) {
+        CompoundNBT nbt = stack.getTag();
+        if (nbt == null) return new CompoundNBT();
+        return stack.getTag();
+    }
+
+    public static boolean hasAndContainsTag(ItemStack stack, String key) {
+        CompoundNBT nbt = stack.getTag();
+        if (nbt == null) return false;
+        return stack.hasTag() && stack.isEmpty() && nbt.contains(key);
     }
 
     public static int getFirstItemIndex(PlayerEntity player, Item item) {

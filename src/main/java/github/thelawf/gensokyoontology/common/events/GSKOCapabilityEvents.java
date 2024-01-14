@@ -2,11 +2,13 @@ package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerProvider;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistProvider;
 import github.thelawf.gensokyoontology.common.capability.world.EternalSummerCapProvider;
 import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapability;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightProvider;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,13 +22,15 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GSKOCapabilityEvents {
 
-    @SubscribeEvent
+    // @SubscribeEvent
     public static void onCapabilityAttachToWorld(AttachCapabilitiesEvent<World> event) {
         if (event.getObject() instanceof World) {
             List<String> biomes = new ArrayList<>();
@@ -53,7 +57,7 @@ public class GSKOCapabilityEvents {
     }
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
-        if (!event.isWasDeath()) {
+        if (event.isWasDeath()) {
             updateCapability(event, GSKOCapabilities.POWER);
         }
     }
@@ -71,9 +75,9 @@ public class GSKOCapabilityEvents {
         }
     }
 
-    private static <C extends INBTSerializable<CompoundNBT>> void updateCapability(PlayerEvent.Clone event, Capability<C> capability) {
-        LazyOptional<C> oldCapability = event.getOriginal().getCapability(capability);
-        LazyOptional<C> newCapability = event.getPlayer().getCapability(capability);
+    private static void updateCapability(PlayerEvent.Clone event, Capability<GSKOPowerCapability> capability) {
+        LazyOptional<GSKOPowerCapability> oldCapability = event.getOriginal().getCapability(capability);
+        LazyOptional<GSKOPowerCapability> newCapability = event.getPlayer().getCapability(capability);
         if (oldCapability.isPresent() && newCapability.isPresent()) {
             newCapability.ifPresent(capNew -> oldCapability.ifPresent(capOld -> capNew.deserializeNBT(capOld.serializeNBT())));
         }

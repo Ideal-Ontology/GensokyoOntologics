@@ -1,8 +1,12 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
+import org.jetbrains.annotations.Nullable;
 
 public class GSKOPowerCapability implements INBTSerializable<CompoundNBT> {
     private float count;
@@ -48,5 +52,21 @@ public class GSKOPowerCapability implements INBTSerializable<CompoundNBT> {
 
     public void setDirty(boolean dirty) {
         this.isDirty = dirty;
+    }
+
+    public static class Storage implements Capability.IStorage<GSKOPowerCapability> {
+        @Nullable
+        @Override
+        public INBT writeNBT(Capability<GSKOPowerCapability> capability, GSKOPowerCapability instance, Direction side) {
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putFloat("power_count", instance.getCount());
+            return nbt;
+        }
+
+        @Override
+        public void readNBT(Capability<GSKOPowerCapability> capability, GSKOPowerCapability instance, Direction side, INBT nbt) {
+            CompoundNBT compoundNBT = (CompoundNBT) nbt;
+            instance.setCount(compoundNBT.getFloat("power_count"));
+        }
     }
 }

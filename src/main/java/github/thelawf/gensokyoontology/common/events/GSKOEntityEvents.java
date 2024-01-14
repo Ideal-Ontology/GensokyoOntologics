@@ -7,13 +7,14 @@ import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapabil
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
-import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
+import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
@@ -56,7 +57,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-@Mod.EventBusSubscriber(modid = "gensokyoontology", bus = Mod.EventBusSubscriber.Bus.FORGE)
+@Mod.EventBusSubscriber(modid = "gensokyoontology")
 public class GSKOEntityEvents {
 
     @SubscribeEvent
@@ -67,57 +68,44 @@ public class GSKOEntityEvents {
         }
     }
 
+
     /**
-     * 该方法只有在检测到玩家在车万女仆模组中更改了他自己的Power点数之后才会起作用，作用是将车万女仆的Power点数同步至本模组的Power点数
+     * 该方法只有在检测到玩家在车万女仆模组中更改了他自己的Power点数之后才会起作用，作用是将车万女仆的Power点数同步至本模组的Power点数。
+     * 订阅tick事件以进行数据包的发送操作，需要获取逻辑端和tick事件阶段。
      * @param event 玩家tick事件
      * @apiNote This method will make effects only when it detects a player change his power counts in Touhou Little Maid mod.
      * The effect of this method is to sync the power counts from Touhou Little Maid to this Mod.
-     */
-    @SubscribeEvent
-    public static void onPowerChangedFromTLM(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
-        player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(cap ->
-                player.getCapability(GSKOCapabilities.POWER).ifPresent(capability -> {
-                    if (player.ticksExisted % 10 == 0) capability.setCount(cap.get());
-                }));
-    }
-
-    /**
-     * 订阅tick事件以进行数据包的发送操作，需要获取逻辑端和tick事件阶段。
-     * @param event 玩家tick事件
+     *
      */
     @SubscribeEvent
     public static void onPacketSendToPlayer(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
-        if (player instanceof ServerPlayerEntity) {
-            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-            if (event.side == LogicalSide.CLIENT && event.phase == TickEvent.Phase.END) {
-                trySyncPower(serverPlayer);
-                if (TouhouLittleMaidCompat.isLoaded()) trySyncPowerFromTLM(serverPlayer);
-            }
+        if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
+            trySyncPowerFromTLM(player);
         }
+
     }
 
-    private static void trySyncPower(ServerPlayerEntity serverPlayer) {
-        serverPlayer.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
-            if (cap.isDirty()) {
-                GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(cap.getCount()), serverPlayer);
-                cap.setDirty(false);
+    private static void trySyncPower(PlayerEntity serverPlayer) {
+        serverPlayer.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+            if (gskoCap.isDirty()) {
+                GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(gskoCap.getCount()), serverPlayer);
+                gskoCap.setDirty(false);
             }
         });
     }
-    private static void trySyncPowerFromTLM(ServerPlayerEntity serverPlayer) {
-        serverPlayer.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> serverPlayer.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(capability -> {
-            if (cap.isDirty()) {
-                GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(cap.getCount()), serverPlayer);
-                cap.setDirty(false);
-            }
+    private static void trySyncPowerFromTLM(PlayerEntity serverPlayer) {
+        serverPlayer.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> serverPlayer.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+            gskoCap.setCount(tlmCap.get());
+            GSKOUtil.showChatMsg(serverPlayer, gskoCap.getCount(), 30);
+            GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(tlmCap.get()), serverPlayer);
+            gskoCap.setDirty(false);
+
         }));
     }
 
-    @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
-
+    // @SubscribeEvent
+    public static void onPlayerCapabilityTick(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         if (event.player instanceof ServerPlayerEntity) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) event.player;
@@ -126,14 +114,15 @@ public class GSKOEntityEvents {
                     GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(cap.getCount()), serverPlayer);
                 });
             }
+        }
+    }
 
-            if (serverPlayer.getEntityWorld() instanceof ServerWorld && serverPlayer instanceof ServerPlayerEntity) {
-                ServerWorld serverWorld = (ServerWorld) serverPlayer.world;
-                boolean precondition = serverPlayer.ticksExisted % 40 == 0;
-
-                LazyOptional<ImperishableNightCapability> cap = serverWorld.getCapability(GSKOCapabilities.IMPERISHABLE_NIGHT);
-                cap.ifPresent((capability -> {
-                }));
+    @SubscribeEvent
+    public static void onPlayerThroughWalls(LivingEvent.LivingUpdateEvent event) {
+        if (event.getEntityLiving() != null && event.getEntityLiving() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+            if (GSKOUtil.firstMatch(player,ItemRegistry.SEIGA_HAIRPIN.get())) {
+                SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));
             }
         }
     }

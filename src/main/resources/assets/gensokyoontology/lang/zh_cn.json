@@ -197,14 +197,16 @@
   "item.gensokyoontology.clock_needle": "钟楼指针",
   "item.gensokyoontology.crooked_clock_needle": "歪曲的钟楼指针",
 
-  "item.gensokyoontology.eirin_yagookoro_arrow": "永琳的箭矢",
+  "item.gensokyoontology.gap": "隙间",
+  "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
 
+  "item.gensokyoontology.eirin_yagookoro_arrow": "永琳的箭矢",
   "item.gensokyoontology.koishi_eye_open": "恋恋的第三只眼 (睁开)",
   "item.gensokyoontology.koishi_eye_closed": "恋恋的第三只眼 (关闭)",
   "item.gensokyoontology.satori_eye": "觉的第三只眼",
   "item.gensokyoontology.koishi_hat": "恋恋的帽子",
-  "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
-  "item.gensokyoontology.gap": "隙间",
+  "item.gensokyoontology.seiga_hairpin": "穿墙之凿",
+
   "item.gensokyoontology.story_card": "故事卡片",
 
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",

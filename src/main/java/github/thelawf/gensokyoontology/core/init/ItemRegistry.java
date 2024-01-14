@@ -302,6 +302,9 @@ public final class ItemRegistry {
     public static final RegistryObject<SatoriEye> SATORI_EYE = ITEMS.register(
             "satori_eye", () -> new SatoriEye(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<SeigaHairpin> SEIGA_HAIRPIN = ITEMS.register(
+            "seiga_hairpin", () -> new SeigaHairpin(new Item.Properties()
+                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<SpiritTube> SPIRIT_TUBE = ITEMS.register(
             "spirit_tube", () -> new SpiritTube(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));

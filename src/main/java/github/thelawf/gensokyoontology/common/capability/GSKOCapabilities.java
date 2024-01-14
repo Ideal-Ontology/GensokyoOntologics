@@ -26,7 +26,7 @@ public class GSKOCapabilities {
     @CapabilityInject(GSKOPowerCapability.class)
     public static Capability<GSKOPowerCapability> POWER;
     @CapabilityInject(FaithCapability.class)
-    public static Capability<GSKOPowerCapability> FAITH;
+    public static Capability<FaithCapability> FAITH;
     @CapabilityInject(ExtraLifeCapability.class)
     public static Capability<ExtraLifeCapability> EXTRA_LIFE;
 
@@ -38,6 +38,11 @@ public class GSKOCapabilities {
         register(ImperishableNightCapability.class);
         register(EternalSummerCapability.class);
     }
+
+    private static <T extends INBTSerializable<CompoundNBT>> void register(Class<T> capClass, Capability.IStorage<T> storage) {
+        CapabilityManager.INSTANCE.register(capClass, storage, capClass::newInstance);
+    }
+
 
     private static <T extends INBTSerializable<CompoundNBT>> void register(Class<T> capClass) {
         CapabilityManager.INSTANCE.register(capClass, new Capability.IStorage<T>() {
