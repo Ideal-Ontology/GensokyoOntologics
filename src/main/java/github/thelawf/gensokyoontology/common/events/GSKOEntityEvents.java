@@ -68,7 +68,6 @@ public class GSKOEntityEvents {
         }
     }
 
-
     /**
      * 该方法只有在检测到玩家在车万女仆模组中更改了他自己的Power点数之后才会起作用，作用是将车万女仆的Power点数同步至本模组的Power点数。
      * 订阅tick事件以进行数据包的发送操作，需要获取逻辑端和tick事件阶段。
@@ -78,12 +77,11 @@ public class GSKOEntityEvents {
      *
      */
     @SubscribeEvent
-    public static void onPacketSendToPlayer(TickEvent.PlayerTickEvent event) {
+    public static void onPacketSendToCilent(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
             trySyncPowerFromTLM(player);
         }
-
     }
 
     private static void trySyncPower(PlayerEntity serverPlayer) {
@@ -94,11 +92,10 @@ public class GSKOEntityEvents {
             }
         });
     }
-    private static void trySyncPowerFromTLM(PlayerEntity serverPlayer) {
-        serverPlayer.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> serverPlayer.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+    private static void trySyncPowerFromTLM(PlayerEntity player) {
+        player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
             gskoCap.setCount(tlmCap.get());
-            GSKOUtil.showChatMsg(serverPlayer, gskoCap.getCount(), 30);
-            GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(tlmCap.get()), serverPlayer);
+            GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(tlmCap.get()), player);
             gskoCap.setDirty(false);
 
         }));
@@ -122,6 +119,7 @@ public class GSKOEntityEvents {
         if (event.getEntityLiving() != null && event.getEntityLiving() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) event.getEntityLiving();
             if (GSKOUtil.firstMatch(player,ItemRegistry.SEIGA_HAIRPIN.get())) {
+                player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> gskoCap.add(-0.01F));
                 SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));
             }
         }

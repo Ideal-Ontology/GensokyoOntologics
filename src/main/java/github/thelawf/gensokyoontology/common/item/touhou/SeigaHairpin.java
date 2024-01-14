@@ -2,13 +2,21 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import net.minecraft.command.impl.GameRuleCommand;
+import net.minecraft.entity.Pose;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.world.GameRules;
+import net.minecraft.world.GameType;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -19,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class SeigaHairpin extends Item {
     private int maxTick = 0;
+    private static final AxisAlignedBB ZERO_AABB = new AxisAlignedBB(BlockPos.ZERO, BlockPos.ZERO);
     public SeigaHairpin(Properties properties) {
         super(properties);
     }
@@ -27,32 +36,32 @@ public class SeigaHairpin extends Item {
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        playerIn.sendMessage(new StringTextComponent("before"), playerIn.getUniqueID());
-        if (!stack.hasTag()) {
-            playerIn.sendMessage(new StringTextComponent("hasNoTag"), playerIn.getUniqueID());
+        if (!GSKONBTUtil.hasAndContainsTag(stack, "maxTick")) {
             CompoundNBT nbt = new CompoundNBT();
+            GSKOUtil.showChatMsg(playerIn, playerIn.getCapability(GSKOCapabilities.POWER).isPresent(), 1);
             playerIn.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
-                int count = (int) (cap.getCount() * 2000);
-                nbt.putInt("max_tick", playerIn.ticksExisted + count);
+                int count = (int) (cap.getCount() * 20);
+                nbt.putInt("maxTick", playerIn.ticksExisted + count);
             });
             stack.setTag(nbt);
             return super.onItemRightClick(worldIn, playerIn, handIn);
         }
         else {
-            playerIn.sendMessage(new StringTextComponent("hasTag"), playerIn.getUniqueID());
             stack.setTag(new CompoundNBT());
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     public static void trySetNoClip(PlayerEntity player, ItemStack stack) {
-        if (!GSKONBTUtil.hasAndContainsTag(stack, "max_tick")) return;
-        int tick = GSKONBTUtil.getNonNullTag(stack, "max_tick").getInt("max_tick");
+        if (stack.getTag() == null || !stack.getTag().contains("maxTick")) return;
+        int tick = GSKONBTUtil.getNonNullTag(stack, "maxTick").getInt("maxTick");
         if (player.ticksExisted < tick) {
-            player.noClip = false;
+            player.noClip = true;
+            player.setNoGravity(true);
         }
         else {
-            player.noClip = true;
+            player.noClip = false;
+            player.setNoGravity(false);
             stack.setTag(new CompoundNBT());
         }
     }

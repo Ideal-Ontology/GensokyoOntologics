@@ -1,12 +1,11 @@
 package github.thelawf.gensokyoontology.client;
 
-import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
-import com.github.tartaricacid.touhoulittlemaid.init.InitItems;
 import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
-import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
@@ -15,7 +14,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screen.DownloadTerrainScreen;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.server.ServerWorld;
@@ -28,7 +26,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.apache.logging.log4j.LogManager;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, value = Dist.CLIENT)
@@ -117,10 +114,11 @@ public class GSKOClientListener {
             final ItemStack POWER_ITEM = ItemRegistry.POWER_ITEM.get().getDefaultInstance();
 
             itemRenderer.renderItemIntoGUI(POWER_ITEM, 5, 5);
-            player.sendChatMessage(String.valueOf(player.getCapability(GSKOCapabilities.POWER).isPresent()));
+            GSKOUtil.showChatMsg(player, player.getCapability(GSKOCapabilities.POWER).isPresent(), 30);
             player.getCapability(GSKOCapabilities.POWER).ifPresent((cap) -> {
                 fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD, cap.getCount()), 20.0F, 10.0F, 16777215);
             });
+
             RenderSystem.enableBlend();
         }
 

@@ -34,7 +34,7 @@ public class GSKONBTUtil {
     public static boolean hasAndContainsTag(ItemStack stack, String key) {
         CompoundNBT nbt = stack.getTag();
         if (nbt == null) return false;
-        return stack.hasTag() && stack.isEmpty() && nbt.contains(key);
+        return nbt.contains(key);
     }
 
     public static int getFirstItemIndex(PlayerEntity player, Item item) {
