@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -38,8 +39,13 @@ public class CPowerChangedPacket {
     private static void sendToClient(CPowerChangedPacket packet) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.world != null && mc.player != null) {
-            mc.player.getCapability(GSKOCapabilities.POWER).ifPresent((cap) -> cap.setCount(packet.count));
+            mc.player.getCapability(GSKOCapabilities.POWER).ifPresent((cap) -> cap.setCount(packet.getCount()));
         }
+    }
+
+    private static void sendToServer(ServerWorld serverWorld, CPowerChangedPacket packet) {
+        serverWorld.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap ->
+            gskoCap.setCount(packet.getCount()));
     }
 
     public float getCount() {
