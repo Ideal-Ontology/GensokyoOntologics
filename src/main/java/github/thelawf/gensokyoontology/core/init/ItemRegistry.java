@@ -37,6 +37,13 @@ public final class ItemRegistry {
             ForgeRegistries.ITEMS, GensokyoOntology.MODID);
 
     // ======================= GSKO杂项：装饰类方块 ==========================//
+    // --------------------------- 泥土石头类方块：----------------------------//
+    public static final RegistryObject<BlockItem> KAOLIN_BLOCK_ITEM = ITEMS.register(
+            "kaolin", () -> new BlockItem(BlockRegistry.KAOLIN.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> KAOLINITE_BLOCK_ITEM = ITEMS.register(
+            "kaolinite", () -> new BlockItem(BlockRegistry.KAOLINITE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     // ---------------------------- 树木类方块：------------------------------//
     //////////////////////////////// 樱花木 ////////////////////////////////
     public static final RegistryObject<BlockItem> SAKURA_SAPLING_ITEM = ITEMS.register(
@@ -198,6 +205,9 @@ public final class ItemRegistry {
     // public static final RegistryObject<BlockItem> CHIREIDEN_COLORED_GLASS = ITEMS.register(
     //         "chireiden_colored_glass", () -> new BlockItem(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
     //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> CLAY_ADOBE_ITEM = ITEMS.register(
+            "clay_adobe", () -> new BlockItem(BlockRegistry.CLAY_ADOBE_BLOCK.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：功能性方块 =========================//
     //----------------------------- 合成台 --------------------------//

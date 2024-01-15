@@ -100,7 +100,7 @@ public final class GSKOBiomeMaker {
         return new Biome.Builder()
                 .depth(2.8f)
                 .scale(1.5f)
-                .downfall(0.35f)
+                .downfall(0.2f)
                 .temperature(0.6f)
                 .category(Biome.Category.EXTREME_HILLS)
                 .precipitation(Biome.RainType.SNOW)

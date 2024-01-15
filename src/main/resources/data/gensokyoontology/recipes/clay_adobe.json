@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X",
+    "X#"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:clay_ball"
+    },
+    "X": {
+      "item": "gensokyoontology:kaolin"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:clay_adobe",
+    "count": 1
+  }
+}

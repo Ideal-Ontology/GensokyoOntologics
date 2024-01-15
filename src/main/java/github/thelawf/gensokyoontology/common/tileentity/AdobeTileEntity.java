@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
 import com.google.common.collect.ImmutableList;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
@@ -15,8 +16,8 @@ import java.util.List;
 
 public class AdobeTileEntity extends TileEntity {
     private List<Vector3i> positionCarved;
-    public AdobeTileEntity(TileEntityType<?> tileEntityTypeIn) {
-        super(tileEntityTypeIn);
+    public AdobeTileEntity() {
+        super(TileEntityRegistry.ADOBE_TILE_ENTITY.get());
     }
 
     @Override

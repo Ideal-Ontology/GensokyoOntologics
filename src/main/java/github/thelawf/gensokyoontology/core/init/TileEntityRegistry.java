@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.core.init;
 
+import com.mojang.datafixers.types.Type;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.*;
 import net.minecraft.tileentity.TileEntityType;
@@ -32,4 +33,7 @@ public final class TileEntityRegistry {
     public static final RegistryObject<TileEntityType<SpellConsoleTileEntity>> SPELL_CONSOLE_TILE_ENTITY =
             TILE_ENTITIES.register("spell_console_tileentity", () -> TileEntityType.Builder.create(
                     SpellConsoleTileEntity::new, BlockRegistry.SPELL_CARD_CONSOLE.get()).build(null));
+    public static final RegistryObject<TileEntityType<AdobeTileEntity>> ADOBE_TILE_ENTITY =
+            TILE_ENTITIES.register("adobe_tileentity", () -> TileEntityType.Builder.create(
+                    AdobeTileEntity::new, BlockRegistry.CLAY_ADOBE_BLOCK.get()).build(null));
 }
