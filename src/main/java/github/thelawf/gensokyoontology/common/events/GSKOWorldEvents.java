@@ -79,12 +79,11 @@ public class GSKOWorldEvents {
         if (event.getEntity().getType() == EntityType.ITEM) {
             ItemEntity itemEntity = (ItemEntity) event.getEntity();
             World world = event.getEntity().getEntityWorld();
-            if (itemEntity.getItem().getItem() == ItemRegistry.SAKE_WORM.get() && itemEntity.ticksExisted >= 300 &&
+            if (itemEntity.getItem().getItem() == ItemRegistry.SAKE_WORM.get() && itemEntity.ticksExisted > 100 &&
                     world.getBlockState(itemEntity.getPosition()).getBlock() == Blocks.WATER) {
                 world.setBlockState(itemEntity.getPosition(), BlockRegistry.SAKE_WINE_BLOCK.get().getDefaultState());
             }
             onGapEntityTick(itemEntity, ItemRegistry.GAP_BLOCK.get());
-
         }
     }
 

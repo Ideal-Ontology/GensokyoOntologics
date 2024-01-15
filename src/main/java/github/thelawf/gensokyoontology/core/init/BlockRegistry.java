@@ -22,6 +22,10 @@ public final class BlockRegistry {
     ////////////////////                     装饰类方块                          /////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
+    //====================================   泥土石头类方块   ====================================//
+    public static final RegistryObject<Block> KAOLIN = BLOCKS.register("kaolin", KaolinBlock::new);
+    public static final RegistryObject<Block> KAOLINITE = BLOCKS.register("kaolinite", KaoliniteBlock::new);
+
     ////////////////////////////////////////// 魔法树木 //////////////////////////////////////////
     public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register("magic_leaves", MagicLeaves::new);
 

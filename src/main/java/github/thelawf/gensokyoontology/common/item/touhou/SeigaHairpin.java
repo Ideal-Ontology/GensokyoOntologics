@@ -32,10 +32,12 @@ public class SeigaHairpin extends Item {
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (!GSKONBTUtil.hasAndContainsTag(stack, "maxTick")) {
             CompoundNBT nbt = new CompoundNBT();
-            GSKOUtil.showChatMsg(playerIn, playerIn.getCapability(GSKOCapabilities.POWER).isPresent(), 1);
+
             playerIn.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
                 int count = (int) (cap.getCount() * 20);
+                GSKOUtil.showChatMsg(playerIn, cap.getCount(), 1);
                 nbt.putInt("maxTick", playerIn.ticksExisted + count);
+                nbt.putInt("yHeight", (int) playerIn.getPosY());
             });
             stack.setTag(nbt);
             return super.onItemRightClick(worldIn, playerIn, handIn);
@@ -49,9 +51,11 @@ public class SeigaHairpin extends Item {
     public static void trySetNoClip(PlayerEntity player, ItemStack stack) {
         if (stack.getTag() == null || !stack.getTag().contains("maxTick")) return;
         int tick = GSKONBTUtil.getNonNullTag(stack, "maxTick").getInt("maxTick");
+        int yHeight = GSKONBTUtil.getNonNullTag(stack, "yHeight").getInt("yHeight");
         if (player.ticksExisted < tick) {
             player.noClip = true;
             player.setNoGravity(true);
+            player.setPosition(player.getPosX(), yHeight, player.getPosZ());
         }
         else {
             player.noClip = false;

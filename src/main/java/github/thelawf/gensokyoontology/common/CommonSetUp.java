@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.command.GSKOCommand;
 import github.thelawf.gensokyoontology.common.command.GUICommand;
 import github.thelawf.gensokyoontology.common.network.CountDownNetworking;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomeGenerator;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
@@ -36,6 +37,8 @@ public class CommonSetUp {
             GSKOFeatures.registerStructure();
             GSKOFeatures.registerOre();
             GSKOFeatures.registerFeature();
+
+            GSKOBiomeGenerator.generate();
 
             GSKONetworking.register();
             GSKOCapabilities.registerCapabilities();

@@ -47,8 +47,11 @@ public final class FluidRegistry {
 
     public static final ForgeFlowingFluid.Properties HOT_SPRING_PROPERTIES = new ForgeFlowingFluid.Properties(
             HOT_SPRING_SOURCE, HOT_SPRING_FLOWING, FluidAttributes.builder(STILL_HOTSPRING_TEX, FLOW_HOTSPRING_TEX)
-            .color(0xFF00FFFF).density(5000).viscosity(4000))
-            .bucket(ItemRegistry.HOTSPRING_BUCKET).block(BlockRegistry.HOT_SPRING_BLOCK)
+            .color(0xFF00FFFF)
+            .density(5000)
+            .viscosity(4000))
+            .bucket(ItemRegistry.HOTSPRING_BUCKET)
+            .block(BlockRegistry.HOT_SPRING_BLOCK)
             .slopeFindDistance(3).explosionResistance(100F);
 
     public static final ForgeFlowingFluid.Properties SAKE_WINE_PROPERTIES = new ForgeFlowingFluid.Properties(

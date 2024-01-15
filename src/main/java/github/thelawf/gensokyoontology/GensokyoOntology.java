@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
+import github.thelawf.gensokyoontology.common.world.surface.GSKOSurfaceBuilders;
 import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
@@ -37,7 +38,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-// The value here should match an entry in the META-INF/mods.toml file
+
 @Mod(GensokyoOntology.MODID)
 public class GensokyoOntology {
 
@@ -76,6 +77,7 @@ public class GensokyoOntology {
         GSKOBiomes.BIOMES.register(eventBus);
         StructureRegistry.STRUCTURES.register(eventBus);
         PlacerRegistry.FOLIAGE_PLACERS.register(eventBus);
+        GSKOSurfaceBuilders.SURFACE_BUILDERS.register(eventBus);
 
         RecipeRegistry.register(eventBus);
         GSKOSoundEvents.registerSound(eventBus);

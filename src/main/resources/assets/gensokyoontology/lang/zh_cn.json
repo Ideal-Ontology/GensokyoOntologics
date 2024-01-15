@@ -214,6 +214,7 @@
   "item.gensokyoontology.cake_scarlet_demon": "猩红恶魔蛋糕",
   "item.gensokyoontology.butter": "黄油",
 
+  "item.gensokyoontology.sake_worm": "酒虫",
   "item.gensokyoontology.milk_bottle": "牛奶瓶",
   "item.gensokyoontology.lingoame": "苹果糖",
   "item.gensokyoontology.tako_yaki": "章鱼小丸子",
@@ -243,6 +244,9 @@
   "advancement.gensokyoontology.retreat_remilia.description": "退治蕾米莉亚·斯卡蕾特",
   "advancement.gensokyoontology.retreat_flandre.title": "最终鬼畜妹",
   "advancement.gensokyoontology.retreat_flandre.description": "退治芙兰朵露·斯卡蕾特",
+
+  "block.gensokyoontology.kaolin": "高岭土",
+  "block.gensokyoontology.kaolinite": "高岭石",
 
   "block.gensokyoontology.wasabi": "山葵",
   "block.gensokyoontology.lycoris_radiata": "红花石蒜",

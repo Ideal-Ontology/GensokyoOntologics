@@ -214,6 +214,7 @@
   "item.gensokyoontology.cake_scarlet_demon": "Cake Scarlet Demon",
   "item.gensokyoontology.butter": "Butter",
 
+  "item.gensokyoontology.sake_worm": "酒虫",
   "item.gensokyoontology.milk_bottle": "Milk Bottle",
   "item.gensokyoontology.lingoame": "Lingoame",
   "item.gensokyoontology.tako_yaki": "Takoyaki",
@@ -243,6 +244,9 @@
   "advancement.gensokyoontology.retreat_remilia.description": "Retreat Remilia Scarlet",
   "advancement.gensokyoontology.retreat_flandre.title": "最終鬼畜妹",
   "advancement.gensokyoontology.retreat_flandre.description": "Retreat Flandre Scarlet",
+
+  "block.gensokyoontology.kaolin": "Kaolin",
+  "block.gensokyoontology.kaolinite": "Kaolinite",
 
   "block.gensokyoontology.wasabi": "Wasabi",
   "block.gensokyoontology.lycoris_radiata": "Lycoris Radiata",

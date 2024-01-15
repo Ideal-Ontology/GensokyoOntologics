@@ -9,6 +9,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Predicate;
@@ -26,8 +27,12 @@ public class GSKONBTUtil {
     }
 
     public static CompoundNBT getNonNullTag(ItemStack stack, String key) {
-        CompoundNBT nbt = stack.getTag();
-        if (nbt == null) return new CompoundNBT();
+        if (!hasAndContainsTag(stack, key)) return new CompoundNBT();
+        return stack.getTag();
+    }
+
+    public static CompoundNBT getNonNullTags(ItemStack stack, String... keys) {
+        if (!hasAndContainsTags(stack, keys)) return new CompoundNBT();
         return stack.getTag();
     }
 
@@ -35,6 +40,12 @@ public class GSKONBTUtil {
         CompoundNBT nbt = stack.getTag();
         if (nbt == null) return false;
         return nbt.contains(key);
+    }
+
+    public static boolean hasAndContainsTags(ItemStack stack, String... keys) {
+        CompoundNBT nbt = stack.getTag();
+        if (nbt == null) return false;
+        return Arrays.stream(keys).allMatch(nbt::contains);
     }
 
     public static int getFirstItemIndex(PlayerEntity player, Item item) {

@@ -11,12 +11,11 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.vector.Vector3i;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Collection;
 import java.util.List;
 
-public class ArgilTileEntity extends TileEntity {
+public class AdobeTileEntity extends TileEntity {
     private List<Vector3i> positionCarved;
-    public ArgilTileEntity(TileEntityType<?> tileEntityTypeIn) {
+    public AdobeTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
 

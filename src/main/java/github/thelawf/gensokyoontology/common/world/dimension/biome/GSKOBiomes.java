@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.world.dimension.biome;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.world.surface.GSKOConfiguredSurface;
+import github.thelawf.gensokyoontology.common.world.surface.GSKOSurfaceBuilders;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
@@ -11,7 +13,6 @@ import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Objects;
-import java.util.function.Supplier;
 
 public class GSKOBiomes {
 
@@ -23,12 +24,9 @@ public class GSKOBiomes {
     /**
      * 主世界的八岳山，生成概率极低，可在此通过神隐的方式进入幻想乡
      */
-    public static final Biome YATSUGA_TAKE_BIOME = GSKOBiomeMaker.makeYatsugaTakeBiome();
-    public static final Biome YAMOTSU_HIRASAKA = GSKOBiomeMaker.makeYamotsuHirasaka();
-    public static final Biome HELL_VALLEY = GSKOBiomeMaker.makeHellValley();
-    public static final Biome OUTSIDE_CITY = GSKOBiomeMaker.makeOutsideCityBiome();
-
-    // public static final Biome SAKURA_FOREST = GSKOBiomeMaker.makeSakuraForest();
+    // public static final Biome YATSUGA_TAKE_BIOME = GSKOBiomeMaker.makeYatsugaTakeBiome(() -> GSKOConfiguredSurface.YATSUGA_TAKE);
+    public static final RegistryObject<Biome> YATSUGA_TAKE_BIOME = BIOMES.register("mountain_yatsugatake",
+            () -> GSKOBiomeMaker.makeYatsugaTakeBiome(() -> GSKOConfiguredSurface.YATSUGA_TAKE));
 
     public static final RegistryKey<Biome> GSKO_FOREST_KEY = makeKey("gensokyo_forest");
     public static final RegistryKey<Biome> GSKO_PLAINS_KEY = makeKey("gensokyo_plains");
@@ -72,4 +70,7 @@ public class GSKOBiomes {
         return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(GensokyoOntology.MODID, name));
     }
 
+    public static RegistryKey<Biome> createBiomeKey(Biome biome) {
+        return RegistryKey.getOrCreateKey(ForgeRegistries.Keys.BIOMES, Objects.requireNonNull(biome.getRegistryName()));
+    }
 }

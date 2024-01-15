@@ -14,50 +14,14 @@ import net.minecraft.util.registry.RegistryLookupCodec;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.layer.Layer;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.Predicate;
 
-/**
- * 1. 幻想乡群系及注册名汇总：<p>
- * 幻想乡郊外 - gensokyoOuterWilds；<p>
- * 幻想乡山林 - gensokyoWildForest；<p>
- * 雾之湖 - mistyLake  [实现方法：雕刻器]；<p>
- * 风神之湖 -  lakeOfGoddess[实现方法：雕刻器]；<p>
- * 间歇泉 -  [实现方法：雕刻器]；<p>
- * 冥界 - theMeikaiBiome；<p>
- * 魔法森林 - magicForest；<p>
- * 迷途竹林 - bambooForestOfLost；<p>
- * 妖怪之山 - youkaiMountain；<p>
- * 太阳花田 - sunflowerGarden；<p>
- * 旧地狱 - theFormerHellBiome；<p>
- * 表月荒原 - barrenMoonSurface；<p>
- * 里月静海 - TranquilitySeaInside；<p>
- * 月之都 - lunarCapital；<p>
- * 梦世界 - theDreamWorldBiome；<p>
- * 槐安通道 - kaianPath；<p>
- * <br>
- * <br>
- * 2. 幻想乡结构本地化键名：
- * 人类村落 - human_village<p>
- * 博丽神社 - hakurei_shrine<p>
- * 雾雨魔法店 - kirisame_household<p>
- * 爱丽丝的家 - margatroid_house<p>
- * 红魔馆 - scarlet_devil_mansion<p>
- * 白玉楼 - white_jade_tower<p>
- * 西行妖 - <p>
- * 永远亭 - house_of_eternity<p>
- * 守矢神社 - moriya_shrine<p>
- * 九天瀑布<p>
- * 幻想风穴<p>
- * 旧都<p>
- * 地灵殿 - mansion_chireiten<p>
- * 旧地狱温泉<p>
- * 核聚变炉心<p>
- * 月球城市
- */
+
 public class GSKOBiomesProvider extends BiomeProvider {
 
     final long seed;
