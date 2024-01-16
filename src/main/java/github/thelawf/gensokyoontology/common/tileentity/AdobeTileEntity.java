@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.vector.Vector3i;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.AbstractList;
 import java.util.List;
 
 public class AdobeTileEntity extends TileEntity {
@@ -55,5 +56,8 @@ public class AdobeTileEntity extends TileEntity {
 
     public List<Vector3i> getCarvedPositions() {
         return this.positionCarved;
+    }
+    public void add(Vector3i vector3i) {
+        this.positionCarved.add(vector3i);
     }
 }

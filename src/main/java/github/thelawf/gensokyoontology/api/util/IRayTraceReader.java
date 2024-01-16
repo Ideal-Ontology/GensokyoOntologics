@@ -6,6 +6,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -135,6 +136,64 @@ public interface IRayTraceReader {
                 new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
     }
 
+    default Vector3d getIntersectedPos(Vector3d start, Vector3d end, AxisAlignedBB aabb) {
+        return getIntersectedPos(start, end,
+                new Vector3d(aabb.minX, aabb.minY, aabb.minZ),
+                new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
+    }
+
+    default Vector3d getIntersectedPos(Vector3d start, Vector3d end, Vector3d boxMin, Vector3d boxMax) {
+        // 计算射线的参数
+        double tMin = (boxMin.x - start.x) / (end.x - start.x);
+        double tMax = (boxMax.x - start.x) / (end.x - start.x);
+        if (tMin > tMax) {
+            double temp = tMin;
+            tMin = tMax;
+            tMax = temp;
+        }
+        double tyMin = (boxMin.y - start.y) / (end.y - start.y);
+        double tyMax = (boxMax.y - start.y) / (end.y - start.y);
+        if (tyMin > tyMax) {
+            double temp = tyMin;
+            tyMin = tyMax;
+            tyMax = temp;
+        }
+        if ((tMin > tyMax) || (tyMin > tMax)) {
+            return Vector3d.ZERO;
+        }
+        if (tyMin > tMin) {
+            tMin = tyMin;
+        }
+        if (tyMax < tMax) {
+            tMax = tyMax;
+        }
+        double tzMin = (boxMin.z - start.z) / (end.z - start.z);
+        double tzMax = (boxMax.z - start.z) / (end.z - start.z);
+
+        if (tzMin > tzMax) {
+            double temp = tzMin;
+            tzMin = tzMax;
+            tzMax = temp;
+        }
+
+        if ((tMin > tzMax) || (tzMin > tMax)) {
+            return Vector3d.ZERO;
+        }
+
+        if (tyMin > tMin) {
+            tMin = tyMin;
+        }
+        if (tyMax < tMax) {
+            tMax = tyMax;
+        }
+
+        return new Vector3d(
+                start.x + tMin * (end.x - start.x),
+                start.y + tMin * (end.y - start.y),
+                start.z + tMin * (end.z - start.z));
+    }
+
+
     /**
      * 以传入的碰撞箱体的中心为圆心，获取所有位于这个球形的碰撞区域以内的生物。
      *
@@ -149,6 +208,10 @@ public interface IRayTraceReader {
         return worldIn.getEntitiesWithinAABB(entityClass, aabb).stream()
                 .filter(t -> aabb.getCenter().distanceTo(t.getPositionVec()) <= radius)
                 .collect(Collectors.toList());
+    }
+
+    default Vector3d getLookEnd(Vector3d startPos, Vector3d lookVec, double eyeHeight, double distance) {
+        return lookVec.scale(distance).add(startPos.add(0,eyeHeight,0));
     }
 
     /**

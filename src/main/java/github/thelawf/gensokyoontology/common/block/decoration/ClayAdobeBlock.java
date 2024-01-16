@@ -18,7 +18,6 @@ import java.util.List;
 
 public class ClayAdobeBlock extends Block {
 
-
     public ClayAdobeBlock() {
         super(Properties.from(Blocks.TERRACOTTA));
     }
