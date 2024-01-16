@@ -8,7 +8,6 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.IntArrayNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.math.vector.Vector3i;
 import org.jetbrains.annotations.NotNull;
 
@@ -51,7 +50,10 @@ public class AdobeTileEntity extends TileEntity {
                 this.positionCarved.clear();
                 this.positionCarved.add(vector3i);
             }
-
         }
+    }
+
+    public List<Vector3i> getCarvedPositions() {
+        return this.positionCarved;
     }
 }

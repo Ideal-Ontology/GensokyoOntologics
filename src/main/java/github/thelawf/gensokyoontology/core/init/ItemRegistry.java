@@ -208,6 +208,9 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> CLAY_ADOBE_ITEM = ITEMS.register(
             "clay_adobe", () -> new BlockItem(BlockRegistry.CLAY_ADOBE_BLOCK.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> HANIWA_ITEM = ITEMS.register(
+            "haniwa", () -> new BlockItem(BlockRegistry.HANIWA_BLOCK.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：功能性方块 =========================//
     //----------------------------- 合成台 --------------------------//

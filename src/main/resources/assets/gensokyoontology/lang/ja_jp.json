@@ -231,19 +231,19 @@
 
   "item.gensokyoontology.rail_wrench": "Rail Wrench",
 
-  "advancement.gensokyoontology.root.title": "It's An INCIDENT, REIMU!",
+  "advancement.gensokyoontology.root.title": "これは異変だった, 霊夢！",
   "advancement.gensokyoontology.root.description": "Get Story Pages Chapter 1.1",
-  "advancement.gensokyoontology.login_gensokyo.title": "Love From Gensokyo ♥~",
+  "advancement.gensokyoontology.login_gensokyo.title": "幻想郷からの愛ですよ♥～",
   "advancement.gensokyoontology.login_gensokyo.description": "Player change to Gensokyo dimension",
 
-  "advancement.gensokyoontology.gensokyo_traveller.title": "Gensokyo Traveller",
+  "advancement.gensokyoontology.gensokyo_traveller.title": "幻想郷の旅人",
   "advancement.gensokyoontology.gensokyo_traveller.description": "Travelled to All the Biomes in Gensokyo",
-  "advancement.gensokyoontology.retreat_lilywhite.title": "Is Spring Come?",
-  "advancement.gensokyoontology.retreat_lilywhite.description": "Retreat Lily White",
+  "advancement.gensokyoontology.retreat_lilywhite.title": "春は来ないか？",
+  "advancement.gensokyoontology.retreat_lilywhite.description": "リリーホワイトを退治する",
   "advancement.gensokyoontology.retreat_remilia.title": "カリスマ",
-  "advancement.gensokyoontology.retreat_remilia.description": "Retreat Remilia Scarlet",
+  "advancement.gensokyoontology.retreat_remilia.description": "レミリア・スカーレットを退治する",
   "advancement.gensokyoontology.retreat_flandre.title": "最終鬼畜妹",
-  "advancement.gensokyoontology.retreat_flandre.description": "Retreat Flandre Scarlet",
+  "advancement.gensokyoontology.retreat_flandre.description": "フランドール・スカーレットを退治する",
 
   "block.gensokyoontology.kaolin": "Kaolin",
   "block.gensokyoontology.kaolinite": "Kaolinite",
@@ -298,11 +298,12 @@
   "block.gensokyoontology.ginkgo_log": "Ginkgo Log",
   "block.gensokyoontology.redwood_leaves": "Redwood Leaves",
 
-  "block.gensokyoontology.gap": "Gap",
+  "block.gensokyoontology.gap": "隙間",
   "block.gensokyoontology.disposable_spawner": "Disposable Spawner",
   "block.gensokyoontology.danmaku_table": "Danmaku Table",
   "block.gensokyoontology.sorcery_extractor": "Sorcery Extractor",
-  "block.gensokyoontology.saisen_box": "Saisen Box",
+  "block.gensokyoontology.saisen_box": "賽銭箱",
+  "block.gensokyoontology.haniwa": "埴輪",
 
   "block.gensokyoontology.dragon_sphere_ore": "Dragon Sphere Ore",
   "block.gensokyoontology.jade_ore": "Jade Ore",

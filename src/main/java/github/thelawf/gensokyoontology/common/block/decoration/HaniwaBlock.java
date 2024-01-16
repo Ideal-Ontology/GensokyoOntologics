@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.block.decoration;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -25,8 +26,8 @@ public class HaniwaBlock extends Block {
         return VoxelShapes.or(BODY_MAIN, BODY_TOP, LEFT_BASE, LEFT_ARM, RIGHT_BASE, RIGHT_ARM_HORIZONTAL, RIGHT_ARM_VERTICAL);
     }
 
-    public HaniwaBlock(Properties properties) {
-        super(properties);
+    public HaniwaBlock() {
+        super(Properties.from(Blocks.FLOWER_POT));
     }
     @Override
     public boolean hasTileEntity(BlockState state) {

@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.decoration.ChireitenColoredGlassBlock;
 import github.thelawf.gensokyoontology.common.block.decoration.ClayAdobeBlock;
+import github.thelawf.gensokyoontology.common.block.decoration.HaniwaBlock;
 import github.thelawf.gensokyoontology.common.block.decoration.SaisenBoxBlock;
 import github.thelawf.gensokyoontology.common.block.nature.*;
 import github.thelawf.gensokyoontology.common.block.ore.*;
@@ -134,6 +135,7 @@ public final class BlockRegistry {
     public static final RegistryObject<GlassBlock> CHIREIDEN_COLORED_GLASS = BLOCKS.register(
             "chireiden_colored_glass", ChireitenColoredGlassBlock::new);
     public static final RegistryObject<Block> CLAY_ADOBE_BLOCK = BLOCKS.register("clay_adobe", ClayAdobeBlock::new);
+    public static final RegistryObject<Block> HANIWA_BLOCK = BLOCKS.register("haniwa", HaniwaBlock::new);
 
     ///////////////////////////////////////////////////////////////////////////////////
     /////////////                     实用类方块                          ///////////////
