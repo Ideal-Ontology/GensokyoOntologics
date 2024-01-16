@@ -12,7 +12,7 @@ import java.util.UUID;
 
 
 public class HaniwaEntity extends TameableEntity implements IAngerable {
-    protected HaniwaEntity(EntityType<? extends TameableEntity> type, World worldIn) {
+    public HaniwaEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
     }
 

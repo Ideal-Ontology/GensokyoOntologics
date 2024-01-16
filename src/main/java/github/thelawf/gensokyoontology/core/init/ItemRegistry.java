@@ -180,12 +180,11 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // --------------------------- 草本植物类方块：----------------------------//
-    public static final RegistryObject<BlockItem> BLUE_ROSE_ITEM = ITEMS.register(
-            "blue_rose_bush", () -> new BlockItem(BlockRegistry.BLUE_ROSE_BUSH.get(),
+    public static final RegistryObject<BlockItem> BLUE_ROSE_ITEM = ITEMS.register("blue_rose_bush",
+            () -> new BlockItem(BlockRegistry.BLUE_ROSE_BUSH.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<BlockItem> LYCORIS_RADIATA =
-            ITEMS.register("lycoris_radiata", () -> new BlockItem(
-                    BlockRegistry.LYCORIS_RADIATA.get(),
+    public static final RegistryObject<BlockItem> LYCORIS_RADIATA = ITEMS.register("lycoris_radiata",
+            () -> new BlockItem(BlockRegistry.LYCORIS_RADIATA.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> WASABI = ITEMS.register(

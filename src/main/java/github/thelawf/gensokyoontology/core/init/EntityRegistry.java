@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
+import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
@@ -70,6 +71,9 @@ public final class EntityRegistry {
     //         "usami_sumireko", () -> FlandreScarletEntity.SUMIREKO);
     // public static final RegistryObject<EntityType<YukariEntity>> YUKARI_ENTITY = ENTITIES.register(
     //         "yakumo_yukari", () -> YukariEntity.YUKARI);
+    public static final RegistryObject<EntityType<HaniwaEntity>> HANIWA = ENTITIES.register("haniwa",
+            () -> EntityType.Builder.create(HaniwaEntity::new, EntityClassification.CREATURE).updateInterval(10)
+                    .size(0.6f, 0.8f).trackingRange(20).build("haniwa"));
 
     // =========================== 技术性实体：弹幕 ========================= //
     public static final RegistryObject<EntityType<DanmakuShotEntity>> DANMAKU_ENTITY = ENTITIES.register(

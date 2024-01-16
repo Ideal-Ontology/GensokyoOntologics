@@ -25,6 +25,11 @@ public class KeikiChisel extends Item implements IRayTraceReader {
     @NotNull
     @Override
     public ActionResultType onItemUse(@NotNull ItemUseContext context) {
+        onAdobeCarved(context);
+        return super.onItemUse(context);
+    }
+
+    public void onAdobeCarved(@NotNull ItemUseContext context) {
         if (context.getWorld().getBlockState(context.getPos()).getBlock() == BlockRegistry.CLAY_ADOBE_BLOCK.get() &&
                 context.getWorld() instanceof ServerWorld && context.getPlayer() != null) {
             ServerWorld serverWorld = (ServerWorld) context.getWorld();
@@ -33,7 +38,11 @@ public class KeikiChisel extends Item implements IRayTraceReader {
             AdobeTileEntity tileEntity = adobe.getTileEntity(serverWorld, pos);
             tileEntity.add(getIntersectedCurvature(context.getPlayer(), serverWorld, pos, tileEntity));
         }
-        return super.onItemUse(context);
+
+    }
+
+    public void onTombClicked(@NotNull ItemUseContext context) {
+
     }
 
     public Vector3i getIntersectedCurvature(PlayerEntity player, ServerWorld serverWorld, BlockPos pos, AdobeTileEntity tileEntity) {
