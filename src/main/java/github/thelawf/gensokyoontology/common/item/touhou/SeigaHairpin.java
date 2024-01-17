@@ -35,9 +35,7 @@ public class SeigaHairpin extends Item {
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
-        playerIn.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(capability -> {
-            GSKOUtil.showChatMsg(playerIn, capability.getLifetime(), 1);
-        });
+
         if (!GSKONBTUtil.hasAndContainsTag(stack, "maxTick")) {
             CompoundNBT nbt = new CompoundNBT();
 
@@ -64,18 +62,16 @@ public class SeigaHairpin extends Item {
 
         if (player.ticksExisted < tick) {
             player.noClip = true;
+            player.setNoGravity(true);
 
             player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
                 GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(gskoCap.getCount() - 0.01f), player);
-                GSKOUtil.showChatMsg(player, player.noClip, 50);
             });
 
-            // player.setPosition(player.getPosX(), yHeight, player.getPosZ());
         }
         else {
             player.noClip = false;
             player.setNoGravity(false);
-            GSKOUtil.showChatMsg(player, "????", 50);
             stack.setTag(new CompoundNBT());
         }
 

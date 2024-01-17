@@ -18,16 +18,18 @@ import org.jetbrains.annotations.Nullable;
 
 public class GSKOCapabilities {
 
+
     @CapabilityInject(BloodyMistCapability.class)
-    public static Capability<BloodyMistCapability> BLOODY_MIST;
+    public static Capability<BloodyMistCapability> BLOODY_MIST = null;
     @CapabilityInject(ImperishableNightCapability.class)
     public static Capability<ImperishableNightCapability> IMPERISHABLE_NIGHT;
     @CapabilityInject(EternalSummerCapability.class)
     public static Capability<EternalSummerCapability> ETERNAL_SUMMER;
+
     @CapabilityInject(GSKOPowerCapability.class)
-    public static Capability<GSKOPowerCapability> POWER;
+    public static Capability<GSKOPowerCapability> POWER = null;
     @CapabilityInject(SecularLifeCapability.class)
-    public static Capability<SecularLifeCapability> SECULAR_LIFE;
+    public static Capability<SecularLifeCapability> SECULAR_LIFE = null;
     @CapabilityInject(FaithCapability.class)
     public static Capability<FaithCapability> FAITH;
     @CapabilityInject(ExtraLifeCapability.class)

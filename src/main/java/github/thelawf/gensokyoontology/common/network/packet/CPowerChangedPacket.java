@@ -29,9 +29,7 @@ public class CPowerChangedPacket {
 
     public static void handle(CPowerChangedPacket packet, Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
-            ctx.get().enqueueWork(() -> {
-                sendToClient(packet);
-            });
+            ctx.get().enqueueWork(() -> sendToClient(packet));
         }
         ctx.get().setPacketHandled(true);
     }

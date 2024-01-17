@@ -407,8 +407,8 @@
   "msg.gensokyoontology.gap_block.teleport_fail.destination_not_present": "§c目的地的世界维度不存在",
   "msg.gensokyoontology.gap_block.teleport_fail.arrival_gap_not_present": "§c目的地的隙间方块不存在",
 
-  "network.gensokyoontology.countdown.start": "Countdown Start",
-  "network.gensokyoontology.countdown.end": "倒计时已结束",
+  "network.gensokyoontology.sakuya_stop_watch.freeze": "砸瓦鲁多!",
+  "network.gensokyoontology.sakuya_stop_watch.unfreeze": "时停解除",
   "network.gensokyoontology.disconnection.demo_end": "试玩时间结束，欢迎下次游玩~",
   "network.gensokyoontology.disconnection.explore_later": "前面的区域，以后再来探索吧（）",
 
@@ -550,5 +550,7 @@
 
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "network.gensokyoontology.countdown.end": "倒计时已结束",
+  "network.gensokyoontology.countdown.start": "Countdown Start"
 }

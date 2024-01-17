@@ -114,11 +114,13 @@ public class GSKOClientListener {
             final ItemStack POWER_ITEM = ItemRegistry.POWER_ITEM.get().getDefaultInstance();
 
             itemRenderer.renderItemIntoGUI(POWER_ITEM, 5, 5);
-            GSKOUtil.showChatMsg(player, player.getCapability(GSKOCapabilities.POWER).isPresent(), 30);
-            player.getCapability(GSKOCapabilities.POWER).ifPresent((cap) -> {
-                fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD, cap.getCount()), 20.0F, 10.0F, 16777215);
-            });
-
+            if (player.getCapability(GSKOCapabilities.POWER).isPresent()) {
+                player.getCapability(GSKOCapabilities.POWER).ifPresent((cap) -> {
+                    fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD, cap.getCount()), 20.0F, 10.0F, 16777215);
+                });
+                return;
+            }
+            fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD, 0.0), 20.0F, 10.0F, 16777215);
             RenderSystem.enableBlend();
         }
 

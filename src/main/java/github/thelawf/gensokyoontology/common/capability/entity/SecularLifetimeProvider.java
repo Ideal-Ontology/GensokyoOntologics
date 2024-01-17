@@ -20,23 +20,26 @@ public class SecularLifetimeProvider implements ICapabilityProvider, INBTSeriali
         this.capability = GSKOCapabilities.SECULAR_LIFE.getDefaultInstance();
     }
 
+    public SecularLifeCapability getOrCreate() {
+        if (this.capability == null) {
+            this.capability = new SecularLifeCapability(this.lifetime);
+        }
+        return this.capability;
+    }
+
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return cap == GSKOCapabilities.SECULAR_LIFE ? LazyOptional.of(() -> this.capability).cast() : LazyOptional.empty();
+        return cap == GSKOCapabilities.SECULAR_LIFE && this.capability != null ? LazyOptional.of(() -> this.capability).cast() : LazyOptional.empty();
     }
 
     @Override
     public CompoundNBT serializeNBT() {
-        CompoundNBT nbt = new CompoundNBT();
-        nbt.putLong("lifetime", this.lifetime);
-        return nbt;
+        return (CompoundNBT) GSKOCapabilities.SECULAR_LIFE.writeNBT(getOrCreate(), null);
     }
 
     @Override
     public void deserializeNBT(CompoundNBT nbt) {
-        if (nbt.contains("lifetime")) {
-            this.lifetime = nbt.getLong("lifetime");
-        }
+        GSKOCapabilities.SECULAR_LIFE.readNBT(getOrCreate(), null, nbt);
     }
 }

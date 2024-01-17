@@ -108,16 +108,6 @@ public class GSKOWorldEvents {
         }
     }
 
-    // @SubscribeEvent
-    public static void onPowerChangedTLM(TickEvent.WorldTickEvent event) {
-        if (TouhouLittleMaidCompat.isLoaded() && !event.world.isRemote) {
-            ServerWorld serverWorld = (ServerWorld) event.world;
-            serverWorld.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap ->
-                    serverWorld.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap ->
-                            gskoCap.setCount(tlmCap.get())));
-        }
-    }
-
     @SubscribeEvent
     public static void addDimensionSpacing(final WorldEvent.Load event) {
         if (event.getWorld() instanceof ServerWorld) {

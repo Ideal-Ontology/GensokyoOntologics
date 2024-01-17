@@ -32,7 +32,7 @@ public class FaithCapabilityProvider implements ICapabilitySerializable<Compound
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return cap == GSKOCapabilities.POWER ? LazyOptional.of(this::getOrCreate).cast() : LazyOptional.empty();
+        return cap == GSKOCapabilities.FAITH ? LazyOptional.of(this::getOrCreate).cast() : LazyOptional.empty();
     }
 
     @Override

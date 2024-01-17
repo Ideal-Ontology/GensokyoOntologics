@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import com.github.tartaricacid.touhoulittlemaid.capability.MaidNumCapability;
 import com.github.tartaricacid.touhoulittlemaid.capability.MaidNumCapabilityProvider;
 import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
 import com.github.tartaricacid.touhoulittlemaid.network.NetworkHandler;
@@ -16,7 +15,6 @@ import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.network.packet.LifeTickPacket;
-import github.thelawf.gensokyoontology.common.network.packet.SPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
@@ -44,7 +42,6 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
@@ -72,23 +69,6 @@ public class GSKOEntityEvents {
         if (event.getEntity() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)event.getEntity();
             player.getCapability(GSKOCapabilities.POWER).ifPresent(GSKOPowerCapability::markDirty);
-        }
-    }
-
-    /**
-     * 该方法只有在检测到玩家在车万女仆模组中更改了他自己的Power点数之后才会起作用，作用是将车万女仆的Power点数同步至本模组的Power点数。
-     * 订阅tick事件以进行数据包的发送操作，需要获取逻辑端和tick事件阶段。
-     * @param event 玩家tick事件
-     * @apiNote This method will make effects only when it detects a player change his power counts in Touhou Little Maid mod.
-     * The effect of this method is to sync the power counts from Touhou Little Maid to this Mod.
-     *
-     */
-    @SubscribeEvent
-    public static void onPacketSendToServer(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
-        if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
-            player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap ->
-                    GSKONetworking.CHANNEL.sendToServer(new LifeTickPacket(cap.withTimeAdded(1L))));
         }
     }
 
@@ -121,12 +101,25 @@ public class GSKOEntityEvents {
         }));
     }
 
+    /**
+     * 该方法只有在检测到玩家在车万女仆模组中更改了他自己的Power点数之后才会起作用，作用是将车万女仆的Power点数同步至本模组的Power点数。
+     * 订阅tick事件以进行数据包的发送操作，需要获取逻辑端和tick事件阶段。
+     * @param event 玩家tick事件
+     * @apiNote This method will make effects only when it detects a player change his power counts in Touhou Little Maid mod.
+     * The effect of this method is to sync the power counts from Touhou Little Maid to this Mod.
+     *
+     */
     @SubscribeEvent
-    public static void onPlayerThroughWalls(TickEvent.PlayerTickEvent event) {
+    public static void onPacketSync(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;
         if (flag) {
             trySyncPowerFromTLM(player);
+            player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap -> {
+                cap.addTime(1L);
+                GSKONetworking.sendToClientPlayer(new LifeTickPacket(cap.getLifetime()), player);
+            });
+
         }
         if (GSKOUtil.firstMatch(player,ItemRegistry.SEIGA_HAIRPIN.get())) {
             SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));

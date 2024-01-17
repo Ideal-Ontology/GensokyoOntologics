@@ -407,8 +407,8 @@
   "msg.gensokyoontology.gap_block.teleport_fail.destination_not_present": "§cDestination World Not Present",
   "msg.gensokyoontology.gap_block.teleport_fail.arrival_gap_not_present": "§cArrival Gap Not Present",
 
-  "network.gensokyoontology.countdown.start": "Countdown Start",
-  "network.gensokyoontology.countdown.end": "Countdown End",
+  "network.gensokyoontology.sakuya_stop_watch.freeze": "Freezing!",
+  "network.gensokyoontology.sakuya_stop_watch.unfreeze": "Unfreeze",
   "network.gensokyoontology.disconnection.demo_end": "Your game demonstration time is over. Looking forward to your next play!",
   "network.gensokyoontology.disconnection.explore_later": "Explore the following area in the future!",
 
