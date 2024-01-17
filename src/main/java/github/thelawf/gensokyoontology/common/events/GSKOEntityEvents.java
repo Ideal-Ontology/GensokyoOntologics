@@ -15,6 +15,7 @@ import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
+import github.thelawf.gensokyoontology.common.network.packet.LifeTickPacket;
 import github.thelawf.gensokyoontology.common.network.packet.SPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
@@ -86,10 +87,9 @@ public class GSKOEntityEvents {
     public static void onPacketSendToServer(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
-            trySyncPowerFromTLM(player);
-            // trySyncPowerToTLM(player);
+            player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap ->
+                    GSKONetworking.CHANNEL.sendToServer(new LifeTickPacket(cap.withTimeAdded(1L))));
         }
-
     }
 
     // @SubscribeEvent
@@ -112,17 +112,22 @@ public class GSKOEntityEvents {
         })));
     }
     private static void trySyncPowerFromTLM(PlayerEntity player) {
-        player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+        player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap ->
+        player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap ->
+        {
             gskoCap.setCount(tlmCap.get());
             GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(tlmCap.get()), player);
-            gskoCap.setDirty(false);
-
+            tlmCap.setDirty(false);
         }));
     }
 
     @SubscribeEvent
     public static void onPlayerThroughWalls(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
+        boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;
+        if (flag) {
+            trySyncPowerFromTLM(player);
+        }
         if (GSKOUtil.firstMatch(player,ItemRegistry.SEIGA_HAIRPIN.get())) {
             SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));
         }

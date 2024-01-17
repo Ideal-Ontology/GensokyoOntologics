@@ -1,9 +1,11 @@
 package github.thelawf.gensokyoontology.common.util;
 
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.StringTextComponent;
+import org.apache.logging.log4j.LogManager;
 
 public class GSKOUtil {
     public static void showChatMsg(PlayerEntity receiver, String text, int frequency) {
@@ -26,6 +28,29 @@ public class GSKOUtil {
             player.sendMessage(new StringTextComponent(String.valueOf(f)), player.getUniqueID());
         }
     }
+
+    public static void showChatMsg(PlayerEntity player, long l, int frequency) {
+        if (player.ticksExisted % frequency == 0) {
+            player.sendMessage(new StringTextComponent(String.valueOf(l)), player.getUniqueID());
+        }
+    }
+
+    public static void log(Class<?> clazz, String str) {
+        LogManager.getLogger().info(clazz.getName() + ": {}", str);
+    }
+
+    public static void log(Class<?> clazz, boolean b) {
+        LogManager.getLogger().info(clazz.getName() + ": {}", b);
+    }
+
+    public static void log(Class<?> clazz, int i) {
+        LogManager.getLogger().info(clazz.getName() + ": {}", i);
+    }
+
+    public static void log(Class<?> clazz, float f) {
+        LogManager.getLogger().info(clazz.getName() + ": {}", f);
+    }
+
     public static ItemStack findItem(PlayerEntity player, Item item) {
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             if (player.inventory.getStackInSlot(i).getItem() == item) return player.inventory.getStackInSlot(i);
@@ -39,6 +64,5 @@ public class GSKOUtil {
         }
         return false;
     }
-
 
 }

@@ -12,6 +12,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -34,11 +35,14 @@ public class SeigaHairpin extends Item {
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
         ItemStack stack = playerIn.getHeldItem(handIn);
+        playerIn.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(capability -> {
+            GSKOUtil.showChatMsg(playerIn, capability.getLifetime(), 1);
+        });
         if (!GSKONBTUtil.hasAndContainsTag(stack, "maxTick")) {
             CompoundNBT nbt = new CompoundNBT();
 
-            playerIn.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
-                int count = (int) (cap.getCount() * 20);
+            playerIn.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+                int count = (int) (gskoCap.getCount() * 20);
                 nbt.putInt("maxTick", playerIn.ticksExisted + count);
                 nbt.putInt("yHeight", (int) playerIn.getPosY());
             });
@@ -46,31 +50,34 @@ public class SeigaHairpin extends Item {
             return super.onItemRightClick(worldIn, playerIn, handIn);
         }
         else {
+            playerIn.noClip = false;
+            playerIn.setNoGravity(false);
             stack.setTag(new CompoundNBT());
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     public static void trySetNoClip(PlayerEntity player, ItemStack stack) {
-        if (stack.getTag() == null || !stack.getTag().contains("maxTick")) return;
+        if (!GSKONBTUtil.hasAndContainsTag(stack, "maxTick")) return;
         int tick = GSKONBTUtil.getNonNullTag(stack, "maxTick").getInt("maxTick");
         int yHeight = GSKONBTUtil.getNonNullTag(stack, "yHeight").getInt("yHeight");
-        if (player.ticksExisted <= tick) {
-            player.noClip = true;
-            player.setNoGravity(true);
-            player.setPosition(player.getPosX(), yHeight, player.getPosZ());
 
-            // player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
-            //     gskoCap.setCount(0);
-            //     GSKONetworking.CHANNEL.sendToServer(new SPowerChangedPacket(gskoCap.getCount()));
-            //     gskoCap.setDirty(false);
-            //     GSKOUtil.showChatMsg(player, player.ticksExisted + ", " + tick, 1);
-            // });
+        if (player.ticksExisted < tick) {
+            player.noClip = true;
+
+            player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+                GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(gskoCap.getCount() - 0.01f), player);
+                GSKOUtil.showChatMsg(player, player.noClip, 50);
+            });
+
+            // player.setPosition(player.getPosX(), yHeight, player.getPosZ());
         }
         else {
             player.noClip = false;
             player.setNoGravity(false);
+            GSKOUtil.showChatMsg(player, "????", 50);
             stack.setTag(new CompoundNBT());
         }
+
     }
 }

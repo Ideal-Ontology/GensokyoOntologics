@@ -27,7 +27,7 @@ public class GSKONBTUtil {
     }
 
     public static CompoundNBT getNonNullTag(ItemStack stack, String key) {
-        if (!hasAndContainsTag(stack, key)) return new CompoundNBT();
+        if (stack.getTag() == null) return new CompoundNBT();
         return stack.getTag();
     }
 
@@ -37,9 +37,8 @@ public class GSKONBTUtil {
     }
 
     public static boolean hasAndContainsTag(ItemStack stack, String key) {
-        CompoundNBT nbt = stack.getTag();
-        if (nbt == null) return false;
-        return nbt.contains(key);
+        if (stack.getTag() == null) return false;
+        return stack.getTag().contains(key);
     }
 
     public static boolean hasAndContainsTags(ItemStack stack, String... keys) {

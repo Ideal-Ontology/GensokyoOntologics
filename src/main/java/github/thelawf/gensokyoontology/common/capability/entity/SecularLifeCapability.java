@@ -24,4 +24,21 @@ public class SecularLifeCapability implements INBTSerializable<CompoundNBT> {
             this.lifetime = nbt.getLong("lifetime");
         }
     }
+
+    public long getLifetime() {
+        return this.lifetime;
+    }
+
+    public void setLifetime(long lifetime) {
+        this.lifetime = lifetime;
+    }
+
+    public void addTime(long time) {
+        this.lifetime += time;
+    }
+
+    public long withTimeAdded(long time) {
+        this.lifetime += time;
+        return this.lifetime;
+    }
 }
