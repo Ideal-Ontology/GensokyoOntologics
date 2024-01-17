@@ -32,6 +32,7 @@ public class GSKOPowerCapability implements INBTSerializable<CompoundNBT> {
 
     public void setCount(float count) {
         this.count = MathHelper.clamp(count, MIN, MAX);
+        this.markDirty();
     }
 
     public float getCount() {
@@ -40,6 +41,7 @@ public class GSKOPowerCapability implements INBTSerializable<CompoundNBT> {
 
     public void add(float count) {
         this.count = MathHelper.clamp(this.count + count, MIN, MAX);
+        this.markDirty();
     }
 
     public void markDirty() {

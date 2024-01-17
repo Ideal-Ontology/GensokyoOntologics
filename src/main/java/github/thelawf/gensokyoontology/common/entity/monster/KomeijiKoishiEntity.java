@@ -31,10 +31,6 @@ public class KomeijiKoishiEntity extends ConversationalEntity implements ISpellC
     private static final DataParameter<Integer> DATA_FAVORABILITY = EntityDataManager.createKey(KomeijiKoishiEntity.class, DataSerializers.VARINT);
     public static final String KEY_FAVORABILITY = "favourability";
 
-    public static final EntityType<KomeijiKoishiEntity> KOISHI = EntityType.Builder.create(
-                    KomeijiKoishiEntity::new, EntityClassification.CREATURE).updateInterval(2)
-            .size(0.6f, 1.5f).trackingRange(10).build("koishi");
-
     public KomeijiKoishiEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
     }

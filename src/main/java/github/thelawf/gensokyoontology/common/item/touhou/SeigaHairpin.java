@@ -1,6 +1,10 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
+import github.thelawf.gensokyoontology.common.network.packet.SPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -35,7 +39,6 @@ public class SeigaHairpin extends Item {
 
             playerIn.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
                 int count = (int) (cap.getCount() * 20);
-                GSKOUtil.showChatMsg(playerIn, cap.getCount(), 1);
                 nbt.putInt("maxTick", playerIn.ticksExisted + count);
                 nbt.putInt("yHeight", (int) playerIn.getPosY());
             });
@@ -52,10 +55,17 @@ public class SeigaHairpin extends Item {
         if (stack.getTag() == null || !stack.getTag().contains("maxTick")) return;
         int tick = GSKONBTUtil.getNonNullTag(stack, "maxTick").getInt("maxTick");
         int yHeight = GSKONBTUtil.getNonNullTag(stack, "yHeight").getInt("yHeight");
-        if (player.ticksExisted < tick) {
+        if (player.ticksExisted <= tick) {
             player.noClip = true;
             player.setNoGravity(true);
             player.setPosition(player.getPosX(), yHeight, player.getPosZ());
+
+            // player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+            //     gskoCap.setCount(0);
+            //     GSKONetworking.CHANNEL.sendToServer(new SPowerChangedPacket(gskoCap.getCount()));
+            //     gskoCap.setDirty(false);
+            //     GSKOUtil.showChatMsg(player, player.ticksExisted + ", " + tick, 1);
+            // });
         }
         else {
             player.noClip = false;

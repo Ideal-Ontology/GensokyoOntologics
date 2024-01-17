@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.capability;
 import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.FaithCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
+import github.thelawf.gensokyoontology.common.capability.entity.SecularLifeCapability;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.capability.world.EternalSummerCapability;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
@@ -25,15 +26,19 @@ public class GSKOCapabilities {
     public static Capability<EternalSummerCapability> ETERNAL_SUMMER;
     @CapabilityInject(GSKOPowerCapability.class)
     public static Capability<GSKOPowerCapability> POWER;
+    @CapabilityInject(SecularLifeCapability.class)
+    public static Capability<SecularLifeCapability> SECULAR_LIFE;
     @CapabilityInject(FaithCapability.class)
     public static Capability<FaithCapability> FAITH;
     @CapabilityInject(ExtraLifeCapability.class)
     public static Capability<ExtraLifeCapability> EXTRA_LIFE;
 
     public static void registerCapabilities() {
-        register(GSKOPowerCapability.class);
         register(FaithCapability.class);
+        register(GSKOPowerCapability.class);
+        register(SecularLifeCapability.class);
         register(ExtraLifeCapability.class);
+
         register(BloodyMistCapability.class);
         register(ImperishableNightCapability.class);
         register(EternalSummerCapability.class);

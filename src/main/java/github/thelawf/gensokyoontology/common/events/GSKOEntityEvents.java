@@ -1,6 +1,10 @@
 package github.thelawf.gensokyoontology.common.events;
 
+import com.github.tartaricacid.touhoulittlemaid.capability.MaidNumCapability;
+import com.github.tartaricacid.touhoulittlemaid.capability.MaidNumCapabilityProvider;
 import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
+import com.github.tartaricacid.touhoulittlemaid.network.NetworkHandler;
+import com.github.tartaricacid.touhoulittlemaid.network.message.SyncCapabilityMessage;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
@@ -11,6 +15,7 @@ import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
+import github.thelawf.gensokyoontology.common.network.packet.SPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
@@ -38,6 +43,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
@@ -77,20 +83,33 @@ public class GSKOEntityEvents {
      *
      */
     @SubscribeEvent
-    public static void onPacketSendToCilent(TickEvent.PlayerTickEvent event) {
+    public static void onPacketSendToServer(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         if (event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END) {
             trySyncPowerFromTLM(player);
+            // trySyncPowerToTLM(player);
         }
+
     }
 
-    private static void trySyncPower(PlayerEntity serverPlayer) {
-        serverPlayer.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
-            if (gskoCap.isDirty()) {
-                GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(gskoCap.getCount()), serverPlayer);
-                gskoCap.setDirty(false);
-            }
-        });
+    // @SubscribeEvent
+    public static void onPacketSendToClient(TickEvent.PlayerTickEvent event) {
+        PlayerEntity player = event.player;
+        if (event.side == LogicalSide.CLIENT && event.phase == TickEvent.Phase.END) {
+            trySyncPowerToTLM(player);
+        }
+
+    }
+
+    private static void trySyncPowerToTLM(PlayerEntity player) {
+        player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap ->
+        player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap ->
+        player.getCapability(MaidNumCapabilityProvider.MAID_NUM_CAP).ifPresent(maidNumCap ->
+        {
+            tlmCap.set(gskoCap.getCount());
+            NetworkHandler.sendToClientPlayer(new SyncCapabilityMessage(tlmCap.get(), maidNumCap.get()), player);
+            tlmCap.setDirty(false);
+        })));
     }
     private static void trySyncPowerFromTLM(PlayerEntity player) {
         player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
@@ -101,27 +120,11 @@ public class GSKOEntityEvents {
         }));
     }
 
-    // @SubscribeEvent
-    public static void onPlayerCapabilityTick(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
-        if (event.player instanceof ServerPlayerEntity) {
-            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) event.player;
-            if (event.side == LogicalSide.CLIENT && event.phase == TickEvent.Phase.END) {
-                player.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
-                    GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(cap.getCount()), serverPlayer);
-                });
-            }
-        }
-    }
-
     @SubscribeEvent
-    public static void onPlayerThroughWalls(LivingEvent.LivingUpdateEvent event) {
-        if (event.getEntityLiving() != null && event.getEntityLiving() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            if (GSKOUtil.firstMatch(player,ItemRegistry.SEIGA_HAIRPIN.get())) {
-                player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> gskoCap.add(-0.01F));
-                SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));
-            }
+    public static void onPlayerThroughWalls(TickEvent.PlayerTickEvent event) {
+        PlayerEntity player = event.player;
+        if (GSKOUtil.firstMatch(player,ItemRegistry.SEIGA_HAIRPIN.get())) {
+            SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));
         }
     }
 

@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.common.network;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
-import github.thelawf.gensokyoontology.common.network.packet.FantasyFadingPacket;
-import github.thelawf.gensokyoontology.common.network.packet.ImperishableNightPacket;
-import github.thelawf.gensokyoontology.common.network.packet.ScarletMistPacket;
+import github.thelawf.gensokyoontology.common.network.packet.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.ResourceLocation;
@@ -26,9 +23,11 @@ public class GSKONetworking {
         CHANNEL.registerMessage(1, ImperishableNightPacket.class, ImperishableNightPacket::toBytes, ImperishableNightPacket::new, ImperishableNightPacket::handle);
         CHANNEL.registerMessage(2, FantasyFadingPacket.class, FantasyFadingPacket::toBytes, FantasyFadingPacket::decode, FantasyFadingPacket::handle);
         CHANNEL.registerMessage(3, CPowerChangedPacket.class, CPowerChangedPacket::toBytes, CPowerChangedPacket::fromBytes, CPowerChangedPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        CHANNEL.registerMessage(4, SPowerChangedPacket.class, SPowerChangedPacket::toBytes, SPowerChangedPacket::fromBytes, SPowerChangedPacket::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
     }
 
     public static void sendToClientPlayer(Object message, PlayerEntity player) {
         CHANNEL.send(PacketDistributor.PLAYER.with(() -> (ServerPlayerEntity) player), message);
     }
+
 }
