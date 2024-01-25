@@ -12,27 +12,8 @@ public class SineFunc extends TrigonometricFunc {
     }
 
 
-    public double getFrequency() {
-        return frequency;
+    public static SineFunc of(double amplitude, double frequency, double phase) {
+        return new SineFunc(amplitude, frequency, phase);
     }
 
-    public double getAmplitude() {
-        return amplitude;
-    }
-
-    public double getPhase() {
-        return phase;
-    }
-
-    public void setFrequency(double frequency) {
-        this.frequency = frequency;
-    }
-
-    public void setAmplitude(double amplitude) {
-        this.amplitude = amplitude;
-    }
-
-    public void setPhase(double phase) {
-        this.phase = phase;
-    }
 }

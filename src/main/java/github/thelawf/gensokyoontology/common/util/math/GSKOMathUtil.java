@@ -1,7 +1,10 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
 
+import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.classic.Cos;
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.util.math.function.CosineFunc;
+import github.thelawf.gensokyoontology.common.util.math.function.SineFunc;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -374,18 +377,11 @@ public class GSKOMathUtil {
         return base * base * base;
     }
 
-    /**
-     * 快速傅里叶变换算法
-     */
-    public static List<Complex> fft(List<Complex> complexes) {
-        int n = complexes.size();
-
-        List<Complex> list = new ArrayList<>();
-        if (n == 1) {
-
-            list.add(complexes.get(0));
-        }
-        return list;
+    public static Vector3d rotatePitchYaw(Vector3d prev, float pitch, float yaw) {
+        CosineFunc cf = new CosineFunc(prev.x, 1,0);
+        SineFunc sf = new SineFunc(1,1,0);
+        double x = 0;
+        return new Vector3d(0,0,0);
     }
 
     /**

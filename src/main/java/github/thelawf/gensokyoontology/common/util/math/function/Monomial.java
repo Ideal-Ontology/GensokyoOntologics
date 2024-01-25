@@ -12,7 +12,7 @@ public class Monomial implements MathFunc{
 
     @Override
     public double computeResult(double x) {
-        return Math.round(Math.pow(x, time) * coefficient * 100) * 0.01;
+        return Math.round(Math.pow(x, time) * coefficient * 100) * 0.01 + constance;
     }
 
     public static Monomial of(float coefficient, float time) {

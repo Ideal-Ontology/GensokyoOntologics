@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
@@ -10,6 +11,9 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -38,29 +42,26 @@ public class MobiusRingEntity extends SpellCardEntity {
         horizonVec = horizonVec.scale(6);
 
         // 创建竖圆：
-        /*
-        定义一个位于 X-Y 平面的 QA 向量， 以Q为球心，做一个以QA为半径向量的球
-        在球Q上，N点和S点分别代表北极点和南极点，连接NS，经过Q点。
-        现在，让点A绕球Q的0度经线旋转30度，
-         */
         Vector3d verticalVec = new Vector3d(Vector3f.ZP);
         verticalVec = verticalVec.scale(3);
 
         float velocity = 0.2f;
         float rotation = (float) (Math.PI / 80 * 2 * ticksExisted);
 
-        // rotation = ticksExisted % 180 > 90 ? (float) -(Math.PI / 180 * ticksExisted) : rotation;
-        // velocity = ticksExisted % 200 > 100 ? this.getSpeedFactor() - acceleration * (ticksExisted % 100):
-        //         this.getSpeedFactor() + acceleration * (ticksExisted % 100);
-
         horizonVec = horizonVec.rotateYaw(rotation);
-
         List<DanmakuColor> colors = DanmakuUtil.getRainbowColoredDanmaku();
 
         for (int i = 0; i < colors.size(); i++) {
             SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
                     DanmakuType.SMALL_SHOT, colors.get(i));
 
+            /*
+             * 这里的操作是不是意味着：
+             * 设verticalVec 为 V，俯仰角为θ，偏航角为φ
+             * 俯仰角旋转操作等同于 V(x, y * cos(θ) + z * sin(θ), z * cos(θ) - y * sin(θ))
+             * 偏航角旋转操作等同于 V(x * cos(φ) + z * sin(φ), y, z1 * cos(φ) - x * sin(φ))
+             * 整体的旋转操作等同于 V(x * cos(φ) + z * sin(φ), y, (z * cos(θ) - y * sin(θ) * cos(φ)) - x * sin(φ))
+             */
             verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
             verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
 
