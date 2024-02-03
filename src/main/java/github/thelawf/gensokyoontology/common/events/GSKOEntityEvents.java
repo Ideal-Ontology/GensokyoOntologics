@@ -76,7 +76,9 @@ public class GSKOEntityEvents {
     public static void onPacketSendToClient(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         if (event.side == LogicalSide.CLIENT && event.phase == TickEvent.Phase.END) {
-            trySyncPowerToTLM(player);
+            player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap -> {
+                GSKONetworking.CHANNEL.sendToServer(new LifeTickPacket(cap.getLifetime()));
+            });
         }
 
     }
@@ -101,6 +103,17 @@ public class GSKOEntityEvents {
         }));
     }
 
+    private static void trySyncLifetime(PlayerEntity player) {
+        player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap -> {
+            if (cap.isDirty()) {
+                cap.addTime(1L);
+                GSKONetworking.sendToClientPlayer(new LifeTickPacket(cap.getLifetime()), player);
+                cap.setDirty(false);
+            }
+
+        });
+    }
+
     /**
      * 该方法只有在检测到玩家在车万女仆模组中更改了他自己的Power点数之后才会起作用，作用是将车万女仆的Power点数同步至本模组的Power点数。
      * 订阅tick事件以进行数据包的发送操作，需要获取逻辑端和tick事件阶段。
@@ -114,12 +127,8 @@ public class GSKOEntityEvents {
         PlayerEntity player = event.player;
         boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;
         if (flag) {
-            trySyncPowerFromTLM(player);
-            player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap -> {
-                cap.addTime(1L);
-                GSKONetworking.sendToClientPlayer(new LifeTickPacket(cap.getLifetime()), player);
-            });
-
+            // trySyncPowerFromTLM(player);
+            trySyncLifetime(player);
         }
         if (GSKOUtil.firstMatch(player,ItemRegistry.SEIGA_HAIRPIN.get())) {
             SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));

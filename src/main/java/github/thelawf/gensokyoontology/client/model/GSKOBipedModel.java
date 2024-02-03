@@ -11,14 +11,14 @@ import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class GSKOBipedModel<T extends LivingEntity> extends BipedModel<T> {
-    public ModelRenderer body = new ModelRenderer(this);;
+    public ModelRenderer body = new ModelRenderer(this);
 
-    public ModelRenderer leftArm = new ModelRenderer(this);;
+    public ModelRenderer leftArm = new ModelRenderer(this);
     // bipedLeftArm
-    public ModelRenderer rightArm = new ModelRenderer(this);;
+    public ModelRenderer rightArm = new ModelRenderer(this);
     // private final ModelRenderer body;
 
-    public ModelRenderer rightLeg = new ModelRenderer(this);;
+    public ModelRenderer rightLeg = new ModelRenderer(this);
     public ModelRenderer leftLeg = new ModelRenderer(this);
 
     public GSKOBipedModel(float modelSize) {
@@ -163,7 +163,7 @@ public abstract class GSKOBipedModel<T extends LivingEntity> extends BipedModel<
         this.bipedHeadwear.copyModelAngles(this.bipedHead);
     }
 
-    protected Iterable<ModelRenderer> getBodyParts() {
+    public Iterable<ModelRenderer> getBodyParts() {
         return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.body, this.rightArm, this.leftArm, this.rightLeg, this.leftLeg));
     }
 

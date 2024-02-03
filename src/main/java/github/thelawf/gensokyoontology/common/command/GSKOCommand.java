@@ -2,27 +2,26 @@ package github.thelawf.gensokyoontology.common.command;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.CommandDispatcher;
-import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.brigadier.StringReader;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.*;
-import net.minecraft.command.impl.LootCommand;
-import net.minecraft.command.impl.PlaySoundCommand;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.capabilities.CapabilityDispatcher;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
+import org.codehaus.plexus.util.cli.Commandline;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Type;
-import java.util.Arrays;
+import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
-import java.util.List;
+import java.util.function.Supplier;
 
 public class GSKOCommand {
     // 实现一个可以显示 GUI的指令
@@ -45,8 +44,9 @@ public class GSKOCommand {
                         .executes(context -> getBlockState(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "pos")))))
                 .then(Commands.literal(GSKOLiterals.CAPABILITY.name)
                         .then(Commands.literal("list").executes(context -> listCapability(context.getSource())))
-                        .then(Commands.literal("get").then(Commands.argument("cap", CapabilityArgument.capability())
-                                .executes(context -> getCapability(context.getSource(), CapabilityArgument.getCapability("cap")))))));
+                        .then(Commands.literal("get").then(Commands.argument("cap", StringReader::getString))
+                                .executes(context -> getCapability(context.getSource(), context.getArgument("cap", CapabilityArgument.class))))
+                ));
 
     }
 
@@ -57,15 +57,9 @@ public class GSKOCommand {
         return 1;
     }
 
-    private static int getCapability(CommandSource source, LazyOptional<Capability<?>> optional) {
-        optional.ifPresent(capability -> {
-            try {
-                Class<?> clazz = Class.forName(capability.getName());
-                source.sendFeedback(new StringTextComponent(clazz.getName()), true);
-            } catch (ClassNotFoundException e) {
-                throw new RuntimeException(e);
-            }
-        });
+    private static int getCapability(CommandSource source, CapabilityArgument argument) {
+
+
         return 1;
     }
 

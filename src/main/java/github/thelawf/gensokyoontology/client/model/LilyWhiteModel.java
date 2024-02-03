@@ -3,6 +3,8 @@ package github.thelawf.gensokyoontology.client.model;
 // Exported for Minecraft version 1.15 - 1.16 with Mojang mappings
 // Paste this class into your mod and generate all required imports
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Iterables;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
@@ -12,12 +14,9 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class LilyWhiteModel extends BipedModel<LilyWhiteEntity> {
+public class LilyWhiteModel extends GSKOBipedModel<LilyWhiteEntity> {
     private final ModelRenderer lilywhite;
     private final ModelRenderer hand;
-    private final ModelRenderer leftArm;
-    private final ModelRenderer rightArm;
-    private final ModelRenderer body;
     private final ModelRenderer wing;
     private final ModelRenderer wingRight2;
     private final ModelRenderer wingRightEndR1;
@@ -25,11 +24,9 @@ public class LilyWhiteModel extends BipedModel<LilyWhiteEntity> {
     private final ModelRenderer wingLeft;
     private final ModelRenderer wingLeftEndR1;
     private final ModelRenderer wingLeftUpR1;
-    private final ModelRenderer rightLeg;
-    private final ModelRenderer leftLeg;
 
     public LilyWhiteModel(float modelSize) {
-        super(RenderType::getEntityTranslucent, modelSize, 0.0F, 64, 64);
+        super(modelSize);
         this.textureWidth = 64;
         this.textureHeight = 64;
 
@@ -126,6 +123,10 @@ public class LilyWhiteModel extends BipedModel<LilyWhiteEntity> {
     @Override
     public void render(MatrixStack matrixStack, IVertexBuilder buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         lilywhite.render(matrixStack, buffer, packedLight, packedOverlay, red, green, blue, alpha);
+    }
+
+    public Iterable<ModelRenderer> getBodyParts() {
+        return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.body, this.rightArm, this.leftArm, this.rightLeg, this.leftLeg));
     }
 
     public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {

@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 public class HakureiReimuRenderer extends MobRenderer<HakureiReimuEntity, EntityModel<HakureiReimuEntity>> {
     public static final ResourceLocation REIMU_TEX = GensokyoOntology.withRL("textures/entity/hakurei_reimu.png");
     public HakureiReimuRenderer(EntityRendererManager rendererManager) {
-        super(rendererManager, new HakureiReimuModel(), 0.6f);
+        super(rendererManager, new HakureiReimuModel(1.0f), 0.6f);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.util.math.function;
 
-import onlyfortest.tree.Pair;
+import com.mojang.datafixers.util.Pair;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -317,7 +317,7 @@ public class RemiliaScarletModel extends GSKOBipedModel<RemiliaScarletEntity> {
 		m1_r2.setTextureOffset(5, 73).addBox(-4.6F, -4.3F, 0.0F, 7.0F, 7.0F, 0.0F, 0.0F, false);
 	}
 
-	protected Iterable<ModelRenderer> getBodyParts() {
+	public Iterable<ModelRenderer> getBodyParts() {
 		return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.body, this.rightArm, this.leftArm, this.rightLeg, this.leftLeg));
 	}
 

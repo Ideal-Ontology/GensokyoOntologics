@@ -2,7 +2,7 @@
 	"credit": "Made with Blockbench",
 	"parent": "minecraft:block/block",
 	"textures": {
-		"1": "haniwa"
+		"1": "gensokyoontology:block/haniwa"
 	},
 	"elements": [
 		{

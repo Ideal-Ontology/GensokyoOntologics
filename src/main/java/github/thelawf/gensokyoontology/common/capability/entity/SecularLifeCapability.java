@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class SecularLifeCapability implements INBTSerializable<CompoundNBT> {
 
@@ -10,6 +12,7 @@ public class SecularLifeCapability implements INBTSerializable<CompoundNBT> {
     public SecularLifeCapability(long lifetime) {
         this.lifetime = lifetime;
     }
+    private boolean isDirty;
 
     @Override
     public CompoundNBT serializeNBT() {
@@ -31,14 +34,29 @@ public class SecularLifeCapability implements INBTSerializable<CompoundNBT> {
 
     public void setLifetime(long lifetime) {
         this.lifetime = lifetime;
+        this.markDirty();
     }
 
     public void addTime(long time) {
         this.lifetime += time;
+        this.markDirty();
     }
 
     public long withTimeAdded(long time) {
         this.lifetime += time;
+        this.markDirty();
         return this.lifetime;
+    }
+
+    public boolean isDirty() {
+        return this.isDirty;
+    }
+
+    public void setDirty(boolean isDirty) {
+        this.isDirty = isDirty;
+    }
+
+    public void markDirty() {
+        this.setDirty(true);
     }
 }

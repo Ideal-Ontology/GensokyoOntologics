@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.command.GSKOCommand;
 import github.thelawf.gensokyoontology.common.command.GUICommand;
+import github.thelawf.gensokyoontology.common.command.MathFuncCommand;
 import github.thelawf.gensokyoontology.common.network.CountDownNetworking;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomeGenerator;
@@ -65,5 +66,6 @@ public class CommonSetUp {
     public static void registerCommand(RegisterCommandsEvent event) {
         GSKOCommand.register(event.getDispatcher());
         GUICommand.register(event.getDispatcher());
+        MathFuncCommand.register(event.getDispatcher());
     }
 }

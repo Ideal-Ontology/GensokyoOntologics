@@ -12,7 +12,7 @@ import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 
-public class HakureiReimuModel extends EntityModel<HakureiReimuEntity> {
+public class HakureiReimuModel extends GSKOBipedModel<HakureiReimuEntity> {
 	private final ModelRenderer reimu;
 	private final ModelRenderer hand;
 	private final ModelRenderer jewelry;
@@ -49,9 +49,6 @@ public class HakureiReimuModel extends EntityModel<HakureiReimuEntity> {
 	private final ModelRenderer hat;
 	private final ModelRenderer hE_r1;
 	private final ModelRenderer hW_r1;
-	private final ModelRenderer left_arm;
-	private final ModelRenderer right_arm;
-	private final ModelRenderer body;
 	private final ModelRenderer skirt;
 	private final ModelRenderer s8_r1;
 	private final ModelRenderer s7_r1;
@@ -61,10 +58,9 @@ public class HakureiReimuModel extends EntityModel<HakureiReimuEntity> {
 	private final ModelRenderer s3_r1;
 	private final ModelRenderer s2_r1;
 	private final ModelRenderer s1_r1;
-	private final ModelRenderer right_leg;
-	private final ModelRenderer left_leg;
 
-	public HakureiReimuModel() {
+	public HakureiReimuModel(float modelSize) {
+		super(modelSize);
 		textureWidth = 80;
 		textureHeight = 80;
 
@@ -296,17 +292,17 @@ public class HakureiReimuModel extends EntityModel<HakureiReimuEntity> {
 		setRotationAngle(hW_r1, 0.0F, -1.5708F, 0.0F);
 		hW_r1.setTextureOffset(64, 27).addBox(-4.0F, -4.0F, 0.0F, 8.0F, 8.0F, 0.0F, 0.0F, false);
 
-		left_arm = new ModelRenderer(this);
-		left_arm.setRotationPoint(5.4F, -17.4F, 1.0F);
-		reimu.addChild(left_arm);
-		left_arm.setTextureOffset(40, 32).addBox(-1.6F, -6.0F, -2.1F, 3.2F, 12.0F, 4.2F, 0.0F, false);
-		left_arm.setTextureOffset(40, 16).addBox(-1.5F, -5.8F, -2.0F, 3.0F, 11.6F, 4.0F, 0.0F, false);
+		leftArm = new ModelRenderer(this);
+		leftArm.setRotationPoint(5.4F, -17.4F, 1.0F);
+		reimu.addChild(leftArm);
+		leftArm.setTextureOffset(40, 32).addBox(-1.6F, -6.0F, -2.1F, 3.2F, 12.0F, 4.2F, 0.0F, false);
+		leftArm.setTextureOffset(40, 16).addBox(-1.5F, -5.8F, -2.0F, 3.0F, 11.6F, 4.0F, 0.0F, false);
 
-		right_arm = new ModelRenderer(this);
-		right_arm.setRotationPoint(-5.6F, -17.4F, 1.0F);
-		reimu.addChild(right_arm);
-		right_arm.setTextureOffset(48, 48).addBox(-1.6F, -6.0F, -2.1F, 3.2F, 12.0F, 4.2F, 0.0F, false);
-		right_arm.setTextureOffset(32, 48).addBox(-1.5F, -5.8F, -2.0F, 3.0F, 11.6F, 4.0F, 0.0F, false);
+		rightArm = new ModelRenderer(this);
+		rightArm.setRotationPoint(-5.6F, -17.4F, 1.0F);
+		reimu.addChild(rightArm);
+		rightArm.setTextureOffset(48, 48).addBox(-1.6F, -6.0F, -2.1F, 3.2F, 12.0F, 4.2F, 0.0F, false);
+		rightArm.setTextureOffset(32, 48).addBox(-1.5F, -5.8F, -2.0F, 3.0F, 11.6F, 4.0F, 0.0F, false);
 
 		body = new ModelRenderer(this);
 		body.setRotationPoint(0.0F, 0.0F, 0.0F);
@@ -366,21 +362,17 @@ public class HakureiReimuModel extends EntityModel<HakureiReimuEntity> {
 		setRotationAngle(s1_r1, -0.2618F, 0.0F, 0.0F);
 		s1_r1.setTextureOffset(0, 70).addBox(-4.0F, -4.2F, -0.4F, 8.0F, 8.0F, 2.0F, 0.0F, false);
 
-		right_leg = new ModelRenderer(this);
-		right_leg.setRotationPoint(0.0F, 0.0F, 0.0F);
-		reimu.addChild(right_leg);
-		right_leg.setTextureOffset(0, 16).addBox(-4.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
+		rightLeg = new ModelRenderer(this);
+		rightLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
+		reimu.addChild(rightLeg);
+		rightLeg.setTextureOffset(0, 16).addBox(-4.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
 
-		left_leg = new ModelRenderer(this);
-		left_leg.setRotationPoint(0.0F, 0.0F, 0.0F);
-		reimu.addChild(left_leg);
-		left_leg.setTextureOffset(16, 48).addBox(0.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
+		leftLeg = new ModelRenderer(this);
+		leftLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
+		reimu.addChild(leftLeg);
+		leftLeg.setTextureOffset(16, 48).addBox(0.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
 	}
 
-	@Override
-	public void setRotationAngles(HakureiReimuEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
-	}
 
 	public void setRotationAngle(ModelRenderer modelRenderer, float x, float y, float z) {
 		modelRenderer.rotateAngleX = x;
