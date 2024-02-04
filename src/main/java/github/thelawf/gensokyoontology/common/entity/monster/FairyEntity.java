@@ -46,8 +46,8 @@ public class FairyEntity extends MonsterEntity implements IFlyingAnimal {
     protected void registerGoals() {
         goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new FairyAttackGoal(this, 30, 0.3f));
-        this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 1.0));
-        this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 1.0));
+        this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 0.8f));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.8f));
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
         this.goalSelector.addGoal(5, new LookRandomlyGoal(this));
 

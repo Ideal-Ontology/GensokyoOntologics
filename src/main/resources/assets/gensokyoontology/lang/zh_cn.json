@@ -23,6 +23,8 @@
   "gensokyoontology:mountain_yatsugatake": "八岳山",
   "gensokyoontology:yamotsu_hirasaka": "黄泉比良坂",
   "gensokyoontology:hell_valley": "地狱谷",
+
+  "gensokyoontology:hakurei_shrine_precincts": "博丽神社境内",
   "gensokyoontology:human_village": "人间之里",
   "gensokyoontology:misty_lake": "雾之湖",
   "gensokyoontology:magic_forest": "魔法森林",
@@ -30,10 +32,9 @@
   "gensokyoontology:sunflower_garden": "向日葵花田",
   "gensokyoontology:youkai_mountain": "妖怪之山",
   "gensokyoontology:wind_goddess_lake": "风神之湖",
+
   "gensokyoontology:gensokyo_plains": "幻想平原",
   "gensokyoontology:gensokyo_forest": "幻想森林",
-
-  "gensokyoontology:hakurei_shrine_precincts": "博丽神社境内",
 
   "gensokyoontology:hakurei_shrine": "博丽神社",
   "gensokyoontology:mystia_izakaya": "米斯蒂娅的烧烤店",
@@ -247,6 +248,7 @@
 
   "block.gensokyoontology.kaolin": "高岭土",
   "block.gensokyoontology.kaolinite": "高岭石",
+  "block.gensokyoontology.clay_adobe": "陶土坯",
 
   "block.gensokyoontology.wasabi": "山葵",
   "block.gensokyoontology.lycoris_radiata": "红花石蒜",
@@ -354,6 +356,9 @@
 
   "entity.gensokyoontology.fairy": "妖精",
   "entity.gensokyoontology.lily_white": "莉莉白",
+  "entity.gensokyoontology.hakurei_reimu": "博丽灵梦",
+  "entity.gensokyoontology.flandre_scarlet": "芙兰朵露·斯卡蕾特",
+  "entity.gensokyoontology.remilia_scarlet": "蕾米莉亚·斯卡蕾特",
 
   "entity.gensokyoontology.inyo_jade": "阴阳玉",
   "entity.gensokyoontology.spectre": "幽灵",

@@ -16,14 +16,10 @@ public class FairyModel extends BipedModel<FairyEntity> {
     private final ModelRenderer bone;
     private final ModelRenderer head;
     // private final ModelRenderer blink;
-    private final ModelRenderer armRight;
-    private final ModelRenderer armLeft;
     private final ModelRenderer body;
     private final ModelRenderer sittingRotationSkirt;
     private final ModelRenderer wingLeft;
     private final ModelRenderer wingRight;
-    private final ModelRenderer legLeft;
-    private final ModelRenderer legRight;
 
     public FairyModel(float modelSize) {
         super(RenderType::getEntityTranslucent, modelSize, 0f, 64, 64);
@@ -43,19 +39,19 @@ public class FairyModel extends BipedModel<FairyEntity> {
         // head.addChild(blink);
         // blink.setTextureOffset(24, 0).addBox(-4.0F, -8.0F, -4.001F, 8.0F, 8.0F, 0.0F, 0.0F, false);
 
-        armRight = new ModelRenderer(this);
-        armRight.setRotationPoint(-3.0F, -17.5F, 0.0F);
-        bone.addChild(armRight);
-        setRotationAngle(armRight, 0.0F, 0.0F, 0.4363F);
-        armRight.setTextureOffset(46, 22).addBox(-2.0F, 1.0F, -1.0F, 2.0F, 8.0F, 2.0F, 0.0F, false);
-        armRight.setTextureOffset(0, 52).addBox(-2.5F, 0.0F, -1.5F, 3.0F, 4.0F, 3.0F, 0.0F, false);
+        bipedRightArm = new ModelRenderer(this);
+        bipedRightArm.setRotationPoint(-3.0F, -17.5F, 0.0F);
+        bone.addChild(bipedRightArm);
+        setRotationAngle(bipedRightArm , 0.0F, 0.0F, 0.4363F);
+        bipedRightArm.setTextureOffset(46, 22).addBox(-2.0F, 1.0F, -1.0F, 2.0F, 8.0F, 2.0F, 0.0F, false);
+        bipedRightArm.setTextureOffset(0, 52).addBox(-2.5F, 0.0F, -1.5F, 3.0F, 4.0F, 3.0F, 0.0F, false);
 
-        armLeft = new ModelRenderer(this);
-        armLeft.setRotationPoint(3.0F, -17.5F, 0.0F);
-        bone.addChild(armLeft);
-        setRotationAngle(armLeft, 0.0F, 0.0F, -0.4363F);
-        armLeft.setTextureOffset(12, 52).addBox(-0.5F, 0.0F, -1.5F, 3.0F, 4.0F, 3.0F, 0.0F, false);
-        armLeft.setTextureOffset(46, 22).addBox(0.0F, 1.0F, -1.0F, 2.0F, 8.0F, 2.0F, 0.0F, false);
+        bipedLeftArm = new ModelRenderer(this);
+        bipedLeftArm.setRotationPoint(3.0F, -17.5F, 0.0F);
+        bone.addChild(bipedLeftArm);
+        setRotationAngle(bipedLeftArm, 0.0F, 0.0F, -0.4363F);
+        bipedLeftArm.setTextureOffset(12, 52).addBox(-0.5F, 0.0F, -1.5F, 3.0F, 4.0F, 3.0F, 0.0F, false);
+        bipedLeftArm.setTextureOffset(46, 22).addBox(0.0F, 1.0F, -1.0F, 2.0F, 8.0F, 2.0F, 0.0F, false);
 
         body = new ModelRenderer(this);
         body.setRotationPoint(0.0F, -10.5F, 0.0F);
@@ -81,25 +77,16 @@ public class FairyModel extends BipedModel<FairyEntity> {
         setRotationAngle(wingRight, 0.0F, -1.0472F, 0.0F);
         wingRight.setTextureOffset(33, 35).addBox(0.0F, -6.0F, -0.25F, 0.0F, 11.0F, 13.0F, 0.0F, false);
 
-        legLeft = new ModelRenderer(this);
-        legLeft.setRotationPoint(2.0F, -9.0F, 0.0F);
-        bone.addChild(legLeft);
-        legLeft.setTextureOffset(33, 18).addBox(-1.501F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
+        bipedLeftLeg = new ModelRenderer(this);
+        bipedLeftLeg.setRotationPoint(2.0F, -9.0F, 0.0F);
+        bone.addChild(bipedLeftLeg);
+        bipedLeftLeg.setTextureOffset(33, 18).addBox(-1.501F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
 
-        legRight = new ModelRenderer(this);
-        legRight.setRotationPoint(-2.0F, -9.0F, 0.0F);
-        bone.addChild(legRight);
-        legRight.setTextureOffset(33, 18).addBox(-1.499F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
+        bipedRightLeg = new ModelRenderer(this);
+        bipedRightLeg.setRotationPoint(-2.0F, -9.0F, 0.0F);
+        bone.addChild(bipedRightLeg);
+        bipedRightLeg.setTextureOffset(33, 18).addBox(-1.499F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
 
-        // legLeft = new ModelRenderer(this);
-        // legLeft.setRotationPoint(2.0F, -9.0F, 0.0F);
-        // bone.addChild(legLeft);
-        // legLeft.setTextureOffset(33, 18).addBox(-1.501F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
-
-        // legRight = new ModelRenderer(this);
-        // legRight.setRotationPoint(-2.0F, -9.0F, 0.0F);
-        // bone.addChild(legRight);
-        // legRight.setTextureOffset(32, 6).addBox(-1.499F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
     }
 
     @Override

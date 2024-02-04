@@ -23,6 +23,8 @@
   "gensokyoontology:mountain_yatsugatake": "Mountain Yatsugatake",
   "gensokyoontology:yamotsu_hirasaka": "Yamotsu Hirasaka",
   "gensokyoontology:hell_valley": "Hell Valley",
+
+  "gensokyoontology:hakurei_shrine_precincts": "Hakurei Shine Precincts",
   "gensokyoontology:human_village": "Human Village",
   "gensokyoontology:misty_lake": "Misty Lake",
   "gensokyoontology:magic_forest": "Magic Forest",
@@ -30,10 +32,9 @@
   "gensokyoontology:sunflower_garden": "Sunflower Garden",
   "gensokyoontology:youkai_mountain": "Youkai Mountain",
   "gensokyoontology:wind_goddess_lake": "Wind Goddess Lake",
+
   "gensokyoontology:gensokyo_plains": "Gensokyo Plains",
   "gensokyoontology:gensokyo_forest": "Gensokuo Forest",
-
-  "gensokyoontology:hakurei_shrine_precincts": "Hakurei Shine Precincts",
 
   "gensokyoontology:hakurei_shrine": "Hakurei Shine",
   "gensokyoontology:mystia_izakaya": "Mystia Izakaya",
@@ -247,6 +248,7 @@
 
   "block.gensokyoontology.kaolin": "Kaolin",
   "block.gensokyoontology.kaolinite": "Kaolinite",
+  "block.gensokyoontology.clay_adobe": "Clay Adobe",
 
   "block.gensokyoontology.wasabi": "Wasabi",
   "block.gensokyoontology.lycoris_radiata": "Lycoris Radiata",
@@ -354,6 +356,9 @@
 
   "entity.gensokyoontology.fairy": "Fairy",
   "entity.gensokyoontology.lily_white": "Lily White",
+  "entity.gensokyoontology.hakurei_reimu": "Hakurei Reimu",
+  "entity.gensokyoontology.flandre_scarlet": "Flandre Scarlet",
+  "entity.gensokyoontology.remilia_scarlet": "Remilia Scarlet",
 
   "entity.gensokyoontology.inyo_jade": "Inyo Jade",
   "entity.gensokyoontology.spectre": "Spectre",

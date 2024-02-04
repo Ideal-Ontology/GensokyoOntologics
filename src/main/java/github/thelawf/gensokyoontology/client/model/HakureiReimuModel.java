@@ -363,14 +363,24 @@ public class HakureiReimuModel extends GSKOBipedModel<HakureiReimuEntity> {
 		s1_r1.setTextureOffset(0, 70).addBox(-4.0F, -4.2F, -0.4F, 8.0F, 8.0F, 2.0F, 0.0F, false);
 
 		rightLeg = new ModelRenderer(this);
-		rightLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
+		rightLeg.setRotationPoint(-2.0F, -11.8F, 1.0F);
 		reimu.addChild(rightLeg);
-		rightLeg.setTextureOffset(0, 16).addBox(-4.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
+		rightLeg.setTextureOffset(0, 16).addBox(-2.0F, 0.2F, -2.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
 
 		leftLeg = new ModelRenderer(this);
-		leftLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
+		leftLeg.setRotationPoint(2.0F, -11.8F, 1.0F);
 		reimu.addChild(leftLeg);
-		leftLeg.setTextureOffset(16, 48).addBox(0.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
+		leftLeg.setTextureOffset(16, 48).addBox(-2.0F, 0.2F, -2.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
+
+		// rightLeg = new ModelRenderer(this);
+		// rightLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
+		// reimu.addChild(rightLeg);
+		// rightLeg.setTextureOffset(0, 16).addBox(-4.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
+//
+		// leftLeg = new ModelRenderer(this);
+		// leftLeg.setRotationPoint(0.0F, 0.0F, 0.0F);
+		// reimu.addChild(leftLeg);
+		// leftLeg.setTextureOffset(16, 48).addBox(0.0F, -11.6F, -1.0F, 4.0F, 11.6F, 4.0F, 0.0F, false);
 	}
 
 

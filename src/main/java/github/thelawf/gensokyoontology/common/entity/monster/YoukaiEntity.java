@@ -85,4 +85,8 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     }
 
 
+    @Override
+    public void onKillCommand() {
+        this.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
+    }
 }

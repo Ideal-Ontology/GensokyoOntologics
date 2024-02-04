@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"texture_size": [64, 64],
+	"parent": "minecraft:block/block",
 	"textures": {
 		"1": "gensokyoontology:block/saisen_box",
 		"particle": "gensokyoontology:block/saisen_box"
