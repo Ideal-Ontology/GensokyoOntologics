@@ -82,6 +82,13 @@ public class DanmakuUtil {
         return danmakuPool;
     }
 
+    public static <D extends AbstractDanmakuEntity> AbstractDanmakuEntity newDanmaku(D danmaku, Class<D> danmakuClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
+        Constructor<D> constructor = danmakuClass.getDeclaredConstructor(EntityType.class, World.class, Entity.class, DanmakuType.class, DanmakuColor.class);
+
+        return constructor.newInstance(danmaku.getType(), danmaku.world, danmaku.getShooter(),
+                danmaku.getDanmakuType(), danmaku.getDanmakuColor());
+    }
+
     public static <D extends AbstractDanmakuEntity> void shootDanmaku(@NotNull World worldIn, PlayerEntity playerIn,
                                                                       D danmakuEntityType, float velocity, float inaccuracy) {
         Vector3d lookVec = playerIn.getLookVec();
@@ -112,6 +119,12 @@ public class DanmakuUtil {
         danmaku.setLocationAndAngles(globalPos.getX(), globalPos.getY(), globalPos.getZ(),
                 rotation.x, rotation.y);
     }
+    public static <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d globalPos, boolean noGravity) {
+        danmaku.setNoGravity(noGravity);
+        danmaku.setLocationAndAngles(globalPos.getX(), globalPos.getY(), globalPos.getZ(),
+                Vector2f.ZERO.x, Vector2f.ZERO.y);
+    }
+
 
 
     public static void applyOperation(ArrayList<VectorOperations> operations, TransformFunction function, Vector3d prevVec) {

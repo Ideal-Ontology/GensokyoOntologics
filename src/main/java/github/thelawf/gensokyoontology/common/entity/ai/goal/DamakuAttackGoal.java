@@ -11,7 +11,7 @@ import net.minecraft.util.math.vector.Vector3d;
  * Copy from <a href="https://github.com/TartaricAcid/TouhouLittleMaid/blob/1.16.5/src/main/java/com/github/tartaricacid/touhoulittlemaid/entity/ai/goal/FairyAttackGoal.java#L12">车万女仆中有关妖精AI的GitHub仓库界面</a>
  * <br>
  */
-public class SphereDamakuAttackGoal extends Goal {
+public class DamakuAttackGoal extends Goal {
     private static final int MAX_WITH_IN_RANGE_TIME = 20;
     private final YoukaiEntity youkai;
     private final double minDistance;
@@ -19,7 +19,7 @@ public class SphereDamakuAttackGoal extends Goal {
     private Path path;
     private int withInRangeTime;
 
-    public SphereDamakuAttackGoal(YoukaiEntity entityFairy, double minDistance, double speedIn) {
+    public DamakuAttackGoal(YoukaiEntity entityFairy, double minDistance, double speedIn) {
         this.youkai = entityFairy;
         this.minDistance = minDistance;
         this.speedIn = speedIn;

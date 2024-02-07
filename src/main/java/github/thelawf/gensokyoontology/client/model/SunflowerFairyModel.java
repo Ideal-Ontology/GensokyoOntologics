@@ -4,11 +4,12 @@ package github.thelawf.gensokyoontology.client.model;// Made with Blockbench 4.8
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import github.thelawf.gensokyoontology.common.entity.monster.SunflowerFairyEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class SunflowerFairyModel extends EntityModel<Entity> {
+public class SunflowerFairyModel extends GSKOBipedModel<SunflowerFairyEntity> {
     private final ModelRenderer bone;
     private final ModelRenderer flower;
     private final ModelRenderer cube_r1;
@@ -26,6 +27,7 @@ public class SunflowerFairyModel extends EntityModel<Entity> {
     private final ModelRenderer legRight;
 
     public SunflowerFairyModel() {
+        super(0.4f);
         textureWidth = 64;
         textureHeight = 64;
 
@@ -112,11 +114,6 @@ public class SunflowerFairyModel extends EntityModel<Entity> {
         legRight.setRotationPoint(-2.0F, -9.0F, 0.0F);
         bone.addChild(legRight);
         legRight.setTextureOffset(0, 37).addBox(-1.499F, 0.0F, -1.5F, 3.0F, 9.0F, 3.0F, 0.0F, false);
-    }
-
-    @Override
-    public void setRotationAngles(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-
     }
 
     // @Override

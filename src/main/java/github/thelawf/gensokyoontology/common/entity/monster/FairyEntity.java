@@ -1,10 +1,11 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
-import github.thelawf.gensokyoontology.common.entity.ai.goal.SphereDamakuAttackGoal;
-import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.DamakuAttackGoal;
+import github.thelawf.gensokyoontology.common.entity.projectile.*;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
@@ -13,12 +14,12 @@ import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.GhastEntity;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.IWorld;
@@ -29,8 +30,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.EnumSet;
+import java.util.List;
 import java.util.Random;
+import java.util.function.Supplier;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class FairyEntity extends YoukaiEntity implements IFlyingAnimal {
@@ -45,7 +49,7 @@ public class FairyEntity extends YoukaiEntity implements IFlyingAnimal {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new SphereDamakuAttackGoal(this, 30, 0.3f));
+        this.goalSelector.addGoal(1, new DamakuAttackGoal(this, 30, 0.3f));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 0.8f));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.8f));
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
@@ -152,19 +156,91 @@ public class FairyEntity extends YoukaiEntity implements IFlyingAnimal {
 
     @Override
     public void danmakuAttack(LivingEntity target) {
+        Random r1 = new Random(this.getUniqueID().getMostSignificantBits());
+        switch (r1.nextInt(3)){
+            case 0:
+                aimedShot(target);
+                break;
+            case 1:
+                oddAimedShot(target);
+                break;
+            case 2:
+            default:
+                sphereShot();
+                break;
+        }
+    }
 
-        Vector3d vector3d = new Vector3d(Vector3f.ZP).scale(2);
-        Random random = this.getRNG();
+    private AbstractDanmakuEntity randomSelect() {
+        Random r2 = new Random(this.getUniqueID().getLeastSignificantBits());
+        switch (r2.nextInt(4)){
+            case 0:
+                return new LargeShotEntity(this, world, DanmakuType.LARGE_SHOT, DanmakuColor.BLUE);
+            case 1:
+                return new ScaleShotEntity(this, world, DanmakuType.SCALE_SHOT, DanmakuColor.RED);
+            case 2:
+                return new RiceShotEntity(this, world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
+            default:
+                return new SmallShotEntity(this, world, DanmakuType.SMALL_SHOT, DanmakuColor.RED);
+        }
+    }
 
-        for (int i = 0; i < 12; i++) {
-            for (int j = 0; j < 12; j++) {
-                SmallShotEntity smallShot = new SmallShotEntity(this, this.world, DanmakuType.SMALL_SHOT, DanmakuColor.RED);
-
-                vector3d = vector3d.rotatePitch((float) (Math.PI / 12 * i));
-                vector3d = vector3d.rotateYaw((float) (Math.PI / 12 * j));
-
-                DanmakuUtil.shootDanmaku(world, this, smallShot, vector3d, 0.4f, 0f);
+    private <D extends AbstractDanmakuEntity> void aimedShot(LivingEntity target) {
+        if (GSKOMathUtil.isBetween(ticksExisted % 200, 0, 50)) {
+            if (ticksExisted % 5 == 0) {
+                Vector3d direction = new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
+                // SmallShotEntity smallShot = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
+                AbstractDanmakuEntity danmaku = randomSelect();
+                DanmakuUtil.initDanmaku(danmaku, this.getPositionVec(), true);
+                danmaku.shoot(direction.x, direction.y, direction.z, 0.78f, 0f);
+                this.world.addEntity(danmaku);
             }
+        }
+    }
+
+    private <D extends AbstractDanmakuEntity> void oddAimedShot(LivingEntity target) {
+        if (GSKOMathUtil.isBetween(ticksExisted % 200, 0, 50)) {
+            if (ticksExisted % 5 == 0) {
+                Vector3d direction = new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
+                // SmallShotEntity smallShot = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
+                for (int i = 0; i < world.getDifficulty().getId(); i++) {
+                    AbstractDanmakuEntity danmaku = randomSelect();
+                    DanmakuUtil.initDanmaku(danmaku, this.getPositionVec(), true);
+                    Vector3d shootVec1 = direction.rotateYaw((float) Math.PI / 36 * i);
+                    Vector3d shootVec2 = direction.rotateYaw(-(float) Math.PI / 36 * i);
+                    danmaku.shoot(shootVec1.x, shootVec1.y, shootVec1.z, 0.78f, 0f);
+
+                    AbstractDanmakuEntity danmaku1 = randomSelect();
+                    danmaku1.shoot(shootVec2.x, shootVec2.y, shootVec2.z, 0.78f, 0f);
+                    this.world.addEntity(danmaku1);
+                }
+
+            }
+        }
+    }
+
+    private <D extends AbstractDanmakuEntity> void sphereShot() {
+
+        if (ticksExisted % 20 == 0) {
+
+            List<Vector3d> pos1 = DanmakuUtil.spherePos(this.getPositionVec(), 1.2, 20);
+            List<Vector3d> pos2 = new ArrayList<>();
+
+            for (int i = 0; i < pos1.size(); i++) {
+                for (int j = 0; j < pos1.size(); j++) {
+                    Vector3d vector3d = pos1.get(j).rotatePitch((float) Math.PI * 2 / pos1.size() * j);
+                    pos1.set(j, vector3d);
+                }
+                pos2.addAll(pos1);
+            }
+
+            pos2.forEach(vector3d -> {
+                // SmallShotEntity danmaku = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
+                AbstractDanmakuEntity danmaku = randomSelect();
+                DanmakuUtil.initDanmaku(danmaku, this.getPositionVec().add(vector3d.x, 15, vector3d.y), true);
+                danmaku.shoot(vector3d.x, vector3d.y, vector3d.z, 0.6f, 0f);
+                world.addEntity(danmaku);
+            });
         }
     }
 
