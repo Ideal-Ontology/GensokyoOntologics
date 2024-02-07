@@ -1,16 +1,12 @@
 package github.thelawf.gensokyoontology.client;
 
 import com.google.common.collect.Lists;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.model.LilyWhiteModel;
 import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.DanmakuNormalVectorRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.LaserEntityRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.StarShotRenderer;
-import github.thelawf.gensokyoontology.client.renderer.world.LaserRenderer;
-import github.thelawf.gensokyoontology.client.renderer.world.LaserViewRenderer;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -23,9 +19,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.event.RenderPlayerEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.SeparatePerspectiveModel;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -151,7 +145,7 @@ public class GSKOClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MOUNTAIN_OF_FAITH_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HYPERBOLOID_LASER_ENTITY.get(),
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SCARLET_PRISONER_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.GALACTIC_ARM_SPELL_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));

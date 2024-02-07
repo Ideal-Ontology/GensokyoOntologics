@@ -1,17 +1,24 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.Path;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.Difficulty;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Random;
 
 public abstract class YoukaiEntity extends RetreatableEntity {
 
@@ -88,5 +95,11 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     @Override
     public void onKillCommand() {
         this.attackEntityFrom(DamageSource.OUT_OF_WORLD, Float.MAX_VALUE);
+    }
+
+    public abstract void danmakuAttack(LivingEntity target);
+
+    public static boolean canMonsterSpawn(EntityType<? extends YoukaiEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
+        return worldIn.getDifficulty() != Difficulty.PEACEFUL && canSpawnOn(type, worldIn, reason, pos, randomIn);
     }
 }

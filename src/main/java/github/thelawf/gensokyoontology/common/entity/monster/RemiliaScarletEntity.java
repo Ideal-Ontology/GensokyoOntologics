@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -26,6 +27,11 @@ public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, CreatureEntity.class)).setCallsForHelp());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, TsumiBukuroEntity.class, true));
     }
+
+    @Override
+    public void danmakuAttack(LivingEntity target) {
+    }
+
     @Override
     public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
         spellCard.onTick(this.world, this, ticksIn);

@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
-import github.thelawf.gensokyoontology.common.entity.ai.goal.FairyAttackGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.SphereDamakuAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
@@ -33,11 +33,11 @@ import java.util.EnumSet;
 import java.util.Random;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public class FairyEntity extends MonsterEntity implements IFlyingAnimal {
+public class FairyEntity extends YoukaiEntity implements IFlyingAnimal {
 
     private static final int MAX_LIVING_TICK = 3000;
 
-    public FairyEntity(EntityType<? extends MonsterEntity> entityTypeIn, World worldIn) {
+    public FairyEntity(EntityType<? extends YoukaiEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
         this.getAttributeManager().createInstanceIfAbsent(Attributes.MAX_HEALTH);
     }
@@ -45,7 +45,7 @@ public class FairyEntity extends MonsterEntity implements IFlyingAnimal {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new FairyAttackGoal(this, 30, 0.3f));
+        this.goalSelector.addGoal(1, new SphereDamakuAttackGoal(this, 30, 0.3f));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 0.8f));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.8f));
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));
@@ -150,7 +150,8 @@ public class FairyEntity extends MonsterEntity implements IFlyingAnimal {
         }
     }
 
-    public void performDanmakuAttack(LivingEntity target) {
+    @Override
+    public void danmakuAttack(LivingEntity target) {
 
         Vector3d vector3d = new Vector3d(Vector3f.ZP).scale(2);
         Random random = this.getRNG();

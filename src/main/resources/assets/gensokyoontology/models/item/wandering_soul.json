@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "gensokyoontology:item/wandering_soul"
+    "layer0": "gensokyoontology:item/spectre"
   }
 }

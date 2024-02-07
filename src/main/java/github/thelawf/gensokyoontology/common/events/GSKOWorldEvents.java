@@ -11,6 +11,8 @@ import github.thelawf.gensokyoontology.common.entity.spawn.LilyWhiteSpawner;
 import github.thelawf.gensokyoontology.common.item.touhou.GapItem;
 import github.thelawf.gensokyoontology.common.item.touhou.SakeWormItem;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
+import github.thelawf.gensokyoontology.common.world.GSKOEntityGenerator;
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatureGenerator;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -67,10 +69,8 @@ public class GSKOWorldEvents {
         }
         List<MobSpawnInfo.Spawners> spawners = event.getSpawns().getSpawner(EntityRegistry.FAIRY_ENTITY.get().getClassification());
         spawners.add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(), 38, 2, 4));
-        // GSKOEntityGenerator.addEntityToBiomes(
-        //         event, EntityRegistry.TSUMI_BUKURO_ENTITY.get(), 15, 2, 3,
-        //         GSKOBiomes.BEAST_PATH_KEY,
-        //         GSKOBiomes.HAKUREI_SHRINE_PRECINCTS_KEY);
+        GSKOEntityGenerator.addEntityToBiomes(event, EntityRegistry.SPECTRE_ENTITY.get(), 10, 3, 5,
+                GSKOBiomes.HIGAN_KEY);
     }
     
     @SubscribeEvent

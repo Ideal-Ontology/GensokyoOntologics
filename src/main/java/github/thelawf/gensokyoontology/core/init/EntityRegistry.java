@@ -162,9 +162,9 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<ManiaDepressEntity>> MANIA_DEPRESS_ENTITY =
             ENTITIES.register("mania_depress", () -> EntityType.Builder.<ManiaDepressEntity>create(ManiaDepressEntity::new, EntityClassification.MISC)
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("mania_depress"));
-    public static final RegistryObject<EntityType<HyperboloidLaser>> HYPERBOLOID_LASER_ENTITY =
-            ENTITIES.register("hyperboloid_laser", () -> EntityType.Builder.<HyperboloidLaser>create(HyperboloidLaser::new,
-                    EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("hyperboloid_laser"));
+    public static final RegistryObject<EntityType<ScarletPrisoner>> SCARLET_PRISONER_ENTITY =
+            ENTITIES.register("scarlet_prisoner", () -> EntityType.Builder.<ScarletPrisoner>create(ScarletPrisoner::new,
+                    EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("scarlet_prisoner"));
     public static final RegistryObject<EntityType<GalacticArmSpellEntity>> GALACTIC_ARM_SPELL_ENTITY =
             ENTITIES.register("galactic_arm_spell", () -> EntityType.Builder.<GalacticArmSpellEntity>create((entityTypeIn, worldIn) -> {
                         try {

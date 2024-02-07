@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
-import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,16 +11,16 @@ import net.minecraft.util.math.vector.Vector3d;
  * Copy from <a href="https://github.com/TartaricAcid/TouhouLittleMaid/blob/1.16.5/src/main/java/com/github/tartaricacid/touhoulittlemaid/entity/ai/goal/FairyAttackGoal.java#L12">车万女仆中有关妖精AI的GitHub仓库界面</a>
  * <br>
  */
-public class FairyAttackGoal extends Goal {
+public class SphereDamakuAttackGoal extends Goal {
     private static final int MAX_WITH_IN_RANGE_TIME = 20;
-    private final FairyEntity fairy;
+    private final YoukaiEntity youkai;
     private final double minDistance;
     private final double speedIn;
     private Path path;
     private int withInRangeTime;
 
-    public FairyAttackGoal(FairyEntity entityFairy, double minDistance, double speedIn) {
-        this.fairy = entityFairy;
+    public SphereDamakuAttackGoal(YoukaiEntity entityFairy, double minDistance, double speedIn) {
+        this.youkai = entityFairy;
         this.minDistance = minDistance;
         this.speedIn = speedIn;
     }
@@ -28,38 +28,38 @@ public class FairyAttackGoal extends Goal {
 
     @Override
     public boolean shouldExecute() {
-        LivingEntity target = this.fairy.getAttackTarget();
+        LivingEntity target = this.youkai.getAttackTarget();
         if (target == null || !target.isAlive()) {
             return false;
         }
-        this.path = this.fairy.getNavigator().pathfind(target, 0);
+        this.path = this.youkai.getNavigator().pathfind(target, 0);
         return path != null;
     }
 
     @Override
     public void startExecuting() {
-        this.fairy.getNavigator().setPath(this.path, this.speedIn);
+        this.youkai.getNavigator().setPath(this.path, this.speedIn);
     }
 
     @Override
     public void tick() {
-        LivingEntity target = this.fairy.getAttackTarget();
+        LivingEntity target = this.youkai.getAttackTarget();
         if (target == null || !target.isAlive()) {
             return;
         }
-        this.fairy.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
-        double distance = this.fairy.getDistanceSq(target);
-        if (this.fairy.getEntitySenses().canSee(target) && distance >= minDistance) {
-            this.fairy.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
+        this.youkai.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
+        double distance = this.youkai.getDistanceSq(target);
+        if (this.youkai.getEntitySenses().canSee(target) && distance >= minDistance) {
+            this.youkai.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
             withInRangeTime = 0;
         } else if (distance < minDistance) {
-            this.fairy.getNavigator().clearPath();
+            this.youkai.getNavigator().clearPath();
             withInRangeTime++;
-            Vector3d motion = fairy.getMotion();
-            fairy.setMotion(motion.x, 0, motion.z);
-            fairy.setNoGravity(true);
+            Vector3d motion = youkai.getMotion();
+            youkai.setMotion(motion.x, 0, motion.z);
+            youkai.setNoGravity(true);
             if (withInRangeTime > MAX_WITH_IN_RANGE_TIME) {
-                fairy.performDanmakuAttack(target);
+                youkai.danmakuAttack(target);
                 withInRangeTime = 0;
             }
         } else {
@@ -69,7 +69,7 @@ public class FairyAttackGoal extends Goal {
 
     @Override
     public boolean shouldContinueExecuting() {
-        LivingEntity target = this.fairy.getAttackTarget();
+        LivingEntity target = this.youkai.getAttackTarget();
         if (target == null || !target.isAlive()) {
             return false;
         } else {
@@ -81,13 +81,13 @@ public class FairyAttackGoal extends Goal {
 
     @Override
     public void resetTask() {
-        LivingEntity target = this.fairy.getAttackTarget();
+        LivingEntity target = this.youkai.getAttackTarget();
         boolean isPlayerAndCanNotBeAttacked = target instanceof PlayerEntity
                 && (target.isSpectator() || ((PlayerEntity) target).isCreative());
         if (isPlayerAndCanNotBeAttacked) {
-            this.fairy.setAttackTarget(null);
+            this.youkai.setAttackTarget(null);
         }
-        this.fairy.getNavigator().clearPath();
+        this.youkai.getNavigator().clearPath();
         withInRangeTime = 0;
     }
 }

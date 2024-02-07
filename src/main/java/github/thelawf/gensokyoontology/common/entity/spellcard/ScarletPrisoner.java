@@ -19,13 +19,13 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HyperboloidLaser extends SpellCardEntity {
-    public HyperboloidLaser(World worldIn, LivingEntity living) {
-        super(EntityRegistry.HYPERBOLOID_LASER_ENTITY.get(), worldIn, living);
+public class ScarletPrisoner extends SpellCardEntity {
+    public ScarletPrisoner(World worldIn, LivingEntity living) {
+        super(EntityRegistry.SCARLET_PRISONER_ENTITY.get(), worldIn, living);
     }
 
-    public HyperboloidLaser(EntityType<HyperboloidLaser> type, World world) {
-        super(EntityRegistry.HYPERBOLOID_LASER_ENTITY.get(), world);
+    public ScarletPrisoner(EntityType<ScarletPrisoner> type, World world) {
+        super(EntityRegistry.SCARLET_PRISONER_ENTITY.get(), world);
     }
 
     @Override

@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.spellcard.HyperboloidLaser;
+import github.thelawf.gensokyoontology.common.entity.spellcard.ScarletPrisoner;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -22,9 +22,9 @@ public class SC_HyperboloidLaser extends SpellCardItem{
         if (worldIn instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
 
-            HyperboloidLaser hyperboloidLaser = new HyperboloidLaser(worldIn, playerIn);
-            // hyperboloidLaser.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
-            worldIn.addEntity(hyperboloidLaser);
+            ScarletPrisoner scarletPrisoner = new ScarletPrisoner(worldIn, playerIn);
+            // scarletPrisoner.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
+            worldIn.addEntity(scarletPrisoner);
 
             playerIn.getCooldownTracker().setCooldown(this, 1200);
         }
