@@ -49,15 +49,19 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         this.dataManager.register(DATA_FAVORABILITY, this.favorability);
     }
 
+    /**
+     * 怪不得继承自YoukaiEntity的实体死不了呢（）原来是我之前在这里判断如果战胜了妖怪则将她驯服了啊（
+     *
+     */
     @Override
     public void onDeath(@NotNull DamageSource cause) {
-        if (!this.isRetreated) {
-            this.setHealth(this.getMaxHealth());
-            this.setOwnerId(cause.getTrueSource() instanceof PlayerEntity && cause.getTrueSource() == null ?
-                    cause.getTrueSource().getUniqueID() : null);
-            if (this.getOwnerId() != null) this.setRetreated(true);
-            return;
-        }
+        // if (!this.isRetreated) {
+        //     this.setHealth(this.getMaxHealth());
+        //     this.setOwnerId(cause.getTrueSource() instanceof PlayerEntity && cause.getTrueSource() == null ?
+        //             cause.getTrueSource().getUniqueID() : null);
+        //     if (this.getOwnerId() != null) this.setRetreated(true);
+        //     return;
+        // }
         super.onDeath(cause);
     }
 

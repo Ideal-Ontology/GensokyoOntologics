@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IAngerable;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -47,6 +48,8 @@ public abstract class RetreatableEntity extends TameableEntity implements IAnger
     public void func_230258_H__() {
 
     }
+
+    public abstract void danmakuAttack(LivingEntity target);
 
     public enum Animation {
         IDLE,

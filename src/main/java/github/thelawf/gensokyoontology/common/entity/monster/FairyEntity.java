@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import com.sun.corba.se.spi.orbutil.closure.Closure;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.DamakuAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
@@ -37,11 +38,11 @@ import java.util.Random;
 import java.util.function.Supplier;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public class FairyEntity extends YoukaiEntity implements IFlyingAnimal {
+public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
 
     private static final int MAX_LIVING_TICK = 3000;
 
-    public FairyEntity(EntityType<? extends YoukaiEntity> entityTypeIn, World worldIn) {
+    public FairyEntity(EntityType<? extends RetreatableEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
         this.getAttributeManager().createInstanceIfAbsent(Attributes.MAX_HEALTH);
     }

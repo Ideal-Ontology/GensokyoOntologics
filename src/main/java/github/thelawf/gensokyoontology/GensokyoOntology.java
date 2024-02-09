@@ -189,8 +189,7 @@ public class GensokyoOntology {
             event.put(EntityRegistry.FAIRY_ENTITY.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthFairy)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D)
-                    .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 1.0D).create());
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D).create());
 
             event.put(EntityRegistry.INYO_JADE_ENTITY.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthInyojade)

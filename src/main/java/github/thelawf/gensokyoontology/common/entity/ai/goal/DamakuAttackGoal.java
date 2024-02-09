@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
+import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.RetreatableEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
@@ -13,13 +15,13 @@ import net.minecraft.util.math.vector.Vector3d;
  */
 public class DamakuAttackGoal extends Goal {
     private static final int MAX_WITH_IN_RANGE_TIME = 20;
-    private final YoukaiEntity youkai;
+    private final RetreatableEntity youkai;
     private final double minDistance;
     private final double speedIn;
     private Path path;
     private int withInRangeTime;
 
-    public DamakuAttackGoal(YoukaiEntity entityFairy, double minDistance, double speedIn) {
+    public DamakuAttackGoal(FairyEntity entityFairy, double minDistance, double speedIn) {
         this.youkai = entityFairy;
         this.minDistance = minDistance;
         this.speedIn = speedIn;
