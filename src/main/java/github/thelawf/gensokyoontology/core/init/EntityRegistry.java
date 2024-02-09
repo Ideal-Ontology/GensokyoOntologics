@@ -40,6 +40,9 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<FairyEntity>> FAIRY_ENTITY = ENTITIES.register(
             "fairy", () -> EntityType.Builder.create(FairyEntity::new, EntityClassification.MONSTER)
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("fairy"));
+    public static final RegistryObject<EntityType<SunflowerFairyEntity>> SUNFLOWER_FAIRY_ENTITY = ENTITIES.register(
+            "sunflower_fairy", () -> EntityType.Builder.create(SunflowerFairyEntity::new, EntityClassification.MONSTER)
+                    .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("sunflower_fairy"));
     public static final RegistryObject<EntityType<SpectreEntity>> SPECTRE_ENTITY = ENTITIES.register(
             "spectre", () -> EntityType.Builder.create(SpectreEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.65f, 0.65f).trackingRange(10).build("spectre"));

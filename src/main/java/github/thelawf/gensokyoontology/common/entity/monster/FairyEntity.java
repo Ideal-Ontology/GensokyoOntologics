@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
-import com.sun.corba.se.spi.orbutil.closure.Closure;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.DamakuAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
@@ -20,9 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -35,7 +32,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Supplier;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
@@ -50,7 +46,7 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
     @Override
     protected void registerGoals() {
         goalSelector.addGoal(0, new SwimGoal(this));
-        this.goalSelector.addGoal(1, new DamakuAttackGoal(this, 30, 0.3f));
+        this.goalSelector.addGoal(1, new DamakuAttackGoal(this, 30, 0.6f));
         this.goalSelector.addGoal(2, new MoveTowardsRestrictionGoal(this, 0.8f));
         this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.8f));
         this.goalSelector.addGoal(4, new LookAtGoal(this, PlayerEntity.class, 8.0f));

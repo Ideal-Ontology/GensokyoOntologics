@@ -1,8 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
-import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.RetreatableEntity;
-import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
@@ -15,14 +13,14 @@ import net.minecraft.util.math.vector.Vector3d;
  */
 public class DamakuAttackGoal extends Goal {
     private static final int MAX_WITH_IN_RANGE_TIME = 20;
-    private final RetreatableEntity youkai;
+    private final RetreatableEntity entity;
     private final double minDistance;
     private final double speedIn;
     private Path path;
     private int withInRangeTime;
 
-    public DamakuAttackGoal(FairyEntity entityFairy, double minDistance, double speedIn) {
-        this.youkai = entityFairy;
+    public DamakuAttackGoal(RetreatableEntity entity, double minDistance, double speedIn) {
+        this.entity = entity;
         this.minDistance = minDistance;
         this.speedIn = speedIn;
     }
@@ -30,38 +28,38 @@ public class DamakuAttackGoal extends Goal {
 
     @Override
     public boolean shouldExecute() {
-        LivingEntity target = this.youkai.getAttackTarget();
+        LivingEntity target = this.entity.getAttackTarget();
         if (target == null || !target.isAlive()) {
             return false;
         }
-        this.path = this.youkai.getNavigator().pathfind(target, 0);
-        return path != null;
+        // this.path = this.entity.getNavigator().pathfind(target, 0);
+        return true;
     }
 
     @Override
     public void startExecuting() {
-        this.youkai.getNavigator().setPath(this.path, this.speedIn);
+        this.entity.getNavigator().setPath(this.path, this.speedIn);
     }
 
     @Override
     public void tick() {
-        LivingEntity target = this.youkai.getAttackTarget();
+        LivingEntity target = this.entity.getAttackTarget();
         if (target == null || !target.isAlive()) {
             return;
         }
-        this.youkai.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
-        double distance = this.youkai.getDistanceSq(target);
-        if (this.youkai.getEntitySenses().canSee(target) && distance >= minDistance) {
-            this.youkai.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
+        this.entity.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
+        double distance = this.entity.getDistanceSq(target);
+        if (this.entity.getEntitySenses().canSee(target) && distance >= minDistance) {
+            this.entity.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
             withInRangeTime = 0;
         } else if (distance < minDistance) {
-            this.youkai.getNavigator().clearPath();
+            this.entity.getNavigator().clearPath();
             withInRangeTime++;
-            Vector3d motion = youkai.getMotion();
-            youkai.setMotion(motion.x, 0, motion.z);
-            youkai.setNoGravity(true);
+            Vector3d motion = entity.getMotion();
+            entity.setMotion(motion.x, 0, motion.z);
+            entity.setNoGravity(true);
             if (withInRangeTime > MAX_WITH_IN_RANGE_TIME) {
-                youkai.danmakuAttack(target);
+                entity.danmakuAttack(target);
                 withInRangeTime = 0;
             }
         } else {
@@ -71,7 +69,7 @@ public class DamakuAttackGoal extends Goal {
 
     @Override
     public boolean shouldContinueExecuting() {
-        LivingEntity target = this.youkai.getAttackTarget();
+        LivingEntity target = this.entity.getAttackTarget();
         if (target == null || !target.isAlive()) {
             return false;
         } else {
@@ -83,13 +81,13 @@ public class DamakuAttackGoal extends Goal {
 
     @Override
     public void resetTask() {
-        LivingEntity target = this.youkai.getAttackTarget();
+        LivingEntity target = this.entity.getAttackTarget();
         boolean isPlayerAndCanNotBeAttacked = target instanceof PlayerEntity
                 && (target.isSpectator() || ((PlayerEntity) target).isCreative());
         if (isPlayerAndCanNotBeAttacked) {
-            this.youkai.setAttackTarget(null);
+            this.entity.setAttackTarget(null);
         }
-        this.youkai.getNavigator().clearPath();
+        this.entity.getNavigator().clearPath();
         withInRangeTime = 0;
     }
 }

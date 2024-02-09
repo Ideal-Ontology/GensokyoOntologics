@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.command.GSKOCommand;
 import github.thelawf.gensokyoontology.common.command.GUICommand;
 import github.thelawf.gensokyoontology.common.command.MathFuncCommand;
+import github.thelawf.gensokyoontology.common.entity.monster.RetreatableEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
 import github.thelawf.gensokyoontology.common.network.CountDownNetworking;
@@ -55,7 +56,7 @@ public class CommonSetUp {
             EntitySpawnPlacementRegistry.register(EntityRegistry.FAIRY_ENTITY.get(),
                     EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
                     Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
-                    YoukaiEntity::canMonsterSpawn);
+                    RetreatableEntity::canMonsterSpawn);
 
             EntitySpawnPlacementRegistry.register(EntityRegistry.LILY_WHITE_ENTITY.get(),
                     EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,

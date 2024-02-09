@@ -1,12 +1,19 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import github.thelawf.gensokyoontology.common.entity.ai.goal.DamakuAttackGoal;
+import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.FlyingEntity;
-import net.minecraft.entity.IRendersAsItem;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
+import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
+import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.passive.IFlyingAnimal;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.IPacket;
 import net.minecraft.particles.ParticleTypes;
@@ -24,15 +31,19 @@ import org.jetbrains.annotations.NotNull;
 import java.util.Random;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public class SpectreEntity extends FlyingEntity implements IRendersAsItem {
+public class SpectreEntity extends RetreatableEntity implements IRendersAsItem, IFlyingAnimal {
 
-    public SpectreEntity(EntityType<? extends FlyingEntity> type, World worldIn) {
+    public SpectreEntity(EntityType<? extends RetreatableEntity> type, World worldIn) {
         super(type, worldIn);
         this.setNoGravity(true);
     }
 
     @Override
     protected void registerGoals() {
+        this.goalSelector.addGoal(1, new DamakuAttackGoal(this, 30, 0.6f));
+        this.goalSelector.addGoal(3, new WaterAvoidingRandomFlyingGoal(this, 0.8f));
+
+        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         super.registerGoals();
     }
 
@@ -57,6 +68,7 @@ public class SpectreEntity extends FlyingEntity implements IRendersAsItem {
     }
 
     @Override
+    @NotNull
     public IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
@@ -71,5 +83,19 @@ public class SpectreEntity extends FlyingEntity implements IRendersAsItem {
             int i = worldIn.getWorld().isThundering() ? worldIn.getNeighborAwareLightSubtracted(pos, 10) : worldIn.getLight(pos);
             return i <= randomIn.nextInt(8);
         }
+    }
+
+    @Override
+    public void danmakuAttack(LivingEntity target) {
+        if (ticksExisted % 10 == 0) {
+            Vector3d direction = new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
+            SmallShotEntity danmaku = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.BLUE);
+            DanmakuUtil.initDanmaku(danmaku, this.getPositionVec(), true);
+            danmaku.shoot(direction.x, direction.y, direction.z, 0.78f, 0f);
+            this.world.addEntity(danmaku);
+        }
+    }
+
+    private <D extends AbstractDanmakuEntity> void aimedShot(LivingEntity target) {
     }
 }

@@ -103,7 +103,5 @@ public abstract class YoukaiEntity extends RetreatableEntity {
 
     public abstract void danmakuAttack(LivingEntity target);
 
-    public static boolean canMonsterSpawn(EntityType<? extends YoukaiEntity> type, IWorld worldIn, SpawnReason reason, BlockPos pos, Random randomIn) {
-        return worldIn.getDifficulty() != Difficulty.PEACEFUL && canSpawnOn(type, worldIn, reason, pos, randomIn);
-    }
+
 }
