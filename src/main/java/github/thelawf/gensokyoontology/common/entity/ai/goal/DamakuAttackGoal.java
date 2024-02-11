@@ -15,7 +15,7 @@ public class DamakuAttackGoal extends Goal {
     private final RetreatableEntity entity;
     private final double minDistance;
     private final double speedIn;
-    private final int delay = 10;
+    private final int delay = 30;
     private final int continuing = 5;
     public Path path;
 
