@@ -191,6 +191,11 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D).create());
 
+            event.put(EntityRegistry.SUNFLOWER_FAIRY_ENTITY.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 50)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D).create());
+
             event.put(EntityRegistry.INYO_JADE_ENTITY.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthInyojade)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 25D)

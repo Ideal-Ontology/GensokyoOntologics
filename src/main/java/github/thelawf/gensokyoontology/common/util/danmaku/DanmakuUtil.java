@@ -382,6 +382,11 @@ public class DanmakuUtil {
         return coordinates;
     }
 
+    public static Vector3d getAimedVec(LivingEntity shooter, LivingEntity target) {
+        return target.getPositionVec().subtract(shooter.getPositionVec());
+        // return new Vector3d(target.getPosX() - shooter.getPosX(), target.getPosY() - shooter.getPosY(), target.getPosZ() - shooter.getPosZ());
+    }
+
     public static List<DanmakuColor> getRainbowColoredDanmaku() {
 
         return Lists.newArrayList(

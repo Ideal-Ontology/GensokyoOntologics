@@ -12,12 +12,12 @@ import net.minecraft.util.math.vector.Vector3d;
  * <br>
  */
 public class DamakuAttackGoal extends Goal {
-    private static final int MAX_WITH_IN_RANGE_TIME = 20;
     private final RetreatableEntity entity;
     private final double minDistance;
     private final double speedIn;
-    private Path path;
-    private int withInRangeTime;
+    private final int delay = 10;
+    private final int continuing = 5;
+    public Path path;
 
     public DamakuAttackGoal(RetreatableEntity entity, double minDistance, double speedIn) {
         this.entity = entity;
@@ -51,19 +51,14 @@ public class DamakuAttackGoal extends Goal {
         double distance = this.entity.getDistanceSq(target);
         if (this.entity.getEntitySenses().canSee(target) && distance >= minDistance) {
             this.entity.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
-            withInRangeTime = 0;
         } else if (distance < minDistance) {
             this.entity.getNavigator().clearPath();
-            withInRangeTime++;
             Vector3d motion = entity.getMotion();
             entity.setMotion(motion.x, 0, motion.z);
             entity.setNoGravity(true);
-            if (withInRangeTime > MAX_WITH_IN_RANGE_TIME) {
+            if (entity.ticksExisted % delay == 0) {
                 entity.danmakuAttack(target);
-                withInRangeTime = 0;
             }
-        } else {
-            withInRangeTime = 0;
         }
     }
 
@@ -88,6 +83,5 @@ public class DamakuAttackGoal extends Goal {
             this.entity.setAttackTarget(null);
         }
         this.entity.getNavigator().clearPath();
-        withInRangeTime = 0;
     }
 }
