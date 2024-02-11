@@ -28,7 +28,7 @@ public class MagicFoliagePlacer extends FoliagePlacer {
 
     @Override
     protected FoliagePlacerType<?> getPlacerType() {
-        return PlacerRegistry.MAGIC_FOLIAGE_PLACER.get();
+        return null;
     }
 
     /**

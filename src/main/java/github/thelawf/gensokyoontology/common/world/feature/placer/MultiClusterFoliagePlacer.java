@@ -47,7 +47,7 @@ public class MultiClusterFoliagePlacer extends FoliagePlacer {
     @Override
     @NotNull
     protected FoliagePlacerType<?> getPlacerType() {
-        return PlacerRegistry.MULTI_CLUSTER_PLACER.get();
+        return null;
     }
 
     /**

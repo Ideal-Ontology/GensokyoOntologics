@@ -15,10 +15,10 @@ public final class FeatureRegistry {
     public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(
             ForgeRegistries.FEATURES, GensokyoOntology.MODID);
 
+
     public static final RegistryObject<Feature<MagicTreeConfig>> MAGIC_TREE = FEATURES.register(
             "magic_tree", () -> new MagicTreeFeature(MagicTreeConfig.CODEC));
     public static final RegistryObject<WaterfallFeature> WATERFALL = FEATURES.register(
             "water_fall", () -> new WaterfallFeature(LiquidsConfig.CODEC));
-
 
 }

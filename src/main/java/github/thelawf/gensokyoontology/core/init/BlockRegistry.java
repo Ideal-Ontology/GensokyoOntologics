@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.decoration.*;
 import github.thelawf.gensokyoontology.common.block.nature.*;
 import github.thelawf.gensokyoontology.common.block.ore.*;
+import github.thelawf.gensokyoontology.common.world.feature.tree.MagicTree;
 import github.thelawf.gensokyoontology.common.world.feature.tree.MapleTree;
 import github.thelawf.gensokyoontology.common.world.feature.tree.SakuraTree;
 import net.minecraft.block.*;
@@ -29,9 +30,8 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register("magic_leaves", MagicLeaves::new);
 
     public static final RegistryObject<Block> MAGIC_LOG = BLOCKS.register("magic_log", MagicLog::new);
-
-    // public static final RegistryObject<Block> MAGIC_SAPLING =BLOCKS.register("magic_sapling",
-    // () -> new SaplingBlock());
+    public static final RegistryObject<Block> MAGIC_SAPLING =BLOCKS.register("magic_sapling", () -> new SaplingBlock(
+            new MagicTree(), AbstractBlock.Properties.from(Blocks.ACACIA_SAPLING)));
     public static final RegistryObject<Block> MAGIC_BUTTON = BLOCKS.register("magic_button", MagicButton::new);
     public static final RegistryObject<Block> MAGIC_PLANKS = BLOCKS.register("magic_planks", MagicPlanks::new);
     public static final RegistryObject<Block> MAGIC_SLAB = BLOCKS.register("magic_slab", MagicSlab::new);

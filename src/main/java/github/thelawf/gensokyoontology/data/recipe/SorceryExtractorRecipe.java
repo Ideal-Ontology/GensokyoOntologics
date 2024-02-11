@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.data.recipe;
 
-import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
@@ -17,45 +16,35 @@ import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class SorceryRecipe implements ISorceryRecipe {
+public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
 
     private final ResourceLocation id;
     private final ItemStack output;
-    // private final ItemStack up;
-    // private final ItemStack left;
-    // private final ItemStack right;
-    // private final ItemStack down;
+    private final ItemStack up;
+    private final ItemStack left;
+    private final ItemStack right;
+    private final ItemStack down;
 
     private final NonNullList<Ingredient> inputs;
 
-    // public SorceryRecipe(ResourceLocation id, ItemStack output, ItemStack up, ItemStack left, ItemStack right, ItemStack down) {
-    //     this.id = id;
-    //     this.up = up;
-    //     this.left = left;
-    //     this.right = right;
-    //     this.down = down;
-//
-    //     this.output = output;
-    //     this.inputs = NonNullList.withSize(4, Ingredient.fromItems(up.getItem(), left.getItem(), right.getItem(), down.getItem()));
-    // }
-
-    public SorceryRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputs) {
+    public SorceryExtractorRecipe(ResourceLocation id, ItemStack output, ItemStack up, ItemStack left, ItemStack right, ItemStack down) {
         this.id = id;
-        this.inputs = inputs;
+        this.up = up;
+        this.left = left;
+        this.right = right;
+        this.down = down;
+//
         this.output = output;
+        this.inputs = NonNullList.withSize(4, Ingredient.fromStacks(this.up, this.left, this.right, this.down));
     }
 
-    // @Override
-    // public boolean matches(@NotNull IInventory inv, @NotNull World worldIn) {
-    //     LogManager.getLogger().info("Match Checking!");
-    //     return this.inputs.get(0).test(up) && this.inputs.get(1).test(left) &&
-    //             this.inputs.get(2).test(right) && this.inputs.get(3).test(down);
-    // }
+
 
     @Override
     public boolean matches(@NotNull IInventory inv, @NotNull World worldIn) {
-        return this.inputs.get(0).test(inv.getStackInSlot(0)) && this.inputs.get(1).test(inv.getStackInSlot(1)) &&
-                this.inputs.get(2).test(inv.getStackInSlot(2)) && this.inputs.get(3).test(inv.getStackInSlot(3));
+        LogManager.getLogger().info("Match Checking!");
+        return this.inputs.get(0).test(this.up) && this.inputs.get(1).test(this.left) &&
+                this.inputs.get(2).test(this.right) && this.inputs.get(3).test(this.down);
     }
 
     @Override
@@ -87,52 +76,72 @@ public class SorceryRecipe implements ISorceryRecipe {
         return RecipeRegistry.SORCERY_SERIALIZER.get();
     }
 
-    public static class SorceryRecipeType implements IRecipeType<SorceryRecipe> {
+    public static class SorceryRecipeType implements IRecipeType<SorceryExtractorRecipe> {
         @Override
         public String toString() {
-            return SorceryRecipe.RECIPE_ID.toString();
+            return SorceryExtractorRecipe.RECIPE_ID.toString();
         }
     }
 
-    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SorceryRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SorceryExtractorRecipe> {
 
         @Override
-        public SorceryRecipe read(ResourceLocation recipeId, JsonObject json) {
+        public SorceryExtractorRecipe read(ResourceLocation recipeId, JsonObject json) {
             ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
             JsonArray ingredients = JSONUtils.getJsonArray(json, "ingredients");
 
             NonNullList<Ingredient> inputs = NonNullList.withSize(4, Ingredient.EMPTY);
 
-            // ItemStack upStack = JSONUtils.getItem(ingredients, "up").getDefaultInstance();
-            // ItemStack leftStack = JSONUtils.getItem(ingredients, "left").getDefaultInstance();
-            // ItemStack rightStack = JSONUtils.getItem(ingredients, "right").getDefaultInstance();
-            // ItemStack downStack = JSONUtils.getItem(ingredients, "down").getDefaultInstance();
+            ItemStack upStack = JSONUtils.getItem(ingredients, "up").getDefaultInstance();
+            ItemStack leftStack = JSONUtils.getItem(ingredients, "left").getDefaultInstance();
+            ItemStack rightStack = JSONUtils.getItem(ingredients, "right").getDefaultInstance();
+            ItemStack downStack = JSONUtils.getItem(ingredients, "down").getDefaultInstance();
 
             for (int i = 0; i < ingredients.size(); i++) {
                 inputs.set(i, Ingredient.deserialize(ingredients.get(i)));
             }
 
-            return new SorceryRecipe(recipeId, output, inputs);
+            return new SorceryExtractorRecipe(recipeId, output, upStack, leftStack, rightStack, downStack);
         }
 
         @Nullable
         @Override
-        public SorceryRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public SorceryExtractorRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(4, Ingredient.EMPTY);
 
             inputs.replaceAll(ignored -> Ingredient.read(buffer));
+            ItemStack upStack = buffer.readItemStack();
+            ItemStack leftStack = buffer.readItemStack();
+            ItemStack rightStack = buffer.readItemStack();
+            ItemStack downStack = buffer.readItemStack();
 
             ItemStack output = buffer.readItemStack();
-            return new SorceryRecipe(recipeId, output, inputs);
+            return new SorceryExtractorRecipe(recipeId, output, upStack, leftStack, rightStack, downStack);
         }
 
         @Override
-        public void write(PacketBuffer buffer, SorceryRecipe recipe) {
+        public void write(PacketBuffer buffer, SorceryExtractorRecipe recipe) {
             buffer.writeVarInt(recipe.inputs.size());
             for (Ingredient ingredient : recipe.inputs) {
                 ingredient.write(buffer);
             }
             buffer.writeItemStack(recipe.getRecipeOutput(), false);
         }
+    }
+
+    public ItemStack getUp() {
+        return this.up.copy();
+    }
+
+    public ItemStack getLeft() {
+        return this.left.copy();
+    }
+
+    public ItemStack getRight() {
+        return this.right.copy();
+    }
+
+    public ItemStack getDown() {
+        return this.down.copy();
     }
 }

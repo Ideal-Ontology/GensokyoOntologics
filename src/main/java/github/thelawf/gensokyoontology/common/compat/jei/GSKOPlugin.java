@@ -3,7 +3,8 @@ package github.thelawf.gensokyoontology.common.compat.jei;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
-import github.thelawf.gensokyoontology.data.recipe.SorceryRecipe;
+import github.thelawf.gensokyoontology.data.recipe.GSKORecipeHandler;
+import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.*;
@@ -34,6 +35,7 @@ public class GSKOPlugin implements IModPlugin {
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new DanmakuRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new SorceryRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -44,9 +46,10 @@ public class GSKOPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager manager = Objects.requireNonNull(Minecraft.getInstance().world).getRecipeManager();
-        registration.addRecipes(manager.getRecipesForType(RecipeRegistry.SORCERY_RECIPE).stream()
-                        .filter(recipe -> recipe instanceof SorceryRecipe).collect(Collectors.toList()),
-                SorceryRecipeCategory.UID);
+        registration.addRecipes(GSKORecipeHandler.getInstance().extractorRecipes(), SorceryRecipeCategory.UID);
+        // registration.addRecipes(manager.getRecipesForType(RecipeRegistry.SORCERY_RECIPE).stream()
+        //                 .filter(recipe -> recipe instanceof SorceryExtractorRecipe).collect(Collectors.toList()),
+        //         SorceryRecipeCategory.UID);
 
         registration.addRecipes(manager.getRecipesForType(RecipeRegistry.DANMAKU_RECIPE).stream()
                         .filter(recipe -> recipe instanceof DanmakuRecipe).collect(Collectors.toList()),

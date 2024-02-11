@@ -158,6 +158,10 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> MAPLE_PRESSRUE_PLATE_ITEM = ITEMS.register(
             "maple_pressure_plate", () -> new BlockItem(BlockRegistry.MAPLE_PRESSURE_PLATE.get(),
                     new Item.Properties().group(ItemGroup.REDSTONE)));
+
+    public static final RegistryObject<BlockItem> MAGIC_SAPLING_ITEM = ITEMS.register(
+            "magic_sapling", () -> new BlockItem(BlockRegistry.MAGIC_SAPLING.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAGIC_LEAVES_ITEM = ITEMS.register(
             "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));

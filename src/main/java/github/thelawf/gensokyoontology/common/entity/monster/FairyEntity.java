@@ -197,9 +197,9 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
 
     }
 
-    private void oddAimedShot(Vector3d shootVec) {
+    private void oddAimedShot(Vector3d pos, Vector3d shootVec) {
         AbstractDanmakuEntity danmaku = randomSelect();
-        DanmakuUtil.initDanmaku(danmaku, this.getPositionVec().add(0,1,0), true);
+        DanmakuUtil.initDanmaku(danmaku, pos, true);
         danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, 0.7f, 0f);
         this.world.addEntity(danmaku);
     }
@@ -211,8 +211,9 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
     private void oddAimedShot(LivingEntity target) {
         aimedShot(target);
         for (int i = 0; i < 2; i++) {
-            oddAimedShot(getAimedVec(target).rotateYaw((float) Math.PI / 10 * (i + 1)));
-            oddAimedShot(getAimedVec(target).rotateYaw(-(float) Math.PI / 10 * (i + 1)));
+            Vector3d shootVec = getAimedVec(target).rotateYaw((float) Math.PI / 10 * (i + 1));
+            oddAimedShot(this.getPositionVec().add(shootVec).add(0,1,0), shootVec);
+            oddAimedShot(this.getPositionVec().add(shootVec).add(0,1,0), shootVec.inverse());
         }
     }
 

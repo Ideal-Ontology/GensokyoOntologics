@@ -4,7 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
-import github.thelawf.gensokyoontology.data.recipe.SorceryRecipe;
+import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -98,7 +98,7 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
         }
         if (world == null) return;
 
-        Optional<SorceryRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
+        Optional<SorceryExtractorRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
 
         recipe.ifPresent(iRecipe -> {
             if (iRecipe.matches(inv, world)) {

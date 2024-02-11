@@ -13,6 +13,7 @@ import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomeGenerator;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
+import github.thelawf.gensokyoontology.common.world.feature.placer.BranchTrunkPlacer;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
@@ -38,7 +39,6 @@ public class CommonSetUp {
             //         GSKOChunkGenerator.CHUNK_GEN_CODEC);
 
             StructureRegistry.setupStructures();
-            PlacerRegistry.registerPlacers();
             GSKOFeatures.registerStructure();
             GSKOFeatures.registerOre();
             GSKOFeatures.registerFeature();
@@ -48,6 +48,8 @@ public class CommonSetUp {
             GSKONetworking.register();
             GSKOCapabilities.registerCapabilities();
             CountDownNetworking.registerMessage();
+
+            PlacerRegistry.registerTrunkPlacer("branch_trunk_placer", BranchTrunkPlacer.CODEC);
 
             Registry.register(Registry.BIOME_PROVIDER_CODEC,
                     new ResourceLocation(GensokyoOntology.MODID, "gensokyo"),

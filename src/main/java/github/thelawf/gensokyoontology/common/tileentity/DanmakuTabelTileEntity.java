@@ -5,7 +5,7 @@ import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingConta
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
-import github.thelawf.gensokyoontology.data.recipe.SorceryRecipe;
+import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -123,7 +123,7 @@ public class DanmakuTabelTileEntity extends TileEntity {
         }
         if (world == null) return;
 
-        Optional<SorceryRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
+        Optional<SorceryExtractorRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
 
         recipe.ifPresent(iRecipe -> {
             craft();
