@@ -42,7 +42,7 @@ public class BranchTrunkPlacer extends AbstractTrunkPlacer {
 
     @Override
     @NotNull
-    protected TrunkPlacerType<?> getPlacerType() {
+    protected TrunkPlacerType<BranchTrunkPlacer> getPlacerType() {
         return PlacerRegistry.BRANCH_TRUNK_PLACER;
     }
 

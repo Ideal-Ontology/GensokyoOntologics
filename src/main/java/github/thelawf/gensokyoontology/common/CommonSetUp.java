@@ -76,6 +76,6 @@ public class CommonSetUp {
     public static void registerCommand(RegisterCommandsEvent event) {
         GSKOCommand.register(event.getDispatcher());
         GUICommand.register(event.getDispatcher());
-        MathFuncCommand.register(event.getDispatcher());
+        // MathFuncCommand.register(event.getDispatcher());
     }
 }

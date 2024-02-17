@@ -1,0 +1,57 @@
+{
+  "type": "gensokyoontology:magic_tree_feature",
+  "config": {
+    "max_water_depth": 0,
+    "ignore_vines": true,
+    "heightmap": "OCEAN_FLOOR",
+    "minimum_size": {
+      "limit": 1,
+      "lower_size": 0,
+      "upper_size": 1,
+      "type": "minecraft:two_layers_feature_size"
+    },
+    "decorators": [],
+    "trunk_provider": {
+      "state": {
+        "Properties": {
+          "axis": "y"
+        },
+        "Name": "gensokyoontology:magic_log"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "leaves_provider": {
+      "state": {
+        "Name": "gensokyoontology:magic_leaves"
+      },
+      "type": "minecraft:simple_state_provider"
+    },
+    "foliage_placer": {
+      "random_add_horizontal": 1,
+      "random_add_vertical": 0,
+      "vertical_filler_bias": 0.45,
+      "shag_factor": 36,
+      "horizontal_radius": 4.5,
+      "vertical_radius": 2.25,
+      "offset": 0,
+      "type": "gensokyoontology:spherical_foliage_placer"
+    },
+    "trunk_placer": {
+      "branch_start_offset_down": 5,
+      "branch_config": {
+        "count_minimum": 3,
+        "random_add_count": 2,
+        "length": 5,
+
+        "random_add_length": 2,
+        "spacing_yaw": 0.23,
+        "downwards_pitch": 0.23
+      },
+      "perpendicular_branches": false,
+      "base_height": 7,
+      "height_rand_a": 2,
+      "height_rand_b": 2,
+      "type": "gensokyoontology:branch_trunk_placer"
+    }
+  }
+}

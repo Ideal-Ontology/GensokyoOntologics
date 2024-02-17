@@ -9,11 +9,7 @@ import java.util.Random;
 
 public class MagicLeaves extends LeavesBlock {
     public MagicLeaves() {
-        super(Properties.from(Blocks.ACACIA_LEAVES).sound(SoundType.PLANT));
+        super(Properties.from(Blocks.ACACIA_LEAVES).tickRandomly().sound(SoundType.PLANT));
     }
 
-    @Override
-    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
-        super.randomTick(state, worldIn, pos, random);
-    }
 }

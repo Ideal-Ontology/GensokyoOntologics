@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableSet;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKOOreType;
 import github.thelawf.gensokyoontology.common.world.feature.config.GSKOWGConfigs;
-import github.thelawf.gensokyoontology.common.world.feature.tree.MagicTree;
+import github.thelawf.gensokyoontology.common.world.feature.tree.GSKOTrees;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
@@ -25,9 +25,6 @@ import net.minecraft.world.gen.foliageplacer.FancyFoliagePlacer;
 import net.minecraft.world.gen.placement.*;
 import net.minecraft.world.gen.trunkplacer.FancyTrunkPlacer;
 
-import java.util.List;
-import java.util.function.Supplier;
-
 public class GSKOFeatures {
 
     public static final BlockState BLUE_MUSHROOM_DOWN = BlockRegistry.BLUE_MUSHROOM_BLOCK.get().getDefaultState().with(
@@ -44,27 +41,6 @@ public class GSKOFeatures {
     public static final ConfiguredFeature<BigMushroomFeatureConfig, ?> HUGE_PURPLE_MUSHROOM = Feature.HUGE_RED_MUSHROOM.withConfiguration(
             new BigMushroomFeatureConfig(new SimpleBlockStateProvider(PURPLE_MUSHROOM_DOWN),
                     new SimpleBlockStateProvider(MUSHROOM_STEM), 4));
-
-    /**
-     * 特征地物生成目前遇到了三大坑：
-     * 1. MC特有的两套注册系统，且非要你注册之后才能用，特有的将面向过程编程变成面向json编程<br>
-     * 2. 如果不加withPlacement()，那么树木特征将会生成在每个区块的（0，0）位置，但是：<br>
-     * 3. 世界生成注册绑定的树木特征和树苗方块绑定的树木特征的类型不一样，解决方法是直接把两种不同的树木特征泛型
-     * 都写上，树苗方块绑定ConfiguredFeature<BaseTreeFeatureConfig, ?>, 世界生成注册绑定 ConfiguredFeature<?, ?>
-     */
-    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SAKURA_TREE_BASE = Feature.TREE.withConfiguration(
-            new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.SAKURA_LOG.get().getDefaultState()),
-                    new SimpleBlockStateProvider(BlockRegistry.SAKURA_LEAVES.get().getDefaultState()),
-                    new FancyFoliagePlacer(FeatureSpread.create(3), FeatureSpread.create(1), 2),
-                    new FancyTrunkPlacer(8, 3, 2),
-                    new TwoLayerFeature(1, 1, 3)).setIgnoreVines().build());
-
-    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAPLE_TREE_BASE = Feature.TREE.withConfiguration(
-            new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
-                    new SimpleBlockStateProvider(BlockRegistry.MAPLE_LEAVES.get().getDefaultState()),
-                    new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(1), 2),
-                    new FancyTrunkPlacer(8, 2, 1),
-                    new TwoLayerFeature(1, 1, 2)).setIgnoreVines().build());
 
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SHINBOKU_BASE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(
@@ -97,25 +73,24 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(3, 0.4f, 3)));
 
-    // public static final ConfiguredFeature<?, ?> MAGIC_FOREST_VEGETATION = MagicTree.MAGIC_TREE
-    //         .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
-    //         .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(10, 1, 14)));
-
     public static final ConfiguredFeature<?, ?> BEAST_PATH_VEGETATION = Feature.RANDOM_SELECTOR.withConfiguration(
                     new MultipleRandomFeatureConfig(ImmutableList.of(
-                            MagicTree.MAGIC_TREE.withChance(0.25f),
+                            GSKOTrees.MAGIC_TREE.withChance(0.25f),
                             SHINBOKU_BASE.withChance(0.35f),
                             Features.FANCY_OAK.withChance(0.25f)),
                             SHINBOKU_BASE))
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(4, 0.9f, 5)));
 
-    public static final List<Supplier<ConfiguredFeature<?, ?>>> MAGIC_FOREST_TREES = ImmutableList.of(
-            () -> MagicTree.MAGIC_TREE);
-    public static final ConfiguredFeature<?, ?> MAGIC_TREE_FOREST = Feature.RANDOM_SELECTOR.withConfiguration(
-            new MultipleRandomFeatureConfig(ImmutableList.of(MagicTree.MAGIC_TREE.withChance(0.99f)), MagicTree.MAGIC_TREE))
-            .withPlacement(Features.Placements.BAMBOO_PLACEMENT).square()
-            .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(9, 0.99f, 8)));
+    public static final ConfiguredFeature<?, ?> MAGIC_FOREST_TREES = Feature.RANDOM_SELECTOR.withConfiguration(
+            new MultipleRandomFeatureConfig(ImmutableList.of(
+                    GSKOTrees.MAGIC_TREE.withChance(0.9f)), GSKOTrees.MAGIC_TREE))
+            .withPlacement(Placement.DARK_OAK_TREE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)).square();
+
+    public static final ConfiguredFeature<?, ?> MAGIC_TREE_BASE = FeatureRegistry.MAGIC_TREE.get().withConfiguration(
+            GSKOTrees.MAGIC_TREE.config);
+    public static final ConfiguredFeature<?, ?> MAGIC_TREES = MAGIC_TREE_BASE.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+            .count(2).variableCount(2).square();
 
     public static final ConfiguredFeature<?, ?> MAPLE_TREE_VEGETATION = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(
@@ -149,23 +124,6 @@ public class GSKOFeatures {
 
     // public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> SHINBOKU = register(new ResourceLocation(GensokyoOntology.MODID, "shinboku"),
     //         Feature.TREE.withConfiguration());
-
-    //-------------------------------------------矿物生成-----------------------------------------//
-    public static final ConfiguredFeature<?, ?> ORE_IZANAGI_OBJECT = Feature.ORE.withConfiguration(
-            new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                    BlockRegistry.IZANO_OBJECT_ORE.get().getDefaultState(),
-                    GSKOOreType.IZANO_OBJECT.getMaxVeinSize())).withPlacement(
-            Placement.SQUARE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
-    public static final ConfiguredFeature<?, ?> ORE_GENSOKYO_JADE = Feature.ORE.withConfiguration(
-            new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                    BlockRegistry.JADE_ORE.get().getDefaultState(),
-                    GSKOOreType.JADE_GENSOKYO.getMaxVeinSize())).withPlacement(
-            Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
-    public static final ConfiguredFeature<?, ?> ORE_DRAGON_SPHERE = Feature.ORE.withConfiguration(
-            new OreFeatureConfig(OreFeatureConfig.FillerBlockType.BASE_STONE_OVERWORLD,
-                    BlockRegistry.DRAGON_SPHERE_ORE.get().getDefaultState(),
-                    GSKOOreType.DRAGON_SPHERE.getMaxVeinSize())).withPlacement(
-            Placement.EMERALD_ORE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
 
     //-------------------------------------------花草生成------------------------------------------//
 
@@ -223,15 +181,17 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "wasabi"), WASABI);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "bamboo"), BAMBOO);
 
-        // Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_forest_vegetation"), MAGIC_FOREST_VEGETATION);
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_vegetation"), MAPLE_TREE_VEGETATION);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_tree_base"), MAGIC_TREE_BASE);
 
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_tree_forest"), MAGIC_TREE_FOREST);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_forest_trees"), MAGIC_FOREST_TREES);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_trees"), MAGIC_TREES);
+
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_mountain"), MAPLE_TREE_MOUNTAIN);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree"), SAKURA_TREE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree_hakurei_shrine"), SAKURA_TREE_HAKUREI_SHRINE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "shinboku_tree"), SHINBOKU_TREE);
 
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_vegetation"), MAPLE_TREE_VEGETATION);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "beast_path_vegetation"), BEAST_PATH_VEGETATION);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_blue_mushroom"), HUGE_BLUE_MUSHROOM);
