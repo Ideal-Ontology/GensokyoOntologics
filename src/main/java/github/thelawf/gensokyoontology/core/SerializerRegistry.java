@@ -12,6 +12,4 @@ public class SerializerRegistry {
     public static final DeferredRegister<DataSerializerEntry> SPELL_DATA_SERIALIZER = DeferredRegister.create(
             ForgeRegistries.DATA_SERIALIZERS, GensokyoOntology.MODID);
 
-    public static final RegistryObject<DataSerializerEntry> SPELL_DATA = SPELL_DATA_SERIALIZER.register(
-            "spell_data_serializer", () -> new DataSerializerEntry(DanmakuUtil.SPELL_DATA));
 }

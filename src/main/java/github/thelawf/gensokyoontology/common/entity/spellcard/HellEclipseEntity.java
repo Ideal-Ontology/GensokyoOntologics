@@ -48,7 +48,6 @@ public class HellEclipseEntity extends SpellCardEntity {
         fakeLunar = new FakeLunarEntity(EntityRegistry.FAKE_LUNAR_ENTITY.get(), world);
         world.addEntity(fakeLunar);
         HashMap<Integer, TransformFunction> map = new HashMap<>();
-        fakeLunar.setSpellData(new SpellData(map, DanmakuType.FAKE_LUNAR, DanmakuColor.PINK, false, false));
     }
 
     @Override

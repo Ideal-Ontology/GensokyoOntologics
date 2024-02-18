@@ -24,8 +24,8 @@ public class GSKONetworking {
         CHANNEL.registerMessage(0, ScarletMistPacket.class, ScarletMistPacket::toBytes, ScarletMistPacket::new, ScarletMistPacket::handle);
         CHANNEL.registerMessage(1, ImperishableNightPacket.class, ImperishableNightPacket::toBytes, ImperishableNightPacket::new, ImperishableNightPacket::handle);
         CHANNEL.registerMessage(2, FantasyFadingPacket.class, FantasyFadingPacket::toBytes, FantasyFadingPacket::decode, FantasyFadingPacket::handle);
-        CHANNEL.registerMessage(3, CPowerChangedPacket.class, CPowerChangedPacket::toBytes, CPowerChangedPacket::fromBytes, CPowerChangedPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-        CHANNEL.registerMessage(4, SPowerChangedPacket.class, SPowerChangedPacket::toBytes, SPowerChangedPacket::fromBytes, SPowerChangedPacket::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
+        // CHANNEL.registerMessage(3, CPowerChangedPacket.class, CPowerChangedPacket::toBytes, CPowerChangedPacket::fromBytes, CPowerChangedPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
+        // CHANNEL.registerMessage(4, SPowerChangedPacket.class, SPowerChangedPacket::toBytes, SPowerChangedPacket::fromBytes, SPowerChangedPacket::handle, Optional.of(NetworkDirection.PLAY_TO_SERVER));
         //CHANNEL.registerMessage(5, LifeTickPacket.class, LifeTickPacket::toBytes, LifeTickPacket::fromBytes, LifeTickPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
     }
 

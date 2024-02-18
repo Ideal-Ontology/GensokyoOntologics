@@ -45,9 +45,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     public static final DataParameter<Float> DATA_DAMAGE = EntityDataManager.createKey(
             AbstractDanmakuEntity.class, DataSerializers.FLOAT);
 
-    public static final DataParameter<SpellData> DATA_SPELL = EntityDataManager.createKey(
-            AbstractDanmakuEntity.class, DanmakuUtil.SPELL_DATA);
-
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
             AbstractDanmakuEntity.class, DataSerializers.VARINT);
 
@@ -108,9 +105,9 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
             this.damage = compound.getFloat("damage");
         }
         // ?????
-        if (compound.contains("SpellData")) {
-            this.spellData = getSpellData();
-        }
+        // if (compound.contains("SpellData")) {
+        //     this.spellData = getSpellData();
+        // }
 
         if (compound.contains("color")) {
             this.danmakuColor = compound.getInt("color");
@@ -128,15 +125,13 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         compound.putFloat("damage", this.damage);
         compound.putInt("color", this.danmakuColor);
         compound.putInt("lifespan", this.getLifespan());
-        if (this.getSpellData() != null) {
-            compound.putString("SpellData", SerializerRegistry.SPELL_DATA.getId().toString());
-        }
+
     }
 
     @Override
     protected void registerData() {
+        // this.dataManager.register(DATA_SPELL, this.spellData);
         this.dataManager.register(DATA_DAMAGE, this.damage);
-        this.dataManager.register(DATA_SPELL, this.spellData);
         this.dataManager.register(DATA_COLOR, this.danmakuColor);
         this.dataManager.register(DATA_LIFESPAN, this.lifespan);
     }
@@ -212,14 +207,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
             entityHit.attackEntityFrom(GSKODamageSource.DANMAKU, this.damage);
             this.remove();
         }
-    }
-
-    public void setSpellData(SpellData spellData) {
-        this.dataManager.set(DATA_SPELL, spellData);
-    }
-
-    public SpellData getSpellData() {
-        return this.dataManager.get(DATA_SPELL);
     }
 
     public void setDanmakuColor(DanmakuColor danmakuColor) {

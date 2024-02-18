@@ -230,6 +230,13 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10D)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
                     .create());
+            event.put(EntityRegistry.FLANDRE_DOPPELDANGER.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 500D)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4F)
+                    .createMutableAttribute(Attributes.FLYING_SPEED, 0.5F)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10D)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
+                    .create());
             event.put(EntityRegistry.REMILIA_SCARLET.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 500D)
                     .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4F)
@@ -270,6 +277,14 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.MAX_HEALTH, 20D)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 15D)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
+
+            event.put(EntityRegistry.HANIWA.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 50)
+                    .createMutableAttribute(Attributes.ARMOR, 20)
+                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 20)
+                    .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 3)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D).create());
 
         }
     }

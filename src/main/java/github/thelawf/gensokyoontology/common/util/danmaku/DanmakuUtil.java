@@ -32,35 +32,6 @@ import java.util.function.Supplier;
 
 public class DanmakuUtil {
 
-    public static final IntIdentityHashBiMap<IDataSerializer<SpellData>> REGISTRY = new IntIdentityHashBiMap<>(16);
-
-    public static final IDataSerializer<SpellData> SPELL_DATA = new IDataSerializer<SpellData>() {
-        @Override
-        public void write(PacketBuffer buf, @NotNull SpellData value) {
-            buf.writeString(SpellCardRegistry.IDO_NO_KAIHO_DATA.getId().toString());
-        }
-
-        @Override
-        public SpellData read(PacketBuffer buf) {
-            return SpellCardRegistry.SPELL_CARD_REGISTRY.getValue(new ResourceLocation(
-                    GensokyoOntology.MODID, buf.readString()));
-        }
-
-        @Override
-        @NotNull
-        public SpellData copyValue(@NotNull SpellData value) {
-            return value;
-        }
-
-    };
-
-    public static void registerSerializer(IDataSerializer<SpellData> serializer) {
-        if (REGISTRY.add(serializer) >= 256) throw new RuntimeException("Vanilla DataSerializer ID limit exceeded");
-    }
-
-    static {
-        registerSerializer(SPELL_DATA);
-    }
 
     /**
      * 这是个怪方法，请不要理睬（）
