@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.ore.*;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
+import github.thelawf.gensokyoontology.common.item.tool.*;
 import github.thelawf.gensokyoontology.common.item.touhou.*;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
@@ -682,6 +683,28 @@ public final class ItemRegistry {
 
     public static final RegistryObject<Item> EXTEND_ITEM = ITEMS.register("extend_item",
             () -> new ExtendItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+
+    // ------------------------------- 装备 -------------------------------//
+    public static final RegistryObject<Item> JADE_AXE = ITEMS.register("jade_axe", () -> new JadeAxe(
+            new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> JADE_HOE = ITEMS.register("jade_hoe", () -> new JadeHoe(
+            new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> JADE_PICKAXE = ITEMS.register("jade_pickaxe", () -> new JadePickaxe(
+            new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> JADE_SHOVEL = ITEMS.register("jade_shovel", () -> new JadeShovel(
+            new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> JADE_SWORD = ITEMS.register("jade_sword", () -> new JadeSword(
+            new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+
+    public static final RegistryObject<Item> JADE_HELMET = ITEMS.register("jade_helmet", () -> new ArmorItem(
+            GSKOArmorMaterial.JADE, EquipmentSlotType.HEAD, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> JADE_CHESTPLATE = ITEMS.register("jade_chestplate", () -> new ArmorItem(
+            GSKOArmorMaterial.JADE, EquipmentSlotType.CHEST, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> JADE_LEGGINGS = ITEMS.register("jade_leggings", () -> new ArmorItem(
+            GSKOArmorMaterial.JADE, EquipmentSlotType.LEGS, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> JADE_BOOTS = ITEMS.register("jade_boots", () -> new ArmorItem(
+            GSKOArmorMaterial.JADE, EquipmentSlotType.FEET, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+
 
     // +++++++++++++++++++++++++++ Deprecated Items +++++++++++++++++++++++//
     // public static final RegistryObject<Item> RAIL_NODE = ITEMS.register(
