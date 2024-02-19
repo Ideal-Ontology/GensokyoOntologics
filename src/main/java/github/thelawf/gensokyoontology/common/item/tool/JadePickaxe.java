@@ -7,6 +7,6 @@ import net.minecraft.item.PickaxeItem;
 
 public class JadePickaxe extends PickaxeItem {
     public JadePickaxe(Properties properties) {
-        super(GSKOItemTier.JADE, 6, 1.6f, properties);
+        super(GSKOItemTier.JADE, 5, 0.6f, properties);
     }
 }

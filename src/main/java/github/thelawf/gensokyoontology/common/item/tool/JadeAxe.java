@@ -7,6 +7,6 @@ import net.minecraft.item.Item;
 
 public class JadeAxe extends AxeItem {
     public JadeAxe(Properties properties) {
-        super(GSKOItemTier.JADE, 10, 1.6f, properties);
+        super(GSKOItemTier.JADE, 8, 1.6f, properties);
     }
 }

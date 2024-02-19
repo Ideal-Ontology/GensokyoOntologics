@@ -89,8 +89,8 @@ public class GSKOFeatures {
 
     public static final ConfiguredFeature<?, ?> MAGIC_TREE_BASE = FeatureRegistry.MAGIC_TREE.get().withConfiguration(
             GSKOTrees.MAGIC_TREE.config);
-    public static final ConfiguredFeature<?, ?> MAGIC_TREES = MAGIC_TREE_BASE.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-            .count(2).variableCount(2).square();
+    public static final ConfiguredFeature<?, ?> MAGIC_TREES = GSKOTrees.MAGIC_TREE.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+            .count(8).variableCount(8).square();
 
     public static final ConfiguredFeature<?, ?> MAPLE_TREE_VEGETATION = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(

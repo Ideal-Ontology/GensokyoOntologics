@@ -20,8 +20,8 @@ public class GSKOTrees {
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(BlockRegistry.MAGIC_LEAVES.get().getDefaultState()),
-                    new SphericalFoliagePlacer(2.5f, 1.5f, FeatureSpread.create(0), 1, 0, -0.25f, 16),
-                    new FancyTrunkPlacer(7, 2, 3),
+                    new SphericalFoliagePlacer(4.5f, 1.5f, FeatureSpread.create(0), 1, 0, -0.25f, 16),
+                    new FancyTrunkPlacer(10, 2, 3),
                     new TwoLayerFeature(1, 3, 1)).setIgnoreVines().build());
     /**
      * 特征地物生成目前遇到了三大坑：

@@ -6,6 +6,6 @@ import net.minecraft.item.ShovelItem;
 
 public class JadeShovel extends ShovelItem {
     public JadeShovel(Properties properties) {
-        super(GSKOItemTier.JADE, 5.5f, 1.6f, properties);
+        super(GSKOItemTier.JADE, 4.5f, 1.6f, properties);
     }
 }
