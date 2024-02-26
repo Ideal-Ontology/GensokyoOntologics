@@ -1,5 +1,5 @@
 {
-  "type": "gensokyoontology:magic_tree_feature",
+  "type": "gensokyoontology:canopy_feature",
   "config": {
     "max_water_depth": 0,
     "ignore_vines": true,

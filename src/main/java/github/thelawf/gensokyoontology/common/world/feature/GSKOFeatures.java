@@ -87,7 +87,7 @@ public class GSKOFeatures {
                     GSKOTrees.MAGIC_TREE.withChance(0.9f)), GSKOTrees.MAGIC_TREE))
             .withPlacement(Placement.DARK_OAK_TREE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)).square();
 
-    public static final ConfiguredFeature<?, ?> MAGIC_TREE_BASE = FeatureRegistry.MAGIC_TREE.get().withConfiguration(
+    public static final ConfiguredFeature<?, ?> MAGIC_TREE_FEATURE = FeatureRegistry.CANOPY_FEATURE.get().withConfiguration(
             GSKOTrees.MAGIC_TREE.config);
     public static final ConfiguredFeature<?, ?> MAGIC_TREES = GSKOTrees.MAGIC_TREE.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
             .count(8).variableCount(8).square();
@@ -181,7 +181,7 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "wasabi"), WASABI);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "bamboo"), BAMBOO);
 
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_tree_base"), MAGIC_TREE_BASE);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "tree/magic_tree_feature"), MAGIC_TREE_FEATURE);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_forest_trees"), MAGIC_FOREST_TREES);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_trees"), MAGIC_TREES);
