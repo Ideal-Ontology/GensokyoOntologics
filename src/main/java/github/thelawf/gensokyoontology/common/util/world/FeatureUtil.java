@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.util.world;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.block.*;
+import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
@@ -23,33 +24,38 @@ public class FeatureUtil {
      */
     public static void fillEllipse(IWorldGenerationReader reader, BlockPos center, Random random, BlockStateProvider state, int radiusX, int radiusZ) {
         // 遍历圆的每个坐标位置，计算当前位置到圆心的距离，判断位置是否在圆内。加0.5是为了使树叶圆形效果更好
-        BlockPos.Mutable mutable = center.toMutable();
-        for (int x = -radiusX; x <= radiusX; x++) {
-            for (int z = -radiusZ; z <= radiusZ; z++) {
-                double distance = Math.sqrt(x * x + z * z);
-                if (distance <= radiusZ + 0.5) {
-                    mutable = (BlockPos.Mutable) mutable.add(x, 0, z);
-                    placeBlock(reader, mutable, random, state);
+        for (int x = center.getX() - radiusX; x <= center.getX() + radiusX; x++) {
+            for (int z = center.getZ() - radiusX; z <= center.getZ() + radiusX; z++) {
+                if (isInsideCircle(x, center.getY(), z, center.getX(), center.getY(), center.getZ(), radiusX)) {
+                    BlockPos pos = new BlockPos(x, center.getY(), z);
+                    placeBlock(reader, pos, random, state);
                 }
             }
         }
     }
 
-    /**
-     * Modified from Twilight Forest.
-     */
-    public static void fillEllipse(IWorldGenerationReader reader, BlockPos center, Random random, BlockStateProvider state, float radiusX, float radiusZ) {
+    public static void fillEllipse(IWorldGenerationReader reader, BlockPos center, Random random, BlockStateProvider state, int radius, boolean ignoreTrunk) {
         // 遍历圆的每个坐标位置，计算当前位置到圆心的距离，判断位置是否在圆内。加0.5是为了使树叶圆形效果更好
-        BlockPos.Mutable mutable = center.toMutable();
-        for (float x = -radiusX; x <= radiusX; x++) {
-            for (float z = -radiusZ; z <= radiusZ; z++) {
-                double distance = Math.sqrt(x * x + z * z);
-                if (distance <= radiusZ + 0.5) {
-                    mutable = (BlockPos.Mutable) mutable.add(x, 0, z);
-                    placeBlock(reader, mutable, random, state);
+        for (int x = center.getX() - radius; x <= center.getX() + radius; x++) {
+            for (int z = center.getZ() - radius; z <= center.getZ() + radius; z++) {
+                if (isInsideCircle(x, center.getY(), z, center.getX(), center.getY(), center.getZ(), radius)) {
+                    BlockPos pos = new BlockPos(x, center.getY(), z);
+                    if (ignoreTrunk) {
+                        placeFoliage(reader, pos, random, state);
+                    }
+                    else {
+                        placeBlock(reader, pos, random, state);
+                    }
                 }
             }
         }
+    }
+    public static boolean isInsideCircle(int x, int y, int z, int centerX, int centerY, int centerZ, int radius) {
+        return Math.pow(x - centerX, 2) + Math.pow(y - centerY, 2) + Math.pow(z - centerZ, 2) <= Math.pow(radius, 2);
+    }
+
+    public static boolean isInsideEllipse(int x, int y, int z, int centerX, int centerY, int centerZ, int semiMajorAxis, int semiMinorAxis, int verticalAxis) {
+        return Math.pow(x - centerX, 2) / Math.pow(semiMajorAxis, 2) + Math.pow(y - centerY, 2) / Math.pow(verticalAxis, 2) + Math.pow(z - centerZ, 2) / Math.pow(semiMinorAxis, 2) <= 1;
     }
 
     /**
@@ -79,6 +85,13 @@ public class FeatureUtil {
         reader.setBlockState(pos, state.getBlockState(random, pos), 3);
     }
 
+    private static void placeFoliage(IWorldGenerationReader reader, BlockPos pos, Random random, BlockStateProvider state) {
+        if (!isTrunkBlockAt(reader, pos) && !TreeFeature.isReplaceableAt(reader, pos)) return;
+        reader.setBlockState(pos, state.getBlockState(random, pos), 3);
+    }
+    public static boolean isTrunkBlockAt(IWorldGenerationBaseReader reader, BlockPos pos) {
+        return reader.hasBlockState(pos, (state) -> state.isIn(BlockTags.LOGS));
+    }
 
     public static void placeDiagonalTrunks(IWorldGenerationReader reader, Random random, BlockPos start, BlockStateProvider state, int width, int height) {
         BlockPos end = new BlockPos(start.getX() + width, start.getY() + height, 0);
@@ -210,12 +223,69 @@ public class FeatureUtil {
         }
     }
 
+    // Copy from Twilight Forest
+    public static void makeLeafSpheroid(IWorldGenerationReader world, Random random, BlockPos centerPos, float xzRadius, float yRadius, float verticalBias, BlockStateProvider state) {
+        float xzRadiusSquared = xzRadius * xzRadius;
+        float yRadiusSquared = yRadius * yRadius;
+        float superRadiusSquared = xzRadiusSquared * yRadiusSquared;
+        placeLeafBlock(world, random, centerPos, state);
+
+        for (int y = 0; y <= yRadius; y++) {
+            if (y > yRadius) continue;
+
+            placeLeafBlock(world, random, centerPos.add( 0,  y, 0), state);
+            placeLeafBlock(world, random, centerPos.add( 0,  y, 0), state);
+            placeLeafBlock(world, random, centerPos.add( 0,  y, 0), state);
+            placeLeafBlock(world, random, centerPos.add( 0,  y, 0), state);
+
+            placeLeafBlock(world, random, centerPos.add( 0, -y, 0), state);
+            placeLeafBlock(world, random, centerPos.add( 0, -y, 0), state);
+            placeLeafBlock(world, random, centerPos.add( 0, -y, 0), state);
+            placeLeafBlock(world, random, centerPos.add( 0, -y, 0), state);
+        }
+
+        for (int x = 0; x <= xzRadius; x++) {
+            for (int z = 1; z <= xzRadius; z++) {
+                if (x * x + z * z > xzRadiusSquared) continue;
+
+                placeLeafBlock(world, random, centerPos.add(  x, 0,  z), state);
+                placeLeafBlock(world, random, centerPos.add( -x, 0, -z), state);
+                placeLeafBlock(world, random, centerPos.add( -z, 0,  x), state);
+                placeLeafBlock(world, random, centerPos.add(  z, 0, -x), state);
+
+                for (int y = 1; y <= yRadius; y++) {
+                    float xzSquare = ((x * x + z * z) * yRadiusSquared);
+
+                    if (xzSquare + (((y - verticalBias) * (y - verticalBias)) * xzRadiusSquared) <= superRadiusSquared) {
+                        placeLeafBlock(world, random, centerPos.add(  x,  y,  z), state);
+                        placeLeafBlock(world, random, centerPos.add( -x,  y, -z), state);
+                        placeLeafBlock(world, random, centerPos.add( -z,  y,  x), state);
+                        placeLeafBlock(world, random, centerPos.add(  z,  y, -x), state);
+                    }
+
+                    if (xzSquare + (((y + verticalBias) * (y + verticalBias)) * xzRadiusSquared) <= superRadiusSquared) {
+                        placeLeafBlock(world, random, centerPos.add(  x, -y,  z), state);
+                        placeLeafBlock(world, random, centerPos.add( -x, -y, -z), state);
+                        placeLeafBlock(world, random, centerPos.add( -z, -y,  x), state);
+                        placeLeafBlock(world, random, centerPos.add(  z, -y, -x), state);
+                    }
+                }
+            }
+        }
+    }
+
     public static void placeLeafBlock(IWorldGenerationReader world, Random random, BlockPos pos, BlockStateProvider state, Set<BlockPos> leavesPos) {
         if (/*leavesPos.contains(pos) ||*/ !TreeFeature.isReplaceableAt(world, pos))
             return;
 
         world.setBlockState(pos, state.getBlockState(random, pos), 3);
         leavesPos.add(pos.toImmutable());
+    }
+
+    public static void placeLeafBlock(IWorldGenerationReader world, Random random, BlockPos pos, BlockStateProvider state) {
+        if (!TreeFeature.isReplaceableAt(world, pos))
+            return;
+        world.setBlockState(pos, state.getBlockState(random, pos), 3);
     }
 
     public boolean isBoundaryBiome(Biome centerBiome, Biome surroundBiome) {

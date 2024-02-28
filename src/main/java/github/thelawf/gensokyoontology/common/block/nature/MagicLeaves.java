@@ -12,4 +12,8 @@ public class MagicLeaves extends LeavesBlock {
         super(Properties.from(Blocks.ACACIA_LEAVES).tickRandomly().sound(SoundType.PLANT));
     }
 
+    @Override
+    public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) {
+
+    }
 }

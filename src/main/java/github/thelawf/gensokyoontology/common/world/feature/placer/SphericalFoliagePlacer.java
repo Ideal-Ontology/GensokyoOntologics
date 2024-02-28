@@ -60,7 +60,7 @@ public class SphericalFoliagePlacer extends FoliagePlacer {
     protected void func_230372_a_(IWorldGenerationReader world, Random random, BaseTreeFeatureConfig baseTreeFeatureConfig, int trunkHeight, Foliage foliage, int foliageHeight, int radius, Set<BlockPos> leavesSet, int offset, MutableBoundingBox mutableBoundingBox) {
         BlockPos center = foliage.func_236763_a_().up(offset); // foliage.getCenter
 
-        //FeatureUtil.makeLeafCircle(world, random, center, radius, baseTreeFeatureConfig.leavesProvider, leavesSet);
+        //FeatureUtil.makeLeafCircle(world, random, center, radius, baseTreeFeatureConfig.leavesProvider, leavesSet);]w'
         FeatureUtil.makeLeafSpheroid(world, random, center, foliage.func_236764_b_() + horizontalRadius + random.nextInt(randomHorizontal + 1), foliage.func_236764_b_() + verticalRadius + random.nextInt(randomVertical + 1), verticalBias, baseTreeFeatureConfig.leavesProvider, leavesSet);
 
         if (shag_factor > 0) {

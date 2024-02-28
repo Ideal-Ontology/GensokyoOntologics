@@ -7,6 +7,8 @@ import github.thelawf.gensokyoontology.common.world.feature.config.MagicForestCo
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.gen.feature.TreeFeature;
 
 import java.util.Random;
 
@@ -17,17 +19,21 @@ public class MagicForestFeature extends GSKOBiomeFeature<MagicForestConfig> {
 
     @Override
     public boolean generate(ISeedReader reader, ChunkGenerator generator, Random rand, BlockPos pos, MagicForestConfig config) {
-        if (!isDirtOrGrassBlock(reader, pos)) return false;
-        // if (isOverMaxTreeCountPerChunk(reader, pos, 3)) return false;
-        for (int i = 0; i < GSKOMathUtil.randomRange(config.minHeight, config.maxHeight); i++) {
-            FeatureUtil.placeTrunkPattern(reader, rand, pos.up(i), config.getTrunk());
+        BlockPos surfacePos = getSurfacePos(reader, pos);
+        if (isDirtOrGrassBlock(reader, surfacePos)) return false;
+        // if (isOverMaxTreeCountPerChunk(reader, surfacePos, 3)) return false;
+        for (int j = 0; j < GSKOMathUtil.randomRange(config.minHeight, config.maxHeight); j++) {
+            FeatureUtil.placeTrunkPattern(reader, rand, surfacePos.up(j), config.getTrunk());
         }
         int layerCount = GSKOMathUtil.randomRange(config.foliageLayer.layerCountMin, config.foliageLayer.layerCountMax);
 
-        for (int i = 0; i < layerCount; i++) {
-            BlockPos center = new BlockPos(FeatureUtil.randomOffset(pos.up(config.maxHeight + 1 + i)));
+        for (int j = 0; j < layerCount; j++) {
+            if (config.foliageLayer.foliageShape.xRadius - j == 1) break;
+
+            BlockPos center = new BlockPos(FeatureUtil.randomOffset(surfacePos.up(config.maxHeight - 2 + j)));
+            // FeatureUtil.makeLeafSpheroid(reader, rand, center, surfacePos.getY());
             FeatureUtil.fillEllipse(reader, center, rand, config.getFoliage(),
-                    config.foliageLayer.foliageShape.xRadius - i, config.foliageLayer.foliageShape.zRadius - i);
+                    config.foliageLayer.foliageShape.xRadius - j, true);
         }
 
         return true;

@@ -92,7 +92,9 @@ public class GSKOFeatures {
 
     public static final ConfiguredFeature<?, ?> MAGIC_FOREST_FEATURE = FeatureRegistry.MAGIC_FOREST_FEATURE.get().withConfiguration(new MagicForestConfig(
             GSKOTreeConfig.create(MagicForestConfig.FOLIAGE_BLOCK, MagicForestConfig.TRUNK_BLOCK),
-            EclipticFoliageLayerConfig.create(4, 3, 3, 5), 7, 10, 3));
+            EclipticFoliageLayerConfig.create(7, 5, 5, 7), 7, 10, 3))
+            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+            .count(3).variableCount(4).square();
     public static final ConfiguredFeature<?, ?> MAGIC_TREES = GSKOTrees.MAGIC_TREE.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
             .count(8).variableCount(8).square();
 

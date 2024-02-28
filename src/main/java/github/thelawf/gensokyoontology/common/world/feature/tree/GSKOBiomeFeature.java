@@ -8,6 +8,7 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.ISeedReader;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.feature.Feature;
 
@@ -23,6 +24,10 @@ public abstract class GSKOBiomeFeature<FC extends GSKOTreeConfig> extends Featur
      */
     public boolean isDirtOrGrassBlock(IWorldGenerationBaseReader reader, BlockPos pos) {
         return reader.hasBlockState(pos, (state) -> state == Blocks.DIRT.getDefaultState() && state == Blocks.GRASS_BLOCK.getDefaultState());
+    }
+
+    public boolean isTrunkBlockAt(IWorldGenerationBaseReader reader, BlockPos pos) {
+        return reader.hasBlockState(pos, (state) -> state.isIn(BlockTags.LOGS));
     }
 
     /**
@@ -54,5 +59,9 @@ public abstract class GSKOBiomeFeature<FC extends GSKOTreeConfig> extends Featur
             Block block = state.getBlock();
             return block.isIn(BlockTags.LOGS) || block.isIn(BlockTags.LEAVES);
         });
+    }
+
+    public BlockPos getSurfacePos(ISeedReader reader, BlockPos pos) {
+        return new BlockPos(pos.getX(), reader.getChunk(pos).getTopBlockY(Heightmap.Type.WORLD_SURFACE_WG, pos.getX(), pos.getZ()), pos.getZ());
     }
 }
