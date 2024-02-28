@@ -12,22 +12,33 @@ import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomeGenerator;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
+import github.thelawf.gensokyoontology.common.world.feature.config.EclipticFoliageLayerConfig;
+import github.thelawf.gensokyoontology.common.world.feature.config.GSKOTreeConfig;
+import github.thelawf.gensokyoontology.common.world.feature.config.MagicForestConfig;
 import github.thelawf.gensokyoontology.common.world.feature.placer.BranchTrunkPlacer;
+import github.thelawf.gensokyoontology.common.world.feature.tree.MagicForestFeature;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
 import net.minecraftforge.event.RegisterCommandsEvent;
+import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class CommonSetUp {
 
+    @SubscribeEvent
     public static void init(final FMLCommonSetupEvent event) {
         event.enqueueWork(() -> {
             // Registry.register(Registry.CHUNK_GENERATOR_CODEC,
@@ -65,8 +76,11 @@ public class CommonSetUp {
                     EntitySpawnPlacementRegistry.PlacementType.NO_RESTRICTIONS,
                     Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                     SpectreEntity::canMonsterSpawnInLight);
+
         });
     }
+
+
 
     // @SubscribeEvent
     public static void registerCommand(RegisterCommandsEvent event) {

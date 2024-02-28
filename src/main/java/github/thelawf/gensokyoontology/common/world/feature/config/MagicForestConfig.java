@@ -6,50 +6,33 @@ import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
 import net.minecraft.world.gen.blockstateprovider.SimpleBlockStateProvider;
 
-public class MagicTreeConfig extends GSKOTreeConfig {
+public class MagicForestConfig extends GSKOTreeConfig {
 
-    protected final GSKOTreeConfig treeProvider;
-    private final int minHeight;
-    private final int maxHeight;
-    private final int offset;
-    // public final int rootCountMin;
-    // private final int rootCountMax;
-    // private final int branchCountMin;
-    // private final int branchCountMax;
-    // private final int branchLengthMin;
-    // private final int branchLengthMax;
-    // private final float slopeMin;
-    // private final float slopeMax;
-
+    public final GSKOTreeConfig treeProvider;
+    public final EclipticFoliageLayerConfig foliageLayer;
+    public final int minHeight;
+    public final int maxHeight;
+    public final int offset;
 
     public static final BlockStateProvider FOLIAGE_BLOCK = new SimpleBlockStateProvider(BlockRegistry.MAGIC_LEAVES.get().getDefaultState());
     public static final BlockStateProvider TRUNK_BLOCK = new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState());
 
-    public static final Codec<MagicTreeConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
+    public static final Codec<MagicForestConfig> CODEC = RecordCodecBuilder.create(instance -> instance.group(
             GSKOTreeConfig.CODEC.fieldOf("tree_provider").forGetter(config -> config.treeProvider),
+            EclipticFoliageLayerConfig.CODEC.fieldOf("foliage_layer").forGetter(config -> config.foliageLayer),
             Codec.INT.fieldOf("min_height").orElse(10).forGetter(config -> config.maxHeight),
             Codec.INT.fieldOf("max_height").orElse(10).forGetter(config -> config.maxHeight),
             Codec.INT.fieldOf("offset").orElse(3).forGetter(config -> config.offset)
-    ).apply(instance, MagicTreeConfig::new));
+    ).apply(instance, MagicForestConfig::new));
 
-    public MagicTreeConfig(GSKOTreeConfig treeProvider, int minHeight, int maxHeight, int offset) {
+    public MagicForestConfig(GSKOTreeConfig treeProvider, EclipticFoliageLayerConfig foliageLayer, int minHeight, int maxHeight, int offset) {
         super(treeProvider.foliageBlock, treeProvider.trunkBlock, true);
         this.treeProvider = treeProvider;
+        this.foliageLayer = foliageLayer;
         this.minHeight = minHeight;
         this.maxHeight = maxHeight;
         this.offset = offset;
     }
 
-    public GSKOTreeConfig getTreeProvider() {
-        return this.treeProvider;
-    }
-
-    public int getMinHeight() {
-        return this.minHeight;
-    }
-
-    public int getMaxHeight() {
-        return this.maxHeight;
-    }
 
 }

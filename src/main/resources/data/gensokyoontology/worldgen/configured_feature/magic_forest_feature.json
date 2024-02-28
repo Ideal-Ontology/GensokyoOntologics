@@ -1,0 +1,31 @@
+{
+  "type": "gensokyoontology:magic_forest_feature",
+  "tree_provider": {
+    "foliage_block": {
+      "state": {
+        "Name": "gensokyoontology:magic_leaves",
+        "Properties": {}
+      }
+    },
+    "trunk_block": {
+      "state": {
+        "Name": "gensokyoontology:magic_log",
+        "Properties": {
+          "axis": "y"
+        }
+      }
+    },
+    "ignore_bounding_box": true,
+    "foliage_layer": {
+      "foliage_shape": {
+        "x_radius": 4,
+        "z_radius": 3
+      }
+    },
+    "layer_count_min": 3,
+    "layer_count_max": 5
+  },
+  "min_height": 7,
+  "max_height": 10,
+  "offset": 3
+}

@@ -70,8 +70,7 @@
       "minecraft:patch_pumpkin",
       "minecraft:pile_melon",
 
-      "gensokyoontology:magic_trees",
-      "gensokyoontology:tree/magic_tree_feature",
+      "gensokyoontology:magic_forest_feature",
       "gensokyoontology:huge_blue_mushroom",
       "gensokyoontology:huge_purple_mushroom"
     ],

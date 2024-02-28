@@ -8,13 +8,11 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.feature.Feature;
 
-public abstract class GSKOTreeFeatureBase<FC extends GSKOTreeConfig> extends Feature<FC> {
-    public GSKOTreeFeatureBase(Codec<FC> codec) {
+public abstract class GSKOBiomeFeature<FC extends GSKOTreeConfig> extends Feature<FC> {
+    public GSKOBiomeFeature(Codec<FC> codec) {
         super(codec);
     }
 

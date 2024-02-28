@@ -30,6 +30,13 @@ public class GSKOTreeConfig implements IFeatureConfig {
         this.ignoreBoundingBox = ignoreBoundingBox;
     }
 
+    public static GSKOTreeConfig create(BlockStateProvider foliageBlock, BlockStateProvider trunkBlock, boolean ignoreBoundingBox) {
+        return new GSKOTreeConfig(foliageBlock, trunkBlock, ignoreBoundingBox);
+    }
+    public static GSKOTreeConfig create(BlockStateProvider foliageBlock, BlockStateProvider trunkBlock) {
+        return new GSKOTreeConfig(foliageBlock, trunkBlock, true);
+    }
+
     public BlockStateProvider getFoliage() {
         return this.foliageBlock;
     }

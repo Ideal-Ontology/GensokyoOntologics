@@ -1,12 +1,13 @@
 package github.thelawf.gensokyoontology.common.world.dimension.biome;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import net.minecraft.entity.EntityClassification;
+import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.carver.ConfiguredCarvers;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 
@@ -68,7 +69,7 @@ public final class GSKOBiomeMaker {
         return settings;
     }
 
-    private static BiomeGenerationSettings.Builder makeCustomBuilder() {
+    private static BiomeGenerationSettings.Builder defaultBuilder() {
         //抄原版用来装饰群系(这句话来自模组 Ashihara，作者：遗失唐伞绘卷屋)
         BiomeGenerationSettings.Builder biomegenerationSettings
                 = (new BiomeGenerationSettings.Builder()
@@ -90,6 +91,37 @@ public final class GSKOBiomeMaker {
         return (new BiomeGenerationSettings.Builder().withSurfaceBuilder(builder)
                 .withCarver(GenerationStage.Carving.AIR, ConfiguredCarvers.CAVE));
     }
+
+    @SafeVarargs
+    public static BiomeGenerationSettings.Builder withBuilder(Pair<GenerationStage.Decoration, ConfiguredFeature<?,?>>... features) {
+        BiomeGenerationSettings.Builder builder = defaultBuilder();
+        for (Pair<GenerationStage.Decoration, ConfiguredFeature<?,?>> pair : features) {
+            builder.withFeature(pair.getFirst(), pair.getSecond());
+        }
+        return builder;
+    }
+
+    public static Biome makeMagicForest() {
+        return new Biome.Builder()
+                .depth(0.08f)
+                .scale(0.08f)
+                .downfall(0.75f)
+                .temperature(0.65f)
+                .category(Biome.Category.FOREST)
+                .precipitation(Biome.RainType.RAIN)
+                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
+                .withGenerationSettings(withBuilder(
+                        Pair.of(GenerationStage.Decoration.VEGETAL_DECORATION, Features.FLOWER_DEFAULT)).build())
+                .setEffects(new BiomeAmbience.Builder()
+                        .setWaterColor(0x0DA7D6)
+                        .setWaterFogColor(0x282E84)
+                        .setFogColor(0xC0D8FF)
+                        .withSkyColor(getSkyColor(0.7F))
+                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
+                        .build())
+                .build().setRegistryName("magic_forest");
+    }
+
 
     // 比较好看的草色：.withGrassColor(0x59BA82)，
     public static Biome makeYatsugaTakeBiome(final Supplier<ConfiguredSurfaceBuilder<?>> builder) {

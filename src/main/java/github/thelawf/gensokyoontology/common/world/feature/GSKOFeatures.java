@@ -4,7 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.world.GSKOOreType;
+import github.thelawf.gensokyoontology.common.world.feature.config.EclipticFoliageLayerConfig;
+import github.thelawf.gensokyoontology.common.world.feature.config.GSKOTreeConfig;
 import github.thelawf.gensokyoontology.common.world.feature.config.GSKOWGConfigs;
+import github.thelawf.gensokyoontology.common.world.feature.config.MagicForestConfig;
 import github.thelawf.gensokyoontology.common.world.feature.tree.GSKOTrees;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
@@ -87,8 +90,9 @@ public class GSKOFeatures {
                     GSKOTrees.MAGIC_TREE.withChance(0.9f)), GSKOTrees.MAGIC_TREE))
             .withPlacement(Placement.DARK_OAK_TREE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)).square();
 
-    public static final ConfiguredFeature<?, ?> MAGIC_TREE_FEATURE = FeatureRegistry.CANOPY_FEATURE.get().withConfiguration(
-            GSKOTrees.MAGIC_TREE.config);
+    public static final ConfiguredFeature<?, ?> MAGIC_FOREST_FEATURE = FeatureRegistry.MAGIC_FOREST_FEATURE.get().withConfiguration(new MagicForestConfig(
+            GSKOTreeConfig.create(MagicForestConfig.FOLIAGE_BLOCK, MagicForestConfig.TRUNK_BLOCK),
+            EclipticFoliageLayerConfig.create(4, 3, 3, 5), 7, 10, 3));
     public static final ConfiguredFeature<?, ?> MAGIC_TREES = GSKOTrees.MAGIC_TREE.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
             .count(8).variableCount(8).square();
 
@@ -181,7 +185,7 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "wasabi"), WASABI);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "bamboo"), BAMBOO);
 
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "tree/magic_tree_feature"), MAGIC_TREE_FEATURE);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_forest_feature"), MAGIC_FOREST_FEATURE);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_forest_trees"), MAGIC_FOREST_TREES);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_trees"), MAGIC_TREES);

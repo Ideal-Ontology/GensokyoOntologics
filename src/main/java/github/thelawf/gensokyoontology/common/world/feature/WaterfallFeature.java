@@ -85,15 +85,6 @@ public class WaterfallFeature extends Feature<LiquidsConfig> {
         } else {
             return false;
         }
-        // if (reader.isAirBlock(pos.up()) && reader.getBlockState(pos).getBlock() == Blocks.STONE) {
-//
-        //     LogManager.getLogger().info("Is Waterfall Gen");
-        //     for (int i = 0; i < 16; i++) {
-        //         placeWaterIfValid(reader, i, pos);
-        //         placeWaterIfValid(reader, -i, pos);
-        //     }
-        //     return true;
-        // }
 
     }
 

@@ -27,6 +27,8 @@ public class GSKOBiomes {
     // public static final Biome YATSUGA_TAKE_BIOME = GSKOBiomeMaker.makeYatsugaTakeBiome(() -> GSKOConfiguredSurface.YATSUGA_TAKE);
     public static final RegistryObject<Biome> YATSUGA_TAKE_BIOME = BIOMES.register("mountain_yatsugatake",
             () -> GSKOBiomeMaker.makeYatsugaTakeBiome(() -> GSKOConfiguredSurface.YATSUGA_TAKE));
+    // public static final RegistryObject<Biome> MAGIC_FOREST_BIOME = BIOMES.register("magic_forest_dense",
+    //         GSKOBiomeMaker::makeMagicForest);
 
     public static final RegistryKey<Biome> GSKO_FOREST_KEY = makeKey("gensokyo_forest");
     public static final RegistryKey<Biome> GSKO_PLAINS_KEY = makeKey("gensokyo_plains");
@@ -40,6 +42,7 @@ public class GSKOBiomes {
     public static final RegistryKey<Biome> SUNFLOWER_GARDEN_KEY = makeKey("sunflower_garden");
     public static final RegistryKey<Biome> BAMBOO_FOREST_LOST_KEY = makeKey("bamboo_forest_of_lost");
     public static final RegistryKey<Biome> MAGIC_FOREST_KEY = makeKey("magic_forest");
+    // public static final RegistryKey<Biome> MAGIC_FOREST_KEY = makeKey(GSKOBiomeMaker.makeMagicForest().getRegistryName().getPath());
     public static final RegistryKey<Biome> DOLL_FOREST_KEY = makeKey("doll_forest");
     public static final RegistryKey<Biome> NAMELESS_HILL_KEY = makeKey("nameless_hill");
     public static final RegistryKey<Biome> MUENZUKA = makeKey("muenzuka");

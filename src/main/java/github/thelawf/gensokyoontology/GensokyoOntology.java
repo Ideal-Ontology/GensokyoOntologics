@@ -6,9 +6,12 @@ import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
+import github.thelawf.gensokyoontology.common.world.feature.config.EclipticFoliageLayerConfig;
+import github.thelawf.gensokyoontology.common.world.feature.config.GSKOTreeConfig;
+import github.thelawf.gensokyoontology.common.world.feature.config.MagicForestConfig;
+import github.thelawf.gensokyoontology.common.world.feature.tree.MagicForestFeature;
 import github.thelawf.gensokyoontology.common.world.surface.GSKOSurfaceBuilders;
 import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
-import github.thelawf.gensokyoontology.core.PlacerRegistry;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
@@ -20,14 +23,19 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
@@ -169,8 +177,10 @@ public class GensokyoOntology {
         }
     }
 
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
-    public static class AttributesSetEvent {
+    @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
+    public static class ModEventSetup {
+
+
         @SubscribeEvent
         public static void setupAttributes(EntityAttributeCreationEvent event) {
             double randomHealthFairy = GSKOMathUtil.randomRange(2, 20);

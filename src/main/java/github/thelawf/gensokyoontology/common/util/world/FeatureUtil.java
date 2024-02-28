@@ -8,6 +8,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.IWorldGenerationBaseReader;
 import net.minecraft.world.gen.IWorldGenerationReader;
 import net.minecraft.world.gen.blockstateprovider.BlockStateProvider;
 import net.minecraft.world.gen.feature.TreeFeature;
@@ -25,6 +26,23 @@ public class FeatureUtil {
         BlockPos.Mutable mutable = center.toMutable();
         for (int x = -radiusX; x <= radiusX; x++) {
             for (int z = -radiusZ; z <= radiusZ; z++) {
+                double distance = Math.sqrt(x * x + z * z);
+                if (distance <= radiusZ + 0.5) {
+                    mutable = (BlockPos.Mutable) mutable.add(x, 0, z);
+                    placeBlock(reader, mutable, random, state);
+                }
+            }
+        }
+    }
+
+    /**
+     * Modified from Twilight Forest.
+     */
+    public static void fillEllipse(IWorldGenerationReader reader, BlockPos center, Random random, BlockStateProvider state, float radiusX, float radiusZ) {
+        // 遍历圆的每个坐标位置，计算当前位置到圆心的距离，判断位置是否在圆内。加0.5是为了使树叶圆形效果更好
+        BlockPos.Mutable mutable = center.toMutable();
+        for (float x = -radiusX; x <= radiusX; x++) {
+            for (float z = -radiusZ; z <= radiusZ; z++) {
                 double distance = Math.sqrt(x * x + z * z);
                 if (distance <= radiusZ + 0.5) {
                     mutable = (BlockPos.Mutable) mutable.add(x, 0, z);
@@ -58,8 +76,7 @@ public class FeatureUtil {
     }
 
     private static void placeBlock(IWorldGenerationReader reader, BlockPos pos, Random random, BlockStateProvider state) {
-        BlockState blockState = state.getBlockState(random, pos);
-        reader.setBlockState(pos, blockState, 3);
+        reader.setBlockState(pos, state.getBlockState(random, pos), 3);
     }
 
 
@@ -70,6 +87,70 @@ public class FeatureUtil {
             BlockPos pos = GSKOMathUtil.lerp(i / distance, start, end);
             placeBlock(reader, pos, random, state);
         }
+    }
+
+    public static void placeTrunkPattern(ISeedReader reader, Random random, BlockPos start, BlockStateProvider state) {
+        int chance = GSKOMathUtil.randomRange(1,2);
+        switch (chance) {
+            case 1:
+                int t1 = GSKOMathUtil.randomRange(2,3);
+                BlockPos pos1 = randomOffset(start);
+                for (int i = 0; i < t1; i++) placeCrossPattern(reader, random, pos1.up(i), state);
+                break;
+            default:
+            case 2:
+                int t2 = GSKOMathUtil.randomRange(2,3);
+                BlockPos pos2 = randomOffset(start);
+                for (int i = 0; i < t2; i++) place2b2Pattern(reader, random, pos2.up(i), state);
+                break;
+        }
+    }
+
+    public static BlockPos randomOffset(BlockPos pos) {
+        int chance = GSKOMathUtil.randomRange(1, 4);
+        switch (chance) {
+            default:
+            case 1:
+                return new BlockPos(pos.east());
+            case 2:
+                return new BlockPos(pos.south());
+            case 3:
+                return new BlockPos(pos.north());
+            case 4:
+                return new BlockPos(pos.west());
+        }
+    }
+
+    /**
+     * 生成十字形状的方块组：<br>
+     * &nbsp X<br>
+     * XXX<br>
+     * &nbsp X
+     */
+    public static void placeCrossPattern(ISeedReader reader, Random random, BlockPos start, BlockStateProvider state) {
+        placeBlock(reader, start, random, state);
+        placeBlock(reader, start.toMutable().east(1), random, state);
+        placeBlock(reader, start.toMutable().south(1), random, state);
+        placeBlock(reader, start.toMutable().west(1), random, state);
+        placeBlock(reader, start.toMutable().north(1), random, state);
+    }
+
+    /**
+     * 生成2x2矩形的方块组：<br>
+     * XX<br>
+     * XX
+     */
+    public static void place2b2Pattern(ISeedReader reader, Random random, BlockPos start, BlockStateProvider state) {
+        placeBlock(reader, start, random, state);
+        placeBlock(reader, start.toMutable().west(1), random, state);
+        placeBlock(reader, start.toMutable().south(1), random, state);
+        placeBlock(reader, start.toMutable().move(1, 0, 1), random, state);
+    }
+
+    public static void placeCornerPattern(ISeedReader reader, Random random, BlockPos start, BlockStateProvider state) {
+        placeBlock(reader, start, random, state);
+        placeBlock(reader, start.toMutable().west(1), random, state);
+        placeBlock(reader, start.toMutable().south(1), random, state);
     }
 
     public static void placeStraightBlocks(IWorldGenerationReader reader, Random random, BlockPos start, BlockStateProvider state, int height) {
