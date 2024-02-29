@@ -8,7 +8,7 @@
   "player_spawn_friendly": true,
   "creature_spawn_probability": 0.4,
   "precipitation": "rain",
-  "surface_builder": "minecraft:river",
+  "surface_builder": "minecraft:grass",
   "effects": {
     "sky_color": 7907327,
     "fog_color": 12248771,
@@ -48,7 +48,11 @@
       "minecraft:ore_gold",
       "minecraft:ore_lapis",
       "minecraft:ore_redstone",
-      "minecraft:ore_diamond"
+      "minecraft:ore_diamond",
+
+      "minecraft:disk_clay",
+      "minecraft:disk_dirt",
+      "minecraft:disk_gravel"
     ],
     [],
     [],
@@ -58,9 +62,10 @@
       "minecraft:patch_sugar_cane",
       "minecraft:seagrass_simple",
       "minecraft:seagrass_normal",
-      "minecraft:disk_clay",
-      "minecraft:disk_dirt",
-      "minecraft:disk_gravel",
+
+      "gensokyoontology:patch_maple_leaves",
+      "gensokyoontology:patch_ginkgo_leaves",
+      "gensokyoontology:patch_zelkova_leaves",
       "gensokyoontology:untrodden_valley_vegetation"
     ],
     []

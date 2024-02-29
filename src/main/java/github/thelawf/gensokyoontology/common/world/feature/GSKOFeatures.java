@@ -111,11 +111,6 @@ public class GSKOFeatures {
 
     public static final ConfiguredFeature<?, ?> ZELKOVA_TREES = GSKOTrees.ZELKOVA_TREE
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3).variableCount(2).square();
-    public static final ConfiguredFeature<?, ?> UNTRODDEN_VALLEY_VEGATATION = Feature.RANDOM_SELECTOR.withConfiguration(
-            new MultipleRandomFeatureConfig(ImmutableList.of(
-                    GSKOTrees.ZELKOVA_TREE.withChance(0.3f),
-                    GSKOTrees.SAKURA_TREE.withChance(0.1f),
-                    GSKOTrees.GINKGO_TREE.withChance(0.2f)), MAPLE_TREE_VEGETATION));
 
     public static final ConfiguredFeature<?, ?> SHINBOKU_TREE = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(
@@ -149,6 +144,19 @@ public class GSKOFeatures {
             .square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(9, 0.99f, 8)));
 
+    public static final ConfiguredFeature<?, ?> PATCH_ZELKOVA_LEAVES = Feature.RANDOM_PATCH
+            .withConfiguration(new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(
+                    BlockRegistry.ZELKOVA_LEAVES_PILE.get().getDefaultState()), SimpleBlockPlacer.PLACER).tries(8).build())
+            .withPlacement(Features.Placements.PATCH_PLACEMENT).count(3).variableCount(5).square();
+    public static final ConfiguredFeature<?, ?> PATCH_MAPLE_LEAVES = Feature.RANDOM_PATCH
+            .withConfiguration(new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(
+                    BlockRegistry.MAPLE_LEAVES_PILE.get().getDefaultState()), SimpleBlockPlacer.PLACER).tries(8).build())
+            .withPlacement(Features.Placements.PATCH_PLACEMENT).count(3).variableCount(5).square();
+    public static final ConfiguredFeature<?, ?> PATCH_GINKGO_LEAVES = Feature.RANDOM_PATCH
+            .withConfiguration(new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(
+                    BlockRegistry.GINKGO_LEAVES_PILE.get().getDefaultState()), SimpleBlockPlacer.PLACER).tries(8).build())
+            .withPlacement(Features.Placements.PATCH_PLACEMENT).count(3).variableCount(5).square();
+
     //-------------------------------------------特征生成------------------------------------------//
     public static final ConfiguredFeature<?, ?> WATERFALL = FeatureRegistry.WATERFALL.get()
             .withConfiguration(new LiquidsConfig(Fluids.WATER.getDefaultState(), true, 4, 1, ImmutableSet.of(
@@ -158,6 +166,16 @@ public class GSKOFeatures {
     public static final ConfiguredFeature<?, ?> GSKO_STONE_PILE = Feature.BLOCK_PILE.withConfiguration(
                     new BlockStateProvidingFeatureConfig(new SimpleBlockStateProvider(Blocks.STONE.getDefaultState())))
             .withPlacement(Placement.HEIGHTMAP_WORLD_SURFACE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG));
+
+    public static final ConfiguredFeature<?, ?> UNTRODDEN_VALLEY_VEGETATION = Feature.RANDOM_SELECTOR.withConfiguration(
+                    new MultipleRandomFeatureConfig(ImmutableList.of(
+                            GSKOTrees.ZELKOVA_TREE.withChance(0.2f),
+                            GSKOTrees.SAKURA_TREE.withChance(0.1f),
+                            GSKOTrees.GINKGO_TREE.withChance(0.2f),
+                            PATCH_GINKGO_LEAVES.withChance(0.1f),
+                            PATCH_MAPLE_LEAVES.withChance(0.1f),
+                            PATCH_ZELKOVA_LEAVES.withChance(0.1f)), GSKOTrees.MAPLE_TREE))
+            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square();
     //-------------------------------------------建筑生成------------------------------------------//
     public static final StructureFeature<?, ?> MYSTIA_STRUCTURE = StructureRegistry.MYSTIA_IZAKAYA.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
@@ -190,6 +208,10 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_forest_trees"), MAGIC_FOREST_TREES);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_trees"), MAGIC_TREES);
 
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "patch_ginkgo_leaves"), PATCH_GINKGO_LEAVES);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "patch_maple_leaves"), PATCH_MAPLE_LEAVES);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "patch_zelkova_leaves"), PATCH_ZELKOVA_LEAVES);
+
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_vegetation"), MAPLE_TREE_VEGETATION);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_mountain"), MAPLE_TREE_MOUNTAIN);
 
@@ -199,7 +221,7 @@ public class GSKOFeatures {
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "zelkova_trees"), ZELKOVA_TREES);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "beast_path_vegetation"), BEAST_PATH_VEGETATION);
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "untrodden_valley_vegetation"), UNTRODDEN_VALLEY_VEGATATION);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "untrodden_valley_vegetation"), UNTRODDEN_VALLEY_VEGETATION);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_blue_mushroom"), HUGE_BLUE_MUSHROOM);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_purple_mushroom"), HUGE_PURPLE_MUSHROOM);

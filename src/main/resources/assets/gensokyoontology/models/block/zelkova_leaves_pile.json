@@ -1,6 +1,6 @@
 {
   "parent": "block/carpet",
   "textures": {
-    "all": "gensokyoontology:block/maple_leaves"
+    "wool": "gensokyoontology:block/zelkova_leaves"
   }
 }
