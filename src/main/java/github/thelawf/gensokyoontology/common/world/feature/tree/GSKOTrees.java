@@ -21,7 +21,7 @@ public class GSKOTrees {
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAPLE_TREE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(BlockRegistry.MAPLE_LEAVES.get().getDefaultState()),
-                    new BlobFoliagePlacer(FeatureSpread.create(2), FeatureSpread.create(1), 2),
+                    new SphericalFoliagePlacer(4.5f, 1.5f, FeatureSpread.create(1), 1, 1, -0.25f, 16),
                     new BranchTrunkPlacer(7, 2, 2, 5, new BranchesConfig(3, 2, 5, 2, 0.23, 0.23), false),
                     new TwoLayerFeature(1, 1, 2)).setIgnoreVines().build());
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE = Feature.TREE.withConfiguration(

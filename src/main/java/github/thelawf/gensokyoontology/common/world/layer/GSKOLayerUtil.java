@@ -36,7 +36,7 @@ public class GSKOLayerUtil extends Layer {
     /**
      * 世界生成的主要逻辑——通过该方法里面的IAreaFactory操作区块网格 <br>
      * Biome 数字id 的位置：{@link BiomeRegistry} <br>
-     * 原版生物群系Layer 的生成逻辑的位置： {@link LayerUtil#setupOverworldLayer(boolean, int, int, LongFunction)}
+     * 原版生物群系Layer 的生成逻辑的位置： {@link LayerUtil#setupOverworldLayer(boolean, int, int, LongFunction) LayerUtil.setupOverworldLayer}
      */
     public static <T extends IArea, C extends IExtendedNoiseRandom<T>> IAreaFactory<T> buildBiomes(final LongFunction<C> context, Registry<Biome> registry) {
         IAreaFactory<T> area = GenerateCommonLayer.INSTANCE.setUp(registry).apply(context.apply(1L));
@@ -48,21 +48,23 @@ public class GSKOLayerUtil extends Layer {
         area = ZoomLayer.NORMAL.apply(context.apply(1004L), area);
         area = ZoomLayer.NORMAL.apply(context.apply(1005L), area);
         area = ZoomLayer.NORMAL.apply(context.apply(1006L), area);
+        area = YoukaiMountainValleyLayer.INSTANCE.setup(registry).apply(context.apply(1007L), area);
 
         IAreaFactory<T> river = repeat(1000L, ZoomLayer.NORMAL, area, 0, context);
-        // river = GSKORiverLayer.INSTANCE.apply(context.apply(7L), area);
-        river = StartRiverLayer.INSTANCE.apply(context.apply(100L), river);
-        river = AddMistyLakeLayer.INSTANCE.apply(context.apply(30L), area);
+        river = GSKORiverLayer.INSTANCE.setUp(registry).apply(context.apply(7L), area);
+        // river = StartRiverLayer.INSTANCE.apply(context.apply(100L), river);
+        river = AddMistyLakeLayer.INSTANCE.setUp(registry).apply(context.apply(30L), area);
         river = repeat(1000L, ZoomLayer.NORMAL, area, 2, context);
         river = repeat(1000L, ZoomLayer.NORMAL, area, 2, context);
 
         /* RiverLayer 里的 p_151730_0_表示海洋的生物群系数字ID，使用riverFilter 先判断是否是海洋，如果是海洋，
          * 则直接返回海洋的生物群系数字ID，否则进行奇偶性判断，如果为奇数表示非生物群系（-1），偶数表示河流的生物群系数字ID（6）
          */
-        river = RiverLayer.INSTANCE.apply(context.apply(1L), river);
+        // river = RiverLayer.INSTANCE.apply(context.apply(1L), river);
         river = SmoothLayer.INSTANCE.apply(context.apply(10L), river);
         area = SmoothLayer.INSTANCE.apply(context.apply(3008), area);
-        area = MixRiverLayer.INSTANCE.apply(context.apply(3001L), area, river);
+        area = AddRiverLayer.INSTANCE.setup(registry).apply(context.apply(3001L), area, river);
+        // area = MixRiverLayer.INSTANCE.apply(context.apply(3001L), area, river);
 
         return area;
     }

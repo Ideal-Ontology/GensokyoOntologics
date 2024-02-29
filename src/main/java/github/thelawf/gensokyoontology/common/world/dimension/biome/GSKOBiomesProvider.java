@@ -48,6 +48,7 @@ public class GSKOBiomesProvider extends BiomeProvider {
             GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
             GSKOBiomes.WIND_GODDESS_LAKE_KEY,
             GSKOBiomes.SUNFLOWER_GARDEN_KEY,
+            GSKOBiomes.UNTRODDEN_VALLEY_KEY,
             GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
             GSKOBiomes.NAMELESS_HILL_KEY,
             GSKOBiomes.HUMAN_VILLAGE_KEY,
@@ -56,8 +57,6 @@ public class GSKOBiomesProvider extends BiomeProvider {
             GSKOBiomes.MISTY_LAKE_KEY,
             GSKOBiomes.HIGAN_KEY,
             GSKOBiomes.MUENZUKA,
-            GSKOBiomes.GSKO_PLAINS_KEY,
-            GSKOBiomes.GSKO_FOREST_KEY,
             GSKOBiomes.GSKO_RIVER_KEY
 
     );
@@ -71,7 +70,7 @@ public class GSKOBiomesProvider extends BiomeProvider {
     }
 
     public Registry<Biome> getBiomeRegistry() {
-        return biomeRegistry;
+        return this.biomeRegistry;
     }
 
 
@@ -87,7 +86,7 @@ public class GSKOBiomesProvider extends BiomeProvider {
 
     @Override
     public Biome getNoiseBiome(int x, int y, int z) {
-        return this.layer.func_242936_a(biomeRegistry, x, z);
+        return this.layer.func_242936_a(this.biomeRegistry, x, z);
     }
 
     @Override
