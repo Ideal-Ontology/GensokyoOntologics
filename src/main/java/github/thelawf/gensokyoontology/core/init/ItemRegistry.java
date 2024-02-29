@@ -45,6 +45,7 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> KAOLINITE_BLOCK_ITEM = ITEMS.register(
             "kaolinite", () -> new BlockItem(BlockRegistry.KAOLINITE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     // ---------------------------- 树木类方块：------------------------------//
     //////////////////////////////// 樱花木 ////////////////////////////////
     public static final RegistryObject<BlockItem> SAKURA_SAPLING_ITEM = ITEMS.register(
@@ -182,6 +183,20 @@ public final class ItemRegistry {
     //////////////////////////////// 红杉木 ////////////////////////////////
     public static final RegistryObject<BlockItem> REDWOOD_LEAVES_ITEM = ITEMS.register(
             "redwood_leaves", () -> new BlockItem(BlockRegistry.REDWOOD_LEAVES.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    //////////////////////////////// 落叶堆 ////////////////////////////////
+    public static final RegistryObject<BlockItem> GINKGO_LEAVES_PILE_ITEM = ITEMS.register(
+            "ginkgo_leaves_pile", () -> new BlockItem(BlockRegistry.GINKGO_LEAVES_PILE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> MAPLE_LEAVES_PILE_ITEM = ITEMS.register(
+            "maple_leaves_pile", () -> new BlockItem(BlockRegistry.MAPLE_LEAVES_PILE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> SAKURA_LEAVES_PILE_ITEM = ITEMS.register(
+            "sakura_leaves_pile", () -> new BlockItem(BlockRegistry.SAKURA_LEAVES_PILE.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> ZELKOVA_LEAVES_PILE_ITEM = ITEMS.register(
+            "zelkova_leaves_pile", () -> new BlockItem(BlockRegistry.ZELKOVA_LEAVES_PILE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // --------------------------- 草本植物类方块：----------------------------//

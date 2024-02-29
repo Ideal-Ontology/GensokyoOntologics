@@ -85,22 +85,20 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(4, 0.9f, 5)));
 
+    public static final ConfiguredFeature<?, ?> MAGIC_TREES = GSKOTrees.MAGIC_TREE.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
+            .count(8).variableCount(8).square();
     public static final ConfiguredFeature<?, ?> MAGIC_FOREST_TREES = Feature.RANDOM_SELECTOR.withConfiguration(
             new MultipleRandomFeatureConfig(ImmutableList.of(
                     GSKOTrees.MAGIC_TREE.withChance(0.9f)), GSKOTrees.MAGIC_TREE))
             .withPlacement(Placement.DARK_OAK_TREE.configure(IPlacementConfig.NO_PLACEMENT_CONFIG)).square();
-
     public static final ConfiguredFeature<?, ?> MAGIC_FOREST_FEATURE = FeatureRegistry.MAGIC_FOREST_FEATURE.get().withConfiguration(new MagicForestConfig(
             GSKOTreeConfig.create(MagicForestConfig.FOLIAGE_BLOCK, MagicForestConfig.TRUNK_BLOCK),
             EclipticFoliageLayerConfig.create(7, 5, 5, 7), 7, 10, 3))
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
             .count(3).variableCount(4).square();
-    public static final ConfiguredFeature<?, ?> MAGIC_TREES = GSKOTrees.MAGIC_TREE.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-            .count(8).variableCount(8).square();
 
     public static final ConfiguredFeature<?, ?> MAPLE_TREE_VEGETATION = GSKOTrees.MAPLE_TREE
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(2).variableCount(1).square();
-
     public static final ConfiguredFeature<?, ?> MAPLE_TREE_MOUNTAIN = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(
                             new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
@@ -111,15 +109,13 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(2, 0.5f, 3)));
 
-    public static final ConfiguredFeature<?, ?> ZELKOVA_TREE_VEGETATION = GSKOTrees.ZELKOVA_TREE
+    public static final ConfiguredFeature<?, ?> ZELKOVA_TREES = GSKOTrees.ZELKOVA_TREE
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3).variableCount(2).square();
     public static final ConfiguredFeature<?, ?> UNTRODDEN_VALLEY_VEGATATION = Feature.RANDOM_SELECTOR.withConfiguration(
             new MultipleRandomFeatureConfig(ImmutableList.of(
-                    GSKOTrees.ZELKOVA_TREE.withChance(0.1f),
-                    GSKOTrees.MAPLE_TREE.withChance(0.1f),
+                    GSKOTrees.ZELKOVA_TREE.withChance(0.3f),
                     GSKOTrees.SAKURA_TREE.withChance(0.1f),
-                    GSKOTrees.GINKGO_TREE.withChance(0.1f)), MAPLE_TREE_VEGETATION)
-    );
+                    GSKOTrees.GINKGO_TREE.withChance(0.2f)), MAPLE_TREE_VEGETATION));
 
     public static final ConfiguredFeature<?, ?> SHINBOKU_TREE = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(
@@ -136,7 +132,6 @@ public class GSKOFeatures {
     //         Feature.TREE.withConfiguration());
 
     //-------------------------------------------花草生成------------------------------------------//
-
     public static final ConfiguredFeature<?, ?> HIGAN_LYCORIS = Feature.RANDOM_PATCH
             .withConfiguration(new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.LYCORIS_RADIATA.get().getDefaultState()),
                     SimpleBlockPlacer.PLACER).tries(32).build())
@@ -202,6 +197,7 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree_hakurei_shrine"), SAKURA_TREE_HAKUREI_SHRINE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "shinboku_tree"), SHINBOKU_TREE);
 
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "zelkova_trees"), ZELKOVA_TREES);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "beast_path_vegetation"), BEAST_PATH_VEGETATION);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "untrodden_valley_vegetation"), UNTRODDEN_VALLEY_VEGATATION);
 

@@ -26,6 +26,12 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> KAOLIN = BLOCKS.register("kaolin", KaolinBlock::new);
     public static final RegistryObject<Block> KAOLINITE = BLOCKS.register("kaolinite", KaoliniteBlock::new);
 
+    ////////////////////////////////////////// 落叶堆 ///////////////////////////////////////////
+    public static final RegistryObject<Block> GINKGO_LEAVES_PILE = BLOCKS.register("ginkgo_leaves_pile", LeavesPileBlock::new);
+    public static final RegistryObject<Block> MAPLE_LEAVES_PILE = BLOCKS.register("maple_leaves_pile", LeavesPileBlock::new);
+    public static final RegistryObject<Block> SAKURA_LEAVES_PILE = BLOCKS.register("sakura_leaves_pile", LeavesPileBlock::new);
+    public static final RegistryObject<Block> ZELKOVA_LEAVES_PILE = BLOCKS.register("zelkova_leaves_pile", LeavesPileBlock::new);
+
     ////////////////////////////////////////// 魔法树木 //////////////////////////////////////////
     public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register("magic_leaves", MagicLeaves::new);
 

@@ -1,0 +1,6 @@
+{
+  "parent": "block/carpet",
+  "textures": {
+    "all": "gensokyoontology:block/ginkgo_leaves"
+  }
+}

@@ -11,6 +11,6 @@ public class GinkgoTree extends Tree {
     @Nullable
     @Override
     protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
-        return null;
+        return GSKOTrees.GINKGO_TREE;
     }
 }
