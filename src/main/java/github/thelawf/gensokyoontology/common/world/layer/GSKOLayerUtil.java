@@ -42,13 +42,13 @@ public class GSKOLayerUtil extends Layer {
         IAreaFactory<T> area = GenerateCommonLayer.INSTANCE.setUp(registry).apply(context.apply(1L));
         area = ZoomLayer.FUZZY.apply(context.apply(1000L), area);
         area = ZoomLayer.NORMAL.apply(context.apply(1001L), area);
+        area = YoukaiMountainValleyLayer.INSTANCE.setup(registry).apply(context.apply(1007L), area);
+
         area = ZoomLayer.NORMAL.apply(context.apply(1002L), area);
         area = ZoomLayer.NORMAL.apply(context.apply(1003L), area);
-
         area = ZoomLayer.NORMAL.apply(context.apply(1004L), area);
         area = ZoomLayer.NORMAL.apply(context.apply(1005L), area);
         area = ZoomLayer.NORMAL.apply(context.apply(1006L), area);
-        area = YoukaiMountainValleyLayer.INSTANCE.setup(registry).apply(context.apply(1007L), area);
 
         IAreaFactory<T> river = repeat(1000L, ZoomLayer.NORMAL, area, 0, context);
         river = GSKORiverLayer.INSTANCE.setUp(registry).apply(context.apply(7L), area);

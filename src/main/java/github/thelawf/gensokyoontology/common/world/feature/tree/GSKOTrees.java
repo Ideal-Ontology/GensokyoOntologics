@@ -22,7 +22,7 @@ public class GSKOTrees {
             new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
                     new SimpleBlockStateProvider(BlockRegistry.MAPLE_LEAVES.get().getDefaultState()),
                     new SphericalFoliagePlacer(4.5f, 1.5f, FeatureSpread.create(1), 1, 1, -0.25f, 16),
-                    new BranchTrunkPlacer(7, 2, 2, 5, new BranchesConfig(3, 2, 5, 2, 0.23, 0.23), false),
+                    new FancyTrunkPlacer(8, 3, 2),
                     new TwoLayerFeature(1, 1, 2)).setIgnoreVines().build());
     public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE = Feature.TREE.withConfiguration(
             new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState()),
@@ -30,6 +30,20 @@ public class GSKOTrees {
                     new SphericalFoliagePlacer(4.5f, 1.5f, FeatureSpread.create(0), 1, 0, -0.25f, 16),
                     new FancyTrunkPlacer(10, 2, 3),
                     new TwoLayerFeature(1, 3, 1)).setIgnoreVines().build());
+
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> ZELKOVA_TREE = Feature.TREE.withConfiguration(
+            new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.ZELKOVA_LOG.get().getDefaultState()),
+                    new SimpleBlockStateProvider(BlockRegistry.ZELKOVA_LEAVES.get().getDefaultState()),
+                    new SphericalFoliagePlacer(3.5f, 1.5f, FeatureSpread.create(0,1), 1, 0, -0.15f, 24),
+                    new FancyTrunkPlacer(8, 3, 2),
+                    new TwoLayerFeature(1, 1, 3)).setIgnoreVines().build());
+
+    public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> GINKGO_TREE = Feature.TREE.withConfiguration(
+            new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.GINKGO_LOG.get().getDefaultState()),
+                    new SimpleBlockStateProvider(BlockRegistry.GINKGO_LEAVES.get().getDefaultState()),
+                    new SphericalFoliagePlacer(4.5f, 1.5f, FeatureSpread.create(0), 1, 0, -0.25f, 16),
+                    new FancyTrunkPlacer(9, 2, 2),
+                    new TwoLayerFeature(1, 1, 3)).setIgnoreVines().build());
 
     // public static final ConfiguredFeature<BaseTreeFeatureConfig, ?> MAGIC_TREE = Feature.TREE.withConfiguration(
     //         new BaseTreeFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.MAGIC_LOG.get().getDefaultState()),

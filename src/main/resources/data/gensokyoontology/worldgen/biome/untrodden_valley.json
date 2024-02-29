@@ -1,6 +1,6 @@
 {
-  "depth": -0.72,
-  "scale": 0.75,
+  "depth": -0.12,
+  "scale": 0.25,
   "downfall": 0.6,
   "temperature": 0.95,
   "category": "extreme_hills",
@@ -55,11 +55,7 @@
     [
       "minecraft:trees_shattered_savanna",
       "minecraft:patch_sugar_cane",
-
-      "gensokyoontology:sakura_tree",
-      "gensokyoontology:sakura_tree",
-      "gensokyoontology:maple_tree",
-      "gensokyoontology:maple_tree"
+      "gensokyoontology:untrodden_valley_vegetation"
     ],
     []
   ],

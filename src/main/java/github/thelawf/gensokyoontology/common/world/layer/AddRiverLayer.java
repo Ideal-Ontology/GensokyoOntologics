@@ -22,9 +22,11 @@ public enum AddRiverLayer implements IAreaTransformer2, IDimOffset0Transformer {
     public int apply(INoiseRandom random, IArea landArea, IArea riverArea, int p_215723_4_, int p_215723_5_) {
         int riverId = riverArea.getValue(this.getOffsetX(p_215723_4_), this.getOffsetZ(p_215723_5_));
         if (riverId == GSKOBiomeID.getID(this.registry, GSKOBiomes.GSKO_RIVER_KEY)) {
-
+            return riverId;
         }
-        return 0;
+        else {
+            return landArea.getValue(this.getOffsetX(p_215723_4_), this.getOffsetZ(p_215723_5_));
+        }
     }
 
 

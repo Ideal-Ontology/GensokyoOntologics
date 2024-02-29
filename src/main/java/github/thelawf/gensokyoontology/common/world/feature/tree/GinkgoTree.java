@@ -7,10 +7,10 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
-public class ZelkovaTree extends Tree {
+public class GinkgoTree extends Tree {
     @Nullable
     @Override
     protected ConfiguredFeature<BaseTreeFeatureConfig, ?> getTreeFeature(Random randomIn, boolean largeHive) {
-        return GSKOTrees.ZELKOVA_TREE;
+        return null;
     }
 }

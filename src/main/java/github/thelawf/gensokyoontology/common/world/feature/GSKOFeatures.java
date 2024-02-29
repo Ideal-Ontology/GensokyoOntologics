@@ -98,14 +98,8 @@ public class GSKOFeatures {
     public static final ConfiguredFeature<?, ?> MAGIC_TREES = GSKOTrees.MAGIC_TREE.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
             .count(8).variableCount(8).square();
 
-    public static final ConfiguredFeature<?, ?> MAPLE_TREE_VEGETATION = Feature.TREE.withConfiguration(
-                    new BaseTreeFeatureConfig.Builder(
-                            new SimpleBlockStateProvider(BlockRegistry.MAPLE_LOG.get().getDefaultState()),
-                            new SimpleBlockStateProvider(BlockRegistry.MAPLE_LEAVES.get().getDefaultState()),
-                            new BlobFoliagePlacer(FeatureSpread.create(4), FeatureSpread.create(2), 2),
-                            new FancyTrunkPlacer(6, 2, 1),
-                            new TwoLayerFeature(1, 2, 2)).setIgnoreVines().build())
-            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square();
+    public static final ConfiguredFeature<?, ?> MAPLE_TREE_VEGETATION = GSKOTrees.MAPLE_TREE
+            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(2).variableCount(1).square();
 
     public static final ConfiguredFeature<?, ?> MAPLE_TREE_MOUNTAIN = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(
@@ -116,6 +110,16 @@ public class GSKOFeatures {
                             new TwoLayerFeature(1, 0, 2)).setIgnoreVines().build())
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(2, 0.5f, 3)));
+
+    public static final ConfiguredFeature<?, ?> ZELKOVA_TREE_VEGETATION = GSKOTrees.ZELKOVA_TREE
+            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3).variableCount(2).square();
+    public static final ConfiguredFeature<?, ?> UNTRODDEN_VALLEY_VEGATATION = Feature.RANDOM_SELECTOR.withConfiguration(
+            new MultipleRandomFeatureConfig(ImmutableList.of(
+                    GSKOTrees.ZELKOVA_TREE.withChance(0.1f),
+                    GSKOTrees.MAPLE_TREE.withChance(0.1f),
+                    GSKOTrees.SAKURA_TREE.withChance(0.1f),
+                    GSKOTrees.GINKGO_TREE.withChance(0.1f)), MAPLE_TREE_VEGETATION)
+    );
 
     public static final ConfiguredFeature<?, ?> SHINBOKU_TREE = Feature.TREE.withConfiguration(
                     new BaseTreeFeatureConfig.Builder(
@@ -188,17 +192,18 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "bamboo"), BAMBOO);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_forest_feature"), MAGIC_FOREST_FEATURE);
-
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_forest_trees"), MAGIC_FOREST_TREES);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "magic_trees"), MAGIC_TREES);
 
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_vegetation"), MAPLE_TREE_VEGETATION);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_mountain"), MAPLE_TREE_MOUNTAIN);
+
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree"), SAKURA_TREE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "sakura_tree_hakurei_shrine"), SAKURA_TREE_HAKUREI_SHRINE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "shinboku_tree"), SHINBOKU_TREE);
 
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "maple_tree_vegetation"), MAPLE_TREE_VEGETATION);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "beast_path_vegetation"), BEAST_PATH_VEGETATION);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "untrodden_valley_vegetation"), UNTRODDEN_VALLEY_VEGATATION);
 
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_blue_mushroom"), HUGE_BLUE_MUSHROOM);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "huge_purple_mushroom"), HUGE_PURPLE_MUSHROOM);

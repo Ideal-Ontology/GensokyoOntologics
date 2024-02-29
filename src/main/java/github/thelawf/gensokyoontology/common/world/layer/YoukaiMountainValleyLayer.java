@@ -19,15 +19,15 @@ public enum YoukaiMountainValleyLayer implements ICastleTransformer {
 
     @Override
     public int apply(INoiseRandom context, int north, int west, int south, int east, int center) {
-        if (east == getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY) ||
-            south == getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY) ||
-            west == getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY) ||
-            north == getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY)) {
-            return getId(this.registry, GSKOBiomes.UNTRODDEN_VALLEY_KEY);
+        if (center != getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY)) {
+            if (east == getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY) ||
+                    south == getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY) ||
+                    west == getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY) ||
+                    north == getId(this.registry, GSKOBiomes.YOUKAI_MOUNTAIN_KEY)) {
+                return getId(this.registry, GSKOBiomes.UNTRODDEN_VALLEY_KEY);
+            }
         }
-        else {
-            return center;
-        }
+        return center;
     }
 
     private static int getId(Registry<Biome> biomes, RegistryKey<Biome> key) {
