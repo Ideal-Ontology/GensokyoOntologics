@@ -206,19 +206,6 @@ public class GSKOWorldEvents {
                 .getBiomes().forEach(biome -> spawnEntityIn(biome, biomeIds, classification));
     }
 
-
-    private static <FC extends IFeatureConfig, F extends Feature<FC>> void generateFeatureIn(Biome biome, ConfiguredFeature<FC, F> feature) {
-
-
-        // List<Supplier<ConfiguredFeature<?,?>>> base = biome.getGenerationSettings().getFeatures()
-        //         .get(GenerationStage.Decoration.VEGETAL_DECORATION.ordinal());
-//
-        // base.add(GenerationStage.Decoration.VEGETAL_DECORATION.ordinal(),
-        //         () -> feature.withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT)
-        //         .withPlacement(Placement.COUNT_EXTRA.configure(
-        //                 new AtSurfaceWithExtraConfig(1, 0.8f, 2))));
-    }
-
     private static void spawnEntityIn(Biome biome, List<ResourceLocation> biomeIds,
                                       EntityClassification classification) {
         List<EntityType<?>> entityTypes = ImmutableList.of(
@@ -230,7 +217,6 @@ public class GSKOWorldEvents {
                 int weight = 8;
                 int minCount = 3;
                 int maxCount = 8;
-
 
                 // entityTypes.forEach(entityType -> biome.getMobSpawnInfo().getSpawners(classification)
                 //         .add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(),

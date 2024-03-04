@@ -1,6 +1,6 @@
 {
-  "depth": -0.12,
-  "scale": 0.25,
+  "depth": -0.35,
+  "scale": 0.12,
   "downfall": 0.6,
   "temperature": 0.95,
   "category": "extreme_hills",
@@ -8,7 +8,7 @@
   "player_spawn_friendly": true,
   "creature_spawn_probability": 0.4,
   "precipitation": "rain",
-  "surface_builder": "minecraft:grass",
+  "surface_builder": "minecraft:ocean_sand",
   "effects": {
     "sky_color": 7907327,
     "fog_color": 12248771,
@@ -51,8 +51,8 @@
       "minecraft:ore_diamond",
 
       "minecraft:disk_clay",
-      "minecraft:disk_dirt",
-      "minecraft:disk_gravel"
+      "minecraft:disk_gravel",
+      "minecraft:disk_sand"
     ],
     [],
     [],
@@ -60,7 +60,6 @@
       "minecraft:patch_grass_normal",
       "minecraft:patch_tall_grass_2",
       "minecraft:patch_sugar_cane",
-      "minecraft:seagrass_simple",
       "minecraft:seagrass_normal",
 
       "gensokyoontology:patch_maple_leaves",

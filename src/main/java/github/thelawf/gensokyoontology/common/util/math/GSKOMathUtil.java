@@ -290,7 +290,9 @@ public class GSKOMathUtil {
     }
 
     public static float randomRange(float min, float max) {
-        return (float) new Random().nextInt((int) (max - min + 1)) + min;
+        Random random = new Random();
+        float randomValue = random.nextFloat();
+        return min + (randomValue * (max - min));
     }
 
     public static double randomRange(double min, double max) {

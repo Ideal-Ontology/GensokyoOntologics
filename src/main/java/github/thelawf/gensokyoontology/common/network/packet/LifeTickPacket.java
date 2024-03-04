@@ -8,6 +8,7 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
+import org.apache.logging.log4j.LogManager;
 
 import java.util.function.Supplier;
 
@@ -39,6 +40,7 @@ public class LifeTickPacket {
         if (mc.world != null && mc.player != null) {
             mc.player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap -> {
                 cap.setLifetime(packet.getLifetime());
+                LogManager.getLogger().info("[Server] Player Life: {}",cap.getLifetime());
             });
         }
     }

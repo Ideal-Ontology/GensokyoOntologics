@@ -10,6 +10,7 @@ import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapabil
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
+import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
@@ -53,9 +54,11 @@ import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.List;
 import java.util.Objects;
@@ -70,6 +73,11 @@ public class GSKOEntityEvents {
             PlayerEntity player = (PlayerEntity)event.getEntity();
             player.getCapability(GSKOCapabilities.POWER).ifPresent(GSKOPowerCapability::markDirty);
         }
+    }
+
+    @SubscribeEvent
+    public static void onWorldLoad(WorldEvent.Load event) {
+
     }
 
     // @SubscribeEvent
@@ -110,7 +118,15 @@ public class GSKOEntityEvents {
                 GSKONetworking.sendToClientPlayer(new LifeTickPacket(cap.getLifetime()), player);
                 cap.setDirty(false);
             }
+        });
+    }
 
+    private static void trySyncPower(PlayerEntity player) {
+        player.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
+            if (cap.isDirty()) {
+                GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(cap.getCount()), player);
+                cap.setDirty(false);
+            }
         });
     }
 
@@ -127,8 +143,12 @@ public class GSKOEntityEvents {
         PlayerEntity player = event.player;
         boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;
         if (flag) {
-            // trySyncPowerFromTLM(player);
             trySyncLifetime(player);
+            trySyncPower(player);
+            if (TouhouLittleMaidCompat.isLoaded()) {
+                trySyncPowerFromTLM(player);
+            }
+
         }
         if (GSKOUtil.firstMatch(player,ItemRegistry.SEIGA_HAIRPIN.get())) {
             SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));
@@ -233,6 +253,7 @@ public class GSKOEntityEvents {
                 if (inventory.getStackInSlot(i).getItem() == ItemRegistry.EXTEND_ITEM.get()) {
                     player.setHealth(20F);
                     world.setEntityState(player, (byte) 35);
+                    inventory.getStackInSlot(i).shrink(1);
                 }
             }
         }

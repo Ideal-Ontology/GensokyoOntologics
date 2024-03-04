@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.events;
 
+import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapability;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
@@ -32,7 +33,7 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class GSKOCapabilityEvents {
 
-    // @SubscribeEvent
+    @SubscribeEvent
     public static void onCapabilityAttachToWorld(AttachCapabilitiesEvent<World> event) {
         if (event.getObject() instanceof World) {
             List<String> biomes = new ArrayList<>();
@@ -61,8 +62,8 @@ public class GSKOCapabilityEvents {
     }
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
-        updateCapability(event, GSKOCapabilities.POWER);
-        updateCapability(event, GSKOCapabilities.SECULAR_LIFE);
+        updatePower(event);
+        updateLife(event);
     }
 
     @SubscribeEvent
@@ -78,11 +79,39 @@ public class GSKOCapabilityEvents {
         }
     }
 
-    private static <C extends INBTSerializable<CompoundNBT>> void updateCapability(PlayerEvent.Clone event, Capability<C> capability) {
-        LazyOptional<C> oldCapability = event.getOriginal().getCapability(capability);
-        LazyOptional<C> newCapability = event.getPlayer().getCapability(capability);
+    private static void updatePower(PlayerEvent.Clone event) {
+
+        LazyOptional<GSKOPowerCapability> oldCapability = event.getOriginal().getCapability(GSKOCapabilities.POWER);
+        LazyOptional<GSKOPowerCapability> newCapability = event.getPlayer().getCapability(GSKOCapabilities.POWER);
+        GSKOUtil.showChatMsg(event.getPlayer(), newCapability.isPresent(), 1);
         if (oldCapability.isPresent() && newCapability.isPresent()) {
-            newCapability.ifPresent(capNew -> oldCapability.ifPresent(capOld -> capNew.deserializeNBT(capOld.serializeNBT())));
+            newCapability.ifPresent(capNew -> oldCapability.ifPresent(capOld -> {
+                if (event.isWasDeath()) {
+                    capNew.setCount(capOld.getCount() - 1);
+                }
+                else {
+                    capNew.setCount(capOld.getCount());
+                }
+            }));
+        }
+    }
+
+    private static void updateLife(PlayerEvent.Clone event) {
+
+        PlayerEntity playerOld = event.getOriginal();
+        PlayerEntity playerNew = event.getPlayer();
+
+        LazyOptional<SecularLifeCapability> oldCapability = playerOld.getCapability(GSKOCapabilities.SECULAR_LIFE);
+        LazyOptional<SecularLifeCapability> newCapability = playerNew.getCapability(GSKOCapabilities.SECULAR_LIFE);
+        if (oldCapability.isPresent() && newCapability.isPresent()) {
+            newCapability.ifPresent(capNew -> oldCapability.ifPresent(capOld -> {
+                if (event.isWasDeath()) {
+                    capNew.setLifetime(0L);
+                }
+                else {
+                    capNew.setLifetime(capOld.getLifetime());
+                }
+            }));
         }
     }
 
@@ -93,5 +122,4 @@ public class GSKOCapabilityEvents {
             newCapability.ifPresent(capNew -> oldCapability.ifPresent(capOld -> capNew.deserializeNBT(capOld.serializeNBT())));
         }
     }
-
 }
