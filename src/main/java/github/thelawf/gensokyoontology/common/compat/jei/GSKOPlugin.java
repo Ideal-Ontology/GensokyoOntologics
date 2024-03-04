@@ -10,6 +10,7 @@ import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Objects;
@@ -46,7 +47,7 @@ public class GSKOPlugin implements IModPlugin {
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager manager = Objects.requireNonNull(Minecraft.getInstance().world).getRecipeManager();
-        registration.addRecipes(GSKORecipeHandler.getInstance().extractorRecipes(), SorceryRecipeCategory.UID);
+        registration.addRecipes(manager.getRecipesForType(RecipeRegistry.SORCERY_RECIPE), SorceryRecipeCategory.UID);
         // registration.addRecipes(manager.getRecipesForType(RecipeRegistry.SORCERY_RECIPE).stream()
         //                 .filter(recipe -> recipe instanceof SorceryExtractorRecipe).collect(Collectors.toList()),
         //         SorceryRecipeCategory.UID);

@@ -4,22 +4,25 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
 
 import java.util.Iterator;
 import java.util.List;
 
 public class ExtractorRecipeWrapper {
-    private final List<List<ItemStack>> inputs = Lists.newArrayList();
+    private final NonNullList<Ingredient> inputs;
     private final ItemStack output;
 
-    public ExtractorRecipeWrapper(ItemStack output, ItemStack up, ItemStack left, ItemStack right, ItemStack down) {
+    public ExtractorRecipeWrapper(ItemStack output, NonNullList<Ingredient> ingredients) {
         this.output = output;
-        this.inputs.add(Lists.newArrayList(up, left, right, down));
-        for (List<ItemStack> stacks : this.inputs) {
-            Ingredient input = (Ingredient) stacks;
-            if (!input.hasNoMatchingItems()) {
-                this.inputs.add(Lists.newArrayList(input.getMatchingStacks()));
-            }
-        }
+        this.inputs = ingredients;
+    }
+
+    public ItemStack getOutput() {
+        return this.output;
+    }
+
+    public NonNullList<Ingredient> getInputs() {
+        return this.inputs;
     }
 }

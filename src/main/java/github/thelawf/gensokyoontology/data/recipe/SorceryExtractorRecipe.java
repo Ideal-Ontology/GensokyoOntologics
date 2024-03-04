@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.data.recipe;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import net.minecraft.inventory.IInventory;
@@ -20,31 +21,20 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
 
     private final ResourceLocation id;
     private final ItemStack output;
-    private final ItemStack up;
-    private final ItemStack left;
-    private final ItemStack right;
-    private final ItemStack down;
 
     private final NonNullList<Ingredient> inputs;
 
-    public SorceryExtractorRecipe(ResourceLocation id, ItemStack output, ItemStack up, ItemStack left, ItemStack right, ItemStack down) {
+    public SorceryExtractorRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputs) {
         this.id = id;
-        this.up = up;
-        this.left = left;
-        this.right = right;
-        this.down = down;
-//
+
         this.output = output;
-        this.inputs = NonNullList.withSize(4, Ingredient.fromStacks(this.up, this.left, this.right, this.down));
+        this.inputs = inputs;
     }
-
-
 
     @Override
     public boolean matches(@NotNull IInventory inv, @NotNull World worldIn) {
-        LogManager.getLogger().info("Match Checking!");
-        return this.inputs.get(0).test(this.up) && this.inputs.get(1).test(this.left) &&
-                this.inputs.get(2).test(this.right) && this.inputs.get(3).test(this.down);
+        return this.inputs.get(0).test(inv.getStackInSlot(0)) && this.inputs.get(1).test(inv.getStackInSlot(1)) &&
+                this.inputs.get(2).test(inv.getStackInSlot(2)) && this.inputs.get(3).test(inv.getStackInSlot(3));
     }
 
     @Override
@@ -90,18 +80,23 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
             ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
             JsonArray ingredients = JSONUtils.getJsonArray(json, "ingredients");
 
-            NonNullList<Ingredient> inputs = NonNullList.withSize(4, Ingredient.EMPTY);
+            NonNullList<Ingredient> inputs = NonNullList.create();
 
-            ItemStack upStack = JSONUtils.getItem(ingredients, "up").getDefaultInstance();
-            ItemStack leftStack = JSONUtils.getItem(ingredients, "left").getDefaultInstance();
-            ItemStack rightStack = JSONUtils.getItem(ingredients, "right").getDefaultInstance();
-            ItemStack downStack = JSONUtils.getItem(ingredients, "down").getDefaultInstance();
+            JsonElement up = ingredients.get(0);
+            JsonElement left = ingredients.get(1);
+            JsonElement right = ingredients.get(2);
+            JsonElement down = ingredients.get(3);
+
+            ItemStack upStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(up, "up"));
+            ItemStack leftStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(left, "left"));
+            ItemStack rightStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(right, "right"));
+            ItemStack downStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(down, "down"));
 
             for (int i = 0; i < ingredients.size(); i++) {
                 inputs.set(i, Ingredient.deserialize(ingredients.get(i)));
             }
 
-            return new SorceryExtractorRecipe(recipeId, output, upStack, leftStack, rightStack, downStack);
+            return new SorceryExtractorRecipe(recipeId, output, inputs);
         }
 
         @Nullable
@@ -110,13 +105,9 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
             NonNullList<Ingredient> inputs = NonNullList.withSize(4, Ingredient.EMPTY);
 
             inputs.replaceAll(ignored -> Ingredient.read(buffer));
-            ItemStack upStack = buffer.readItemStack();
-            ItemStack leftStack = buffer.readItemStack();
-            ItemStack rightStack = buffer.readItemStack();
-            ItemStack downStack = buffer.readItemStack();
 
             ItemStack output = buffer.readItemStack();
-            return new SorceryExtractorRecipe(recipeId, output, upStack, leftStack, rightStack, downStack);
+            return new SorceryExtractorRecipe(recipeId, output, inputs);
         }
 
         @Override
@@ -129,19 +120,4 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
         }
     }
 
-    public ItemStack getUp() {
-        return this.up.copy();
-    }
-
-    public ItemStack getLeft() {
-        return this.left.copy();
-    }
-
-    public ItemStack getRight() {
-        return this.right.copy();
-    }
-
-    public ItemStack getDown() {
-        return this.down.copy();
-    }
 }

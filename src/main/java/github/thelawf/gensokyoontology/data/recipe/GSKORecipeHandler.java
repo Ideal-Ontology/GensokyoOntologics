@@ -5,7 +5,9 @@ import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.RecipeManager;
+import net.minecraft.util.NonNullList;
 
 import java.util.Iterator;
 import java.util.List;
@@ -24,17 +26,4 @@ public class GSKORecipeHandler {
         this.recipeManager = world.getRecipeManager();
     }
 
-    public List<ExtractorRecipeWrapper> extractorRecipes() {
-        List<SorceryExtractorRecipe> recipeMap = this.recipeManager.getRecipesForType(RecipeRegistry.SORCERY_RECIPE);
-        List<ExtractorRecipeWrapper> recipes = Lists.newArrayList();
-        SorceryExtractorRecipe recipe;
-        ItemStack output;
-
-        for(Iterator<SorceryExtractorRecipe> iterator = recipeMap.iterator(); iterator.hasNext(); recipes.add(
-                new ExtractorRecipeWrapper(output, recipe.getUp(), recipe.getLeft(), recipe.getRight(), recipe.getDown()))){
-            recipe = iterator.next();
-            output = recipe.getRecipeOutput();
-        }
-        return recipes;
-    }
 }
