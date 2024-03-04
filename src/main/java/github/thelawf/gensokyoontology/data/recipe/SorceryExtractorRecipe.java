@@ -82,18 +82,18 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
 
             NonNullList<Ingredient> inputs = NonNullList.create();
 
-            JsonElement up = ingredients.get(0);
-            JsonElement left = ingredients.get(1);
-            JsonElement right = ingredients.get(2);
-            JsonElement down = ingredients.get(3);
+            // sonElement up = ingredients.get(0);
+            // sonElement left = ingredients.get(1);
+            // sonElement right = ingredients.get(2);
+            // sonElement down = ingredients.get(3);
 
-            ItemStack upStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(up, "up"));
-            ItemStack leftStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(left, "left"));
-            ItemStack rightStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(right, "right"));
-            ItemStack downStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(down, "down"));
+            // temStack upStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(up, "up"));
+            // temStack leftStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(left, "left"));
+            // temStack rightStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(right, "right"));
+            // temStack downStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(down, "down"));
 
             for (int i = 0; i < ingredients.size(); i++) {
-                inputs.set(i, Ingredient.deserialize(ingredients.get(i)));
+                inputs.add(Ingredient.deserialize(ingredients.get(i)));
             }
 
             return new SorceryExtractorRecipe(recipeId, output, inputs);

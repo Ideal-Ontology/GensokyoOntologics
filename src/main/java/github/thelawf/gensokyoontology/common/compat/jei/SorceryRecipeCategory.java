@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.compat.jei;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
@@ -72,5 +73,14 @@ public class SorceryRecipeCategory implements IRecipeCategory<SorceryExtractorRe
         guiStack.init(2, true, 145, 56);
         guiStack.init(3, true, 99, 101);
         guiStack.init(4, false, 99, 56);
+    }
+
+    @Override
+    public void draw(SorceryExtractorRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+        IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
+        // matrixStack.push();
+        // matrixStack.scale(0.6f,0.6f,0.6f);
+        // this.background.draw(matrixStack);
+        // matrixStack.pop();
     }
 }
