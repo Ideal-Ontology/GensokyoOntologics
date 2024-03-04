@@ -26,15 +26,14 @@ public class ExtendItem extends Item {
     @Override
     public @NotNull ActionResult<ItemStack> onItemRightClick(World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
         if (worldIn.isRemote) {
-            // GSKOUtil.showChatMsg(playerIn, "[Client] GSKO: " + GSKOCapabilities.getAndInvoke(playerIn, GSKOCapabilities.POWER, "getCount"), 1);
-            playerIn.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> GSKOUtil.showChatMsg(playerIn, "[Client] TLM: " + tlmCap.get(), 1));
+            // playerIn.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> GSKOUtil.showChatMsg(playerIn, "[Client] TLM: " + tlmCap.get(), 1));
+            playerIn.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(gskoCap -> GSKOUtil.showChatMsg(playerIn, "[Client] GSKO: " + gskoCap.getLifetime(), 1));
         }
 
         if (!worldIn.isRemote) {
-            playerIn.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> GSKOUtil.showChatMsg(playerIn, "[Server] GSKO: " + gskoCap.getCount(), 1));
-            playerIn.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> GSKOUtil.showChatMsg(playerIn, "[Server] TLM: " + tlmCap.get(), 1));
-            // GSKOUtil.showChatMsg(playerIn, "[Server] GSKO: " + GSKOCapabilities.getAndInvoke(playerIn, GSKOCapabilities.POWER, "getCount"), 1);
-            // GSKOUtil.showChatMsg(playerIn, "[Server] TLM: " + GSKOCapabilities.getFunctorResult(playerIn, PowerCapabilityProvider.POWER_CAP, "get"), 1);
+            playerIn.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(gskoCap -> GSKOUtil.showChatMsg(playerIn, "[Server] GSKO: " + gskoCap.getLifetime(), 1));
+            // playerIn.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> GSKOUtil.showChatMsg(playerIn, "[Server] TLM: " + tlmCap.get(), 1));
+
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

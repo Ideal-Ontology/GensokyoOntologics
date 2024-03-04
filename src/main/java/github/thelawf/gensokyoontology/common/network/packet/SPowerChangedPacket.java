@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.server.ServerWorld;
@@ -15,6 +16,7 @@ import java.util.function.Supplier;
 public class SPowerChangedPacket {
     private float count;
     public SPowerChangedPacket(float count) {
+        GSKOUtil.log(SPowerChangedPacket.class, count);
         this.count = count;
     }
 
@@ -31,6 +33,7 @@ public class SPowerChangedPacket {
             ctx.get().enqueueWork(() -> {
                 ServerPlayerEntity serverPlayer = ctx.get().getSender();
                 if (serverPlayer != null) handleOnServer(serverPlayer.getServerWorld(), packet);
+
             });
         }
         ctx.get().setPacketHandled(true);
@@ -38,8 +41,10 @@ public class SPowerChangedPacket {
 
 
     private static void handleOnServer(ServerWorld serverWorld, SPowerChangedPacket packet) {
-        serverWorld.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap ->
-            gskoCap.setCount(packet.getCount()));
+        serverWorld.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+            gskoCap.setCount(packet.getCount());
+            GSKOUtil.log(packet.getClass(), "Count: " + packet.getCount());
+        });
     }
 
     public float getCount() {

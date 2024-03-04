@@ -1,6 +1,9 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.player.PlayerEntity;
@@ -19,11 +22,16 @@ public class PowerItem extends Item {
     @NotNull
     @Override
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        GSKOUtil.showChatMsg(playerIn, playerIn.getCapability(GSKOCapabilities.POWER).isPresent(), 1);
-        playerIn.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
-            GSKOUtil.showChatMsg(playerIn, "-----add-----", 1);
-            gskoCap.setCount(GSKOMathUtil.randomRange(0.1f, 1f));
-        });
+        if (worldIn.isRemote) {
+            GSKOUtil.showChatMsg(playerIn, "[Client] Power: " + GSKOPowerCapability.INSTANCE.getCount(), 1);
+        }
+        if (!worldIn.isRemote) {
+            GSKOUtil.showChatMsg(playerIn, "[Server] Power: " + GSKOPowerCapability.INSTANCE.getCount(), 1);
+        }
+
+        float count = GSKOMathUtil.randomRange(0.1f, 1f);
+        GSKOPowerCapability.INSTANCE.add(count);
+
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }

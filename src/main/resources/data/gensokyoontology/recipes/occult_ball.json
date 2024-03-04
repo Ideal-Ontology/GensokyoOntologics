@@ -1,9 +1,27 @@
 {
   "type": "gensokyoontology:sorcery_extract",
-  "up": "minecraft:ender_eye",
-  "left": "gensokyoontology:gitsune_tube_full",
-  "right": "gensokyoontology:oblivious_tales_occult_ball",
-  "down": "minecraft:air",
+  "ingredients": [
+    {
+      "up": {
+        "item": "minecraft:ender_eye"
+      }
+    },
+    {
+      "left": {
+        "item": "gensokyoontology:gitsune_tube_full"
+      }
+    },
+    {
+      "right": {
+        "item": "gensokyoontology:oblivious_tales_occult_ball"
+      }
+    },
+    {
+      "down": {
+        "item": "minecraft:air"
+      }
+    }
+  ],
   "output": {
     "item": "gensokyoontology:occult_ball",
     "count": 1

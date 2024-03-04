@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.server.ServerWorld;
@@ -38,7 +39,7 @@ public class CPowerChangedPacket {
     private static void sendToClient(CPowerChangedPacket packet) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.world != null && mc.player != null) {
-            mc.player.getCapability(GSKOCapabilities.POWER).ifPresent((cap) -> cap.setCount(packet.getCount()));
+            GSKOPowerCapability.INSTANCE.setCount(packet.getCount());
         }
 
     }
@@ -50,5 +51,10 @@ public class CPowerChangedPacket {
 
     public float getCount() {
         return this.count;
+    }
+
+    @Override
+    public String toString() {
+        return "Power Packet Has: " + this.count;
     }
 }

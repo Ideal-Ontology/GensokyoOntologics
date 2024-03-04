@@ -1,21 +1,15 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import com.github.tartaricacid.touhoulittlemaid.capability.MaidNumCapabilityProvider;
-import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
-import com.github.tartaricacid.touhoulittlemaid.network.NetworkHandler;
-import com.github.tartaricacid.touhoulittlemaid.network.message.SyncCapabilityMessage;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
+import github.thelawf.gensokyoontology.common.capability.entity.SecularLifeCapability;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
-import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
-import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
-import github.thelawf.gensokyoontology.common.network.packet.LifeTickPacket;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
@@ -40,7 +34,6 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
@@ -56,9 +49,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.network.PacketDistributor;
 
 import java.util.List;
 import java.util.Objects;
@@ -71,7 +62,11 @@ public class GSKOEntityEvents {
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)event.getEntity();
-            player.getCapability(GSKOCapabilities.POWER).ifPresent(GSKOPowerCapability::markDirty);
+            player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+                gskoCap.markDirty();
+                GSKOPowerCapability.INSTANCE = gskoCap;
+            });
+            player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(SecularLifeCapability::markDirty);
         }
     }
 
@@ -80,80 +75,7 @@ public class GSKOEntityEvents {
 
     }
 
-    // @SubscribeEvent
-    public static void onPacketSendToClient(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
-        if (event.side == LogicalSide.CLIENT && event.phase == TickEvent.Phase.END) {
-            player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap -> {
-                GSKONetworking.CHANNEL.sendToServer(new LifeTickPacket(cap.getLifetime()));
-            });
-        }
 
-    }
-
-    private static void trySyncPowerToTLM(PlayerEntity player) {
-        player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap ->
-        player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap ->
-        player.getCapability(MaidNumCapabilityProvider.MAID_NUM_CAP).ifPresent(maidNumCap ->
-        {
-            tlmCap.set(gskoCap.getCount());
-            NetworkHandler.sendToClientPlayer(new SyncCapabilityMessage(tlmCap.get(), maidNumCap.get()), player);
-            tlmCap.setDirty(false);
-        })));
-    }
-    private static void trySyncPowerFromTLM(PlayerEntity player) {
-        player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap ->
-        player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap ->
-        {
-            gskoCap.setCount(tlmCap.get());
-            GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(tlmCap.get()), player);
-            tlmCap.setDirty(false);
-        }));
-    }
-
-    private static void trySyncLifetime(PlayerEntity player) {
-        player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap -> {
-            if (cap.isDirty()) {
-                cap.addTime(1L);
-                GSKONetworking.sendToClientPlayer(new LifeTickPacket(cap.getLifetime()), player);
-                cap.setDirty(false);
-            }
-        });
-    }
-
-    private static void trySyncPower(PlayerEntity player) {
-        player.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
-            if (cap.isDirty()) {
-                GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(cap.getCount()), player);
-                cap.setDirty(false);
-            }
-        });
-    }
-
-    /**
-     * 该方法只有在检测到玩家在车万女仆模组中更改了他自己的Power点数之后才会起作用，作用是将车万女仆的Power点数同步至本模组的Power点数。
-     * 订阅tick事件以进行数据包的发送操作，需要获取逻辑端和tick事件阶段。
-     * @param event 玩家tick事件
-     * @apiNote This method will make effects only when it detects a player change his power counts in Touhou Little Maid mod.
-     * The effect of this method is to sync the power counts from Touhou Little Maid to this Mod.
-     *
-     */
-    @SubscribeEvent
-    public static void onPacketSync(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
-        boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;
-        if (flag) {
-            trySyncLifetime(player);
-            trySyncPower(player);
-            if (TouhouLittleMaidCompat.isLoaded()) {
-                trySyncPowerFromTLM(player);
-            }
-
-        }
-        if (GSKOUtil.firstMatch(player,ItemRegistry.SEIGA_HAIRPIN.get())) {
-            SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));
-        }
-    }
 
     @SubscribeEvent
     public static void onHotSpringIn(LivingEvent.LivingUpdateEvent event) {
@@ -229,17 +151,7 @@ public class GSKOEntityEvents {
         dropLunarDanmaku(event.getEntityLiving(), (ServerWorld) event.getEntityLiving().world);
 
         if (event.getEntityLiving() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
-            IInventory inventory = player.inventory;
-
-            // 循环获取玩家物品栏每个物品，如果玩家持有残机点数则恢复玩家生命值, 然后让玩家原地复活
-            for (int i = 0; i < inventory.getSizeInventory(); i++) {
-                ItemStack stack = inventory.getStackInSlot(i);
-                if (stack.getItem().equals(ItemRegistry.EXTEND_ITEM.get())) {
-                    player.heal(20f);
-                    event.getEntityLiving().getEntityWorld().setEntityState(player, (byte) 2);
-                }
-            }
+            GSKOPowerCapability.INSTANCE.add(-1);
         }
     }
 
@@ -248,6 +160,7 @@ public class GSKOEntityEvents {
         PlayerEntity player = event.player;
         World world = player.getEntityWorld();
         PlayerInventory inventory = player.inventory;
+
         if (player.getShouldBeDead()) {
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
                 if (inventory.getStackInSlot(i).getItem() == ItemRegistry.EXTEND_ITEM.get()) {
@@ -256,6 +169,7 @@ public class GSKOEntityEvents {
                     inventory.getStackInSlot(i).shrink(1);
                 }
             }
+
         }
         world.getCapability(GSKOCapabilities.IMPERISHABLE_NIGHT).ifPresent(cap -> cap.setTriggered(false));
     }

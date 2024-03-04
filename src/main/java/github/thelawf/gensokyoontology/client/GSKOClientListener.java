@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
@@ -113,13 +114,11 @@ public class GSKOClientListener {
             FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
             final ItemStack POWER_ITEM = ItemRegistry.POWER_ITEM.get().getDefaultInstance();
 
-            // itemRenderer.renderItemIntoGUI(POWER_ITEM, 5, 5);
-            // player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent((cap) -> {
-            //     fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD,(float) cap.getLifetime()), 20.0F, 10.0F, 16777215);
-            // });
-//
-            // fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD, 0.0), 20.0F, 10.0F, 16777215);
-            // RenderSystem.enableBlend();
+            itemRenderer.renderItemIntoGUI(POWER_ITEM, 5, 5);
+            fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD,
+                    GSKOPowerCapability.INSTANCE.getCount()), 20.0F, 10.0F, 16777215);
+
+            RenderSystem.enableBlend();
         }
 
     }
