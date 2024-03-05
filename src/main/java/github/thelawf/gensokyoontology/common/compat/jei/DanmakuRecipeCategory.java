@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.common.compat.jei;
 
+import com.github.tartaricacid.touhoulittlemaid.compat.jei.altar.AltarRecipeCategory;
+import com.github.tartaricacid.touhoulittlemaid.crafting.AltarRecipe;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -24,7 +25,10 @@ public class SorceryRecipeCategory implements IRecipeCategory<SorceryExtractorRe
     private final IDrawable background;
     private final IDrawable icon;
 
+    private final IDrawable slotDrawable;
+
     public SorceryRecipeCategory(IGuiHelper helper) {
+        this.slotDrawable = helper.getSlotDrawable();
         this.background = helper.createDrawable(TEXTURE, 0, 0, 217, 211);
         this.icon = helper.createDrawableIngredient(new ItemStack(BlockRegistry.SORCERY_EXTRACTOR.get()));
     }
@@ -68,11 +72,20 @@ public class SorceryRecipeCategory implements IRecipeCategory<SorceryExtractorRe
     @Override
     public void setRecipe(@NotNull IRecipeLayout recipeLayout, @NotNull SorceryExtractorRecipe recipe, @NotNull IIngredients ingredients) {
         IGuiItemStackGroup guiStack = recipeLayout.getItemStacks();
+
         guiStack.init(0, true, 99, 12);
         guiStack.init(1, true, 54, 56);
         guiStack.init(2, true, 145, 56);
         guiStack.init(3, true, 99, 101);
         guiStack.init(4, false, 99, 56);
+
+        guiStack.setBackground(0, this.slotDrawable);
+        guiStack.setBackground(1, this.slotDrawable);
+        guiStack.setBackground(2, this.slotDrawable);
+        guiStack.setBackground(3, this.slotDrawable);
+        guiStack.setBackground(4, this.slotDrawable);
+
+        guiStack.set(ingredients);
     }
 
     @Override

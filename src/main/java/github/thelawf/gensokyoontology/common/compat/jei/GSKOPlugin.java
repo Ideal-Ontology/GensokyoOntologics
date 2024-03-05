@@ -48,9 +48,6 @@ public class GSKOPlugin implements IModPlugin {
     public void registerRecipes(IRecipeRegistration registration) {
         RecipeManager manager = Objects.requireNonNull(Minecraft.getInstance().world).getRecipeManager();
         registration.addRecipes(manager.getRecipesForType(RecipeRegistry.SORCERY_RECIPE), SorceryRecipeCategory.UID);
-        // registration.addRecipes(manager.getRecipesForType(RecipeRegistry.SORCERY_RECIPE).stream()
-        //                 .filter(recipe -> recipe instanceof SorceryExtractorRecipe).collect(Collectors.toList()),
-        //         SorceryRecipeCategory.UID);
 
         registration.addRecipes(manager.getRecipesForType(RecipeRegistry.DANMAKU_RECIPE).stream()
                         .filter(recipe -> recipe instanceof DanmakuRecipe).collect(Collectors.toList()),
