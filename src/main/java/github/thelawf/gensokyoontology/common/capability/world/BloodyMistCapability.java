@@ -13,6 +13,7 @@ public class BloodyMistCapability implements IIncidentCapability {
     private List<String> biomeRegistryNames;
     private boolean isTriggered;
     private List<Pair<String, Boolean>> biomes;
+    public static BloodyMistCapability INSTANCE;
 
     public BloodyMistCapability(List<String> biomes, boolean isTriggered) {
         this.biomeRegistryNames = biomes;

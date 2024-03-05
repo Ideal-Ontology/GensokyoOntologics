@@ -18,6 +18,7 @@ import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
+import github.thelawf.gensokyoontology.data.world.GSKOWorldSavedData;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.block.nature;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.data.world.GSKOWorldSavedData;
+import github.thelawf.gensokyoontology.data.world.GensokyoSeason;
 import net.minecraft.block.*;
 import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer;
@@ -23,15 +25,12 @@ public class SakuraLeaves extends LeavesBlock {
             spawnDrops(state, worldIn, pos);
             worldIn.removeBlock(pos, false);
         }
-        if (state.get(BLOOMED)) {
-            worldIn.getCapability(GSKOCapabilities.ETERNAL_SUMMER).ifPresent(cap -> {
-                if (cap.isTriggered()) this.setDefaultState(this.getDefaultState().with(BLOOMED, false));
-            });
+        GSKOWorldSavedData gskoWorldData = GSKOWorldSavedData.getInstance(worldIn);
+        if (gskoWorldData.getSeason() == GensokyoSeason.SPRING) {
+            this.setDefaultState(this.getDefaultState().with(BLOOMED, true));
         }
         else {
-            worldIn.getCapability(GSKOCapabilities.ETERNAL_SUMMER).ifPresent(cap -> {
-                if (!cap.isTriggered()) this.setDefaultState(this.getDefaultState().with(BLOOMED, true));
-            });
+            this.setDefaultState(this.getDefaultState().with(BLOOMED, false));
         }
     }
 

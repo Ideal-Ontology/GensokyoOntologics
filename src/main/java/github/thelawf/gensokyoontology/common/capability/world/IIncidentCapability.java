@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.capability.world;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.INBTSerializable;
 
 /**
@@ -17,5 +18,6 @@ public interface IIncidentCapability extends INBTSerializable<CompoundNBT> {
      * 获取异变事件是否被触发
      */
     boolean isTriggered();
+
 
 }

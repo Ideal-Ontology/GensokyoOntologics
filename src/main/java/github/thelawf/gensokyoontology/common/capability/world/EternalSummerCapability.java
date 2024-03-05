@@ -4,6 +4,7 @@ import net.minecraft.nbt.CompoundNBT;
 
 public class EternalSummerCapability implements IIncidentCapability{
     private boolean isTriggered;
+    public static EternalSummerCapability INSTANCE;
     public EternalSummerCapability(boolean isTriggered) {
         this.isTriggered = isTriggered;
     }
