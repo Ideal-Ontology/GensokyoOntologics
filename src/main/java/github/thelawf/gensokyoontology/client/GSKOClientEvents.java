@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.client.renderer.entity.misc.LaserEntityRe
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.StarShotRenderer;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
@@ -167,6 +168,7 @@ public class GSKOClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LILY_WHITE_ENTITY.get(), LilyWhiteRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FLANDRE_SCARLET.get(), FlandreScarletRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FLANDRE_DOPPELDANGER.get(), FlandreScarletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.REMILIA_SCARLET.get(), RemiliaScarletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.KOMEIJI_KOISHI.get(), KomeijiKoishiRenderer::new);
         // TODO EntityRegistry里面没注册紫妈
@@ -176,6 +178,7 @@ public class GSKOClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.TSUMI_BUKURO_ENTITY.get(), TsumiBukuroRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), HumanResidentRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CITIZEN.get(), CitizenRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HANIWA.get(), HaniwaRenderer::new);
 
         // ======================== 自定义渲染器 ======================= //
         MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
