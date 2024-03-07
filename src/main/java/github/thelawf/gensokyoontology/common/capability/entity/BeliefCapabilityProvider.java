@@ -11,20 +11,21 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Set;
 
-public class FaithCapabilityProvider implements ICapabilitySerializable<CompoundNBT> {
-    private Set<Pair<BeliefType, Integer>> pairSet;
-    private FaithCapability capability;
+public class BeliefCapabilityProvider implements ICapabilitySerializable<CompoundNBT> {
+    private List<Pair<BeliefType, Integer>> pairSet;
+    private BeliefCapability capability;
 
-    public FaithCapabilityProvider(Set<Pair<BeliefType, Integer>> pairSet, FaithCapability capability) {
+    public BeliefCapabilityProvider(List<Pair<BeliefType, Integer>> pairSet) {
         this.pairSet = pairSet;
-        this.capability = capability;
+        this.capability = GSKOCapabilities.BELIEF.getDefaultInstance();
     }
 
-    public FaithCapability getOrCreate() {
+    public BeliefCapability getOrCreate() {
         if (this.capability == null) {
-            this.capability = new FaithCapability(this.pairSet);
+            this.capability = new BeliefCapability(this.pairSet);
         }
         return this.capability;
     }
@@ -32,7 +33,7 @@ public class FaithCapabilityProvider implements ICapabilitySerializable<Compound
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        return cap == GSKOCapabilities.FAITH ? LazyOptional.of(this::getOrCreate).cast() : LazyOptional.empty();
+        return cap == GSKOCapabilities.BELIEF ? LazyOptional.of(this::getOrCreate).cast() : LazyOptional.empty();
     }
 
     @Override

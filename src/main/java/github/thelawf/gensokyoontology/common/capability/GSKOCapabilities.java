@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.capability;
 
 import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeCapability;
-import github.thelawf.gensokyoontology.common.capability.entity.FaithCapability;
+import github.thelawf.gensokyoontology.common.capability.entity.BeliefCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.SecularLifeCapability;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
@@ -17,18 +17,12 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.util.INBTSerializable;
-import net.minecraftforge.common.util.NonNullConsumer;
-import net.minecraftforge.common.util.NonNullSupplier;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.Nullable;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 public class GSKOCapabilities {
 
@@ -44,13 +38,13 @@ public class GSKOCapabilities {
     public static Capability<GSKOPowerCapability> POWER;
     @CapabilityInject(SecularLifeCapability.class)
     public static Capability<SecularLifeCapability> SECULAR_LIFE;
-    @CapabilityInject(FaithCapability.class)
-    public static Capability<FaithCapability> FAITH;
+    @CapabilityInject(BeliefCapability.class)
+    public static Capability<BeliefCapability> BELIEF;
     @CapabilityInject(ExtraLifeCapability.class)
     public static Capability<ExtraLifeCapability> EXTRA_LIFE;
 
     public static void registerCapabilities() {
-        register(FaithCapability.class);
+        register(BeliefCapability.class);
         register(GSKOPowerCapability.class);
         register(SecularLifeCapability.class);
         register(ExtraLifeCapability.class);

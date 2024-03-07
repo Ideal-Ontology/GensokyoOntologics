@@ -1,14 +1,27 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
+import github.thelawf.gensokyoontology.common.tileentity.HaniwaTileEntity;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.Random;
 
 public class HaniwaBlock extends Block {
     public static final VoxelShape BODY_MAIN = makeCuboidShape(3, 0, 3, 13, 12, 13);
@@ -34,4 +47,25 @@ public class HaniwaBlock extends Block {
         return true;
     }
 
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new HaniwaTileEntity();
+    }
+
+    @Override
+    @NotNull
+    @SuppressWarnings("deprecation")
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if (!worldIn.isRemote) {
+            ServerWorld serverWorld = (ServerWorld) worldIn;
+            if (serverWorld.getTileEntity(pos) instanceof HaniwaTileEntity) {
+                HaniwaTileEntity haniwaTile = (HaniwaTileEntity) serverWorld.getTileEntity(pos);
+                if (haniwaTile != null && RANDOM.nextInt(10) < 3) {
+                    haniwaTile.addFaith(1);
+                }
+            }
+        }
+        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+    }
 }

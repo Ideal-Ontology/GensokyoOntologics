@@ -4,12 +4,10 @@ import com.github.tartaricacid.touhoulittlemaid.capability.MaidNumCapabilityProv
 import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
 import com.github.tartaricacid.touhoulittlemaid.network.NetworkHandler;
 import com.github.tartaricacid.touhoulittlemaid.network.message.SyncCapabilityMessage;
+import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
-import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
-import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerProvider;
-import github.thelawf.gensokyoontology.common.capability.entity.SecularLifeCapability;
-import github.thelawf.gensokyoontology.common.capability.entity.SecularLifetimeProvider;
+import github.thelawf.gensokyoontology.common.capability.entity.*;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistProvider;
 import github.thelawf.gensokyoontology.common.capability.world.EternalSummerCapProvider;
 import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapability;
@@ -18,6 +16,7 @@ import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.network.packet.LifeTickPacket;
+import github.thelawf.gensokyoontology.common.util.BeliefType;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -36,7 +35,6 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
-import org.apache.logging.log4j.core.config.builder.api.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,9 +63,16 @@ public class GSKOCapabilityEvents {
     public static void onCapabilityAttachToEntity(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (entity instanceof PlayerEntity) {
+
+            List<Pair<BeliefType, Integer>> set = new ArrayList<>();
+            for (BeliefType type : BeliefType.values()) set.add(Pair.of(type, 0));
+
             GSKOPowerProvider power = new GSKOPowerProvider(0f);
+            BeliefCapabilityProvider belief = new BeliefCapabilityProvider(set);
             SecularLifetimeProvider lifetime = new SecularLifetimeProvider(0L);
+
             event.addCapability(GensokyoOntology.withRL("power"), power);
+            event.addCapability(GensokyoOntology.withRL("belief"), belief);
             event.addCapability(GensokyoOntology.withRL("secular_lifetime"), lifetime);
         }
     }
@@ -75,6 +80,7 @@ public class GSKOCapabilityEvents {
 
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
+        updateBelief(event);
         updatePower(event);
         updateLife(event);
     }
@@ -105,7 +111,6 @@ public class GSKOCapabilityEvents {
         boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;
         if (flag) {
             trySyncLifetime(player);
-            // trySyncPower(player);
 
             // if (TouhouLittleMaidCompat.isLoaded()) {
             //     trySyncPowerFromTLM(player);
@@ -125,6 +130,7 @@ public class GSKOCapabilityEvents {
             GSKONetworking.sendToClientPlayer(new LifeTickPacket(cap.getLifetime()), player);
         });
     }
+
 
     public static void trySyncPower(PlayerEntity player) {
         player.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
@@ -174,9 +180,7 @@ public class GSKOCapabilityEvents {
             newCapability.ifPresent(capNew -> oldCapability.ifPresent(capOld -> {
                 capNew.deserializeNBT(GSKOPowerCapability.INSTANCE.serializeNBT());
             }));
-
         }
-
     }
 
     private static void updateLife(PlayerEvent.Clone event) {
@@ -194,6 +198,17 @@ public class GSKOCapabilityEvents {
                 else {
                     capNew.setLifetime(capOld.getLifetime());
                 }
+            }));
+        }
+    }
+
+    private static void updateBelief(PlayerEvent.Clone event) {
+        if (event.isWasDeath()) {
+            LazyOptional<BeliefCapability> oldCapability = event.getOriginal().getCapability(GSKOCapabilities.BELIEF);
+            LazyOptional<BeliefCapability> newCapability = event.getPlayer().getCapability(GSKOCapabilities.BELIEF);
+
+            newCapability.ifPresent(capNew -> oldCapability.ifPresent(capOld -> {
+                capNew.deserializeNBT(BeliefCapability.INSTANCE.serializeNBT());
             }));
         }
     }

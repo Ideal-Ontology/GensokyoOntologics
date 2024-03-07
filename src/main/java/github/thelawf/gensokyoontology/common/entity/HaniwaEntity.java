@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity;
 
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IAngerable;

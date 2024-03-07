@@ -36,4 +36,7 @@ public final class TileEntityRegistry {
     public static final RegistryObject<TileEntityType<AdobeTileEntity>> ADOBE_TILE_ENTITY =
             TILE_ENTITIES.register("adobe_tileentity", () -> TileEntityType.Builder.create(
                     AdobeTileEntity::new, BlockRegistry.CLAY_ADOBE_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<HaniwaTileEntity>> HANIWA_TILE_ENTITY =
+            TILE_ENTITIES.register("haniwa_tileentity", () -> TileEntityType.Builder.create(
+                    HaniwaTileEntity::new, BlockRegistry.HANIWA_BLOCK.get()).build(null));
 }
