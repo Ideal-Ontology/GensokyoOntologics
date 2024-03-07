@@ -109,7 +109,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
     }
 
     public RegistryKey<World> getDestinationWorld() {
-        return destinationWorld;
+        return this.destinationWorld;
     }
 
     public boolean isAllowTeleport() {

@@ -36,11 +36,6 @@ public class HaniwaTileEntity extends TileEntity implements ITickableTileEntity 
         return super.write(compound);
     }
 
-    public void addFaith(int faithCount) {
-        this.faithCount += faithCount;
-        markDirty();
-    }
-
     @Override
     public void tick() {
         if (this.world != null && this.faithCount >= MAX_COUNT && !this.world.isRemote) {
@@ -49,5 +44,27 @@ public class HaniwaTileEntity extends TileEntity implements ITickableTileEntity 
             this.world.addEntity(haniwa);
             this.remove();
         }
+    }
+
+    public void addFaith(int faithCount) {
+        this.faithCount += this.canAddCount() ? faithCount : 0;
+        markDirty();
+    }
+
+    public void setFaith(int faithCount) {
+        this.faithCount = faithCount;
+        markDirty();
+    }
+
+    public int getFaithCount() {
+        return this.faithCount;
+    }
+
+    public int getCooldown() {
+        return this.cooldown;
+    }
+
+    public boolean canAddCount() {
+        return this.faithCount == MAX_COOLDOWN;
     }
 }

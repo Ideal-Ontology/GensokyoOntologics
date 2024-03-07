@@ -1,12 +1,16 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.HaniwaTileEntity;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -15,6 +19,9 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -63,9 +70,42 @@ public class HaniwaBlock extends Block {
                 HaniwaTileEntity haniwaTile = (HaniwaTileEntity) serverWorld.getTileEntity(pos);
                 if (haniwaTile != null && RANDOM.nextInt(10) < 3) {
                     haniwaTile.addFaith(1);
+                    player.sendMessage(GensokyoOntology.withTranslation("haniwa.",".faith_count"), player.getUniqueID());
+                    player.sendMessage(new StringTextComponent(String.valueOf(haniwaTile.getFaithCount())), player.getUniqueID());
                 }
             }
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+    }
+
+    @Override
+    public void onBlockExploded(BlockState state, World world, BlockPos pos, Explosion explosion) {
+        super.onBlockExploded(state, world, pos, explosion);
+        if (!world.isRemote) {
+            ServerWorld serverWorld = (ServerWorld) world;
+            if (serverWorld.getTileEntity(pos) instanceof HaniwaTileEntity) {
+                HaniwaTileEntity haniwaTile = (HaniwaTileEntity) serverWorld.getTileEntity(pos);
+                if (haniwaTile != null) {
+                    haniwaTile.setFaith(0);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+        super.onBlockHarvested(worldIn, pos, state, player);
+        if (!worldIn.isRemote) {
+            ServerWorld serverWorld = (ServerWorld) worldIn;
+            if (serverWorld.getTileEntity(pos) instanceof HaniwaTileEntity) {
+                HaniwaTileEntity haniwaTile = (HaniwaTileEntity) serverWorld.getTileEntity(pos);
+                if (haniwaTile != null) {
+                    CompoundNBT nbt = haniwaTile.getTileData();
+                    ItemStack stack = new ItemStack(ItemRegistry.HANIWA_ITEM.get());
+                    stack.setTag(nbt);
+                    spawnDrops(state, worldIn, pos, haniwaTile, player, stack);
+                }
+            }
+        }
     }
 }

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.world;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.advancements.criterion.AbstractCriterionTrigger;
 import net.minecraft.block.BlockState;
@@ -42,12 +43,13 @@ public class TeleportHelper {
 
     public static void applyGapTeleport(ServerPlayerEntity player, ServerWorld destination, GapTileEntity gapTile) {
         BlockPos pos = gapTile.getDestinationPos();
-
-        if (isInSameDimension(player.world.getDimensionKey(), destination.getDimensionKey())) {
-            player.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
-            gapTile.setCooldown(400);
-            return;
-        }
+        // GSKOUtil.showChatMsg(player,"Is in same world: " + isInSameDimension(player.world.getDimensionKey(), destination.getDimensionKey()), 1);
+        // if (isInSameDimension(player.world.getDimensionKey(), destination.getDimensionKey())) {
+        //     player.setPositionAndUpdate(pos.getX(), pos.getY(), pos.getZ());
+        //     // player.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
+        //     gapTile.setCooldown(400);
+        //     return;
+        // }
 
         player.changeDimension(destination, new ITeleporter() {
             @Override

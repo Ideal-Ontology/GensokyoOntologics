@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
+import github.thelawf.gensokyoontology.common.capability.entity.BeliefCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.SecularLifeCapability;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
@@ -67,6 +68,7 @@ public class GSKOEntityEvents {
                 GSKOPowerCapability.INSTANCE = gskoCap;
             });
             player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(SecularLifeCapability::markDirty);
+            player.getCapability(GSKOCapabilities.BELIEF).ifPresent(belief -> BeliefCapability.INSTANCE = belief);
         }
     }
 
