@@ -11,6 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -64,21 +65,40 @@ public class HaniwaBlock extends Block {
     }
 
     @Override
+    public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
+        if (!worldIn.isRemote) {
+            ServerWorld serverWorld = (ServerWorld) worldIn;
+            if (serverWorld.getTileEntity(pos) instanceof HaniwaTileEntity) {
+                HaniwaTileEntity haniwaTile = (HaniwaTileEntity) serverWorld.getTileEntity(pos);
+                if (haniwaTile != null) {
+                    haniwaTile.setCanAddCount(true);
+                }
+            }
+        }
+        super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
+    }
+
+    @Override
     @NotNull
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        GSKOUtil.runIfCapPresent(player, GSKOCapabilities.BELIEF, belief ->
-        GSKOUtil.showChatMsg(player, "Buddhism Count: " + belief.getValue(BeliefType.BUDDHISM), 1));
-
 
         if (!worldIn.isRemote) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             if (serverWorld.getTileEntity(pos) instanceof HaniwaTileEntity) {
                 HaniwaTileEntity haniwaTile = (HaniwaTileEntity) serverWorld.getTileEntity(pos);
                 if (haniwaTile != null) {
+                    if (!haniwaTile.canAddCount()) {
+                        player.sendMessage(GensokyoOntology.withTranslation("msg.",".haniwa_block.in_cooldown"), player.getUniqueID());
+                        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+                    }
+
                     haniwaTile.addFaith(1);
                     haniwaTile.setCanAddCount(false);
                     haniwaTile.setOwnerId(player.getUniqueID());
+
+                    player.sendMessage(GensokyoOntology.withTranslation("msg.", ".haniwa_block.added_count"), player.getUniqueID());
+                    GSKOUtil.showChatMsg(player, haniwaTile.getFaithCount(), 1);
                 }
             }
         }

@@ -1,11 +1,15 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
+import github.thelawf.gensokyoontology.common.util.BeliefType;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.command.impl.TimeCommand;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -17,7 +21,7 @@ import java.util.UUID;
 
 public class HaniwaTileEntity extends TileEntity implements ITickableTileEntity {
     private int faithCount = 0;
-    private boolean canAddCount = true;
+    private boolean canAddCount;
     private UUID ownerId;
     public static final int MAX_COUNT = 20;
     public HaniwaTileEntity() {
@@ -49,8 +53,10 @@ public class HaniwaTileEntity extends TileEntity implements ITickableTileEntity 
 
     @Override
     public void tick() {
-        if (this.world != null) {
-            if (!this.canAddCount && this.world.getDayTime() == 1) this.setCanAddCount(true);
+        if (this.world != null && !this.world.isRemote) {
+            if (this.world.getDayTime() % 24000L == 1) {
+                this.canAddCount = true;
+            }
 
             if (this.faithCount >= MAX_COUNT && !this.world.isRemote) {
                 HaniwaEntity haniwa = new HaniwaEntity(EntityRegistry.HANIWA.get(), this.world);
@@ -64,8 +70,9 @@ public class HaniwaTileEntity extends TileEntity implements ITickableTileEntity 
 
     }
 
-    public void addFaith(int faithCount) {
-        this.setFaith(this.canAddCount ? this.faithCount + faithCount : this.faithCount);
+    public void addFaith(int addedCount) {
+        this.setFaith(this.canAddCount ? this.faithCount + addedCount : this.faithCount);
+        // this.setFaith(this.faithCount + addedCount);
         markDirty();
     }
 

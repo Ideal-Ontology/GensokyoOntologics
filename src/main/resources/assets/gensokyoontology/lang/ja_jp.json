@@ -429,6 +429,9 @@
   "msg.gensokyoontology.gap_block.teleport_fail.destination_not_present": "§cDestination World Not Present",
   "msg.gensokyoontology.gap_block.teleport_fail.arrival_gap_not_present": "§cArrival Gap Not Present",
 
+  "msg.gensokyoontology.haniwa_block.in_cooldown": "It seems that your idol has received enough believes today. Try it tomorrow.",
+  "msg.gensokyoontology.haniwa_block.added_count": "You have successfully given 1 belief point to your idol. Now the total point is: ",
+
   "network.gensokyoontology.sakuya_stop_watch.freeze": "時間が止まれ!",
   "network.gensokyoontology.sakuya_stop_watch.unfreeze": "Unfreeze",
   "network.gensokyoontology.disconnection.demo_end": "Your game demonstration time is over. Looking forward to your next play!",
