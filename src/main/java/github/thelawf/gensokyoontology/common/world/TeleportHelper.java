@@ -43,7 +43,6 @@ public class TeleportHelper {
 
     public static void applyGapTeleport(ServerPlayerEntity player, ServerWorld destination, GapTileEntity gapTile) {
         BlockPos pos = gapTile.getDestinationPos();
-        // GSKOUtil.showChatMsg(player,"Is in same world: " + isInSameDimension(player.world.getDimensionKey(), destination.getDimensionKey()), 1);
         // if (isInSameDimension(player.world.getDimensionKey(), destination.getDimensionKey())) {
         //     player.setPositionAndUpdate(pos.getX(), pos.getY(), pos.getZ());
         //     // player.connection.setPlayerLocation(pos.getX(), pos.getY(), pos.getZ(), player.rotationYaw, player.rotationPitch);
