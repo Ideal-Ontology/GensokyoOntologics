@@ -429,8 +429,8 @@
   "msg.gensokyoontology.gap_block.teleport_fail.destination_not_present": "§c目的地的世界维度不存在",
   "msg.gensokyoontology.gap_block.teleport_fail.arrival_gap_not_present": "§c目的地的隙间方块不存在",
 
-  "msg.gensokyoontology.haniwa_block.in_cooldown": "看起来你的偶像今天已经收集到了足够的信仰，明天再试试吧。",
-  "msg.gensokyoontology.haniwa_block.added_count": "你已经成功地为你的偶像增加了1点信仰。现在这个偶像所拥有的点数为：",
+  "msg.gensokyoontology.haniwa_block.in_cooldown": "§7§l<??神秘的声音??>§r 看起来你的偶像今天已经收集到了足够的信仰，明天再试试吧。",
+  "msg.gensokyoontology.haniwa_block.added_count": "§7§l<??神秘的声音??>§r 你已经成功地为你的偶像增加了1点信仰。现在这个偶像所拥有的点数为：",
 
   "network.gensokyoontology.sakuya_stop_watch.freeze": "砸瓦鲁多!",
   "network.gensokyoontology.sakuya_stop_watch.unfreeze": "时停解除",
