@@ -20,7 +20,7 @@ import java.util.Random;
 
 public class JadeOreBlock extends OreBlock {
     public JadeOreBlock() {
-        super(Properties.from(Blocks.DIAMOND_BLOCK).harvestLevel(4));
+        super(Properties.from(Blocks.DIAMOND_BLOCK).hardnessAndResistance(20f, 1000f).harvestLevel(4).setRequiresTool());
     }
 
     public static ItemStack getItemToDrop(World worldIn, PlayerEntity playerIn, RegistryKey<World> dimension) {

@@ -13,7 +13,7 @@ import java.util.Random;
 public class IzanoObjectOre extends OreBlock {
     public IzanoObjectOre() {
         super(Properties.from(Blocks.GOLD_ORE).setRequiresTool()
-                .hardnessAndResistance(3.0f, 3.0f).harvestLevel(3)
+                .hardnessAndResistance(5.0f, 5.0f).harvestLevel(3)
                 .sound(SoundType.STONE));
     }
 
@@ -26,5 +26,4 @@ public class IzanoObjectOre extends OreBlock {
     public int getExpDrop(BlockState state, net.minecraft.world.IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
         return silktouch == 0 ? this.getExperience(RANDOM) : 0;
     }
-
 }

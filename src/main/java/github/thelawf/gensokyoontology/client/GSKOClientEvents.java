@@ -165,6 +165,7 @@ public class GSKOClientEvents {
         // =========================== 人形生物的渲染器 ========================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HAKUREI_REIMU.get(), HakureiReimuRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAIRY_ENTITY.get(), FairyRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SUNFLOWER_FAIRY_ENTITY.get(), FairyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LILY_WHITE_ENTITY.get(), LilyWhiteRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FLANDRE_SCARLET.get(), FlandreScarletRenderer::new);

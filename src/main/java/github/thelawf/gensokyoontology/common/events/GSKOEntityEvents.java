@@ -63,7 +63,7 @@ public class GSKOEntityEvents {
         if (event.getEntity() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)event.getEntity();
             player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
-                gskoCap.markDirty();
+                GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(gskoCap.getCount()), player);
                 GSKOPowerCapability.INSTANCE = gskoCap;
             });
             player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(SecularLifeCapability::markDirty);

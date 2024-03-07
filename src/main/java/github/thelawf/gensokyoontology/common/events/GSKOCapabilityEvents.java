@@ -36,6 +36,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
+import org.apache.logging.log4j.core.config.builder.api.Component;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,6 +71,8 @@ public class GSKOCapabilityEvents {
             event.addCapability(GensokyoOntology.withRL("secular_lifetime"), lifetime);
         }
     }
+
+
     @SubscribeEvent
     public static void onPlayerCloned(PlayerEvent.Clone event) {
         updatePower(event);
