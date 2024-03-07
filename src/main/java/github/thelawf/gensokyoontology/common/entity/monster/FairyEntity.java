@@ -7,10 +7,7 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.IRendersAsItem;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
 import net.minecraft.entity.ai.goal.*;
@@ -35,6 +32,7 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Predicate;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
@@ -172,6 +170,8 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
                 break;
         }
     }
+
+
 
     private AbstractDanmakuEntity randomSelect() {
         Random r2 = new Random(this.getUniqueID().getLeastSignificantBits());

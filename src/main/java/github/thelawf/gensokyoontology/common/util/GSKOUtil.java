@@ -1,10 +1,13 @@
 package github.thelawf.gensokyoontology.common.util;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.NonNullConsumer;
 import org.apache.logging.log4j.LogManager;
 
 public class GSKOUtil {
@@ -65,4 +68,7 @@ public class GSKOUtil {
         return false;
     }
 
+    public static <T> void runIfCapPresent(Entity entity, Capability<T> capability, NonNullConsumer<T> consumer) {
+        entity.getCapability(capability).ifPresent(consumer);
+    }
 }

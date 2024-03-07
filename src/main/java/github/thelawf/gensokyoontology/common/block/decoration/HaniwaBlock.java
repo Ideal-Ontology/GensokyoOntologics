@@ -1,7 +1,10 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.tileentity.HaniwaTileEntity;
+import github.thelawf.gensokyoontology.common.util.BeliefType;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.Block;
@@ -64,14 +67,18 @@ public class HaniwaBlock extends Block {
     @NotNull
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        GSKOUtil.runIfCapPresent(player, GSKOCapabilities.BELIEF, belief ->
+        GSKOUtil.showChatMsg(player, "Buddhism Count: " + belief.getValue(BeliefType.BUDDHISM), 1));
+
+
         if (!worldIn.isRemote) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             if (serverWorld.getTileEntity(pos) instanceof HaniwaTileEntity) {
                 HaniwaTileEntity haniwaTile = (HaniwaTileEntity) serverWorld.getTileEntity(pos);
-                if (haniwaTile != null && RANDOM.nextInt(10) < 3) {
+                if (haniwaTile != null) {
                     haniwaTile.addFaith(1);
-                    player.sendMessage(GensokyoOntology.withTranslation("haniwa.",".faith_count"), player.getUniqueID());
-                    player.sendMessage(new StringTextComponent(String.valueOf(haniwaTile.getFaithCount())), player.getUniqueID());
+                    haniwaTile.setCanAddCount(false);
+                    haniwaTile.setOwnerId(player.getUniqueID());
                 }
             }
         }
@@ -92,20 +99,4 @@ public class HaniwaBlock extends Block {
         }
     }
 
-    @Override
-    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
-        super.onBlockHarvested(worldIn, pos, state, player);
-        if (!worldIn.isRemote) {
-            ServerWorld serverWorld = (ServerWorld) worldIn;
-            if (serverWorld.getTileEntity(pos) instanceof HaniwaTileEntity) {
-                HaniwaTileEntity haniwaTile = (HaniwaTileEntity) serverWorld.getTileEntity(pos);
-                if (haniwaTile != null) {
-                    CompoundNBT nbt = haniwaTile.getTileData();
-                    ItemStack stack = new ItemStack(ItemRegistry.HANIWA_ITEM.get());
-                    stack.setTag(nbt);
-                    spawnDrops(state, worldIn, pos, haniwaTile, player, stack);
-                }
-            }
-        }
-    }
 }

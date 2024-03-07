@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
-import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.util.BeliefType;
 import net.minecraft.entity.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +13,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public abstract class RetreatableEntity extends TameableEntity implements IAngerable {
     protected RetreatableEntity(EntityType<? extends TameableEntity> type, World worldIn) {
@@ -51,6 +53,14 @@ public abstract class RetreatableEntity extends TameableEntity implements IAnger
     }
 
     public abstract void danmakuAttack(LivingEntity target);
+    public boolean doesTargetBelieveBuddhism(Entity target) {
+        AtomicBoolean condition = new AtomicBoolean();
+        if (target != null) {
+            target.getCapability(GSKOCapabilities.BELIEF).ifPresent(belief ->
+                    condition.set(belief.getValue(BeliefType.BUDDHISM) > 0));
+        }
+        return condition.get();
+    }
 
     public enum Animation {
         IDLE,

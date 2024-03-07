@@ -65,7 +65,7 @@ public class GSKOCapabilityEvents {
         if (entity instanceof PlayerEntity) {
 
             List<Pair<BeliefType, Integer>> set = new ArrayList<>();
-            for (BeliefType type : BeliefType.values()) set.add(Pair.of(type, 0));
+            for (BeliefType type : BeliefType.values()) set.add(Pair.of(type, 1));
 
             GSKOPowerProvider power = new GSKOPowerProvider(0f);
             BeliefCapabilityProvider belief = new BeliefCapabilityProvider(set);

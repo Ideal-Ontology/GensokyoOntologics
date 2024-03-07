@@ -271,16 +271,7 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10D)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 50D)
                     .create());
-//
-            // event.put(EntityRegistry.KOISHI_ENTITY.get(), TameableEntity.func_233666_p_()
-            //         .createMutableAttribute(Attributes.MAX_HEALTH, 100D)
-            //         .createMutableAttribute(Attributes.FOLLOW_RANGE, 12D)
-            //         .createMutableAttribute(Attributes.ARMOR, 10D)
-            //         .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 20D)
-            //         .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D)
-            //         .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 3.5D)
-            //         .createMutableAttribute(Attributes.ATTACK_SPEED, 1.6D).create());
-//
+
             // event.put(EntityRegistry.YUKARI_ENTITY.get(), TameableEntity.func_233666_p_()
             //         .createMutableAttribute(Attributes.MAX_HEALTH, 300D)
             //         .createMutableAttribute(Attributes.ARMOR, 20D)
@@ -298,9 +289,9 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
 
             event.put(EntityRegistry.HANIWA.get(), MobEntity.func_233666_p_()
-                    .createMutableAttribute(Attributes.MAX_HEALTH, 50)
-                    .createMutableAttribute(Attributes.ARMOR, 20)
-                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 20)
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 40)
+                    .createMutableAttribute(Attributes.ARMOR, 10)
+                    .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 10)
                     .createMutableAttribute(Attributes.KNOCKBACK_RESISTANCE, 3)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D).create());

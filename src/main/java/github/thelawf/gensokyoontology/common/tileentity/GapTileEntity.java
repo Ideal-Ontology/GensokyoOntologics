@@ -93,15 +93,18 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
 
     public void setDestinationPos(BlockPos destinationPos) {
         this.destinationPos = destinationPos;
+        markDirty();
     }
 
     public void setDestinationWorld(RegistryKey<World> destinationWorld) {
         this.destinationWorld = destinationWorld;
         this.allowTeleport = true;
+        markDirty();
     }
 
     public void setCooldown(int cooldown) {
         this.cooldown = cooldown;
+        markDirty();
     }
 
     public BlockPos getDestinationPos() {
@@ -122,6 +125,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
 
     public void setAllowTeleport(boolean isAllowTeleport) {
         this.allowTeleport = isAllowTeleport;
+        markDirty();
     }
 
     @Override
@@ -129,11 +133,11 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
         if (this.world != null && !this.world.isRemote) {
             if (this.cooldown > 0) {
                 this.cooldown--;
+                markDirty();
             } else {
                 this.cooldown++;
+                markDirty();
             }
         }
-
-        markDirty();
     }
 }

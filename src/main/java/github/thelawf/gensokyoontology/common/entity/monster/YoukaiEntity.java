@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
@@ -19,6 +20,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
+import java.util.function.Predicate;
 
 public abstract class YoukaiEntity extends RetreatableEntity {
 
@@ -102,6 +104,5 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     }
 
     public abstract void danmakuAttack(LivingEntity target);
-
 
 }
