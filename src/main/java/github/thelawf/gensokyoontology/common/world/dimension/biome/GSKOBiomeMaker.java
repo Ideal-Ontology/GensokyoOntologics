@@ -18,7 +18,7 @@ import java.util.function.Supplier;
 public final class GSKOBiomeMaker {
 
 
-    private static BiomeGenerationSettings.Builder makeDefaultBuilder() {
+    private static BiomeGenerationSettings.Builder withBuilder(BiomeGenerationSettings.Builder settings) {
         //抄原版用来装饰群系(这句话来自模组 Ashihara，作者：遗失唐伞绘卷屋)
         BiomeGenerationSettings.Builder biomegenerationSettings
                 = (new BiomeGenerationSettings.Builder()
@@ -120,6 +120,27 @@ public final class GSKOBiomeMaker {
                         .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
                         .build())
                 .build().setRegistryName("magic_forest");
+    }
+
+    public static Biome makeUntroddenValley(Supplier<ConfiguredSurfaceBuilder<?>> builder) {
+        return new Biome.Builder()
+                .depth(-0.35f)
+                .scale(0.12f)
+                .downfall(0.6f)
+                .temperature(0.95f)
+                .category(Biome.Category.RIVER)
+                .precipitation(Biome.RainType.RAIN)
+                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
+                .withGenerationSettings(
+                        withBuilder(makeCustomSurface(builder)).build())
+                .setEffects(new BiomeAmbience.Builder()
+                        .setWaterColor(0x0DA7D6)
+                        .setWaterFogColor(0x282E84)
+                        .setFogColor(0xC0D8FF)
+                        .withSkyColor(getSkyColor(0.7F))
+                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
+                        .build())
+                .build();
     }
 
 

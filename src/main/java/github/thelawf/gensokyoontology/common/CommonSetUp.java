@@ -17,6 +17,7 @@ import github.thelawf.gensokyoontology.common.world.feature.config.GSKOTreeConfi
 import github.thelawf.gensokyoontology.common.world.feature.config.MagicForestConfig;
 import github.thelawf.gensokyoontology.common.world.feature.placer.BranchTrunkPlacer;
 import github.thelawf.gensokyoontology.common.world.feature.tree.MagicForestFeature;
+import github.thelawf.gensokyoontology.common.world.surface.GSKOConfiguredSurface;
 import github.thelawf.gensokyoontology.core.PlacerRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.FeatureRegistry;
@@ -45,11 +46,12 @@ public class CommonSetUp {
             //         new ResourceLocation(GensokyoOntology.MODID, "chunkgen"),
             //         GSKOChunkGenerator.CHUNK_GEN_CODEC);
 
-            StructureRegistry.setupStructures();
-            GSKOFeatures.registerStructure();
             GSKOFeatures.registerOre();
             GSKOFeatures.registerFeature();
+            GSKOConfiguredSurface.registerSurface();
 
+            StructureRegistry.setupStructures();
+            GSKOFeatures.registerStructure();
             GSKOBiomeGenerator.generate();
 
             GSKONetworking.register();

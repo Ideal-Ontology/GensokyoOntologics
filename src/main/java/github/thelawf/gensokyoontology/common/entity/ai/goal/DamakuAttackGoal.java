@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import github.thelawf.gensokyoontology.common.entity.monster.RetreatableEntity;
+import net.minecraft.block.BushBlock;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;

@@ -27,16 +27,16 @@ public class GSKOBiomes {
     // public static final Biome YATSUGA_TAKE_BIOME = GSKOBiomeMaker.makeYatsugaTakeBiome(() -> GSKOConfiguredSurface.YATSUGA_TAKE);
     public static final RegistryObject<Biome> YATSUGA_TAKE_BIOME = BIOMES.register("mountain_yatsugatake",
             () -> GSKOBiomeMaker.makeYatsugaTakeBiome(() -> GSKOConfiguredSurface.YATSUGA_TAKE));
-    // public static final RegistryObject<Biome> MAGIC_FOREST_BIOME = BIOMES.register("magic_forest_dense",
-    //         GSKOBiomeMaker::makeMagicForest);
-
+    public static final RegistryKey<Biome> UNTRODDEN_VALLEY_KEY = makeKey("untrodden_valley");
+    // public static final RegistryObject<Biome> UNTRODDEN_VALLEY = BIOMES.register(UNTRODDEN_VALLEY_KEY.getRegistryName().getPath(),
+    //         () -> GSKOBiomeMaker.makeUntroddenValley(() -> GSKOConfiguredSurface.UNTRODDEN_VALLEY));
     public static final RegistryKey<Biome> GSKO_FOREST_KEY = makeKey("gensokyo_forest");
     public static final RegistryKey<Biome> GSKO_PLAINS_KEY = makeKey("gensokyo_plains");
     public static final RegistryKey<Biome> GSKO_RIVER_KEY = makeKey("gensokyo_river");
     public static final RegistryKey<Biome> HAKUREI_SHRINE_PRECINCTS_KEY = makeKey("hakurei_shrine_precincts");
     public static final RegistryKey<Biome> SCARLET_MANSION_PRECINCTS_KEY = makeKey("scarlet_mansion_precincts");
     public static final RegistryKey<Biome> BEAST_PATH_KEY = makeKey("beast_path");
-    public static final RegistryKey<Biome> UNTRODDEN_VALLEY_KEY = makeKey("untrodden_valley");
+    // public static final RegistryKey<Biome> UNTRODDEN_VALLEY_KEY = makeKey("untrodden_valley");
     public static final RegistryKey<Biome> YOUKAI_JUKAI_KEY = makeKey("youkai_jukai");
     public static final RegistryKey<Biome> YOUKAI_MOUNTAIN_KEY = makeKey("youkai_mountain");
     public static final RegistryKey<Biome> SUNFLOWER_GARDEN_KEY = makeKey("sunflower_garden");

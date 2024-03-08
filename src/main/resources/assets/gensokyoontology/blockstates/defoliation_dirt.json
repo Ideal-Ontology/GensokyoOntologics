@@ -1,7 +1,7 @@
 {
   "variants": {
-    "" : {
-      "model": "gensokyoontology:block:defoliation_dirt"
+    "": {
+      "model": "gensokyoontology:block/defoliation_dirt"
     }
   }
 }
