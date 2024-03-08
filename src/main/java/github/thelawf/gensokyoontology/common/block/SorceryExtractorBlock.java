@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.block;
 
 import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.common.tileentity.SorceryExtractorTileEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -19,6 +20,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.items.CapabilityItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -53,6 +55,7 @@ public class SorceryExtractorBlock extends Block {
         if (!worldIn.isRemote) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof SorceryExtractorTileEntity) {
+                GSKOUtil.log(this.getClass(), "Item Handler Present? " + (tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()));
                 INamedContainerProvider provider = SorceryExtractorTileEntity.createContainer(worldIn, pos);
                 NetworkHooks.openGui((ServerPlayerEntity) player, provider, tileEntity.getPos());
             } else {
@@ -60,10 +63,5 @@ public class SorceryExtractorBlock extends Block {
             }
         }
         return ActionResultType.SUCCESS;
-    }
-
-    public INamedContainerProvider createContainer(World worldIn, BlockPos pos) {
-        return new SimpleNamedContainerProvider(SorceryExtractorContainer::new,
-                SorceryExtractorTileEntity.CONTAINER_NAME);
     }
 }

@@ -4,6 +4,8 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
 import net.minecraft.inventory.container.ContainerType;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.common.extensions.IForgeContainerType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.items.IItemHandler;
@@ -19,6 +21,10 @@ public final class ContainerRegistry {
                     (windowId, inv, data) -> new DanmakuCraftingContainer(windowId, inv, inv.player)));
     public static final RegistryObject<ContainerType<SorceryExtractorContainer>> SORCERY_EXTRACTOR_CONTAINER =
             CONTAINERS.register("sorcery_extractor_container", () -> IForgeContainerType.create(
-                    ((windowId, inv, data) -> new SorceryExtractorContainer(windowId, inv, inv.player))));
+                    ((windowId, inv, data) -> {
+                        BlockPos pos = data.readBlockPos();
+                        World world = inv.player.world;
+                        return new SorceryExtractorContainer(windowId, world, pos, inv);
+                    })));
 
 }

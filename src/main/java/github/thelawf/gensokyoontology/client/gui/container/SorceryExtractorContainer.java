@@ -1,8 +1,11 @@
 package github.thelawf.gensokyoontology.client.gui.container;
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.tileentity.SorceryExtractorTileEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.client.GSKOGUIUtil;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -10,7 +13,13 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -21,6 +30,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * 各个槽位的位置：<br>
@@ -31,22 +41,21 @@ import java.util.List;
  * 下方槽位：(98, 100)<br>
  */
 public class SorceryExtractorContainer extends Container {
-    private final PlayerEntity player;
     private final IItemHandler playerInventory;
 
     public static final Logger LOGGER = LogManager.getLogger();
     public static final List<List<ItemStack>> RECIPES = GSKOGUIUtil.makeRecipes();
 
     private final IWorldPosCallable POS_CALLABLE = IWorldPosCallable.DUMMY;
+    private final TileEntity tileEntity;
 
-    private final IInventory ingredientInventory = new Inventory(4);
+    private final IInventory ingredientInventory = new Inventory(5);
     private final IInventory resultInventory = new Inventory(1);
 
-    public SorceryExtractorContainer(int id, PlayerInventory playerInventory, PlayerEntity player) {
-        super(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(), id);
-        this.player = player;
+    public SorceryExtractorContainer(int windowId, World world, BlockPos blockPos, PlayerInventory playerInventory) {
+        super(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(), windowId);
         this.playerInventory = new InvWrapper(playerInventory);
-
+        this.tileEntity = world.getTileEntity(blockPos);
         addPlayerInventorySlots(28, 128);
 
         // addSlot(new Slot(this.ingredientInventory, 0, 71, 4));
@@ -54,12 +63,24 @@ public class SorceryExtractorContainer extends Container {
         // addSlot(new Slot(this.ingredientInventory, 2, 116, 48));
         // addSlot(new Slot(this.ingredientInventory, 3, 71, 93));
 
-        addIngredientSlot(this.ingredientInventory, 0, 99, 12);
-        addIngredientSlot(this.ingredientInventory, 1, 54, 56);
-        addIngredientSlot(this.ingredientInventory, 2, 145, 56);
-        addIngredientSlot(this.ingredientInventory, 3, 99, 101);
-        addResultSlot(this.resultInventory, 0, 99, 56);
+        if (this.tileEntity != null) {
+            this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
+                addIngredientSlot(itemHandler, 0, 99, 12);
+                addIngredientSlot(itemHandler, 1, 54, 56);
+                addIngredientSlot(itemHandler, 2, 145, 56);
+                addIngredientSlot(itemHandler, 3, 99, 101);
+                addIngredientSlot(itemHandler, 4, 99, 56);
+            });
+        }
+    }
 
+
+    private static SorceryExtractorTileEntity getTileEntity(@NotNull PlayerInventory inv, @NotNull PacketBuffer buf) {
+        final TileEntity te = inv.player.world.getTileEntity(buf.readBlockPos());
+        if (te instanceof SorceryExtractorTileEntity) {
+            return (SorceryExtractorTileEntity) te;
+        }
+        return new SorceryExtractorTileEntity();
     }
 
     @Override
@@ -79,7 +100,15 @@ public class SorceryExtractorContainer extends Container {
 
     }
 
-    private void addIngredientSlot(IInventory inventory, int index, int xPos, int yPos) {
+    private void addIngredientSlot(IItemHandler itemHandler, int index, int xPos, int yPos) {
+        addSlot(new SlotItemHandler(itemHandler, index, xPos, yPos));
+    }
+
+    private void addResultSlot(IItemHandler itemHandler, int index, int xPos, int yPos) {
+        addSlot(new SlotItemHandler(itemHandler, index, xPos, yPos));
+    }
+
+    private void addIngredientSlotOld(IInventory inventory, int index, int xPos, int yPos) {
         addSlot(new Slot(inventory, index, xPos, yPos) {
             @Override
             public void onSlotChanged() {
@@ -113,7 +142,7 @@ public class SorceryExtractorContainer extends Container {
         return Pair.of(inventory, Collections.min(stackSize));
     }
 
-    private void addResultSlot(IInventory inventory, int index, int xPos, int yPos) {
+    private void addResultSlotOld(IInventory inventory, int index, int xPos, int yPos) {
         addSlot(new Slot(inventory, index, xPos, yPos) {
             @Override
             @NotNull

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
@@ -15,18 +16,23 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class SorceryExtractorTileEntity extends TileEntity implements ITickableTileEntity {
+    private final int slotCount = 5;
     private final ItemStackHandler itemHandler = createItemHandler();
     private final LazyOptional<IItemHandler> optionalHandler = LazyOptional.of(() -> itemHandler);
     public static final TranslationTextComponent CONTAINER_NAME = new TranslationTextComponent("container." +
@@ -44,9 +50,10 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
                 return CONTAINER_NAME;
             }
 
+
             @Override
-            public Container createMenu(int winwdowId, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
-                return new SorceryExtractorContainer(winwdowId, playerInventory, player);
+            public Container createMenu(int windowId, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
+                return new SorceryExtractorContainer(windowId, worldIn, posIn, playerInventory);
             }
         };
     }
@@ -65,10 +72,15 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
     }
 
     private ItemStackHandler createItemHandler() {
-        return new ItemStackHandler(5) {
+        return new ItemStackHandler(this.slotCount) {
             @Override
             protected void onContentsChanged(int slot) {
                 markDirty();
+            }
+
+            @Override
+            public boolean isItemValid(int slot, @NotNull ItemStack stack) {
+                return true;
             }
 
             @Override
@@ -79,46 +91,43 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
                     return super.getSlotLimit(slot);
                 }
             }
-
-            @NotNull
-            @Override
-            public ItemStack insertItem(int slot, @NotNull ItemStack stack, boolean simulate) {
-                if (!isItemValid(slot, stack)) {
-                    return stack;
-                }
-                return super.insertItem(slot, stack, simulate);
-            }
         };
     }
 
-    public void checkCraft() {
-        Inventory inv = new Inventory(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
+    @NotNull
+    @Override
+    public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
+            return optionalHandler.cast();
         }
-        if (world == null) return;
-
-        Optional<SorceryExtractorRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
-
-        recipe.ifPresent(iRecipe -> {
-            if (iRecipe.matches(inv, world)) {
-                extract();
-                itemHandler.insertItem(4, iRecipe.getRecipeOutput(), false);
-            }
-        });
-
-        markDirty();
+        return super.getCapability(cap, side);
     }
 
-    private void extract() {
+
+    public void checkCraft() {
+        Inventory inv = new Inventory(itemHandler.getSlots());
+        for (int i = 0; i < itemHandler.getSlots() - 1; i++) {
+            inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
+        }
+        Optional<SorceryExtractorRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
+        recipe.ifPresent(iRecipe -> {
+            doCraft(iRecipe.getRecipeOutput());
+            markDirty();
+        });
+
+    }
+
+    private void doCraft(ItemStack output) {
         itemHandler.extractItem(0, 1, false);
         itemHandler.extractItem(1, 1, false);
         itemHandler.extractItem(2, 1, false);
         itemHandler.extractItem(3, 1, false);
+        itemHandler.insertItem(4, output, false);
     }
 
     @Override
     public void tick() {
+        if (world != null && world.isRemote) return;
         checkCraft();
     }
 }

@@ -9,6 +9,9 @@
     },
     {
       "item": "gensokyoontology:izano_object"
+    },
+    {
+      "item": "minecraft:air"
     }
   ],
   "output": {
