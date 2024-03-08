@@ -23,6 +23,7 @@ public final class BlockRegistry {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     //====================================   泥土石头类方块   ====================================//
+    public static final RegistryObject<Block> DEFOLIATION_DIRT = BLOCKS.register("defoliation_dirt",() -> new Block(AbstractBlock.Properties.from(Blocks.GRASS_BLOCK)));
     public static final RegistryObject<Block> KAOLIN = BLOCKS.register("kaolin", KaolinBlock::new);
     public static final RegistryObject<Block> KAOLINITE = BLOCKS.register("kaolinite", KaoliniteBlock::new);
 

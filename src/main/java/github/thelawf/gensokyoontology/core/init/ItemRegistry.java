@@ -39,6 +39,9 @@ public final class ItemRegistry {
 
     // ======================= GSKO杂项：装饰类方块 ==========================//
     // --------------------------- 泥土石头类方块：----------------------------//
+    public static final RegistryObject<BlockItem> DEFOLIATION_DIRT_ITEM = ITEMS.register(
+            "defoliation_dirt", () -> new BlockItem(BlockRegistry.DEFOLIATION_DIRT.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> KAOLIN_BLOCK_ITEM = ITEMS.register(
             "kaolin", () -> new BlockItem(BlockRegistry.KAOLIN.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));

@@ -258,6 +258,7 @@
   "advancement.gensokyoontology.retreat_flandre.title": "Final Savage Sister",
   "advancement.gensokyoontology.retreat_flandre.description": "Retreat Flandre Scarlet",
 
+  "block.gensokyoontology.defoliation_dirt": "Defoliation Dirt",
   "block.gensokyoontology.kaolin": "Kaolin",
   "block.gensokyoontology.kaolinite": "Kaolinite",
   "block.gensokyoontology.clay_adobe": "Clay Adobe",
@@ -429,8 +430,8 @@
   "msg.gensokyoontology.gap_block.teleport_fail.destination_not_present": "§cDestination World Not Present",
   "msg.gensokyoontology.gap_block.teleport_fail.arrival_gap_not_present": "§cArrival Gap Not Present",
 
-  "msg.gensokyoontology.haniwa_block.in_cooldown": "§7§l<??Mysterious Voice??>§r It seems that your idol has received enough believes today. Try it tomorrow.",
-  "msg.gensokyoontology.haniwa_block.added_count": "§7§l<??Mysterious Voice??>§r You have successfully given 1 belief point to your idol. Now the total point is: ",
+  "msg.gensokyoontology.haniwa_block.in_cooldown": "§7§o<??Mysterious Voice??>§r It seems that your idol has received enough believes today. Try it tomorrow.",
+  "msg.gensokyoontology.haniwa_block.added_count": "§7§o<??Mysterious Voice??>§r You have successfully given 1 belief point to your idol. Now the total point is: ",
 
   "network.gensokyoontology.sakuya_stop_watch.freeze": "Freezing!",
   "network.gensokyoontology.sakuya_stop_watch.unfreeze": "Unfreeze",

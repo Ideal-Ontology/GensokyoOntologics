@@ -6,6 +6,7 @@ import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.Difficulty;
 
 /**
  * Copy from <a href="https://github.com/TartaricAcid/TouhouLittleMaid/blob/1.16.5/src/main/java/com/github/tartaricacid/touhoulittlemaid/entity/ai/goal/FairyAttackGoal.java#L12">车万女仆中有关妖精AI的GitHub仓库界面</a>
@@ -29,7 +30,8 @@ public class DamakuAttackGoal extends Goal {
     @Override
     public boolean shouldExecute() {
         LivingEntity target = this.entity.getAttackTarget();
-        return target != null && target.isAlive() && !this.entity.doesTargetBelieveBuddhism(target);
+        return target != null && target.isAlive() && target.world.getDifficulty() != Difficulty.PEACEFUL &&
+                !this.entity.doesTargetBelieveBuddhism(target);
         // this.path = this.entity.getNavigator().pathfind(target, 0);
     }
 
@@ -62,7 +64,7 @@ public class DamakuAttackGoal extends Goal {
     @Override
     public boolean shouldContinueExecuting() {
         LivingEntity target = this.entity.getAttackTarget();
-        if (target == null || !target.isAlive()) {
+        if (target == null || !target.isAlive() || target.world.getDifficulty() == Difficulty.PEACEFUL) {
             return false;
         } else {
             boolean isPlayerAndCanNotBeAttacked = target instanceof PlayerEntity
