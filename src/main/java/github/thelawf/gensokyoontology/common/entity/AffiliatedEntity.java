@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -20,7 +21,7 @@ public abstract class AffiliatedEntity extends Entity {
     private Entity owner;
     public static final DataParameter<Optional<UUID>> DATA_OWNER = EntityDataManager.createKey(AffiliatedEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
-    public AffiliatedEntity(EntityType<?> entityTypeIn, Entity owner, World worldIn) {
+    public AffiliatedEntity(EntityType<?> entityTypeIn, @Nullable Entity owner, World worldIn) {
         super(entityTypeIn, worldIn);
         this.owner = owner;
         this.setOwner(owner);

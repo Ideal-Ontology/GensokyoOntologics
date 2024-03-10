@@ -26,7 +26,6 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
 
     public SorceryExtractorRecipe(ResourceLocation id, ItemStack output, NonNullList<Ingredient> inputs) {
         this.id = id;
-
         this.output = output;
         this.inputs = inputs;
     }
@@ -76,21 +75,22 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<SorceryExtractorRecipe> {
 
         @Override
-        public SorceryExtractorRecipe read(ResourceLocation recipeId, JsonObject json) {
+        @NotNull
+        public SorceryExtractorRecipe read(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
             ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
             JsonArray ingredients = JSONUtils.getJsonArray(json, "ingredients");
 
             NonNullList<Ingredient> inputs = NonNullList.create();
 
-            // sonElement up = ingredients.get(0);
-            // sonElement left = ingredients.get(1);
-            // sonElement right = ingredients.get(2);
-            // sonElement down = ingredients.get(3);
+            // JsonElement up = ingredients.get(0);
+            // JsonElement left = ingredients.get(1);
+            // JsonElement right = ingredients.get(2);
+            // JsonElement down = ingredients.get(3);
 
-            // temStack upStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(up, "up"));
-            // temStack leftStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(left, "left"));
-            // temStack rightStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(right, "right"));
-            // temStack downStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(down, "down"));
+            // ItemStack upStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(up, "up"));
+            // ItemStack leftStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(left, "left"));
+            // ItemStack rightStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(right, "right"));
+            // ItemStack downStack = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(down, "down"));
 
             for (int i = 0; i < ingredients.size(); i++) {
                 inputs.add(Ingredient.deserialize(ingredients.get(i)));
@@ -101,7 +101,7 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
 
         @Nullable
         @Override
-        public SorceryExtractorRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
+        public SorceryExtractorRecipe read(@NotNull ResourceLocation recipeId, @NotNull PacketBuffer buffer) {
             NonNullList<Ingredient> inputs = NonNullList.withSize(4, Ingredient.EMPTY);
 
             inputs.replaceAll(ignored -> Ingredient.read(buffer));

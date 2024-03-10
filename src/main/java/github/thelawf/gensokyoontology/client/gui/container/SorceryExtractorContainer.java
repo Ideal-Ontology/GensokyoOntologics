@@ -2,10 +2,8 @@ package github.thelawf.gensokyoontology.client.gui.container;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.tileentity.SorceryExtractorTileEntity;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.client.GSKOGUIUtil;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
-import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
@@ -18,7 +16,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -30,7 +27,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * 各个槽位的位置：<br>
@@ -65,11 +61,11 @@ public class SorceryExtractorContainer extends Container {
 
         if (this.tileEntity != null) {
             this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
-                addIngredientSlot(itemHandler, 0, 99, 12);
-                addIngredientSlot(itemHandler, 1, 54, 56);
-                addIngredientSlot(itemHandler, 2, 145, 56);
-                addIngredientSlot(itemHandler, 3, 99, 101);
-                addIngredientSlot(itemHandler, 4, 99, 56);
+                addContainerSlot(itemHandler, 0, 99, 12);
+                addContainerSlot(itemHandler, 1, 54, 56);
+                addContainerSlot(itemHandler, 2, 145, 56);
+                addContainerSlot(itemHandler, 3, 99, 101);
+                addContainerSlot(itemHandler, 4, 99, 56);
             });
         }
     }
@@ -100,8 +96,15 @@ public class SorceryExtractorContainer extends Container {
 
     }
 
-    private void addIngredientSlot(IItemHandler itemHandler, int index, int xPos, int yPos) {
-        addSlot(new SlotItemHandler(itemHandler, index, xPos, yPos));
+    private void addContainerSlot(IItemHandler itemHandler, int index, int xPos, int yPos) {
+        addSlot(new SlotItemHandler(itemHandler, index, xPos, yPos){
+            @Override
+            public ItemStack onTake(PlayerEntity playerEntity, ItemStack stack) {
+                if (this.getSlotIndex() == 4) for (int i = 0; i < 4; i++) this.getItemHandler().extractItem(i, 1, false);
+                else this.getItemHandler().extractItem(4, 1, false);
+                return super.onTake(playerEntity, stack);
+            }
+        });
     }
 
     private void addResultSlot(IItemHandler itemHandler, int index, int xPos, int yPos) {

@@ -13,6 +13,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -49,7 +50,6 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
             public ITextComponent getDisplayName() {
                 return CONTAINER_NAME;
             }
-
 
             @Override
             public Container createMenu(int windowId, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
@@ -97,32 +97,22 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
-        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
-            return optionalHandler.cast();
-        }
+        if(cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) return optionalHandler.cast();
         return super.getCapability(cap, side);
     }
 
-
     public void checkCraft() {
         Inventory inv = new Inventory(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots() - 1; i++) {
+        for (int i = 0; i < itemHandler.getSlots() - 1; i++)
             inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
-        }
-        Optional<SorceryExtractorRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
-        recipe.ifPresent(iRecipe -> {
-            doCraft(iRecipe.getRecipeOutput());
-            markDirty();
-        });
 
+        Optional<SorceryExtractorRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
+        recipe.ifPresent(this::doCraft);
     }
 
-    private void doCraft(ItemStack output) {
-        itemHandler.extractItem(0, 1, false);
-        itemHandler.extractItem(1, 1, false);
-        itemHandler.extractItem(2, 1, false);
-        itemHandler.extractItem(3, 1, false);
-        itemHandler.insertItem(4, output, false);
+    public void doCraft(SorceryExtractorRecipe recipe) {
+        itemHandler.insertItem(4, recipe.getRecipeOutput(), false);
+        markDirty();
     }
 
     @Override

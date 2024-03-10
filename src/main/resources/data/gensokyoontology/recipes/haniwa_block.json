@@ -1,0 +1,21 @@
+{
+  "type": "gensokyoontology:sorcery_extract",
+  "ingredients": [
+    {
+      "item": "gensokyoontology:clay_adobe"
+    },
+    {
+      "item": "gensokyoontology:orb_jade"
+    },
+    {
+      "item": "gensokyoontology:clay_adobe"
+    },
+    {
+      "item": "gensokyoontology:kaolin"
+    }
+  ],
+  "output": {
+    "item": "gensokyoontology:haniwa",
+    "count": 1
+  }
+}

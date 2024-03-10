@@ -724,34 +724,6 @@ public final class ItemRegistry {
             GSKOArmorMaterial.JADE, EquipmentSlotType.FEET, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
 
-    // +++++++++++++++++++++++++++ Deprecated Items +++++++++++++++++++++++//
-    // public static final RegistryObject<Item> RAIL_NODE = ITEMS.register(
-    //         "rail_node", () -> new BlockItem(BlockRegistry.RAIL_NODE_BLOCK.get(),
-    //                 new Item.Properties()));
-//
-    // public static final RegistryObject<Item> DAKIMAKURA_ITEM = ITEMS.register(
-    //         "dakimakura", () -> new BlockItem(BlockRegistry.DAKIMAKURA.get(),
-    //                 new Item.Properties()));
-//
-    // public static final RegistryObject<Item> ROTATE_FRAME_ITEM = ITEMS.register(
-    //         "rotate_frame", () -> new BlockItem(BlockRegistry.ROTATE_FRAME.get(),
-    //                 new Item.Properties()));
-//
-//
-    //======================= ↓ The Mod Cyber Statistics ↓ ====================//
-
-    // public static final RegistryObject<Item> HASH_LEAVES_ITEM = ITEMS.register(
-    //         "hash_leaves", () -> new BlockItem(BlockRegistry.HASH_LEAVES.get(),
-    //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-//
-    // public static final RegistryObject<Item> HASH_LOG_ITEM = ITEMS.register(
-    //         "hash_log",() -> new BlockItem(BlockRegistry.HASH_LOG.get(),
-    //                 new Item.Properties()));
-//
-    // public static final RegistryObject<Item> FRACTAL_LOG_ITEM = ITEMS.register(
-    //         "fractal_log",() -> new BlockItem(BlockRegistry.FRACTAL_LOG.get(),
-    //                 new Item.Properties()));
-//
-    //======================= ↑ The Mod Cyber Statistics ↑ ====================//
-
+    // ====================================== 技术性物品 ====================================== //
+    public static final RegistryObject<Item> DREAM_SEAL_ITEM = ITEMS.register("dream_seal", () -> new Item(new Item.Properties()));
 }

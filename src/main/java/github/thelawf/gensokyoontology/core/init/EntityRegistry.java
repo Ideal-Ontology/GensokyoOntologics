@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
@@ -120,6 +121,9 @@ public final class EntityRegistry {
     //         "master_spark", () -> MasterSparkEntity.MASTER_SPARK);
     // public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
     //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
+    public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = ENTITIES.register(
+            "dream_seal", () -> EntityType.Builder.<DreamSealEntity>create(DreamSealEntity::new, EntityClassification.MISC)
+                    .size(2F, 2F).trackingRange(80).updateInterval(2).build("dream_seal"));
 
     // ============================ 技术性实体：符卡以及特殊技能 ============================= //
     public static final RegistryObject<EntityType<WaveAndParticleEntity>> WAVE_AND_PARTICLE_ENTITY = ENTITIES.register(

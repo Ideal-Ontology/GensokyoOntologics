@@ -1,9 +1,6 @@
 package github.thelawf.gensokyoontology.common.compat.jei;
 
-import com.github.tartaricacid.touhoulittlemaid.compat.jei.altar.AltarRecipeCategory;
-import com.github.tartaricacid.touhoulittlemaid.crafting.AltarRecipe;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
@@ -15,7 +12,6 @@ import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.NotNull;
 
 public class DanmakuRecipeCategory implements IRecipeCategory<DanmakuRecipe> {
