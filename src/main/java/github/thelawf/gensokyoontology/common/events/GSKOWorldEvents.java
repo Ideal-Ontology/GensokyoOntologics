@@ -12,6 +12,7 @@ import github.thelawf.gensokyoontology.common.item.touhou.GapItem;
 import github.thelawf.gensokyoontology.common.item.touhou.SakeWormItem;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.GSKOEntityGenerator;
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomeMaker;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatureGenerator;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
@@ -70,8 +71,10 @@ public class GSKOWorldEvents {
         }
         List<MobSpawnInfo.Spawners> spawners = event.getSpawns().getSpawner(EntityRegistry.FAIRY_ENTITY.get().getClassification());
         spawners.add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(), 38, 2, 4));
-        GSKOEntityGenerator.addEntityToBiomes(event, EntityRegistry.SPECTRE_ENTITY.get(), 10, 3, 5,
-                GSKOBiomes.HIGAN_KEY);
+        GSKOEntityGenerator.addEntityToBiomes(event, EntityRegistry.SPECTRE_ENTITY.get(), 20, 3, 5,
+                GSKOBiomes.HIGAN_KEY,
+                GSKOBiomes.BAMBOO_FOREST_LOST_KEY,
+                GSKOBiomes.SCARLET_MANSION_PRECINCTS_KEY);
     }
     
     @SubscribeEvent

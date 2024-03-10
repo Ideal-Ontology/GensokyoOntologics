@@ -44,7 +44,7 @@ public class DreamSealRenderer extends EntityRenderer<DreamSealEntity> {
     public void render(@NotNull DreamSealEntity entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.push();
-        matrixStackIn.scale(2f, 2f, 2f);
+        matrixStackIn.scale(4f, 4f, 4f);
         matrixStackIn.rotate(this.renderManager.getCameraOrientation());
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
         // RenderSystem.color4f(COLOR == 0 ? 1f : 0f, COLOR == 1 ? 1f : 0f, COLOR == 2 ? 1f : 0f, 0f);

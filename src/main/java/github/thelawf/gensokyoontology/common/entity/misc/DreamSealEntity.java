@@ -11,37 +11,39 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+import java.util.UUID;
+
 public class DreamSealEntity extends AffiliatedEntity {
-    private DanmakuColor color = DanmakuColor.RED;
+    private int color;
     public static final DataParameter<Integer> DATA_COLOR = EntityDataManager.createKey(DreamSealEntity.class, DataSerializers.VARINT);
-    public DreamSealEntity(EntityType<?> entityTypeIn,World worldIn, Entity owner, DanmakuColor color) {
-        super(entityTypeIn, owner, worldIn);
+    public DreamSealEntity(EntityType<?> entityTypeIn, World worldIn, UUID ownerId, DanmakuColor color) {
+        super(entityTypeIn, ownerId, worldIn);
         this.setColor(color);
     }
     public DreamSealEntity(EntityType<?> entityTypeIn, World worldIn) {
-        super(entityTypeIn, null, worldIn);
-        this.setColor(DanmakuColor.RED);
+        super(entityTypeIn, worldIn);
     }
 
 
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(DATA_COLOR, this.getColor().ordinal());
+        this.dataManager.register(DATA_COLOR, this.color);
     }
 
     public void setColor(DanmakuColor color) {
-        this.color = color;
+        this.dataManager.set(DATA_COLOR, color.ordinal());
     }
 
     public DanmakuColor getColor() {
-        return this.color;
+        return DanmakuColor.values()[this.dataManager.get(DATA_COLOR)];
     }
 
     @Override
     protected void writeAdditional(@NotNull CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putInt("color", this.color.ordinal());
+        compound.putInt("color", this.getColor().ordinal());
     }
 
     @Override

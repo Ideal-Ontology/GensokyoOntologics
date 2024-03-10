@@ -21,7 +21,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public class DestructiveEyeEntity extends CollideDamageEntity implements IRendersAsItem {
+public class DestructiveEyeEntity extends CollideDamageEntity {
     private final int MAX_LIVING_TICK = 50;
     public DestructiveEyeEntity(EntityType entityType, World worldIn) {
         super(entityType, worldIn);
@@ -61,9 +61,5 @@ public class DestructiveEyeEntity extends CollideDamageEntity implements IRender
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-    @Override
-    public ItemStack getItem() {
-        return new ItemStack(ItemRegistry.DESTRUCTIVE_EYE.get());
-    }
 
 }

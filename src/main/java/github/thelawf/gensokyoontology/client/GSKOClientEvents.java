@@ -130,8 +130,6 @@ public class GSKOClientEvents {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // ======================== 技术性实体的渲染器 ======================= //
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 9.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LASER_SOURCE_ENTITY.get(),
                 LaserEntityRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DREAM_SEAL_ENTITY.get(),

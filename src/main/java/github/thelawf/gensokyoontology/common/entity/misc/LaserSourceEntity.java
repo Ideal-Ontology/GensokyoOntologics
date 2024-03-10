@@ -20,12 +20,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 
 public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceReader {
     private int lifespan = 100;
     private int preparation = 30;
-    private float range = 30;
+    private float range = 128;
     public int argb = 0xFFFFFFFF;
     private final List<SpellBehavior> behaviors = new ArrayList<>();
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
@@ -34,13 +35,13 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
     public LaserSourceEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, null, worldIn);
         this.ignoreFrustumCheck = true;
-        this.init(100, 30, 30F);
+        this.init(100, 30, 128F);
     }
 
     public LaserSourceEntity(World worldIn, Entity owner) {
-        super(EntityRegistry.LASER_SOURCE_ENTITY.get(), owner,  worldIn);
+        super(EntityRegistry.LASER_SOURCE_ENTITY.get(), owner.getUniqueID(),  worldIn);
         this.ignoreFrustumCheck = true;
-        this.init(100, 30, 30F);
+        this.init(100, 30, 128F);
     }
 
     @Override
@@ -90,10 +91,10 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
 
         Vector3d start = this.getPositionVec();
         Vector3d end = this.getLookVec().scale(this.range).add(start);
-        Predicate<Entity> isOwner = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() == this.getOwnerID().get();
+        Predicate<Entity> doNotAttack = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() != this.getOwnerID().get();
         if (this.ticksExisted % 2 == 0) {
             getEntityWithinSphere(this.world, LivingEntity.class, createCubeBox(start, (int) this.range), this.range).stream()
-                    .filter(living -> isIntersecting(start, end, living.getBoundingBox()) && isOwner.test(living))
+                    .filter(living -> isIntersecting(start, end, living.getBoundingBox()) && doNotAttack.test(living))
                     .forEach(living -> living.attackEntityFrom(GSKODamageSource.LASER, 3));
         }
     }

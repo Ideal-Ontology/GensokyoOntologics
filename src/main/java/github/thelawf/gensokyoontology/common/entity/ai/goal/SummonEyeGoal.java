@@ -48,14 +48,15 @@ public class SummonEyeGoal extends Goal {
 
     @Override
     public boolean shouldExecute() {
-        LivingEntity target = this.entity.getAttackTarget();
-        Random random = new Random();
-        if (!entity.world.isRemote) {
-            ServerWorld serverWorld = (ServerWorld) entity.world;
-            long count = serverWorld.getEntities().filter(e -> e.getType() == EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get()).count();
-            if (count >= 8) return false;
-        }
-        return this.entity.ticksExisted % 500 == 0 && target != null && target.isAlive();
+        return false;
+        // LivingEntity target = this.entity.getAttackTarget();
+        // Random random = new Random();
+        // if (!entity.world.isRemote) {
+        //     ServerWorld serverWorld = (ServerWorld) entity.world;
+        //     long count = serverWorld.getEntities().filter(e -> e.getType() == EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get()).count();
+        //     if (count >= 8) return false;
+        // }
+        // return this.entity.ticksExisted % 500 == 0 && target != null && target.isAlive();
     }
 
     @Override

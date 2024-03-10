@@ -18,13 +18,16 @@ import java.util.UUID;
 
 public abstract class AffiliatedEntity extends Entity {
 
-    private Entity owner;
+    private UUID ownerId;
     public static final DataParameter<Optional<UUID>> DATA_OWNER = EntityDataManager.createKey(AffiliatedEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
-    public AffiliatedEntity(EntityType<?> entityTypeIn, @Nullable Entity owner, World worldIn) {
+    public AffiliatedEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
-        this.owner = owner;
-        this.setOwner(owner);
+    }
+
+    public AffiliatedEntity(EntityType<?> entityTypeIn, UUID ownerId, World worldIn) {
+        super(entityTypeIn, worldIn);
+        this.ownerId = ownerId;
     }
 
     @Override
@@ -39,13 +42,13 @@ public abstract class AffiliatedEntity extends Entity {
         }
 
         if (uuid != null) {
-            setDataOwner();
+            this.setDataOwner();
         }
     }
 
     protected void writeAdditional(@NotNull CompoundNBT compound) {
-        if (this.owner != null) {
-            compound.putUniqueId("Owner", this.owner.getUniqueID());
+        if (this.ownerId != null) {
+            compound.putUniqueId("Owner", this.ownerId);
         }
     }
 
@@ -53,21 +56,16 @@ public abstract class AffiliatedEntity extends Entity {
         return this.dataManager.get(DATA_OWNER);
     }
 
-    public void setOwner(Entity owner) {
-        if (owner != null) {
-            this.owner = owner;
-            this.dataManager.set(DATA_OWNER, Optional.of(owner.getUniqueID()));
+    public void setOwnerId(UUID uuid) {
+        if (this.ownerId != null) {
+            this.dataManager.set(DATA_OWNER, Optional.of(uuid));
         }
     }
 
     public void setDataOwner() {
         if (this.world instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld) this.world;
             Optional<UUID> optionalUUID = this.getDataManager().get(DATA_OWNER);
-            optionalUUID.ifPresent(value -> {
-                Entity entity = serverWorld.getEntityByUuid(value);
-                if (entity != null) this.setOwner(entity);
-            });
+            optionalUUID.ifPresent(this::setOwnerId);
         }
     }
 
