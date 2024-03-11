@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.entity.ai.goal.FlandreSpellAttackG
 import github.thelawf.gensokyoontology.common.entity.ai.goal.SpellCardAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.SummonEyeGoal;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.ScarletPrisoner;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.*;
@@ -25,10 +26,12 @@ import java.util.UUID;
 
 public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser {
 
-
+    public final SpellCardAttackGoal.Stage stage;
     public FlandreScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
         this.favorability = -10;
+        this.stage = new SpellCardAttackGoal.Stage(SpellCardAttackGoal.Type.SPELL_CARD_BREAKABLE,
+                new ScarletPrisoner(worldIn, this), 500, true);
         // this.setHeldItem(Hand.MAIN_HAND, new ItemStack(ItemRegistry.CLOCK_HAND_ITEM.get()));
     }
 
@@ -40,14 +43,15 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
 
     @Override
     protected void registerGoals() {
+
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1.2D, true));
+        this.goalSelector.addGoal(3, new SummonEyeGoal(this));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-        this.goalSelector.addGoal(5, new SummonEyeGoal(this));
-        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
-        this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8f));
-        this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
+        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 0.8f));
+        this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
 
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, CreatureEntity.class)).setCallsForHelp());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, TsumiBukuroEntity.class, true));

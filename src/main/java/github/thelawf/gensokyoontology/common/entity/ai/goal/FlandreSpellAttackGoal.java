@@ -44,7 +44,7 @@ public class FlandreSpellAttackGoal extends SpellCardAttackGoal {
             if (this.stage.spellCard == null) {
                 throw new NullPointerException("符卡未提供");
             }
-            this.flandre.spellCardAttack(this.stage.spellCard, ticksExisted);
+            // this.flandre.spellCardAttack(this.stage.spellCard, ticksExisted);
 
         } else if (!this.flandre.getEntitySenses().canSee(target)) {
             this.flandre.getNavigator().clearPath();
@@ -80,5 +80,6 @@ public class FlandreSpellAttackGoal extends SpellCardAttackGoal {
     @Override
     public void startExecuting() {
         this.flandre.getNavigator().setPath(this.path, this.speed);
+        this.flandre.spellCardAttack(this.stage.spellCard, ticksExisted);
     }
 }
