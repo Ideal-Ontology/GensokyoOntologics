@@ -1,10 +1,9 @@
 package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
-import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.RemiliaScarletEntity;
 import net.minecraft.entity.LivingEntity;
 
-public class RemiliaSpellAttackGoal extends SpellCardAttackGoal{
+public class RemiliaSpellAttackGoal extends BossStageGoal {
 
     private final RemiliaScarletEntity remilia;
     

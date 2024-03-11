@@ -1,8 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.BossStageGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.FlandreSpellAttackGoal;
-import github.thelawf.gensokyoontology.common.entity.ai.goal.SpellCardAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.SummonEyeGoal;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.ScarletPrisoner;
@@ -26,11 +26,11 @@ import java.util.UUID;
 
 public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser {
 
-    public final SpellCardAttackGoal.Stage stage;
+    public final BossStageGoal.Stage stage;
     public FlandreScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
         this.favorability = -10;
-        this.stage = new SpellCardAttackGoal.Stage(SpellCardAttackGoal.Type.SPELL_CARD_BREAKABLE,
+        this.stage = new BossStageGoal.Stage(BossStageGoal.Type.SPELL_CARD_BREAKABLE,
                 new ScarletPrisoner(worldIn, this), 500, true);
         // this.setHeldItem(Hand.MAIN_HAND, new ItemStack(ItemRegistry.CLOCK_HAND_ITEM.get()));
     }
@@ -132,7 +132,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     public static class Doppelganger extends FlandreScarletEntity {
 
         public final FullCherryBlossomEntity SPELL_CARD = new FullCherryBlossomEntity(world, this);
-        public final SpellCardAttackGoal.Stage stage = new SpellCardAttackGoal.Stage(SpellCardAttackGoal.Type.SPELL_CARD_BREAKABLE,
+        public final BossStageGoal.Stage stage = new BossStageGoal.Stage(BossStageGoal.Type.SPELL_CARD_BREAKABLE,
                 SPELL_CARD, 1200, true);
 
         public Doppelganger(EntityType<? extends TameableEntity> type, World worldIn) {

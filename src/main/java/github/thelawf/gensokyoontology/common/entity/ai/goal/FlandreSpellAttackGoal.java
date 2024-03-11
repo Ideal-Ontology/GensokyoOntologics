@@ -4,11 +4,8 @@ import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntit
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
-import net.minecraft.util.math.vector.Vector3d;
 
-import java.util.List;
-
-public class FlandreSpellAttackGoal extends SpellCardAttackGoal {
+public class FlandreSpellAttackGoal extends BossStageGoal {
 
     private final FlandreScarletEntity flandre;
     private final Stage stage;

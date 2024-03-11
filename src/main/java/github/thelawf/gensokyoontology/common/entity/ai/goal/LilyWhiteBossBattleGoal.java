@@ -7,10 +7,9 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
 
-import java.util.List;
 import java.util.function.Predicate;
 
-public class LilyWhiteBossBattleGoal extends SpellCardAttackGoal {
+public class LilyWhiteBossBattleGoal extends BossStageGoal {
     private int ticksExisted;
     private final LilyWhiteEntity lilyWhite;
     private Path path;
