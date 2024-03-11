@@ -38,6 +38,7 @@ public class DestructiveEyeRenderer extends EntityRenderer<DestructiveEyeEntity>
         float scale = GSKOMathUtil.lerpTicks(partialTicks, entityIn.MAX_LIVING_TICK, entityIn.ticksExisted, 0.1f, 3f);
 
         matrixStackIn.push();
+        matrixStackIn.translate(1, 2, 1);
         matrixStackIn.scale(scale, scale, scale);
         this.itemRenderer.renderItem(new ItemStack(ItemRegistry.SPHERE_EFFECT_ITEM.get()), ItemCameraTransforms.TransformType.GROUND, 0, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         matrixStackIn.pop();

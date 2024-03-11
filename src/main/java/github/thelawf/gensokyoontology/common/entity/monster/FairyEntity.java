@@ -2,11 +2,9 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.common.entity.ai.goal.DamakuAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
@@ -32,7 +30,6 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Predicate;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
@@ -202,10 +199,6 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
         DanmakuUtil.initDanmaku(danmaku, pos, true);
         danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, 0.7f, 0f);
         this.world.addEntity(danmaku);
-    }
-
-    private Vector3d getAimedVec(LivingEntity target) {
-        return new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
     }
 
     private void oddAimedShot(LivingEntity target) {

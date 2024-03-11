@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class SummonEyeGoal extends Goal {
     protected final MobEntity entity;
-    private static final int MAX_DISTANCE = 20;
+    private static final int MAX_DISTANCE = 8;
     private static final int MAX_EXECUTE_TICK = 300;
     private int tickExecuted = 0;
     private Path path;
@@ -43,7 +43,8 @@ public class SummonEyeGoal extends Goal {
     private void generateEye(World world, LivingEntity target) {
         if (!world.isRemote) {
             ServerWorld serverWorld = (ServerWorld) world;
-            boolean canSummon = serverWorld.getEntities().filter(e -> e.getType() == EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get()).count() <= 10;
+            boolean canSummon = serverWorld.getEntities().filter(e -> e.getType() == EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get()).count() <= 20;
+
             if (canSummon) {
                 for (int i = 0; i < 3; i++) {
                     DestructiveEyeEntity eye = new DestructiveEyeEntity(entity.world);
@@ -52,7 +53,11 @@ public class SummonEyeGoal extends Goal {
                     world.addEntity(eye);
                 }
             }
+            DestructiveEyeEntity eye = new DestructiveEyeEntity(entity.world);
+            eye.setLocationAndAngles(target.getPosX(), target.getPosY(), target.getPosZ(), 0F, 0F);
+            world.addEntity(eye);
         }
+
 
     }
 
@@ -65,7 +70,7 @@ public class SummonEyeGoal extends Goal {
             long count = serverWorld.getEntities().filter(e -> e.getType() == EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get()).count();
             if (count >= 8) return false;
         }
-        return this.entity.ticksExisted % 500 == 0 && target != null && target.isAlive();
+        return this.entity.ticksExisted % 100 == 0 && target != null && target.isAlive();
     }
 
     @Override

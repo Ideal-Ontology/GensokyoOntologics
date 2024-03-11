@@ -320,6 +320,8 @@ public class DanmakuUtil {
         return coordinates;
     }
 
+
+
     public static List<Vector3d> ellipticPos(Vector2f center, double radius, int count) {
         ArrayList<Vector3d> coordinates = new ArrayList<>();
 

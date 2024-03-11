@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.util.BeliefType;
 import net.minecraft.entity.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
@@ -50,6 +51,10 @@ public abstract class RetreatableEntity extends TameableEntity implements IAnger
     @Override
     public void func_230258_H__() {
 
+    }
+
+    public Vector3d getAimedVec(LivingEntity target) {
+        return new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
     }
 
     public abstract void danmakuAttack(LivingEntity target);
