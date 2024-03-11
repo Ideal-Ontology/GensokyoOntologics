@@ -129,6 +129,7 @@ public class GSKOMathUtil {
                 .add(p2.scale(3 * t * t));
     }
 
+
     public static Vector3d lerp(float progress, Vector3d start, Vector3d end) {
         return start.add(end.subtract(start).scale(progress));
     }
@@ -140,6 +141,14 @@ public class GSKOMathUtil {
         return new BlockPos(x, y, z);
     }
 
+    // tickExisted / MAX_TICK => not very smooth
+    // tickExisted / MAX_TICK => a value between zero and one
+    // partialTicks => a value between zero and one and is called between each tick
+    // tick: 0, 0.1, 0.2, 0.3 ... 1, 1.1, 1.2, 1.3 ... 2 ...
+    // ∴ (tickEx + partial) / MAX_TICK => a very smooth approach.
+    public static float lerpTicks(float partial, int maxTick, int presentTick, float minValue, float maxValue) {
+        return MathHelper.lerp((presentTick + partial) / maxTick, minValue, maxValue);
+    }
 
     /**
      * 求三维向量模长的运算

@@ -4,10 +4,7 @@ import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
-import github.thelawf.gensokyoontology.client.renderer.entity.misc.DanmakuNormalVectorRenderer;
-import github.thelawf.gensokyoontology.client.renderer.entity.misc.DreamSealRenderer;
-import github.thelawf.gensokyoontology.client.renderer.entity.misc.LaserEntityRenderer;
-import github.thelawf.gensokyoontology.client.renderer.entity.misc.StarShotRenderer;
+import github.thelawf.gensokyoontology.client.renderer.entity.misc.*;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.BlockModelRenderer;
@@ -134,6 +131,8 @@ public class GSKOClientEvents {
                 LaserEntityRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DREAM_SEAL_ENTITY.get(),
                 manager -> new DreamSealRenderer(manager, itemRenderer));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get(),
+                manager -> new DestructiveEyeRenderer(manager, itemRenderer));
 
         // ======================== 符卡实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get(),

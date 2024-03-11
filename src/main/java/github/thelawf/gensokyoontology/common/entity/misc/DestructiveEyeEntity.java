@@ -22,13 +22,16 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class DestructiveEyeEntity extends CollideDamageEntity {
-    private final int MAX_LIVING_TICK = 50;
+    public final int MAX_LIVING_TICK = 50;
+    public float prevScale;
     public DestructiveEyeEntity(EntityType entityType, World worldIn) {
         super(entityType, worldIn);
+        prevScale = 0.1f;
     }
 
     public DestructiveEyeEntity(World worldIn) {
         super(EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get(), worldIn);
+        prevScale = 0.1f;
     }
 
 
@@ -61,5 +64,7 @@ public class DestructiveEyeEntity extends CollideDamageEntity {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-
+    public int getMaxLiving() {
+        return MAX_LIVING_TICK;
+    }
 }

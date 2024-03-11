@@ -1,5 +1,5 @@
 # Made in Blockbench 4.9.4
-mtllib sphere.mtl
+mtllib sphere_effect.mtl
 
 o sphere
 v 0 -1 0
