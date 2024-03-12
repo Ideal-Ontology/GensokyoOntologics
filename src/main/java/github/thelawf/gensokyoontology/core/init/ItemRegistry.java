@@ -1,11 +1,14 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.client.gui.screen.script.ConstBuilderScreen;
+import github.thelawf.gensokyoontology.client.gui.screen.script.Vector3dBuilderScreen;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.ore.*;
+import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.tool.*;
 import github.thelawf.gensokyoontology.common.item.touhou.*;
@@ -14,15 +17,18 @@ import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.client.event.GuiContainerEvent;
+import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -727,4 +733,21 @@ public final class ItemRegistry {
     // ====================================== 技术性物品 ====================================== //
     public static final RegistryObject<Item> DREAM_SEAL_ITEM = ITEMS.register("dream_seal", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> SPHERE_EFFECT_ITEM = ITEMS.register("sphere_effect", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> CONST_BUILDER = ITEMS.register("const_builder", () -> new ScriptBuilderItem() {
+        @Override
+        public void openScriptEditGUI(ItemStack stack) {
+            Minecraft minecraft = Minecraft.getInstance();
+            ITextComponent title = GensokyoOntology.withTranslation("gui.",".const_builder.title");
+            minecraft.displayGuiScreen(new ConstBuilderScreen(title, stack));
+        }
+    });
+
+    public static final RegistryObject<Item> V3D_BUILDER = ITEMS.register("vector3d_builder", () -> new ScriptBuilderItem() {
+        @Override
+        public void openScriptEditGUI(ItemStack stack) {
+            Minecraft minecraft = Minecraft.getInstance();
+            ITextComponent title = GensokyoOntology.withTranslation("gui.",".vector3d_builder.title");
+            minecraft.displayGuiScreen(new Vector3dBuilderScreen(title, stack));
+        }
+    });
 }

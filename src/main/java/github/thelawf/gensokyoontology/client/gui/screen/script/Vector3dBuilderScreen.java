@@ -24,7 +24,7 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen{
     private final StringTextComponent tipYValue = new StringTextComponent("Y: ");
     private final StringTextComponent tipZValue = new StringTextComponent("Z: ");
     private final ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".button.save");
-    protected Vector3dBuilderScreen(ITextComponent titleIn, ItemStack stack) {
+    public Vector3dBuilderScreen(ITextComponent titleIn, ItemStack stack) {
         super(titleIn, stack);
         this.vector3dValue.putDouble("x", 0);
         this.vector3dValue.putDouble("y", 0);

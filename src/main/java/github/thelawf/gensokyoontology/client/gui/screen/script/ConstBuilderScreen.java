@@ -30,7 +30,7 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     private ITextComponent floatTypeText = GensokyoOntology.withTranslation("gui.",".button.constType.float");
     private ITextComponent doubleTypeText = GensokyoOntology.withTranslation("gui.",".button.constType.double");
     // GensokyoOntology.withTranslation("screen.",".const_builder.title")
-    protected ConstBuilderScreen(ITextComponent titleIn, ItemStack stack) {
+    public ConstBuilderScreen(ITextComponent titleIn, ItemStack stack) {
         super(titleIn, stack);
         this.stack = stack;
         this.constPreset = ConstPreset.NONE;
