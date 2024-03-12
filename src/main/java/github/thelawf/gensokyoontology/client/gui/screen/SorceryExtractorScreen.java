@@ -11,8 +11,11 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+@OnlyIn(Dist.CLIENT)
 public class SorceryExtractorScreen extends ContainerScreen<SorceryExtractorContainer> {
     public static final ResourceLocation SORCERY_GUI_TEXTURE = new ResourceLocation(
             GensokyoOntology.MODID, "textures/gui/sorcery_extractor.png"

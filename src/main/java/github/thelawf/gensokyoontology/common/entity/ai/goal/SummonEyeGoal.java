@@ -53,12 +53,18 @@ public class SummonEyeGoal extends Goal {
                     world.addEntity(eye);
                 }
             }
-            DestructiveEyeEntity eye = new DestructiveEyeEntity(entity.world);
-            eye.setLocationAndAngles(target.getPosX(), target.getPosY(), target.getPosZ(), 0F, 0F);
-            world.addEntity(eye);
         }
+    }
 
-
+    @Override
+    public void startExecuting() {
+        super.startExecuting();
+        LivingEntity target = this.entity.getAttackTarget();
+        DestructiveEyeEntity eye = new DestructiveEyeEntity(entity.world);
+        if (target != null) {
+            eye.setLocationAndAngles(target.getPosX(), target.getPosY(), target.getPosZ(), 0F, 0F);
+            this.entity.world.addEntity(eye);
+        }
     }
 
     @Override

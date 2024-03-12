@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.IntNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
@@ -12,7 +13,10 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.function.BiFunction;
+import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
+import java.util.function.Supplier;
 
 public class GSKONBTUtil {
 
@@ -25,6 +29,15 @@ public class GSKONBTUtil {
         }
         return false;
     }
+
+    public static CompoundNBT wrap(Supplier<CompoundNBT> supplier) {
+        return supplier.get();
+    }
+
+    public static int operateAndGet(BiFunction<IntNBT, IntNBT, IntNBT> action, IntNBT left, IntNBT right) {
+        return action.apply(left, right).getInt();
+    }
+
 
     public static CompoundNBT getNonNullTag(ItemStack stack, String key) {
         if (stack.getTag() == null) return new CompoundNBT();

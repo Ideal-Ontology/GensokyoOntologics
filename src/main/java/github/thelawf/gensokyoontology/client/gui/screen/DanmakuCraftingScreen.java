@@ -8,8 +8,11 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+@OnlyIn(Dist.CLIENT)
 public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContainer> {
 
     public static final ResourceLocation DANMAKU_CRAFTING_TEXTURE = new ResourceLocation(
