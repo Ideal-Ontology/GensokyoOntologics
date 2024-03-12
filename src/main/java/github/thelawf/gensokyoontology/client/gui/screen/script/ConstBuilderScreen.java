@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.client.gui.screen.script;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
 import net.minecraft.client.Minecraft;
@@ -11,6 +12,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class ConstBuilderScreen extends ScriptBuilderScreen {
@@ -22,13 +24,16 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     private TextFieldWidget nameInput;
     private TextFieldWidget valueInput;
     private final CompoundNBT numberValue = new CompoundNBT();
-    private ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".button.save");
+
+    private ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".script.button.save");
     private ITextComponent presetCustom = GensokyoOntology.withTranslation("gui.",".button.preset.custom");
-    private ITextComponent presetDefault = GensokyoOntology.withTranslation("gui.",".button.preset.default");
-    private ITextComponent intTypeText = GensokyoOntology.withTranslation("gui.",".button.constType.int");
-    private ITextComponent longTypeText = GensokyoOntology.withTranslation("gui.",".button.constType.long");
-    private ITextComponent floatTypeText = GensokyoOntology.withTranslation("gui.",".button.constType.float");
-    private ITextComponent doubleTypeText = GensokyoOntology.withTranslation("gui.",".button.constType.double");
+    private ITextComponent presetDefault = GensokyoOntology.withTranslation("gui.",".const_builder.button.preset.default");
+    private ITextComponent intTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.int");
+    private ITextComponent longTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.long");
+    private ITextComponent floatTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.float");
+    private ITextComponent doubleTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.double");
+    private ITextComponent nameText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.nameInput");
+    private ITextComponent valueText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.valueInput");
     // GensokyoOntology.withTranslation("screen.",".const_builder.title")
     public ConstBuilderScreen(ITextComponent titleIn, ItemStack stack) {
         super(titleIn, stack);
@@ -38,25 +43,32 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     }
 
     @Override
+    public void tick() {
+        super.tick();
+        this.nameInput.tick();
+        this.valueInput.tick();
+    }
+
+    @Override
     protected void init() {
-        Minecraft mc = Minecraft.getInstance();
+        if (this.minecraft == null) return;
         if (this.constPreset == ConstPreset.NONE) {
-            this.constTypeBtn = new Button(200, 60, 30, 30, this.intTypeText, (button) -> {
+            this.constTypeBtn = new Button(200, 60, 16, 16, this.intTypeText, (button) -> {
                 this.constType = EnumUtil.switchEnum(ConstType.class, this.constType);
             });
         }
-        this.presetBtn = new Button(0, 0, 100, 30, this.presetDefault, (button) -> {
+        this.presetBtn = new Button(0, 0, 100, 16, this.presetDefault, (button) -> {
             this.insertValue();
             this.constPreset = EnumUtil.switchEnum(ConstPreset.class, this.constPreset);
             this.children.remove(this.constTypeBtn);
         });
 
-        this.nameInput = new TextFieldWidget(mc.fontRenderer, 0, 60, 100, 30, new StringTextComponent(""));
-        this.valueInput = new TextFieldWidget(mc.fontRenderer, 120, 60, 100, 30, new StringTextComponent(""));
+        this.nameInput = new TextFieldWidget(this.minecraft.fontRenderer, 30, 30, 100, 16, new StringTextComponent(""));
+        this.valueInput = new TextFieldWidget(this.minecraft.fontRenderer, 160, 30, 100, 16, new StringTextComponent(""));
         this.children.add(nameInput);
         this.children.add(valueInput);
 
-        this.saveBtn = new Button(0, 200, 30, 30, this.saveText, (button) -> {
+        this.saveBtn = new Button(0, 200, 16, 16, this.saveText, (button) -> {
             if (this.checkPresetForSave()) this.stack.setTag(this.numberValue);
         });
     }
@@ -64,7 +76,22 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     @Override
     public void onClose() {
         super.onClose();
-        if (this.checkPresetForSave()) this.stack.setTag(this.numberValue);
+        // if (this.checkPresetForSave()) this.stack.setTag(this.numberValue);
+    }
+
+    @Override
+    public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+
+        if (this.minecraft != null) {
+            drawString(matrixStack, this.minecraft.fontRenderer, this.nameText, 30, 0, 16777215);
+            this.valueInput.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.nameInput.render(matrixStack, mouseX, mouseY, partialTicks);
+
+            this.saveBtn.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.presetBtn.render(matrixStack, mouseX, mouseY, partialTicks);
+        }
+
     }
 
     private void insertValue() {

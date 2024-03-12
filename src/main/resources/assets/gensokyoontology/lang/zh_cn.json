@@ -415,6 +415,17 @@
   "gui.gensokyoontology.text_field.rotation_yaw": "0",
   "gui.gensokyoontology.text_field.rotation_pitch": "0",
 
+  "gui.gensokyoontology.script.button.save": "保存",
+  "gui.gensokyoontology.const_builder.button.preset.default": "默认设置",
+  "gui.gensokyoontology.const_builder.button.preset.custom": "自定义设置",
+  "gui.gensokyoontology.const_builder.tip.nameInput": "名称：",
+  "gui.gensokyoontology.const_builder.tip.valueInput": "值：",
+
+  "gui.gensokyoontology.const_builder.button.consType.int": "整数类型",
+  "gui.gensokyoontology.const_builder.button.consType.long": "长整数类型",
+  "gui.gensokyoontology.const_builder.button.consType.float": "浮点数类型",
+  "gui.gensokyoontology.const_builder.button.consType.double": "双精度浮点数类型",
+
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "欢迎使用XMMUI作为Minecraft前端GUI框架",
 

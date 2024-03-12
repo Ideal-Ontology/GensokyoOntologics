@@ -415,6 +415,17 @@
   "gui.gensokyoontology.text_field.rotation_yaw": "0",
   "gui.gensokyoontology.text_field.rotation_pitch": "0",
 
+  "gui.gensokyoontology.script.button.save": "Save",
+  "gui.gensokyoontology.const_builder.button.preset.default": "Default Preset",
+  "gui.gensokyoontology.const_builder.button.preset.custom": "Custom Preset",
+  "gui.gensokyoontology.const_builder.tip.nameInput": "Name: ",
+  "gui.gensokyoontology.const_builder.tip.valueInput": "Value: ",
+
+  "gui.gensokyoontology.const_builder.button.consType.int": "Integer Type",
+  "gui.gensokyoontology.const_builder.button.consType.long": "Long Type",
+  "gui.gensokyoontology.const_builder.button.consType.float": "Float Type",
+  "gui.gensokyoontology.const_builder.button.consType.double": "Double Type",
+
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "This is a title of XMMUI Test Screen",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "Welcome",
 

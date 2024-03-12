@@ -19,6 +19,9 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.network.play.ClientPlayNetHandler;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
@@ -31,6 +34,7 @@ import net.minecraftforge.client.event.GuiContainerEvent;
 import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
@@ -735,7 +739,7 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> SPHERE_EFFECT_ITEM = ITEMS.register("sphere_effect", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CONST_BUILDER = ITEMS.register("const_builder", () -> new ScriptBuilderItem() {
         @Override
-        public void openScriptEditGUI(ItemStack stack) {
+        public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
             Minecraft minecraft = Minecraft.getInstance();
             ITextComponent title = GensokyoOntology.withTranslation("gui.",".const_builder.title");
             minecraft.displayGuiScreen(new ConstBuilderScreen(title, stack));
@@ -744,10 +748,10 @@ public final class ItemRegistry {
 
     public static final RegistryObject<Item> V3D_BUILDER = ITEMS.register("vector3d_builder", () -> new ScriptBuilderItem() {
         @Override
-        public void openScriptEditGUI(ItemStack stack) {
+        public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
             Minecraft minecraft = Minecraft.getInstance();
             ITextComponent title = GensokyoOntology.withTranslation("gui.",".vector3d_builder.title");
-            minecraft.displayGuiScreen(new Vector3dBuilderScreen(title, stack));
+            // minecraft.displayGuiScreen(new Vector3dBuilderScreen(title, stack));
         }
     });
 }

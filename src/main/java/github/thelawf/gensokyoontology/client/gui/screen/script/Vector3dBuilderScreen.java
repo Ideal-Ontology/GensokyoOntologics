@@ -10,8 +10,11 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+@OnlyIn(Dist.CLIENT)
 public class Vector3dBuilderScreen extends ScriptBuilderScreen{
     private CompoundNBT vector3dValue = new CompoundNBT();
     private CompoundNBT variableName = new CompoundNBT();
@@ -29,6 +32,15 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen{
         this.vector3dValue.putDouble("x", 0);
         this.vector3dValue.putDouble("y", 0);
         this.vector3dValue.putDouble("z", 0);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        this.nameInput.tick();
+        this.xInput.tick();
+        this.yInput.tick();
+        this.zInput.tick();
     }
 
     @Override
@@ -62,10 +74,17 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen{
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        Minecraft mc = Minecraft.getInstance();
-        drawString(matrixStack, mc.fontRenderer, this.tipXValue, 0, 0, 16777215);
-        drawString(matrixStack, mc.fontRenderer, this.tipYValue, 0, 60, 16777215);
-        drawString(matrixStack, mc.fontRenderer, this.tipZValue, 0, 120, 16777215);
+        if (this.minecraft != null) {
+            drawString(matrixStack, this.minecraft.fontRenderer, this.tipXValue, 0, 0, 16777215);
+            drawString(matrixStack, this.minecraft.fontRenderer, this.tipYValue, 0, 60, 16777215);
+            drawString(matrixStack, this.minecraft.fontRenderer, this.tipZValue, 0, 120, 16777215);
+
+            this.nameInput.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.xInput.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.yInput.render(matrixStack, mouseX, mouseY, partialTicks);
+            this.zInput.render(matrixStack, mouseX, mouseY, partialTicks);
+        }
+
     }
 
     public CompoundNBT getVector3dNBT() {
