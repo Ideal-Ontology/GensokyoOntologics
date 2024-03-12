@@ -243,6 +243,8 @@
   "item.gensokyoontology.yattsume_una": "八目鳗",
 
   "item.gensokyoontology.rail_wrench": "Rail Wrench",
+  "item.gensokyoontology.const_builder": "常量构建器",
+  "item.gensokyoontology.vector3d_builder": "双精度浮点数三维向量构建器",
 
   "advancement.gensokyoontology.root.title": "灵梦，这是异变啊！",
   "advancement.gensokyoontology.root.description": "获得被遗忘的传说",

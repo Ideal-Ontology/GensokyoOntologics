@@ -243,6 +243,8 @@
   "item.gensokyoontology.yattsume_una": "Yattsume Una",
 
   "item.gensokyoontology.rail_wrench": "Rail Wrench",
+  "item.gensokyoontology.const_builder": "Constance Builder",
+  "item.gensokyoontology.vector3d_builder": "Vector3d Builder",
 
   "advancement.gensokyoontology.root.title": "これは異変だった, 霊夢！",
   "advancement.gensokyoontology.root.description": "Get Story Pages Chapter 1.1",
