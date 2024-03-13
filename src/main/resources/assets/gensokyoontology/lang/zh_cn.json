@@ -416,8 +416,16 @@
   "gui.gensokyoontology.text_field.rotation_pitch": "0",
 
   "gui.gensokyoontology.script.button.save": "保存",
+  "gui.gensokyoontology.default.set_name": "§7§oPlease set name",
+  "gui.gensokyoontology.default.set_value": "§7§oPlease set value",
+
   "gui.gensokyoontology.const_builder.button.preset.default": "默认设置",
   "gui.gensokyoontology.const_builder.button.preset.custom": "自定义设置",
+  "gui.gensokyoontology.const_builder.button.preset.none": "默认设置",
+  "gui.gensokyoontology.const_builder.button.preset.pi": "预设值：π",
+  "gui.gensokyoontology.const_builder.button.preset.two_pi": "预设值：2π",
+  "gui.gensokyoontology.const_builder.button.preset.e": "预设值：e",
+
   "gui.gensokyoontology.const_builder.tip.nameInput": "名称：",
   "gui.gensokyoontology.const_builder.tip.valueInput": "值：",
 

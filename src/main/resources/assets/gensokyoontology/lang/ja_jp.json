@@ -416,8 +416,16 @@
   "gui.gensokyoontology.text_field.rotation_pitch": "0",
 
   "gui.gensokyoontology.script.button.save": "Save",
+  "gui.gensokyoontology.default.set_name": "§7§oPlease set name",
+  "gui.gensokyoontology.default.set_value": "§7§oPlease set value",
+
   "gui.gensokyoontology.const_builder.button.preset.default": "Default Preset",
   "gui.gensokyoontology.const_builder.button.preset.custom": "Custom Preset",
+  "gui.gensokyoontology.const_builder.button.preset.none": "No Preset",
+  "gui.gensokyoontology.const_builder.button.preset.pi": "π",
+  "gui.gensokyoontology.const_builder.button.preset.two_pi": "2π",
+  "gui.gensokyoontology.const_builder.button.preset.e": "e",
+
   "gui.gensokyoontology.const_builder.tip.nameInput": "Name: ",
   "gui.gensokyoontology.const_builder.tip.valueInput": "Value: ",
 

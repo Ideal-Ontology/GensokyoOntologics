@@ -11,13 +11,12 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
 
 @OnlyIn(Dist.CLIENT)
 public class ConstBuilderScreen extends ScriptBuilderScreen {
@@ -30,14 +29,15 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     private TextFieldWidget valueInput;
     private IntervalWidget interval;
     private final CompoundNBT numberValue = new CompoundNBT();
-    private ITextComponent presetCustom = GensokyoOntology.withTranslation("gui.",".button.preset.custom");
-    private ITextComponent presetDefault = GensokyoOntology.withTranslation("gui.",".const_builder.button.preset.default");
-    private ITextComponent intTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.int");
-    private ITextComponent longTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.long");
-    private ITextComponent floatTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.float");
-    private ITextComponent doubleTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.double");
-    private ITextComponent nameText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.nameInput");
-    private ITextComponent valueText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.valueInput");
+    private final ITextComponent defaultName = GensokyoOntology.withTranslation("gui.",".default.set_name");
+    private final ITextComponent defaultValue = GensokyoOntology.withTranslation("gui.",".default.set_value");
+    private final ITextComponent presetDefault = GensokyoOntology.withTranslation("gui.",".const_builder.button.preset.none");
+    private final ITextComponent intTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.int");
+    private final ITextComponent longTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.long");
+    private final ITextComponent floatTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.float");
+    private final ITextComponent doubleTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.double");
+    private final ITextComponent nameText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.nameInput");
+    private final ITextComponent valueText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.valueInput");
 
     public List<WidgetConfig> NAME_LINE;
     public List<WidgetConfig> VALUE_LINE;
@@ -49,7 +49,6 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         this.stack = stack;
         this.constPreset = ConstPreset.NONE;
         this.constType = ConstType.INT;
-
     }
 
     @Override
@@ -64,68 +63,97 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;
         if (this.constPreset == ConstPreset.NONE) {
-
             this.constTypeBtn = new Button(200, 60, 20, 20, this.intTypeText, (button) -> {
                 this.constType = EnumUtil.switchEnum(ConstType.class, this.constType);
             });
         }
         this.presetBtn = new Button(0, 0, 100, 20, this.presetDefault, (button) -> {
-            this.insertValue();
+            this.insertNameAndValue();
             this.constPreset = EnumUtil.switchEnum(ConstPreset.class, this.constPreset);
             this.children.remove(this.constTypeBtn);
         });
 
-        this.nameInput = new TextFieldWidget(this.minecraft.fontRenderer, 30, 30, 100, 20, new StringTextComponent(""));
-        this.valueInput = new TextFieldWidget(this.minecraft.fontRenderer, 160, 30, 100, 20, new StringTextComponent(""));
-
+        this.nameInput = new TextFieldWidget(this.minecraft.fontRenderer, 30, 30, 100, 20, this.defaultName);
+        this.valueInput = new TextFieldWidget(this.minecraft.fontRenderer, 160, 30, 100, 20, this.defaultValue);
+        this.saveBtn = new Button(0, 200, 20, 20, this.saveText, this::saveBtnAction);
 
         NAME_LINE = Lists.newArrayList(
                 WidgetConfig.of(this.interval, 0, 0).isText(true).upInterval(50).leftInterval(20)
                         .withFont(this.minecraft.fontRenderer)
                         .withText(this.nameText),
-                WidgetConfig.of(this.nameInput, 100, 20).leftInterval(10)
+                WidgetConfig.of(this.nameInput, 120, 20).leftInterval(10)
                         .withFont(this.minecraft.fontRenderer)
-                        .withText(new TranslationTextComponent("")));
+                        .withText(this.constPreset.toTextComponent()));
 
         VALUE_LINE = Lists.newArrayList(
                 WidgetConfig.of(this.interval, 0, 0).isText(true).upInterval(80).leftInterval(20)
                         .withFont(this.minecraft.fontRenderer)
                         .withText(this.valueText),
-                WidgetConfig.of(this.valueInput, 100, 20).leftInterval(10)
+                WidgetConfig.of(this.valueInput, 120, 20).leftInterval(10)
                         .withFont(this.minecraft.fontRenderer)
-                        .withText(new TranslationTextComponent("")));
+                        .withText(this.constPreset.toTextComponent()));
 
         BUTTONS = Lists.newArrayList(
-                WidgetConfig.of(this.presetBtn, 100, 20).upInterval(30).leftInterval(20)
+                WidgetConfig.of(this.presetBtn, 100, 20).upInterval(20).leftInterval(20)
                         .withFont(this.minecraft.fontRenderer)
-                        .withText(this.presetDefault)
-                        .withAction(this::presetBtnAction));
+                        .withText(this.constPreset.toTextComponent())
+                        .withAction(this::presetBtnAction),
+                WidgetConfig.of(this.constTypeBtn, 100, 20).leftInterval(130)
+                        .withFont(this.minecraft.fontRenderer)
+                        .withText(this.constType.toTextComponent())
+                        .withAction(this::constTypeBtnAction),
+                WidgetConfig.of(this.saveBtn, 40, 20).upInterval(120).leftInterval(20)
+                        .withFont(this.minecraft.fontRenderer)
+                        .withText(this.saveText)
+                        .withAction(this::saveBtnAction));
 
         setCenteredWidgets(NAME_LINE);
         setCenteredWidgets(VALUE_LINE);
+        setCenteredWidgets(BUTTONS);
 
-        this.saveBtn = new Button(0, 200, 20, 20, this.saveText, (button) -> {
-            if (this.checkPresetForSave()) {
-                this.stack.setTag(this.numberValue);
-                ItemStack itemStack = this.stack.copy();
-                this.stack.shrink(1);
-                this.minecraft.player.inventory.addItemStackToInventory(itemStack);
+        if (this.stack.getTag() != null) {
+            String key;
+            AtomicReference<String> stringRef = new AtomicReference<>("");
+            this.stack.getTag().keySet().stream().findFirst().ifPresent(stringRef::set);
+            key = stringRef.get();
+
+            if (key.equals("none")) {
+                this.nameInput.setText(key);
+                this.valueInput.setText("NONE");
             }
-        });
-
-        this.addButton(this.presetBtn);
-        this.addButton(this.saveBtn);
+            else if (key.equals("double")) {
+                this.nameInput.setText(key);
+                this.valueInput.setText(String.valueOf(this.stack.getTag().getDouble("double")));
+            }
+        }
     }
 
     private void presetBtnAction(Button button) {
-        this.insertValue();
-        if (this.constPreset == ConstPreset.NONE) {
-            button.setMessage(EnumUtil.switchEnum(ConstPreset.class, this.constPreset).toTextComponent());
-        }
+        this.insertNameAndValue();
         this.constPreset = EnumUtil.switchEnum(ConstPreset.class, this.constPreset);
-
+        button.setMessage(EnumUtil.moveTo(ConstPreset.class, this.constPreset, -1).toTextComponent());
+        if (this.constPreset == ConstPreset.NONE) this.constType = ConstType.STRING;
+        else this.constType = ConstType.DOUBLE;
         this.children.remove(this.constTypeBtn);
     }
+
+    private void saveBtnAction(Button button) {
+        if (this.checkPresetForSave()) {
+            this.stack.setTag(this.numberValue);
+            ItemStack itemStack = this.stack.copy();
+            if (this.minecraft != null && this.minecraft.player != null) {
+                this.stack.shrink(1);
+                this.minecraft.player.inventory.addItemStackToInventory(itemStack);
+            }
+        }
+        this.closeScreen();
+    }
+    private void constTypeBtnAction(Button button) {
+        this.constType = EnumUtil.switchEnum(ConstType.class, this.constType);
+        button.setMessage(this.constType.toTextComponent());
+        this.nameInput.setText(this.constType.getKey());
+    }
+
 
     @Override
     public boolean isPauseScreen() {
@@ -149,28 +177,30 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
 
             this.valueInput.render(matrixStack, mouseX, mouseY, partialTicks);
             this.nameInput.render(matrixStack, mouseX, mouseY, partialTicks);
-
-            this.saveBtn.render(matrixStack, mouseX, mouseY, partialTicks);
-            this.presetBtn.render(matrixStack, mouseX, mouseY, partialTicks);
         }
 
     }
 
-    private void insertValue() {
+    private void insertNameAndValue() {
         this.checkPresetForInsert();
     }
 
     private void checkPresetForInsert() {
         switch (this.constPreset) {
             case NONE:
+                this.nameInput.setText("undefined");
+                this.valueInput.setText("NONE");
                 break;
             case TWO_PI:
+                this.nameInput.setText("double");
                 this.valueInput.setText(String.valueOf(Math.PI * 2));
                 break;
             case PI:
+                this.nameInput.setText("double");
                 this.valueInput.setText(String.valueOf(Math.PI));
                 break;
             case E:
+                this.nameInput.setText("double");
                 this.valueInput.setText(String.valueOf(Math.E));
                 break;
         }

@@ -8,7 +8,11 @@ import net.minecraft.util.text.ITextComponent;
 import java.util.concurrent.atomic.AtomicReference;
 
 public enum ConstPreset {
-    NONE(new CompoundNBT()),
+    NONE(GSKONBTUtil.wrap(() -> {
+        CompoundNBT compoundNBT = new CompoundNBT();
+        compoundNBT.putString("none", "None");
+        return compoundNBT;
+    })),
     PI(GSKONBTUtil.wrap(() -> {
         CompoundNBT compound = new CompoundNBT();
         compound.putDouble("pi", Math.PI);
