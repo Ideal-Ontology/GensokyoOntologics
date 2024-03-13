@@ -16,6 +16,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 @OnlyIn(Dist.CLIENT)
@@ -33,9 +34,6 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     private final ITextComponent defaultValue = GensokyoOntology.withTranslation("gui.",".default.set_value");
     private final ITextComponent presetDefault = GensokyoOntology.withTranslation("gui.",".const_builder.button.preset.none");
     private final ITextComponent intTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.int");
-    private final ITextComponent longTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.long");
-    private final ITextComponent floatTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.float");
-    private final ITextComponent doubleTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.double");
     private final ITextComponent nameText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.nameInput");
     private final ITextComponent valueText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.valueInput");
 
@@ -116,14 +114,36 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
             AtomicReference<String> stringRef = new AtomicReference<>("");
             this.stack.getTag().keySet().stream().findFirst().ifPresent(stringRef::set);
             key = stringRef.get();
+            this.saveBtn.active = false;
+            this.nameInput.active = false;
+            this.valueInput.active = false;
 
-            if (key.equals("none")) {
-                this.nameInput.setText(key);
-                this.valueInput.setText("NONE");
-            }
-            else if (key.equals("double")) {
-                this.nameInput.setText(key);
-                this.valueInput.setText(String.valueOf(this.stack.getTag().getDouble("double")));
+            switch (key) {
+                case "none":
+                default:
+                    this.nameInput.setText(key);
+                    this.valueInput.setText("NONE");
+                    break;
+                case "double":
+                    this.nameInput.setText(key);
+                    this.valueInput.setText(String.valueOf(this.stack.getTag().getDouble("double")));
+                    break;
+                case "int":
+                    this.nameInput.setText(key);
+                    this.valueInput.setText(String.valueOf(this.stack.getTag().getInt("int")));
+                    break;
+                case "float":
+                    this.nameInput.setText(key);
+                    this.valueInput.setText(String.valueOf(this.stack.getTag().getFloat("float")));
+                    break;
+                case "long":
+                    this.nameInput.setText(key);
+                    this.valueInput.setText(String.valueOf(this.stack.getTag().getLong("long")));
+                    break;
+                case "string":
+                    this.nameInput.setText(key);
+                    this.valueInput.setText(this.stack.getTag().getString("string"));
+                    break;
             }
         }
     }
@@ -152,8 +172,8 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         this.constType = EnumUtil.switchEnum(ConstType.class, this.constType);
         button.setMessage(this.constType.toTextComponent());
         this.nameInput.setText(this.constType.getKey());
+        this.valueInput.setText("");
     }
-
 
     @Override
     public boolean isPauseScreen() {
@@ -178,7 +198,6 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
             this.valueInput.render(matrixStack, mouseX, mouseY, partialTicks);
             this.nameInput.render(matrixStack, mouseX, mouseY, partialTicks);
         }
-
     }
 
     private void insertNameAndValue() {
@@ -210,30 +229,66 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         if (this.nameInput.getText().equals("") || this.valueInput.getText().equals("")) return false;
         switch (this.constPreset) {
             case NONE:
+                if (this.stack.getTag() != null && !this.nameInput.getText().equals(this.constType.key)) {
+                    return false;
+                }
                 tryParse();
                 return true;
             case TWO_PI:
             case PI:
             case E:
+                if (!this.nameInput.getText().equals(this.constPreset.getKey()) && !this.nameInput.getText().equals(this.constType.key)) {
+                    this.numberValue.putString(this.nameInput.getText(), this.valueInput.getText());
+                    return true;
+                }
                 this.numberValue.putDouble(this.constType.key, Double.parseDouble(this.valueInput.getText()));
                 return true;
+            default:
+                this.numberValue.putString(this.nameInput.getText(), this.valueInput.getText());
         }
         return true;
     }
 
     private void tryParse() {
+
         switch (this.constType) {
             case INT:
                 this.numberValue.putInt(this.constType.key, Integer.parseInt(this.valueInput.getText()));
+                // try {
+                //     this.numberValue.putInt(this.constType.key, Integer.parseInt(this.valueInput.getText()));
+                // } finally {
+                //
+                // }
                 break;
             case LONG:
                 this.numberValue.putLong(this.constType.key, Long.parseLong(this.valueInput.getText()));
+                // try {
+                //     this.numberValue.putLong(this.constType.key, Long.parseLong(this.valueInput.getText()));
+                // }
+                // finally {
+                //     this.numberValue.putString(this.constType.key, this.valueInput.getText());
+                // }
                 break;
             case FLOAT:
                 this.numberValue.putFloat(this.constType.key, Float.parseFloat(this.valueInput.getText()));
+                // try {
+                //     this.numberValue.putFloat(this.constType.key, Float.parseFloat(this.valueInput.getText()));
+                // }
+                // finally {
+                //     this.numberValue.putString(this.constType.key, this.valueInput.getText());
+                // }
                 break;
             case DOUBLE:
                 this.numberValue.putDouble(this.constType.key, Double.parseDouble(this.valueInput.getText()));
+                // try {
+                //     this.numberValue.putDouble(this.constType.key, Double.parseDouble(this.valueInput.getText()));
+                // }
+                // finally {
+                //     this.numberValue.putString(this.constType.key, this.valueInput.getText());
+                // }
+                break;
+            case STRING:
+                this.numberValue.putString(this.constType.key, this.valueInput.getText());
                 break;
         }
     }
