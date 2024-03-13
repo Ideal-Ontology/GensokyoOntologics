@@ -13,7 +13,7 @@ public class RefWorldScreen extends ScriptBuilderScreen{
     private TextFieldWidget nameInput;
     private World world;
     private final ITextComponent worldTip = GensokyoOntology.withTranslation("gui.",".ref_world.tip");
-    protected RefWorldScreen(ITextComponent titleIn, ItemStack stack, World world) {
+    protected RefWorldScreen(ITextComponent titleIn,  ItemStack stack, World world) {
         super(titleIn, stack);
         this.world = world;
     }
@@ -22,4 +22,6 @@ public class RefWorldScreen extends ScriptBuilderScreen{
     protected void init() {
         super.init();
     }
+
+
 }

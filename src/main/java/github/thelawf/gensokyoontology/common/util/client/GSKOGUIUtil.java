@@ -1,9 +1,13 @@
 package github.thelawf.gensokyoontology.common.util.client;
 
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 
 import java.io.File;
 import java.util.*;
@@ -43,6 +47,19 @@ public class GSKOGUIUtil {
 
         return recipes;
     }
+
+    public static Button createByParentRatio(float xRatio, float yRatio, int width, int height, int parentWidth, int parentHeight, ITextComponent title, Button.IPressable pressable) {
+        return new Button((int) xRatio * parentWidth, (int) yRatio * parentHeight, width, height, title, pressable);
+    }
+
+    public static TextFieldWidget creatTFByRatio(FontRenderer renderer, int width, int height, float xRatio, float yRatio, ITextComponent text) {
+        return new TextFieldWidget(renderer, (int) xRatio * 255, (int) yRatio * 255, width, height, text);
+    }
+
+    public static Button creatButtonByRatio(int width, int height, float xRatio, float yRatio, ITextComponent title, Button.IPressable pressable) {
+        return new Button((int) xRatio * 255, (int) yRatio * 255, width, height, title, pressable);
+    }
+
 
     public static File withXMMUIFile(String xmlName){
         return new File(System.getProperty("user.dir").replace("run","") + "/src/main/resources/assets/gensokyoontology/xmmui/" + xmlName);

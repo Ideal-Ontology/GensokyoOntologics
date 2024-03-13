@@ -1,18 +1,23 @@
 package github.thelawf.gensokyoontology.client.gui.screen.script;
 
+import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
+import github.thelawf.gensokyoontology.client.gui.screen.IntervalWidget;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class ConstBuilderScreen extends ScriptBuilderScreen {
@@ -23,6 +28,7 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     private ConstType constType;
     private TextFieldWidget nameInput;
     private TextFieldWidget valueInput;
+    private IntervalWidget interval;
     private final CompoundNBT numberValue = new CompoundNBT();
 
     private ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".script.button.save");
@@ -34,12 +40,17 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     private ITextComponent doubleTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.double");
     private ITextComponent nameText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.nameInput");
     private ITextComponent valueText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.valueInput");
+
+    public List<WidgetConfig> NAME_LINE;
+    public List<WidgetConfig> VALUE_LINE;
+
     // GensokyoOntology.withTranslation("screen.",".const_builder.title")
     public ConstBuilderScreen(ITextComponent titleIn, ItemStack stack) {
         super(titleIn, stack);
         this.stack = stack;
         this.constPreset = ConstPreset.NONE;
         this.constType = ConstType.INT;
+
     }
 
     @Override
@@ -52,25 +63,57 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     @Override
     protected void init() {
         if (this.minecraft == null) return;
+        if (this.minecraft.player == null) return;
         if (this.constPreset == ConstPreset.NONE) {
-            this.constTypeBtn = new Button(200, 60, 16, 16, this.intTypeText, (button) -> {
+
+            this.constTypeBtn = new Button(200, 60, 20, 20, this.intTypeText, (button) -> {
                 this.constType = EnumUtil.switchEnum(ConstType.class, this.constType);
             });
         }
-        this.presetBtn = new Button(0, 0, 100, 16, this.presetDefault, (button) -> {
+        this.presetBtn = new Button(0, 0, 100, 20, this.presetDefault, (button) -> {
             this.insertValue();
             this.constPreset = EnumUtil.switchEnum(ConstPreset.class, this.constPreset);
             this.children.remove(this.constTypeBtn);
         });
 
-        this.nameInput = new TextFieldWidget(this.minecraft.fontRenderer, 30, 30, 100, 16, new StringTextComponent(""));
-        this.valueInput = new TextFieldWidget(this.minecraft.fontRenderer, 160, 30, 100, 16, new StringTextComponent(""));
-        this.children.add(nameInput);
-        this.children.add(valueInput);
+        this.nameInput = new TextFieldWidget(this.minecraft.fontRenderer, 30, 30, 100, 20, new StringTextComponent(""));
+        this.valueInput = new TextFieldWidget(this.minecraft.fontRenderer, 160, 30, 100, 20, new StringTextComponent(""));
 
-        this.saveBtn = new Button(0, 200, 16, 16, this.saveText, (button) -> {
-            if (this.checkPresetForSave()) this.stack.setTag(this.numberValue);
+        NAME_LINE = Lists.newArrayList(
+                WidgetConfig.of(this.interval, 0, 0).isText(true).upInterval(30).leftInterval(20)
+                        .withFont(this.minecraft.fontRenderer)
+                        .withText(this.nameText),
+                WidgetConfig.of(this.nameInput, 100, 20).leftInterval(10)
+                        .withFont(this.minecraft.fontRenderer)
+                        .withText(new TranslationTextComponent("")));
+
+        VALUE_LINE = Lists.newArrayList(
+                WidgetConfig.of(this.interval, 0, 0).isText(true).upInterval(60).leftInterval(20)
+                        .withFont(this.minecraft.fontRenderer)
+                        .withText(this.valueText),
+                WidgetConfig.of(this.valueInput, 100, 20).leftInterval(10)
+                        .withFont(this.minecraft.fontRenderer)
+                        .withText(new TranslationTextComponent("")));
+
+        setCenteredWidgets(NAME_LINE);
+        setCenteredWidgets(VALUE_LINE);
+
+        this.saveBtn = new Button(0, 200, 20, 20, this.saveText, (button) -> {
+            if (this.checkPresetForSave()) {
+                this.stack.setTag(this.numberValue);
+                ItemStack itemStack = this.stack.copy();
+                this.stack.shrink(1);
+                this.minecraft.player.inventory.addItemStackToInventory(itemStack);
+            }
         });
+
+        this.addButton(this.presetBtn);
+        this.addButton(this.saveBtn);
+    }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
     }
 
     @Override
@@ -84,7 +127,10 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
 
         if (this.minecraft != null) {
-            drawString(matrixStack, this.minecraft.fontRenderer, this.nameText, 30, 0, 16777215);
+            // drawString(matrixStack, this.minecraft.fontRenderer, this.nameText, 0, 30, 16777215);
+            drawCenteredText(NAME_LINE, matrixStack, mouseX, mouseY, partialTicks);
+            drawCenteredText(VALUE_LINE, matrixStack, mouseX, mouseY, partialTicks);
+
             this.valueInput.render(matrixStack, mouseX, mouseY, partialTicks);
             this.nameInput.render(matrixStack, mouseX, mouseY, partialTicks);
 
