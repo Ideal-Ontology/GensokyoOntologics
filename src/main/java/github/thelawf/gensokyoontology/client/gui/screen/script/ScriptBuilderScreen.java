@@ -17,7 +17,7 @@ public abstract class ScriptBuilderScreen extends LineralLayoutScreen {
     protected ItemStack stack;
     protected ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".script.button.save");
 
-    protected ScriptBuilderScreen(ITextComponent titleIn, ItemStack stack) {
+    public ScriptBuilderScreen(ITextComponent titleIn, ItemStack stack) {
         super(titleIn);
         this.stack = stack;
     }

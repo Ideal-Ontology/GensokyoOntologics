@@ -47,10 +47,12 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen{
     @Override
     protected void init() {
         super.init();
-        Minecraft mc = Minecraft.getInstance();
-        this.xInput = new TextFieldWidget(mc.fontRenderer, 0, 50, 100, 30, new StringTextComponent(""));
-        this.yInput = new TextFieldWidget(mc.fontRenderer, 60, 50, 100, 30, new StringTextComponent(""));
-        this.zInput = new TextFieldWidget(mc.fontRenderer, 120, 50, 100, 30, new StringTextComponent(""));
+        if (this.minecraft == null) return;
+
+        this.nameInput = new TextFieldWidget(this.minecraft.fontRenderer, 0,0,0,0, this.title);
+        this.xInput = new TextFieldWidget(this.minecraft.fontRenderer, 0, 50, 100, 30, new StringTextComponent(""));
+        this.yInput = new TextFieldWidget(this.minecraft.fontRenderer, 60, 50, 100, 30, new StringTextComponent(""));
+        this.zInput = new TextFieldWidget(this.minecraft.fontRenderer, 120, 50, 100, 30, new StringTextComponent(""));
         this.children.add(this.xInput);
         this.children.add(this.yInput);
         this.children.add(this.zInput);

@@ -35,8 +35,8 @@ public class WidgetConfig {
         return this;
     }
 
-    public WidgetConfig withAction(Button.IPressable actioIn) {
-        this.action = actioIn;
+    public WidgetConfig withAction(Button.IPressable actionIn) {
+        this.action = actionIn;
         return this;
     }
 

@@ -41,6 +41,7 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
 
     public List<WidgetConfig> NAME_LINE;
     public List<WidgetConfig> VALUE_LINE;
+    public List<WidgetConfig> BUTTONS;
 
     // GensokyoOntology.withTranslation("screen.",".const_builder.title")
     public ConstBuilderScreen(ITextComponent titleIn, ItemStack stack) {
@@ -77,8 +78,9 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         this.nameInput = new TextFieldWidget(this.minecraft.fontRenderer, 30, 30, 100, 20, new StringTextComponent(""));
         this.valueInput = new TextFieldWidget(this.minecraft.fontRenderer, 160, 30, 100, 20, new StringTextComponent(""));
 
+
         NAME_LINE = Lists.newArrayList(
-                WidgetConfig.of(this.interval, 0, 0).isText(true).upInterval(30).leftInterval(20)
+                WidgetConfig.of(this.interval, 0, 0).isText(true).upInterval(50).leftInterval(20)
                         .withFont(this.minecraft.fontRenderer)
                         .withText(this.nameText),
                 WidgetConfig.of(this.nameInput, 100, 20).leftInterval(10)
@@ -86,12 +88,18 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
                         .withText(new TranslationTextComponent("")));
 
         VALUE_LINE = Lists.newArrayList(
-                WidgetConfig.of(this.interval, 0, 0).isText(true).upInterval(60).leftInterval(20)
+                WidgetConfig.of(this.interval, 0, 0).isText(true).upInterval(80).leftInterval(20)
                         .withFont(this.minecraft.fontRenderer)
                         .withText(this.valueText),
                 WidgetConfig.of(this.valueInput, 100, 20).leftInterval(10)
                         .withFont(this.minecraft.fontRenderer)
                         .withText(new TranslationTextComponent("")));
+
+        BUTTONS = Lists.newArrayList(
+                WidgetConfig.of(this.presetBtn, 100, 20).upInterval(30).leftInterval(20)
+                        .withFont(this.minecraft.fontRenderer)
+                        .withText(this.presetDefault)
+                        .withAction(this::presetBtnAction));
 
         setCenteredWidgets(NAME_LINE);
         setCenteredWidgets(VALUE_LINE);
@@ -107,6 +115,16 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
 
         this.addButton(this.presetBtn);
         this.addButton(this.saveBtn);
+    }
+
+    private void presetBtnAction(Button button) {
+        this.insertValue();
+        if (this.constPreset == ConstPreset.NONE) {
+            button.setMessage(EnumUtil.switchEnum(ConstPreset.class, this.constPreset).toTextComponent());
+        }
+        this.constPreset = EnumUtil.switchEnum(ConstPreset.class, this.constPreset);
+
+        this.children.remove(this.constTypeBtn);
     }
 
     @Override

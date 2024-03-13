@@ -1,7 +1,11 @@
 package github.thelawf.gensokyoontology.client.gui.screen.script;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.text.ITextComponent;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public enum ConstPreset {
     NONE(new CompoundNBT()),
@@ -29,5 +33,15 @@ public enum ConstPreset {
 
     public CompoundNBT get() {
         return this.nbt;
+    }
+
+    public String getKey() {
+        AtomicReference<String> str = new AtomicReference<>("");
+        this.nbt.keySet().stream().filter(s -> s.equals(this.name().toLowerCase())).findFirst().ifPresent(str::set);
+        return str.get();
+    }
+
+    public ITextComponent toTextComponent() {
+        return GensokyoOntology.withTranslation("gui.",".const_builder.button.preset." + getKey());
     }
 }
