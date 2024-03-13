@@ -30,8 +30,6 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     private TextFieldWidget valueInput;
     private IntervalWidget interval;
     private final CompoundNBT numberValue = new CompoundNBT();
-
-    private ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".script.button.save");
     private ITextComponent presetCustom = GensokyoOntology.withTranslation("gui.",".button.preset.custom");
     private ITextComponent presetDefault = GensokyoOntology.withTranslation("gui.",".const_builder.button.preset.default");
     private ITextComponent intTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.int");

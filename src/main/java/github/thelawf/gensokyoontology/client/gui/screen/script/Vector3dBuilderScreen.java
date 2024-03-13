@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.client.gui.screen.script;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.screen.CommandBlockScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
