@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.client.gui.screen.script;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.client.IInputParser;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;

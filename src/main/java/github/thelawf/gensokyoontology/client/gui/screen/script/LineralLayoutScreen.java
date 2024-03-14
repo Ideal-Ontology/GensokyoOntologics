@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.client.gui.screen.script;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import github.thelawf.gensokyoontology.api.client.IInputParser;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -9,7 +10,7 @@ import net.minecraft.util.text.ITextComponent;
 
 import java.util.List;
 
-public abstract class LineralLayoutScreen extends Screen {
+public abstract class LineralLayoutScreen extends Screen implements IInputParser {
     protected LineralLayoutScreen(ITextComponent titleIn) {
         super(titleIn);
     }

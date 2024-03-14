@@ -31,7 +31,7 @@ public class ReflectHelper {
         return false;
     }
 
-    @SuppressWarnings("unchecked")
+    // @SuppressWarnings("unchecked")
     public static <T> Object getPublicStatic(T t, String name) throws IllegalAccessException {
         Optional<Field> optional = Stream.of(t.getClass().getDeclaredFields()).filter(field -> {
             int modifiers = field.getModifiers();

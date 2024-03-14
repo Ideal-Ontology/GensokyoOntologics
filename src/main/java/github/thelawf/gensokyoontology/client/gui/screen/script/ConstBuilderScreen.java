@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.client.gui.screen.script;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.client.IInputParser;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.screen.IntervalWidget;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
@@ -154,6 +155,8 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         button.setMessage(EnumUtil.moveTo(ConstPreset.class, this.constPreset, -1).toTextComponent());
         if (this.constPreset == ConstPreset.NONE) this.constType = ConstType.STRING;
         else this.constType = ConstType.DOUBLE;
+
+        this.constTypeBtn.setMessage(this.constType.toTextComponent());
         this.children.remove(this.constTypeBtn);
     }
 
@@ -191,7 +194,6 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
 
         if (this.minecraft != null) {
-            // drawString(matrixStack, this.minecraft.fontRenderer, this.nameText, 0, 30, 16777215);
             drawCenteredText(NAME_LINE, matrixStack, mouseX, mouseY, partialTicks);
             drawCenteredText(VALUE_LINE, matrixStack, mouseX, mouseY, partialTicks);
 
@@ -229,19 +231,12 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         if (this.nameInput.getText().equals("") || this.valueInput.getText().equals("")) return false;
         switch (this.constPreset) {
             case NONE:
-                if (this.stack.getTag() != null && !this.nameInput.getText().equals(this.constType.key)) {
-                    return false;
-                }
                 tryParse();
                 return true;
             case TWO_PI:
             case PI:
             case E:
-                if (!this.nameInput.getText().equals(this.constPreset.getKey()) && !this.nameInput.getText().equals(this.constType.key)) {
-                    this.numberValue.putString(this.nameInput.getText(), this.valueInput.getText());
-                    return true;
-                }
-                this.numberValue.putDouble(this.constType.key, Double.parseDouble(this.valueInput.getText()));
+                this.numberValue.putDouble(this.constType.key, parseDouble(this.valueInput.getText()));
                 return true;
             default:
                 this.numberValue.putString(this.nameInput.getText(), this.valueInput.getText());
@@ -253,39 +248,16 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
 
         switch (this.constType) {
             case INT:
-                this.numberValue.putInt(this.constType.key, Integer.parseInt(this.valueInput.getText()));
-                // try {
-                //     this.numberValue.putInt(this.constType.key, Integer.parseInt(this.valueInput.getText()));
-                // } finally {
-                //
-                // }
+                this.numberValue.putInt(this.constType.key, parseInt(this.valueInput.getText()));
                 break;
             case LONG:
-                this.numberValue.putLong(this.constType.key, Long.parseLong(this.valueInput.getText()));
-                // try {
-                //     this.numberValue.putLong(this.constType.key, Long.parseLong(this.valueInput.getText()));
-                // }
-                // finally {
-                //     this.numberValue.putString(this.constType.key, this.valueInput.getText());
-                // }
+                this.numberValue.putLong(this.constType.key, parseLong(this.valueInput.getText()));
                 break;
             case FLOAT:
-                this.numberValue.putFloat(this.constType.key, Float.parseFloat(this.valueInput.getText()));
-                // try {
-                //     this.numberValue.putFloat(this.constType.key, Float.parseFloat(this.valueInput.getText()));
-                // }
-                // finally {
-                //     this.numberValue.putString(this.constType.key, this.valueInput.getText());
-                // }
+                this.numberValue.putFloat(this.constType.key, parseFloat(this.valueInput.getText()));
                 break;
             case DOUBLE:
-                this.numberValue.putDouble(this.constType.key, Double.parseDouble(this.valueInput.getText()));
-                // try {
-                //     this.numberValue.putDouble(this.constType.key, Double.parseDouble(this.valueInput.getText()));
-                // }
-                // finally {
-                //     this.numberValue.putString(this.constType.key, this.valueInput.getText());
-                // }
+                this.numberValue.putDouble(this.constType.key, parseDouble(this.valueInput.getText()));
                 break;
             case STRING:
                 this.numberValue.putString(this.constType.key, this.valueInput.getText());
