@@ -26,7 +26,7 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     private ConstType constType;
     private TextFieldWidget nameInput;
     private TextFieldWidget valueInput;
-    private final CompoundNBT numberValue = new CompoundNBT();
+    private final CompoundNBT constData = new CompoundNBT();
     private final ITextComponent defaultName = GensokyoOntology.withTranslation("gui.",".default.set_name");
     private final ITextComponent defaultValue = GensokyoOntology.withTranslation("gui.",".default.set_value");
     private final ITextComponent presetDefault = GensokyoOntology.withTranslation("gui.",".const_builder.button.preset.none");
@@ -158,7 +158,7 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
 
     private void saveBtnAction(Button button) {
         if (this.checkPresetForSave()) {
-            this.stack.setTag(this.numberValue);
+            this.stack.setTag(this.constData);
             ItemStack itemStack = this.stack.copy();
             if (this.minecraft != null && this.minecraft.player != null) {
                 this.stack.shrink(1);
@@ -173,8 +173,6 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         this.nameInput.setText(this.constType.getKey());
         this.valueInput.setText("");
     }
-
-
 
     @Override
     public void onClose() {
@@ -229,31 +227,33 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
             case TWO_PI:
             case PI:
             case E:
-                this.numberValue.putDouble(this.constType.key, parseDouble(this.valueInput.getText()));
+                this.constData.putString("type", this.constType.key);
+                this.constData.putDouble(this.constType.key, parseDouble(this.valueInput.getText()));
                 return true;
             default:
-                this.numberValue.putString(this.nameInput.getText(), this.valueInput.getText());
+                this.constData.putString("type", "undefined");
+                this.constData.putString(this.nameInput.getText(), this.valueInput.getText());
         }
         return true;
     }
 
     private void tryParse() {
-
+        this.constData.putString("type", this.constType.key);
         switch (this.constType) {
             case INT:
-                this.numberValue.putInt(this.constType.key, parseInt(this.valueInput.getText()));
+                this.constData.putInt(this.constType.key, parseInt(this.valueInput.getText()));
                 break;
             case LONG:
-                this.numberValue.putLong(this.constType.key, parseLong(this.valueInput.getText()));
+                this.constData.putLong(this.constType.key, parseLong(this.valueInput.getText()));
                 break;
             case FLOAT:
-                this.numberValue.putFloat(this.constType.key, parseFloat(this.valueInput.getText()));
+                this.constData.putFloat(this.constType.key, parseFloat(this.valueInput.getText()));
                 break;
             case DOUBLE:
-                this.numberValue.putDouble(this.constType.key, parseDouble(this.valueInput.getText()));
+                this.constData.putDouble(this.constType.key, parseDouble(this.valueInput.getText()));
                 break;
             case STRING:
-                this.numberValue.putString(this.constType.key, this.valueInput.getText());
+                this.constData.putString(this.constType.key, this.valueInput.getText());
                 break;
         }
     }

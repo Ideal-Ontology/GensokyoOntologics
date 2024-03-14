@@ -3,18 +3,17 @@ package github.thelawf.gensokyoontology.common.util;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.IntNBT;
+import net.minecraft.nbt.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.function.BiFunction;
-import java.util.function.BinaryOperator;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
@@ -143,5 +142,99 @@ public class GSKONBTUtil {
 
     public static BlockPos vecToBlockPos(Vector3d vector3d) {
         return new BlockPos(new Vector3i(vector3d.x, vector3d.y, vector3d.z));
+    }
+
+    public static boolean containsPrimitiveType(CompoundNBT nbt) {
+        if (!nbt.contains("type")) return false;
+        switch (nbt.getString("type")) {
+            case "int":
+            case "long":
+            case "float":
+            case "double":
+            case "string":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static boolean containsAllowedType(CompoundNBT nbt) {
+        if (!nbt.contains("type")) return false;
+        if (containsPrimitiveType(nbt)) return false;
+        switch (nbt.getString("type")) {
+            case "vector3d":
+            case "world":
+            case "danmaku":
+            case "vector3d_list":
+            case "danmaku_list":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static List<String> getMemberValues(CompoundNBT nbt) {
+        List<String> values = new ArrayList<>();
+        if (containsAllowedType(nbt)) {
+            switch (nbt.getString("type")) {
+                case "vector3d":
+                    return getVector3dValues(nbt);
+                case "world":
+                case "danmaku":
+                    CompoundNBT danmakuNBT = getCompoundValue(nbt);
+                    values.add(String.valueOf(danmakuNBT.getInt("danmakuType")));
+                    values.add(String.valueOf(danmakuNBT.getInt("danmakuColor")));
+                default:
+                    return values;
+            }
+        }
+        return values;
+    }
+
+    // case "vector3d_list":
+    // ListNBT vector3dList = getListValue(nbt);
+    //                 vector3dList.forEach(inbt -> {
+    //     if (inbt instanceof CompoundNBT) {
+    //         CompoundNBT vector3dCompound = (CompoundNBT) inbt;
+    //         if (containsAllowedType(vector3dCompound)) {
+    //             getVector3dValues(getCompoundValue(vector3dCompound));
+    //         }
+    //     }
+    // });
+
+    public static List<String> getVector3dValues(CompoundNBT nbt) {
+        List<String> values = new ArrayList<>();
+        CompoundNBT vectorNBT = getCompoundValue(nbt);
+        values.add(String.valueOf(vectorNBT.getDouble("x")));
+        values.add(String.valueOf(vectorNBT.getDouble("y")));
+        values.add(String.valueOf(vectorNBT.getDouble("z")));
+        return values;
+    }
+
+    public static CompoundNBT getCompoundValue(CompoundNBT nbt) {
+        if (nbt.contains("value")) return new CompoundNBT();
+        if (containsAllowedType(nbt) && nbt.get("value") instanceof CompoundNBT) {
+            return (CompoundNBT) nbt.get("value");
+        }
+        else return new CompoundNBT();
+    }
+
+    public static ListNBT getListValue(CompoundNBT nbt) {
+        if (nbt.contains("value")) return new ListNBT();
+        if (containsAllowedType(nbt) && nbt.get("value") instanceof ListNBT) {
+            return (ListNBT) nbt.get("value");
+        }
+        else return new ListNBT();
+    }
+
+    public static List<CompoundNBT> getListCompound(ListNBT listNBT) {
+        List<CompoundNBT> nbtList = new ArrayList<>();
+        if (listNBT.isEmpty()) return nbtList;
+        listNBT.forEach(inbt -> {
+            if (inbt instanceof CompoundNBT) {
+                nbtList.add((CompoundNBT) inbt);
+            }
+        });
+        return nbtList;
     }
 }

@@ -20,8 +20,8 @@ import java.util.List;
 
 @OnlyIn(value = Dist.CLIENT, _interface = ScriptBuilderScreen.class)
 public class Vector3dBuilderScreen extends ScriptBuilderScreen {
-    private final CompoundNBT vector3dValue = new CompoundNBT();
-    private final CompoundNBT vector3dVariable = new CompoundNBT();
+    public static final String TYPE = "vector3d";
+    private final CompoundNBT vector3dData = new CompoundNBT();
     private TextFieldWidget nameInput;
     private TextFieldWidget xInput;
     private TextFieldWidget yInput;
@@ -30,7 +30,6 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
     private final WidgetConfig TEXT_LABEL2 = WidgetConfig.of(new BlankWidget(0,0,0,0, ofText("null")),0,0).isText(true);
     private final WidgetConfig TEXT_LABEL3 = WidgetConfig.of(new BlankWidget(0,0,0,0, ofText("null")),0,0).isText(true);
     private final WidgetConfig TEXT_LABEL4 = WidgetConfig.of(new BlankWidget(0,0,0,0, ofText("null")),0,0).isText(true);
-
 
     private final ITextComponent tipName = GensokyoOntology.withTranslation("gui.",".vector3d.builder.name");
     private List<WidgetConfig> WIDGETS;
@@ -57,9 +56,7 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
         this.yInput = new TextFieldWidget(this.minecraft.fontRenderer, 60, 50, 100, 30, new StringTextComponent(""));
         this.zInput = new TextFieldWidget(this.minecraft.fontRenderer, 120, 50, 100, 30, new StringTextComponent(""));
 
-        this.saveBtn = new Button(0, 200, 30, 30, this.saveText, (button) -> {
-            if (this.checkPresetForSave()) this.stack.setTag(this.vector3dValue);
-        });
+        this.saveBtn = new Button(0, 200, 30, 30, this.saveText, (button) -> {});
 
         WIDGETS = Lists.newArrayList(
                 TEXT_LABEL1.upLeft(50, 20).withText(this.fieldName).withFont(this.font),
@@ -85,22 +82,36 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
                 WidgetConfig.of(this.saveBtn, 40, 20).upLeft(190, 20)
                         .withText(this.saveText)
                         .withFont(this.font)
-                        .withAction((button) -> {}));
+                        .withAction(this::saveBtnAction));
 
         this.setAbsoluteXY(WIDGETS);
-
     }
 
-    private boolean checkPresetForSave() {
-        if (this.nameInput.getText().equals("") || this.xInput.getText().equals("") || this.yInput.getText().equals("") || this.zInput.getText().equals("")) return false;
+    private void saveBtnAction(Button button) {
+        if (this.checkCanSave()) saveData();
+        this.closeScreen();
+    }
 
-        this.vector3dValue.putDouble("x", Double.parseDouble(this.xInput.getText()));
-        this.vector3dValue.putDouble("y", Double.parseDouble(this.yInput.getText()));
-        this.vector3dValue.putDouble("z", Double.parseDouble(this.zInput.getText()));
+    private boolean checkCanSave() {
+        return !this.nameInput.getText().equals("") && !this.xInput.getText().equals("") &&
+                !this.yInput.getText().equals("") && !this.zInput.getText().equals("");
+    }
 
-        this.vector3dVariable.put(this.nameInput.getText(), this.vector3dValue);
-        this.stack.setTag(this.vector3dVariable);
-        return true;
+    private void saveData() {
+        CompoundNBT vector3d = new CompoundNBT();
+        vector3d.putDouble("x", parseDouble(this.xInput.getText()));
+        vector3d.putDouble("y", parseDouble(this.yInput.getText()));
+        vector3d.putDouble("z", parseDouble(this.zInput.getText()));
+
+        this.vector3dData.put(this.nameInput.getText(), vector3d);
+        this.vector3dData.putString("type", TYPE);
+        ItemStack itemStack = this.stack.copy();
+        this.stack.setTag(this.vector3dData);
+
+        if (this.minecraft != null && this.minecraft.player != null) {
+            this.stack.shrink(1);
+            this.minecraft.player.inventory.addItemStackToInventory(itemStack);
+        }
     }
 
 
@@ -124,10 +135,11 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
     }
 
     public CompoundNBT getVector3dNBT() {
-        return this.vector3dValue;
+        return this.vector3dData;
     }
 
     public Vector3d getAsVector3d() {
-        return new Vector3d(this.vector3dValue.getDouble("x"), this.vector3dValue.getDouble("y"), this.vector3dValue.getDouble("z"));
+        CompoundNBT nbt = this.vector3dData;
+        return new Vector3d(nbt.getDouble("x"), nbt.getDouble("y"), nbt.getDouble("z"));
     }
 }

@@ -501,6 +501,10 @@
   "tooltip.gensokyoontology.spirit_tube": "§eRight click Fox to get Kuda Gitsune's Tube",
   "tooltip.gensokyoontology.kuda_gitsune_tube": "§eRight click Ghast to fill it",
 
+  "tooltip.gensokyoontology.script_builder.field_type": "Field Type: ",
+  "tooltip.gensokyoontology.script_builder.field_name": "Field Name: ",
+  "tooltip.gensokyoontology.script_builder.field_value": "Field Value: ",
+
   "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
   "patchouli.gensokyoontology.book.landing_text": "Fore Words",
   "patchouli.gensokyoontology.book.subtitle": "-- Author: Usami Sumireko",
