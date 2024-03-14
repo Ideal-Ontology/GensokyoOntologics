@@ -5,10 +5,11 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
+import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.*;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -107,39 +108,33 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         setCenteredWidgets(BUTTONS);
 
         if (this.stack.getTag() != null) {
-            String key;
-            AtomicReference<String> stringRef = new AtomicReference<>("");
-            this.stack.getTag().keySet().stream().findFirst().ifPresent(stringRef::set);
-            key = stringRef.get();
+
             this.saveBtn.active = false;
             this.nameInput.active = false;
             this.valueInput.active = false;
 
-            switch (key) {
+            this.nameInput.setText(this.stack.getTag().getString("type"));
+            String type = this.stack.getTag().getString("type");
+            CompoundNBT nbt = this.stack.getTag();
+            switch (type) {
                 case "none":
                 default:
-                    this.nameInput.setText(key);
                     this.valueInput.setText("NONE");
                     break;
                 case "double":
-                    this.nameInput.setText(key);
-                    this.valueInput.setText(String.valueOf(this.stack.getTag().getDouble("double")));
+                    this.valueInput.setText(String.valueOf(GSKONBTUtil.getAsNumber(nbt).getDouble()));
                     break;
                 case "int":
-                    this.nameInput.setText(key);
-                    this.valueInput.setText(String.valueOf(this.stack.getTag().getInt("int")));
+                    this.valueInput.setText(String.valueOf(GSKONBTUtil.getAsNumber(nbt).getInt()));
                     break;
                 case "float":
-                    this.nameInput.setText(key);
-                    this.valueInput.setText(String.valueOf(this.stack.getTag().getFloat("float")));
+                    this.valueInput.setText(String.valueOf(GSKONBTUtil.getAsNumber(nbt).getFloat()));
                     break;
                 case "long":
-                    this.nameInput.setText(key);
-                    this.valueInput.setText(String.valueOf(this.stack.getTag().getLong("long")));
+                    this.valueInput.setText(String.valueOf(GSKONBTUtil.getAsNumber(nbt).getLong()));
                     break;
                 case "string":
-                    this.nameInput.setText(key);
-                    this.valueInput.setText(this.stack.getTag().getString("string"));
+                    this.valueInput.setText(GSKONBTUtil.getAs(nbt).getString());
                     break;
             }
         }
@@ -228,34 +223,42 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
             case PI:
             case E:
                 this.constData.putString("type", this.constType.key);
-                this.constData.putDouble(this.constType.key, parseDouble(this.valueInput.getText()));
+                this.constData.putString("name", this.nameInput.getText());
+                this.constData.put("value", DoubleNBT.valueOf(parseDouble(this.valueInput.getText())));
                 return true;
             default:
                 this.constData.putString("type", "undefined");
-                this.constData.putString(this.nameInput.getText(), this.valueInput.getText());
+                this.constData.putString("name", this.nameInput.getText());
+                this.constData.putString("value", this.valueInput.getText());
         }
         return true;
     }
 
     private void tryParse() {
         this.constData.putString("type", this.constType.key);
+        this.constData.putString("name", this.nameInput.getText());
         switch (this.constType) {
             case INT:
-                this.constData.putInt(this.constType.key, parseInt(this.valueInput.getText()));
+                this.constData.put("value", IntNBT.valueOf(parseInt(this.valueInput.getText())));
                 break;
             case LONG:
-                this.constData.putLong(this.constType.key, parseLong(this.valueInput.getText()));
+                this.constData.put("value", LongNBT.valueOf(parseLong(this.valueInput.getText())));
                 break;
             case FLOAT:
-                this.constData.putFloat(this.constType.key, parseFloat(this.valueInput.getText()));
+                this.constData.put("value", FloatNBT.valueOf(parseFloat(this.valueInput.getText())));
                 break;
             case DOUBLE:
-                this.constData.putDouble(this.constType.key, parseDouble(this.valueInput.getText()));
+                this.constData.put("value", DoubleNBT.valueOf(parseDouble(this.valueInput.getText())));
                 break;
             case STRING:
-                this.constData.putString(this.constType.key, this.valueInput.getText());
+                this.constData.put("value", StringNBT.valueOf(this.valueInput.getText()));
                 break;
         }
+    }
+
+    private void putIntInfo(String type, String name) {
+        this.constData.putString("type", type);
+        this.constData.putString("name", name);
     }
 
     public ItemStack getProcessedStack() {

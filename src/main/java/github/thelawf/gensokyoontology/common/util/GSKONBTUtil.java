@@ -158,6 +158,63 @@ public class GSKONBTUtil {
         }
     }
 
+    public static INBT getAs(CompoundNBT nbt) {
+        if (nbt.get("value") instanceof NumberNBT) {
+            return getAsNumber(nbt);
+        }
+        else if (nbt.get("value") instanceof StringNBT) {
+            return nbt.get("value");
+        }
+        return new CompoundNBT();
+    }
+
+    public static NumberNBT getAsNumber(CompoundNBT nbt) {
+        if (nbt.get("value") instanceof IntNBT) {
+            return (IntNBT) nbt.get("value");
+        }
+        else if (nbt.get("value") instanceof LongNBT) {
+            return (LongNBT) nbt.get("value");
+        }
+        else if (nbt.get("value") instanceof FloatNBT) {
+            return (FloatNBT) nbt.get("value");
+        }
+        else if (nbt.get("value") instanceof DoubleNBT) {
+            return (DoubleNBT) nbt.get("value");
+        }
+        return IntNBT.valueOf(0);
+    }
+
+    public static NumberNBT getNumberFromKey(CompoundNBT nbt, String key) {
+        if (nbt.get(key) instanceof IntNBT) {
+            return (IntNBT) nbt.get(key);
+        }
+        else if (nbt.get(key) instanceof LongNBT) {
+            return (LongNBT) nbt.get(key);
+        }
+        else if (nbt.get(key) instanceof FloatNBT) {
+            return (FloatNBT) nbt.get(key);
+        }
+        else if (nbt.get(key) instanceof DoubleNBT) {
+            return (DoubleNBT) nbt.get(key);
+        }
+        return IntNBT.valueOf(0);
+    }
+
+    public static INBT getFromKey(CompoundNBT nbt, String key) {
+        if (nbt.get(key) instanceof NumberNBT) {
+            return getNumberFromKey(nbt, key);
+        }
+        else if (nbt.get(key) instanceof StringNBT) {
+            return nbt.get(key);
+        }
+        return new CompoundNBT();
+    }
+
+    public static String getType(CompoundNBT nbt) {
+        if (containsPrimitiveType(nbt)) return nbt.getString("type");
+        return "undefined";
+    }
+
     public static boolean containsAllowedType(CompoundNBT nbt) {
         if (!nbt.contains("type")) return false;
         if (containsPrimitiveType(nbt)) return false;
@@ -205,9 +262,9 @@ public class GSKONBTUtil {
     public static List<String> getVector3dValues(CompoundNBT nbt) {
         List<String> values = new ArrayList<>();
         CompoundNBT vectorNBT = getCompoundValue(nbt);
-        values.add(String.valueOf(vectorNBT.getDouble("x")));
-        values.add(String.valueOf(vectorNBT.getDouble("y")));
-        values.add(String.valueOf(vectorNBT.getDouble("z")));
+        values.add(getFromKey(vectorNBT, "x").getString());
+        values.add(getFromKey(vectorNBT, "y").getString());
+        values.add(getFromKey(vectorNBT, "z").getString());
         return values;
     }
 

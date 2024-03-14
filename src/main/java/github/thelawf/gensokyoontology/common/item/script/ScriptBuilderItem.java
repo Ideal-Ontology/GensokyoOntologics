@@ -45,9 +45,13 @@ public abstract class ScriptBuilderItem extends Item {
         if (stack.getTag() != null) {
             CompoundNBT nbt = stack.getTag();
             tooltip.add(FILED_TYPE_TIP);
-            tooltip.add(new StringTextComponent(nbt.getString("type")));
+            tooltip.add(new StringTextComponent("§d" + nbt.getString("type")));
+            tooltip.add(FILED_NAME_TIP);
+            tooltip.add(new StringTextComponent("§a" + nbt.getString("name")));
             tooltip.add(FILED_VALUE_TIP);
-            if (GSKONBTUtil.containsPrimitiveType(nbt)) tooltip.add(new StringTextComponent(nbt.getString("value")));
+            if (GSKONBTUtil.containsPrimitiveType(nbt)) {
+                tooltip.add(new StringTextComponent("§e" + GSKONBTUtil.getAs(nbt).getString()));
+            }
             else if (GSKONBTUtil.containsAllowedType(nbt)) {
                 GSKONBTUtil.getMemberValues(nbt).forEach(s -> tooltip.add(new StringTextComponent(s)));
             }

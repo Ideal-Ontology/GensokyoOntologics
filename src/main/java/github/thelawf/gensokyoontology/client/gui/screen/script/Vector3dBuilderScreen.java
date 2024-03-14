@@ -9,6 +9,7 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.DoubleNBT;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -99,9 +100,9 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
 
     private void saveData() {
         CompoundNBT vector3d = new CompoundNBT();
-        vector3d.putDouble("x", parseDouble(this.xInput.getText()));
-        vector3d.putDouble("y", parseDouble(this.yInput.getText()));
-        vector3d.putDouble("z", parseDouble(this.zInput.getText()));
+        vector3d.put("x", DoubleNBT.valueOf(parseDouble(this.xInput.getText())));
+        vector3d.put("y", DoubleNBT.valueOf(parseDouble(this.yInput.getText())));
+        vector3d.put("z", DoubleNBT.valueOf(parseDouble(this.zInput.getText())));
 
         this.vector3dData.put(this.nameInput.getText(), vector3d);
         this.vector3dData.putString("type", TYPE);
@@ -118,11 +119,10 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         // this.renderBackground(matrixStack);
-        // super.render(matrixStack, mouseX, mouseY, partialTicks);
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft != null) {
             this.renderAbsoluteXY(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
         }
-        // super.render(matrixStack, mouseX, mouseY, partialTicks);
         // drawCenteredText(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
         // renderWidgets(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
         // if (this.minecraft != null) {
