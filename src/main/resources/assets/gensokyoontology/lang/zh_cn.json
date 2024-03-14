@@ -426,7 +426,7 @@
   "gui.gensokyoontology.const_builder.button.preset.two_pi": "预设值：2π",
   "gui.gensokyoontology.const_builder.button.preset.e": "预设值：e",
 
-  "gui.gensokyoontology.const_builder.tip.nameInput": "名称：",
+  "gui.gensokyoontology.script_builder.fieldName": "名称: ",
   "gui.gensokyoontology.const_builder.tip.valueInput": "值：",
 
   "gui.gensokyoontology.const_builder.button.constType.int": "整数类型",

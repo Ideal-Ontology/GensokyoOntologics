@@ -426,7 +426,7 @@
   "gui.gensokyoontology.const_builder.button.preset.two_pi": "2π",
   "gui.gensokyoontology.const_builder.button.preset.e": "e",
 
-  "gui.gensokyoontology.const_builder.tip.nameInput": "Name: ",
+  "gui.gensokyoontology.script_builder.fieldName": "Name: ",
   "gui.gensokyoontology.const_builder.tip.valueInput": "Value: ",
 
   "gui.gensokyoontology.const_builder.button.constType.int": "Integer Type",

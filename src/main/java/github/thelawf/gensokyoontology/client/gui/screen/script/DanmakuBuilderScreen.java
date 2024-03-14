@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 
 public class DanmakuBuilderScreen extends ScriptBuilderScreen {
 
-    public DanmakuBuilderScreen(ITextComponent titleIn, ItemStack stack, World world, LivingEntity thrower, DanmakuType danmakuType, DanmakuColor danmakuColor) {
+    public DanmakuBuilderScreen(ITextComponent titleIn, ItemStack stack, World world, LivingEntity thrower) {
         super(titleIn, stack);
     }
 }

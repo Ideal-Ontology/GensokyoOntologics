@@ -3,9 +3,7 @@ package github.thelawf.gensokyoontology.client.gui.screen.script;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.client.IInputParser;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
-import github.thelawf.gensokyoontology.client.gui.screen.IntervalWidget;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
@@ -17,7 +15,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 @OnlyIn(Dist.CLIENT)
@@ -29,13 +26,12 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     private ConstType constType;
     private TextFieldWidget nameInput;
     private TextFieldWidget valueInput;
-    private IntervalWidget interval;
     private final CompoundNBT numberValue = new CompoundNBT();
     private final ITextComponent defaultName = GensokyoOntology.withTranslation("gui.",".default.set_name");
     private final ITextComponent defaultValue = GensokyoOntology.withTranslation("gui.",".default.set_value");
     private final ITextComponent presetDefault = GensokyoOntology.withTranslation("gui.",".const_builder.button.preset.none");
     private final ITextComponent intTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.int");
-    private final ITextComponent nameText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.nameInput");
+
     private final ITextComponent valueText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.valueInput");
 
     public List<WidgetConfig> NAME_LINE;
@@ -77,32 +73,32 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         this.saveBtn = new Button(0, 200, 20, 20, this.saveText, this::saveBtnAction);
 
         NAME_LINE = Lists.newArrayList(
-                WidgetConfig.of(this.interval, 0, 0).isText(true).upInterval(50).leftInterval(20)
-                        .withFont(this.minecraft.fontRenderer)
-                        .withText(this.nameText),
+                WidgetConfig.of(this.blank, 0, 0).isText(true).upInterval(50).leftInterval(20)
+                        .withFont(this.font)
+                        .withText(this.fieldName),
                 WidgetConfig.of(this.nameInput, 120, 20).leftInterval(10)
-                        .withFont(this.minecraft.fontRenderer)
+                        .withFont(this.font)
                         .withText(this.constPreset.toTextComponent()));
 
         VALUE_LINE = Lists.newArrayList(
-                WidgetConfig.of(this.interval, 0, 0).isText(true).upInterval(80).leftInterval(20)
-                        .withFont(this.minecraft.fontRenderer)
+                WidgetConfig.of(this.blank, 0, 0).isText(true).upInterval(80).leftInterval(20)
+                        .withFont(this.font)
                         .withText(this.valueText),
                 WidgetConfig.of(this.valueInput, 120, 20).leftInterval(10)
-                        .withFont(this.minecraft.fontRenderer)
+                        .withFont(this.font)
                         .withText(this.constPreset.toTextComponent()));
 
         BUTTONS = Lists.newArrayList(
                 WidgetConfig.of(this.presetBtn, 100, 20).upInterval(20).leftInterval(20)
-                        .withFont(this.minecraft.fontRenderer)
+                        .withFont(this.font)
                         .withText(this.constPreset.toTextComponent())
                         .withAction(this::presetBtnAction),
                 WidgetConfig.of(this.constTypeBtn, 100, 20).leftInterval(130)
-                        .withFont(this.minecraft.fontRenderer)
+                        .withFont(this.font)
                         .withText(this.constType.toTextComponent())
                         .withAction(this::constTypeBtnAction),
                 WidgetConfig.of(this.saveBtn, 40, 20).upInterval(120).leftInterval(20)
-                        .withFont(this.minecraft.fontRenderer)
+                        .withFont(this.font)
                         .withText(this.saveText)
                         .withAction(this::saveBtnAction));
 
@@ -178,10 +174,7 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
         this.valueInput.setText("");
     }
 
-    @Override
-    public boolean isPauseScreen() {
-        return false;
-    }
+
 
     @Override
     public void onClose() {
