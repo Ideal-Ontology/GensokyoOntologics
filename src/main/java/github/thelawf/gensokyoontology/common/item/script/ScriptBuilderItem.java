@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.script;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
+import github.thelawf.gensokyoontology.common.util.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;

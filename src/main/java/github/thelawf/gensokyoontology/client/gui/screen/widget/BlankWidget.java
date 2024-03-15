@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.gui.screen;
+package github.thelawf.gensokyoontology.client.gui.screen.widget;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.client.gui.widget.Widget;

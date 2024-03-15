@@ -5,7 +5,9 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
-import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
+import github.thelawf.gensokyoontology.common.util.nbt.GSKONBTUtil;
+import github.thelawf.gensokyoontology.common.util.nbt.ConstPreset;
+import github.thelawf.gensokyoontology.common.util.nbt.ConstType;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
@@ -16,7 +18,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 @OnlyIn(Dist.CLIENT)
 public class ConstBuilderScreen extends ScriptBuilderScreen {

@@ -1,13 +1,12 @@
 package github.thelawf.gensokyoontology.api.client.layout;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.client.gui.screen.BlankWidget;
+import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.text.ITextComponent;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 

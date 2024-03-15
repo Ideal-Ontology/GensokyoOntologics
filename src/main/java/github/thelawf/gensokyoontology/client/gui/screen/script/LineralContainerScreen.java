@@ -4,21 +4,19 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.api.client.IInputParser;
 import github.thelawf.gensokyoontology.api.client.ITextBuilder;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
-import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
-import net.minecraft.client.gui.screen.Screen;
+import github.thelawf.gensokyoontology.client.gui.container.script.ScriptBuilderContainer;
+import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-public abstract class LineralLayoutScreen extends Screen implements IInputParser, ITextBuilder {
-    protected final BlankWidget blank = BlankWidget.INSTANCE;
-    public static final Logger LOGGER = LogManager.getLogger();
-    protected LineralLayoutScreen(ITextComponent titleIn) {
-        super(titleIn);
+public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuilderContainer> implements IInputParser, ITextBuilder {
+    public LineralContainerScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+        super(screenContainer, inv, titleIn);
     }
 
     public void initByConfig(List<WidgetConfig> configs, int x, int y) {

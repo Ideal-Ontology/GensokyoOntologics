@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.util.block;
+package github.thelawf.gensokyoontology.common.util;
 
 public enum BlessType {
     IMMUNE_BLOODY_MIST,

@@ -1,13 +1,7 @@
-package github.thelawf.gensokyoontology.client.gui.screen.script;
+package github.thelawf.gensokyoontology.common.util.nbt;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import net.minecraft.nbt.IntNBT;
-import net.minecraft.nbt.NumberNBT;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-
-import javax.print.DocFlavor;
-import java.util.concurrent.atomic.AtomicReference;
 
 public enum ConstType {
     INT("int"),

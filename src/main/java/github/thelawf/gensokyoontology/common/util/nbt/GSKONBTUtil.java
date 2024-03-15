@@ -1,8 +1,6 @@
-package github.thelawf.gensokyoontology.common.util;
+package github.thelawf.gensokyoontology.common.util.nbt;
 
-import github.thelawf.gensokyoontology.client.gui.screen.script.ConstType;
 import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
-import net.minecraft.command.impl.data.DataCommand;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

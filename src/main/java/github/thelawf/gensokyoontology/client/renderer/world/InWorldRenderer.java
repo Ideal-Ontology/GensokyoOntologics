@@ -5,7 +5,7 @@ import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.math.logos.LineSegment3D;
 import github.thelawf.gensokyoontology.common.util.math.logos.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
-import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
+import github.thelawf.gensokyoontology.common.util.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;

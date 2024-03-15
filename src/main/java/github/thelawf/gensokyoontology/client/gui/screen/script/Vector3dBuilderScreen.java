@@ -4,12 +4,11 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
-import github.thelawf.gensokyoontology.client.gui.screen.BlankWidget;
-import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
+import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
+import github.thelawf.gensokyoontology.common.util.nbt.GSKONBTUtil;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.ByteNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.DoubleNBT;
 import net.minecraft.util.math.vector.Vector3d;
@@ -21,7 +20,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-@OnlyIn(value = Dist.CLIENT, _interface = ScriptBuilderScreen.class)
+@OnlyIn(value = Dist.CLIENT)
 public class Vector3dBuilderScreen extends ScriptBuilderScreen {
     public static final String TYPE = "vector3d";
     private final CompoundNBT vector3dData = new CompoundNBT();
@@ -100,13 +99,6 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
             this.xInput.setText(GSKONBTUtil.getMemberValueAsString(nbt, "x"));
             this.yInput.setText(GSKONBTUtil.getMemberValueAsString(nbt, "y"));
             this.zInput.setText(GSKONBTUtil.getMemberValueAsString(nbt, "z"));
-
-            // if (nbt.contains("value")) {
-            //     CompoundNBT xyzNBT = nbt.getCompound("value");
-            //     if (xyzNBT.contains("x")) this.xInput.setText(String.valueOf(nbt.getInt("x")));
-            //     if (xyzNBT.contains("y")) this.yInput.setText(String.valueOf(nbt.getInt("y")));
-            //     if (xyzNBT.contains("z")) this.yInput.setText(String.valueOf(nbt.getInt("z")));
-            // }
         }
     }
 
