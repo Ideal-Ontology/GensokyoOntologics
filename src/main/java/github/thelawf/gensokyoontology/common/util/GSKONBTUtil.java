@@ -1,5 +1,8 @@
 package github.thelawf.gensokyoontology.common.util;
 
+import github.thelawf.gensokyoontology.client.gui.screen.script.ConstType;
+import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
+import net.minecraft.command.impl.data.DataCommand;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -152,6 +155,7 @@ public class GSKONBTUtil {
             case "float":
             case "double":
             case "string":
+            case "boolean":
                 return true;
             default:
                 return false;
@@ -159,11 +163,13 @@ public class GSKONBTUtil {
     }
 
     public static INBT getAs(CompoundNBT nbt) {
-        if (nbt.get("value") instanceof NumberNBT) {
-            return getAsNumber(nbt);
-        }
-        else if (nbt.get("value") instanceof StringNBT) {
-            return nbt.get("value");
+        if (nbt.get("value") instanceof NumberNBT) return getAsNumber(nbt);
+        else if (nbt.get("value") instanceof StringNBT) return nbt.get("value");
+        else if (nbt.get("value") instanceof ByteNBT) {
+            ByteNBT byteNBT = (ByteNBT) nbt.get("value");
+            if (byteNBT != null) {
+                return byteNBT.getInt() == 0 ? StringNBT.valueOf("false") : StringNBT.valueOf("true");
+            }
         }
         return new CompoundNBT();
     }
@@ -248,32 +254,62 @@ public class GSKONBTUtil {
         return values;
     }
 
-    // case "vector3d_list":
-    // ListNBT vector3dList = getListValue(nbt);
-    //                 vector3dList.forEach(inbt -> {
-    //     if (inbt instanceof CompoundNBT) {
-    //         CompoundNBT vector3dCompound = (CompoundNBT) inbt;
-    //         if (containsAllowedType(vector3dCompound)) {
-    //             getVector3dValues(getCompoundValue(vector3dCompound));
-    //         }
-    //     }
-    // });
-
     public static List<String> getVector3dValues(CompoundNBT nbt) {
         List<String> values = new ArrayList<>();
         CompoundNBT vectorNBT = getCompoundValue(nbt);
-        values.add(getFromKey(vectorNBT, "x").getString());
-        values.add(getFromKey(vectorNBT, "y").getString());
-        values.add(getFromKey(vectorNBT, "z").getString());
+        values.add(ScriptBuilderItem.NAME_HIGHLIGHT + "X: " + ScriptBuilderItem.RESET_HIGHLIGHT +
+                ScriptBuilderItem.VALUE_HIGHLIGHT + getNumberFromKey(vectorNBT, "x").getDouble());
+        values.add(ScriptBuilderItem.NAME_HIGHLIGHT + "Y: " + ScriptBuilderItem.RESET_HIGHLIGHT +
+                ScriptBuilderItem.VALUE_HIGHLIGHT + getNumberFromKey(vectorNBT, "y").getDouble());
+        values.add(ScriptBuilderItem.NAME_HIGHLIGHT + "Z: " + ScriptBuilderItem.RESET_HIGHLIGHT +
+                ScriptBuilderItem.VALUE_HIGHLIGHT + getNumberFromKey(vectorNBT, "z").getDouble());
+        // DataCommand
         return values;
     }
 
     public static CompoundNBT getCompoundValue(CompoundNBT nbt) {
-        if (nbt.contains("value")) return new CompoundNBT();
+        if (!nbt.contains("value")) return new CompoundNBT();
         if (containsAllowedType(nbt) && nbt.get("value") instanceof CompoundNBT) {
             return (CompoundNBT) nbt.get("value");
         }
         else return new CompoundNBT();
+    }
+
+    public static String getMemberValueAsString(CompoundNBT objectNBT, String memberKey) {
+        if (!objectNBT.contains("value")) return new CompoundNBT().toString();
+        if (containsAllowedType(objectNBT) && objectNBT.get("value") instanceof CompoundNBT) {
+            CompoundNBT compound = (CompoundNBT) objectNBT.get("value");
+            if (compound != null) {
+                return getFromKey(compound, memberKey).toString();
+            }
+        }
+        else return new CompoundNBT().toString();
+        return new CompoundNBT().toString();
+    }
+
+    public static String getMemberValueWithKey(CompoundNBT objectNBT, String memberKey, String keyText) {
+        if (!objectNBT.contains("value")) return new CompoundNBT().toString();
+        if (containsAllowedType(objectNBT) && objectNBT.get("value") instanceof CompoundNBT) {
+            CompoundNBT compound = (CompoundNBT) objectNBT.get("value");
+            if (compound != null) {
+                return keyText + getFromKey(compound, memberKey).toString();
+            }
+        }
+        else return new CompoundNBT().toString();
+        return new CompoundNBT().toString();
+    }
+
+    public static String getMemberValueWithFormat(CompoundNBT nbt, String memberKey, String keyText) {
+        if (!nbt.contains("value")) return new CompoundNBT().toString();
+        if (containsAllowedType(nbt) && nbt.get("value") instanceof CompoundNBT) {
+            CompoundNBT compound = (CompoundNBT) nbt.get("value");
+            if (compound != null) {
+                return ScriptBuilderItem.NAME_HIGHLIGHT + keyText + ScriptBuilderItem.RESET_HIGHLIGHT +
+                        ScriptBuilderItem.VALUE_HIGHLIGHT + getFromKey(compound, memberKey).toString();
+            }
+        }
+        else return new CompoundNBT().toString();
+        return new CompoundNBT().toString();
     }
 
     public static ListNBT getListValue(CompoundNBT nbt) {

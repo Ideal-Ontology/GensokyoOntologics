@@ -21,6 +21,12 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public abstract class ScriptBuilderItem extends Item {
+    public static final String TYPE_HIGHLIGHT = "§6";    /// 金色 ///
+    public static final String NAME_HIGHLIGHT = "§d";    /// 粉色 ///
+    public static final String VALUE_HIGHLIGHT = "§a";   /// 浅绿 ///
+    public static final String STRING_HIGHLIGHT = "§b";  /// 天蓝色 ///
+    public static final String EXCEPTION_HIGHLIGHT = "§c";  /// 红色 ///
+    public static final String RESET_HIGHLIGHT = "§r";    /// 重置 ///
     public static final ITextComponent FILED_TYPE_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_type");
     public static final ITextComponent FILED_NAME_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_name");
     public static final ITextComponent FILED_VALUE_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_value");
@@ -45,12 +51,12 @@ public abstract class ScriptBuilderItem extends Item {
         if (stack.getTag() != null) {
             CompoundNBT nbt = stack.getTag();
             tooltip.add(FILED_TYPE_TIP);
-            tooltip.add(new StringTextComponent("§d" + nbt.getString("type")));
+            tooltip.add(new StringTextComponent(TYPE_HIGHLIGHT + nbt.getString("type")));
             tooltip.add(FILED_NAME_TIP);
-            tooltip.add(new StringTextComponent("§a" + nbt.getString("name")));
+            tooltip.add(new StringTextComponent(NAME_HIGHLIGHT + nbt.getString("name")));
             tooltip.add(FILED_VALUE_TIP);
             if (GSKONBTUtil.containsPrimitiveType(nbt)) {
-                tooltip.add(new StringTextComponent("§e" + GSKONBTUtil.getAs(nbt).getString()));
+                tooltip.add(new StringTextComponent(VALUE_HIGHLIGHT + GSKONBTUtil.getAs(nbt).getString()));
             }
             else if (GSKONBTUtil.containsAllowedType(nbt)) {
                 GSKONBTUtil.getMemberValues(nbt).forEach(s -> tooltip.add(new StringTextComponent(s)));

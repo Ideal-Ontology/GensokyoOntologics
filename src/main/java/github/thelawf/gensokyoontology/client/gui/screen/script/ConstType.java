@@ -14,6 +14,7 @@ public enum ConstType {
     LONG("long"),
     FLOAT("float"),
     DOUBLE("double"),
+    BOOLEAN("boolean"),
     STRING("string");
     public final String key;
 

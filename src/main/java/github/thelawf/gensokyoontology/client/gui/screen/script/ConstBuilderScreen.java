@@ -20,7 +20,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 @OnlyIn(Dist.CLIENT)
 public class ConstBuilderScreen extends ScriptBuilderScreen {
-
     private Button constTypeBtn;
     private Button presetBtn;
     private ConstPreset constPreset;
@@ -32,7 +31,6 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
     private final ITextComponent defaultValue = GensokyoOntology.withTranslation("gui.",".default.set_value");
     private final ITextComponent presetDefault = GensokyoOntology.withTranslation("gui.",".const_builder.button.preset.none");
     private final ITextComponent intTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.int");
-
     private final ITextComponent valueText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.valueInput");
 
     public List<WidgetConfig> NAME_LINE;
@@ -113,7 +111,7 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
             this.nameInput.active = false;
             this.valueInput.active = false;
 
-            this.nameInput.setText(this.stack.getTag().getString("type"));
+            this.nameInput.setText(this.stack.getTag().getString("name"));
             String type = this.stack.getTag().getString("type");
             CompoundNBT nbt = this.stack.getTag();
             switch (type) {
@@ -135,6 +133,13 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
                     break;
                 case "string":
                     this.valueInput.setText(GSKONBTUtil.getAs(nbt).getString());
+                    break;
+                case "boolean":
+                    if (GSKONBTUtil.getAs(nbt) instanceof ByteNBT) {
+                        ByteNBT byteNbt = (ByteNBT) GSKONBTUtil.getAs(nbt);
+                        this.valueInput.setText(byteNbt.getInt() == 0 ? "false" : "true");
+                    }
+                    this.valueInput.setText("false");
                     break;
             }
         }
@@ -252,6 +257,9 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
                 break;
             case STRING:
                 this.constData.put("value", StringNBT.valueOf(this.valueInput.getText()));
+                break;
+            case BOOLEAN:
+                this.constData.put("value", ByteNBT.valueOf(Boolean.parseBoolean(this.valueInput.getText())));
                 break;
         }
     }

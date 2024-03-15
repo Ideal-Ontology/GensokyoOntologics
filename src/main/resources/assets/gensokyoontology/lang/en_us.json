@@ -434,6 +434,7 @@
   "gui.gensokyoontology.const_builder.button.constType.float": "Float Type",
   "gui.gensokyoontology.const_builder.button.constType.double": "Double Type",
   "gui.gensokyoontology.const_builder.button.constType.string": "String Type",
+  "gui.gensokyoontology.const_builder.button.constType.boolean": "Boolean Type",
 
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "This is a title of XMMUI Test Screen",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "Welcome",

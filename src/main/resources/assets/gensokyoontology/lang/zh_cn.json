@@ -434,6 +434,7 @@
   "gui.gensokyoontology.const_builder.button.constType.float": "浮点数类型",
   "gui.gensokyoontology.const_builder.button.constType.double": "双精度浮点数类型",
   "gui.gensokyoontology.const_builder.button.constType.string": "字符串类型",
+  "gui.gensokyoontology.const_builder.button.constType.boolean": "布尔类型",
 
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "欢迎使用XMMUI作为Minecraft前端GUI框架",

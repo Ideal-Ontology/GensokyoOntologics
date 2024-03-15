@@ -5,9 +5,11 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.screen.BlankWidget;
+import github.thelawf.gensokyoontology.common.util.GSKONBTUtil;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.ByteNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.DoubleNBT;
 import net.minecraft.util.math.vector.Vector3d;
@@ -86,6 +88,26 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
                         .withAction(this::saveBtnAction));
 
         this.setAbsoluteXY(WIDGETS);
+
+        if (this.stack.getTag() != null) {
+
+            this.saveBtn.active = false;
+            this.nameInput.active = false;
+
+            this.nameInput.setText(this.stack.getTag().getString("name"));
+            CompoundNBT nbt = this.stack.getTag();
+
+            this.xInput.setText(GSKONBTUtil.getMemberValueAsString(nbt, "x"));
+            this.yInput.setText(GSKONBTUtil.getMemberValueAsString(nbt, "y"));
+            this.zInput.setText(GSKONBTUtil.getMemberValueAsString(nbt, "z"));
+
+            // if (nbt.contains("value")) {
+            //     CompoundNBT xyzNBT = nbt.getCompound("value");
+            //     if (xyzNBT.contains("x")) this.xInput.setText(String.valueOf(nbt.getInt("x")));
+            //     if (xyzNBT.contains("y")) this.yInput.setText(String.valueOf(nbt.getInt("y")));
+            //     if (xyzNBT.contains("z")) this.yInput.setText(String.valueOf(nbt.getInt("z")));
+            // }
+        }
     }
 
     private void saveBtnAction(Button button) {
@@ -104,10 +126,12 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
         vector3d.put("y", DoubleNBT.valueOf(parseDouble(this.yInput.getText())));
         vector3d.put("z", DoubleNBT.valueOf(parseDouble(this.zInput.getText())));
 
-        this.vector3dData.put(this.nameInput.getText(), vector3d);
         this.vector3dData.putString("type", TYPE);
-        ItemStack itemStack = this.stack.copy();
+        this.vector3dData.putString("name", this.nameInput.getText());
+        this.vector3dData.put("value", vector3d);
+
         this.stack.setTag(this.vector3dData);
+        ItemStack itemStack = this.stack.copy();
 
         if (this.minecraft != null && this.minecraft.player != null) {
             this.stack.shrink(1);
