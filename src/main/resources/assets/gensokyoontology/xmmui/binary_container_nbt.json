@@ -1,0 +1,30 @@
+{
+  "type": "binary_operation",
+  "uuid": "abc-def-0001",
+  "value": {
+    "left": {
+      "type": "vector3d",
+      "name": "vec",
+      "value": {
+        "x": 1,
+        "y": 0,
+        "z": 0
+      }
+    },
+    "right": {
+      "type": "int",
+      "name": "scale",
+      "value": 2
+    },
+    "operation": "multiple"
+  },
+  "result": {
+    "type": "vector3d",
+    "uuid": "123-aaa-bbb",
+    "value": {
+      "x": 2,
+      "y": 0,
+      "z": 0
+    }
+  }
+}
