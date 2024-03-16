@@ -30,7 +30,7 @@
               "value": 1
             },
             "right": {
-              "type": "time_stamp",
+              "type": "time_stamp ",
               "name": "tick_existed",
               "value": "increase_by_ticks"
             }

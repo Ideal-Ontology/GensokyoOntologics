@@ -1,15 +1,17 @@
 package github.thelawf.gensokyoontology.core.init;
 
+import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.script.ConstBuilderScreen;
-import github.thelawf.gensokyoontology.client.gui.screen.script.DanmakuBuilderScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.Vector3dBuilderScreen;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.ore.*;
+import github.thelawf.gensokyoontology.common.item.script.DynamicScriptItem;
 import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
+import github.thelawf.gensokyoontology.common.item.script.ScriptReadOnlyItem;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.tool.*;
 import github.thelawf.gensokyoontology.common.item.touhou.*;
@@ -20,22 +22,19 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.network.play.ClientPlayNetHandler;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.client.event.GuiContainerEvent;
-import net.minecraftforge.common.ForgeHooks;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
@@ -752,8 +751,39 @@ public final class ItemRegistry {
         public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
             Minecraft minecraft = Minecraft.getInstance();
             ITextComponent title = GensokyoOntology.withTranslation("gui.",".vector3d_builder.title");
+            minecraft.displayGuiScreen(new Vector3dBuilderScreen(title, stack));
+        }
+    });
+
+    public static final RegistryObject<Item> BINARY_OPERATION_BUILDER = ITEMS.register("binary_operation_builder", () -> new DynamicScriptItem() {
+        @Override
+        public void addDynamicData(World world, PlayerEntity player, ItemStack stack, Dynamic<INBT> dynamic) {
+
+        }
+
+        @Override
+        public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
+            Minecraft minecraft = Minecraft.getInstance();
+            ITextComponent title = GensokyoOntology.withTranslation("gui.",".vector3d_builder.title");
             // minecraft.displayGuiScreen(new DanmakuBuilderScreen(title, stack, world, player));
             minecraft.displayGuiScreen(new Vector3dBuilderScreen(title, stack));
+        }
+    });
+
+    public static final RegistryObject<Item> TIME_STAMP = ITEMS.register("time_stamp", () -> new ScriptReadOnlyItem() {
+        @Override
+        public void addReadOnlyData(World world, PlayerEntity player, ItemStack stack, CompoundNBT nbt) {
+            nbt.putString("type", "time_stamp");
+            nbt.putString("name", "ticksExisted");
+            nbt.putString("value", "increasedByTick");
+            stack.setTag(nbt);
+        }
+    });
+
+    public static final RegistryObject<Item> FUNC_INVOCATION = ITEMS.register("func_invocation", () -> new ScriptReadOnlyItem() {
+        @Override
+        public void addReadOnlyData(World world, PlayerEntity player, ItemStack stack, CompoundNBT nbt) {
+
         }
     });
 }
