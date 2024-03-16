@@ -13,7 +13,6 @@ import org.jetbrains.annotations.Nullable;
 // left slot: 20, 20
 // right slot: 110, 20
 // out put slot: 164, 54
-
 public class BinaryOperationContainer extends ScriptBuilderContainer{
     public final IInventory operationSlots = new Inventory(3);
     private int x;
@@ -21,7 +20,6 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
         super(type, id);
         addSlot(this.addInputSlot(this.operationSlots, 0, 20, 20));
         addSlot(this.addInputSlot(this.operationSlots, 1, 110, 20));
-        addSlot(this.addOutputSlot(this.operationSlots, 2, 164, 54));
     }
 
     private Slot addInputSlot(IInventory inventory, int index, int x, int y) {
@@ -30,17 +28,6 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
             public void onSlotChanged() {
                 super.onSlotChanged();
             }
-
-            @Override
-            @NotNull
-            public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
-                return super.onTake(thePlayer, stack);
-            }
-        };
-    }
-
-    private Slot addOutputSlot(IInventory inventory, int index, int x, int y) {
-        return new Slot(inventory, index, x, y) {
 
             @Override
             @NotNull

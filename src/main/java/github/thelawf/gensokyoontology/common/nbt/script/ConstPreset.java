@@ -1,6 +1,7 @@
-package github.thelawf.gensokyoontology.common.util.nbt;
+package github.thelawf.gensokyoontology.common.nbt.script;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 

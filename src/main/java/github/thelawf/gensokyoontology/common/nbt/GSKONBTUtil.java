@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.util.nbt;
+package github.thelawf.gensokyoontology.common.nbt;
 
 import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
 import net.minecraft.entity.player.PlayerEntity;

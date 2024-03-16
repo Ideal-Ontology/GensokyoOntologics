@@ -10,18 +10,13 @@
       }
     },
     {
-      "type": "binary_operation",
+      "type": "affine_transformation",
       "name": "rotate_vec_by_tick",
       "value": {
         "operation": "rotate_yaw",
         "left": {
           "type": "vector3d",
-          "ref": "vec",
-          "value": {
-            "x": 1,
-            "y": 0,
-            "z": 0
-          }
+          "ref": "vec"
         },
         "right": {
           "type": "binary_operation",
@@ -44,13 +39,9 @@
       },
       "result": {
         "type": "vector3d",
-        "name": "rotatedVec",
-        "value": {
-          "x": "dynamic",
-          "y": "dynamic",
-          "z": "dynamic",
-          "dynamic": "this_operation"
-        }
+        "return": "#vec",
+        "value": "dynamic",
+        "dynamic": "this_operation"
       }
     },
     {
@@ -69,7 +60,8 @@
         {
           "parameter_name": "shoot_vector",
           "type": "vector3d",
-          "name": "binary_with_other_opt.result",
+          "name": "rotate_vec_by_tick.result",
+          "ref": "vec",
           "optional_name": "rotatedVec"
         },
         {
@@ -85,16 +77,6 @@
           "value": 0.0
         }
       ]
-    },
-    {
-      "enabled": false,
-      "type": "reference_stack_line",
-      "value": "rotate_vector3d_operation"
-    },
-    {
-      "enabled": false,
-      "type": "reference_stack_line",
-      "value": "invoke_shoot_func"
     }
   ]
 }

@@ -7,13 +7,11 @@ import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.container.script.BinaryOperationContainer;
 import github.thelawf.gensokyoontology.client.gui.container.script.ScriptBuilderContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.SlotWidget;
-import github.thelawf.gensokyoontology.common.util.nbt.BinaryOperation;
-import github.thelawf.gensokyoontology.common.util.nbt.OperationType;
+import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
+import github.thelawf.gensokyoontology.common.nbt.script.OperationType;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 
