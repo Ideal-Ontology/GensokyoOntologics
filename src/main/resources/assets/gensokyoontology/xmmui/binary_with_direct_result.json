@@ -1,6 +1,6 @@
 {
   "type": "binary_operation",
-  "uuid": "abc-def-0001",
+  "name": "direct_result_of_vec",
   "value": {
     "left": {
       "type": "vector3d",
@@ -20,7 +20,7 @@
   },
   "result": {
     "type": "vector3d",
-    "uuid": "123-aaa-bbb",
+    "name": "operatedVec",
     "value": {
       "x": 2,
       "y": 0,

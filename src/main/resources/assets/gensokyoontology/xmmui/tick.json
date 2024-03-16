@@ -1,0 +1,100 @@
+{
+  "scripts": [
+    {
+      "type": "vector3d",
+      "name": "vec",
+      "value": {
+        "x": 1,
+        "y": 0,
+        "z": 0
+      }
+    },
+    {
+      "type": "binary_operation",
+      "name": "rotate_vec_by_tick",
+      "value": {
+        "operation": "rotate_yaw",
+        "left": {
+          "type": "vector3d",
+          "ref": "vec",
+          "value": {
+            "x": 1,
+            "y": 0,
+            "z": 0
+          }
+        },
+        "right": {
+          "type": "binary_operation",
+          "name": "process_angle_tick",
+          "unit": "degree",
+          "value": {
+            "operation": "multiple",
+            "left": {
+              "type": "double",
+              "name": "one_degree_angle",
+              "value": 1
+            },
+            "right": {
+              "type": "time_stamp",
+              "name": "tick_existed",
+              "value": "increase_by_ticks"
+            }
+          }
+        }
+      },
+      "result": {
+        "type": "vector3d",
+        "name": "rotatedVec",
+        "value": {
+          "x": "dynamic",
+          "y": "dynamic",
+          "z": "dynamic",
+          "dynamic": "this_operation"
+        }
+      }
+    },
+    {
+      "type": "function_invoke",
+      "name": "projectile.shoot",
+      "parameters": [
+        {
+          "parameter_name": "projectile",
+          "type": "danmaku",
+          "name": "largeShot",
+          "value": {
+            "danmaku_type": "large_shot",
+            "danmaku_color": "red"
+          }
+        },
+        {
+          "parameter_name": "shoot_vector",
+          "type": "vector3d",
+          "name": "binary_with_other_opt.result",
+          "optional_name": "rotatedVec"
+        },
+        {
+          "parameter_name": "speed",
+          "type": "float",
+          "name": "",
+          "value": 0.7
+        },
+        {
+          "parameter_name": "inaccuracy",
+          "type": "float",
+          "name": "",
+          "value": 0.0
+        }
+      ]
+    },
+    {
+      "enabled": false,
+      "type": "reference_stack_line",
+      "value": "rotate_vector3d_operation"
+    },
+    {
+      "enabled": false,
+      "type": "reference_stack_line",
+      "value": "invoke_shoot_func"
+    }
+  ]
+}
