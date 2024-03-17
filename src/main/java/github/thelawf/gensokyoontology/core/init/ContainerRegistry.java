@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
+import github.thelawf.gensokyoontology.client.gui.container.script.BinaryOperationContainer;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -26,5 +27,9 @@ public final class ContainerRegistry {
                         World world = inv.player.world;
                         return new SorceryExtractorContainer(windowId, world, pos, inv);
                     })));
+
+    public static final RegistryObject<ContainerType<BinaryOperationContainer>> BINARY_OPERATION_CONTAINER =
+            CONTAINERS.register("binary_operation_container", () -> IForgeContainerType.create(
+                    ((windowId, inv, data) -> new BinaryOperationContainer(windowId, inv))));
 
 }

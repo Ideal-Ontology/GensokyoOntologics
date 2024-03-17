@@ -246,6 +246,7 @@
   "item.gensokyoontology.time_stamp": "Time Stamp",
   "item.gensokyoontology.const_builder": "Constance Builder",
   "item.gensokyoontology.vector3d_builder": "Vector3d Builder",
+  "item.gensokyoontology.binary_operation_builder": "Binary Operation Builder",
 
   "advancement.gensokyoontology.root.title": "It's An INCIDENT, REIMU!",
   "advancement.gensokyoontology.root.description": "Get Story Pages Chapter 1.1",
@@ -344,6 +345,7 @@
 
   "container.gensokyoontology.danmaku_craft.title": "Danmaku Crafting",
   "container.gensokyoontology.sorcery_extractor.title": "Sorcery Extracting",
+  "container.gensokyoontology.binary_operation.title": "Binary Operating",
 
   "description.gensokyoontology.idealism_sword_description": "Cause 12 damage each tick",
   "description.gensokyoontology.praxis_sword_description": "§6Go into Praxis, man ~",

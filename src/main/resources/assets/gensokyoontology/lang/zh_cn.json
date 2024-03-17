@@ -246,6 +246,7 @@
   "item.gensokyoontology.time_stamp": "时间戳",
   "item.gensokyoontology.const_builder": "常量构建器",
   "item.gensokyoontology.vector3d_builder": "双精度浮点数三维向量构建器",
+  "item.gensokyoontology.binary_operation_builder": "二元表达式构建器",
 
   "advancement.gensokyoontology.root.title": "灵梦，这是异变啊！",
   "advancement.gensokyoontology.root.description": "获得被遗忘的传说",
@@ -344,6 +345,7 @@
 
   "container.gensokyoontology.danmaku_craft.title": "弹幕合成",
   "container.gensokyoontology.sorcery_extractor.title": "魔力提取",
+  "container.gensokyoontology.binary_operation.title": "二元运算",
 
   "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
   "description.gensokyoontology.praxis_sword_description": "§6现在，你知道了所有的故事，那么，请开始实践吧~",

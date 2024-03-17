@@ -1,19 +1,15 @@
 package github.thelawf.gensokyoontology;
 
-import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
-import github.thelawf.gensokyoontology.common.CommonSetUp;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
+import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
+import github.thelawf.gensokyoontology.client.gui.screen.script.BinaryOperationScreen;
+import github.thelawf.gensokyoontology.common.CommonSetUp;
+import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
-import github.thelawf.gensokyoontology.common.world.feature.config.EclipticFoliageLayerConfig;
-import github.thelawf.gensokyoontology.common.world.feature.config.GSKOTreeConfig;
-import github.thelawf.gensokyoontology.common.world.feature.config.MagicForestConfig;
-import github.thelawf.gensokyoontology.common.world.feature.tree.MagicForestFeature;
 import github.thelawf.gensokyoontology.common.world.surface.GSKOSurfaceBuilders;
 import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
-import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
 import net.minecraft.client.gui.ScreenManager;
@@ -23,15 +19,9 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.IFeatureConfig;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -181,6 +171,8 @@ public class GensokyoOntology {
                         DanmakuCraftingScreen::new);
                 ScreenManager.registerFactory(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(),
                         SorceryExtractorScreen::new);
+                ScreenManager.registerFactory(ContainerRegistry.BINARY_OPERATION_CONTAINER.get(),
+                        BinaryOperationScreen::new);
             });
 
         }

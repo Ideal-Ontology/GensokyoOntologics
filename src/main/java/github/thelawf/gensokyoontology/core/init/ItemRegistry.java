@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.core.init;
 
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.client.gui.container.script.BinaryOperationContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.script.ConstBuilderScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.Vector3dBuilderScreen;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
@@ -23,6 +24,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
@@ -35,6 +37,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
@@ -760,19 +763,20 @@ public final class ItemRegistry {
         public void addDynamicData(World world, PlayerEntity player, ItemStack stack, Dynamic<INBT> dynamic) {
 
         }
-
         @Override
         public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
-            Minecraft minecraft = Minecraft.getInstance();
-            ITextComponent title = GensokyoOntology.withTranslation("gui.",".vector3d_builder.title");
             // minecraft.displayGuiScreen(new DanmakuBuilderScreen(title, stack, world, player));
-            minecraft.displayGuiScreen(new Vector3dBuilderScreen(title, stack));
+            if (!world.isRemote) {
+                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+                NetworkHooks.openGui(serverPlayer, BinaryOperationContainer.create(), serverPlayer.getPosition());
+            }
         }
     });
 
     public static final RegistryObject<Item> TIME_STAMP = ITEMS.register("time_stamp", () -> new ScriptReadOnlyItem() {
         @Override
-        public void addReadOnlyData(World world, PlayerEntity player, ItemStack stack, CompoundNBT nbt) {
+        public void addReadOnlyData(World world, PlayerEntity player, ItemStack stack) {
+            CompoundNBT nbt = new CompoundNBT();
             nbt.putString("type", "time_stamp");
             nbt.putString("name", "ticksExisted");
             nbt.putString("value", "increasedByTick");
@@ -780,10 +784,9 @@ public final class ItemRegistry {
         }
     });
 
-    public static final RegistryObject<Item> FUNC_INVOCATION = ITEMS.register("func_invocation", () -> new ScriptReadOnlyItem() {
-        @Override
-        public void addReadOnlyData(World world, PlayerEntity player, ItemStack stack, CompoundNBT nbt) {
-
-        }
-    });
+    // public static final RegistryObject<Item> FUNC_INVOCATION = ITEMS.register("func_invocation", () -> new ScriptReadOnlyItem() {
+    //     @Override
+    //     public void addReadOnlyData(World world, PlayerEntity player, ItemStack stack) {
+    //     }
+    // });
 }

@@ -72,7 +72,7 @@ public class GSKONBTUtil {
 
     @Nonnull
     public static BlockPos readPosFromStack(ItemStack stack, String nbtKey) {
-        if (stack.getTag().contains(nbtKey)) {
+        if (stack.getTag() != null && stack.getTag().contains(nbtKey)) {
             int[] pos = stack.getTag().getIntArray(nbtKey);
             BlockPos blockPos = new BlockPos(pos[0], pos[1], pos[2]);
             Vector3d posVec = blockPosToVec(blockPos);
@@ -186,6 +186,13 @@ public class GSKONBTUtil {
             return (DoubleNBT) nbt.get("value");
         }
         return IntNBT.valueOf(0);
+    }
+
+    public static boolean isNumberType(CompoundNBT nbt) {
+        return nbt.getString("type").equals("int") ||
+                nbt.getString("type").equals("long") ||
+                nbt.getString("type").equals("float") ||
+                nbt.getString("type").equals("double");
     }
 
     public static NumberNBT getNumberFromKey(CompoundNBT nbt, String key) {

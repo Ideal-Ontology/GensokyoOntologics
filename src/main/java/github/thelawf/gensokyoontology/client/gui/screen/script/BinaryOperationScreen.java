@@ -14,6 +14,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -46,8 +47,6 @@ public class BinaryOperationScreen extends ScriptContainerScreen {
     @Override
     public void tick() {
         super.tick();
-        this.leftInput.tick();
-        this.rightInput.tick();
     }
 
     @Override
@@ -99,6 +98,15 @@ public class BinaryOperationScreen extends ScriptContainerScreen {
         // container.operationSlots.setInventorySlotContents(2, new ItemStack());
 
         this.closeScreen();
+    }
+
+    @Override
+    public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        // this.renderBackground(matrixStack);
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        if (this.minecraft != null) {
+            this.renderAbsoluteXY(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
+        }
     }
 
     @Override

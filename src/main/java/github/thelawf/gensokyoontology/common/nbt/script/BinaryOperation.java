@@ -3,9 +3,8 @@ package github.thelawf.gensokyoontology.common.nbt.script;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.util.text.ITextComponent;
 
-import java.util.List;
-
 public enum BinaryOperation {
+    NONE("none"),
     AND("And"),
     OR("Or"),
     NOT("Not"),
