@@ -28,10 +28,16 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
     public final IItemHandler playerInventory;
     public BinaryOperationContainer(int id, PlayerInventory playerInventory) {
         super(ContainerRegistry.BINARY_OPERATION_CONTAINER.get(), id);
-        addSlot(this.addInputSlot(this.operationSlots, 0, 20, 20));
-        addSlot(this.addInputSlot(this.operationSlots, 1, 110, 20));
+        addSlot(this.addInputSlot(this.operationSlots, 0, 21, 21));
+        addSlot(this.addInputSlot(this.operationSlots, 1, 111, 21));
         this.playerInventory = new InvWrapper(playerInventory);
         this.addPlayerInventorySlots(20, 96);
+    }
+
+    @Override
+    public void onContainerClosed(PlayerEntity playerIn) {
+        super.onContainerClosed(playerIn);
+        this.clearContainer(playerIn, playerIn.world, playerIn.inventory);
     }
 
     private Slot addInputSlot(IInventory inventory, int index, int x, int y) {
@@ -60,8 +66,7 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
             public ITextComponent getDisplayName() {
                 return NAME;
             }
-
-            @Nullable
+            @NotNull
             @Override
             public Container createMenu(int windowId, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity p_createMenu_3_) {
                 return new BinaryOperationContainer(windowId, playerInventory);

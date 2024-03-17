@@ -7,6 +7,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class WidgetConfig {
     public int rightInterval;
     public Widget widget;
     public FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
-    public ITextComponent text;
+    public ITextComponent text = new StringTextComponent("");
     public Button.IPressable action;
     public boolean isText;
 
