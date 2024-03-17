@@ -31,6 +31,7 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
         addSlot(this.addInputSlot(this.operationSlots, 0, 20, 20));
         addSlot(this.addInputSlot(this.operationSlots, 1, 110, 20));
         this.playerInventory = new InvWrapper(playerInventory);
+        this.addPlayerInventorySlots(20, 96);
     }
 
     private Slot addInputSlot(IInventory inventory, int index, int x, int y) {
@@ -66,5 +67,12 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
                 return new BinaryOperationContainer(windowId, playerInventory);
             }
         };
+    }
+
+    protected void addPlayerInventorySlots(int xStart, int yStart) {
+        addSlotBox(playerInventory, 9, xStart, yStart, 9, 3, 18, 18);
+
+        yStart += 58;
+        addSlotRange(playerInventory, 0, xStart, yStart, 9, 18);
     }
 }

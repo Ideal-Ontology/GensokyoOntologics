@@ -18,4 +18,9 @@ public abstract class ScriptContainerScreen extends LineralContainerScreen {
     public ScriptContainerScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }
+
+    @Override
+    public boolean isPauseScreen() {
+        return false;
+    }
 }

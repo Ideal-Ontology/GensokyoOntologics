@@ -8,12 +8,14 @@ import github.thelawf.gensokyoontology.client.gui.container.script.BinaryOperati
 import github.thelawf.gensokyoontology.client.gui.container.script.ScriptBuilderContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.SlotWidget;
 import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
-import github.thelawf.gensokyoontology.common.nbt.script.OperationType;
+import net.minecraft.client.gui.screen.inventory.MerchantScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -33,15 +35,35 @@ public class BinaryOperationScreen extends ScriptContainerScreen {
     private SlotWidget outputSLot = new SlotWidget(0,0,0,0,ofText("output"));
     private TextFieldWidget leftInput;
     private TextFieldWidget rightInput;
-    private OperationType type;
     private BinaryOperation operation;
-    public static final String FIELD_TYPE = "binary_operation";
+    public static String FIELD_TYPE = "binary_operation";
     private final ITextComponent leftText = GensokyoOntology.withTranslation("gui.",".binary_operation.left.text");
     private final ITextComponent rightText = GensokyoOntology.withTranslation("gui.",".binary_operation.right.text");
 
-    private List<WidgetConfig> WIDGETS;
+    private final List<WidgetConfig> WIDGETS;
     public BinaryOperationScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
+        operation = BinaryOperation.NONE;
+
+        this.typeBtn = new Button(0,0,0,0, ofText("null"), (b) -> {});
+        this.operationBtn = new Button(0,0,0,0, operation.toTextComponent(), (b) -> {});
+        this.saveBtn = new Button(0,0,0,0, saveText, (b) -> {});
+
+        WIDGETS = Lists.newArrayList(
+                WidgetConfig.of(this.leftSlot, 0,0).upLeft(20, 20),
+                WidgetConfig.of(this.operationBtn, 60, 20).upLeft(56, 20)
+                        .withText(this.operation.toTextComponent())
+                        .withFont(this.font)
+                        .withAction(this::operationBtnAction),
+                WidgetConfig.of(this.rightSlot, 0,0).upLeft(20, 20),
+                WidgetConfig.of(this.leftInput, 100, 20).upLeft(60, 46),
+                WidgetConfig.of(this.rightInput, 100, 20).upLeft(60, 69),
+                WidgetConfig.of(this.outputSLot, 0,0).upLeft(164, 54),
+                WidgetConfig.of(this.saveBtn, 40, 20).upLeft(60, 100)
+                        .withText(this.saveText)
+                        .withFont(this.font)
+                        .withAction(this::saveBtnAction));
+        setAbsoluteXY(WIDGETS);
     }
 
     @Override
@@ -55,31 +77,7 @@ public class BinaryOperationScreen extends ScriptContainerScreen {
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;
 
-        this.typeBtn = new Button(0,0,0,0, type.toTextComponent(), (b) -> {});
-        this.operationBtn = new Button(0,0,0,0, operation.toTextComponent(), (b) -> {});
-        this.saveBtn = new Button(0,0,0,0, saveText, (b) -> {});
-
-        WIDGETS = Lists.newArrayList(
-                WidgetConfig.of(this.typeBtn, 60, 20).upLeft(0, 56)
-                        .withText(this.type.toTextComponent())
-                        .withFont(this.font)
-                        .withAction(this::typeBtnAction),
-                WidgetConfig.of(this.leftSlot, 0,0).upLeft(20, 20),
-                WidgetConfig.of(this.operationBtn, 60, 20).upLeft(56, 20)
-                        .withText(this.operation.toTextComponent())
-                        .withFont(this.font)
-                        .withAction(this::operationBtnAction),
-                WidgetConfig.of(this.rightSlot, 0,0).upLeft(20, 20),
-
-                WidgetConfig.of(this.leftInput, 100, 20).upLeft(60, 46),
-                WidgetConfig.of(this.rightInput, 100, 20).upLeft(60, 69),
-                WidgetConfig.of(this.outputSLot, 0,0).upLeft(164, 54),
-                WidgetConfig.of(this.saveBtn, 40, 20).upLeft(60, 100)
-                        .withText(this.saveText)
-                        .withFont(this.font)
-                        .withAction(this::saveBtnAction));
-
-        setAbsoluteXY(WIDGETS);
+        this.setAbsoluteXY(WIDGETS);
     }
 
     private void typeBtnAction(Button button) {

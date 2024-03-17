@@ -5,12 +5,17 @@ import github.thelawf.gensokyoontology.api.client.IInputParser;
 import github.thelawf.gensokyoontology.api.client.ITextBuilder;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.container.script.ScriptBuilderContainer;
+import github.thelawf.gensokyoontology.client.gui.screen.widget.SlotWidget;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.SlotItemHandler;
 
 import java.util.List;
 
@@ -64,7 +69,7 @@ public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuild
         }
     }
 
-
+    @OnlyIn(Dist.CLIENT)
     public void drawCenteredText(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         int width = 0;
         int parentWidth = 255;
@@ -79,6 +84,7 @@ public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuild
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void renderWidgets(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         int width = 0;
         int parentWidth = 255;
@@ -94,6 +100,7 @@ public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuild
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
     public void renderAbsoluteXY(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         int x, y;
         for (WidgetConfig config : configs) {
@@ -101,6 +108,7 @@ public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuild
             y = config.upInterval;
 
             if (config.isText) drawString(matrixStack, config.fontRenderer, config.text, x, y, 16777215);
+            else if (config.widget instanceof SlotWidget) return;
             else config.widget.render(matrixStack, mouseX, mouseY, partialTicks);
         }
     }
@@ -116,4 +124,5 @@ public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuild
             else config.widget.render(matrixStack, mouseX, mouseY, partialTicks);
         }
     }
+
 }

@@ -4,7 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.util.text.ITextComponent;
 
 public enum BinaryOperation {
-    NONE("none"),
+    NONE("None"),
     AND("And"),
     OR("Or"),
     NOT("Not"),
