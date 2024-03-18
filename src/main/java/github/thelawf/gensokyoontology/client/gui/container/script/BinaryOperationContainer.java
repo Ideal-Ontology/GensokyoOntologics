@@ -12,10 +12,10 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 // player inventory: 20, 96
 // left slot: 20, 20
@@ -25,19 +25,15 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
     public static final ITextComponent NAME = new TranslationTextComponent("container." +
             GensokyoOntology.MODID + ".binary_operation.title");
     public final IInventory operationSlots = new Inventory(3);
-    public final IItemHandler playerInventory;
+    public final PlayerInventory playerInventory;
     public BinaryOperationContainer(int id, PlayerInventory playerInventory) {
         super(ContainerRegistry.BINARY_OPERATION_CONTAINER.get(), id);
         addSlot(this.addInputSlot(this.operationSlots, 0, 21, 21));
         addSlot(this.addInputSlot(this.operationSlots, 1, 111, 21));
-        this.playerInventory = new InvWrapper(playerInventory);
-        this.addPlayerInventorySlots(20, 96);
-    }
+        addSlot(this.addInputSlot(this.operationSlots, 2, 165, 57));
 
-    @Override
-    public void onContainerClosed(PlayerEntity playerIn) {
-        super.onContainerClosed(playerIn);
-        this.clearContainer(playerIn, playerIn.world, playerIn.inventory);
+        this.playerInventory = playerInventory;
+        this.addPlayerInventorySlots(21, 97);
     }
 
     private Slot addInputSlot(IInventory inventory, int index, int x, int y) {
@@ -60,9 +56,14 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
         return true;
     }
 
+    public LazyOptional<IItemHandler> createCap() {
+        return LazyOptional.empty();
+    }
+
     public static INamedContainerProvider create() {
         return new INamedContainerProvider() {
             @Override
+            @NotNull
             public ITextComponent getDisplayName() {
                 return NAME;
             }
@@ -75,9 +76,32 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
     }
 
     protected void addPlayerInventorySlots(int xStart, int yStart) {
-        addSlotBox(playerInventory, 9, xStart, yStart, 9, 3, 18, 18);
-
+        addSlotBox(this.playerInventory, 9, xStart, yStart, 9, 3, 18, 18);
         yStart += 58;
-        addSlotRange(playerInventory, 0, xStart, yStart, 9, 18);
+        addSlotRange(this.playerInventory, 0, xStart, yStart, 9, 18);
+    }
+
+    @Override
+    @NotNull
+    public ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+        if (slot != null && slot.getHasStack()) {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            if (index == 0) slot.onSlotChange(itemstack1, itemstack);
+            else if (index >= 10 && index < 42) {
+                if (!this.mergeItemStack(itemstack1, 1, 10, false)){
+                    if (!this.mergeItemStack(itemstack1, 10, 37, false)) return ItemStack.EMPTY;
+                }
+            }
+            if (itemstack1.isEmpty()) slot.putStack(ItemStack.EMPTY);
+            else slot.onSlotChanged();
+
+            if (itemstack1.getCount() == itemstack.getCount()) return ItemStack.EMPTY;
+            ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
+            if (index == 0) playerIn.dropItem(itemstack2, false);
+        }
+        return itemstack;
     }
 }

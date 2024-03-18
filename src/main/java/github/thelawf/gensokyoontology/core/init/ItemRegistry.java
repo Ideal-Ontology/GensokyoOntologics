@@ -766,10 +766,7 @@ public final class ItemRegistry {
         @Override
         public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
             // minecraft.displayGuiScreen(new DanmakuBuilderScreen(title, stack, world, player));
-            if (!world.isRemote) {
-                ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
-                NetworkHooks.openGui(serverPlayer, BinaryOperationContainer.create(), serverPlayer.getPosition());
-            }
+            if (!world.isRemote) player.openContainer(BinaryOperationContainer.create());
         }
     });
 

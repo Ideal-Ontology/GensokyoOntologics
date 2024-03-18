@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -12,22 +10,22 @@ import org.apache.logging.log4j.LogManager;
 
 import java.util.function.Supplier;
 
-public class LifeTickPacket {
+public class SLifeTickPacket {
 
     private long lifetime;
-    public LifeTickPacket(long lifetime) {
+    public SLifeTickPacket(long lifetime) {
         this.lifetime = lifetime;
     }
 
-    public static LifeTickPacket fromBytes(PacketBuffer buf) {
-        return new LifeTickPacket(buf.readLong());
+    public static SLifeTickPacket fromBytes(PacketBuffer buf) {
+        return new SLifeTickPacket(buf.readLong());
     }
 
     public void toBytes(PacketBuffer buf) {
         buf.writeLong(this.lifetime);
     }
 
-    public static void handle(LifeTickPacket packet, Supplier<NetworkEvent.Context> ctx) {
+    public static void handle(SLifeTickPacket packet, Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> update(packet));
         }
@@ -35,7 +33,7 @@ public class LifeTickPacket {
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static void update(LifeTickPacket packet) {
+    private static void update(SLifeTickPacket packet) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.world != null && mc.player != null) {
             mc.player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap -> {

@@ -12,7 +12,7 @@ import net.minecraftforge.fml.network.NetworkEvent;
 import java.util.function.Supplier;
 
 /**
- * 使用的命名规范：由服务端发给客户端的数据包类名叫做 CXxxXxx.java，由客户端发给服务端的数据包类名叫做 SXxxXxx.java
+ * 使用的命名规范：由服务端发给客户端的数据包类名叫做 SXxxXxx.java，由客户端发给服务端的数据包类名叫做 CXxxXxx.java
  */
 public class CPowerChangedPacket {
     private float count;

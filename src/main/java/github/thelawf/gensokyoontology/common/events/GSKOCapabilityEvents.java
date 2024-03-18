@@ -15,7 +15,7 @@ import github.thelawf.gensokyoontology.common.capability.world.ImperishableNight
 import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
-import github.thelawf.gensokyoontology.common.network.packet.LifeTickPacket;
+import github.thelawf.gensokyoontology.common.network.packet.SLifeTickPacket;
 import github.thelawf.gensokyoontology.common.util.BeliefType;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
@@ -127,7 +127,7 @@ public class GSKOCapabilityEvents {
         player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap -> {
             // GSKOUtil.showChatMsg(player, cap.isDirty(), 20);
             cap.addTime(1L);
-            GSKONetworking.sendToClientPlayer(new LifeTickPacket(cap.getLifetime()), player);
+            GSKONetworking.sendToClientPlayer(new SLifeTickPacket(cap.getLifetime()), player);
         });
     }
 

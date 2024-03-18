@@ -1,11 +1,6 @@
 package github.thelawf.gensokyoontology.common.item;
 
-import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapability;
-import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
-import github.thelawf.gensokyoontology.common.network.GSKONetworking;
-import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
-import github.thelawf.gensokyoontology.common.network.packet.LifeTickPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -13,10 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
-import net.minecraftforge.common.util.NonNullSupplier;
 import org.jetbrains.annotations.NotNull;
-
-import java.lang.reflect.InvocationTargetException;
 
 public class ExtendItem extends Item {
     public ExtendItem(Properties properties) {

@@ -44,7 +44,7 @@ public class SPowerChangedPacket {
     private static void handleOnServer(ServerWorld serverWorld, SPowerChangedPacket packet) {
         serverWorld.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
             gskoCap.setCount(packet.getCount());
-            GSKOUtil.log(packet.getClass(), "Count: " + packet.getCount());
+            // GSKOUtil.log(packet.getClass(), "Count: " + packet.getCount());
         });
     }
 
