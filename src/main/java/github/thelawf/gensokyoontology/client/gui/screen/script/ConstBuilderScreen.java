@@ -133,11 +133,11 @@ public class ConstBuilderScreen extends ScriptBuilderScreen {
                     this.valueInput.setText(String.valueOf(GSKONBTUtil.getAsNumber(nbt).getLong()));
                     break;
                 case "string":
-                    this.valueInput.setText(GSKONBTUtil.getAs(nbt).getString());
+                    this.valueInput.setText(GSKONBTUtil.getFromValue(nbt).getString());
                     break;
                 case "boolean":
-                    if (GSKONBTUtil.getAs(nbt) instanceof ByteNBT) {
-                        ByteNBT byteNbt = (ByteNBT) GSKONBTUtil.getAs(nbt);
+                    if (GSKONBTUtil.getFromValue(nbt) instanceof ByteNBT) {
+                        ByteNBT byteNbt = (ByteNBT) GSKONBTUtil.getFromValue(nbt);
                         this.valueInput.setText(byteNbt.getInt() == 0 ? "false" : "true");
                     }
                     this.valueInput.setText("false");

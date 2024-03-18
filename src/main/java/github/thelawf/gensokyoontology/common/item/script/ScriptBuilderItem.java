@@ -56,7 +56,7 @@ public abstract class ScriptBuilderItem extends Item {
             tooltip.add(new StringTextComponent(NAME_HIGHLIGHT + nbt.getString("name")));
             tooltip.add(FILED_VALUE_TIP);
             if (GSKONBTUtil.containsPrimitiveType(nbt)) {
-                tooltip.add(new StringTextComponent(VALUE_HIGHLIGHT + GSKONBTUtil.getAs(nbt).getString()));
+                tooltip.add(new StringTextComponent(VALUE_HIGHLIGHT + GSKONBTUtil.getFromValue(nbt).getString()));
             }
             else if (GSKONBTUtil.containsAllowedType(nbt)) {
                 GSKONBTUtil.getMemberValues(nbt).forEach(s -> tooltip.add(new StringTextComponent(s)));

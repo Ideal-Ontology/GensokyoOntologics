@@ -17,6 +17,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.List;
 
 public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuilderContainer> implements IInputParser, ITextBuilder {
+    protected static final int WHITE = 16777215;
+    protected static final int DARK_GRAY = 5592405;
     public LineralContainerScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }
@@ -25,8 +27,6 @@ public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuild
         for (WidgetConfig config : configs) {
             x += config.leftInterval;
             y += config.upInterval;
-
-            // LOGGER.info("widget: {}, x: {}, y: {}", config.text.getString(), x, y);
             addWidget(x, y, config);
         }
     }
@@ -44,10 +44,16 @@ public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuild
         for (WidgetConfig config : configs) {
             x = config.leftInterval;
             y = config.upInterval;
-
-            // LOGGER.info("widget: {}, x: {}, y: {}", config.text.getString(), x, y);
-            // addWidget(config);
             addWidget(x, y, config);
+        }
+    }
+
+    public void setRelativeToParent(List<WidgetConfig> configs, int parentLeft, int parentTop) {
+        int x,y;
+        for (WidgetConfig config : configs) {
+            x = config.leftInterval;
+            y = config.upInterval;
+            addWidget(x + parentLeft, y + parentTop, config);
         }
     }
 
@@ -120,15 +126,15 @@ public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuild
 
     }
 
-    public void renderIntervalRelative(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        int x = 0, y = 0;
+    @OnlyIn(Dist.CLIENT)
+    public void renderRelativeToParent(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY,
+                                       int parentLeft, int parentTop, float partialTicks) {
         for (WidgetConfig config : configs) {
-            x += config.leftInterval;
-            y += config.upInterval;
-
-            if (config.isText) drawString(matrixStack, config.fontRenderer, config.text, x, y, 16777215);
+            if (config.isText) drawString(matrixStack, config.fontRenderer, config.text, parentLeft + config.leftInterval, parentTop + config.upInterval, 16777215);
+            else if (config.widget instanceof SlotWidget) return;
             else config.widget.render(matrixStack, mouseX, mouseY, partialTicks);
         }
+
     }
 
 }

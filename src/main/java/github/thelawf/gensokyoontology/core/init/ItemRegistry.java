@@ -16,6 +16,8 @@ import github.thelawf.gensokyoontology.common.item.script.ScriptReadOnlyItem;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.tool.*;
 import github.thelawf.gensokyoontology.common.item.touhou.*;
+import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
+import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
@@ -23,25 +25,26 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.RegistryObject;
-import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Random;
 
 import static net.minecraft.item.Items.BUCKET;
@@ -767,6 +770,18 @@ public final class ItemRegistry {
         public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
             // minecraft.displayGuiScreen(new DanmakuBuilderScreen(title, stack, world, player));
             if (!world.isRemote) player.openContainer(BinaryOperationContainer.create());
+        }
+
+        @Override
+        public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+            if (stack.getTag() == null) return;
+            CompoundNBT nbt = stack.getTag();
+            tooltip.add(OPERATION_TYPE_TIP);
+            tooltip.add(new StringTextComponent(OPT_HIGHLIGHT + nbt.getString("type")));
+            tooltip.add(LEFT_TYPE_TIP);
+            tooltip.add(new StringTextComponent(TYPE_HIGHLIGHT + GSKOScriptUtil.getOptLeft(nbt).getString("type")));
+            tooltip.add(RIGHT_TYPE_TIP);
+            tooltip.add(new StringTextComponent(TYPE_HIGHLIGHT + GSKOScriptUtil.getOptRight(nbt).getString("type")));
         }
     });
 

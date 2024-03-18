@@ -87,6 +87,12 @@ public class WidgetConfig {
         return this;
     }
 
+    public WidgetConfig setXY(int x, int y) {
+        this.leftInterval = x;
+        this.upInterval = y;
+        return this;
+    }
+
     public WidgetConfig rightInterval(int rightIntervalIn) {
         this.rightInterval = rightIntervalIn;
         return this;

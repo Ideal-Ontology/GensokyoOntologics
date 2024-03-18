@@ -6,7 +6,6 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.container.script.BinaryOperationContainer;
 import github.thelawf.gensokyoontology.client.gui.container.script.ScriptBuilderContainer;
-import github.thelawf.gensokyoontology.client.gui.screen.widget.SlotWidget;
 import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
@@ -17,6 +16,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -40,40 +40,29 @@ public class BinaryOperationScreen extends ScriptContainerScreen {
     private final List<WidgetConfig> WIDGETS;
     public BinaryOperationScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
-        operation = BinaryOperation.NONE;
+        this.playerInventoryTitleX = 10;
+        this.playerInventoryTitleY = 88;
+        this.operation = BinaryOperation.NONE;
 
-        Button operationBtn = new Button(0, 0, 0, 0, operation.toTextComponent(), (b) -> {
-        });
-        this.saveBtn = new Button(0,0,0,0, saveText, (b) -> {});
-
-        SlotWidget leftSlot = new SlotWidget(0, 0, 0, 0, withText("left"));
-        SlotWidget rightSlot = new SlotWidget(0, 0, 0, 0, withText("right"));
-        SlotWidget outputSLot = new SlotWidget(0, 0, 0, 0, withText("output"));
-
-
-        // int sw = this.minecraft.getMainWindow().getScaledWidth();
-        // int sh = this.minecraft.getMainWindow().getScaledHeight();
-
-        // WidgetConfig.TEXT.upLeft(20, 44).withText(this.leftText).withFont(this.font),
-        // WidgetConfig.TEXT.upLeft(20, 66).withText(this.rightText).withFont(this.font),
-        // WidgetConfig.of(this.leftInput, 100, 18).upLeft(48, 48).withFont(this.font),
-        // WidgetConfig.of(this.rightInput, 100, 18).upLeft(48, 71).withFont(this.font),
+        Button operationBtn = new Button(0, 0, 0, 0, operation.toTextComponent(), (b1) -> {});
+        this.saveBtn = new Button(0,0,0,0, saveText, (b2) -> {});
 
         WIDGETS = Lists.newArrayList(
-                WidgetConfig.of(operationBtn, 54, 18).upLeft(47, 20)
+                WidgetConfig.of(operationBtn, 54, 20).setXY(47, 20)
                         .withFont(this.font)
                         .withText(this.operation.toTextComponent())
                         .withAction(this::operationBtnAction),
-                WidgetConfig.of(this.saveBtn, 40, 18).upLeft(150, 56)
+                WidgetConfig.of(this.saveBtn, 40, 20).setXY(140, 56)
                         .withFont(this.font)
                         .withText(this.saveText)
                         .withAction(this::saveBtnAction));
-        setAbsoluteXY(WIDGETS);
     }
 
     @Override
     public void tick() {
         super.tick();
+        this.leftInput.tick();
+        this.rightInput.tick();
     }
 
     @Override
@@ -82,14 +71,17 @@ public class BinaryOperationScreen extends ScriptContainerScreen {
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;
 
-        this.leftInput = new TextFieldWidget(this.font, 48, 48, 100, 18, withText(""));
-        this.rightInput = new TextFieldWidget(this.font, 48, 71, 100, 18, withText(""));
-        this.setAbsoluteXY(WIDGETS);
+        int a = this.guiLeft;
+        int b = this.guiTop;
+
+        this.leftInput = new TextFieldWidget(this.font, a + 43, b + 48, 90, 18, withText(""));
+        this.rightInput = new TextFieldWidget(this.font, a + 43, b + 71, 90, 18, withText(""));
+        this.setRelativeToParent(WIDGETS, a, b);
     }
 
     private void operationBtnAction(Button button) {
         this.operation = EnumUtil.switchEnum(BinaryOperation.class, this.operation);
-        button.setMessage(EnumUtil.moveTo(BinaryOperation.class, this.operation, -1).toTextComponent());
+        button.setMessage(this.operation.toTextComponent());
     }
 
     private void saveBtnAction(Button button) {
@@ -111,7 +103,6 @@ public class BinaryOperationScreen extends ScriptContainerScreen {
         this.optData.put("value", value);
 
         GSKONetworking.CHANNEL.sendToServer(new CMergeScriptPacket(this.optData));
-        // this.minecraft.player.addItemStackToInventory(itemStack);
     }
 
     @Override
@@ -119,9 +110,11 @@ public class BinaryOperationScreen extends ScriptContainerScreen {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft != null) {
-            this.renderCenterRelative(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
-            drawCenteredString(matrixStack, this.font, this.leftText, 20, 44, 16777215);
-            drawCenteredString(matrixStack, this.font, this.rightText, 20, 66, 16777215);
+            this.renderRelativeToParent(WIDGETS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop, partialTicks);
+            this.font.drawText(matrixStack, this.leftText, this.guiLeft + 20, this.guiTop + 50, DARK_GRAY);
+            this.font.drawText(matrixStack,  this.rightText, this.guiLeft + 20, this.guiTop + 72, DARK_GRAY);
+            // drawCenteredString(matrixStack, this.font, this.leftText, this.guiLeft + 20, this.guiTop + 50, DARK_GRAY);
+            // drawCenteredString(matrixStack, this.font, this.rightText, this.guiLeft + 20, this.guiTop + 72, DARK_GRAY);
             this.leftInput.render(matrixStack, mouseX, mouseY, partialTicks);
             this.rightInput.render(matrixStack, mouseX, mouseY, partialTicks);
         }

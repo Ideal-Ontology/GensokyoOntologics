@@ -36,6 +36,12 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
         this.addPlayerInventorySlots(21, 97);
     }
 
+    @Override
+    public void onContainerClosed(@NotNull PlayerEntity playerIn) {
+        super.onContainerClosed(playerIn);
+        this.clearContainer(playerIn, playerIn.world, this.operationSlots);
+    }
+
     private Slot addInputSlot(IInventory inventory, int index, int x, int y) {
         return new Slot(inventory, index, x, y) {
             @Override

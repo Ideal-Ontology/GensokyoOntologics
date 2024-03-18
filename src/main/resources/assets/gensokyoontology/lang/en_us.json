@@ -432,8 +432,8 @@
   "gui.gensokyoontology.script_builder.fieldName": "Name: ",
   "gui.gensokyoontology.const_builder.tip.valueInput": "Value: ",
 
-  "gui.gensokyoontology.binary_operation.left.text": "Left Value: ",
-  "gui.gensokyoontology.binary_operation.right.text": "Right Value: ",
+  "gui.gensokyoontology.binary_operation.left.text": "Left: ",
+  "gui.gensokyoontology.binary_operation.right.text": "Right: ",
 
   "gui.gensokyoontology.binary_operation.button.operation.None": "None",
   "gui.gensokyoontology.binary_operation.button.operation.And": "And",
@@ -527,6 +527,10 @@
   "tooltip.gensokyoontology.script_builder.field_type": "Field Type: ",
   "tooltip.gensokyoontology.script_builder.field_name": "Field Name: ",
   "tooltip.gensokyoontology.script_builder.field_value": "Field Value: ",
+
+  "tooltip.gensokyoontology.binary_builder.operation_type": "Operation Type: ",
+  "tooltip.gensokyoontology.binary_builder.left_type": "Left Type: ",
+  "tooltip.gensokyoontology.binary_builder.right_type": "Right Type: ",
 
   "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
   "patchouli.gensokyoontology.book.landing_text": "Fore Words",

@@ -160,7 +160,7 @@ public class GSKONBTUtil {
         }
     }
 
-    public static INBT getAs(CompoundNBT nbt) {
+    public static INBT getFromValue(CompoundNBT nbt) {
         if (nbt.get("value") instanceof NumberNBT) return getAsNumber(nbt);
         else if (nbt.get("value") instanceof StringNBT) return nbt.get("value");
         else if (nbt.get("value") instanceof ByteNBT) {
@@ -168,6 +168,9 @@ public class GSKONBTUtil {
             if (byteNBT != null) {
                 return byteNBT.getInt() == 0 ? StringNBT.valueOf("false") : StringNBT.valueOf("true");
             }
+        }
+        else if (nbt.get("value") instanceof CompoundNBT) {
+            return nbt.get("value");
         }
         return new CompoundNBT();
     }
@@ -216,6 +219,9 @@ public class GSKONBTUtil {
             return getNumberFromKey(nbt, key);
         }
         else if (nbt.get(key) instanceof StringNBT) {
+            return nbt.get(key);
+        }
+        else if (nbt.get(key) instanceof CompoundNBT) {
             return nbt.get(key);
         }
         return new CompoundNBT();
