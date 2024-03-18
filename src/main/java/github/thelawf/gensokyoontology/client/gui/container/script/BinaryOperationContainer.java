@@ -30,7 +30,7 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
         super(ContainerRegistry.BINARY_OPERATION_CONTAINER.get(), id);
         addSlot(this.addInputSlot(this.operationSlots, 0, 21, 21));
         addSlot(this.addInputSlot(this.operationSlots, 1, 111, 21));
-        addSlot(this.addInputSlot(this.operationSlots, 2, 165, 57));
+        addSlot(this.addInputSlot(this.operationSlots, 2, 165, 21));
 
         this.playerInventory = playerInventory;
         this.addPlayerInventorySlots(21, 97);

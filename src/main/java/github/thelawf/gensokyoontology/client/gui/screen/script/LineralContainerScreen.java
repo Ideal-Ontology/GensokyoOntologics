@@ -10,12 +10,9 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 import java.util.List;
 
@@ -101,7 +98,7 @@ public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuild
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void renderAbsoluteXY(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+    public void renderRelativeXY(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         int x, y;
         for (WidgetConfig config : configs) {
             x = config.leftInterval;
@@ -113,6 +110,15 @@ public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuild
         }
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public void renderCenterRelative(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        for (WidgetConfig config : configs) {
+            if (config.isText) drawString(matrixStack, config.fontRenderer, config.text, config.leftInterval, config.upInterval, 16777215);
+            else if (config.widget instanceof SlotWidget) return;
+            else config.widget.render(matrixStack, mouseX, mouseY, partialTicks);
+        }
+
+    }
 
     public void renderIntervalRelative(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         int x = 0, y = 0;

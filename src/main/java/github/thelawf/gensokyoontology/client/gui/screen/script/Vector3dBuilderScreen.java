@@ -28,10 +28,10 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
     private TextFieldWidget xInput;
     private TextFieldWidget yInput;
     private TextFieldWidget zInput;
-    private final WidgetConfig TEXT_LABEL1 = WidgetConfig.of(new BlankWidget(0,0,0,0, ofText("null")),0,0).isText(true);
-    private final WidgetConfig TEXT_LABEL2 = WidgetConfig.of(new BlankWidget(0,0,0,0, ofText("null")),0,0).isText(true);
-    private final WidgetConfig TEXT_LABEL3 = WidgetConfig.of(new BlankWidget(0,0,0,0, ofText("null")),0,0).isText(true);
-    private final WidgetConfig TEXT_LABEL4 = WidgetConfig.of(new BlankWidget(0,0,0,0, ofText("null")),0,0).isText(true);
+    private final WidgetConfig TEXT_LABEL1 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
+    private final WidgetConfig TEXT_LABEL2 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
+    private final WidgetConfig TEXT_LABEL3 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
+    private final WidgetConfig TEXT_LABEL4 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
 
     private final ITextComponent tipName = GensokyoOntology.withTranslation("gui.",".vector3d.builder.name");
     private List<WidgetConfig> WIDGETS;
@@ -64,22 +64,22 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
                 TEXT_LABEL1.upLeft(50, 20).withText(this.fieldName).withFont(this.font),
                 WidgetConfig.of(this.nameInput, 100, 20).upLeft(50, 60)
                         .withFont(this.font)
-                        .withText(ofText("input here")),
+                        .withText(withText("input here")),
 
-                TEXT_LABEL2.upLeft(90, 20).withText(ofText("X: ")).withFont(this.font),
+                TEXT_LABEL2.upLeft(90, 20).withText(withText("X: ")).withFont(this.font),
                 WidgetConfig.of(this.xInput, 100, 20).upLeft(85, 60)
                         .withFont(this.font)
-                        .withText(ofText("0")),
+                        .withText(withText("0")),
 
-                TEXT_LABEL3.upLeft(120, 20).withText(ofText("Y: ")).withFont(this.font),
+                TEXT_LABEL3.upLeft(120, 20).withText(withText("Y: ")).withFont(this.font),
                 WidgetConfig.of(this.yInput, 100, 20).upLeft(115, 60)
                         .withFont(this.font)
-                        .withText(ofText("0")),
+                        .withText(withText("0")),
 
-                TEXT_LABEL4.upLeft(150, 20).withText(ofText("Z: ")).withFont(this.font),
+                TEXT_LABEL4.upLeft(150, 20).withText(withText("Z: ")).withFont(this.font),
                 WidgetConfig.of(this.zInput, 100, 20).upLeft(145, 60)
                         .withFont(this.font)
-                        .withText(ofText("0")),
+                        .withText(withText("0")),
 
                 WidgetConfig.of(this.saveBtn, 40, 20).upLeft(190, 20)
                         .withText(this.saveText)

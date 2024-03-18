@@ -25,7 +25,7 @@ public class AssignInstanceScreen extends ScriptContainerScreen {
     private final CompoundNBT assignData = new CompoundNBT();
     private TextFieldWidget nameInput;
     private SlotWidget slotWidget;
-    private final WidgetConfig NAME_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, ofText("null")),0,0).isText(true);
+    private final WidgetConfig NAME_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private List<WidgetConfig> WIDGETS;
 
     public AssignInstanceScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
@@ -38,14 +38,14 @@ public class AssignInstanceScreen extends ScriptContainerScreen {
         if (this.minecraft.player == null) return;
 
         this.nameInput = new TextFieldWidget(this.font, 0,0,0,0, this.title);
-        this.slotWidget = new SlotWidget(0,0,0,0,ofText("slot"));
+        this.slotWidget = new SlotWidget(0,0,0,0, withText("slot"));
         this.saveBtn = new Button(0, 0, 30, 30, this.saveText, (button) -> {});
 
         WIDGETS = Lists.newArrayList(
                 NAME_LABEL.upLeft(20, 20).withText(this.fieldName).withFont(this.font),
                 WidgetConfig.of(this.nameInput, 100, 20).upLeft(20, 60)
                         .withFont(this.font)
-                        .withText(ofText("name")),
+                        .withText(withText("name")),
                 WidgetConfig.of(this.saveBtn, 60, 20).upLeft(50, 20)
                         .withFont(this.font)
                         .withText(this.saveText)
