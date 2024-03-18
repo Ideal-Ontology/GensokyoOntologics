@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.container.DanmakuCraftingContainer;
+import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;

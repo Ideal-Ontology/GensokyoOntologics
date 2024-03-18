@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.gui.container;
+package github.thelawf.gensokyoontology.common.container;
 
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.Container;

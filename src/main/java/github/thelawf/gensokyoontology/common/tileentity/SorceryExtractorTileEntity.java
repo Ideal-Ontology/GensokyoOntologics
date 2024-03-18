@@ -1,8 +1,7 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.common.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
@@ -13,7 +12,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
@@ -60,14 +58,14 @@ public class SorceryExtractorTileEntity extends TileEntity implements ITickableT
 
     @Override
     public void read(@NotNull BlockState state, CompoundNBT nbt) {
-        itemHandler.deserializeNBT(nbt.getCompound("inv"));
+        this.itemHandler.deserializeNBT(nbt.getCompound("inv"));
         super.read(state, nbt);
     }
 
     @Override
     @NotNull
     public CompoundNBT write(CompoundNBT compound) {
-        compound.put("inv", itemHandler.serializeNBT());
+        compound.put("inv", this.itemHandler.serializeNBT());
         return super.write(compound);
     }
 

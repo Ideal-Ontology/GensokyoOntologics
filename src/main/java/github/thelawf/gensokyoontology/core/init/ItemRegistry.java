@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.core.init;
 
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.container.script.BinaryOperationContainer;
+import github.thelawf.gensokyoontology.common.container.script.BinaryOperationContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.script.ConstBuilderScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.Vector3dBuilderScreen;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
@@ -16,7 +16,6 @@ import github.thelawf.gensokyoontology.common.item.script.ScriptReadOnlyItem;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.tool.*;
 import github.thelawf.gensokyoontology.common.item.touhou.*;
-import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;

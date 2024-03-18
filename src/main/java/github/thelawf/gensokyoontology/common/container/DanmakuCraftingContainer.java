@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.gui.container;
+package github.thelawf.gensokyoontology.common.container;
 
 import github.thelawf.gensokyoontology.common.util.client.GSKOGUIUtil;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;

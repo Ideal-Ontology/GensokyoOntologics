@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.api.client.IInputParser;
 import github.thelawf.gensokyoontology.api.client.ITextBuilder;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
-import github.thelawf.gensokyoontology.client.gui.container.script.ScriptBuilderContainer;
+import github.thelawf.gensokyoontology.common.container.script.ScriptBuilderContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.SlotWidget;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;

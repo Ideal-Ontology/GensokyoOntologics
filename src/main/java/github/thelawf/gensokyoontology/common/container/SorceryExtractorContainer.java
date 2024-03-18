@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.gui.container;
+package github.thelawf.gensokyoontology.common.container;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.tileentity.SorceryExtractorTileEntity;

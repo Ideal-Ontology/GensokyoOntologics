@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.gui.container.script;
+package github.thelawf.gensokyoontology.common.container.script;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
@@ -14,7 +14,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 
 // player inventory: 20, 96

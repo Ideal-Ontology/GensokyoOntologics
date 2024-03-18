@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.block;
 
-import github.thelawf.gensokyoontology.client.gui.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.common.tileentity.SorceryExtractorTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.block.Block;
@@ -9,7 +8,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
-import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;

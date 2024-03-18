@@ -4,8 +4,8 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
-import github.thelawf.gensokyoontology.client.gui.container.script.BinaryOperationContainer;
-import github.thelawf.gensokyoontology.client.gui.container.script.ScriptBuilderContainer;
+import github.thelawf.gensokyoontology.common.container.script.BinaryOperationContainer;
+import github.thelawf.gensokyoontology.common.container.script.ScriptBuilderContainer;
 import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
@@ -16,7 +16,6 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;

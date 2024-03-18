@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.gui.container;
+package github.thelawf.gensokyoontology.common.container;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;

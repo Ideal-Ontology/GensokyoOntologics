@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.client.gui.screen.script;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.container.script.ScriptBuilderContainer;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import github.thelawf.gensokyoontology.common.container.script.ScriptBuilderContainer;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;

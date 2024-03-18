@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.gui.container;
+package github.thelawf.gensokyoontology.common.container;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;

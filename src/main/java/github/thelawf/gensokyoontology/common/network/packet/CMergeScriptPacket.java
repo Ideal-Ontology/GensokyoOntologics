@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
-import github.thelawf.gensokyoontology.client.gui.container.script.BinaryOperationContainer;
+import github.thelawf.gensokyoontology.common.container.script.BinaryOperationContainer;
 import github.thelawf.gensokyoontology.common.item.script.DynamicScriptItem;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
