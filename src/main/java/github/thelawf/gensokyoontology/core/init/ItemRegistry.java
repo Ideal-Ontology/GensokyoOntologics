@@ -177,7 +177,7 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> MAPLE_TRAPDOOR_ITEM = ITEMS.register(
             "maple_trapdoor", () -> new BlockItem(BlockRegistry.MAPLE_TRAPDOOR.get(),
                     new Item.Properties()));
-    public static final RegistryObject<BlockItem> MAPLE_PRESSRUE_PLATE_ITEM = ITEMS.register(
+    public static final RegistryObject<BlockItem> MAPLE_PRESSURE_PLATE_ITEM = ITEMS.register(
             "maple_pressure_plate", () -> new BlockItem(BlockRegistry.MAPLE_PRESSURE_PLATE.get(),
                     new Item.Properties().group(ItemGroup.REDSTONE)));
 
@@ -261,6 +261,9 @@ public final class ItemRegistry {
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAISEN_BOX_ITEM = ITEMS.register(
             "saisen_box", () -> new BlockItem(BlockRegistry.SAISEN_BOX.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> SPELL_CONSOLE_ITEM = ITEMS.register(
+            "spell_card_console", () -> new BlockItem(BlockRegistry.SPELL_CARD_CONSOLE.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // -------------------------------- 矿石 ---------------------------------//

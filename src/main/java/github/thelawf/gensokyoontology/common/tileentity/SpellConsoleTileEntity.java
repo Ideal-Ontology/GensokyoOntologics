@@ -2,14 +2,20 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 // TODO: 符卡控制台可以处理插入的物品，为其附加NBT数据
 public class SpellConsoleTileEntity extends TileEntity {
@@ -44,6 +50,22 @@ public class SpellConsoleTileEntity extends TileEntity {
                 return super.insertItem(slot, stack, simulate);
             }
 
+        };
+    }
+
+    public static INamedContainerProvider create() {
+        return new INamedContainerProvider() {
+            @Override
+            @NotNull
+            public ITextComponent getDisplayName() {
+                return CONTAINER_NAME;
+            }
+
+            @Nullable
+            @Override
+            public Container createMenu(int windowsId, PlayerInventory playerInventory, PlayerEntity player) {
+                return null;
+            }
         };
     }
 }

@@ -323,15 +323,16 @@
   "block.gensokyoontology.redwood_leaves": "红杉树叶",
 
   "block.gensokyoontology.gap": "隙间",
-  "block.gensokyoontology.disposable_spawner": "一次性刷怪笼",
+  "block.gensokyoontology.haniwa": "埴轮",
+  "block.gensokyoontology.saisen_box": "赛钱箱",
   "block.gensokyoontology.danmaku_table": "弹幕合成台",
   "block.gensokyoontology.sorcery_extractor": "魔力提取台",
-  "block.gensokyoontology.saisen_box": "赛钱箱",
-  "block.gensokyoontology.haniwa": "埴轮",
+  "block.gensokyoontology.spell_card_console": "符卡控制台",
+  "block.gensokyoontology.disposable_spawner": "一次性刷怪笼",
 
-  "block.gensokyoontology.dragon_sphere_ore": "龙珠矿石",
   "block.gensokyoontology.jade_ore": "玉石原矿",
   "block.gensokyoontology.izano_object_ore": "伊奘诺物质矿石",
+  "block.gensokyoontology.dragon_sphere_ore": "龙珠矿石",
   "block.gensokyoontology.immemorial_alloy_block": "超古代合金方块",
 
   "block.gensokyoontology.blue_mushroom_block": "蓝色蘑菇方块",

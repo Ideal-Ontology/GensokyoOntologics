@@ -1,6 +1,3 @@
-import com.github.jengelman.gradle.plugins.shadow.internal.DependencyFilter
-import com.sun.org.apache.xerces.internal.xinclude.XIncludeNamespaceSupport
-
 buildscript {
     repositories {
         maven { url = 'https://download.mcbbs.net/maven' }

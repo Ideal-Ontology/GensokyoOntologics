@@ -323,15 +323,16 @@
   "block.gensokyoontology.redwood_leaves": "Redwood Leaves",
 
   "block.gensokyoontology.gap": "Gap",
-  "block.gensokyoontology.disposable_spawner": "Disposable Spawner",
+  "block.gensokyoontology.haniwa": "Haniwa",
+  "block.gensokyoontology.saisen_box": "Saisen Box",
   "block.gensokyoontology.danmaku_table": "Danmaku Table",
   "block.gensokyoontology.sorcery_extractor": "Sorcery Extractor",
-  "block.gensokyoontology.saisen_box": "Saisen Box",
-  "block.gensokyoontology.haniwa": "Haniwa",
+  "block.gensokyoontology.spell_card_console": "Spell Card Console",
+  "block.gensokyoontology.disposable_spawner": "Disposable Spawner",
 
-  "block.gensokyoontology.dragon_sphere_ore": "Dragon Sphere Ore",
   "block.gensokyoontology.jade_ore": "Jade Ore",
   "block.gensokyoontology.izano_object_ore": "Izano Object Ore",
+  "block.gensokyoontology.dragon_sphere_ore": "Dragon Sphere Ore",
   "block.gensokyoontology.immemorial_alloy_block": "Immemorial Alloy Block",
 
   "block.gensokyoontology.blue_mushroom_block": "Blue Mushroom Block",
