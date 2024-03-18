@@ -17,6 +17,7 @@ import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.tool.*;
 import github.thelawf.gensokyoontology.common.item.touhou.*;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
+import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
@@ -777,7 +778,8 @@ public final class ItemRegistry {
             if (stack.getTag() == null) return;
             CompoundNBT nbt = stack.getTag();
             tooltip.add(OPERATION_TYPE_TIP);
-            tooltip.add(new StringTextComponent(OPT_HIGHLIGHT + nbt.getString("type")));
+            tooltip.add(BinaryOperation.valueOf(GSKOScriptUtil.getScriptValue(nbt).getString("operation")
+                    .toUpperCase()).toTextComponent());
             tooltip.add(LEFT_TYPE_TIP);
             tooltip.add(new StringTextComponent(TYPE_HIGHLIGHT + GSKOScriptUtil.getOptLeft(nbt).getString("type")));
             tooltip.add(RIGHT_TYPE_TIP);

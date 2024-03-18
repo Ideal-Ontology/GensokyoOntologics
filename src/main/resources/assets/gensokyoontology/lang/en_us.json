@@ -528,9 +528,9 @@
   "tooltip.gensokyoontology.script_builder.field_name": "Field Name: ",
   "tooltip.gensokyoontology.script_builder.field_value": "Field Value: ",
 
-  "tooltip.gensokyoontology.binary_builder.operation_type": "Operation Type: ",
-  "tooltip.gensokyoontology.binary_builder.left_type": "Left Type: ",
-  "tooltip.gensokyoontology.binary_builder.right_type": "Right Type: ",
+  "tooltip.gensokyoontology.binary_builder.operation_type": "§dOperation Type: ",
+  "tooltip.gensokyoontology.binary_builder.left_type": "§dLeft Type: ",
+  "tooltip.gensokyoontology.binary_builder.right_type": "§dRight Type: ",
 
   "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
   "patchouli.gensokyoontology.book.landing_text": "Fore Words",

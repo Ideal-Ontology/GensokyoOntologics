@@ -14,8 +14,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public abstract class DynamicScriptItem extends Item {
-    public static final String OPT_HIGHLIGHT = "§6";    /// 金色 ///
-    public static final String TYPE_HIGHLIGHT = "§d";    /// 粉色 ///
+    public static final String TYPE_HIGHLIGHT = "§b";    /// 浅蓝 ///
     public static final String EXCEPTION_HIGHLIGHT = "§c";  /// 红色 ///
     public static final ITextComponent OPERATION_TYPE_TIP = GensokyoOntology.withTranslation("tooltip.",".binary_builder.operation_type");
     public static final ITextComponent LEFT_TYPE_TIP = GensokyoOntology.withTranslation("tooltip.",".binary_builder.left_type");
