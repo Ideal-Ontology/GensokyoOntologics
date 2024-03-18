@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.common.container.SorceryExtractorContainer;
+import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
 import github.thelawf.gensokyoontology.common.container.script.BinaryOperationContainer;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.math.BlockPos;
@@ -30,5 +31,8 @@ public final class ContainerRegistry {
     public static final RegistryObject<ContainerType<BinaryOperationContainer>> BINARY_OPERATION_CONTAINER =
             CONTAINERS.register("binary_operation_container", () -> IForgeContainerType.create(
                     ((windowId, inv, data) -> new BinaryOperationContainer(windowId, inv))));
+    public static final RegistryObject<ContainerType<SpellCardConsoleContainer>> SPELL_CONSOLE_CONTAINER =
+            CONTAINERS.register("spell_console_container", () -> IForgeContainerType.create(
+                    ((windowId, inv, data) -> new SpellCardConsoleContainer(windowId, inv.player, inv.player.world, data.readBlockPos()))));
 
 }
