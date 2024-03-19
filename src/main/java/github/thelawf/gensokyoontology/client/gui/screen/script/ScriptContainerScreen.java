@@ -19,6 +19,6 @@ public abstract class ScriptContainerScreen extends LineralContainerScreen {
 
     @Override
     public boolean isPauseScreen() {
-        return false;
+        return super.isPauseScreen();
     }
 }
