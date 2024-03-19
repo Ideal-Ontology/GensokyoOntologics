@@ -138,7 +138,7 @@ public abstract class LineralContainerScreen<C extends ScriptBuilderContainer> e
             if (config.isText) drawString(matrixStack, config.fontRenderer, config.text, parentLeft + config.leftInterval, parentTop + config.upInterval, 16777215);
             else if (config.widget instanceof SlotWidget) return;
             else if (config.widget instanceof ImageButton) {
-                config.widget.renderWidget(matrixStack, mouseX, mouseY, partialTicks);
+                config.widget.render(matrixStack, mouseX, mouseY, partialTicks);
             }
             else config.widget.render(matrixStack, mouseX, mouseY, partialTicks);
         }

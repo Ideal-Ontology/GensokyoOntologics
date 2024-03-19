@@ -42,6 +42,9 @@ public class WidgetConfig {
         return new WidgetConfig(widget, width, height);
     }
 
+    public static WidgetConfig of(Widget widget) {
+        return new WidgetConfig(widget, widget.getWidth(), widget.getHeight());
+    }
 
     public WidgetConfig withFont(FontRenderer rendererIn) {
         this.fontRenderer = rendererIn;

@@ -347,6 +347,7 @@
   "container.gensokyoontology.danmaku_craft.title": "弹幕合成",
   "container.gensokyoontology.sorcery_extractor.title": "魔力提取",
   "container.gensokyoontology.binary_operation.title": "二元运算",
+  "container.gensokyoontology.spell_card_console.title": "符卡控制台",
 
   "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
   "description.gensokyoontology.praxis_sword_description": "§6现在，你知道了所有的故事，那么，请开始实践吧~",
@@ -532,6 +533,9 @@
   "tooltip.gensokyoontology.binary_builder.operation_type": "§d表达式类型§r： ",
   "tooltip.gensokyoontology.binary_builder.left_type": "§d左值类型§r：",
   "tooltip.gensokyoontology.binary_builder.right_type": "§d右值类型§r：",
+
+  "tooltip.gensokyoontology.spell_console.button.save": "保存",
+  "tooltip.gensokyoontology.spell_console.button.copy": "拷贝",
 
   "patchouli.gensokyoontology.book.name": "幻想存有论",
   "patchouli.gensokyoontology.book.landing_text": "前言",

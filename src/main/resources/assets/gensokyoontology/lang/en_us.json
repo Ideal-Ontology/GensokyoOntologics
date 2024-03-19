@@ -347,6 +347,7 @@
   "container.gensokyoontology.danmaku_craft.title": "Danmaku Crafting",
   "container.gensokyoontology.sorcery_extractor.title": "Sorcery Extracting",
   "container.gensokyoontology.binary_operation.title": "Binary Operating",
+  "container.gensokyoontology.spell_card_console.title": "Spell Card Console",
 
   "description.gensokyoontology.idealism_sword_description": "Cause 12 damage each tick",
   "description.gensokyoontology.praxis_sword_description": "§6Go into Praxis, man ~",
@@ -532,6 +533,9 @@
   "tooltip.gensokyoontology.binary_builder.operation_type": "§dOperation Type: ",
   "tooltip.gensokyoontology.binary_builder.left_type": "§dLeft Type: ",
   "tooltip.gensokyoontology.binary_builder.right_type": "§dRight Type: ",
+
+  "tooltip.gensokyoontology.spell_console.button.save": "Save",
+  "tooltip.gensokyoontology.spell_console.button.copy": "Copy",
 
   "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
   "patchouli.gensokyoontology.book.landing_text": "Fore Words",
