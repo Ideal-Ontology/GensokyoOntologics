@@ -34,7 +34,7 @@ import java.util.List;
 public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConsoleContainer> {
 
     public static final ITextComponent SAVE_TIP = GensokyoOntology.withTranslation("tooltip.",".spell_console.button.save");
-    public static final ITextComponent COPY_TIP = GensokyoOntology.withTranslation("tooltip.",".spell_console.button.save");
+    public static final ITextComponent COPY_TIP = GensokyoOntology.withTranslation("tooltip.",".spell_console.button.copy");
     public static final ResourceLocation BUTTONS_TEX = GensokyoOntology.withRL("textures/gui/widget/buttons.png");
     public static final ResourceLocation SCREEN_TEXTURE = GensokyoOntology.withRL("textures/gui/spell_card_console.png");
     private final ImageButton saveButton;
@@ -46,20 +46,20 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
         super(screenContainer, inv, titleIn);
         this.titleX = 6;
         this.titleY = 6;
-        this.guiLeft = 247;
-        this.guiTop = 249;
         this.playerInventoryTitleX = 46;
         this.playerInventoryTitleY = 158;
 
-        this.saveButton =  new ImageButton(0,0,28,28,0,0,0, BUTTONS_TEX, 256, 256, (press) -> {}, this::renderTooltip, withText(""));
-        this.copyButton =  new ImageButton(0,0,28,28,0,28,0, BUTTONS_TEX, 256, 256, (press) -> {}, this::renderTooltip, withText(""));
+        this.saveButton = new ImageButton(0,0,28,28,0,0,0, BUTTONS_TEX, 256, 256, (press) -> {}, this::renderTooltip, withText(""));
+        this.copyButton = new ImageButton(0,0,28,28,0,28,0, BUTTONS_TEX, 256, 256, (press) -> {}, this::renderTooltip, withText(""));
 
         CONFIGS = Lists.newArrayList(
-                WidgetConfig.of(this.saveButton, 28, 28).setXY(10, 167)
+                WidgetConfig.of(this.saveButton, 28, 28).setXY(10, 167).setUV(0,0)
+                        .texture(BUTTONS_TEX)
                         .withFont(this.font)
                         .withText(SAVE_TIP)
                         .withAction(this::saveButtonAction),
-                WidgetConfig.of(this.copyButton, 28, 28).setXY(10, 204)
+                WidgetConfig.of(this.copyButton, 28, 28).setXY(10, 204).setUV(0,28)
+                        .texture(BUTTONS_TEX)
                         .withFont(this.font)
                         .withText(COPY_TIP)
                         .withAction(this::copyButtonAction)
@@ -98,11 +98,12 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
     @Override
     protected void init() {
         super.init();
-        this.setRelativeToParent(CONFIGS, 247, 249);
+        this.setRelativeToParent(CONFIGS, this.guiLeft, this.guiTop);
     }
 
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft == null) return;
         this.renderRelativeToParent(CONFIGS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop, partialTicks);
@@ -112,7 +113,9 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
     protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
         Minecraft mc = Minecraft.getInstance();
         mc.getTextureManager().bindTexture(SCREEN_TEXTURE);
-        this.renderBackground(matrixStack);
+        int sw = mc.getMainWindow().getScaledWidth();
+        int sh = mc.getMainWindow().getScaledHeight();
+        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, 247, 249);
     }
 
     private Button createOperationOptionBtn(int x, int y, ITextComponent title) {

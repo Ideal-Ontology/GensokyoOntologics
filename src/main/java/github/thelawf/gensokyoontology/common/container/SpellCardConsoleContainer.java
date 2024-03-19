@@ -29,12 +29,12 @@ public class SpellCardConsoleContainer extends ScriptBuilderContainer {
                 int index = 0;
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 3; j++) {
-                        addSlot(new Slot(consoleStacks, index, (i * 18) + 22, (j * 23) + 25));
+                        addSlot(new Slot(consoleStacks, index, ((i * 18) + 22), ((j * 23) + 25)));
                         // addArgsSlot(itemHandler, index, (i * 18) + 22, (j * 23) + 25);
                         index++;
                     }
                 }
-                addArgsSlot(itemHandler, 30, 224, 71);
+                addArgsSlot(itemHandler, 29, 224, 71);
             });
         }
     }

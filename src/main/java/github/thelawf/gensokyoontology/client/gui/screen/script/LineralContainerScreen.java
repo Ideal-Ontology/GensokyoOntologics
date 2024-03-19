@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.client.gui.screen.widget.SlotWidget;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
@@ -60,6 +61,10 @@ public abstract class LineralContainerScreen<C extends ScriptBuilderContainer> e
     private void addWidget(int x, int y, WidgetConfig config) {
         if (config.widget instanceof Button) {
             config.widget = new Button(x, y, config.width, config.height, config.text, config.action);
+            this.addButton(config.widget);
+        }
+        if (config.widget instanceof ImageButton) {
+            config.widget = new ImageButton(x, y, config.width, config.height, config.u, config.v, 0, config.texture, 256, 256, config.action, config.text);
             this.addButton(config.widget);
         }
         if (config.widget instanceof TextFieldWidget) {
@@ -132,6 +137,9 @@ public abstract class LineralContainerScreen<C extends ScriptBuilderContainer> e
         for (WidgetConfig config : configs) {
             if (config.isText) drawString(matrixStack, config.fontRenderer, config.text, parentLeft + config.leftInterval, parentTop + config.upInterval, 16777215);
             else if (config.widget instanceof SlotWidget) return;
+            else if (config.widget instanceof ImageButton) {
+                config.widget.renderWidget(matrixStack, mouseX, mouseY, partialTicks);
+            }
             else config.widget.render(matrixStack, mouseX, mouseY, partialTicks);
         }
 

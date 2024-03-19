@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 
@@ -15,11 +16,14 @@ public class WidgetConfig {
 
     public int width;
     public int height;
+    public int u;
+    public int v;
     public int upInterval;
     public int downInterval;
     public int leftInterval;
     public int rightInterval;
     public Widget widget;
+    public ResourceLocation texture = new ResourceLocation("");
     public FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;
     public ITextComponent text = new StringTextComponent("");
     public Button.IPressable action;
@@ -95,6 +99,17 @@ public class WidgetConfig {
 
     public WidgetConfig rightInterval(int rightIntervalIn) {
         this.rightInterval = rightIntervalIn;
+        return this;
+    }
+
+    public WidgetConfig setUV(int u, int v) {
+        this.u = u;
+        this.v = v;
+        return this;
+    }
+
+    public WidgetConfig texture(ResourceLocation texture) {
+        this.texture = texture;
         return this;
     }
 

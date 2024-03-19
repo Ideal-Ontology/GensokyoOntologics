@@ -7,6 +7,7 @@ import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class AssignValueContainer extends ScriptBuilderContainer {
@@ -16,13 +17,13 @@ public class AssignValueContainer extends ScriptBuilderContainer {
     private final IInventory assignedValue = new Inventory(1);
 
     protected AssignValueContainer(@Nullable ContainerType<?> type, int id, PlayerEntity player) {
-        super(type, id);
+        super(type, player.inventory, id);
         this.playerInventory = new InvWrapper(player.inventory);
         // addSlot(new SlotItemHandler(playerInventory))
     }
 
     @Override
-    public boolean canInteractWith(PlayerEntity playerIn) {
+    public boolean canInteractWith(@NotNull PlayerEntity playerIn) {
         return true;
     }
 }

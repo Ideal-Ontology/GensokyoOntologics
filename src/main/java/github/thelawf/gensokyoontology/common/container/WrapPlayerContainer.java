@@ -1,13 +1,15 @@
 package github.thelawf.gensokyoontology.common.container;
 
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class WrapPlayerContainer extends Container {
@@ -38,5 +40,29 @@ public abstract class WrapPlayerContainer extends Container {
         addSlotBox(this.playerInventory, 9, xStart, yStart, 9, 3, 18, 18);
         yStart += 58;
         addSlotRange(this.playerInventory, 0, xStart, yStart, 9, 18);
+    }
+
+    @Override
+    @NotNull
+    public ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+        if (slot != null && slot.getHasStack()) {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            if (index == 0) slot.onSlotChange(itemstack1, itemstack);
+            else if (index >= 10 && index < 42) {
+                if (!this.mergeItemStack(itemstack1, 1, 10, false)){
+                    if (!this.mergeItemStack(itemstack1, 10, 37, false)) return ItemStack.EMPTY;
+                }
+            }
+            if (itemstack1.isEmpty()) slot.putStack(ItemStack.EMPTY);
+            else slot.onSlotChanged();
+
+            if (itemstack1.getCount() == itemstack.getCount()) return ItemStack.EMPTY;
+            ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
+            if (index == 0) playerIn.dropItem(itemstack2, false);
+        }
+        return itemstack;
     }
 }

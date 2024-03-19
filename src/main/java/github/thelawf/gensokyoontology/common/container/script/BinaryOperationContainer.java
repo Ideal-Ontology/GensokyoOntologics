@@ -77,28 +77,4 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
             }
         };
     }
-
-    @Override
-    @NotNull
-    public ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
-            if (index == 0) slot.onSlotChange(itemstack1, itemstack);
-            else if (index >= 10 && index < 42) {
-                if (!this.mergeItemStack(itemstack1, 1, 10, false)){
-                    if (!this.mergeItemStack(itemstack1, 10, 37, false)) return ItemStack.EMPTY;
-                }
-            }
-            if (itemstack1.isEmpty()) slot.putStack(ItemStack.EMPTY);
-            else slot.onSlotChanged();
-
-            if (itemstack1.getCount() == itemstack.getCount()) return ItemStack.EMPTY;
-            ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
-            if (index == 0) playerIn.dropItem(itemstack2, false);
-        }
-        return itemstack;
-    }
 }

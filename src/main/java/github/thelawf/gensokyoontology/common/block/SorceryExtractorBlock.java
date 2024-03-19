@@ -53,7 +53,7 @@ public class SorceryExtractorBlock extends Block {
         if (!worldIn.isRemote) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof SorceryExtractorTileEntity) {
-                GSKOUtil.log(this.getClass(), "Item Handler Present? " + (tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()));
+                // GSKOUtil.log(this.getClass(), "Item Handler Present? " + (tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()));
                 INamedContainerProvider provider = SorceryExtractorTileEntity.createContainer(worldIn, pos);
                 NetworkHooks.openGui((ServerPlayerEntity) player, provider, tileEntity.getPos());
             } else {

@@ -27,7 +27,7 @@ import org.jetbrains.annotations.Nullable;
 
 // TODO: 符卡控制台可以处理插入的物品，为其附加NBT数据
 public class SpellConsoleTileEntity extends TileEntity implements ITickableTileEntity {
-    private final int slotCount = 30;
+    private final int slotCount = 31;
     private final ItemStackHandler itemHandler = createItemHandler();
     private final LazyOptional<IItemHandler> optionalHandler = LazyOptional.of(() -> itemHandler);
     public static final TranslationTextComponent CONTAINER_NAME = GensokyoOntology.withTranslation("container.", ".spell_card_console.title");
