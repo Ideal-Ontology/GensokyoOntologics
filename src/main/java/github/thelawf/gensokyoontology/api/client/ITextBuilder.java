@@ -5,7 +5,7 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
 public interface ITextBuilder {
-    default ITextComponent ofTranslation(String prefix, String suffix){
+    default ITextComponent withTranslation(String prefix, String suffix){
         return new TranslationTextComponent(prefix + "." + "." + suffix);
     }
 
