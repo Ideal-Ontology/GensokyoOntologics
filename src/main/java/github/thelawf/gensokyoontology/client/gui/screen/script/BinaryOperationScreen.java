@@ -26,7 +26,7 @@ import java.util.List;
 // right text: 20, 66
 // left input: 48, 48
 // right input: 48, 71
-public class BinaryOperationScreen extends ScriptContainerScreen {
+public class BinaryOperationScreen extends ScriptContainerScreen<ScriptBuilderContainer> {
     CompoundNBT optData = new CompoundNBT();
     public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/binary_operation_screen.png");
     private BinaryOperation operation;

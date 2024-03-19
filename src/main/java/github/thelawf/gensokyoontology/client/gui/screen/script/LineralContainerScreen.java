@@ -16,10 +16,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
-public abstract class LineralContainerScreen extends ContainerScreen<ScriptBuilderContainer> implements IInputParser, ITextBuilder {
+public abstract class LineralContainerScreen<C extends ScriptBuilderContainer> extends ContainerScreen<C> implements IInputParser, ITextBuilder {
     protected static final int WHITE = 16777215;
     protected static final int DARK_GRAY = 5592405;
-    public LineralContainerScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public LineralContainerScreen(C screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }
 

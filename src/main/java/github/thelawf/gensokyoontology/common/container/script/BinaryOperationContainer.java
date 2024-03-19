@@ -24,14 +24,12 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
     public static final ITextComponent NAME = new TranslationTextComponent("container." +
             GensokyoOntology.MODID + ".binary_operation.title");
     public final IInventory operationSlots = new Inventory(3);
-    public final PlayerInventory playerInventory;
     public BinaryOperationContainer(int id, PlayerInventory playerInventory) {
-        super(ContainerRegistry.BINARY_OPERATION_CONTAINER.get(), id);
+        super(ContainerRegistry.BINARY_OPERATION_CONTAINER.get(), playerInventory, id);
         addSlot(this.addInputSlot(this.operationSlots, 0, 21, 21));
         addSlot(this.addInputSlot(this.operationSlots, 1, 111, 21));
         addSlot(this.addInputSlot(this.operationSlots, 2, 165, 21));
 
-        this.playerInventory = playerInventory;
         this.addPlayerInventorySlots(21, 97);
     }
 
@@ -78,12 +76,6 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
                 return new BinaryOperationContainer(windowId, playerInventory);
             }
         };
-    }
-
-    protected void addPlayerInventorySlots(int xStart, int yStart) {
-        addSlotBox(this.playerInventory, 9, xStart, yStart, 9, 3, 18, 18);
-        yStart += 58;
-        addSlotRange(this.playerInventory, 0, xStart, yStart, 9, 18);
     }
 
     @Override

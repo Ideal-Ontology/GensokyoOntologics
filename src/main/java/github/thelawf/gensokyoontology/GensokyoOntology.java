@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology;
 
 import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
+import github.thelawf.gensokyoontology.client.gui.screen.SpellCardConsoleScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.BinaryOperationScreen;
 import github.thelawf.gensokyoontology.common.CommonSetUp;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
@@ -173,6 +174,8 @@ public class GensokyoOntology {
                         SorceryExtractorScreen::new);
                 ScreenManager.registerFactory(ContainerRegistry.BINARY_OPERATION_CONTAINER.get(),
                         BinaryOperationScreen::new);
+                ScreenManager.registerFactory(ContainerRegistry.SPELL_CONSOLE_CONTAINER.get(),
+                        SpellCardConsoleScreen::new);
             });
 
         }

@@ -7,13 +7,13 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 
-public abstract class ScriptContainerScreen extends LineralContainerScreen {
+public abstract class ScriptContainerScreen<C extends ScriptBuilderContainer> extends LineralContainerScreen<C> {
     protected Button saveBtn;
 
     protected ItemStack stack;
     protected final ITextComponent fieldName = GensokyoOntology.withTranslation("gui.", ".script_builder.fieldName");
     protected ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".script.button.save");
-    public ScriptContainerScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public ScriptContainerScreen(C screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }
 

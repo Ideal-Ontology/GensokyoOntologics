@@ -1,9 +1,9 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -12,10 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -73,7 +74,7 @@ public class SpellConsoleTileEntity extends TileEntity implements ITickableTileE
         };
     }
 
-    public static INamedContainerProvider create() {
+    public static INamedContainerProvider create(World worldIn, BlockPos posIn) {
         return new INamedContainerProvider() {
             @Override
             @NotNull
@@ -81,10 +82,10 @@ public class SpellConsoleTileEntity extends TileEntity implements ITickableTileE
                 return CONTAINER_NAME;
             }
 
-            @Nullable
+            @NotNull
             @Override
-            public Container createMenu(int windowsId, PlayerInventory playerInventory, PlayerEntity player) {
-                return null;
+            public Container createMenu(int windowsId, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
+                return new SpellCardConsoleContainer(windowsId, player, worldIn, posIn);
             }
         };
     }

@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.container.script;
 
+import github.thelawf.gensokyoontology.common.container.WrapPlayerContainer;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Container;
@@ -9,10 +10,9 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class ScriptBuilderContainer extends Container {
-
-    protected ScriptBuilderContainer(@Nullable ContainerType<?> type, int id) {
-        super(type, id);
+public abstract class ScriptBuilderContainer extends WrapPlayerContainer {
+    protected ScriptBuilderContainer(@Nullable ContainerType<?> type, PlayerInventory playerInventory, int id) {
+        super(type, playerInventory, id);
     }
 
     protected int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
