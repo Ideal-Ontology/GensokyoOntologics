@@ -11,10 +11,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class SpellCardConsoleContainer extends ScriptBuilderContainer {
     private final TileEntity tileEntity;
@@ -73,6 +76,12 @@ public class SpellCardConsoleContainer extends ScriptBuilderContainer {
     }
 
     public ItemStack getOutputStack() {
-        return this.consoleStacks.getStackInSlot(this.consoleStacks.getSizeInventory() -1);
+        AtomicReference<ItemStack> stackAtom = new AtomicReference<>();
+        if (this.tileEntity != null) {
+            this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
+                stackAtom.set(itemHandler.getStackInSlot(29));
+            });
+        }
+        return stackAtom.get();
     }
 }

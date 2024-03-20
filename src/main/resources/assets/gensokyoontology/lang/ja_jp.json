@@ -479,6 +479,8 @@
 
   "msg.gensokyoontology.haniwa_block.in_cooldown": "§7§o<??Mysterious Voice??>§r It seems that your idol has received enough believes today. Try it tomorrow.",
   "msg.gensokyoontology.haniwa_block.added_count": "§7§o<??Mysterious Voice??>§r You have successfully given 1 belief point to your idol. Now the total point is: ",
+  "msg.gensokyoontology.spell_console.button.saved": "Scripts Saved To Spell Card",
+  "msg.gensokyoontology.spell_console.button.copied": "Scripts Copied To Clipboard",
 
   "network.gensokyoontology.sakuya_stop_watch.freeze": "時間が止まれ!",
   "network.gensokyoontology.sakuya_stop_watch.unfreeze": "Unfreeze",

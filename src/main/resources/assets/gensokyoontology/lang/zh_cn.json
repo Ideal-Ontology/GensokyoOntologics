@@ -479,6 +479,8 @@
 
   "msg.gensokyoontology.haniwa_block.in_cooldown": "§7§o<??神秘的声音??>§r 看起来你的偶像今天已经收集到了足够的信仰，明天再试试吧。",
   "msg.gensokyoontology.haniwa_block.added_count": "§7§o<??神秘的声音??>§r 你已经成功地为你的偶像增加了1点信仰。现在这个偶像所拥有的点数为：",
+  "msg.gensokyoontology.spell_console.button.saved": "脚本已保存至符卡",
+  "msg.gensokyoontology.spell_console.button.copied": "脚本已拷贝到剪贴板",
 
   "network.gensokyoontology.sakuya_stop_watch.freeze": "砸瓦鲁多!",
   "network.gensokyoontology.sakuya_stop_watch.unfreeze": "时停解除",

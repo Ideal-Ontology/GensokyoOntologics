@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.INetHandler;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.PacketBuffer;
@@ -29,14 +30,23 @@ public class CAddScriptPacket {
     }
 
     public static void handle(CAddScriptPacket packet, Supplier<NetworkEvent.Context> ctx) {
-        ctx.get().enqueueWork(() -> addScript(packet, ctx.get().getSender()));
+        ctx.get().enqueueWork(() -> addScript(ctx.get().getSender()));
         ctx.get().setPacketHandled(true);
     }
 
-    public static void addScript(CAddScriptPacket packet, ServerPlayerEntity serverPlayer) {
+    public static void addScript(ServerPlayerEntity serverPlayer) {
         if (serverPlayer == null) return;
         if (!(serverPlayer.openContainer instanceof SpellCardConsoleContainer)) return;
         SpellCardConsoleContainer container = (SpellCardConsoleContainer) serverPlayer.openContainer;
-        container.getOutputStack().setTag(packet.script);
+        CompoundNBT scriptData = new CompoundNBT();
+        ListNBT scriptList = new ListNBT();
+        for (int i = 0; i < container.consoleStacks.getSizeInventory(); i++) {
+            if (container.isAllowedItem(i) && container.hasAllowedTag(i) &&
+                    container.getOutputStack().getItem() == ItemRegistry.SCRIPTED_SPELL_CARD.get()) {
+                scriptList.add(container.getTag(i));
+            }
+        }
+        scriptData.put("scripts", scriptList);
+        container.getOutputStack().setTag(scriptData);
     }
 }

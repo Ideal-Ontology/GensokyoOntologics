@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.client.gui.screen.script;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.script.ScriptBuilderContainer;
 import net.minecraft.client.gui.widget.button.Button;
@@ -20,5 +21,14 @@ public abstract class ScriptContainerScreen<C extends ScriptBuilderContainer> ex
     @Override
     public boolean isPauseScreen() {
         return super.isPauseScreen();
+    }
+
+    @Override
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        if (hoveredSlot != null && hoveredSlot.getHasStack()) {
+            ItemStack stack = hoveredSlot.getStack();
+            renderTooltip(matrixStack, stack, mouseX, mouseY);
+        }
     }
 }

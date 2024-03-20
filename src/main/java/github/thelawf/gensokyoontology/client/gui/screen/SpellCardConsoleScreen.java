@@ -4,15 +4,18 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
+import github.thelawf.gensokyoontology.api.entity.ISpellCard;
 import github.thelawf.gensokyoontology.client.gui.screen.script.ScriptContainerScreen;
 import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CAddScriptPacket;
 import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ResourceLocation;
@@ -32,6 +35,8 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
 
     public static final ITextComponent SAVE_TIP = GensokyoOntology.withTranslation("tooltip.",".spell_console.button.save");
     public static final ITextComponent COPY_TIP = GensokyoOntology.withTranslation("tooltip.",".spell_console.button.copy");
+    public static final ITextComponent SAVED_MSG = GensokyoOntology.withTranslation("msg.",".spell_console.button.saved");
+    public static final ITextComponent COPIED_MSG = GensokyoOntology.withTranslation("msg.",".spell_console.button.copied");
     public static final ResourceLocation BUTTONS_TEX = GensokyoOntology.withRL("textures/gui/widget/buttons.png");
     public static final ResourceLocation SCREEN_TEXTURE = GensokyoOntology.withRL("textures/gui/spell_card_console.png");
     private final CompoundNBT scriptData = new CompoundNBT();
@@ -40,8 +45,6 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
     public SpellCardConsoleScreen(SpellCardConsoleContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
         Minecraft mc = Minecraft.getInstance();
-        int sw = mc.getMainWindow().getScaledWidth();
-        int sh = mc.getMainWindow().getScaledHeight();
         this.titleX = 6;
         this.titleY = 6;
         this.xSize = 247;
@@ -50,11 +53,11 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
         this.playerInventoryTitleY = 158;
     }
 
-    private void addTooltip(Button button, MatrixStack matrixStack, int mouseX, int mouseY) {
+    private void addTooltip(Button button, MatrixStack matrixStack, ITextComponent text, int mouseX, int mouseY) {
         if (this.minecraft == null) return;
         int sw = this.minecraft.getMainWindow().getWindowX();
         int sh = this.minecraft.getMainWindow().getWindowY();
-        GuiUtils.drawHoveringText(matrixStack, Lists.newArrayList(button.getMessage()), mouseX, mouseY,
+        GuiUtils.drawHoveringText(matrixStack, Lists.newArrayList(text), mouseX, mouseY,
                 sw, sh, 300, this.font);
     }
 
@@ -65,42 +68,50 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
         SpellCardConsoleContainer container = (SpellCardConsoleContainer) this.minecraft.player.openContainer;
         ListNBT scriptList = new ListNBT();
 
+        GSKONetworking.CHANNEL.sendToServer(new CAddScriptPacket(this.scriptData));
+        this.minecraft.player.sendMessage(COPIED_MSG, this.minecraft.player.getUniqueID());
+    }
+    private void copyButtonAction(Button button) {
+        if (this.minecraft == null) return;
+        if (this.minecraft.player == null) return;
+        if (!(this.minecraft.player.openContainer instanceof SpellCardConsoleContainer)) return;
+        SpellCardConsoleContainer container = (SpellCardConsoleContainer) this.minecraft.player.openContainer;
+        ListNBT scriptList = new ListNBT();
+
         for (int i = 0; i < container.consoleStacks.getSizeInventory(); i++) {
             if (container.isAllowedItem(i) && container.hasAllowedTag(i) &&
                     container.getOutputStack().getItem() == ItemRegistry.SCRIPTED_SPELL_CARD.get()) {
-                // container.getOutputStack().setTag(container.getTag(i));
                 scriptList.add(container.getTag(i));
             }
         }
-        this.scriptData.put("scripts", scriptList);
-        GSKONetworking.CHANNEL.sendToServer(new CMergeScriptPacket(this.scriptData));
-    }
-    private void copyButtonAction(Button button) {
 
+        this.scriptData.put("scripts", scriptList);
+        this.minecraft.keyboardListener.setClipboardString(this.scriptData.toString());
+        this.minecraft.player.sendMessage(COPIED_MSG, this.minecraft.player.getUniqueID());
     }
 
     @Override
     protected void init() {
         super.init();
         this.addButton(new ImageButton(this.guiLeft + 10, 167, 28, 28, 0, 0, 0, BUTTONS_TEX, 256, 256,
-                this::saveButtonAction, this::addTooltip, withText("")){
+                this::saveButtonAction, (a, b, c, d) -> {}, withText("")){
             @Override
             public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
                 super.render(matrixStack, mouseX, mouseY, partialTicks);
                 if (isHovered) {
-                    this.blit(matrixStack, this.x, this.y, this.width, this.height, 28, 0);
-                    this.renderToolTip(matrixStack, mouseX, mouseY);
+                    this.blit(matrixStack, this.x, this.y, 28, 0, this.width, this.height);
+                    SpellCardConsoleScreen.this.addTooltip(this, matrixStack, SAVE_TIP, mouseX, mouseY);
                 }
             }
         });
         this.addButton(new ImageButton(this.guiLeft + 10, 204, 28, 28, 0, 28, 0, BUTTONS_TEX, 256, 256,
-                this::copyButtonAction, this::addTooltip, withText("")){
+                this::copyButtonAction, (a, b, c, d) -> {}, withText("")){
             @Override
             public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
                 super.render(matrixStack, mouseX, mouseY, partialTicks);
                 if (isHovered) {
-                    this.blit(matrixStack, this.x, this.y, this.width, this.height, 28, 28);
-                    this.renderToolTip(matrixStack, mouseX, mouseY);
+                    this.blit(matrixStack, this.x, this.y, 28, 0, this.width, this.height);
+                    SpellCardConsoleScreen.this.addTooltip(this, matrixStack, COPY_TIP, mouseX, mouseY);
                 }
             }
         });
