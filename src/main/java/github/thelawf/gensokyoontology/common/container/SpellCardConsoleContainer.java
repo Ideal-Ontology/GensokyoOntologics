@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.container.ChestContainer;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -16,7 +17,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+import org.jetbrains.annotations.NotNull;
 
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class SpellCardConsoleContainer extends ScriptBuilderContainer {
@@ -32,14 +35,18 @@ public class SpellCardConsoleContainer extends ScriptBuilderContainer {
                 int index = 0;
                 for (int i = 0; i < 10; i++) {
                     for (int j = 0; j < 3; j++) {
-                        addSlot(new Slot(consoleStacks, index, ((i * 18) + 22), ((j * 23) + 25)));
-                        // addArgsSlot(itemHandler, index, (i * 18) + 22, (j * 23) + 25);
+                        // addSlot(new Slot(consoleStacks, index, ((i * 18) + 22), ((j * 23) + 25)));
+                        addArgsSlot(itemHandler, index, (i * 18) + 22, (j * 23) + 25);
                         index++;
                     }
                 }
-                addArgsSlot(itemHandler, 29, 224, 71);
+                addArgsSlot(itemHandler, itemHandler.getSlots() - 1, 224, 71);
             });
         }
+    }
+
+    public TileEntity getTileEntity() {
+        return this.tileEntity;
     }
 
     private void addArgsSlot(IItemHandler itemHandler, int index, int xPos, int yPos) {
@@ -52,36 +59,67 @@ public class SpellCardConsoleContainer extends ScriptBuilderContainer {
     }
 
     public boolean isAllowedItem(int index) {
-        return this.consoleStacks.getStackInSlot(index).getItem() == ItemRegistry.TIME_STAMP.get() ||
-                this.consoleStacks.getStackInSlot(index).getItem() == ItemRegistry.V3D_BUILDER.get() ||
-                this.consoleStacks.getStackInSlot(index).getItem() == ItemRegistry.CONST_BUILDER.get() ||
-                this.consoleStacks.getStackInSlot(index).getItem() == ItemRegistry.BINARY_OPERATION_BUILDER.get();
+        AtomicBoolean flag = new AtomicBoolean();
+        if (this.tileEntity != null) {
+            this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
+                flag.set(itemHandler.getStackInSlot(index).isEmpty());
+            });
+        }
+        return flag.get();
     }
 
     public boolean hasAllowedTag(int index) {
-        CompoundNBT nbt = this.consoleStacks.getStackInSlot(index).getTag();
-        if (nbt != null) {
-            return nbt.keySet().contains("type") && nbt.keySet().contains("value") || nbt.keySet().contains("name");
+        AtomicBoolean flag = new AtomicBoolean();
+        if (this.tileEntity != null) {
+            this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
+                CompoundNBT nbt = getTag(index);
+                boolean contains = nbt.contains("type") && nbt.contains("value") || nbt.contains("name");
+                flag.set(contains);
+            });
         }
-        return false;
+        return flag.get();
     }
 
     public CompoundNBT getTag(int index) {
-        CompoundNBT nbt = this.consoleStacks.getStackInSlot(index).getTag();
-        return nbt == null ? new CompoundNBT() : nbt;
-    }
-
-    public void setTagInSlot(int slotIndex, CompoundNBT nbt) {
-        this.consoleStacks.getStackInSlot(slotIndex).setTag(nbt);
+        AtomicReference<CompoundNBT> nbtAtom = new AtomicReference<>();
+        if (this.tileEntity != null) {
+            this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
+               nbtAtom.set(itemHandler.getStackInSlot(index).getTag());
+            });
+        }
+        return nbtAtom.get();
     }
 
     public ItemStack getOutputStack() {
         AtomicReference<ItemStack> stackAtom = new AtomicReference<>();
         if (this.tileEntity != null) {
             this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
-                stackAtom.set(itemHandler.getStackInSlot(29));
+                stackAtom.set(itemHandler.getStackInSlot(itemHandler.getSlots() - 1));
             });
         }
         return stackAtom.get();
+    }
+
+    @Override
+    public @NotNull ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
+        Slot slot = this.inventorySlots.get(index);
+        if (slot != null && slot.getHasStack()) {
+            ItemStack stack = slot.getStack();
+            itemstack = stack.copy();
+            if (index == 0) slot.onSlotChange(stack, itemstack);
+            else if (index >= 10 && index < 67) {
+                if (!this.mergeItemStack(stack, 1, 10, true)){
+                    if (!this.mergeItemStack(stack, 10, 37, true)) return ItemStack.EMPTY;
+                }
+            }
+            if (stack.isEmpty()) slot.putStack(ItemStack.EMPTY);
+            else slot.onSlotChanged();
+
+            if (stack.getCount() == itemstack.getCount()) return ItemStack.EMPTY;
+            ItemStack itemStack2 = slot.onTake(playerIn, stack);
+            if (index == 0) playerIn.dropItem(itemStack2, false);
+        }
+        return itemstack;
     }
 }

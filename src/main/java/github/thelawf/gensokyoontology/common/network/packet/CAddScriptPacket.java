@@ -1,35 +1,34 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
 import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import github.thelawf.gensokyoontology.common.tileentity.SpellConsoleTileEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.network.INetHandler;
-import net.minecraft.network.IPacket;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.fml.network.NetworkEvent;
+import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
-import java.io.IOException;
 import java.util.function.Supplier;
 
 public class CAddScriptPacket {
 
-    private final CompoundNBT script;
-    public CAddScriptPacket(CompoundNBT script) {
-        this.script = script;
+    public CAddScriptPacket() {
+
     }
 
     public static CAddScriptPacket fromBytes(PacketBuffer buf) {
-        return new CAddScriptPacket(buf.readCompoundTag());
+        return new CAddScriptPacket();
     }
 
     public void toBytes(PacketBuffer buf) {
-        buf.writeCompoundTag(this.script);
+
     }
 
-    public static void handle(CAddScriptPacket packet, Supplier<NetworkEvent.Context> ctx) {
+    public void handle(Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> addScript(ctx.get().getSender()));
         ctx.get().setPacketHandled(true);
     }
@@ -38,15 +37,39 @@ public class CAddScriptPacket {
         if (serverPlayer == null) return;
         if (!(serverPlayer.openContainer instanceof SpellCardConsoleContainer)) return;
         SpellCardConsoleContainer container = (SpellCardConsoleContainer) serverPlayer.openContainer;
-        CompoundNBT scriptData = new CompoundNBT();
-        ListNBT scriptList = new ListNBT();
-        for (int i = 0; i < container.consoleStacks.getSizeInventory(); i++) {
-            if (container.isAllowedItem(i) && container.hasAllowedTag(i) &&
-                    container.getOutputStack().getItem() == ItemRegistry.SCRIPTED_SPELL_CARD.get()) {
-                scriptList.add(container.getTag(i));
-            }
+        TileEntity tileEntity = container.getTileEntity();
+
+        if (tileEntity instanceof SpellConsoleTileEntity) {
+            SpellConsoleTileEntity spellConsole = (SpellConsoleTileEntity) tileEntity;
+            CompoundNBT scriptData = new CompoundNBT();
+            ListNBT scriptList = new ListNBT();
+
+            spellConsole.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
+                for (int i = 0; i < itemHandler.getSlots() - 1; i++) {
+                    if (isAllowedStack(i, itemHandler) && hasAllowedTag(i, itemHandler)) {
+                        scriptList.add(container.getTag(i));
+                    }
+                }
+                scriptData.put("scripts", scriptList);
+                container.getOutputStack().setTag(scriptData);
+            });
         }
-        scriptData.put("scripts", scriptList);
-        container.getOutputStack().setTag(scriptData);
+    }
+
+    private static boolean isAllowedStack(int index, IItemHandler itemHandler) {
+        return !itemHandler.getStackInSlot(index).isEmpty();
+    }
+
+    private static boolean hasAllowedTag(int index, IItemHandler itemHandler) {
+        CompoundNBT nbt = getTag(index, itemHandler);
+        return nbt.contains("type") && nbt.contains("value");
+    }
+
+    private static CompoundNBT getTag(int index, IItemHandler itemHandler) {
+        return itemHandler.getStackInSlot(index).getTag();
+    }
+
+    private static ItemStack getOutputStack(IItemHandler itemHandler) {
+        return itemHandler.getStackInSlot(itemHandler.getSlots() - 1);
     }
 }

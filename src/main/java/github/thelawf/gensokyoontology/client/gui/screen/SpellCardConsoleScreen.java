@@ -68,24 +68,25 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
         SpellCardConsoleContainer container = (SpellCardConsoleContainer) this.minecraft.player.openContainer;
         ListNBT scriptList = new ListNBT();
 
-        GSKONetworking.CHANNEL.sendToServer(new CAddScriptPacket(this.scriptData));
-        this.minecraft.player.sendMessage(COPIED_MSG, this.minecraft.player.getUniqueID());
+        GSKONetworking.CHANNEL.sendToServer(new CAddScriptPacket());
+        this.minecraft.player.sendMessage(SAVED_MSG, this.minecraft.player.getUniqueID());
     }
     private void copyButtonAction(Button button) {
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;
         if (!(this.minecraft.player.openContainer instanceof SpellCardConsoleContainer)) return;
         SpellCardConsoleContainer container = (SpellCardConsoleContainer) this.minecraft.player.openContainer;
-        ListNBT scriptList = new ListNBT();
+        // ListNBT scriptList = new ListNBT();
+//
+        // for (int i = 0; i < container.consoleStacks.getSizeInventory(); i++) {
+        //     if (container.isAllowedItem(i) && container.hasAllowedTag(i) &&
+        //             container.getOutputStack().getItem() == ItemRegistry.SCRIPTED_SPELL_CARD.get()) {
+        //         scriptList.add(container.getTag(i));
+        //     }
+        // }
 
-        for (int i = 0; i < container.consoleStacks.getSizeInventory(); i++) {
-            if (container.isAllowedItem(i) && container.hasAllowedTag(i) &&
-                    container.getOutputStack().getItem() == ItemRegistry.SCRIPTED_SPELL_CARD.get()) {
-                scriptList.add(container.getTag(i));
-            }
-        }
-
-        this.scriptData.put("scripts", scriptList);
+        if (container.getOutputStack().getTag() == null) return;
+        this.scriptData.put("scripts", container.getOutputStack().getTag());
         this.minecraft.keyboardListener.setClipboardString(this.scriptData.toString());
         this.minecraft.player.sendMessage(COPIED_MSG, this.minecraft.player.getUniqueID());
     }
@@ -110,7 +111,7 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
             public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
                 super.render(matrixStack, mouseX, mouseY, partialTicks);
                 if (isHovered) {
-                    this.blit(matrixStack, this.x, this.y, 28, 0, this.width, this.height);
+                    this.blit(matrixStack, this.x, this.y, 28, 28, this.width, this.height);
                     SpellCardConsoleScreen.this.addTooltip(this, matrixStack, COPY_TIP, mouseX, mouseY);
                 }
             }

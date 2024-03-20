@@ -52,10 +52,11 @@ public abstract class WrapPlayerContainer extends Container {
             itemstack = itemstack1.copy();
             if (index == 0) slot.onSlotChange(itemstack1, itemstack);
             else if (index >= 10 && index < 42) {
-                if (!this.mergeItemStack(itemstack1, 1, 10, false)){
-                    if (!this.mergeItemStack(itemstack1, 10, 37, false)) return ItemStack.EMPTY;
+                if (!this.mergeItemStack(itemstack1, 1, 10, true)){
+                    if (!this.mergeItemStack(itemstack1, 10, 37, true)) return ItemStack.EMPTY;
                 }
             }
+
             if (itemstack1.isEmpty()) slot.putStack(ItemStack.EMPTY);
             else slot.onSlotChanged();
 
