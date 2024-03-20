@@ -17,8 +17,10 @@ import github.thelawf.gensokyoontology.common.item.script.ScriptReadOnlyItem;
 import github.thelawf.gensokyoontology.common.item.spellcard.*;
 import github.thelawf.gensokyoontology.common.item.tool.*;
 import github.thelawf.gensokyoontology.common.item.touhou.*;
+import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
@@ -36,6 +38,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -771,6 +774,31 @@ public final class ItemRegistry {
             Minecraft minecraft = Minecraft.getInstance();
             ITextComponent title = GensokyoOntology.withTranslation("gui.",".danmaku_builder.title");
             if (Screen.hasShiftDown()) minecraft.displayGuiScreen(new DanmakuBuilderScreen(title, stack));
+        }
+
+        @Override
+        public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+            TranslationTextComponent entityText = GensokyoOntology.withTranslation("tooltip.",".danmaku_entity");
+            TranslationTextComponent colorText = GensokyoOntology.withTranslation("tooltip.",".danmaku_color");
+            TranslationTextComponent typeText = GensokyoOntology.withTranslation("tooltip.",".danmaku_type");
+            if (stack.getTag() != null) {
+                CompoundNBT nbt = stack.getTag();
+                tooltip.add(entityText);
+                tooltip.add(new TranslationTextComponent(nbt.getString("type")));
+                if (nbt.contains("danmakuType")) {
+                    tooltip.add(typeText);
+                    DanmakuType type = DanmakuType.valueOf(nbt.getString("danmakuType").toUpperCase());
+                    tooltip.add(type.toTextComponent());
+                }
+                if (nbt.contains("danmakuColor")) {
+                    tooltip.add(colorText);
+                    DanmakuColor color = DanmakuColor.valueOf(nbt.getString("danmakuColor").toUpperCase());
+                    tooltip.add(color.toTextComponent());
+                }
+                else if (GSKONBTUtil.containsAllowedType(nbt)) {
+                    GSKONBTUtil.getMemberValues(nbt).forEach(s -> tooltip.add(new StringTextComponent(s)));
+                }
+            }
         }
     });
 

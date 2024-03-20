@@ -27,6 +27,7 @@ public abstract class ScriptBuilderItem extends Item {
     public static final String STRING_HIGHLIGHT = "§b";  /// 天蓝色 ///
     public static final String EXCEPTION_HIGHLIGHT = "§c";  /// 红色 ///
     public static final String RESET_HIGHLIGHT = "§r";    /// 重置 ///
+
     public static final ITextComponent FILED_TYPE_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_type");
     public static final ITextComponent FILED_NAME_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_name");
     public static final ITextComponent FILED_VALUE_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_value");

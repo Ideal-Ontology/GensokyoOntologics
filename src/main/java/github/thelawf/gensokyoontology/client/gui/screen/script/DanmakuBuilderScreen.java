@@ -75,8 +75,8 @@ public class DanmakuBuilderScreen extends ScriptBuilderScreen {
 
         if (this.stack.getTag() != null) {
             CompoundNBT tag = this.stack.getTag();
-            this.danmakuType = DanmakuType.valueOf(tag.getString("danmakuType"));
-            this.danmakuColor = DanmakuColor.valueOf(tag.getString("danamkuColor"));
+            this.danmakuType = DanmakuType.valueOf(tag.getString("danmakuType").toUpperCase());
+            this.danmakuColor = DanmakuColor.valueOf(tag.getString("danamkuColor").toUpperCase());
             if (tag.contains("name")) {
                 this.nameInput.setText(tag.getString("name"));
             }
