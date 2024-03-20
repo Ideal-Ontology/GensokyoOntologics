@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.core.init;
 
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.client.gui.screen.script.DanmakuBuilderScreen;
 import github.thelawf.gensokyoontology.common.container.script.BinaryOperationContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.script.ConstBuilderScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.Vector3dBuilderScreen;
@@ -761,6 +762,15 @@ public final class ItemRegistry {
             Minecraft minecraft = Minecraft.getInstance();
             ITextComponent title = GensokyoOntology.withTranslation("gui.",".vector3d_builder.title");
             minecraft.displayGuiScreen(new Vector3dBuilderScreen(title, stack));
+        }
+    });
+
+    public static final RegistryObject<Item> DANMAKU_BUILDER = ITEMS.register("danmaku_builder", () -> new ScriptBuilderItem() {
+        @Override
+        public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
+            Minecraft minecraft = Minecraft.getInstance();
+            ITextComponent title = GensokyoOntology.withTranslation("gui.",".danmaku_builder.title");
+            if (Screen.hasShiftDown()) minecraft.displayGuiScreen(new DanmakuBuilderScreen(title, stack));
         }
     });
 
