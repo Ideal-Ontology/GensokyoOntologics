@@ -23,6 +23,7 @@ public class StaticInvokerContainer extends FunctionInvokerContainer{
             GensokyoOntology.MODID + ".static_invoker.title");
     public StaticInvokerContainer(int id, PlayerInventory playerInventory) {
         super(ContainerRegistry.STATIC_INVOKER_CONTAINER.get(), playerInventory, id);
+        this.addPlayerInventorySlots(32, 104);
         this.addSlotRange(this.paramSlots, 0, 14, 29, 11, 18);
         this.addSlot(new Slot(this.paramSlots, 11, 104, 72){
             @Override

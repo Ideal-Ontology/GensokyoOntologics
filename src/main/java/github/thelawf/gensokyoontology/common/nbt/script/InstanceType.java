@@ -9,4 +9,5 @@ public enum InstanceType {
     InstanceType(String name) {
         this.name = name;
     }
+
 }

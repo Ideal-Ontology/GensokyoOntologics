@@ -5,6 +5,7 @@ import net.minecraft.potion.Effect;
 import net.minecraft.util.text.ITextComponent;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public enum DanmakuType {
     DANMAKU_SHOT("danmaku_shot", 0.5f, 0.1f),
@@ -41,5 +42,9 @@ public enum DanmakuType {
 
     public ITextComponent toTextComponent() {
         return GensokyoOntology.withTranslation("gui.", ".danmaku_type." + this.name);
+    }
+
+    public DanmakuType getIfMatches(String name) {
+        return Objects.equals(name, this.name) ? this : DanmakuType.DANMAKU_SHOT;
     }
 }

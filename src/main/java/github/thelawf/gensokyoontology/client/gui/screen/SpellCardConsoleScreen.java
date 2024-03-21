@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.client.gui.screen;
 
 import com.google.common.collect.Lists;
+import com.google.gson.JsonObject;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
@@ -17,7 +18,9 @@ import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
@@ -85,8 +88,24 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
 
         if (container.getOutputStack().getTag() == null) return;
         this.scriptData.put("scripts", container.getOutputStack().getTag());
-        this.minecraft.keyboardListener.setClipboardString(this.scriptData.toString());
+        this.minecraft.keyboardListener.setClipboardString(toJson(this.scriptData));
+        // this.scriptData.toString()
         this.minecraft.player.sendMessage(COPIED_MSG, this.minecraft.player.getUniqueID());
+    }
+
+    public static String toJson(CompoundNBT compound) {
+        JsonObject jsonObject = new JsonObject();
+
+        for (String key : compound.keySet()) {
+            // 根据数据类型将数据添加到 JsonObject 中
+            if (compound.contains(key)) {
+                INBT inbt = compound.get(key);
+                if (inbt != null) {
+                    jsonObject.addProperty(key, inbt.toString());
+                }
+            }
+        }
+        return jsonObject.toString();
     }
 
     @Override

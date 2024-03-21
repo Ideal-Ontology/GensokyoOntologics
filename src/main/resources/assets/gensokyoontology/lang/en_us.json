@@ -248,6 +248,7 @@
   "item.gensokyoontology.danmaku_builder": "Danmaku Builder",
   "item.gensokyoontology.vector3d_builder": "Vector3d Builder",
   "item.gensokyoontology.v3d_invoker": "Vector3d Function Invoker",
+  "item.gensokyoontology.static_invoker": "Static Function Invoker",
   "item.gensokyoontology.binary_operation_builder": "Binary Operation Builder",
 
   "advancement.gensokyoontology.root.title": "It's An INCIDENT, REIMU!",

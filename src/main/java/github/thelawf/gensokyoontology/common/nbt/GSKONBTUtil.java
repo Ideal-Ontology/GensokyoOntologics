@@ -227,6 +227,10 @@ public class GSKONBTUtil {
         return new CompoundNBT();
     }
 
+    public static CompoundNBT castToCompound(INBT inbt) {
+        return inbt instanceof CompoundNBT ? (CompoundNBT) inbt : new CompoundNBT();
+    }
+
     public static String getType(CompoundNBT nbt) {
         if (containsPrimitiveType(nbt)) return nbt.getString("type");
         return "undefined";

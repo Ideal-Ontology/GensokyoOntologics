@@ -41,6 +41,7 @@ public class CInvokeFunctionPacket {
                     break;
                 case StaticInvokerScreen.TYPE:
                     saveStaticFuncData(packet, serverPlayer);
+                    break;
                 default:
                     break;
             }
@@ -70,16 +71,15 @@ public class CInvokeFunctionPacket {
         if (!(serverPlayer.openContainer instanceof StaticInvokerContainer)) return;
         StaticInvokerContainer container = (StaticInvokerContainer) serverPlayer.openContainer;
 
-        CompoundNBT funcData = new CompoundNBT();
         ListNBT paramsNBT = new ListNBT();
         for (int i = 0; i < container.paramSlots.getSizeInventory(); i++) {
             if (container.paramSlots.getStackInSlot(i) != ItemStack.EMPTY) {
-                paramsNBT.add(container.paramSlots.getStackInSlot(1).getTag());
+                paramsNBT.add(container.paramSlots.getStackInSlot(i).getTag());
             }
         }
 
         packet.invokerData.put("parameters", paramsNBT);
-        if (container.getOutputStack().getItem() == ItemRegistry.V3D_INVOKER.get()) {
+        if (container.getOutputStack().getItem() == ItemRegistry.STATIC_INVOKER.get()) {
             container.getOutputStack().setTag(packet.invokerData);
         }
     }

@@ -19,4 +19,8 @@ public enum DanmakuColor {
     public ITextComponent toTextComponent() {
         return GensokyoOntology.withTranslation("gui.", ".danmaku_color." + this.name().toLowerCase());
     }
+
+    public DanmakuColor getIfMatches(String name) {
+        return this.name().toLowerCase().equals(name) ? this : DanmakuColor.NONE;
+    }
 }
