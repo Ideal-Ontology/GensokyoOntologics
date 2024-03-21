@@ -11,7 +11,7 @@ import net.minecraftforge.items.SlotItemHandler;
 import org.jetbrains.annotations.Nullable;
 
 public abstract class ScriptBuilderContainer extends WrapPlayerContainer {
-    protected ScriptBuilderContainer(@Nullable ContainerType<?> type, PlayerInventory playerInventory, int id) {
+    public ScriptBuilderContainer(@Nullable ContainerType<?> type, PlayerInventory playerInventory, int id) {
         super(type, playerInventory, id);
     }
 
