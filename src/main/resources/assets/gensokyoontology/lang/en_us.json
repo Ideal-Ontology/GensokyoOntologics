@@ -350,6 +350,7 @@
   "container.gensokyoontology.sorcery_extractor.title": "Sorcery Extracting",
   "container.gensokyoontology.binary_operation.title": "Binary Operating",
   "container.gensokyoontology.v3d_invoker.title": "V3d Func Invoking",
+  "container.gensokyoontology.static_invoker.title": "Static Func Invoking",
   "container.gensokyoontology.spell_card_console.title": "Spell Card Console",
 
   "description.gensokyoontology.idealism_sword_description": "Cause 12 damage each tick",
@@ -508,8 +509,9 @@
   "gui.gensokyoontology.func_invoker.vector3d.normalize": "Normalize",
 
   "gui.gensokyoontology.v3d_invoker.param": "Parameter",
+  "gui.gensokyoontology.static_func.shoot": "Shoot",
   "gui.gensokyoontology.func_invoker.params": "Parameters: ",
-  "gui.gensokyoontology.func_invoker.return": "Return: ",
+  "gui.gensokyoontology.func_invoker.return": "Return",
 
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "This is a title of XMMUI Test Screen",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "Welcome",

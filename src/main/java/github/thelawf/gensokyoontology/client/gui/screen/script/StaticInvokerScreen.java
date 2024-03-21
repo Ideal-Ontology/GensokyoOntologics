@@ -4,8 +4,9 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
+import github.thelawf.gensokyoontology.common.container.script.StaticInvokerContainer;
 import github.thelawf.gensokyoontology.common.container.script.V3dInvokerContainer;
-import github.thelawf.gensokyoontology.common.nbt.script.V3dFunc;
+import github.thelawf.gensokyoontology.common.nbt.script.StaticFunc;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CInvokeFunctionPacket;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
@@ -18,30 +19,30 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class V3dInvokerScreen extends InvokerContainerScreen<V3dInvokerContainer> {
-    private V3dFunc func;
-    public static final String TYPE = "vector3d_invoker";
+// 13, 27 -> PARAMS_TEXT.x,y
+public class StaticInvokerScreen extends InvokerContainerScreen<StaticInvokerContainer> {
+    private StaticFunc func;
+    public static final String TYPE = "static_invoker";
     private CompoundNBT funcData = new CompoundNBT();
     private final List<WidgetConfig> CONFIGS;
-    public final ITextComponent PARAM_TEXT = withTranslation("gui","v3d_invoker.param");
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/v3d_invoker_screen.png");
-    public V3dInvokerScreen(V3dInvokerContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/static_invoker_screen.png");
+    public StaticInvokerScreen(StaticInvokerContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
-        this.func = V3dFunc.ADD;
-        this.xSize = 186;
-        this.ySize = 167;
+        this.func = StaticFunc.SHOOT;
+        this.xSize = 223;
+        this.ySize = 191;
         this.titleX = 6;
         this.titleY = 6;
-        this.playerInventoryTitleX = 12;
-        this.playerInventoryTitleY = 60;
+        this.playerInventoryTitleX = 31;
+        this.playerInventoryTitleY = 102;
         this.functionNameBtn = new Button(0,0,0,0, this.func.toTextComponent(), b -> {});
         this.saveBtn = new Button(0,0,0,0, this.saveText, b -> {});
         CONFIGS = Lists.newArrayList(
-                WidgetConfig.of(this.functionNameBtn, 70, 20).setXY(64, 20)
+                WidgetConfig.of(this.functionNameBtn, 70, 20).setXY(22, 62)
                         .withFont(this.font)
                         .withText(this.func.toTextComponent())
                         .withAction(this::funcBtnAction),
-                WidgetConfig.of(this.saveBtn, 70, 20).setXY(64, 50)
+                WidgetConfig.of(this.saveBtn, 70, 20).setXY(131, 62)
                         .withFont(this.font)
                         .withText(this.saveText)
                         .withAction(this::saveBtnAction));
@@ -49,14 +50,14 @@ public class V3dInvokerScreen extends InvokerContainerScreen<V3dInvokerContainer
     }
 
     private void funcBtnAction(Button button) {
-        this.func = EnumUtil.switchEnum(V3dFunc.class, this.func);
+        this.func = EnumUtil.switchEnum(StaticFunc.class, this.func);
         button.setMessage(this.func.toTextComponent());
     }
 
     private void saveBtnAction(Button button) {
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;
-        if (!(this.minecraft.player.openContainer instanceof V3dInvokerContainer)) return;
+        if (!(this.minecraft.player.openContainer instanceof StaticInvokerContainer)) return;
 
         this.funcData.putString("type", TYPE);
         this.funcData.putString("methodName", this.func.methodName);
@@ -75,8 +76,8 @@ public class V3dInvokerScreen extends InvokerContainerScreen<V3dInvokerContainer
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft != null) {
-            this.font.drawText(matrixStack, PARAM_TEXT, this.guiLeft + 30, this.guiTop + 40, DARK_GRAY);
-            this.font.drawText(matrixStack, RETURN_TEXT, this.guiLeft + 140, this.guiTop + 40, DARK_GRAY);
+            this.font.drawText(matrixStack, PARAMS_TEXT, this.guiLeft + 13, this.guiTop + 18, DARK_GRAY);
+            this.font.drawText(matrixStack, RETURN_TEXT, this.guiLeft + 103, this.guiTop + 90, DARK_GRAY);
             this.renderRelativeToParent(CONFIGS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop,partialTicks);
         }
     }

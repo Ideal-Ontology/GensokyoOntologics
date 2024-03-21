@@ -4,7 +4,6 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.network.packet.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
@@ -32,7 +31,7 @@ public class GSKONetworking {
 
         CHANNEL.messageBuilder(CMergeScriptPacket.class, next()).encoder(CMergeScriptPacket::toBytes).decoder(CMergeScriptPacket::fromBytes).consumer(CMergeScriptPacket::handle).add();
         CHANNEL.messageBuilder(CAddScriptPacket.class, next()).encoder(CAddScriptPacket::toBytes).decoder(CAddScriptPacket::fromBytes).consumer(CAddScriptPacket::handle).add();
-        CHANNEL.messageBuilder(CInvokeV3dFuncPacket.class, next()).encoder(CInvokeV3dFuncPacket::toBytes).decoder(CInvokeV3dFuncPacket::fromBytes).consumer(CInvokeV3dFuncPacket::handle).add();
+        CHANNEL.messageBuilder(CInvokeFunctionPacket.class, next()).encoder(CInvokeFunctionPacket::toBytes).decoder(CInvokeFunctionPacket::fromBytes).consumer(CInvokeFunctionPacket::handle).add();
     }
 
     public static void sendToClientPlayer(Object message, PlayerEntity player) {

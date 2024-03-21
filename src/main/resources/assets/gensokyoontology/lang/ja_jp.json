@@ -507,6 +507,7 @@
   "gui.gensokyoontology.func_invoker.vector3d.length": "Length",
   "gui.gensokyoontology.func_invoker.vector3d.normalize": "Normalize",
 
+  "gui.gensokyoontology.v3d_invoker.param": "Parameter",
   "gui.gensokyoontology.func_invoker.params": "Parameters: ",
   "gui.gensokyoontology.func_invoker.return": "Return: ",
 

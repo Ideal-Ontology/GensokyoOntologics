@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.container.script.BinaryOperationCo
 import github.thelawf.gensokyoontology.client.gui.screen.script.ConstBuilderScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.Vector3dBuilderScreen;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
+import github.thelawf.gensokyoontology.common.container.script.StaticInvokerContainer;
 import github.thelawf.gensokyoontology.common.container.script.V3dInvokerContainer;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
@@ -777,6 +778,17 @@ public final class ItemRegistry {
         @Override
         public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
             if (!world.isRemote) player.openContainer(V3dInvokerContainer.create());
+        }
+    });
+
+    public static final RegistryObject<Item> STATIC_INVOKER = ITEMS.register("static_invoker", () -> new DynamicScriptItem() {
+        @Override
+        public void addDynamicData(World world, PlayerEntity player, ItemStack stack, Dynamic<INBT> dynamic) {
+
+        }
+        @Override
+        public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
+            if (!world.isRemote) player.openContainer(StaticInvokerContainer.create());
         }
     });
 

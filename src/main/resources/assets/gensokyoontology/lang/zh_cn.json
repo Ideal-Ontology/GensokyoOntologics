@@ -507,8 +507,9 @@
   "gui.gensokyoontology.func_invoker.vector3d.length": "模长",
   "gui.gensokyoontology.func_invoker.vector3d.normalize": "归一化",
 
+  "gui.gensokyoontology.v3d_invoker.param": "参数",
   "gui.gensokyoontology.func_invoker.params": "参数：",
-  "gui.gensokyoontology.func_invoker.return": "返回值：",
+  "gui.gensokyoontology.func_invoker.return": "返回值",
 
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "欢迎使用XMMUI作为Minecraft前端GUI框架",
