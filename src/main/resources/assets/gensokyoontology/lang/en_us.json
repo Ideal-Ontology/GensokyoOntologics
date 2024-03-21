@@ -247,6 +247,7 @@
   "item.gensokyoontology.const_builder": "Constance Builder",
   "item.gensokyoontology.danmaku_builder": "Danmaku Builder",
   "item.gensokyoontology.vector3d_builder": "Vector3d Builder",
+  "item.gensokyoontology.v3d_invoker": "Vector3d Function Invoker",
   "item.gensokyoontology.binary_operation_builder": "Binary Operation Builder",
 
   "advancement.gensokyoontology.root.title": "It's An INCIDENT, REIMU!",
@@ -506,6 +507,7 @@
   "gui.gensokyoontology.func_invoker.vector3d.length": "Length",
   "gui.gensokyoontology.func_invoker.vector3d.normalize": "Normalize",
 
+  "gui.gensokyoontology.v3d_invoker.param": "Parameter",
   "gui.gensokyoontology.func_invoker.params": "Parameters: ",
   "gui.gensokyoontology.func_invoker.return": "Return: ",
 

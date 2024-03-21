@@ -247,6 +247,7 @@
   "item.gensokyoontology.const_builder": "Constance Builder",
   "item.gensokyoontology.danmaku_builder": "Danmaku Builder",
   "item.gensokyoontology.vector3d_builder": "Vector3d Builder",
+  "item.gensokyoontology.v3d_invoker": "Vector3d Function Invoker",
   "item.gensokyoontology.binary_operation_builder": "Binary Operation Builder",
 
   "advancement.gensokyoontology.root.title": "これは異変だった, 霊夢！",
@@ -348,6 +349,7 @@
   "container.gensokyoontology.danmaku_craft.title": "Danmaku Crafting",
   "container.gensokyoontology.sorcery_extractor.title": "Sorcery Extracting",
   "container.gensokyoontology.binary_operation.title": "Binary Operating",
+  "container.gensokyoontology.v3d_invoker.title": "V3d Func Invoking",
   "container.gensokyoontology.spell_card_console.title": "Spell Card Console",
 
   "description.gensokyoontology.idealism_sword_description": "Cause 12 damage each tick",
@@ -493,6 +495,20 @@
   "gui.gensokyoontology.danmaku_builder.button.name": "Name: ",
   "gui.gensokyoontology.danmaku_builder.button.type": "Danmaku Type: ",
   "gui.gensokyoontology.danmaku_builder.button.color": "Danmaku Color: ",
+
+  "gui.gensokyoontology.func_invoker.vector3d.add": "Add",
+  "gui.gensokyoontology.func_invoker.vector3d.subtract": "Subtract",
+  "gui.gensokyoontology.func_invoker.vector3d.scale": "Scale",
+  "gui.gensokyoontology.func_invoker.vector3d.dot_product": "Dot Product",
+  "gui.gensokyoontology.func_invoker.vector3d.cross_product": "Cross Product",
+  "gui.gensokyoontology.func_invoker.vector3d.rotate_yaw": "Rotate Yaw",
+  "gui.gensokyoontology.func_invoker.vector3d.rotate_pitch": "Rotate Pitch",
+  "gui.gensokyoontology.func_invoker.vector3d.inverse": "Inverse",
+  "gui.gensokyoontology.func_invoker.vector3d.length": "Length",
+  "gui.gensokyoontology.func_invoker.vector3d.normalize": "Normalize",
+
+  "gui.gensokyoontology.func_invoker.params": "Parameters: ",
+  "gui.gensokyoontology.func_invoker.return": "Return: ",
 
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "This is a title of XMMUI Test Screen",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "Welcome",

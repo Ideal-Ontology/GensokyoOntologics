@@ -32,6 +32,7 @@ public class GSKONetworking {
 
         CHANNEL.messageBuilder(CMergeScriptPacket.class, next()).encoder(CMergeScriptPacket::toBytes).decoder(CMergeScriptPacket::fromBytes).consumer(CMergeScriptPacket::handle).add();
         CHANNEL.messageBuilder(CAddScriptPacket.class, next()).encoder(CAddScriptPacket::toBytes).decoder(CAddScriptPacket::fromBytes).consumer(CAddScriptPacket::handle).add();
+        CHANNEL.messageBuilder(CInvokeV3dFuncPacket.class, next()).encoder(CInvokeV3dFuncPacket::toBytes).decoder(CInvokeV3dFuncPacket::fromBytes).consumer(CInvokeV3dFuncPacket::handle).add();
     }
 
     public static void sendToClientPlayer(Object message, PlayerEntity player) {

@@ -247,6 +247,7 @@
   "item.gensokyoontology.const_builder": "常量构建器",
   "item.gensokyoontology.danmaku_builder": "弹幕构建器",
   "item.gensokyoontology.vector3d_builder": "双精度浮点数三维向量构建器",
+  "item.gensokyoontology.v3d_invoker": "三维向量函数调用器",
   "item.gensokyoontology.binary_operation_builder": "二元表达式构建器",
 
   "advancement.gensokyoontology.root.title": "灵梦，这是异变啊！",
@@ -348,6 +349,7 @@
   "container.gensokyoontology.danmaku_craft.title": "弹幕合成",
   "container.gensokyoontology.sorcery_extractor.title": "魔力提取",
   "container.gensokyoontology.binary_operation.title": "二元运算",
+  "container.gensokyoontology.v3d_invoker.title": "向量运算",
   "container.gensokyoontology.spell_card_console.title": "符卡控制台",
 
   "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
@@ -493,6 +495,20 @@
   "gui.gensokyoontology.danmaku_builder.button.name": "名称：",
   "gui.gensokyoontology.danmaku_builder.button.type": "弹幕类型：",
   "gui.gensokyoontology.danmaku_builder.button.color": "弹幕颜色：",
+
+  "gui.gensokyoontology.func_invoker.vector3d.add": "向量加法",
+  "gui.gensokyoontology.func_invoker.vector3d.subtract": "向量减法",
+  "gui.gensokyoontology.func_invoker.vector3d.scale": "向量乘法",
+  "gui.gensokyoontology.func_invoker.vector3d.dot_product": "向量点乘",
+  "gui.gensokyoontology.func_invoker.vector3d.cross_product": "向量叉乘",
+  "gui.gensokyoontology.func_invoker.vector3d.rotate_yaw": "绕Y轴旋转",
+  "gui.gensokyoontology.func_invoker.vector3d.rotate_pitch": "绕Z轴旋转",
+  "gui.gensokyoontology.func_invoker.vector3d.inverse": "反向",
+  "gui.gensokyoontology.func_invoker.vector3d.length": "模长",
+  "gui.gensokyoontology.func_invoker.vector3d.normalize": "归一化",
+
+  "gui.gensokyoontology.func_invoker.params": "参数：",
+  "gui.gensokyoontology.func_invoker.return": "返回值：",
 
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "欢迎使用XMMUI作为Minecraft前端GUI框架",

@@ -65,8 +65,6 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;
         if (!(this.minecraft.player.openContainer instanceof SpellCardConsoleContainer)) return;
-        SpellCardConsoleContainer container = (SpellCardConsoleContainer) this.minecraft.player.openContainer;
-        ListNBT scriptList = new ListNBT();
 
         GSKONetworking.CHANNEL.sendToServer(new CAddScriptPacket());
         this.minecraft.player.sendMessage(SAVED_MSG, this.minecraft.player.getUniqueID());
@@ -131,8 +129,6 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
     protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
         Minecraft mc = Minecraft.getInstance();
         mc.getTextureManager().bindTexture(SCREEN_TEXTURE);
-        int sw = mc.getMainWindow().getScaledWidth();
-        int sh = mc.getMainWindow().getScaledHeight();
         this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, 247, 249);
     }
 

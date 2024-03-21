@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.api.client.ITextBuilder;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.common.container.script.ScriptBuilderContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.SlotWidget;
+import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
@@ -74,21 +75,6 @@ public abstract class LineralContainerScreen<C extends ScriptBuilderContainer> e
             config.widget.setHeight(config.height);
             config.widget.setMessage(config.text);
             this.children.add(config.widget);
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public void drawCenteredText(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        int width = 0;
-        int parentWidth = 255;
-        for (WidgetConfig config : configs) width += config.width;
-        int x = (parentWidth - width) / 2, y = 0;
-        for (WidgetConfig config : configs) {
-            x += config.width;
-            y += config.height;
-            y += config.upInterval;
-
-            if (config.isText) drawString(matrixStack, config.fontRenderer, config.text, x, y, 16777215);
         }
     }
 

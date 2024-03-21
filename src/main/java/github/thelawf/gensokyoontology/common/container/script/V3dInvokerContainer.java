@@ -16,14 +16,15 @@ import org.jetbrains.annotations.NotNull;
 // 31, 21
 // 140, 21
 public class V3dInvokerContainer extends FunctionInvokerContainer {
-    private final IInventory inventory = new Inventory(2);
+    private final IInventory inventory = new Inventory(3);
     public static final ITextComponent NAME = new TranslationTextComponent("container." +
             GensokyoOntology.MODID + ".v3d_invoker.title");
     public V3dInvokerContainer(int id, PlayerInventory playerInventory) {
         super(ContainerRegistry.V3D_INVOKER_CONTAINER.get(), playerInventory, id);
         this.addPlayerInventorySlots(13, 81);
         this.addSlot(new Slot(this.inventory, 0, 31, 21));
-        this.addSlot(new Slot(this.inventory, 1, 140, 21));
+        this.addSlot(new Slot(this.inventory, 0, 21, 21));
+        this.addSlot(new Slot(this.inventory, 1, 148, 21));
     }
 
     @Override
