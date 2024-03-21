@@ -4,18 +4,18 @@ import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
-import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
-import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
 import github.thelawf.gensokyoontology.common.container.script.V3dInvokerContainer;
 import github.thelawf.gensokyoontology.common.nbt.script.V3dFunc;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CInvokeV3dFuncPacket;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +45,7 @@ public class V3dInvokerScreen extends InvokerContainerScreen<V3dInvokerContainer
                         .withFont(this.font)
                         .withText(this.func.toTextComponent())
                         .withAction(this::funcBtnAction),
-                WidgetConfig.of(this.saveBtn, 7, 20).setXY(64, 50)
+                WidgetConfig.of(this.saveBtn, 70, 20).setXY(64, 50)
                         .withFont(this.font)
                         .withText(this.saveText)
                         .withAction(this::saveBtnAction));
@@ -61,15 +61,8 @@ public class V3dInvokerScreen extends InvokerContainerScreen<V3dInvokerContainer
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;
         if (!(this.minecraft.player.openContainer instanceof V3dInvokerContainer)) return;
-        V3dInvokerContainer container = (V3dInvokerContainer) this.minecraft.player.openContainer;
-        ListNBT paramsNBT = new ListNBT();
-        if (container.getInventory().get(0) != ItemStack.EMPTY) {
-            paramsNBT.add(container.getInventory().get(1).getTag());
-        }
 
-        this.funcData.putString("type", TYPE);
-        this.funcData.putString("name", this.func.methodName);
-        this.funcData.put("parameters", paramsNBT);
+        this.funcData.putString("methodName", this.func.methodName);
         this.funcData.putString("return", this.func.returnType);
         GSKONetworking.CHANNEL.sendToServer(new CInvokeV3dFuncPacket(this.funcData));
     }
