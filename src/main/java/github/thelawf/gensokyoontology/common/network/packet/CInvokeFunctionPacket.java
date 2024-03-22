@@ -74,7 +74,8 @@ public class CInvokeFunctionPacket {
         ListNBT paramsNBT = new ListNBT();
         for (int i = 0; i < container.paramSlots.getSizeInventory(); i++) {
             if (container.paramSlots.getStackInSlot(i) != ItemStack.EMPTY) {
-                paramsNBT.add(container.paramSlots.getStackInSlot(i).getTag());
+                CompoundNBT nbt = container.paramSlots.getStackInSlot(i).getTag();
+                if (nbt != null) paramsNBT.add(nbt);
             }
         }
 

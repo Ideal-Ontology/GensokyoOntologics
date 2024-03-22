@@ -53,7 +53,6 @@ public class StaticInvokerScreen extends InvokerContainerScreen<StaticInvokerCon
         this.func = EnumUtil.switchEnum(StaticFunc.class, this.func);
         button.setMessage(this.func.toTextComponent());
     }
-
     private void saveBtnAction(Button button) {
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;

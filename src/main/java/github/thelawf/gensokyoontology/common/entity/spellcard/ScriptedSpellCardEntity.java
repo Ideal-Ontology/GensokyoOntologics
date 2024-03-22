@@ -19,6 +19,7 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
@@ -54,11 +55,18 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
     @Override
     protected void readAdditional(@NotNull CompoundNBT compound) {
         super.readAdditional(compound);
+        this.scriptsNBT = compound.getCompound("script");
+        this.dataManager.set(DATA_SCRIPT, this.scriptsNBT);
     }
 
     @Override
     protected void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
+        INBT inbt = this.scriptsNBT.get("scripts");
+        if (inbt != null) {
+            compound.put("script", this.getScript());
+
+        }
     }
 
     public CompoundNBT getScript() {
@@ -66,6 +74,7 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
     }
 
     public void setScript(CompoundNBT scriptNBT) {
+        this.scriptsNBT = scriptNBT;
         this.dataManager.set(DATA_SCRIPT, scriptNBT);
     }
 
@@ -90,7 +99,12 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
     private void runScript() {
         if (!(this.getOwner() instanceof PlayerEntity)) return;
         PlayerEntity player = (PlayerEntity) this.getOwner();
-        ListNBT listNBT = getListOrSendFeedback(this.scriptsNBT, "scripts", player);
+        // /data get entity @e[type=gensokyoontology:scripted_spell_card,limit=1]
+        // player.sendMessage(new StringTextComponent(this.getScript().toString()), player.getUniqueID());
+
+        ListNBT listNBT = getListOrSendFeedback(this.getScript().getCompound("script"), "scripts", player);
+        if (!canExecute(this.getScript().getCompound("script"), "scripts", player)) return;
+
         for (INBT inbt : listNBT) {
             if (!(inbt instanceof CompoundNBT)) {
                 sendTypeExceptionFeedback(player, "type_of_each_script_in_list_not_allowed");
@@ -227,14 +241,25 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
         return listNBT;
     }
 
+    private boolean canExecute(CompoundNBT nbtIn, String listKey, PlayerEntity player) {
+        if (!(nbtIn.get(listKey) instanceof ListNBT)) {
+            sendTypeExceptionFeedback(player, "acquired_data_not_a_list");
+        }
+        ListNBT listNBT = (ListNBT) nbtIn.get(listKey);
+        if (listNBT == null) {
+            sendNullPointerFeedback(player, "list_is_null");
+        }
+        return (nbtIn.get(listKey) instanceof ListNBT) || listNBT != null;
+    }
+
     private void sendTypeExceptionFeedback(PlayerEntity player, String msg) {
-        if (this.ticksExisted % 200 == 0) {
+        if (this.ticksExisted == 0) {
             player.sendMessage(GensokyoOntology.withTranslation("script.", ".error.type_exception." + msg), player.getUniqueID());
         }
     }
 
     private void sendNullPointerFeedback(PlayerEntity player, String msg) {
-        if (this.ticksExisted % 200 == 0) {
+        if (this.ticksExisted == 0) {
             player.sendMessage(GensokyoOntology.withTranslation("script.", ".error.null_pointer_exception." + msg), player.getUniqueID());
         }
     }

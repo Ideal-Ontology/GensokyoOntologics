@@ -17,10 +17,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.ListNBT;
-import net.minecraft.nbt.NBTUtil;
+import net.minecraft.nbt.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
@@ -87,25 +84,43 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
         // }
 
         if (container.getOutputStack().getTag() == null) return;
-        this.scriptData.put("scripts", container.getOutputStack().getTag());
-        this.minecraft.keyboardListener.setClipboardString(toJson(this.scriptData));
+        INBT inbt = container.getOutputStack().getTag().get("scripts");
+        if (inbt == null) return;
+        this.scriptData.put("scripts", inbt);
+        JsonObject jsonObject = new JsonObject();
+        this.minecraft.keyboardListener.setClipboardString(toJson(jsonObject, this.scriptData));
         // this.scriptData.toString()
         this.minecraft.player.sendMessage(COPIED_MSG, this.minecraft.player.getUniqueID());
     }
 
-    public static String toJson(CompoundNBT compound) {
-        JsonObject jsonObject = new JsonObject();
-
+    public static String toJson(JsonObject jsonObject, CompoundNBT compound) {
         for (String key : compound.keySet()) {
             // 根据数据类型将数据添加到 JsonObject 中
             if (compound.contains(key)) {
                 INBT inbt = compound.get(key);
                 if (inbt != null) {
-                    jsonObject.addProperty(key, inbt.toString());
+                    if (inbt instanceof CompoundNBT) {
+                        CompoundNBT nbt = (CompoundNBT) inbt;
+                        toJson(jsonObject, nbt);
+                    }
+                    if (inbt instanceof ListNBT) {
+                        ListNBT listNBT = (ListNBT) inbt;
+                        listNBT.forEach(element -> {
+                            if (element instanceof CompoundNBT) {
+                                CompoundNBT nbt = (CompoundNBT) element;
+                                toJson(jsonObject, nbt);
+                            }
+                        });
+                    }
+                    if (inbt instanceof NumberNBT) {
+                        NumberNBT numberNBT = (NumberNBT) inbt;
+                        jsonObject.addProperty(key, numberNBT.getAsNumber());
+                    }
+                    jsonObject.addProperty(key, inbt.getString());
                 }
             }
         }
-        return jsonObject.toString();
+        return jsonObject.toString(); // .replace("\\", "");
     }
 
     @Override

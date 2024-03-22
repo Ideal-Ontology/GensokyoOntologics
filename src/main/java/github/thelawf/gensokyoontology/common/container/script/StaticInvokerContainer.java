@@ -8,16 +8,14 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-public class StaticInvokerContainer extends FunctionInvokerContainer{
+public class StaticInvokerContainer extends FunctionInvokerContainer {
     public final IInventory paramSlots = new Inventory(12);
     public static final ITextComponent NAME = new TranslationTextComponent("container." +
             GensokyoOntology.MODID + ".static_invoker.title");

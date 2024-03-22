@@ -248,6 +248,7 @@
   "item.gensokyoontology.danmaku_builder": "Danmaku Builder",
   "item.gensokyoontology.vector3d_builder": "Vector3d Builder",
   "item.gensokyoontology.v3d_invoker": "Vector3d Function Invoker",
+  "item.gensokyoontology.static_invoker": "Static Function Invoker",
   "item.gensokyoontology.binary_operation_builder": "Binary Operation Builder",
 
   "advancement.gensokyoontology.root.title": "これは異変だった, 霊夢！",
@@ -350,6 +351,7 @@
   "container.gensokyoontology.sorcery_extractor.title": "Sorcery Extracting",
   "container.gensokyoontology.binary_operation.title": "Binary Operating",
   "container.gensokyoontology.v3d_invoker.title": "V3d Func Invoking",
+  "container.gensokyoontology.static_invoker.title": "Static Func Invoking",
   "container.gensokyoontology.spell_card_console.title": "Spell Card Console",
 
   "description.gensokyoontology.idealism_sword_description": "Cause 12 damage each tick",
@@ -508,6 +510,7 @@
   "gui.gensokyoontology.func_invoker.vector3d.normalize": "Normalize",
 
   "gui.gensokyoontology.v3d_invoker.param": "Parameter",
+  "gui.gensokyoontology.static_func.shoot": "Shoot",
   "gui.gensokyoontology.func_invoker.params": "Parameters: ",
   "gui.gensokyoontology.func_invoker.return": "Return: ",
 

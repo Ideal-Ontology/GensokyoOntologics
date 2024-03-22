@@ -248,6 +248,7 @@
   "item.gensokyoontology.danmaku_builder": "弹幕构建器",
   "item.gensokyoontology.vector3d_builder": "双精度浮点数三维向量构建器",
   "item.gensokyoontology.v3d_invoker": "三维向量函数调用器",
+  "item.gensokyoontology.static_invoker": "静态方法调用器",
   "item.gensokyoontology.binary_operation_builder": "二元表达式构建器",
 
   "advancement.gensokyoontology.root.title": "灵梦，这是异变啊！",
@@ -350,6 +351,7 @@
   "container.gensokyoontology.sorcery_extractor.title": "魔力提取",
   "container.gensokyoontology.binary_operation.title": "二元运算",
   "container.gensokyoontology.v3d_invoker.title": "向量运算",
+  "container.gensokyoontology.static_invoker.title": "静态方法调用",
   "container.gensokyoontology.spell_card_console.title": "符卡控制台",
 
   "description.gensokyoontology.idealism_sword_description": "每一tick造成12点伤害",
@@ -508,6 +510,7 @@
   "gui.gensokyoontology.func_invoker.vector3d.normalize": "归一化",
 
   "gui.gensokyoontology.v3d_invoker.param": "参数",
+  "gui.gensokyoontology.static_func.shoot": "发射弹幕",
   "gui.gensokyoontology.func_invoker.params": "参数：",
   "gui.gensokyoontology.func_invoker.return": "返回值",
 

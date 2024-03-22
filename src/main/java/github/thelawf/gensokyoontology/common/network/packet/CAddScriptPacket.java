@@ -46,13 +46,13 @@ public class CAddScriptPacket {
 
             spellConsole.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
                 for (int i = 0; i < itemHandler.getSlots() - 1; i++) {
-                    if (isAllowedStack(i, itemHandler) && hasAllowedTag(i, itemHandler)) {
-                        scriptList.add(container.getTag(i));
+                    if (isAllowedStack(i, itemHandler)) {
+                        scriptList.add(getTag(i, itemHandler));
                     }
                 }
-                scriptData.put("scripts", scriptList);
-                container.getOutputStack().setTag(scriptData);
             });
+            scriptData.put("scripts", scriptList);
+            container.getOutputStack().setTag(scriptData);
         }
     }
 
