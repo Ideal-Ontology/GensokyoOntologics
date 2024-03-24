@@ -45,6 +45,6 @@ public enum DanmakuType {
     }
 
     public DanmakuType getIfMatches(String name) {
-        return Objects.equals(name, this.name) ? this : DanmakuType.DANMAKU_SHOT;
+        return Objects.equals(name, this.name) ? this : DanmakuType.LARGE_SHOT;
     }
 }

@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 import github.thelawf.gensokyoontology.common.nbt.script.StaticFunc;
 import github.thelawf.gensokyoontology.common.nbt.script.V3dFunc;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -27,6 +28,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 public class ScriptedSpellCardEntity extends SpellCardEntity {
     private CompoundNBT scriptsNBT = new CompoundNBT();
@@ -43,7 +45,6 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
     public ScriptedSpellCardEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
         this.setLocationAndAngles(0, 0, 0, 0, 0);
-        this.setScript(this.scriptsNBT);
     }
 
     @Override
@@ -62,11 +63,7 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
     @Override
     protected void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        INBT inbt = this.scriptsNBT.get("scripts");
-        if (inbt != null) {
-            compound.put("script", this.getScript());
-
-        }
+        compound.put("script", this.scriptsNBT);
     }
 
     public CompoundNBT getScript() {
@@ -102,26 +99,27 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
         // /data get entity @e[type=gensokyoontology:scripted_spell_card,limit=1]
         // player.sendMessage(new StringTextComponent(this.getScript().toString()), player.getUniqueID());
 
-        ListNBT listNBT = getListOrSendFeedback(this.getScript().getCompound("script"), "scripts", player);
-        if (!canExecute(this.getScript().getCompound("script"), "scripts", player)) return;
-
+        ListNBT listNBT = getListOrSendFeedback(this.getScript(), player);
+        // GSKOUtil.showChatMsg(player, this.dataManager.get(DATA_SCRIPT).toString(), 40);
+        if (!canExecute(player)) return;
         for (INBT inbt : listNBT) {
             if (!(inbt instanceof CompoundNBT)) {
                 sendTypeExceptionFeedback(player, "type_of_each_script_in_list_not_allowed");
                 return;
             }
-            runEachScript((CompoundNBT) inbt, player);
+            runEachScript(castToCompound(inbt), player);
         }
     }
 
     private void runEachScript(CompoundNBT scriptNBT, PlayerEntity player) {
-        if (scriptNBT.getString("type").equals(StaticFunc.SHOOT.methodName)) {
+        if (scriptNBT.getString("methodName").equals(StaticFunc.SHOOT.methodName)) {
             runShootFunc(scriptNBT, player);
         }
     }
 
     private void runShootFunc(CompoundNBT shootEntry, PlayerEntity player) {
         ListNBT parameters = getListOrSendFeedback(shootEntry, "parameters", player);
+
         List<CompoundNBT> params = new ArrayList<>();
         if (strictMatches(parameters, StaticFunc.SHOOT, player)) {
             for (INBT inbt : parameters) {
@@ -129,34 +127,19 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
                 params.get(0).getString("danmakuType");
             }
             AbstractDanmakuEntity danmaku = createDanmakuIf(params.get(0), player);
+            // GSKOUtil.showChatMsg(player, params.get(1).getCompound("value").toString(), 80);
             Vector3d shootVec = new Vector3d(
                     params.get(1).getCompound("value").getDouble("x"),
                     params.get(1).getCompound("value").getDouble("y"),
                     params.get(1).getCompound("value").getDouble("z"));
 
-            danmaku.shoot(shootVec.x + player.getPosX(), shootVec.y + player.getPosY(), shootVec.z + player.getPosZ(),
-                    params.get(2).getCompound("value").getFloat("velocity"),
-                    params.get(3).getCompound("value").getFloat("accuracy"));
+            shootVec = shootVec.normalize();
+            setDanmakuInit(danmaku, this.getPositionVec());
+            danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, params.get(2).getFloat("value"), params.get(3).getFloat("value"));
+
+            // GSKOUtil.showChatMsg(player, danmaku.getPosition().toString(), 60);
             this.world.addEntity(danmaku);
         }
-        // if (parameters.size() != 4) {
-        //     sendNullPointerFeedback(player, "not_provide_enough_parameters");
-        //     return;
-        // }
-        // if (strictMatches(parameters.get(0),InstanceType.DANMAKU.name)) {
-        //     params.add(castToCompound(parameters.get(0)));
-        // }
-        // if (strictMatches(parameters.get(1),InstanceType.VECTOR3D.name)) {
-        //     params.add(castToCompound(parameters.get(1)));
-        // }
-        // if (strictMatches(parameters.get(2),ConstType.FLOAT.key)) {
-        //     params.add(castToCompound(parameters.get(2)));
-        // }
-        // if (strictMatches(parameters.get(3),ConstType.FLOAT.key)) {
-        //     params.add(castToCompound(parameters.get(3)));
-        // }
-        // if (params.size() == 4) {
-        // }
     }
 
     private AbstractDanmakuEntity createDanmakuIf(CompoundNBT danmakuData, PlayerEntity player) {
@@ -203,13 +186,21 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
             sendNullPointerFeedback(player, "not_provide_enough_parameters");
             return false;
         }
-        return listNBT.stream().allMatch(inbt -> {
-            boolean flag = false;
-            for (String type : staticFunc.parameters) {
-                flag = castToCompound(inbt).getString("type").equals(type);
+        List<String> typeList = listNBT.stream().map(inbt -> {
+            if (inbt instanceof CompoundNBT) {
+                CompoundNBT nbt = (CompoundNBT) inbt;
+                return nbt.getString("type");
             }
-            return flag;
-        });
+            return "";
+        }).collect(Collectors.toList());
+
+        for (StaticFunc func : StaticFunc.values()) {
+            if (typeList.stream().sorted().collect(Collectors.joining()).equals(
+                    func.parameters.stream().sorted().collect(Collectors.joining()))) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private boolean strictMatches(ListNBT listNBT, V3dFunc v3dFunc, PlayerEntity player) {
@@ -230,6 +221,17 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
         return inbt instanceof CompoundNBT ? (CompoundNBT) inbt : new CompoundNBT();
     }
 
+    private ListNBT getListOrSendFeedback(CompoundNBT nbtIn, PlayerEntity player) {
+        if (!(nbtIn.get("scripts") instanceof ListNBT)) {
+            sendTypeExceptionFeedback(player, "acquired_data_not_a_list");
+        }
+        ListNBT listNBT = (ListNBT) nbtIn.get("scripts");
+        if (listNBT == null) {
+            sendNullPointerFeedback(player, "list_is_null");
+        }
+        return listNBT;
+    }
+
     private ListNBT getListOrSendFeedback(CompoundNBT nbtIn, String listKey, PlayerEntity player) {
         if (!(nbtIn.get(listKey) instanceof ListNBT)) {
             sendTypeExceptionFeedback(player, "acquired_data_not_a_list");
@@ -239,6 +241,10 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
             sendNullPointerFeedback(player, "list_is_null");
         }
         return listNBT;
+    }
+
+    private boolean canExecute(PlayerEntity player) {
+        return this.getScript().get("scripts") instanceof ListNBT;
     }
 
     private boolean canExecute(CompoundNBT nbtIn, String listKey, PlayerEntity player) {
@@ -253,13 +259,13 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
     }
 
     private void sendTypeExceptionFeedback(PlayerEntity player, String msg) {
-        if (this.ticksExisted == 0) {
+        if (this.ticksExisted == 2) {
             player.sendMessage(GensokyoOntology.withTranslation("script.", ".error.type_exception." + msg), player.getUniqueID());
         }
     }
 
     private void sendNullPointerFeedback(PlayerEntity player, String msg) {
-        if (this.ticksExisted == 0) {
+        if (this.ticksExisted == 2) {
             player.sendMessage(GensokyoOntology.withTranslation("script.", ".error.null_pointer_exception." + msg), player.getUniqueID());
         }
     }

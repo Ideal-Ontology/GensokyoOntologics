@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.List;
 
 public class DanmakuBuilderScreen extends ScriptBuilderScreen {
-    public static final String TYPE = "entity.gensokyoontology.danmaku_entity";
+    public static final String TYPE = "danmaku";
     private Button danTypeButton;
     private Button colorButton;
     private TextFieldWidget nameInput;

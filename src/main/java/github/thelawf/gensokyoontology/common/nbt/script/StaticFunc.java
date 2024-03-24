@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.nbt.script;
 
 import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.util.text.ITextComponent;
 
 import java.util.List;

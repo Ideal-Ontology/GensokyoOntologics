@@ -1,13 +1,18 @@
 package github.thelawf.gensokyoontology.client.gui.screen;
 
 import com.google.common.collect.Lists;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.stream.JsonReader;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.api.entity.ISpellCard;
 import github.thelawf.gensokyoontology.client.gui.screen.script.ScriptContainerScreen;
 import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
+import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CAddScriptPacket;
 import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
@@ -20,10 +25,17 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.GuiUtils;
+import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.*;
+import java.util.stream.Collectors;
 
 // TODO: 面向硬核自定义符卡行为的玩家而写的符卡控制台面板，用于接受玩家的自定义行为
 // public ImageButton(int x, int y, int width, int height, int xTexStart, int yTexStart,
@@ -74,53 +86,90 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
         if (this.minecraft.player == null) return;
         if (!(this.minecraft.player.openContainer instanceof SpellCardConsoleContainer)) return;
         SpellCardConsoleContainer container = (SpellCardConsoleContainer) this.minecraft.player.openContainer;
-        // ListNBT scriptList = new ListNBT();
-//
-        // for (int i = 0; i < container.consoleStacks.getSizeInventory(); i++) {
-        //     if (container.isAllowedItem(i) && container.hasAllowedTag(i) &&
-        //             container.getOutputStack().getItem() == ItemRegistry.SCRIPTED_SPELL_CARD.get()) {
-        //         scriptList.add(container.getTag(i));
-        //     }
-        // }
 
         if (container.getOutputStack().getTag() == null) return;
         INBT inbt = container.getOutputStack().getTag().get("scripts");
         if (inbt == null) return;
         this.scriptData.put("scripts", inbt);
-        JsonObject jsonObject = new JsonObject();
-        this.minecraft.keyboardListener.setClipboardString(toJson(jsonObject, this.scriptData));
-        // this.scriptData.toString()
+
+        StringBuilder builder = new StringBuilder();
+        builder.append("{");
+        toJson(builder, this.scriptData);
+        builder.append("}");
+        this.minecraft.keyboardListener.setClipboardString(builder.toString());
         this.minecraft.player.sendMessage(COPIED_MSG, this.minecraft.player.getUniqueID());
+        // this.minecraft.player.sendMessage(new StringTextComponent(this.scriptData.keySet().toString()),
+        //         this.minecraft.player.getUniqueID());
     }
 
-    public static String toJson(JsonObject jsonObject, CompoundNBT compound) {
-        for (String key : compound.keySet()) {
-            // 根据数据类型将数据添加到 JsonObject 中
+    private void toJson(StringBuilder sb, CompoundNBT compound){
+       for (String key : compound.keySet()) {
+           // String key = compound.keySet().iterator().next();
+            if (this.minecraft == null || this.minecraft.player == null) return;
             if (compound.contains(key)) {
                 INBT inbt = compound.get(key);
                 if (inbt != null) {
                     if (inbt instanceof CompoundNBT) {
                         CompoundNBT nbt = (CompoundNBT) inbt;
-                        toJson(jsonObject, nbt);
+                        sb.append("\"").append(key).append("\"").append(":{");
+                        toJson(sb, nbt);
                     }
                     if (inbt instanceof ListNBT) {
                         ListNBT listNBT = (ListNBT) inbt;
+                        List<CompoundNBT> compoundList = new ArrayList<>();
+                        List<Number> numberArr = new ArrayList<>();
+                        List<String> stringArr = new ArrayList<>();
                         listNBT.forEach(element -> {
                             if (element instanceof CompoundNBT) {
                                 CompoundNBT nbt = (CompoundNBT) element;
-                                toJson(jsonObject, nbt);
+                                compoundList.add(nbt);
+                            }
+                            if (element instanceof NumberNBT) {
+                                NumberNBT numberNBT = (NumberNBT) element;
+                                numberArr.add(numberNBT.getAsNumber());
+                            }
+                            if (element instanceof StringNBT) {
+                                StringNBT stringNBT = (StringNBT) element;
+                                stringArr.add(stringNBT.toString());
                             }
                         });
+                        if (compoundList.size() != 0) {
+                            sb.append("\"").append(key).append("\":[");
+                            for (CompoundNBT nbt : compoundList) {
+                                sb.append("{");
+                                toJson(sb, nbt);
+                                if (compoundList.indexOf(nbt) < compoundList.size() - 1) {
+                                    sb.append(",");
+                                }
+                            }
+                            sb.append("]");
+                            appendCommaOrBracket(sb, compound, key);
+                        }
+                        if (numberArr.size() != 0) sb.append("\"").append(key).append("\":").append(numberArr);
+                        if (stringArr.size() != 0) sb.append("\"").append(key).append("\":").append(stringArr);
                     }
                     if (inbt instanceof NumberNBT) {
                         NumberNBT numberNBT = (NumberNBT) inbt;
-                        jsonObject.addProperty(key, numberNBT.getAsNumber());
+                        sb.append("\"").append(key).append("\":").append(numberNBT.getAsNumber());
+                        appendCommaOrBracket(sb, compound, key);
                     }
-                    jsonObject.addProperty(key, inbt.getString());
+                    if (inbt instanceof StringNBT) {
+                        StringNBT stringNBT = (StringNBT) inbt;
+                        sb.append("\"").append(key).append("\":").append(stringNBT);
+                        appendCommaOrBracket(sb, compound, key);
+                    }
                 }
             }
         }
-        return jsonObject.toString(); // .replace("\\", "");
+    }
+
+    private void appendCommaOrBracket(StringBuilder sb, CompoundNBT compound, String key) {
+        if (new ArrayList<>(compound.keySet()).indexOf(key) < new ArrayList<>(compound.keySet()).size() - 1) {
+            sb.append(",");
+        }
+        else {
+            sb.append("}");
+        }
     }
 
     @Override
