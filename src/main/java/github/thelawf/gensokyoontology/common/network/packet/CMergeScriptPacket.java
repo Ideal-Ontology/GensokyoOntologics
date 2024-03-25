@@ -42,7 +42,7 @@ public class CMergeScriptPacket {
             if (!(container.operationSlots.getStackInSlot(2).getItem() instanceof DynamicScriptItem)) return;
             container.operationSlots.getStackInSlot(2).setTag(packet.scriptData);
         }
-        else if (serverPlayer.openContainer.getType() == ContainerRegistry.ONE_SLOT_CONTAINER.get()) {
+        else if (serverPlayer.openContainer instanceof OneSlotContainer) {
             OneSlotContainer container = (OneSlotContainer) serverPlayer.openContainer;
             if (container.inv.getStackInSlot(0) == ItemStack.EMPTY) return;
             container.inv.getStackInSlot(0).setTag(packet.scriptData);
