@@ -67,7 +67,7 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
 
     @Override
     protected void init() {
-
+        super.init();
         this.nameInput = new TextFieldWidget(this.font, 0,0,0,0, this.title);
         this.xInput = new TextFieldWidget(this.font, 0, 50, 100, 30, new StringTextComponent(""));
         this.yInput = new TextFieldWidget(this.font, 60, 50, 100, 30, new StringTextComponent(""));
@@ -100,7 +100,7 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
                         .withFont(this.font)
                         .withAction(this::saveBtnAction));
 
-        this.setAbsoluteXY(WIDGETS);
+        this.setRelativeToParent(WIDGETS, this.guiLeft, this.guiTop);
 
         if (this.stack.getTag() != null) {
 
@@ -152,7 +152,7 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
-        this.blit(matrixStack, x, y, this.guiLeft, this.guiTop, 223, 223);
+        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
     public CompoundNBT getVector3dNBT() {

@@ -43,6 +43,8 @@ public class DanmakuBuilderScreen extends OneSlotContainerScreen {
 
     public DanmakuBuilderScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
+        this.playerInventoryTitleX = 30;
+        this.playerInventoryTitleY = 114;
         this.danmakuColor = DanmakuColor.RED;
         this.danmakuType = DanmakuType.LARGE_SHOT;
         this.stack = ItemStack.EMPTY;
@@ -126,7 +128,7 @@ public class DanmakuBuilderScreen extends OneSlotContainerScreen {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft != null) {
-            // this.renderAbsoluteXY(CONFIGS, matrixStack, 0, 0, this.guiLeft, this.guiTop, partialTicks);
+            this.renderRelativeToParent(CONFIGS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop, partialTicks);
             this.nameInput.render(matrixStack, mouseX, mouseY, partialTicks);
             this.danTypeButton.render(matrixStack, mouseX, mouseY, partialTicks);
             this.colorButton.render(matrixStack, mouseX, mouseY, partialTicks);
@@ -136,7 +138,7 @@ public class DanmakuBuilderScreen extends OneSlotContainerScreen {
     protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
         if (this.minecraft == null) return;
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
-        this.blit(matrixStack, 0, 0, this.guiLeft, this.guiTop, 223, 223);
+        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
 }

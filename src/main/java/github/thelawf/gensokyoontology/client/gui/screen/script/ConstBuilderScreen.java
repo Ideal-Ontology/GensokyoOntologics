@@ -61,6 +61,8 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
         this.titleY = 6;
         this.playerInventoryTitleX = 30;
         this.playerInventoryTitleY = 114;
+        this.xSize = 223;
+        this.ySize = 223;
         this.constPreset = ConstPreset.NONE;
         this.constType = ConstType.INT;
 
@@ -76,6 +78,7 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
 
     @Override
     protected void init() {
+        super.init();
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;
         if (this.constPreset == ConstPreset.NONE) {
@@ -185,9 +188,11 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
     }
 
     @Override
-    public void onClose() {
-        super.onClose();
-        // if (this.checkPresetForSave()) this.stack.setTag(this.numberValue);
+    protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
+        if (this.minecraft == null) return;
+        if (this.minecraft.player == null) return;
+        this.minecraft.getTextureManager().bindTexture(TEXTURE);
+        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
     @Override
@@ -195,7 +200,7 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
         this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft != null) {
-            renderRelativeToParent(WIDGETS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop, partialTicks);
+            this.renderRelativeToParent(WIDGETS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop, partialTicks);
         }
     }
 
@@ -274,13 +279,5 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
         this.constData.putString("type", type);
         this.constData.putString("name", name);
     }
-    @Override
-    protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
-        if (this.minecraft == null) return;
-        if (this.minecraft.player == null) return;
-        this.minecraft.getTextureManager().bindTexture(TEXTURE);
-        this.blit(matrixStack, x, y, this.guiLeft, this.guiTop, 223, 223);
-    }
-
 
 }
