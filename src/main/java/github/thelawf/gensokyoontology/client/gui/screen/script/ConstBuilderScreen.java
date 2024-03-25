@@ -12,6 +12,7 @@ import github.thelawf.gensokyoontology.common.util.EnumUtil;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.nbt.script.ConstPreset;
 import github.thelawf.gensokyoontology.common.nbt.script.ConstType;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
@@ -42,6 +43,7 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
     private TextFieldWidget nameInput;
     private TextFieldWidget valueInput;
     private final CompoundNBT constData = new CompoundNBT();
+    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/one_slot_screen_const.png");
     private final WidgetConfig NAME_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig VALUE_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final ITextComponent defaultName = GensokyoOntology.withTranslation("gui.",".default.set_name");
@@ -117,7 +119,7 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
                         .withText(this.saveText)
                         .withAction(this::saveBtnAction));
 
-        setAbsoluteXY(WIDGETS);
+        setRelativeToParent(WIDGETS, this.guiLeft, this.guiTop);
 
         if (this.stack.getTag() != null) {
 
@@ -190,16 +192,11 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
 
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft != null) {
             renderRelativeToParent(WIDGETS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop, partialTicks);
         }
-    }
-
-    @Override
-    protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
-        super.drawGuiContainerBackgroundLayer(matrixStack, partialTicks, x, y);
-        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
     private void insertNameAndValue() {
@@ -277,8 +274,13 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
         this.constData.putString("type", type);
         this.constData.putString("name", name);
     }
-
-    public ItemStack getProcessedStack() {
-        return this.stack;
+    @Override
+    protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
+        if (this.minecraft == null) return;
+        if (this.minecraft.player == null) return;
+        this.minecraft.getTextureManager().bindTexture(TEXTURE);
+        this.blit(matrixStack, x, y, this.guiLeft, this.guiTop, 223, 223);
     }
+
+
 }

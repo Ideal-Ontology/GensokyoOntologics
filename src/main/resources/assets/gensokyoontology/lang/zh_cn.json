@@ -349,6 +349,10 @@
 
   "container.gensokyoontology.danmaku_craft.title": "弹幕合成",
   "container.gensokyoontology.sorcery_extractor.title": "魔力提取",
+  "container.gensokyoontology.const_builder.title": "常量构建",
+  "container.gensokyoontology.v3d_builder.title": "向量名称：",
+  "container.gensokyoontology.danmaku_builder.title": "弹幕构建",
+
   "container.gensokyoontology.binary_operation.title": "二元运算",
   "container.gensokyoontology.v3d_invoker.title": "向量运算",
   "container.gensokyoontology.static_invoker.title": "静态方法调用",

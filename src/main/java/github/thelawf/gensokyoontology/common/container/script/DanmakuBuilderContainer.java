@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.script.OneSlotContainerScreen;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 public class DanmakuBuilderContainer extends OneSlotContainer {
 
     public DanmakuBuilderContainer(int id, PlayerInventory playerInventory) {
-        super(ContainerType.CRAFTING, id, playerInventory);
+        super(ContainerRegistry.DB_CONTAINER.get(), id, playerInventory);
     }
 
     @Override

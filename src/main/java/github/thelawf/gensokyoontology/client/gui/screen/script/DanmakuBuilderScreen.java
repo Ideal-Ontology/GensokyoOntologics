@@ -16,6 +16,7 @@ import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import org.jetbrains.annotations.NotNull;
 
@@ -32,6 +33,7 @@ public class DanmakuBuilderScreen extends OneSlotContainerScreen {
     private final ItemStack stack;
     private List<WidgetConfig> CONFIGS;
     private final CompoundNBT danmakuData = new CompoundNBT();
+    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/one_slot_screen.png");
     private final WidgetConfig NAME_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TYPE_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig COLOR_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
@@ -62,23 +64,20 @@ public class DanmakuBuilderScreen extends OneSlotContainerScreen {
         this.saveBtn = new Button(0,0,0,0, withText(""), b -> {});
 
         CONFIGS = Lists.newArrayList(
-                NAME_LABEL.upLeft(20, 20).withFont(this.font).withText(NAME_TEXT),
-                TYPE_LABEL.upLeft(50, 20).withFont(this.font).withText(DAN_TYPE_TEXT),
-                COLOR_LABEL.upLeft(80, 20).withFont(this.font).withText(COLOR_TEXT),
-                WidgetConfig.of(this.nameInput, 100, 20).upLeft(20, 90).withFont(this.font).withText(withText("")),
-                WidgetConfig.of(danTypeButton, 80, 20).upLeft(50, 90)
+                WidgetConfig.of(this.nameInput, 100, 20).setXY(40, 60).withFont(this.font).withText(withText("")),
+                WidgetConfig.of(danTypeButton, 70, 20).setXY(40, 25)
                         .withFont(this.font)
                         .withText(this.danmakuType.toTextComponent())
                         .withAction(this::danmakuTypeAction),
-                WidgetConfig.of(colorButton, 80, 20).upLeft(80, 90)
+                WidgetConfig.of(colorButton, 70, 20).setXY(125, 25)
                         .withFont(this.font)
                         .withText(this.danmakuColor.toTextComponent())
                         .withAction(this::colorAction),
-                WidgetConfig.of(this.saveBtn, 60, 20).upLeft(110, 90)
+                WidgetConfig.of(this.saveBtn, 60, 20).setXY(140, 90)
                         .withFont(this.font)
                         .withText(this.saveText)
                         .withAction(this::saveAction));
-        this.setAbsoluteXY(CONFIGS);
+        this.setRelativeToParent(CONFIGS, this.guiLeft, this.guiTop);
 
         if (this.stack.getTag() != null) {
             CompoundNBT tag = this.stack.getTag();
@@ -124,14 +123,20 @@ public class DanmakuBuilderScreen extends OneSlotContainerScreen {
 
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft != null) {
-            this.renderRelativeToParent(CONFIGS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop, partialTicks);
-            this.danTypeButton.setMessage(this.danmakuType.toTextComponent());
-            this.colorButton.setMessage(this.danmakuColor.toTextComponent());
-
+            // this.renderAbsoluteXY(CONFIGS, matrixStack, 0, 0, this.guiLeft, this.guiTop, partialTicks);
+            this.nameInput.render(matrixStack, mouseX, mouseY, partialTicks);
             this.danTypeButton.render(matrixStack, mouseX, mouseY, partialTicks);
             this.colorButton.render(matrixStack, mouseX, mouseY, partialTicks);
         }
     }
+    @Override
+    protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
+        if (this.minecraft == null) return;
+        this.minecraft.getTextureManager().bindTexture(TEXTURE);
+        this.blit(matrixStack, 0, 0, this.guiLeft, this.guiTop, 223, 223);
+    }
+
 }

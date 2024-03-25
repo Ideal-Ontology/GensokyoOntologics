@@ -140,7 +140,7 @@ public abstract class LineralContainerScreen<C extends Container> extends Contai
         for (WidgetConfig config : configs) {
             if (config.isText) drawString(matrixStack, config.fontRenderer, config.text, parentLeft + config.leftInterval, parentTop + config.upInterval, 16777215);
             else if (config.widget instanceof SlotWidget) return;
-            else if (config.widget instanceof ImageButton) {
+            else if (config.widget instanceof Button) {
                 config.widget.render(matrixStack, mouseX, mouseY, partialTicks);
             }
             else config.widget.render(matrixStack, mouseX, mouseY, partialTicks);

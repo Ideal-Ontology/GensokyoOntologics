@@ -17,7 +17,7 @@ public abstract class OneSlotContainerScreen extends LineralContainerScreen<OneS
     protected Button saveBtn;
     protected final ITextComponent fieldName = GensokyoOntology.withTranslation("gui.", ".script_builder.fieldName");
     protected ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".script.button.save");
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/one_slot_screen.png");
+
     public OneSlotContainerScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
         this.xSize = 223;
@@ -31,12 +31,6 @@ public abstract class OneSlotContainerScreen extends LineralContainerScreen<OneS
             ItemStack stack = hoveredSlot.getStack();
             renderTooltip(matrixStack, stack, mouseX, mouseY);
         }
-    }
-
-    @Override
-    protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
-        if (this.minecraft == null)return;
-        this.minecraft.getTextureManager().bindTexture(TEXTURE);
     }
 
     @Override

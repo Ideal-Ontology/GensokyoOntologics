@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
@@ -38,7 +39,7 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
     private TextFieldWidget xInput;
     private TextFieldWidget yInput;
     private TextFieldWidget zInput;
-
+    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/one_slot_screen_vec.png");
     private final WidgetConfig TEXT_LABEL1 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TEXT_LABEL2 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TEXT_LABEL3 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
@@ -51,6 +52,7 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
         super(screenContainer, inv, titleIn);
         this.playerInventoryTitleX = 6;
         this.playerInventoryTitleY = 115;
+        this.stack = inv.player.getHeldItemMainhand();
     }
 
 
@@ -65,13 +67,11 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
 
     @Override
     protected void init() {
-        if (this.minecraft == null) return;
-        if (this.minecraft.player == null) return;
 
-        this.nameInput = new TextFieldWidget(this.minecraft.fontRenderer, 0,0,0,0, this.title);
-        this.xInput = new TextFieldWidget(this.minecraft.fontRenderer, 0, 50, 100, 30, new StringTextComponent(""));
-        this.yInput = new TextFieldWidget(this.minecraft.fontRenderer, 60, 50, 100, 30, new StringTextComponent(""));
-        this.zInput = new TextFieldWidget(this.minecraft.fontRenderer, 120, 50, 100, 30, new StringTextComponent(""));
+        this.nameInput = new TextFieldWidget(this.font, 0,0,0,0, this.title);
+        this.xInput = new TextFieldWidget(this.font, 0, 50, 100, 30, new StringTextComponent(""));
+        this.yInput = new TextFieldWidget(this.font, 60, 50, 100, 30, new StringTextComponent(""));
+        this.zInput = new TextFieldWidget(this.font, 120, 50, 100, 30, new StringTextComponent(""));
 
         this.saveBtn = new Button(0, 200, 30, 30, this.saveText, (button) -> {});
 
@@ -136,33 +136,23 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
         this.vector3dData.put("value", vector3d);
 
         GSKONetworking.CHANNEL.sendToServer(new CMergeScriptPacket(this.vector3dData));
-
-        // this.stack.setTag(this.vector3dData);
-        // ItemStack itemStack = this.stack.copy();
-//
-        // if (this.minecraft != null && this.minecraft.player != null) {
-        //     this.stack.shrink(1);
-        //     this.minecraft.player.inventory.addItemStackToInventory(itemStack);
-        // }
     }
-
 
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
-        // this.renderBackground(matrixStack);
+        this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft != null) {
             this.renderRelativeToParent(WIDGETS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop, partialTicks);
         }
-        // drawCenteredText(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
-        // renderWidgets(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
-        // if (this.minecraft != null) {
-        //     drawCenteredText(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
-        //     this.nameInput.render(matrixStack, mouseX, mouseY, partialTicks);
-        //     this.xInput.render(matrixStack, mouseX, mouseY, partialTicks);
-        //     this.yInput.render(matrixStack, mouseX, mouseY, partialTicks);
-        //     this.zInput.render(matrixStack, mouseX, mouseY, partialTicks);
-        // }
+    }
+
+    @Override
+    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
+        if (this.minecraft == null) return;
+        if (this.minecraft.player == null) return;
+        this.minecraft.getTextureManager().bindTexture(TEXTURE);
+        this.blit(matrixStack, x, y, this.guiLeft, this.guiTop, 223, 223);
     }
 
     public CompoundNBT getVector3dNBT() {
@@ -173,4 +163,5 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
         CompoundNBT nbt = this.vector3dData;
         return new Vector3d(nbt.getDouble("x"), nbt.getDouble("y"), nbt.getDouble("z"));
     }
+
 }
