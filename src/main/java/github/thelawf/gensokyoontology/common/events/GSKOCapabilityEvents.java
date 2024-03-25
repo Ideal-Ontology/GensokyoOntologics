@@ -109,15 +109,13 @@ public class GSKOCapabilityEvents {
     public static void onPacketSync(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;
-        if (flag) {
-            trySyncLifetime(player);
-
+        // if (flag) {
+            // trySyncLifetime(player);
             // if (TouhouLittleMaidCompat.isLoaded()) {
             //     trySyncPowerFromTLM(player);
             //     trySyncPowerToTLM(player);
             // }
-
-        }
+        // }
         if (GSKOUtil.firstMatch(player, ItemRegistry.SEIGA_HAIRPIN.get())) {
             SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));
         }

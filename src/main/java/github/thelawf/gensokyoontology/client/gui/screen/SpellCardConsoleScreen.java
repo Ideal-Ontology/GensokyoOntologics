@@ -27,6 +27,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.jetbrains.annotations.NotNull;
@@ -73,14 +75,16 @@ public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConso
                 sw, sh, 300, this.font);
     }
 
+    @OnlyIn(Dist.CLIENT)
     private void saveButtonAction(Button button) {
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;
-        if (!(this.minecraft.player.openContainer instanceof SpellCardConsoleContainer)) return;
 
         GSKONetworking.CHANNEL.sendToServer(new CAddScriptPacket());
         this.minecraft.player.sendMessage(SAVED_MSG, this.minecraft.player.getUniqueID());
     }
+
+    @OnlyIn(Dist.CLIENT)
     private void copyButtonAction(Button button) {
         if (this.minecraft == null) return;
         if (this.minecraft.player == null) return;

@@ -15,9 +15,9 @@ public class GSKONetworking {
             GensokyoOntology.withRL("network"),
             () -> VERSION, VERSION::equals, VERSION::equals);
 
-    public static int ID;
+    private static int ID = 0;
 
-    public static int next() {
+    private static int next() {
         return ID++;
     }
 
@@ -28,10 +28,13 @@ public class GSKONetworking {
         CHANNEL.messageBuilder(FantasyFadingPacket.class, next()).encoder(FantasyFadingPacket::toBytes).decoder(FantasyFadingPacket::decode).consumer(FantasyFadingPacket::handle).add();
         CHANNEL.messageBuilder(CPowerChangedPacket.class, next()).encoder(CPowerChangedPacket::toBytes).decoder(CPowerChangedPacket::fromBytes).consumer(CPowerChangedPacket::handle).add();
         CHANNEL.messageBuilder(SLifeTickPacket.class, next()).encoder(SLifeTickPacket::toBytes).decoder(SLifeTickPacket::fromBytes).consumer(SLifeTickPacket::handle).add();
-
         CHANNEL.messageBuilder(CMergeScriptPacket.class, next()).encoder(CMergeScriptPacket::toBytes).decoder(CMergeScriptPacket::fromBytes).consumer(CMergeScriptPacket::handle).add();
         CHANNEL.messageBuilder(CAddScriptPacket.class, next()).encoder(CAddScriptPacket::toBytes).decoder(CAddScriptPacket::fromBytes).consumer(CAddScriptPacket::handle).add();
         CHANNEL.messageBuilder(CInvokeFunctionPacket.class, next()).encoder(CInvokeFunctionPacket::toBytes).decoder(CInvokeFunctionPacket::fromBytes).consumer(CInvokeFunctionPacket::handle).add();
+
+        // CHANNEL.messageBuilder(CMergeScriptPacket.class, next()).encoder(CMergeScriptPacket::toBytes).decoder(CMergeScriptPacket::fromBytes).consumer(CMergeScriptPacket::handle).add();
+        // CHANNEL.messageBuilder(CAddScriptPacket.class, next()).encoder(CAddScriptPacket::toBytes).decoder(CAddScriptPacket::fromBytes).consumer(CAddScriptPacket::handle).add();
+        // CHANNEL.messageBuilder(CInvokeFunctionPacket.class, next()).encoder(CInvokeFunctionPacket::toBytes).decoder(CInvokeFunctionPacket::fromBytes).consumer(CInvokeFunctionPacket::handle).add();
     }
 
     public static void sendToClientPlayer(Object message, PlayerEntity player) {

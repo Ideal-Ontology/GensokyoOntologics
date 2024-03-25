@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.api.client.IInputParser;
 import github.thelawf.gensokyoontology.api.client.ITextBuilder;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
+import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
 import github.thelawf.gensokyoontology.common.container.script.ScriptBuilderContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.SlotWidget;
 import net.minecraft.client.gui.FontRenderer;
@@ -12,13 +13,15 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
-public abstract class LineralContainerScreen<C extends ScriptBuilderContainer> extends ContainerScreen<C> implements IInputParser, ITextBuilder {
+public abstract class LineralContainerScreen<C extends Container> extends ContainerScreen<C> implements IInputParser, ITextBuilder {
+    protected final BlankWidget blank = BlankWidget.INSTANCE;
     protected static final int WHITE = 16777215;
     protected static final int DARK_GRAY = 5592405;
     public LineralContainerScreen(C screenContainer, PlayerInventory inv, ITextComponent titleIn) {
@@ -56,6 +59,20 @@ public abstract class LineralContainerScreen<C extends ScriptBuilderContainer> e
             x = config.leftInterval;
             y = config.upInterval;
             addWidget(x + parentLeft, y + parentTop, config);
+        }
+    }
+
+    public void drawCenteredText(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        int width = 0;
+        int parentWidth = 255;
+        for (WidgetConfig config : configs) width += config.width;
+        int x = (parentWidth - width) / 2, y = 0;
+        for (WidgetConfig config : configs) {
+            x += config.width;
+            y += config.height;
+            y += config.upInterval;
+
+            if (config.isText) drawString(matrixStack, config.fontRenderer, config.text, x, y, 16777215);
         }
     }
 

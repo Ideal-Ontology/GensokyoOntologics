@@ -123,11 +123,10 @@ public class DanmakuTabelTileEntity extends TileEntity {
         }
         if (world == null) return;
 
-        Optional<SorceryExtractorRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
-
-        recipe.ifPresent(iRecipe -> {
-            craft();
-        });
+        // Optional<SorceryExtractorRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
+        // recipe.ifPresent(iRecipe -> {
+        //     craft();
+        // });
 
         markDirty();
     }

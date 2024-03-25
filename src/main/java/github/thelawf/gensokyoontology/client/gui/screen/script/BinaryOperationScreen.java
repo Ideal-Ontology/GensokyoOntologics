@@ -10,6 +10,7 @@ import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
+import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;

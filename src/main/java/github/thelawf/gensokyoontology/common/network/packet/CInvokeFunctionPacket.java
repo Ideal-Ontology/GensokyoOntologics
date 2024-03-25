@@ -56,15 +56,15 @@ public class CInvokeFunctionPacket {
 
         ListNBT paramsNBT = new ListNBT();
         if (checkNotEmpty(container.inventory)) paramsNBT.add(container.inventory.getStackInSlot(1).getTag());
-        if (container.inventory.getStackInSlot(0).getItem() == ItemRegistry.V3D_BUILDER.get()) {
-            CompoundNBT reference = container.inventory.getStackInSlot(0).getTag();
-            if (reference != null) packet.invokerData.put("ref", reference);
-        }
-
-        packet.invokerData.put("parameters", paramsNBT);
-        if (container.inventory.getStackInSlot(2).getItem() == ItemRegistry.V3D_INVOKER.get()) {
-            container.inventory.getStackInSlot(2).setTag(packet.invokerData);
-        }
+        // if (container.inventory.getStackInSlot(0).getItem() == ItemRegistry.V3D_BUILDER.get()) {
+        //     CompoundNBT reference = container.inventory.getStackInSlot(0).getTag();
+        //     if (reference != null) packet.invokerData.put("ref", reference);
+        // }
+//
+        // packet.invokerData.put("parameters", paramsNBT);
+        // if (container.inventory.getStackInSlot(2).getItem() == ItemRegistry.V3D_INVOKER.get()) {
+        //     container.inventory.getStackInSlot(2).setTag(packet.invokerData);
+        // }
     }
 
     private static void saveStaticFuncData(CInvokeFunctionPacket packet, ServerPlayerEntity serverPlayer) {

@@ -36,7 +36,7 @@ public class V3dInvokerContainer extends FunctionInvokerContainer {
         this.addSlot(new Slot(inventory, index, x, y){
             @Override
             public boolean isItemValid(@NotNull ItemStack stack) {
-                return index == 0 ? stack.getItem() == ItemRegistry.V3D_BUILDER.get() :
+                return index == 0 ? stack.getItem() == ItemRegistry .V3D_BUILDER.get() :
                         index == 2 ? stack.getItem() == ItemRegistry.V3D_INVOKER.get() :
                                 stack.getItem() instanceof ScriptBuilderItem ||
                                 stack.getItem() instanceof DynamicScriptItem ||
