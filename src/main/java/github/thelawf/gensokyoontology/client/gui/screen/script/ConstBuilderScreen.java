@@ -42,7 +42,6 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
     private TextFieldWidget nameInput;
     private TextFieldWidget valueInput;
     private final CompoundNBT constData = new CompoundNBT();
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/const_builder_screen.png");
     private final WidgetConfig NAME_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig VALUE_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final ITextComponent defaultName = GensokyoOntology.withTranslation("gui.",".default.set_name");
@@ -56,8 +55,8 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
     // GensokyoOntology.withTranslation("screen.",".const_builder.title")
     public ConstBuilderScreen(OneSlotContainer container, PlayerInventory playerInventory, ITextComponent titleIn) {
         super(container, playerInventory, titleIn);
-        this.xSize = 223;
-        this.ySize = 223;
+        // this.xSize = 223;
+        // this.ySize = 223;
         this.titleX = 6;
         this.titleY = 6;
         this.playerInventoryTitleX = 30;
@@ -208,9 +207,7 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
     }
 
     @Override
-    protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) {
-        if (this.minecraft == null) return;
-        this.minecraft.getTextureManager().bindTexture(TEXTURE);
+    protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
         super.drawGuiContainerBackgroundLayer(matrixStack, partialTicks, x, y);
     }
 

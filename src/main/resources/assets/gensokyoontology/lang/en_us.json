@@ -349,6 +349,9 @@
 
   "container.gensokyoontology.danmaku_craft.title": "Danmaku Crafting",
   "container.gensokyoontology.sorcery_extractor.title": "Sorcery Extracting",
+  "container.gensokyoontology.const_builder.title": "Const Builder",
+  "container.gensokyoontology.v3d_builder.title": "Name: ",
+
   "container.gensokyoontology.binary_operation.title": "Binary Operating",
   "container.gensokyoontology.v3d_invoker.title": "V3d Func Invoking",
   "container.gensokyoontology.static_invoker.title": "Static Func Invoking",

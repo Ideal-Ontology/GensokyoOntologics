@@ -4,10 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.common.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
-import github.thelawf.gensokyoontology.common.container.script.BinaryOperationContainer;
-import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
-import github.thelawf.gensokyoontology.common.container.script.StaticInvokerContainer;
-import github.thelawf.gensokyoontology.common.container.script.V3dInvokerContainer;
+import github.thelawf.gensokyoontology.common.container.script.*;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -42,8 +39,12 @@ public final class ContainerRegistry {
     public static final RegistryObject<ContainerType<StaticInvokerContainer>> STATIC_INVOKER_CONTAINER =
             CONTAINERS.register("static_invoker_container", () -> IForgeContainerType.create(
                     ((windowId, inv, data) -> new StaticInvokerContainer(windowId, inv))));
-    public static final RegistryObject<ContainerType<OneSlotContainer>> ONE_SLOT_CONTAINER =
-            CONTAINERS.register("no_slot_container", () -> IForgeContainerType.create(
-                    ((windowId, inv, data) -> new OneSlotContainer(windowId, inv))));
+
+    public static final RegistryObject<ContainerType<CBContainer>> CB_CONTAINER =
+            CONTAINERS.register("cb_container", () -> IForgeContainerType.create(
+                    ((windowId, inv, data) -> new CBContainer(windowId, inv))));
+    public static final RegistryObject<ContainerType<V3DBContainer>> V3DB_CONTAINER =
+            CONTAINERS.register("v3db_container", () -> IForgeContainerType.create(
+                    ((windowId, inv, data) -> new V3DBContainer(windowId, inv))));
 
 }

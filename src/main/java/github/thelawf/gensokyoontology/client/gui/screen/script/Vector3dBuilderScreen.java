@@ -5,12 +5,17 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
+import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.DoubleNBT;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
@@ -20,14 +25,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+// 50, 10
+// 50, 40
+// 50, 70
+// 50, 100
+// 150, 85; 45, 20
 @OnlyIn(value = Dist.CLIENT)
-public class Vector3dBuilderScreen extends ScriptBuilderScreen {
+public class Vector3dBuilderScreen extends OneSlotContainerScreen {
     public static final String TYPE = "vector3d";
     private final CompoundNBT vector3dData = new CompoundNBT();
     private TextFieldWidget nameInput;
     private TextFieldWidget xInput;
     private TextFieldWidget yInput;
     private TextFieldWidget zInput;
+
     private final WidgetConfig TEXT_LABEL1 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TEXT_LABEL2 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TEXT_LABEL3 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
@@ -35,9 +46,11 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
 
     private final ITextComponent tipName = GensokyoOntology.withTranslation("gui.",".vector3d.builder.name");
     private List<WidgetConfig> WIDGETS;
-    public Vector3dBuilderScreen(ITextComponent titleIn, ItemStack stack) {
-        super(titleIn, stack);
+
+    public Vector3dBuilderScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+        super(screenContainer, inv, titleIn);
     }
+
 
     @Override
     public void tick() {
@@ -61,27 +74,26 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
         this.saveBtn = new Button(0, 200, 30, 30, this.saveText, (button) -> {});
 
         WIDGETS = Lists.newArrayList(
-                TEXT_LABEL1.upLeft(50, 20).withText(this.fieldName).withFont(this.font),
-                WidgetConfig.of(this.nameInput, 100, 20).upLeft(50, 60)
+                WidgetConfig.of(this.nameInput, 90, 20).setXY(50, 10)
                         .withFont(this.font)
                         .withText(withText("input here")),
 
-                TEXT_LABEL2.upLeft(90, 20).withText(withText("X: ")).withFont(this.font),
-                WidgetConfig.of(this.xInput, 100, 20).upLeft(85, 60)
+                TEXT_LABEL2.setXY(10, 40).withText(withText("X: ")).withFont(this.font),
+                WidgetConfig.of(this.xInput, 90, 20).setXY(50, 40)
                         .withFont(this.font)
                         .withText(withText("0")),
 
-                TEXT_LABEL3.upLeft(120, 20).withText(withText("Y: ")).withFont(this.font),
-                WidgetConfig.of(this.yInput, 100, 20).upLeft(115, 60)
+                TEXT_LABEL3.setXY(10, 70).withText(withText("Y: ")).withFont(this.font),
+                WidgetConfig.of(this.yInput, 90, 20).setXY(50, 70)
                         .withFont(this.font)
                         .withText(withText("0")),
 
-                TEXT_LABEL4.upLeft(150, 20).withText(withText("Z: ")).withFont(this.font),
-                WidgetConfig.of(this.zInput, 100, 20).upLeft(145, 60)
+                TEXT_LABEL4.upLeft(10, 100).withText(withText("Z: ")).withFont(this.font),
+                WidgetConfig.of(this.zInput, 90, 20).setXY(50, 100)
                         .withFont(this.font)
                         .withText(withText("0")),
 
-                WidgetConfig.of(this.saveBtn, 40, 20).upLeft(190, 20)
+                WidgetConfig.of(this.saveBtn, 45, 20).setXY(150, 85)
                         .withText(this.saveText)
                         .withFont(this.font)
                         .withAction(this::saveBtnAction));
@@ -122,13 +134,15 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
         this.vector3dData.putString("name", this.nameInput.getText());
         this.vector3dData.put("value", vector3d);
 
-        this.stack.setTag(this.vector3dData);
-        ItemStack itemStack = this.stack.copy();
+        GSKONetworking.CHANNEL.sendToServer(new CMergeScriptPacket(this.vector3dData));
 
-        if (this.minecraft != null && this.minecraft.player != null) {
-            this.stack.shrink(1);
-            this.minecraft.player.inventory.addItemStackToInventory(itemStack);
-        }
+        // this.stack.setTag(this.vector3dData);
+        // ItemStack itemStack = this.stack.copy();
+//
+        // if (this.minecraft != null && this.minecraft.player != null) {
+        //     this.stack.shrink(1);
+        //     this.minecraft.player.inventory.addItemStackToInventory(itemStack);
+        // }
     }
 
 
@@ -137,7 +151,7 @@ public class Vector3dBuilderScreen extends ScriptBuilderScreen {
         // this.renderBackground(matrixStack);
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft != null) {
-            this.renderAbsoluteXY(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
+            this.renderRelativeToParent(WIDGETS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop, partialTicks);
         }
         // drawCenteredText(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
         // renderWidgets(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);

@@ -3,12 +3,10 @@ package github.thelawf.gensokyoontology.core.init;
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.script.DanmakuBuilderScreen;
-import github.thelawf.gensokyoontology.common.container.script.BinaryOperationContainer;
+import github.thelawf.gensokyoontology.common.container.script.*;
 import github.thelawf.gensokyoontology.client.gui.screen.script.ConstBuilderScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.Vector3dBuilderScreen;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
-import github.thelawf.gensokyoontology.common.container.script.StaticInvokerContainer;
-import github.thelawf.gensokyoontology.common.container.script.V3dInvokerContainer;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
@@ -761,9 +759,7 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> V3D_BUILDER = ITEMS.register("vector3d_builder", () -> new ScriptBuilderItem() {
         @Override
         public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
-            Minecraft minecraft = Minecraft.getInstance();
-            ITextComponent title = GensokyoOntology.withTranslation("gui.",".vector3d_builder.title");
-            minecraft.displayGuiScreen(new Vector3dBuilderScreen(title, stack));
+           if (!world.isRemote) player.openContainer(V3DBContainer.create("vector3d_builder"));
         }
     });
 
