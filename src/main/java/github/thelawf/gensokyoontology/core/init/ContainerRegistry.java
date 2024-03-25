@@ -46,5 +46,8 @@ public final class ContainerRegistry {
     public static final RegistryObject<ContainerType<V3DBContainer>> V3DB_CONTAINER =
             CONTAINERS.register("v3db_container", () -> IForgeContainerType.create(
                     ((windowId, inv, data) -> new V3DBContainer(windowId, inv))));
+    public static final RegistryObject<ContainerType<DanmakuBuilderContainer>> DB_CONTAINER =
+            CONTAINERS.register("db_container", () -> IForgeContainerType.create(
+                    ((windowId, inv, data) -> new DanmakuBuilderContainer(windowId, inv))));
 
 }

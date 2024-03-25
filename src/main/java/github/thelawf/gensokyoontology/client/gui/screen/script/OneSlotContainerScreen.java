@@ -4,7 +4,9 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.container.ClickType;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -17,14 +19,51 @@ public abstract class OneSlotContainerScreen extends LineralContainerScreen<OneS
     protected ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".script.button.save");
     public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/one_slot_screen.png");
     public OneSlotContainerScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
-
         super(screenContainer, inv, titleIn);
+        this.xSize = 223;
+        this.ySize = 223;
+    }
+
+    @Override
+    public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
+        super.render(matrixStack, mouseX, mouseY, partialTicks);
+        if (hoveredSlot != null && hoveredSlot.getHasStack()) {
+            ItemStack stack = hoveredSlot.getStack();
+            renderTooltip(matrixStack, stack, mouseX, mouseY);
+        }
     }
 
     @Override
     protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
         if (this.minecraft == null)return;
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
-        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
+    }
+
+    @Override
+    public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
+        InputMappings.Input mouseKey = InputMappings.getInputByCode(keyCode, scanCode);
+        if (this.minecraft == null) return false;
+        if (super.keyPressed(keyCode, scanCode, modifiers)) {
+            return true;
+        }
+        else if (this.minecraft.gameSettings.keyBindInventory.isActiveAndMatches(mouseKey)) {
+            return false;
+        }
+        else {
+            boolean handled = this.itemStackMoved(keyCode, scanCode);// Forge MC-146650: Needs to return true when the key is handled
+            if (this.hoveredSlot != null && this.hoveredSlot.getHasStack()) {
+                if (this.minecraft.gameSettings.keyBindPickBlock.isActiveAndMatches(mouseKey)) {
+                    this.handleMouseClick(this.hoveredSlot, this.hoveredSlot.slotNumber, 0, ClickType.CLONE);
+                    handled = true;
+                } else if (this.minecraft.gameSettings.keyBindDrop.isActiveAndMatches(mouseKey)) {
+                    this.handleMouseClick(this.hoveredSlot, this.hoveredSlot.slotNumber, hasControlDown() ? 1 : 0, ClickType.THROW);
+                    handled = true;
+                }
+            } else if (this.minecraft.gameSettings.keyBindDrop.isActiveAndMatches(mouseKey)) {
+                handled = true; // Forge MC-146650: Emulate MC bug, so we don't drop from hotbar when pressing drop without hovering over a item.
+            }
+
+            return handled;
+        }
     }
 }

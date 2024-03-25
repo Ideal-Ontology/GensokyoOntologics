@@ -177,6 +177,8 @@ public class GensokyoOntology {
                         ConstBuilderScreen::new);
                 ScreenManager.registerFactory(ContainerRegistry.V3DB_CONTAINER.get(),
                         Vector3dBuilderScreen::new);
+                ScreenManager.registerFactory(ContainerRegistry.DB_CONTAINER.get(),
+                        DanmakuBuilderScreen::new);
 
                 ScreenManager.registerFactory(ContainerRegistry.V3D_INVOKER_CONTAINER.get(),
                         V3dInvokerScreen::new);

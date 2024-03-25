@@ -55,8 +55,6 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
     // GensokyoOntology.withTranslation("screen.",".const_builder.title")
     public ConstBuilderScreen(OneSlotContainer container, PlayerInventory playerInventory, ITextComponent titleIn) {
         super(container, playerInventory, titleIn);
-        // this.xSize = 223;
-        // this.ySize = 223;
         this.titleX = 6;
         this.titleY = 6;
         this.playerInventoryTitleX = 30;
@@ -100,10 +98,10 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
                 VALUE_LABEL.setXY(10, 92)
                         .withFont(this.font)
                         .withText(this.valueText),
-                WidgetConfig.of(this.nameInput, 90, 20).setXY(50, 60)
+                WidgetConfig.of(this.nameInput, 100, 20).setXY(40, 60)
                         .withFont(this.font)
                         .withText(this.constPreset.toTextComponent()),
-                WidgetConfig.of(this.valueInput, 90, 20).setXY(50, 90)
+                WidgetConfig.of(this.valueInput, 100, 20).setXY(40, 90)
                         .withFont(this.font)
                         .withText(this.constPreset.toTextComponent()),
                 WidgetConfig.of(this.presetBtn, 90, 20).setXY(25, 25)
@@ -174,16 +172,8 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
 
     private void saveBtnAction(Button button) {
         if (this.checkPresetForSave()) {
-            GSKONetworking.CHANNEL.sendToServer(this.constData);
-
-            // this.stack.setTag(this.constData);
-            // ItemStack itemStack = this.stack.copy();
-            // if (this.minecraft != null && this.minecraft.player != null) {
-            //     this.stack.shrink(1);
-            //     this.minecraft.player.inventory.addItemStackToInventory(itemStack);
-            // }
+            GSKONetworking.CHANNEL.sendToServer(new CMergeScriptPacket(this.constData));
         }
-        this.closeScreen();
     }
     private void constTypeBtnAction(Button button) {
         this.constType = EnumUtil.switchEnum(ConstType.class, this.constType);
@@ -209,6 +199,7 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
     @Override
     protected void drawGuiContainerBackgroundLayer(@NotNull MatrixStack matrixStack, float partialTicks, int x, int y) {
         super.drawGuiContainerBackgroundLayer(matrixStack, partialTicks, x, y);
+        this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, this.xSize, this.ySize);
     }
 
     private void insertNameAndValue() {

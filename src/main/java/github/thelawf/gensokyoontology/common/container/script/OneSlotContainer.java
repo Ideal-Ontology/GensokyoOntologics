@@ -29,6 +29,12 @@ public abstract class OneSlotContainer extends WrapPlayerContainer {
     }
 
     @Override
+    public void onContainerClosed(PlayerEntity playerIn) {
+        super.onContainerClosed(playerIn);
+        this.clearContainer(playerIn, playerIn.world, this.inv);
+    }
+
+    @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
         return true;
     }

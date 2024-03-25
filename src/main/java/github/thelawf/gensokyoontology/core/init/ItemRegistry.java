@@ -3,10 +3,8 @@ package github.thelawf.gensokyoontology.core.init;
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.script.DanmakuBuilderScreen;
-import github.thelawf.gensokyoontology.common.container.script.*;
-import github.thelawf.gensokyoontology.client.gui.screen.script.ConstBuilderScreen;
-import github.thelawf.gensokyoontology.client.gui.screen.script.Vector3dBuilderScreen;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
+import github.thelawf.gensokyoontology.common.container.script.*;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
@@ -42,8 +40,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -788,9 +784,7 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> DANMAKU_BUILDER = ITEMS.register("danmaku_builder", () -> new ScriptBuilderItem() {
         @Override
         public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
-            Minecraft minecraft = Minecraft.getInstance();
-            ITextComponent title = GensokyoOntology.withTranslation("gui.",".danmaku_builder.title");
-            if (Screen.hasShiftDown()) minecraft.displayGuiScreen(new DanmakuBuilderScreen(title, stack));
+            if (!world.isRemote) player.openContainer(DanmakuBuilderContainer.create("danmaku_builder"));
         }
 
         @Override

@@ -49,6 +49,8 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
 
     public Vector3dBuilderScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
+        this.playerInventoryTitleX = 6;
+        this.playerInventoryTitleY = 115;
     }
 
 
@@ -88,7 +90,7 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
                         .withFont(this.font)
                         .withText(withText("0")),
 
-                TEXT_LABEL4.upLeft(10, 100).withText(withText("Z: ")).withFont(this.font),
+                TEXT_LABEL4.setXY(10, 100).withText(withText("Z: ")).withFont(this.font),
                 WidgetConfig.of(this.zInput, 90, 20).setXY(50, 100)
                         .withFont(this.font)
                         .withText(withText("0")),
@@ -116,7 +118,6 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
 
     private void saveBtnAction(Button button) {
         if (this.checkCanSave()) saveData();
-        this.closeScreen();
     }
 
     private boolean checkCanSave() {

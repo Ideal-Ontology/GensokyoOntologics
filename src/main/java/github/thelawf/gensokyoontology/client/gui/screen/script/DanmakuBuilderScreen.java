@@ -5,11 +5,15 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
+import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
@@ -17,7 +21,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class DanmakuBuilderScreen extends ScriptBuilderScreen {
+// 30, 25
+public class DanmakuBuilderScreen extends OneSlotContainerScreen {
     public static final String TYPE = "danmaku";
     private Button danTypeButton;
     private Button colorButton;
@@ -33,12 +38,14 @@ public class DanmakuBuilderScreen extends ScriptBuilderScreen {
     public static final ITextComponent DAN_TYPE_TEXT = GensokyoOntology.withTranslation("gui.", ".danmaku_builder.button.type");
     public static final ITextComponent COLOR_TEXT = GensokyoOntology.withTranslation("gui.", ".danmaku_builder.button.color");
     public static final ITextComponent NAME_TEXT = GensokyoOntology.withTranslation("gui.", ".danmaku_builder.button.name");
-    public DanmakuBuilderScreen(ITextComponent titleIn, ItemStack stack) {
-        super(titleIn, stack);
+
+    public DanmakuBuilderScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
+        super(screenContainer, inv, titleIn);
         this.danmakuColor = DanmakuColor.RED;
         this.danmakuType = DanmakuType.LARGE_SHOT;
-        this.stack = stack;
+        this.stack = ItemStack.EMPTY;
     }
+
 
     @Override
     public void tick() {
@@ -111,18 +118,15 @@ public class DanmakuBuilderScreen extends ScriptBuilderScreen {
             this.danmakuData.putString("name", this.nameInput.getText());
         }
 
-        this.stack.setTag(this.danmakuData);
-        ItemStack itemStack = this.stack.copy();
+        GSKONetworking.CHANNEL.sendToServer(new CMergeScriptPacket(this.danmakuData));
 
-        this.stack.shrink(1);
-        this.minecraft.player.inventory.addItemStackToInventory(itemStack);
     }
 
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         if (this.minecraft != null) {
-            this.renderAbsoluteXY(CONFIGS, matrixStack, mouseX, mouseY, partialTicks);
+            this.renderRelativeToParent(CONFIGS, matrixStack, mouseX, mouseY, this.guiLeft, this.guiTop, partialTicks);
             this.danTypeButton.setMessage(this.danmakuType.toTextComponent());
             this.colorButton.setMessage(this.danmakuColor.toTextComponent());
 
