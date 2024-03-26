@@ -350,7 +350,7 @@
   "container.gensokyoontology.danmaku_craft.title": "Danmaku Crafting",
   "container.gensokyoontology.sorcery_extractor.title": "Sorcery Extracting",
   "container.gensokyoontology.const_builder.title": "Const Builder",
-  "container.gensokyoontology.v3d_builder.title": "Name: ",
+  "container.gensokyoontology.vector3d_builder.title": "Name: ",
   "container.gensokyoontology.danmaku_builder.title": "Danmaku Builder",
 
   "container.gensokyoontology.binary_operation.title": "Binary Operating",
