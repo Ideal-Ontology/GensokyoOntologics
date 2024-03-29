@@ -291,11 +291,6 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 20D)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
 
-            event.put(EntityRegistry.CITIZEN.get(), AgeableEntity.func_233666_p_()
-                    .createMutableAttribute(Attributes.MAX_HEALTH, 20D)
-                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 15D)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
-
             event.put(EntityRegistry.HANIWA.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 40)
                     .createMutableAttribute(Attributes.ARMOR, 10)
