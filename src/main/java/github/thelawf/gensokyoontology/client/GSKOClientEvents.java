@@ -178,7 +178,7 @@ public class GSKOClientEvents {
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.TSUMI_BUKURO_ENTITY.get(), TsumiBukuroRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), HumanResidentRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CITIZEN.get(), CitizenRenderer::new);
+        // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CITIZEN.get(), CitizenRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HANIWA.get(), HaniwaRenderer::new);
 
         // ======================== 自定义渲染器 ======================= //

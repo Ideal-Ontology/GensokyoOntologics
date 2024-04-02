@@ -30,9 +30,6 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<HumanResidentEntity>> HUMAN_RESIDENT_ENTITY = ENTITIES.register(
             "human_resident", () -> EntityType.Builder.create(HumanResidentEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.55f, 1.8f).trackingRange(10).build("human_resident"));
-    public static final RegistryObject<EntityType<CitizenEntity>> CITIZEN = ENTITIES.register(
-            "citizen", () -> EntityType.Builder.create(CitizenEntity::new, EntityClassification.CREATURE)
-                    .updateInterval(2).size(0.6f, 1.8f).trackingRange(10).build("citizen"));
 
     // ================================ 怪物 ==================================== //
     public static final RegistryObject<EntityType<InyoJadeMonsterEntity>> INYO_JADE_ENTITY = ENTITIES.register(

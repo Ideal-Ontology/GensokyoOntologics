@@ -37,7 +37,14 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-
+// gensokyoontology:chests/human_village_food_storage
+// gensokyoontology:chests/hakurei_saisen_box
+// gensokyoontology:chests/human_village_materials
+// gensokyoontology:chests/jeweler_chest_rare
+// /data merge block x y z {LootTable:"gensokyoontology:chests/human_village_food_storage"}
+// /data merge block x y z {LootTable:"gensokyoontology:chests/human_village_materials"}
+// {LootTable:"gensokyoontology:chests/human_village_ingredients"}
+// {LootTable:"gensokyoontology:chests/human_village_inventories"}_01
 @Mod(GensokyoOntology.MODID)
 public class GensokyoOntology {
 
@@ -55,7 +62,7 @@ public class GensokyoOntology {
         // 目前MC的注册方式：
         // 1. Registry<IForgeRegistry>
         // 2. Registry<CODEC>
-        // 3. RegistryKey<.class>
+        // 3. RegistryKey<class>
 
         MinecraftForge.EVENT_BUS.register(this);
 
@@ -289,11 +296,6 @@ public class GensokyoOntology {
             event.put(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), AgeableEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 20D)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 20D)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
-
-            event.put(EntityRegistry.CITIZEN.get(), AgeableEntity.func_233666_p_()
-                    .createMutableAttribute(Attributes.MAX_HEALTH, 20D)
-                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 15D)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
 
             event.put(EntityRegistry.HANIWA.get(), MobEntity.func_233666_p_()
