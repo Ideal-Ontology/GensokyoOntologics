@@ -1,20 +1,11 @@
 {
-  "name": "gensokyoontology:human_village/houses_with_roads_back",
+  "name": "gensokyoontology:human_village/houses_with_roads_01",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 2,
+      "weight": 6,
       "element": {
-        "location": "gensokyoontology:village_house_01",
-        "processors": "minecraft:empty",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 2,
-      "element": {
-        "location": "gensokyoontology:village_house_02",
+        "location": "gensokyoontology:human_house_single",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
@@ -30,7 +21,7 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "location": "gensokyoontology:jeweler_house_rare_01",
         "processors": "minecraft:empty",
@@ -39,9 +30,36 @@
       }
     },
     {
-      "weight": 1,
+      "weight": 2,
       "element": {
         "location": "gensokyoontology:jeweler_house_rare_02",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "gensokyoontology:jeweler_house_epic_01",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 1,
+      "element": {
+        "location": "gensokyoontology:jeweler_house_epic_02",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 2,
+      "element": {
+        "location": "gensokyoontology:hot_spring_inn",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
