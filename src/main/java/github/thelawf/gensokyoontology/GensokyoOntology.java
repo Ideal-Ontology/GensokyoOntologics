@@ -37,12 +37,6 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
-// gensokyoontology:chests/human_village_food_storage
-// gensokyoontology:chests/hakurei_saisen_box
-// gensokyoontology:chests/human_village_materials
-// gensokyoontology:chests/jeweler_chest_rare
-// /data merge block x y z {LootTable:"gensokyoontology:chests/human_village_food_storage"}
-// /data merge block x y z {LootTable:"gensokyoontology:chests/human_village_materials"}
 // {LootTable:"gensokyoontology:chests/human_village_ingredients"}
 // {LootTable:"gensokyoontology:chests/human_village_inventories"}_01
 @Mod(GensokyoOntology.MODID)

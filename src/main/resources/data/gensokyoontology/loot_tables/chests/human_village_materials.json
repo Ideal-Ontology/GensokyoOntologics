@@ -3,8 +3,8 @@
   "pools": [
     {
       "rolls": {
-        "min": 2,
-        "max": 4
+        "min": 1,
+        "max": 3
       },
       "entries": [
         {
@@ -35,14 +35,14 @@
         },
         {
           "type": "minecraft:item",
-          "weight": 3,
-          "name": "gensokyoontology:jade_level_ss",
+          "weight": 1,
+          "name": "gensokyoontology:jade_level_s",
           "functions": [
             {
               "function": "minecraft:set_count",
               "count": {
-                "min": 1,
-                "max": 3,
+                "min": 0,
+                "max": 2,
                 "type": "minecraft:uniform"
               }
             }
@@ -51,7 +51,7 @@
         {
           "type": "minecraft:item",
           "weight": 1,
-          "name": "gensokyoontology:jade_level_sss",
+          "name": "gensokyoontology:jade_level_ss",
           "functions": [
             {
               "function": "minecraft:set_count",
@@ -61,7 +61,7 @@
           "conditions": [
             {
               "condition": "minecraft:random_chance",
-              "chance": 0.5
+              "chance": 0.1
             }
           ]
         }
