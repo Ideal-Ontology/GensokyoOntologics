@@ -2,16 +2,19 @@ package github.thelawf.gensokyoontology.api.util;
 
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -134,6 +137,24 @@ public interface IRayTraceReader {
         return isIntersecting(start, start.add(direction).scale(distance),
                 new Vector3d(aabb.minX, aabb.minY, aabb.minZ),
                 new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
+    }
+
+    default EntityRayTraceResult rayTrace(World worldIn, Entity sourceEntity, Predicate<Entity> filter, Vector3d startPos, Vector3d endPos) {
+        double d0 = Double.MAX_VALUE;
+        Entity entity = null;
+
+        for(Entity entity1 : worldIn.getEntitiesWithinAABB(sourceEntity.getType(), sourceEntity.getBoundingBox(), filter)) {
+            AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow(0.3F);
+            Optional<Vector3d> optional = axisalignedbb.rayTrace(startPos, endPos);
+            if (optional.isPresent()) {
+                double d1 = startPos.squareDistanceTo(optional.get());
+                if (d1 < d0) {
+                    entity = entity1;
+                    d0 = d1;
+                }
+            }
+        }
+        return entity == null ? null : new EntityRayTraceResult(entity);
     }
 
     default Vector3d getIntersectedPos(Vector3d start, Vector3d end, AxisAlignedBB aabb) {

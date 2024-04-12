@@ -44,12 +44,11 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
         }
 
         LaserSourceEntity laserSource = new LaserSourceEntity(worldIn, playerIn);
-        laserSource.init(200, 40, 35);
+        laserSource.init(200, 40, 85);
         laserSource.setARGB(0xFFFF0000);
         laserSource.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight() * 0.5,
                 playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
         worldIn.addEntity(laserSource);
-        LogManager.getLogger().info("Emit Vec: {}, {}", playerIn.rotationYaw, playerIn.rotationPitch);
 
         playerIn.setActiveHand(handIn);
         if (stack.getTag() != null && playerIn.ticksExisted < stack.getTag().getInt("total_count")) {

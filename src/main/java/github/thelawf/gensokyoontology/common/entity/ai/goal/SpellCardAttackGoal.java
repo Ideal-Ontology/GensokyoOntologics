@@ -7,8 +7,6 @@ import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.world.server.ServerWorld;
 
-import java.util.Random;
-
 public class SpellCardAttackGoal extends Goal {
     private final MobEntity entity;
     private final BossSpell spell;
@@ -27,7 +25,7 @@ public class SpellCardAttackGoal extends Goal {
         if (target == null || !target.isAlive()) return;
 
         this.entity.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
-        double distance = this.entity.getDistanceSq(target);
+        // double distance = this.entity.getDistanceSq(target);
         if (this.entity.getEntitySenses().canSee(target)) {
             spell.spellCards.forEach(Runnable::run);
         }

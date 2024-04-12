@@ -8,16 +8,17 @@ import github.thelawf.gensokyoontology.common.entity.ai.goal.SummonEyeGoal;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.ScarletPrisoner;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.boss.BossSpell;
 import github.thelawf.gensokyoontology.common.entity.spellcard.boss.FlandreSpellAttack;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import net.minecraft.entity.*;
+import net.minecraft.entity.AgeableEntity;
+import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -41,7 +42,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     @Nullable
     @Override
     public AgeableEntity createChild(ServerWorld world, AgeableEntity mate) {
-        return null;
+        return super.createChild(world, mate);
     }
 
     @Override
