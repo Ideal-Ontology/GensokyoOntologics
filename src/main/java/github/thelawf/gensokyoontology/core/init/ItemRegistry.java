@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.client.gui.screen.script.DanmakuBuilderSc
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.container.script.*;
 import github.thelawf.gensokyoontology.common.item.*;
+import github.thelawf.gensokyoontology.common.item.armor.KoishiHatArmorItem;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.ore.*;
@@ -354,7 +355,7 @@ public final class ItemRegistry {
             "koishi_eye_closed", () -> new KoishiEyeClosed(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ArmorItem> KOISHI_HAT = ITEMS.register(
-            "koishi_hat", () -> new ArmorItem(GSKOArmorMaterial.JADE,
+            "koishi_hat", () -> new KoishiHatArmorItem(GSKOArmorMaterial.JADE,
                     EquipmentSlotType.HEAD, (new Item.Properties())));
     public static final RegistryObject<SatoriEye> SATORI_EYE = ITEMS.register(
             "satori_eye", () -> new SatoriEye(new Item.Properties()

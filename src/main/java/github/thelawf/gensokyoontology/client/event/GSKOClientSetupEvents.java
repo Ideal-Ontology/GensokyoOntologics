@@ -1,95 +1,27 @@
 package github.thelawf.gensokyoontology.client.event;
 
-import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.model.PerspectiveItemModel;
+import github.thelawf.gensokyoontology.client.model.KoishiHatModel;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.*;
+import github.thelawf.gensokyoontology.common.item.armor.KoishiHatArmorItem;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-import java.util.List;
-import java.util.Map;
-
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GensokyoOntology.MODID, value = Dist.CLIENT)
 public class GSKOClientSetupEvents {
 
-    private static final List<ModelResourceLocation> MODELS = Lists.newArrayList();
-
     @SubscribeEvent
-    public static void registerItemModel(RegistryEvent.Register<Item> event) {
-        addItemModel(ItemRegistry.HAKUREI_GOHEI.get());
-    }
-
-    @SubscribeEvent
-    public static void onModelBaked(ModelBakeEvent event) {
-        Map<ResourceLocation, IBakedModel> registryMap = event.getModelRegistry();
-        for (ModelResourceLocation mrl : MODELS) {
-            PerspectiveItemModel model = new PerspectiveItemModel(registryMap.get(mrl));
-            registryMap.put(mrl, model);
-        }
-    }
-
-    @SubscribeEvent
-    public static void registerModels(ModelRegistryEvent event) {
-        MODELS.forEach(ModelLoader::addSpecialModel);
-    }
-
-    public static void addItemModel(Item item) {
-        ResourceLocation location = item.getRegistryName();
-        if (location != null) {
-            ModelResourceLocation modelName = ModelLoader.getInventoryVariant(location.toString());
-            MODELS.add(modelName);
-        }
-    }
-
-    /*
-    @SubscribeEvent
-    public static void onRenderTick(TickEvent.RenderTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
-            Minecraft minecraft = Minecraft.getInstance();
-            // only fire if we're in the twilight forest
-            if (minecraft.world != null && GSKODimensions.GENSOKYO.getRegistryName().equals(
-                    minecraft.world.getDimensionKey().getLocation())) {
-                if (minecraft.ingameGUI != null) {
-                    minecraft.ingameGUI.prevVignetteBrightness = 0.0F;
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) return;
-        TIMER++;
-
-        Minecraft mc = Minecraft.getInstance();
-        float partial = mc.getRenderPartialTicks();
-
-        // DimensionRenderInfo info = DimensionRenderInfo.field_239208_a_.get(new ResourceLocation(GensokyoOntology.MODID, "render"));
-    }
-    */
-
-    @SubscribeEvent
-    public static void onClientSetUp(FMLClientSetupEvent event) {
+    public static void onEntityModelSetup(FMLClientSetupEvent event) {
         ItemRenderer itemRenderer = event.getMinecraftSupplier().get().getItemRenderer();
 
         // ========================== 弹幕的渲染器 ======================== //
@@ -185,5 +117,37 @@ public class GSKOClientSetupEvents {
         // MinecraftForge.EVENT_BUS.addListener(LaserRenderer::onRenderThirdPerson);
         // MinecraftForge.EVENT_BUS.addListener(LaserViewRenderer::onRenderFirstPerson);
     }
+
+    @SubscribeEvent
+    public static void onArmorModelSetup(FMLClientSetupEvent event) {
+        KoishiHatArmorItem.initArmorModel();
+    }
+
+    /*
+    @SubscribeEvent
+    public static void onRenderTick(TickEvent.RenderTickEvent event) {
+        if (event.phase == TickEvent.Phase.START) {
+            Minecraft minecraft = Minecraft.getInstance();
+            // only fire if we're in the twilight forest
+            if (minecraft.world != null && GSKODimensions.GENSOKYO.getRegistryName().equals(
+                    minecraft.world.getDimensionKey().getLocation())) {
+                if (minecraft.ingameGUI != null) {
+                    minecraft.ingameGUI.prevVignetteBrightness = 0.0F;
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onClientTick(TickEvent.ClientTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) return;
+        TIMER++;
+
+        Minecraft mc = Minecraft.getInstance();
+        float partial = mc.getRenderPartialTicks();
+
+        // DimensionRenderInfo info = DimensionRenderInfo.field_239208_a_.get(new ResourceLocation(GensokyoOntology.MODID, "render"));
+    }
+    */
 
 }
