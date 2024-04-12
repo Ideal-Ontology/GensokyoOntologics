@@ -93,11 +93,6 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     }
 
     @Override
-    public void onDeath(@NotNull DamageSource cause) {
-        super.onDeath(cause);
-    }
-
-    @Override
     public void danmakuAttack(LivingEntity target) {
     }
 
@@ -135,8 +130,12 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         world.addEntity(spellCard);
     }
 
-    public static class Doppelganger extends FlandreScarletEntity {
+    public boolean isDoppelganger() {
+        return false;
+    }
 
+    public static class Doppelganger extends FlandreScarletEntity {
+        public static final int LIFE = 1000;
         public final FullCherryBlossomEntity SPELL_CARD = new FullCherryBlossomEntity(world, this);
         public final BossStageGoal.Stage stage = new BossStageGoal.Stage(BossStageGoal.Type.SPELL_CARD_BREAKABLE,
                 SPELL_CARD, 1200, true);
@@ -145,10 +144,8 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
             super(EntityRegistry.FLANDRE_DOPPELDANGER.get(), worldIn);
         }
 
-
         @Override
         protected void registerGoals() {
-
             this.goalSelector.addGoal(1, new SwimGoal(this));
             this.goalSelector.addGoal(2, new SitGoal(this));
             this.goalSelector.addGoal(3, new FlandreSpellAttackGoal(this, stage, 0.4F));
@@ -157,6 +154,16 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
             this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8F));
             this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
         }
-    }
 
+        @Override
+        public void tick() {
+            super.tick();
+            if (this.ticksExisted >= LIFE) this.remove();
+        }
+
+        @Override
+        public boolean isDoppelganger() {
+            return true;
+        }
+    }
 }

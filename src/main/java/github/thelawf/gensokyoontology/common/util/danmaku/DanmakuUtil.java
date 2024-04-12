@@ -301,26 +301,20 @@ public class DanmakuUtil {
         return positions;
     }
 
-    public static List<Vector3d> spherePos(Vector3d center, double radius, int count) {
+    public static List<Vector3d> spheroidPos(double radius, int count) {
         List<Vector3d> coordinates = new ArrayList<>();
+        List<Vector3d> pos1 = ellipticPos(new Vector2f(0,0), radius, count);
 
-        for (int i = 0; i < count; i++) {
-            double theta = 2.0 * Math.PI * i / count;
-            for (int j = 0; j < count; j++) {
-                double phi = Math.PI * j / (count - 1);
-
-                double x = center.x + radius * Math.sin(phi) * Math.cos(theta);
-                double y = center.y + radius * Math.sin(phi) * Math.sin(theta);
-                double z = center.z + radius * Math.cos(phi);
-
-                coordinates.add(new Vector3d(x, y, z));
+        for (int i = 0; i < pos1.size(); i++) {
+            for (int j = 0; j < pos1.size(); j++) {
+                Vector3d vector3d = pos1.get(j).rotatePitch((float) Math.PI * 2 / pos1.size() * j);
+                pos1.set(j, vector3d);
             }
+            coordinates.addAll(pos1);
         }
 
         return coordinates;
     }
-
-
 
     public static List<Vector3d> ellipticPos(Vector2f center, double radius, int count) {
         ArrayList<Vector3d> coordinates = new ArrayList<>();

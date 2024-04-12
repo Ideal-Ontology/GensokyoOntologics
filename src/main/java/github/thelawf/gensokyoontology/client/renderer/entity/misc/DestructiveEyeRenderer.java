@@ -44,11 +44,11 @@ public class DestructiveEyeRenderer extends EntityRenderer<DestructiveEyeEntity>
         float angle = GSKOMathUtil.lerpTicks(partialTicks, entityIn.MAX_LIVING_TICK, entityIn.ticksExisted, 0f, circumstance * speed);
 
         matrixStackIn.push();
-        matrixStackIn.translate(.5, 1.5, .5);
+        //matrixStackIn.translate(.5, 1.5, .5);
         matrixStackIn.scale(scale, scale, scale);
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(45f));
-        matrixStackIn.translate(-.5, 1, -.5);
+        //matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
+        //matrixStackIn.rotate(Vector3f.XP.rotationDegrees(45f));
+        //matrixStackIn.translate(-.5, 1, -.5);
         this.itemRenderer.renderItem(new ItemStack(ItemRegistry.SPHERE_EFFECT_ITEM.get()), ItemCameraTransforms.TransformType.GROUND, 0, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         matrixStackIn.pop();
     }

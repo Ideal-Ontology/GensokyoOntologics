@@ -2,9 +2,11 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.util.BeliefType;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.Difficulty;
 import net.minecraft.world.IWorld;
@@ -55,6 +57,18 @@ public abstract class RetreatableEntity extends TameableEntity implements IAnger
 
     public Vector3d getAimedVec(LivingEntity target) {
         return new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
+    }
+
+    public Vector2f getAimedAngle(LivingEntity target) {
+        return GSKOMathUtil.toYawPitch(getAimedVec(target));
+    }
+
+    public final float getAimedYaw () {
+        return GSKOMathUtil.toYawPitch(this.getLookVec()).x;
+    }
+
+    public final float getAimedPitch () {
+        return GSKOMathUtil.toYawPitch(this.getLookVec()).y;
     }
 
     public abstract void danmakuAttack(LivingEntity target);

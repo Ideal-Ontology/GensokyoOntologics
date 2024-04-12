@@ -343,8 +343,8 @@ public class GSKOMathUtil {
     }
 
     public static Vector2f toYawPitch(Vector3d vector3d) {
-        double yaw = Math.atan2(vector3d.z, vector3d.x);
-        double pitch = Math.acos(vector3d.y);
+        double yaw = Math.atan2(-vector3d.x, vector3d.z);
+        double pitch = Math.atan2(vector3d.y, Math.sqrt(vector3d.x * vector3d.x + vector3d.z * vector3d.z));
         return new Vector2f((float) toDegree(yaw), (float) toDegree(pitch));
     }
 
