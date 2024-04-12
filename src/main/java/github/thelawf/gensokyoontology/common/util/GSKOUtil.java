@@ -10,6 +10,9 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.NonNullConsumer;
 import org.apache.logging.log4j.LogManager;
 
+import java.util.List;
+import java.util.Random;
+
 public class GSKOUtil {
     public static void showChatMsg(PlayerEntity receiver, String text, int frequency) {
         if (receiver.ticksExisted % frequency == 0) {
@@ -70,5 +73,9 @@ public class GSKOUtil {
 
     public static <T> void runIfCapPresent(Entity entity, Capability<T> capability, NonNullConsumer<T> consumer) {
         entity.getCapability(capability).ifPresent(consumer);
+    }
+
+    public static <T> T rollFrom(List<T> pool) {
+        return pool.get(new Random().nextInt(pool.size() - 1));
     }
 }

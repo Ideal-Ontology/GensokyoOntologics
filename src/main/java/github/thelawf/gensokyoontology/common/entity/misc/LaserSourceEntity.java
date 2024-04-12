@@ -97,7 +97,6 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         Predicate<Entity> doNotAttack = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() != this.getOwnerID().get();
         if (this.ticksExisted % 2 == 0 && rayTrace(world, this, e -> false, start, end) != null) {
             rayTrace(world, this, doNotAttack, start, end).getEntity().attackEntityFrom(GSKODamageSource.LASER, 3);
-                    //.forEach(rayTraceResult -> rayTraceResult.getEntity().attackEntityFrom(GSKODamageSource.LASER, 3));
         }
     }
 
