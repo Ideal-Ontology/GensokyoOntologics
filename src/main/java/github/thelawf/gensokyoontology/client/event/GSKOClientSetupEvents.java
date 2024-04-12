@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client;
+package github.thelawf.gensokyoontology.client.event;
 
 import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.GensokyoOntology;
@@ -7,7 +7,6 @@ import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.*;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.client.renderer.BlockModelRenderer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.IBakedModel;
@@ -31,7 +30,7 @@ import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GensokyoOntology.MODID, value = Dist.CLIENT)
-public class GSKOClientEvents {
+public class GSKOClientSetupEvents {
 
     private static final List<ModelResourceLocation> MODELS = Lists.newArrayList();
 
@@ -182,7 +181,7 @@ public class GSKOClientEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HANIWA.get(), HaniwaRenderer::new);
 
         // ======================== 自定义渲染器 ======================= //
-        MinecraftForge.EVENT_BUS.register(new GSKOClientListener());
+        MinecraftForge.EVENT_BUS.register(new GSKOMiscClientEvent());
         // MinecraftForge.EVENT_BUS.addListener(LaserRenderer::onRenderThirdPerson);
         // MinecraftForge.EVENT_BUS.addListener(LaserViewRenderer::onRenderFirstPerson);
     }

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client;
+package github.thelawf.gensokyoontology.client.event;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
@@ -7,7 +7,6 @@ import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
@@ -16,7 +15,6 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screen.DownloadTerrainScreen;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.TextFormatting;
@@ -34,7 +32,7 @@ import net.minecraftforge.fml.common.Mod;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, value = Dist.CLIENT)
-public class GSKOClientListener {
+public class GSKOMiscClientEvent {
     private static int TIMER = 0;
     private final Minecraft mc = Minecraft.getInstance();
 
@@ -102,7 +100,7 @@ public class GSKOClientListener {
      *
      */
     @SubscribeEvent
-    public static void onRenderOverlay(RenderGameOverlayEvent event) {
+    public static void onRenderPowerDisplay(RenderGameOverlayEvent event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.HOTBAR) {
             ClientPlayerEntity player = Minecraft.getInstance().player;
             if (player == null) {
