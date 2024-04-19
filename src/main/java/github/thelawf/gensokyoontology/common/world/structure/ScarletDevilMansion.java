@@ -16,15 +16,14 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
-import net.minecraft.world.gen.feature.structure.AbstractVillagePiece;
-import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.structure.StructureStart;
-import net.minecraft.world.gen.feature.structure.VillageConfig;
+import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
+// locate gensokyoontology:scarlet_devil_mansion
+// gensokyoontology:scarlet_devil_mansion/mansion_
 public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
     public ScarletDevilMansion(Codec<NoFeatureConfig> codec) {
         super(codec);
@@ -53,6 +52,7 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
     }
 
     @Override
+    @NotNull
     public IStartFactory<NoFeatureConfig> getStartFactory() {
         return ScarletDevilMansion.Start::new;
     }
@@ -62,6 +62,11 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
         public Start(Structure<NoFeatureConfig> p_i225876_1_, int p_i225876_2_, int p_i225876_3_, MutableBoundingBox p_i225876_4_, int p_i225876_5_, long p_i225876_6_) {
             super(p_i225876_1_, p_i225876_2_, p_i225876_3_, p_i225876_4_, p_i225876_5_, p_i225876_6_);
         }
+
+        // @Override
+        // protected int getMaxRefCount() {
+        //     return 5;
+        // }
 
         @Override
         public void func_230364_a_(DynamicRegistries dynamicRegistry, ChunkGenerator chunkGenerator, TemplateManager templateManagerIn,

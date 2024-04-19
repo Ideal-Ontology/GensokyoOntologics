@@ -16,6 +16,7 @@
     "water_fog_color": 329011
   },
   "starts": [
+    "gensokyoontology:scarlet_devil_mansion"
   ],
   "spawners": {
     "monster": [
