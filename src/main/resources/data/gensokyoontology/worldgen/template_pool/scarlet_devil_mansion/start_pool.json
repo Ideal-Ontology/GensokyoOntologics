@@ -1,0 +1,15 @@
+{
+  "name": "gensokyoontology:scarlet_devil_mansion/start_pool",
+  "fallback": "minecraft:empty",
+  "elements": [
+    {
+      "weight": 1,
+      "element": {
+        "location": "gensokyoontology:scarlet_devil_mansion/mansion_0_0_0",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    }
+  ]
+}

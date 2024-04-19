@@ -181,6 +181,8 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3).variableCount(5).square();
 
     //-------------------------------------------建筑生成------------------------------------------//
+    public static final StructureFeature<?, ?> SCARLET_MANSION_STRUCTURE = StructureRegistry.SCARLET_DEVIL_MANSION.get()
+            .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static final StructureFeature<?, ?> MYSTIA_STRUCTURE = StructureRegistry.MYSTIA_IZAKAYA.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static final StructureFeature<?, ?> HAKUREI_STRUCTURE = StructureRegistry.HAKUREI_SHRINE.get()
@@ -236,6 +238,7 @@ public class GSKOFeatures {
     public static void registerStructure() {
         Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
         // 可以继续添加多个
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "scarlet_devil_mansion"), SCARLET_MANSION_STRUCTURE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "mystia_izakaya"), MYSTIA_STRUCTURE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "hakurei_shrine"), HAKUREI_STRUCTURE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "cirno_ice_house"), CIRNO_ICE_HOUSE);
@@ -243,6 +246,7 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "beast_pathway"), BEAST_PATHWAY);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "human_village"), HUMAN_VILLAGE);
 
+        FlatGenerationSettings.STRUCTURES.put(StructureRegistry.SCARLET_DEVIL_MANSION.get(), SCARLET_MANSION_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.MYSTIA_IZAKAYA.get(), MYSTIA_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.HAKUREI_SHRINE.get(), HAKUREI_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.CIRNO_ICE_HOUSE.get(), CIRNO_ICE_HOUSE);

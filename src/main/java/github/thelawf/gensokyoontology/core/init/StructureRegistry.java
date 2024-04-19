@@ -23,6 +23,8 @@ public final class StructureRegistry {
     public static final DeferredRegister<Structure<?>> STRUCTURES = DeferredRegister.create(
             ForgeRegistries.STRUCTURE_FEATURES, GensokyoOntology.MODID);
 
+    public static final RegistryObject<Structure<NoFeatureConfig>> SCARLET_DEVIL_MANSION = STRUCTURES.register(
+            "scarlet_devil_mansion", () -> new ScarletDevilMansion(NoFeatureConfig.CODEC));
     public static final RegistryObject<Structure<NoFeatureConfig>> MYSTIA_IZAKAYA = STRUCTURES.register(
             "mystia_izakaya", () -> new MystiaIzakayaStructure(NoFeatureConfig.CODEC));
 
@@ -43,7 +45,9 @@ public final class StructureRegistry {
     // public static final RegistryObject<Structure<NoFeatureConfig>> WATERFALL_NINE_HEAVEN = STRUCTURES.register(
     //         "water_of_nine_heaven", () -> new WaterfallNineHeavenStructure(NoFeatureConfig.CODEC));
 
+    // StructureSeparationSettings 里面的几个参数为：距离，分布和随机值
     public static void setupStructures() {
+        setupMapSpacingAndLand(SCARLET_DEVIL_MANSION.get(), new StructureSeparationSettings(80, 50, 745264516), true);
         setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(), new StructureSeparationSettings(20, 10, 1023567897), true);
         setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(30, 20, 51392147), true);
         setupMapSpacingAndLand(CHIREIDEN.get(), new StructureSeparationSettings(80, 50, 413054656), true);
