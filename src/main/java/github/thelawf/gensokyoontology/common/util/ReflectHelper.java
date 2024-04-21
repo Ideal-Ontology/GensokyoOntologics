@@ -45,4 +45,20 @@ public class ReflectHelper {
         }
         return null;
     }
+
+    public static <T> Object getFieldValue(Class<T> clazz, String fieldName, Object target) {
+        try {
+            return ObfuscationReflectionHelper.findField(clazz, fieldName).get(target);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static <T> void setFieldValue(Class<T> clazz, String fieldName, Object target, Object value) {
+        try {
+            ObfuscationReflectionHelper.findField(clazz, fieldName).set(target, value);
+        } catch (IllegalAccessException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -143,6 +143,9 @@ public class GSKOWorldEvents {
             Map<Structure<?>, StructureSeparationSettings> tempMap = new HashMap<>(
                     serverWorld.getChunkProvider().generator.func_235957_b_().func_236195_a_());
 
+            tempMap.putIfAbsent(StructureRegistry.ABCDEF.get(),
+                    DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.ABCDEF.get()));
+
             tempMap.putIfAbsent(StructureRegistry.SCARLET_DEVIL_MANSION.get(),
                     DimensionStructuresSettings.field_236191_b_.get(StructureRegistry.SCARLET_DEVIL_MANSION.get()));
 
