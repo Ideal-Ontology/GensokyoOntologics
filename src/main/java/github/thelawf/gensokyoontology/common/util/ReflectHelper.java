@@ -56,7 +56,9 @@ public class ReflectHelper {
 
     public static <T> void setFieldValue(Class<T> clazz, String fieldName, Object target, Object value) {
         try {
-            ObfuscationReflectionHelper.findField(clazz, fieldName).set(target, value);
+            Field field = ObfuscationReflectionHelper.findField(clazz, fieldName);
+            field.setAccessible(true);
+            field.set(target, value);
         } catch (IllegalAccessException e) {
             throw new RuntimeException(e);
         }

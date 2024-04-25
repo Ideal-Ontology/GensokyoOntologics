@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.ReflectHelper;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
@@ -85,7 +86,7 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
         }
 
         @Override
-        public void func_230364_a_(@NotNull DynamicRegistries dynamicRegistry, @NotNull ChunkGenerator chunkGenerator, @NotNull TemplateManager templateManagerIn,
+        public void func_230364_a_(@NotNull DynamicRegistries dynamicRegistry, @NotNull ChunkGenerator chunkGenerator, @NotNull TemplateManager managerIn,
                                    int chunkX, int chunkZ, @NotNull Biome p_230364_6_, @NotNull NoFeatureConfig p_230364_7_) {
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
@@ -93,33 +94,38 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
 
             // addPieces() Method
             // 不知道为什么这里只能递归地添加6个建筑模块(StructurePiece)
-            JigsawManager.func_242837_a(dynamicRegistry,
-                    new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "scarlet_devil_mansion/start_pool")),
-                            10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
-                    pos, this.components, this.rand, false, true);
-
+            // JigsawManager.func_242837_a(dynamicRegistry,
+            //         new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
+            //                 .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "scarlet_devil_mansion/start_pool")),
+            //                 10), AbstractVillagePiece::new, chunkGenerator, managerIn,
+            //         pos, this.components, this.rand, false, true);
+            this.components.add(new ScarletMansionPieces.MansionTemplate(managerIn, "mansion_0_0_0", pos, Rotation.NONE, Mirror.NONE));
+            ScarletMansionPieces.startScarletMansion(managerIn, pos, Rotation.NONE, this.components);
 
             // 所以需要在这里继续递归添加建筑模块
-            JigsawManager.func_242837_a(dynamicRegistry,
-                    new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "scarlet_devil_mansion/house/p_2_0_0")),
-                            10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
-                    pos, this.components, this.rand, false, true);
+            // JigsawManager.func_242837_a(dynamicRegistry,
+            //         new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
+            //                 .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "scarlet_devil_mansion/house/p_2_0_0")),
+            //                 10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
+            //         pos, this.components, this.rand, false, true);
             this.recalculateStructureSize();
 
-            this.components.forEach(piece -> {
-                ReflectHelper.setFieldValue(StructurePiece.class, "mirror", piece, Mirror.NONE);
-                ReflectHelper.setFieldValue(StructurePiece.class, "rotation", piece, Rotation.CLOCKWISE_90);
-                if (this.components.indexOf(piece) == this.components.size() -1 ||
-                        this.components.indexOf(piece) == this.components.size() -2 ) {
-                    ReflectHelper.setFieldValue(StructurePiece.class, "mirror", piece, Mirror.LEFT_RIGHT);
-                    ReflectHelper.setFieldValue(StructurePiece.class, "rotation", piece, Rotation.COUNTERCLOCKWISE_90);
-                    piece.offset(0,0,143);
-                }
-                GSKOUtil.log(this.getClass(), ReflectHelper.getFieldValue(StructurePiece.class, "mirror", piece));
-            });
-            this.components.forEach(piece -> GSKOUtil.log(this.getClass(), piece.getRotation().name()));
+            // this.components.forEach(structurePiece -> {
+            //     if (structurePiece instanceof AbstractVillagePiece) {
+            //         AbstractVillagePiece piece = (AbstractVillagePiece) structurePiece;
+//
+            //         if (this.components.indexOf(piece) == this.components.size() -2) {
+            //             GSKOUtil.log(this.getClass(), "Mansion_2_ROT: " + piece.rotation);
+            //             piece.rotation = Rotation.CLOCKWISE_90;
+            //             piece.offset(0,0,123);
+            //         }
+            //         if (this.components.indexOf(piece) == this.components.size() -1) {
+            //             piece.rotation = Rotation.CLOCKWISE_90;
+            //             piece.offset(0,0,123);
+            //         }
+            //     }
+            // });
+            // this.components.forEach(piece -> GSKOUtil.log(this.getClass(), piece.getRotation().name()));
 
         }
     }

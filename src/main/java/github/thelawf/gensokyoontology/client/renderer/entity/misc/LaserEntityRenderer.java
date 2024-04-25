@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -22,6 +23,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.model.pipeline.BakedQuadBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -93,15 +95,19 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
      */
     private void renderLaserUsingMojangsShit(LaserSourceEntity entityIn, @Nullable Vector3d lookVec, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
         //LivingEntity livingentity = entityIn.getTargetedEntity();
+        IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
+        IVertexBuilder builder = buffer.getBuffer(RenderType.getLightning());
 
         float scale = 0.5f;
         float f1 = (float)entityIn.world.getGameTime() + partialTicks;
         float f2 = f1 * 0.5F % 1.0F;
         float eyeHeight = entityIn.getEyeHeight();
         matrixStackIn.push();
+        buffer.finish(RenderType.getLightning());
         matrixStackIn.translate(0.0D, eyeHeight, 0.0D);
         Vector3d vector3d = entityIn.getPositionVec();
 
+        // RenderType.getLightning().getVertexFormat()
         // Using this.getPosition(entityIn, eyeHeight, partialTicks);
         Vector3d vector3d1 = entityIn.getLookVec().scale(entityIn.getRange());
         float f4 = (float)(vector3d1.length() + 1.0D);
