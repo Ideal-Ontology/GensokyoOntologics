@@ -3,35 +3,33 @@ package github.thelawf.gensokyoontology.common.world.structure;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import github.thelawf.gensokyoontology.common.util.ReflectHelper;
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.entity.EntityType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.command.impl.GameModeCommand;
+import net.minecraft.command.impl.GameRuleCommand;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.Rotation;
+import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.util.registry.Registry;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.MobSpawnInfo;
+import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.jigsaw.JigsawManager;
-import net.minecraft.world.gen.feature.jigsaw.JigsawPatternRegistry;
-import net.minecraft.world.gen.feature.jigsaw.LegacySingleJigsawPiece;
-import net.minecraft.world.gen.feature.jigsaw.SingleJigsawPiece;
 import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 // locate gensokyoontology:scarlet_devil_mansion
 // gensokyoontology:scarlet_devil_mansion/mansion_
@@ -62,6 +60,14 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
         return true;
     }
 
+    // @Override
+    // protected boolean func_230363_a_(@NotNull ChunkGenerator chunkGenerator, @NotNull BiomeProvider biomeProvider, long seed,
+    //                                  @NotNull SharedSeedRandom random, int chunkX, int chunkZ, @NotNull Biome biome,
+    //                                  @NotNull ChunkPos chunkPos, @NotNull NoFeatureConfig config) {
+    //     Set<Biome> biomeSet = biomeProvider.getBiomes((chunkX << 4) + 7, 0, (chunkZ << 4) + 7,144);
+    //     List<Biome> biomes = new ArrayList<>(biomeSet);
+    //     return biomes.size() == 1 && biomes.get(0).getRegistryName() == GSKOBiomes.SCARLET_MANSION_PRECINCTS_KEY.getRegistryName();
+    // }
 
     @Override
     @NotNull
@@ -76,21 +82,15 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
         }
 
         @Override
-        protected int getMaxRefCount() {
-            return 5;
-        }
-
-        @Override
-        protected void func_214628_a(int p_214628_1_, Random p_214628_2_, int p_214628_3_) {
-            super.func_214628_a(p_214628_1_, p_214628_2_, p_214628_3_);
-        }
-
-        @Override
         public void func_230364_a_(@NotNull DynamicRegistries dynamicRegistry, @NotNull ChunkGenerator chunkGenerator, @NotNull TemplateManager managerIn,
-                                   int chunkX, int chunkZ, @NotNull Biome p_230364_6_, @NotNull NoFeatureConfig p_230364_7_) {
+                                   int chunkX, int chunkZ, @NotNull Biome biome, @NotNull NoFeatureConfig config) {
+
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
-            BlockPos pos = new BlockPos(x, 0, z);
+
+            // Finds the y value of the terrain at location.
+            int surfaceY = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
+            BlockPos pos = new BlockPos(x, surfaceY, z);
 
             // addPieces() Method
             // 不知道为什么这里只能递归地添加6个建筑模块(StructurePiece)
@@ -99,21 +99,18 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
             //                 .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "scarlet_devil_mansion/start_pool")),
             //                 10), AbstractVillagePiece::new, chunkGenerator, managerIn,
             //         pos, this.components, this.rand, false, true);
-            this.components.add(new ScarletMansionPieces.MansionTemplate(managerIn, "mansion_0_0_0", pos, Rotation.NONE, Mirror.NONE));
-            ScarletMansionPieces.startScarletMansion(managerIn, pos, Rotation.NONE, this.components);
+
+            // this.components.add(new ScarletMansionPieces.Piece(managerIn, "mansion_0_0_0", pos, Rotation.NONE, Mirror.NONE));
 
             // 所以需要在这里继续递归添加建筑模块
-            // JigsawManager.func_242837_a(dynamicRegistry,
-            //         new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-            //                 .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "scarlet_devil_mansion/house/p_2_0_0")),
-            //                 10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
-            //         pos, this.components, this.rand, false, true);
+            ScarletMansionPieces.start(managerIn, pos, Rotation.NONE, this.components);
             this.recalculateStructureSize();
+            GensokyoOntology.LOGGER.info("Rundown House at " + (pos.getX()) + " " + pos.getY() + " " + (pos.getZ()));
 
             // this.components.forEach(structurePiece -> {
             //     if (structurePiece instanceof AbstractVillagePiece) {
             //         AbstractVillagePiece piece = (AbstractVillagePiece) structurePiece;
-//
+
             //         if (this.components.indexOf(piece) == this.components.size() -2) {
             //             GSKOUtil.log(this.getClass(), "Mansion_2_ROT: " + piece.rotation);
             //             piece.rotation = Rotation.CLOCKWISE_90;
@@ -125,8 +122,13 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
             //         }
             //     }
             // });
-            // this.components.forEach(piece -> GSKOUtil.log(this.getClass(), piece.getRotation().name()));
+            // this.components.forEach(piece -> GSKOUtil.log(this.getClass(), ));
 
+        }
+
+        @Override
+        public void func_230366_a_(ISeedReader p_230366_1_, StructureManager p_230366_2_, ChunkGenerator p_230366_3_, Random p_230366_4_, MutableBoundingBox p_230366_5_, ChunkPos p_230366_6_) {
+            super.func_230366_a_(p_230366_1_, p_230366_2_, p_230366_3_, p_230366_4_, p_230366_5_, p_230366_6_);
         }
     }
 }

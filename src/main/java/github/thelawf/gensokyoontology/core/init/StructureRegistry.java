@@ -49,7 +49,7 @@ public final class StructureRegistry {
 
     // StructureSeparationSettings 里面的几个参数为：距离，分布和随机值
     public static void setupStructures() {
-        setupMapSpacingAndLand(ABCDEF.get(), new StructureSeparationSettings(10, 3, 19298474), true);
+        setupMapSpacingAndLand(ABCDEF.get(), new StructureSeparationSettings(30, 15, 19298474), true);
         setupMapSpacingAndLand(SCARLET_DEVIL_MANSION.get(), new StructureSeparationSettings(80, 50, 745264516), true);
         setupMapSpacingAndLand(MYSTIA_IZAKAYA.get(), new StructureSeparationSettings(20, 10, 1023567897), true);
         setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(30, 20, 51392147), true);

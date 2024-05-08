@@ -19,6 +19,7 @@ import net.minecraft.world.gen.feature.structure.VillageConfig;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.jetbrains.annotations.NotNull;
 
+// -4742294992493429317
 public class AbcdefStructure extends Structure<NoFeatureConfig> {
     public AbcdefStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
@@ -62,7 +63,9 @@ public class AbcdefStructure extends Structure<NoFeatureConfig> {
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     pos, this.components, this.rand, false, true);
 
+            System.out.println(this.components.size());
             this.recalculateStructureSize();
+            System.out.println(this.bounds);
         }
     }
 }
