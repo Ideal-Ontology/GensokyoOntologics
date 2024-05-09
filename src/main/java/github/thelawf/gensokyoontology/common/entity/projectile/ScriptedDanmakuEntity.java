@@ -39,7 +39,7 @@ public abstract class ScriptedDanmakuEntity extends AbstractDanmakuEntity{
 
     protected ListNBT wrapAsList(INBT inbt) {
         if (inbt instanceof ListNBT) {
-            return  (ListNBT) this.scriptsNBT.get("scripts");
+            return (ListNBT) inbt;
         }
         return new ListNBT();
     }

@@ -328,7 +328,7 @@ public class DanmakuUtil {
             double angle = i * angleInterval;
             double x = center.x + radius * Math.cos(angle);
             double y = center.y + radius * Math.sin(angle);
-            coordinates.add(new Vector3d(x,0, y));
+            coordinates.add(new Vector3d(x, 0, y));
         }
 
         return coordinates;
