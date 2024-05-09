@@ -5,10 +5,8 @@ import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.world.World;
@@ -34,10 +32,17 @@ public class CircleShotEntity extends ScriptedDanmakuEntity{
             ListNBT list2 = getBehaviors(wrapAsCompound(inbt1));
             list2.forEach(inbt2 -> {
                 CompoundNBT behavior = wrapAsCompound(inbt2);
-                if (behavior.contains("setMotion") && behavior.get("setMotion") instanceof ListNBT) {
-                    List<Double> motion = wrapAsDoubleFromList((ListNBT) behavior.get("setMotion"));
+                if (behavior.contains("shoot") && behavior.get("shoot") instanceof ListNBT) {
+                    List<Double> paramList = wrapAsDoubleFromList((ListNBT) behavior.get("shoot"));
                     int keyTick = behavior.getInt("keyTick");
-                    if (this.ticksExisted == keyTick) this.setMotion(motion.get(0), motion.get(1), motion.get(2));
+                    if (paramList.size() != 4) return;
+                    if (this.ticksExisted == keyTick) this.shoot(paramList.get(0), paramList.get(1), paramList.get(2), paramList.get(3).floatValue(), 0f);
+                }
+                if (behavior.contains("setMotion") && behavior.get("setMotion") instanceof ListNBT) {
+                    List<Double> paramList = wrapAsDoubleFromList((ListNBT) behavior.get("shoot"));
+                    int keyTick = behavior.getInt("keyTick");
+                    if (paramList.size() != 3) return;
+                    if (this.ticksExisted == keyTick) this.setMotion(paramList.get(0), paramList.get(1), paramList.get(2));
                 }
             });
         });

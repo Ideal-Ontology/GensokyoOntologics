@@ -13,6 +13,7 @@ import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.*;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraftforge.fml.RegistryObject;
@@ -121,15 +122,32 @@ public final class EntityRegistry {
     //         "master_spark", () -> MasterSparkEntity.MASTER_SPARK);
     // public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
     //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
-    public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = ENTITIES.register(
-            "dream_seal", () -> EntityType.Builder.<DreamSealEntity>create(DreamSealEntity::new, EntityClassification.MISC)
-                    .size(2F, 2F).trackingRange(80).updateInterval(2).build("dream_seal"));
+    public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
+            "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2F, 2F,80,2);
 
     // ============================ 技术性实体：符卡以及特殊技能 ============================= //
-    public static final RegistryObject<EntityType<WaveAndParticleEntity>> WAVE_AND_PARTICLE_ENTITY = ENTITIES.register(
-            "wave_and_particle", () -> EntityType.Builder.<WaveAndParticleEntity>create(WaveAndParticleEntity::new,
-                            EntityClassification.MISC).size(1F, 1F).trackingRange(4)
-                    .updateInterval(2).build("wave_and_particle"));
+    public static final RegistryObject<EntityType<ScarletPrisoner>> SCARLET_PRISONER_ENTITY =
+            registerSpell("scarlet_prisoner", ScarletPrisoner::new);
+    public static final RegistryObject<EntityType<MobiusRingEntity>> MOBIUS_RING_WORLD_ENTITY =
+            registerSpell("mobius_ring_world", MobiusRingEntity::new);
+    public static final RegistryObject<EntityType<SpiralWheelEntity>> SPIRAL_WHEEL_ENTITY =
+            registerSpell("spiral_wheel", SpiralWheelEntity::new);
+    public static final RegistryObject<EntityType<HellEclipseEntity>> HELL_ECLIPSE_ENTITY =
+            registerSpell("hell_eclipse", HellEclipseEntity::new);
+    public static final RegistryObject<EntityType<ManiaDepressEntity>> MANIA_DEPRESS_ENTITY =
+            registerSpell("mania_depress", ManiaDepressEntity::new);
+    public static final RegistryObject<EntityType<WaveAndParticleEntity>> WAVE_AND_PARTICLE_ENTITY =
+            registerSpell("wave_and_particle", WaveAndParticleEntity::new);
+    public static final RegistryObject<EntityType<RorschachDanmakuEntity>> RORSCHACH_DANMAKU_ENTITY =
+            registerSpell("rorshach_danmaku", RorschachDanmakuEntity::new);
+    public static final RegistryObject<EntityType<HanaShigureSpellEntity>> HANA_SHIGURE_ENTITY =
+            registerSpell("hana_shigure", HanaShigureSpellEntity::new);
+    public static final RegistryObject<EntityType<FullCherryBlossomEntity>> FULL_CHERRY_BLOSSOM_ENTITY =
+            registerSpell("full_cherry_blossom", FullCherryBlossomEntity::new);
+    public static final RegistryObject<EntityType<ScriptedSpellCardEntity>> SCRIPTED_SPELL_CARD_ENTITY =
+            registerSpell("scripted_spell_card", ScriptedSpellCardEntity::new);
+    public static final RegistryObject<EntityType<MountainOfFaithEntity>> MOUNTAIN_OF_FAITH_ENTITY =
+            registerSpell("mountain_of_faith", MountainOfFaithEntity::new);
 
     public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY = ENTITIES.register(
             "ido_no_kaiho", () -> EntityType.Builder.<IdonokaihoEntity>create((entityTypeIn, worldIn) -> {
@@ -142,36 +160,6 @@ public final class EntityRegistry {
                             },
                             EntityClassification.MISC).size(1F, 1F).trackingRange(4)
                     .updateInterval(2).build("ido_no_kaiho"));
-    public static final RegistryObject<EntityType<SpiralWheelEntity>> SPIRAL_WHEEL_ENTITY = ENTITIES.register(
-            "spiral_wheel", () -> EntityType.Builder.<SpiralWheelEntity>create(SpiralWheelEntity::new,
-                    EntityClassification.MISC).size(1F, 1F).trackingRange(4).updateInterval(2).build("spiral_wheel"));
-
-    // 这个符卡的注册名是不是写错了
-    // 已修改
-    public static final RegistryObject<EntityType<HellEclipseEntity>> HELL_ECLIPSE_ENTITY =
-            ENTITIES.register("hell_eclipse", () -> EntityType.Builder.<HellEclipseEntity>create(HellEclipseEntity::new, EntityClassification.MISC)
-                    .size(1F, 1F).trackingRange(4).updateInterval(2).build("hell_eclipse"));
-    public static final RegistryObject<EntityType<MountainOfFaithEntity>> MOUNTAIN_OF_FAITH_ENTITY =
-            ENTITIES.register("mountain_of_faith", () -> EntityType.Builder.<MountainOfFaithEntity>create(MountainOfFaithEntity::new,
-                            EntityClassification.MISC).size(1F, 1F).trackingRange(4)
-                    .updateInterval(2).build("mountain_of_faith"));
-    public static final RegistryObject<EntityType<MobiusRingEntity>> MOBIUS_RING_WORLD_ENTITY =
-            ENTITIES.register("mobius_ring_world", () -> EntityType.Builder.<MobiusRingEntity>create(MobiusRingEntity::new,
-                            EntityClassification.MISC).size(1F, 1F).trackingRange(4)
-                    .updateInterval(2).build("mobius_ring_world"));
-    public static final RegistryObject<EntityType<FullCherryBlossomEntity>> FULL_CHERRY_BLOSSOM_ENTITY =
-            ENTITIES.register("full_cherry_blossom", () -> EntityType.Builder.<FullCherryBlossomEntity>create(FullCherryBlossomEntity::new, EntityClassification.MISC)
-                    .size(1F, 1F).trackingRange(4).updateInterval(2).build("full_cherry_blossom"));
-    public static final RegistryObject<EntityType<HanaShigureSpellEntity>> HANA_SHIGURE_ENTITY =
-            ENTITIES.register("hana_shigure", () -> EntityType.Builder.<HanaShigureSpellEntity>create(HanaShigureSpellEntity::new,
-                    EntityClassification.MISC).size(1F, 1F).trackingRange(4)
-                    .updateInterval(2).build("hana_shigure"));
-    public static final RegistryObject<EntityType<ManiaDepressEntity>> MANIA_DEPRESS_ENTITY =
-            ENTITIES.register("mania_depress", () -> EntityType.Builder.<ManiaDepressEntity>create(ManiaDepressEntity::new, EntityClassification.MISC)
-                    .size(1F, 1F).trackingRange(4).updateInterval(2).build("mania_depress"));
-    public static final RegistryObject<EntityType<ScarletPrisoner>> SCARLET_PRISONER_ENTITY =
-            ENTITIES.register("scarlet_prisoner", () -> EntityType.Builder.<ScarletPrisoner>create(ScarletPrisoner::new,
-                    EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("scarlet_prisoner"));
     public static final RegistryObject<EntityType<GalacticArmSpellEntity>> GALACTIC_ARM_SPELL_ENTITY =
             ENTITIES.register("galactic_arm_spell", () -> EntityType.Builder.<GalacticArmSpellEntity>create((entityTypeIn, worldIn) -> {
                         try {
@@ -182,9 +170,6 @@ public final class EntityRegistry {
                         }
                     },
                     EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("galactic_arm_spell"));
-    public static final RegistryObject<EntityType<ScriptedSpellCardEntity>> SCRIPTED_SPELL_CARD_ENTITY =
-            ENTITIES.register("scripted_spell_card", () -> EntityType.Builder.<ScriptedSpellCardEntity>create(ScriptedSpellCardEntity::new,
-                    EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("scripted_spell_card"));
 
     // ============================================= 特殊能力实体 ====================================================//
     public static final RegistryObject<EntityType<LaserSourceEntity>> LASER_SOURCE_ENTITY = ENTITIES.register(
@@ -194,11 +179,18 @@ public final class EntityRegistry {
             ENTITIES.register("destructive_eye", () -> EntityType.Builder.<DestructiveEyeEntity>create(DestructiveEyeEntity::new, EntityClassification.MISC)
                     .size(3F, 3F). trackingRange(10).updateInterval(2).build("destructive_eye"));
 
-    // public static final RegistryObject<EntityType<FlyingSwordEntity>> FLY_SWORD_ENTITY = GSKO_ENTITIES.register(
-    //         "flying_sword", () -> FlyingSwordEntity.FLY_SWORD_TYPE);
+    public static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.IFactory<T> factoryIn,
+                                                                            EntityClassification classification, float width,
+                                                                            float height, int trackingRange, int interval) {
+        return ENTITIES.register(name, () -> EntityType.Builder.create(factoryIn, classification).size(width, height)
+                .trackingRange(trackingRange).updateInterval(interval).build(name));
+    }
 
-    // public static final RegistryObject<EntityType<PhantasmSphereEntity>> PH_SPHERE_ENTITY = GSKO_ENTITIES.register(
-    //         "phantasm_sphere", () -> PhantasmSphereEntity.PH_SPHERE_TYPE);
+    public static <T extends Entity> RegistryObject<EntityType<T>> registerSpell(String name, EntityType.IFactory<T> factoryIn) {
+        return ENTITIES.register(name, () -> EntityType.Builder.create(factoryIn, EntityClassification.MISC).size(1F, 1F)
+                .trackingRange(4).updateInterval(2).build(name));
+    }
+
 }
 
 

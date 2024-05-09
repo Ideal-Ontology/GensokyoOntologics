@@ -70,16 +70,18 @@ public class GSKOClientSetupEvents {
         // ======================== 符卡实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MOUNTAIN_OF_FAITH_ENTITY.get(),
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.IDO_NO_KAIHO_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SPIRAL_WHEEL_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HELL_ECLIPSE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MOUNTAIN_OF_FAITH_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SCARLET_PRISONER_ENTITY.get(),
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RORSCHACH_DANMAKU_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.GALACTIC_ARM_SPELL_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
