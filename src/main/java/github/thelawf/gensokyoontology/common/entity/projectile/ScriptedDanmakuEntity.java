@@ -23,21 +23,16 @@ public abstract class ScriptedDanmakuEntity extends AbstractDanmakuEntity{
         super(type, worldIn);
     }
 
-    public ScriptedDanmakuEntity(EntityType<? extends ThrowableEntity> type, LivingEntity throwerIn, World worldIn, CompoundNBT scriptIn) {
-        super(type, throwerIn, worldIn, getTypeFrom(scriptIn), getColorFrom(scriptIn));
-        this.scriptsNBT = scriptIn;
-    }
-
-    public static DanmakuType getTypeFrom(CompoundNBT scriptsNBT) {
-        if (scriptsNBT != null && scriptsNBT.contains("danmakuType")) {
-            return Enum.valueOf(DanmakuType.class, scriptsNBT.getString("danmakuType").toUpperCase());
-        }
-        return DanmakuType.LARGE_SHOT;
+    public ScriptedDanmakuEntity(EntityType<? extends ThrowableEntity> type, LivingEntity throwerIn, World worldIn, DanmakuType danmakuType, CompoundNBT scriptIn) {
+        super(type, throwerIn, worldIn, danmakuType, getColorFrom(scriptIn));
+        this.setDanmakuColor(getColorFrom(this.scriptsNBT));
+        this.setScript(scriptIn);
+        this.setColor(DanmakuColor.values()[scriptIn.getInt("color")]);
     }
 
     public static DanmakuColor getColorFrom(CompoundNBT scriptsNBT) {
-        if (scriptsNBT != null && scriptsNBT.contains("danmakuColor")) {
-            return Enum.valueOf(DanmakuColor.class, scriptsNBT.getString("danmakuColor").toUpperCase());
+        if (scriptsNBT != null && scriptsNBT.contains("color")) {
+            return DanmakuColor.values()[scriptsNBT.getInt("color")];
         }
         return DanmakuColor.NONE;
     }
@@ -81,20 +76,30 @@ public abstract class ScriptedDanmakuEntity extends AbstractDanmakuEntity{
     protected void readAdditional(@NotNull CompoundNBT compound) {
         super.readAdditional(compound);
         this.scriptsNBT = compound.getCompound("script");
+        this.dataManager.set(DATA_SCRIPT, this.scriptsNBT);
+
+        this.setColor(DanmakuColor.values()[compound.getInt("color")]);
     }
 
     @Override
     protected void writeAdditional(@NotNull CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.put("script", this.scriptsNBT);
-        compound.putString("danmakuType", this.getDanmakuType().name());
-        compound.putString("danmakuColor", this.getDanmakuColor().name());
+        compound.putInt("color", this.scriptsNBT.getInt("color"));
     }
 
     @Override
     public void tick() {
         super.tick();
         this.onScriptTick();
+    }
+
+    public void setScript(CompoundNBT scriptsNBT) {
+        this.scriptsNBT = scriptsNBT;
+        this.dataManager.set(DATA_SCRIPT, scriptsNBT);
+    }
+    public CompoundNBT getScript() {
+        return this.dataManager.get(DATA_SCRIPT);
     }
 
     public abstract void onScriptTick();

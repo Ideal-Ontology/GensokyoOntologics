@@ -164,12 +164,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         return true;
     }
 
-    public <D extends AbstractDanmakuEntity> void release(Deque<D> deque, D danmaku) {
-        if (danmaku.ticksExisted >= danmaku.getLifespan()) {
-            deque.offerLast(danmaku);
-        }
-    }
-
     @Override
     protected void onEntityHit(@NotNull EntityRayTraceResult result) {
         if (this.getShooter() instanceof MonsterEntity || this.getShooter() instanceof IAngerable) {

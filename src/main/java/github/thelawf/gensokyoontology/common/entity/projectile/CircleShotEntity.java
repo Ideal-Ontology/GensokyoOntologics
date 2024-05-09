@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
@@ -19,7 +20,7 @@ import java.util.List;
 
 public class CircleShotEntity extends ScriptedDanmakuEntity{
     public CircleShotEntity(LivingEntity throwerIn, World worldIn, CompoundNBT scriptIn) {
-        super(EntityRegistry.CIRCLE_SHOT_ENTITY.get(), throwerIn, worldIn, scriptIn);
+        super(EntityRegistry.CIRCLE_SHOT_ENTITY.get(), throwerIn, worldIn, DanmakuType.RICE_SHOT, scriptIn);
     }
 
     public CircleShotEntity(EntityType<CircleShotEntity> type, World world) {
@@ -47,7 +48,7 @@ public class CircleShotEntity extends ScriptedDanmakuEntity{
     @NotNull
     public ItemStack getItem() {
         IItemProvider item;
-        switch (getDanmakuColor()) {
+        switch (this.getDanmakuColor()) {
             case RED:
             case PINK:
             case NONE:
