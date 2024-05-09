@@ -34,7 +34,7 @@ public class GSKOClientSetupEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SMALL_SHOT_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 0.6f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CIRCLE_SHOT_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 0.6f, false));
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 1.0f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_SMALL_ENTITY.get(),
                 manager -> new StarShotRenderer(manager, itemRenderer, 0.8f, false));

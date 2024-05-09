@@ -334,21 +334,6 @@ public class DanmakuUtil {
         return coordinates;
     }
 
-    public static List<Vector3d> ellipticPos(Vector3d center, double radius, int count) {
-        ArrayList<Vector3d> coordinates = new ArrayList<>();
-
-        // 定义生成坐标的数量
-        // 计算每个点的角度间隔
-        double angleInterval = 2 * Math.PI / count;
-
-        // 生成坐标
-        for (int i = 0; i < count; i++) {
-            coordinates.add(center.rotateYaw((float) Math.PI * 2 / count * i));
-        }
-
-        return coordinates;
-    }
-
     public static Vector3d getAimedVec(LivingEntity shooter, LivingEntity target) {
         return target.getPositionVec().subtract(shooter.getPositionVec());
         // return new Vector3d(target.getPosX() - shooter.getPosX(), target.getPosY() - shooter.getPosY(), target.getPosZ() - shooter.getPosZ());
