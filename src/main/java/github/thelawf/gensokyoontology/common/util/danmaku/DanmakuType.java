@@ -18,13 +18,14 @@ public enum DanmakuType {
     HEART_SHOT("heart_shot", 1.5f, 3.5f),
     TALISMAN_SHOT("talisman_shot", 1.0f, 2.5f),
     INYO_JADE("inyo_jade", 2.0f, 3f),
-    FAKE_LUNAR("fake_lunar", 5.0f, 12.0f)
+    FAKE_LUNAR("fake_lunar", 5.0f, 12.0f),
+    CIRCLE_SHOT("circle_shot", 1.0f, 2f)
     // ,BUTTERFLY_SHOT("butterfly_shot", 1.5f, 3f),
     // KUNAI_SHOT("kunai_shot", 0.5f, 2.5f),
     // CRYSTAL_SHOT("crystal_shot", 0.5f, 2f, Effects.SLOWNESS),
     // ARROW_SHOT("arrow_shot", 1.0f, 2f),
     // OVAL_SHOT("oval_shot", 1.0f, 3f),
-    // KNIFE_SHOT("knife_shot", 1.0f, 2.5f);
+    // KNIFE_SHOT("knife_shot", 1.0f, 2.5f)
     ;
 
     public final String name;

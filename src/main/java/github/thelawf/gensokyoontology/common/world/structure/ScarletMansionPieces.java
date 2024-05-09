@@ -1,14 +1,10 @@
 package github.thelawf.gensokyoontology.common.world.structure;
 
 import com.google.common.collect.ImmutableMap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Rotation;
@@ -24,11 +20,9 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
@@ -51,7 +45,11 @@ public class ScarletMansionPieces {
             .put(GensokyoOntology.withRL(PREFIX + "mansion_0_0_1"), new BlockPos(0, 0, -47))
             .put(GensokyoOntology.withRL(PREFIX + "mansion_1_0_1"), new BlockPos(47, 0, -47))
             .put(GensokyoOntology.withRL(PREFIX + "mansion_2_0_1"), new BlockPos(47+46, 0, -47))
-            .put(GensokyoOntology.withRL(PREFIX + "mansion_3_0_1"), new BlockPos(47+46, 0, -47)).build();
+            .put(GensokyoOntology.withRL(PREFIX + "mansion_3_0_1"), new BlockPos(47+46+28, 0, -47))
+            .put(GensokyoOntology.withRL(PREFIX + "mansion_0_0_2"), new BlockPos(0, 0, -47-18))
+            .put(GensokyoOntology.withRL(PREFIX + "mansion_1_0_2"), new BlockPos(47, 0, -47-18))
+            .put(GensokyoOntology.withRL(PREFIX + "mansion_2_0_2"), new BlockPos(47+46, 0, -47-18))
+            .put(GensokyoOntology.withRL(PREFIX + "mansion_3_0_2"), new BlockPos(47+46+28, 0, -47-18)).build();
     public static void start(TemplateManager templateManager, BlockPos pos, Rotation rotation,
                              List<StructurePiece> pieces) {
         int x = pos.getX();
@@ -71,9 +69,7 @@ public class ScarletMansionPieces {
      * 根据不同的建筑模板设置其旋转
      */
     private static Rotation setRotFrom(Vector3i relative) {
-        if (relative == VEC_001) return Rotation.CLOCKWISE_90;
-        if (relative == VEC_101) return Rotation.NONE;
-        else return Rotation.NONE;
+       return Rotation.NONE;
     }
 
     /**
@@ -84,6 +80,7 @@ public class ScarletMansionPieces {
         Pattern pattern = Pattern.compile(regex);
         List<String> ls = Arrays.asList(pattern.split(templateName));
         List<String> list = ls.stream().filter(s -> !Objects.equals(s, "")).collect(Collectors.toList());
+        if (list.size() <= 1) return new Vector3i(0,0,0);
         return new Vector3i(Integer.parseInt(list.get(0)), Integer.parseInt(list.get(1)), Integer.parseInt(list.get(2)));
     }
 

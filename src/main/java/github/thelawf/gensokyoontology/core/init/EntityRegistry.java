@@ -89,6 +89,9 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<SmallShotEntity>> SMALL_SHOT_ENTITY = ENTITIES.register(
             "small_shot", () -> EntityType.Builder.<SmallShotEntity>create(SmallShotEntity::new, EntityClassification.MISC)
                     .size(0.3F, 0.3F).trackingRange(4).updateInterval(2).build("small_shot"));
+    public static final RegistryObject<EntityType<CircleShotEntity>> CIRCLE_SHOT_ENTITY = ENTITIES.register(
+            "circle_shot", () -> EntityType.Builder.<CircleShotEntity>create(CircleShotEntity::new, EntityClassification.MISC)
+                    .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("circle_shot"));
     public static final RegistryObject<EntityType<SmallStarShotEntity>> STAR_SHOT_SMALL_ENTITY = ENTITIES.register(
             "star_shot_small", () -> EntityType.Builder.<SmallStarShotEntity>create(SmallStarShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("star_shot_small"));

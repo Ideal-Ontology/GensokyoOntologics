@@ -28,7 +28,7 @@ public class RiceShotEntity extends AbstractDanmakuEntity {
     @Override
     @NotNull
     public ItemStack getItem() {
-        IItemProvider item = null;
+        IItemProvider item;
         switch (getDanmakuColor()) {
             case RED:
             case PINK:
@@ -36,6 +36,7 @@ public class RiceShotEntity extends AbstractDanmakuEntity {
             case YELLOW:
             case AQUA:
             case GREEN:
+            default:
                 item = ItemRegistry.RICE_SHOT_RED.get();
                 break;
             case BLUE:
@@ -46,10 +47,6 @@ public class RiceShotEntity extends AbstractDanmakuEntity {
                 break;
         }
 
-        if (item == null) {
-            return ItemStack.EMPTY;
-        } else {
-            return new ItemStack(item);
-        }
+        return new ItemStack(item);
     }
 }
