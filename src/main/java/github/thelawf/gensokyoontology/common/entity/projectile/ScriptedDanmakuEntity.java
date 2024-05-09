@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ScriptedDanmakuEntity extends AbstractDanmakuEntity{
-    protected CompoundNBT scriptsNBT;
+    protected CompoundNBT scriptsNBT = new CompoundNBT();
     public static final DataParameter<CompoundNBT> DATA_SCRIPT = EntityDataManager.createKey(
             ScriptedDanmakuEntity.class, DataSerializers.COMPOUND_NBT);
     protected ScriptedDanmakuEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
@@ -25,6 +25,7 @@ public abstract class ScriptedDanmakuEntity extends AbstractDanmakuEntity{
 
     public ScriptedDanmakuEntity(EntityType<? extends ThrowableEntity> type, LivingEntity throwerIn, World worldIn, CompoundNBT scriptIn) {
         super(type, throwerIn, worldIn, getTypeFrom(scriptIn), getColorFrom(scriptIn));
+        this.scriptsNBT = scriptIn;
     }
 
     public static DanmakuType getTypeFrom(CompoundNBT scriptsNBT) {

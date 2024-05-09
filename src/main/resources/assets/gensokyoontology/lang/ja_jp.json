@@ -139,6 +139,10 @@
   "item.gensokyoontology.small_shot_purple": "Small Shot Purple",
   "item.gensokyoontology.small_shot_magenta": "Small Shot Magenta",
 
+  "item.gensokyoontology.circle_shot_blue": "Circle Shot Blue",
+  "item.gensokyoontology.circle_shot_green": "Circle Shot Green",
+  "item.gensokyoontology.circle_shot_magenta": "Circle Shot Magenta",
+
   "item.gensokyoontology.heart_shot_pink": "Heart Shot Pink",
   "item.gensokyoontology.heart_shot_red": "Heart Shot Red",
   "item.gensokyoontology.heart_shot_aqua": "Heart Shot Aqua",
@@ -699,5 +703,7 @@
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "container.gensokyoontology.v3d_builder.title": "Name: "
+  "container.gensokyoontology.v3d_builder.title": "Name: ",
+  "network.gensokyoontology.countdown.end": "Countdown End",
+  "network.gensokyoontology.countdown.start": "Countdown Start"
 }

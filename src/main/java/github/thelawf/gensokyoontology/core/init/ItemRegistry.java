@@ -614,11 +614,11 @@ public final class ItemRegistry {
     // public static final RegistryObject<Item> CIRCLE_SHOT = ITEMS.register("rice_shot",
     //         () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> CIRCLE_SHOT_GREEN = ITEMS.register("circle_shot_green",
-            () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new CircleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> CIRCLE_SHOT_BLUE = ITEMS.register("circle_shot_blue",
-            () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new CircleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> CIRCLE_SHOT_MAGENTA = ITEMS.register("circle_shot_magenta",
-            () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new CircleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     ////////////////////////////// 所有颜色的米弹  /////////////////////////////////
     public static final RegistryObject<Item> RICE_SHOT_RED = ITEMS.register("rice_shot_red",
