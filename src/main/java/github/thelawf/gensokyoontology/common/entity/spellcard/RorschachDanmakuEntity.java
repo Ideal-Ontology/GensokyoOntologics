@@ -91,8 +91,6 @@ public class RorschachDanmakuEntity extends SpellCardEntity{
             applyScript(magentaPos1.get(index), magentaShootPos1.get(index), scriptMagenta);
             applyScript(magentaPos2.get(index), magentaShootPos2.get(index), scriptMagenta);
         }
-
-
     }
 
     private List<Vector3d> deepCopy(List<Vector3d> prevVec) {

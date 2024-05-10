@@ -83,7 +83,7 @@ public final class EntityRegistry {
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("danmaku_shot"));
     public static final RegistryObject<EntityType<HeartShotEntity>> HEART_SHOT_ENTITY = ENTITIES.register(
             "heart_shot", () -> EntityType.Builder.<HeartShotEntity>create(HeartShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("heart_shot"));
+                    .size(2F, 2F).trackingRange(4).updateInterval(2).build("heart_shot"));
     public static final RegistryObject<EntityType<LargeShotEntity>> LARGE_SHOT_ENTITY = ENTITIES.register(
             "large_shot", () -> EntityType.Builder.<LargeShotEntity>create(LargeShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("large_shot"));

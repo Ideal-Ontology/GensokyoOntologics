@@ -11,36 +11,51 @@ import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public class HeartShotEntity extends AbstractDanmakuEntity implements IRendersAsItem {
+public class HeartShotEntity extends ScriptedDanmakuEntity implements IRendersAsItem {
 
     public HeartShotEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public HeartShotEntity(LivingEntity throwerIn, World world, SpellData spellData) {
-        super(EntityRegistry.HEART_SHOT_ENTITY.get(), throwerIn, world, spellData);
+    public HeartShotEntity(LivingEntity throwerIn, World worldIn, CompoundNBT scriptIn) {
+        super(EntityRegistry.HEART_SHOT_ENTITY.get(), throwerIn, worldIn, DanmakuType.HEART_SHOT, scriptIn);
     }
-
-    public HeartShotEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
-        super(EntityRegistry.HEART_SHOT_ENTITY.get(), throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
-    }
-
 
     private void applyTransform(HashMap<Integer, TransformFunction> keyTransforms) {
         for (Map.Entry<Integer, TransformFunction> entry : keyTransforms.entrySet()) {
             Integer keyTick = entry.getKey();
             TransformFunction function = entry.getValue();
             if (function.transformOrders == null) return;
+
+        }
+    }
+
+    @Override
+    public void onScriptTick() {
+        super.onScriptTick();
+        ListNBT inbts = getBehaviors(this.scriptsNBT);
+        for (INBT inbt : inbts) {
+            CompoundNBT behavior = wrapAsCompound(inbt);
+            if (behavior.contains("addMotion") && behavior.get("addMotion") instanceof ListNBT) {
+                List<Double> paramList = wrapAsDoubleFromList((ListNBT) behavior.get("addMotion"));
+                if (paramList.size() != 3) return;
+                this.setMotion(this.getMotion().add(paramList.get(0), paramList.get(1), paramList.get(2)).normalize());
+            }
 
         }
     }

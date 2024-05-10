@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
@@ -43,7 +44,9 @@ public class ManiaDepressEntity extends SpellCardEntity {
         if (ticksExisted % shootInterval == 0) {
 
             for (Vector3d vector3d : pinkPositions) {
-                HeartShotEntity heartShotPink = new HeartShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.HEART_SHOT, DanmakuColor.RED);
+                CompoundNBT nbt = new CompoundNBT();
+                nbt.putInt("color", DanmakuColor.PINK.ordinal());
+                HeartShotEntity heartShotPink = new HeartShotEntity((LivingEntity) this.getOwner(), world, nbt);
 
                 Vector3d shootVec = new Vector3d(vector3d.x, vector3d.y, vector3d.z);
                 vector3d = vector3d.add(this.getPositionVec());
@@ -54,7 +57,10 @@ public class ManiaDepressEntity extends SpellCardEntity {
             }
 
             for (Vector3d vector3d : aquaPositions) {
-                HeartShotEntity heartShotAqua = new HeartShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.HEART_SHOT, DanmakuColor.AQUA);
+                CompoundNBT nbt = new CompoundNBT();
+                nbt.putInt("color", DanmakuColor.AQUA.ordinal());
+
+                HeartShotEntity heartShotAqua = new HeartShotEntity((LivingEntity) this.getOwner(), world, nbt);
 
                 Vector3d shootVec = new Vector3d(vector3d.x, vector3d.y, vector3d.z);
                 vector3d = vector3d.add(this.getPositionVec());

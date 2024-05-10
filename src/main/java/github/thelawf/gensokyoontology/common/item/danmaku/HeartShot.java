@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -46,7 +47,10 @@ public class HeartShot extends DanmakuItem {
                 break;
         }
 
-        HeartShotEntity heartShot = new HeartShotEntity(playerIn, worldIn, DanmakuType.LARGE_SHOT, danmakuColor);
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putInt("color", danmakuColor.ordinal());
+
+        HeartShotEntity heartShot = new HeartShotEntity(playerIn, worldIn, nbt);
         DanmakuUtil.shootDanmaku(worldIn, playerIn, heartShot, 0.6f, 0f);
 
         return super.onItemRightClick(worldIn, playerIn, handIn);

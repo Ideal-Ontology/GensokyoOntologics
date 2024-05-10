@@ -163,8 +163,8 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
                 return new RiceShotEntity(player, player.world, danmakuType, danmakuColor);
             case SCALE_SHOT:
                 return new ScaleShotEntity(player, player.world, danmakuType, danmakuColor);
-            case HEART_SHOT:
-                return new HeartShotEntity(player, player.world, danmakuType, danmakuColor);
+            // case HEART_SHOT:
+            //     return new HeartShotEntity(player, player.world, danmakuType, danmakuColor);
             case TALISMAN_SHOT:
                 return new TalismanShotEntity(player, player.world, danmakuType, danmakuColor);
             case STAR_SHOT_SMALL:

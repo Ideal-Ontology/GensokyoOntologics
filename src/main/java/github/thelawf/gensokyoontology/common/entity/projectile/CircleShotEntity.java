@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class CircleShotEntity extends ScriptedDanmakuEntity{
+public class CircleShotEntity extends ScriptedDanmakuEntity {
     public CircleShotEntity(LivingEntity throwerIn, World worldIn, CompoundNBT scriptIn) {
         super(EntityRegistry.CIRCLE_SHOT_ENTITY.get(), throwerIn, worldIn, DanmakuType.RICE_SHOT, scriptIn);
     }
