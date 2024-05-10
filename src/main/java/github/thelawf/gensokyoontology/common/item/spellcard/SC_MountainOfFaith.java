@@ -17,9 +17,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SC_MountainOfFaith extends SpellCardItem {
-    public SC_MountainOfFaith(Properties properties, int duration) {
-        super(properties, duration);
-    }
 
     @Override
     @NotNull

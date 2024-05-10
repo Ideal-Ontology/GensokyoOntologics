@@ -10,9 +10,6 @@ import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
 public class SC_HanaShigure extends SpellCardItem {
-    public SC_HanaShigure(Properties properties) {
-        super(properties);
-    }
 
     @Override
     @NotNull

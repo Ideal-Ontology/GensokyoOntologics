@@ -10,9 +10,6 @@ import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
 public class SC_SpiralWheel extends SpellCardItem {
-    public SC_SpiralWheel(Properties properties, int duration) {
-        super(properties, duration);
-    }
 
     @Override
     @NotNull

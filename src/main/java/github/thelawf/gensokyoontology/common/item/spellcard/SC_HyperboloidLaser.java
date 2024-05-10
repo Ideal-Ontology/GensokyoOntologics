@@ -10,9 +10,6 @@ import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
 public class SC_HyperboloidLaser extends SpellCardItem{
-    public SC_HyperboloidLaser(Properties properties) {
-        super(properties);
-    }
 
     @Override
     public @NotNull ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {

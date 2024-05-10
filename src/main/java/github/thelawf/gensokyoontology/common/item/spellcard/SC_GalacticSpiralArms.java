@@ -11,9 +11,6 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.InvocationTargetException;
 
 public class SC_GalacticSpiralArms extends SpellCardItem {
-    public SC_GalacticSpiralArms(Properties properties) {
-        super(properties);
-    }
 
     @Override
     @NotNull

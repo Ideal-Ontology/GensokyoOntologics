@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
+import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import github.thelawf.gensokyoontology.common.item.danmaku.DanmakuItem;
+import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -9,18 +11,14 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.function.Supplier;
+
 public abstract class SpellCardItem extends Item {
 
-    private int duration;
-
-    public SpellCardItem(Properties properties) {
-        super(properties);
+    public SpellCardItem() {
+        super(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1));
     }
 
-    public SpellCardItem(Properties properties, int duration) {
-        super(properties);
-        this.duration = duration;
-    }
 
     @Override
     @NotNull
@@ -32,14 +30,6 @@ public abstract class SpellCardItem extends Item {
             return ActionResult.resultConsume(playerIn.getHeldItem(handIn));
         }
         return ActionResult.resultPass(playerIn.getHeldItem(handIn));
-    }
-
-    public int getDuration() {
-        return duration;
-    }
-
-    public void setDuration(int duration) {
-        this.duration = duration;
     }
 
 }

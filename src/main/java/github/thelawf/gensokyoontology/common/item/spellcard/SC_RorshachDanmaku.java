@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.spellcard.RorschachDanmakuEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.WaveAndParticleEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -11,10 +10,6 @@ import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
 public class SC_RorshachDanmaku extends SpellCardItem{
-    public SC_RorshachDanmaku(Properties properties) {
-        super(properties);
-    }
-
     @Override
     public @NotNull ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
         if (playerIn.getCooldownTracker().hasCooldown(this))

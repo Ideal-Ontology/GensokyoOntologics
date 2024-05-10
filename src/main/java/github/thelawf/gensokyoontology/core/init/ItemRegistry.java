@@ -518,47 +518,33 @@ public final class ItemRegistry {
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//
     public static final RegistryObject<SpellCardBlank> SPELL_CARD_BLANK = ITEMS.register(
-            "spell_card_blank", () -> new SpellCardBlank(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+            "spell_card_blank", SpellCardBlank::new);
     public static final RegistryObject<SC_HyperboloidLaser> SC_HYPERBOLOID_LASER = ITEMS.register(
-            "sc_hyperboloid_laser", () -> new SC_HyperboloidLaser(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+            "sc_hyperboloid_laser", SC_HyperboloidLaser::new);
     public static final RegistryObject<SC_WaveAndParticle> SC_WAVE_AND_PARTICLE = ITEMS.register(
-            "sc_wave_and_particle", () -> new SC_WaveAndParticle(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1), 500));
+            "sc_wave_and_particle", SC_WaveAndParticle::new);
     public static final RegistryObject<SC_IdoNoKaiho> SC_IDO_NO_KAIHO = ITEMS.register(
-            "sc_ido_no_kaiho", () -> new SC_IdoNoKaiho(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1), 600));
+            "sc_ido_no_kaiho", SC_IdoNoKaiho::new);
     public static final RegistryObject<SC_SpiralWheel> SC_SPIRAL_WHEEL = ITEMS.register(
-            "sc_spiral_wheel", () -> new SC_SpiralWheel(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1), 500));
+            "sc_spiral_wheel", SC_SpiralWheel::new);
     public static final RegistryObject<SC_HellEclipse> SC_HELL_ECLIPSE = ITEMS.register(
-            "sc_hell_eclipse", () -> new SC_HellEclipse(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1), 500));
+            "sc_hell_eclipse", SC_HellEclipse::new);
     public static final RegistryObject<SC_MountainOfFaith> SC_MOUNTAIN_OF_FAITH = ITEMS.register(
-            "sc_mountain_of_faith", () -> new SC_MountainOfFaith(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1), 500));
+            "sc_mountain_of_faith", SC_MountainOfFaith::new);
     public static final RegistryObject<SC_MobiusRingWorld> SC_MOBIUS_RING_WORLD = ITEMS.register(
-            "sc_mobius_ring_world", () -> new SC_MobiusRingWorld(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+            "sc_mobius_ring_world", SC_MobiusRingWorld::new);
     public static final RegistryObject<SC_FullCherryBlossom> SC_FULL_CHERRY_BLOSSOM = ITEMS.register(
-            "sc_full_cherry_blossom", () -> new SC_FullCherryBlossom(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+            "sc_full_cherry_blossom", SC_FullCherryBlossom::new);
     public static final RegistryObject<SC_HanaShigure> SC_HANA_SHIGURE = ITEMS.register(
-            "sc_hana_shigure", () -> new SC_HanaShigure(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+            "sc_hana_shigure", SC_HanaShigure::new);
     public static final RegistryObject<SC_ManiaDepress> SC_MANIA_DEPRESS = ITEMS.register(
-            "sc_mania_depress", () -> new SC_ManiaDepress(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+            "sc_mania_depress", SC_ManiaDepress::new);
     public static final RegistryObject<SC_GalacticSpiralArms> SC_GALACTIC_SPIRAL_ARMS = ITEMS.register(
-            "sc_galactic_spiral_arms", () -> new SC_GalacticSpiralArms(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+            "sc_galactic_spiral_arms", SC_GalacticSpiralArms::new);
     public static final RegistryObject<SC_RorshachDanmaku> SC_RORSHACH_DANMAKU = ITEMS.register(
-            "sc_rorshach_danmaku", () -> new SC_RorshachDanmaku(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+            "sc_rorshach_danmaku", SC_RorshachDanmaku::new);
     public static final RegistryObject<ScriptedSpellCard> SCRIPTED_SPELL_CARD = ITEMS.register(
-            "scripted_spell_card", () -> new ScriptedSpellCard(new Item.Properties()
-                    .group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1)));
+            "scripted_spell_card", ScriptedSpellCard::new);
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
     public static final RegistryObject<DanmakuShotItem> DANMAKU_SHOT = ITEMS.register("danmaku_shot",

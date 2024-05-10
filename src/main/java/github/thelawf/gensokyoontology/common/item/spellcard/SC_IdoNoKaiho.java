@@ -15,10 +15,6 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.reflect.InvocationTargetException;
 
 public class SC_IdoNoKaiho extends SpellCardItem {
-    public SC_IdoNoKaiho(Properties properties, int duration) {
-        super(properties, duration);
-    }
-
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
@@ -26,13 +22,7 @@ public class SC_IdoNoKaiho extends SpellCardItem {
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         if (worldIn instanceof ServerWorld) {
-            IdonokaihoEntity idonokaiho;
-            try {
-                idonokaiho = new IdonokaihoEntity(worldIn, playerIn);
-            } catch (InvocationTargetException | NoSuchMethodException | InstantiationException |
-                     IllegalAccessException e) {
-                throw new RuntimeException(e);
-            }
+            IdonokaihoEntity idonokaiho = new IdonokaihoEntity(worldIn, playerIn);
             worldIn.addEntity(idonokaiho);
             if (!playerIn.isCreative()) playerIn.getCooldownTracker().setCooldown(this, 1200);
         }

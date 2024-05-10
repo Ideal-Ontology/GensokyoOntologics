@@ -9,9 +9,6 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public class ScriptedSpellCard extends SpellCardItem {
-    public ScriptedSpellCard(Properties properties) {
-        super(properties);
-    }
 
     @Override
     @NotNull

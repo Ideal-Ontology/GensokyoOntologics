@@ -10,9 +10,6 @@ import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
 public class SC_HellEclipse extends SpellCardItem {
-    public SC_HellEclipse(Properties properties, int duration) {
-        super(properties, duration);
-    }
 
     @Override
     @NotNull

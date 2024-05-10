@@ -20,9 +20,6 @@ import java.util.List;
 import java.util.function.Supplier;
 
 public class SC_FullCherryBlossom extends SpellCardItem {
-    public SC_FullCherryBlossom(Properties properties) {
-        super(properties);
-    }
 
     @Override
     @NotNull

@@ -8,8 +8,5 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 public class SpellCardBlank extends SpellCardItem {
-    public SpellCardBlank(Properties properties) {
-        super(properties);
-    }
 
 }

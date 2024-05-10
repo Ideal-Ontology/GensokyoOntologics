@@ -6,8 +6,5 @@ package github.thelawf.gensokyoontology.common.item.spellcard;
  * 其它终符一样，该符卡一共存在着四个阶段：【还没有想好】
  */
 public class SC_BeingAndNothing extends SpellCardItem {
-    public SC_BeingAndNothing(Properties properties) {
-        super(properties);
-    }
 
 }

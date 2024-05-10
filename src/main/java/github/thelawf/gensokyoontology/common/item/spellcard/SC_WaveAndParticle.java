@@ -11,12 +11,6 @@ import org.jetbrains.annotations.NotNull;
 
 public class SC_WaveAndParticle extends SpellCardItem {
 
-    public static final int LIFE_SPAN = 200;
-
-    public SC_WaveAndParticle(Properties properties, int duration) {
-        super(properties, duration);
-    }
-
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World world, @NotNull PlayerEntity player, @NotNull Hand handIn) {

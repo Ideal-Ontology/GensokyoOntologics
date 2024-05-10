@@ -18,9 +18,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 public class SC_MobiusRingWorld extends SpellCardItem {
-    public SC_MobiusRingWorld(Properties properties) {
-        super(properties);
-    }
 
     @Override
     @NotNull
