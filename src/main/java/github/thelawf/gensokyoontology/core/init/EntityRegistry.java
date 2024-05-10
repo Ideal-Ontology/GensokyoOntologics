@@ -8,7 +8,6 @@ import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.*;
-import github.thelawf.gensokyoontology.common.entity.passive.CitizenEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 // import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
@@ -130,8 +129,8 @@ public final class EntityRegistry {
             registerSpell("scarlet_prisoner", ScarletPrisoner::new);
     public static final RegistryObject<EntityType<MobiusRingEntity>> MOBIUS_RING_WORLD_ENTITY =
             registerSpell("mobius_ring_world", MobiusRingEntity::new);
-    public static final RegistryObject<EntityType<SpiralWheelEntity>> SPIRAL_WHEEL_ENTITY =
-            registerSpell("spiral_wheel", SpiralWheelEntity::new);
+    public static final RegistryObject<EntityType<SuperEgoSpellEntity>> SUPER_EGO_SPELL_ENTITY =
+            registerSpell("super_ego", SuperEgoSpellEntity::new);
     public static final RegistryObject<EntityType<HellEclipseEntity>> HELL_ECLIPSE_ENTITY =
             registerSpell("hell_eclipse", HellEclipseEntity::new);
     public static final RegistryObject<EntityType<ManiaDepressEntity>> MANIA_DEPRESS_ENTITY =

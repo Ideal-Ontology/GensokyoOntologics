@@ -98,7 +98,7 @@
   "item.gensokyoontology.komeiji_koishi_spawn_egg": "古明地恋刷怪蛋",
 
   "item.gensokyoontology.spell_card_blank": "空白符卡",
-  "item.gensokyoontology.sc_spiral_wheel": "实验性符卡: 螺旋车轮",
+  "item.gensokyoontology.sc_super_ego": "抑制「超我」",
   "item.gensokyoontology.sc_wave_and_particle": "境符「波与粒的境界」",
   "item.gensokyoontology.sc_ido_no_kaiho": "本能「本我的解放」",
   "item.gensokyoontology.sc_hell_eclipse": "狱符「地狱月食」",
@@ -703,6 +703,7 @@
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Available Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "Preparation $(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "item.gensokyoontology.sc_spiral_wheel": "实验性符卡: 螺旋车轮",
   "network.gensokyoontology.countdown.end": "Countdown End",
   "network.gensokyoontology.countdown.start": "Countdown Start"
 }

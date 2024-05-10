@@ -75,7 +75,7 @@ public class GSKOClientSetupEvents {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.IDO_NO_KAIHO_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SPIRAL_WHEEL_ENTITY.get(),
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SUPER_EGO_SPELL_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HELL_ECLIPSE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));

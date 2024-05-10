@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.core.init;
 
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.screen.script.DanmakuBuilderScreen;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.container.script.*;
 import github.thelawf.gensokyoontology.common.item.*;
@@ -26,7 +25,6 @@ import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -525,8 +523,8 @@ public final class ItemRegistry {
             "sc_wave_and_particle", SC_WaveAndParticle::new);
     public static final RegistryObject<SC_IdoNoKaiho> SC_IDO_NO_KAIHO = ITEMS.register(
             "sc_ido_no_kaiho", SC_IdoNoKaiho::new);
-    public static final RegistryObject<SC_SpiralWheel> SC_SPIRAL_WHEEL = ITEMS.register(
-            "sc_spiral_wheel", SC_SpiralWheel::new);
+    public static final RegistryObject<SC_SuperEgo> SC_SUPER_EGO = ITEMS.register(
+            "sc_super_ego", SC_SuperEgo::new);
     public static final RegistryObject<SC_HellEclipse> SC_HELL_ECLIPSE = ITEMS.register(
             "sc_hell_eclipse", SC_HellEclipse::new);
     // public static final RegistryObject<SC_MountainOfFaith> SC_MOUNTAIN_OF_FAITH = ITEMS.register(
