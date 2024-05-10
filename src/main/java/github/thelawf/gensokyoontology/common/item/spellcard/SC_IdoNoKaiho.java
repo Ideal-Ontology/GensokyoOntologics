@@ -30,4 +30,9 @@ public class SC_IdoNoKaiho extends SpellCardItem {
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
+    @Override
+    protected void applySpell(World worldIn, PlayerEntity playerIn) {
+
+    }
+
 }

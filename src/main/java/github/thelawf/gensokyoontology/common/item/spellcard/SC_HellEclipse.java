@@ -12,18 +12,14 @@ import org.jetbrains.annotations.NotNull;
 public class SC_HellEclipse extends SpellCardItem {
 
     @Override
-    @NotNull
-    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-
+    protected void applySpell(World worldIn, PlayerEntity playerIn) {
         if (worldIn instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld) worldIn;
 
             HellEclipseEntity hellEclipse = new HellEclipseEntity(worldIn, playerIn);
             worldIn.addEntity(hellEclipse);
 
             playerIn.getCooldownTracker().setCooldown(this, 1200);
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
 }

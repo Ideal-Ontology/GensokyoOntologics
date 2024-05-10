@@ -136,6 +136,6 @@ public class GalacticArmSpellEntity extends SpellCardEntity{
 
     @Override
     public @NotNull ItemStack getItem() {
-        return new ItemStack(ItemRegistry.SC_GALACTIC_SPIRAL_ARMS.get());
+        return ItemStack.EMPTY;
     }
 }

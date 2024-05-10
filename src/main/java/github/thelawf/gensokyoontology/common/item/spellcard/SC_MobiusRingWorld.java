@@ -20,19 +20,12 @@ import java.util.List;
 public class SC_MobiusRingWorld extends SpellCardItem {
 
     @Override
-    @NotNull
-    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        if (playerIn.getCooldownTracker().hasCooldown(this))
-            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
-
+    protected void applySpell(World worldIn, PlayerEntity playerIn) {
         if (worldIn instanceof ServerWorld) {
             MobiusRingEntity spellCard = new MobiusRingEntity(worldIn, playerIn);
             worldIn.addEntity(spellCard);
             playerIn.getCooldownTracker().setCooldown(this, 1200);
-            playerIn.sendMessage(new TranslationTextComponent("msg." + GensokyoOntology.MODID +
-                    ".spell_card_announcement.mobius_ring_world"), playerIn.getUniqueID());
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
     @Override

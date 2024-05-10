@@ -27,4 +27,9 @@ public class SC_HyperboloidLaser extends SpellCardItem{
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
+
+    @Override
+    protected void applySpell(World worldIn, PlayerEntity playerIn) {
+
+    }
 }

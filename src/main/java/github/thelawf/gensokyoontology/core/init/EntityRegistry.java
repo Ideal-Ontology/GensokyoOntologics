@@ -148,18 +148,8 @@ public final class EntityRegistry {
             registerSpell("scripted_spell_card", ScriptedSpellCardEntity::new);
     public static final RegistryObject<EntityType<MountainOfFaithEntity>> MOUNTAIN_OF_FAITH_ENTITY =
             registerSpell("mountain_of_faith", MountainOfFaithEntity::new);
-
-    public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY = ENTITIES.register(
-            "ido_no_kaiho", () -> EntityType.Builder.<IdonokaihoEntity>create((entityTypeIn, worldIn) -> {
-                                try {
-                                    return new IdonokaihoEntity(entityTypeIn, worldIn);
-                                } catch (InvocationTargetException | NoSuchMethodException | InstantiationException |
-                                         IllegalAccessException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            },
-                            EntityClassification.MISC).size(1F, 1F).trackingRange(4)
-                    .updateInterval(2).build("ido_no_kaiho"));
+    public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY =
+            registerSpell("ido_no_kaiho", IdonokaihoEntity::new);
     public static final RegistryObject<EntityType<GalacticArmSpellEntity>> GALACTIC_ARM_SPELL_ENTITY =
             ENTITIES.register("galactic_arm_spell", () -> EntityType.Builder.<GalacticArmSpellEntity>create((entityTypeIn, worldIn) -> {
                         try {

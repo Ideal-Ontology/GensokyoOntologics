@@ -22,16 +22,12 @@ import java.util.function.Supplier;
 public class SC_FullCherryBlossom extends SpellCardItem {
 
     @Override
-    @NotNull
-    public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-
+    protected void applySpell(World worldIn, PlayerEntity playerIn) {
         if (worldIn instanceof ServerWorld) {
-
             FullCherryBlossomEntity fullCherryBlossom = new FullCherryBlossomEntity(worldIn, playerIn);
             fullCherryBlossom.setOwner(playerIn);
             worldIn.addEntity(fullCherryBlossom);
             playerIn.getCooldownTracker().setCooldown(this, 1200);
         }
-        return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 }

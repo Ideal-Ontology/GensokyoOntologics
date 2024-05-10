@@ -33,6 +33,11 @@ public class SC_MountainOfFaith extends SpellCardItem {
     }
 
     @Override
+    protected void applySpell(World worldIn, PlayerEntity playerIn) {
+
+    }
+
+    @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         // tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID +
         //         ".spellcard.mountain_of_faith.info"));

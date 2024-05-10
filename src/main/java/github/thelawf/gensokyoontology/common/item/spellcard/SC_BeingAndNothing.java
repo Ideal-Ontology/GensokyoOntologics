@@ -1,5 +1,8 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.World;
+
 /**
  * 八云紫的：「存在与虚无的境界」
  * 在击败最终阶段的八云紫后，八云紫将会释放该符卡，还会神出鬼没地来往于隙间与现实。和东方系列的
@@ -7,4 +10,8 @@ package github.thelawf.gensokyoontology.common.item.spellcard;
  */
 public class SC_BeingAndNothing extends SpellCardItem {
 
+    @Override
+    protected void applySpell(World worldIn, PlayerEntity playerIn) {
+
+    }
 }

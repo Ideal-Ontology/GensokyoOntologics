@@ -137,6 +137,7 @@ public class MountainOfFaithEntity extends SpellCardEntity {
     @Override
     @NotNull
     public ItemStack getItem() {
-        return new ItemStack(ItemRegistry.SC_MOUNTAIN_OF_FAITH.get());
+        return ItemStack.EMPTY;
+        // return new ItemStack(ItemRegistry.SC_MOUNTAIN_OF_FAITH.get());
     }
 }

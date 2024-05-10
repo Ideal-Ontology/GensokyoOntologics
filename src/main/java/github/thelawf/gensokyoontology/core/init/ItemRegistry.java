@@ -529,22 +529,23 @@ public final class ItemRegistry {
             "sc_spiral_wheel", SC_SpiralWheel::new);
     public static final RegistryObject<SC_HellEclipse> SC_HELL_ECLIPSE = ITEMS.register(
             "sc_hell_eclipse", SC_HellEclipse::new);
-    public static final RegistryObject<SC_MountainOfFaith> SC_MOUNTAIN_OF_FAITH = ITEMS.register(
-            "sc_mountain_of_faith", SC_MountainOfFaith::new);
+    // public static final RegistryObject<SC_MountainOfFaith> SC_MOUNTAIN_OF_FAITH = ITEMS.register(
+    //         "sc_mountain_of_faith", SC_MountainOfFaith::new);
     public static final RegistryObject<SC_MobiusRingWorld> SC_MOBIUS_RING_WORLD = ITEMS.register(
             "sc_mobius_ring_world", SC_MobiusRingWorld::new);
     public static final RegistryObject<SC_FullCherryBlossom> SC_FULL_CHERRY_BLOSSOM = ITEMS.register(
             "sc_full_cherry_blossom", SC_FullCherryBlossom::new);
-    public static final RegistryObject<SC_HanaShigure> SC_HANA_SHIGURE = ITEMS.register(
-            "sc_hana_shigure", SC_HanaShigure::new);
-    public static final RegistryObject<SC_ManiaDepress> SC_MANIA_DEPRESS = ITEMS.register(
-            "sc_mania_depress", SC_ManiaDepress::new);
-    public static final RegistryObject<SC_GalacticSpiralArms> SC_GALACTIC_SPIRAL_ARMS = ITEMS.register(
-            "sc_galactic_spiral_arms", SC_GalacticSpiralArms::new);
     public static final RegistryObject<SC_RorshachDanmaku> SC_RORSHACH_DANMAKU = ITEMS.register(
             "sc_rorshach_danmaku", SC_RorshachDanmaku::new);
     public static final RegistryObject<ScriptedSpellCard> SCRIPTED_SPELL_CARD = ITEMS.register(
             "scripted_spell_card", ScriptedSpellCard::new);
+
+    // public static final RegistryObject<SC_HanaShigure> SC_HANA_SHIGURE = ITEMS.register(
+    //         "sc_hana_shigure", SC_HanaShigure::new);
+    // public static final RegistryObject<SC_ManiaDepress> SC_MANIA_DEPRESS = ITEMS.register(
+    //         "sc_mania_depress", SC_ManiaDepress::new);
+    // public static final RegistryObject<SC_GalacticSpiralArms> SC_GALACTIC_SPIRAL_ARMS = ITEMS.register(
+    //         "sc_galactic_spiral_arms", SC_GalacticSpiralArms::new);
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
     public static final RegistryObject<DanmakuShotItem> DANMAKU_SHOT = ITEMS.register("danmaku_shot",

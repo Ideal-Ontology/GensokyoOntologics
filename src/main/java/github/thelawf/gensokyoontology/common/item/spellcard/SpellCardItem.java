@@ -19,17 +19,18 @@ public abstract class SpellCardItem extends Item {
         super(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB).maxStackSize(1));
     }
 
-
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn,@NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        if (playerIn.getCooldownTracker().hasCooldown(this) && !playerIn.isCreative())
-            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
-
-        if (playerIn.getHeldItem(handIn).getItem() instanceof DanmakuItem) {
-            return ActionResult.resultConsume(playerIn.getHeldItem(handIn));
+        if (playerIn.isCreative()) {
+            applySpell(worldIn, playerIn);
+            return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
         }
+
+        if (playerIn.getCooldownTracker().hasCooldown(this)) return ActionResult.resultFail(playerIn.getHeldItem(handIn));
+        applySpell(worldIn, playerIn);
         return ActionResult.resultPass(playerIn.getHeldItem(handIn));
     }
 
+    protected abstract void applySpell(World worldIn, PlayerEntity playerIn);
 }
