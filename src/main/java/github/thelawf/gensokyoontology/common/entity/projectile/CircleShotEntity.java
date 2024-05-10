@@ -29,43 +29,7 @@ public class CircleShotEntity extends ScriptedDanmakuEntity{
 
     @Override
     public void onScriptTick() {
-        // ListNBT list1 = wrapAsList(this.scriptsNBT.get("scripts"));
-        // list1.forEach(inbt1 -> {
-
-        ListNBT list2 = getBehaviors(this.scriptsNBT);
-        for (INBT inbt2 : list2) {
-            CompoundNBT behavior = wrapAsCompound(inbt2);
-            if (behavior.contains("shoot") && behavior.get("shoot") instanceof ListNBT) {
-                List<Double> paramList = wrapAsDoubleFromList((ListNBT) behavior.get("shoot"));
-                int keyTick = behavior.getInt("keyTick");
-                if (paramList.size() != 4) return;
-                if (this.ticksExisted == keyTick) this.shoot(paramList.get(0), paramList.get(1), paramList.get(2), paramList.get(3).floatValue(), 0f);
-            }
-            if (behavior.contains("setMotion") && behavior.get("setMotion") instanceof ListNBT) {
-                List<Double> paramList = wrapAsDoubleFromList((ListNBT) behavior.get("setMotion"));
-                int keyTick = behavior.getInt("keyTick");
-                if (paramList.size() != 3) return;
-                Vector3d motion = new Vector3d(paramList.get(0), paramList.get(1), paramList.get(2));
-                if (this.ticksExisted == keyTick) this.setMotion(motion.normalize());
-            }
-        }
-        // list2.forEach(inbt2 -> {
-        //     CompoundNBT behavior = wrapAsCompound(inbt2);
-        //     if (behavior.contains("shoot") && behavior.get("shoot") instanceof ListNBT) {
-        //         List<Double> paramList = wrapAsDoubleFromList((ListNBT) behavior.get("shoot"));
-        //         int keyTick = behavior.getInt("keyTick");
-        //         if (paramList.size() != 4) return;
-        //         if (this.ticksExisted == keyTick) this.shoot(paramList.get(0), paramList.get(1), paramList.get(2), paramList.get(3).floatValue(), 0f);
-        //     }
-        //     if (behavior.contains("setMotion") && behavior.get("setMotion") instanceof ListNBT) {
-        //         List<Double> paramList = wrapAsDoubleFromList((ListNBT) behavior.get("shoot"));
-        //         int keyTick = behavior.getInt("keyTick");
-        //         if (paramList.size() != 3) return;
-        //         Vector3d motion = new Vector3d(paramList.get(0), paramList.get(1), paramList.get(2));
-        //         if (this.ticksExisted == keyTick) this.setMotion(motion.normalize());
-        //     }
-        // });
-        // });
+        super.onScriptTick();
     }
 
     @OnlyIn(Dist.CLIENT)

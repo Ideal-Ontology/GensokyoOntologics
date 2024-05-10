@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.client.event;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.model.KoishiHatModel;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.*;
 import github.thelawf.gensokyoontology.common.item.armor.KoishiHatArmorItem;
@@ -27,8 +26,7 @@ public class GSKOClientSetupEvents {
         // ========================== 弹幕的渲染器 ======================== //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HEART_SHOT_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
+
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LARGE_SHOT_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SMALL_SHOT_ENTITY.get(),
@@ -36,22 +34,25 @@ public class GSKOClientSetupEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CIRCLE_SHOT_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 1.0f, false));
 
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAKE_LUNAR_ENTITY.get(),
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 8.0f, false));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_DANMAKU.get(),
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 4f, false));
+
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_SMALL_ENTITY.get(),
                 manager -> new StarShotRenderer(manager, itemRenderer, 0.8f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_LARGE_ENTITY.get(),
                 manager -> new StarShotRenderer(manager, itemRenderer, 3.5f, false));
 
+        // 以下弹幕使用法向渲染
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.TALISMAN_SHOT_ENTITY.get(),
-                manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 1f, false));
+                manager -> new NormalVectorRenderer(manager, itemRenderer, 1f, false, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RICE_SHOT_ENTITY.get(),
-                manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 0.4f, false));
+                manager -> new NormalVectorRenderer(manager, itemRenderer, 0.4f, false, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SCALE_SHOT_ENTITY.get(),
-                manager -> new DanmakuNormalVectorRenderer(manager, itemRenderer, 0.3f, false));
-
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAKE_LUNAR_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 8.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_DANMAKU.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 4f, false));
+                manager -> new NormalVectorRenderer(manager, itemRenderer, 0.3f, false, false));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HEART_SHOT_ENTITY.get(),
+                manager -> new NormalVectorRenderer(manager, itemRenderer, 2.0f, false, true));
 
         // ======================== 贴图类怪物的渲染器 ==================== //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_ENTITY.get(),

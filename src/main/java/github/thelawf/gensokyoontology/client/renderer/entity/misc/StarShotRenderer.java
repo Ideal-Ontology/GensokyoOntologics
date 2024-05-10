@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -26,9 +27,13 @@ public class StarShotRenderer extends SpriteRenderer<AbstractDanmakuEntity> {
     public void render(@NotNull AbstractDanmakuEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.push();
 
+        float speed = 5;
+        float angle = GSKOMathUtil.lerpTicks(partialTicks, entityIn.getLifespan(), entityIn.ticksExisted, 0f, 360F * speed);
+
         matrixStackIn.scale(this.scale, this.scale, this.scale);
         matrixStackIn.rotate(this.renderManager.getCameraOrientation());
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(angle));
         //matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw)));
         //matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch)));
 

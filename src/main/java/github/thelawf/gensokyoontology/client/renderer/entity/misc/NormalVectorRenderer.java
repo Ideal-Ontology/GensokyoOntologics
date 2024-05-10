@@ -4,7 +4,6 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
@@ -16,15 +15,16 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class DanmakuNormalVectorRenderer extends SpriteRenderer<AbstractDanmakuEntity> {
-
+public class NormalVectorRenderer extends SpriteRenderer<AbstractDanmakuEntity> {
+    private final boolean isUp;
     private final ItemRenderer itemRenderer;
     private final float scale;
 
-    public DanmakuNormalVectorRenderer(EntityRendererManager manager, ItemRenderer itemRenderer, float scale, boolean p_i226035_4_) {
+    public NormalVectorRenderer(EntityRendererManager manager, ItemRenderer itemRenderer, float scale, boolean p_i226035_4_, boolean isUp) {
         super(manager, itemRenderer, scale, p_i226035_4_);
         this.itemRenderer = itemRenderer;
         this.scale = scale;
+        this.isUp = isUp;
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -37,6 +37,7 @@ public class DanmakuNormalVectorRenderer extends SpriteRenderer<AbstractDanmakuE
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch) - 90f));
 
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90.f));
+        if (isUp) matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(180.F));
         itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GUI,
                 packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         matrixStackIn.pop();

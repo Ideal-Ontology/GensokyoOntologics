@@ -75,7 +75,7 @@ public class IdonokaihoEntity extends SpellCardEntity {
         double e = Math.E;
         double angle = Math.PI * 2 / 360 * ticksExisted;
 
-        // TODO: 1. 生成弹幕对象池，并将其添加至世界；2. 获取弹幕UUID，添加至UUID列表；3. 遍历UUID列表，动态修改里面的弹幕Motion
+        // TODO: 现在可以通过继承脚本弹幕的方式设置其运动
         for (int i = 0; i < 6; i++) {
             for (int j = 0; j < pool.get(i).size(); j++) {
                 // angle += Math.PI / 3 * i;
