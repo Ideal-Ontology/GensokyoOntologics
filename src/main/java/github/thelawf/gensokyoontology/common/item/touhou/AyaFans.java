@@ -61,10 +61,13 @@ public class AyaFans extends Item implements IRayTraceReader {
         getEntityWithinSphere(worldIn, ProjectileEntity.class, box, 12).forEach(projectile ->
                 applyProjectileKnockback(projectile, 3.0f, -lookVec.x, -lookVec.z));
 
-        for (int i = 0; i < GSKOMathUtil.randomRange(30, 60); i++) {
-            worldIn.addParticle(ParticleTypes.CLOUD, false, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(),
-                    lookVec.x + random.nextDouble(), lookVec.y + random.nextDouble(), lookVec.z + random.nextDouble());
+        if (worldIn.isRemote) {
+            for (int i = 0; i < GSKOMathUtil.randomRange(30, 60); i++) {
+                worldIn.addParticle(ParticleTypes.CLOUD, false, playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(),
+                        lookVec.x + random.nextDouble(), lookVec.y + random.nextDouble(), lookVec.z + random.nextDouble());
+            }
         }
+
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 

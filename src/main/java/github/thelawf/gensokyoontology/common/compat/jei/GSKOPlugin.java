@@ -1,16 +1,15 @@
 package github.thelawf.gensokyoontology.common.compat.jei;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
-import github.thelawf.gensokyoontology.data.recipe.GSKORecipeHandler;
-import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
+import github.thelawf.gensokyoontology.data.recipe.ISorceryExtractorRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Objects;
@@ -56,7 +55,7 @@ public class GSKOPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeTransferHandlers(IRecipeTransferRegistration registration) {
-        IModPlugin.super.registerRecipeTransferHandlers(registration);
+        registration.addRecipeTransferHandler(SorceryExtractorContainer.class, SorceryRecipeCategory.UID, 0, 4, 4, 36);
     }
 
     @Override

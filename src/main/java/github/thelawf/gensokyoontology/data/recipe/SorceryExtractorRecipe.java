@@ -12,6 +12,7 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
@@ -62,7 +63,7 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
     @Override
     @NotNull
     public IRecipeSerializer<?> getSerializer() {
-        return RecipeRegistry.DANMAKU_CRAFT_SERIALIZER.get();
+        return RecipeRegistry.SORCERY_SERIALIZER.get();
     }
 
     public static class SorceryRecipeType implements IRecipeType<SorceryExtractorRecipe> {
@@ -77,9 +78,9 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
         @Override
         @NotNull
         public SorceryExtractorRecipe read(@NotNull ResourceLocation recipeId, @NotNull JsonObject json) {
-            ItemStack output = ShapedRecipe.deserializeItem(JSONUtils.getJsonObject(json, "output"));
-            JsonArray ingredients = JSONUtils.getJsonArray(json, "ingredients");
 
+            ItemStack output = CraftingHelper.getItemStack(JSONUtils.getJsonObject(json, "output"), true);
+            JsonArray ingredients = JSONUtils.getJsonArray(json, "ingredients");
             NonNullList<Ingredient> inputs = NonNullList.create();
 
             // JsonElement up = ingredients.get(0);
@@ -102,21 +103,20 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
         @Nullable
         @Override
         public SorceryExtractorRecipe read(@NotNull ResourceLocation recipeId, @NotNull PacketBuffer buffer) {
-            NonNullList<Ingredient> inputs = NonNullList.withSize(4, Ingredient.EMPTY);
-
-            inputs.replaceAll(ignored -> Ingredient.read(buffer));
-
             ItemStack output = buffer.readItemStack();
+            int i = buffer.readVarInt();
+            NonNullList<Ingredient> inputs = NonNullList.withSize(i, Ingredient.EMPTY);
+            inputs.replaceAll(ignored -> Ingredient.read(buffer));
             return new SorceryExtractorRecipe(recipeId, output, inputs);
         }
 
         @Override
         public void write(PacketBuffer buffer, SorceryExtractorRecipe recipe) {
+            buffer.writeItemStack(recipe.getRecipeOutput(), false);
             buffer.writeVarInt(recipe.inputs.size());
             for (Ingredient ingredient : recipe.inputs) {
                 ingredient.write(buffer);
             }
-            buffer.writeItemStack(recipe.getRecipeOutput(), false);
         }
     }
 

@@ -92,37 +92,10 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
             int surfaceY = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
             BlockPos pos = new BlockPos(x, surfaceY, z);
 
-            // addPieces() Method
-            // 不知道为什么这里只能递归地添加6个建筑模块(StructurePiece)
-            // JigsawManager.func_242837_a(dynamicRegistry,
-            //         new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-            //                 .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "scarlet_devil_mansion/start_pool")),
-            //                 10), AbstractVillagePiece::new, chunkGenerator, managerIn,
-            //         pos, this.components, this.rand, false, true);
-
-            // this.components.add(new ScarletMansionPieces.Piece(managerIn, "mansion_0_0_0", pos, Rotation.NONE, Mirror.NONE));
-
-            // 所以需要在这里继续递归添加建筑模块
+            // 拼图建筑只能递归地添加7个建筑模板，所以只能在这里像这样使用模板建筑将所有模板放入列表然后规定其生成位置
             ScarletMansionPieces.start(managerIn, pos, Rotation.NONE, this.components);
             this.recalculateStructureSize();
             GensokyoOntology.LOGGER.info("Rundown House at " + (pos.getX()) + " " + pos.getY() + " " + (pos.getZ()));
-
-            // this.components.forEach(structurePiece -> {
-            //     if (structurePiece instanceof AbstractVillagePiece) {
-            //         AbstractVillagePiece piece = (AbstractVillagePiece) structurePiece;
-
-            //         if (this.components.indexOf(piece) == this.components.size() -2) {
-            //             GSKOUtil.log(this.getClass(), "Mansion_2_ROT: " + piece.rotation);
-            //             piece.rotation = Rotation.CLOCKWISE_90;
-            //             piece.offset(0,0,123);
-            //         }
-            //         if (this.components.indexOf(piece) == this.components.size() -1) {
-            //             piece.rotation = Rotation.CLOCKWISE_90;
-            //             piece.offset(0,0,123);
-            //         }
-            //     }
-            // });
-            // this.components.forEach(piece -> GSKOUtil.log(this.getClass(), ));
 
         }
 

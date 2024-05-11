@@ -14,8 +14,8 @@ public class RecipeRegistry {
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(
             ForgeRegistries.RECIPE_SERIALIZERS, GensokyoOntology.MODID);
 
-    // public static final RegistryObject<SorceryExtractorRecipe.Serializer> SORCERY_SERIALIZER = RECIPE_SERIALIZERS.register(
-    //         "sorcery_extract", SorceryExtractorRecipe.Serializer::new);
+    public static final RegistryObject<SorceryExtractorRecipe.Serializer> SORCERY_SERIALIZER = RECIPE_SERIALIZERS.register(
+            "sorcery_extract", SorceryExtractorRecipe.Serializer::new);
     public static final RegistryObject<DanmakuRecipe.Serializer> DANMAKU_CRAFT_SERIALIZER = RECIPE_SERIALIZERS.register(
             "danmaku_craft", DanmakuRecipe.Serializer::new);
 
