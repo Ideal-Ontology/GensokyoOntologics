@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.entity;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.api.dialog.IEntityDialog;
+import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IAngerable;
 import net.minecraft.entity.passive.TameableEntity;
@@ -13,7 +14,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ConversationalEntity extends TameableEntity implements IAngerable, IEntityDialog {
+public abstract class ConversationalEntity extends YoukaiEntity implements IAngerable, IEntityDialog {
 
     private DialogTreeNode dialog;
     public static final DataParameter<String> DATA_DIALOG_KEY = EntityDataManager.createKey(

@@ -62,7 +62,7 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
     @Override
     @NotNull
     public IRecipeSerializer<?> getSerializer() {
-        return RecipeRegistry.SORCERY_SERIALIZER.get();
+        return RecipeRegistry.DANMAKU_CRAFT_SERIALIZER.get();
     }
 
     public static class SorceryRecipeType implements IRecipeType<SorceryExtractorRecipe> {

@@ -4,10 +4,7 @@ import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -96,8 +93,13 @@ public class KomeijiKoishiEntity extends ConversationalEntity implements ISpellC
 
     }
 
-    private int getFavorability() {
+    public int getFavorability() {
         return this.dataManager.get(DATA_FAVORABILITY);
+    }
+
+    @Override
+    public void danmakuAttack(LivingEntity target) {
+
     }
 
     @Override

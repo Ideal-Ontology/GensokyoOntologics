@@ -84,7 +84,7 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     }
 
     public boolean isDuringSpellCardAttack(boolean isDuringSpellCardAttack){
-        duringSpellCard = isDuringSpellCardAttack;
+        this.duringSpellCard = isDuringSpellCardAttack;
         return duringSpellCard;
     }
     @OnlyIn(Dist.CLIENT)

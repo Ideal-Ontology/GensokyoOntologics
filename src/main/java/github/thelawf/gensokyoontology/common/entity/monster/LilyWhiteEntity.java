@@ -97,4 +97,9 @@ public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardU
         return optionIndex == 0 ? new DialogTreeNode("root").accessBranch(optionIndex) :
                 new DialogTreeNode("root");
     }
+
+    @Override
+    public void danmakuAttack(LivingEntity target) {
+
+    }
 }

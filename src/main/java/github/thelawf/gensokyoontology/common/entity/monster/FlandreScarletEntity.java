@@ -132,7 +132,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     @Override
     public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
         if (spellCard == null) return;
-        // spellCard.onTick(this.world, this, ticksIn);
+        spellCard.onTick(this.world, this, ticksIn);
         spellCard.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(), this.rotationYaw, this.rotationPitch);
         world.addEntity(spellCard);
     }

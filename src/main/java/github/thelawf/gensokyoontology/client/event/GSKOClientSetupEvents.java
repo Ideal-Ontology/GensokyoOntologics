@@ -40,9 +40,9 @@ public class GSKOClientSetupEvents {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 4f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_SMALL_ENTITY.get(),
-                manager -> new StarShotRenderer(manager, itemRenderer, 0.8f, false));
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 0.8f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_LARGE_ENTITY.get(),
-                manager -> new StarShotRenderer(manager, itemRenderer, 3.5f, false));
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.5f, false));
 
         // 以下弹幕使用法向渲染
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.TALISMAN_SHOT_ENTITY.get(),
