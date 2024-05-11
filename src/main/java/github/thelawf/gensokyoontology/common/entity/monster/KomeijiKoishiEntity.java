@@ -3,7 +3,10 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.KoishiSpellAttackGoal;
+import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
@@ -42,12 +45,15 @@ public class KomeijiKoishiEntity extends ConversationalEntity implements ISpellC
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
+        this.goalSelector.addGoal(3, new KoishiSpellAttackGoal(this, 0.7F));
+
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
         this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8f));
         this.goalSelector.addGoal(8, new LookRandomlyGoal(this));
 
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, CreatureEntity.class)).setCallsForHelp());
+        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
     }
 
     @Override
@@ -116,6 +122,11 @@ public class KomeijiKoishiEntity extends ConversationalEntity implements ISpellC
 
     @Override
     public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
-
+        if (spellCard instanceof IdonokaihoEntity) {
+            this.setNoGravity(true);
+            if (GSKOMathUtil.isBetween(ticksIn, 10, 50)) this.setMotion(0, 0.6, 0);
+            spellCard.tick();
+        }
+        this.setNoGravity(false);
     }
 }

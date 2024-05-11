@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.pathfinding.Path;
@@ -30,7 +31,11 @@ public class KoishiSpellAttackGoal extends Goal {
         if (this.entity.getEntitySenses().canSee(target)) {
             this.entity.getNavigator().tryMoveToEntityLiving(target, this.speed);
             // this.entity.setNoGravity(true);
-            if (isHealthBetween(this.entity, 0.8f, 1f));
+            this.entity.setNoGravity(false);
+            if (isHealthBetween(this.entity, 0.8f, 1f)) {
+                IdonokaihoEntity idonokaiho = new IdonokaihoEntity(this.entity.world, this.entity);
+                this.entity.spellCardAttack(idonokaiho, ticksExisted);
+            };
 
         } else if (!this.entity.getEntitySenses().canSee(target)) {
             this.entity.getNavigator().clearPath();

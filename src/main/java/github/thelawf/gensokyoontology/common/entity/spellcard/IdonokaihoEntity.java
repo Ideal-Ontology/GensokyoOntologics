@@ -21,7 +21,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class IdonokaihoEntity extends SpellCardEntity {
 
-    public IdonokaihoEntity(World worldIn, PlayerEntity player){
+    public IdonokaihoEntity(World worldIn, LivingEntity player){
         super(EntityRegistry.IDO_NO_KAIHO_ENTITY.get(), worldIn, player);
     }
 
