@@ -123,8 +123,8 @@ public class KomeijiKoishiEntity extends ConversationalEntity implements ISpellC
     @Override
     public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
         if (spellCard instanceof IdonokaihoEntity) {
-            this.setNoGravity(true);
-            if (GSKOMathUtil.isBetween(ticksIn, 10, 50)) this.setMotion(0, 0.6, 0);
+            // this.setNoGravity(true);
+            // if (GSKOMathUtil.isBetween(ticksIn, 10, 50)) this.setMotion(0, 0.6, 0);
             spellCard.tick();
         }
         this.setNoGravity(false);

@@ -34,6 +34,7 @@ public class KoishiSpellAttackGoal extends Goal {
             this.entity.setNoGravity(false);
             if (isHealthBetween(this.entity, 0.8f, 1f)) {
                 IdonokaihoEntity idonokaiho = new IdonokaihoEntity(this.entity.world, this.entity);
+                idonokaiho.setLocationAndAngles(this.entity.getPosX(), this.entity.getPosY() + 0.8, this.entity.getPosZ(), 0f, 0f);
                 this.entity.spellCardAttack(idonokaiho, ticksExisted);
             };
 

@@ -38,9 +38,8 @@ public class ScarletMansionPieces {
     // 200: l=28
     // 300: l=23
     //
-    // -18
-    // -47 (-41) ^+47 ^+27
-    // 0 -> +47 -> +46 -> +28
+    // Garden:
+    // South West: l = 34<<, 0, 48vv
     public static final Map<ResourceLocation, BlockPos> OFFSET = new ImmutableMap.Builder<ResourceLocation, BlockPos>()
             .put(GensokyoOntology.withRL(PREFIX + "mansion_0_0_0"), BlockPos.ZERO)
             .put(GensokyoOntology.withRL(PREFIX + "mansion_1_0_0"), new BlockPos(47, 0, 0))
@@ -65,8 +64,11 @@ public class ScarletMansionPieces {
             .put(GensokyoOntology.withRL(PREFIX + "mansion_0_1_2"), new BlockPos(0, 47, -32-33))
             .put(GensokyoOntology.withRL(PREFIX + "mansion_1_1_2"), new BlockPos(47, 47, -32-33))
             .put(GensokyoOntology.withRL(PREFIX + "mansion_2_1_2"), new BlockPos(47+46, 47, -32-33))
+            .put(GensokyoOntology.withRL(PREFIX + "mansion_0_2_1"), new BlockPos(0, 47+27, -47))
 
-            .put(GensokyoOntology.withRL(PREFIX + "mansion_0_2_1"), new BlockPos(0, 47+27, -47)).build();
+            .put(GensokyoOntology.withRL(PREFIX + "garden_sw"), new BlockPos(-34, 0, 0))
+            .put(GensokyoOntology.withRL(PREFIX + "garden_front_left"), new BlockPos(15, 0, 0))
+            .put(GensokyoOntology.withRL(PREFIX + "garden_front"), new BlockPos(48, 0, 0)).build();
     public static void start(TemplateManager templateManager, BlockPos pos, Rotation rotation,
                              List<StructurePiece> pieces) {
         int x = pos.getX();

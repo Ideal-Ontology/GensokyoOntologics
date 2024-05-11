@@ -33,15 +33,15 @@ public abstract class ConversationalEntity extends YoukaiEntity implements IAnge
     @Override
     public void readAdditional(@NotNull CompoundNBT compound) {
         super.readAdditional(compound);
-        if (compound.contains("dialog_key")) {
-            this.dialog = new DialogTreeNode(compound.getString("dialog_key"));
-        }
+        // if (compound.contains("dialog_key")) {
+        //     this.dialog = new DialogTreeNode(compound.getString("dialog_key"));
+        // }
     }
 
     @Override
     public void writeAdditional(@NotNull CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putString("dialog_key", this.dialog.getName());
+        // compound.putString("dialog_key", this.dialog.getName());
     }
 
     @Override

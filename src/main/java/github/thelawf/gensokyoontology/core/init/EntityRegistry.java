@@ -66,7 +66,7 @@ public final class EntityRegistry {
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("hakurei_reimu"));
     public static final RegistryObject<EntityType<KomeijiKoishiEntity>> KOMEIJI_KOISHI = ENTITIES.register(
             "komeiji_koishi", () -> EntityType.Builder.create(KomeijiKoishiEntity::new, EntityClassification.CREATURE)
-                    .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("komeiji_koishi"));
+                    .updateInterval(2).size(0.6f, 1.6f).trackingRange(10).build("komeiji_koishi"));
 
     // public static final RegistryObject<EntityType<FlandreScarletEntity>> SUMIREKO_ENTITY = ENTITIES.register(
     //         "usami_sumireko", () -> FlandreScarletEntity.SUMIREKO);
@@ -82,7 +82,7 @@ public final class EntityRegistry {
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("danmaku_shot"));
     public static final RegistryObject<EntityType<HeartShotEntity>> HEART_SHOT_ENTITY = ENTITIES.register(
             "heart_shot", () -> EntityType.Builder.<HeartShotEntity>create(HeartShotEntity::new, EntityClassification.MISC)
-                    .size(2F, 2F).trackingRange(4).updateInterval(2).build("heart_shot"));
+                    .size(1.2F, 1.2F).trackingRange(4).updateInterval(2).build("heart_shot"));
     public static final RegistryObject<EntityType<LargeShotEntity>> LARGE_SHOT_ENTITY = ENTITIES.register(
             "large_shot", () -> EntityType.Builder.<LargeShotEntity>create(LargeShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("large_shot"));
