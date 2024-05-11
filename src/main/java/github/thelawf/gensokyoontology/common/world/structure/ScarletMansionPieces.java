@@ -40,6 +40,7 @@ public class ScarletMansionPieces {
     //
     // Garden:
     // South West: l = 34<<, 0, 48vv
+    // back: l=>>48, 0,
     public static final Map<ResourceLocation, BlockPos> OFFSET = new ImmutableMap.Builder<ResourceLocation, BlockPos>()
             .put(GensokyoOntology.withRL(PREFIX + "mansion_0_0_0"), BlockPos.ZERO)
             .put(GensokyoOntology.withRL(PREFIX + "mansion_1_0_0"), new BlockPos(47, 0, 0))
@@ -66,9 +67,18 @@ public class ScarletMansionPieces {
             .put(GensokyoOntology.withRL(PREFIX + "mansion_2_1_2"), new BlockPos(47+46, 47, -32-33))
             .put(GensokyoOntology.withRL(PREFIX + "mansion_0_2_1"), new BlockPos(0, 47+27, -47))
 
-            .put(GensokyoOntology.withRL(PREFIX + "garden_sw"), new BlockPos(-34, 0, 0))
-            .put(GensokyoOntology.withRL(PREFIX + "garden_front_left"), new BlockPos(15, 0, 0))
-            .put(GensokyoOntology.withRL(PREFIX + "garden_front"), new BlockPos(48, 0, 0)).build();
+            .put(GensokyoOntology.withRL(PREFIX + "garden_sw"), new BlockPos(-34, -1, 33))
+            .put(GensokyoOntology.withRL(PREFIX + "garden_front_left"), new BlockPos(14, -1, 33))
+            .put(GensokyoOntology.withRL(PREFIX + "garden_front"), new BlockPos(48+14, -1, 33))
+            .put(GensokyoOntology.withRL(PREFIX + "garden_front_right"), new BlockPos(84, -1, 33))
+            .put(GensokyoOntology.withRL(PREFIX + "garden_ne"), new BlockPos(84+48, -1, 33))
+
+            .put(GensokyoOntology.withRL(PREFIX + "garden_maze_1"), new BlockPos(-34, -1, -13))
+            .put(GensokyoOntology.withRL(PREFIX + "garden_maze_2"), new BlockPos(-34, -1, -48-13))
+            .put(GensokyoOntology.withRL(PREFIX + "garden_nw"), new BlockPos(-34, -1, -48*2-13))
+            .put(GensokyoOntology.withRL(PREFIX + "garden_back_left"), new BlockPos(0, -1, -48*2-13))
+            .put(GensokyoOntology.withRL(PREFIX + "garden_back"), new BlockPos(47, -1, -48*2-13))
+            .build();
     public static void start(TemplateManager templateManager, BlockPos pos, Rotation rotation,
                              List<StructurePiece> pieces) {
         int x = pos.getX();
