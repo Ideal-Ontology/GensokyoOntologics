@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.world.structure;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.command.impl.GameModeCommand;
@@ -95,7 +96,8 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
             // 拼图建筑只能递归地添加7个建筑模板，所以只能在这里像这样使用模板建筑将所有模板放入列表然后规定其生成位置
             ScarletMansionPieces.start(managerIn, pos, Rotation.NONE, this.components);
             this.recalculateStructureSize();
-            GensokyoOntology.LOGGER.info("Rundown House at " + (pos.getX()) + " " + pos.getY() + " " + (pos.getZ()));
+            GSKOUtil.log(this.getClass(), this.components.get(2).getBoundingBox());
+            GSKOUtil.log(this.getClass(), this.components.get(3).getBoundingBox());
 
         }
 

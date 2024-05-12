@@ -9,6 +9,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.monster.CreeperEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
@@ -37,10 +38,9 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
 
     @Override
     public void tick() {
-        AxisAlignedBB aabb = new AxisAlignedBB(0, 0, 0, 10, 10, 10);
         if (this.world != null && this.world instanceof ServerWorld) {
 
-            PlayerEntity player = this.world.getClosestPlayer(this.pos.getX(), this.pos.getY(), this.pos.getZ(), 10, false);
+            PlayerEntity player = this.world.getClosestPlayer(this.pos.getX(), this.pos.getY(), this.pos.getZ(), 100, false);
             if (player == null) return;
 
             Predicate<DisposableSpawnerTile> predicate = tileEntity ->
