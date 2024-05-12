@@ -40,7 +40,7 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
     public void tick() {
         if (this.world != null && this.world instanceof ServerWorld) {
 
-            PlayerEntity player = this.world.getClosestPlayer(this.pos.getX(), this.pos.getY(), this.pos.getZ(), 100, false);
+            PlayerEntity player = this.world.getClosestPlayer(this.pos.getX(), this.pos.getY(), this.pos.getZ(), 60, false);
             if (player == null) return;
 
             Predicate<DisposableSpawnerTile> predicate = tileEntity ->
