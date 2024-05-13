@@ -22,10 +22,10 @@ public class PowerItem extends Item {
     @NotNull
     @Override
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        if (worldIn.isRemote) {
+        if (worldIn.isClientSide) {
             GSKOUtil.showChatMsg(playerIn, "[Client] Power: " + GSKOPowerCapability.INSTANCE.getCount(), 1);
         }
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             GSKOUtil.showChatMsg(playerIn, "[Server] Power: " + GSKOPowerCapability.INSTANCE.getCount(), 1);
         }
 

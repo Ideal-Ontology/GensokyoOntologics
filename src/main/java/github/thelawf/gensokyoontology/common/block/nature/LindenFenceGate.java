@@ -6,6 +6,6 @@ import net.minecraft.block.SoundType;
 
 public class LindenFenceGate extends FenceGateBlock {
     public LindenFenceGate() {
-        super(Properties.from(Blocks.OAK_FENCE_GATE).sound(SoundType.WOOD));
+        super(Properties.copy(Blocks.OAK_FENCE_GATE).sound(SoundType.WOOD));
     }
 }

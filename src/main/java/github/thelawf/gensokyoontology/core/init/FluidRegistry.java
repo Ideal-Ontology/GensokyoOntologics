@@ -1,15 +1,16 @@
 package github.thelawf.gensokyoontology.core.init;
 
-
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import net.minecraft.fluid.FlowingFluid;
-import net.minecraft.fluid.Fluid;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.material.FlowingFluid;
+import net.minecraft.world.level.material.Fluid;
+import net.minecraft.world.level.material.WaterFluid;
 import net.minecraftforge.fluids.FluidAttributes;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 
 public final class FluidRegistry {
     public static final ResourceLocation STILL_HOTSPRING_TEX = new ResourceLocation(
@@ -22,6 +23,7 @@ public final class FluidRegistry {
 
     public static final ResourceLocation PAPER_PULP_STILL_TEX = STILL_HOTSPRING_TEX;
     public static final ResourceLocation PAPER_PULP_FLOW_TEX = FLOW_HOTSPRING_TEX;
+
 
     public static final DeferredRegister<Fluid> FLUIDS = DeferredRegister.create(
             ForgeRegistries.FLUIDS, GensokyoOntology.MODID);

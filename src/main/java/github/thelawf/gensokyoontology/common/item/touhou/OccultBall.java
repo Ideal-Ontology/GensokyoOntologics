@@ -47,7 +47,7 @@ public class OccultBall extends Item {
 
         stack.setTag(nbt);
 
-        if (!worldIn.isRemote() && nbt.getBoolean("can_travel_to_gensokyo") && playerIn instanceof ServerPlayerEntity) {
+        if (!worldIn.isClientSide() && nbt.getBoolean("can_travel_to_gensokyo") && playerIn instanceof ServerPlayerEntity) {
             nbt.remove("can_travel_to_gensokyo");
             nbt.putBoolean("can_travel_to_gensokyo", false);
             stack.setTag(nbt);

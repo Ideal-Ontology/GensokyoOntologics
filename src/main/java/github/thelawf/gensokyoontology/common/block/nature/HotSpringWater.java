@@ -6,7 +6,7 @@ import net.minecraft.fluid.*;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.common.extensions.IForgeFluid;
 import net.minecraftforge.fluids.ForgeFlowingFluid;
@@ -61,7 +61,7 @@ public class HotSpringWater extends ForgeFlowingFluid implements IForgeFluid {
         return 5;
     }
 
-    public boolean canBeReplacedWith(FluidState p_215665_1_, IBlockReader p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
+    public boolean canBeReplacedWith(FluidState p_215665_1_, BlockGetter p_215665_2_, BlockPos p_215665_3_, Fluid p_215665_4_, Direction p_215665_5_) {
         return p_215665_5_ == Direction.DOWN;
     }
 

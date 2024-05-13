@@ -6,6 +6,6 @@ import net.minecraft.block.TrapDoorBlock;
 
 public class ShinbokuTrapdoor extends TrapDoorBlock {
     public ShinbokuTrapdoor() {
-        super(Properties.from(Blocks.OAK_TRAPDOOR).sound(SoundType.WOOD));
+        super(Properties.copy(Blocks.OAK_TRAPDOOR).sound(SoundType.WOOD));
     }
 }

@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
 import github.thelawf.gensokyoontology.common.tileentity.SaisenBoxTileEntity;
-import net.minecraft.block.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -12,8 +12,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -21,12 +21,12 @@ import org.jetbrains.annotations.Nullable;
 // 7784774932680779809
 public class SaisenBoxBlock extends HorizontalBlock {
     public SaisenBoxBlock() {
-        super(Properties.from(Blocks.CRAFTING_TABLE));
+        super(Properties.copy(Blocks.CRAFTING_TABLE));
     }
-    public static final VoxelShape SHAPE = Block.makeCuboidShape(2, 0, 2, 14, 12, 14);
+    public static final VoxelShape SHAPE = Block.box(2, 0, 2, 14, 12, 14);
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter worldIn, BlockPos pos, ISelectionContext context) {
         return SHAPE;
     }
 
@@ -37,7 +37,7 @@ public class SaisenBoxBlock extends HorizontalBlock {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, @NotNull IBlockReader worldIn) {
+    public TileEntity createTileEntity(BlockState state, @NotNull BlockGetter worldIn) {
         return new SaisenBoxTileEntity();
     }
 

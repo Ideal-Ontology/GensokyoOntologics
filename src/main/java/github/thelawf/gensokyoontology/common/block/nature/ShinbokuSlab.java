@@ -6,6 +6,6 @@ import net.minecraft.block.SoundType;
 
 public class ShinbokuSlab extends SlabBlock {
     public ShinbokuSlab() {
-        super(Properties.from(Blocks.OAK_SLAB).sound(SoundType.WOOD));
+        super(Properties.copy(Blocks.OAK_SLAB).sound(SoundType.WOOD));
     }
 }

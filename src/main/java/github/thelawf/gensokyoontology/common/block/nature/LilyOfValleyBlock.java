@@ -13,14 +13,14 @@ import org.jetbrains.annotations.NotNull;
 
 public class LilyOfValleyBlock extends FlowerBlock {
     public LilyOfValleyBlock() {
-        super(Effects.POISON, 2000, Properties.from(Blocks.DANDELION));
+        super(Effects.POISON, 2000, Properties.copy(Blocks.DANDELION));
     }
 
     @Override
     @SuppressWarnings("deprecation")
     public void onEntityCollision(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull Entity entityIn) {
         super.onEntityCollision(state, worldIn, pos, entityIn);
-        if (!worldIn.isRemote && entityIn instanceof LivingEntity) {
+        if (!worldIn.isClientSide && entityIn instanceof LivingEntity) {
             LivingEntity living = (LivingEntity) entityIn;
             living.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 50));
         }

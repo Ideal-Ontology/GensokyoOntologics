@@ -6,6 +6,6 @@ import net.minecraft.block.WoodButtonBlock;
 
 public class LindenButton extends WoodButtonBlock {
     public LindenButton() {
-        super(Properties.from(Blocks.OAK_BUTTON).sound(SoundType.WOOD));
+        super(Properties.copy(Blocks.OAK_BUTTON).sound(SoundType.WOOD));
     }
 }

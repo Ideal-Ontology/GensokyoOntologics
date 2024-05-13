@@ -5,6 +5,6 @@ import net.minecraft.block.RotatedPillarBlock;
 
 public class LindenLog extends RotatedPillarBlock {
     public LindenLog() {
-        super(Properties.from(Blocks.OAK_LOG));
+        super(Properties.copy(Blocks.OAK_LOG));
     }
 }

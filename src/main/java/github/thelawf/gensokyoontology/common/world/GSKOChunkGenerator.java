@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Blockreader;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
@@ -118,7 +118,7 @@ public final class GSKOChunkGenerator extends NoiseChunkGenerator {
 
     @Override
     @Nonnull
-    public IBlockReader func_230348_a_(int p_230348_1_, int p_230348_2_) {
+    public BlockGetter func_230348_a_(int p_230348_1_, int p_230348_2_) {
         return new Blockreader(new BlockState[0]);
     }
 

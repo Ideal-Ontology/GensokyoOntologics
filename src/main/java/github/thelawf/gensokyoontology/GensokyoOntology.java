@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology;
 
+import com.mojang.blaze3d.platform.ScreenManager;
 import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.SpellCardConsoleScreen;
@@ -13,10 +14,8 @@ import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
 import github.thelawf.gensokyoontology.core.init.*;
-import net.minecraft.client.gui.ScreenManager;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -32,7 +31,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLLoadCompleteEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.moddiscovery.ModInfo;
+import net.minecraftforge.forgespi.language.IModInfo;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -91,7 +90,7 @@ public class GensokyoOntology {
 
         @SubscribeEvent
         public static void onOtherModLoad(FMLLoadCompleteEvent event) {
-            List<ModInfo> forgeMods = ModList.get().getMods();
+            List<IModInfo> forgeMods = ModList.get().getMods();
 
         }
     }
@@ -100,81 +99,82 @@ public class GensokyoOntology {
     public static class RenderTypeRegistry {
         @SubscribeEvent
         public static void onRenderTypeSetUp(FMLClientSetupEvent event) {
+            
             event.enqueueWork(() -> {
-                RenderTypeLookup.setRenderLayer(FluidRegistry.HOT_SPRING_SOURCE.get(),
-                        RenderType.getTranslucent());
-                RenderTypeLookup.setRenderLayer(FluidRegistry.HOT_SPRING_FLOWING.get(),
-                        RenderType.getTranslucent());
-                RenderTypeLookup.setRenderLayer(FluidRegistry.SAKE_WINE_SOURCE.get(),
-                        RenderType.getTranslucent());
-                RenderTypeLookup.setRenderLayer(FluidRegistry.SAKE_WINE_FLOWING.get(),
-                        RenderType.getTranslucent());
-                RenderTypeLookup.setRenderLayer(FluidRegistry.PAPER_PULP_SOURCE.get(),
-                        RenderType.getTranslucent());
-                RenderTypeLookup.setRenderLayer(FluidRegistry.PAPER_PULP_FLOWING.get(),
-                        RenderType.getTranslucent());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
-                        RenderType.getTranslucent());
+                ItemBlockRenderTypes.setRenderLayer(FluidRegistry.HOT_SPRING_SOURCE.get(),
+                        RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(FluidRegistry.HOT_SPRING_FLOWING.get(),
+                        RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(FluidRegistry.SAKE_WINE_SOURCE.get(),
+                        RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(FluidRegistry.SAKE_WINE_FLOWING.get(),
+                        RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(FluidRegistry.PAPER_PULP_SOURCE.get(),
+                        RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(FluidRegistry.PAPER_PULP_FLOWING.get(),
+                        RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
+                        RenderType.translucent());
+                
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.BLUE_ROSE_BUSH.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LYCORIS_RADIATA.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.WASABI_BLOCK.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.ONION_CROP_BLOCK.get(),
+                        RenderType.cutout());
 
-                RenderTypeLookup.setRenderLayer(BlockRegistry.BLUE_ROSE_BUSH.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.LYCORIS_RADIATA.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.WASABI_BLOCK.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.ONION_CROP_BLOCK.get(),
-                        RenderType.getCutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GAP_BLOCK.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.DISPOSABLE_SPAWNER.get(),
+                        RenderType.cutout());
 
-                RenderTypeLookup.setRenderLayer(BlockRegistry.GAP_BLOCK.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.DISPOSABLE_SPAWNER.get(),
-                        RenderType.getCutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAKURA_DOOR.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAKURA_TRAPDOOR.get(),
+                        RenderType.cutout());
 
-                RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_DOOR.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_TRAPDOOR.get(),
-                        RenderType.getCutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAKURA_SAPLING.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),
+                        RenderType.cutout());
 
-                RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_SAPLING.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),
-                        RenderType.getCutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MAPLE_SAPLING.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MAPLE_LEAVES.get(),
+                        RenderType.cutout());
 
-                RenderTypeLookup.setRenderLayer(BlockRegistry.MAPLE_SAPLING.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.MAPLE_LEAVES.get(),
-                        RenderType.getCutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MAGIC_LEAVES.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GINKGO_LEAVES.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.REDWOOD_LEAVES.get(),
+                        RenderType.cutout());
 
-                RenderTypeLookup.setRenderLayer(BlockRegistry.MAGIC_LEAVES.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.GINKGO_LEAVES.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.REDWOOD_LEAVES.get(),
-                        RenderType.getCutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GINKGO_LEAVES_PILE.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MAPLE_LEAVES_PILE.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAKURA_LEAVES_PILE.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.ZELKOVA_LEAVES_PILE.get(),
+                        RenderType.cutout());
 
-                RenderTypeLookup.setRenderLayer(BlockRegistry.GINKGO_LEAVES_PILE.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.MAPLE_LEAVES_PILE.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_LEAVES_PILE.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.ZELKOVA_LEAVES_PILE.get(),
-                        RenderType.getCutout());
-
-                RenderTypeLookup.setRenderLayer(BlockRegistry.DANMAKU_TABLE.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.SORCERY_EXTRACTOR.get(),
-                        RenderType.getTranslucent());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.SAISEN_BOX.get(),
-                        RenderType.getCutout());
-                RenderTypeLookup.setRenderLayer(BlockRegistry.ISHI_ZAKURA.get(),
-                        RenderType.getTranslucent());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.DANMAKU_TABLE.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SORCERY_EXTRACTOR.get(),
+                        RenderType.translucent());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAISEN_BOX.get(),
+                        RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.ISHI_ZAKURA.get(),
+                        RenderType.translucent());
 
                 ScreenManager.registerFactory(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(),
                         DanmakuCraftingScreen::new);
                 ScreenManager.registerFactory(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(),
                         SorceryExtractorScreen::new);
-
+                
                 ScreenManager.registerFactory(ContainerRegistry.CB_CONTAINER.get(),
                         ConstBuilderScreen::new);
                 ScreenManager.registerFactory(ContainerRegistry.V3DB_CONTAINER.get(),

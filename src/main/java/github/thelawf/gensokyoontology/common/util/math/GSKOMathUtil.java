@@ -5,8 +5,8 @@ import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.classic.Cos
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.math.function.CosineFunc;
 import github.thelawf.gensokyoontology.common.util.math.function.SineFunc;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;

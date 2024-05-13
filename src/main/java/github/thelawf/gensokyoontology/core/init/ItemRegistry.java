@@ -23,8 +23,6 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -32,17 +30,26 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.context.UseOnContext;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.server.ServerLevel;
 import net.minecraftforge.common.ForgeSpawnEggItem;
-import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegistryObject;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -59,236 +66,236 @@ public final class ItemRegistry {
     // --------------------------- 泥土石头类方块：----------------------------//
     public static final RegistryObject<BlockItem> DEFOLIATION_DIRT_ITEM = ITEMS.register(
             "defoliation_dirt", () -> new BlockItem(BlockRegistry.DEFOLIATION_DIRT.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> KAOLIN_BLOCK_ITEM = ITEMS.register(
             "kaolin", () -> new BlockItem(BlockRegistry.KAOLIN.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> KAOLINITE_BLOCK_ITEM = ITEMS.register(
             "kaolinite", () -> new BlockItem(BlockRegistry.KAOLINITE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ---------------------------- 树木类方块：------------------------------//
     //////////////////////////////// 樱花木 ////////////////////////////////
     public static final RegistryObject<BlockItem> SAKURA_SAPLING_ITEM = ITEMS.register(
             "sakura_sapling", () -> new BlockItem(BlockRegistry.SAKURA_SAPLING.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_LEAVES_ITEM = ITEMS.register(
             "sakura_leaves", () -> new BlockItem(BlockRegistry.SAKURA_LEAVES.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_LOG_ITEM = ITEMS.register(
             "sakura_log", () -> new BlockItem(BlockRegistry.SAKURA_LOG.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_PLANKS_ITEM = ITEMS.register(
             "sakura_planks", () -> new BlockItem(BlockRegistry.SAKURA_PLANKS.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_BUTTON_ITEM = ITEMS.register(
             "sakura_button", () -> new BlockItem(BlockRegistry.SAKURA_BUTTON.get(),
-                    new Item.Properties().group(ItemGroup.REDSTONE)));
+                    new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
     public static final RegistryObject<BlockItem> SAKURA_SLAB_ITEM = ITEMS.register(
             "sakura_slab", () -> new BlockItem(BlockRegistry.SAKURA_SLAB.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_STAIRS_ITEM = ITEMS.register(
             "sakura_stairs", () -> new BlockItem(BlockRegistry.SAKURA_STAIRS.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_DOOR_ITEM = ITEMS.register(
             "sakura_door", () -> new BlockItem(BlockRegistry.SAKURA_DOOR.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_FENCE_ITEM = ITEMS.register(
             "sakura_fence", () -> new BlockItem(BlockRegistry.SAKURA_FENCE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_FENCE_GATE_ITEM = ITEMS.register(
             "sakura_fence_gate", () -> new BlockItem(BlockRegistry.SAKURA_FENCE_GATE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_TRAPDOOR_ITEM = ITEMS.register(
             "sakura_trapdoor", () -> new BlockItem(BlockRegistry.SAKURA_TRAPDOOR.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_PRESSRUE_PLATE_ITEM = ITEMS.register(
             "sakura_pressure_plate", () -> new BlockItem(BlockRegistry.SAKURA_PRESSRUE_PLATE.get(),
-                    new Item.Properties().group(ItemGroup.REDSTONE)));
+                    new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
     //////////////////////////////// 榉树木 ////////////////////////////////
     // public static final RegistryObject<BlockItem> ZELKOVA_SAPLING_ITEM = ITEMS.register(
     //         "zelkova_sapling.json", () -> new BlockItem(BlockRegistry.ZELKOVA_SAPLING.get(),
-    //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    //                 new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ZELKOVA_LEAVES_ITEM = ITEMS.register(
             "zelkova_leaves", () -> new BlockItem(BlockRegistry.ZELKOVA_LEAVES.get(),
                     new Item.Properties()));
     public static final RegistryObject<BlockItem> ZELKOVA_LOG_ITEM = ITEMS.register(
             "zelkova_log", () -> new BlockItem(BlockRegistry.ZELKOVA_LOG.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ZELKOVA_PLANKS_ITEM = ITEMS.register(
             "zelkova_planks", () -> new BlockItem(BlockRegistry.ZELKOVA_PLANKS.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ZELKOVA_BUTTON_ITEM = ITEMS.register(
             "zelkova_button", () -> new BlockItem(BlockRegistry.ZELKOVA_BUTTON.get(),
-                    new Item.Properties().group(ItemGroup.REDSTONE)));
+                    new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
     public static final RegistryObject<BlockItem> ZELKOVA_SLAB_ITEM = ITEMS.register(
             "zelkova_slab", () -> new BlockItem(BlockRegistry.ZELKOVA_SLAB.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ZELKOVA_STAIRS_ITEM = ITEMS.register(
             "zelkova_stairs", () -> new BlockItem(BlockRegistry.ZELKOVA_STAIRS.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ZELKOVA_DOOR_ITEM = ITEMS.register(
             "zelkova_door", () -> new BlockItem(BlockRegistry.ZELKOVA_DOOR.get(),
                     new Item.Properties()));
     public static final RegistryObject<BlockItem> ZELKOVA_FENCE_ITEM = ITEMS.register(
             "zelkova_fence", () -> new BlockItem(BlockRegistry.ZELKOVA_FENCE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ZELKOVA_FENCE_GATE_ITEM = ITEMS.register(
             "zelkova_fence_gate", () -> new BlockItem(BlockRegistry.ZELKOVA_FENCE_GATE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ZELKOVA_TRAPDOOR_ITEM = ITEMS.register(
             "zelkova_trapdoor", () -> new BlockItem(BlockRegistry.ZELKOVA_TRAPDOOR.get(),
                     new Item.Properties()));
     public static final RegistryObject<BlockItem> ZELKOVA_PRESSRUE_PLATE_ITEM = ITEMS.register(
             "zelkova_pressure_plate", () -> new BlockItem(BlockRegistry.ZELKOVA_PRESSRUE_PLATE.get(),
-                    new Item.Properties().group(ItemGroup.REDSTONE)));
+                    new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
     //////////////////////////////// 枫木 ////////////////////////////////
     public static final RegistryObject<BlockItem> MAPLE_SAPLING_ITEM = ITEMS.register(
             "maple_sapling", () -> new BlockItem(BlockRegistry.MAPLE_SAPLING.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAPLE_LEAVES_ITEM = ITEMS.register(
             "maple_leaves", () -> new BlockItem(BlockRegistry.MAPLE_LEAVES.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAPLE_LOG_ITEM = ITEMS.register(
             "maple_log", () -> new BlockItem(BlockRegistry.MAPLE_LOG.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAPLE_PLANKS_ITEM = ITEMS.register(
             "maple_planks", () -> new BlockItem(BlockRegistry.MAPLE_PLANKS.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAPLE_BUTTON_ITEM = ITEMS.register(
             "maple_button", () -> new BlockItem(BlockRegistry.MAPLE_BUTTON.get(),
-                    new Item.Properties().group(ItemGroup.REDSTONE)));
+                    new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
     public static final RegistryObject<BlockItem> MAPLE_SLAB_ITEM = ITEMS.register(
             "maple_slab", () -> new BlockItem(BlockRegistry.MAPLE_SLAB.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAPLE_STAIRS_ITEM = ITEMS.register(
             "maple_stairs", () -> new BlockItem(BlockRegistry.MAPLE_STAIRS.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAPLE_DOOR_ITEM = ITEMS.register(
             "maple_door", () -> new BlockItem(BlockRegistry.MAPLE_DOOR.get(),
                     new Item.Properties()));
     public static final RegistryObject<BlockItem> MAPLE_FENCE_ITEM = ITEMS.register(
             "maple_fence", () -> new BlockItem(BlockRegistry.MAPLE_FENCE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAPLE_FENCE_GATE_ITEM = ITEMS.register(
             "maple_fence_gate", () -> new BlockItem(BlockRegistry.MAPLE_FENCE_GATE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAPLE_TRAPDOOR_ITEM = ITEMS.register(
             "maple_trapdoor", () -> new BlockItem(BlockRegistry.MAPLE_TRAPDOOR.get(),
                     new Item.Properties()));
     public static final RegistryObject<BlockItem> MAPLE_PRESSURE_PLATE_ITEM = ITEMS.register(
             "maple_pressure_plate", () -> new BlockItem(BlockRegistry.MAPLE_PRESSURE_PLATE.get(),
-                    new Item.Properties().group(ItemGroup.REDSTONE)));
+                    new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
     public static final RegistryObject<BlockItem> MAGIC_SAPLING_ITEM = ITEMS.register(
             "magic_sapling", () -> new BlockItem(BlockRegistry.MAGIC_SAPLING.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAGIC_LEAVES_ITEM = ITEMS.register(
             "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAGIC_LOG_ITEM = ITEMS.register(
             "magic_log", () -> new BlockItem(BlockRegistry.MAGIC_LOG.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     //////////////////////////////// 银杏木 ////////////////////////////////
     public static final RegistryObject<BlockItem> GINKGO_LEAVES_ITEM = ITEMS.register(
             "ginkgo_leaves", () -> new BlockItem(BlockRegistry.GINKGO_LEAVES.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> GINKGO_LOG_ITEM = ITEMS.register(
             "ginkgo_log", () -> new BlockItem(BlockRegistry.GINKGO_LOG.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     //////////////////////////////// 红杉木 ////////////////////////////////
     public static final RegistryObject<BlockItem> REDWOOD_LEAVES_ITEM = ITEMS.register(
             "redwood_leaves", () -> new BlockItem(BlockRegistry.REDWOOD_LEAVES.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     //////////////////////////////// 落叶堆 ////////////////////////////////
     public static final RegistryObject<BlockItem> GINKGO_LEAVES_PILE_ITEM = ITEMS.register(
             "ginkgo_leaves_pile", () -> new BlockItem(BlockRegistry.GINKGO_LEAVES_PILE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAPLE_LEAVES_PILE_ITEM = ITEMS.register(
             "maple_leaves_pile", () -> new BlockItem(BlockRegistry.MAPLE_LEAVES_PILE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAKURA_LEAVES_PILE_ITEM = ITEMS.register(
             "sakura_leaves_pile", () -> new BlockItem(BlockRegistry.SAKURA_LEAVES_PILE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ZELKOVA_LEAVES_PILE_ITEM = ITEMS.register(
             "zelkova_leaves_pile", () -> new BlockItem(BlockRegistry.ZELKOVA_LEAVES_PILE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // --------------------------- 草本植物类方块：----------------------------//
     public static final RegistryObject<BlockItem> BLUE_ROSE_ITEM = ITEMS.register("blue_rose_bush",
             () -> new BlockItem(BlockRegistry.BLUE_ROSE_BUSH.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> LYCORIS_RADIATA = ITEMS.register("lycoris_radiata",
             () -> new BlockItem(BlockRegistry.LYCORIS_RADIATA.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> WASABI = ITEMS.register(
             "wasabi", () -> new BlockItem(BlockRegistry.WASABI_BLOCK.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ------------------------------ 蘑菇方块 --------------------------------//
     public static final RegistryObject<BlockItem> BLUE_MUSHROOM_ITEM = ITEMS.register(
             "blue_mushroom_block", () -> new BlockItem(BlockRegistry.BLUE_MUSHROOM_BLOCK.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> PURPLE_MUSHROOM_ITEM = ITEMS.register(
             "purple_mushroom_block", () -> new BlockItem(BlockRegistry.PURPLE_MUSHROOM_BLOCK.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     ///////////////////////////////    工艺装饰类方块    //////////////////////////////////
     // public static final RegistryObject<BlockItem> CHIREIDEN_COLORED_GLASS = ITEMS.register(
     //         "chireiden_colored_glass", () -> new BlockItem(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
-    //                 new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    //                 new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> CLAY_ADOBE_ITEM = ITEMS.register(
             "clay_adobe", () -> new BlockItem(BlockRegistry.CLAY_ADOBE_BLOCK.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> HANIWA_ITEM = ITEMS.register(
             "haniwa", () -> new BlockItem(BlockRegistry.HANIWA_BLOCK.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：功能性方块 =========================//
     //----------------------------- 合成台 --------------------------//
     public static final RegistryObject<BlockItem> DANMAKU_TABLE_ITEM = ITEMS.register(
             "danmaku_table", () -> new BlockItem(BlockRegistry.DANMAKU_TABLE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SORCERY_EXTRACTOR_ITEM = ITEMS.register(
             "sorcery_extractor", () -> new BlockItem(BlockRegistry.SORCERY_EXTRACTOR.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SAISEN_BOX_ITEM = ITEMS.register(
             "saisen_box", () -> new BlockItem(BlockRegistry.SAISEN_BOX.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> SPELL_CONSOLE_ITEM = ITEMS.register(
             "spell_card_console", () -> new BlockItem(BlockRegistry.SPELL_CARD_CONSOLE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // -------------------------------- 矿石 ---------------------------------//
     public static final RegistryObject<BlockItem> IZANO_OBJECT_ORE_ITEM = ITEMS.register(
             "izano_object_ore", () -> new BlockItem(BlockRegistry.IZANO_OBJECT_ORE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> DRAGON_SPHERE_ORE_ITEM = ITEMS.register(
             "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     /**
      * 在玉石方块的物品类中重写其与方块的交互逻辑，实现用玉石原矿赌石的功能
      */
     public static final RegistryObject<BlockItem> JADE_ORE_ITEM = ITEMS.register(
             "jade_ore", () -> new BlockItem(BlockRegistry.JADE_ORE.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)) {
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)) {
+
                 @Override
-                @NotNull
-                public ActionResultType onItemUse(@NotNull ItemUseContext context) {
-                    World world = context.getWorld();
-                    Block block = world.getBlockState(context.getPos()).getBlock();
+                public InteractionResult useOn(UseOnContext context) {
+                    Level world = context.getLevel();
+                    Block block = world.getBlockState(context.getClickedPos()).getBlock();
                     Random random = new Random();
 
-                    if (context.getPlayer() != null && block.matchesBlock(Blocks.STONECUTTER)) {
+                    if (context.getPlayer() != null && block.equals(Blocks.STONECUTTER)) {
                         context.getPlayer().playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT, 1.0f, 1.0f);
                     }
 
@@ -296,26 +303,32 @@ public final class ItemRegistry {
                             random.nextInt(6) == 1 &&
                             !JadeOreBlock.getItemToDrop(world, 150, 440, 2000, 6000).equals(ItemStack.EMPTY)) {
 
-                        ServerWorld serverWorld = (ServerWorld) world;
-                        if (context.getItem().getCount() >= 10) {
-                            context.getItem().shrink(10);
+                        ServerLevel serverWorld = (ServerLevel) world;
+                        if (context.getItemInHandInHand().getCount() >= 10) {
+                            context.getItemInHand().shrink(10);
                             for (int i = 0; i < 10; i++) {
-                                Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world,
+                                Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemInHandToDrop(world,
                                         150, 440, 2000, 6000));
                             }
                             return ActionResultType.FAIL;
                         }
-                        context.getItem().shrink(1);
-                        Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world, context.getPlayer(),
+                        context.getItemInHand().shrink(1);
+                        Block.popResource(world, context.getClickedPos(), JadeOreBlock.getItemInHandToDrop(world, context.getPlayer(),
                                 serverWorld.getDimensionKey()));
 
                     }
                     return super.onItemUse(context);
                 }
+
+                @Override
+                @NotNull
+                public ActionResultType onItemUse(@NotNull ItemUseContext context) {
+                    
+                }
             });
     public static final RegistryObject<BlockItem> IMMEMORIAL_ALLOY_BLOCK_ITEM = ITEMS.register(
             "immemorial_alloy_block", () -> new BlockItem(BlockRegistry.IMMEMORIAL_ALLOY_BLOCK.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ------------------------------- 技术性道具 ----------------------------------//
     public static final RegistryObject<BlockItem> DISPOSABLE_SPAWNER_ITEM = ITEMS.register(
@@ -327,51 +340,51 @@ public final class ItemRegistry {
     // ----------------------- 东方project特殊功能道具 ----------------------//
     public static final RegistryObject<HakureiGohei> HAKUREI_GOHEI = ITEMS.register(
             "hakurei_gohei", () -> new HakureiGohei(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<MarisaHakkeiro> MARISA_HAKKEIRO = ITEMS.register(
             "marisa_hakkeiro", () -> new MarisaHakkeiro(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
             "sakuya_stop_watch", () -> new SakuyaStopWatch(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<CrookedClockNeedle> CROOKED_CLOCK_NEEDLE = ITEMS.register(
             "crooked_clock_needle", () -> new CrookedClockNeedle(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<BlockItem> GAP_BLOCK = ITEMS.register(
             "gap_block", () -> new BlockItem(BlockRegistry.GAP_BLOCK.get(), new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     // public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
     //         "eirin_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
-    //                 .group(GSKOItemTab.GSKO_ITEM_TAB)));
+    //                 .tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register(
             "aya_fans", () -> new AyaFans(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<KoishiEyeOpen> KOISHI_EYE_OPEN = ITEMS.register(
             "koishi_eye_open", () -> new KoishiEyeOpen(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<KoishiEyeClosed> KOISHI_EYE_CLOSED = ITEMS.register(
             "koishi_eye_closed", () -> new KoishiEyeClosed(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ArmorItem> KOISHI_HAT = ITEMS.register(
             "koishi_hat", () -> new KoishiHatArmorItem(GSKOArmorMaterial.JADE,
                     EquipmentSlotType.HEAD, (new Item.Properties())));
     public static final RegistryObject<SatoriEye> SATORI_EYE = ITEMS.register(
             "satori_eye", () -> new SatoriEye(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<SeigaHairpin> SEIGA_HAIRPIN = ITEMS.register(
             "seiga_hairpin", () -> new SeigaHairpin(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<SpiritTube> SPIRIT_TUBE = ITEMS.register(
             "spirit_tube", () -> new SpiritTube(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<KudaGitsuneTube> KUDA_GITSUNE_TUBE = ITEMS.register(
             "kuda_gitsune_tube", () -> new KudaGitsuneTube(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> GITSUNE_TUBE_FULL = ITEMS.register(
             "gitsune_tube_full", () -> new GitsuneTubeFull(new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB).containerItem(ItemRegistry.SPIRIT_TUBE.get())));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB).containerItem(ItemRegistry.SPIRIT_TUBE.get())));
     public static final RegistryObject<OccultBall> OCCULT_BALL = ITEMS.register(
-            "occult_ball", () -> new OccultBall(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            "occult_ball", () -> new OccultBall(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ChimataMarketLicense> CHIMATA_MARKET_LICENSE = ITEMS.register(
             "chimata_market_license", () -> new ChimataMarketLicense(new Item.Properties()));
     // 魔法道具
@@ -381,85 +394,85 @@ public final class ItemRegistry {
     // ----------------------------------- 杂项物品 --------------------------------------//
     public static final RegistryObject<Item> SILVER_COIN = ITEMS.register("silver_coin", () -> new CoinItem(1F));
     public static final RegistryObject<Item> SAKE_WORM = ITEMS.register("sake_worm", () -> new SakeWormItem(
-            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+            new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> HOTSPRING_BUCKET = ITEMS.register("hotspring_bucket",
             () -> new BucketItem(FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB)
                     .maxStackSize(1).containerItem(BUCKET)));
     public static final RegistryObject<Item> SAKE_BUCKET = ITEMS.register("sake_bucket",
             () -> new BucketItem(FluidRegistry.SAKE_WINE_SOURCE, new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB)
                     .maxStackSize(1).containerItem(BUCKET)));
 
     public static final RegistryObject<Item> PAPER_PULP_BUCKET = ITEMS.register("paper_pulp_bucket",
             () -> new BucketItem(FluidRegistry.PAPER_PULP_SOURCE, new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB)
                     .maxStackSize(1).containerItem(BUCKET)));
 
     // ========================== GSKO杂项：合成消耗品 =========================//
 
     // public static final RegistryObject<Item> ISHI_ZAKURA_FRAGMENT = ITEMS.register("ishi_zakura_fragment",
-    //         () -> new IshiZakuraFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    //         () -> new IshiZakuraFragment(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ISHI_ZAKURA = ITEMS.register("ishi_zakura",
             () -> new BlockItem(BlockRegistry.ISHI_ZAKURA.get(), new Item.Properties()
-                    .group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    .tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> CHERRY_BLOSSOM = ITEMS.register("cherry_blossom",
-            () -> new CherryBlossom(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new CherryBlossom(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> WANDERING_SOUL = ITEMS.register("wandering_soul",
-            () -> new WanderingSoul(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new WanderingSoul(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> WASHI_PAPER = ITEMS.register("washi_paper",
-            () -> new WashiPaper(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new WashiPaper(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // public static final RegistryObject<Item> PAPER_SHIDE = ITEMS.register("paper_shide",
-    //         () -> new PaperShide(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    //         () -> new PaperShide(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> IZANO_OBJECT = ITEMS.register("izano_object",
-            () -> new IzanoObject(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new IzanoObject(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> DRAGON_SPHERE_FRAGMENT = ITEMS.register("dragon_sphere_fragment",
-            () -> new DragonSphere(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new DragonSphere(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> DRAGON_SPHERE = ITEMS.register("dragon_sphere",
-            () -> new DragonSphere(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new DragonSphere(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> CRIMSON_ALLOY_INGOT = ITEMS.register("crimson_alloy_ingot",
-            () -> new CrimsonAlloyIngot(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new CrimsonAlloyIngot(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> CRIMSON_ALLOY_FRAGMENT = ITEMS.register("crimson_alloy_fragment",
-            () -> new CrimsonMetalFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new CrimsonMetalFragment(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     ////////////////////////////////////  各个等级的玉石  ///////////////////////////////////////
     public static final RegistryObject<Item> JADE_LEVEL_B = ITEMS.register("jade_level_b",
-            () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new JadeItem(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> JADE_LEVEL_A = ITEMS.register("jade_level_a",
-            () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new JadeItem(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> JADE_LEVEL_S = ITEMS.register("jade_level_s",
-            () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new JadeItem(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> JADE_LEVEL_SS = ITEMS.register("jade_level_ss",
-            () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new JadeItem(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> JADE_LEVEL_SSS = ITEMS.register("jade_level_sss",
-            () -> new JadeItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new JadeItem(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> ORB_JADE = ITEMS.register("orb_jade",
-            () -> new OrbJade(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new OrbJade(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> DARK_SPIRIT = ITEMS.register("dark_spirit",
-            () -> new DarkSpirit(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new DarkSpirit(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> LIGHT_SPIRIT = ITEMS.register("light_spirit",
-            () -> new LightSpirit(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new LightSpirit(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ---------------------------- 食物原材料 -----------------------------//
     public static final RegistryObject<Item> KITCHEN_KNIFE = ITEMS.register("kitchen_knife", KitchenKnife::new);
     public static final RegistryObject<Butter> BUTTER = ITEMS.register("butter",
-            () -> new Butter(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new Butter(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<MilkBottle> MILK_BOTTLE = ITEMS.register("milk_bottle", MilkBottle::new);
 
     public static final RegistryObject<SquidTentacle> SQUID_TENTACLE = ITEMS.register("squid_tentacle", SquidTentacle::new);
     public static final RegistryObject<Item> ONION = ITEMS.register("onion", () ->
-            new BlockItem(BlockRegistry.ONION_CROP_BLOCK.get(), new Item.Properties().group(
+            new BlockItem(BlockRegistry.ONION_CROP_BLOCK.get(), new Item.Properties().tab(
                     GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<YattsumeUna> YATTSUME_UNA =
             ITEMS.register("yattsume_una", () -> new YattsumeUna(
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ------------------------------- 食物 -------------------------------//
     public static final RegistryObject<YattsumeUnaYaki> YATTSUME_UNA_YAKI = ITEMS.register("yattsume_una_yaki", YattsumeUnaYaki::new);
@@ -496,22 +509,22 @@ public final class ItemRegistry {
     // ============================ GSKO生物刷怪蛋 ================================//
     public static final RegistryObject<ForgeSpawnEggItem> HAKURE_REIMU_SPAWN_EGG = ITEMS.register(
             "hakurei_reimu_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.HAKUREI_REIMU,
-                    0xFF200A, 0xFFFFFC, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    0xFF200A, 0xFFFFFC, new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> FAIRY_SPAWN_EGG = ITEMS.register(
             "fairy_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.FAIRY_ENTITY,
-                    0x0E51D5, 0xFAEB1C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    0x0E51D5, 0xFAEB1C, new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> LILY_WHITE_SPAWN_EGG = ITEMS.register(
             "lily_white_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.LILY_WHITE_ENTITY,
-                    0xFFF8E8, 0xF52C2C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    0xFFF8E8, 0xF52C2C, new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> REMILIA_SCARLET_SAWN_EGG = ITEMS.register(
             "remilia_scarlet_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.REMILIA_SCARLET,
-                    0x99CAFF, 0xFF0F3F, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    0x99CAFF, 0xFF0F3F, new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> FLANDRE_SCARLET_SPAWN_EGG = ITEMS.register(
             "flandre_scarlet_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.FLANDRE_SCARLET,
-                    0xDC143C, 0xFDFD78, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    0xDC143C, 0xFDFD78, new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> KOMEIJI_KOISHI_SAPWN_EGG = ITEMS.register(
             "komeiji_koishi_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.KOMEIJI_KOISHI,
-                    0x42B983, 0xFCFA58, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+                    0x42B983, 0xFCFA58, new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//
@@ -555,12 +568,12 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> SMALL_SHOT = ITEMS.register(
             "small_shot", () -> new SmallShot(DanmakuType.SMALL_SHOT));
     public static final RegistryObject<Item> RICE_SHOT = ITEMS.register("rice_shot",
-            () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new RiceShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> SCALE_SHOT = ITEMS.register("scale_shot",
-            () -> new ScaleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new ScaleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> TALISMAN_SHOT = ITEMS.register(
-            "talisman_shot", () -> new TalismanShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            "talisman_shot", () -> new TalismanShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     /////////////////////////// 所有颜色的大弹 ////////////////////////////////
     public static final RegistryObject<Item> LARGE_SHOT_RED = ITEMS.register(
@@ -600,33 +613,33 @@ public final class ItemRegistry {
 
     ////////////////////////////// 所有颜色的环玉  /////////////////////////////////
     // public static final RegistryObject<Item> CIRCLE_SHOT = ITEMS.register("rice_shot",
-    //         () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    //         () -> new RiceShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> CIRCLE_SHOT_GREEN = ITEMS.register("circle_shot_green",
-            () -> new CircleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new CircleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> CIRCLE_SHOT_BLUE = ITEMS.register("circle_shot_blue",
-            () -> new CircleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new CircleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> CIRCLE_SHOT_MAGENTA = ITEMS.register("circle_shot_magenta",
-            () -> new CircleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new CircleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     ////////////////////////////// 所有颜色的米弹  /////////////////////////////////
     public static final RegistryObject<Item> RICE_SHOT_RED = ITEMS.register("rice_shot_red",
-            () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new RiceShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> RICE_SHOT_BLUE = ITEMS.register("rice_shot_blue",
-            () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new RiceShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> RICE_SHOT_PURPLE = ITEMS.register("rice_shot_purple",
-            () -> new RiceShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new RiceShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     ////////////////////////////// 所有颜色的鳞弹  /////////////////////////////////
     public static final RegistryObject<Item> SCALE_SHOT_RED = ITEMS.register("scale_shot_red",
-            () -> new ScaleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new ScaleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> SCALE_SHOT_YELLOW = ITEMS.register("scale_shot_yellow",
-            () -> new ScaleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new ScaleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> SCALE_SHOT_GREEN = ITEMS.register("scale_shot_green",
-            () -> new ScaleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new ScaleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> SCALE_SHOT_BLUE = ITEMS.register("scale_shot_blue",
-            () -> new ScaleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new ScaleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> SCALE_SHOT_PURPLE = ITEMS.register("scale_shot_purple",
-            () -> new ScaleShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new ScaleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     ////////////////////////////// 所有颜色的心弹  /////////////////////////////////
     public static final RegistryObject<Item> HEART_SHOT = ITEMS.register(
@@ -674,77 +687,77 @@ public final class ItemRegistry {
 
     ////////////////////////////// 所有颜色的札弹  /////////////////////////////////
     public static final RegistryObject<Item> TALISMAN_SHOT_RED = ITEMS.register("talisman_shot_red",
-            () -> new TalismanShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new TalismanShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> TALISMAN_SHOT_GREEN = ITEMS.register("talisman_shot_green",
-            () -> new TalismanShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new TalismanShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> TALISMAN_SHOT_AQUA = ITEMS.register("talisman_shot_aqua",
-            () -> new TalismanShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new TalismanShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> TALISMAN_SHOT_BLUE = ITEMS.register("talisman_shot_blue",
-            () -> new TalismanShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new TalismanShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> TALISMAN_SHOT_PURPLE = ITEMS.register("talisman_shot_purple",
-            () -> new TalismanShot(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new TalismanShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     ////////////////////////////// 所有颜色的阴阳玉 ///////////////////////////////////
     public static final RegistryObject<Item> INYO_JADE_BLACK = ITEMS.register(
             "inyo_jade_black", () -> new InyoJade(DyeColor.BLACK,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> INYO_JADE_RED = ITEMS.register(
             "inyo_jade_red", () -> new InyoJade(DyeColor.RED,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> INYO_JADE_YELLOW = ITEMS.register(
             "inyo_jade_yellow", () -> new InyoJade(DyeColor.YELLOW,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> INYO_JADE_GREEN = ITEMS.register(
             "inyo_jade_green", () -> new InyoJade(DyeColor.GREEN,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> INYO_JADE_AQUA = ITEMS.register(
             "inyo_jade_aqua", () -> new InyoJade(DyeColor.LIGHT_BLUE,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> INYO_JADE_BLUE = ITEMS.register(
             "inyo_jade_blue", () -> new InyoJade(DyeColor.BLUE,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> INYO_JADE_PURPLE = ITEMS.register(
             "inyo_jade_purple", () -> new InyoJade(DyeColor.PURPLE,
-                    new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+                    new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     //////////////////////////// 道具：B点、残机 ////////////////////////////////
     public static final RegistryObject<Item> FAKE_LUNAR_ITEM = ITEMS.register("fake_lunar",
             () -> new FakeLunarItem(DanmakuType.FAKE_LUNAR));
 
     public static final RegistryObject<Item> POWER_ITEM = ITEMS.register("power_item",
-            () -> new PowerItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            () -> new PowerItem(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> BOMB_FRAGMENT = ITEMS.register("bomb_fragment",
-            () -> new BombFragment(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new BombFragment(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> LIFE_FRAGMENT = ITEMS.register("life_fragment",
-            () -> new LifeFragment(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new LifeFragment(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> BOMB_ITEM = ITEMS.register("bomb_item",
-            () -> new BombItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new BombItem(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> EXTEND_ITEM = ITEMS.register("extend_item",
-            () -> new ExtendItem(new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            () -> new ExtendItem(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     // ------------------------------- 装备 -------------------------------//
     public static final RegistryObject<Item> JADE_AXE = ITEMS.register("jade_axe", () -> new JadeAxe(
-            new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_HOE = ITEMS.register("jade_hoe", () -> new JadeHoe(
-            new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_PICKAXE = ITEMS.register("jade_pickaxe", () -> new JadePickaxe(
-            new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_SHOVEL = ITEMS.register("jade_shovel", () -> new JadeShovel(
-            new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_SWORD = ITEMS.register("jade_sword", () -> new JadeSword(
-            new Item.Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
     public static final RegistryObject<Item> JADE_HELMET = ITEMS.register("jade_helmet", () -> new ArmorItem(
-            GSKOArmorMaterial.JADE, EquipmentSlotType.HEAD, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            GSKOArmorMaterial.JADE, EquipmentSlotType.HEAD, (new Item.Properties()).tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_CHESTPLATE = ITEMS.register("jade_chestplate", () -> new ArmorItem(
-            GSKOArmorMaterial.JADE, EquipmentSlotType.CHEST, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            GSKOArmorMaterial.JADE, EquipmentSlotType.CHEST, (new Item.Properties()).tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_LEGGINGS = ITEMS.register("jade_leggings", () -> new ArmorItem(
-            GSKOArmorMaterial.JADE, EquipmentSlotType.LEGS, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            GSKOArmorMaterial.JADE, EquipmentSlotType.LEGS, (new Item.Properties()).tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_BOOTS = ITEMS.register("jade_boots", () -> new ArmorItem(
-            GSKOArmorMaterial.JADE, EquipmentSlotType.FEET, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+            GSKOArmorMaterial.JADE, EquipmentSlotType.FEET, (new Item.Properties()).tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
 
     // ====================================== 技术性物品 ====================================== //

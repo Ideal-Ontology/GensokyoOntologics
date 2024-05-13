@@ -1,15 +1,15 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
 import github.thelawf.gensokyoontology.common.tileentity.AdobeTileEntity;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BlockState;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 
@@ -19,7 +19,7 @@ import java.util.List;
 public class ClayAdobeBlock extends Block {
 
     public ClayAdobeBlock() {
-        super(Properties.from(Blocks.TERRACOTTA));
+        super(Properties.copy(Blocks.TERRACOTTA));
     }
     @Override
     public boolean hasTileEntity(BlockState state) {
@@ -28,7 +28,7 @@ public class ClayAdobeBlock extends Block {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, BlockGetter world) {
         return new AdobeTileEntity();
     }
 

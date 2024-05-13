@@ -27,7 +27,7 @@ public class BombItem extends Item {
         if (stack.hasTag() && stack.getTag() != null && stack.getTag().contains("is_triggered")){
             playerIn.sendMessage(new StringTextComponent("has_tag"), playerIn.getUniqueID());
             setCapabilityTriggered(worldIn, playerIn, false);
-            if (!worldIn.isRemote) {
+            if (!worldIn.isClientSide) {
                 ServerWorld serverWorld = (ServerWorld) worldIn;
                 serverWorld.getServer().getWorlds().forEach(sw -> sw.setDayTime(15000));
             }
@@ -39,7 +39,7 @@ public class BombItem extends Item {
         nbt.putBoolean("isTriggered", this.flag);
         playerIn.sendMessage(new StringTextComponent("no_tag"), playerIn.getUniqueID());
         setCapabilityTriggered(worldIn, playerIn, true);
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             serverWorld.getServer().getWorlds().forEach(sw -> sw.setDayTime(15000));
         }
@@ -47,8 +47,8 @@ public class BombItem extends Item {
     }
 
     private void setCapabilityTriggered(World worldIn, PlayerEntity playerIn, boolean triggered) {
-        //if (worldIn.isRemote) ImperishableNightPacket.sendToServer(worldIn, GSKONetworking.IMPERISHABLE_NIGHT, triggered);
-        if (!worldIn.isRemote) {
+        //if (worldIn.isClientSide) ImperishableNightPacket.sendToServer(worldIn, GSKONetworking.IMPERISHABLE_NIGHT, triggered);
+        if (!worldIn.isClientSide) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             serverWorld.getCapability(GSKOCapabilities.IMPERISHABLE_NIGHT).ifPresent(cap -> {
                 cap.setTriggered(triggered);

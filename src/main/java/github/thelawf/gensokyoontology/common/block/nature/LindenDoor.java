@@ -6,6 +6,6 @@ import net.minecraft.block.SoundType;
 
 public class LindenDoor extends DoorBlock {
     public LindenDoor() {
-        super(Properties.from(Blocks.OAK_DOOR).sound(SoundType.WOOD));
+        super(Properties.copy(Blocks.OAK_DOOR).sound(SoundType.WOOD));
     }
 }

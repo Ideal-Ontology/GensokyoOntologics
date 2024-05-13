@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.block.ore;
 
-import net.minecraft.block.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.client.gui.screen.SettingsScreen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ActionResultType;
@@ -16,7 +16,7 @@ import java.util.Random;
 
 public class DragonSphereOre extends OreBlock {
     public DragonSphereOre() {
-        super(Properties.from(Blocks.DIAMOND_ORE).hardnessAndResistance(5.0f, 10.0f).setRequiresTool()
+        super(Properties.copy(Blocks.DIAMOND_ORE).hardnessAndResistance(5.0f, 10.0f).setRequiresTool()
                 .harvestLevel(3));
     }
 }

@@ -1,15 +1,10 @@
 package github.thelawf.gensokyoontology.common.block.nature;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BushBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.BushBlock;
 
 public class WasabiBlock extends BushBlock {
     public WasabiBlock() {
-        super(Properties.create(Material.PLANTS)
-                .doesNotBlockMovement()
-                .zeroHardnessAndResistance()
-                .sound(SoundType.PLANT));
+        super(Properties.copy(Blocks.GRASS));
     }
 }

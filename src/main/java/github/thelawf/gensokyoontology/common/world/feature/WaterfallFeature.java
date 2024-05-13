@@ -2,9 +2,9 @@ package github.thelawf.gensokyoontology.common.world.feature;
 
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.common.util.world.FeatureUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BlockState;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;

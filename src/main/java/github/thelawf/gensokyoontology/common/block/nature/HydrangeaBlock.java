@@ -5,6 +5,6 @@ import net.minecraft.block.BushBlock;
 
 public class HydrangeaBlock extends BushBlock {
     public HydrangeaBlock() {
-        super(Properties.from(Blocks.OXEYE_DAISY));
+        super(Properties.copy(Blocks.OXEYE_DAISY));
     }
 }

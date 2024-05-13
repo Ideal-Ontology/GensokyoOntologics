@@ -47,7 +47,7 @@ public class DanmakuTestItem extends ShootableItem {
         // if (Screen.hasShiftDown()) {
         //     SHIFT右键该物品可切换弹幕风格
         // }
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             // 在这里初始化TransformFunction.transform()，部分变量必须提供，详情请见{@link TransformFunction.java}
             TransformFunction func = TransformFunction.Builder.create()
                     .setPlayer(playerIn).setInitLocation(playerIn.getPositionVec())

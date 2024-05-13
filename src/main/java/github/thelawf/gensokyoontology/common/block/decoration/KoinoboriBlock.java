@@ -1,10 +1,10 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public class KoinoboriBlock extends Block {
     public KoinoboriBlock() {
-        super(Properties.from(Blocks.BLACK_BANNER));
+        super(Properties.copy(Blocks.BLACK_BANNER));
     }
 }

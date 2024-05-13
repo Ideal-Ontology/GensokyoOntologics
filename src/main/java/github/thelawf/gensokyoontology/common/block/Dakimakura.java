@@ -1,5 +1,5 @@
 package github.thelawf.gensokyoontology.common.block;
-
+/*
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -15,7 +15,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -32,14 +32,14 @@ public class Dakimakura extends Block {
     @SuppressWarnings("deprecation")
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote && handIn == Hand.MAIN_HAND && state.get(BACK)) {
+        if (!worldIn.isClientSide && handIn == Hand.MAIN_HAND && state.get(BACK)) {
             state.cycleValue(FRONT);
             worldIn.setBlockState(pos, state);
-            return ActionResultType.func_233537_a_(worldIn.isRemote);
-        } else if (worldIn.isRemote && handIn == Hand.MAIN_HAND && state.get(FRONT)) {
+            return ActionResultType.func_233537_a_(worldIn.isClientSide);
+        } else if (worldIn.isClientSide && handIn == Hand.MAIN_HAND && state.get(FRONT)) {
             state.cycleValue(BACK);
             worldIn.setBlockState(pos, state);
-            return ActionResultType.func_233537_a_(worldIn.isRemote);
+            return ActionResultType.func_233537_a_(worldIn.isClientSide);
         }
 
         return ActionResultType.PASS;
@@ -47,7 +47,7 @@ public class Dakimakura extends Block {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, BlockGetter world) {
         return super.createTileEntity(state, world);
     }
 
@@ -84,3 +84,5 @@ public class Dakimakura extends Block {
     }
 
 }
+
+ */

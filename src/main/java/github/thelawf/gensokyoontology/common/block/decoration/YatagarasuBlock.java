@@ -1,10 +1,10 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public class YatagarasuBlock extends Block {
     public YatagarasuBlock() {
-        super(Properties.from(Blocks.IRON_BLOCK));
+        super(Properties.copy(Blocks.IRON_BLOCK));
     }
 }

@@ -6,6 +6,6 @@ import net.minecraft.block.WoodButtonBlock;
 
 public class ShinbokuButton extends WoodButtonBlock {
     public ShinbokuButton() {
-        super(Properties.from(Blocks.OAK_BUTTON).sound(SoundType.WOOD));
+        super(Properties.copy(Blocks.OAK_BUTTON).sound(SoundType.WOOD));
     }
 }

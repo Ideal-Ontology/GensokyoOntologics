@@ -21,7 +21,7 @@ public class EirinYagokoroArrow extends ArrowItem {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        if (worldIn.isRemote) return super.onItemRightClick(worldIn, playerIn, handIn);
+        if (worldIn.isClientSide) return super.onItemRightClick(worldIn, playerIn, handIn);
         ServerWorld serverWorld = (ServerWorld) worldIn;
         serverWorld.setDayTime(16000);
         if (serverWorld.getDimensionKey() != GSKODimensions.GENSOKYO)

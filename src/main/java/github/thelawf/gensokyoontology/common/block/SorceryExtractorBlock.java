@@ -2,9 +2,9 @@ package github.thelawf.gensokyoontology.common.block;
 
 import github.thelawf.gensokyoontology.common.tileentity.SorceryExtractorTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BlockState;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -13,9 +13,9 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -24,14 +24,14 @@ import org.jetbrains.annotations.Nullable;
 
 public class SorceryExtractorBlock extends Block {
     public SorceryExtractorBlock() {
-        super(Properties.from(Blocks.ENCHANTING_TABLE));
+        super(Properties.copy(Blocks.ENCHANTING_TABLE));
     }
 
     public static final VoxelShape shape;
 
     static {
-        VoxelShape terrace = Block.makeCuboidShape(0, 0, 0, 16, 7, 16);
-        VoxelShape crystal = Block.makeCuboidShape(7, 7, 9, 7, 16, 9);
+        VoxelShape terrace = Block.box(0, 0, 0, 16, 7, 16);
+        VoxelShape crystal = Block.box(7, 7, 9, 7, 16, 9);
         shape = VoxelShapes.or(terrace, crystal);
     }
 
@@ -42,7 +42,7 @@ public class SorceryExtractorBlock extends Block {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, BlockGetter world) {
         return new SorceryExtractorTileEntity();
     }
 
@@ -50,7 +50,7 @@ public class SorceryExtractorBlock extends Block {
     @Override
     @NotNull
     public ActionResultType onBlockActivated(@NotNull BlockState state, World worldIn, @NotNull BlockPos pos, @NotNull PlayerEntity player, @NotNull Hand handIn, @NotNull BlockRayTraceResult hit) {
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof SorceryExtractorTileEntity) {
                 // GSKOUtil.log(this.getClass(), "Item Handler Present? " + (tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).isPresent()));

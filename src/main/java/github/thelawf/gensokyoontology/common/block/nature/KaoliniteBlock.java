@@ -1,10 +1,10 @@
 package github.thelawf.gensokyoontology.common.block.nature;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public class KaoliniteBlock extends Block {
     public KaoliniteBlock() {
-        super(Properties.from(Blocks.STONE));
+        super(Properties.copy(Blocks.STONE));
     }
 }

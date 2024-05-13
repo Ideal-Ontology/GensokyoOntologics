@@ -1,25 +1,22 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import org.jetbrains.annotations.NotNull;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class AdobeTileBlock extends Block {
-    public static final VoxelShape TILE_SHAPE = makeCuboidShape(0,0,0,1,1,1);
+    public static final VoxelShape TILE_SHAPE = box(0,0,0,1,1,1);
     public AdobeTileBlock() {
-        super(Properties.from(Blocks.TERRACOTTA));
+        super(Properties.copy(Blocks.TERRACOTTA));
     }
 
-    @NotNull
+    
     @Override
-    @SuppressWarnings("deprecation")
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState pState, BlockGetter pLevel, BlockPos pPos, CollisionContext pContext) {
         return TILE_SHAPE;
     }
-
 }

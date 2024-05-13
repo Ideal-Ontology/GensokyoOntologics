@@ -1,9 +1,9 @@
 package github.thelawf.gensokyoontology.common.block;
 
 import github.thelawf.gensokyoontology.common.tileentity.DisposableSpawnerTile;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BlockState;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.SpawnEggItem;
 import net.minecraft.tileentity.TileEntity;
@@ -12,7 +12,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeSpawnEggItem;
 import org.jetbrains.annotations.NotNull;
@@ -20,7 +20,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class DisposableSpawnerBlock extends Block {
     public DisposableSpawnerBlock() {
-        super(Properties.from(Blocks.SPAWNER));
+        super(Properties.copy(Blocks.SPAWNER));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class DisposableSpawnerBlock extends Block {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, BlockGetter world) {
         return new DisposableSpawnerTile();
     }
 }

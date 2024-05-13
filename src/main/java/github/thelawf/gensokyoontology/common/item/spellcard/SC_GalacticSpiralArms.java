@@ -15,7 +15,7 @@ public class SC_GalacticSpiralArms extends SpellCardItem {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             GalacticArmSpellEntity galacticArm;
             try {
                 galacticArm = new GalacticArmSpellEntity(worldIn, playerIn);

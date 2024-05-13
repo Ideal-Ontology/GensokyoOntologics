@@ -5,6 +5,6 @@ import net.minecraft.block.LeavesBlock;
 
 public class AzaleaLeavesBlock extends LeavesBlock {
     public AzaleaLeavesBlock() {
-        super(Properties.from(Blocks.SPRUCE_LEAVES));
+        super(Properties.copy(Blocks.SPRUCE_LEAVES));
     }
 }

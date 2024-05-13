@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class LindenStairs extends StairsBlock {
     public LindenStairs() {
-        super(Blocks.OAK_STAIRS::getDefaultState, Properties.from(Blocks.OAK_STAIRS));
+        super(Blocks.OAK_STAIRS::getDefaultState, Properties.copy(Blocks.OAK_STAIRS));
     }
 
     @Override

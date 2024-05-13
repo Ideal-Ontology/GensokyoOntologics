@@ -1,10 +1,10 @@
 package github.thelawf.gensokyoontology.common.block.ore;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 
 public class CrimsonMetalBlock extends Block {
     public CrimsonMetalBlock() {
-        super(Properties.from(Blocks.ANCIENT_DEBRIS).harvestLevel(4));
+        super(Properties.copy(Blocks.ANCIENT_DEBRIS).harvestLevel(4));
     }
 }

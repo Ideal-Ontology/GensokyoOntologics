@@ -18,7 +18,7 @@ public class WashiPaper extends Item {
 
     @Override
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        // if (worldIn.isRemote) {
+        // if (worldIn.isClientSide) {
         //     final String str = "net.minecraft.client.entity.player.";
         //     GSKOUtil.showChatMsg(playerIn, playerIn.getClass().getName().replace(str, "") + " Has Power Cap " + (playerIn.getCapability(PowerCapabilityProvider.POWER_CAP).isPresent()), 1);
         //     GSKOUtil.showChatMsg(playerIn, playerIn.getClass().getName().replace(str, "") + " Has Life time Cap " + (playerIn.getCapability(GSKOCapabilities.SECULAR_LIFE).isPresent()), 1);

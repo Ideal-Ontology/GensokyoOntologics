@@ -6,6 +6,6 @@ import net.minecraft.block.SoundType;
 
 public class RedwoodLeaves extends LeavesBlock {
     public RedwoodLeaves() {
-        super(Properties.from(Blocks.SPRUCE_LEAVES).tickRandomly().sound(SoundType.PLANT));
+        super(Properties.copy(Blocks.SPRUCE_LEAVES).tickRandomly().sound(SoundType.PLANT));
     }
 }

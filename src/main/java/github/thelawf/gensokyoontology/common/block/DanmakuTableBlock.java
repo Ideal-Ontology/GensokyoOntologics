@@ -1,7 +1,13 @@
 package github.thelawf.gensokyoontology.common.block;
 
 import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
-import net.minecraft.block.*;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -10,15 +16,20 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.World;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.entity.BlockEntityTicker;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DanmakuTableBlock extends Block {
+public class DanmakuTableBlock extends BaseEntityBlock {
     public DanmakuTableBlock() {
-        super(Properties.from(Blocks.CRAFTING_TABLE).sound(SoundType.WOOD));
+        super(Properties.copy(Blocks.CRAFTING_TABLE).sound(SoundType.WOOD));
     }
 
     @Override
@@ -27,9 +38,8 @@ public class DanmakuTableBlock extends Block {
     }
 
     @Override
-    @NotNull
-    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-        if (!worldIn.isRemote) {
+    public @NotNull InteractionResult use(BlockState pState, Level worldIn, BlockPos pos, Player player, InteractionHand pHand, BlockHitResult pHit) {
+        if (!worldIn.isClientSide) {
             TileEntity tileEntity = worldIn.getTileEntity(pos);
             if (tileEntity instanceof DanmakuTabelTileEntity) {
                 INamedContainerProvider provider = DanmakuTabelTileEntity.createContainer(worldIn, pos);
@@ -38,13 +48,19 @@ public class DanmakuTableBlock extends Block {
                 throw new IllegalStateException("Missing Container Provider");
             }
         }
-        return ActionResultType.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new DanmakuTabelTileEntity();
+    public BlockEntity newBlockEntity(BlockPos pPos, BlockState pState) {
+        return TileEntityRegistry.DANMAKU_TABLE_TILE.get();
+    }
+
+    @Nullable
+    @Override
+    public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level pLevel, BlockState pState, BlockEntityType<T> pBlockEntityType) {
+        return super.getTicker(pLevel, pState, pBlockEntityType);
     }
 }

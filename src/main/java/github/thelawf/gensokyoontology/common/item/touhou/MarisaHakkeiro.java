@@ -90,7 +90,7 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
         // 循环引发50次爆炸，每次爆炸前先获取距离 explodeStartPos i格外的向量位置，
         // 通过同样的向量加法和数乘法确定下一个引爆的位置
         List<LivingEntity> entities = new ArrayList<>();
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             for (int i = 0; i < 50; i++) {
                 Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
                 worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),

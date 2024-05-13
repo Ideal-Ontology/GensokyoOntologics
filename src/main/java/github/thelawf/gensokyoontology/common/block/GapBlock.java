@@ -6,9 +6,9 @@ import github.thelawf.gensokyoontology.api.util.INBTWriter;
 import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
 import github.thelawf.gensokyoontology.common.world.TeleportHelper;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.BlockState;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -22,12 +22,12 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
+import net.minecraft.world.BlockGetter;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
@@ -41,18 +41,18 @@ public class GapBlock extends Block implements INBTWriter {
     private BlockPos tilePos;
 
     // public static final EnumProperty<Direction.Axis> AXIS = BlockStateProperties.HORIZONTAL_AXIS;
-    protected static final VoxelShape SUKIMA_PLANE_X = Block.makeCuboidShape(-4.0D, 0.0D, 4.0D, 20.0D, 16.0D, 4.0D);
-    protected static final VoxelShape SUKIMA_PLANE_Z = Block.makeCuboidShape(4.0D, 0.0D, -4.0D, 4.0D, 16.0D, 20.0D);
+    protected static final VoxelShape SUKIMA_PLANE_X = Block.box(-4.0D, 0.0D, 4.0D, 20.0D, 16.0D, 4.0D);
+    protected static final VoxelShape SUKIMA_PLANE_Z = Block.box(4.0D, 0.0D, -4.0D, 4.0D, 16.0D, 20.0D);
 
     @Override
     @NotNull
     @SuppressWarnings("deprecation")
-    public VoxelShape getShape(@NotNull BlockState state, @NotNull IBlockReader worldIn, @NotNull BlockPos pos, @NotNull ISelectionContext context) {
+    public VoxelShape getShape(@NotNull BlockState state, @NotNull BlockGetter worldIn, @NotNull BlockPos pos, @NotNull ISelectionContext context) {
         return SUKIMA_PLANE_X;
     }
 
     public GapBlock() {
-        super(Properties.from(Blocks.NETHER_PORTAL));
+        super(Properties.copy(Blocks.NETHER_PORTAL));
     }
 
     @Override
@@ -62,7 +62,7 @@ public class GapBlock extends Block implements INBTWriter {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    public TileEntity createTileEntity(BlockState state, BlockGetter world) {
         return new GapTileEntity();
     }
 
@@ -97,7 +97,7 @@ public class GapBlock extends Block implements INBTWriter {
     public void onEntityCollision(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos, @NotNull Entity entityIn) {
         super.onEntityCollision(state, worldIn, pos, entityIn);
 
-        if (!worldIn.isRemote && entityIn instanceof ServerPlayerEntity) {
+        if (!worldIn.isClientSide && entityIn instanceof ServerPlayerEntity) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) entityIn;
             tryTeleport(serverWorld, serverPlayer, pos);
@@ -109,7 +109,7 @@ public class GapBlock extends Block implements INBTWriter {
         itemNBT.putBoolean("is_first_placement", true);
         itemNBT.putLong("first_pos", firstPos.toLong());
 
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             RegistryKey<World> departureWorld = serverWorld.getDimensionKey();
             itemNBT.putString("departure_world", departureWorld.getLocation().toString());
@@ -140,7 +140,7 @@ public class GapBlock extends Block implements INBTWriter {
     private void setBlockTileSecond(PlayerEntity player, World worldIn, BlockPos secondPos, @NotNull CompoundNBT itemNBT) {
         worldIn.setBlockState(secondPos, BlockRegistry.GAP_BLOCK.get().getDefaultState());
 
-        if (!worldIn.isRemote && worldIn.getTileEntity(secondPos) instanceof GapTileEntity) {
+        if (!worldIn.isClientSide && worldIn.getTileEntity(secondPos) instanceof GapTileEntity) {
 
             RegistryKey<World> departureKey = RegistryKey.getOrCreateKey(Registry.WORLD_KEY, new ResourceLocation(itemNBT.getString("departure_world")));
             if (worldIn.getServer() == null) return;
@@ -176,7 +176,7 @@ public class GapBlock extends Block implements INBTWriter {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable IBlockReader worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
+    public void addInformation(ItemStack stack, @Nullable BlockGetter worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         if (stack.getTag() != null && stack.getTag().contains("first_pos")) {
             CompoundNBT nbt = stack.getTag();

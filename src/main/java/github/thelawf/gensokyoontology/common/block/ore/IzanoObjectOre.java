@@ -1,29 +1,25 @@
 package github.thelawf.gensokyoontology.common.block.ore;
 
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.OreBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Random;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.LevelReader;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.OreBlock;
+import net.minecraft.world.level.block.state.BlockState;
 
 public class IzanoObjectOre extends OreBlock {
     public IzanoObjectOre() {
-        super(Properties.from(Blocks.GOLD_ORE).setRequiresTool()
-                .hardnessAndResistance(5.0f, 5.0f).harvestLevel(3)
-                .sound(SoundType.STONE));
+        super(Properties.copy(Blocks.GOLD_ORE));
     }
 
-    @Override
-    protected int getExperience(@NotNull Random rand) {
-        return MathHelper.nextInt(rand, 3, 7);
+    public int getExperience() {
+        return GSKOMathUtil.randomRange(3, 7);
     }
 
+
     @Override
-    public int getExpDrop(BlockState state, net.minecraft.world.IWorldReader reader, BlockPos pos, int fortune, int silktouch) {
-        return silktouch == 0 ? this.getExperience(RANDOM) : 0;
+    public int getExpDrop(BlockState state, LevelReader reader, BlockPos pos, int fortune, int silktouch) {
+        return silktouch == 0 ? this.getExperience() : 0;
     }
+
 }

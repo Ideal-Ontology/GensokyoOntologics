@@ -39,7 +39,7 @@ public class KoishiEyeClosed extends Item {
         Vector3d playerPos = playerIn.getPositionVec();
 
         List<AbstractDanmakuEntity> entities = new ArrayList<>();
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             for (int i = 0; i < 50; i++) {
                 Vector3d lookVec = playerIn.getLookVec().scale(i);
 

@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.util.world;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import net.minecraft.block.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;

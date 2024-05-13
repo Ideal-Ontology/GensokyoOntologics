@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.block.decoration;
 
 import github.thelawf.gensokyoontology.common.util.block.ClockHandDirection;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.block.*;
+import net.minecraft.world.level.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.item.ItemStack;
@@ -22,7 +22,7 @@ public class ClockNeedleBlock extends Block {
     public static final EnumProperty<ClockHandDirection> CLOCK_HAND = EnumProperty.create("clock", ClockHandDirection.class);
 
     public ClockNeedleBlock() {
-        super(Properties.from(Blocks.IRON_BLOCK));
+        super(Properties.copy(Blocks.IRON_BLOCK));
     }
 
     @Override

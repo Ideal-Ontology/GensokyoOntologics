@@ -17,12 +17,12 @@ public class ExtendItem extends Item {
 
     @Override
     public @NotNull ActionResult<ItemStack> onItemRightClick(World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        if (worldIn.isRemote) {
+        if (worldIn.isClientSide) {
             // playerIn.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> GSKOUtil.showChatMsg(playerIn, "[Client] TLM: " + tlmCap.get(), 1));
             playerIn.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(gskoCap -> GSKOUtil.showChatMsg(playerIn, "[Client] GSKO: " + gskoCap.getLifetime(), 1));
         }
 
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             playerIn.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(gskoCap -> GSKOUtil.showChatMsg(playerIn, "[Server] GSKO: " + gskoCap.getLifetime(), 1));
             // playerIn.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> GSKOUtil.showChatMsg(playerIn, "[Server] TLM: " + tlmCap.get(), 1));
 

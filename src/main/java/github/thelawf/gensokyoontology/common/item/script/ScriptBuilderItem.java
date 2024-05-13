@@ -40,7 +40,7 @@ public abstract class ScriptBuilderItem extends Item {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        if (!worldIn.isRemote) {
+        if (!worldIn.isClientSide) {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) playerIn;
             this.openScriptEditGUI(serverWorld, serverPlayer, playerIn.getHeldItem(handIn));
