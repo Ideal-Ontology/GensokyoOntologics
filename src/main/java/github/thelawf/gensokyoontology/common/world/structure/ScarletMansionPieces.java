@@ -116,7 +116,6 @@ public class ScarletMansionPieces {
         int x = pos.getX();
         int z = pos.getZ();
 
-
         for (Map.Entry<ResourceLocation, BlockPos> entry: OFFSET.entrySet()) {
             String name = entry.getKey().toString().replace("gensokyoontology:scarlet_devil_mansion/","");
             BlockPos rotationOffSet = new BlockPos(0, 0, 0).rotate(setRotFrom(warp(name)));
