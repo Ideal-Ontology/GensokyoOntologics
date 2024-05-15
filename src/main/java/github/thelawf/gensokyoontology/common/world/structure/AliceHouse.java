@@ -20,8 +20,8 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.jetbrains.annotations.NotNull;
 
 // -4742294992493429317
-public class AbcdefStructure extends Structure<NoFeatureConfig> {
-    public AbcdefStructure(Codec<NoFeatureConfig> codec) {
+public class AliceHouse extends Structure<NoFeatureConfig> {
+    public AliceHouse(Codec<NoFeatureConfig> codec) {
         super(codec);
     }
 
@@ -36,7 +36,7 @@ public class AbcdefStructure extends Structure<NoFeatureConfig> {
     @Override
     @NotNull
     public IStartFactory<NoFeatureConfig> getStartFactory() {
-        return AbcdefStructure.Start::new;
+        return AliceHouse.Start::new;
     }
     public static class Start extends StructureStart<NoFeatureConfig> {
 
@@ -59,13 +59,12 @@ public class AbcdefStructure extends Structure<NoFeatureConfig> {
             // addPieces() Method
             JigsawManager.func_242837_a(dynamicRegistry,
                     new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "test_pool_b")),
+                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "alice_house/start_pool")),
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     pos, this.components, this.rand, false, true);
 
             System.out.println(this.components.size());
             this.recalculateStructureSize();
-            System.out.println(this.bounds);
         }
     }
 }

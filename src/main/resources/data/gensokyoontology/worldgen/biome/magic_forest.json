@@ -92,5 +92,7 @@
       }
     ]
   },
-  "starts": []
+  "starts": [
+    "gensokyoontology:alice_house"
+  ]
 }

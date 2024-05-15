@@ -91,13 +91,13 @@ public class ScarletMansionPieces {
             .put(withStructureRL("garden_back_right"), new BlockPos(48, -1, -48*2-13))
             .put(withStructureRL("garden_ne"), new BlockPos(48*2, -1, -48*2-11))
 
-            .put(withStructureRL("dungeon_01"), new BlockPos(-44, -22, -13))
-            .put(withStructureRL("dungeon_02"), new BlockPos(-44, -22, -48-13))
-            .put(withStructureRL("dungeon_03"), new BlockPos(4, -22, -13))
-            .put(withStructureRL("dungeon_04"), new BlockPos(4, -22, -48-13))
-            .put(withStructureRL("dungeon_05"), new BlockPos(4+48, -22, -13))
-            .put(withStructureRL("dungeon_06"), new BlockPos(4+48, -22, -48-13))
-            .put(withStructureRL("dungeon_07"), new BlockPos(29-47, -22, 31))
+            .put(withStructureRL("dungeon_01"), new BlockPos(-44, -22, -15))
+            .put(withStructureRL("dungeon_02"), new BlockPos(-44, -22, -48-15))
+            .put(withStructureRL("dungeon_03"), new BlockPos(4, -22, -15))
+            .put(withStructureRL("dungeon_04"), new BlockPos(4, -22, -48-15))
+            .put(withStructureRL("dungeon_05"), new BlockPos(4+48, -22, -15))
+            .put(withStructureRL("dungeon_06"), new BlockPos(4+48, -22, -48-15))
+            .put(withStructureRL("dungeon_07"), new BlockPos(29-51, -22, 32))
             .build();
     public static final List<ResourceLocation> LOOT_TABLES = ImmutableList.of(
             withLootRL("mansion_danmaku_loot.json"),

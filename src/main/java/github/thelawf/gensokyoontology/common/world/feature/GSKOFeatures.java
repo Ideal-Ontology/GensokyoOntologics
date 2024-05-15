@@ -181,7 +181,7 @@ public class GSKOFeatures {
             .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(3).variableCount(5).square();
 
     //-------------------------------------------建筑生成------------------------------------------//
-    public static final StructureFeature<?, ?> ABCDEF_STRUCTURE = StructureRegistry.ABCDEF.get()
+    public static final StructureFeature<?, ?> ALICE_HOUSE_STRUCTURE = StructureRegistry.ALICE_HOUSE.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
     public static final StructureFeature<?, ?> SCARLET_MANSION_STRUCTURE = StructureRegistry.SCARLET_DEVIL_MANSION.get()
             .withConfiguration(IFeatureConfig.NO_FEATURE_CONFIG);
@@ -240,7 +240,7 @@ public class GSKOFeatures {
     public static void registerStructure() {
         Registry<StructureFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_STRUCTURE_FEATURE;
         // 可以继续添加多个
-        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "abcdef"), ABCDEF_STRUCTURE);
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "alice_house"), ALICE_HOUSE_STRUCTURE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "scarlet_devil_mansion"), SCARLET_MANSION_STRUCTURE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "mystia_izakaya"), MYSTIA_STRUCTURE);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "hakurei_shrine"), HAKUREI_STRUCTURE);
@@ -249,7 +249,7 @@ public class GSKOFeatures {
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "beast_pathway"), BEAST_PATHWAY);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "human_village"), HUMAN_VILLAGE);
 
-        FlatGenerationSettings.STRUCTURES.put(StructureRegistry.ABCDEF.get(), ABCDEF_STRUCTURE);
+        FlatGenerationSettings.STRUCTURES.put(StructureRegistry.ALICE_HOUSE.get(), ALICE_HOUSE_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.SCARLET_DEVIL_MANSION.get(), SCARLET_MANSION_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.MYSTIA_IZAKAYA.get(), MYSTIA_STRUCTURE);
         FlatGenerationSettings.STRUCTURES.put(StructureRegistry.HAKUREI_SHRINE.get(), HAKUREI_STRUCTURE);
