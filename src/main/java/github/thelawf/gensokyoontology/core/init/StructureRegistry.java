@@ -29,18 +29,14 @@ public final class StructureRegistry {
             "scarlet_devil_mansion", () -> new ScarletDevilMansion(NoFeatureConfig.CODEC));
     public static final RegistryObject<Structure<NoFeatureConfig>> MYSTIA_IZAKAYA = STRUCTURES.register(
             "mystia_izakaya", () -> new MystiaIzakayaStructure(NoFeatureConfig.CODEC));
-
     public static final RegistryObject<Structure<NoFeatureConfig>> HAKUREI_SHRINE = STRUCTURES.register(
             "hakurei_shrine", () -> new HakureiShrineStructure(NoFeatureConfig.CODEC));
-
     public static final RegistryObject<Structure<NoFeatureConfig>> CHIREIDEN = STRUCTURES.register(
             "chireiden", () -> new ChireidenStructure(NoFeatureConfig.CODEC));
     public static final RegistryObject<Structure<NoFeatureConfig>> BEAST_PATHWAY = STRUCTURES.register(
             "beast_pathway", () -> new BeastPathStructure(NoFeatureConfig.CODEC));
-
     public static final RegistryObject<Structure<NoFeatureConfig>> CIRNO_ICE_HOUSE = STRUCTURES.register(
             "cirno_ice_house", () -> new CirnoIceHouseStructure(NoFeatureConfig.CODEC));
-
     public static final RegistryObject<Structure<NoFeatureConfig>> HUMAN_VILLAGE = STRUCTURES.register(
             "human_village", () -> new HumanVillageStructure(NoFeatureConfig.CODEC));
 

@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
-import github.thelawf.gensokyoontology.common.entity.ai.goal.BossStageGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.GSKOBossGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.LilyWhiteBossBattleGoal;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
@@ -30,9 +30,8 @@ public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardU
 
     @Override
     protected void registerGoals() {
-        FullCherryBlossomEntity SPELL_CARD = new FullCherryBlossomEntity(world, this);
-        BossStageGoal.Stage stage = new BossStageGoal.Stage(BossStageGoal.Type.NON_SPELL, SPELL_CARD, 500, true);
-        // stages.put(BossStageGoal.Type.SPELL_CARD_BREAKABLE, Pair.of(50f, 2000));
+        GSKOBossGoal.Stage stage = new GSKOBossGoal.Stage(GSKOBossGoal.Type.NON_SPELL, 500, true);
+        // stages.put(GSKOBossGoal.Type.SPELL_CARD_BREAKABLE, Pair.of(50f, 2000));
 
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new LilyWhiteBossBattleGoal(this, stage, 0.4f));

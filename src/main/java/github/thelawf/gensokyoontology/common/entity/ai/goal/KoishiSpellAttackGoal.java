@@ -36,7 +36,7 @@ public class KoishiSpellAttackGoal extends Goal {
                 IdonokaihoEntity idonokaiho = new IdonokaihoEntity(this.entity.world, this.entity);
                 idonokaiho.setLocationAndAngles(this.entity.getPosX(), this.entity.getPosY() + 0.8, this.entity.getPosZ(), 0f, 0f);
                 this.entity.spellCardAttack(idonokaiho, ticksExisted);
-            };
+            }
 
         } else if (!this.entity.getEntitySenses().canSee(target)) {
             this.entity.getNavigator().clearPath();

@@ -5,22 +5,22 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
 
-public class FlandreSpellAttackGoal extends BossStageGoal {
+public class FlandreSpellAttackGoal extends GSKOBossGoal {
 
     private final FlandreScarletEntity flandre;
     private final Stage stage;
     private Path path;
-    private final float speed;
+    private final float speed = 0.7f;
     private int ticksExisted = 0;
 
     /**
      * 该形参是一个映射表类型，其索引值是符卡战斗的总共次数，其key表示符卡战斗的类型。Pair的第一个Float代表为了击破该符卡需要对BOSS造成的总伤害，第二个Integer表示该符卡提供给玩家的击破时间，单位为tick。
+     *
      * @param flandre 芙兰
      */
-    public FlandreSpellAttackGoal(FlandreScarletEntity flandre, Stage stage, float speedIn) {
+    public FlandreSpellAttackGoal(FlandreScarletEntity flandre, Stage stage) {
         super(stage);
         this.flandre = flandre;
-        this.speed = speedIn;
         this.stage = stage;
     }
 
@@ -38,9 +38,7 @@ public class FlandreSpellAttackGoal extends BossStageGoal {
             this.flandre.getNavigator().tryMoveToEntityLiving(target, this.speed);
             this.flandre.setNoGravity(true);
 
-            if (this.stage.spellCard == null) {
-                throw new NullPointerException("符卡未提供");
-            }
+
             // this.flandre.spellCardAttack(this.stage.spellCard, ticksExisted);
 
         } else if (!this.flandre.getEntitySenses().canSee(target)) {
@@ -55,7 +53,7 @@ public class FlandreSpellAttackGoal extends BossStageGoal {
             return false;
         }
         this.path = this.flandre.getNavigator().pathfind(target, 0);
-        return path != null && this.stage.spellCard.ticksExisted >= this.stage.duration * 2;
+        return path != null;
     }
 
     @Override
@@ -77,6 +75,6 @@ public class FlandreSpellAttackGoal extends BossStageGoal {
     @Override
     public void startExecuting() {
         this.flandre.getNavigator().setPath(this.path, this.speed);
-        this.flandre.spellCardAttack(this.stage.spellCard, ticksExisted);
+        // this.flandre.spellCardAttack(this.stage.spellCard, ticksExisted);
     }
 }

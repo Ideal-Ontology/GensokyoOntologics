@@ -24,7 +24,7 @@ import java.util.Random;
  */
 public class HanaShigureSpellEntity extends SpellCardEntity {
     private Random random = new Random();
-    public HanaShigureSpellEntity(World worldIn, PlayerEntity player) {
+    public HanaShigureSpellEntity(World worldIn, LivingEntity player) {
         super(EntityRegistry.HANA_SHIGURE_ENTITY.get(), worldIn);
         this.setOwner(player);
         this.setLocationAndAngles(player.getPosX(),player.getPosY(), player.getPosZ(), player.rotationYaw, player.rotationPitch);

@@ -1,18 +1,29 @@
 package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import github.thelawf.gensokyoontology.common.entity.monster.RemiliaScarletEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.pathfinding.Path;
+import net.minecraft.world.Difficulty;
 
-public class RemiliaSpellAttackGoal extends BossStageGoal {
+public class RemiliaSpellAttackGoal extends GSKOBossGoal {
 
     private final RemiliaScarletEntity remilia;
     
     /**
      * @param stage 符卡阶段
      */
-    public RemiliaSpellAttackGoal(Stage stage, RemiliaScarletEntity remilia) {
+    public RemiliaSpellAttackGoal(RemiliaScarletEntity remilia, Stage stage) {
         super(stage);
         this.remilia = remilia;
+    }
+
+    @Override
+    public void startExecuting() {
+        super.startExecuting();
+        this.remilia.spellCardAttack(null, ticksExisted);
     }
 
     @Override
@@ -24,22 +35,23 @@ public class RemiliaSpellAttackGoal extends BossStageGoal {
         }
         this.remilia.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
         double distance = this.remilia.getDistanceSq(target);
-        if (this.remilia.getEntitySenses().canSee(target)) {
+        if (this.remilia.getEntitySenses().canSee(target) && this.remilia.ticksExisted % 100 >= 25) {
             this.remilia.getNavigator().tryMoveToEntityLiving(target, this.speed);
-            this.remilia.setNoGravity(true);
 
-            if (this.stage.spellCard == null) {
-                throw new NullPointerException("符卡未提供");
-            }
-            this.remilia.spellCardAttack(this.stage.spellCard, ticksExisted);
 
         } else if (!this.remilia.getEntitySenses().canSee(target)) {
             this.remilia.getNavigator().clearPath();
         }
     }
 
+    private boolean isHealthBetween(YoukaiEntity youkai, float min, float max) {
+        return youkai.getHealth() > youkai.getMaxHealth() * min && youkai.getHealth() <= youkai.getMaxHealth() * max;
+    }
+
     @Override
     public boolean shouldExecute() {
-        return false;
+        LivingEntity target = this.remilia.getAttackTarget();
+        return target != null && target.isAlive() && !this.remilia.doesTargetBelieveBuddhism(target) &&
+                target.world.getDifficulty() != Difficulty.PEACEFUL;
     }
 }

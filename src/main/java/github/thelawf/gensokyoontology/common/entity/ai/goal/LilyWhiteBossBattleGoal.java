@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.HanaShigureSpellEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -9,7 +10,7 @@ import net.minecraft.pathfinding.Path;
 
 import java.util.function.Predicate;
 
-public class LilyWhiteBossBattleGoal extends BossStageGoal {
+public class LilyWhiteBossBattleGoal extends GSKOBossGoal {
     private int ticksExisted;
     private final LilyWhiteEntity lilyWhite;
     private Path path;
@@ -52,10 +53,7 @@ public class LilyWhiteBossBattleGoal extends BossStageGoal {
             this.lilyWhite.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
             this.lilyWhite.setNoGravity(true);
 
-            if (this.stage.spellCard == null) {
-                throw new NullPointerException("符卡未提供");
-            }
-            this.lilyWhite.spellCardAttack(this.stage.spellCard, ticksExisted);
+            this.lilyWhite.spellCardAttack(new HanaShigureSpellEntity(this.lilyWhite.world, this.lilyWhite.getLoveCause()), ticksExisted);
 
         } else if (!this.lilyWhite.getEntitySenses().canSee(target)) {
             this.lilyWhite.getNavigator().clearPath();

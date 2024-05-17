@@ -2,12 +2,11 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
-import github.thelawf.gensokyoontology.common.entity.ai.goal.BossStageGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.GSKOBossGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.FlandreSpellAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.SpellCardAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.SummonEyeGoal;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.ScarletPrisoner;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.boss.FlandreSpellAttack;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
@@ -33,12 +32,12 @@ import java.util.function.Consumer;
 
 public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser {
 
-    public final BossStageGoal.Stage stage;
+    // public final GSKOBossGoal.Stage stage;
     public FlandreScarletEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
         this.favorability = -10;
-        this.stage = new BossStageGoal.Stage(BossStageGoal.Type.SPELL_CARD_BREAKABLE,
-                new ScarletPrisoner(worldIn, this), 500, true);
+        // this.stage = new GSKOBossGoal.Stage(GSKOBossGoal.Type.SPELL_CARD_BREAKABLE,
+        //         new ScarletPrisoner(worldIn, this), 500, true);
         // this.setHeldItem(Hand.MAIN_HAND, new ItemStack(ItemRegistry.CLOCK_HAND_ITEM.get()));
     }
 
@@ -144,8 +143,8 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     public static class Doppelganger extends FlandreScarletEntity {
         public static final int LIFE = 1000;
         public final FullCherryBlossomEntity SPELL_CARD = new FullCherryBlossomEntity(world, this);
-        public final BossStageGoal.Stage stage = new BossStageGoal.Stage(BossStageGoal.Type.SPELL_CARD_BREAKABLE,
-                SPELL_CARD, 1200, true);
+        // public final GSKOBossGoal.Stage stage = new GSKOBossGoal.Stage(GSKOBossGoal.Type.SPELL_CARD_BREAKABLE,
+        //         SPELL_CARD, 1200, true);
 
         public Doppelganger(EntityType<? extends TameableEntity> type, World worldIn) {
             super(EntityRegistry.FLANDRE_DOPPELDANGER.get(), worldIn);
@@ -155,7 +154,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         protected void registerGoals() {
             this.goalSelector.addGoal(1, new SwimGoal(this));
             this.goalSelector.addGoal(2, new SitGoal(this));
-            this.goalSelector.addGoal(3, new FlandreSpellAttackGoal(this, stage, 0.4F));
+            this.goalSelector.addGoal(3, new FlandreSpellAttackGoal(this, new GSKOBossGoal.Stage(GSKOBossGoal.Type.SPELL_BREAKABLE, 500, false)));
             this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
             this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4F));
             this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8F));
