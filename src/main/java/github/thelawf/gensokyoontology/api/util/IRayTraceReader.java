@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.api.util;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -10,6 +11,7 @@ import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -139,22 +141,23 @@ public interface IRayTraceReader {
                 new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
     }
 
-    default EntityRayTraceResult rayTrace(World worldIn, Entity sourceEntity, Predicate<Entity> filter, Vector3d startPos, Vector3d endPos) {
-        double d0 = Double.MAX_VALUE;
-        Entity entity = null;
+    default Optional<Entity> rayTrace(World world, Entity sourceEntity, Vector3d startVec, Vector3d endVec) {
+        double closestDistance = startVec.distanceTo(endVec);
+        for (Entity entity : world.getEntitiesWithinAABB(Entity.class, sourceEntity.getBoundingBox().grow(startVec.distanceTo(endVec)))) {
+            if (entity != sourceEntity) {
+                AxisAlignedBB entityAABB = entity.getBoundingBox();
+                Optional<Vector3d> result = entityAABB.rayTrace(startVec, endVec);
 
-        for(Entity entity1 : worldIn.getEntitiesWithinAABB(sourceEntity.getType(), sourceEntity.getBoundingBox(), filter)) {
-            AxisAlignedBB axisalignedbb = entity1.getBoundingBox().grow(0.3F);
-            Optional<Vector3d> optional = axisalignedbb.rayTrace(startPos, endPos);
-            if (optional.isPresent()) {
-                double d1 = startPos.squareDistanceTo(optional.get());
-                if (d1 < d0) {
-                    entity = entity1;
-                    d0 = d1;
+                if (result.isPresent()) {
+                    double distance = startVec.squareDistanceTo(result.get());
+
+                    if (distance < closestDistance) {
+                        return Optional.of(entity);
+                    }
                 }
             }
         }
-        return entity == null ? null : new EntityRayTraceResult(entity);
+        return Optional.empty();
     }
 
     default Vector3d getIntersectedPos(Vector3d start, Vector3d end, AxisAlignedBB aabb) {

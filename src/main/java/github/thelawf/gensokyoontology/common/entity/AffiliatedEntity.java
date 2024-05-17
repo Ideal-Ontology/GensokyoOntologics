@@ -28,6 +28,7 @@ public abstract class AffiliatedEntity extends Entity {
     public AffiliatedEntity(EntityType<?> entityTypeIn, UUID ownerId, World worldIn) {
         super(entityTypeIn, worldIn);
         this.ownerId = ownerId;
+        this.setOwnerId(this.ownerId);
     }
 
     @Override

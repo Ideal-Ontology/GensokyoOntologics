@@ -7,7 +7,6 @@ import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -23,7 +22,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.model.pipeline.BakedQuadBuilder;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -45,10 +43,6 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         return LASER_SOURCE_TEX;
     }
 
-    private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, int r, int g, int b) {
-        builder.pos(matrix4f, 0F,0.5F,0F).color(r, g, b, 255).endVertex();
-        builder.pos(matrix4f, 0F,2F,0F).color(r, g, b, 255).endVertex();
-    }
 
     private static void drawSprite(IVertexBuilder builder, Matrix4f matrix4f, TextureAtlasSprite sprite) {
         builder.pos(matrix4f, 0,0,1).color(255, 255, 255, 255).tex(sprite.getMinU(), sprite.getMinV()).lightmap(0, 240).endVertex();
@@ -57,19 +51,88 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         builder.pos(matrix4f, 0,1,1).color(255, 255, 255, 255).tex(sprite.getMinU(), sprite.getMaxV()).lightmap(0, 240).endVertex();
     }
 
-    private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, Vector3f start, Vector3f end, int r, int g, int b, int alpha) {
-        builder.pos(matrix4f, start.getX(), start.getY(), start.getZ()).color(r, g, b, alpha).endVertex();
-        builder.pos(matrix4f, end.getX(), end.getY(), end.getZ()).color(r, g, b, alpha).endVertex();
-    }
-
     private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, Matrix3f matrix3f,
                                   float dx1, float dy1, float dz1, int r, int g, int b, float u, float v) {
         builder.pos(matrix4f, dx1, dy1, dz1).color(r, g, b, 255).tex(u, v).overlay(OverlayTexture.NO_OVERLAY).lightmap(15728880).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
     }
 
-    private static void drawLaser(IVertexBuilder builder, Matrix4f matrix4f, Matrix3f matrix3f,
-                                  float dx1, float dy1, float dz1, int r, int g, int b, int a, float u, float v) {
-        builder.pos(matrix4f, dx1, dy1, dz1).color(r, g, b, a).tex(u, v).overlay(OverlayTexture.NO_OVERLAY).lightmap(15728880).normal(matrix3f, 0.0F, 1.0F, 0.0F).endVertex();
+    private void drawLaser(IVertexBuilder vertexBuilder, MatrixStack matrixStack, float length, float red, float green, float blue, float alpha, float thickness) {
+
+        // Front face
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F,  -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, thickness, red, green, blue, alpha);
+
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, -thickness, red, green, blue, alpha);
+
+        // Back face
+        vertex(matrixStack, vertexBuilder, -thickness, length, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, length, thickness, red, green, blue, alpha);
+
+        vertex(matrixStack, vertexBuilder, -thickness, length, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, length, -thickness, red, green, blue, alpha);
+
+        // Left face
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, length, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, length, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, thickness, red, green, blue, alpha);
+
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, length, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, length, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, -thickness, red, green, blue, alpha);
+
+        // Right face
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, thickness, red, green, blue, alpha);
+
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, thickness,  red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, -thickness, red, green, blue, alpha);
+
+        // Top face
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, length, thickness, red, green, blue, alpha);
+
+        vertex(matrixStack, vertexBuilder, -thickness, length, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, thickness, red, green, blue, alpha);
+
+        // Bottom face
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, length, -thickness, red, green, blue, alpha);
+
+        vertex(matrixStack, vertexBuilder, -thickness, length, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, length, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, thickness, 0.0F, -thickness, red, green, blue, alpha);
+        vertex(matrixStack, vertexBuilder, -thickness, 0.0F, -thickness, red, green, blue, alpha);
+    }
+
+    private void vertex(MatrixStack matrixStack, IVertexBuilder vertexBuilder, float x, float y, float z, float red, float green, float blue, float alpha) {
+        vertexBuilder.pos(matrixStack.getLast().getMatrix(), x, y, z)
+                .color(red, green, blue, alpha)
+                .endVertex();
+    }
+
+    private void addVertices(MatrixStack matrixStack, IVertexBuilder builder, Vector3f start, Vector3f end, float red, float green, float blue, float alpha) {
+
     }
 
     @Override
@@ -81,19 +144,57 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(LASER_SOURCE_TEX);
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
+        float length = (float) new Vector3d(0, 1, 0).distanceTo(entityIn.getLookVec().scale(100));
 
-        renderLaserUsingMojangsShit(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+        // renderLaserUsingGardianLaser(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+
+        matrixStackIn.push();
+        matrixStackIn.translate(0.0D, entityIn.getEyeHeight(), 0.0D);
+        Vector3d vector3d2 = entityIn.getLookVec();
+        float f5 = (float)Math.acos(vector3d2.y);
+        float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((float)Math.PI / 2 - f6) * (180 / (float)Math.PI)));
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180 / (float)Math.PI)));
+
+        drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+                length, 1.0f, 0F, 0F, 0.5F, 0.15f);
+        drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+                length, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f);
+
+        matrixStackIn.pop();
+        // drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
+        //         toVector3f(entityIn.getPositionVec()), toVec3f(entityIn.getLookVec().scale(entityIn.getRange())),
+        //         entityIn.getRed(), entityIn.getGreen(), entityIn.getBlue(), entityIn.getAlpha());
+
     }
 
     private static Vector3f toVector3f(Vector3d vector3d) {
         return new Vector3f((float) vector3d.x, (float) vector3d.y, (float) vector3d.z);
     }
 
+    private void renderLaserUsingLightingRT(LaserSourceEntity entityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn) {
+        IVertexBuilder builder = bufferIn.getBuffer(RenderType.getLightning());
+        matrixStackIn.push();
+        float eyeHeight = entityIn.getEyeHeight();
+        matrixStackIn.translate(0.0D, eyeHeight, 0.0D);
+        toLookVec(matrixStackIn, entityIn);
+
+    }
+
+    private void toLookVec(MatrixStack matrixStack, LaserSourceEntity entityIn) {
+        Vector3d vector3d2 = entityIn.getLookVec();
+        float yaw = (float)Math.atan2(vector3d2.z, vector3d2.x);
+        float pitch = (float)Math.asin(vector3d2.y);
+
+        matrixStack.rotate(Vector3f.YP.rotation(yaw * (180f / (float) Math.PI)));
+        matrixStack.rotate(Vector3f.XP.rotation(-pitch * (180f / (float) Math.PI)));
+    }
+
     /** Render laser using Mojang's shit. <br>
      * Copy from {@link net.minecraft.client.renderer.entity.GuardianRenderer}. Mojang official uses these codes below only for rendering
      * Guardian Entity's laser.
      */
-    private void renderLaserUsingMojangsShit(LaserSourceEntity entityIn, @Nullable Vector3d lookVec, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
+    private void renderLaserUsingGardianLaser(LaserSourceEntity entityIn, @Nullable Vector3d lookVec, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
         //LivingEntity livingentity = entityIn.getTargetedEntity();
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder builder = buffer.getBuffer(RenderType.getLightning());
@@ -192,5 +293,9 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f19, 0.0F, f20, j, k, l, 0.4999F, f29);
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f21, 0.0F, f22, j, k, l, 0.0F, f29);
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f21, f4, f22, j, k, l, 0.0F, f30);
+    }
+
+    private Vector3f toVec3f(Vector3d v3d) {
+        return new Vector3f((float) v3d.x, (float) v3d.y, (float) v3d.z);
     }
 }

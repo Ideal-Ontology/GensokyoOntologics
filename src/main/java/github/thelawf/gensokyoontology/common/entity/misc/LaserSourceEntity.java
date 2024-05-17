@@ -3,12 +3,14 @@ package github.thelawf.gensokyoontology.common.entity.misc;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellBehavior;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.monster.GuardianEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -42,7 +44,7 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
     }
 
     public LaserSourceEntity(World worldIn, Entity owner) {
-        super(EntityRegistry.LASER_SOURCE_ENTITY.get(), owner.getUniqueID(),  worldIn);
+        super(EntityRegistry.LASER_SOURCE_ENTITY.get(), owner.getUniqueID(), worldIn);
         this.ignoreFrustumCheck = true;
         this.init(100, 30, 128F);
     }
@@ -95,8 +97,9 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         Vector3d start = this.getPositionVec();
         Vector3d end = this.getLookVec().scale(this.range).add(start);
         Predicate<Entity> doNotAttack = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() != this.getOwnerID().get();
-        if (this.ticksExisted % 2 == 0 && rayTrace(world, this, e -> false, start, end) != null) {
-            rayTrace(world, this, doNotAttack, start, end).getEntity().attackEntityFrom(GSKODamageSource.LASER, 3);
+
+        if (this.ticksExisted % 2 == 0 && rayTrace(this.world, this, start, end).isPresent()) {
+            rayTrace(this.world, this, start, end).ifPresent(entity -> entity.attackEntityFrom(GSKODamageSource.LASER, 3));
         }
     }
 
@@ -132,6 +135,7 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         this.dataManager.set(DATA_PREPARATION, preparation);
     }
 
+    @OnlyIn(Dist.CLIENT)
     public float getRange() {
         return this.dataManager.get(DATA_RANGE) == 0 ? this.range : this.dataManager.get(DATA_RANGE);
     }
