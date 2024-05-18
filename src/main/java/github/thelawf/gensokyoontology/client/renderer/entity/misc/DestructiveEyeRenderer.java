@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.SpriteRenderer;

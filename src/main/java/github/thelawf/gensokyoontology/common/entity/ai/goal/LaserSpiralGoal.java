@@ -2,20 +2,17 @@ package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import github.thelawf.gensokyoontology.common.entity.monster.RemiliaScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.pathfinding.Path;
 import net.minecraft.world.Difficulty;
 
-public class RemiliaSpellAttackGoal extends GSKOBossGoal {
+public class LaserSpiralGoal extends GSKOBossGoal {
 
     private final RemiliaScarletEntity remilia;
     
     /**
      * @param stage 符卡阶段
      */
-    public RemiliaSpellAttackGoal(RemiliaScarletEntity remilia, Stage stage) {
+    public LaserSpiralGoal(RemiliaScarletEntity remilia, Stage stage) {
         super(stage);
         this.remilia = remilia;
     }
@@ -36,8 +33,7 @@ public class RemiliaSpellAttackGoal extends GSKOBossGoal {
         this.remilia.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
         double distance = this.remilia.getDistanceSq(target);
         if (this.remilia.getEntitySenses().canSee(target) && this.remilia.ticksExisted % 100 >= 25) {
-            this.remilia.getNavigator().tryMoveToEntityLiving(target, this.speed);
-
+            this.remilia.getNavigator().tryMoveToEntityLiving(target, 0.7f);
 
         } else if (!this.remilia.getEntitySenses().canSee(target)) {
             this.remilia.getNavigator().clearPath();

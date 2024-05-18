@@ -2,10 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
-import github.thelawf.gensokyoontology.common.entity.ai.goal.GSKOBossGoal;
-import github.thelawf.gensokyoontology.common.entity.ai.goal.FlandreSpellAttackGoal;
-import github.thelawf.gensokyoontology.common.entity.ai.goal.SpellCardAttackGoal;
-import github.thelawf.gensokyoontology.common.entity.ai.goal.SummonEyeGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.*;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.boss.FlandreSpellAttack;
