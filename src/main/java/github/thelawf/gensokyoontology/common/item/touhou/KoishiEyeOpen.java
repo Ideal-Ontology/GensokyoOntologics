@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
@@ -14,6 +15,8 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
@@ -22,6 +25,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.Predicate;
 
 public class KoishiEyeOpen extends Item implements IRayTraceReader {
@@ -45,7 +49,9 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
 
         LaserSourceEntity laserSource = new LaserSourceEntity(worldIn, playerIn);
         laserSource.init(200, 40, 85);
-        laserSource.setARGB(0x88FF00FF);
+        laserSource.setARGB(0x88FF0000);
+        // lasers(worldIn, playerIn);
+
         laserSource.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight() * 0.5,
                 playerIn.getPosZ(), playerIn.rotationYaw, playerIn.rotationPitch);
         worldIn.addEntity(laserSource);
@@ -62,6 +68,20 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
         if (playerIn.isCreative()) return super.onItemRightClick(worldIn, playerIn, handIn);
         // playerIn.getCooldownTracker().setCooldown(this, 100);
         return super.onItemRightClick(worldIn, playerIn, handIn);
+    }
+
+    private void lasers(World worldIn, PlayerEntity playerIn) {
+        List<Integer> colors = ImmutableList.of(
+                0x88FF0000, 0x88FF8C00, 0x88FFFF00, 0x8800FF00, 0x8800FFFF, 0x880000FF, 0x88FF00FF, 0x88800080
+        );
+        for (int i = 0; i < colors.size(); i++) {
+            LaserSourceEntity laser = new LaserSourceEntity(worldIn, playerIn);
+            laser.init(500, 40, 120);
+            laser.setARGB(colors.get(i));
+            laser.setLocationAndAngles(playerIn.getPosX() + (double) i / 2, playerIn.getPosY() + playerIn.getEyeHeight() * 0.5,
+                    playerIn.getPosZ(), 0, 0);
+            worldIn.addEntity(laser);
+        }
     }
 
 
