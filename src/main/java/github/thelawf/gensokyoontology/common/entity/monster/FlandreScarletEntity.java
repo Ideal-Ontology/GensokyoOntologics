@@ -78,11 +78,11 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     @Override
     public void livingTick() {
         super.livingTick();
-        if (this.getIdleTime() == 0 && this.getAnimation() == Animation.IDLE) {
-            this.setAnimation(Animation.WALKING);
-        } else {
-            this.setAnimation(Animation.IDLE);
-        }
+        // if (this.getIdleTime() == 0 && this.getAnimation() == Animation.IDLE) {
+        //     this.setAnimation(Animation.WALKING);
+        // } else {
+        //     this.setAnimation(Animation.IDLE);
+        // }
     }
 
     @Override

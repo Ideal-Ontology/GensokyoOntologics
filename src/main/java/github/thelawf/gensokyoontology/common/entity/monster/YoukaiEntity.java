@@ -34,8 +34,8 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     protected int favorability = 0;
     protected boolean duringSpellCard = false;
 
-    @OnlyIn(Dist.CLIENT)
-    private Animation animation = Animation.IDLE;
+    // @OnlyIn(Dist.CLIENT)
+    // private Animation animation = Animation.IDLE;
     public static final DataParameter<Boolean> DATA_RETREATED = EntityDataManager.createKey(
             YoukaiEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Integer> DATA_FAVORABILITY = EntityDataManager.createKey(YoukaiEntity.class, DataSerializers.VARINT);
@@ -87,15 +87,15 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         this.duringSpellCard = isDuringSpellCardAttack;
         return duringSpellCard;
     }
-    @OnlyIn(Dist.CLIENT)
-    public void setAnimation(Animation animation) {
-        this.animation = animation;
-    }
+    // @OnlyIn(Dist.CLIENT)
+    // public void setAnimation(Animation animation) {
+    //     this.animation = animation;
+    // }
 
-    @OnlyIn(Dist.CLIENT)
-    public Animation getAnimation() {
-        return animation;
-    }
+    // @OnlyIn(Dist.CLIENT)
+    // public Animation getAnimation() {
+    //     return animation;
+    // }
 
 
     @Override
