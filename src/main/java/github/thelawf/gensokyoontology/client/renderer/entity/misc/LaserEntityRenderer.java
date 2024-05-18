@@ -5,12 +5,14 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.entity.SheepRenderer;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -144,7 +146,7 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(LASER_SOURCE_TEX);
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
-        float length = (float) new Vector3d(0, 1, 0).distanceTo(entityIn.getLookVec().scale(100));
+        float length = entityIn.getRange(); // (float) new Vector3d(0, 1, 0).distanceTo(entityIn.getLookVec().scale(100));
 
         // renderLaserUsingGardianLaser(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 
@@ -156,15 +158,22 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((float)Math.PI / 2 - f6) * (180 / (float)Math.PI)));
         matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180 / (float)Math.PI)));
 
+        if (entityIn.ticksExisted <= entityIn.getPreparation()) {
+            drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+                    length, 1.0f, 1.0F, 1.0F, 0.7F, 0.02f);
+            matrixStackIn.pop();
+            return;
+        }
+
+        // drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+        //         length, 1.0f, 0F, 0F, 0.5F, 0.15f);
+
         drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
-                length, 1.0f, 0F, 0F, 0.5F, 0.15f);
+                length, red(entityIn), green(entityIn), blue(entityIn), alpha(entityIn), 0.15f);
         drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
                 length, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f);
 
         matrixStackIn.pop();
-        // drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
-        //         toVector3f(entityIn.getPositionVec()), toVec3f(entityIn.getLookVec().scale(entityIn.getRange())),
-        //         entityIn.getRed(), entityIn.getGreen(), entityIn.getBlue(), entityIn.getAlpha());
 
     }
 
@@ -297,5 +306,21 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
 
     private Vector3f toVec3f(Vector3d v3d) {
         return new Vector3f((float) v3d.x, (float) v3d.y, (float) v3d.z);
+    }
+
+    private float red(LaserSourceEntity entityIn) {
+        return (float) entityIn.getRed() / 255;
+    }
+
+    private float green(LaserSourceEntity entityIn) {
+        return (float) entityIn.getGreen() / 255;
+    }
+
+    private float blue(LaserSourceEntity entityIn) {
+        return (float) entityIn.getBlue() / 255;
+    }
+
+    private float alpha(LaserSourceEntity entityIn) {
+        return (float) entityIn.getAlpha() / 255;
     }
 }

@@ -11,6 +11,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.monster.GuardianEntity;
+import net.minecraft.entity.passive.SheepEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -32,20 +33,23 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
     private int lifespan = 100;
     private int preparation = 30;
     private float range = 128;
-    public int argb = 0xFFFFFFFF;
+    public int argb = 0xFFFF0000;
     private final List<SpellBehavior> behaviors = new ArrayList<>();
+    public static final DataParameter<Integer> DATA_COLOR = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Integer> DATA_PREPARATION = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Float> DATA_RANGE = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.FLOAT);
     public LaserSourceEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, null, worldIn);
         this.ignoreFrustumCheck = true;
+        this.setARGB(0x88FF0000);
         this.init(100, 30, 128F);
     }
 
     public LaserSourceEntity(World worldIn, Entity owner) {
         super(EntityRegistry.LASER_SOURCE_ENTITY.get(), owner.getUniqueID(), worldIn);
         this.ignoreFrustumCheck = true;
+        this.setARGB(0x88FF0000);
         this.init(100, 30, 128F);
     }
 
@@ -55,6 +59,7 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         this.dataManager.register(DATA_LIFESPAN, this.lifespan);
         this.dataManager.register(DATA_PREPARATION, this.preparation);
         this.dataManager.register(DATA_RANGE, this.range);
+        this.dataManager.register(DATA_COLOR, this.argb);
     }
 
     @Override
@@ -68,6 +73,10 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
             this.preparation = compound.getInt("preparation");
             this.setPreparation(compound.getInt("preparation"));
         }
+        if (compound.contains("argb")) {
+            this.argb = compound.getInt("argb");
+            this.setARGB(compound.getInt("argb"));
+        }
         if (compound.contains("range")) {
             this.range = compound.getFloat("range");
             this.setRange(compound.getFloat("range"));
@@ -80,6 +89,8 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         compound.putInt("lifespan", this.lifespan);
         compound.putInt("preparation", this.preparation);
         compound.putInt("argb", this.argb);
+
+        compound.putFloat("range", this.range);
     }
 
     @Override
@@ -135,7 +146,6 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         this.dataManager.set(DATA_PREPARATION, preparation);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public float getRange() {
         return this.dataManager.get(DATA_RANGE) == 0 ? this.range : this.dataManager.get(DATA_RANGE);
     }
@@ -145,34 +155,29 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         this.dataManager.set(DATA_RANGE, range);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public void setARGB(int argb) {
         this.argb = argb;
+        this.dataManager.set(DATA_COLOR, argb);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public int getARGB() {
-        return this.argb;
+        return this.dataManager.get(DATA_COLOR);
     }
 
-    @OnlyIn(Dist.CLIENT)
     public int getAlpha() {
-        return (this.argb >> 24) & 0xFF;
+        return (this.getARGB() >> 24) & 0xFF;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public int getRed() {
-        return (this.argb >> 16) & 0xFF;
+        return (this.getARGB() >> 16) & 0xFF;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public int getGreen() {
-        return (this.argb >> 8) & 0xFF;
+        return (this.getARGB() >> 8) & 0xFF;
     }
 
-    @OnlyIn(Dist.CLIENT)
     public int getBlue() {
-        return this.argb & 0xFF;
+        return this.getARGB() & 0xFF;
     }
 
 }
