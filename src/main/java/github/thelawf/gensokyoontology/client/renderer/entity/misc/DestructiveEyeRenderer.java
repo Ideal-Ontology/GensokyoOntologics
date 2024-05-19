@@ -47,15 +47,14 @@ public class DestructiveEyeRenderer extends EntityRenderer<DestructiveEyeEntity>
         matrixStackIn.push();
 
         // matrixStackIn.translate(1.3, 2.5, 1.3);
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
         // matrixStackIn.rotate(toVec3f(new Vector3d(Vector3f.ZP).rotatePitch((float) Math.PI / 4)).rotationDegrees(angle));
         matrixStackIn.scale(scale, scale, scale);
 
         // matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(45f));
-        // matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
-        // matrixStackIn.rotate(toVec3f(new Vector3d(Vector3f.ZP).rotatePitch((float) Math.PI / 4)).rotationDegrees(angle));
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
+        matrixStackIn.rotate(toVec3f(new Vector3d(Vector3f.ZP).rotatePitch((float) Math.PI / 4)).rotationDegrees(angle));
         this.itemRenderer.renderItem(new ItemStack(ItemRegistry.SPHERE_EFFECT_ITEM.get()), ItemCameraTransforms.TransformType.GROUND, 0, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
-        // matrixStackIn.translate(-1.3, 2.5, -1.3);
+
         matrixStackIn.pop();
     }
 

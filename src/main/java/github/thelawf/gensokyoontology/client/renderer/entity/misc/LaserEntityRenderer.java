@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -168,25 +169,15 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         // drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
         //         length, 1.0f, 0F, 0F, 0.5F, 0.15f);
 
-        drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
-                length, red(entityIn), green(entityIn), blue(entityIn), alpha(entityIn), 0.15f);
-        drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
-                length, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f);
+        GeometryUtil.renderIcosahedron(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
+                1.0f, 1.0f, 0.f, 0.f, 0.7f);
+
+        // drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+        //         length, red(entityIn), green(entityIn), blue(entityIn), alpha(entityIn), 0.15f);
+        // drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+        //         length, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f);
 
         matrixStackIn.pop();
-
-    }
-
-    private static Vector3f toVector3f(Vector3d vector3d) {
-        return new Vector3f((float) vector3d.x, (float) vector3d.y, (float) vector3d.z);
-    }
-
-    private void renderLaserUsingLightingRT(LaserSourceEntity entityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn) {
-        IVertexBuilder builder = bufferIn.getBuffer(RenderType.getLightning());
-        matrixStackIn.push();
-        float eyeHeight = entityIn.getEyeHeight();
-        matrixStackIn.translate(0.0D, eyeHeight, 0.0D);
-        toLookVec(matrixStackIn, entityIn);
 
     }
 
@@ -199,10 +190,12 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         matrixStack.rotate(Vector3f.XP.rotation(-pitch * (180f / (float) Math.PI)));
     }
 
+
     /** Render laser using Mojang's shit. <br>
      * Copy from {@link net.minecraft.client.renderer.entity.GuardianRenderer}. Mojang official uses these codes below only for rendering
      * Guardian Entity's laser.
      */
+    @Deprecated
     private void renderLaserUsingGardianLaser(LaserSourceEntity entityIn, @Nullable Vector3d lookVec, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
         //LivingEntity livingentity = entityIn.getTargetedEntity();
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
