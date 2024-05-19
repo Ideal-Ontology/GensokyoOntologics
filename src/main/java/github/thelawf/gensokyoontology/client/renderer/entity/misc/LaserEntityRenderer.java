@@ -169,13 +169,13 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         // drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
         //         length, 1.0f, 0F, 0F, 0.5F, 0.15f);
 
-        GeometryUtil.renderIcosahedron(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
-                1.0f, 1.0f, 0.f, 0.f, 0.7f);
+        // GeometryUtil.renderIcosahedron(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
+        //         1.0f, 1.0f, 0.f, 0.f, 0.7f);
 
-        // drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
-        //         length, red(entityIn), green(entityIn), blue(entityIn), alpha(entityIn), 0.15f);
-        // drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
-        //         length, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f);
+        drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+                length, red(entityIn), green(entityIn), blue(entityIn), alpha(entityIn), 0.15f);
+        drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+                length, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f);
 
         matrixStackIn.pop();
 

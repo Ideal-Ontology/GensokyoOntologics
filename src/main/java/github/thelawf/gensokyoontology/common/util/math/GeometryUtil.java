@@ -124,9 +124,17 @@ public class GeometryUtil {
         addVertex(matrix, vertexBuilder, v2, red, green, blue, alpha);
         addVertex(matrix, vertexBuilder, v3, red, green, blue, alpha);
 
+        addVertex(matrix, vertexBuilder, v1, red, green, blue, alpha);
+        addVertex(matrix, vertexBuilder, v3, red, green, blue, alpha);
+        addVertex(matrix, vertexBuilder, v2, red, green, blue, alpha);
+
         addVertex(matrix, vertexBuilder, v3, red, green, blue, alpha);
         addVertex(matrix, vertexBuilder, v2, red, green, blue, alpha);
         addVertex(matrix, vertexBuilder, v1, red, green, blue, alpha);
+
+        addVertex(matrix, vertexBuilder, v2, red, green, blue, alpha);
+        addVertex(matrix, vertexBuilder, v1, red, green, blue, alpha);
+        addVertex(matrix, vertexBuilder, v3, red, green, blue, alpha);
     }
 
     private static void addVertex(Matrix4f matrix, IVertexBuilder vertexBuilder, float[] pos, float red, float green, float blue, float alpha) {
