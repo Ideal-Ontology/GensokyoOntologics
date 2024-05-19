@@ -141,6 +141,30 @@ public interface IRayTraceReader {
                 new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
     }
 
+    @Nullable
+    default EntityRayTraceResult rayTrace(World worldIn, Entity entityIn, Vector3d start, Vector3d end, AxisAlignedBB boundingBox, Predicate<Entity> selector, double limitDist) {
+        double currentDist = limitDist;
+        Entity resultEntity = null;
+
+        for(Entity foundEntity : worldIn.getEntitiesInAABBexcluding(entityIn, boundingBox, selector)) {
+            AxisAlignedBB axisalignedbb = foundEntity.getBoundingBox().grow(0.5F);
+            Optional<Vector3d> optional = axisalignedbb.rayTrace(start, end);
+            if (optional.isPresent()) {
+                double newDist = start.squareDistanceTo(optional.get());
+                if (newDist < currentDist) {
+                    resultEntity = foundEntity;
+                    currentDist = newDist;
+                }
+            }
+        }
+
+        if (resultEntity == null) {
+            return null;
+        } else {
+            return new EntityRayTraceResult(resultEntity);
+        }
+    }
+
     default Optional<Entity> rayTrace(World world, Entity sourceEntity, Vector3d startVec, Vector3d endVec) {
         double closestDistance = startVec.distanceTo(endVec);
         for (Entity entity : world.getEntitiesWithinAABB(Entity.class, sourceEntity.getBoundingBox().grow(startVec.distanceTo(endVec)))) {

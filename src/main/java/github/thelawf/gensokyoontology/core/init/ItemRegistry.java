@@ -749,7 +749,7 @@ public final class ItemRegistry {
 
     // ====================================== 技术性物品 ====================================== //
     public static final RegistryObject<Item> DREAM_SEAL_ITEM = ITEMS.register("dream_seal", () -> new Item(new Item.Properties()));
-    public static final RegistryObject<Item> SPHERE_EFFECT_ITEM = ITEMS.register("sphere", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> SPHERE_EFFECT_ITEM = ITEMS.register("sphere", () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> CONST_BUILDER = ITEMS.register("const_builder", ConstBuilderItem::new);
 
 

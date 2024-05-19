@@ -8,15 +8,15 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.entity.EntityRenderer;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
@@ -45,12 +45,21 @@ public class DestructiveEyeRenderer extends EntityRenderer<DestructiveEyeEntity>
         float angle = GSKOMathUtil.lerpTicks(partialTicks, entityIn.MAX_LIVING_TICK, entityIn.ticksExisted, 0f, circumstance * speed);
 
         matrixStackIn.push();
-        //matrixStackIn.translate(.5, 1.5, .5);
+
+        // matrixStackIn.translate(1.3, 2.5, 1.3);
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
+        // matrixStackIn.rotate(toVec3f(new Vector3d(Vector3f.ZP).rotatePitch((float) Math.PI / 4)).rotationDegrees(angle));
         matrixStackIn.scale(scale, scale, scale);
-        //matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
-        //matrixStackIn.rotate(Vector3f.XP.rotationDegrees(45f));
-        //matrixStackIn.translate(-.5, 1, -.5);
+
+        // matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(45f));
+        // matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
+        // matrixStackIn.rotate(toVec3f(new Vector3d(Vector3f.ZP).rotatePitch((float) Math.PI / 4)).rotationDegrees(angle));
         this.itemRenderer.renderItem(new ItemStack(ItemRegistry.SPHERE_EFFECT_ITEM.get()), ItemCameraTransforms.TransformType.GROUND, 0, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
+        // matrixStackIn.translate(-1.3, 2.5, -1.3);
         matrixStackIn.pop();
+    }
+
+    public Vector3f toVec3f(Vector3d vector3d) {
+        return new Vector3f((float) vector3d.x, (float) vector3d.y, (float) vector3d.z);
     }
 }

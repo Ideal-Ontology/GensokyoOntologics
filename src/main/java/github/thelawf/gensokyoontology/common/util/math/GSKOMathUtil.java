@@ -469,6 +469,17 @@ public class GSKOMathUtil {
         return quaternion;
     }
 
+    public static Quaternion vecToQuaternion(Vector3f vector3f) {
+        double yaw = Math.atan2(vector3f.getZ(), vector3f.getX());
+        double pitch = Math.asin(vector3f.getY());
+
+        // 将角度转为四元数
+        Quaternion quaternion = new Quaternion(Vector3f.YP, (float) Math.toDegrees(-yaw), true);// 设置水平旋转
+        quaternion.multiply(new Quaternion(Vector3f.XP, (float) Math.toDegrees(pitch), true)); // 设置垂直旋转
+
+        return quaternion;
+    }
+
     public static boolean isBetween(int num, int min, int max) {
         return num >= min && num < max;
     }
