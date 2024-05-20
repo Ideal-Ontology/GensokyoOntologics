@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -45,21 +46,23 @@ public class DestructiveEyeRenderer extends EntityRenderer<DestructiveEyeEntity>
         float angle = GSKOMathUtil.lerpTicks(partialTicks, entityIn.MAX_LIVING_TICK, entityIn.ticksExisted, 0f, circumstance * speed);
 
         matrixStackIn.push();
+
+        matrixStackIn.translate(0.12, 0.2, 0);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(45f));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
         matrixStackIn.scale(scale, scale, scale);
 
         this.itemRenderer.renderItem(new ItemStack(ItemRegistry.SPHERE_EFFECT_ITEM.get()), ItemCameraTransforms.TransformType.GROUND, 0, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
-
         matrixStackIn.pop();
 
         matrixStackIn.push();
+        matrixStackIn.translate(-0.8, 0.2, 0);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(-45f));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
-        // matrixStackIn.rotate(toVec3f(new Vector3d(Vector3f.ZP).rotatePitch((float) Math.PI / 4)).rotationDegrees(angle));
         matrixStackIn.scale(scale, scale, scale);
-        // matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(45f));
 
+        // GeometryUtil.longitudeSphere(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
+        //         10, 10, 1f, 1.f, 0.1f, 0.1f, 0.7f);
         this.itemRenderer.renderItem(new ItemStack(ItemRegistry.SPHERE_EFFECT_ITEM.get()), ItemCameraTransforms.TransformType.GROUND, 0, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
 
         matrixStackIn.pop();

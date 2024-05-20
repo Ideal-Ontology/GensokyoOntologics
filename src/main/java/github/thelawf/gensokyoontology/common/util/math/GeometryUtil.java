@@ -1,26 +1,19 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
+import com.ibm.icu.impl.coll.Collation;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 public class GeometryUtil {
     public static final double PHI = (1 + Math.sqrt(5)) / 2;
     public static final double PHI_RECIPROCAL = 1 / PHI;
-
-    public static void latitudeSphere(IVertexBuilder builder, Matrix4f matrix4f, int meridianCount, int parallelCount,
-                                      float radius, float red, float green, float blue, float alpha) {
-        for (int i = 0; i < meridianCount; i++) {
-            double b = radius / i;
-            double f = GSKOMathUtil.pow2(radius) + GSKOMathUtil.pow2(radius - b);
-
-            double hypotenuse = Math.sqrt(f + GSKOMathUtil.pow2(b));
-            double latitude = Math.acos(radius / hypotenuse);
-            // double a = Math.sqrt(f);
-            // double beta = Math.acos(f / Math.sqrt(f * (f + GSKOMathUtil.pow2(b))));
-        }
-    }
 
     /**
      * 创建一个二十面体的三角面顶点组
@@ -28,7 +21,7 @@ public class GeometryUtil {
      * @param matrix4f 位置渲染矩阵
      * @param a 二十面体的周长
      */
-    public static void regularIcosahedron(IVertexBuilder builder, Matrix4f matrix4f, float a,
+    private static void regularIcosahedron(IVertexBuilder builder, Matrix4f matrix4f, float a,
                                       float red, float green, float blue, float alpha) {
         // final double scale = (a * Math.sqrt(2)) / (Math.sqrt(5 + Math.sqrt(5)));
         final double scale = 1;
@@ -93,7 +86,7 @@ public class GeometryUtil {
         triangularFace(builder, matrix4f, red, green, blue, alpha, of(-PHI, 0, 1), of(-PHI, 0, -1), of(0, -1, PHI));
     }
 
-    public static void renderIcosahedron(IVertexBuilder builder, Matrix4f matrix4f, float size,
+    public static void renderIcosahedron(IVertexBuilder builder, Matrix4f matrix4f, float size, int subdivisionLevel,
                                           float red, float green, float blue, float alpha) {
         // final double scale = (a * Math.sqrt(2)) / (Math.sqrt(5 + Math.sqrt(5)));
         float X = 0.525731112119133606f * size;
@@ -112,10 +105,74 @@ public class GeometryUtil {
                 {6, 1, 10}, {9, 0, 11}, {9, 11, 2}, {9, 2, 5}, {7, 2, 11}
         };
 
+        // subdivide(vertices, faces, subdivisionLevel);
+
         for (int[] face : faces) {
             renderTriangle(matrix4f, builder, vertices[face[0]], vertices[face[1]], vertices[face[2]],
                     red, green, blue, alpha);
         }
+    }
+
+
+    public static void longitudeSphere(IVertexBuilder builder, Matrix4f matrix4f, int latitudeBands, int longitudeBands, float radius,
+                                             float r, float g, float b, float a) {
+        float[][] vertices = longitudeSphereVertices(latitudeBands, longitudeBands, radius);
+        int[][] faces = longitudeSphereFaces(latitudeBands, longitudeBands);
+
+        for (int[] face : faces) {
+            renderTriangle(matrix4f, builder, vertices[face[0]], vertices[face[1]], vertices[face[2]], r, g, b, a);
+        }
+    }
+
+    private static float[][] longitudeSphereVertices(int latitudeBands, int longitudeBands, float radius) {
+        int vertexCount = (latitudeBands + 1) * (longitudeBands + 1);
+        float[][] vertices = new float[vertexCount][3];
+
+        int index = 0;
+        for (int latNumber = 0; latNumber <= latitudeBands; latNumber++) {
+            float theta = (float) (latNumber * Math.PI / latitudeBands);
+            float sinTheta = (float) Math.sin(theta);
+            float cosTheta = (float) Math.cos(theta);
+
+            for (int longNumber = 0; longNumber <= longitudeBands; longNumber++) {
+                float phi = (float) (longNumber * 2 * Math.PI / longitudeBands);
+                float sinPhi = (float) Math.sin(phi);
+                float cosPhi = (float) Math.cos(phi);
+
+                float x = cosPhi * sinTheta;
+                float y = cosTheta;
+                float z = sinPhi * sinTheta;
+                vertices[index][0] = radius * x;
+                vertices[index][1] = radius * y;
+                vertices[index][2] = radius * z;
+                index++;
+            }
+        }
+        return vertices;
+    }
+
+    private static int[][] longitudeSphereFaces(int latitudeBands, int longitudeBands) {
+        int indexCount = latitudeBands * longitudeBands * 6;
+        int[][] indices = new int[indexCount / 3][3];
+
+        int index = 0;
+        for (int latNumber = 0; latNumber < latitudeBands; latNumber++) {
+            for (int longNumber = 0; longNumber < longitudeBands; longNumber++) {
+                int first = (latNumber * (longitudeBands + 1)) + longNumber;
+                int second = first + longitudeBands + 1;
+
+                indices[index][0] = first;
+                indices[index][1] = second;
+                indices[index][2] = first + 1;
+                index++;
+
+                indices[index][0] = second;
+                indices[index][1] = second + 1;
+                indices[index][2] = first + 1;
+                index++;
+            }
+        }
+        return indices;
     }
 
     private static void renderTriangle(Matrix4f matrix, IVertexBuilder vertexBuilder, float[] v1, float[] v2, float[] v3,
