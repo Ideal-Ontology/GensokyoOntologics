@@ -523,6 +523,12 @@
   "gui.gensokyoontology.func_invoker.params": "参数：",
   "gui.gensokyoontology.func_invoker.return": "返回值",
 
+  "gui.gensokyoontology.hakurei_gohei.title": "",
+  "gui.gensokyoontology.gohei.mode.danmaku": "弹幕攻击",
+  "gui.gensokyoontology.gohei.mode.dream_seal": "梦想封印",
+
+  "key.category.gensokyoontology": "幻想存有论（按键绑定）",
+
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "欢迎使用XMMUI作为Minecraft前端GUI框架",
 

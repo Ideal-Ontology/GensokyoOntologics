@@ -523,6 +523,12 @@
   "gui.gensokyoontology.func_invoker.params": "Parameters: ",
   "gui.gensokyoontology.func_invoker.return": "Return",
 
+  "gui.gensokyoontology.hakurei_gohei.title": "",
+  "gui.gensokyoontology.gohei.mode.danmaku": "Danmaku",
+  "gui.gensokyoontology.gohei.mode.dream_seal": "Dream Seal",
+
+  "key.category.gensokyoontology": "Gensokyo Ontology",
+
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "This is a title of XMMUI Test Screen",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "Welcome",
 
