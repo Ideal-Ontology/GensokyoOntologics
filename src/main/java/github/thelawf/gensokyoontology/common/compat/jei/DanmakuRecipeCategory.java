@@ -65,7 +65,7 @@ public class DanmakuRecipeCategory implements IRecipeCategory<DanmakuRecipe> {
 
     @Override
     public void setRecipe(IRecipeLayout recipeLayout, DanmakuRecipe recipe, IIngredients ingredients) {
-        //recipeLayout.getItemStacks().init(ingredients.);
+        //recipeLayout.getItemStacks().register(ingredients.);
         int x = 16;
         int y = 21;
         int index = 0;

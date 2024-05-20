@@ -3,14 +3,14 @@ package github.thelawf.gensokyoontology.client.event;
 import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
-import github.thelawf.gensokyoontology.client.gui.screen.skill.HakureiModeSelectScreen;
+import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.MultiSelectScreen;
+import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
-import github.thelawf.gensokyoontology.common.util.EnumUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
@@ -18,7 +18,6 @@ import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screen.DownloadTerrainScreen;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
@@ -29,14 +28,12 @@ import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.EntityViewRenderEvent;
-import net.minecraftforge.client.event.GuiOpenEvent;
-import net.minecraftforge.client.event.GuiScreenEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.lwjgl.glfw.GLFW;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, value = Dist.CLIENT)
@@ -145,7 +142,7 @@ public class GSKOMiscClientEvent {
      * @see InputMappings
      */
     @SubscribeEvent
-    public static void onKeyDown(GuiScreenEvent.KeyboardKeyPressedEvent event) {
+    public static void onGuiKeyDown(GuiScreenEvent.KeyboardKeyPressedEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
 
@@ -155,24 +152,26 @@ public class GSKOMiscClientEvent {
     }
 
     @SubscribeEvent
-    public static void onModeSwitch(GuiScreenEvent.KeyboardKeyPressedEvent event) {
+    public static void onGuiKeyReleased(GuiScreenEvent.KeyboardKeyReleasedEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
 
-        // key code 342是GLFW的 alt+left 组合键, 346是GLFW的 alt+right 组合键
-        if (player != null && player.getHeldItem(Hand.MAIN_HAND).getItem() == ItemRegistry.HAKUREI_GOHEI.get()) {
+        if (player != null && minecraft.currentScreen instanceof GoheiModeSelectScreen) {
+            minecraft.currentScreen.closeScreen();
+        }
+    }
+
+    @SubscribeEvent
+    public static void onKeyDown(InputEvent.KeyInputEvent event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        PlayerEntity player = minecraft.player;
+
+        if (player != null && player.getHeldItemMainhand().getItem() == ItemRegistry.HAKUREI_GOHEI.get()) {
             ItemStack stack = player.getHeldItemMainhand();
 
             // 检测如果alt被按下则打开御币的能力选择界面
-            if (Screen.hasAltDown() && stack.getTag() != null) {
-                minecraft.displayGuiScreen(new HakureiModeSelectScreen(GOHEI_TITLE, HakureiGohei.getMode(stack.getTag())));
-            }
-
-            // 检测如果alt left同时按下则切换模式
-            if (minecraft.currentScreen instanceof HakureiModeSelectScreen) {
-                HakureiModeSelectScreen screen = (HakureiModeSelectScreen) minecraft.currentScreen;
-                if (event.getKeyCode() == 342) screen.switchMode(-1);
-                else if (event.getKeyCode() == 346) screen.switchMode(1);
+            if (GSKOKeyboardManager.KEY_SWITCH_MODE.isKeyDown() && stack.getTag() != null) {
+                minecraft.displayGuiScreen(new GoheiModeSelectScreen(GOHEI_TITLE, HakureiGohei.getMode(stack.getTag())));
             }
         }
     }
@@ -182,21 +181,12 @@ public class GSKOMiscClientEvent {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
 
-        // key code 342是GLFW的 alt+left 组合键, 346是GLFW的 alt+right 组合键
         if (player != null && player.getHeldItem(Hand.MAIN_HAND).getItem() == ItemRegistry.HAKUREI_GOHEI.get()) {
-            ItemStack stack = player.getHeldItemMainhand();
-
-            // 检测如果alt被按下则打开御币的能力选择界面
-            if (Screen.hasAltDown() && stack.getTag() != null) {
-                minecraft.displayGuiScreen(new HakureiModeSelectScreen(GOHEI_TITLE, HakureiGohei.getMode(stack.getTag())));
-            }
-
-            // 检测如果alt left同时按下则切换模式
-            if (minecraft.currentScreen instanceof HakureiModeSelectScreen) {
-                HakureiModeSelectScreen screen = (HakureiModeSelectScreen) minecraft.currentScreen;
+            // alt+鼠标滚轮切换模式
+            if (minecraft.currentScreen instanceof GoheiModeSelectScreen) {
+                GoheiModeSelectScreen screen = (GoheiModeSelectScreen) minecraft.currentScreen;
                 if (event.getScrollDelta() > 0) screen.switchMode(-1);
                 else if (event.getScrollDelta() < 0) screen.switchMode(1);
-
             }
         }
     }

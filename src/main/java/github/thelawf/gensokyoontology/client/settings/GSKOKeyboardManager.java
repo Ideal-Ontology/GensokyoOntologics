@@ -2,10 +2,7 @@ package github.thelawf.gensokyoontology.client.settings;
 
 import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.renderer.world.LaserRenderer;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
@@ -15,9 +12,9 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.InputEvent;
-import net.minecraftforge.client.event.RenderLivingEvent;
 import net.minecraftforge.client.settings.KeyConflictContext;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
+import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -27,15 +24,17 @@ public class GSKOKeyboardManager {
 
     public static int RENDER_TICK = 80;
 
-    public static final List<KeyBinding> KEY_BINDINGS = Lists.newArrayList();
     public static final KeyBinding MOUSE_RIGHT = new GSKOKeyBinding("mouse_right", KeyConflictContext.IN_GAME,
             InputMappings.Type.MOUSE, 1, GensokyoOntology.withAffix("key.category.",""));
     public static final KeyBinding EYE_BOX_FORWARD = new GSKOKeyBinding("eye_box_forward", KeyConflictContext.IN_GAME,
             InputMappings.Type.KEYSYM, 265, GensokyoOntology.withAffix("key.category.",""));
     public static final KeyBinding EYE_BOX_BACKWARD = new GSKOKeyBinding("eye_box_backward", KeyConflictContext.IN_GAME,
             InputMappings.Type.KEYSYM, 264, GensokyoOntology.withAffix("key.category.",""));
+    public static final KeyBinding KEY_SWITCH_MODE = new GSKOKeyBinding("switch_mode", KeyConflictContext.IN_GAME,
+            InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, GensokyoOntology.withAffix("key.category.",""));
+    public static final List<KeyBinding> KEY_BINDINGS = Lists.newArrayList(KEY_SWITCH_MODE);
 
-    public static void init() {
+    public static void register() {
         for (KeyBinding key : KEY_BINDINGS) {
             ClientRegistry.registerKeyBinding(key);
         }

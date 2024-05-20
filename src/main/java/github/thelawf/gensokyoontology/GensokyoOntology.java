@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.SpellCardConsoleScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.*;
+import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.CommonSetUp;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
@@ -16,7 +17,6 @@ import github.thelawf.gensokyoontology.core.init.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -99,7 +99,7 @@ public class GensokyoOntology {
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class RenderTypeRegistry {
         @SubscribeEvent
-        public static void onRenderTypeSetUp(FMLClientSetupEvent event) {
+        public static void onClientSetUp(FMLClientSetupEvent event) {
             event.enqueueWork(() -> {
                 RenderTypeLookup.setRenderLayer(FluidRegistry.HOT_SPRING_SOURCE.get(),
                         RenderType.getTranslucent());
@@ -191,6 +191,8 @@ public class GensokyoOntology {
                 ScreenManager.registerFactory(ContainerRegistry.SPELL_CONSOLE_CONTAINER.get(),
                         SpellCardConsoleScreen::new);
 
+                GSKOKeyboardManager.register();
+
             });
 
         }
@@ -198,8 +200,6 @@ public class GensokyoOntology {
 
     @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ModEventSetup {
-
-
         @SubscribeEvent
         public static void setupAttributes(EntityAttributeCreationEvent event) {
             double randomHealthFairy = GSKOMathUtil.randomRange(2, 20);

@@ -6,7 +6,7 @@ import github.thelawf.gensokyoontology.common.util.math.logos.LineSegment3D;
 import github.thelawf.gensokyoontology.common.util.math.logos.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
-import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import github.thelawf.gensokyoontology.core.register.BlockRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
