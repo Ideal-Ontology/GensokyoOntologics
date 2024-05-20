@@ -48,17 +48,16 @@ public class GoheiModeSelectScreen extends MultiSelectScreen{
 
         if (mode == HakureiGohei.Mode.DANMAKU) {
             this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 32, 32, 32);
-            this.blit(matrixStack, this.guiLeft + 42, this.guiTop, 32, 0, 32, 32);
+            this.blit(matrixStack, this.guiLeft + 52, this.guiTop, 32, 0, 32, 32);
         }
         else {
             this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, 32, 32);
-            this.blit(matrixStack, this.guiLeft + 42, this.guiTop, 32, 32, 32, 32);
+            this.blit(matrixStack, this.guiLeft + 52, this.guiTop, 32, 32, 32, 32);
         }
-
         matrixStack.pop();
 
-        this.font.drawTextWithShadow(matrixStack, DANMAKU, this.guiLeft, this.guiTop + 42, 16777215);
-        this.font.drawTextWithShadow(matrixStack, DREAM_SEAL, this.guiLeft + 42, this.guiTop + 42, 16777215);
+        this.font.drawTextWithShadow(matrixStack, DANMAKU, this.guiLeft, this.guiTop + 52, 16777215);
+        this.font.drawTextWithShadow(matrixStack, DREAM_SEAL, this.guiLeft + 52, this.guiTop + 52, 16777215);
 
 
     }

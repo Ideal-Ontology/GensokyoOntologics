@@ -4,8 +4,10 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -13,6 +15,7 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -53,12 +56,12 @@ public class HakureiGohei extends Item {
                     DanmakuUtil.shootDanmaku(worldIn, playerIn, inYoJade, 1F, 0F);
                     break;
                 case DREAM_SEAL:
-                    DreamSealEntity dreamSeal = new DreamSealEntity(worldIn, playerIn, DanmakuColor.RED);
+                    GSKOUtil.showChatMsg(playerIn, "?", 1);
+                    fireDreamSeal(worldIn, playerIn);
                     break;
                 case SPELL_CARD:
                     break;
             }
-
         }
 
         if (playerIn.isCreative()) return ActionResult.resultPass(playerIn.getHeldItem(handIn));
@@ -66,6 +69,32 @@ public class HakureiGohei extends Item {
         return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
     }
 
+    public void fireDreamSeal(World worldIn, PlayerEntity playerIn) {
+        for (int i = 0; i < 8; i++) {
+            int i1 = i % 3;
+            DanmakuColor color;
+            switch (i1) {
+                default:
+                case 0:
+                    color = DanmakuColor.RED;
+                    break;
+                case 1:
+                    color = DanmakuColor.BLUE;
+                    break;
+                case 2:
+                    color = DanmakuColor.GREEN;
+                    break;
+            }
+            Vector3d vector3d = new Vector3d(1, 2.5, 0);
+            Vector3d shootVec = playerIn.getLookVec();
+            Vector3d initPos = vector3d.rotatePitch((float) Math.PI * 2 / i).add(playerIn.getPositionVec());
+
+            DreamSealEntity dreamSeal = new DreamSealEntity(worldIn, playerIn, color);
+            dreamSeal.shoot(shootVec.x, shootVec.y, shootVec.z, 0.8f, 0f);
+            dreamSeal.setLocationAndAngles(initPos.x, initPos.y, initPos.z, playerIn.rotationYaw, playerIn.rotationPitch);
+            worldIn.addEntity(dreamSeal);
+        }
+    }
 
     @Override
     public void fillItemGroup(@NotNull ItemGroup group, @NotNull NonNullList<ItemStack> items) {
