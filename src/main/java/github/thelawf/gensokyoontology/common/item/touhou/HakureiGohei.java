@@ -56,7 +56,6 @@ public class HakureiGohei extends Item {
                     DanmakuUtil.shootDanmaku(worldIn, playerIn, inYoJade, 1F, 0F);
                     break;
                 case DREAM_SEAL:
-                    GSKOUtil.showChatMsg(playerIn, "?", 1);
                     fireDreamSeal(worldIn, playerIn);
                     break;
                 case SPELL_CARD:
@@ -90,6 +89,7 @@ public class HakureiGohei extends Item {
             Vector3d initPos = vector3d.rotatePitch((float) Math.PI * 2 / i).add(playerIn.getPositionVec());
 
             DreamSealEntity dreamSeal = new DreamSealEntity(worldIn, playerIn, color);
+            dreamSeal.setNoGravity(true);
             dreamSeal.shoot(shootVec.x, shootVec.y, shootVec.z, 0.8f, 0f);
             dreamSeal.setLocationAndAngles(initPos.x, initPos.y, initPos.z, playerIn.rotationYaw, playerIn.rotationPitch);
             worldIn.addEntity(dreamSeal);

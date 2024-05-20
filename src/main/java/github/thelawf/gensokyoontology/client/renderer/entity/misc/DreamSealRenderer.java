@@ -50,7 +50,7 @@ public class DreamSealRenderer extends EntityRenderer<DreamSealEntity> {
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
         float r, g, b;
 
-        switch (entityIn.getColor()){
+        switch (entityIn.getDanmakuColor()){
             case RED:
                 r = 1f; g = 0f; b = 0f;
                 break;

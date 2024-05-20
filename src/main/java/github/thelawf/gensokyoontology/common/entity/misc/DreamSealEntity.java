@@ -28,7 +28,6 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class DreamSealEntity extends AbstractDanmakuEntity {
     private int color;
-    public static final DataParameter<Integer> DATA_COLOR = EntityDataManager.createKey(DreamSealEntity.class, DataSerializers.VARINT);
     public DreamSealEntity(World worldIn, LivingEntity shooter, DanmakuColor color) {
         super(EntityRegistry.DREAM_SEAL_ENTITY.get(), worldIn);
         this.setColor(color);
@@ -76,27 +75,9 @@ public class DreamSealEntity extends AbstractDanmakuEntity {
         return target == null ? Optional.empty() : Optional.of(target);
     }
 
-
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(DATA_COLOR, this.color);
-    }
-
-    public DanmakuColor getColor() {
-        return DanmakuColor.values()[this.dataManager.get(DATA_COLOR)];
-    }
-
-    @Override
-    protected void writeAdditional(@NotNull CompoundNBT compound) {
-        super.writeAdditional(compound);
-        compound.putInt("color", this.getColor().ordinal());
-    }
-
-    @Override
-    protected void readAdditional(@NotNull CompoundNBT compound) {
-        super.readAdditional(compound);
-        this.setColor(DanmakuColor.values()[compound.getInt("color")]);
     }
 
     @OnlyIn(Dist.CLIENT)
