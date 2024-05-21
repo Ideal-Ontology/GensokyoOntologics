@@ -41,6 +41,12 @@ public class GSKOUtil {
         }
     }
 
+    public static void showChatMsg(PlayerEntity player, Object obj, int frequency) {
+        if (player.ticksExisted % frequency == 0) {
+            player.sendMessage(new StringTextComponent(obj.toString()), player.getUniqueID());
+        }
+    }
+
     public static void log(Class<?> clazz, String str) {
         LogManager.getLogger().info(clazz.getName() + ": {}", str);
     }

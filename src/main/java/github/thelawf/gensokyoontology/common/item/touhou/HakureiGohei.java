@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
@@ -9,21 +11,32 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.potion.EffectInstance;
+import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.Optional;
 
 /**
  * 博丽灵梦的御币
  */
-public class HakureiGohei extends Item {
+public class HakureiGohei extends Item implements IRayTraceReader {
     public static final ITextComponent TITLE = GensokyoOntology.withTranslation("gui.", ".hakurei_gohei.title");
     public HakureiGohei(Properties properties) {
         super(properties);
@@ -84,15 +97,17 @@ public class HakureiGohei extends Item {
                     color = DanmakuColor.GREEN;
                     break;
             }
-            Vector3d vector3d = new Vector3d(1, 2.5, 0);
-            Vector3d shootVec = playerIn.getLookVec();
-            Vector3d initPos = vector3d.rotatePitch((float) Math.PI * 2 / i).add(playerIn.getPositionVec());
+            Vector3d vector3d = i % 2 == 0 ? new Vector3d(2, 3, 0).rotatePitch((float) Math.PI * 2 / i) :
+                    new Vector3d(2, 3, 0).rotatePitch((float) -Math.PI * 2 / i);
+            // Vector3d shootVec = playerIn.getLookVec();
+            Vector3d initPos = vector3d.add(playerIn.getPositionVec());
 
             DreamSealEntity dreamSeal = new DreamSealEntity(worldIn, playerIn, color);
             dreamSeal.setNoGravity(true);
-            dreamSeal.shoot(shootVec.x, shootVec.y, shootVec.z, 0.8f, 0f);
+            dreamSeal.shoot(vector3d.x, vector3d.y, vector3d.z, 1.2f, 0f);
             dreamSeal.setLocationAndAngles(initPos.x, initPos.y, initPos.z, playerIn.rotationYaw, playerIn.rotationPitch);
             worldIn.addEntity(dreamSeal);
+
         }
     }
 
@@ -104,6 +119,26 @@ public class HakureiGohei extends Item {
             tag.putInt("mode", Mode.DANMAKU.ordinal());
             itemStack.setTag(tag);
             items.add(itemStack);
+        }
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+
+        ITextComponent text = GensokyoOntology.withTranslation("tooltip.", ".hakurei_gohei.mode");
+        if (stack.getTag() != null) {
+            switch (getMode(stack.getTag())) {
+                default:
+                case DANMAKU:
+                    tooltip.add(GoheiModeSelectScreen.DANMAKU);
+                    break;
+                case SPELL_CARD:
+                    break;
+                case DREAM_SEAL:
+                    tooltip.add(GoheiModeSelectScreen.DREAM_SEAL);
+                    break;
+            }
         }
     }
 

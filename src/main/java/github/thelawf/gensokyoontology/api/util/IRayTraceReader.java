@@ -262,6 +262,10 @@ public interface IRayTraceReader {
         return lookVec.scale(distance).add(startPos.add(0,eyeHeight,0));
     }
 
+    default Vector3d getAimedVec(LivingEntity source, Entity target) {
+        return target.getPositionVec().subtract(source.getPositionVec());
+    }
+
     /**
      * 以传入的碰撞箱体的中心为圆心，获取所有位于这个球形的碰撞区域以内，以及同时满足其它条件的生物。
      *
