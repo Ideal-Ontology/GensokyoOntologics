@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.container;
 
+import com.mojang.datafixers.DataFixUtils;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.client.GSKOGUIUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
@@ -12,16 +13,15 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.CraftingResultSlot;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.RecipeItemHelper;
+import net.minecraft.item.crafting.*;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -31,6 +31,7 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * 弹幕合成界面UV数据：<br><br>
@@ -63,26 +64,23 @@ public class DanmakuCraftingContainer extends Container {
         this.playerInventory = new InvWrapper(playerInventory);
         this.POS_CALLABLE = callable;
 
-        layoutPlayerInventorySlots(28, 124);
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                this.addSlot(new Slot(this.craftingMatrix, j + i * 2, 16 + i * 18, 21 + j * 18));
+        layoutPlayerInventorySlots(playerInventory, 28, 124);
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 5; ++j) {
+                this.addSlot(new Slot(this.craftingMatrix, j + i * 5, 16 + j * 18, 21 + i * 18));
             }
         }
-        // this.addSlotBox();
         this.addSlot(new CraftingResultSlot(playerInventory.player, this.craftingMatrix, this.resultsMatrix, 0, 170, 58));
-
-        // addResultSlots();
-        // addIngredientSlots();
-
-        // for (int i = 0; i < 4; i++) {
-        //     prevStacks.add(ItemStack.EMPTY);
-        // }
     }
+
 
     @Override
     public boolean canInteractWith(@NotNull PlayerEntity playerIn) {
         return true;
+    }
+
+    public CraftingInventory getCraftingMatrix() {
+        return this.craftingMatrix;
     }
 
     @Override
@@ -92,15 +90,26 @@ public class DanmakuCraftingContainer extends Container {
         this.clearContainer(playerIn, playerIn.world, this.resultsMatrix);
     }
 
+
     protected static void updateCraftingResult(int id, World world, PlayerEntity player, CraftingInventory inventory, CraftResultInventory inventoryResult) {
         if (!world.isRemote) {
             ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)player;
             ItemStack itemstack = ItemStack.EMPTY;
-            Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inventory, world);
+
+            Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipes().stream().flatMap(iRecipe ->  {
+                if (iRecipe instanceof DanmakuRecipe) {
+                    DanmakuRecipe recipe = (DanmakuRecipe) iRecipe;
+                    return DataFixUtils.orElseGet(RecipeRegistry.DANMAKU_RECIPE.matches(recipe, world, inventory).map(Stream::of),
+                            Stream::empty);
+                }
+                return null;
+            }).findFirst();
+            // Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inventory, world);
+
             if (optional.isPresent()) {
-                ICraftingRecipe icraftingrecipe = optional.get();
-                if (inventoryResult.canUseRecipe(world, serverplayerentity, icraftingrecipe)) {
-                    itemstack = icraftingrecipe.getCraftingResult(inventory);
+                DanmakuRecipe recipe = optional.get();
+                if (recipe.matches(inventory, world)) {
+                    itemstack = recipe.getCraftingResult(inventory);
                 }
             }
 
@@ -179,25 +188,36 @@ public class DanmakuCraftingContainer extends Container {
         return count;
     }
 
-    private void addIngredientSlots() {
-        for (int i = 0; i < 5; i++) {
-            for (int j = 0; j < 5; j++) {
-                addSlot(new Slot(this.resultsMatrix, j + i * 2, 16 + j * 18, 21 + i * 18) {
+    private void addCraftingSlots() {
+        for (int i = 0; i < 5; ++i) {
+            for (int j = 0; j < 5; ++j) {
+                this.addSlot(new Slot(this.craftingMatrix, j + i * 5, 16 + j * 18, 21 + i * 18) {
                     @Override
                     @NotNull
                     public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
-                        for (int k = 0; k < 4; k++) {
-                            if (DanmakuCraftingContainer.this.resultsMatrix.getStackInSlot(k) != ItemStack.EMPTY) {
-                                DanmakuCraftingContainer.this.resultsMatrix.removeStackFromSlot(k);
-                            }
+
+                        if (DanmakuCraftingContainer.this.resultsMatrix.getStackInSlot(0) != ItemStack.EMPTY) {
+                            DanmakuCraftingContainer.this.resultsMatrix.removeStackFromSlot(0);
                         }
+
                         detectAndSendChanges();
                         return super.onTake(thePlayer, stack);
                     }
 
+                    @Override
+                    public void onSlotChanged() {
+                        if (!(this.inventory instanceof CraftingInventory)) return;
+                        CraftingInventory inv = (CraftingInventory) this.inventory;
+                        World world = DanmakuCraftingContainer.this.player.world;
+                        // for (int k = 0; k < inv.getSizeInventory() - 1; k++) {
+                        //     GSKOUtil.showChatMsg(player, "第" + k + "个槽位是：" + inv.getStackInSlot(k), 1);
+                        // }
+                        updateCraftingResult(DanmakuCraftingContainer.this.windowId, world,
+                                DanmakuCraftingContainer.this.player, inv,
+                                DanmakuCraftingContainer.this.resultsMatrix);
+                    }
                 });
             }
-
         }
     }
 
@@ -218,8 +238,7 @@ public class DanmakuCraftingContainer extends Container {
                     @NotNull
                     public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
                         for (int k = 0; k < 25; k++) {
-                            // DanmakuCraftingContainer.this.craftingMatrix.removeStackFromSlot(k);
-                            DanmakuCraftingContainer.this.craftingMatrix.decrStackSize(k, stack.getCount());
+                            DanmakuCraftingContainer.this.resultsMatrix.decrStackSize(k, stack.getCount());
                         }
                         detectAndSendChanges();
                         DanmakuCraftingContainer.this.onCraftMatrixChanged(DanmakuCraftingContainer.this.craftingMatrix);
@@ -270,6 +289,25 @@ public class DanmakuCraftingContainer extends Container {
 
         topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
+    }
+
+    private void layoutPlayerInventorySlots(PlayerInventory playerInventory, int leftCol, int topRow) {
+        addSlotBox(playerInventory, 9, leftCol, topRow, 9, 3, 18, 18);
+
+        topRow += 58;
+        addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
+    }
+
+    private void addPlayerInventorySlots(PlayerInventory playerInventory, int leftC, int top) {
+        for(int k = 0; k < 3; ++k) {
+            for(int i1 = 0; i1 < 9; ++i1) {
+                this.addSlot(new Slot(playerInventory, i1 + k * 9 + 9, 8 + i1 * 18, 84 + k * 18));
+            }
+        }
+
+        for(int l = 0; l < 9; ++l) {
+            this.addSlot(new Slot(playerInventory, l, 8 + l * 18, 142));
+        }
     }
 
     // CREDIT GOES TO: diesieben07 | https://github.com/diesieben07/SevenCommons
