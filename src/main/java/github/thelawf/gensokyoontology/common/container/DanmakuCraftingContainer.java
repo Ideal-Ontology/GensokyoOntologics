@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.container;
 
 import com.mojang.datafixers.DataFixUtils;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.client.GSKOGUIUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
@@ -13,15 +12,14 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.CraftingResultSlot;
 import net.minecraft.inventory.container.Slot;
-import net.minecraft.inventory.container.WorkbenchContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
 import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.IWorldPosCallable;
-import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
@@ -53,7 +51,8 @@ public class DanmakuCraftingContainer extends Container {
     private final IWorldPosCallable POS_CALLABLE;
 
     private final CraftingInventory craftingMatrix = new CraftingInventory(this, 5, 5);
-    private final CraftResultInventory resultsMatrix = new CraftResultInventory();
+    private final CraftResultInventory resultInv = new CraftResultInventory();
+    private final IInventory result = new Inventory(1);
     public DanmakuCraftingContainer(int windowId, PlayerInventory playerInventory) {
         this(windowId, playerInventory, IWorldPosCallable.DUMMY);
     }
@@ -64,13 +63,14 @@ public class DanmakuCraftingContainer extends Container {
         this.playerInventory = new InvWrapper(playerInventory);
         this.POS_CALLABLE = callable;
 
-        layoutPlayerInventorySlots(playerInventory, 28, 124);
+        this.addPlayerInventorySlots(playerInventory, 28, 124, 124+58);
         for (int i = 0; i < 5; ++i) {
             for (int j = 0; j < 5; ++j) {
                 this.addSlot(new Slot(this.craftingMatrix, j + i * 5, 16 + j * 18, 21 + i * 18));
             }
         }
-        this.addSlot(new CraftingResultSlot(playerInventory.player, this.craftingMatrix, this.resultsMatrix, 0, 170, 58));
+        this.addSlot(new CraftingResultSlot(playerInventory.player, this.craftingMatrix, this.resultInv, 0, 170, 58));
+        // this.addSlot(new Slot(this.resultInv, 0, 165, 58));
     }
 
 
@@ -87,7 +87,7 @@ public class DanmakuCraftingContainer extends Container {
     public void onContainerClosed(@NotNull PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);
         this.clearContainer(playerIn, playerIn.world, this.craftingMatrix);
-        this.clearContainer(playerIn, playerIn.world, this.resultsMatrix);
+        this.clearContainer(playerIn, playerIn.world, this.resultInv);
     }
 
 
@@ -121,7 +121,7 @@ public class DanmakuCraftingContainer extends Container {
     @Override
     public void onCraftMatrixChanged(@NotNull IInventory inventoryIn) {
         this.POS_CALLABLE.consume((world, pos) -> {
-            updateCraftingResult(this.windowId, world, this.player, this.craftingMatrix, this.resultsMatrix);
+            updateCraftingResult(this.windowId, world, this.player, this.craftingMatrix, this.resultInv);
         });
         // if (!player.world.isRemote() && inventoryIn == this.craftingMatrix) {
         //     ServerPlayerEntity serverPlayer = (ServerPlayerEntity) this.player;
@@ -196,8 +196,8 @@ public class DanmakuCraftingContainer extends Container {
                     @NotNull
                     public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
 
-                        if (DanmakuCraftingContainer.this.resultsMatrix.getStackInSlot(0) != ItemStack.EMPTY) {
-                            DanmakuCraftingContainer.this.resultsMatrix.removeStackFromSlot(0);
+                        if (DanmakuCraftingContainer.this.resultInv.getStackInSlot(0) != ItemStack.EMPTY) {
+                            DanmakuCraftingContainer.this.resultInv.removeStackFromSlot(0);
                         }
 
                         detectAndSendChanges();
@@ -214,7 +214,7 @@ public class DanmakuCraftingContainer extends Container {
                         // }
                         updateCraftingResult(DanmakuCraftingContainer.this.windowId, world,
                                 DanmakuCraftingContainer.this.player, inv,
-                                DanmakuCraftingContainer.this.resultsMatrix);
+                                DanmakuCraftingContainer.this.resultInv);
                     }
                 });
             }
@@ -227,18 +227,18 @@ public class DanmakuCraftingContainer extends Container {
 
     public void clear() {
         this.craftingMatrix.clear();
-        this.resultsMatrix.clear();
+        this.resultInv.clear();
     }
 
     private void addResultSlots() {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
-                addSlot(new Slot(this.resultsMatrix, j + i * 2, 149 + j * 18, 41 + i * 18) {
+                addSlot(new Slot(this.resultInv, j + i * 2, 149 + j * 18, 41 + i * 18) {
                     @Override
                     @NotNull
                     public ItemStack onTake(@NotNull PlayerEntity thePlayer, @NotNull ItemStack stack) {
                         for (int k = 0; k < 25; k++) {
-                            DanmakuCraftingContainer.this.resultsMatrix.decrStackSize(k, stack.getCount());
+                            DanmakuCraftingContainer.this.resultInv.decrStackSize(k, stack.getCount());
                         }
                         detectAndSendChanges();
                         DanmakuCraftingContainer.this.onCraftMatrixChanged(DanmakuCraftingContainer.this.craftingMatrix);
@@ -293,20 +293,19 @@ public class DanmakuCraftingContainer extends Container {
 
     private void layoutPlayerInventorySlots(PlayerInventory playerInventory, int leftCol, int topRow) {
         addSlotBox(playerInventory, 9, leftCol, topRow, 9, 3, 18, 18);
-
         topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
 
-    private void addPlayerInventorySlots(PlayerInventory playerInventory, int leftC, int top) {
+    private void addPlayerInventorySlots(PlayerInventory playerInventory, int left, int top, int hotBarTop) {
         for(int k = 0; k < 3; ++k) {
             for(int i1 = 0; i1 < 9; ++i1) {
-                this.addSlot(new Slot(playerInventory, i1 + k * 9 + 9, 8 + i1 * 18, 84 + k * 18));
+                this.addSlot(new Slot(playerInventory, i1 + k * 9 + 9, left + i1 * 18, top + k * 18));
             }
         }
 
         for(int l = 0; l < 9; ++l) {
-            this.addSlot(new Slot(playerInventory, l, 8 + l * 18, 142));
+            this.addSlot(new Slot(playerInventory, l, left + l * 18, hotBarTop));
         }
     }
 
@@ -328,54 +327,54 @@ public class DanmakuCraftingContainer extends Container {
     // THIS YOU HAVE TO DEFINE!
     private static final int DANMAKU_SLOT_COUNT = 29;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
-    // @Override
-    // @NotNull
-    // public ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
-    //     ItemStack itemstack = ItemStack.EMPTY;
+    @Override
+    @NotNull
+    public ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
+        ItemStack itemstack = ItemStack.EMPTY;
 //
-    //     Slot slot = this.inventorySlots.get(index);
-    //     if (slot != null && slot.getHasStack()) {
-    //         ItemStack itemstack1 = slot.getStack();
-    //         itemstack = itemstack1.copy();
-    //         if (index == 0) {
+        Slot slot = this.inventorySlots.get(index);
+        if (slot != null && slot.getHasStack()) {
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
+            if (index == 0) {
 //
-    //             if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
-    //                 return ItemStack.EMPTY;
-    //             }
+                if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
+                    return ItemStack.EMPTY;
+                }
 //
-    //             slot.onSlotChange(itemstack1, itemstack);
-    //         } else if (index >= 10 && index < 46) {
-    //             if (!this.mergeItemStack(itemstack1, 1, 10, false)) {
-    //                 if (index < 37) {
-    //                     if (!this.mergeItemStack(itemstack1, 37, 46, false)) {
-    //                         return ItemStack.EMPTY;
-    //                     }
-    //                 } else if (!this.mergeItemStack(itemstack1, 10, 37, false)) {
-    //                     return ItemStack.EMPTY;
-    //                 }
-    //             }
-    //         } else if (!this.mergeItemStack(itemstack1, 10, 46, false)) {
-    //             return ItemStack.EMPTY;
-    //         }
+                slot.onSlotChange(itemstack1, itemstack);
+            } else if (index >= 10 && index < 46) {
+                if (!this.mergeItemStack(itemstack1, 1, 10, false)) {
+                    if (index < 37) {
+                        if (!this.mergeItemStack(itemstack1, 37, 46, false)) {
+                            return ItemStack.EMPTY;
+                        }
+                    } else if (!this.mergeItemStack(itemstack1, 10, 37, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+            } else if (!this.mergeItemStack(itemstack1, 10, 46, false)) {
+                return ItemStack.EMPTY;
+            }
 //
-    //         if (itemstack1.isEmpty()) {
-    //             slot.putStack(ItemStack.EMPTY);
-    //         } else {
-    //             slot.onSlotChanged();
-    //         }
+            if (itemstack1.isEmpty()) {
+                slot.putStack(ItemStack.EMPTY);
+            } else {
+                slot.onSlotChanged();
+            }
 //
-    //         if (itemstack1.getCount() == itemstack.getCount()) {
-    //             return ItemStack.EMPTY;
-    //         }
+            if (itemstack1.getCount() == itemstack.getCount()) {
+                return ItemStack.EMPTY;
+            }
 //
-    //         ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
-    //         if (index == 0) {
-    //             playerIn.dropItem(itemstack2, false);
-    //         }
-    //     }
+            ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
+            if (index == 0) {
+                playerIn.dropItem(itemstack2, false);
+            }
+        }
 //
-    //     return itemstack;
-    // }
+        return itemstack;
+    }
 
     /**
      * "__A__"<br>
