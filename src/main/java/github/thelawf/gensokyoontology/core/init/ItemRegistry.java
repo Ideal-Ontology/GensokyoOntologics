@@ -398,8 +398,8 @@ public final class ItemRegistry {
 
     // ========================== GSKO杂项：合成消耗品 =========================//
 
-    // public static final RegistryObject<Item> ISHI_ZAKURA_FRAGMENT = ITEMS.register("ishi_zakura_fragment",
-    //         () -> new IshiZakuraFragment(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> ISHI_ZAKURA_FRAGMENT = ITEMS.register("ishi_zakura_fragment",
+            () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> ISHI_ZAKURA = ITEMS.register("ishi_zakura",
             () -> new BlockItem(BlockRegistry.ISHI_ZAKURA.get(), new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));

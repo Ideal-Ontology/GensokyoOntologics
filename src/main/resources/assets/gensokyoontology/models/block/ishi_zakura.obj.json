@@ -1,7 +1,7 @@
 {
   "parent": "block/block",
   "loader": "forge:obj",
-  "model": "gensokyoontology:models/block/ishi_zakura.obj",
+  "model": "gensokyoontology:models/block/ishizakura.obj",
   "flip-v": true,
   "display": {
     "firstperson_righthand": {

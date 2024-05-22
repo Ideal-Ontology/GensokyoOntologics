@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.compat.jei;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
+import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
@@ -17,10 +17,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import org.jetbrains.annotations.NotNull;
 
-public class SorceryRecipeCategory implements IRecipeCategory<SorceryExtractorRecipe> {
+public class SorceryRecipeCategory implements IRecipeCategory<DanmakuRecipe> {
 
     public static final ResourceLocation UID = new ResourceLocation(GensokyoOntology.MODID, "sorcery_extract");
-    public static final ResourceLocation TEXTURE = SorceryExtractorScreen.SORCERY_GUI_TEXTURE;
+    public static final ResourceLocation TEXTURE = DanmakuCraftingScreen.DANMAKU_CRAFTING_TEXTURE;
 
     private final IDrawable background;
     private final IDrawable icon;
@@ -30,7 +30,7 @@ public class SorceryRecipeCategory implements IRecipeCategory<SorceryExtractorRe
     public SorceryRecipeCategory(IGuiHelper helper) {
         this.slotDrawable = helper.getSlotDrawable();
         this.background = helper.createDrawable(TEXTURE, 0, 0, 217, 211);
-        this.icon = helper.createDrawableIngredient(new ItemStack(BlockRegistry.SORCERY_EXTRACTOR.get()));
+        this.icon = helper.createDrawableIngredient(new ItemStack(BlockRegistry.DANMAKU_TABLE.get()));
     }
 
     @Override
@@ -40,9 +40,8 @@ public class SorceryRecipeCategory implements IRecipeCategory<SorceryExtractorRe
     }
 
     @Override
-    @NotNull
-    public Class<? extends SorceryExtractorRecipe> getRecipeClass() {
-        return SorceryExtractorRecipe.class;
+    public @NotNull Class<? extends DanmakuRecipe> getRecipeClass() {
+        return DanmakuRecipe.class;
     }
 
     @Override
@@ -64,13 +63,13 @@ public class SorceryRecipeCategory implements IRecipeCategory<SorceryExtractorRe
     }
 
     @Override
-    public void setIngredients(SorceryExtractorRecipe recipe, IIngredients ingredients) {
+    public void setIngredients(DanmakuRecipe recipe, IIngredients ingredients) {
         ingredients.setInputIngredients(recipe.getIngredients());
         ingredients.setOutput(VanillaTypes.ITEM, recipe.getRecipeOutput());
     }
 
     @Override
-    public void setRecipe(@NotNull IRecipeLayout recipeLayout, @NotNull SorceryExtractorRecipe recipe, @NotNull IIngredients ingredients) {
+    public void setRecipe(@NotNull IRecipeLayout recipeLayout, @NotNull DanmakuRecipe recipe, @NotNull IIngredients ingredients) {
         IGuiItemStackGroup guiStack = recipeLayout.getItemStacks();
 
         guiStack.init(0, true, 99, 12);
@@ -89,7 +88,7 @@ public class SorceryRecipeCategory implements IRecipeCategory<SorceryExtractorRe
     }
 
     @Override
-    public void draw(SorceryExtractorRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) {
+    public void draw(@NotNull DanmakuRecipe recipe, @NotNull MatrixStack matrixStack, double mouseX, double mouseY) {
         IRecipeCategory.super.draw(recipe, matrixStack, mouseX, mouseY);
         // matrixStack.push();
         // matrixStack.scale(0.6f,0.6f,0.6f);

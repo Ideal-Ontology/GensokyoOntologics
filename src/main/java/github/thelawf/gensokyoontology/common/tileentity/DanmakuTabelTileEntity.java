@@ -5,15 +5,23 @@ import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
+import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.CraftingTableBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.CraftResultInventory;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SSetSlotPacket;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -32,7 +40,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
-public class DanmakuTabelTileEntity extends TileEntity {
+public class DanmakuTabelTileEntity extends TileEntity implements ITickableTileEntity {
     public DanmakuTabelTileEntity() {
         super(TileEntityRegistry.DANMAKU_TABLE_TILE.get());
     }
@@ -117,27 +125,34 @@ public class DanmakuTabelTileEntity extends TileEntity {
     }
 
     public void checkCraft() {
-        Inventory inv = new Inventory(itemHandler.getSlots());
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
-        }
-        if (world == null) return;
+        // CraftingInventory inv = new CraftingInventory((Container) createContainer(world, pos), 5, 5);
+        // for (int i = 0; i < itemHandler.getSlots(); i++) {
+        //     inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
+        // }
+        // if (world == null) return;
 
-        // Optional<SorceryExtractorRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.SORCERY_RECIPE, inv, world);
-        // recipe.ifPresent(iRecipe -> {
-        //     craft();
-        // });
+        // Optional<DanmakuRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inv, world);
+        // recipe.ifPresent(iRecipe -> craft(world, inv.getSizeInventory()));
 
         markDirty();
     }
 
-    private void craft() {
-        List<ItemStack> stacks = new ArrayList<>();
-        for (int i = 0; i < itemHandler.getSlots(); i++) {
-            stacks.add(itemHandler.getStackInSlot(i));
-        }
-        Optional<ItemStack> optional = stacks.stream().min(Comparator.comparing(ItemStack::getCount));
-        optional.ifPresent(stack1 -> itemHandler.insertItem(25, stack1, false));
+    private void craft(World world, CraftingInventory inventory, CraftResultInventory inventoryResult) {
+        if (!world.isRemote) {
+            ItemStack itemstack = ItemStack.EMPTY;
+            Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inventory, world);
+            if (optional.isPresent()) {
+                ICraftingRecipe icraftingrecipe = optional.get();
+                itemstack = icraftingrecipe.getCraftingResult(inventory);
 
+            }
+            inventoryResult.setInventorySlotContents(0, itemstack);
+        }
+
+    }
+
+    @Override
+    public void tick() {
+        checkCraft();
     }
 }

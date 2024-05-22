@@ -20,10 +20,11 @@ public class RecipeRegistry {
             "danmaku_craft", DanmakuRecipe.Serializer::new);
 
     public static final IRecipeType<SorceryExtractorRecipe> SORCERY_RECIPE = new SorceryExtractorRecipe.SorceryRecipeType();
-    public static final IRecipeType<ICraftingRecipe> DANMAKU_RECIPE = IRecipeType.CRAFTING;
+    public static final IRecipeType<DanmakuRecipe> DANMAKU_RECIPE = new DanmakuRecipe.Type();
 
     public static void register(IEventBus eventBus) {
         RECIPE_SERIALIZERS.register(eventBus);
         Registry.register(Registry.RECIPE_TYPE, SorceryExtractorRecipe.RECIPE_ID, SORCERY_RECIPE);
+        Registry.register(Registry.RECIPE_TYPE, DanmakuRecipe.RECIPE_ID, DANMAKU_RECIPE);
     }
 }

@@ -112,8 +112,7 @@ public final class EntityRegistry {
                     .trackingRange(4).updateInterval(2).build("fake_lunar"));
     public static final RegistryObject<EntityType<InYoJadeDanmakuEntity>> INYO_JADE_DANMAKU = ENTITIES.register(
             "inyo_jade_danmaku", () -> EntityType.Builder.<InYoJadeDanmakuEntity>create(InYoJadeDanmakuEntity::new, EntityClassification.MISC)
-                    .size(1F, 1F).trackingRange(4).updateInterval(2).build("inyo_jade_entity")
-    );
+                    .size(1F, 1F).trackingRange(4).updateInterval(2).build("inyo_jade_entity"));
 
     // ================================ 不知道是什么的实体 ================================= //
 
@@ -122,7 +121,7 @@ public final class EntityRegistry {
     // public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
     //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
     public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
-            "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2F, 2F,80,2);
+            "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);
 
     // ============================ 技术性实体：符卡以及特殊技能 ============================= //
     public static final RegistryObject<EntityType<ScarletPrisoner>> SCARLET_PRISONER_ENTITY =

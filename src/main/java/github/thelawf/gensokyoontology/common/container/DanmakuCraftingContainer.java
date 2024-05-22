@@ -1,18 +1,27 @@
 package github.thelawf.gensokyoontology.common.container;
 
 import github.thelawf.gensokyoontology.common.util.client.GSKOGUIUtil;
+import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
+import net.minecraft.inventory.container.CraftingResultSlot;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.ICraftingRecipe;
+import net.minecraft.item.crafting.IRecipeType;
+import net.minecraft.item.crafting.RecipeItemHelper;
+import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.util.IWorldPosCallable;
+import net.minecraft.world.World;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -20,10 +29,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 弹幕合成界面UV数据：<br><br>
@@ -47,9 +53,7 @@ public class DanmakuCraftingContainer extends Container {
     private List<ItemStack> prevStacks = new ArrayList<>();
 
     private final CraftingInventory craftingMatrix = new CraftingInventory(this, 5, 5);
-    private final Inventory resultsMatrix = new Inventory(4) {
-
-    };
+    private final CraftResultInventory resultsMatrix = new CraftResultInventory();
 
     public DanmakuCraftingContainer(int windowId,
                                     PlayerInventory playerInventory,
@@ -61,13 +65,15 @@ public class DanmakuCraftingContainer extends Container {
 
         layoutPlayerInventorySlots(28, 124);
 
-        for (int i = 0; i < 4; i++) {
-            prevStacks.add(ItemStack.EMPTY);
-        }
+        // for (int i = 0; i < 4; i++) {
+        //     prevStacks.add(ItemStack.EMPTY);
+        // }
 
         addSlotBox(this.craftingMatrix, 0, 16, 21, 5, 5, 18, 18);
-        addResultSlots();
+        // addResultSlots();
         // addIngredientSlots();
+
+        this.addSlot(new CraftingResultSlot(playerInventory.player, this.craftingMatrix, this.resultsMatrix, 0, 170, 58));
     }
 
     @Override
@@ -82,58 +88,78 @@ public class DanmakuCraftingContainer extends Container {
         this.clearContainer(playerIn, playerIn.world, this.craftingMatrix);
     }
 
+    protected static void updateCraftingResult(int id, World world, PlayerEntity player, CraftingInventory inventory, CraftResultInventory inventoryResult) {
+        if (!world.isRemote) {
+            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)player;
+            ItemStack itemstack = ItemStack.EMPTY;
+            Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inventory, world);
+            if (optional.isPresent()) {
+                ICraftingRecipe icraftingrecipe = optional.get();
+                if (inventoryResult.canUseRecipe(world, serverplayerentity, icraftingrecipe)) {
+                    itemstack = icraftingrecipe.getCraftingResult(inventory);
+                }
+            }
+
+            inventoryResult.setInventorySlotContents(0, itemstack);
+            serverplayerentity.connection.sendPacket(new SSetSlotPacket(id, 0, itemstack));
+        }
+    }
+
     @Override
     public void onCraftMatrixChanged(@NotNull IInventory inventoryIn) {
-        if (!player.world.isRemote() && inventoryIn == this.craftingMatrix) {
-            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) this.player;
-            // 大型星弹的槽位
-            List<Integer> largeStarShotSlots = createRecipeIndexes(2, 7, 10, 11, 12, 13, 14, 16, 18, 20, 24);
-            // 心弹的槽位
-            List<Integer> heartShotSlots = createRecipeIndexes(1, 3, 5, 7, 9, 10, 14, 16, 18, 22);
-            // 大弹的槽位
-            List<Integer> largeShotSlots = createRecipeIndexes(0, 1, 2, 3, 4, 5, 9, 10, 14, 15, 19, 20, 24);
-
-
-            if (matches(craftingMatrix, heartShotSlots)) {
-                ItemStack stack = new ItemStack(ItemRegistry.HEART_SHOT.get());
-                stack.setCount(getMinStackCount(heartShotSlots));
-                this.resultsMatrix.setInventorySlotContents(0, stack);
-                this.prevStacks.set(0, stack);
-            } else if (matches(craftingMatrix, largeShotSlots)) {
-                ItemStack stack = new ItemStack(ItemRegistry.LARGE_SHOT.get());
-                stack.setCount(getMinStackCount(largeShotSlots));
-                this.resultsMatrix.setInventorySlotContents(0, stack);
-                this.prevStacks.set(0, stack);
-            } else if (matches(craftingMatrix, largeStarShotSlots)) {
-                ItemStack stack = new ItemStack(ItemRegistry.LARGE_STAR_SHOT.get());
-                stack.setCount(getMinStackCount(largeStarShotSlots));
-                this.resultsMatrix.setInventorySlotContents(0, stack);
-                this.prevStacks.set(0, stack);
-            } else {
-                for (int i = 0; i < this.resultsMatrix.getSizeInventory(); i++) {
-                    this.resultsMatrix.setInventorySlotContents(i, ItemStack.EMPTY);
-                    this.prevStacks.set(i, ItemStack.EMPTY);
-                    detectAndSendChanges();
-                }
-            }
-
-            boolean flag = false;
-
-            for (int i = 0; i < this.resultsMatrix.getSizeInventory(); i++) {
-                if (this.resultsMatrix.getStackInSlot(i).isEmpty() && !this.prevStacks.get(i).isEmpty()) {
-                    flag = true;
-                    detectAndSendChanges();
-                    break;
-                }
-            }
-
-            if (flag) {
-                for (int j = 0; j < this.craftingMatrix.getSizeInventory(); j++) {
-                    this.craftingMatrix.setInventorySlotContents(j, ItemStack.EMPTY);
-                    detectAndSendChanges();
-                }
-            }
-        }
+        this.POS_CALLABLE.consume((p_217069_1_, p_217069_2_) -> {
+            updateCraftingResult(this.windowId, p_217069_1_, this.player, this.craftingMatrix, this.resultsMatrix);
+        });
+        // if (!player.world.isRemote() && inventoryIn == this.craftingMatrix) {
+        //     ServerPlayerEntity serverPlayer = (ServerPlayerEntity) this.player;
+        //     // 大型星弹的槽位
+        //     List<Integer> largeStarShotSlots = createRecipeIndexes(2, 7, 10, 11, 12, 13, 14, 16, 18, 20, 24);
+        //     // 心弹的槽位
+        //     List<Integer> heartShotSlots = createRecipeIndexes(1, 3, 5, 7, 9, 10, 14, 16, 18, 22);
+        //     // 大弹的槽位
+        //     List<Integer> largeShotSlots = createRecipeIndexes(0, 1, 2, 3, 4, 5, 9, 10, 14, 15, 19, 20, 24);
+//
+//
+        //     if (matches(craftingMatrix, heartShotSlots)) {
+        //         ItemStack stack = new ItemStack(ItemRegistry.HEART_SHOT.get());
+        //         stack.setCount(getMinStackCount(heartShotSlots));
+        //         this.resultsMatrix.setInventorySlotContents(0, stack);
+        //         this.prevStacks.set(0, stack);
+        //     } else if (matches(craftingMatrix, largeShotSlots)) {
+        //         ItemStack stack = new ItemStack(ItemRegistry.LARGE_SHOT.get());
+        //         stack.setCount(getMinStackCount(largeShotSlots));
+        //         this.resultsMatrix.setInventorySlotContents(0, stack);
+        //         this.prevStacks.set(0, stack);
+        //     } else if (matches(craftingMatrix, largeStarShotSlots)) {
+        //         ItemStack stack = new ItemStack(ItemRegistry.LARGE_STAR_SHOT.get());
+        //         stack.setCount(getMinStackCount(largeStarShotSlots));
+        //         this.resultsMatrix.setInventorySlotContents(0, stack);
+        //         this.prevStacks.set(0, stack);
+        //     } else {
+        //         for (int i = 0; i < this.resultsMatrix.getSizeInventory(); i++) {
+        //             this.resultsMatrix.setInventorySlotContents(i, ItemStack.EMPTY);
+        //             this.prevStacks.set(i, ItemStack.EMPTY);
+        //             detectAndSendChanges();
+        //         }
+        //     }
+//
+        //     boolean flag = false;
+//
+        //     for (int i = 0; i < this.resultsMatrix.getSizeInventory(); i++) {
+        //         if (this.resultsMatrix.getStackInSlot(i).isEmpty() && !this.prevStacks.get(i).isEmpty()) {
+        //             flag = true;
+        //             detectAndSendChanges();
+        //             break;
+        //         }
+        //     }
+//
+        //     if (flag) {
+        //         for (int j = 0; j < this.craftingMatrix.getSizeInventory(); j++) {
+        //             this.craftingMatrix.setInventorySlotContents(j, ItemStack.EMPTY);
+        //             detectAndSendChanges();
+        //         }
+        //     }
+        // }
         super.onCraftMatrixChanged(inventoryIn);
     }
 
@@ -170,6 +196,15 @@ public class DanmakuCraftingContainer extends Container {
             }
 
         }
+    }
+
+    public void fillStackedContents(RecipeItemHelper itemHelperIn) {
+        this.craftingMatrix.fillStackedContents(itemHelperIn);
+    }
+
+    public void clear() {
+        this.craftingMatrix.clear();
+        this.resultsMatrix.clear();
     }
 
     private void addResultSlots() {

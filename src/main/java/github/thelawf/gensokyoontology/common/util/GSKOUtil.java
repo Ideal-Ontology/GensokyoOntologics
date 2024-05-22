@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.util;
 
+import github.thelawf.gensokyoontology.common.block.DanmakuTableBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
