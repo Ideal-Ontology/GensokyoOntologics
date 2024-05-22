@@ -28,6 +28,12 @@ public class DanmakuRecipe extends ShapedRecipe {
         }
     }
 
+    @Override
+    @NotNull
+    public IRecipeSerializer<?> getSerializer() {
+        return RecipeRegistry.DANMAKU_CRAFT_SERIALIZER.get();
+    }
+
     // @Override
     // public boolean matches(CraftingInventory inv, World worldIn) {
     //     return false;

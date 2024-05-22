@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.container;
 
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.client.GSKOGUIUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
@@ -48,32 +49,35 @@ public class DanmakuCraftingContainer extends Container {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final List<List<Integer>> RECIPES = GSKOGUIUtil.makeDanmakuRecipes();
 
-    private final IWorldPosCallable POS_CALLABLE = IWorldPosCallable.DUMMY;
-
-    private List<ItemStack> prevStacks = new ArrayList<>();
+    private final IWorldPosCallable POS_CALLABLE;
 
     private final CraftingInventory craftingMatrix = new CraftingInventory(this, 5, 5);
     private final CraftResultInventory resultsMatrix = new CraftResultInventory();
+    public DanmakuCraftingContainer(int windowId, PlayerInventory playerInventory) {
+        this(windowId, playerInventory, IWorldPosCallable.DUMMY);
+    }
 
-    public DanmakuCraftingContainer(int windowId,
-                                    PlayerInventory playerInventory,
-                                    PlayerEntity player) {
+    public DanmakuCraftingContainer(int windowId, PlayerInventory playerInventory, IWorldPosCallable callable) {
         super(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(), windowId);
-        // this.fieldEntity = (DomainFieldEntity) world.getEntityByID(entityId);
-        this.player = player;
+        this.player = playerInventory.player;
         this.playerInventory = new InvWrapper(playerInventory);
+        this.POS_CALLABLE = callable;
 
         layoutPlayerInventorySlots(28, 124);
+        for (int i = 0; i < 5; i++) {
+            for (int j = 0; j < 5; j++) {
+                this.addSlot(new Slot(this.craftingMatrix, j + i * 2, 16 + i * 18, 21 + j * 18));
+            }
+        }
+        // this.addSlotBox();
+        this.addSlot(new CraftingResultSlot(playerInventory.player, this.craftingMatrix, this.resultsMatrix, 0, 170, 58));
+
+        // addResultSlots();
+        // addIngredientSlots();
 
         // for (int i = 0; i < 4; i++) {
         //     prevStacks.add(ItemStack.EMPTY);
         // }
-
-        addSlotBox(this.craftingMatrix, 0, 16, 21, 5, 5, 18, 18);
-        // addResultSlots();
-        // addIngredientSlots();
-
-        this.addSlot(new CraftingResultSlot(playerInventory.player, this.craftingMatrix, this.resultsMatrix, 0, 170, 58));
     }
 
     @Override
@@ -84,8 +88,8 @@ public class DanmakuCraftingContainer extends Container {
     @Override
     public void onContainerClosed(@NotNull PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);
-        //playerIn.inventory.addItemStackToInventory(craftingMatrix.getStackInSlot())
         this.clearContainer(playerIn, playerIn.world, this.craftingMatrix);
+        this.clearContainer(playerIn, playerIn.world, this.resultsMatrix);
     }
 
     protected static void updateCraftingResult(int id, World world, PlayerEntity player, CraftingInventory inventory, CraftResultInventory inventoryResult) {
@@ -107,8 +111,8 @@ public class DanmakuCraftingContainer extends Container {
 
     @Override
     public void onCraftMatrixChanged(@NotNull IInventory inventoryIn) {
-        this.POS_CALLABLE.consume((p_217069_1_, p_217069_2_) -> {
-            updateCraftingResult(this.windowId, p_217069_1_, this.player, this.craftingMatrix, this.resultsMatrix);
+        this.POS_CALLABLE.consume((world, pos) -> {
+            updateCraftingResult(this.windowId, world, this.player, this.craftingMatrix, this.resultsMatrix);
         });
         // if (!player.world.isRemote() && inventoryIn == this.craftingMatrix) {
         //     ServerPlayerEntity serverPlayer = (ServerPlayerEntity) this.player;
@@ -160,7 +164,6 @@ public class DanmakuCraftingContainer extends Container {
         //         }
         //     }
         // }
-        super.onCraftMatrixChanged(inventoryIn);
     }
 
     private int getMinStackCount(List<Integer> stackIndexes) {
@@ -287,54 +290,54 @@ public class DanmakuCraftingContainer extends Container {
     // THIS YOU HAVE TO DEFINE!
     private static final int DANMAKU_SLOT_COUNT = 29;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
-    @Override
-    @NotNull
-    public ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
-
-        Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
-            if (index == 0) {
-
-                if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
-                    return ItemStack.EMPTY;
-                }
-
-                slot.onSlotChange(itemstack1, itemstack);
-            } else if (index >= 10 && index < 46) {
-                if (!this.mergeItemStack(itemstack1, 1, 10, false)) {
-                    if (index < 37) {
-                        if (!this.mergeItemStack(itemstack1, 37, 46, false)) {
-                            return ItemStack.EMPTY;
-                        }
-                    } else if (!this.mergeItemStack(itemstack1, 10, 37, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                }
-            } else if (!this.mergeItemStack(itemstack1, 10, 46, false)) {
-                return ItemStack.EMPTY;
-            }
-
-            if (itemstack1.isEmpty()) {
-                slot.putStack(ItemStack.EMPTY);
-            } else {
-                slot.onSlotChanged();
-            }
-
-            if (itemstack1.getCount() == itemstack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
-            if (index == 0) {
-                playerIn.dropItem(itemstack2, false);
-            }
-        }
-
-        return itemstack;
-    }
+    // @Override
+    // @NotNull
+    // public ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
+    //     ItemStack itemstack = ItemStack.EMPTY;
+//
+    //     Slot slot = this.inventorySlots.get(index);
+    //     if (slot != null && slot.getHasStack()) {
+    //         ItemStack itemstack1 = slot.getStack();
+    //         itemstack = itemstack1.copy();
+    //         if (index == 0) {
+//
+    //             if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
+    //                 return ItemStack.EMPTY;
+    //             }
+//
+    //             slot.onSlotChange(itemstack1, itemstack);
+    //         } else if (index >= 10 && index < 46) {
+    //             if (!this.mergeItemStack(itemstack1, 1, 10, false)) {
+    //                 if (index < 37) {
+    //                     if (!this.mergeItemStack(itemstack1, 37, 46, false)) {
+    //                         return ItemStack.EMPTY;
+    //                     }
+    //                 } else if (!this.mergeItemStack(itemstack1, 10, 37, false)) {
+    //                     return ItemStack.EMPTY;
+    //                 }
+    //             }
+    //         } else if (!this.mergeItemStack(itemstack1, 10, 46, false)) {
+    //             return ItemStack.EMPTY;
+    //         }
+//
+    //         if (itemstack1.isEmpty()) {
+    //             slot.putStack(ItemStack.EMPTY);
+    //         } else {
+    //             slot.onSlotChanged();
+    //         }
+//
+    //         if (itemstack1.getCount() == itemstack.getCount()) {
+    //             return ItemStack.EMPTY;
+    //         }
+//
+    //         ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
+    //         if (index == 0) {
+    //             playerIn.dropItem(itemstack2, false);
+    //         }
+    //     }
+//
+    //     return itemstack;
+    // }
 
     /**
      * "__A__"<br>
@@ -398,11 +401,5 @@ public class DanmakuCraftingContainer extends Container {
             return inventorySlot.getHasStack();
         }
         return false;
-    }
-
-    @Override
-    public void detectAndSendChanges() {
-        super.detectAndSendChanges();
-
     }
 }

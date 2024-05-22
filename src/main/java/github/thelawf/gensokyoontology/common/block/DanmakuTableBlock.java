@@ -41,7 +41,6 @@ public class DanmakuTableBlock extends Block {
         if (worldIn.isRemote) {
             return ActionResultType.SUCCESS;
         } else {
-            GSKOUtil.showChatMsg(player, state.getContainer(worldIn, pos) == null, 1);
             player.openContainer(state.getContainer(worldIn, pos));
             return ActionResultType.CONSUME;
         }
@@ -62,12 +61,14 @@ public class DanmakuTableBlock extends Block {
     @Override
     @SuppressWarnings("deprecation")
     public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
-        return new SimpleNamedContainerProvider(DanmakuCraftingContainer::new, DanmakuTabelTileEntity.CONTAINER_NAME);
+        return new SimpleNamedContainerProvider((id, inventory, player) ->
+                new DanmakuCraftingContainer(id, inventory, IWorldPosCallable.of(worldIn, pos)),
+                DanmakuTabelTileEntity.CONTAINER_NAME);
     }
 
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new DanmakuTabelTileEntity();
-    }
+    // @Nullable
+    // @Override
+    // public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+    //     return new DanmakuTabelTileEntity();
+    // }
 }

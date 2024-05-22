@@ -60,7 +60,7 @@ public class DanmakuTabelTileEntity extends TileEntity implements ITickableTileE
             @Nullable
             @Override
             public Container createMenu(int winwdowId, PlayerInventory playerInventory, PlayerEntity player) {
-                return new DanmakuCraftingContainer(winwdowId, playerInventory, player);
+                return new DanmakuCraftingContainer(winwdowId, playerInventory);
             }
         };
     }

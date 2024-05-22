@@ -19,7 +19,7 @@ public final class ContainerRegistry {
 
     public static final RegistryObject<ContainerType<DanmakuCraftingContainer>> DANMAKU_CRAFTING_CONTAINER =
             CONTAINERS.register("danmaku_crafting_container", () -> IForgeContainerType.create(
-                    (windowId, inv, data) -> new DanmakuCraftingContainer(windowId, inv, inv.player)));
+                    (windowId, inv, data) -> new DanmakuCraftingContainer(windowId, inv)));
     public static final RegistryObject<ContainerType<SorceryExtractorContainer>> SORCERY_EXTRACTOR_CONTAINER =
             CONTAINERS.register("sorcery_extractor_container", () -> IForgeContainerType.create(
                     ((windowId, inv, data) -> {
