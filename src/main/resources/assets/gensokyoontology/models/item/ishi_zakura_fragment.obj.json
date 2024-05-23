@@ -1,7 +1,7 @@
 {
   "parent": "block/block",
   "loader": "forge:obj",
-  "model": "gensokyoontology:models/block/ishizakura_fragment.obj",
+  "model": "gensokyoontology:models/item/ishizakura_fragment.obj",
   "flip-v": true,
   "display": {
     "firstperson_righthand": {
@@ -11,10 +11,12 @@
       "translation": [2, 5, 0]
     },
     "ground": {
-      "translation": [7, 3.5, 7]
+      "translation": [7, 3.5, 7],
+      "scale": [0.8, 0.8, 0.8]
     },
     "gui": {
-      "scale": [1.5, 1.5, 1.5]
+      "translation": [0, 4, 0],
+      "scale": [0.8, 0.8, 0.8]
     },
     "fixed": {
       "translation": [2, -2, -8],
