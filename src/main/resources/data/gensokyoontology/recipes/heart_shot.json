@@ -1,11 +1,11 @@
 {
   "type": "gensokyoontology:danmaku_craft",
   "pattern": [
-    "#####",
+    " # # ",
+    "# # #",
     "#   #",
-    "#   #",
-    "#   #",
-    "#####"
+    " # # ",
+    "  #  "
   ],
   "key": {
     "#": {
@@ -13,7 +13,7 @@
     }
   },
   "result": {
-    "item": "gensokyoontology:large_shot",
+    "item": "gensokyoontology:heart_shot",
     "count": 4
   }
 }

@@ -50,25 +50,8 @@ public class DanmakuTableBlock extends Block {
             return ActionResultType.SUCCESS;
         } else {
             player.openContainer(state.getContainer(worldIn, pos));
-            if (worldIn.getServer() != null) {
-                MinecraftServer server = worldIn.getServer();
-                if (player.openContainer instanceof DanmakuCraftingContainer) {
-                    DanmakuCraftingContainer container = (DanmakuCraftingContainer) player.openContainer;
-                    Optional<DanmakuRecipe> recipe = server.getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, container.getCraftingMatrix(), worldIn);
-                }
-            }
             return ActionResultType.CONSUME;
         }
-        // if (!worldIn.isRemote) {
-        //     TileEntity tileEntity = worldIn.getTileEntity(pos);
-        //     if (tileEntity instanceof DanmakuTabelTileEntity) {
-        //         INamedContainerProvider provider = DanmakuTabelTileEntity.createContainer(worldIn, pos);
-        //         NetworkHooks.openGui((ServerPlayerEntity) player, provider, tileEntity.getPos());
-        //     } else {
-        //         throw new IllegalStateException("Missing Container Provider");
-        //     }
-        // }
-        // return ActionResultType.SUCCESS;
     }
 
 

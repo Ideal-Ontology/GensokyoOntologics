@@ -10,6 +10,9 @@
     "firstperson_lefthand": {
       "translation": [2, 5, 0]
     },
+    "gui": {
+      "scale": [2, 2, 2]
+    },
     "fixed": {
       "translation": [2, -2, -8],
       "rotation": [-90, 0, 0]
