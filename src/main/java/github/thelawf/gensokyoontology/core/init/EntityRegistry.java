@@ -4,13 +4,13 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.*;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
-// import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
@@ -120,8 +120,7 @@ public final class EntityRegistry {
     //         "master_spark", () -> MasterSparkEntity.MASTER_SPARK);
     // public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
     //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
-    public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
-            "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);
+
 
     // ============================ 技术性实体：符卡以及特殊技能 ============================= //
     public static final RegistryObject<EntityType<ScarletPrisoner>> SCARLET_PRISONER_ENTITY =
@@ -166,6 +165,11 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<DestructiveEyeEntity>> DESTRUCTIVE_EYE_ENTITY =
             ENTITIES.register("destructive_eye", () -> EntityType.Builder.<DestructiveEyeEntity>create(DestructiveEyeEntity::new, EntityClassification.MISC)
                     .size(3F, 3F). trackingRange(10).updateInterval(2).build("destructive_eye"));
+
+    public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = register(
+            "master_spark", MasterSparkEntity::new, EntityClassification.MISC, 2.F, 2.F, 10, 2);
+    public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
+            "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);
 
     public static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.IFactory<T> factoryIn,
                                                                             EntityClassification classification, float width,

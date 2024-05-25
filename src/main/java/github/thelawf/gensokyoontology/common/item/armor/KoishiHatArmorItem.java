@@ -25,7 +25,7 @@ public class KoishiHatArmorItem extends ArmorItem {
 
     @Override
     public String getArmorTexture(ItemStack itemstack, Entity entity, EquipmentSlotType slot, String layer) {
-        return GensokyoOntology.withRL("textures/armor/koishi_hat").toString();
+        return GensokyoOntology.withRL("textures/entity/komeiji_koishi.png").toString();
     }
 
     @Nullable

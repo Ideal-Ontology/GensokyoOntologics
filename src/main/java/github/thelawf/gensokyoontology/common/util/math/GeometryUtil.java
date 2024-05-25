@@ -1,15 +1,10 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
-import com.ibm.icu.impl.coll.Collation;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3f;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class GeometryUtil {
     public static final double PHI = (1 + Math.sqrt(5)) / 2;
@@ -113,15 +108,60 @@ public class GeometryUtil {
         }
     }
 
-
-    public static void longitudeSphere(IVertexBuilder builder, Matrix4f matrix4f, int latitudeBands, int longitudeBands, float radius,
-                                             float r, float g, float b, float a) {
+    public static void renderSphere(IVertexBuilder builder, Matrix4f matrix4f, int latitudeBands, int longitudeBands, float radius,
+                                    float r, float g, float b, float a) {
         float[][] vertices = longitudeSphereVertices(latitudeBands, longitudeBands, radius);
         int[][] faces = longitudeSphereFaces(latitudeBands, longitudeBands);
 
         for (int[] face : faces) {
             renderTriangle(matrix4f, builder, vertices[face[0]], vertices[face[1]], vertices[face[2]], r, g, b, a);
         }
+    }
+
+    public static void renderCylinder(IVertexBuilder builder, Matrix4f matrix4f, float radius, float height, int segment,
+                                      float r, float g, float b, float a){
+        for (float[] vertex : cylinderMeshes(builder, matrix4f, radius, height, segment)) {
+            builder.pos(matrix4f, vertex[0], vertex[1], vertex[2]).color(r, g, b, a).endVertex();
+        }
+    }
+
+    public static List<float[]> cylinderMeshes(IVertexBuilder builder, Matrix4f matrix4f, float radius, float height, int segments) {
+        List<float[]> vertices = new ArrayList<>();
+
+        // Generate vertices for the top and bottom circles
+        for (int i = 0; i < segments; i++) {
+            double angle = 2 * Math.PI * i / segments;
+            float x = (float) (radius * Math.cos(angle));
+            float z = (float) (radius * Math.sin(angle));
+
+            // Top circle
+            vertices.add(new float[] { x, height / 2, z });
+
+            // Bottom circle
+            vertices.add(new float[] { x, -height / 2, z });
+        }
+
+        // Generate side vertices (quads)
+        for (int i = 0; i < segments; i++) {
+            int next = (i + 1) % segments;
+
+            float[] topCurrent = vertices.get(i * 2);
+            float[] bottomCurrent = vertices.get(i * 2 + 1);
+            float[] topNext = vertices.get(next * 2);
+            float[] bottomNext = vertices.get(next * 2 + 1);
+
+            // First triangle of the quad
+            vertices.add(topCurrent);
+            vertices.add(bottomCurrent);
+            vertices.add(topNext);
+
+            // Second triangle of the quad
+            vertices.add(bottomCurrent);
+            vertices.add(bottomNext);
+            vertices.add(topNext);
+        }
+
+        return vertices;
     }
 
     private static float[][] longitudeSphereVertices(int latitudeBands, int longitudeBands, float radius) {

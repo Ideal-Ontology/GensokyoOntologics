@@ -126,7 +126,6 @@ public class DanmakuCraftingContainer extends Container {
                 for (int i = 0; i < list.size(); ++i) {
                     this.craftingMatrix.decrStackSize(i, this.craftingMatrix.getStackInSlot(i) == ItemStack.EMPTY ? 0 :
                             GSKORecipeHandler.getMinForIngredients(list));
-
                 }
                 return itemStack;
             }
@@ -138,7 +137,6 @@ public class DanmakuCraftingContainer extends Container {
     public void onCraftMatrixChanged(@NotNull IInventory inventoryIn) {
         super.onCraftMatrixChanged(inventoryIn);
         this.updateCraftingResult();
-
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
@@ -170,13 +168,11 @@ public class DanmakuCraftingContainer extends Container {
             x += dx;
             index++;
         }
-
         return index;
     }
 
     private void layoutPlayerInventorySlots(int leftCol, int topRow) {
         addSlotBox(playerInventory, 9, leftCol, topRow, 9, 3, 18, 18);
-
         topRow += 58;
         addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
     }
@@ -221,17 +217,17 @@ public class DanmakuCraftingContainer extends Container {
     @NotNull
     public ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-//
+
         Slot slot = this.inventorySlots.get(index);
         if (slot != null && slot.getHasStack()) {
             ItemStack itemstack1 = slot.getStack();
             itemstack = itemstack1.copy();
             if (index == 0) {
-//
+
                 if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
                     return ItemStack.EMPTY;
                 }
-//
+
                 slot.onSlotChange(itemstack1, itemstack);
             } else if (index >= 10 && index < 46) {
                 if (!this.mergeItemStack(itemstack1, 1, 10, false)) {
@@ -246,23 +242,23 @@ public class DanmakuCraftingContainer extends Container {
             } else if (!this.mergeItemStack(itemstack1, 10, 46, false)) {
                 return ItemStack.EMPTY;
             }
-//
+
             if (itemstack1.isEmpty()) {
                 slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
-//
+
             if (itemstack1.getCount() == itemstack.getCount()) {
                 return ItemStack.EMPTY;
             }
-//
+
             ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
             if (index == 0) {
                 playerIn.dropItem(itemstack2, false);
             }
         }
-//
+
         return itemstack;
     }
 

@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.MultiSelectScreen;
+import github.thelawf.gensokyoontology.client.model.KoishiHatModel;
 import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
@@ -19,6 +20,7 @@ import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screen.DownloadTerrainScreen;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -65,6 +67,13 @@ public class GSKOMiscClientEvent {
                 }
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onRenderArmorLayer(RenderPlayerEvent.Post event) {
+        KoishiHatModel model = new KoishiHatModel(1f);
+        model.render(event.getMatrixStack(), event.getBuffers().getBuffer(RenderType.getArmorEntityGlint()),
+                event.getLight(), event.getLight(), 1.f, 1.f, 1.f, 1.f);
     }
 
     @SubscribeEvent

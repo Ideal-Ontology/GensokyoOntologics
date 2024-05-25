@@ -61,7 +61,7 @@ public class DestructiveEyeRenderer extends EntityRenderer<DestructiveEyeEntity>
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(angle));
         matrixStackIn.scale(scale, scale, scale);
 
-        // GeometryUtil.longitudeSphere(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
+        // GeometryUtil.renderSphere(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
         //         10, 10, 1f, 1.f, 0.1f, 0.1f, 0.7f);
         this.itemRenderer.renderItem(new ItemStack(ItemRegistry.SPHERE_EFFECT_ITEM.get()), ItemCameraTransforms.TransformType.GROUND, 0, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
 
