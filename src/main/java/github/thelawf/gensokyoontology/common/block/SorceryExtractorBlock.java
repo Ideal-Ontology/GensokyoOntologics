@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.block;
 
 import github.thelawf.gensokyoontology.common.tileentity.SorceryExtractorTileEntity;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -13,12 +12,12 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.items.CapabilityItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,12 +26,18 @@ public class SorceryExtractorBlock extends Block {
         super(Properties.from(Blocks.ENCHANTING_TABLE));
     }
 
-    public static final VoxelShape shape;
+    public static final VoxelShape SHAPE;
 
     static {
         VoxelShape terrace = Block.makeCuboidShape(0, 0, 0, 16, 7, 16);
         VoxelShape crystal = Block.makeCuboidShape(7, 7, 9, 7, 16, 9);
-        shape = VoxelShapes.or(terrace, crystal);
+        SHAPE = VoxelShapes.or(terrace, crystal);
+    }
+
+    @Override
+    @SuppressWarnings("deprecation")
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return SHAPE;
     }
 
     @Override

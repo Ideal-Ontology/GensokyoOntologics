@@ -33,8 +33,15 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
 
     @Override
     public boolean matches(@NotNull IInventory inv, @NotNull World worldIn) {
-        return this.inputs.get(0).test(inv.getStackInSlot(0)) && this.inputs.get(1).test(inv.getStackInSlot(1)) &&
-                this.inputs.get(2).test(inv.getStackInSlot(2)) && this.inputs.get(3).test(inv.getStackInSlot(3));
+        int matches = 0;
+        for (int i = 0; i < 4; i++) {
+            if (i < this.inputs.size()) {
+                if (this.inputs.get(i).test(inv.getStackInSlot(i))) {
+                    matches++;
+                }
+            }
+        }
+        return matches == this.inputs.size();
     }
 
     @Override
