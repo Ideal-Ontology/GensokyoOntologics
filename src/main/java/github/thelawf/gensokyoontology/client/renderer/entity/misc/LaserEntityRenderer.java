@@ -5,15 +5,13 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.SheepRenderer;
 import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -154,10 +152,12 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         matrixStackIn.push();
         matrixStackIn.translate(0.0D, entityIn.getEyeHeight(), 0.0D);
         Vector3d vector3d2 = entityIn.getLookVec();
-        float f5 = (float)Math.acos(vector3d2.y);
-        float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((float)Math.PI / 2 - f6) * (180 / (float)Math.PI)));
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180 / (float)Math.PI)));
+        GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, vector3d2);
+
+        // float f5 = (float)Math.acos(vector3d2.y);
+        // float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
+        // matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((float)Math.PI / 2 - f6) * (180 / (float)Math.PI)));
+        // matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180 / (float)Math.PI)));
 
         if (entityIn.ticksExisted <= entityIn.getPreparation()) {
             drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,

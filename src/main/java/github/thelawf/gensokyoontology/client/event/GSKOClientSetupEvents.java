@@ -67,6 +67,8 @@ public class GSKOClientSetupEvents {
                 manager -> new DreamSealRenderer(manager, itemRenderer));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get(),
                 manager -> new DestructiveEyeRenderer(manager, itemRenderer));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MASTER_SPARK_ENTITY.get(),
+                MasterSparkRenderer::new);
 
         // ======================== 符卡实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get(),

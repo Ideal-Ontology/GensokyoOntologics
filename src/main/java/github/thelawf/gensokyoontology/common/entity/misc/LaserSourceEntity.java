@@ -40,14 +40,14 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
     public static final DataParameter<Integer> DATA_PREPARATION = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
     public static final DataParameter<Float> DATA_RANGE = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.FLOAT);
     public LaserSourceEntity(EntityType<?> entityTypeIn, World worldIn) {
-        super(entityTypeIn, null, worldIn);
+        super(entityTypeIn, worldIn);
         this.ignoreFrustumCheck = true;
         this.setARGB(0x88FF0000);
         this.init(100, 30, 128F);
     }
 
     public LaserSourceEntity(World worldIn, Entity owner) {
-        super(EntityRegistry.LASER_SOURCE_ENTITY.get(), owner.getUniqueID(), worldIn);
+        super(EntityRegistry.LASER_SOURCE_ENTITY.get(), owner, worldIn);
         this.ignoreFrustumCheck = true;
         this.setARGB(0x88FF0000);
         this.init(100, 30, 128F);

@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity;
 
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -27,9 +28,9 @@ public abstract class AffiliatedEntity extends Entity {
         super(entityTypeIn, worldIn);
     }
 
-    public AffiliatedEntity(EntityType<?> entityTypeIn, UUID ownerId, World worldIn) {
+    public AffiliatedEntity(EntityType<?> entityTypeIn, Entity owner, World worldIn) {
         super(entityTypeIn, worldIn);
-        this.ownerId = ownerId;
+        this.ownerId = owner.getUniqueID();
         this.setOwnerId(this.ownerId);
     }
 

@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
 
-import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.classic.Cos;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.math.function.CosineFunc;
 import github.thelawf.gensokyoontology.common.util.math.function.SineFunc;
@@ -346,6 +346,13 @@ public class GSKOMathUtil {
         double yaw = Math.atan2(-vector3d.x, vector3d.z);
         double pitch = Math.atan2(vector3d.y, Math.sqrt(vector3d.x * vector3d.x + vector3d.z * vector3d.z));
         return new Vector2f((float) toDegree(yaw), (float) toDegree(pitch));
+    }
+
+    public static void rotateMatrixToLookVec(MatrixStack matrixStackIn, Vector3d rotationVec) {
+        float f5 = (float)Math.acos(rotationVec.y);
+        float f6 = (float)Math.atan2(rotationVec.z, rotationVec.x);
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((float)Math.PI / 2 - f6) * (180 / (float)Math.PI)));
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180 / (float)Math.PI)));
     }
 
     public static Vector3d fromYawPitch(float yaw, float pitch) {

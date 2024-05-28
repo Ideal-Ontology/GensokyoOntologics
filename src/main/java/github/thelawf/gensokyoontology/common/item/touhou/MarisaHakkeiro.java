@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -90,12 +91,13 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
         // 循环引发50次爆炸，每次爆炸前先获取距离 explodeStartPos i格外的向量位置，
         // 通过同样的向量加法和数乘法确定下一个引爆的位置
         List<LivingEntity> entities = new ArrayList<>();
+        MasterSparkEntity masterSpark = new MasterSparkEntity(playerIn, worldIn);
         if (!worldIn.isRemote) {
-            for (int i = 0; i < 50; i++) {
-                Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
-                worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
-                        explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
-            }
+            // for (int i = 0; i < 50; i++) {
+            //     Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
+            //     worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
+            //             explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
+            // }
 
             List<List<AxisAlignedBB>> boxes = getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 1.75f);
 

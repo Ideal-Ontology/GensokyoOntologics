@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -16,7 +17,7 @@ import org.jetbrains.annotations.NotNull;
 public class MasterSparkRenderer extends EntityRenderer<MasterSparkEntity> {
 
     public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/entity/master_spark_overlay.png");
-    protected MasterSparkRenderer(EntityRendererManager renderManager) {
+    public MasterSparkRenderer(EntityRendererManager renderManager) {
         super(renderManager);
     }
 
@@ -26,8 +27,9 @@ public class MasterSparkRenderer extends EntityRenderer<MasterSparkEntity> {
         IVertexBuilder builder = bufferIn.getBuffer(RenderType.getLightning());
         matrixStackIn.push();
         Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
-        // GeometryUtil.renderSphere(builder);
-        GeometryUtil.renderCylinder(builder, matrix4f, 1.f, 10, 16, 1.f, 0.f, 0.f, 0.6f);
+        GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, entityIn.getLookVec());
+        GeometryUtil.renderSphere(builder, matrix4f, 12, 12, 10, 1.f, 0.f, 0.f, 0.6f);
+        GeometryUtil.renderCylinder(builder, matrix4f, 1.f, 10, 16, 1.f, 1.f, 0.f, 0.6f);
         matrixStackIn.pop();
     }
 

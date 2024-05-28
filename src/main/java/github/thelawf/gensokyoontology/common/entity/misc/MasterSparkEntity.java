@@ -2,6 +2,8 @@ package github.thelawf.gensokyoontology.common.entity.misc;
 
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.World;
 
@@ -12,8 +14,8 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceRead
         super(entityTypeIn, worldIn);
     }
 
-    public MasterSparkEntity(EntityType<?> entityTypeIn, UUID ownerId, World worldIn) {
-        super(entityTypeIn, ownerId, worldIn);
+    public MasterSparkEntity(Entity owner, World worldIn) {
+        super(EntityRegistry.MASTER_SPARK_ENTITY.get(), owner, worldIn);
     }
 
     @Override
