@@ -92,6 +92,9 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
         // 通过同样的向量加法和数乘法确定下一个引爆的位置
         List<LivingEntity> entities = new ArrayList<>();
         MasterSparkEntity masterSpark = new MasterSparkEntity(playerIn, worldIn);
+        masterSpark.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(),
+                toYawPitch(playerIn.getLookVec()).x, toYawPitch(playerIn.getLookVec()).y);
+        worldIn.addEntity(masterSpark);
         if (!worldIn.isRemote) {
             // for (int i = 0; i < 50; i++) {
             //     Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
@@ -99,20 +102,20 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
             //             explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
             // }
 
-            List<List<AxisAlignedBB>> boxes = getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 1.75f);
-
-            for (List<AxisAlignedBB> aabb : boxes) {
-                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(0)));
-                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(1)));
-                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(2)));
-                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(3)));
-            }
-
-            entities.forEach(e -> {
-                if (e instanceof MonsterEntity) {
-                    e.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 30f);
-                }
-            });
+            // List<List<AxisAlignedBB>> boxes = getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 1.75f);
+//
+            // for (List<AxisAlignedBB> aabb : boxes) {
+            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(0)));
+            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(1)));
+            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(2)));
+            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(3)));
+            // }
+//
+            // entities.forEach(e -> {
+            //     if (e instanceof MonsterEntity) {
+            //         e.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 30f);
+            //     }
+            // });
 
             getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 2);
             // damageItem(playerIn.getHeldItemMainhand(), 1, playerIn, player -> player.getHeldItemMainhand().shrink(1));

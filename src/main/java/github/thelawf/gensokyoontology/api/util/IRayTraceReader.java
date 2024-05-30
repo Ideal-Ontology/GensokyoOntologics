@@ -3,15 +3,12 @@ package github.thelawf.gensokyoontology.api.util;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.util.math.*;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.event.ForgeEventFactory;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -19,6 +16,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil.toDegree;
 
 public interface IRayTraceReader {
 
@@ -264,6 +263,12 @@ public interface IRayTraceReader {
 
     default Vector3d getAimedVec(LivingEntity source, Entity target) {
         return target.getPositionVec().subtract(source.getPositionVec());
+    }
+
+    default Vector2f toYawPitch(Vector3d vector3d) {
+        double yaw = Math.atan2(-vector3d.x, vector3d.z);
+        double pitch = Math.atan2(vector3d.y, Math.sqrt(vector3d.x * vector3d.x + vector3d.z * vector3d.z));
+        return new Vector2f((float) toDegree(yaw), (float) toDegree(pitch));
     }
 
     /**

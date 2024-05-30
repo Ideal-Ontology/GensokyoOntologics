@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.util.math.vector.Quaternion;
 import org.jetbrains.annotations.NotNull;
 
 public class MasterSparkRenderer extends EntityRenderer<MasterSparkEntity> {
@@ -27,6 +28,7 @@ public class MasterSparkRenderer extends EntityRenderer<MasterSparkEntity> {
         IVertexBuilder builder = bufferIn.getBuffer(RenderType.getLightning());
         matrixStackIn.push();
         Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
+        matrixStackIn.rotate(Quaternion.ONE);
         GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, entityIn.getLookVec());
         GeometryUtil.renderSphere(builder, matrix4f, 12, 12, 10, 1.f, 0.f, 0.f, 0.6f);
         GeometryUtil.renderCylinder(builder, matrix4f, 1.f, 10, 16, 1.f, 1.f, 0.f, 0.6f);
