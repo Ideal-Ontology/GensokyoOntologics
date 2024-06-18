@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.block.ore;
 
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.LevelReader;
 import net.minecraft.world.level.block.Blocks;
@@ -13,7 +12,7 @@ public class IzanoObjectOre extends OreBlock {
     }
 
     public int getExperience() {
-        return GSKOMathUtil.randomRange(3, 7);
+        return RANDOM.nextInt(4) + 3;
     }
 
 

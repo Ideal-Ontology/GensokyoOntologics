@@ -5,6 +5,6 @@ import net.minecraft.world.level.block.Blocks;
 
 public class CrimsonMetalBlock extends Block {
     public CrimsonMetalBlock() {
-        super(Properties.copy(Blocks.ANCIENT_DEBRIS).harvestLevel(4));
+        super(Properties.copy(Blocks.ANCIENT_DEBRIS).strength(9f).requiresCorrectToolForDrops());
     }
 }

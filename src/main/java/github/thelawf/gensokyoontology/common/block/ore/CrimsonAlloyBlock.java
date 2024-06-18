@@ -5,6 +5,6 @@ import net.minecraft.world.level.block.Blocks;
 
 public class CrimsonAlloyBlock extends Block {
     public CrimsonAlloyBlock() {
-        super(Properties.copy(Blocks.NETHERITE_BLOCK));
+        super(Properties.copy(Blocks.NETHERITE_BLOCK).strength(9f).requiresCorrectToolForDrops());
     }
 }

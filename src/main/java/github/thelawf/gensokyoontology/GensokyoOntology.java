@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology;
 
 import com.mojang.blaze3d.platform.ScreenManager;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import github.thelawf.gensokyoontology.core.init.FluidRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -48,7 +49,7 @@ public class GensokyoOntology {
         // eventBus.addListener(CommonSetUp::init);
 
         ItemRegistry.ITEMS.register(eventBus);
-        // FluidRegistry.FLUIDS.register(eventBus);
+        FluidRegistry.FLUIDS.register(eventBus);
         BlockRegistry.BLOCKS.register(eventBus);
         // GSKOParticleRegistry.PARTICLE_TYPES.register(eventBus);
         // EffectRegistry.POTION_EFFECTS.register(eventBus);
@@ -86,7 +87,7 @@ public class GensokyoOntology {
         public static void onRenderTypeSetUp(FMLClientSetupEvent event) {
             
             event.enqueueWork(() -> {
-                /*
+
                 ItemBlockRenderTypes.setRenderLayer(FluidRegistry.HOT_SPRING_SOURCE.get(),
                         RenderType.translucent());
                 ItemBlockRenderTypes.setRenderLayer(FluidRegistry.HOT_SPRING_FLOWING.get(),
@@ -99,8 +100,6 @@ public class GensokyoOntology {
                         RenderType.translucent());
                 ItemBlockRenderTypes.setRenderLayer(FluidRegistry.PAPER_PULP_FLOWING.get(),
                         RenderType.translucent());
-                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
-                        RenderType.translucent());
 
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.BLUE_ROSE_BUSH.get(),
                         RenderType.cutout());
@@ -111,6 +110,9 @@ public class GensokyoOntology {
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.ONION_CROP_BLOCK.get(),
                         RenderType.cutout());
 
+                /*
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
+                        RenderType.translucent());
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.GAP_BLOCK.get(),
                         RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.DISPOSABLE_SPAWNER.get(),

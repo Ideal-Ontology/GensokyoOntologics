@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.block.nature.*;
 import github.thelawf.gensokyoontology.common.block.ore.*;
 import github.thelawf.gensokyoontology.common.world.feature.tree.SakuraTree;
 import net.minecraft.world.level.block.*;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -161,28 +162,29 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> IMMEMORIAL_ALLOY_BLOCK = BLOCKS.register(
             "immemorial_alloy_block", ImmemorialAlloyBlock::new);
 
-    public static final RegistryObject<Block> JADE_ORE = BLOCKS.register(
-            "jade_ore", JadeOreBlock::new);
+    // public static final RegistryObject<Block> JADE_ORE = BLOCKS.register(
+    //         "jade_ore", JadeOreBlock::new);
     public static final RegistryObject<Block> JADE_BLOCK = BLOCKS.register(
             "jade_block", JadeBlock::new);
 
 
     // ==============================流体方块 ================================== //
-    public static final RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
-            () -> new HotSpringBlock(FluidRegistry.HOT_SPRING_SOURCE,
-                    Block.Properties.copy(Blocks.WATER)));
+    public static final RegistryObject<LiquidBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
+            () -> new LiquidBlock(FluidRegistry.HOT_SPRING_SOURCE,
+                    BlockBehaviour.Properties.copy(Blocks.WATER)));
     public static final RegistryObject<LiquidBlock> SAKE_WINE_BLOCK = BLOCKS.register("sake_wine_block",
             () -> new LiquidBlock(FluidRegistry.SAKE_WINE_SOURCE,
-                    Block.Properties.copy(Blocks.WATER)));
+                    BlockBehaviour.Properties.copy(Blocks.WATER)));
     public static final RegistryObject<LiquidBlock> PAPER_PULP_BLOCK = BLOCKS.register("paper_pulp_block",
             () -> new LiquidBlock(FluidRegistry.PAPER_PULP_SOURCE,
-                    Block.Properties.copy(Blocks.WATER)));
+                    BlockBehaviour.Properties.copy(Blocks.WATER)));
 
-    /*
+
     public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
             "onion_crop", () -> new OnionCropBlock(BlockBehaviour.Properties.copy(Blocks.CARROTS)));
 
     /// 方块实体
+    /*
     public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register("danmaku_table", DanmakuTableBlock::new);
     public static final RegistryObject<Block> SORCERY_EXTRACTOR = BLOCKS.register("sorcery_extractor", SorceryExtractorBlock::new);
     public static final RegistryObject<Block> DISPOSABLE_SPAWNER = BLOCKS.register("disposable_spawner", DisposableSpawnerBlock::new);

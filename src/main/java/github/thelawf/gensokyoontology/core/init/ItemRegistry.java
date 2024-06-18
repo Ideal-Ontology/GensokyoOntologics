@@ -427,9 +427,12 @@ public final class ItemRegistry {
     public static final RegistryObject<MilkBottle> MILK_BOTTLE = ITEMS.register("milk_bottle", MilkBottle::new);
 
     public static final RegistryObject<SquidTentacle> SQUID_TENTACLE = ITEMS.register("squid_tentacle", SquidTentacle::new);
+    */
+
     public static final RegistryObject<Item> ONION = ITEMS.register("onion", () ->
             new BlockItem(BlockRegistry.ONION_CROP_BLOCK.get(), new Item.Properties().tab(
                     GSKOItemTab.GSKO_ITEM_TAB)));
+    /*
     public static final RegistryObject<YattsumeUna> YATTSUME_UNA =
             ITEMS.register("yattsume_una", () -> new YattsumeUna(
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -443,7 +446,6 @@ public final class ItemRegistry {
     public static final RegistryObject<WhiteSnow> WHITE_SNOW = ITEMS.register("white_snow", WhiteSnow::new);
     public static final RegistryObject<BurgerMeatRaw> BURGER_MEAT_RAW = ITEMS.register("burger_meat_raw", BurgerMeatRaw::new);
     public static final RegistryObject<BurgerMeat> BURGER_MEAT = ITEMS.register("burger_meat", BurgerMeat::new);
-
 
     //////////////////////////////////// 被遗忘的传说 /////////////////////////////////
     public static final RegistryObject<Item> TALES_SCARLET_MIST = ITEMS.register(

@@ -17,7 +17,6 @@ import net.minecraft.world.level.levelgen.feature.trunkplacers.FancyTrunkPlacer;
 
 public class GSKOTrees {
 
-
     public static final Holder<ConfiguredFeature<TreeConfiguration, ?>> SAKURA_TREE = FeatureUtils.register("sakura_tree", Feature.TREE,
             new TreeConfiguration.TreeConfigurationBuilder(BlockStateProvider.simple(BlockRegistry.SAKURA_LOG.get().defaultBlockState()),
                     new FancyTrunkPlacer(8, 3, 2),
