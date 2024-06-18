@@ -1,26 +1,10 @@
 package github.thelawf.gensokyoontology;
 
 import com.mojang.blaze3d.platform.ScreenManager;
-import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
-import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
-import github.thelawf.gensokyoontology.client.gui.screen.SpellCardConsoleScreen;
-import github.thelawf.gensokyoontology.client.gui.screen.script.*;
-import github.thelawf.gensokyoontology.common.CommonSetUp;
-import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
-import github.thelawf.gensokyoontology.common.world.surface.GSKOSurfaceBuilders;
-import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
-import github.thelawf.gensokyoontology.core.RecipeRegistry;
-import github.thelawf.gensokyoontology.core.SerializerRegistry;
-import github.thelawf.gensokyoontology.core.init.*;
+import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -61,26 +45,26 @@ public class GensokyoOntology {
         MinecraftForge.EVENT_BUS.register(this);
 
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        eventBus.addListener(CommonSetUp::init);
+        // eventBus.addListener(CommonSetUp::init);
 
         ItemRegistry.ITEMS.register(eventBus);
-        FluidRegistry.FLUIDS.register(eventBus);
+        // FluidRegistry.FLUIDS.register(eventBus);
         BlockRegistry.BLOCKS.register(eventBus);
-        GSKOParticleRegistry.PARTICLE_TYPES.register(eventBus);
-        EffectRegistry.POTION_EFFECTS.register(eventBus);
-        TileEntityRegistry.TILE_ENTITIES.register(eventBus);
-        EntityRegistry.ENTITIES.register(eventBus);
-        ContainerRegistry.CONTAINERS.register(eventBus);
-        SerializerRegistry.SPELL_DATA_SERIALIZER.register(eventBus);
-        FeatureRegistry.FEATURES.register(eventBus);
-
-        GSKOBiomes.BIOMES.register(eventBus);
-        StructureRegistry.STRUCTURES.register(eventBus);
+        // GSKOParticleRegistry.PARTICLE_TYPES.register(eventBus);
+        // EffectRegistry.POTION_EFFECTS.register(eventBus);
+        // TileEntityRegistry.TILE_ENTITIES.register(eventBus);
+        // EntityRegistry.ENTITIES.register(eventBus);
+        // ContainerRegistry.CONTAINERS.register(eventBus);
+        // SerializerRegistry.SPELL_DATA_SERIALIZER.register(eventBus);
+        // FeatureRegistry.FEATURES.register(eventBus);
+//
+        // GSKOBiomes.BIOMES.register(eventBus);
+        // StructureRegistry.STRUCTURES.register(eventBus);
         // PlacerRegistry.FOLIAGE_PLACERS.register(eventBus);
-        GSKOSurfaceBuilders.SURFACE_BUILDERS.register(eventBus);
-
-        RecipeRegistry.register(eventBus);
-        GSKOSoundEvents.registerSound(eventBus);
+        // GSKOSurfaceBuilders.SURFACE_BUILDERS.register(eventBus);
+//
+        // RecipeRegistry.register(eventBus);
+        // GSKOSoundEvents.registerSound(eventBus);
     }
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
@@ -95,12 +79,14 @@ public class GensokyoOntology {
         }
     }
 
+
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
     public static class RenderTypeRegistry {
         @SubscribeEvent
         public static void onRenderTypeSetUp(FMLClientSetupEvent event) {
             
             event.enqueueWork(() -> {
+                /*
                 ItemBlockRenderTypes.setRenderLayer(FluidRegistry.HOT_SPRING_SOURCE.get(),
                         RenderType.translucent());
                 ItemBlockRenderTypes.setRenderLayer(FluidRegistry.HOT_SPRING_FLOWING.get(),
@@ -115,7 +101,7 @@ public class GensokyoOntology {
                         RenderType.translucent());
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.CHIREIDEN_COLORED_GLASS.get(),
                         RenderType.translucent());
-                
+
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.BLUE_ROSE_BUSH.get(),
                         RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.LYCORIS_RADIATA.get(),
@@ -130,16 +116,21 @@ public class GensokyoOntology {
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.DISPOSABLE_SPAWNER.get(),
                         RenderType.cutout());
 
+                 */
+
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAKURA_DOOR.get(),
                         RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAKURA_TRAPDOOR.get(),
                         RenderType.cutout());
 
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAKURA_SAPLING.get(),
-                        RenderType.cutout());
+                       RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAKURA_LEAVES.get(),
                         RenderType.cutout());
+                ItemBlockRenderTypes.setRenderLayer(BlockRegistry.SAKURA_LEAVES_PILE.get(),
+                        RenderType.cutout());
 
+                /*
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MAPLE_SAPLING.get(),
                         RenderType.cutout());
                 ItemBlockRenderTypes.setRenderLayer(BlockRegistry.MAPLE_LEAVES.get(),
@@ -190,12 +181,13 @@ public class GensokyoOntology {
                         BinaryOperationScreen::new);
                 ScreenManager.registerFactory(ContainerRegistry.SPELL_CONSOLE_CONTAINER.get(),
                         SpellCardConsoleScreen::new);
-
+                 */
             });
 
         }
     }
 
+    /*
     @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID,bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class ModEventSetup {
 
@@ -319,4 +311,6 @@ public class GensokyoOntology {
     public static TranslationTextComponent withTranslation(String prefix, String suffix) {
         return new TranslationTextComponent(withAffix(prefix, suffix));
     }
+
+     */
 }

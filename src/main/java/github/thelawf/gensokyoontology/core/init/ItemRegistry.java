@@ -1,62 +1,11 @@
 package github.thelawf.gensokyoontology.core.init;
 
-import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
-import github.thelawf.gensokyoontology.common.container.script.*;
-import github.thelawf.gensokyoontology.common.item.*;
-import github.thelawf.gensokyoontology.common.item.armor.KoishiHatArmorItem;
-import github.thelawf.gensokyoontology.common.item.danmaku.*;
-import github.thelawf.gensokyoontology.common.item.food.*;
-import github.thelawf.gensokyoontology.common.item.ore.*;
-import github.thelawf.gensokyoontology.common.item.script.ConstBuilderItem;
-import github.thelawf.gensokyoontology.common.item.script.DynamicScriptItem;
-import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
-import github.thelawf.gensokyoontology.common.item.script.ScriptReadOnlyItem;
-import github.thelawf.gensokyoontology.common.item.spellcard.*;
-import github.thelawf.gensokyoontology.common.item.tool.*;
-import github.thelawf.gensokyoontology.common.item.touhou.*;
-import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
-import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
-import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
-import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
-import net.minecraft.client.gui.screen.Screen;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.InteractionResult;
-import net.minecraft.world.World;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.server.ServerLevel;
-import net.minecraftforge.common.ForgeSpawnEggItem;
+import net.minecraft.world.item.*;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.List;
-import java.util.Random;
-
-import static net.minecraft.item.Items.BUCKET;
 
 public final class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(
@@ -64,6 +13,7 @@ public final class ItemRegistry {
 
     // ======================= GSKO杂项：装饰类方块 ==========================//
     // --------------------------- 泥土石头类方块：----------------------------//
+    /*
     public static final RegistryObject<BlockItem> DEFOLIATION_DIRT_ITEM = ITEMS.register(
             "defoliation_dirt", () -> new BlockItem(BlockRegistry.DEFOLIATION_DIRT.get(),
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -72,7 +22,7 @@ public final class ItemRegistry {
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> KAOLINITE_BLOCK_ITEM = ITEMS.register(
             "kaolinite", () -> new BlockItem(BlockRegistry.KAOLINITE.get(),
-                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
+                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));*/
 
     // ---------------------------- 树木类方块：------------------------------//
     //////////////////////////////// 樱花木 ////////////////////////////////
@@ -117,6 +67,7 @@ public final class ItemRegistry {
     // public static final RegistryObject<BlockItem> ZELKOVA_SAPLING_ITEM = ITEMS.register(
     //         "zelkova_sapling.json", () -> new BlockItem(BlockRegistry.ZELKOVA_SAPLING.get(),
     //                 new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
+
     public static final RegistryObject<BlockItem> ZELKOVA_LEAVES_ITEM = ITEMS.register(
             "zelkova_leaves", () -> new BlockItem(BlockRegistry.ZELKOVA_LEAVES.get(),
                     new Item.Properties()));
@@ -152,9 +103,9 @@ public final class ItemRegistry {
                     new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
     //////////////////////////////// 枫木 ////////////////////////////////
-    public static final RegistryObject<BlockItem> MAPLE_SAPLING_ITEM = ITEMS.register(
-            "maple_sapling", () -> new BlockItem(BlockRegistry.MAPLE_SAPLING.get(),
-                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
+    // public static final RegistryObject<BlockItem> MAPLE_SAPLING_ITEM = ITEMS.register(
+    //         "maple_sapling", () -> new BlockItem(BlockRegistry.MAPLE_SAPLING.get(),
+    //                 new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAPLE_LEAVES_ITEM = ITEMS.register(
             "maple_leaves", () -> new BlockItem(BlockRegistry.MAPLE_LEAVES.get(),
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -189,9 +140,9 @@ public final class ItemRegistry {
             "maple_pressure_plate", () -> new BlockItem(BlockRegistry.MAPLE_PRESSURE_PLATE.get(),
                     new Item.Properties().tab(CreativeModeTab.TAB_REDSTONE)));
 
-    public static final RegistryObject<BlockItem> MAGIC_SAPLING_ITEM = ITEMS.register(
-            "magic_sapling", () -> new BlockItem(BlockRegistry.MAGIC_SAPLING.get(),
-                    new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
+    // public static final RegistryObject<BlockItem> MAGIC_SAPLING_ITEM = ITEMS.register(
+    //         "magic_sapling", () -> new BlockItem(BlockRegistry.MAGIC_SAPLING.get(),
+    //                 new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAGIC_LEAVES_ITEM = ITEMS.register(
             "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -255,12 +206,16 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> CLAY_ADOBE_ITEM = ITEMS.register(
             "clay_adobe", () -> new BlockItem(BlockRegistry.CLAY_ADOBE_BLOCK.get(),
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
+    /*
     public static final RegistryObject<BlockItem> HANIWA_ITEM = ITEMS.register(
             "haniwa", () -> new BlockItem(BlockRegistry.HANIWA_BLOCK.get(),
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：功能性方块 =========================//
     //----------------------------- 合成台 --------------------------//
+
+     */
+    /*
     public static final RegistryObject<BlockItem> DANMAKU_TABLE_ITEM = ITEMS.register(
             "danmaku_table", () -> new BlockItem(BlockRegistry.DANMAKU_TABLE.get(),
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -273,6 +228,7 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> SPELL_CONSOLE_ITEM = ITEMS.register(
             "spell_card_console", () -> new BlockItem(BlockRegistry.SPELL_CARD_CONSOLE.get(),
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
+     */
 
     // -------------------------------- 矿石 ---------------------------------//
     public static final RegistryObject<BlockItem> IZANO_OBJECT_ORE_ITEM = ITEMS.register(
@@ -282,9 +238,7 @@ public final class ItemRegistry {
             "dragon_sphere_ore", () -> new BlockItem(BlockRegistry.DRAGON_SPHERE_ORE.get(),
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    /**
-     * 在玉石方块的物品类中重写其与方块的交互逻辑，实现用玉石原矿赌石的功能
-     */
+    /*
     public static final RegistryObject<BlockItem> JADE_ORE_ITEM = ITEMS.register(
             "jade_ore", () -> new BlockItem(BlockRegistry.JADE_ORE.get(),
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)) {
@@ -326,6 +280,9 @@ public final class ItemRegistry {
                     
                 }
             });
+
+     */
+    /*
     public static final RegistryObject<BlockItem> IMMEMORIAL_ALLOY_BLOCK_ITEM = ITEMS.register(
             "immemorial_alloy_block", () -> new BlockItem(BlockRegistry.IMMEMORIAL_ALLOY_BLOCK.get(),
                     new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -353,9 +310,7 @@ public final class ItemRegistry {
     public static final RegistryObject<BlockItem> GAP_BLOCK = ITEMS.register(
             "gap_block", () -> new BlockItem(BlockRegistry.GAP_BLOCK.get(), new Item.Properties()
                     .tab(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
-    // public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
-    //         "eirin_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
-    //                 .tab(GSKOItemTab.GSKO_ITEM_TAB)));
+
     public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register(
             "aya_fans", () -> new AyaFans(new Item.Properties()
                     .tab(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
@@ -392,27 +347,32 @@ public final class ItemRegistry {
             "sorcery_scarlet_mmist", () -> new SorceryScarletMist(new Item.Properties()));
 
     // ----------------------------------- 杂项物品 --------------------------------------//
+
+     */
+    /*
     public static final RegistryObject<Item> SILVER_COIN = ITEMS.register("silver_coin", () -> new CoinItem(1F));
     public static final RegistryObject<Item> SAKE_WORM = ITEMS.register("sake_worm", () -> new SakeWormItem(
             new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+    */
     public static final RegistryObject<Item> HOTSPRING_BUCKET = ITEMS.register("hotspring_bucket",
             () -> new BucketItem(FluidRegistry.HOT_SPRING_SOURCE, new Item.Properties()
                     .tab(GSKOItemTab.GSKO_ITEM_TAB)
-                    .maxStackSize(1).containerItem(BUCKET)));
+                    .stacksTo(1)));
     public static final RegistryObject<Item> SAKE_BUCKET = ITEMS.register("sake_bucket",
             () -> new BucketItem(FluidRegistry.SAKE_WINE_SOURCE, new Item.Properties()
                     .tab(GSKOItemTab.GSKO_ITEM_TAB)
-                    .maxStackSize(1).containerItem(BUCKET)));
+                    .stacksTo(1)));
 
     public static final RegistryObject<Item> PAPER_PULP_BUCKET = ITEMS.register("paper_pulp_bucket",
             () -> new BucketItem(FluidRegistry.PAPER_PULP_SOURCE, new Item.Properties()
                     .tab(GSKOItemTab.GSKO_ITEM_TAB)
-                    .maxStackSize(1).containerItem(BUCKET)));
+                    .stacksTo(1)));
 
     // ========================== GSKO杂项：合成消耗品 =========================//
 
     // public static final RegistryObject<Item> ISHI_ZAKURA_FRAGMENT = ITEMS.register("ishi_zakura_fragment",
     //         () -> new IshiZakuraFragment(new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
+    /*
     public static final RegistryObject<BlockItem> ISHI_ZAKURA = ITEMS.register("ishi_zakura",
             () -> new BlockItem(BlockRegistry.ISHI_ZAKURA.get(), new Item.Properties()
                     .tab(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -526,8 +486,11 @@ public final class ItemRegistry {
             "komeiji_koishi_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.KOMEIJI_KOISHI,
                     0x42B983, 0xFCFA58, new Item.Properties().tab(GSKOItemTab.GSKO_ITEM_TAB)));
 
+     */
+
     // ======================== GSKO战斗类物品 ============================//
     // ----------------------------- 符卡 --------------------------------//
+    /*
     public static final RegistryObject<SpellCardBlank> SPELL_CARD_BLANK = ITEMS.register(
             "spell_card_blank", SpellCardBlank::new);
     public static final RegistryObject<SC_HyperboloidLaser> SC_HYPERBOLOID_LASER = ITEMS.register(
@@ -575,7 +538,9 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> TALISMAN_SHOT = ITEMS.register(
             "talisman_shot", () -> new TalismanShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    /////////////////////////// 所有颜色的大弹 ////////////////////////////////
+
+     */
+    /*
     public static final RegistryObject<Item> LARGE_SHOT_RED = ITEMS.register(
             "large_shot_red", () -> new LargeShot(DanmakuType.LARGE_SHOT));
     public static final RegistryObject<Item> LARGE_SHOT_ORANGE = ITEMS.register(
@@ -593,7 +558,6 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> LARGE_SHOT_MAGENTA = ITEMS.register(
             "large_shot_magenta", () -> new LargeShot(DanmakuType.LARGE_SHOT));
 
-    /////////////////////////// 所有颜色的小弹 ////////////////////////////////
     public static final RegistryObject<Item> SMALL_SHOT_RED = ITEMS.register(
             "small_shot_red", () -> new SmallShot(DanmakuType.SMALL_SHOT));
     public static final RegistryObject<Item> SMALL_SHOT_ORANGE = ITEMS.register(
@@ -614,6 +578,9 @@ public final class ItemRegistry {
     ////////////////////////////// 所有颜色的环玉  /////////////////////////////////
     // public static final RegistryObject<Item> CIRCLE_SHOT = ITEMS.register("rice_shot",
     //         () -> new RiceShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
+
+     */
+    /*
     public static final RegistryObject<Item> CIRCLE_SHOT_GREEN = ITEMS.register("circle_shot_green",
             () -> new CircleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> CIRCLE_SHOT_BLUE = ITEMS.register("circle_shot_blue",
@@ -621,7 +588,7 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> CIRCLE_SHOT_MAGENTA = ITEMS.register("circle_shot_magenta",
             () -> new CircleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    ////////////////////////////// 所有颜色的米弹  /////////////////////////////////
+
     public static final RegistryObject<Item> RICE_SHOT_RED = ITEMS.register("rice_shot_red",
             () -> new RiceShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> RICE_SHOT_BLUE = ITEMS.register("rice_shot_blue",
@@ -629,7 +596,6 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> RICE_SHOT_PURPLE = ITEMS.register("rice_shot_purple",
             () -> new RiceShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    ////////////////////////////// 所有颜色的鳞弹  /////////////////////////////////
     public static final RegistryObject<Item> SCALE_SHOT_RED = ITEMS.register("scale_shot_red",
             () -> new ScaleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> SCALE_SHOT_YELLOW = ITEMS.register("scale_shot_yellow",
@@ -641,7 +607,6 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> SCALE_SHOT_PURPLE = ITEMS.register("scale_shot_purple",
             () -> new ScaleShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    ////////////////////////////// 所有颜色的心弹  /////////////////////////////////
     public static final RegistryObject<Item> HEART_SHOT = ITEMS.register(
             "heart_shot", () -> new HeartShot(DanmakuType.HEART_SHOT));
     public static final RegistryObject<Item> HEART_SHOT_PINK = ITEMS.register(
@@ -653,7 +618,6 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> HEART_SHOT_BLUE = ITEMS.register(
             "heart_shot_blue", () -> new HeartShot(DanmakuType.HEART_SHOT));
 
-    ////////////////////////////// 所有颜色的小型星弹  /////////////////////////////////
     public static final RegistryObject<Item> SMALL_STAR_SHOT = ITEMS.register(
             "small_star_shot", () -> new StarShot(DanmakuType.STAR_SHOT_SMALL));
     public static final RegistryObject<Item> SMALL_STAR_SHOT_RED = ITEMS.register(
@@ -669,7 +633,6 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> SMALL_STAR_SHOT_PURPLE = ITEMS.register(
             "small_star_shot_purple", () -> new StarShot(DanmakuType.STAR_SHOT_SMALL));
 
-    ////////////////////////////// 所有颜色的大型星弹  /////////////////////////////////
     public static final RegistryObject<Item> LARGE_STAR_SHOT = ITEMS.register(
             "large_star_shot", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
     public static final RegistryObject<Item> LARGE_STAR_SHOT_RED = ITEMS.register(
@@ -685,7 +648,6 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> LARGE_STAR_SHOT_PURPLE = ITEMS.register(
             "large_star_shot_purple", () -> new StarShot(DanmakuType.STAR_SHOT_LARGE));
 
-    ////////////////////////////// 所有颜色的札弹  /////////////////////////////////
     public static final RegistryObject<Item> TALISMAN_SHOT_RED = ITEMS.register("talisman_shot_red",
             () -> new TalismanShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> TALISMAN_SHOT_GREEN = ITEMS.register("talisman_shot_green",
@@ -697,7 +659,8 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> TALISMAN_SHOT_PURPLE = ITEMS.register("talisman_shot_purple",
             () -> new TalismanShot(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    ////////////////////////////// 所有颜色的阴阳玉 ///////////////////////////////////
+     */
+/*
     public static final RegistryObject<Item> INYO_JADE_BLACK = ITEMS.register(
             "inyo_jade_black", () -> new InyoJade(DyeColor.BLACK,
                     new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
@@ -719,8 +682,9 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> INYO_JADE_PURPLE = ITEMS.register(
             "inyo_jade_purple", () -> new InyoJade(DyeColor.PURPLE,
                     new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
+     */
 
-    //////////////////////////// 道具：B点、残机 ////////////////////////////////
+    /*
     public static final RegistryObject<Item> FAKE_LUNAR_ITEM = ITEMS.register("fake_lunar",
             () -> new FakeLunarItem(DanmakuType.FAKE_LUNAR));
 
@@ -738,11 +702,14 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> EXTEND_ITEM = ITEMS.register("extend_item",
             () -> new ExtendItem(new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
 
-    // ------------------------------- 装备 -------------------------------//
     public static final RegistryObject<Item> JADE_AXE = ITEMS.register("jade_axe", () -> new JadeAxe(
             new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_HOE = ITEMS.register("jade_hoe", () -> new JadeHoe(
             new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
+
+
+     */
+    /*
     public static final RegistryObject<Item> JADE_PICKAXE = ITEMS.register("jade_pickaxe", () -> new JadePickaxe(
             new Item.Properties().tab(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_SHOVEL = ITEMS.register("jade_shovel", () -> new JadeShovel(
@@ -766,6 +733,9 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> CONST_BUILDER = ITEMS.register("const_builder", ConstBuilderItem::new);
 
 
+     */
+    /*
+
     public static final RegistryObject<Item> V3D_BUILDER = ITEMS.register("vector3d_builder", () -> new ScriptBuilderItem() {
         @Override
         public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
@@ -784,6 +754,9 @@ public final class ItemRegistry {
         }
     });
 
+     */
+
+    /*
     public static final RegistryObject<Item> STATIC_INVOKER = ITEMS.register("static_invoker", () -> new DynamicScriptItem() {
         @Override
         public void addDynamicData(World world, PlayerEntity player, ItemStack stack, Dynamic<INBT> dynamic) {
@@ -795,6 +768,8 @@ public final class ItemRegistry {
         }
     });
 
+     */
+    /*
     public static final RegistryObject<Item> DANMAKU_BUILDER = ITEMS.register("danmaku_builder", () -> new ScriptBuilderItem() {
         @Override
         public void openScriptEditGUI(World world, PlayerEntity player, ItemStack stack) {
@@ -827,6 +802,9 @@ public final class ItemRegistry {
         }
     });
 
+     */
+    /*
+
     public static final RegistryObject<Item> BINARY_OPERATION_BUILDER = ITEMS.register("binary_operation_builder", () -> new DynamicScriptItem() {
         @Override
         public void addDynamicData(World world, PlayerEntity player, ItemStack stack, Dynamic<INBT> dynamic) {
@@ -852,6 +830,9 @@ public final class ItemRegistry {
         }
     });
 
+     */
+
+/*
     public static final RegistryObject<Item> TIME_STAMP = ITEMS.register("time_stamp", () -> new ScriptReadOnlyItem() {
         @Override
         public void addReadOnlyData(World world, PlayerEntity player, ItemStack stack) {
@@ -863,9 +844,13 @@ public final class ItemRegistry {
         }
     });
 
+     */
+
+
     // public static final RegistryObject<Item> FUNC_INVOCATION = ITEMS.register("func_invocation", () -> new ScriptReadOnlyItem() {
     //     @Override
     //     public void addReadOnlyData(World world, PlayerEntity player, ItemStack stack) {
     //     }
     // });
+
 }

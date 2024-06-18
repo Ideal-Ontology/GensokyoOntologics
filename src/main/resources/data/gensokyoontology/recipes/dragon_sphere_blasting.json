@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:blasting",
-  "ingredient": {
-    "item": "gensokyoontology:dragon_sphere_ore"
-  },
-  "result":  "gensokyoontology:dragon_sphere",
-  "experience": 0.8,
-  "cookingtime": 180
-}

@@ -1,21 +1,13 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.GSKOPlanks;
-import github.thelawf.gensokyoontology.common.block.*;
-import github.thelawf.gensokyoontology.common.block.decoration.*;
+import github.thelawf.gensokyoontology.common.block.decoration.AdobeTileBlock;
+import github.thelawf.gensokyoontology.common.block.decoration.ClayAdobeBlock;
 import github.thelawf.gensokyoontology.common.block.nature.*;
 import github.thelawf.gensokyoontology.common.block.ore.*;
-import github.thelawf.gensokyoontology.common.world.feature.tree.MagicTree;
-import github.thelawf.gensokyoontology.common.world.feature.tree.MapleTree;
 import github.thelawf.gensokyoontology.common.world.feature.tree.SakuraTree;
 import net.minecraft.world.level.block.*;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.Blocks;
-import net.minecraft.world.level.block.SaplingBlock;
-import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.properties.WoodType;
-import net.minecraft.world.level.material.FlowingFluid;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -29,6 +21,7 @@ public final class BlockRegistry {
     ////////////////////////////////////////////////////////////////////////////////////////////////
 
     //====================================   泥土石头类方块   ====================================//
+
     public static final RegistryObject<Block> DEFOLIATION_DIRT = BLOCKS.register("defoliation_dirt",() -> new Block(Block.Properties.copy(Blocks.GRASS_BLOCK)));
     public static final RegistryObject<Block> KAOLIN = BLOCKS.register("kaolin", KaolinBlock::new);
     public static final RegistryObject<Block> KAOLINITE = BLOCKS.register("kaolinite", KaoliniteBlock::new);
@@ -43,8 +36,8 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> MAGIC_LEAVES = BLOCKS.register("magic_leaves", GSKOLeaves::new);
 
     public static final RegistryObject<Block> MAGIC_LOG = BLOCKS.register("magic_log", GSKOLog::new);
-    public static final RegistryObject<Block> MAGIC_SAPLING =BLOCKS.register("magic_sapling", () -> new SaplingBlock(
-            new MagicTree(), Block.Properties.copy(Blocks.ACACIA_SAPLING)));
+    // public static final RegistryObject<Block> MAGIC_SAPLING =BLOCKS.register("magic_sapling", () -> new SaplingBlock(
+    //         new MagicTree(), Block.Properties.copy(Blocks.ACACIA_SAPLING)));
     public static final RegistryObject<Block> MAGIC_BUTTON = BLOCKS.register("magic_button", GSKOWoodButton::new);
     public static final RegistryObject<Block> MAGIC_PLANKS = BLOCKS.register("magic_planks", GSKOPlanks::new);
     public static final RegistryObject<Block> MAGIC_SLAB = BLOCKS.register("magic_slab", GSKOSlab::new);
@@ -56,10 +49,11 @@ public final class BlockRegistry {
     public static final RegistryObject<StandingSignBlock> MAGIC_SIGN_BLOCK = BLOCKS.register("magic_sign",
             () -> new StandingSignBlock(Block.Properties.copy(Blocks.ACACIA_SIGN), WoodType.create("magic")));
 
-    ////////////////////////////////////////// 樱花树木 //////////////////////////////////////////
-    public static final RegistryObject<Block> SAKURA_SAPLING = BLOCKS.register(
-            "sakura_sapling", () -> new SaplingBlock(new SakuraTree(),
-                    Block.Properties.copy(Blocks.ACACIA_SAPLING)));
+
+    //////////////////////////////////////// 樱花树木 //////////////////////////////////////////
+     public static final RegistryObject<Block> SAKURA_SAPLING = BLOCKS.register(
+             "sakura_sapling", () -> new SaplingBlock(new SakuraTree(),
+                     Block.Properties.copy(Blocks.ACACIA_SAPLING)));
     
     public static final RegistryObject<Block> SAKURA_LEAVES = BLOCKS.register("sakura_leaves", GSKOLeaves::new);
     public static final RegistryObject<Block> SAKURA_LOG = BLOCKS.register("sakura_log", GSKOLog::new);
@@ -71,13 +65,13 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> SAKURA_FENCE = BLOCKS.register("sakura_fence", GSKOFence::new);
     public static final RegistryObject<Block> SAKURA_FENCE_GATE = BLOCKS.register("sakura_fence_gate", GSKOFenceGate::new);
     public static final RegistryObject<Block> SAKURA_TRAPDOOR = BLOCKS.register("sakura_trapdoor", GSKODoor::new);
-
     public static final RegistryObject<Block> SAKURA_PRESSRUE_PLATE = BLOCKS.register(
             "sakura_pressure_plate", () -> new PressurePlateBlock(PressurePlateBlock.Sensitivity.EVERYTHING,
                     Block.Properties.copy(Blocks.ACACIA_PRESSURE_PLATE)));
-
+    // public static final RegistryObject<Block> SAKURA_LEAVES_PILE = BLOCKS.register("sakura_leaves_pile", LeavesPileBlock::new);
     public static final RegistryObject<StandingSignBlock> SAKURA_SIGN_BLOCK = BLOCKS.register("sakura_sign",
             () -> new StandingSignBlock(Block.Properties.copy(Blocks.ACACIA_SIGN), WoodType.create("sakura")));
+
 
     ////////////////////////////////////////// 榉树木 //////////////////////////////////////////
 
@@ -101,9 +95,7 @@ public final class BlockRegistry {
             () -> new StandingSignBlock(Block.Properties.copy(Blocks.ACACIA_SIGN), WoodType.create("zelkova")));
 
     ////////////////////////////////////////// 枫木 //////////////////////////////////////////
-    public static final RegistryObject<Block> MAPLE_SAPLING = BLOCKS.register(
-            "maple_sapling", () -> new SaplingBlock(new MapleTree(),
-                    Block.Properties.copy(Blocks.ACACIA_SAPLING)));
+    // public static final RegistryObject<Block> MAPLE_SAPLING = BLOCKS.register("maple_sapling", () -> new SaplingBlock(new MapleTree(), Block.Properties.copy(Blocks.ACACIA_SAPLING)));
     public static final RegistryObject<Block> MAPLE_LEAVES = BLOCKS.register("maple_leaves", GSKOLeaves::new);
     public static final RegistryObject<Block> MAPLE_LOG = BLOCKS.register("maple_log", GSKOLog::new);
     public static final RegistryObject<Block> MAPLE_PLANKS = BLOCKS.register("maple_planks", GSKOPlanks::new);
@@ -134,6 +126,7 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> PURPLE_MUSHROOM_BLOCK = BLOCKS.register(
             "purple_mushroom_block", PurpleMushroomBlock::new);
 
+
     /////////////////////////////     草本植物     ////////////////////////////////
     public static final RegistryObject<Block> BLUE_ROSE_BUSH = BLOCKS.register(
             "blue_rose_bush", BlueRoseBush::new);
@@ -143,17 +136,18 @@ public final class BlockRegistry {
             "wasabi", WasabiBlock::new);
 
     /////////////////////////////     工艺装饰类方块     ////////////////////////////////
-    public static final RegistryObject<GlassBlock> CHIREIDEN_COLORED_GLASS = BLOCKS.register(
-            "chireiden_colored_glass", ChireitenColoredGlassBlock::new);
+    // public static final RegistryObject<GlassBlock> CHIREIDEN_COLORED_GLASS = BLOCKS.register(
+    //         "chireiden_colored_glass", ChireitenColoredGlassBlock::new);
     public static final RegistryObject<Block> CLAY_ADOBE_BLOCK = BLOCKS.register("clay_adobe", ClayAdobeBlock::new);
     public static final RegistryObject<Block> ADOBE_TILE_BLOCK = BLOCKS.register("adobe_tile", AdobeTileBlock::new);
-    public static final RegistryObject<Block> HANIWA_BLOCK = BLOCKS.register("haniwa", HaniwaBlock::new);
+    // public static final RegistryObject<Block> HANIWA_BLOCK = BLOCKS.register("haniwa", HaniwaBlock::new);
 
     ///////////////////////////////////////////////////////////////////////////////////
     /////////////                     实用类方块                          ///////////////
     ///////////////////////////////////////////////////////////////////////////////////
 
-    public static final RegistryObject<Block> ISHI_ZAKURA = BLOCKS.register("ishi_zakura", IshiZakuraBlock::new);
+
+    // public static final RegistryObject<Block> ISHI_ZAKURA = BLOCKS.register("ishi_zakura", IshiZakuraBlock::new);
 
     // ============================== 矿石类方块 ================================== //
     public static final RegistryObject<Block> IZANO_OBJECT_ORE = BLOCKS.register(
@@ -172,6 +166,7 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> JADE_BLOCK = BLOCKS.register(
             "jade_block", JadeBlock::new);
 
+
     // ==============================流体方块 ================================== //
     public static final RegistryObject<HotSpringBlock> HOT_SPRING_BLOCK = BLOCKS.register("hot_spring_block",
             () -> new HotSpringBlock(FluidRegistry.HOT_SPRING_SOURCE,
@@ -183,6 +178,7 @@ public final class BlockRegistry {
             () -> new LiquidBlock(FluidRegistry.PAPER_PULP_SOURCE,
                     Block.Properties.copy(Blocks.WATER)));
 
+    /*
     public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
             "onion_crop", () -> new OnionCropBlock(BlockBehaviour.Properties.copy(Blocks.CARROTS)));
 
@@ -195,4 +191,5 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> SAISEN_BOX = BLOCKS.register("saisen_box", SaisenBoxBlock::new);
     public static final RegistryObject<Block> SPELL_CARD_CONSOLE = BLOCKS.register("spell_card_console", SpellCardConsoleBlock::new);
 
+     */
 }

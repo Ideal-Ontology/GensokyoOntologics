@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smelting",
-  "ingredient": {
-    "item": "gensokyoontology:dragon_sphere_ore"
-  },
-  "result":  "gensokyoontology:dragon_sphere",
-  "experience": 0.5,
-  "cookingtime": 180
-}

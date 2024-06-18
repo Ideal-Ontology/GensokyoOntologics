@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smoking",
-  "ingredient": {
-    "item": "gensokyoontology:milk_bottle"
-  },
-  "result": "gensokyoontology:butter",
-  "experience": 0.3,
-  "cookingtime": 340
-}

@@ -1,8 +1,6 @@
 package github.thelawf.gensokyoontology.core.init.itemtab;
 
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -18,6 +16,6 @@ public class GSKOItemTab extends CreativeModeTab {
     @Override
     @NotNull
     public ItemStack makeIcon() {
-        return new ItemStack(ItemRegistry.MARISA_HAKKEIRO.get());
+        return new ItemStack(ItemRegistry.SAKURA_LEAVES_ITEM.get());
     }
 }
