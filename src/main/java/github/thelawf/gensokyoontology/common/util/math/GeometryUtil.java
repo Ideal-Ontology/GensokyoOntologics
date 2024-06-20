@@ -122,6 +122,9 @@ public class GeometryUtil {
                                       float r, float g, float b, float a){
         for (float[] vertex : cylinderMeshes(builder, matrix4f, radius, height, segment)) {
             builder.pos(matrix4f, vertex[0], vertex[1], vertex[2]).color(r, g, b, a).endVertex();
+            builder.pos(matrix4f, vertex[0], vertex[2], vertex[1]).color(r, g, b, a).endVertex();
+            builder.pos(matrix4f, vertex[1], vertex[2], vertex[0]).color(r, g, b, a).endVertex();
+            builder.pos(matrix4f, vertex[1], vertex[0], vertex[2]).color(r, g, b, a).endVertex();
         }
     }
 

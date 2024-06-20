@@ -23,6 +23,9 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biomes;
+import net.minecraft.world.biome.provider.NetherBiomeProvider;
+import net.minecraft.world.gen.NoiseChunkGenerator;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -94,28 +97,28 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
         MasterSparkEntity masterSpark = new MasterSparkEntity(playerIn, worldIn);
         masterSpark.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(),
                 toYawPitch(playerIn.getLookVec()).x, toYawPitch(playerIn.getLookVec()).y);
-        worldIn.addEntity(masterSpark);
+       //  worldIn.addEntity(masterSpark);
         if (!worldIn.isRemote) {
-            // for (int i = 0; i < 50; i++) {
-            //     Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
-            //     worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
-            //             explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
-            // }
+            for (int i = 0; i < 50; i++) {
+                Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));
+                worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
+                        explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
+            }
 
-            // List<List<AxisAlignedBB>> boxes = getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 1.75f);
+            List<List<AxisAlignedBB>> boxes = getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 1.75f);
 //
-            // for (List<AxisAlignedBB> aabb : boxes) {
-            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(0)));
-            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(1)));
-            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(2)));
-            //     entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(3)));
-            // }
+            for (List<AxisAlignedBB> aabb : boxes) {
+                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(0)));
+                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(1)));
+                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(2)));
+                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(3)));
+            }
 //
-            // entities.forEach(e -> {
-            //     if (e instanceof MonsterEntity) {
-            //         e.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 30f);
-            //     }
-            // });
+            entities.forEach(e -> {
+                if (e instanceof MonsterEntity) {
+                    e.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 30f);
+                }
+            });
 
             getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 2);
             // damageItem(playerIn.getHeldItemMainhand(), 1, playerIn, player -> player.getHeldItemMainhand().shrink(1));

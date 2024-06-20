@@ -30,7 +30,7 @@ public class MasterSparkRenderer extends EntityRenderer<MasterSparkEntity> {
         Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
         matrixStackIn.rotate(Quaternion.ONE);
         GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, entityIn.getLookVec());
-        GeometryUtil.renderSphere(builder, matrix4f, 12, 12, 10, 1.f, 0.f, 0.f, 0.6f);
+        GeometryUtil.renderSphere(builder, matrix4f, 12, 12, 5, 1.f, 0.f, 0.f, 0.6f);
         GeometryUtil.renderCylinder(builder, matrix4f, 1.f, 10, 16, 1.f, 1.f, 0.f, 0.6f);
         matrixStackIn.pop();
     }
