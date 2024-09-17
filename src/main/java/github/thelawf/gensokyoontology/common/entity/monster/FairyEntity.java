@@ -15,7 +15,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.IWorld;
@@ -26,10 +25,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
@@ -224,7 +223,6 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
 
     private void sphereShot() {
         List<Vector3d> coordinates = DanmakuUtil.spheroidPos(1, 20);
-
         coordinates.forEach(vector3d -> {
             // SmallShotEntity danmaku = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
             AbstractDanmakuEntity danmaku = randomSelect();

@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.capability;
 
+import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.BeliefCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;

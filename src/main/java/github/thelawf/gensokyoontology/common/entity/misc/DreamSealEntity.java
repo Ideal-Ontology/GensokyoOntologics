@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -63,6 +64,8 @@ public class DreamSealEntity extends ScriptedDanmakuEntity implements IRayTraceR
         return this.getShooter() instanceof PlayerEntity;
     }
 
+
+    @Nullable
     public static LivingEntity findTarget(World world, Vector3d center, AxisAlignedBB box) {
         EntityPredicate predicate = new EntityPredicate().setCustomPredicate(entity -> !(entity instanceof PlayerEntity));
         return world.getClosestEntity(LivingEntity.class, predicate, null,

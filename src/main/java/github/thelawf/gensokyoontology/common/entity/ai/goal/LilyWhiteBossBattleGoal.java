@@ -53,7 +53,7 @@ public class LilyWhiteBossBattleGoal extends GSKOBossGoal {
             this.lilyWhite.getNavigator().tryMoveToEntityLiving(target, this.speedIn);
             this.lilyWhite.setNoGravity(true);
 
-            this.lilyWhite.spellCardAttack(new HanaShigureSpellEntity(this.lilyWhite.world, this.lilyWhite.getLoveCause()), ticksExisted);
+            this.lilyWhite.spellCardAttack(new HanaShigureSpellEntity(this.lilyWhite.world, this.lilyWhite), ticksExisted);
 
         } else if (!this.lilyWhite.getEntitySenses().canSee(target)) {
             this.lilyWhite.getNavigator().clearPath();

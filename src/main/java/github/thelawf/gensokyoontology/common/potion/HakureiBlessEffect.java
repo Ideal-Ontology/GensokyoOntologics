@@ -5,6 +5,6 @@ import net.minecraft.potion.EffectType;
 
 public class HakureiBlessEffect extends Effect {
     public HakureiBlessEffect() {
-        super(EffectType.BENEFICIAL, 1086742);
+        super(EffectType.BENEFICIAL, 16729927);
     }
 }

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.network.packet;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.world.server.ServerWorld;

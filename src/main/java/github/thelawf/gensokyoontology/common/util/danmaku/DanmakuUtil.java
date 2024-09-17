@@ -304,7 +304,6 @@ public class DanmakuUtil {
     public static List<Vector3d> spheroidPos(double radius, int count) {
         List<Vector3d> coordinates = new ArrayList<>();
         List<Vector3d> pos1 = ellipticPos(new Vector2f(0,0), radius, count);
-
         for (int i = 0; i < pos1.size(); i++) {
             for (int j = 0; j < pos1.size(); j++) {
                 Vector3d vector3d = pos1.get(j).rotatePitch((float) Math.PI * 2 / pos1.size() * j);
@@ -312,17 +311,14 @@ public class DanmakuUtil {
             }
             coordinates.addAll(pos1);
         }
-
         return coordinates;
     }
 
     public static List<Vector3d> ellipticPos(Vector2f center, double radius, int count) {
         ArrayList<Vector3d> coordinates = new ArrayList<>();
-
         // 定义生成坐标的数量
         // 计算每个点的角度间隔
         double angleInterval = 2 * Math.PI / count;
-
         // 生成坐标
         for (int i = 0; i < count; i++) {
             double angle = i * angleInterval;
@@ -330,7 +326,6 @@ public class DanmakuUtil {
             double y = center.y + radius * Math.sin(angle);
             coordinates.add(new Vector3d(x, 0, y));
         }
-
         return coordinates;
     }
 
