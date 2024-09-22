@@ -78,7 +78,6 @@ public class GSKOEntityEvents {
     }
 
 
-
     @SubscribeEvent
     public static void onHotSpringIn(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() != null && event.getEntityLiving().isInWater()) {
@@ -154,26 +153,20 @@ public class GSKOEntityEvents {
 
         if (event.getEntityLiving() instanceof PlayerEntity) {
             GSKOPowerCapability.INSTANCE.add(-1);
-        }
-    }
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+            World world = player.getEntityWorld();
+            PlayerInventory inventory = player.inventory;
 
-    @SubscribeEvent
-    public static void onPlayerDeath(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
-        World world = player.getEntityWorld();
-        PlayerInventory inventory = player.inventory;
-
-        if (player.getShouldBeDead()) {
             for (int i = 0; i < inventory.getSizeInventory(); i++) {
                 if (inventory.getStackInSlot(i).getItem() == ItemRegistry.EXTEND_ITEM.get()) {
                     player.setHealth(20F);
                     world.setEntityState(player, (byte) 35);
                     inventory.getStackInSlot(i).shrink(1);
+                    event.setCanceled(true);
+                    break;
                 }
             }
-
         }
-        world.getCapability(GSKOCapabilities.IMPERISHABLE_NIGHT).ifPresent(cap -> cap.setTriggered(false));
     }
 
     @SubscribeEvent

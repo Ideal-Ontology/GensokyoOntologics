@@ -380,6 +380,10 @@ public final class ItemRegistry {
 
     // ----------------------------------- 杂项物品 --------------------------------------//
     public static final RegistryObject<Item> SILVER_COIN = ITEMS.register("silver_coin", () -> new CoinItem(1F));
+    public static final RegistryObject<Item> BAT_SPECIMEN = ITEMS.register("bat_specimen", () -> new Item(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+    public static final RegistryObject<Item> CURSED_BAT_SPECIMEN = ITEMS.register("cursed_bat_specimen",
+            () -> new CursedBatSpecimenItem(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> SAKE_WORM = ITEMS.register("sake_worm", () -> new SakeWormItem(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> HOTSPRING_BUCKET = ITEMS.register("hotspring_bucket",
@@ -390,7 +394,6 @@ public final class ItemRegistry {
             () -> new BucketItem(FluidRegistry.SAKE_WINE_SOURCE, new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)
                     .maxStackSize(1).containerItem(BUCKET)));
-
     public static final RegistryObject<Item> PAPER_PULP_BUCKET = ITEMS.register("paper_pulp_bucket",
             () -> new BucketItem(FluidRegistry.PAPER_PULP_SOURCE, new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)
