@@ -54,32 +54,25 @@ public class HellEclipseEntity extends SpellCardEntity {
     @Override
     public void onTick(World world, Entity entity, int ticksIn) {
         super.onTick(world, entity, ticksIn);
-        Vector3d center = new Vector3d(Vector3f.XP);
 
         float angle = (float) (Math.PI / 60 * ticksExisted);
         float lunarAngle = (float) ((world.getGameTime() * 0.1f) % (Math.PI * 2));
-        float angle2 = (float) ((world.getGameTime() * 0.08f) % (Math.PI * 2));
         float speed = 0.2F;
+
+        Vector3d center = new Vector3d(Vector3f.XP);
         Vector3d local = center.add(4, 0, 0).rotateYaw(angle);
         Vector3d global = local.add(this.getPositionVec());
-
         Vector3d lunarPos = this.fakeLunar.getPositionVec();
-        // Vector3d lunarPos = center.add(4, 0, 0).rotateYaw(-angle).add(this.getPositionVec());
         Vector3d lunarMotion = new Vector3d(MathHelper.cos(lunarAngle) * speed, 0, MathHelper.sin(lunarAngle) * speed);
-        // this.fakeLunar.setPosition(lunarPos.x, lunarPos.y, lunarPos.z);
+
         this.fakeLunar.setPosition(lunarPos.x + lunarMotion.x, lunarPos.y, lunarPos.z + lunarMotion.z);
         this.fakeLunar.setMotion(lunarMotion);
 
         for (int i = 0; i < 8; i++) {
-
             SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
-            Vector3d vector3d = center.rotateYaw((float) (Math.PI / 4 * i))
-                    .rotateYaw((float) (Math.PI / 100 * ticksExisted));
-
-            smallShot.setLocationAndAngles(global.x, global.y, global.z,
-                    (float) center.y, (float) center.z);
+            Vector3d vector3d = center.rotateYaw((float) (Math.PI / 4 * i)).rotateYaw((float) (Math.PI / 100 * ticksExisted));
+            smallShot.setLocationAndAngles(global.x, global.y, global.z, (float) center.y, (float) center.z);
             smallShot.setNoGravity(true);
-
             smallShot.shoot(vector3d.x, 0, vector3d.z, 0.5F, 0F);
             world.addEntity(smallShot);
         }

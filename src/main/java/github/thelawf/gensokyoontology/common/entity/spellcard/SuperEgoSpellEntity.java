@@ -1,10 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
-import github.thelawf.gensokyoontology.common.util.nbt.BehaviorFunctions;
+import github.thelawf.gensokyoontology.common.util.nbt.BehaviorFuncKeys;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
@@ -71,7 +69,7 @@ public class SuperEgoSpellEntity extends SpellCardEntity {
         motion = motion.rotateYaw((float) -Math.PI / 200 * 199).scale(0.1);
 
         ListNBT params = newDoubleNBTList(motion.x, motion.y, motion.z);
-        behavior.put(BehaviorFunctions.ADD_MOTION, params);
+        behavior.put(BehaviorFuncKeys.ADD_MOTION, params);
         list.add(behavior);
 
         script.putString("type", "keyTickBehavior");

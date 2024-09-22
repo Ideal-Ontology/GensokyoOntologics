@@ -1,8 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
-import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -15,7 +13,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.IItemProvider;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -45,6 +42,23 @@ public class HeartShotEntity extends ScriptedDanmakuEntity implements IRendersAs
         }
     }
 
+    /**
+     * 心弹中允许玩家在scriptIn.behaviours的每一个元素内再额外传入一个名为 "addMotion" 的含有三个浮点参数的列表：<br>
+     * <code  type=json>
+     *     顶层：scriptIn<br>
+     *     {<br>
+     *         &emsp;"type" = "keyTickBehaviour"<br>
+     *         &emsp;"behaviours" = [<br>
+     *             &emsp;&emsp;{<br>
+     *                 &emsp;&emsp;&emsp;"keyTick": 1,<br>
+     *                 &emsp;&emsp;&emsp;"shoot": [0,0,0],<br>
+     *                 &emsp;&emsp;&emsp;"setMotion": [0,0,0],<br>
+     *                 &emsp;&emsp;&emsp;"addMotion": [0,0,0] //仅在心弹中生效<br>
+     *             &emsp;&emsp;}<br>
+     *         &emsp;]<br>
+     *     }<br>
+     * </code>
+     */
     @Override
     public void onScriptTick() {
         super.onScriptTick();
@@ -52,11 +66,10 @@ public class HeartShotEntity extends ScriptedDanmakuEntity implements IRendersAs
         for (INBT inbt : inbts) {
             CompoundNBT behavior = wrapAsCompound(inbt);
             if (behavior.contains("addMotion") && behavior.get("addMotion") instanceof ListNBT) {
-                List<Double> paramList = wrapAsDoubleFromList((ListNBT) behavior.get("addMotion"));
+                List<Double> paramList = wrapAsDoubleList((ListNBT) behavior.get("addMotion"));
                 if (paramList.size() != 3) return;
                 this.setMotion(this.getMotion().add(paramList.get(0), paramList.get(1), paramList.get(2)).normalize());
             }
-
         }
     }
 
