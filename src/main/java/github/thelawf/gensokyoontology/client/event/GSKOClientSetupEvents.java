@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.client.renderer.entity.misc.*;
 import github.thelawf.gensokyoontology.common.item.armor.KoishiHatArmorItem;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.client.renderer.ItemRenderer;
+import net.minecraft.client.renderer.entity.BatRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -110,13 +111,13 @@ public class GSKOClientSetupEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FLANDRE_DOPPELDANGER.get(), FlandreScarletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.REMILIA_SCARLET.get(), RemiliaScarletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.KOMEIJI_KOISHI.get(), KomeijiKoishiRenderer::new);
-        // TODO EntityRegistry里面没注册紫妈
-        // 暂时删除，因为没画贴图，模型也没做（）
+
         // RenderingRegistry.registerEntityRenderingHandler(YukariEntity.YUKARI, YukariRenderer::new);
 
+        // ======================== 中立/被动实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.TSUMI_BUKURO_ENTITY.get(), TsumiBukuroRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), HumanResidentRenderer::new);
-        // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CITIZEN.get(), CitizenRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CURSED_BAT.get(), BatRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HANIWA.get(), HaniwaRenderer::new);
 
         // ======================== 自定义渲染器 ======================= //

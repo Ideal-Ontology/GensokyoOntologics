@@ -3,11 +3,8 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
-import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
-import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.*;
 import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity;
-import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
-import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.*;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
@@ -15,6 +12,7 @@ import github.thelawf.gensokyoontology.common.entity.spellcard.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.passive.BatEntity;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -25,11 +23,13 @@ public final class EntityRegistry {
     public static final DeferredRegister<EntityType<?>> ENTITIES = DeferredRegister.create(
             ForgeRegistries.ENTITIES, GensokyoOntology.MODID);
 
-    // ================================= 被动生物 ================================= //
-
+    // ================================= 被动/中立生物 ================================= //
     public static final RegistryObject<EntityType<HumanResidentEntity>> HUMAN_RESIDENT_ENTITY = ENTITIES.register(
             "human_resident", () -> EntityType.Builder.create(HumanResidentEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.55f, 1.8f).trackingRange(10).build("human_resident"));
+    public static final RegistryObject<EntityType<CursedBatEntity>> CURSED_BAT = ENTITIES.register(
+            "cursed_bat",() -> EntityType.Builder.<CursedBatEntity>create(CursedBatEntity::new, EntityClassification.AMBIENT)
+                    .size(0.5F, 0.9F).trackingRange(5).build("cursed_bat"));
 
     // ================================ 怪物 ==================================== //
     public static final RegistryObject<EntityType<InyoJadeMonsterEntity>> INYO_JADE_ENTITY = ENTITIES.register(

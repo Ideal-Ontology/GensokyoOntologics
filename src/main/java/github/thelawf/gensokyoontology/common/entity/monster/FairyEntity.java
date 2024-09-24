@@ -167,8 +167,6 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
         }
     }
 
-
-
     private AbstractDanmakuEntity randomSelect() {
         Random r2 = new Random(this.getUniqueID().getLeastSignificantBits());
         switch (r2.nextInt(4)){

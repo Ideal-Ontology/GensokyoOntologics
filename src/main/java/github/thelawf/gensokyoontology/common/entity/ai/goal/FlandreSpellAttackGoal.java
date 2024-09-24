@@ -37,8 +37,6 @@ public class FlandreSpellAttackGoal extends GSKOBossGoal {
         if (this.flandre.getEntitySenses().canSee(target)) {
             this.flandre.getNavigator().tryMoveToEntityLiving(target, this.speed);
             this.flandre.setNoGravity(true);
-
-
             // this.flandre.spellCardAttack(this.stage.spellCard, ticksExisted);
 
         } else if (!this.flandre.getEntitySenses().canSee(target)) {
