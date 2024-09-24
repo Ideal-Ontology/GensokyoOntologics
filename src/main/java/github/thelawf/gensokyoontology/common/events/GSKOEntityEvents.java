@@ -109,6 +109,11 @@ public class GSKOEntityEvents {
             if (biomeName == null) return;
             if (biomeName.equals(GSKOBiomes.NAMELESS_HILL_KEY.getLocation())) {
                 living.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 50));
+                if (living instanceof PlayerEntity) {
+                    PlayerEntity player = (PlayerEntity) living;
+                    player.sendStatusMessage(GensokyoOntology.withTranslation(
+                            "msg.", ".enter_danger_biome.nameless_hill"), true);
+                }
             }
         }
     }

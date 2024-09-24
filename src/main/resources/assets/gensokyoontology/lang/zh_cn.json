@@ -47,6 +47,7 @@
   "item.gensokyoontology.sake_bucket": "清酒桶",
   "item.gensokyoontology.paper_pulp_bucket": "纸浆桶",
 
+  "item.gensokyoontology.bat_wing": "Bat Wing",
   "item.gensokyoontology.wandering_soul": "游荡的灵魂",
   "item.gensokyoontology.washi_paper": "和纸",
   "item.gensokyoontology.paper_shide": "纸垂",
@@ -375,8 +376,6 @@
   "effect.gensokyoontology.depression": "抑郁",
   "effect.gensokyoontology.hakurei_bless": "博丽的祝福",
 
-  "entity.gensokyoontology.spell_card_entity": "符卡实体",
-
   "entity.gensokyoontology.danmaku_entity": "弹幕实体",
   "entity.gensokyoontology.large_shot": "大弹",
   "entity.gensokyoontology.small_shot": "小弹",
@@ -387,6 +386,7 @@
   "entity.gensokyoontology.scale_shot": "鳞弹",
   "entity.gensokyoontology.fake_lunar": "虚假之月",
 
+  "entity.gensokyoontology.spell_card_entity": "符卡实体",
   "entity.gensokyoontology.spellcard.wave_and_particle": "境符「波与粒的境界」",
   "entity.gensokyoontology.spellcard.sc_ido_no_kaiho": "本能「本我的解放」",
   "entity.gensokyoontology.spellcard.sc_hell_eclipse": "狱符「地狱月食」",
@@ -399,6 +399,7 @@
   "entity.gensokyoontology.flandre_scarlet": "芙兰朵露·斯卡蕾特",
   "entity.gensokyoontology.remilia_scarlet": "蕾米莉亚·斯卡蕾特",
 
+  "entity.gensokyoontology.cursed_bat": "Cursed Bat",
   "entity.gensokyoontology.inyo_jade": "阴阳玉",
   "entity.gensokyoontology.spectre": "幽灵",
   "entity.gensokyoontology.human_resident": "人里居民",
@@ -535,7 +536,7 @@
   "msg.gensokyoontology.spell_card_announcement.mobius_ring_world": "你释放了符卡: 「莫比乌斯环世界」",
   "msg.gensokyoontology.item_use.jade_cut_failed": "只有在幻想乡里才能出货哟~",
   "msg.gensokyoontology.enter_danger_biome.scarlet_mansion_precincts": "§c这片区域正被一片能使人窒息的红雾笼罩",
-  "msg.gensokyoontology.enter_danger_biome.nameless_hill": "§5这里遍地盛开的铃兰散发着有毒的花香",
+  "msg.gensokyoontology.enter_danger_biome.nameless_hill": "§5这里遍地盛开的铃兰正散发着有毒的花香",
 
   "spawn_msg.gensokyoontology.flandre_scarlet.character_line": "诶，你是来陪芙兰玩的吗？大哥哥~",
 

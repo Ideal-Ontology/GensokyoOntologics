@@ -47,6 +47,7 @@
   "item.gensokyoontology.sake_bucket": "Sake Bucket",
   "item.gensokyoontology.paper_pulp_bucket": "Paper Pulp Bucket",
 
+  "item.gensokyoontology.bat_wing": "Bat Wing",
   "item.gensokyoontology.wandering_soul": "Wnadering Soul",
   "item.gensokyoontology.washi_paper": "Washi Paper",
   "item.gensokyoontology.paper_shide": "Paper Shide",
@@ -375,8 +376,6 @@
   "effect.gensokyoontology.depression": "Depression",
   "effect.gensokyoontology.hakurei_bless": "Hakurei Bless",
 
-  "entity.gensokyoontology.spell_card_entity": "Spell Card",
-
   "entity.gensokyoontology.danmaku_entity": "Danmaku Shot",
   "entity.gensokyoontology.large_shot": "Large Shot",
   "entity.gensokyoontology.small_shot": "Small Shot",
@@ -387,6 +386,7 @@
   "entity.gensokyoontology.scale_shot": "Scale Shot",
   "entity.gensokyoontology.fake_lunar": "Fake Lunar",
 
+  "entity.gensokyoontology.spell_card_entity": "Spell Card",
   "entity.gensokyoontology.spellcard.wave_and_particle": "Spell Card「Wave And Particle」",
   "entity.gensokyoontology.spellcard.sc_ido_no_kaiho": "Spell Card「Ido no Kaiho」",
   "entity.gensokyoontology.spellcard.sc_hell_eclipse": "Spell Card「Hell Eclipse」",
@@ -399,6 +399,7 @@
   "entity.gensokyoontology.flandre_scarlet": "フランドールスカーレット",
   "entity.gensokyoontology.remilia_scarlet": "レミリア・スカーレット",
 
+  "entity.gensokyoontology.cursed_bat": "Cursed Bat",
   "entity.gensokyoontology.inyo_jade": "Inyo Jade",
   "entity.gensokyoontology.spectre": "Spectre",
   "entity.gensokyoontology.human_resident": "Human Resident",
