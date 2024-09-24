@@ -7,12 +7,12 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.INoiseRandom;
 import net.minecraft.world.gen.layer.traits.ICastleTransformer;
 
-public enum YoukaiMountainValleyLayer implements ICastleTransformer {
+public enum UntroddenValleyLayer implements ICastleTransformer {
     INSTANCE;
 
     private Registry<Biome> registry;
 
-    public YoukaiMountainValleyLayer setup(Registry<Biome> registry) {
+    public UntroddenValleyLayer setup(Registry<Biome> registry) {
         this.registry = registry;
         return this;
     }

@@ -76,7 +76,6 @@ public class GSKOFeatureGenerator {
                 types.contains(BiomeDictionary.Type.SWAMP)) {
             List<Supplier<ConfiguredFeature<?, ?>>> base = event.getGeneration().getFeatures(
                     GenerationStage.Decoration.VEGETAL_DECORATION);
-
             base.add(() -> GSKOFeatures.HIGAN_LYCORIS);
         }
 

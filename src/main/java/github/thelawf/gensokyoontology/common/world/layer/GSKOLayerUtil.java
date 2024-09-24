@@ -42,7 +42,8 @@ public class GSKOLayerUtil extends Layer {
         IAreaFactory<T> area = GenerateCommonLayer.INSTANCE.setUp(registry).apply(context.apply(1L));
         area = ZoomLayer.FUZZY.apply(context.apply(1000L), area);
         area = ZoomLayer.NORMAL.apply(context.apply(1001L), area);
-        area = YoukaiMountainValleyLayer.INSTANCE.setup(registry).apply(context.apply(1007L), area);
+        area = UntroddenValleyLayer.INSTANCE.setup(registry).apply(context.apply(1007L), area);
+        area = NamelessHillLayer.INSTANCE.setup(registry).apply(context.apply(1008L), area);
 
         area = ZoomLayer.NORMAL.apply(context.apply(1002L), area);
         area = ZoomLayer.NORMAL.apply(context.apply(1003L), area);

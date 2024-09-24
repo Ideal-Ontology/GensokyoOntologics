@@ -40,6 +40,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -96,6 +97,18 @@ public class GSKOEntityEvents {
             if (blockState.getBlockState().getBlock().equals(BlockRegistry.SAKE_WINE_BLOCK.get()) &&
                     event.getEntityLiving() instanceof PlayerEntity) {
                 event.getEntityLiving().addPotionEffect(new EffectInstance(Effects.NAUSEA, 2 * 100));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEnterNamelessHill(LivingEvent.LivingUpdateEvent event) {
+        if (event.getEntityLiving() != null) {
+            LivingEntity living = event.getEntityLiving();
+            ResourceLocation biomeName = living.world.getBiome(living.getPosition()).getRegistryName();
+            if (biomeName == null) return;
+            if (biomeName.equals(GSKOBiomes.NAMELESS_HILL_KEY.getLocation())) {
+                living.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 50));
             }
         }
     }

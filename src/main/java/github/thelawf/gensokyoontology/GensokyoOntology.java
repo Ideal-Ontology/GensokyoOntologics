@@ -282,11 +282,10 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 50D)
                     .create());
 
-            // event.put(EntityRegistry.YUKARI_ENTITY.get(), TameableEntity.func_233666_p_()
-            //         .createMutableAttribute(Attributes.MAX_HEALTH, 300D)
-            //         .createMutableAttribute(Attributes.ARMOR, 20D)
-            //         .createMutableAttribute(Attributes.ARMOR_TOUGHNESS, 40D)
-            //         .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5D).create());
+            event.put(EntityRegistry.CURSED_BAT.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 10D)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 20D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 1D).create());
 
             event.put(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), AgeableEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 20D)

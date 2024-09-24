@@ -128,9 +128,14 @@ public class GSKOFeatures {
     //-------------------------------------------花草生成------------------------------------------//
     public static final ConfiguredFeature<?, ?> HIGAN_LYCORIS = Feature.RANDOM_PATCH
             .withConfiguration(new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(BlockRegistry.LYCORIS_RADIATA.get().getDefaultState()),
-                    SimpleBlockPlacer.PLACER).tries(32).build())
+                    SimpleBlockPlacer.PLACER).tries(64).build())
             .withPlacement(Features.Placements.BAMBOO_PLACEMENT).square()
             .withPlacement(Placement.COUNT_EXTRA.configure(new AtSurfaceWithExtraConfig(9, 0.95f, 9)));
+    public static final ConfiguredFeature<?, ?> NAMELESS_HILL_LILY = Feature.RANDOM_PATCH
+            .withConfiguration(new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(Blocks.LILY_OF_THE_VALLEY.getDefaultState()),
+                    SimpleBlockPlacer.PLACER).tries(64).build())
+            .withPlacement(Features.Placements.VEGETATION_PLACEMENT).square()
+            .withPlacement(Features.Placements.HEIGHTMAP_PLACEMENT).count(32);
 
     public static final ConfiguredFeature<?, ?> WASABI = Feature.RANDOM_PATCH.withConfiguration(
                     new BlockClusterFeatureConfig.Builder(new SimpleBlockStateProvider(
@@ -207,6 +212,7 @@ public class GSKOFeatures {
     public static void registerFeature() {
         Registry<ConfiguredFeature<?, ?>> registry = WorldGenRegistries.CONFIGURED_FEATURE;
 
+        Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "nameless_hill_lily"), NAMELESS_HILL_LILY);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "higan_lycoris"), HIGAN_LYCORIS);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "wasabi"), WASABI);
         Registry.register(registry, new ResourceLocation(GensokyoOntology.MODID, "bamboo"), BAMBOO);
