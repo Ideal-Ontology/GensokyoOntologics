@@ -43,9 +43,8 @@ public class DanmakuRecipe extends ShapedRecipe {
     }
 
     @Override
-    @NotNull
     public IRecipeSerializer<?> getSerializer() {
-        return RecipeRegistry.DANMAKU_CRAFT_SERIALIZER.get();
+        return null;
     }
 
     public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>>  implements IRecipeSerializer<DanmakuRecipe> {

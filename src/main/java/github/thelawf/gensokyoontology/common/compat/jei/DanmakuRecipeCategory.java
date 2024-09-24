@@ -96,5 +96,4 @@ public class DanmakuRecipeCategory implements IRecipeCategory<DanmakuRecipe> {
 
         guiItemStacks.set(craftOutputSlot, outputs.get(0));
     }
-
 }

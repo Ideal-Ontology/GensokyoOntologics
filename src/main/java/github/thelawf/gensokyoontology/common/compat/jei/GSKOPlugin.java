@@ -3,8 +3,6 @@ package github.thelawf.gensokyoontology.common.compat.jei;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
-import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
-import github.thelawf.gensokyoontology.data.recipe.ISorceryExtractorRecipe;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.registration.*;
@@ -34,7 +32,7 @@ public class GSKOPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(new DanmakuRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        // registration.addRecipeCategories(new DanmakuRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new SorceryRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 

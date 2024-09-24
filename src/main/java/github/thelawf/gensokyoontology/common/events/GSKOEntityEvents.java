@@ -111,7 +111,6 @@ public class GSKOEntityEvents {
             ResourceLocation location = new ResourceLocation(GensokyoOntology.MODID, "gensokyo_traveller");
 
             if (manager.getAdvancement(location) == null) return;
-
             AdvancementProgress progress = advancement.getProgress(manager.getAdvancement(location));
         }
     }
