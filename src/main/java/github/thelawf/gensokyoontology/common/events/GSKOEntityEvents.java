@@ -107,13 +107,15 @@ public class GSKOEntityEvents {
             LivingEntity living = event.getEntityLiving();
             ResourceLocation biomeName = living.world.getBiome(living.getPosition()).getRegistryName();
             if (biomeName == null) return;
+            if (!(living instanceof PlayerEntity)) return;
+            if (living.getActivePotionEffects().contains(new EffectInstance(
+                    EffectRegistry.HAKUREI_BLESS_EFFECT.get()))) return;
+
+            PlayerEntity player = (PlayerEntity) living;
             if (biomeName.equals(GSKOBiomes.NAMELESS_HILL_KEY.getLocation())) {
-                living.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 50));
-                if (living instanceof PlayerEntity) {
-                    PlayerEntity player = (PlayerEntity) living;
-                    player.sendStatusMessage(GensokyoOntology.withTranslation(
-                            "msg.", ".enter_danger_biome.nameless_hill"), true);
-                }
+                living.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 20));
+                player.sendStatusMessage(GensokyoOntology.withTranslation(
+                        "msg.", ".enter_danger_biome.nameless_hill"), true);
             }
         }
     }

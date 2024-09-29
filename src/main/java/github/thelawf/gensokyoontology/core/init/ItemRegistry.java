@@ -376,10 +376,12 @@ public final class ItemRegistry {
             "chimata_market_license", () -> new ChimataMarketLicense(new Item.Properties()));
     // 魔法道具
     public static final RegistryObject<SorceryScarletMist> SORCERY_SCARLET_MIST = ITEMS.register(
-            "sorcery_scarlet_mmist", () -> new SorceryScarletMist(new Item.Properties()));
+            "sorcery_scarlet_mist", () -> new SorceryScarletMist(new Item.Properties()));
 
     // ----------------------------------- 杂项物品 --------------------------------------//
     public static final RegistryObject<Item> SILVER_COIN = ITEMS.register("silver_coin", () -> new CoinItem(1F));
+    public static final RegistryObject<Item> STRAW_MAN = ITEMS.register("straw_man", () -> new Item(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> BAT_SPECIMEN = ITEMS.register("bat_specimen", () -> new Item(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> CURSED_BAT_SPECIMEN = ITEMS.register("cursed_bat_specimen",

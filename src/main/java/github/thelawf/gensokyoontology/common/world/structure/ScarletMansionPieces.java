@@ -170,15 +170,8 @@ public class ScarletMansionPieces {
         private void loadTemplate(TemplateManager templateManager) {
             Template template = templateManager.getTemplateDefaulted(this.templateName);
             PlacementSettings placementsettings = (new PlacementSettings()).setIgnoreEntities(false).setRotation(this.rotation).setMirror(this.mirror).addProcessor(BlockIgnoreStructureProcessor.STRUCTURE_BLOCK);
-            //this.template = template;
-            //this.placeSettings = placementsettings;
-            //this.setCoordBaseMode(Direction.NORTH);
-            //this.templatePosition = this.template.getSize();
-            //this.boundingBox = template.getMutableBoundingBox(placementsettings, this.templatePosition);
-
             this.setup(template, this.templatePosition, placementsettings);
         }
-
 
         @Override
         protected void readAdditional(@NotNull CompoundNBT tagCompound) {
