@@ -8,12 +8,14 @@ import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.*;
 import org.jetbrains.annotations.NotNull;
+
+import java.awt.*;
 
 public class MasterSparkRenderer extends EntityRenderer<MasterSparkEntity> {
 
@@ -23,16 +25,32 @@ public class MasterSparkRenderer extends EntityRenderer<MasterSparkEntity> {
     }
 
     @Override
-    public void render(MasterSparkEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
+    public void render(@NotNull MasterSparkEntity entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         IVertexBuilder builder = bufferIn.getBuffer(RenderType.getLightning());
+        float step = 360f / 60;
+        float hue = step * GSKOMathUtil.wavyPeriod(entityIn.ticksExisted, 0, 360) / 360f;
+        float r = Color.getHSBColor(hue, 0.9f, 0.9f).getRed() / 255f;
+        float g = Color.getHSBColor(hue, 0.9f, 0.9f).getGreen() / 255f;
+        float b = Color.getHSBColor(hue, 0.9f, 0.9f).getBlue() / 255f;
+
         matrixStackIn.push();
         Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
-        matrixStackIn.rotate(Quaternion.ONE);
         GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, entityIn.getLookVec());
-        GeometryUtil.renderSphere(builder, matrix4f, 12, 12, 5, 1.f, 0.f, 0.f, 0.6f);
-        GeometryUtil.renderCylinder(builder, matrix4f, 1.f, 10, 16, 1.f, 1.f, 0.f, 0.6f);
+        renderSpark(builder, matrix4f, new Vector4f(1, 1, 1, 1), 2f);
+        renderSpark(builder, matrix4f, new Vector4f(r, g, b, 1f), 2.5f);
         matrixStackIn.pop();
+    }
+
+    private void renderSpark(IVertexBuilder builder, Matrix4f matrix4f, Vector4f color, float size) {
+        GeometryUtil.renderSphere(builder, matrix4f, 15, 15, size, color.getX(), color.getY(), color.getZ(), color.getW());
+        GeometryUtil.renderCylinder(builder, matrix4f, 25, size, -MasterSparkEntity.DISTANCE, color.getX(), color.getY(), color.getZ(), color.getW());
+    }
+
+
+    @Override
+    public boolean shouldRender(MasterSparkEntity livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
+        return true;
     }
 
     @Override

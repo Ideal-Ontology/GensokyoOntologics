@@ -94,7 +94,8 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
         MasterSparkEntity masterSpark = new MasterSparkEntity(playerIn, worldIn);
         masterSpark.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(),
                 toYawPitch(playerIn.getLookVec()).x, toYawPitch(playerIn.getLookVec()).y);
-       //  worldIn.addEntity(masterSpark);
+        worldIn.addEntity(masterSpark);
+
         if (!worldIn.isRemote) {
             for (int i = 0; i < 50; i++) {
                 Vector3d explodePos = explodeStartPos.add(playerIn.getLookVec().scale(i));

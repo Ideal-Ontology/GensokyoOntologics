@@ -1,8 +1,11 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.*;
+import org.lwjgl.opengl.GL11;
 
 import java.util.*;
 
@@ -118,13 +121,83 @@ public class GeometryUtil {
         }
     }
 
-    public static void renderCylinder(IVertexBuilder builder, Matrix4f matrix4f, float radius, float height, int segment,
-                                      float r, float g, float b, float a){
-        for (float[] vertex : cylinderMeshes(builder, matrix4f, radius, height, segment)) {
-            builder.pos(matrix4f, vertex[0], vertex[1], vertex[2]).color(r, g, b, a).endVertex();
-            builder.pos(matrix4f, vertex[0], vertex[2], vertex[1]).color(r, g, b, a).endVertex();
-            builder.pos(matrix4f, vertex[1], vertex[2], vertex[0]).color(r, g, b, a).endVertex();
-            builder.pos(matrix4f, vertex[1], vertex[0], vertex[2]).color(r, g, b, a).endVertex();
+    public static void renderCylinder(IVertexBuilder builder, Matrix4f matrix4f, int segments, float radius, float height,
+                                      float red, float green, float blue, float alpha){
+        renderCircle(builder, matrix4f, new Vector3f(0,0,0), radius, segments, red, green, blue, alpha, true);
+        renderCircle(builder, matrix4f, new Vector3f(0, height, 0), radius, segments, red, green, blue, alpha, false);
+        renderCylinderSides(builder, matrix4f, radius, height, segments, red, green, blue, alpha);
+
+    }
+
+    public static void renderCircle(IVertexBuilder builder, Matrix4f matrix, Vector3f center, float radius, int segments, float red, float green, float blue, float alpha, boolean isBottom) {
+        // 计算法线方向
+        float normalY = isBottom ? -1.0f : 1.0f;
+
+        for (int i = 0; i < segments; i++) {
+            double angle1 = 2 * Math.PI * i / segments;
+            double angle2 = 2 * Math.PI * (i + 1) / segments;
+            double angle3 = 2 * Math.PI * (i + 2) / segments;
+            double angle4 = 2 * Math.PI * (i + 3) / segments;
+
+            float x1 = (float) Math.cos(angle1) * radius;
+            float z1 = (float) Math.sin(angle1) * radius;
+            float x2 = (float) Math.cos(angle2) * radius;
+            float z2 = (float) Math.sin(angle2) * radius;
+
+            float x3 = (float) Math.cos(angle3) * radius;
+            float z3 = (float) Math.sin(angle3) * radius;
+            float x4 = (float) Math.cos(angle4) * radius;
+            float z4 = (float) Math.sin(angle4) * radius;
+
+            // 三角形顶点：中心点，边缘点1，边缘点2
+            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+            builder.pos(matrix, x1, center.getY(), z1).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+            builder.pos(matrix, x2, center.getY(), z2).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+
+            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+            builder.pos(matrix, x2, center.getY(), z2).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+            builder.pos(matrix, x3, center.getY(), z3).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+
+            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+            builder.pos(matrix, x3, center.getY(), z3).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+            builder.pos(matrix, x4, center.getY(), z4).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+
+            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+            builder.pos(matrix, x4, center.getY(), z4).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+            builder.pos(matrix, x1, center.getY(), z1).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+        }
+    }
+
+    private static void renderCylinderSides(IVertexBuilder vertexBuilder, Matrix4f matrix, float radius, float height, int segments, float red, float green, float blue, float alpha) {
+        for (int i = 0; i < segments; i++) {
+            double angle1 = 2 * Math.PI * i / segments;
+            double angle2 = 2 * Math.PI * (i + 1) / segments;
+            double angle3 = 2 * Math.PI * (i + 2) / segments;
+            double angle4 = 2 * Math.PI * (i + 3) / segments;
+
+            float x1 = (float) Math.cos(angle1) * radius;
+            float z1 = (float) Math.sin(angle1) * radius;
+            float x2 = (float) Math.cos(angle2) * radius;
+            float z2 = (float) Math.sin(angle2) * radius;
+
+            float x3 = (float) Math.cos(angle3) * radius;
+            float z3 = (float) Math.sin(angle3) * radius;
+            float x4 = (float) Math.cos(angle4) * radius;
+            float z4 = (float) Math.sin(angle4) * radius;
+
+            // 计算法线（侧面法线指向外部）
+            float normalX = (x1 + x2) / 2 / radius;
+            float normalZ = (z1 + z2) / 2 / radius;
+
+            vertexBuilder.pos(matrix, x1, 0, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2, 0, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2, height, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x1, height, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+
+            vertexBuilder.pos(matrix, x1, height, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2, height, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2, 0, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x1, 0, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
         }
     }
 
@@ -243,6 +316,12 @@ public class GeometryUtil {
                 .endVertex();
     }
 
+    private static void texturedVertex(Matrix4f matrix, IVertexBuilder vertexBuilder, float[] pos, float red, float green, float blue, float alpha) {
+        vertexBuilder.pos(matrix, pos[0], pos[1], pos[2])
+                .color(red, green, blue, alpha)
+                .endVertex();
+    }
+
     public static void triangularFace(IVertexBuilder builder, Matrix4f matrix4f, Vector3f a, Vector3f b, Vector3f c) {
         builder.pos(matrix4f, a.getX(), a.getY(), a.getZ()).endVertex();
         builder.pos(matrix4f, b.getX(), b.getY(), b.getZ()).endVertex();
@@ -257,6 +336,9 @@ public class GeometryUtil {
         return new Vector3f((float) x, (float) y, (float) z);
     }
 
+    /**
+     * 渲染三角面
+     */
     public static void triangularFace(IVertexBuilder builder, Matrix4f matrix4f, float red, float green, float blue, float alpha,
                                       Vector3f a, Vector3f b, Vector3f c) {
         builder.pos(matrix4f, a.getX(), a.getY(), a.getZ()).color(red, green, blue, alpha).endVertex();

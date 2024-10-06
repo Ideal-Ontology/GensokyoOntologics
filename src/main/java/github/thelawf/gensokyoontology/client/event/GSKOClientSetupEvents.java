@@ -131,31 +131,5 @@ public class GSKOClientSetupEvents {
         KoishiHatArmorItem.initArmorModel();
     }
 
-    /*
-    @SubscribeEvent
-    public static void onRenderTick(TickEvent.RenderTickEvent event) {
-        if (event.phase == TickEvent.Phase.START) {
-            Minecraft minecraft = Minecraft.getInstance();
-            // only fire if we're in the twilight forest
-            if (minecraft.world != null && GSKODimensions.GENSOKYO.getRegistryName().equals(
-                    minecraft.world.getDimensionKey().getLocation())) {
-                if (minecraft.ingameGUI != null) {
-                    minecraft.ingameGUI.prevVignetteBrightness = 0.0F;
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onClientTick(TickEvent.ClientTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) return;
-        TIMER++;
-
-        Minecraft mc = Minecraft.getInstance();
-        float partial = mc.getRenderPartialTicks();
-
-        // DimensionRenderInfo info = DimensionRenderInfo.field_239208_a_.get(new ResourceLocation(GensokyoOntology.MODID, "render"));
-    }
-    */
 
 }

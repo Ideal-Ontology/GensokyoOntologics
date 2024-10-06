@@ -50,6 +50,24 @@ public class GSKOMathUtil {
     }
 
     /**
+     * 波动周期算法，用于处理周期长度为 max - min，且周期在最大值和最小值之间线性变化，当超过最大值后，函数开始线性递减，直到达到最小值，然后再次线性递增的算法
+     */
+    public static float wavyPeriod(float time, float min, float max) {
+        float period = max - min;
+        float mod = time % (period * 2);
+        return mod <= period ? min + mod : max - (mod - period);
+    }
+
+    /**
+     * 波动周期算法，用于处理周期长度为 max - min，且周期在最大值和最小值之间线性变化，当超过最大值后，函数开始线性递减，直到达到最小值，然后再次线性递增的算法
+     */
+    public static double wavyPeriod(double time, double max, double min) {
+        double period = max - min;
+        double mod = time % (period * 2);
+        return mod <= period ? min + mod : max - (mod - period);
+    }
+
+    /**
      * 传入四个双精度浮点数
      *
      * @param x1 第一个点的x坐标
@@ -148,6 +166,12 @@ public class GSKOMathUtil {
     // ∴ (tickEx + partial) / MAX_TICK => a very smooth approach.
     public static float lerpTicks(float partial, int maxTick, int presentTick, float minValue, float maxValue) {
         return MathHelper.lerp((presentTick + partial) / maxTick, minValue, maxValue);
+    }
+
+    public static float wavyLerpTicks(int presentTick, int monotonicPeriod, float partial, float min, float max) {
+        float mod = (presentTick + partial) % (monotonicPeriod * 2);
+        float lerpTick = lerpTicks(partial, monotonicPeriod, clampPeriod(presentTick, 0, monotonicPeriod * 2), min, max);
+        return mod <= monotonicPeriod ? min + lerpTick : lerpTick - (mod - monotonicPeriod);
     }
 
     /**
