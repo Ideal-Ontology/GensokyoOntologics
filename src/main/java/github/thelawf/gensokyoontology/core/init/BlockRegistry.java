@@ -3,13 +3,13 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.decoration.*;
+import github.thelawf.gensokyoontology.common.block.decoration.CoasterRailBlock;
 import github.thelawf.gensokyoontology.common.block.nature.*;
 import github.thelawf.gensokyoontology.common.block.ore.*;
 import github.thelawf.gensokyoontology.common.world.feature.tree.MagicTree;
 import github.thelawf.gensokyoontology.common.world.feature.tree.MapleTree;
 import github.thelawf.gensokyoontology.common.world.feature.tree.SakuraTree;
 import net.minecraft.block.*;
-import net.minecraft.block.material.Material;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -188,4 +188,5 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> SAISEN_BOX = BLOCKS.register("saisen_box", SaisenBoxBlock::new);
     public static final RegistryObject<Block> SPELL_CARD_CONSOLE = BLOCKS.register("spell_card_console", SpellCardConsoleBlock::new);
 
+    public static final RegistryObject<Block> COASTER_RAIL = BLOCKS.register("rail", () -> new CoasterRailBlock(AbstractBlock.Properties.from(Blocks.RAIL)));
 }

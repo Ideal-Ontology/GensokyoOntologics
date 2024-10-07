@@ -25,4 +25,6 @@ public abstract class ModeSwitchScreen extends Screen {
     public boolean isPauseScreen() {
         return false;
     }
+
+    public abstract void switchMode(int index);
 }

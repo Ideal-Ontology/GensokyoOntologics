@@ -9,6 +9,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class ConnectionUtil {
@@ -61,6 +62,27 @@ public class ConnectionUtil {
     public static Pair<Vector3d, Vector3d> getPosAndRot(Vector3d startPos, Vector3d intersection, Vector3d endPos, float time) {
         Vector3d segPos = GSKOMathUtil.bezier2(startPos, intersection, endPos, time);
         return new Pair<>(segPos, new Vector3d(1, 1, 1));
+    }
+
+    /**
+     *
+     * @return 返回一个以 key 为起点，value 为终点的 HashMap。
+     */
+    public static HashMap<Vector3d, Vector3d> toConnectionVec(List<Vector3d> bezierPositions) {
+        HashMap<Vector3d, Vector3d> connectionVecs = new HashMap<>();
+        Vector3d start = null, end = null;
+        for (int i = 0; i < bezierPositions.size(); i++) {
+            if (i % 2 == 0) {
+                start = bezierPositions.get(i);
+            }
+            else end = bezierPositions.get(i);
+            if (start != null && end != null) {
+                connectionVecs.put(start, end);
+                start = null;
+                end = null;
+            }
+        }
+        return connectionVecs;
     }
 
     public static void connectRail(Vector3d startPos, Vector3d intersection, Vector3d endPos, float time) {

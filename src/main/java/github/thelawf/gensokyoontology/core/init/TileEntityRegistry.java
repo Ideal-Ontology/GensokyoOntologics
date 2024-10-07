@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.core.init;
 
-import com.mojang.datafixers.types.Type;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.*;
 import net.minecraft.tileentity.TileEntityType;
@@ -39,4 +38,7 @@ public final class TileEntityRegistry {
     public static final RegistryObject<TileEntityType<HaniwaTileEntity>> HANIWA_TILE_ENTITY =
             TILE_ENTITIES.register("haniwa_tileentity", () -> TileEntityType.Builder.create(
                     HaniwaTileEntity::new, BlockRegistry.HANIWA_BLOCK.get()).build(null));
+    public static final RegistryObject<TileEntityType<RailTileEntity>> RAIL_TILE_ENTITY =
+            TILE_ENTITIES.register("rail_tileentity", () -> TileEntityType.Builder.create(
+                    RailTileEntity::new, BlockRegistry.COASTER_RAIL.get()).build(null));
 }

@@ -49,6 +49,7 @@ public class GoheiModeSelectScreen extends ModeSwitchScreen {
         this.font.drawTextWithShadow(matrixStack, DREAM_SEAL, this.guiLeft + 52, this.guiTop + 52, 16777215);
     }
 
+    @Override
     public void switchMode(int index) {
         this.mode = EnumUtil.moveTo(HakureiGohei.Mode.class, this.mode, index);
         GSKONetworking.CHANNEL.sendToServer(new CSwitchModePacket(this.getMode().ordinal()));

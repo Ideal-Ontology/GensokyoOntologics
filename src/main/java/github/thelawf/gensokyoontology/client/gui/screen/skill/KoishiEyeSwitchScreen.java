@@ -45,6 +45,7 @@ public class KoishiEyeSwitchScreen extends ModeSwitchScreen{
         this.font.drawTextWithShadow(matrixStack, YOUKAI_LIE_DETECTOR, this.guiLeft + 52, this.guiTop + 52, 16777215);
     }
 
+    @Override
     public void switchMode(int index) {
         this.mode = EnumUtil.moveTo(KoishiEyeOpen.Mode.class, this.mode, index);
         GSKONetworking.CHANNEL.sendToServer(new CSwitchModePacket(this.getMode().ordinal()));

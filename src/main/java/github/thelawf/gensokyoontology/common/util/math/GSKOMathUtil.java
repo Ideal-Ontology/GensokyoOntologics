@@ -3,8 +3,6 @@ package github.thelawf.gensokyoontology.common.util.math;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.util.math.function.CosineFunc;
-import github.thelawf.gensokyoontology.common.util.math.function.SineFunc;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
@@ -146,7 +144,6 @@ public class GSKOMathUtil {
                 .add(q2.scale(-9 * t * t + 6 * t))
                 .add(p2.scale(3 * t * t));
     }
-
 
     public static Vector3d lerp(float progress, Vector3d start, Vector3d end) {
         return start.add(end.subtract(start).scale(progress));
@@ -417,13 +414,6 @@ public class GSKOMathUtil {
 
     public static double cube(double base) {
         return base * base * base;
-    }
-
-    public static Vector3d rotatePitchYaw(Vector3d prev, float pitch, float yaw) {
-        CosineFunc cf = new CosineFunc(prev.x, 1,0);
-        SineFunc sf = new SineFunc(1,1,0);
-        double x = 0;
-        return new Vector3d(0,0,0);
     }
 
     /**
