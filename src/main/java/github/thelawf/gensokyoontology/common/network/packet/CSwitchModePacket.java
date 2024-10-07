@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
+import github.thelawf.gensokyoontology.common.item.MultiModeItem;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -28,7 +29,7 @@ public class CSwitchModePacket {
     public static void handle(CSwitchModePacket packet, Supplier<NetworkEvent.Context> ctx) {
         ctx.get().enqueueWork(() -> {
             ServerPlayerEntity serverPlayer = ctx.get().getSender();
-            if (serverPlayer != null && serverPlayer.getHeldItemMainhand().getItem() == ItemRegistry.HAKUREI_GOHEI.get()) {
+            if (serverPlayer != null && serverPlayer.getHeldItemMainhand().getItem() instanceof MultiModeItem) {
                 ItemStack stack = serverPlayer.getHeldItemMainhand();
                 CompoundNBT nbt = new CompoundNBT();
                 nbt.putInt("mode", packet.enumIndex);

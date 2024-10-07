@@ -4,6 +4,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
+import github.thelawf.gensokyoontology.client.gui.screen.skill.KoishiEyeSwitchScreen;
 import github.thelawf.gensokyoontology.client.model.KoishiHatModel;
 import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
@@ -11,6 +12,7 @@ import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapabil
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
+import github.thelawf.gensokyoontology.common.item.touhou.KoishiEyeOpen;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
@@ -189,9 +191,9 @@ public class GSKOMiscClientEvent {
 
         if (player != null && player.getHeldItemMainhand().getItem() == ItemRegistry.KOISHI_EYE_OPEN.get()) {
             ItemStack stack = player.getHeldItemMainhand();
-            // 检测如果alt被按下则打开御币的能力选择界面
             if (GSKOKeyboardManager.KEY_SWITCH_MODE.isKeyDown() && stack.getTag() != null) {
-                minecraft.displayGuiScreen(new GoheiModeSelectScreen(GOHEI_TITLE, HakureiGohei.getMode(stack.getTag())));
+                minecraft.displayGuiScreen(new KoishiEyeSwitchScreen(KoishiEyeSwitchScreen.TITLE,
+                        KoishiEyeOpen.getMode(stack.getTag())));
             }
         }
     }
@@ -204,6 +206,19 @@ public class GSKOMiscClientEvent {
             // alt+鼠标滚轮切换模式
             if (minecraft.currentScreen instanceof GoheiModeSelectScreen) {
                 GoheiModeSelectScreen screen = (GoheiModeSelectScreen) minecraft.currentScreen;
+                if (event.getScrollDelta() > 0) screen.switchMode(-1);
+                else if (event.getScrollDelta() < 0) screen.switchMode(1);
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onKoishiEyeModeScroll(GuiScreenEvent.MouseScrollEvent event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        PlayerEntity player = minecraft.player;
+        if (player != null && player.getHeldItem(Hand.MAIN_HAND).getItem() == ItemRegistry.KOISHI_EYE_OPEN.get()) {
+            if (minecraft.currentScreen instanceof KoishiEyeSwitchScreen) {
+                KoishiEyeSwitchScreen screen = (KoishiEyeSwitchScreen) minecraft.currentScreen;
                 if (event.getScrollDelta() > 0) screen.switchMode(-1);
                 else if (event.getScrollDelta() < 0) screen.switchMode(1);
             }

@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
+import github.thelawf.gensokyoontology.common.item.MultiModeItem;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
@@ -36,7 +37,7 @@ import java.util.Optional;
 /**
  * 博丽灵梦的御币
  */
-public class HakureiGohei extends Item implements IRayTraceReader {
+public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
     public static final ITextComponent TITLE = GensokyoOntology.withTranslation("gui.", ".hakurei_gohei.title");
     public HakureiGohei(Properties properties) {
         super(properties);

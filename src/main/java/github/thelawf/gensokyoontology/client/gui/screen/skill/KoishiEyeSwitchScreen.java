@@ -4,28 +4,24 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
+import github.thelawf.gensokyoontology.common.item.touhou.KoishiEyeOpen;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CSwitchModePacket;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-@OnlyIn(Dist.CLIENT)
-public class GoheiModeSelectScreen extends ModeSwitchScreen {
-    private HakureiGohei.Mode mode;
-    public static final TranslationTextComponent DANMAKU = GensokyoOntology.withTranslation("gui.", ".gohei.mode.danmaku");
-    public static final TranslationTextComponent DREAM_SEAL = GensokyoOntology.withTranslation("gui.", ".gohei.mode.dream_seal");
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/gohei_selection_screen.png");
-    public GoheiModeSelectScreen(ITextComponent titleIn, HakureiGohei.Mode mode) {
+public class KoishiEyeSwitchScreen extends ModeSwitchScreen{
+    private KoishiEyeOpen.Mode mode;
+    public static final TranslationTextComponent SINGLE_LASER = GensokyoOntology.withTranslation("gui.", ".koishi_eye.mode.single_laser");
+    public static final TranslationTextComponent YOUKAI_LIE_DETECTOR = GensokyoOntology.withTranslation("gui.", ".koishi_eye.mode.youkai_lie_detector");
+    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/koishi_eye_selection_screen.png");
+    public static final TranslationTextComponent TITLE = GensokyoOntology.withTranslation("gui.", "koishi_eye.title");
+    public KoishiEyeSwitchScreen(ITextComponent titleIn, KoishiEyeOpen.Mode mode) {
         super(titleIn);
         this.mode = mode;
-        this.xSize = 64;
-        this.ySize = 64;
     }
 
     @Override
@@ -35,7 +31,7 @@ public class GoheiModeSelectScreen extends ModeSwitchScreen {
         RenderSystem.enableBlend();
         this.minecraft.getTextureManager().bindTexture(TEXTURE);
 
-        if (mode == HakureiGohei.Mode.DANMAKU) {
+        if (mode == KoishiEyeOpen.Mode.SINGLE_LASER) {
             this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 32, 32, 32);
             this.blit(matrixStack, this.guiLeft + 52, this.guiTop, 32, 0, 32, 32);
         }
@@ -45,20 +41,19 @@ public class GoheiModeSelectScreen extends ModeSwitchScreen {
         }
         matrixStack.pop();
 
-        this.font.drawTextWithShadow(matrixStack, DANMAKU, this.guiLeft, this.guiTop + 52, 16777215);
-        this.font.drawTextWithShadow(matrixStack, DREAM_SEAL, this.guiLeft + 52, this.guiTop + 52, 16777215);
+        this.font.drawTextWithShadow(matrixStack, SINGLE_LASER, this.guiLeft, this.guiTop + 52, 16777215);
+        this.font.drawTextWithShadow(matrixStack, YOUKAI_LIE_DETECTOR, this.guiLeft + 52, this.guiTop + 52, 16777215);
     }
 
     public void switchMode(int index) {
-        this.mode = EnumUtil.moveTo(HakureiGohei.Mode.class, this.mode, index);
+        this.mode = EnumUtil.moveTo(KoishiEyeOpen.Mode.class, this.mode, index);
         GSKONetworking.CHANNEL.sendToServer(new CSwitchModePacket(this.getMode().ordinal()));
     }
 
-    public void setMode(HakureiGohei.Mode mode) {
+    public void setMode(KoishiEyeOpen.Mode mode) {
         this.mode = mode;
     }
-
-    public HakureiGohei.Mode getMode() {
+    public KoishiEyeOpen.Mode getMode() {
         return this.mode;
     }
 }

@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
+import github.thelawf.gensokyoontology.common.item.MultiModeItem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -29,7 +30,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.function.Predicate;
 
-public class KoishiEyeOpen extends Item implements IRayTraceReader {
+public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
     private int totalCount = 0;
     public KoishiEyeOpen(Properties properties) {
         super(properties);
@@ -143,5 +144,13 @@ public class KoishiEyeOpen extends Item implements IRayTraceReader {
     @NotNull
     public UseAction getUseAction(@NotNull ItemStack stack) {
         return UseAction.BOW;
+    }
+
+    public static Mode getMode(CompoundNBT nbt) {
+        return Mode.values()[nbt.getInt("mode")];
+    }
+    public enum Mode{
+        SINGLE_LASER,
+        YOUKAI_LIE_DETECTOR;
     }
 }
