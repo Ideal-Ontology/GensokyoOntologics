@@ -7,7 +7,7 @@ import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CSwitchModePacket;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
-import net.minecraft.client.gui.screen.GamemodeSelectionScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -16,12 +16,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class GoheiModeSelectScreen extends MultiSelectScreen{
+public class GoheiModeSelectScreen extends ModeSwitchScreen {
     private HakureiGohei.Mode mode;
-    private int guiLeft = 0;
-    private int guiTop = 0;
-    private int xSize;
-    private int ySize;
     public static final TranslationTextComponent DANMAKU = GensokyoOntology.withTranslation("gui.", ".gohei.mode.danmaku");
     public static final TranslationTextComponent DREAM_SEAL = GensokyoOntology.withTranslation("gui.", ".gohei.mode.dream_seal");
     public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/gohei_selection_screen.png");
@@ -30,13 +26,6 @@ public class GoheiModeSelectScreen extends MultiSelectScreen{
         this.mode = mode;
         this.xSize = 64;
         this.ySize = 64;
-    }
-
-    @Override
-    protected void init() {
-        super.init();
-        this.guiLeft = (this.width - this.xSize) / 2;
-        this.guiTop = (this.height - this.ySize) / 2;
     }
 
     @Override
@@ -58,14 +47,8 @@ public class GoheiModeSelectScreen extends MultiSelectScreen{
 
         this.font.drawTextWithShadow(matrixStack, DANMAKU, this.guiLeft, this.guiTop + 52, 16777215);
         this.font.drawTextWithShadow(matrixStack, DREAM_SEAL, this.guiLeft + 52, this.guiTop + 52, 16777215);
-
-
     }
 
-    @Override
-    public boolean isPauseScreen() {
-        return false;
-    }
 
     public void switchMode(int index) {
         this.mode = EnumUtil.moveTo(HakureiGohei.Mode.class, this.mode, index);

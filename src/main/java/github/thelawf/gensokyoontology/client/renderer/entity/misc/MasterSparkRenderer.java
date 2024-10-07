@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.culling.ClippingHelper;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.*;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,7 +37,7 @@ public class MasterSparkRenderer extends EntityRenderer<MasterSparkEntity> {
 
         matrixStackIn.push();
         Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
-        GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, entityIn.getLookVec());
+        GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, entityIn.getLookVec().inverse());
         renderSpark(builder, matrix4f, new Vector4f(1, 1, 1, 1), 2f);
         renderSpark(builder, matrix4f, new Vector4f(r, g, b, 1f), 2.5f);
         matrixStackIn.pop();

@@ -4,7 +4,6 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
-import github.thelawf.gensokyoontology.client.gui.screen.skill.MultiSelectScreen;
 import github.thelawf.gensokyoontology.client.model.KoishiHatModel;
 import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
@@ -35,7 +34,6 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import org.lwjgl.glfw.GLFW;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, value = Dist.CLIENT)
@@ -145,7 +143,7 @@ public class GSKOMiscClientEvent {
      * 在 {@link OneSlotContainer OneSlotContainer} 中取消了 E 键关闭容器的事件以便让玩家可以输入字母 E。<br>
      * Canceled the close screen event so that the player can input letter E in One Slot Container Screen<br>
      * <br>
-     * 在 {@link MultiSelectScreen MultiSelectScreen} 中判断玩家是否输入了技能切换热键 alt加向左箭头 <br>
+     * 在 {@link github.thelawf.gensokyoontology.client.gui.screen.skill.ModeSwitchScreen MultiSelectScreen} 中判断玩家是否输入了技能切换热键 alt加向左箭头 <br>
      * Check whether player inputs skill-switching hot keys
      * @see org.lwjgl.glfw.GLFW
      * @see InputMappings
@@ -171,13 +169,12 @@ public class GSKOMiscClientEvent {
     }
 
     @SubscribeEvent
-    public static void onKeyDown(InputEvent.KeyInputEvent event) {
+    public static void onSwitchHakureiGohei(InputEvent.KeyInputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
 
         if (player != null && player.getHeldItemMainhand().getItem() == ItemRegistry.HAKUREI_GOHEI.get()) {
             ItemStack stack = player.getHeldItemMainhand();
-
             // 检测如果alt被按下则打开御币的能力选择界面
             if (GSKOKeyboardManager.KEY_SWITCH_MODE.isKeyDown() && stack.getTag() != null) {
                 minecraft.displayGuiScreen(new GoheiModeSelectScreen(GOHEI_TITLE, HakureiGohei.getMode(stack.getTag())));
@@ -186,10 +183,23 @@ public class GSKOMiscClientEvent {
     }
 
     @SubscribeEvent
-    public static void onModeScroll(GuiScreenEvent.MouseScrollEvent event) {
+    public static void onSwitchKoishiEye(InputEvent.KeyInputEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
 
+        if (player != null && player.getHeldItemMainhand().getItem() == ItemRegistry.KOISHI_EYE_OPEN.get()) {
+            ItemStack stack = player.getHeldItemMainhand();
+            // 检测如果alt被按下则打开御币的能力选择界面
+            if (GSKOKeyboardManager.KEY_SWITCH_MODE.isKeyDown() && stack.getTag() != null) {
+                minecraft.displayGuiScreen(new GoheiModeSelectScreen(GOHEI_TITLE, HakureiGohei.getMode(stack.getTag())));
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onHakureiGoheiModeScroll(GuiScreenEvent.MouseScrollEvent event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        PlayerEntity player = minecraft.player;
         if (player != null && player.getHeldItem(Hand.MAIN_HAND).getItem() == ItemRegistry.HAKUREI_GOHEI.get()) {
             // alt+鼠标滚轮切换模式
             if (minecraft.currentScreen instanceof GoheiModeSelectScreen) {

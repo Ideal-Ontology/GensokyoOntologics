@@ -3,11 +3,17 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
+import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.monster.MonsterEntity;
+import net.minecraft.entity.passive.horse.HorseEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.*;
@@ -15,6 +21,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -28,6 +35,12 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import static github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity.DISTANCE;
 
 /**
  * 魔理沙的八卦炉
@@ -48,13 +61,11 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
-
         if (playerIn.getCooldownTracker().hasCooldown(this))
             return ActionResult.resultPass(playerIn.getHeldItem(handIn));
 
         // 获取玩家的物品栏对象
         IInventory inventory = playerIn.inventory;
-
         // 设置两个布尔值判断玩家是否持有发射极限火花所必须的物品，设置两个空的物品栈
         boolean hasBomb = false;
         boolean has32FireCharge = false;
@@ -86,14 +97,12 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
         // 然后通过向量加法和向量数乘法，在这个位置的基础上再加上20倍的玩家视角向量
         Vector3d explodeStartPos = playerIn.getEyePosition(1.0F).add(
                 playerIn.getLookVec().scale(8));
-        Vector3d playerPos = playerIn.getPositionVec();
 
         // 循环引发50次爆炸，每次爆炸前先获取距离 explodeStartPos i格外的向量位置，
         // 通过同样的向量加法和数乘法确定下一个引爆的位置
-        List<LivingEntity> entities = new ArrayList<>();
         MasterSparkEntity masterSpark = new MasterSparkEntity(playerIn, worldIn);
         masterSpark.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY(), playerIn.getPosZ(),
-                toYawPitch(playerIn.getLookVec()).x, toYawPitch(playerIn.getLookVec()).y);
+                playerIn.rotationYaw, playerIn.rotationPitch);
         worldIn.addEntity(masterSpark);
 
         if (!worldIn.isRemote) {
@@ -102,23 +111,27 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
                 worldIn.createExplosion(playerIn, explodePos.getX(), explodePos.getY(),
                         explodePos.getZ(), 5.0f, false, Explosion.Mode.BREAK);
             }
+            List<Vector3d> startList = DanmakuUtil.ellipticPos(Vector2f.ZERO, 2, 20);
+            startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 1.5, 15));
+            startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 1, 10));
+            startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 0.5, 5));
+            List<Vector3d> endList = startList.stream().map(vector3d -> masterSpark.getLookVec().scale(DISTANCE)).collect(Collectors.toList());
 
-            List<List<AxisAlignedBB>> boxes = getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 1.75f);
-//
-            for (List<AxisAlignedBB> aabb : boxes) {
-                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(0)));
-                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(1)));
-                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(2)));
-                entities.addAll(worldIn.getEntitiesWithinAABB(LivingEntity.class, aabb.get(3)));
-            }
-//
-            entities.forEach(e -> {
-                if (e instanceof MonsterEntity) {
-                    e.attackEntityFrom(DamageSource.causePlayerDamage(playerIn), 30f);
+            Map<Vector3d, Vector3d> vectorMap = IntStream.range(0, startList.size()).boxed()
+                    .collect(Collectors.toMap(startList::get, endList::get));
+            Predicate<Entity> canAttack = entity -> masterSpark.getOwnerID().isPresent() && entity.getUniqueID() != masterSpark.getOwnerID().get();
+
+            for (Map.Entry<Vector3d, Vector3d> entry : vectorMap.entrySet()) {
+                Vector3d start = entry.getKey();
+                Vector3d end = entry.getValue().add(masterSpark.getPositionVec()).add(start);
+                start = start.add(masterSpark.getPositionVec());
+
+                if (masterSpark.ticksExisted % 2 == 0 && rayTrace(worldIn, masterSpark, start, end).isPresent()) {
+                    rayTrace(worldIn, masterSpark, start, end).ifPresent(entity -> {
+                        if (canAttack.test(entity)) entity.attackEntityFrom(GSKODamageSource.LASER, 514.9F);
+                    });
                 }
-            });
-
-            getRayTraceBox(playerPos, playerIn.getLookVec(), 50, 2);
+            }
             // damageItem(playerIn.getHeldItemMainhand(), 1, playerIn, player -> player.getHeldItemMainhand().shrink(1));
             int cooldownTicks = 1800;
             if (handIn == Hand.MAIN_HAND) {
@@ -138,12 +151,6 @@ public class MarisaHakkeiro extends Item implements IRayTraceReader {
 
         return ActionResult.resultPass(playerIn.getHeldItem(handIn));
     }
-
-    // @Override
-    // public ItemStack getContainerItem(ItemStack itemStack) {
-    //     return super.getContainerItem(itemStack);
-    // }
-
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {

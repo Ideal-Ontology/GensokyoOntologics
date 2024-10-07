@@ -32,24 +32,7 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceRead
     @Override
     public void tick() {
         super.tick();
-
         if (ticksExisted >= 120) this.remove();
-
-        List<Vector3d> startList = DanmakuUtil.ellipticPos(new Vector2f((float) this.getPosX(), (float) this.getPosZ()), 2, 20);
-        List<Vector3d> endList = startList.stream().map(vector3d -> vector3d.scale(DISTANCE)).collect(Collectors.toList());
-        Map<Vector3d, Vector3d> vectorMap = IntStream.range(0, startList.size()).boxed()
-                .collect(Collectors.toMap(startList::get, endList::get));
-        Predicate<Entity> canAttack = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() != this.getOwnerID().get();
-
-        for (Map.Entry<Vector3d, Vector3d> entry : vectorMap.entrySet()) {
-            Vector3d start = entry.getKey();
-            Vector3d end = entry.getValue();
-            if (this.ticksExisted % 2 == 0 && rayTrace(this.world, this, start, end).isPresent()) {
-                rayTrace(this.world, this, start, end).ifPresent(entity -> {
-                    if (canAttack.test(entity)) entity.attackEntityFrom(GSKODamageSource.LASER, Float.MAX_VALUE);
-                });
-            }
-        }
 
     }
 
