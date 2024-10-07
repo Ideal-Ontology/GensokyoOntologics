@@ -3,8 +3,10 @@ package github.thelawf.gensokyoontology.client.event;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.*;
+import github.thelawf.gensokyoontology.client.renderer.tileentity.RailTileRenderer;
 import github.thelawf.gensokyoontology.common.item.armor.KoishiHatArmorItem;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.BatRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
@@ -12,6 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -130,6 +133,9 @@ public class GSKOClientSetupEvents {
     public static void onArmorModelSetup(FMLClientSetupEvent event) {
         KoishiHatArmorItem.initArmorModel();
     }
-
-
+    @SubscribeEvent
+    public static void onTileRendererRegister(FMLClientSetupEvent event) {
+        event.enqueueWork(() -> ClientRegistry.bindTileEntityRenderer(TileEntityRegistry.RAIL_TILE_ENTITY.get(),
+                dispatcher -> new RailTileRenderer(dispatcher, 0.2F, 1F)));
+    }
 }

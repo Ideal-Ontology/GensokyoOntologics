@@ -24,13 +24,8 @@ public class SpaceFissureRenderer extends TileEntityRenderer<GapTileEntity> {
         super(rendererDispatcherIn);
     }
 
-    private void add(IVertexBuilder builderIn, MatrixStack stack, float x, float y, float z,
-                     float u, float v) {
-        builderIn.pos(stack.getLast().getMatrix(), x, y, z)
-                .tex(u, v)
-                .lightmap(0, 240)
-                .normal(1, 0, 0)
-                .endVertex();
+    private void add(IVertexBuilder builderIn, MatrixStack stack, float x, float y, float z, float u, float v) {
+        builderIn.pos(stack.getLast().getMatrix(), x, y, z).tex(u, v).lightmap(0, 240).normal(1, 0, 0).endVertex();
     }
 
     @Override

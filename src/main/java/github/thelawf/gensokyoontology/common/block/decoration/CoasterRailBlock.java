@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
+import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -19,7 +20,7 @@ public class CoasterRailBlock extends Block {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return super.createTileEntity(state, world);
+        return new RailTileEntity();
     }
 
 }
