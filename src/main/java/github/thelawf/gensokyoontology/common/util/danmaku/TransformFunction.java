@@ -286,39 +286,6 @@ public class TransformFunction extends ITransform.AbstractTransform {
         double incrementPitch = incrementV3.z;
     }
 
-    @Deprecated
-    public Vector3d rotate(Vector3d prevPos, Vector3d pivotLocation, Vector3d rotationV3) {
-        double radius = GSKOMathUtil.distanceOf3D(prevPos.x, prevPos.y, prevPos.z,
-                pivotLocation.x, pivotLocation.y, pivotLocation.z);
-        double incrementX = 0;
-        double incrementY = 0;
-        double incrementZ = 0;
-
-        if (rotationV3.x != 0) {
-            LineSegment hypotenuse = new LineSegment3D(pivotLocation.x, pivotLocation.y, 0d, prevPos.x, prevPos.y, 0d);
-            Vector3d rc = GSKOMathUtil.toRollCoordinate(hypotenuse.getLength(), rotationV3.x);
-            incrementX = rc.x;
-            incrementY = rc.y;
-        }
-        if (rotationV3.y != 0) {
-            LineSegment hypotenuse = new LineSegment3D(pivotLocation.x, 0d, pivotLocation.z, prevPos.x, 0d, prevPos.z);
-            Vector3d rc = GSKOMathUtil.toYawCoordinate(hypotenuse.getLength(), rotationV3.y);
-            incrementX = rc.x;
-            ;
-            incrementZ = rc.z;
-        }
-        if (rotationV3.z != 0) {
-            LineSegment hypotenuse = new LineSegment3D(0d, pivotLocation.y, pivotLocation.z, 0d, prevPos.y, prevPos.z);
-            Vector3d rc = GSKOMathUtil.toPitchCoordinate(hypotenuse.getLength(), rotationV3.z);
-            incrementY = rc.y;
-            incrementZ = rc.z;
-        }
-        this.x += incrementX;
-        this.y += incrementY;
-        this.z += incrementZ;
-        return new Vector3d(prevPos.x + incrementX, prevPos.y + incrementY, prevPos.z + incrementZ);
-    }
-
     public void transform(double x, double y, double z, double yaw, double pitch, double roll) {
 
     }

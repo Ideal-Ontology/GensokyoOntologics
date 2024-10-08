@@ -10,8 +10,10 @@ import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.BatRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
+import net.minecraft.client.renderer.texture.AtlasTexture;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -137,5 +139,13 @@ public class GSKOClientSetupEvents {
     public static void onTileRendererRegister(FMLClientSetupEvent event) {
         event.enqueueWork(() -> ClientRegistry.bindTileEntityRenderer(TileEntityRegistry.RAIL_TILE_ENTITY.get(),
                 dispatcher -> new RailTileRenderer(dispatcher, 0.2F, 1F)));
+    }
+
+    @SuppressWarnings("deprecation")
+    public static void onTextureStitch(TextureStitchEvent.Pre event) {
+        if (!event.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
+            return;
+        }
+        event.addSprite(RailTileRenderer.TEXTURE);
     }
 }

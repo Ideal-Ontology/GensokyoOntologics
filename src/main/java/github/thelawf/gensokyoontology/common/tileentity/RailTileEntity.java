@@ -11,6 +11,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -18,7 +19,8 @@ public class RailTileEntity extends TileEntity {
     private float yaw = 0f;
     private float pitch = 0f;
     private float roll = 0f;
-    private BlockPos targetRailPos;
+    private boolean shouldRender = false;
+    private BlockPos targetRailPos = new BlockPos(0,0,0);
     public RailTileEntity() {
         super(TileEntityRegistry.RAIL_TILE_ENTITY.get());
     }
@@ -29,6 +31,7 @@ public class RailTileEntity extends TileEntity {
         if (nbt.contains("yaw")) this.yaw = nbt.getFloat("yaw");
         if (nbt.contains("pitch")) this.pitch = nbt.getFloat("pitch");
         if (nbt.contains("roll")) this.roll = nbt.getFloat("roll");
+        if (nbt.contains("shouldRender")) this.shouldRender = nbt.getBoolean("shouldRender");
         if (nbt.contains("targetRailPos")) this.targetRailPos = BlockPos.fromLong(nbt.getLong("targetRailPos"));
     }
 
@@ -39,6 +42,7 @@ public class RailTileEntity extends TileEntity {
         compound.putFloat("yaw", this.yaw);
         compound.putFloat("roll", this.roll);
         compound.putFloat("pitch", this.pitch);
+        compound.putBoolean("shouldRender", this.shouldRender);
         compound.putLong("targetRailPos", this.targetRailPos.toLong());
         return compound;
     }
@@ -70,6 +74,15 @@ public class RailTileEntity extends TileEntity {
         markDirty();
     }
 
+
+    public boolean shouldRender() {
+        return this.shouldRender;
+    }
+    public void setShouldRender(boolean shouldRender) {
+        this.shouldRender = shouldRender;
+        markDirty();
+    }
+
     public Vector3d getFacingVec() {
         return Vector3d.fromPitchYaw(this.pitch, this.yaw);
     }
@@ -90,9 +103,13 @@ public class RailTileEntity extends TileEntity {
         return null;
     }
 
+    // TODO: 这里的难点在于求得一个完美的控制点，目前的想法有：
+    //  1. 让玩家手动设置三个点来确定一条弧线（Photoshop方案）。
+    //  2. 玩家设置起点轨道和终点轨道，其控制点由程序自行决定，通过交点/平行四边点的方法进行计算（MTR方案）
     public List<Vector3d> getBezierPos() {
+        if(!this.shouldRender) return new ArrayList<>();
         return BezierUtil.getBezierPos(Vector3d.copyCentered(this.pos), Vector3d.copyCentered(this.targetRailPos),
-                new Vector3d(0,0,0), 0.01F);
+                new Vector3d(0,0,0), 0.05F);
     }
 
     public HashMap<Vector3d, Vector3d> getConnections() {

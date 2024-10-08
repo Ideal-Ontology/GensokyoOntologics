@@ -24,6 +24,7 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -34,9 +35,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.ForgeSpawnEggItem;
@@ -751,6 +751,44 @@ public final class ItemRegistry {
             GSKOArmorMaterial.JADE, EquipmentSlotType.LEGS, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_BOOTS = ITEMS.register("jade_boots", () -> new ArmorItem(
             GSKOArmorMaterial.JADE, EquipmentSlotType.FEET, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new Item(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<BlockItem> COASTER_RAIL_ITEM = ITEMS.register("coaster_rail", () -> new BlockItem(
+            BlockRegistry.COASTER_RAIL.get(), new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB))
+    {
+        @Override
+        public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
+            World world = context.getWorld();
+            PlayerEntity player = context.getPlayer();
+            BlockState blockState = world.getBlockState(context.getPos());
+
+            if (player == null) {
+                return ActionResultType.FAIL;
+            }
+            if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) {
+                return ActionResultType.PASS;
+            }
+            ItemStack stack = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putLong("startPos", context.getPos().toLong());
+            stack.setTag(nbt);
+
+            context.getItem().shrink(1);
+            player.addItemStackToInventory(stack);
+            return ActionResultType.SUCCESS;
+        }
+
+        @Override
+        public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
+            super.addInformation(stack, worldIn, tooltip, flagIn);
+            if (stack.getTag() == null) return;
+            if (!stack.getTag().contains("startPos")) return;
+            BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
+
+            tooltip.add(new NBTTextComponent.Block("", flagIn.isAdvanced(),
+                    pos.getX() + " " + pos.getY() + " " + pos.getZ()));
+        }
+    });
 
 
     // ====================================== 技术性物品 ====================================== //
