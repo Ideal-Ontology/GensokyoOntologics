@@ -1,6 +1,6 @@
 {
-  "parent": "gensokyoontology:block/blank",
+  "parent": "minecraft:block/cube_all",
   "textures": {
-    "null": "gensokyoontology:block/null"
+    "all": "gensokyoontology:block/null"
   }
 }

@@ -12,6 +12,8 @@ import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -104,6 +106,7 @@ public class GSKOMathUtil {
     }
 
 
+    @OnlyIn(Dist.CLIENT)
     public static Vector3d bezier2(Vector3d start, Vector3d end, Vector3d p, float time) {
         return lerp(time, lerp(time, start, p), lerp(time, p, end));
     }
@@ -243,7 +246,6 @@ public class GSKOMathUtil {
                 globalIn.getZ() - newOriginIn.getZ());
 
     }
-
 
     /**
      * 计算方法：设斜边为r，两条直角边为x和y，斜边与y轴夹角为d，那么——

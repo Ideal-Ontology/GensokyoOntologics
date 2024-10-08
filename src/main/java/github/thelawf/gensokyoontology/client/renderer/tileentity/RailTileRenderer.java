@@ -5,6 +5,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.common.util.math.BezierUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import net.minecraft.client.Minecraft;
@@ -15,10 +16,9 @@ import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.*;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -43,22 +43,40 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
      * 2. 每一条细分 Segment 的长度为那一段 Segment 从起点到终点的距离。
      */
     @Override
+    @OnlyIn(Dist.CLIENT)
     public void render(@NotNull RailTileEntity tileEntityIn, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
         Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
-
         IVertexBuilder builder = bufferIn.getBuffer(RenderType.getLightning());
+
         matrixStackIn.push();
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15,  this.radius, 0.15f, 0.1F,1,0.1F,1);
+        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, 0.6313F, 0.0902F, 0.0902F, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
         matrixStackIn.translate(0,0,1);
-        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15,  this.radius, 0.15f, 0.1F,1,0.1F,1);
+        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, 0.6313F, 0.0902F, 0.0902F, 1);
+        matrixStackIn.pop();
+
+        matrixStackIn.push();
+        GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
+                new Vector3f(0.2F,0,0), new Vector3f(0.2F,0,0), new Vector3f(0.2F,-0.15F,0.9F), new Vector3f(0.2F,-0.15F,0.9F),
+                new Vector4f(0.6313F, 0.0902F, 0.0902F, 1));
+        GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
+                new Vector3f(0.7F,0,0), new Vector3f(0.7F,0,0), new Vector3f(0.2F,-0.15F,0.9F), new Vector3f(0.2F,-0.15F,0.9F),
+                new Vector4f(0.6313F, 0.0902F, 0.0902F, 1));
         matrixStackIn.pop();
 
         HashMap<Vector3d, Vector3d> connections = tileEntityIn.getConnections();
+        GSKOUtil.log(this.getClass(), connections.size());
+
+        if (tileEntityIn.getWorld() == null) return;
+        if (tileEntityIn.getWorld().getGameTime() % 20 == 0) {
+            GSKOUtil.log(this.getClass(), connections.size());
+            GSKOUtil.mapPrintLine(connections);
+        }
+
         for (Map.Entry<Vector3d, Vector3d> entry : connections.entrySet()) {
             Vector3f start = new Vector3f(entry.getKey());
             Vector3f end = new Vector3f(entry.getValue());

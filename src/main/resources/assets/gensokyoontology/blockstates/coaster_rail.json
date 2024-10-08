@@ -1,7 +1,7 @@
 {
   "variants": {
     "": {
-      "model": "gensokyoontology:block/blank"
+      "model": "gensokyoontology:block/blank_block"
     }
   }
 }

@@ -349,4 +349,28 @@ public class GeometryUtil {
         builder.pos(matrix4f, b.getX(), b.getY(), b.getZ()).color(red, green, blue, alpha).endVertex();
         builder.pos(matrix4f, a.getX(), a.getY(), a.getZ()).color(red, green, blue, alpha).endVertex();
     }
+
+    public static void quadFace(IVertexBuilder builder, Matrix4f matrix, Vector3f leftUp, Vector3f rightUp, Vector3f rightDown, Vector3f leftDown, Vector4f color) {
+        builder.pos(matrix, leftUp.getX(), leftUp.getY(), leftUp.getZ())
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, rightUp.getX(), rightUp.getY(), rightUp.getZ())
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, rightDown.getX(), rightDown.getY(), rightDown.getZ())
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, leftDown.getX(), leftDown.getY(), leftDown.getZ())
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+
+        builder.pos(matrix, leftDown.getX(), leftDown.getY(), leftDown.getZ())
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, rightDown.getX(), rightDown.getY(), rightDown.getZ())
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, rightUp.getX(), rightUp.getY(), rightUp.getZ())
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, leftUp.getX(), leftUp.getY(), leftUp.getZ())
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+    }
+
+    public static void renderTrapezium(IVertexBuilder builder, Matrix4f matrix4f, Vector3f parameter, Vector4f color) {
+
+    }
 }

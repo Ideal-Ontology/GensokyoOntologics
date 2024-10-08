@@ -129,6 +129,8 @@ public class GensokyoOntology {
                         RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.DISPOSABLE_SPAWNER.get(),
                         RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.COASTER_RAIL.get(),
+                        RenderType.getCutout());
 
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAKURA_DOOR.get(),
                         RenderType.getCutout());

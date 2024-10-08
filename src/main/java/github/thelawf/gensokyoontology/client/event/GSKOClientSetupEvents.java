@@ -138,7 +138,7 @@ public class GSKOClientSetupEvents {
     @SubscribeEvent
     public static void onTileRendererRegister(FMLClientSetupEvent event) {
         event.enqueueWork(() -> ClientRegistry.bindTileEntityRenderer(TileEntityRegistry.RAIL_TILE_ENTITY.get(),
-                dispatcher -> new RailTileRenderer(dispatcher, 0.2F, 1F)));
+                dispatcher -> new RailTileRenderer(dispatcher, 0.1F, 1F)));
     }
 
     @SuppressWarnings("deprecation")

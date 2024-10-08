@@ -11,7 +11,9 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.NonNullConsumer;
 import org.apache.logging.log4j.LogManager;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class GSKOUtil {
@@ -51,21 +53,25 @@ public class GSKOUtil {
     public static void log(Class<?> clazz, String str) {
         LogManager.getLogger().info(clazz.getName() + ": {}", str);
     }
-
     public static void log(Class<?> clazz, boolean b) {
         LogManager.getLogger().info(clazz.getName() + ": {}", b);
     }
-
     public static void log(Class<?> clazz, int i) {
         LogManager.getLogger().info(clazz.getName() + ": {}", i);
     }
-
     public static void log(Class<?> clazz, float f) {
         LogManager.getLogger().info(clazz.getName() + ": {}", f);
     }
     public static void log(Class<?> clazz, Object obj) {
         LogManager.getLogger().info(clazz.getName() + ": {}", obj.toString());
     }
+
+    public static <K, V> void mapPrintLine(HashMap<K, V> map) {
+        for (Map.Entry<K, V> entry : map.entrySet()) {
+            log(map.getClass(), "key: {" + entry.getKey().toString() + "} -> Value: {" + entry.getValue().toString() + "}");
+        }
+    }
+
     public static ItemStack findItem(PlayerEntity player, Item item) {
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             if (player.inventory.getStackInSlot(i).getItem() == item) return player.inventory.getStackInSlot(i);

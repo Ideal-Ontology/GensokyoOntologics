@@ -2,6 +2,8 @@ package github.thelawf.gensokyoontology.common.util.math;
 
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
@@ -29,12 +31,13 @@ public class BezierUtil {
         return points[0];
     }
 
-    public static List<Vector3d> getBezierPos(Vector3d start, Vector3d end, Vector3d p, float time) {
-        List<Vector3d> bezierPositions = new ArrayList<>();
-        for (int i = 0; i < 1; i += time) {
+    @OnlyIn(Dist.CLIENT)
+    public static List<Vector3d> getBezierPos(List<Vector3d> bezierPositions, Vector3d start, Vector3d end, Vector3d p, float time) {
+        for (float i = 0; i < 1; i += time) {
             bezierPositions.add(GSKOMathUtil.bezier2(start, end, p, time));
+            GSKOUtil.log(BezierUtil.class, bezierPositions.size());
+            if (bezierPositions.size() > 1F / time) break;
         }
-        GSKOUtil.log(BezierUtil.class, bezierPositions.size());
         return bezierPositions;
     }
 }
