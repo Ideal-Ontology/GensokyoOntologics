@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.util.math.vector.Vector3d;
 
 import java.awt.geom.Point2D;
@@ -33,6 +34,7 @@ public class BezierUtil {
         for (int i = 0; i < 1; i += time) {
             bezierPositions.add(GSKOMathUtil.bezier2(start, end, p, time));
         }
+        GSKOUtil.log(BezierUtil.class, bezierPositions.size());
         return bezierPositions;
     }
 }

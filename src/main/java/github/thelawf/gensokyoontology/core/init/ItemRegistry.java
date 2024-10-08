@@ -19,6 +19,7 @@ import github.thelawf.gensokyoontology.common.item.touhou.*;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
+import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
@@ -33,6 +34,7 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -288,10 +290,10 @@ public final class ItemRegistry {
                     Block block = world.getBlockState(context.getPos()).getBlock();
                     Random random = new Random();
 
-                    if (context.getPlayer() != null && block.matchesBlock(Blocks.STONECUTTER)) {
-                        context.getPlayer().playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT, 1.0f, 1.0f);
-                    }
+                    if (!block.matchesBlock(Blocks.STONECUTTER)) return super.onItemUse(context);
+                    if (context.getPlayer() == null) return super.onItemUse(context);
 
+                    context.getPlayer().playSound(SoundEvents.UI_STONECUTTER_TAKE_RESULT, 1.0f, 1.0f);
                     if (!world.isRemote && Screen.hasShiftDown() && block.matchesBlock(Blocks.STONECUTTER) &&
                             random.nextInt(6) == 1 &&
                             !JadeOreBlock.getItemToDrop(world, 150, 440, 2000, 6000).equals(ItemStack.EMPTY)) {
@@ -308,9 +310,8 @@ public final class ItemRegistry {
                         context.getItem().shrink(1);
                         Block.spawnAsEntity(world, context.getPos(), JadeOreBlock.getItemToDrop(world, context.getPlayer(),
                                 serverWorld.getDimensionKey()));
-
                     }
-                    return super.onItemUse(context);
+                    return ActionResultType.SUCCESS;
                 }
             });
     public static final RegistryObject<BlockItem> IMMEMORIAL_ALLOY_BLOCK_ITEM = ITEMS.register(
@@ -752,7 +753,34 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> JADE_BOOTS = ITEMS.register("jade_boots", () -> new ArmorItem(
             GSKOArmorMaterial.JADE, EquipmentSlotType.FEET, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new Item(
-            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)) {
+        @Override
+        public ActionResultType onItemUse(ItemUseContext context) {
+            World world = context.getWorld();
+            PlayerEntity player = context.getPlayer();
+            BlockState blockState = world.getBlockState(context.getPos());
+            ItemStack connector = context.getItem();
+
+            if (player == null) return ActionResultType.FAIL;
+            if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return ActionResultType.CONSUME;
+
+            TileEntity tile = null;
+            if (connector.getTag() != null) tile = world.getTileEntity(BlockPos.fromLong(connector.getTag().getLong("startPos")));
+            if (!(tile instanceof RailTileEntity)) return super.onItemUse(context);
+
+            BlockPos pos = BlockPos.fromLong(connector.getTag().getLong("startPos"));
+            RailTileEntity railTile = (RailTileEntity) world.getTileEntity(pos);
+            if (railTile == null) return super.onItemUse(context);
+
+            railTile.setTargetPos(pos);
+            railTile.setShouldRender(true);
+
+            ItemStack stack = new ItemStack(ItemRegistry.COASTER_RAIL_ITEM.get());
+            context.getItem().shrink(1);
+            player.addItemStackToInventory(stack);
+            return ActionResultType.SUCCESS;
+        }
+    });
     public static final RegistryObject<BlockItem> COASTER_RAIL_ITEM = ITEMS.register("coaster_rail", () -> new BlockItem(
             BlockRegistry.COASTER_RAIL.get(), new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB))
     {
@@ -762,12 +790,9 @@ public final class ItemRegistry {
             PlayerEntity player = context.getPlayer();
             BlockState blockState = world.getBlockState(context.getPos());
 
-            if (player == null) {
-                return ActionResultType.FAIL;
-            }
-            if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) {
-                return ActionResultType.PASS;
-            }
+            if (player == null) return super.onItemUse(context);
+            if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return super.onItemUse(context);
+
             ItemStack stack = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());
             CompoundNBT nbt = new CompoundNBT();
             nbt.putLong("startPos", context.getPos().toLong());
@@ -784,7 +809,6 @@ public final class ItemRegistry {
             if (stack.getTag() == null) return;
             if (!stack.getTag().contains("startPos")) return;
             BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
-
             tooltip.add(new NBTTextComponent.Block("", flagIn.isAdvanced(),
                     pos.getX() + " " + pos.getY() + " " + pos.getZ()));
         }

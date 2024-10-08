@@ -1,5 +1,10 @@
 {
-  "parent": "block/block",
+  "parent": "minecraft:block/block",
+  "texture_size": [16, 16],
+  "textures": {
+    "0": "gensokyoontology:block/null",
+    "particle": "gensokyoontology:block/null"
+  },
   "elements": [
     {
       "from": [ 0, 0, 0 ],

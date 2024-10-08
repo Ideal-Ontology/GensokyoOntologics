@@ -19,6 +19,7 @@ import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
+import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -27,7 +28,7 @@ import java.util.Map;
 public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
     private final float radius;
     private final float width;
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("block/coaster_rail");
+    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/block/coaster_rail.png");
     public RailTileRenderer(TileEntityRendererDispatcher rendererDispatcherIn, float radius, float width) {
         super(rendererDispatcherIn);
         this.radius = radius;
@@ -46,6 +47,17 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
 
         IVertexBuilder builder = bufferIn.getBuffer(RenderType.getLightning());
+        matrixStackIn.push();
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
+        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15,  this.radius, 0.15f, 0.1F,1,0.1F,1);
+        matrixStackIn.pop();
+
+        matrixStackIn.push();
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
+        matrixStackIn.translate(0,0,1);
+        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15,  this.radius, 0.15f, 0.1F,1,0.1F,1);
+        matrixStackIn.pop();
+
         HashMap<Vector3d, Vector3d> connections = tileEntityIn.getConnections();
         for (Map.Entry<Vector3d, Vector3d> entry : connections.entrySet()) {
             Vector3f start = new Vector3f(entry.getKey());
@@ -55,8 +67,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
             matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(GSKOMathUtil.toYawPitch(entry.getKey()).x));
             matrixStackIn.rotate(Vector3f.YP.rotationDegrees(GSKOMathUtil.toYawPitch(entry.getValue()).y));
 
-            Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
-            renderBezierCurve(builder, matrix4f, start, end, new Vector2f(8, 16), this.radius, (float) entry.getValue().distanceTo(entry.getKey()));
+            renderBezierCurve(builder, matrixStackIn.getLast().getMatrix(), start, end, new Vector2f(8, 16), this.radius, (float) entry.getValue().distanceTo(entry.getKey()));
             matrixStackIn.pop();
         }
 
@@ -69,9 +80,9 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
     
     private void renderBezierCurve(IVertexBuilder builder, Matrix4f matrix, Vector3f startOffset, Vector3f endOffset,
                                    Vector2f uv, float radius, float height) {
-        for (int i = 0; i < 15; i++) {
-            double angle1 = 2 * Math.PI * i / 15;
-            double angle2 = 2 * Math.PI * (i + 1) / 15;
+        for (int i = 0; i < 4; i++) {
+            double angle1 = 2 * Math.PI * i / 4;
+            double angle2 = 2 * Math.PI * (i + 1) / 4;
 
             float x1 = (float) Math.cos(angle1) * radius + startOffset.getX();
             float z1 = (float) Math.sin(angle1) * radius + startOffset.getZ();

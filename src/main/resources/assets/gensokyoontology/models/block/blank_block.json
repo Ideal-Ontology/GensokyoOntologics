@@ -1,0 +1,6 @@
+{
+  "parent": "gensokyoontology:block/blank",
+  "textures": {
+    "null": "gensokyoontology:block/null"
+  }
+}

@@ -142,6 +142,7 @@ public class GSKOClientSetupEvents {
     }
 
     @SuppressWarnings("deprecation")
+    @SubscribeEvent
     public static void onTextureStitch(TextureStitchEvent.Pre event) {
         if (!event.getMap().getTextureLocation().equals(AtlasTexture.LOCATION_BLOCKS_TEXTURE)) {
             return;

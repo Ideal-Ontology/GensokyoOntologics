@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.BezierUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
@@ -20,6 +22,7 @@ public class RailTileEntity extends TileEntity {
     private float pitch = 0f;
     private float roll = 0f;
     private boolean shouldRender = false;
+    private final List<Vector3d> positions = new ArrayList<>();
     private BlockPos targetRailPos = new BlockPos(0,0,0);
     public RailTileEntity() {
         super(TileEntityRegistry.RAIL_TILE_ENTITY.get());
@@ -74,6 +77,13 @@ public class RailTileEntity extends TileEntity {
         markDirty();
     }
 
+    public BlockPos getTargetPos() {
+        return this.targetRailPos;
+    }
+
+    public void setTargetPos(BlockPos targetRailPos) {
+        this.targetRailPos = targetRailPos;
+    }
 
     public boolean shouldRender() {
         return this.shouldRender;
@@ -107,9 +117,11 @@ public class RailTileEntity extends TileEntity {
     //  1. 让玩家手动设置三个点来确定一条弧线（Photoshop方案）。
     //  2. 玩家设置起点轨道和终点轨道，其控制点由程序自行决定，通过交点/平行四边点的方法进行计算（MTR方案）
     public List<Vector3d> getBezierPos() {
-        if(!this.shouldRender) return new ArrayList<>();
-        return BezierUtil.getBezierPos(Vector3d.copyCentered(this.pos), Vector3d.copyCentered(this.targetRailPos),
-                new Vector3d(0,0,0), 0.05F);
+        if(!this.shouldRender) return this.positions;
+        this.positions.addAll(BezierUtil.getBezierPos(Vector3d.copyCentered(this.pos), Vector3d.copyCentered(this.targetRailPos),
+                new Vector3d(0,100,0), 0.5F));
+        GSKOUtil.log(this.getClass(), this.positions.size());
+        return this.positions;
     }
 
     public HashMap<Vector3d, Vector3d> getConnections() {

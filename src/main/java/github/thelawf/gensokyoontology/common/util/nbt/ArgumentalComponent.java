@@ -4,12 +4,11 @@ import net.minecraft.nbt.*;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TextComponent;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.system.CallbackI;
 
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Function;
-import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class ArgumentalComponent extends TextComponent implements IFormattableTextComponent {
     private final HashMap<String, INBT> arguments = new HashMap<>();
@@ -41,7 +40,7 @@ public class ArgumentalComponent extends TextComponent implements IFormattableTe
 
     public ArgumentalComponent(String formatStr) {
         String[] matchList = formatStr.split(ARG_REGEX);
-        List<String> list = new ArrayList<>(List.of(matchList));
+        List<String> list = Arrays.stream(matchList).collect(Collectors.toList());
         list.forEach(s -> DESERIALIZE_MAPPING.forEach((str, func) -> { if (s.matches(str)) func.apply(s, this.arguments); }));
     }
 
