@@ -5,10 +5,13 @@ import github.thelawf.gensokyoontology.common.util.math.BezierUtil;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -17,8 +20,9 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
-public class RailTileEntity extends TileEntity {
+public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     private float yaw = 0f;
     private float pitch = 0f;
     private float roll = 0f;
@@ -37,7 +41,8 @@ public class RailTileEntity extends TileEntity {
         if (nbt.contains("pitch")) this.pitch = nbt.getFloat("pitch");
         if (nbt.contains("roll")) this.roll = nbt.getFloat("roll");
         if (nbt.contains("shouldRender")) this.shouldRender = nbt.getBoolean("shouldRender");
-        if (nbt.contains("targetRailPos")) this.targetRailPos = BlockPos.fromLong(nbt.getLong("targetRailPos"));
+        if (nbt.contains("targetX") && nbt.contains("targetY") && nbt.contains("targetZ"))
+            this.targetRailPos = new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ"));
     }
 
     @Override
@@ -48,7 +53,9 @@ public class RailTileEntity extends TileEntity {
         compound.putFloat("roll", this.roll);
         compound.putFloat("pitch", this.pitch);
         compound.putBoolean("shouldRender", this.shouldRender);
-        compound.putLong("targetRailPos", this.targetRailPos.toLong());
+        compound.putInt("targetX", this.targetRailPos.getX());
+        compound.putInt("targetY", this.targetRailPos.getY());
+        compound.putInt("targetZ", this.targetRailPos.getZ());
         return compound;
     }
 
@@ -85,6 +92,7 @@ public class RailTileEntity extends TileEntity {
 
     public void setTargetPos(BlockPos targetRailPos) {
         this.targetRailPos = targetRailPos;
+        markDirty();
     }
 
     public boolean shouldRender() {
@@ -121,8 +129,9 @@ public class RailTileEntity extends TileEntity {
     @OnlyIn(Dist.CLIENT)
     public List<Vector3d> getBezierPos() {
         if(!this.shouldRender) return this.positions;
-        return BezierUtil.getBezierPos(this.positions, Vector3d.copyCentered(this.pos), Vector3d.copyCentered(this.targetRailPos),
-                new Vector3d(0, 100, 0), 0.01F);
+        Vector3d target = new Vector3d(this.targetRailPos.getX(), this.targetRailPos.getY(), this.targetRailPos.getZ())
+                .subtract(new Vector3d(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
+        return BezierUtil.getBezierPos(this.positions, Vector3d.ZERO, target, new Vector3d(0, 100, 0), 0.01F);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -130,4 +139,8 @@ public class RailTileEntity extends TileEntity {
         return ConnectionUtil.toConnectionVec(getBezierPos());
     }
 
+    @Override
+    public void tick() {
+        if (this.world != null && this.world instanceof ServerWorld) markDirty();
+    }
 }

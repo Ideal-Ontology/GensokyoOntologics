@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.math.vector.*;
 import org.lwjgl.opengl.GL11;
 
@@ -201,45 +202,6 @@ public class GeometryUtil {
         }
     }
 
-    public static List<float[]> cylinderMeshes(IVertexBuilder builder, Matrix4f matrix4f, float radius, float height, int segments) {
-        List<float[]> vertices = new ArrayList<>();
-
-        // Generate vertices for the top and bottom circles
-        for (int i = 0; i < segments; i++) {
-            double angle = 2 * Math.PI * i / segments;
-            float x = (float) (radius * Math.cos(angle));
-            float z = (float) (radius * Math.sin(angle));
-
-            // Top circle
-            vertices.add(new float[] { x, height / 2, z });
-
-            // Bottom circle
-            vertices.add(new float[] { x, -height / 2, z });
-        }
-
-        // Generate side vertices (quads)
-        for (int i = 0; i < segments; i++) {
-            int next = (i + 1) % segments;
-
-            float[] topCurrent = vertices.get(i * 2);
-            float[] bottomCurrent = vertices.get(i * 2 + 1);
-            float[] topNext = vertices.get(next * 2);
-            float[] bottomNext = vertices.get(next * 2 + 1);
-
-            // First triangle of the quad
-            vertices.add(topCurrent);
-            vertices.add(bottomCurrent);
-            vertices.add(topNext);
-
-            // Second triangle of the quad
-            vertices.add(bottomCurrent);
-            vertices.add(bottomNext);
-            vertices.add(topNext);
-        }
-
-        return vertices;
-    }
-
     private static float[][] longitudeSphereVertices(int latitudeBands, int longitudeBands, float radius) {
         int vertexCount = (latitudeBands + 1) * (longitudeBands + 1);
         float[][] vertices = new float[vertexCount][3];
@@ -309,9 +271,87 @@ public class GeometryUtil {
         addVertex(matrix, vertexBuilder, v1, red, green, blue, alpha);
         addVertex(matrix, vertexBuilder, v3, red, green, blue, alpha);
     }
+    
+    public static void renderCube(IVertexBuilder builder, Matrix4f matrix4f, Vector2f parameter, Vector3i color) {
+        
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, 0.0F,  -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+
+        // Back face
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+
+        // Left face
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+
+        // Right face
+        addVertex(matrix4f, builder, parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, parameter.x,  color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+
+        // Top face
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, parameter.x, color.getX(), color.getY(), color.getZ());
+
+
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, -parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, parameter.y, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, -parameter.x, 0.0F, -parameter.x, color.getX(), color.getY(), color.getZ());
+    }
+
+    private static void addVertex(Matrix4f matrix4f, IVertexBuilder builder, float x, float y, float z, int r, int g, int b) {
+        addVertex(matrix4f, builder, x, y, z, r, g, b, 255);
+    }
 
     private static void addVertex(Matrix4f matrix, IVertexBuilder vertexBuilder, float[] pos, float red, float green, float blue, float alpha) {
         vertexBuilder.pos(matrix, pos[0], pos[1], pos[2])
+                .color(red, green, blue, alpha)
+                .endVertex();
+    }
+
+    private static void addVertex(Matrix4f matrix, IVertexBuilder vertexBuilder, float x, float y, float z, float red, float green, float blue, float alpha) {
+        vertexBuilder.pos(matrix, x, y, z)
                 .color(red, green, blue, alpha)
                 .endVertex();
     }
@@ -370,7 +410,4 @@ public class GeometryUtil {
                 .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
     }
 
-    public static void renderTrapezium(IVertexBuilder builder, Matrix4f matrix4f, Vector3f parameter, Vector4f color) {
-
-    }
 }

@@ -105,6 +105,34 @@ public class GSKOMathUtil {
                 0, center.getZ() + radius * Math.sin(Math.toDegrees(angle)));
     }
 
+    public static Vector3d getIntersection(Vector3d A1, Vector3d A2, Vector3d B1, Vector3d B2) {
+        // 计算两条线段的方向向量
+        Vector3d d1 = A2.subtract(A1); // 第一条线段的方向向量
+        Vector3d d2 = B2.subtract(B1); // 第二条线段的方向向量
+
+        // 定义变量
+        double a1 = d1.x;
+        double b1 = -d2.x;
+        double c1 = B1.x - A1.x;
+
+        double a2 = d1.y;
+        double b2 = -d2.y;
+        double c2 = B1.y - A1.y;
+
+        // 使用克拉默法则求解 t1 和 t2
+        double denominator = a1 * b2 - a2 * b1;
+        if (denominator == 0) {
+            // 平行或无解
+            return null;
+        }
+
+        // 解出 t1 和 t2
+        double t1 = (c1 * b2 - c2 * b1) / denominator;
+        double t2 = (a1 * c2 - a2 * c1) / denominator;
+
+        // 计算交点
+        return A1.add(d1.scale(t1));
+    }
 
     @OnlyIn(Dist.CLIENT)
     public static Vector3d bezier2(Vector3d start, Vector3d end, Vector3d p, float time) {

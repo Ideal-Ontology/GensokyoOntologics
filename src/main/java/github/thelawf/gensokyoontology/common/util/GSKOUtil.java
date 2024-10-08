@@ -72,6 +72,12 @@ public class GSKOUtil {
         }
     }
 
+    public static <T> void listPrintLine(List<T> list) {
+        for (T t : list) {
+            log(list.getClass(), "key: {" + t.toString() + "}");
+        }
+    }
+
     public static ItemStack findItem(PlayerEntity player, Item item) {
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             if (player.inventory.getStackInSlot(i).getItem() == item) return player.inventory.getStackInSlot(i);

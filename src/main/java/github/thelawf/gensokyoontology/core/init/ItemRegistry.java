@@ -769,11 +769,11 @@ public final class ItemRegistry {
             if (!(tile instanceof RailTileEntity)) return super.onItemUse(context);
 
             BlockPos pos = BlockPos.fromLong(connector.getTag().getLong("startPos"));
-            RailTileEntity railTile = (RailTileEntity) world.getTileEntity(pos);
-            if (railTile == null) return super.onItemUse(context);
+            RailTileEntity startRail = (RailTileEntity) world.getTileEntity(pos);
+            if (startRail == null) return super.onItemUse(context);
 
-            railTile.setTargetPos(pos);
-            railTile.setShouldRender(true);
+            startRail.setTargetPos(context.getPos());
+            startRail.setShouldRender(true);
 
             ItemStack stack = new ItemStack(ItemRegistry.COASTER_RAIL_ITEM.get());
             context.getItem().shrink(1);
