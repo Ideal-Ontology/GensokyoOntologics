@@ -52,31 +52,37 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         // Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         IVertexBuilder builder = bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID);
 
+        float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
+        float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
         matrixStackIn.push();
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        matrixStackIn.translate(0, 0.2, 0);
-        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, 0.6313F, 0.0902F, 0.0902F, 1);
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
+        matrixStackIn.translate(0, 0.3, 0);
+        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        matrixStackIn.translate(0, 0.2, 1);
-        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, 0.6313F, 0.0902F, 0.0902F, 1);
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
+        matrixStackIn.translate(0, 0.3, 1);
+        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(0, 0.1, 0);
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
+        matrixStackIn.translate(0, 0.15, 0);
         GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
                 new Vector3f(0.2F,0,0), new Vector3f(0.2F,0,1F), new Vector3f(0.2F,-0.15F,0.8F), new Vector3f(0.2F,-0.15F,0.2F),
-                new Vector4f(0.6313F, 0.0902F, 0.0902F, 1));
+                new Vector4f(rf2, gf2, bf2, 1));
         GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
                 new Vector3f(0.7F,0,0), new Vector3f(0.7F,0,1F), new Vector3f(0.7F,-0.15F,0.8F), new Vector3f(0.7F,-0.15F,0.2F),
-                new Vector4f(0.6313F, 0.0902F, 0.0902F, 1));
+                new Vector4f(rf2, gf2, bf2, 1));
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(0, -0.1, 0.3);
-        GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(1F, 0.15F, 0.4F), new Vector3i(161, 23, 23));
+        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
+        matrixStackIn.translate(0, 0, 0.3);
+        GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(1F, -0.15F, 0.4F), new Vector3i(r1, g1, b1));
         matrixStackIn.pop();
 
         HashMap<Vector3d, Vector3d> connections = tileEntityIn.getConnections();

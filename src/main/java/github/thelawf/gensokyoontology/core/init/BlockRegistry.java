@@ -188,5 +188,5 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> SAISEN_BOX = BLOCKS.register("saisen_box", SaisenBoxBlock::new);
     public static final RegistryObject<Block> SPELL_CARD_CONSOLE = BLOCKS.register("spell_card_console", SpellCardConsoleBlock::new);
 
-    public static final RegistryObject<Block> COASTER_RAIL = BLOCKS.register("coaster_rail", () -> new CoasterRailBlock(AbstractBlock.Properties.from(Blocks.RAIL)));
+    public static final RegistryObject<Block> COASTER_RAIL = BLOCKS.register("coaster_rail", () -> new CoasterRailBlock(AbstractBlock.Properties.from(Blocks.IRON_BARS)));
 }

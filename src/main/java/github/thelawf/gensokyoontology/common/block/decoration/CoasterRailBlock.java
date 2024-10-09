@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,6 +13,9 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -23,20 +27,26 @@ import java.util.Map;
 
 public class CoasterRailBlock extends Block {
     public static final HashMap<Vector2f, Float> DIRECTION_MAPPING = initMapping();
+    public static final VoxelShape SHAPE = makeCuboidShape(0,0,0, 16, 3, 16);
     public static HashMap<Vector2f, Float> initMapping() {
         HashMap<Vector2f, Float> map = new HashMap<>();
-        map.put(new Vector2f(22.49F, 360F - 22.51F), 0F);
+        map.put(new Vector2f(-22.49F, 22.51F), 0F);
         map.put(new Vector2f(22.49F, 45F + 22.49F), 45F);
-        map.put(new Vector2f(90F + 22.49F, 45F + 22.49F), 90F);
+        map.put(new Vector2f(45F + 22.49F, 45F + 22.49F), 90F);
         map.put(new Vector2f(90F + 22.49F, 135F + 22.49F), 135F);
-        map.put(new Vector2f(135F + 22.49F, 180F + 22.49F), 180F);
-        map.put(new Vector2f(180F + 22.49F, 225F + 22.49F), 225F);
-        map.put(new Vector2f(225F + 22.49F, 270F + 22.49F), 270F);
-        map.put(new Vector2f(270F + 22.49F, 315F + 22.49F), 315F);
+        map.put(new Vector2f(-180F + 22.49F, -135F + 22.49F), 180F);
+        map.put(new Vector2f(-135F + 22.49F, -90F + 22.49F), 225F);
+        map.put(new Vector2f(-90F + 22.49F, -45F + 22.49F), 270F);
+        map.put(new Vector2f(-45F + 22.49F, -22.49F), 315F);
         return map;
     }
     public CoasterRailBlock(Properties properties) {
         super(properties);
+    }
+
+    @Override
+    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+        return VoxelShapes.or(SHAPE);
     }
 
     @Override
@@ -67,6 +77,7 @@ public class CoasterRailBlock extends Block {
             }
         }
         railTile.setYaw(yaw);
+        GSKOUtil.log(this.getClass(), rotation.x + " -> " + railTile.getYaw());
     }
 
     @Override

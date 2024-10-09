@@ -357,6 +357,7 @@ public class GeometryUtil {
     }
 
     public static void quadFace(IVertexBuilder builder, Matrix4f matrix, Vector3f leftUp, Vector3f rightUp, Vector3f rightDown, Vector3f leftDown, Vector4f color) {
+
         builder.pos(matrix, leftUp.getX(), leftUp.getY(), leftUp.getZ())
                 .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
         builder.pos(matrix, rightUp.getX(), rightUp.getY(), rightUp.getZ())
