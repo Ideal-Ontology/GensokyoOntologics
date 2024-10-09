@@ -5,10 +5,13 @@ import github.thelawf.gensokyoontology.api.client.IInputParser;
 import github.thelawf.gensokyoontology.api.client.ITextBuilder;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
+import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraftforge.fml.client.gui.widget.Slider;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -32,11 +35,13 @@ public abstract class LineralLayoutScreen extends Screen implements IInputParser
     }
 
     public void setCenteredWidgets(List<WidgetConfig> configs) {
-        int width = 0;
+        int width = Minecraft.getInstance().getMainWindow().getScaledWidth();
         int parentWidth = 255;
-        for (WidgetConfig config : configs) width += config.width;
-        int x = (parentWidth - width) / 2, y = 0;
-        initByConfig(configs, x, y);
+        for (WidgetConfig config : configs) {
+            width += config.width;
+            int x = (parentWidth - width) / 2, y = config.upInterval;
+            addWidget(x, y, config);
+        }
     }
 
     public void setAbsoluteXY(List<WidgetConfig> configs) {
@@ -50,10 +55,20 @@ public abstract class LineralLayoutScreen extends Screen implements IInputParser
             addWidget(x, y, config);
         }
     }
-
     private void addWidget(int x, int y, WidgetConfig config) {
         if (config.widget instanceof Button) {
             config.widget = new Button(x, y, config.width, config.height, config.text, config.action);
+            this.addButton(config.widget);
+        }
+        if (config.widget instanceof ImageButton) {
+            config.widget = new ImageButton(x, y, config.width, config.height, config.u, config.v, 0, config.texture, 256, 256, config.action, config.text);
+            this.addButton(config.widget);
+        }
+        if (config.widget instanceof Slider) {
+            config.widget.x = x;
+            config.widget.y = y;
+            config.widget.setWidth(config.width);
+            config.widget.setHeight(config.height);
             this.addButton(config.widget);
         }
         if (config.widget instanceof TextFieldWidget) {
@@ -65,7 +80,6 @@ public abstract class LineralLayoutScreen extends Screen implements IInputParser
             this.children.add(config.widget);
         }
     }
-
 
     public void drawCenteredText(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         int width = 0;

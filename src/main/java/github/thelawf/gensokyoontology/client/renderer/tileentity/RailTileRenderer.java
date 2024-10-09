@@ -65,7 +65,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(0, 0.2, 0);
+        matrixStackIn.translate(0, 0.1, 0);
         GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
                 new Vector3f(0.2F,0,0), new Vector3f(0.2F,0,1F), new Vector3f(0.2F,-0.15F,0.8F), new Vector3f(0.2F,-0.15F,0.2F),
                 new Vector4f(0.6313F, 0.0902F, 0.0902F, 1));
@@ -75,8 +75,8 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(0, 0.05, 0);
-        GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector2f(0.4F, 1), new Vector3i(161, 23, 23));
+        matrixStackIn.translate(0, -0.1, 0.3);
+        GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(1F, 0.15F, 0.4F), new Vector3i(161, 23, 23));
         matrixStackIn.pop();
 
         HashMap<Vector3d, Vector3d> connections = tileEntityIn.getConnections();

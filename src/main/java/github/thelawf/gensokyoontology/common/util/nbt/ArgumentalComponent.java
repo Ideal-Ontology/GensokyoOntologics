@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.util.nbt;
 
+import github.thelawf.gensokyoontology.api.client.IInputParser;
 import net.minecraft.nbt.*;
 import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TextComponent;
@@ -10,7 +11,7 @@ import java.util.function.BiFunction;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public class ArgumentalComponent extends TextComponent implements IFormattableTextComponent {
+public class ArgumentalComponent extends TextComponent implements IFormattableTextComponent, IInputParser {
     private final HashMap<String, INBT> arguments = new HashMap<>();
     public static final HashMap<Class<? extends INBT>, Function<? extends INBT, String>> SERIALIZE_MAPPING = serializeMapping();
     public static final HashMap<String, BiFunction<String, HashMap<String, INBT>, ? extends INBT>> DESERIALIZE_MAPPING = deserializeMapping();
