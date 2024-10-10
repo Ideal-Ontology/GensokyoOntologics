@@ -755,7 +755,7 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new Item(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)) {
         @Override
-        public ActionResultType onItemUse(ItemUseContext context) {
+        public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
             World world = context.getWorld();
             PlayerEntity player = context.getPlayer();
             BlockState blockState = world.getBlockState(context.getPos());
@@ -786,6 +786,7 @@ public final class ItemRegistry {
     {
         @Override
         public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
+            if (!Screen.hasShiftDown()) return super.onItemUse(context);
             World world = context.getWorld();
             PlayerEntity player = context.getPlayer();
             BlockState blockState = world.getBlockState(context.getPos());
@@ -807,10 +808,12 @@ public final class ItemRegistry {
         public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
             super.addInformation(stack, worldIn, tooltip, flagIn);
             if (stack.getTag() == null) return;
-            if (!stack.getTag().contains("startPos")) return;
+            if (!stack.getTag().contains("startPos")) {
+                tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".coaster_rail.usage"));
+            };
             BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
-            tooltip.add(new NBTTextComponent.Block("", flagIn.isAdvanced(),
-                    pos.getX() + " " + pos.getY() + " " + pos.getZ()));
+            tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".coaster_rail.start_pos"));
+            tooltip.add(new StringTextComponent("(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")"));
         }
     });
 

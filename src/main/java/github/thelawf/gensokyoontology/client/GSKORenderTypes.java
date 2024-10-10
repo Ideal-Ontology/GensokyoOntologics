@@ -37,7 +37,6 @@ public class GSKORenderTypes extends RenderType {
                     .shadeModel(SHADE_ENABLED)
                     .writeMask(COLOR_WRITE)
                     .cull(CULL_DISABLED)
-                    .depthTest(DEPTH_ALWAYS)
                     .build(true));
 
     public static LineState getLaserLine(double width) {

@@ -2,9 +2,11 @@ package github.thelawf.gensokyoontology.common.util.world;
 
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.util.math.BezierUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -49,9 +51,10 @@ public class ConnectionUtil {
         return null;
     }
 
-    public static List<Double> getSegRotations() {
-        return new ArrayList<>();
-    }
+    // public static List<Vector3f> getSegRotations(Vector3f start, Vector3f end, float time) {
+    //     List<Vector3f> list = new ArrayList<>();
+    //     BezierUtil.getBezierPos(list, start, end)
+    // }
 
     /**
      * 获取直线的位置以及旋转

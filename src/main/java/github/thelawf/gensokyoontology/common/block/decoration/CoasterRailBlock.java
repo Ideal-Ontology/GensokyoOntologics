@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -19,6 +20,8 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.client.gui.GuiUtils;
+import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,14 +33,15 @@ public class CoasterRailBlock extends Block {
     public static final VoxelShape SHAPE = makeCuboidShape(0,0,0, 16, 3, 16);
     public static HashMap<Vector2f, Float> initMapping() {
         HashMap<Vector2f, Float> map = new HashMap<>();
-        map.put(new Vector2f(-22.49F, 22.51F), 0F);
-        map.put(new Vector2f(22.49F, 45F + 22.49F), 45F);
-        map.put(new Vector2f(45F + 22.49F, 45F + 22.49F), 90F);
-        map.put(new Vector2f(90F + 22.49F, 135F + 22.49F), 135F);
-        map.put(new Vector2f(-180F + 22.49F, -135F + 22.49F), 180F);
-        map.put(new Vector2f(-135F + 22.49F, -90F + 22.49F), 225F);
-        map.put(new Vector2f(-90F + 22.49F, -45F + 22.49F), 270F);
-        map.put(new Vector2f(-45F + 22.49F, -22.49F), 315F);
+        map.put(new Vector2f(-22.5F, 22.5F), 270F);
+        map.put(new Vector2f(22.5F, 45F + 22.5F), 45F);
+        map.put(new Vector2f(45F + 22.5F, 90F + 22.5F), 0F);
+        map.put(new Vector2f(90F + 22.5F, 135F + 22.5F), 135F);
+        map.put(new Vector2f(135F + 22.5F, 180F), 90F);
+        map.put(new Vector2f(-180F, -180F + 22.5F), 90F);
+        map.put(new Vector2f(-180F + 22.5F, -135F + 22.5F), 225F);
+        map.put(new Vector2f(-135F + 22.5F, -90F + 22.5F), 180F);
+        map.put(new Vector2f(-90F + 22.5F, -45F + 22.5F), 315F);
         return map;
     }
     public CoasterRailBlock(Properties properties) {
@@ -85,8 +89,6 @@ public class CoasterRailBlock extends Block {
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos,
                                              @NotNull PlayerEntity player, @NotNull Hand handIn, @NotNull BlockRayTraceResult hit) {
-
-
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 }
