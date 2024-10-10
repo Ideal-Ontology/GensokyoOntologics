@@ -10,9 +10,11 @@ import net.minecraft.util.math.vector.Vector3f;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.time.DayOfWeek;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class ConnectionUtil {
     public static final Logger LOGGER = LogManager.getLogger();
@@ -47,14 +49,23 @@ public class ConnectionUtil {
         }
     }
 
-    public static BlockPos.Mutable getSegPositions() {
-        return null;
+    // TODO: 获取轨道的平滑旋转插值
+    public static List<Vector3f> getSegRotations(Vector3d start, Vector3d end, float time, List<Vector3f> rotations) {
+        for (float i = 0; i < 1; i += time) {
+            if (rotations.size() > 1F / time) break;
+            Vector3d v = GSKOMathUtil.lerp(time, start, end);
+            rotations.add(new Vector3f((float) v.x, (float) v.y, (float) v.z));
+        }
+        return rotations;
     }
 
-    // public static List<Vector3f> getSegRotations(Vector3f start, Vector3f end, float time) {
-    //     List<Vector3f> list = new ArrayList<>();
-    //     BezierUtil.getBezierPos(list, start, end)
-    // }
+    public static Vector3d getIntersection(Vector3d startFacing, Vector3d endFacing) {
+        return GSKOMathUtil.getIntersection(startFacing, startFacing.scale(0.1), endFacing, endFacing.scale(0.1));
+    }
+
+    public static boolean hasIntersection(Vector3d startFacing, Vector3d endFacing) {
+        return GSKOMathUtil.getIntersection(startFacing, startFacing.scale(0.1), endFacing, endFacing.scale(0.1)) != null;
+    }
 
     /**
      * 获取直线的位置以及旋转
@@ -71,8 +82,8 @@ public class ConnectionUtil {
      *
      * @return 返回一个以 key 为起点，value 为终点的 HashMap。
      */
-    public static HashMap<Vector3d, Vector3d> toConnectionVec(List<Vector3d> bezierPositions) {
-        HashMap<Vector3d, Vector3d> connectionVecs = new HashMap<>();
+    public static List<Pair<Vector3d, Vector3d>> toConnectionVec(List<Vector3d> bezierPositions) {
+        List<Pair<Vector3d, Vector3d>> pairs = new ArrayList<>();
         Vector3d start = null, end = null;
         for (int i = 0; i < bezierPositions.size(); i++) {
             if (i % 2 == 0) {
@@ -80,12 +91,19 @@ public class ConnectionUtil {
             }
             else end = bezierPositions.get(i);
             if (start != null && end != null) {
-                connectionVecs.put(start, end);
+                pairs.add(Pair.of(start, end));
                 start = null;
                 end = null;
             }
         }
-        return connectionVecs;
+        return pairs;
+    }
+
+    public static List<Pair<Vector3d, Vector3f>> toRotationMap(List<Vector3d> bezierPositions, List<Vector3f> rotations) {
+        List<Pair<Vector3d, Vector3f>> list = new ArrayList<>();
+        bezierPositions.forEach(vector3d -> list.add(Pair.of(vector3d, rotations.get(
+                bezierPositions.indexOf(vector3d)))));
+        return list;
     }
 
     public static void connectRail(Vector3d startPos, Vector3d intersection, Vector3d endPos, float time) {

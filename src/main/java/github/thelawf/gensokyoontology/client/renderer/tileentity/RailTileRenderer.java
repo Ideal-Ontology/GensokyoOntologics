@@ -2,10 +2,12 @@ package github.thelawf.gensokyoontology.client.renderer.tileentity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
+import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -15,7 +17,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
@@ -82,7 +86,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(1F, 0.15F, 0.4F), new Vector3i(r1, g1, b1));
         matrixStackIn.pop();
 
-        HashMap<Vector3d, Vector3d> connections = tileEntityIn.getConnections();
+        List<Pair<Vector3d, Vector3d>> connections = tileEntityIn.getConnections();
         /*
         Set<Map.Entry<Vector3d, Vector3d>> entry = connections.entrySet();
         int index = 0;
@@ -101,9 +105,14 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         Vector3d startPos = Vector3d.copyCentered(tileEntityIn.getPos());
         Vector3d endPos = Vector3d.copyCentered(tileEntityIn.getTargetPos());
-        for (Map.Entry<Vector3d, Vector3d> entry : connections.entrySet()) {
-            Vector3f start = new Vector3f(entry.getKey());
-            Vector3f end = new Vector3f(entry.getValue());
+
+        for (Pair<Vector3d, Vector3d> entry : connections) {
+            Vector3f start = new Vector3f(entry.getFirst());
+            Vector3f end = new Vector3f(entry.getSecond());
+
+            renderSegment(builder, matrixStackIn, tileEntityIn.getRotation(entry), start, end,
+                    (float) new Vector3d(end.getX(), end.getY(), end.getZ()).distanceTo(
+                            new Vector3d(start.getX(), start.getY(), start.getZ())));
         }
     }
 
@@ -121,7 +130,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
         matrixStackIn.translate(-0.5, 0, -0.5);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        matrixStackIn.translate(0.45, 0, 0);
+        matrixStackIn.translate(startOffset.getY() + 0.45, startOffset.getX(), startOffset.getZ() + 1);
         GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -length, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
@@ -132,7 +141,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
         matrixStackIn.translate(-0.5, 0, -0.5);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        matrixStackIn.translate(0.45, 0, 1);
+        matrixStackIn.translate(startOffset.getY() + 0.45, startOffset.getX(), startOffset.getZ() + 1);
         GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -length, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
@@ -142,7 +151,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation.getY()));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
         matrixStackIn.translate(-0.5, 0, -0.5);
-        matrixStackIn.translate(0, 0.35, 0);
+        matrixStackIn.translate(startOffset.getX(), startOffset.getY() + 0.35, startOffset.getZ());
         GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
                 new Vector3f(0.5F,0,0), new Vector3f(0.5F,0,1F), new Vector3f(0.5F,-0.15F,0.8F), new Vector3f(0.5F,-0.15F,0.2F),
                 new Vector4f(rf2, gf2, bf2, 1));
@@ -154,7 +163,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation.getY()));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
         matrixStackIn.translate(-0.5, 0, -0.5);
-        matrixStackIn.translate(0, 0, 0.3);
+        matrixStackIn.translate(startOffset.getX(), startOffset.getY(), startOffset.getZ() + 0.3);
         GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(length, 0.15F, 0.4F), new Vector3i(r1, g1, b1));
         matrixStackIn.pop();
     }

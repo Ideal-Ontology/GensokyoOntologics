@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContaine
 import github.thelawf.gensokyoontology.common.item.script.DynamicScriptItem;
 import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
 import github.thelawf.gensokyoontology.common.item.script.ScriptReadOnlyItem;
+import github.thelawf.gensokyoontology.common.item.spellcard.SpellCardItem;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
@@ -71,7 +72,8 @@ public class SpellConsoleTileEntity extends TileEntity implements ITickableTileE
                 }
                 return stack.getItem() instanceof ScriptReadOnlyItem ||
                         stack.getItem() instanceof DynamicScriptItem ||
-                        stack.getItem() instanceof ScriptBuilderItem;
+                        stack.getItem() instanceof ScriptBuilderItem ||
+                        stack.getItem() instanceof SpellCardItem;
                 // return stack.getItem() == ItemRegistry.TIME_STAMP.get() &&
                 //         stack.getItem() == ItemRegistry.V3D_BUILDER.get() &&
                 //         stack.getItem() == ItemRegistry.CONST_BUILDER.get() &&
