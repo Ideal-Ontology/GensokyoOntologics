@@ -1,6 +1,9 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.SSyncRailDataPacket;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.BezierUtil;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
@@ -8,12 +11,18 @@ import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -22,7 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class RailTileEntity extends TileEntity {
+public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     private float yaw = 0f;
     private float pitch = 0f;
     private float roll = 0f;
@@ -36,16 +45,30 @@ public class RailTileEntity extends TileEntity {
     public RailTileEntity() {
         super(TileEntityRegistry.RAIL_TILE_ENTITY.get());
     }
-
-    @Nullable
     @Override
-    public SUpdateTileEntityPacket getUpdatePacket() {
-        return new SUpdateTileEntityPacket(pos, 1, write(new CompoundNBT()));
+    @NotNull
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT compound = new CompoundNBT();
+        this.write(compound);
+        return compound;
     }
 
     @Override
     public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
-        handleUpdateTag(getWorld().getBlockState(pkt.getPos()), pkt.getNbtCompound());
+        this.read(this.getBlockState(), pkt.getNbtCompound());
+    }
+
+    @Nullable
+    @Override
+    public SUpdateTileEntityPacket getUpdatePacket() {
+        CompoundNBT nbtTag = new CompoundNBT();
+        this.write(nbtTag);
+        return new SUpdateTileEntityPacket(this.pos, 1, nbtTag);
+    }
+
+    @Override
+    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+        this.read(state, tag);
     }
 
     @Override
@@ -61,7 +84,8 @@ public class RailTileEntity extends TileEntity {
 
     @Override
     @NotNull
-    public CompoundNBT write(CompoundNBT compound) {
+    public CompoundNBT write(@NotNull CompoundNBT compound) {
+        super.write(compound);
         compound.putFloat("yaw", this.yaw);
         compound.putFloat("roll", this.roll);
         compound.putFloat("pitch", this.pitch);
@@ -72,31 +96,24 @@ public class RailTileEntity extends TileEntity {
         return super.write(compound);
     }
 
-    public float getYaw() {
-        return this.yaw;
-    }
-
     public void setYaw(float yaw) {
         this.yaw = yaw;
-        markDirty();
     }
-
-    public float getPitch() {
-        return this.pitch;
-    }
-
     public void setPitch(float pitch) {
         this.pitch = pitch;
-        markDirty();
+    }
+    public void setRoll(float roll) {
+        this.roll = roll;
     }
 
     public float getRoll() {
         return this.roll;
     }
-
-    public void setRoll(float roll) {
-        this.roll = roll;
-        markDirty();
+    public float getYaw() {
+        return this.yaw;
+    }
+    public float getPitch() {
+        return this.pitch;
     }
 
     public BlockPos getTargetPos() {
@@ -173,5 +190,10 @@ public class RailTileEntity extends TileEntity {
             if (ppvvv.getFirst().equals(entry)) return ppvvv.getSecond();
         }
         return null;
+    }
+
+
+    @Override
+    public void tick() {
     }
 }

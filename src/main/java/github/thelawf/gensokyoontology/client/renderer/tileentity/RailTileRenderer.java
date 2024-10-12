@@ -6,9 +6,12 @@ import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.tileentity.BeaconTileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
@@ -22,6 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@OnlyIn(Dist.CLIENT)
 public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
     private final float radius;
     private final float width;
@@ -40,7 +44,6 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
      * 2. 每一条细分 Segment 的长度为那一段 Segment 从起点到终点的距离。
      */
     @Override
-    @OnlyIn(Dist.CLIENT)
     public void render(@NotNull RailTileEntity tileEntityIn, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
         // Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         IVertexBuilder builder = bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID);
@@ -49,6 +52,8 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
         matrixStackIn.push();
         matrixStackIn.translate(0.5, 0, 0.5);
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(tileEntityIn.getRoll()));
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch()));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
         matrixStackIn.translate(-0.5, 0, -0.5);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
@@ -58,6 +63,8 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         matrixStackIn.push();
         matrixStackIn.translate(0.5, 0, 0.5);
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(tileEntityIn.getRoll()));
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch()));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
         matrixStackIn.translate(-0.5, 0, -0.5);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
@@ -67,6 +74,8 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         matrixStackIn.push();
         matrixStackIn.translate(0.5, 0, 0.5);
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(tileEntityIn.getRoll()));
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch()));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
         matrixStackIn.translate(-0.5, 0, -0.5);
         matrixStackIn.translate(0, 0.35, 0);
@@ -80,6 +89,8 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         matrixStackIn.push();
         matrixStackIn.translate(0.5, 0, 0.5);
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(tileEntityIn.getRoll()));
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch()));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
         matrixStackIn.translate(-0.5, 0, -0.5);
         matrixStackIn.translate(0, 0, 0.3);
@@ -87,6 +98,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.pop();
 
         List<Pair<Vector3d, Vector3d>> connections = tileEntityIn.getConnections();
+
         /*
         Set<Map.Entry<Vector3d, Vector3d>> entry = connections.entrySet();
         int index = 0;

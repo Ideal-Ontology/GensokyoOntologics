@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
+import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
@@ -46,6 +48,7 @@ public class CAdjustRailPacket {
         if (!(serverWorld.getTileEntity(pos) instanceof RailTileEntity)) return;
         RailTileEntity railTile = (RailTileEntity) serverWorld.getTileEntity(pos);
         if (railTile == null) return;
+
         railTile.setYaw(packet.railData.getFloat("yaw"));
         railTile.setPitch(packet.railData.getFloat("pitch"));
         railTile.setRoll(packet.railData.getFloat("roll"));

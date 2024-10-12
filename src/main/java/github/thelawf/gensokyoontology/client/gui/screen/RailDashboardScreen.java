@@ -2,22 +2,22 @@ package github.thelawf.gensokyoontology.client.gui.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.screen.script.LineralLayoutScreen;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CAdjustRailPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.CheckboxButton;
+import net.minecraft.client.network.play.ClientPlayNetHandler;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.List;
 
 public class RailDashboardScreen extends LineralLayoutScreen {
     private Vector3f rotation;
@@ -44,21 +44,23 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.railPos = pos;
     }
 
-
     private void onRollSlide(Slider slider) {
         this.rollInput.setText(formatAs(slider.getValue()));
         this.rotation.setX((float) slider.getValue());
-        this.saveAndSync();
+        this.sendPacketToServer();
+        this.sendPacketToClient();
     }
     private void onYawSlide(Slider slider) {
         this.yawInput.setText(formatAs(slider.getValue()));
         this.rotation.setY((float) slider.getValue());
-        this.saveAndSync();
+        this.sendPacketToServer();
+        this.sendPacketToClient();
     }
     private void onPitchSlide(Slider slider) {
         this.pitchInput.setText(formatAs(slider.getValue()));
         this.rotation.setZ((float) slider.getValue());
-        this.saveAndSync();
+        this.sendPacketToServer();
+        this.sendPacketToClient();
     }
 
     @Override
@@ -126,7 +128,8 @@ public class RailDashboardScreen extends LineralLayoutScreen {
                 parseFloat(this.pitchInput.getText())
         );
 
-        this.saveAndSync();
+        this.sendPacketToServer();
+        this.sendPacketToClient();
     }
 
     public String formatAs(double original) {
@@ -150,12 +153,29 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     public boolean isPauseScreen() {
         return false;
     }
-    private void saveAndSync() {
+    private void sendPacketToServer() {
         CompoundNBT nbt = new CompoundNBT();
         nbt.putLong("railPos", this.railPos.toLong());
         nbt.putFloat("roll", this.rotation.getX());
         nbt.putFloat("yaw", this.rotation.getY());
         nbt.putFloat("pitch", this.rotation.getZ());
         GSKONetworking.CHANNEL.sendToServer(new CAdjustRailPacket(nbt));
+    }
+
+    private void sendPacketToClient () {
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putInt("targetX", this.railPos.getX());
+        nbt.putInt("targetY", this.railPos.getY());
+        nbt.putInt("targetZ", this.railPos.getZ());
+        nbt.putBoolean("shouldRender", false);
+
+        nbt.putFloat("roll", this.rotation.getX());
+        nbt.putFloat("yaw", this.rotation.getY());
+        nbt.putFloat("pitch", this.rotation.getZ());
+
+        ClientPlayNetHandler handler = Minecraft.getInstance().getConnection();
+        if (handler != null) {
+            handler.handleUpdateTileEntity(new SUpdateTileEntityPacket(this.railPos, 1, nbt));
+        }
     }
 }

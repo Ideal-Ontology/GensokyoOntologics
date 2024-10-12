@@ -35,10 +35,6 @@ public class GSKONetworking {
         CHANNEL.messageBuilder(CSwitchModePacket.class, next()).encoder(CSwitchModePacket::toBytes).decoder(CSwitchModePacket::fromBytes).consumer(CSwitchModePacket::handle).add();
 
         CHANNEL.messageBuilder(CAdjustRailPacket.class, next()).encoder(CAdjustRailPacket::toBytes).decoder(CAdjustRailPacket::fromBytes).consumer(CAdjustRailPacket::handle).add();
-
-        // CHANNEL.messageBuilder(CMergeScriptPacket.class, next()).encoder(CMergeScriptPacket::toBytes).decoder(CMergeScriptPacket::fromBytes).consumer(CMergeScriptPacket::handle).add();
-        // CHANNEL.messageBuilder(CAddScriptPacket.class, next()).encoder(CAddScriptPacket::toBytes).decoder(CAddScriptPacket::fromBytes).consumer(CAddScriptPacket::handle).add();
-        // CHANNEL.messageBuilder(CInvokeFunctionPacket.class, next()).encoder(CInvokeFunctionPacket::toBytes).decoder(CInvokeFunctionPacket::fromBytes).consumer(CInvokeFunctionPacket::handle).add();
     }
 
     public static void sendToClientPlayer(Object message, PlayerEntity player) {

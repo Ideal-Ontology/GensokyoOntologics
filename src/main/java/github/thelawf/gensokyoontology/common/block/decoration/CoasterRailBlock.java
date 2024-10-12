@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.block.decoration;
 import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CAdjustRailPacket;
+import github.thelawf.gensokyoontology.common.network.packet.SSyncRailDataPacket;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
@@ -10,6 +11,7 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.tileentity.BeaconTileEntityRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -94,12 +96,7 @@ public class CoasterRailBlock extends Block {
         if (!(worldIn.getTileEntity(pos) instanceof RailTileEntity)) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
         RailTileEntity railTile = (RailTileEntity) worldIn.getTileEntity(pos);
         if (railTile == null) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-
-        // CAdjustRailPacket packet = new CAdjustRailPacket(railTile.write(new CompoundNBT()));
-        // GSKONetworking.sendToClientPlayer(packet, player);
-        // GSKONetworking.CHANNEL.sendToServer(packet);
-
-        if (worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
+        if (!worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
             new RailDashboardScreen(pos, railTile.getRoll(), railTile.getYaw(), railTile.getPitch()).open();
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);

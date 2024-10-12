@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
+import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;

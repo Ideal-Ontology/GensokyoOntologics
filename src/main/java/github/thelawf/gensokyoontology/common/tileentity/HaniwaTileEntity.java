@@ -72,7 +72,6 @@ public class HaniwaTileEntity extends TileEntity implements ITickableTileEntity 
 
     public void addFaith(int addedCount) {
         this.setFaith(this.canAddCount ? this.faithCount + addedCount : this.faithCount);
-        // this.setFaith(this.faithCount + addedCount);
         markDirty();
     }
 

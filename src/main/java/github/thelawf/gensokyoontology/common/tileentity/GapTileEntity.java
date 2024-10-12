@@ -18,7 +18,6 @@ import org.jetbrains.annotations.Nullable;
 import javax.annotation.Nonnull;
 
 public class GapTileEntity extends TileEntity implements ITickableTileEntity {
-
     private static final int MAX_COOLDOWN_TICK = 400;
     private boolean allowTeleport = false;
     private BlockPos destinationPos;
@@ -65,8 +64,7 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
             this.destinationPos = new BlockPos(nbt.getInt("DestinationX"), nbt.getInt("DestinationY"), nbt.getInt("DestinationZ"));
         }
         if (nbt.contains("DestinationWorld")) {
-            this.destinationWorld = GSKOWorldUtil.getWorldDimension(new ResourceLocation(
-                    nbt.getString("DestinationWorld")));
+            this.destinationWorld = GSKOWorldUtil.getWorldDimension(new ResourceLocation(nbt.getString("DestinationWorld")));
         }
         if (nbt.contains("AllowTeleport")) {
             this.allowTeleport = nbt.getBoolean("AllowTeleport");
@@ -87,7 +85,6 @@ public class GapTileEntity extends TileEntity implements ITickableTileEntity {
         compound.putInt("DestinationX", this.destinationPos.getX());
         compound.putInt("DestinationY", this.destinationPos.getY());
         compound.putInt("DestinationZ", this.destinationPos.getZ());
-
         return compound;
     }
 
