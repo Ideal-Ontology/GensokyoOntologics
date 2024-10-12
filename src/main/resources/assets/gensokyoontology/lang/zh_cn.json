@@ -421,6 +421,12 @@
   "gui.gensokyoontology.button.decrease_yaw": "-",
   "gui.gensokyoontology.button.decrease_pitch": "-",
 
+  "gui.gensokyoontology.silder_prefix.angle": "角度: ",
+
+  "gui.gensokyoontology.label.roll": "翻滚角: ",
+  "gui.gensokyoontology.label.yaw": "偏航角: ",
+  "gui.gensokyoontology.label.pitch": "俯仰角: ",
+
   "gui.gensokyoontology.button.increase_roll.msg": "翻滚角",
   "gui.gensokyoontology.button.increase_yaw.msg": "偏航角",
   "gui.gensokyoontology.button.increase_pitch.msg": "俯仰角",

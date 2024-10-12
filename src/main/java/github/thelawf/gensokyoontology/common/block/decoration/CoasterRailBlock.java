@@ -1,8 +1,6 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
-import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.limit.Min;
 import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
-import github.thelawf.gensokyoontology.common.container.RailAdjustGUI;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CAdjustRailPacket;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
@@ -12,12 +10,8 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
@@ -29,11 +23,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.client.gui.GuiUtils;
-import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -105,12 +96,12 @@ public class CoasterRailBlock extends Block {
         RailTileEntity railTile = (RailTileEntity) worldIn.getTileEntity(pos);
         if (railTile == null) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
 
-        CAdjustRailPacket packet = new CAdjustRailPacket(railTile.write(new CompoundNBT()));
-        GSKONetworking.sendToClientPlayer(packet, player);
-        GSKONetworking.CHANNEL.sendToServer(packet);
+        // CAdjustRailPacket packet = new CAdjustRailPacket(railTile.write(new CompoundNBT()));
+        // GSKONetworking.sendToClientPlayer(packet, player);
+        // GSKONetworking.CHANNEL.sendToServer(packet);
 
         if (worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
-            new RailDashboardScreen(railTile.getRoll(), railTile.getYaw(), railTile.getPitch()).open();
+            new RailDashboardScreen(0, 0, 0).open();
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }

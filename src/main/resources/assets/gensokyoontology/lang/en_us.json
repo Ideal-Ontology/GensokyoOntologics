@@ -421,6 +421,12 @@
   "gui.gensokyoontology.button.decrease_yaw": "-",
   "gui.gensokyoontology.button.decrease_pitch": "-",
 
+  "gui.gensokyoontology.silder_prefix.angle": "Angle: ",
+
+  "gui.gensokyoontology.label.roll": "Roll: ",
+  "gui.gensokyoontology.label.yaw": "Yaw: ",
+  "gui.gensokyoontology.label.pitch": "Pitch: ",
+
   "gui.gensokyoontology.button.increase_roll.msg": "Roll",
   "gui.gensokyoontology.button.increase_yaw.msg": "Yaw",
   "gui.gensokyoontology.button.increase_pitch.msg": "Pitch",

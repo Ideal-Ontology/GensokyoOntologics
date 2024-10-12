@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.TextFieldWidget;
+import net.minecraft.client.gui.widget.Widget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.util.text.ITextComponent;
@@ -18,12 +19,16 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 public abstract class LineralLayoutScreen extends Screen implements IInputParser, ITextBuilder {
+    protected int windowWidth;
+    protected int windowHeight;
     protected final BlankWidget blank = BlankWidget.INSTANCE;
     public static final Logger LOGGER = LogManager.getLogger();
     protected static final int WHITE = 16777215;
     protected static final int DARK_GRAY = 5592405;
     protected LineralLayoutScreen(ITextComponent titleIn) {
         super(titleIn);
+        this.windowWidth = Minecraft.getInstance().getMainWindow().getScaledWidth();
+        this.windowHeight = Minecraft.getInstance().getMainWindow().getScaledHeight();
     }
 
     public void initByConfig(List<WidgetConfig> configs, int x, int y) {
@@ -34,6 +39,10 @@ public abstract class LineralLayoutScreen extends Screen implements IInputParser
             // LOGGER.info("widget: {}, x: {}, y: {}", config.text.getString(), x, y);
             addWidget(x, y, config);
         }
+    }
+    
+    public int getCenterPaddingX(int offset) {
+        return this.windowWidth - offset;
     }
 
     public void setCenteredWidgets(List<WidgetConfig> configs) {
@@ -81,6 +90,33 @@ public abstract class LineralLayoutScreen extends Screen implements IInputParser
             config.widget.setMessage(config.text);
             this.children.add(config.widget);
         }
+    }
+
+    private void addCenteredWidget(Widget widget) {
+        if (widget instanceof Button) {
+            this.addButton(widget);
+        }
+        if (widget instanceof ImageButton) {
+            this.addButton(widget);
+        }
+        if (widget instanceof Slider) {
+            this.addButton(widget);
+        }
+        if (widget instanceof TextFieldWidget) {
+            this.children.add(widget);
+        }
+    }
+
+    public int getTextLength(ITextComponent text) {
+        return this.font.func_243245_a(text.func_241878_f());
+    }
+
+    public int getCenteredLineX(int... widths){
+        int res = 0;
+        for (int j : widths) {
+            res += j;
+        }
+        return (this.windowWidth / 2) - res;
     }
 
     public void drawCenteredText(List<WidgetConfig> configs, MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
@@ -134,7 +170,7 @@ public abstract class LineralLayoutScreen extends Screen implements IInputParser
             else config.widget.render(matrixStack, mouseX, mouseY, partialTicks);
         }
     }
-
+    
     public void open() {
         Minecraft.getInstance().displayGuiScreen(this);
     }
