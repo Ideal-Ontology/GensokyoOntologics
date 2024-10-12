@@ -20,6 +20,8 @@ import java.util.List;
 public abstract class LineralLayoutScreen extends Screen implements IInputParser, ITextBuilder {
     protected final BlankWidget blank = BlankWidget.INSTANCE;
     public static final Logger LOGGER = LogManager.getLogger();
+    protected static final int WHITE = 16777215;
+    protected static final int DARK_GRAY = 5592405;
     protected LineralLayoutScreen(ITextComponent titleIn) {
         super(titleIn);
     }

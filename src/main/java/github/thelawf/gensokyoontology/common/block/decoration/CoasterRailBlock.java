@@ -3,6 +3,8 @@ package github.thelawf.gensokyoontology.common.block.decoration;
 import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.limit.Min;
 import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
 import github.thelawf.gensokyoontology.common.container.RailAdjustGUI;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CAdjustRailPacket;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
@@ -17,6 +19,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -98,8 +101,17 @@ public class CoasterRailBlock extends Block {
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos,
                                              @NotNull PlayerEntity player, @NotNull Hand handIn, @NotNull BlockRayTraceResult hit) {
-        if (worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get())
-            new RailDashboardScreen().open();
+        if (!(worldIn.getTileEntity(pos) instanceof RailTileEntity)) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+        RailTileEntity railTile = (RailTileEntity) worldIn.getTileEntity(pos);
+        if (railTile == null) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+
+        CAdjustRailPacket packet = new CAdjustRailPacket(railTile.write(new CompoundNBT()));
+        GSKONetworking.sendToClientPlayer(packet, player);
+        GSKONetworking.CHANNEL.sendToServer(packet);
+
+        if (worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
+            new RailDashboardScreen(railTile.getRoll(), railTile.getYaw(), railTile.getPitch()).open();
+        }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 

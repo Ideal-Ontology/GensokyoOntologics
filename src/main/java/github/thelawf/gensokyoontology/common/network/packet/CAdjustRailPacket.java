@@ -18,6 +18,7 @@ public class CAdjustRailPacket {
     public CAdjustRailPacket(CompoundNBT railData) {
         this.railData = railData;
     }
+
     public static CAdjustRailPacket fromBytes(PacketBuffer buf) {
         return new CAdjustRailPacket(buf.readCompoundTag());
     }
