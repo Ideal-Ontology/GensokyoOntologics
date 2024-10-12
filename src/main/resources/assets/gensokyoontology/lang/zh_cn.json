@@ -421,7 +421,9 @@
   "gui.gensokyoontology.button.decrease_yaw": "-",
   "gui.gensokyoontology.button.decrease_pitch": "-",
 
-  "gui.gensokyoontology.silder_prefix.angle": "角度: ",
+  "gui.gensokyoontology.silder_prefix.angle_x": "X轴角度: ",
+  "gui.gensokyoontology.silder_prefix.angle_y": "Y轴角度: ",
+  "gui.gensokyoontology.silder_prefix.angle_z": "Z轴角度: ",
 
   "gui.gensokyoontology.label.roll": "翻滚角: ",
   "gui.gensokyoontology.label.yaw": "偏航角: ",
@@ -472,7 +474,7 @@
   "gui.gensokyoontology.binary_operation.button.operation.BitwiseNot": "按位非",
   "gui.gensokyoontology.binary_operation.button.operation.BitwiseXOR": "按位异或",
   "gui.gensokyoontology.binary_operation.button.operation.BitwiseLeft": "按位左移",
-  "gui.gensokyoontology.binary_operation.button.operation.BitwiseRight": "按位游移",
+  "gui.gensokyoontology.binary_operation.button.operation.BitwiseRight": "按位右移",
 
   "gui.gensokyoontology.const_builder.button.constType.int": "整数类型",
   "gui.gensokyoontology.const_builder.button.constType.long": "长整数类型",
@@ -716,8 +718,5 @@
 
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Available Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "Preparation $(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "item.gensokyoontology.sc_spiral_wheel": "实验性符卡: 螺旋车轮",
-  "network.gensokyoontology.countdown.end": "Countdown End",
-  "network.gensokyoontology.countdown.start": "Countdown Start"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "Preparation $(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.renderer.hud;
+package github.thelawf.gensokyoontology.client.gui.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;

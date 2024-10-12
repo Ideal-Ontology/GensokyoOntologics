@@ -12,12 +12,15 @@ import net.minecraft.world.storage.DimensionSavedDataManager;
 import net.minecraft.world.storage.WorldSavedData;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Stack;
 
 public class GSKOWorldSavedData extends WorldSavedData {
     private static final String NAME = "GSKOWorldSavedData";
     private GensokyoSeason season = GensokyoSeason.SPRING;
-    private final Stack<ResourceLocation> incidents = new Stack<>();
+    private final List<ResourceLocation> incidents = new ArrayList<>();
+    private float power;
     public GSKOWorldSavedData() {
         super(NAME);
     }
@@ -37,12 +40,13 @@ public class GSKOWorldSavedData extends WorldSavedData {
     @Override
     public void read(CompoundNBT nbt) {
         this.season = GensokyoSeason.valueOf(nbt.getString("season"));
+        this.power = nbt.getFloat("power");
         ListNBT listNBT = (ListNBT) nbt.get("incidents");
         if (listNBT != null) {
             for (INBT inbt : listNBT) {
                 if (inbt instanceof StringNBT) {
                     StringNBT value = (StringNBT) inbt;
-                    this.incidents.push(GensokyoOntology.withRL(value.getString()));
+                    this.incidents.add(GensokyoOntology.withRL(value.getString()));
                 }
             }
         }
@@ -58,6 +62,7 @@ public class GSKOWorldSavedData extends WorldSavedData {
         });
         compound.putString("season", this.season.name());
         compound.put("incidents", listNBT);
+        compound.putFloat("power", this.power);
         return compound;
     }
 
@@ -69,7 +74,7 @@ public class GSKOWorldSavedData extends WorldSavedData {
         this.season = season;
     }
 
-    public Stack<ResourceLocation> getIncidents() {
+    public List<ResourceLocation> getIncidents() {
         return this.incidents;
     }
 

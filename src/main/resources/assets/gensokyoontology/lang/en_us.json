@@ -421,7 +421,9 @@
   "gui.gensokyoontology.button.decrease_yaw": "-",
   "gui.gensokyoontology.button.decrease_pitch": "-",
 
-  "gui.gensokyoontology.silder_prefix.angle": "Angle: ",
+  "gui.gensokyoontology.silder_prefix.angle_x": "X Axis Angle: ",
+  "gui.gensokyoontology.silder_prefix.angle_y": "Y Axis Angle: ",
+  "gui.gensokyoontology.silder_prefix.angle_z": "Z Axis Angle: ",
 
   "gui.gensokyoontology.label.roll": "Roll: ",
   "gui.gensokyoontology.label.yaw": "Yaw: ",

@@ -84,7 +84,6 @@ public class CoasterRailBlock extends Block {
             }
         }
         railTile.setYaw(yaw);
-        GSKOUtil.log(this.getClass(), rotation.x + " -> " + railTile.getYaw());
     }
 
     @Override
@@ -101,7 +100,7 @@ public class CoasterRailBlock extends Block {
         // GSKONetworking.CHANNEL.sendToServer(packet);
 
         if (worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
-            new RailDashboardScreen(0, 0, 0).open();
+            new RailDashboardScreen(pos, railTile.getRoll(), railTile.getYaw(), railTile.getPitch()).open();
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }

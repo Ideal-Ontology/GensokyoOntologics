@@ -4,23 +4,24 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.screen.script.LineralLayoutScreen;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CAdjustRailPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.CheckboxButton;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 import org.jetbrains.annotations.NotNull;
-import org.lwjgl.system.CallbackI;
 
 import java.util.List;
 
 public class RailDashboardScreen extends LineralLayoutScreen {
     private Vector3f rotation;
-    private BlockPos targetPos;
+    private BlockPos railPos;
     private Slider yawSlider;
     private Slider pitchSlider;
     private Slider rollSlider;
@@ -29,49 +30,50 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     private TextFieldWidget pitchInput;
     private TextFieldWidget rollInput;
     private CheckboxButton shouldRender;
-    private List<WidgetConfig> WIDGETS;
-    private static final TranslationTextComponent ANGLE = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.angle");
+    private static final TranslationTextComponent ANGLE_X = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.angle_x");
+    private static final TranslationTextComponent ANGLE_Y = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.angle_y");
+    private static final TranslationTextComponent ANGLE_Z = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.angle_z");
     private static final ITextComponent ROLL_LABEL   = GensokyoOntology.fromLocaleKey("gui.", ".label.roll") ;
     private static final ITextComponent YAW_LABEL    = GensokyoOntology.fromLocaleKey("gui.", ".label.yaw");
     private static final ITextComponent PITCH_LABEL  = GensokyoOntology.fromLocaleKey("gui.", ".label.pitch") ;
     private static final ITextComponent TARGET_LABEL = GensokyoOntology.fromLocaleKey("gui.", ".label.rail_target_pos");
     public static final ITextComponent TITLE = GensokyoOntology.fromLocaleKey("gui.", ".rail_dashboard.title");
-    public RailDashboardScreen(float roll, float yaw, float pitch) {
+    public RailDashboardScreen(BlockPos pos, float roll, float yaw, float pitch) {
         super(TITLE);
         this.rotation = new Vector3f(roll, yaw, pitch);
-        this.targetPos = BlockPos.ZERO;
+        this.railPos = pos;
     }
 
 
     private void onRollSlide(Slider slider) {
-        this.rollInput.setText(slider.getValue() + "°");
+        this.rollInput.setText(formatAs(slider.getValue()));
         this.rotation.setX((float) slider.getValue());
-        slider.suffix = new StringTextComponent(formatAs(this.rollInput.getText()));
+        this.saveAndSync();
     }
     private void onYawSlide(Slider slider) {
-        this.yawInput.setText(slider.getValue() + "°");
+        this.yawInput.setText(formatAs(slider.getValue()));
         this.rotation.setY((float) slider.getValue());
-        slider.suffix = new StringTextComponent(formatAs(this.yawInput.getText()));
+        this.saveAndSync();
     }
     private void onPitchSlide(Slider slider) {
         this.pitchInput.setText(formatAs(slider.getValue()));
         this.rotation.setZ((float) slider.getValue());
-        slider.suffix = new StringTextComponent(formatAs(this.pitchInput.getText()));
+        this.saveAndSync();
     }
 
     @Override
     protected void init() {
         super.init();
 
-        this.rollInput = new TextFieldWidget(this.font, 50, 30, 50, 25, withText(this.rollInput + "°"));
-        this.yawInput = new TextFieldWidget(this.font, 50, 60, 50, 25, withText(this.yawInput + "°"));
-        this.pitchInput = new TextFieldWidget(this.font, 50, 90, 50, 25, withText(this.pitchInput + "°"));
+        this.rollInput = new TextFieldWidget(this.font, 50, 30, 40, 25, withText(this.rollInput + "°"));
+        this.yawInput = new TextFieldWidget(this.font, 50, 60, 40, 25, withText(this.yawInput + "°"));
+        this.pitchInput = new TextFieldWidget(this.font, 50, 90, 40, 25, withText(this.pitchInput + "°"));
 
-        this.rollSlider = new Slider(110, 30, 100, 25, ANGLE, withText(String.valueOf(this.rotation.getX())),
+        this.rollSlider = new Slider(100, 30, 120, 25, ANGLE_X, withText(formatAs(this.rotation.getX()).replace("0°", "°")),
                 0, 360, this.rotation.getX(), true, true, iPressable -> {}, this::onRollSlide);
-        this.yawSlider = new Slider(110, 60, 100, 25, ANGLE, withText(String.valueOf(this.rotation.getY())),
+        this.yawSlider = new Slider(100, 60, 120, 25, ANGLE_Y, withText(formatAs(this.rotation.getY()).replace("0°", "°")),
                 0, 360, this.rotation.getY(), true, true, iPressable -> {}, this::onYawSlide);
-        this.pitchSlider = new Slider(110, 90, 100, 25, ANGLE, withText(String.valueOf(this.rotation.getZ())),
+        this.pitchSlider = new Slider(100, 90, 120, 25, ANGLE_Z, withText(formatAs(this.rotation.getZ()).replace("0°", "°")),
                 0, 360, this.rotation.getZ(), true, true, iPressable -> {}, this::onPitchSlide);
 
         this.children.add(this.rollInput);
@@ -86,7 +88,6 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.pitchSlider.showDecimal = false;
         this.yawSlider.showDecimal = false;
 
-        LOGGER.info(this.rollSlider.getValue());
     }
 
     @Override
@@ -115,11 +116,17 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.yawInput.setText(formatAs(this.yawInput.getText()));
         this.pitchInput.setText(formatAs(this.pitchInput.getText()));
 
+        this.rollSlider.setValue(parseDouble(this.rollInput.getText()));
+        this.yawSlider.setValue(parseDouble(this.yawInput.getText()));
+        this.pitchSlider.setValue(parseDouble(this.pitchInput.getText()));
+
         this.rotation = new Vector3f(
                 parseFloat(this.rollInput.getText()),
                 parseFloat(this.yawInput.getText()),
                 parseFloat(this.pitchInput.getText())
         );
+
+        this.saveAndSync();
     }
 
     public String formatAs(double original) {
@@ -135,8 +142,20 @@ public class RailDashboardScreen extends LineralLayoutScreen {
 
     }
 
+    public void setRotation(float roll, float yaw, float pitch) {
+        this.rotation = new Vector3f(roll, yaw, pitch);
+    }
+
     @Override
     public boolean isPauseScreen() {
         return false;
+    }
+    private void saveAndSync() {
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putLong("railPos", this.railPos.toLong());
+        nbt.putFloat("roll", this.rotation.getX());
+        nbt.putFloat("yaw", this.rotation.getY());
+        nbt.putFloat("pitch", this.rotation.getZ());
+        GSKONetworking.CHANNEL.sendToServer(new CAdjustRailPacket(nbt));
     }
 }

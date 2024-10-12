@@ -14,7 +14,6 @@ import java.util.function.Supplier;
 
 public class CAdjustRailPacket {
     private final CompoundNBT railData;
-
     public CAdjustRailPacket(CompoundNBT railData) {
         this.railData = railData;
     }
