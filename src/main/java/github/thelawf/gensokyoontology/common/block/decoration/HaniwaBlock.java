@@ -1,20 +1,14 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.tileentity.HaniwaTileEntity;
-import github.thelawf.gensokyoontology.common.util.BeliefType;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -23,16 +17,12 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Random;
 
 public class HaniwaBlock extends Block {
     public static final VoxelShape BODY_MAIN = makeCuboidShape(3, 0, 3, 13, 12, 13);
@@ -89,7 +79,7 @@ public class HaniwaBlock extends Block {
                 HaniwaTileEntity haniwaTile = (HaniwaTileEntity) serverWorld.getTileEntity(pos);
                 if (haniwaTile != null) {
                     if (!haniwaTile.canAddCount()) {
-                        player.sendMessage(GensokyoOntology.withTranslation("msg.",".haniwa_block.in_cooldown"), player.getUniqueID());
+                        player.sendMessage(GensokyoOntology.fromLocaleKey("msg.",".haniwa_block.in_cooldown"), player.getUniqueID());
                         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
                     }
 
@@ -97,7 +87,7 @@ public class HaniwaBlock extends Block {
                     haniwaTile.setCanAddCount(false);
                     haniwaTile.setOwnerId(player.getUniqueID());
 
-                    player.sendMessage(GensokyoOntology.withTranslation("msg.", ".haniwa_block.added_count"), player.getUniqueID());
+                    player.sendMessage(GensokyoOntology.fromLocaleKey("msg.", ".haniwa_block.added_count"), player.getUniqueID());
                     GSKOUtil.showChatMsg(player, haniwaTile.getFaithCount(), 1);
                 }
             }

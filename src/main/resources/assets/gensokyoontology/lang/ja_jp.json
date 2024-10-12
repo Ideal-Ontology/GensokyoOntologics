@@ -598,15 +598,15 @@
   "tooltip.gensokyoontology.spirit_tube": "§eRight click Fox to get Kuda Gitsune's Tube",
   "tooltip.gensokyoontology.kuda_gitsune_tube": "§eRight click Ghast to fill it",
 
-  "tooltip.gensokyoontology.script_builder.field_type": "Field Type: ",
-  "tooltip.gensokyoontology.script_builder.field_name": "Field Name: ",
-  "tooltip.gensokyoontology.script_builder.field_value": "Field Value: ",
+  "tooltip.gensokyoontology.script_builder.field_type": "Field Type: %s",
+  "tooltip.gensokyoontology.script_builder.field_name": "Field Name: %s",
+  "tooltip.gensokyoontology.script_builder.field_value": "Field Value: %s",
 
-  "tooltip.gensokyoontology.danmaku_entity": "§6Field Type: ",
-  "tooltip.gensokyoontology.danmaku_type": "§dDanmaku Type: ",
-  "tooltip.gensokyoontology.danmaku_color": "§bDanmaku Color: ",
+  "tooltip.gensokyoontology.danmaku_entity": "§9Field Type§r: ",
+  "tooltip.gensokyoontology.danmaku_type": "§dDanmaku Type§r: ",
+  "tooltip.gensokyoontology.danmaku_color": "§bDanmaku Color§r: ",
 
-  "tooltip.gensokyoontology.binary_builder.operation_type": "§dOperation Type: ",
+  "tooltip.gensokyoontology.binary_builder.operation_type": "§9Operation Type: ",
   "tooltip.gensokyoontology.binary_builder.left_type": "§dLeft Type: ",
   "tooltip.gensokyoontology.binary_builder.right_type": "§dRight Type: ",
 

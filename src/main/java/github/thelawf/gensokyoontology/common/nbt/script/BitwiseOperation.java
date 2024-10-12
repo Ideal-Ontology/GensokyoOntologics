@@ -18,7 +18,7 @@ public enum BitwiseOperation {
         this.key = key;
     }
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.withTranslation("gui.",".operation_builder.button.math." + getKey());
+        return GensokyoOntology.fromLocaleKey("gui.",".operation_builder.button.math." + getKey());
     }
 
     private String getKey() {

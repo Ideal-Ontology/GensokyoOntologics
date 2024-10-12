@@ -3,7 +3,6 @@ package github.thelawf.gensokyoontology.client.gui.screen.skill;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
 import github.thelawf.gensokyoontology.common.item.touhou.KoishiEyeOpen;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CSwitchModePacket;
@@ -15,10 +14,10 @@ import org.jetbrains.annotations.NotNull;
 
 public class KoishiEyeSwitchScreen extends ModeSwitchScreen{
     private KoishiEyeOpen.Mode mode;
-    public static final TranslationTextComponent SINGLE_LASER = GensokyoOntology.withTranslation("gui.", ".koishi_eye.mode.single_laser");
-    public static final TranslationTextComponent YOUKAI_LIE_DETECTOR = GensokyoOntology.withTranslation("gui.", ".koishi_eye.mode.youkai_lie_detector");
+    public static final TranslationTextComponent SINGLE_LASER = GensokyoOntology.fromLocaleKey("gui.", ".koishi_eye.mode.single_laser");
+    public static final TranslationTextComponent YOUKAI_LIE_DETECTOR = GensokyoOntology.fromLocaleKey("gui.", ".koishi_eye.mode.youkai_lie_detector");
     public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/koishi_eye_selection_screen.png");
-    public static final TranslationTextComponent TITLE = GensokyoOntology.withTranslation("gui.", "koishi_eye.title");
+    public static final TranslationTextComponent TITLE = GensokyoOntology.fromLocaleKey("gui.", "koishi_eye.title");
     public KoishiEyeSwitchScreen(ITextComponent titleIn, KoishiEyeOpen.Mode mode) {
         super(titleIn);
         this.mode = mode;

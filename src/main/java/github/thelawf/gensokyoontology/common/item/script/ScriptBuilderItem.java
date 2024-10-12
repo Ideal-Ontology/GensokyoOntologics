@@ -16,8 +16,6 @@ import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -25,6 +23,7 @@ import java.util.List;
 
 public abstract class ScriptBuilderItem extends Item {
     public static final String TYPE_HIGHLIGHT = "§6";    /// 金色 ///
+    public static final String KEY_HIGHLIGHT = "§9";    /// 蓝色 ///
     public static final String NAME_HIGHLIGHT = "§d";    /// 粉色 ///
     public static final String VALUE_HIGHLIGHT = "§a";   /// 浅绿 ///
     public static final String STRING_HIGHLIGHT = "§b";  /// 天蓝色 ///
@@ -34,9 +33,9 @@ public abstract class ScriptBuilderItem extends Item {
     public static final String FILED_TYPE_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_type");
     public static final String FILED_NAME_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_name");
     public static final String FILED_VALUE_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_value");
-    public static final ITextComponent FILED_TYPE_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_type");
-    public static final ITextComponent FILED_NAME_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_name");
-    public static final ITextComponent FILED_VALUE_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_value");
+    public static final ITextComponent FILED_TYPE_TIP = GensokyoOntology.fromLocaleKey("tooltip.",".script_builder.field_type");
+    public static final ITextComponent FILED_NAME_TIP = GensokyoOntology.fromLocaleKey("tooltip.",".script_builder.field_name");
+    public static final ITextComponent FILED_VALUE_TIP = GensokyoOntology.fromLocaleKey("tooltip.",".script_builder.field_value");
     public ScriptBuilderItem() {
         super(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB));
     }

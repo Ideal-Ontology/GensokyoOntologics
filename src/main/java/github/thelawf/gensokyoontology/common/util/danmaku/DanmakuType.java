@@ -1,10 +1,8 @@
 package github.thelawf.gensokyoontology.common.util.danmaku;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import net.minecraft.potion.Effect;
 import net.minecraft.util.text.ITextComponent;
 
-import javax.annotation.Nullable;
 import java.util.Objects;
 
 public enum DanmakuType {
@@ -40,7 +38,7 @@ public enum DanmakuType {
     }
 
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.withTranslation("gui.", ".danmaku_type." + this.name);
+        return GensokyoOntology.fromLocaleKey("gui.", ".danmaku_type." + this.name);
     }
 
     public DanmakuType getIfMatches(String name) {

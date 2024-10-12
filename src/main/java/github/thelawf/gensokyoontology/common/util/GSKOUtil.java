@@ -1,12 +1,11 @@
 package github.thelawf.gensokyoontology.common.util;
 
-import github.thelawf.gensokyoontology.common.block.DanmakuTableBlock;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.NonNullConsumer;
 import org.apache.logging.log4j.LogManager;
@@ -15,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+
+import static github.thelawf.gensokyoontology.GensokyoOntology.withAffix;
 
 public class GSKOUtil {
     public static void showChatMsg(PlayerEntity receiver, String text, int frequency) {
@@ -64,6 +65,13 @@ public class GSKOUtil {
     }
     public static void log(Class<?> clazz, Object obj) {
         LogManager.getLogger().info(clazz.getName() + ": {}", obj.toString());
+    }
+
+    public static TranslationTextComponent fromLocaleKey(String prefix, String suffix) {
+        return new TranslationTextComponent(withAffix(prefix, suffix));
+    }
+    public static TranslationTextComponent fromLocaleFormat(String prefix, String suffix, Object... formats) {
+        return new TranslationTextComponent(withAffix(prefix, suffix), formats);
     }
 
     public static <K, V> void mapPrintLine(HashMap<K, V> map) {

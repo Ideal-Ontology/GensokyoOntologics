@@ -12,12 +12,9 @@ import github.thelawf.gensokyoontology.common.util.EnumUtil;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.nbt.script.ConstPreset;
 import github.thelawf.gensokyoontology.common.nbt.script.ConstType;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
@@ -46,15 +43,15 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
     public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/one_slot_screen_const.png");
     private final WidgetConfig NAME_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig VALUE_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
-    private final ITextComponent defaultName = GensokyoOntology.withTranslation("gui.",".default.set_name");
-    private final ITextComponent defaultValue = GensokyoOntology.withTranslation("gui.",".default.set_value");
-    private final ITextComponent presetDefault = GensokyoOntology.withTranslation("gui.",".const_builder.button.preset.none");
-    private final ITextComponent intTypeText = GensokyoOntology.withTranslation("gui.",".const_builder.button.constType.int");
-    private final ITextComponent valueText = GensokyoOntology.withTranslation("gui.", ".const_builder.tip.valueInput");
+    private final ITextComponent defaultName = GensokyoOntology.fromLocaleKey("gui.",".default.set_name");
+    private final ITextComponent defaultValue = GensokyoOntology.fromLocaleKey("gui.",".default.set_value");
+    private final ITextComponent presetDefault = GensokyoOntology.fromLocaleKey("gui.",".const_builder.button.preset.none");
+    private final ITextComponent intTypeText = GensokyoOntology.fromLocaleKey("gui.",".const_builder.button.constType.int");
+    private final ITextComponent valueText = GensokyoOntology.fromLocaleKey("gui.", ".const_builder.tip.valueInput");
 
     public List<WidgetConfig> WIDGETS;
 
-    // GensokyoOntology.withTranslation("screen.",".const_builder.title")
+    // GensokyoOntology.fromLocaleKey("screen.",".const_builder.title")
     public ConstBuilderScreen(OneSlotContainer container, PlayerInventory playerInventory, ITextComponent titleIn) {
         super(container, playerInventory, titleIn);
         this.titleX = 6;

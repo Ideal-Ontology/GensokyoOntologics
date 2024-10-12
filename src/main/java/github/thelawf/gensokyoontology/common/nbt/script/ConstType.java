@@ -21,6 +21,6 @@ public enum ConstType {
     }
 
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.withTranslation("gui.",".const_builder.button.constType." + getKey());
+        return GensokyoOntology.fromLocaleKey("gui.",".const_builder.button.constType." + getKey());
     }
 }

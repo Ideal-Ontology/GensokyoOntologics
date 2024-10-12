@@ -20,6 +20,7 @@ import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
@@ -811,10 +812,10 @@ public final class ItemRegistry {
             super.addInformation(stack, worldIn, tooltip, flagIn);
             if (stack.getTag() == null) return;
             if (!stack.getTag().contains("startPos")) {
-                tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".coaster_rail.usage"));
+                tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".coaster_rail.usage"));
             };
             BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
-            tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".coaster_rail.start_pos"));
+            tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".coaster_rail.start_pos"));
             tooltip.add(new StringTextComponent("(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")"));
         }
     });
@@ -862,16 +863,17 @@ public final class ItemRegistry {
 
         @Override
         public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-            TranslationTextComponent entityText = GensokyoOntology.withTranslation("tooltip.",".danmaku_entity");
-            TranslationTextComponent colorText = GensokyoOntology.withTranslation("tooltip.",".danmaku_color");
-            TranslationTextComponent typeText = GensokyoOntology.withTranslation("tooltip.",".danmaku_type");
+            TranslationTextComponent entityText = GensokyoOntology.fromLocaleKey("tooltip.",".danmaku_entity");
+            TranslationTextComponent colorText = GensokyoOntology.fromLocaleKey("tooltip.",".danmaku_color");
+            TranslationTextComponent typeText = GensokyoOntology.fromLocaleKey("tooltip.",".danmaku_type");
             if (stack.getTag() != null) {
                 CompoundNBT nbt = stack.getTag();
                 tooltip.add(entityText);
                 tooltip.add(new TranslationTextComponent(nbt.getString("type")));
                 if (nbt.contains("danmakuType")) {
-                    tooltip.add(typeText);
                     DanmakuType type = DanmakuType.valueOf(nbt.getString("danmakuType").toUpperCase());
+                    // tooltip.add(typeText);
+                    tooltip.add(GSKOUtil.fromLocaleFormat("tooltip.",".danmaku_entity", type.toTextComponent()));
                     tooltip.add(type.toTextComponent());
                 }
                 if (nbt.contains("danmakuColor")) {

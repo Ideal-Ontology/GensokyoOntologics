@@ -64,7 +64,7 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader{
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".sakuya_stop_watch"));
+        tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".sakuya_stop_watch"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

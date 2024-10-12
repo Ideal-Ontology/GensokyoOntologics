@@ -598,17 +598,17 @@
   "tooltip.gensokyoontology.spirit_tube": "§e右键点击狐狸以获得管狐的试管",
   "tooltip.gensokyoontology.kuda_gitsune_tube": "§e右键点击恶魂来装满它",
 
-  "tooltip.gensokyoontology.script_builder.field_type": "字段类型：%s",
-  "tooltip.gensokyoontology.script_builder.field_name": "字段名称：%s",
-  "tooltip.gensokyoontology.script_builder.field_value": "字段值：",
+  "tooltip.gensokyoontology.script_builder.field_type": "字段类型： %s",
+  "tooltip.gensokyoontology.script_builder.field_name": "字段名称： %s",
+  "tooltip.gensokyoontology.script_builder.field_value": "字段值： %s",
 
-  "tooltip.gensokyoontology.danmaku_entity": "§6字段类型：",
-  "tooltip.gensokyoontology.danmaku_type": "§d弹幕类型：",
-  "tooltip.gensokyoontology.danmaku_color": "§b弹幕颜色：",
+  "tooltip.gensokyoontology.danmaku_entity": "§9字段类型： %s",
+  "tooltip.gensokyoontology.danmaku_type": "§d弹幕类型： %s",
+  "tooltip.gensokyoontology.danmaku_color": "§d弹幕颜色： %s",
 
-  "tooltip.gensokyoontology.binary_builder.operation_type": "§d表达式类型§r： ",
-  "tooltip.gensokyoontology.binary_builder.left_type": "§d左值类型§r：",
-  "tooltip.gensokyoontology.binary_builder.right_type": "§d右值类型§r：",
+  "tooltip.gensokyoontology.binary_builder.operation_type": "§9表达式类型§r： %s",
+  "tooltip.gensokyoontology.binary_builder.left_type": "§d左值类型§r： %s",
+  "tooltip.gensokyoontology.binary_builder.right_type": "§d右值类型§r： %s",
 
   "tooltip.gensokyoontology.spell_console.button.save": "保存",
   "tooltip.gensokyoontology.spell_console.button.copy": "拷贝",

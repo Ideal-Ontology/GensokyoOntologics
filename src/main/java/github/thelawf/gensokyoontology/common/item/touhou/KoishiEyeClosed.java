@@ -77,9 +77,9 @@ public class KoishiEyeClosed extends Item {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".koishi_eye_closed"));
+        tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".koishi_eye_closed"));
         if (Screen.hasShiftDown()) {
-            tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".koishi_eye_closed.comment"));
+            tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".koishi_eye_closed.comment"));
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }

@@ -3,7 +3,6 @@ package github.thelawf.gensokyoontology.api.client.xmmui;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.IResource;
-import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import org.dom4j.DocumentException;
 
@@ -27,7 +26,7 @@ public class UIHelper {
 
     public static void displayXMMUI() throws DocumentException {
         Minecraft minecraft = Minecraft.getInstance();
-        minecraft.displayGuiScreen(new XMMUIScreen(GensokyoOntology.withTranslation("gui.", "title"),
+        minecraft.displayGuiScreen(new XMMUIScreen(GensokyoOntology.fromLocaleKey("gui.", "title"),
                 getXMLText(new ResourceLocation(GensokyoOntology.MODID, "xmmui/test_xmmui_screen.xml"))) {
         });
     }

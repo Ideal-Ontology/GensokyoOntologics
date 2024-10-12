@@ -16,18 +16,12 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 
 public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
@@ -133,9 +127,9 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".koishi_eye_open"));
+        tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".koishi_eye_open"));
         if (Screen.hasShiftDown()) {
-            tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".koishi_eye_open.comment"));
+            tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".koishi_eye_open.comment"));
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }

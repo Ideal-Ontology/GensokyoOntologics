@@ -7,38 +7,29 @@ import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
-import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.potion.Effects;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * 博丽灵梦的御币
  */
 public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
-    public static final ITextComponent TITLE = GensokyoOntology.withTranslation("gui.", ".hakurei_gohei.title");
+    public static final ITextComponent TITLE = GensokyoOntology.fromLocaleKey("gui.", ".hakurei_gohei.title");
     public HakureiGohei(Properties properties) {
         super(properties);
     }
@@ -127,7 +118,7 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
 
-        ITextComponent text = GensokyoOntology.withTranslation("tooltip.", ".hakurei_gohei.mode");
+        ITextComponent text = GensokyoOntology.fromLocaleKey("tooltip.", ".hakurei_gohei.mode");
         if (stack.getTag() != null) {
             switch (getMode(stack.getTag())) {
                 default:

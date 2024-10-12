@@ -14,7 +14,6 @@ import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
@@ -40,7 +39,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -114,7 +112,7 @@ public class GSKOEntityEvents {
             PlayerEntity player = (PlayerEntity) living;
             if (biomeName.equals(GSKOBiomes.NAMELESS_HILL_KEY.getLocation())) {
                 living.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 20));
-                player.sendStatusMessage(GensokyoOntology.withTranslation(
+                player.sendStatusMessage(GensokyoOntology.fromLocaleKey(
                         "msg.", ".enter_danger_biome.nameless_hill"), true);
             }
         }
@@ -153,7 +151,7 @@ public class GSKOEntityEvents {
                 List<String> biomes = capability.getBiomeRegistryNames();
                 biomes.forEach((biomeRegistryName -> {
                     if (precondition && Objects.equals(location.toString(), biomeRegistryName) && capability.isTriggered()) {
-                        player.sendStatusMessage(GensokyoOntology.withTranslation(
+                        player.sendStatusMessage(GensokyoOntology.fromLocaleKey(
                                 "msg.", ".enter_danger_biome.scarlet_mansion_precincts"), true);
                         player.attackEntityFrom(DamageSource.IN_WALL, 1f);
                     }

@@ -81,7 +81,7 @@ public class AyaFans extends Item implements IRayTraceReader {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".aya_fans"));
+        tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".aya_fans"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

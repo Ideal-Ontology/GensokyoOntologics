@@ -8,15 +8,13 @@ import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.ClickType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import org.jetbrains.annotations.NotNull;
 
 public abstract class OneSlotContainerScreen extends LineralContainerScreen<OneSlotContainer> {
     protected ItemStack stack;
     protected Button saveBtn;
-    protected final ITextComponent fieldName = GensokyoOntology.withTranslation("gui.", ".script_builder.fieldName");
-    protected ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".script.button.save");
+    protected final ITextComponent fieldName = GensokyoOntology.fromLocaleKey("gui.", ".script_builder.fieldName");
+    protected ITextComponent saveText = GensokyoOntology.fromLocaleKey("gui.", ".script.button.save");
 
     public OneSlotContainerScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);

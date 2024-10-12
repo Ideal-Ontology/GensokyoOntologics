@@ -39,11 +39,11 @@ public class GSKOItemStackEvents {
             ItemStack stack = player.getHeldItemMainhand();
 
             if (player.ticksExisted < SakuyaStopWatch.totalTicks && stack.getTag() != null) {
-                // player.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".sakuya_stop_watch.freeze"), true);
+                // player.sendStatusMessage(GensokyoOntology.fromLocaleKey("msg.",".sakuya_stop_watch.freeze"), true);
                 freezeEntities(world, null, aabb, 15F);
             }
             if (player.ticksExisted >= SakuyaStopWatch.totalTicks && stack.getItem() == ItemRegistry.SAKUYA_WATCH.get()) {
-                // player.sendStatusMessage(GensokyoOntology.withTranslation("msg.",".sakuya_stop_watch.unfreeze"), true);
+                // player.sendStatusMessage(GensokyoOntology.fromLocaleKey("msg.",".sakuya_stop_watch.unfreeze"), true);
                 stack.setTag(new CompoundNBT());
                 unfreezeEntities(world, null, aabb, 15F);
             }

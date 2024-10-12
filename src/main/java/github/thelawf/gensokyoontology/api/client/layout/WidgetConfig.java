@@ -22,6 +22,8 @@ public class WidgetConfig {
     public int downInterval;
     public int leftInterval;
     public int rightInterval;
+    public int leftPadding;
+    public int upPadding;
     public Widget widget;
     public ResourceLocation texture = new ResourceLocation("");
     public FontRenderer fontRenderer = Minecraft.getInstance().fontRenderer;

@@ -53,7 +53,7 @@ public class KudaGitsuneTube extends Item {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.withTranslation("tooltip.", ".kuda_gitsune_tube"));
+        tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".kuda_gitsune_tube"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

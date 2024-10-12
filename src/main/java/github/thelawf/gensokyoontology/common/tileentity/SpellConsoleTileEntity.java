@@ -9,14 +9,12 @@ import github.thelawf.gensokyoontology.common.item.spellcard.SpellCardItem;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.IRendersAsItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.FurnaceTileEntity;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
@@ -32,15 +30,12 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.concurrent.atomic.AtomicReference;
-
 // TODO: 符卡控制台可以处理插入的物品，为其附加NBT数据
 public class SpellConsoleTileEntity extends TileEntity implements ITickableTileEntity {
     public final int slotCount = 31;
     private final ItemStackHandler itemHandler = createItemHandler();
     private final LazyOptional<IItemHandler> optionalHandler = LazyOptional.of(() -> itemHandler);
-    public static final TranslationTextComponent CONTAINER_NAME = GensokyoOntology.withTranslation("container.", ".spell_card_console.title");
+    public static final TranslationTextComponent CONTAINER_NAME = GensokyoOntology.fromLocaleKey("container.", ".spell_card_console.title");
     public SpellConsoleTileEntity() {
         super(TileEntityRegistry.SPELL_CONSOLE_TILE_ENTITY.get());
     }

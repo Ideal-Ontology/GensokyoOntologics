@@ -25,7 +25,7 @@ public enum BinaryOperation {
         this.key = key;
     }
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.withTranslation("gui.",".binary_operation.button.operation." + getKey());
+        return GensokyoOntology.fromLocaleKey("gui.",".binary_operation.button.operation." + getKey());
     }
 
     private String getKey() {

@@ -42,7 +42,7 @@ import net.minecraftforge.fml.common.Mod;
 public class GSKOMiscClientEvent {
     private static int TIMER = 0;
     private final Minecraft mc = Minecraft.getInstance();
-    public static final ITextComponent GOHEI_TITLE = GensokyoOntology.withTranslation("gui.", ".hakurei_gohei.title");
+    public static final ITextComponent GOHEI_TITLE = GensokyoOntology.fromLocaleKey("gui.", ".hakurei_gohei.title");
 
     @SubscribeEvent
     public void onTerrainGUIOpen(GuiOpenEvent event) {

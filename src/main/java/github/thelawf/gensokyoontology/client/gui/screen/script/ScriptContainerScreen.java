@@ -12,8 +12,8 @@ public abstract class ScriptContainerScreen<C extends ScriptBuilderContainer> ex
     protected Button saveBtn;
 
     protected ItemStack stack;
-    protected final ITextComponent fieldName = GensokyoOntology.withTranslation("gui.", ".script_builder.fieldName");
-    protected ITextComponent saveText = GensokyoOntology.withTranslation("gui.", ".script.button.save");
+    protected final ITextComponent fieldName = GensokyoOntology.fromLocaleKey("gui.", ".script_builder.fieldName");
+    protected ITextComponent saveText = GensokyoOntology.fromLocaleKey("gui.", ".script.button.save");
     public ScriptContainerScreen(C screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }

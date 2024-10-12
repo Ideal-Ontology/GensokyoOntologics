@@ -10,7 +10,6 @@ import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
-import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
@@ -34,8 +33,8 @@ public class BinaryOperationScreen extends ScriptContainerScreen<ScriptBuilderCo
     public static String FIELD_TYPE = "binary_operation";
     private TextFieldWidget leftInput;
     private TextFieldWidget rightInput;
-    private final ITextComponent leftText = GensokyoOntology.withTranslation("gui.",".binary_operation.left.text");
-    private final ITextComponent rightText = GensokyoOntology.withTranslation("gui.",".binary_operation.right.text");
+    private final ITextComponent leftText = GensokyoOntology.fromLocaleKey("gui.",".binary_operation.left.text");
+    private final ITextComponent rightText = GensokyoOntology.fromLocaleKey("gui.",".binary_operation.right.text");
 
     private final List<WidgetConfig> WIDGETS;
     public BinaryOperationScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {

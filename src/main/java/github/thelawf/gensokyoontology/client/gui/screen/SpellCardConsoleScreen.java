@@ -1,43 +1,25 @@
 package github.thelawf.gensokyoontology.client.gui.screen;
 
 import com.google.common.collect.Lists;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.stream.JsonReader;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
-import github.thelawf.gensokyoontology.api.entity.ISpellCard;
 import github.thelawf.gensokyoontology.client.gui.screen.script.ScriptContainerScreen;
 import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
-import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CAddScriptPacket;
-import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.gui.widget.button.ImageButton;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.client.gui.GuiUtils;
-import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.*;
-import java.util.stream.Collectors;
 
 // TODO: 面向硬核自定义符卡行为的玩家而写的符卡控制台面板，用于接受玩家的自定义行为
 // public ImageButton(int x, int y, int width, int height, int xTexStart, int yTexStart,
@@ -47,10 +29,10 @@ import java.util.stream.Collectors;
 // 10： textHei
 public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConsoleContainer> {
 
-    public static final ITextComponent SAVE_TIP = GensokyoOntology.withTranslation("tooltip.",".spell_console.button.save");
-    public static final ITextComponent COPY_TIP = GensokyoOntology.withTranslation("tooltip.",".spell_console.button.copy");
-    public static final ITextComponent SAVED_MSG = GensokyoOntology.withTranslation("msg.",".spell_console.button.saved");
-    public static final ITextComponent COPIED_MSG = GensokyoOntology.withTranslation("msg.",".spell_console.button.copied");
+    public static final ITextComponent SAVE_TIP = GensokyoOntology.fromLocaleKey("tooltip.",".spell_console.button.save");
+    public static final ITextComponent COPY_TIP = GensokyoOntology.fromLocaleKey("tooltip.",".spell_console.button.copy");
+    public static final ITextComponent SAVED_MSG = GensokyoOntology.fromLocaleKey("msg.",".spell_console.button.saved");
+    public static final ITextComponent COPIED_MSG = GensokyoOntology.fromLocaleKey("msg.",".spell_console.button.copied");
     public static final ResourceLocation BUTTONS_TEX = GensokyoOntology.withRL("textures/gui/widget/buttons.png");
     public static final ResourceLocation SCREEN_TEXTURE = GensokyoOntology.withRL("textures/gui/spell_card_console.png");
     private final CompoundNBT scriptData = new CompoundNBT();
