@@ -598,8 +598,8 @@
   "tooltip.gensokyoontology.spirit_tube": "§e右键点击狐狸以获得管狐的试管",
   "tooltip.gensokyoontology.kuda_gitsune_tube": "§e右键点击恶魂来装满它",
 
-  "tooltip.gensokyoontology.script_builder.field_type": "字段类型：",
-  "tooltip.gensokyoontology.script_builder.field_name": "字段名称：",
+  "tooltip.gensokyoontology.script_builder.field_type": "字段类型：%s",
+  "tooltip.gensokyoontology.script_builder.field_name": "字段名称：%s",
   "tooltip.gensokyoontology.script_builder.field_value": "字段值：",
 
   "tooltip.gensokyoontology.danmaku_entity": "§6字段类型：",

@@ -42,7 +42,7 @@ public class RailAdjustGUI extends Screen {
     TextFieldWidget rotationPitch;
 
     public RailAdjustGUI() {
-        super(new TranslationTextComponent("client." + GensokyoOntology.MODID +
+        super(new TranslationTextComponent("screen." + GensokyoOntology.MODID +
                 "rail_adjust.title"));
     }
 

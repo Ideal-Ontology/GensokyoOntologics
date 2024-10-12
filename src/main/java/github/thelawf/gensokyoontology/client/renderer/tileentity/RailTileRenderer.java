@@ -125,7 +125,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         // 为了避免选错轴，我们需要先将枢轴点设置为方块中心，即使用matrixStack.translate(0.5, 0, 0.5);
         // 然后再对模型进行三维旋转，再使用matrixStack.translate(-0.5, 0, -0.5)将枢轴点转回起始点
         matrixStackIn.translate(0.5, 0, 0.5);
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
+        // matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation.getY()));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
         matrixStackIn.translate(-0.5, 0, -0.5);
@@ -136,7 +136,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         matrixStackIn.push();
         matrixStackIn.translate(0.5, 0, 0.5);
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
+        // matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation.getY()));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
         matrixStackIn.translate(-0.5, 0, -0.5);
@@ -147,7 +147,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         matrixStackIn.push();
         matrixStackIn.translate(0.5, 0, 0.5);
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
+        // matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation.getY()));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
         matrixStackIn.translate(-0.5, 0, -0.5);
@@ -159,7 +159,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         matrixStackIn.push();
         matrixStackIn.translate(0.5, 0, 0.5);
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
+        // matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation.getY()));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
         matrixStackIn.translate(-0.5, 0, -0.5);

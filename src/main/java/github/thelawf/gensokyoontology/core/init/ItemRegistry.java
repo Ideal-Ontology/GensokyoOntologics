@@ -752,6 +752,8 @@ public final class ItemRegistry {
             GSKOArmorMaterial.JADE, EquipmentSlotType.LEGS, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_BOOTS = ITEMS.register("jade_boots", () -> new ArmorItem(
             GSKOArmorMaterial.JADE, EquipmentSlotType.FEET, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
+    public static final RegistryObject<Item> RAIL_WRENCH = ITEMS.register("rail_wrench", () -> new Item(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new Item(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)) {
         @Override

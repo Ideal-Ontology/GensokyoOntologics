@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BezierUtil {
-
     /**
      * @param time    线性插值的步长，小于1，起点一般为0.001，用于曲线精度的测定
      * @param pointIn 定义的曲线起点和终点

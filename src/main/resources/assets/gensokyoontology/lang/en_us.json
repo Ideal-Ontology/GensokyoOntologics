@@ -598,8 +598,8 @@
   "tooltip.gensokyoontology.spirit_tube": "§eRight click Fox to get Kuda Gitsune's Tube",
   "tooltip.gensokyoontology.kuda_gitsune_tube": "§eRight click Ghast to fill it",
 
-  "tooltip.gensokyoontology.script_builder.field_type": "Field Type: ",
-  "tooltip.gensokyoontology.script_builder.field_name": "Field Name: ",
+  "tooltip.gensokyoontology.script_builder.field_type": "Field Type: %s",
+  "tooltip.gensokyoontology.script_builder.field_name": "Field Name: %s",
   "tooltip.gensokyoontology.script_builder.field_value": "Field Value: ",
 
   "tooltip.gensokyoontology.danmaku_entity": "§6Field Type: ",

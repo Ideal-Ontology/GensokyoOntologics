@@ -86,13 +86,13 @@ public class ConnectionUtil {
         List<Pair<Vector3d, Vector3d>> pairs = new ArrayList<>();
         Vector3d start = null, end = null;
         for (int i = 0; i < bezierPositions.size(); i++) {
-            if (i % 2 == 0) {
+            if (i % 2 == 0 && start == null) {
                 start = bezierPositions.get(i);
             }
             else end = bezierPositions.get(i);
             if (start != null && end != null) {
                 pairs.add(Pair.of(start, end));
-                start = null;
+                start = end;
                 end = null;
             }
         }

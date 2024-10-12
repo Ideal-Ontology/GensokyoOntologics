@@ -1,8 +1,12 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
+import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.limit.Min;
+import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
+import github.thelawf.gensokyoontology.common.container.RailAdjustGUI;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -94,6 +98,8 @@ public class CoasterRailBlock extends Block {
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos,
                                              @NotNull PlayerEntity player, @NotNull Hand handIn, @NotNull BlockRayTraceResult hit) {
+        if (worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get())
+            new RailDashboardScreen().open();
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 

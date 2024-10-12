@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.common.nbt;
 
+import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -10,15 +12,29 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
 public class GSKONBTUtil {
+
+    public static final List<String> PRIMITIVE_TYPES = ImmutableList.of(
+            "int",
+            "float",
+            "double",
+            "long",
+            "string",
+            "boolean"
+    );
+
+    public static final List<String> ALLOWED_TYPES = ImmutableList.of(
+            "vector3d",
+            "danmaku",
+            "world",
+            "vector3d_list",
+            "danmaku_list"
+    );
 
     public static boolean hasItemStack(PlayerEntity player, Item item) {
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
@@ -145,21 +161,6 @@ public class GSKONBTUtil {
         return new BlockPos(new Vector3i(vector3d.x, vector3d.y, vector3d.z));
     }
 
-    public static boolean containsPrimitiveType(CompoundNBT nbt) {
-        if (!nbt.contains("type")) return false;
-        switch (nbt.getString("type")) {
-            case "int":
-            case "long":
-            case "float":
-            case "double":
-            case "string":
-            case "boolean":
-                return true;
-            default:
-                return false;
-        }
-    }
-
     public static INBT getFromValue(CompoundNBT nbt) {
         if (nbt.get("value") instanceof NumberNBT) return getAsNumber(nbt);
         else if (nbt.get("value") instanceof StringNBT) return nbt.get("value");
@@ -230,7 +231,12 @@ public class GSKONBTUtil {
     public static CompoundNBT castToCompound(INBT inbt) {
         return inbt instanceof CompoundNBT ? (CompoundNBT) inbt : new CompoundNBT();
     }
-
+    
+    public static boolean containsPrimitiveType(CompoundNBT nbt) {
+        if (!nbt.contains("type")) return false;
+        return PRIMITIVE_TYPES.contains(nbt.getString("type"));
+    }
+    
     public static String getType(CompoundNBT nbt) {
         if (containsPrimitiveType(nbt)) return nbt.getString("type");
         return "undefined";
@@ -239,16 +245,7 @@ public class GSKONBTUtil {
     public static boolean containsAllowedType(CompoundNBT nbt) {
         if (!nbt.contains("type")) return false;
         if (containsPrimitiveType(nbt)) return false;
-        switch (nbt.getString("type")) {
-            case "vector3d":
-            case "world":
-            case "danmaku":
-            case "vector3d_list":
-            case "danmaku_list":
-                return true;
-            default:
-                return false;
-        }
+        return ALLOWED_TYPES.contains(nbt.getString("type"));
     }
 
     public static List<String> getMemberValues(CompoundNBT nbt) {

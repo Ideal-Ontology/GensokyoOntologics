@@ -13,6 +13,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
@@ -30,6 +31,9 @@ public abstract class ScriptBuilderItem extends Item {
     public static final String EXCEPTION_HIGHLIGHT = "§c";  /// 红色 ///
     public static final String RESET_HIGHLIGHT = "§r";    /// 重置 ///
 
+    public static final String FILED_TYPE_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_type");
+    public static final String FILED_NAME_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_name");
+    public static final String FILED_VALUE_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_value");
     public static final ITextComponent FILED_TYPE_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_type");
     public static final ITextComponent FILED_NAME_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_name");
     public static final ITextComponent FILED_VALUE_TIP = GensokyoOntology.withTranslation("tooltip.",".script_builder.field_value");
@@ -53,15 +57,16 @@ public abstract class ScriptBuilderItem extends Item {
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         if (stack.getTag() != null) {
             CompoundNBT nbt = stack.getTag();
-            tooltip.add(FILED_TYPE_TIP);
-            tooltip.add(new StringTextComponent(TYPE_HIGHLIGHT + nbt.getString("type")));
-            tooltip.add(FILED_NAME_TIP);
-            tooltip.add(new StringTextComponent(NAME_HIGHLIGHT + nbt.getString("name")));
-            tooltip.add(FILED_VALUE_TIP);
+            tooltip.add(new TranslationTextComponent(FILED_TYPE_STR, TYPE_HIGHLIGHT + nbt.getString("type")));
+            // tooltip.add(new StringTextComponent(TYPE_HIGHLIGHT + nbt.getString("type")));
+            tooltip.add(new TranslationTextComponent(FILED_NAME_STR, NAME_HIGHLIGHT + nbt.getString("name")));
+            // tooltip.add(new StringTextComponent(NAME_HIGHLIGHT + nbt.getString("name")));
             if (GSKONBTUtil.containsPrimitiveType(nbt)) {
-                tooltip.add(new StringTextComponent(VALUE_HIGHLIGHT + GSKONBTUtil.getFromValue(nbt).getString()));
+                tooltip.add(new TranslationTextComponent(FILED_VALUE_STR, VALUE_HIGHLIGHT + GSKONBTUtil.getFromValue(nbt).getString()));
+                // tooltip.add(new StringTextComponent(VALUE_HIGHLIGHT + GSKONBTUtil.getFromValue(nbt).getString()));
             }
             else if (GSKONBTUtil.containsAllowedType(nbt)) {
+                tooltip.add(FILED_VALUE_TIP);
                 GSKONBTUtil.getMemberValues(nbt).forEach(s -> tooltip.add(new StringTextComponent(s)));
             }
         }

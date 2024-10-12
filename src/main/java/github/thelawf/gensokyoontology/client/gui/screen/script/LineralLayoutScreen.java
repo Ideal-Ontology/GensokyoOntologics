@@ -132,4 +132,8 @@ public abstract class LineralLayoutScreen extends Screen implements IInputParser
             else config.widget.render(matrixStack, mouseX, mouseY, partialTicks);
         }
     }
+
+    public void open() {
+        Minecraft.getInstance().displayGuiScreen(this);
+    }
 }
