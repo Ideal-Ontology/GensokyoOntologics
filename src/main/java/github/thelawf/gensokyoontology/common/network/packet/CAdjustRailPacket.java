@@ -6,6 +6,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -39,10 +40,6 @@ public class CAdjustRailPacket {
     }
 
     private static void changeAndSaveTileData(CAdjustRailPacket packet, ServerWorld serverWorld){
-        if (!packet.railData.contains("railPos")) return;
-        if (!packet.railData.contains("yaw")) return;
-        if (!packet.railData.contains("pitch")) return;
-        if (!packet.railData.contains("roll")) return;
         BlockPos pos = BlockPos.fromLong(packet.railData.getLong("railPos"));
 
         if (!(serverWorld.getTileEntity(pos) instanceof RailTileEntity)) return;
@@ -52,5 +49,8 @@ public class CAdjustRailPacket {
         railTile.setYaw(packet.railData.getFloat("yaw"));
         railTile.setPitch(packet.railData.getFloat("pitch"));
         railTile.setRoll(packet.railData.getFloat("roll"));
+
+        // 绞尽脑汁终于想到可以手动触发方块更新强制客户端重新渲染方块
+        serverWorld.notifyBlockUpdate(pos, railTile.getBlockState(), railTile.getBlockState(), 3);
     }
 }

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
+import github.thelawf.gensokyoontology.common.container.RailAdjustContainer;
 import github.thelawf.gensokyoontology.common.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
 import github.thelawf.gensokyoontology.common.container.script.*;
@@ -16,6 +17,10 @@ import net.minecraftforge.registries.ForgeRegistries;
 public final class ContainerRegistry {
     public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(
             ForgeRegistries.CONTAINERS, GensokyoOntology.MODID);
+
+    public static final RegistryObject<ContainerType<RailAdjustContainer>> RAIL_DASHBOARD_CONTAINER =
+            CONTAINERS.register("rail_dashboard_container", () -> IForgeContainerType.create(
+                    (windowId, inv, data) -> new RailAdjustContainer(windowId, inv.player.world, data.readBlockPos())));
 
     public static final RegistryObject<ContainerType<DanmakuCraftingContainer>> DANMAKU_CRAFTING_CONTAINER =
             CONTAINERS.register("danmaku_crafting_container", () -> IForgeContainerType.create(

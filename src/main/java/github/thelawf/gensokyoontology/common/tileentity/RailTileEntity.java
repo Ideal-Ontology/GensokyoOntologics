@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.common.util.math.BezierUtil;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.renderer.tileentity.CampfireTileEntityRenderer;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -22,6 +23,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 import net.minecraftforge.fml.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -63,7 +65,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     public SUpdateTileEntityPacket getUpdatePacket() {
         CompoundNBT nbtTag = new CompoundNBT();
         this.write(nbtTag);
-        return new SUpdateTileEntityPacket(this.pos, 1, nbtTag);
+        return new SUpdateTileEntityPacket(this.pos, 1, this.getUpdateTag());
     }
 
     @Override

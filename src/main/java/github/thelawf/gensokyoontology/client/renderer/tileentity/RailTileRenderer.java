@@ -99,22 +99,6 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         List<Pair<Vector3d, Vector3d>> connections = tileEntityIn.getConnections();
 
-        /*
-        Set<Map.Entry<Vector3d, Vector3d>> entry = connections.entrySet();
-        int index = 0;
-
-        try {
-            Vector3f start = new Vector3f(new ArrayList<>(entry).get(index).getKey());
-            Vector3f end = new Vector3f(new ArrayList<>(entry).get(index).getValue());
-
-            matrixStackIn.push();
-            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-            renderSides(builder, matrixStackIn.getLast().getMatrix(), start, end, this.radius,
-                    (float) new ArrayList<>(entry).get(index).getValue().distanceTo(new ArrayList<>(entry).get(index).getKey()));
-            matrixStackIn.pop();
-        } catch (IndexOutOfBoundsException ignored) {}
-         */
-
         Vector3d startPos = Vector3d.copyCentered(tileEntityIn.getPos());
         Vector3d endPos = Vector3d.copyCentered(tileEntityIn.getTargetPos());
 
@@ -205,5 +189,10 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
     private void addVertex(IVertexBuilder builder, Matrix4f matrix, float height, float x1, float z1, float x2, float z2, float normalX, float normalZ) {
         builder.pos(matrix, x2, height, z2).color(0.6313F, 0.0902F, 0.0902F, 1).normal(normalX, 0.0f, normalZ).endVertex();
         builder.pos(matrix, x1, height, z1).color(0.6313F, 0.0902F, 0.0902F, 1).normal(normalX, 0.0f, normalZ).endVertex();
+    }
+
+    @Override
+    public boolean isGlobalRenderer(@NotNull RailTileEntity te) {
+        return true;
     }
 }

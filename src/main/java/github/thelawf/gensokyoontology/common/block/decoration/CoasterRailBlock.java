@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
 import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
-import github.thelawf.gensokyoontology.common.network.GSKONetworking;
-import github.thelawf.gensokyoontology.common.network.packet.CAdjustRailPacket;
-import github.thelawf.gensokyoontology.common.network.packet.SSyncRailDataPacket;
+import github.thelawf.gensokyoontology.common.container.RailAdjustContainer;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
@@ -11,11 +9,10 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.tileentity.BeaconTileEntityRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -27,6 +24,7 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -54,7 +52,7 @@ public class CoasterRailBlock extends Block {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+    public @NotNull VoxelShape getShape(@NotNull BlockState state, @NotNull IBlockReader worldIn, @NotNull BlockPos pos, @NotNull ISelectionContext context) {
         return VoxelShapes.or(SHAPE);
     }
 
@@ -97,13 +95,14 @@ public class CoasterRailBlock extends Block {
         RailTileEntity railTile = (RailTileEntity) worldIn.getTileEntity(pos);
         if (railTile == null) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
         if (!worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
-            new RailDashboardScreen(pos, railTile.getRoll(), railTile.getYaw(), railTile.getPitch()).open();
+            new RailDashboardScreen(pos, (int) railTile.getRoll(), (int) railTile.getYaw(), (int) railTile.getPitch()).open();
+            // NetworkHooks.openGui((ServerPlayerEntity) player, RailAdjustContainer.create(worldIn, pos), railTile.getPos());
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 
     @Override
-    public BlockRenderType getRenderType(BlockState state) {
+    public @NotNull BlockRenderType getRenderType(@NotNull BlockState state) {
         return BlockRenderType.INVISIBLE;
     }
 
