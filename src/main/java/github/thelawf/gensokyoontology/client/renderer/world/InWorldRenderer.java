@@ -29,7 +29,7 @@ import java.util.Objects;
 public class InWorldRenderer {
     public static final Logger LOGGER = LogManager.getLogger();
 
-    // IWorldRenderer <- ConnectionUtil <- BezierUtil, RailWrench.onItemUseFinish()
+    // IWorldRenderer <- ConnectionUtil <- CurveUtil, RailWrench.onItemUseFinish()
 
     /** 在Forge事件总线上添加了这个方法之后会持续监听玩家是否持有存在着"start_pos"和"end_pos"标签的物品
      * 而这两个标签只有在玩家按合法顺序点击轨道方块的时候才能被添加至RailWrench.<br>

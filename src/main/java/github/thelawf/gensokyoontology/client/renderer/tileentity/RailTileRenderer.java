@@ -115,7 +115,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
                     new Vector3d(start.getX(), start.getY(), start.getZ()));
             total += length;
 
-            renderSegment(builder, matrixStackIn, tileEntityIn.getRotation(entry), start, end, (float) length, (float) total);
+            renderSegment(builder, matrixStackIn, new Vector3f(0, 90, 0), start, end, (float) length, (float) total);
         }
     }
 

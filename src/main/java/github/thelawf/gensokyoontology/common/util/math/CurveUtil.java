@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -9,7 +8,7 @@ import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BezierUtil {
+public class CurveUtil {
     /**
      * @param time    线性插值的步长，小于1，起点一般为0.001，用于曲线精度的测定
      * @param pointIn 定义的曲线起点和终点

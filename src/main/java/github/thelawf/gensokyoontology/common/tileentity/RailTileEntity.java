@@ -1,38 +1,25 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.network.GSKONetworking;
-import github.thelawf.gensokyoontology.common.network.packet.SSyncRailDataPacket;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import github.thelawf.gensokyoontology.common.util.math.BezierUtil;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.renderer.tileentity.CampfireTileEntityRenderer;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.network.NetworkHooks;
-import net.minecraftforge.fml.network.PacketDistributor;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     private float yaw = 0f;
@@ -51,7 +38,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     @Override
     @NotNull
     public CompoundNBT getUpdateTag() {
-        CompoundNBT compound = new CompoundNBT();
+        var compound = new CompoundNBT();
         this.write(compound);
         return compound;
     }
@@ -64,7 +51,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     @Nullable
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
-        CompoundNBT nbtTag = new CompoundNBT();
+        var nbtTag = new CompoundNBT();
         this.write(nbtTag);
         return new SUpdateTileEntityPacket(this.pos, 1, this.getUpdateTag());
     }
@@ -169,7 +156,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         //         this.targetRailPos, Vector3d.fromPitchYaw(railTile.getPitch(), railTile.getYaw()));
         Vector3d intersection = ConnectionUtil.getIntersection(BlockPos.ZERO, Vector3d.fromPitchYaw(this.pitch, this.yaw),
                 new BlockPos(target.inverse()), Vector3d.fromPitchYaw(railTile.getPitch(), railTile.getYaw()));
-        return BezierUtil.getBezierPos(this.positions, Vector3d.ZERO, target, intersection, 0.01F);
+        return CurveUtil.getBezierPos(this.positions, Vector3d.ZERO, target, intersection, 0.01F);
     }
 
     @OnlyIn(Dist.CLIENT)
