@@ -115,18 +115,31 @@ public class GeometryUtil {
         }
     }
 
+    public static void renderCylinder(IVertexBuilder builder, Matrix4f matrix4f, Vector3f bottomPos, Vector3f topPos,
+                                      int segments,  float radius, float height, float red, float green, float blue, float alpha){
+        renderCircle(builder, matrix4f, bottomPos, radius, segments, red, green, blue, alpha, true);
+        renderCircle(builder, matrix4f, topPos, radius, segments, red, green, blue, alpha, false);
+        renderCylinderSides(builder, matrix4f, bottomPos, topPos, radius, height, segments, red, green, blue, alpha);
+    }
+
     public static void renderCylinder(IVertexBuilder builder, Matrix4f matrix4f, int segments, float radius, float height,
                                       float red, float green, float blue, float alpha){
-        renderCircle(builder, matrix4f, new Vector3f(0,0,0), radius, segments, red, green, blue, alpha, true);
-        renderCircle(builder, matrix4f, new Vector3f(0, height, 0), radius, segments, red, green, blue, alpha, false);
-        renderCylinderSides(builder, matrix4f, radius, height, segments, red, green, blue, alpha);
+        renderCircle(builder, matrix4f, new Vector3f(0,0,0),
+                radius, segments, red, green, blue, alpha, true);
+        renderCircle(builder, matrix4f, new Vector3f(0, height, 0),
+                radius, segments, red, green, blue, alpha, false);
+        renderCylinderSides(builder, matrix4f, new Vector3f(0,0,0), new Vector3f(0,0,0),
+                radius, height, segments, red, green, blue, alpha);
     }
 
     public static void renderCylinderLightmap(IVertexBuilder builder, Matrix4f matrix4f, int segments, float radius, float height,
                                       float red, float green, float blue, float alpha, int lightmap){
-        renderCircleLightmap(builder, matrix4f, new Vector3f(0,0,0), segments, radius, red, green, blue, alpha, lightmap);
-        renderCircleLightmap(builder, matrix4f, new Vector3f(0, height, 0), segments, radius, red, green, blue, alpha, lightmap);
-        renderCylinderSides(builder, matrix4f, radius, height, segments, red, green, blue, alpha);
+        renderCircleLightmap(builder, matrix4f, new Vector3f(0,0,0), segments,
+                radius, red, green, blue, alpha, lightmap);
+        renderCircleLightmap(builder, matrix4f, new Vector3f(0, height, 0), segments,
+                radius, red, green, blue, alpha, lightmap);
+        renderCylinderSides(builder, matrix4f, new Vector3f(0,0,0), new Vector3f(0,0,0),
+                radius, height, segments, red, green, blue, alpha);
     }
 
     public static void renderCircleLightmap(IVertexBuilder builder, Matrix4f matrix, Vector3f center, int segments, float radius,
@@ -205,36 +218,43 @@ public class GeometryUtil {
         }
     }
 
-    private static void renderCylinderSides(IVertexBuilder vertexBuilder, Matrix4f matrix, float radius, float height, int segments, float red, float green, float blue, float alpha) {
+    private static void renderCylinderSides(IVertexBuilder vertexBuilder, Matrix4f matrix, Vector3f bottomPos, Vector3f topPos, float radius, float height, int segments, float red, float green, float blue, float alpha) {
         for (int i = 0; i < segments; i++) {
             double angle1 = 2 * Math.PI * i / segments;
             double angle2 = 2 * Math.PI * (i + 1) / segments;
-            double angle3 = 2 * Math.PI * (i + 2) / segments;
-            double angle4 = 2 * Math.PI * (i + 3) / segments;
 
             float x1 = (float) Math.cos(angle1) * radius;
             float z1 = (float) Math.sin(angle1) * radius;
             float x2 = (float) Math.cos(angle2) * radius;
             float z2 = (float) Math.sin(angle2) * radius;
 
-            float x3 = (float) Math.cos(angle3) * radius;
-            float z3 = (float) Math.sin(angle3) * radius;
-            float x4 = (float) Math.cos(angle4) * radius;
-            float z4 = (float) Math.sin(angle4) * radius;
-
             // 计算法线（侧面法线指向外部）
             float normalX = (x1 + x2) / 2 / radius;
             float normalZ = (z1 + z2) / 2 / radius;
 
-            vertexBuilder.pos(matrix, x1, 0, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x2, 0, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x2, height, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x1, height, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
 
-            vertexBuilder.pos(matrix, x1, height, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x2, height, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x2, 0, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x1, 0, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x1 + bottomPos.getX(), bottomPos.getY(), z1 + bottomPos.getZ())
+                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2 + topPos.getX(), topPos.getY(), z2 + topPos.getZ())
+                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2 + topPos.getX(), height + topPos.getY(), z2 + topPos.getZ())
+                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x1 + bottomPos.getX(), height + bottomPos.getY(), z1 + bottomPos.getX())
+                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+
+            vertexBuilder.pos(matrix, x1 + bottomPos.getX(), height + bottomPos.getY(), z1 + bottomPos.getX())
+                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2 + topPos.getX(), height + topPos.getY(), z2 + topPos.getZ())
+                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2 + topPos.getX(), topPos.getY(), z2 + topPos.getZ())
+                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x1 + bottomPos.getX(), bottomPos.getY(), z1 + bottomPos.getZ())
+                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+
+            // vertexBuilder.pos(matrix, x1, height, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            // vertexBuilder.pos(matrix, x2, height, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            // vertexBuilder.pos(matrix, x2, 0, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            // vertexBuilder.pos(matrix, x1, 0, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
         }
     }
 
@@ -342,12 +362,53 @@ public class GeometryUtil {
         addVertex(matrix4f, builder, x1, y1, z2, color.getX(), color.getY(), color.getZ());
     }
 
+    public static void renderCubeLightmap(IVertexBuilder builder, Matrix4f matrix4f, Vector3f parameter, Vector3i color, int alpha, int light) {
+        float x1 = 0, z1 = 0, y1 = 0;
+        float x2 = parameter.getX(), y2 = parameter.getY(), z2 = parameter.getZ();
+        addVertexWithLight(matrix4f, builder, x1, y1, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y1, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y2, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x1, y2, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+
+        addVertexWithLight(matrix4f, builder, x1, y1, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y1, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y2, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x1, y2, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+
+        addVertexWithLight(matrix4f, builder, x1, y1, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x1, y1, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x1, y2, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x1, y2, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+
+        addVertexWithLight(matrix4f, builder, x2, y1, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y1, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y2, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y2, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+
+        addVertexWithLight(matrix4f, builder, x1, y2, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y2, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y2, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x1, y2, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+
+        addVertexWithLight(matrix4f, builder, x1, y1, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y1, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x2, y1, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+        addVertexWithLight(matrix4f, builder, x1, y1, z2, color.getX(), color.getY(), color.getZ(), alpha, light);
+    }
+
     private static void addVertex(Matrix4f matrix4f, IVertexBuilder builder, float x, float y, float z, int r, int g, int b) {
         addVertex(matrix4f, builder, x, y, z, r, g, b, 255);
     }
 
     private static void addVertex(Matrix4f matrix, IVertexBuilder vertexBuilder, float[] pos, float red, float green, float blue, float alpha) {
         vertexBuilder.pos(matrix, pos[0], pos[1], pos[2])
+                .color(red, green, blue, alpha)
+                .endVertex();
+    }
+
+    private static void addVertexWithLight(Matrix4f matrix, IVertexBuilder vertexBuilder, float x, float y, float z,
+                                           float red, float green, float blue, float alpha, int light) {
+        vertexBuilder.pos(matrix, x, y, z).lightmap(light)
                 .color(red, green, blue, alpha)
                 .endVertex();
     }
@@ -410,6 +471,28 @@ public class GeometryUtil {
         builder.pos(matrix, rightUp.getX(), rightUp.getY(), rightUp.getZ())
                 .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
         builder.pos(matrix, leftUp.getX(), leftUp.getY(), leftUp.getZ())
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+    }
+
+    public static void quadFaceLightmap(IVertexBuilder builder, Matrix4f matrix, Vector3f leftUp, Vector3f rightUp,
+                                        Vector3f rightDown, Vector3f leftDown, Vector4f color, int light) {
+
+        builder.pos(matrix, leftUp.getX(), leftUp.getY(), leftUp.getZ()).lightmap(light)
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, rightUp.getX(), rightUp.getY(), rightUp.getZ()).lightmap(light)
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, rightDown.getX(), rightDown.getY(), rightDown.getZ()).lightmap(light)
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, leftDown.getX(), leftDown.getY(), leftDown.getZ()).lightmap(light)
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+
+        builder.pos(matrix, leftDown.getX(), leftDown.getY(), leftDown.getZ()).lightmap(light)
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, rightDown.getX(), rightDown.getY(), rightDown.getZ()).lightmap(light)
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, rightUp.getX(), rightUp.getY(), rightUp.getZ()).lightmap(light)
+                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        builder.pos(matrix, leftUp.getX(), leftUp.getY(), leftUp.getZ()).lightmap(light)
                 .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
     }
 

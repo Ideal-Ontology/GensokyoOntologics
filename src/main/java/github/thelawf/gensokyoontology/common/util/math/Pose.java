@@ -4,6 +4,10 @@ import org.joml.*;
 
 import javax.annotation.Nullable;
 
+/**
+ * Copy from <a href="https://github.com/FoundationGames/Splinecart/blob/1.21/src/main/java/io/github/foundationgames/splinecart/util/Pose.java"> FoundationGames/SplineCart </a>
+ */
+
 public record Pose(Vector3dc translation, Matrix3dc basis) {
     public void interpolate(Pose other, double t, Vector3d translation, Matrix3d basis, Vector3d gradient) {
         double factor = this.translation().distance(other.translation());

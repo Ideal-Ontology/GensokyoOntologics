@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
+import github.thelawf.gensokyoontology.common.util.math.Pose;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
@@ -13,10 +14,12 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Matrix3d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +28,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     private float yaw = 0f;
     private float pitch = 0f;
     private float roll = 0f;
+    private Pose pose;
     private boolean shouldRender = false;
     private BlockPos targetRailPos = new BlockPos(0,0,0);
     @OnlyIn(Dist.CLIENT)
@@ -34,6 +38,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
 
     public RailTileEntity() {
         super(TileEntityRegistry.RAIL_TILE_ENTITY.get());
+        this.pose = this.fromEuler();
     }
     @Override
     @NotNull
@@ -88,12 +93,15 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
 
     public void setYaw(float yaw) {
         this.yaw = yaw;
+        this.setPose(this.fromEuler());
     }
     public void setPitch(float pitch) {
         this.pitch = pitch;
+        this.setPose(this.fromEuler());
     }
     public void setRoll(float roll) {
         this.roll = roll;
+        this.setPose(this.fromEuler());
     }
 
     public float getRoll() {
@@ -104,6 +112,26 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     }
     public float getPitch() {
         return this.pitch;
+    }
+
+    public void setRotation(float roll, float yaw, float pitch) {
+        this.setRoll(roll);
+        this.setYaw(yaw);
+        this.setPitch(pitch);
+        this.setPose(this.fromEuler());
+    }
+
+    public Pose getPose() {
+        return this.pose;
+    }
+
+    public void setPose(Pose pose) {
+        this.pose = pose;
+    }
+
+    private Pose fromEuler() {
+        var matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw), Math.toRadians(this.pitch));
+        return new Pose(new org.joml.Vector3d(), matrix);
     }
 
     public BlockPos getTargetPos() {

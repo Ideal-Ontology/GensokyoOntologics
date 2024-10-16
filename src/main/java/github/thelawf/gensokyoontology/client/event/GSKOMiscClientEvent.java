@@ -83,10 +83,11 @@ public class GSKOMiscClientEvent {
 
         Minecraft mc = Minecraft.getInstance();
         float partial = mc.getRenderPartialTicks();
-
         // DimensionRenderInfo info = DimensionRenderInfo.field_239208_a_.get(new ResourceLocation(GensokyoOntology.MODID, "render"));
     }
 
+
+    // @SubscribeEvent
     public static void renderBloodyMistColor(EntityViewRenderEvent.FogColors event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.world != null && mc.world.getServer() != null) {
@@ -94,9 +95,7 @@ public class GSKOMiscClientEvent {
             if (serverWorld != null) {
                 LazyOptional<BloodyMistCapability> capability = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
                 capability.ifPresent(cap -> {
-                    if (cap.isTriggered()) {
-                        applyBloodyMistRender();
-                    }
+                    if (cap.isTriggered()) applyBloodyMistRender();
                 });
             }
             return;
@@ -223,5 +222,10 @@ public class GSKOMiscClientEvent {
                 else if (event.getScrollDelta() < 0) screen.switchMode(1);
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void onCameraRotate(EntityViewRenderEvent.CameraSetup event) {
+
     }
 }

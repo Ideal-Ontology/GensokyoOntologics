@@ -42,14 +42,8 @@ public class CAdjustRailPacket {
     private static void changeAndSaveTileData(CAdjustRailPacket packet, ServerWorld serverWorld){
         BlockPos pos = BlockPos.fromLong(packet.railData.getLong("railPos"));
 
-        if (!(serverWorld.getTileEntity(pos) instanceof RailTileEntity)) return;
-        RailTileEntity railTile = (RailTileEntity) serverWorld.getTileEntity(pos);
-        if (railTile == null) return;
-
-        railTile.setYaw(packet.railData.getFloat("yaw"));
-        railTile.setPitch(packet.railData.getFloat("pitch"));
-        railTile.setRoll(packet.railData.getFloat("roll"));
-
+        if (!(serverWorld.getTileEntity(pos) instanceof RailTileEntity railTile)) return;
+        railTile.setRotation(packet.railData.getFloat("roll"), packet.railData.getFloat("yaw"), packet.railData.getFloat("pitch"));
         // 绞尽脑汁终于想到可以手动触发方块更新强制客户端重新渲染方块
         serverWorld.notifyBlockUpdate(pos, railTile.getBlockState(), railTile.getBlockState(), 3);
     }

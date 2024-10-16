@@ -34,6 +34,7 @@ public class GSKORenderTypes extends RenderType {
             DefaultVertexFormats.POSITION_COLOR, 7, 256,
             RenderType.State.getBuilder()
                     .transparency(NO_TRANSPARENCY)
+                    .lightmap(LIGHTMAP_ENABLED)
                     .shadeModel(SHADE_ENABLED)
                     .writeMask(COLOR_WRITE)
                     .cull(CULL_DISABLED)
