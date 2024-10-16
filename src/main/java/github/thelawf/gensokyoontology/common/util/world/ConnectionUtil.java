@@ -5,6 +5,8 @@ import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.math.BezierUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import org.apache.logging.log4j.LogManager;
@@ -59,13 +61,21 @@ public class ConnectionUtil {
         return rotations;
     }
 
-    public static Vector3d getIntersection(Vector3d startFacing, Vector3d endFacing) {
-        return GSKOMathUtil.getIntersection(startFacing, startFacing.scale(0.1), endFacing, endFacing.scale(0.1));
+    public static Vector3d getCtrlDotFromRotation(Vector3d startPos, Vector2f startRotation, Vector2f endRotation){
+        Vector3d startDir = Vector3d.fromPitchYaw(startRotation);
+        Vector3d endDir = Vector3d.fromPitchYaw(endRotation);
+        Vector3d intersection = getIntersection(startDir, endDir);
+        return intersection.add(startPos);
     }
 
-    public static boolean hasIntersection(Vector3d startFacing, Vector3d endFacing) {
-        return GSKOMathUtil.getIntersection(startFacing, startFacing.scale(0.1), endFacing, endFacing.scale(0.1)) != null;
+    public static Vector3d getIntersection(BlockPos start, Vector3d startFacing, BlockPos end, Vector3d endFacing) {
+        return GSKOMathUtil.getIntersectionFromRot(Vector3d.copyCentered(start), startFacing, Vector3d.copyCentered(end), endFacing);
     }
+
+    public static Vector3d getIntersection(Vector3d startFacing, Vector3d endFacing) {
+        return GSKOMathUtil.getIntersection(startFacing, startFacing.scale(2), endFacing, endFacing.scale(2));
+    }
+
 
     /**
      * 获取直线的位置以及旋转

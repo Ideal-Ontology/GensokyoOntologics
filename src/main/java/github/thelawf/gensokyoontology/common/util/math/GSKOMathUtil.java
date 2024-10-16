@@ -84,8 +84,7 @@ public class GSKOMathUtil {
         return Math.pow(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 + z2, 2), 0.5);
     }
 
-    public static ArrayList<Vector3d> getCirclePoints2D(Vector3d center,
-                                                        double radius, int count) {
+    public static ArrayList<Vector3d> getCirclePoints2D(Vector3d center, double radius, int count) {
 
         ArrayList<Vector3d> coordinates = new ArrayList<>();
         double radians = (Math.PI / 180) * Math.round(360d / count);
@@ -98,8 +97,7 @@ public class GSKOMathUtil {
         return coordinates;
     }
 
-    public static Vector3d getPointOnCircle(Vector3d center,
-                                            double radius, double angle) {
+    public static Vector3d getPointOnCircle(Vector3d center, double radius, double angle) {
         return new Vector3d(
                 center.getX() + radius * Math.cos(Math.toDegrees(angle)),
                 0, center.getZ() + radius * Math.sin(Math.toDegrees(angle)));
@@ -132,6 +130,58 @@ public class GSKOMathUtil {
 
         // 计算交点
         return A1.add(d1.scale(t1));
+    }
+
+    public static Vector3d getIntersectionFromRot(Vector3d start, Vector3d startRotation, Vector3d end, Vector3d endRotation) {
+        Vector3d r = start.subtract(end);
+        double a = startRotation.dotProduct(startRotation); // D1·D1
+        double e = endRotation.dotProduct(endRotation); // D2·D2
+        double f = endRotation.dotProduct(r);  // D2·(P1 - P2)
+
+        double epsilon = 1e-6;
+
+        if (a <= epsilon && e <= epsilon) {
+            // 两条射线方向向量的长度接近零
+            return start;
+        }
+
+        double s, t;
+
+        if (a <= epsilon) {
+            // D1接近零，用P1点作为交点
+            s = 0.0;
+            t = f / e;
+        } else {
+            double c = startRotation.dotProduct(r);
+            if (e <= epsilon) {
+                // D2接近零，用P2点作为交点
+                t = 0.0;
+                s = -c / a;
+            } else {
+                double b = startRotation.dotProduct(endRotation); // D1·D2
+                double denominator = a * e - b * b;
+
+                if (Math.abs(denominator) > epsilon) {
+                    s = (b * f - c * e) / denominator;
+                } else {
+                    // 两条射线平行
+                    return end;
+                }
+
+                t = (b * s + f) / e;
+            }
+        }
+
+        // 计算交点坐标
+        Vector3d point1 = start.add(startRotation.scale(s));
+        Vector3d point2 = end.add(endRotation.scale(t));
+
+        // 如果交点之间的距离接近零，则认为射线相交
+        if (point1.distanceTo(point2) <= epsilon) {
+            return point1;
+        } else {
+            return start;
+        }
     }
 
     @OnlyIn(Dist.CLIENT)

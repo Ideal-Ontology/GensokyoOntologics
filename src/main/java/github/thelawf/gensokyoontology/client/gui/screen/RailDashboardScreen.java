@@ -59,17 +59,17 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     // }
 
     private void onRollSlide(Slider slider) {
-        this.rollInput.setText(formatAs(slider.getValue()));
+        // this.rollInput.setText(formatAs(slider.getValue()));
         this.rotation.setX((float) slider.getValue());
         this.sendPacketToServer();
     }
     private void onYawSlide(Slider slider) {
-        this.yawInput.setText(formatAs(slider.getValue()));
+        // this.yawInput.setText(formatAs(slider.getValue()));
         this.rotation.setY((float) slider.getValue());
         this.sendPacketToServer();
     }
     private void onPitchSlide(Slider slider) {
-        this.pitchInput.setText(formatAs(slider.getValue()));
+        // this.pitchInput.setText(formatAs(slider.getValue()));
         this.rotation.setZ((float) slider.getValue());
         this.sendPacketToServer();
     }
@@ -81,11 +81,18 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         // this.yawInput = new TextFieldWidget(this.font, 50, 60, 40, 25, withText(this.rotation.getY() + "°"));
         // this.pitchInput = new TextFieldWidget(this.font, 50, 90, 40, 25, withText(this.rotation.getZ() + "°"));
 
-        this.rollSlider = new Slider(100, 30, 120, 25, ANGLE_X, withText("°"),
+        // this.rollSlider = new Slider(100, 30, 120, 25, ANGLE_X, withText("°"),
+        //         0, 360, (int) this.rotation.getX(), true, true, iPressable -> {}, this::onRollSlide);
+        // this.yawSlider = new Slider(100, 60, 120, 25, ANGLE_Y, withText("°"),
+        //         0, 360, (int) this.rotation.getY(), true, true, iPressable -> {}, this::onYawSlide);
+        // this.pitchSlider = new Slider(100, 90, 120, 25, ANGLE_Z, withText("°"),
+        //         0, 360, (int) this.rotation.getZ(), true, true, iPressable -> {}, this::onPitchSlide);
+
+        this.rollSlider = new Slider(30, 30, 120, 25, ANGLE_X, withText("°"),
                 0, 360, (int) this.rotation.getX(), true, true, iPressable -> {}, this::onRollSlide);
-        this.yawSlider = new Slider(100, 60, 120, 25, ANGLE_Y, withText("°"),
+        this.yawSlider = new Slider(30, 60, 120, 25, ANGLE_Y, withText("°"),
                 0, 360, (int) this.rotation.getY(), true, true, iPressable -> {}, this::onYawSlide);
-        this.pitchSlider = new Slider(100, 90, 120, 25, ANGLE_Z, withText("°"),
+        this.pitchSlider = new Slider(30, 90, 120, 25, ANGLE_Z, withText("°"),
                 0, 360, (int) this.rotation.getZ(), true, true, iPressable -> {}, this::onPitchSlide);
 
         this.rollSlider.showDecimal = false;
@@ -96,17 +103,17 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.addButton(this.yawSlider);
         this.addButton(this.pitchSlider);
 
-        this.rollInput = new TextFieldWidget(this.font, 50, 30, 40, 25, withText(this.rollSlider.getValueInt() + "°"));
-        this.yawInput = new TextFieldWidget(this.font, 50, 60, 40, 25, withText(this.yawSlider.getValueInt() + "°"));
-        this.pitchInput = new TextFieldWidget(this.font, 50, 90, 40, 25, withText(this.pitchSlider.getValueInt() + "°"));
+        // this.rollInput = new TextFieldWidget(this.font, 50, 30, 40, 25, withText(this.rollSlider.getValueInt() + "°"));
+        // this.yawInput = new TextFieldWidget(this.font, 50, 60, 40, 25, withText(this.yawSlider.getValueInt() + "°"));
+        // this.pitchInput = new TextFieldWidget(this.font, 50, 90, 40, 25, withText(this.pitchSlider.getValueInt() + "°"));
 
-        this.rollInput.setResponder(this::onRollInputChanged);
-        this.yawInput.setResponder(this::onYawInputChanged);
-        this.pitchInput.setResponder(this::onPitchInputChanged);
+        // this.rollInput.setResponder(this::onRollInputChanged);
+        // this.yawInput.setResponder(this::onYawInputChanged);
+        // this.pitchInput.setResponder(this::onPitchInputChanged);
 
-        this.children.add(this.rollInput);
-        this.children.add(this.yawInput);
-        this.children.add(this.pitchInput);
+        // this.children.add(this.rollInput);
+        // this.children.add(this.yawInput);
+        // this.children.add(this.pitchInput);
     }
 
     private void onRollInputChanged(String text) {
@@ -124,6 +131,7 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.sendPacketToServer();
     }
 
+    /*
     @Override
     public boolean keyPressed(int keyCode, int scanCode, int modifiers) {
         // 处理文本框的键盘输入
@@ -141,6 +149,8 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         return super.keyPressed(keyCode, scanCode, modifiers);
     }
 
+     */
+
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
@@ -150,9 +160,9 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         drawString(matrixStack, this.font, YAW_LABEL, 10, 70, WHITE);
         drawString(matrixStack, this.font, PITCH_LABEL, 10, 100, WHITE);
 
-        this.rollInput.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.yawInput.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.pitchInput.render(matrixStack, mouseX, mouseY, partialTicks);
+        // this.rollInput.render(matrixStack, mouseX, mouseY, partialTicks);
+        // this.yawInput.render(matrixStack, mouseX, mouseY, partialTicks);
+        // this.pitchInput.render(matrixStack, mouseX, mouseY, partialTicks);
 
         this.rollSlider.render(matrixStack, mouseX, mouseY, partialTicks);
         this.yawSlider.render(matrixStack, mouseX, mouseY, partialTicks);

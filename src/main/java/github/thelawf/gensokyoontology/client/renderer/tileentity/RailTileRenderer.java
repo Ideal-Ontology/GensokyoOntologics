@@ -50,33 +50,41 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
         float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
+        Quaternion roll = Vector3f.XP.rotationDegrees(tileEntityIn.getRoll());
+        Quaternion yaw = Vector3f.YP.rotationDegrees(tileEntityIn.getYaw());
+        Quaternion pitch = Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch());
+        Vector3f translation = new Vector3f(0, 0, 0);
+
         matrixStackIn.push();
+        matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
         matrixStackIn.translate(0.5, 0, 0.5);
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(tileEntityIn.getRoll()));
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch()));
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
+        matrixStackIn.rotate(roll);
+        matrixStackIn.rotate(yaw);
+        matrixStackIn.rotate(pitch);
         matrixStackIn.translate(-0.5, 0, -0.5);
+        matrixStackIn.translate(0, 0.45, 0);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        matrixStackIn.translate(0.45, 0, 0);
         GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
+        matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
         matrixStackIn.translate(0.5, 0, 0.5);
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(tileEntityIn.getRoll()));
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch()));
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
+        matrixStackIn.rotate(roll);
+        matrixStackIn.rotate(yaw);
+        matrixStackIn.rotate(pitch);
         matrixStackIn.translate(-0.5, 0, -0.5);
+        matrixStackIn.translate(0, 0.45, 1);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        matrixStackIn.translate(0.45, 0, 1);
         GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
+        matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
         matrixStackIn.translate(0.5, 0, 0.5);
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(tileEntityIn.getRoll()));
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch()));
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
+        matrixStackIn.rotate(roll);
+        matrixStackIn.rotate(yaw);
+        matrixStackIn.rotate(pitch);
         matrixStackIn.translate(-0.5, 0, -0.5);
         matrixStackIn.translate(0, 0.35, 0);
         GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
@@ -88,78 +96,84 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
+        matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
         matrixStackIn.translate(0.5, 0, 0.5);
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(tileEntityIn.getRoll()));
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch()));
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(tileEntityIn.getYaw()));
+        matrixStackIn.rotate(roll);
+        matrixStackIn.rotate(yaw);
+        matrixStackIn.rotate(pitch);
         matrixStackIn.translate(-0.5, 0, -0.5);
         matrixStackIn.translate(0, 0, 0.3);
         GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(1F, 0.15F, 0.4F), new Vector3i(r1, g1, b1));
         matrixStackIn.pop();
 
         List<Pair<Vector3d, Vector3d>> connections = tileEntityIn.getConnections();
-
-        Vector3d startPos = Vector3d.copyCentered(tileEntityIn.getPos());
-        Vector3d endPos = Vector3d.copyCentered(tileEntityIn.getTargetPos());
-
+        double total = 0;
         for (Pair<Vector3d, Vector3d> entry : connections) {
             Vector3f start = new Vector3f(entry.getFirst());
             Vector3f end = new Vector3f(entry.getSecond());
+            double length = new Vector3d(end.getX(), end.getY(), end.getZ()).distanceTo(
+                    new Vector3d(start.getX(), start.getY(), start.getZ()));
+            total += length;
 
-            renderSegment(builder, matrixStackIn, tileEntityIn.getRotation(entry), start, end,
-                    (float) new Vector3d(end.getX(), end.getY(), end.getZ()).distanceTo(
-                            new Vector3d(start.getX(), start.getY(), start.getZ())));
+            renderSegment(builder, matrixStackIn, tileEntityIn.getRotation(entry), start, end, (float) length, (float) total);
         }
     }
 
     private void renderSegment(IVertexBuilder builder, MatrixStack matrixStackIn, Vector3f rotation, Vector3f startOffset,
-                               Vector3f endOffset, float length) {
+                               Vector3f endOffset, float length, float total) {
         float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
         float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
+        Quaternion roll = Vector3f.XP.rotationDegrees(rotation.getX());
+        Quaternion yaw = Vector3f.YP.rotationDegrees(rotation.getY());
+        Quaternion pitch = Vector3f.ZP.rotationDegrees(rotation.getZ());
+
         matrixStackIn.push();
-        // 旋转90度之后，轨道改为与底面水平，matrixStack的translate变为(y, x, z);
-        // 为了避免选错轴，我们需要先将枢轴点设置为方块中心，即使用matrixStack.translate(0.5, 0, 0.5);
-        // 然后再对模型进行三维旋转，再使用matrixStack.translate(-0.5, 0, -0.5)将枢轴点转回起始点
+        matrixStackIn.translate(startOffset.getX(), startOffset.getY(), startOffset.getZ());
         matrixStackIn.translate(0.5, 0, 0.5);
-        // matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation.getY()));
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
+        matrixStackIn.rotate(roll);
+        matrixStackIn.rotate(yaw);
+        matrixStackIn.rotate(pitch);
         matrixStackIn.translate(-0.5, 0, -0.5);
+        matrixStackIn.translate(0, 0.45, 0);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        matrixStackIn.translate(startOffset.getY() + 0.45, startOffset.getX(), startOffset.getZ() + 1);
         GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -length, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
+        matrixStackIn.translate(startOffset.getX(), startOffset.getY(), startOffset.getZ());
         matrixStackIn.translate(0.5, 0, 0.5);
-        // matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation.getY()));
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
+        matrixStackIn.rotate(roll);
+        matrixStackIn.rotate(yaw);
+        matrixStackIn.rotate(pitch);
         matrixStackIn.translate(-0.5, 0, -0.5);
+        matrixStackIn.translate(0, 0.45, 1);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        matrixStackIn.translate(startOffset.getY() + 0.45, startOffset.getX(), startOffset.getZ() + 1);
         GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -length, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
-        matrixStackIn.push();
-        matrixStackIn.translate(0.5, 0, 0.5);
-        // matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation.getY()));
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
-        matrixStackIn.translate(-0.5, 0, -0.5);
-        matrixStackIn.translate(startOffset.getX(), startOffset.getY() + 0.35, startOffset.getZ());
-        GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
-                new Vector3f(0.5F,0,0), new Vector3f(0.5F,0,1F), new Vector3f(0.5F,-0.15F,0.8F), new Vector3f(0.5F,-0.15F,0.2F),
-                new Vector4f(rf2, gf2, bf2, 1));
-        matrixStackIn.pop();
+        if (total % 0.5 == 0) {
+            matrixStackIn.push();
+            matrixStackIn.translate(startOffset.getX(), startOffset.getY(), startOffset.getZ());
+            matrixStackIn.translate(0.5, 0, 0.5);
+            matrixStackIn.rotate(roll);
+            matrixStackIn.rotate(yaw);
+            matrixStackIn.rotate(pitch);
+            matrixStackIn.translate(-0.5, 0, -0.5);
+            matrixStackIn.translate(0, 0.35, 0);
+            GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
+                    new Vector3f(0.5F,0,0), new Vector3f(0.5F,0,1F), new Vector3f(0.5F,-0.15F,0.8F), new Vector3f(0.5F,-0.15F,0.2F),
+                    new Vector4f(rf2, gf2, bf2, 1));
+            matrixStackIn.pop();
+        }
 
         matrixStackIn.push();
+        matrixStackIn.translate(startOffset.getX(), startOffset.getY(), startOffset.getZ());
         matrixStackIn.translate(0.5, 0, 0.5);
-        // matrixStackIn.rotate(Vector3f.XP.rotationDegrees(rotation.getX()));
-        matrixStackIn.rotate(Vector3f.YP.rotationDegrees(rotation.getY()));
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(rotation.getZ()));
+        matrixStackIn.rotate(roll);
+        matrixStackIn.rotate(yaw);
+        matrixStackIn.rotate(pitch);
         matrixStackIn.translate(-0.5, 0, -0.5);
-        matrixStackIn.translate(startOffset.getX(), startOffset.getY(), startOffset.getZ() + 0.3);
+        matrixStackIn.translate(0, 0, 0.3);
         GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(length, 0.15F, 0.4F), new Vector3i(r1, g1, b1));
         matrixStackIn.pop();
     }

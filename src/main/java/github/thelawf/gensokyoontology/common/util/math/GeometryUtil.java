@@ -1,14 +1,7 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
-import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.math.vector.*;
-import org.lwjgl.opengl.GL11;
-
-import java.util.*;
 
 public class GeometryUtil {
     public static final double PHI = (1 + Math.sqrt(5)) / 2;
@@ -127,7 +120,50 @@ public class GeometryUtil {
         renderCircle(builder, matrix4f, new Vector3f(0,0,0), radius, segments, red, green, blue, alpha, true);
         renderCircle(builder, matrix4f, new Vector3f(0, height, 0), radius, segments, red, green, blue, alpha, false);
         renderCylinderSides(builder, matrix4f, radius, height, segments, red, green, blue, alpha);
+    }
 
+    public static void renderCylinderLightmap(IVertexBuilder builder, Matrix4f matrix4f, int segments, float radius, float height,
+                                      float red, float green, float blue, float alpha, int lightmap){
+        renderCircleLightmap(builder, matrix4f, new Vector3f(0,0,0), segments, radius, red, green, blue, alpha, lightmap);
+        renderCircleLightmap(builder, matrix4f, new Vector3f(0, height, 0), segments, radius, red, green, blue, alpha, lightmap);
+        renderCylinderSides(builder, matrix4f, radius, height, segments, red, green, blue, alpha);
+    }
+
+    public static void renderCircleLightmap(IVertexBuilder builder, Matrix4f matrix, Vector3f center, int segments, float radius,
+                                            float red, float green, float blue, float alpha, int lightmap) {
+        for (int i = 0; i < segments; i++) {
+            double angle1 = 2 * Math.PI * i / segments;
+            double angle2 = 2 * Math.PI * (i + 1) / segments;
+            double angle3 = 2 * Math.PI * (i + 2) / segments;
+            double angle4 = 2 * Math.PI * (i + 3) / segments;
+
+            float x1 = (float) Math.cos(angle1) * radius;
+            float z1 = (float) Math.sin(angle1) * radius;
+            float x2 = (float) Math.cos(angle2) * radius;
+            float z2 = (float) Math.sin(angle2) * radius;
+
+            float x3 = (float) Math.cos(angle3) * radius;
+            float z3 = (float) Math.sin(angle3) * radius;
+            float x4 = (float) Math.cos(angle4) * radius;
+            float z4 = (float) Math.sin(angle4) * radius;
+
+            // 三角形顶点：中心点，边缘点1，边缘点2
+            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+            builder.pos(matrix, x1, center.getY(), z1).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+            builder.pos(matrix, x2, center.getY(), z2).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+
+            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+            builder.pos(matrix, x2, center.getY(), z2).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+            builder.pos(matrix, x3, center.getY(), z3).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+
+            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+            builder.pos(matrix, x3, center.getY(), z3).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+            builder.pos(matrix, x4, center.getY(), z4).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+
+            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+            builder.pos(matrix, x4, center.getY(), z4).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+            builder.pos(matrix, x1, center.getY(), z1).color(red, green, blue, alpha).lightmap(lightmap).endVertex();
+        }
     }
 
     public static void renderCircle(IVertexBuilder builder, Matrix4f matrix, Vector3f center, float radius, int segments, float red, float green, float blue, float alpha, boolean isBottom) {

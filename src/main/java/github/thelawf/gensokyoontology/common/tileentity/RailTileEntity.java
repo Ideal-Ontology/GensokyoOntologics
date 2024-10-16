@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.SSyncRailDataPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.BezierUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
@@ -159,10 +160,16 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     @OnlyIn(Dist.CLIENT)
     public List<Vector3d> getBezierPos() {
         if(!this.shouldRender) return this.positions;
-        Vector3d target = new Vector3d(this.targetRailPos.getX(), this.targetRailPos.getY(), this.targetRailPos.getZ())
-                .subtract(new Vector3d(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
-        return BezierUtil.getBezierPos(this.positions, Vector3d.ZERO, target, ConnectionUtil.getIntersection(
-                Vector3d.copyCentered(this.pos), Vector3d.copyCentered(this.targetRailPos)), 0.01F);
+        Vector3d target = Vector3d.copyCentered(this.targetRailPos).subtract(Vector3d.copyCentered(this.pos));
+
+        if (this.getTargetRailEntity() == null) return new ArrayList<>();
+        RailTileEntity railTile = this.getTargetRailEntity();
+
+        // Vector3d intersection = ConnectionUtil.getIntersection(this.pos, Vector3d.fromPitchYaw(this.pitch, this.yaw),
+        //         this.targetRailPos, Vector3d.fromPitchYaw(railTile.getPitch(), railTile.getYaw()));
+        Vector3d intersection = ConnectionUtil.getIntersection(BlockPos.ZERO, Vector3d.fromPitchYaw(this.pitch, this.yaw),
+                new BlockPos(target.inverse()), Vector3d.fromPitchYaw(railTile.getPitch(), railTile.getYaw()));
+        return BezierUtil.getBezierPos(this.positions, Vector3d.ZERO, target, intersection, 0.01F);
     }
 
     @OnlyIn(Dist.CLIENT)
