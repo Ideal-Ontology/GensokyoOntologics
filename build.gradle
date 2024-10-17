@@ -23,11 +23,16 @@ plugins {
     id 'java'
 }
 
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
 mixin {
     // add sourceSets.main, "mixins.gensokyoontology.refmap.json"
     // config 'mixins.gensokyoontology.json'
     add sourceSets.main, "patchouli.refmap.json"
-
 }
 
 allprojects {
@@ -98,7 +103,6 @@ minecraft {
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-
 
             mods {
                 gensokyoontology {
@@ -180,6 +184,7 @@ dependencies {
 
 // Example for how to get properties into the manifest for reading at runtime.
 jar {
+
     manifest {
         attributes([
                 "Specification-Title"     : "gensokyoontology",
@@ -198,5 +203,3 @@ jar.finalizedBy('reobfJar')
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8' // Use the UTF-8 charset for Java compilation
 }
-sourceCompatibility = JavaVersion.VERSION_16
-targetCompatibility = JavaVersion.VERSION_16

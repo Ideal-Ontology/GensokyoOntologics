@@ -43,7 +43,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     @Override
     @NotNull
     public CompoundNBT getUpdateTag() {
-        var compound = new CompoundNBT();
+        CompoundNBT compound = new CompoundNBT();
         this.write(compound);
         return compound;
     }
@@ -56,7 +56,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     @Nullable
     @Override
     public SUpdateTileEntityPacket getUpdatePacket() {
-        var nbtTag = new CompoundNBT();
+        CompoundNBT nbtTag = new CompoundNBT();
         this.write(nbtTag);
         return new SUpdateTileEntityPacket(this.pos, 1, this.getUpdateTag());
     }
@@ -130,7 +130,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     }
 
     private Pose fromEuler() {
-        var matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw), Math.toRadians(this.pitch));
+        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw), Math.toRadians(this.pitch));
         return new Pose(new org.joml.Vector3d(), matrix);
     }
 

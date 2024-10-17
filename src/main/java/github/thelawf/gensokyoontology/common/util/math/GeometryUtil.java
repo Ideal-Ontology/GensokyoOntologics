@@ -116,9 +116,9 @@ public class GeometryUtil {
     }
 
     public static void renderCylinder(IVertexBuilder builder, Matrix4f matrix4f, Vector3f bottomPos, Vector3f topPos,
-                                      int segments,  float radius, float height, float red, float green, float blue, float alpha){
-        renderCircle(builder, matrix4f, bottomPos, radius, segments, red, green, blue, alpha, true);
-        renderCircle(builder, matrix4f, topPos, radius, segments, red, green, blue, alpha, false);
+                                      int segments, float radius, float height, float red, float green, float blue, float alpha){
+        // renderCircle(builder, matrix4f, bottomPos, radius, segments, red, green, blue, alpha, true);
+        // renderCircle(builder, matrix4f, topPos, radius, segments, red, green, blue, alpha, false);
         renderCylinderSides(builder, matrix4f, bottomPos, topPos, radius, height, segments, red, green, blue, alpha);
     }
 
@@ -362,7 +362,7 @@ public class GeometryUtil {
         addVertex(matrix4f, builder, x1, y1, z2, color.getX(), color.getY(), color.getZ());
     }
 
-    public static void renderCubeLightmap(IVertexBuilder builder, Matrix4f matrix4f, Vector3f parameter, Vector3i color, int alpha, int light) {
+    public static void renderCubeLightmap(IVertexBuilder builder, Matrix4f matrix4f, Vector3f parameter, Vector3f color, float alpha, int light) {
         float x1 = 0, z1 = 0, y1 = 0;
         float x2 = parameter.getX(), y2 = parameter.getY(), z2 = parameter.getZ();
         addVertexWithLight(matrix4f, builder, x1, y1, z1, color.getX(), color.getY(), color.getZ(), alpha, light);
