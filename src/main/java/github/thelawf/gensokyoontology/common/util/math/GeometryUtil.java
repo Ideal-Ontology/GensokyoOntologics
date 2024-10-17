@@ -128,8 +128,7 @@ public class GeometryUtil {
                 radius, segments, red, green, blue, alpha, true);
         renderCircle(builder, matrix4f, new Vector3f(0, height, 0),
                 radius, segments, red, green, blue, alpha, false);
-        renderCylinderSides(builder, matrix4f, new Vector3f(0,0,0), new Vector3f(0,0,0),
-                radius, height, segments, red, green, blue, alpha);
+        renderCylinderSides(builder, matrix4f, radius, height, segments, red, green, blue, alpha);
     }
 
     public static void renderCylinderLightmap(IVertexBuilder builder, Matrix4f matrix4f, int segments, float radius, float height,
@@ -138,8 +137,7 @@ public class GeometryUtil {
                 radius, red, green, blue, alpha, lightmap);
         renderCircleLightmap(builder, matrix4f, new Vector3f(0, height, 0), segments,
                 radius, red, green, blue, alpha, lightmap);
-        renderCylinderSides(builder, matrix4f, new Vector3f(0,0,0), new Vector3f(0,0,0),
-                radius, height, segments, red, green, blue, alpha);
+        renderCylinderSides(builder, matrix4f, radius, height, segments, red, green, blue, alpha);
     }
 
     public static void renderCircleLightmap(IVertexBuilder builder, Matrix4f matrix, Vector3f center, int segments, float radius,
@@ -218,7 +216,8 @@ public class GeometryUtil {
         }
     }
 
-    private static void renderCylinderSides(IVertexBuilder vertexBuilder, Matrix4f matrix, Vector3f bottomPos, Vector3f topPos, float radius, float height, int segments, float red, float green, float blue, float alpha) {
+    private static void renderCylinderSides(IVertexBuilder vertexBuilder, Matrix4f matrix, float radius, float height,
+                                            int segments, float red, float green, float blue, float alpha) {
         for (int i = 0; i < segments; i++) {
             double angle1 = 2 * Math.PI * i / segments;
             double angle2 = 2 * Math.PI * (i + 1) / segments;
@@ -232,30 +231,62 @@ public class GeometryUtil {
             float normalX = (x1 + x2) / 2 / radius;
             float normalZ = (z1 + z2) / 2 / radius;
 
+            vertexBuilder.pos(matrix, x1, 0, z1 ).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2, 0, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2, height, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x1, height, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
 
-            vertexBuilder.pos(matrix, x1 + bottomPos.getX(), bottomPos.getY(), z1 + bottomPos.getZ())
-                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x2 + topPos.getX(), topPos.getY(), z2 + topPos.getZ())
-                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x2 + topPos.getX(), height + topPos.getY(), z2 + topPos.getZ())
-                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x1 + bottomPos.getX(), height + bottomPos.getY(), z1 + bottomPos.getX())
-                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x1, height, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2, height, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x2, 0, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
+            vertexBuilder.pos(matrix, x1, 0, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
 
-            vertexBuilder.pos(matrix, x1 + bottomPos.getX(), height + bottomPos.getY(), z1 + bottomPos.getX())
-                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x2 + topPos.getX(), height + topPos.getY(), z2 + topPos.getZ())
-                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x2 + topPos.getX(), topPos.getY(), z2 + topPos.getZ())
-                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            vertexBuilder.pos(matrix, x1 + bottomPos.getX(), bottomPos.getY(), z1 + bottomPos.getZ())
-                    .color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-
-            // vertexBuilder.pos(matrix, x1, height, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            // vertexBuilder.pos(matrix, x2, height, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            // vertexBuilder.pos(matrix, x2, 0, z2).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
-            // vertexBuilder.pos(matrix, x1, 0, z1).color(red, green, blue, alpha).normal(normalX, 0.0f, normalZ).endVertex();
         }
+    }
+    
+    private static void renderCylinderSides(IVertexBuilder builder, Matrix4f matrix, Vector3f start, Vector3f end, float radius, float height, int segments, float red, float green, float blue, float alpha) {
+        Vector3d direction = new Vector3d(end).subtract(new Vector3d(start)).normalize();
+
+        // 计算一个垂直于方向的法线
+        Vector3d perpendicular = new Vector3d(0, 1, 0);
+        if (Math.abs(direction.dotProduct(perpendicular)) > 0.99) {
+            perpendicular = new Vector3d(1, 0, 0);
+        }
+        Vector3d normal = perpendicular.crossProduct(direction).normalize();
+        Vector3d binormal = direction.crossProduct(normal).normalize();
+        for (int i = 0; i < segments; i++) {
+            double theta0 = (2.0 * Math.PI / segments) * i;
+            double theta1 = (2.0 * Math.PI / segments) * (i + 1);
+
+            // 计算当前和下一个圆周上的点
+            Vector3d p0 = normal.scale(Math.cos(theta0) * radius)
+                    .add(binormal.scale(Math.sin(theta0) * radius))
+                    .add(new Vector3d(start));
+
+            Vector3d p1 = normal.scale(Math.cos(theta1) * radius)
+                    .add(binormal.scale(Math.sin(theta1) * radius))
+                    .add(new Vector3d(start));
+
+            Vector3d p2 = normal.scale(Math.cos(theta1) * radius)
+                    .add(binormal.scale(Math.sin(theta1) * radius))
+                    .add(new Vector3d(end));
+
+            Vector3d p3 = normal.scale(Math.cos(theta0) * radius)
+                    .add(binormal.scale(Math.sin(theta0) * radius))
+                    .add(new Vector3d(end));
+
+            renderQuad(builder, matrix, p0, p1, p2, p3, red, green, blue, alpha);
+            renderQuad(builder, matrix, p3, p3, p1, p0, red, green, blue, alpha);
+        }
+    }
+
+    private static void renderQuad(IVertexBuilder builder, Matrix4f matrix, Vector3d p0, Vector3d p1, Vector3d p2, Vector3d p3,
+                                   float red, float green, float blue, float alpha) {
+        // 设置顶点，按逆时针顺序渲染四边面
+        builder.pos(matrix, (float) p0.x, (float) p0.y, (float) p0.z).color(red, green, blue, alpha).endVertex();
+        builder.pos(matrix, (float) p1.x, (float) p1.y, (float) p1.z).color(red, green, blue, alpha).endVertex();
+        builder.pos(matrix, (float) p2.x, (float) p2.y, (float) p2.z).color(red, green, blue, alpha).endVertex();
+        builder.pos(matrix, (float) p3.x, (float) p3.y, (float) p3.z).color(red, green, blue, alpha).endVertex();
     }
 
     private static float[][] longitudeSphereVertices(int latitudeBands, int longitudeBands, float radius) {

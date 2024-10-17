@@ -57,7 +57,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         this.rotate(matrixStackIn, roll, yaw, pitch);
         matrixStackIn.translate(0, 0.45, 0);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        GeometryUtil.renderCylinderLightmap(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1, combinedLightIn);
+        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
@@ -65,37 +65,37 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         this.rotate(matrixStackIn, roll, yaw, pitch);
         matrixStackIn.translate(0, 0.45, 1);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        GeometryUtil.renderCylinderLightmap(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1, combinedLightIn);
+        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
         matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
         this.rotate(matrixStackIn, roll, yaw, pitch);
         matrixStackIn.translate(0, 0.35, 0);
-        GeometryUtil.quadFaceLightmap(builder, matrixStackIn.getLast().getMatrix(),
+        GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
                 new Vector3f(0.2F,0,0), new Vector3f(0.2F,0,1F), new Vector3f(0.2F,-0.15F,0.8F), new Vector3f(0.2F,-0.15F,0.2F),
-                new Vector4f(rf2, gf2, bf2, 1), combinedLightIn);
-        GeometryUtil.quadFaceLightmap(builder, matrixStackIn.getLast().getMatrix(),
+                new Vector4f(rf2, gf2, bf2, 1));
+        GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
                 new Vector3f(0.7F,0,0), new Vector3f(0.7F,0,1F), new Vector3f(0.7F,-0.15F,0.8F), new Vector3f(0.7F,-0.15F,0.2F),
-                new Vector4f(rf2, gf2, bf2, 1), combinedLightIn);
+                new Vector4f(rf2, gf2, bf2, 1));
         matrixStackIn.pop();
 
         matrixStackIn.push();
         matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
         this.rotate(matrixStackIn, roll, yaw, pitch);
         matrixStackIn.translate(0, 0, 0.3);
-        GeometryUtil.renderCubeLightmap(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(1F, 0.15F, 0.4F),
-                new Vector3f(rf1, gf1, bf1), 1, combinedLightIn);
+        GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(1F, 0.15F, 0.4F),
+                new Vector3i(r1, g1, b1));
         matrixStackIn.pop();
 
         World world = tileEntityIn.getWorld();
         if (world == null) return;
         if (!(world.getTileEntity(tileEntityIn.getTargetPos()) instanceof RailTileEntity)) return;
-        RailTileEntity railTile = (RailTileEntity) world.getTileEntity(tileEntityIn.getTargetPos());
-        if (railTile == null) return;
+        RailTileEntity endRail = (RailTileEntity) world.getTileEntity(tileEntityIn.getTargetPos());
+        if (endRail == null) return;
 
-        Pose start = tileEntityIn.getPose();
-        Pose end = railTile.getPose();
+        Pose start = tileEntityIn.fromEuler();
+        Pose end = tileEntityIn.fromEulerAndEnd(Vector3d.copyCentered(endRail.getPos()));
 
         if (tileEntityIn.shouldRender())
         {
@@ -115,6 +115,54 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         //     renderSegment(builder, matrixStackIn, new Vector3f(0, 90, 0), start, (float) length, (float) total);
         // }
     }
+
+    public void renderCurve(IVertexBuilder builder, MatrixStack matrixStackIn, Pose startPose, Pose endPose,
+                            Vector4i color, int light, int segments) {
+        org.joml.Vector3d origin0 = new org.joml.Vector3d();
+        org.joml.Matrix3d basis0 = new Matrix3d();
+        org.joml.Vector3d grad0 = new org.joml.Vector3d(0,0,1).mul(startPose.basis);
+        double[] blockProgress = new double[1];
+
+        for (int i = 0; i < segments; i++) {
+            double t0 = (double) i / segments;
+            double t1 = (double) (i + 1) / segments;
+            renderPart(matrixStackIn, builder, startPose, endPose, color, light, t0, t1, blockProgress, origin0, basis0, grad0);
+        }
+    }
+
+    /**
+     * Modify from <a href="https://github.com/FoundationGames/Splinecart/blob/1.21/src/client/java/io/github/foundationgames/splinecart/block/entity/TrackTiesBlockEntityRenderer.java">
+     *     Splinecart: TrackTiesBlockEntityRenderer.java </a>
+     * @param origin0 表示当前轨道部分的渲染起点
+     * @param basis0 表示当前轨道的旋转矩阵
+     * @param grad0 表示当前轨道的方向向量
+     */
+    private void renderPart(MatrixStack matrixStack, IVertexBuilder builder, Pose start, Pose end, Vector4i color, int light,
+                            double t0, double t1, double[] blockProgress, org.joml.Vector3d origin0, Matrix3d basis0, org.joml.Vector3d grad0) {
+        start.interpolate(end, t0, origin0, basis0, grad0);
+        org.joml.Vector3d norm0 = new org.joml.Vector3d(0, 1, 0).mul(basis0);
+        org.joml.Vector3d origin1 = new org.joml.Vector3d(origin0);
+
+        Matrix3d basis1 = new Matrix3d(basis0);
+        org.joml.Vector3d grad1 = new org.joml.Vector3d(grad0);
+
+        start.interpolate(end, t1, origin1, basis1, grad1);
+        org.joml.Vector3d norm1 = new org.joml.Vector3d(0, 1, 0).mul(basis1);
+
+        float v0 = (float) blockProgress[0];
+        while (v0 > 1) v0 -= 1;
+        float v1 = v0 + (float) (grad0.length() * (t1 - t0));
+
+        blockProgress[0] = v1;
+
+        v1 = 1 - v1;
+        v0 = 1 - v0;
+
+        org.joml.Vector3f point = new org.joml.Vector3f();
+        this.renderSegment(builder, matrixStack, basis0, origin0.get(new org.joml.Vector3f()),
+                origin1.get(new org.joml.Vector3f()));
+    }
+
 
     private void renderSegment(IVertexBuilder builder, MatrixStack matrixStackIn,
                                Matrix3d basis, org.joml.Vector3f origin0, org.joml.Vector3f origin1) {
@@ -164,53 +212,6 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.pop();
          */
         matrixStackIn.pop();
-    }
-
-    public void renderCurve(IVertexBuilder builder, MatrixStack matrixStackIn, Pose startPose, Pose endPose,
-                            Vector4i color, int light, int segments) {
-        org.joml.Vector3d origin0 = new org.joml.Vector3d();
-        org.joml.Matrix3d basis0 = new Matrix3d();
-        org.joml.Vector3d grad0 = new org.joml.Vector3d(0,0,1).mul(startPose.basis);
-        double[] blockProgress = new double[1];
-
-        for (int i = 0; i < segments; i++) {
-            double t0 = (double) i / segments;
-            double t1 = (double) (i + 1) / segments;
-            renderPart(matrixStackIn, builder, startPose, endPose, color, light, t0, t1, blockProgress, origin0, basis0, grad0);
-        }
-    }
-
-    /**
-     * Modify from <a href="https://github.com/FoundationGames/Splinecart/blob/1.21/src/client/java/io/github/foundationgames/splinecart/block/entity/TrackTiesBlockEntityRenderer.java">
-     *     Splinecart: TrackTiesBlockEntityRenderer.java </a>
-     * @param origin0 表示当前轨道部分的渲染起点
-     * @param basis0 表示当前轨道的旋转矩阵
-     * @param grad0 表示当前轨道的方向向量
-     */
-    private void renderPart(MatrixStack matrixStack, IVertexBuilder builder, Pose start, Pose end, Vector4i color, int light,
-                            double t0, double t1, double[] blockProgress, org.joml.Vector3d origin0, Matrix3d basis0, org.joml.Vector3d grad0) {
-        start.interpolate(end, t0, origin0, basis0, grad0);
-        org.joml.Vector3d norm0 = new org.joml.Vector3d(0, 1, 0).mul(basis0);
-        org.joml.Vector3d origin1 = new org.joml.Vector3d(origin0);
-
-        Matrix3d basis1 = new Matrix3d(basis0);
-        org.joml.Vector3d grad1 = new org.joml.Vector3d(grad0);
-
-        start.interpolate(end, t1, origin1, basis1, grad1);
-        org.joml.Vector3d norm1 = new org.joml.Vector3d(0, 1, 0).mul(basis1);
-
-        float v0 = (float) blockProgress[0];
-        while (v0 > 1) v0 -= 1;
-        float v1 = v0 + (float) (grad0.length() * (t1 - t0));
-
-        blockProgress[0] = v1;
-
-        v1 = 1 - v1;
-        v0 = 1 - v0;
-
-        org.joml.Vector3f point = new org.joml.Vector3f();
-        this.renderSegment(builder, matrixStack, basis0, origin0.get(new org.joml.Vector3f()),
-                origin1.get(new org.joml.Vector3f()));
     }
 
     private org.joml.Vector3d jomlVec(Vector3d vec) {

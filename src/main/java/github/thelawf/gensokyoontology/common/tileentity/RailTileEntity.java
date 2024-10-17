@@ -129,9 +129,16 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         this.pose = pose;
     }
 
-    private Pose fromEuler() {
+    @OnlyIn(Dist.CLIENT)
+    public Pose fromEuler() {
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw), Math.toRadians(this.pitch));
         return new Pose(new org.joml.Vector3d(), matrix);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public Pose fromEulerAndEnd(Vector3d endPos) {
+        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw), Math.toRadians(this.pitch));
+        return new Pose(new org.joml.Vector3d().sub(new org.joml.Vector3d(endPos.x, endPos.y, endPos.z)), matrix);
     }
 
     public BlockPos getTargetPos() {
