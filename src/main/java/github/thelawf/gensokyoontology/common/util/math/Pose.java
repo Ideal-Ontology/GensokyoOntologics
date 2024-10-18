@@ -18,12 +18,24 @@ public class Pose {
         this.basis = basis;
     }
 
-    public void interpolate(Pose other, double t, Vector3d translation, Matrix3d basis, Vector3d gradient) {
-        double factor = this.translation.distance(other.translation);
-        interpolate(other, t, factor, translation, basis, gradient);
+    public void interpolate2(Pose other, double t, Vector3d translation, Vector3d gradient) {
+        Vector3d point0 = translation.set(this.translation);
+        Vector3d point1 = new Vector3d(other.translation);
+        Vector3d grad0 = new Vector3d(0, 0, 1).mul(this.basis); // 使用当前姿态的basis作为初始切线
+
+        quadraticHermiteSpline(t, point0, grad0, point1, translation);
+
+        if (gradient != null) {
+            gradient.set(grad0).mul(t * (1 - t)); // 计算插值中的速度（梯度）
+        }
     }
 
-    public void interpolate(Pose other, double t, double factor, Vector3d translation, Matrix3d basis, Vector3d gradient) {
+    public void interpolate3(Pose other, double t, Vector3d translation, Matrix3d basis, Vector3d gradient) {
+        double factor = this.translation.distance(other.translation);
+        interpolate3(other, t, factor, translation, basis, gradient);
+    }
+
+    public void interpolate3(Pose other, double t, double factor, Vector3d translation, Matrix3d basis, Vector3d gradient) {
         Vector3dc point0 = translation.set(this.translation);
         Vector3dc point1 = new Vector3d(other.translation);
         Vector3dc grad0 = new Vector3d(0, 0, 1).mul(this.basis);
@@ -47,6 +59,27 @@ public class Pose {
                         .mul(basis, basis).normal();
             }
         }
+    }
+
+    public Vector3d getInterpolatePos(Pose other, double t, double factor, Vector3d gradient) {
+        return cubicHermiteSpline(t, factor, this.translation, new Vector3d(0, 0, 1).mul(this.basis),
+                other.translation, new Vector3d(0, 0, 1).mul(other.basis), new Vector3d(), gradient);
+    }
+
+    public static Vector3d quadraticHermiteSpline(double t, Vector3dc p0, Vector3dc m0, Vector3dc p1, Vector3d pOut) {
+        // 计算差值向量
+        Vector3d diff = new Vector3d(p1).sub(p0);
+
+        // 计算每个权重
+        double h0 = 2 * t * t - 3 * t + 1;   // 起点权重
+        double h1 = -2 * t * t + 3 * t;      // 终点权重
+        double h2 = t * (t - 1);             // 起点切线权重
+
+        // 计算最终插值结果
+        return pOut.set(p0)
+                .mul(h0)
+                .add(new Vector3d(diff).mul(h1))
+                .add(new Vector3d(m0).mul(h2));
     }
 
     public static Vector3d cubicHermiteSpline(double t, double factor, Vector3dc p0, Vector3dc m0, Vector3dc p1, Vector3dc m1,

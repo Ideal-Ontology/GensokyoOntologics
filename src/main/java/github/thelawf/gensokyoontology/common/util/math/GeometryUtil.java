@@ -393,6 +393,40 @@ public class GeometryUtil {
         addVertex(matrix4f, builder, x1, y1, z2, color.getX(), color.getY(), color.getZ());
     }
 
+    public static void renderCube(IVertexBuilder builder, Matrix4f matrix4f, Vector3f parameter, Vector3f startPos, Vector3f ebdPos, Vector3i color) {
+        float x1 = startPos.getX(), z1 = startPos.getZ(), y1 = startPos.getY();
+        float x2 = parameter.getX() + ebdPos.getX(), y2 = parameter.getY() + ebdPos.getY(), z2 = parameter.getZ() + ebdPos.getZ();
+        addVertex(matrix4f, builder, x1, y1, z1, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y1, z1, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y2, z1, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x1, y2, z1, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, x1, y1, z2, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y1, z2, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y2, z2, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x1, y2, z2, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, x1, y1, z1, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x1, y1, z2, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x1, y2, z2, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x1, y2, z1, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, x2, y1, z1, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y1, z2, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y2, z2, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y2, z1, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, x1, y2, z1, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y2, z1, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y2, z2, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x1, y2, z2, color.getX(), color.getY(), color.getZ());
+
+        addVertex(matrix4f, builder, x1, y1, z1, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y1, z1, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x2, y1, z2, color.getX(), color.getY(), color.getZ());
+        addVertex(matrix4f, builder, x1, y1, z2, color.getX(), color.getY(), color.getZ());
+    }
+
     public static void renderCubeLightmap(IVertexBuilder builder, Matrix4f matrix4f, Vector3f parameter, Vector3f color, float alpha, int light) {
         float x1 = 0, z1 = 0, y1 = 0;
         float x2 = parameter.getX(), y2 = parameter.getY(), z2 = parameter.getZ();

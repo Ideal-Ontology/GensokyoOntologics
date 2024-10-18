@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
@@ -14,7 +15,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -38,7 +38,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
 
     public RailTileEntity() {
         super(TileEntityRegistry.RAIL_TILE_ENTITY.get());
-        this.pose = this.fromEuler();
+        this.pose = this.toStartPos();
     }
     @Override
     @NotNull
@@ -93,15 +93,15 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
 
     public void setYaw(float yaw) {
         this.yaw = yaw;
-        this.setPose(this.fromEuler());
+        this.setPose(this.toStartPos());
     }
     public void setPitch(float pitch) {
         this.pitch = pitch;
-        this.setPose(this.fromEuler());
+        this.setPose(this.toStartPos());
     }
     public void setRoll(float roll) {
         this.roll = roll;
-        this.setPose(this.fromEuler());
+        this.setPose(this.toStartPos());
     }
 
     public float getRoll() {
@@ -118,7 +118,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         this.setRoll(roll);
         this.setYaw(yaw);
         this.setPitch(pitch);
-        this.setPose(this.fromEuler());
+        this.setPose(this.toStartPos());
     }
 
     public Pose getPose() {
@@ -130,15 +130,41 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public Pose fromEuler() {
-        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw), Math.toRadians(this.pitch));
+    public Pose toStartPos() {
+        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
         return new Pose(new org.joml.Vector3d(), matrix);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public Pose fromEulerAndEnd(Vector3d endPos) {
-        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw), Math.toRadians(this.pitch));
-        return new Pose(new org.joml.Vector3d().sub(new org.joml.Vector3d(endPos.x, endPos.y, endPos.z)), matrix);
+    public Pose toStartPosOffset() {
+        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
+        return new Pose(new org.joml.Vector3d(0, 0.45, 1), matrix);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public Pose toEndPos(org.joml.Vector3d startPos, Vector3d endPos) {
+        Vector3f rot = this.getInversedRot();
+        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(rot.getY() - 90), Math.toRadians(this.pitch));
+        return new Pose(new org.joml.Vector3d(endPos.x, endPos.y, endPos.z).sub(startPos), matrix);
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public Pose toEndPosOffset(org.joml.Vector3d startPos, Vector3d endPos) {
+        Vector3f rot = this.getInversedRot();
+        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(rot.getY() - 90), Math.toRadians(this.pitch));
+        return new Pose(new org.joml.Vector3d(endPos.x, endPos.y, endPos.z).sub(startPos), matrix);
+    }
+
+    public void inverseRot() {
+        this.setRoll(GSKOMathUtil.clampPeriod(this.roll + 180, 0, 360));
+        this.setYaw(GSKOMathUtil.clampPeriod(this.yaw + 180, 0, 360));
+        this.setPitch(GSKOMathUtil.clampPeriod(this.pitch + 180, 0, 360));
+    }
+
+    public Vector3f getInversedRot() {
+        return new Vector3f(GSKOMathUtil.clampPeriod(this.roll + 180, 0, 360),
+                GSKOMathUtil.clampPeriod(this.yaw + 180, 0, 360),
+                GSKOMathUtil.clampPeriod(this.pitch + 180, 0, 360));
     }
 
     public BlockPos getTargetPos() {
