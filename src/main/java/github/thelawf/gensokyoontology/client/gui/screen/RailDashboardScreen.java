@@ -88,11 +88,11 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         // this.pitchSlider = new Slider(100, 90, 120, 25, ANGLE_Z, withText("°"),
         //         0, 360, (int) this.rotation.getZ(), true, true, iPressable -> {}, this::onPitchSlide);
 
-        this.rollSlider = new Slider(30, 30, 120, 25, ANGLE_X, withText("°"),
+        this.rollSlider = new Slider(50, 30, 120, 25, ANGLE_X, withText("°"),
                 0, 360, (int) this.rotation.getX(), true, true, iPressable -> {}, this::onRollSlide);
-        this.yawSlider = new Slider(30, 60, 120, 25, ANGLE_Y, withText("°"),
+        this.yawSlider = new Slider(50, 60, 120, 25, ANGLE_Y, withText("°"),
                 0, 360, (int) this.rotation.getY(), true, true, iPressable -> {}, this::onYawSlide);
-        this.pitchSlider = new Slider(30, 90, 120, 25, ANGLE_Z, withText("°"),
+        this.pitchSlider = new Slider(50, 90, 120, 25, ANGLE_Z, withText("°"),
                 0, 360, (int) this.rotation.getZ(), true, true, iPressable -> {}, this::onPitchSlide);
 
         this.rollSlider.showDecimal = false;

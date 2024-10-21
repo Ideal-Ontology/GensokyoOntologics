@@ -140,27 +140,34 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
 
     @OnlyIn(Dist.CLIENT)
     public Pose toStartPosOffset() {
-        Vector3f offset = new Vector3f(0,0,1);
-        Vector3d vec = new Vector3d(0.5, 0, -0.5);
-        offset.add(new Vector3f(new Vector3d(-0.5, 0, 0.5).add(vec.rotateYaw((float) Math.toRadians(this.yaw)))));
-        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
-        return new Pose(jomlVec(offset), matrix);
+        // Vector3f offset = new Vector3f(0,0,1);
+        // Vector3d vec = new Vector3d(1, 0, 0);
+        // offset.add(new Vector3f(new Vector3d(-1, 0, 0).add(vec.rotateYaw((float) Math.toRadians(this.yaw)))));
+        // Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
+        org.joml.Vector3d offset = this.toStartPos().translation;
+        Matrix3d matrix = this.toStartPos().basis;
+
+        return new Pose(offset.rotateY(Math.toRadians(-90)).add(new org.joml.Vector3d(0.5,0,0)), matrix);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public Pose toEndPos(BlockPos startPos, Vector3f offset) {
-        Vector3f rot = this.getInversedRot();
-        Vector3d vec = new Vector3d(-0.5, 0, 0.5);
-        offset.add(new Vector3f(new Vector3d(0.5, 0, -0.5).add(vec.rotateYaw((float) Math.toRadians(this.yaw - 90)))));
+    public Pose toEndPos(BlockPos startPos) {
+        Vector3f offset = new Vector3f(1,0,0);
+        Vector3d vec = new Vector3d(0.5, 0, -0.5);
+        offset.add(new Vector3f(new Vector3d(-0.5, 0, 0.5).add(vec.rotateYaw((float) Math.toRadians(this.yaw)))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
         return new Pose(jomlVec(this.pos).sub(jomlVec(startPos)).add(jomlVec(offset)), matrix);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public Pose toEndPosOffset(org.joml.Vector3d startPos, Vector3d endPos) {
-        Vector3f rot = this.getInversedRot();
-        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(rot.getY() - 90), Math.toRadians(this.pitch));
-        return new Pose(new org.joml.Vector3d(endPos.x, endPos.y, endPos.z).sub(startPos), matrix);
+    public Pose toEndPosOffset(BlockPos startPos) {
+        Vector3d offset = new Vector3d(1,0,0);
+        Vector3d vec = new Vector3d(0.5, 0, -0.5);
+        offset = offset.add(new Vector3d(-0.5, 0, 0.5).add(vec.rotateYaw((float) Math.toRadians(this.yaw))));
+        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
+
+        return new Pose(jomlVec(this.pos).sub(jomlVec(startPos))
+                .add(jomlVec(offset.rotateYaw((float) Math.toRadians(-90)).add(1,0,0))), matrix);
     }
 
     public void inverseRot() {
@@ -268,8 +275,9 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     private org.joml.Vector3d jomlVec(Vector3f vec) {
         return new org.joml.Vector3d(vec.getX(), vec.getY(), vec.getZ());
     }
-
-
+    private org.joml.Vector3d jomlVec(Vector3d vec) {
+        return new org.joml.Vector3d(vec.x, vec.y, vec.z);
+    }
     private org.joml.Vector3d jomlVec(BlockPos pos) {
         return new org.joml.Vector3d(pos.getX(), pos.getY(), pos.getZ());
     }

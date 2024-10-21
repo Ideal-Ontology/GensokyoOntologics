@@ -101,7 +101,8 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         Pose start = tileEntityIn.toStartPos();
         Pose start1 = tileEntityIn.toStartPosOffset();
-        Pose end = endRail.toEndPos(tileEntityIn.getPos(), new Vector3f(0,0,0));
+        Pose end = endRail.toEndPos(tileEntityIn.getPos());
+        Pose end1 = endRail.toEndPosOffset(tileEntityIn.getPos());
 
         int segments = 32;
         double[] blockProgress = {1};
@@ -119,7 +120,9 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
             double t0 = (double) i / segments;
             double t1 = (double) (i + 1) / segments;
 
-            renderHermite3(matrixStackIn, builder, start, end, new Vector4i((int) r1,(int) g1, (int) b1, 255),
+            renderHermite3(matrixStackIn, builder, start, end1, new Vector4i((int) r1,(int) g1, (int) b1, 255),
+                    tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
+            renderHermite3(matrixStackIn, builder, start1, end, new Vector4i((int) r1,(int) g1, (int) b1, 255),
                     tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
         }
     }
