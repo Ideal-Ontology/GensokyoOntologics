@@ -131,21 +131,29 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
 
     @OnlyIn(Dist.CLIENT)
     public Pose toStartPos() {
+        Vector3f offset = new Vector3f(0,0,1);
+        Vector3d vec = new Vector3d(-0.5, 0, 0.5);
+        offset.add(new Vector3f(new Vector3d(0.5, 0, -0.5).add(vec.rotateYaw((float) Math.toRadians(this.yaw)))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
-        return new Pose(new org.joml.Vector3d(), matrix);
+        return new Pose(jomlVec(offset), matrix);
     }
 
     @OnlyIn(Dist.CLIENT)
     public Pose toStartPosOffset() {
+        Vector3f offset = new Vector3f(0,0,1);
+        Vector3d vec = new Vector3d(0.5, 0, -0.5);
+        offset.add(new Vector3f(new Vector3d(-0.5, 0, 0.5).add(vec.rotateYaw((float) Math.toRadians(this.yaw)))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
-        return new Pose(new org.joml.Vector3d(0, 0.45, 1), matrix);
+        return new Pose(jomlVec(offset), matrix);
     }
 
     @OnlyIn(Dist.CLIENT)
-    public Pose toEndPos(org.joml.Vector3d startPos, Vector3d endPos) {
+    public Pose toEndPos(BlockPos startPos, Vector3f offset) {
         Vector3f rot = this.getInversedRot();
-        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(rot.getY() - 90), Math.toRadians(this.pitch));
-        return new Pose(new org.joml.Vector3d(endPos.x, endPos.y, endPos.z).sub(startPos), matrix);
+        Vector3d vec = new Vector3d(-0.5, 0, 0.5);
+        offset.add(new Vector3f(new Vector3d(0.5, 0, -0.5).add(vec.rotateYaw((float) Math.toRadians(this.yaw - 90)))));
+        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
+        return new Pose(jomlVec(this.pos).sub(jomlVec(startPos)).add(jomlVec(offset)), matrix);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -249,8 +257,20 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         return null;
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public Vector3f getRotation() {
+        return new Vector3f(this.roll, this.yaw, this.pitch);
+    }
 
     @Override
     public void tick() {
+    }
+    private org.joml.Vector3d jomlVec(Vector3f vec) {
+        return new org.joml.Vector3d(vec.getX(), vec.getY(), vec.getZ());
+    }
+
+
+    private org.joml.Vector3d jomlVec(BlockPos pos) {
+        return new org.joml.Vector3d(pos.getX(), pos.getY(), pos.getZ());
     }
 }

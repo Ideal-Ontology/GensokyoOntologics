@@ -226,6 +226,5 @@ public class GSKOMiscClientEvent {
 
     @SubscribeEvent
     public static void onCameraRotate(EntityViewRenderEvent.CameraSetup event) {
-
     }
 }
