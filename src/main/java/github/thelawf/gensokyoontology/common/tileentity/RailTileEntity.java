@@ -12,6 +12,7 @@ import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -19,6 +20,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.AxisAngle4d;
 import org.joml.Matrix3d;
 
 import java.util.ArrayList;
@@ -128,46 +130,69 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     public void setPose(Pose pose) {
         this.pose = pose;
     }
+    public void setPose(org.joml.Vector3d translation, Matrix3d basis) {
+        this.pose = new Pose(translation, basis);
+    }
 
     @OnlyIn(Dist.CLIENT)
     public Pose toStartPos() {
         Vector3f offset = new Vector3f(0,0,1);
-        Vector3d vec = new Vector3d(-0.5, 0, 0.5);
-        offset.add(new Vector3f(new Vector3d(0.5, 0, -0.5).add(vec.rotateYaw((float) Math.toRadians(this.yaw)))));
+        Vector3d pivot = new Vector3d(-0.5, 0.5, 0.5);
+        offset.add(new Vector3f(new Vector3d(0.5, -0.5, -0.5)
+                .add(pivot.rotateYaw((float) Math.toRadians(this.yaw))
+                        .rotatePitch((float) Math.toRadians(-this.roll)))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
         return new Pose(jomlVec(offset), matrix);
+
+        // Vector3f offset = new Vector3f(0,0,1);
+        // Vector3d vec = new Vector3d(-0.5, 0, 0.5);
+        // offset.add(new Vector3f(new Vector3d(0.5, 0, -0.5)
+        //         .add(vec.rotatePitch((float) Math.toRadians(-this.pitch))
+        //                 .rotateRoll((float) Math.toRadians(this.roll * 2))
+        //                 .rotateYaw((float) Math.toRadians(this.yaw)))));
+        // Matrix3d matrix = new Matrix3d().identity();// new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
+        // AxisAngle4d aa4d = new AxisAngle4d();
+
+        // return new Pose(jomlVec(offset), matrix);
     }
 
     @OnlyIn(Dist.CLIENT)
     public Pose toStartPosOffset() {
-        // Vector3f offset = new Vector3f(0,0,1);
-        // Vector3d vec = new Vector3d(1, 0, 0);
-        // offset.add(new Vector3f(new Vector3d(-1, 0, 0).add(vec.rotateYaw((float) Math.toRadians(this.yaw)))));
-        // Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
-        org.joml.Vector3d offset = this.toStartPos().translation;
-        Matrix3d matrix = this.toStartPos().basis;
-
-        return new Pose(offset.rotateY(Math.toRadians(-90)).add(new org.joml.Vector3d(0.5,0,0)), matrix);
+        Vector3f offset = new Vector3f(0,0,1);
+        Vector3d vec = new Vector3d(-0.5, 0.5, -0.5);
+        offset.add(new Vector3f(new Vector3d(0.5, -0.5, -0.5)
+                .add(vec.rotateYaw((float) Math.toRadians(this.yaw))
+                        .rotatePitch((float) Math.toRadians(-this.roll)))));
+        Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
+        return new Pose(jomlVec(offset), matrix);
+        // return new Pose(new org.joml.Vector3d(-start.z + 1, start.y, start.x), matrix);
+        // return new Pose(start.rotateY(Math.toRadians(-90)).add(1,0,0), matrix);
     }
+
 
     @OnlyIn(Dist.CLIENT)
     public Pose toEndPos(BlockPos startPos) {
         Vector3f offset = new Vector3f(1,0,0);
-        Vector3d vec = new Vector3d(0.5, 0, -0.5);
-        offset.add(new Vector3f(new Vector3d(-0.5, 0, 0.5).add(vec.rotateYaw((float) Math.toRadians(this.yaw)))));
+        Vector3d pivot = new Vector3d(0.5, 0.5, -0.5);
+        offset.add(new Vector3f(new Vector3d(-0.5, -0.5, 0.5).add(
+                pivot.rotateYaw((float) Math.toRadians(this.yaw))
+                        .rotatePitch((float) Math.toRadians(-this.roll)))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
         return new Pose(jomlVec(this.pos).sub(jomlVec(startPos)).add(jomlVec(offset)), matrix);
     }
 
     @OnlyIn(Dist.CLIENT)
     public Pose toEndPosOffset(BlockPos startPos) {
+
         Vector3d offset = new Vector3d(1,0,0);
-        Vector3d vec = new Vector3d(0.5, 0, -0.5);
-        offset = offset.add(new Vector3d(-0.5, 0, 0.5).add(vec.rotateYaw((float) Math.toRadians(this.yaw))));
+        Vector3d pivot = new Vector3d(-0.5, 0.5, -0.5);
+        offset = offset.add(new Vector3d(-0.5, -0.5, 0.5).add(
+                pivot.rotateYaw((float) Math.toRadians(this.yaw))
+                        .rotatePitch((float) Math.toRadians(this.roll))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
 
         return new Pose(jomlVec(this.pos).sub(jomlVec(startPos))
-                .add(jomlVec(offset.rotateYaw((float) Math.toRadians(-90)).add(1,0,0))), matrix);
+                .add(jomlVec(offset.rotateYaw((float) Math.toRadians(180)).add(1,0,1))), matrix);
     }
 
     public void inverseRot() {
@@ -281,4 +306,56 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     private org.joml.Vector3d jomlVec(BlockPos pos) {
         return new org.joml.Vector3d(pos.getX(), pos.getY(), pos.getZ());
     }
+
+    private Vector3d mcVec(org.joml.Vector3d vec) {
+        return new Vector3d(vec.x, vec.y, vec.z);
+    }
+    private org.joml.Vector3d normal(org.joml.Vector3d vector) {
+        // 创建一个新的基准向量来确保与输入向量不平行
+        org.joml.Vector3d reference = new org.joml.Vector3d(1, 0, 0);
+
+        // 检查是否与 reference 平行（即使叉积结果为零向量）
+        if (vector.normalize().equals(reference)) {
+            // 若平行，则选择另一标准基向量
+            reference = new org.joml.Vector3d(0, 1, 0);
+        }
+
+        // 计算法向，通过叉积得到
+        org.joml.Vector3d normal = new org.joml.Vector3d();
+        vector.cross(reference, normal).normalize(); // 叉积并归一化结果
+
+        return normal;
+    }
+
+    private org.joml.Vector3d normal(org.joml.Vector3d vector, Direction.Axis axisX, Direction.Axis axisY, Direction.Axis axisZ) {
+        org.joml.Vector3d normal = new org.joml.Vector3d();
+        org.joml.Vector3d ref = new org.joml.Vector3d();
+
+        org.joml.Vector3d x = new org.joml.Vector3d(1,0,0);
+        org.joml.Vector3d y = new org.joml.Vector3d(0,1,0);
+        org.joml.Vector3d z = new org.joml.Vector3d(0,0,1);
+
+        ref  =  axisX != null && vector.normalize().equals(ref) ? x :
+                axisY != null && vector.normalize().equals(ref) ? y :
+                axisZ != null && vector.normalize().equals(ref) ? ref : z;
+        vector.cross(ref, normal).normalize();
+        return normal;
+    }
+
+    private Vector3d normal(Vector3d vector) {
+        // 检查向量是否接近平行于Y轴
+        Vector3d other;
+        if (Math.abs(vector.y) < 0.99) {
+            // 如果向量不平行于Y轴，使用Y轴进行叉积
+            other = new Vector3d(0.0, 1.0, 0.0);
+        } else {
+            // 否则使用X轴进行叉积
+            other = new Vector3d(1.0, 0.0, 0.0);
+        }
+
+        // 计算法向量
+        Vector3d normal = vector.crossProduct(other);
+        return normal.normalize();  // 单位化以得到归一化的法向量
+    }
+
 }

@@ -224,6 +224,7 @@ public class GSKOMiscClientEvent {
         }
     }
 
+    // TODO: 当玩家乘坐过山车时实现摄像机的旋转
     @SubscribeEvent
     public static void onCameraRotate(EntityViewRenderEvent.CameraSetup event) {
     }

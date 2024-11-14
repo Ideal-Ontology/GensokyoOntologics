@@ -1,21 +1,21 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
 import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
-import github.thelawf.gensokyoontology.common.container.RailAdjustContainer;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.Pose;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -24,18 +24,16 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.AxisAngle4d;
+import org.joml.Matrix3d;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class CoasterRailBlock extends Block {
-    public static final HashMap<Vector2f, Float> DIRECTION_MAPPING = initMapping();
-    public static final VoxelShape SHAPE = makeCuboidShape(0,0,0, 16, 6, 16);
-    public static HashMap<Vector2f, Float> initMapping() {
-        HashMap<Vector2f, Float> map = new HashMap<>();
+    public static final HashMap<Vector2f, Float> VECTOR2F_MAPPING = Util.make(new HashMap<>(), map -> {
         map.put(new Vector2f(-22.5F, 22.5F), 270F);
         map.put(new Vector2f(22.5F, 45F + 22.5F), 45F);
         map.put(new Vector2f(45F + 22.5F, 90F + 22.5F), 0F);
@@ -45,8 +43,12 @@ public class CoasterRailBlock extends Block {
         map.put(new Vector2f(-180F + 22.5F, -135F + 22.5F), 225F);
         map.put(new Vector2f(-135F + 22.5F, -90F + 22.5F), 180F);
         map.put(new Vector2f(-90F + 22.5F, -45F + 22.5F), 315F);
-        return map;
-    }
+    });
+    public static final HashMap<Direction, AxisAngle4d> DIRECTION_MAPPING = Util.make(new HashMap<>(), map -> {
+
+    });
+    public static final VoxelShape SHAPE = makeCuboidShape(0,0,0, 16, 6, 16);
+
     public CoasterRailBlock(Properties properties) {
         super(properties);
     }
@@ -77,7 +79,7 @@ public class CoasterRailBlock extends Block {
 
         Vector2f rotation = GSKOMathUtil.toYawPitch(placer.getLookVec());
         float yaw = 0F;
-        for (Map.Entry<Vector2f, Float> entry : DIRECTION_MAPPING.entrySet()) {
+        for (Map.Entry<Vector2f, Float> entry : VECTOR2F_MAPPING.entrySet()) {
             if (rotation.x > entry.getKey().x && rotation.x <= entry.getKey().y) {
                 yaw = entry.getValue();
                 break;
@@ -85,6 +87,15 @@ public class CoasterRailBlock extends Block {
         }
         railTile.setYaw(yaw);
     }
+
+    /*
+    private Pose withPose(LivingEntity living) {
+        Matrix3d matrix = new Matrix3d().identity();
+        Direction dir = GSKOMathUtil.toDirection(living.getLookVec());
+        AxisAngle4d aa4d = new AxisAngle4d();
+        return new Pose(n);
+    }
+     */
 
     @Override
     @NotNull

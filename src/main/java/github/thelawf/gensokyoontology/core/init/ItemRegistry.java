@@ -355,8 +355,8 @@ public final class ItemRegistry {
             "koishi_eye_closed", () -> new KoishiEyeClosed(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ArmorItem> KOISHI_HAT = ITEMS.register(
-            "koishi_hat", () -> new KoishiHatArmorItem(GSKOArmorMaterial.JADE,
-                    EquipmentSlotType.HEAD, (new Item.Properties())));
+            "koishi_hat", () -> new KoishiHatArmorItem(GSKOArmorMaterial.JADE, EquipmentSlotType.HEAD,
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<SatoriEye> SATORI_EYE = ITEMS.register(
             "satori_eye", () -> new SatoriEye(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));

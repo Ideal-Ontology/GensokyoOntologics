@@ -6,6 +6,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -18,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.joml.AxisAngle4d;
 import org.joml.Matrix3d;
 import org.joml.Vector4i;
 
@@ -99,22 +101,24 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         RailTileEntity endRail = (RailTileEntity) world.getTileEntity(tileEntityIn.getTargetPos());
         if (endRail == null) return;
 
+        // TODO: 实现一种轻便简洁地做出翻滚角和俯仰角的轨道效果
         Pose start = tileEntityIn.toStartPos();
         Pose start1 = tileEntityIn.toStartPosOffset();
+        // GSKOUtil.log(this.getClass(), start1.translation);
         Pose end = endRail.toEndPos(tileEntityIn.getPos());
         Pose end1 = endRail.toEndPosOffset(tileEntityIn.getPos());
+
+        // if (world.getGameTime() % 100 == 0) GSKOUtil.log(this.getClass(), start.basis.toString());
 
         int segments = 32;
         double[] blockProgress = {1};
 
-        // org.joml.Vector3d origin0 = start.translation.add(new org.joml.Vector3d(0.5, 0, 0));
         org.joml.Vector3d origin0 = new org.joml.Vector3d(1,0,0);
         org.joml.Matrix3d basis0 = new Matrix3d();
         org.joml.Vector3d grad0 = new org.joml.Vector3d(0,0,1).mul(start.basis);
 
-        org.joml.Vector3d origin1 = start1.translation.add(new org.joml.Vector3d(0.5, 0, 0));
-        org.joml.Matrix3d basis1 = new Matrix3d();
-        org.joml.Vector3d grad1 = new org.joml.Vector3d(0,0,1).mul(start1.basis);
+        // (-0.4999999701976776, -0.7071067690849304, 0.4999999701976776)
+        // (-0.70710 -5  5)
 
         for (int i = 0; i < segments; i++) {
             double t0 = (double) i / segments;
@@ -167,17 +171,6 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
         float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
         float distance = origin1.distance(origin0);
-
-        Vector3f translate = new Vector3f(Vector3d.fromPitchYaw(rotation.getZ(), rotation.getY()));
-        Quaternion roll = Vector3f.XP.rotationDegrees(rotation.getX());
-        Quaternion yaw = Vector3f.YP.rotationDegrees(rotation.getY());
-        Quaternion pitch = Vector3f.ZP.rotationDegrees(rotation.getZ());
-        // org.joml.Vector3f startDot = new org.joml.Vector3f(0.5f,0,0);
-        // org.joml.Vector3f endDot = new org.joml.Vector3f(-0.5f,0,0);
-        // startDot.mul(basis0).add(origin0);
-        // endDot.mul(basis1).add(origin1);
-        // origin0.mul(basis0);
-        // origin1.mul(basis1);
 
         matrixStackIn.push();
         // matrixStackIn.translate(translate.getX(), translate.getY() + 0.45, translate.getZ() + 1);

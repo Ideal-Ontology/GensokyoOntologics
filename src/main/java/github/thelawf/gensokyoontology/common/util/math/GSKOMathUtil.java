@@ -5,6 +5,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
@@ -447,6 +448,21 @@ public class GSKOMathUtil {
         double yaw = Math.atan2(-vector3d.x, vector3d.z);
         double pitch = Math.atan2(vector3d.y, Math.sqrt(vector3d.x * vector3d.x + vector3d.z * vector3d.z));
         return new Vector2f((float) toDegree(yaw), (float) toDegree(pitch));
+    }
+
+    public static Direction toDirection(Vector3d vector3d) {
+        double x = vector3d.x;
+        double y = vector3d.y;
+        double z = vector3d.z;
+
+        // 确定方向
+        if (Math.abs(y) > 0.5) { // 垂直方向优先
+            return y > 0 ? Direction.UP : Direction.DOWN;
+        } else if (Math.abs(x) > Math.abs(z)) {
+            return x > 0 ? Direction.EAST : Direction.WEST;
+        } else {
+            return z > 0 ? Direction.SOUTH : Direction.NORTH;
+        }
     }
 
     public static void rotateMatrixToLookVec(MatrixStack matrixStackIn, Vector3d rotationVec) {
