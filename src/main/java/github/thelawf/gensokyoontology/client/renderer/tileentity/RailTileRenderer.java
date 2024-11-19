@@ -9,7 +9,9 @@ import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
@@ -48,9 +50,10 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
      */
     @Override
     public void render(@NotNull RailTileEntity tileEntityIn, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int combinedLightIn, int combinedOverlayIn) {
-        // Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
-        IVertexBuilder builder = bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID);
-        // var builder = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(TEXTURE));
+        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
+        IVertexBuilder builder = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(TEXTURE));
+        IVertexBuilder b = bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID);
+        // IVertexBuilder builder = bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID);
 
         float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
         float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
@@ -64,7 +67,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         this.rotate(matrixStackIn, roll, yaw, pitch);
         matrixStackIn.translate(0, 0.45, 0);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
+        GeometryUtil.renderCylinder(b, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
@@ -72,7 +75,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         this.rotate(matrixStackIn, roll, yaw, pitch);
         matrixStackIn.translate(0, 0.45, 1);
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
-        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
+        GeometryUtil.renderCylinder(b, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
@@ -104,7 +107,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         // TODO: 实现一种轻便简洁地做出翻滚角和俯仰角的轨道效果
         Pose start = tileEntityIn.toStartPos();
         Pose start1 = tileEntityIn.toStartPosOffset();
-        // GSKOUtil.log(this.getClass(), start1.translation);
+
         Pose end = endRail.toEndPos(tileEntityIn.getPos());
         Pose end1 = endRail.toEndPosOffset(tileEntityIn.getPos());
 
@@ -117,16 +120,13 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         org.joml.Matrix3d basis0 = new Matrix3d();
         org.joml.Vector3d grad0 = new org.joml.Vector3d(0,0,1).mul(start.basis);
 
-        // (-0.4999999701976776, -0.7071067690849304, 0.4999999701976776)
-        // (-0.70710 -5  5)
-
         for (int i = 0; i < segments; i++) {
             double t0 = (double) i / segments;
             double t1 = (double) (i + 1) / segments;
 
-            renderHermite3(matrixStackIn, builder, start, end1, new Vector4i((int) r1,(int) g1, (int) b1, 255),
+            renderHermite3(matrixStackIn, builder, start, end1, new Vector4i((int) r1,(int) g1, (int) b1, 0),
                     tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
-            renderHermite3(matrixStackIn, builder, start1, end, new Vector4i((int) r1,(int) g1, (int) b1, 255),
+            renderHermite3(matrixStackIn, builder, start1, end, new Vector4i((int) r1,(int) g1, (int) b1, 0),
                     tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
         }
     }
@@ -140,7 +140,6 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
      */
     private void renderHermite3(MatrixStack matrixStack, IVertexBuilder builder, Pose start, Pose end, Vector4i color, Vector3f rotation, int light,
                                 double t0, double t1, double[] blockProgress, org.joml.Vector3d origin0, Matrix3d basis0, org.joml.Vector3d grad0) {
-        // origin0.rotateY(rotation.getY()).sub(1.5, 0, 0);
         start.interpolate3(end, t0, origin0, basis0, grad0);
         org.joml.Vector3d norm0 = new org.joml.Vector3d(0, 1, 0).mul(basis0);
         org.joml.Vector3d origin1 = new org.joml.Vector3d(origin0);
@@ -157,6 +156,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         blockProgress[0] = v1;
 
+        // FIXME: 这里是求轨道的法向
         v1 = 1 - v1;
         v0 = 1 - v0;
 
@@ -173,12 +173,9 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         float distance = origin1.distance(origin0);
 
         matrixStackIn.push();
-        // matrixStackIn.translate(translate.getX(), translate.getY() + 0.45, translate.getZ() + 1);
         matrixStackIn.translate(0, 0.45, 0);
         GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), mcVec(origin0), mcVec(origin1),
                 15, this.radius, distance, rf1, gf1, bf1, 1);
-        // GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(distance, 0.15F, 0.4F),
-        //         mcVec(origin0), mcVec(origin1), new Vector3i(r1, g1, b1));
         matrixStackIn.pop();
 
     }
@@ -211,4 +208,5 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
     public boolean isGlobalRenderer(@NotNull RailTileEntity te) {
         return true;
     }
+
 }

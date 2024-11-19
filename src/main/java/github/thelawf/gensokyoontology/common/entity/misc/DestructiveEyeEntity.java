@@ -21,7 +21,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public class DestructiveEyeEntity extends CollideDamageEntity {
+public class DestructiveEyeEntity extends Entity {
     public final int MAX_LIVING_TICK = 50;
     public float prevScale;
     public DestructiveEyeEntity(EntityType entityType, World worldIn) {

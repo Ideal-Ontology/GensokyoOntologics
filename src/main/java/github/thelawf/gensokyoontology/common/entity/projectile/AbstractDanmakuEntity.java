@@ -104,10 +104,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         if (compound.contains("damage")) {
             this.damage = compound.getFloat("damage");
         }
-        // ?????
-        // if (compound.contains("SpellData")) {
-        //     this.spellData = getSpellData();
-        // }
 
         if (compound.contains("color")) {
             this.danmakuColor = compound.getInt("color");

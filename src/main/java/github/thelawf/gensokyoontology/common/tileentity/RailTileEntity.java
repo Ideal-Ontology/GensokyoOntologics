@@ -18,6 +18,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.apache.logging.log4j.core.config.Order;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.AxisAngle4d;
@@ -61,6 +62,12 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         CompoundNBT nbtTag = new CompoundNBT();
         this.write(nbtTag);
         return new SUpdateTileEntityPacket(this.pos, 1, this.getUpdateTag());
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public double getMaxRenderDistanceSquared() {
+        return 128.0D;
     }
 
     @Override
@@ -143,17 +150,6 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
                         .rotatePitch((float) Math.toRadians(-this.roll)))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
         return new Pose(jomlVec(offset), matrix);
-
-        // Vector3f offset = new Vector3f(0,0,1);
-        // Vector3d vec = new Vector3d(-0.5, 0, 0.5);
-        // offset.add(new Vector3f(new Vector3d(0.5, 0, -0.5)
-        //         .add(vec.rotatePitch((float) Math.toRadians(-this.pitch))
-        //                 .rotateRoll((float) Math.toRadians(this.roll * 2))
-        //                 .rotateYaw((float) Math.toRadians(this.yaw)))));
-        // Matrix3d matrix = new Matrix3d().identity();// new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
-        // AxisAngle4d aa4d = new AxisAngle4d();
-
-        // return new Pose(jomlVec(offset), matrix);
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -165,8 +161,6 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
                         .rotatePitch((float) Math.toRadians(-this.roll)))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
         return new Pose(jomlVec(offset), matrix);
-        // return new Pose(new org.joml.Vector3d(-start.z + 1, start.y, start.x), matrix);
-        // return new Pose(start.rotateY(Math.toRadians(-90)).add(1,0,0), matrix);
     }
 
 
@@ -183,28 +177,14 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
 
     @OnlyIn(Dist.CLIENT)
     public Pose toEndPosOffset(BlockPos startPos) {
-
         Vector3d offset = new Vector3d(1,0,0);
         Vector3d pivot = new Vector3d(-0.5, 0.5, -0.5);
         offset = offset.add(new Vector3d(-0.5, -0.5, 0.5).add(
                 pivot.rotateYaw((float) Math.toRadians(this.yaw))
                         .rotatePitch((float) Math.toRadians(this.roll))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
-
         return new Pose(jomlVec(this.pos).sub(jomlVec(startPos))
                 .add(jomlVec(offset.rotateYaw((float) Math.toRadians(180)).add(1,0,1))), matrix);
-    }
-
-    public void inverseRot() {
-        this.setRoll(GSKOMathUtil.clampPeriod(this.roll + 180, 0, 360));
-        this.setYaw(GSKOMathUtil.clampPeriod(this.yaw + 180, 0, 360));
-        this.setPitch(GSKOMathUtil.clampPeriod(this.pitch + 180, 0, 360));
-    }
-
-    public Vector3f getInversedRot() {
-        return new Vector3f(GSKOMathUtil.clampPeriod(this.roll + 180, 0, 360),
-                GSKOMathUtil.clampPeriod(this.yaw + 180, 0, 360),
-                GSKOMathUtil.clampPeriod(this.pitch + 180, 0, 360));
     }
 
     public BlockPos getTargetPos() {

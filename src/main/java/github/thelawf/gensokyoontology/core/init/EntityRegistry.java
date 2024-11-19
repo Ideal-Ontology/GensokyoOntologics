@@ -121,6 +121,8 @@ public final class EntityRegistry {
     // public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
     //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
 
+    // ============================ 技术性实体：轨道渲染器 ============================= //
+
 
     // ============================ 技术性实体：符卡以及特殊技能 ============================= //
     public static final RegistryObject<EntityType<ScarletPrisoner>> SCARLET_PRISONER_ENTITY =
