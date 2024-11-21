@@ -32,12 +32,10 @@ public final class EntityRegistry {
                     .size(0.5F, 0.9F).trackingRange(5).build("cursed_bat"));
 
     // ================================ 怪物 ==================================== //
-    public static final RegistryObject<EntityType<InyoJadeMonsterEntity>> INYO_JADE_ENTITY = ENTITIES.register(
-            "inyo_jade", () -> EntityType.Builder.create(InyoJadeMonsterEntity::new, EntityClassification.CREATURE)
-                    .updateInterval(2).size(0.8f, 0.8f).trackingRange(10).build("inyo_jade_monster"));
-    public static final RegistryObject<EntityType<FairyEntity>> FAIRY_ENTITY = ENTITIES.register(
-            "fairy", () -> EntityType.Builder.create(FairyEntity::new, EntityClassification.MONSTER)
-                    .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("fairy"));
+    public static final RegistryObject<EntityType<InyoJadeMonsterEntity>> INYO_JADE_ENTITY = register(
+            "inyo_jade", InyoJadeMonsterEntity::new, EntityClassification.CREATURE, 0.8f, 0.8f, 10, 2);
+    public static final RegistryObject<EntityType<FairyEntity>> FAIRY_ENTITY = register(
+            "fairy", FairyEntity::new, EntityClassification.MONSTER, 0.6f, 1.5f, 10, 2);
     public static final RegistryObject<EntityType<SunflowerFairyEntity>> SUNFLOWER_FAIRY_ENTITY = ENTITIES.register(
             "sunflower_fairy", () -> EntityType.Builder.create(SunflowerFairyEntity::new, EntityClassification.MONSTER)
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("sunflower_fairy"));
@@ -122,7 +120,8 @@ public final class EntityRegistry {
     //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
 
     // ============================ 技术性实体：轨道渲染器 ============================= //
-
+    public static final RegistryObject<EntityType<RailRendererEntity>> RAIL_ENTITY = register(
+            "rail_entity", RailRendererEntity::new, EntityClassification.MISC, 1, 1, 16, 2);
 
     // ============================ 技术性实体：符卡以及特殊技能 ============================= //
     public static final RegistryObject<EntityType<ScarletPrisoner>> SCARLET_PRISONER_ENTITY =
@@ -161,13 +160,10 @@ public final class EntityRegistry {
                     EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("galactic_arm_spell"));
 
     // ============================================= 特殊能力实体 ====================================================//
-    public static final RegistryObject<EntityType<LaserSourceEntity>> LASER_SOURCE_ENTITY = ENTITIES.register(
-            "laser_source", () -> EntityType.Builder.<LaserSourceEntity>create(LaserSourceEntity::new,
-                    EntityClassification.MISC).size(1F, 1F).trackingRange(4).updateInterval(2).build("laser_source"));
-    public static final RegistryObject<EntityType<DestructiveEyeEntity>> DESTRUCTIVE_EYE_ENTITY =
-            ENTITIES.register("destructive_eye", () -> EntityType.Builder.<DestructiveEyeEntity>create(DestructiveEyeEntity::new, EntityClassification.MISC)
-                    .size(3F, 3F). trackingRange(10).updateInterval(2).build("destructive_eye"));
-
+    public static final RegistryObject<EntityType<LaserSourceEntity>> LASER_SOURCE_ENTITY = register(
+            "laser_source", LaserSourceEntity::new, EntityClassification.MISC,1F, 1F, 4, 2);
+    public static final RegistryObject<EntityType<DestructiveEyeEntity>> DESTRUCTIVE_EYE_ENTITY = register(
+            "destructive_eye", DestructiveEyeEntity::new, EntityClassification.MISC, 3F, 3F, 10, 2);
     public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = register(
             "master_spark", MasterSparkEntity::new, EntityClassification.MISC, 2.F, 2.F, 10, 2);
     public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
@@ -181,8 +177,7 @@ public final class EntityRegistry {
     }
 
     public static <T extends Entity> RegistryObject<EntityType<T>> registerSpell(String name, EntityType.IFactory<T> factoryIn) {
-        return ENTITIES.register(name, () -> EntityType.Builder.create(factoryIn, EntityClassification.MISC).size(1F, 1F)
-                .trackingRange(4).updateInterval(2).build(name));
+        return register(name, factoryIn, EntityClassification.MISC, 1F, 1F, 4, 2);
     }
 
 }

@@ -124,6 +124,12 @@ public class RailRendererEntity extends Entity {
         this.pose = new Pose(translation, basis);
     }
 
+    @Override
+    public void tick() {
+        super.tick();
+        this.setMotion(Vector3d.ZERO);
+    }
+
     @OnlyIn(Dist.CLIENT)
     public Pose toStartPos() {
         Vector3f offset = new Vector3f(0,0,1);
