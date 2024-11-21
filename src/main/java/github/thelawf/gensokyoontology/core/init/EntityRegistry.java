@@ -1,8 +1,10 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.CoasterVehicleEntity;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
+import github.thelawf.gensokyoontology.common.entity.RailRendererEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.*;
 import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.*;
@@ -12,7 +14,6 @@ import github.thelawf.gensokyoontology.common.entity.spellcard.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.passive.BatEntity;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -119,9 +120,11 @@ public final class EntityRegistry {
     // public static final RegistryObject<EntityType<NamespaceDomain>> NAMESPACE_DOMAIN = ENTITIES.register(
     //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
 
-    // ============================ 技术性实体：轨道渲染器 ============================= //
+    // ============================ 技术性实体：轨道和载具 ============================= //
     public static final RegistryObject<EntityType<RailRendererEntity>> RAIL_ENTITY = register(
             "rail_entity", RailRendererEntity::new, EntityClassification.MISC, 1, 1, 16, 2);
+    public static final RegistryObject<EntityType<CoasterVehicleEntity>> COASTER_ENTITY = register(
+            "coaster", CoasterVehicleEntity::new, EntityClassification.MISC, 2, 2, 10, 2);
 
     // ============================ 技术性实体：符卡以及特殊技能 ============================= //
     public static final RegistryObject<EntityType<ScarletPrisoner>> SCARLET_PRISONER_ENTITY =

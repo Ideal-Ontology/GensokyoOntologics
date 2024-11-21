@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity;
 
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.minecart.AbstractMinecartEntity;
@@ -9,8 +10,11 @@ import org.jetbrains.annotations.NotNull;
 
 // TODO: 实现过山车载具，包含模型、渲染和运行逻辑
 public class CoasterVehicleEntity extends AbstractMinecartEntity {
-    protected CoasterVehicleEntity(EntityType<?> type, World worldIn) {
-        super(type, worldIn);
+    public CoasterVehicleEntity(EntityType<?> entityType, World worldIn) {
+        super(entityType, worldIn);
+    }
+    public CoasterVehicleEntity(World worldIn) {
+        this(EntityRegistry.COASTER_ENTITY.get(), worldIn);
     }
 
     @Override

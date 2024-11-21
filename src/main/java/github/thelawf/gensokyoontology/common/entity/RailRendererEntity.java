@@ -1,6 +1,5 @@
-package github.thelawf.gensokyoontology.common.entity.misc;
+package github.thelawf.gensokyoontology.common.entity;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -20,7 +19,6 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3d;
-import org.lwjgl.system.CallbackI;
 
 public class RailRendererEntity extends Entity {
     private float yaw = 0f;
