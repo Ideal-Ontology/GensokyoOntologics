@@ -191,8 +191,9 @@ public class GSKOEntityEvents {
         if (event.player.getServer() == null) return;
 
         ServerWorld serverWorld = event.player.getServer().getWorld(GSKODimensions.GENSOKYO);
+        if (serverWorld == null) return;
         if (event.player.getEntityWorld().getDimensionKey().equals(GSKODimensions.GENSOKYO) &&
-                event.player.ticksExisted % GSKOMathUtil.randomRange(200, 1000) == 0) {
+                serverWorld.getGameTime() % GSKOMathUtil.randomRange(200, 1000) == 0) {
             event.player.playSound(GSKOSoundEvents.CICADA_AMBIENT.get(), 0.3f, 1f);
         }
     }
