@@ -50,7 +50,6 @@ public class DreamSealEntity extends ScriptedDanmakuEntity implements IRayTraceR
             Vector3d aimedVec = this.getAimedVec(this.getShooter(), this.getTarget());
             float offset = 0.3f / this.getTarget().getEyeHeight();
             this.shoot(aimedVec.x, aimedVec.y - offset, aimedVec.z, 1.6f, 0f);
-            GSKOUtil.log(this.getClass(), this.getTarget().getPositionVec());
         }
         // this.getShooter().flatMap(this::getTarget).ifPresent(target -> {
         //     Vector3d direction = this.getAimedVec(target);

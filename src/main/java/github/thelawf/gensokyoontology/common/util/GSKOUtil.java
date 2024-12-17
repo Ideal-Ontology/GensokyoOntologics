@@ -67,6 +67,10 @@ public class GSKOUtil {
         LogManager.getLogger().info(clazz.getName() + ": {}", obj.toString());
     }
 
+    public static void formatLog(Class<?> clazz, Object... objects) {
+        LogManager.getLogger().info("{}", clazz.getName());
+    }
+
     public static TranslationTextComponent fromLocaleKey(String prefix, String suffix) {
         return new TranslationTextComponent(withAffix(prefix, suffix));
     }

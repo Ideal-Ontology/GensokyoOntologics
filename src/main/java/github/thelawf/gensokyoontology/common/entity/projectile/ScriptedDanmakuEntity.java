@@ -130,6 +130,7 @@ public abstract class ScriptedDanmakuEntity extends AbstractDanmakuEntity{
         return this.dataManager.get(DATA_SCRIPT);
     }
 
+    @Nullable
     public Entity getTarget() {
         if (!this.world.isRemote) {
             ServerWorld serverWorld = (ServerWorld) this.world;

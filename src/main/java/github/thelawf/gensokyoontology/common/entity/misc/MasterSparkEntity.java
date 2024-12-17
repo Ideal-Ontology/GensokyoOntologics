@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.misc;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.Entity;
@@ -20,7 +21,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceReader {
-    public static final float DISTANCE = 50F;
+    public static final float DISTANCE = 80F;
     public MasterSparkEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
     }
@@ -33,14 +34,34 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceRead
     public void tick() {
         super.tick();
         if (ticksExisted >= 120) this.remove();
+        if (ticksExisted < 10) return;
+        List<Vector3d> startList = DanmakuUtil.ellipticPos(Vector2f.ZERO, 3, 20);
+        // startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 3, 20));
+        // startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 2.5, 30));
+        startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 2, 20));
+        // startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 1.5, 20));
+        startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 1, 10));
+        // 1startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 0.5, 10));
+        List<Vector3d> endList = startList.stream().map(vector3d -> this.getLookVec().scale(DISTANCE).add(vector3d)).collect(Collectors.toList());
 
-    }
+        Map<Vector3d, Vector3d> vectorMap = IntStream.range(0, startList.size()).boxed()
+                .collect(Collectors.toMap(startList::get, endList::get));
+        Predicate<Entity> canAttack = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() != this.getOwnerID().get();
 
-    private void generateRays() {
-        for (int i = 0; i < 3; i++) {
-            List<Vector3d> initPositions = DanmakuUtil.ellipticPos(new Vector2f((float) this.getPosX(), (float) this.getPosZ()), i, 10);
-            List<Vector3d> endPositions = initPositions.stream().map(vector3d -> getLookEnd(vector3d, this.getLookVec(), this.getEyeHeight(), 50))
-                    .collect(Collectors.toList());
+        if (ticksExisted == 12) {
+            vectorMap.keySet().forEach(vector3d -> GSKOUtil.log(this.getClass(), vector3d));
+            vectorMap.values().forEach(vector3d -> GSKOUtil.log(this.getClass(), vector3d));
+        }
+
+        for (Map.Entry<Vector3d, Vector3d> entry : vectorMap.entrySet()) {
+            Vector3d start = entry.getKey().add(this.getPositionVec()).add(0, 1, 0);
+            Vector3d end = entry.getValue().add(this.getPositionVec());
+
+            if (this.ticksExisted % 2 == 0 && rayTrace(this.world, this, start, end).isPresent()) {
+                rayTrace(this.world, this, start, end).ifPresent(entity -> {
+                    if (canAttack.test(entity)) entity.attackEntityFrom(GSKODamageSource.LASER, 15F);
+                });
+            }
         }
     }
 }

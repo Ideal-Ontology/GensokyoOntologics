@@ -8,6 +8,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // TODO: 实现过山车载具，包含模型、渲染和运行逻辑
 public class CoasterVehicleEntity extends AbstractMinecartEntity {
     public CoasterVehicleEntity(EntityType<?> entityType, World worldIn) {
