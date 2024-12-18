@@ -2,23 +2,23 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
-import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Inventory;
-import net.minecraft.item.*;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.item.ShootableItem;
+import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
-import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -28,12 +28,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-
-import static github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity.DISTANCE;
 
 /**
  * 魔理沙的八卦炉
@@ -64,7 +59,9 @@ public class MarisaHakkeiro extends ShootableItem implements IRayTraceReader {
         masterSpark.setLocationAndAngles(sparkPos.x, sparkPos.y, sparkPos.z, playerIn.rotationYaw, playerIn.rotationPitch);
         worldIn.addEntity(masterSpark);
 
-        if (worldIn.isRemote) return;
+        if (worldIn.isRemote) {
+            worldIn.playSound(playerIn, playerIn.getPosition(), GSKOSoundEvents.MASTER_SPARK.get(), SoundCategory.AMBIENT, 0.8f, 1f);
+        }
         // Vector3d explodeStartPos = playerIn.getEyePosition(1.0F).add(playerIn.getLookVec().scale(8));
         // this.causeExplosion(worldIn, playerIn, explodeStartPos);
         int cooldownTicks = 1800;
@@ -78,7 +75,6 @@ public class MarisaHakkeiro extends ShootableItem implements IRayTraceReader {
         ItemStack stack = playerIn.getHeldItem(handIn);
         playerIn.setActiveHand(handIn);
 
-        GSKOUtil.log(this.getClass(), playerIn.getItemInUseCount());
         if (playerIn.getCooldownTracker().hasCooldown(this)) return ActionResult.resultPass(stack);
         if (!this.isUsingItem(playerIn, stack)) return ActionResult.resultFail(stack);
 

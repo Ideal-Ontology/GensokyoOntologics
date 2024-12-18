@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.api.util;
 
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -53,16 +54,6 @@ public interface IRayTraceReader {
 
     default AxisAlignedBB createCubeBox(Vector3d pos, int radius) {
         return new AxisAlignedBB(pos.subtract(new Vector3d(radius, radius, radius)), pos.add(new Vector3d(radius, radius, radius)));
-    }
-
-    default <T extends Entity> List<T> getEntityWithin(World worldIn, Class<? extends T> entityClass, AxisAlignedBB aabb,
-                                                       @Nullable Predicate<? super T> predicate) {
-        if (predicate != null) {
-            return worldIn.getEntitiesWithinAABB(entityClass, aabb).stream()
-                    .filter(predicate).collect(Collectors.toList());
-        } else {
-            return worldIn.getEntitiesWithinAABB(entityClass, aabb);
-        }
     }
 
     /**
@@ -140,6 +131,22 @@ public interface IRayTraceReader {
                 new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
     }
 
+    default List<Entity> getEntityIntersecting(World world, Entity source, Predicate<Entity> predicate,
+                                               Vector3d start, Vector3d end, float radius) {
+        AxisAlignedBB aabb = source.getBoundingBox().grow(radius);
+        return world.getEntitiesWithinAABB(source.getClass(), aabb).stream()
+                .filter(entity -> isIntersecting(start, end, entity.getBoundingBox().offset(0, -1, 0)) && predicate.test(entity))
+                .collect(Collectors.toList());
+    }
+
+    default List<Entity> getEntityInCylinder(World world, Entity source, Predicate<Entity> predicate,
+                                               Vector3d start, Vector3d end, double radius, double height) {
+        AxisAlignedBB aabb = source.getBoundingBox().grow(radius);
+        return world.getEntitiesWithinAABB(source.getClass(), aabb).stream()
+                .filter(entity -> isEntityInCylinder(entity, source.getPositionVec(), source.getLookVec(), radius, height) && predicate.test(entity))
+                .collect(Collectors.toList());
+    }
+
     @Nullable
     default EntityRayTraceResult rayTrace(World worldIn, Entity entityIn, Vector3d start, Vector3d end, AxisAlignedBB boundingBox, Predicate<Entity> selector, double limitDist) {
         double currentDist = limitDist;
@@ -166,6 +173,7 @@ public interface IRayTraceReader {
 
     default Optional<Entity> rayTrace(World world, Entity sourceEntity, Vector3d startVec, Vector3d endVec) {
         double closestDistance = startVec.distanceTo(endVec);
+        // GSKOUtil.log(world.getEntitiesWithinAABB(Entity.class, sourceEntity.getBoundingBox().grow(startVec.distanceTo(endVec))).size());
         for (Entity entity : world.getEntitiesWithinAABB(Entity.class, sourceEntity.getBoundingBox().grow(startVec.distanceTo(endVec)))) {
             if (entity != sourceEntity) {
                 AxisAlignedBB entityAABB = entity.getBoundingBox();
@@ -240,6 +248,33 @@ public interface IRayTraceReader {
                 start.z + tMin * (end.z - start.z));
     }
 
+    default boolean isEntityInCylinder(Entity entity, Vector3d center, Vector3d direction, double radius, double height) {
+        // 单位化方向向量
+        Vector3d dir = direction.normalize();
+
+        // 获取碰撞箱中心
+        Vector3d boxCenter = entity.getBoundingBox().getCenter();
+
+        // 计算 p 到 c 的向量
+        Vector3d pc = boxCenter.subtract(center);
+
+        // 投影向量和垂直向量
+        Vector3d projection = dir.scale(pc.dotProduct(dir));
+        Vector3d perpendicular = pc.subtract(projection);
+
+        // 距离到圆柱轴线
+        double distanceToAxis = perpendicular.length();
+
+        // 判断是否在半径范围内
+        boolean withinRadius = distanceToAxis <= radius;
+
+        // 判断是否在高度范围内
+        double heightProjection = pc.dotProduct(dir);
+        boolean withinHeight = heightProjection >= 0 && heightProjection <= height;
+
+        // 返回是否相交
+        return withinRadius && withinHeight;
+    }
 
     /**
      * 以传入的碰撞箱体的中心为圆心，获取所有位于这个球形的碰撞区域以内的生物。
@@ -263,12 +298,6 @@ public interface IRayTraceReader {
 
     default Vector3d getAimedVec(LivingEntity source, Entity target) {
         return target.getPositionVec().subtract(source.getPositionVec());
-    }
-
-    default Vector2f toYawPitch(Vector3d vector3d) {
-        double yaw = Math.atan2(-vector3d.x, vector3d.z);
-        double pitch = Math.atan2(vector3d.y, Math.sqrt(vector3d.x * vector3d.x + vector3d.z * vector3d.z));
-        return new Vector2f((float) toDegree(yaw), (float) toDegree(pitch));
     }
 
     /**

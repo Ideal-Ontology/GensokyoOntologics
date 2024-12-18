@@ -67,6 +67,14 @@ public class GSKOUtil {
         LogManager.getLogger().info(clazz.getName() + ": {}", obj.toString());
     }
 
+    public static void log(String str) {
+        LogManager.getLogger().info(str);
+    }
+
+    public static void log(Object o) {
+        LogManager.getLogger().info(o.toString());
+    }
+
     public static void formatLog(Class<?> clazz, Object... objects) {
         LogManager.getLogger().info("{}", clazz.getName());
     }

@@ -35,5 +35,15 @@
         "stream": true
       }
     ]
+  },
+  "master_spark": {
+    "subtitle": "gensokyoontology.master_spark",
+    "replace": "true",
+    "sounds": [
+      {
+        "name": "gensokyoontology:master_spark",
+        "stream": true
+      }
+    ]
   }
 }

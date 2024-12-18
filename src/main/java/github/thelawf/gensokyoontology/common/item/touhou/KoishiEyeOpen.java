@@ -101,7 +101,7 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
                 double angle = Math.PI * 2 / this.getUseDuration(stack) * totalCount;
                 Vector3d end = vector3d.rotateYaw((float) Math.PI * 2 / 8 * i).rotateYaw((float) angle);
                 getEntityWithinSphere(worldIn, LivingEntity.class, predicate.negate(), box, 12F).stream()
-                        .filter(living -> isIntersecting(start, end, living.getBoundingBox().offset(0, -1, 0)))
+                        .filter(living -> isIntersecting(start, end, living.getBoundingBox().offset(0, -1.5, 0)))
                         .forEach(living -> living.attackEntityFrom(DamageSource.causePlayerDamage(player), 8F));
                 if (angle >= Math.PI * 2) totalCount = 0;
             }

@@ -48,15 +48,13 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceRead
                 .collect(Collectors.toMap(startList::get, endList::get));
         Predicate<Entity> canAttack = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() != this.getOwnerID().get();
 
-        if (ticksExisted == 12) {
-            vectorMap.keySet().forEach(vector3d -> GSKOUtil.log(this.getClass(), vector3d));
-            vectorMap.values().forEach(vector3d -> GSKOUtil.log(this.getClass(), vector3d));
-        }
-
         for (Map.Entry<Vector3d, Vector3d> entry : vectorMap.entrySet()) {
-            Vector3d start = entry.getKey().add(this.getPositionVec()).add(0, 1, 0);
+            Vector3d start = entry.getKey().add(this.getPositionVec());
             Vector3d end = entry.getValue().add(this.getPositionVec());
 
+            // GSKOUtil.log(this.getEntityInCylinder(this.world, this, canAttack.negate(), start, end, DISTANCE, 80).size());
+            // this.getEntityInCylinder(this.world, this, canAttack.negate(), start, end, DISTANCE, 80).forEach(
+            //         entity -> entity.attackEntityFrom(GSKODamageSource.LASER, 80F));
             if (this.ticksExisted % 2 == 0 && rayTrace(this.world, this, start, end).isPresent()) {
                 rayTrace(this.world, this, start, end).ifPresent(entity -> {
                     if (canAttack.test(entity)) entity.attackEntityFrom(GSKODamageSource.LASER, 15F);
