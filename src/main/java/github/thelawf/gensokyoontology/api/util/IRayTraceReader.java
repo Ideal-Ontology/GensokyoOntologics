@@ -142,9 +142,37 @@ public interface IRayTraceReader {
     default List<Entity> getEntityInCylinder(World world, Entity source, Predicate<Entity> predicate,
                                                Vector3d start, Vector3d end, double radius, double height) {
         AxisAlignedBB aabb = source.getBoundingBox().grow(radius);
-        return world.getEntitiesWithinAABB(source.getClass(), aabb).stream()
+        return getEntityWithinSphere(world, Entity.class, aabb, (float) start.distanceTo(end)).stream()
                 .filter(entity -> isEntityInCylinder(entity, source.getPositionVec(), source.getLookVec(), radius, height) && predicate.test(entity))
                 .collect(Collectors.toList());
+    }
+
+    default boolean isEntityInCylinder(Entity entity, Vector3d center, Vector3d direction, double radius, double height) {
+        // 将方向单位化
+        direction = direction.normalize();
+
+        // 获取实体的碰撞箱中心
+        AxisAlignedBB aabb = entity.getBoundingBox();
+        Vector3d entityCenter = aabb.getCenter();
+
+        // 计算玩家视角方向上的圆柱顶点
+        Vector3d cylinderTop = center.add(direction.scale(height));
+
+        // 投影实体中心到圆柱轴上的点（圆柱底面圆心到顶点形成的直线）
+        Vector3d projection = center.add(direction.scale(entityCenter.subtract(center).dotProduct(direction)));
+
+        // 计算实体中心到圆柱轴的距离
+        double distance = entityCenter.subtract(projection).length();
+
+        // 检查距离是否在圆柱半径内
+        if (distance > radius) {
+            return false; // 距离大于半径，实体不在圆柱范围内
+        }
+
+        // 检查投影点是否在圆柱的高度范围内
+        double projectionHeight = projection.subtract(center).dotProduct(direction);
+        return !(projectionHeight < 0) && !(projectionHeight > height); // 超出高度范围
+
     }
 
     @Nullable
@@ -246,34 +274,6 @@ public interface IRayTraceReader {
                 start.x + tMin * (end.x - start.x),
                 start.y + tMin * (end.y - start.y),
                 start.z + tMin * (end.z - start.z));
-    }
-
-    default boolean isEntityInCylinder(Entity entity, Vector3d center, Vector3d direction, double radius, double height) {
-        // 单位化方向向量
-        Vector3d dir = direction.normalize();
-
-        // 获取碰撞箱中心
-        Vector3d boxCenter = entity.getBoundingBox().getCenter();
-
-        // 计算 p 到 c 的向量
-        Vector3d pc = boxCenter.subtract(center);
-
-        // 投影向量和垂直向量
-        Vector3d projection = dir.scale(pc.dotProduct(dir));
-        Vector3d perpendicular = pc.subtract(projection);
-
-        // 距离到圆柱轴线
-        double distanceToAxis = perpendicular.length();
-
-        // 判断是否在半径范围内
-        boolean withinRadius = distanceToAxis <= radius;
-
-        // 判断是否在高度范围内
-        double heightProjection = pc.dotProduct(dir);
-        boolean withinHeight = heightProjection >= 0 && heightProjection <= height;
-
-        // 返回是否相交
-        return withinRadius && withinHeight;
     }
 
     /**
