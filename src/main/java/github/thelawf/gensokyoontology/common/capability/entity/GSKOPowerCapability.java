@@ -14,6 +14,7 @@ public class GSKOPowerCapability implements INBTSerializable<CompoundNBT> {
     public static final float MAX = 5.00F;
     public static final float MIN = 0.00F;
     public static GSKOPowerCapability INSTANCE;
+    public static final String ID = "gsko_power";
 
     public GSKOPowerCapability(float count) {
         this.count = count;

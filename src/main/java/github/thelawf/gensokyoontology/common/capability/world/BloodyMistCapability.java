@@ -12,6 +12,7 @@ public class BloodyMistCapability implements IIncidentCapability {
 
     private List<String> biomeRegistryNames;
     private boolean isTriggered;
+    public static final String ID = "bloody_mist";
     private List<Pair<String, Boolean>> biomes;
     public static BloodyMistCapability INSTANCE;
 
@@ -33,6 +34,11 @@ public class BloodyMistCapability implements IIncidentCapability {
     public boolean isTriggered() {
         return this.isTriggered;
     }
+
+    // @Override
+    // public String getId() {
+    //     return ID;
+    // }
 
     @Override
     public CompoundNBT serializeNBT() {

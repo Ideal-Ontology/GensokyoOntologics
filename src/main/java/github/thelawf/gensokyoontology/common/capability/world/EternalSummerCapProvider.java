@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.capability.world;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
-import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeCapability;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;

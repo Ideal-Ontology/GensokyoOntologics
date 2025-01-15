@@ -46,7 +46,7 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<TsumiBukuroEntity>> TSUMI_BUKURO_ENTITY = ENTITIES.register(
             "tsumi_bukuro", () -> EntityType.Builder.create(TsumiBukuroEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.6f, 1.8f).trackingRange(10).build("tsumi_bukuro"));
-    public static final RegistryObject<EntityType<LilyWhiteEntity>> LILY_WHITE_ENTITY = ENTITIES.register(
+    public static final RegistryObject<EntityType<LilyWhiteEntity>> LILY_WHITE = ENTITIES.register(
             "lily_white", () -> EntityType.Builder.create(LilyWhiteEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("lily_white"));
     public static final RegistryObject<EntityType<FlandreScarletEntity>> FLANDRE_SCARLET = ENTITIES.register(

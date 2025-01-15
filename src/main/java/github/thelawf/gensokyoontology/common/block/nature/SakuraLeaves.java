@@ -26,12 +26,6 @@ public class SakuraLeaves extends LeavesBlock {
             worldIn.removeBlock(pos, false);
         }
         GSKOWorldSavedData gskoWorldData = GSKOWorldSavedData.getInstance(worldIn);
-        if (gskoWorldData.getSeason() == GensokyoSeason.SPRING) {
-            this.setDefaultState(this.getDefaultState().with(BLOOMED, true));
-        }
-        else {
-            this.setDefaultState(this.getDefaultState().with(BLOOMED, false));
-        }
     }
 
     @Override

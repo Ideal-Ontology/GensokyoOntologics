@@ -58,7 +58,7 @@ public class CommonSetUp {
                     Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                     RetreatableEntity::canMonsterSpawn);
 
-            EntitySpawnPlacementRegistry.register(EntityRegistry.LILY_WHITE_ENTITY.get(),
+            EntitySpawnPlacementRegistry.register(EntityRegistry.LILY_WHITE.get(),
                     EntitySpawnPlacementRegistry.PlacementType.ON_GROUND,
                     Heightmap.Type.MOTION_BLOCKING_NO_LEAVES,
                     TameableEntity::canAnimalSpawn);

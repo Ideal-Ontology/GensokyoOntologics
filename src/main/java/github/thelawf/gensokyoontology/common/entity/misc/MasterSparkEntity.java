@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.util.math.vector.Vector2f;

@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MoverType;
 import net.minecraft.entity.ai.goal.Goal;
@@ -29,8 +31,8 @@ public class CursedBatEntity extends BatEntity implements IFlyingAnimal {
     private boolean hasDestination;
     private BlockPos mansionPos = new BlockPos(0,0,0);
 
-    public CursedBatEntity(EntityType<? extends BatEntity> type, World worldIn, BlockPos mansionPos) {
-        super(type, worldIn);
+    public CursedBatEntity(World worldIn, BlockPos mansionPos) {
+        super(EntityRegistry.CURSED_BAT.get(), worldIn);
         this.mansionPos = mansionPos;
         this.setMansionPos(this.mansionPos);
     }

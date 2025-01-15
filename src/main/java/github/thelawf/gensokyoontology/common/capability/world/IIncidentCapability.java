@@ -18,6 +18,4 @@ public interface IIncidentCapability extends INBTSerializable<CompoundNBT> {
      * 获取异变事件是否被触发
      */
     boolean isTriggered();
-
-
 }

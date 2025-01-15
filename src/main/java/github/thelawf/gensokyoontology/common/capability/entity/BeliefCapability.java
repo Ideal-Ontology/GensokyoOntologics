@@ -83,7 +83,4 @@ public class BeliefCapability implements INBTSerializable<CompoundNBT> {
     public void setMarket(int value) {
         this.setValue(BeliefType.MARKET, value);
     }
-    public void setFetish(int value) {
-        this.setValue(BeliefType.FETISH, value);
-    }
 }

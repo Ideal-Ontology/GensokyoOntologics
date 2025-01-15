@@ -6,6 +6,6 @@ public enum BeliefType {
     KOCHIYA,
     BUDDHISM,
     TAOISM,
-    MARKET,
-    FETISH;
+    IDOL,
+    MARKET
 }

@@ -3,25 +3,20 @@ package github.thelawf.gensokyoontology.common.command;
 import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.arguments.StringArgumentType;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
-import net.minecraft.command.arguments.*;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.command.arguments.BlockPosArgument;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityDispatcher;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
-import org.codehaus.plexus.util.cli.Commandline;
 
-import java.lang.reflect.Field;
 import java.util.IdentityHashMap;
-import java.util.function.Supplier;
 
 public class GSKOCommand {
     // 实现一个可以显示 GUI的指令
@@ -45,7 +40,7 @@ public class GSKOCommand {
                 .then(Commands.literal(GSKOLiterals.CAPABILITY.name)
                         .then(Commands.literal("list").executes(context -> listCapability(context.getSource())))
                         .then(Commands.literal("get").then(Commands.argument("cap", StringReader::getString))
-                                .executes(context -> getCapability(context.getSource(), context.getArgument("cap", CapabilityArgument.class))))
+                                .executes(context -> getCapability(context.getSource(), context.getArgument("cap", StringArgumentType.class))))
                 ));
 
     }
@@ -57,8 +52,9 @@ public class GSKOCommand {
         return 1;
     }
 
-    private static int getCapability(CommandSource source, CapabilityArgument argument) {
-
+    private static int getCapability(CommandSource source, StringArgumentType argument) {
+        source.getWorld().getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap ->
+                source.sendFeedback(new StringTextComponent(String.valueOf(gskoCap.getCount())), true));
 
         return 1;
     }

@@ -1,13 +1,11 @@
 package github.thelawf.gensokyoontology;
 
 import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
-import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.SpellCardConsoleScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.*;
 import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.CommonSetUp;
-import github.thelawf.gensokyoontology.common.container.RailAdjustContainer;
 import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
@@ -22,10 +20,7 @@ import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
@@ -253,7 +248,7 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.3D)
                     .createMutableAttribute(Attributes.ARMOR, 4D).create());
 
-            event.put(EntityRegistry.LILY_WHITE_ENTITY.get(), MobEntity.func_233666_p_()
+            event.put(EntityRegistry.LILY_WHITE.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 100D)
                     .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35F)
                     .createMutableAttribute(Attributes.FLYING_SPEED, 0.4F)

@@ -1,11 +1,12 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.LongNBT;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.items.ItemStackHandler;
 
-public class SecularLifeCapability implements INBTSerializable<CompoundNBT> {
+public class SecularLifeCapability implements INBTSerializable<LongNBT> {
 
     private long lifetime;
     public static long MAX_LIFE_TIME = 24000 * 30 * 5;
@@ -15,17 +16,13 @@ public class SecularLifeCapability implements INBTSerializable<CompoundNBT> {
     private boolean isDirty;
 
     @Override
-    public CompoundNBT serializeNBT() {
-        CompoundNBT nbt = new CompoundNBT();
-        nbt.putLong("lifetime", this.lifetime);
-        return nbt;
+    public LongNBT serializeNBT() {
+        return LongNBT.valueOf(this.lifetime);
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
-        if (nbt.contains("lifetime")) {
-            this.lifetime = nbt.getLong("lifetime");
-        }
+    public void deserializeNBT(LongNBT nbt) {
+        this.lifetime = nbt.getLong();
     }
 
     public long getLifetime() {

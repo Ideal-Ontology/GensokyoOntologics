@@ -1,7 +1,5 @@
 package github.thelawf.gensokyoontology.common.capability;
 
-import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
-import github.thelawf.gensokyoontology.common.capability.entity.ExtraLifeCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.BeliefCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.SecularLifeCapability;
@@ -11,6 +9,7 @@ import github.thelawf.gensokyoontology.common.capability.world.ImperishableNight
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.LongNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -27,28 +26,23 @@ import java.util.function.Function;
 
 public class GSKOCapabilities {
 
-
     @CapabilityInject(BloodyMistCapability.class)
     public static Capability<BloodyMistCapability> BLOODY_MIST;
     @CapabilityInject(ImperishableNightCapability.class)
     public static Capability<ImperishableNightCapability> IMPERISHABLE_NIGHT;
     @CapabilityInject(EternalSummerCapability.class)
     public static Capability<EternalSummerCapability> ETERNAL_SUMMER;
-
     @CapabilityInject(GSKOPowerCapability.class)
     public static Capability<GSKOPowerCapability> POWER;
     @CapabilityInject(SecularLifeCapability.class)
     public static Capability<SecularLifeCapability> SECULAR_LIFE;
     @CapabilityInject(BeliefCapability.class)
     public static Capability<BeliefCapability> BELIEF;
-    @CapabilityInject(ExtraLifeCapability.class)
-    public static Capability<ExtraLifeCapability> EXTRA_LIFE;
 
     public static void registerCapabilities() {
         register(BeliefCapability.class);
         register(GSKOPowerCapability.class);
-        register(SecularLifeCapability.class);
-        register(ExtraLifeCapability.class);
+        registerL(SecularLifeCapability.class);
 
         register(BloodyMistCapability.class);
         register(ImperishableNightCapability.class);
@@ -114,17 +108,32 @@ public class GSKOCapabilities {
         return getCapFunctor(player, capability, methodName).apply(objects);
     }
 
-    private static <T extends INBTSerializable<CompoundNBT>> void register(Class<T> capClass) {
+     private static <T extends INBTSerializable<CompoundNBT>> void register(Class<T> capClass) {
+         CapabilityManager.INSTANCE.register(capClass, new Capability.IStorage<T>() {
+             @Nullable
+             @Override
+             public INBT writeNBT(Capability<T> capability, T instance, Direction side) {
+                 return instance.serializeNBT();
+             }
+//
+             @Override
+             public void readNBT(Capability<T> capability, T instance, Direction side, INBT nbt) {
+                 instance.deserializeNBT((CompoundNBT) nbt);
+             }
+         }, () -> null);
+     }
+
+    private static <T extends INBTSerializable<N>, N extends INBT> void registerL(Class<T> capClass) {
         CapabilityManager.INSTANCE.register(capClass, new Capability.IStorage<T>() {
             @Nullable
             @Override
             public INBT writeNBT(Capability<T> capability, T instance, Direction side) {
                 return instance.serializeNBT();
             }
-
+//
             @Override
             public void readNBT(Capability<T> capability, T instance, Direction side, INBT nbt) {
-                instance.deserializeNBT((CompoundNBT) nbt);
+                instance.deserializeNBT((N) nbt);
             }
         }, () -> null);
     }

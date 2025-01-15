@@ -509,7 +509,7 @@ public final class ItemRegistry {
             "fairy_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.FAIRY_ENTITY,
                     0x0E51D5, 0xFAEB1C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> LILY_WHITE_SPAWN_EGG = ITEMS.register(
-            "lily_white_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.LILY_WHITE_ENTITY,
+            "lily_white_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.LILY_WHITE,
                     0xFFF8E8, 0xF52C2C, new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<ForgeSpawnEggItem> REMILIA_SCARLET_SAWN_EGG = ITEMS.register(
             "remilia_scarlet_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.REMILIA_SCARLET,

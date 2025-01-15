@@ -12,11 +12,8 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.server.ServerWorld;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 /** Reference From {@link net.minecraft.world.spawner.WanderingTraderSpawner WanderingTraderSpawner} in which the field is <br>
@@ -29,13 +26,13 @@ public class LilyWhiteSpawner {
         Random random = new Random();
 
         if (validateCondition(serverWorld, ticks, random, chance) && validateSpawnPos(player, serverWorld)) {
-            EntityRegistry.LILY_WHITE_ENTITY.get().spawn(serverWorld, null, null, pos, SpawnReason.NATURAL, false, false);
+            EntityRegistry.LILY_WHITE.get().spawn(serverWorld, null, null, pos, SpawnReason.NATURAL, false, false);
         }
     }
 
     public static boolean validateCondition(ServerWorld serverWorld, int ticks, Random random, float chance) {
         return GSKOMathUtil.isBetween(ticks % 20000, 0, 10) && random.nextFloat() <= chance &&
-                serverWorld.getEntities().noneMatch(entity -> entity.getType() == EntityRegistry.LILY_WHITE_ENTITY.get());
+                serverWorld.getEntities().noneMatch(entity -> entity.getType() == EntityRegistry.LILY_WHITE.get());
     }
 
     public static boolean validateSpawnPos(PlayerEntity player, ServerWorld world) {

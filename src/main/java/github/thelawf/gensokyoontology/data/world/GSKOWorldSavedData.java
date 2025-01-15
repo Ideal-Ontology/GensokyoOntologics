@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.data.world;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.BeliefType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
@@ -14,12 +15,20 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Stack;
 
+/**
+ * 具体流程：
+ * 1. 击杀蝙蝠，制作蝙蝠标本
+ * 2. 蝙蝠标本将会告知你红魔馆的位置，并尝试带着你飞向红魔馆
+ * 3. 往赛钱箱投入32枚硬币，获取30分钟的
+ * 获取博丽的祝福
+ * Flandre被梦想封印打中之后会
+ *
+ */
 public class GSKOWorldSavedData extends WorldSavedData {
     private static final String NAME = "GSKOWorldSavedData";
-    private GensokyoSeason season = GensokyoSeason.SPRING;
-    private final List<ResourceLocation> incidents = new ArrayList<>();
     private float power;
     public GSKOWorldSavedData() {
         super(NAME);
@@ -39,43 +48,15 @@ public class GSKOWorldSavedData extends WorldSavedData {
 
     @Override
     public void read(CompoundNBT nbt) {
-        this.season = GensokyoSeason.valueOf(nbt.getString("season"));
         this.power = nbt.getFloat("power");
-        ListNBT listNBT = (ListNBT) nbt.get("incidents");
-        if (listNBT != null) {
-            for (INBT inbt : listNBT) {
-                if (inbt instanceof StringNBT) {
-                    StringNBT value = (StringNBT) inbt;
-                    this.incidents.add(GensokyoOntology.withRL(value.getString()));
-                }
-            }
-        }
     }
 
     @Override
     @NotNull
     public CompoundNBT write(CompoundNBT compound) {
-        ListNBT listNBT = new ListNBT();
-        incidents.forEach((location) -> {
-            StringNBT stringNBT = StringNBT.valueOf(location.toString());
-            listNBT.add(stringNBT);
-        });
-        compound.putString("season", this.season.name());
-        compound.put("incidents", listNBT);
         compound.putFloat("power", this.power);
         return compound;
     }
 
-    public GensokyoSeason getSeason() {
-        return this.season;
-    }
-
-    public void setSeason(GensokyoSeason season) {
-        this.season = season;
-    }
-
-    public List<ResourceLocation> getIncidents() {
-        return this.incidents;
-    }
 
 }

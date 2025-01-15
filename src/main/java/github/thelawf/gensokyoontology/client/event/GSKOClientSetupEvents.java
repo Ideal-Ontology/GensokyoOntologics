@@ -112,7 +112,7 @@ public class GSKOClientSetupEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HAKUREI_REIMU.get(), HakureiReimuRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAIRY_ENTITY.get(), FairyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SUNFLOWER_FAIRY_ENTITY.get(), FairyRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LILY_WHITE_ENTITY.get(), LilyWhiteRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LILY_WHITE.get(), LilyWhiteRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FLANDRE_SCARLET.get(), FlandreScarletRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FLANDRE_DOPPELDANGER.get(), FlandreScarletRenderer::new);
