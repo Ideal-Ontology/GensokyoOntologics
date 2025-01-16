@@ -15,6 +15,9 @@ public class GSKODamageSource extends DamageSource {
     public static final DamageSource PSYCHOLOGY = (new DamageSource("psychology")).setDamageBypassesArmor();
 
     public static final DamageSource IMPERISHABLE_NIGHT = (new DamageSource("imperishable_night"));
+    public static final DamageSource NATURAL_DEATH = new DamageSource("natural_death")
+            .setDamageBypassesArmor()
+            .setDamageIsAbsolute();
     public static final DamageSource LASER = new DamageSource("laser");
     public static DamageSource causeIndirectLaser(LaserSourceEntity laser, Entity laserOwnerIn) {
         return new IndirectEntityDamageSource("indirect_laser", laser, laserOwnerIn);
@@ -28,6 +31,7 @@ public class GSKODamageSource extends DamageSource {
     public static DamageSource causeIndirectHakurei(DreamSealEntity danmaku, Entity ownerIn) {
         return (new IndirectEntityDamageSource("indirect_hakurei", danmaku, ownerIn)).setDamageBypassesArmor();
     }
+
     public static final DamageSource HAKUREI_POWER = new DamageSource("hakurei_power");
 
     public GSKODamageSource(String damageTypeIn) {

@@ -14,6 +14,7 @@ import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
@@ -70,6 +71,23 @@ public class GSKOEntityEvents {
             });
             player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(SecularLifeCapability::markDirty);
             player.getCapability(GSKOCapabilities.BELIEF).ifPresent(belief -> BeliefCapability.INSTANCE = belief);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerLife(LivingEvent.LivingUpdateEvent event) {
+        if (!(event.getEntityLiving() instanceof PlayerEntity)) return;
+        PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        if (player.getEntityWorld() instanceof ServerWorld) {
+            World world = player.getEntityWorld();
+            LazyOptional<SecularLifeCapability> cap = player.getCapability(GSKOCapabilities.SECULAR_LIFE);
+            cap.ifPresent((capability -> {
+                if (world.getGameTime() % 5 == 0) {
+                    capability.addTime(1);
+                }
+                if (capability.getLifetime() == 45_000L) GSKOUtil.showChatMsg(player, "You Feel yourself have no time to live",1);
+                if (capability.getLifetime() == 300L) player.setHealth(0);
+            }));
         }
     }
 

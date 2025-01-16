@@ -120,5 +120,8 @@ public class GSKOUtil {
         return pool.get(new Random().nextInt(pool.size() - 1));
     }
 
-
+    @SafeVarargs
+    public static <K, V> void putDefaultValue(Map<K, V> map, V defaultValue, K... keys) {
+        for (K k : keys) map.put(k, defaultValue);
+    }
 }

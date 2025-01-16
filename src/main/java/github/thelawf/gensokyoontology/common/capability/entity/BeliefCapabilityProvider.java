@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
-import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
-import github.thelawf.gensokyoontology.common.util.BeliefType;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
@@ -11,21 +9,16 @@ import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
-import java.util.Set;
-
-public class BeliefCapabilityProvider implements ICapabilitySerializable<CompoundNBT> {
-    private List<Pair<BeliefType, Integer>> pairSet;
+public class BeliefCapabilityProvider implements ICapabilitySerializable<ListNBT> {
     private BeliefCapability capability;
 
-    public BeliefCapabilityProvider(List<Pair<BeliefType, Integer>> pairSet) {
-        this.pairSet = pairSet;
+    public BeliefCapabilityProvider() {
         this.capability = GSKOCapabilities.BELIEF.getDefaultInstance();
     }
 
     public BeliefCapability getOrCreate() {
         if (this.capability == null) {
-            this.capability = new BeliefCapability(this.pairSet);
+            this.capability = new BeliefCapability();
         }
         return this.capability;
     }
@@ -37,12 +30,12 @@ public class BeliefCapabilityProvider implements ICapabilitySerializable<Compoun
     }
 
     @Override
-    public CompoundNBT serializeNBT() {
+    public ListNBT serializeNBT() {
         return getOrCreate().serializeNBT();
     }
 
     @Override
-    public void deserializeNBT(CompoundNBT nbt) {
+    public void deserializeNBT(ListNBT nbt) {
         getOrCreate().deserializeNBT(nbt);
     }
 }

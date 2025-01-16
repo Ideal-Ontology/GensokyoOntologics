@@ -40,8 +40,8 @@ public class GSKOCapabilities {
     public static Capability<BeliefCapability> BELIEF;
 
     public static void registerCapabilities() {
-        register(BeliefCapability.class);
-        register(GSKOPowerCapability.class);
+        registerL(BeliefCapability.class);
+        registerL(GSKOPowerCapability.class);
         registerL(SecularLifeCapability.class);
 
         register(BloodyMistCapability.class);

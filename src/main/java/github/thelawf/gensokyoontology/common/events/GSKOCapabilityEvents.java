@@ -65,11 +65,8 @@ public class GSKOCapabilityEvents {
         Entity entity = event.getObject();
         if (entity instanceof PlayerEntity) {
 
-            List<Pair<BeliefType, Integer>> set = new ArrayList<>();
-            for (BeliefType type : BeliefType.values()) set.add(Pair.of(type, 1));
-
             GSKOPowerProvider power = new GSKOPowerProvider(0f);
-            BeliefCapabilityProvider belief = new BeliefCapabilityProvider(set);
+            BeliefCapabilityProvider belief = new BeliefCapabilityProvider();
             SecularLifetimeProvider lifetime = new SecularLifetimeProvider(0L);
 
             event.addCapability(GensokyoOntology.withRL("power"), power);
