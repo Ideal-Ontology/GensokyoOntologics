@@ -1,16 +1,34 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.util.BeliefType;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class BeliefCapabilityProvider implements ICapabilitySerializable<ListNBT> {
     private BeliefCapability capability;
+    private final Map<ResourceLocation, Integer> map = Util.make(() -> {
+        Map<ResourceLocation, Integer> map = new HashMap<>();
+        map.put(GensokyoOntology.withRL(BeliefType.NONE), 0);
+        map.put(GensokyoOntology.withRL(BeliefType.MARKET), 0);
+        map.put(GensokyoOntology.withRL(BeliefType.HAKUREI), 0);
+        map.put(GensokyoOntology.withRL(BeliefType.TAOISM), 0);
+        map.put(GensokyoOntology.withRL(BeliefType.BUDDHISM), 0);
+        map.put(GensokyoOntology.withRL(BeliefType.SHINTOISM), 0);
+        map.put(GensokyoOntology.withRL(BeliefType.IDOL), 0);
+        return map;
+    });
 
     public BeliefCapabilityProvider() {
         this.capability = GSKOCapabilities.BELIEF.getDefaultInstance();
@@ -18,7 +36,7 @@ public class BeliefCapabilityProvider implements ICapabilitySerializable<ListNBT
 
     public BeliefCapability getOrCreate() {
         if (this.capability == null) {
-            this.capability = new BeliefCapability();
+            this.capability = new BeliefCapability(map);
         }
         return this.capability;
     }

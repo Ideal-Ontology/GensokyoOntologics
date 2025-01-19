@@ -32,7 +32,8 @@ public class DamakuAttackGoal extends Goal {
     @Override
     public boolean shouldExecute() {
         LivingEntity target = this.entity.getAttackTarget();
-        return target != null && target.isAlive() && !this.entity.doesTargetBelieveBuddhism(target) &&
+        return target != null && target.isAlive() &&
+                // !this.entity.doesTargetBelieveBuddhism(target) &&
                 target.world.getDifficulty() != Difficulty.PEACEFUL;
         // this.path = this.entity.getNavigator().pathfind(target, 0);
     }

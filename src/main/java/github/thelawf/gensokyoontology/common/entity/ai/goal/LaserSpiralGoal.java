@@ -47,7 +47,8 @@ public class LaserSpiralGoal extends GSKOBossGoal {
     @Override
     public boolean shouldExecute() {
         LivingEntity target = this.remilia.getAttackTarget();
-        return target != null && target.isAlive() && !this.remilia.doesTargetBelieveBuddhism(target) &&
+        return target != null && target.isAlive() &&
+                // !this.remilia.doesTargetBelieveBuddhism(target) &&
                 target.world.getDifficulty() != Difficulty.PEACEFUL;
     }
 }

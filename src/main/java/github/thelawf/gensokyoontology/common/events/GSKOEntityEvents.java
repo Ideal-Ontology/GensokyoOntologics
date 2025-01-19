@@ -86,7 +86,7 @@ public class GSKOEntityEvents {
                     capability.addTime(1);
                 }
                 if (capability.getLifetime() == 45_000L) GSKOUtil.showChatMsg(player, "You Feel yourself have no time to live",1);
-                if (capability.getLifetime() == 300L) player.setHealth(0);
+                if (capability.getLifetime() == 50_000L) player.setHealth(0);
             }));
         }
     }

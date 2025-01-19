@@ -1,10 +1,12 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.util.BeliefType;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.*;
 import net.minecraft.entity.passive.TameableEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
@@ -76,7 +78,7 @@ public abstract class RetreatableEntity extends TameableEntity implements IAnger
         AtomicBoolean condition = new AtomicBoolean();
         if (target != null) {
             target.getCapability(GSKOCapabilities.BELIEF).ifPresent(belief ->
-                    condition.set(belief.getValue(BeliefType.BUDDHISM) > 0));
+                    condition.set(belief.getValue(GensokyoOntology.withRL(BeliefType.BUDDHISM)) > 0));
         }
         return condition.get();
     }

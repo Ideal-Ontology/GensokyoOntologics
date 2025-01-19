@@ -2,9 +2,11 @@ package github.thelawf.gensokyoontology.common.entity.misc;
 
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
+import net.minecraft.client.renderer.entity.model.BatModel;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MoverType;
+import net.minecraft.entity.Pose;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
@@ -231,6 +233,7 @@ public class CursedBatEntity extends BatEntity implements IFlyingAnimal {
         // this.setNoGravity(true);
         this.move(MoverType.SELF, Vector3d.copyCentered(this.getMansionPos().subtract(this.getPosition()))
                 .normalize().scale(speed));
+        this.setIsBatHanging(!this.getIsBatHanging());
     }
 
     @Override
