@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
-import github.thelawf.gensokyoontology.common.entity.CoasterVehicleEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
@@ -34,15 +33,15 @@ public class SRotateCameraPacket {
         ctx.get().setPacketHandled(true);
     }
 
-    @OnlyIn(Dist.CLIENT)
-    private static void rotateCam(SRotateCameraPacket packet) {
-        Minecraft mc = Minecraft.getInstance();
-        if (mc.world == null || mc.player == null) return;
-        if (!(mc.player.getRidingEntity() instanceof CoasterVehicleEntity)) return;
-
-        ClientWorld world = mc.world;
-        ClientPlayerEntity player = mc.player;
-        CoasterVehicleEntity vehicle = (CoasterVehicleEntity) player.getRidingEntity();
-
-    }
+    // @OnlyIn(Dist.CLIENT)
+    // private static void rotateCam(SRotateCameraPacket packet) {
+    //     Minecraft mc = Minecraft.getInstance();
+    //     if (mc.world == null || mc.player == null) return;
+    //     if (!(mc.player.getRidingEntity() instanceof CoasterVehicleEntity)) return;
+//
+    //     ClientWorld world = mc.world;
+    //     ClientPlayerEntity player = mc.player;
+    //     CoasterVehicleEntity vehicle = (CoasterVehicleEntity) player.getRidingEntity();
+//
+    // }
 }

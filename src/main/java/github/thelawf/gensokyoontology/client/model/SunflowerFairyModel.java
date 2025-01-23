@@ -1,5 +1,5 @@
-package github.thelawf.gensokyoontology.client.model;// Made with Blockbench 4.8.3
-// Exported for Minecraft version 1.15 - 1.16 with Mojang mappings
+package github.thelawf.gensokyoontology.client.model;// Made create Blockbench 4.8.3
+// Exported for Minecraft version 1.15 - 1.16 create Mojang mappings
 // Paste this class into your mod and generate all required imports
 
 import com.mojang.blaze3d.matrix.MatrixStack;

@@ -145,7 +145,7 @@ public final class BlockRegistry {
     ///////////////////////////////////////////////////////////////////////////////////
     /////////////                     实用类方块                          ///////////////
     ///////////////////////////////////////////////////////////////////////////////////
-
+    public static final RegistryObject<Block> BISHAMONTEN_PAGODA = BLOCKS.register("bishamonten_pagoda", BishamontenPagoda::new);
     public static final RegistryObject<Block> ISHI_ZAKURA = BLOCKS.register("ishi_zakura", IshiZakuraBlock::new);
 
     // ============================== 矿石类方块 ================================== //

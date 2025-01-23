@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.tool;
 
 import github.thelawf.gensokyoontology.common.block.decoration.CoasterRailBlock;
-import github.thelawf.gensokyoontology.common.entity.CoasterVehicleEntity;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

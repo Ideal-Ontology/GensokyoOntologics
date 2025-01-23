@@ -1,11 +1,9 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import com.github.tartaricacid.touhoulittlemaid.capability.MaidNumCapabilityProvider;
 import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
 import com.github.tartaricacid.touhoulittlemaid.network.NetworkHandler;
 import com.github.tartaricacid.touhoulittlemaid.network.message.SyncCapabilityMessage;
-import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.*;
@@ -17,7 +15,6 @@ import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.network.packet.SLifeTickPacket;
-import github.thelawf.gensokyoontology.common.util.BeliefType;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -66,7 +63,7 @@ public class GSKOCapabilityEvents {
         if (entity instanceof PlayerEntity) {
 
             GSKOPowerProvider power = new GSKOPowerProvider(0f);
-            BeliefCapabilityProvider belief = new BeliefCapabilityProvider();
+            IdentityCapabilityProvider belief = new IdentityCapabilityProvider();
             SecularLifetimeProvider lifetime = new SecularLifetimeProvider(0L);
 
             event.addCapability(GensokyoOntology.withRL("power"), power);
@@ -200,11 +197,11 @@ public class GSKOCapabilityEvents {
 
     private static void updateBelief(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
-            LazyOptional<BeliefCapability> oldCapability = event.getOriginal().getCapability(GSKOCapabilities.BELIEF);
-            LazyOptional<BeliefCapability> newCapability = event.getPlayer().getCapability(GSKOCapabilities.BELIEF);
+            LazyOptional<IdentityCapability> oldCapability = event.getOriginal().getCapability(GSKOCapabilities.IDENTITY);
+            LazyOptional<IdentityCapability> newCapability = event.getPlayer().getCapability(GSKOCapabilities.IDENTITY);
 
             newCapability.ifPresent(capNew -> oldCapability.ifPresent(capOld -> {
-                capNew.deserializeNBT(BeliefCapability.INSTANCE.serializeNBT());
+                capNew.deserializeNBT(IdentityCapability.INSTANCE.serializeNBT());
             }));
         }
     }

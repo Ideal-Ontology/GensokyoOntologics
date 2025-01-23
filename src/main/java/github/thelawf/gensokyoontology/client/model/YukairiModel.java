@@ -1,5 +1,5 @@
-package github.thelawf.gensokyoontology.client.model;// Made with Blockbench 4.7.0
-// Exported for Minecraft version 1.15 - 1.16 with MCP mappings
+package github.thelawf.gensokyoontology.client.model;// Made create Blockbench 4.7.0
+// Exported for Minecraft version 1.15 - 1.16 create MCP mappings
 // Paste this class into your mod and generate all required imports
 
 

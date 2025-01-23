@@ -96,7 +96,7 @@ public final class StructureRegistry {
          * Basically, it adds land at the base of the structure like it does for Villages and Outposts.
          * Doesn't work well on structure that have pieces stacked vertically or change in heights.
          *
-         * Note: The airspace this method will create will be filled with water if the structure is below sealevel.
+         * Note: The airspace this method will create will be filled create water if the structure is below sealevel.
          * This means this is best for structure above sealevel so keep that in mind.
          *
          * NOISE_AFFECTING_FEATURES requires AccessTransformer  (See resources/META-INF/accesstransformer.cfg)

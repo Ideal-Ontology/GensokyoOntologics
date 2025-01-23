@@ -31,7 +31,7 @@ public class SphericalFoliagePlacer extends FoliagePlacer {
     );
 
     // These two variables are floats to help round out the pixel-snapping of the sphere-filling algorithm
-    // n+0.5 numbers seem to work best but messing with it is encouraged to find best results
+    // n+0.5 numbers seem to work best but messing create it is encouraged to find best results
     private final float horizontalRadius;
     private final float verticalRadius;
     private final float verticalBias;

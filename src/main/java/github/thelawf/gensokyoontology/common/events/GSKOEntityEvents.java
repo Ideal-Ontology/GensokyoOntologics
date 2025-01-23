@@ -1,8 +1,9 @@
 package github.thelawf.gensokyoontology.common.events;
 
+import com.github.tartaricacid.touhoulittlemaid.event.EntityHurtEvent;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
-import github.thelawf.gensokyoontology.common.capability.entity.BeliefCapability;
+import github.thelawf.gensokyoontology.common.capability.entity.IdentityCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.SecularLifeCapability;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
@@ -28,8 +29,6 @@ import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.audio.SimpleSound;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -48,6 +47,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.world.WorldEvent;
@@ -70,7 +70,7 @@ public class GSKOEntityEvents {
                 GSKOPowerCapability.INSTANCE = gskoCap;
             });
             player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(SecularLifeCapability::markDirty);
-            player.getCapability(GSKOCapabilities.BELIEF).ifPresent(belief -> BeliefCapability.INSTANCE = belief);
+            player.getCapability(GSKOCapabilities.IDENTITY).ifPresent(belief -> IdentityCapability.INSTANCE = belief);
         }
     }
 
@@ -93,9 +93,14 @@ public class GSKOEntityEvents {
 
     @SubscribeEvent
     public static void onWorldLoad(WorldEvent.Load event) {
-
     }
 
+    @SubscribeEvent
+    public static void onHakureiIdentity(LivingAttackEvent event) {
+        LivingEntity living = event.getEntityLiving();
+        living.getCapability(GSKOCapabilities.IDENTITY).ifPresent(cap -> {
+        });
+    }
 
     @SubscribeEvent
     public static void onHotSpringIn(LivingEvent.LivingUpdateEvent event) {

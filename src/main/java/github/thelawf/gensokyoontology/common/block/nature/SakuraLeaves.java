@@ -16,7 +16,7 @@ public class SakuraLeaves extends LeavesBlock {
     public static final BooleanProperty BLOOMED = BooleanProperty.create("bloomed");
     public SakuraLeaves() {
         super(Properties.from(Blocks.ACACIA_LEAVES).tickRandomly().sound(SoundType.PLANT));
-        //this.setDefaultState(this.getDefaultState().with(BLOOMED, true));
+        //this.setDefaultState(this.getDefaultState().create(BLOOMED, true));
     }
 
     @Override

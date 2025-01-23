@@ -67,8 +67,8 @@ public class GSKOClientSetupEvents {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // ======================== 技术性实体的渲染器 ======================= //
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.COASTER_ENTITY.get(),
-                CoasterVehicleRenderer::new);
+        // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.COASTER_ENTITY.get(),
+        //         CoasterVehicleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LASER_SOURCE_ENTITY.get(),
                 LaserEntityRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DREAM_SEAL_ENTITY.get(),

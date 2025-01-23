@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.CoasterVehicleEntity;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
 import github.thelawf.gensokyoontology.common.entity.RailRendererEntity;
@@ -123,8 +122,8 @@ public final class EntityRegistry {
     // ============================ 技术性实体：轨道和载具 ============================= //
     public static final RegistryObject<EntityType<RailRendererEntity>> RAIL_ENTITY = register(
             "rail_entity", RailRendererEntity::new, EntityClassification.MISC, 1, 1, 16, 2);
-    public static final RegistryObject<EntityType<CoasterVehicleEntity>> COASTER_ENTITY = register(
-            "coaster", CoasterVehicleEntity::new, EntityClassification.MISC, 2, 2, 10, 2);
+    // public static final RegistryObject<EntityType<CoasterVehicleEntity>> COASTER_ENTITY = register(
+    //         "coaster", CoasterVehicleEntity::new, EntityClassification.MISC, 2, 2, 10, 2);
 
     // ============================ 技术性实体：符卡以及特殊技能 ============================= //
     public static final RegistryObject<EntityType<ScarletPrisoner>> SCARLET_PRISONER_ENTITY =

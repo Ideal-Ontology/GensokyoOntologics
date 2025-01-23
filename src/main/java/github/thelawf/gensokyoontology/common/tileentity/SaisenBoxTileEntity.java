@@ -55,16 +55,13 @@ public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEnti
     public void tick() {
         AxisAlignedBB aabb = new AxisAlignedBB(getPos().up());
 
-        if (world != null) {
-            List<ItemEntity> itemEntities = world.getEntitiesWithinAABB(ItemEntity.class, aabb, EntityPredicates.IS_ALIVE).stream()
-                    .filter(itemEntity -> itemEntity.getItem().getItem() == ItemRegistry.SILVER_COIN.get())
-                    .collect(Collectors.toList());
+        if (world == null) return;
+        List<ItemEntity> itemEntities = world.getEntitiesWithinAABB(ItemEntity.class, aabb, EntityPredicates.IS_ALIVE).stream()
+                .filter(itemEntity -> itemEntity.getItem().getItem() == ItemRegistry.SILVER_COIN.get())
+                .collect(Collectors.toList());
 
-            itemEntities.forEach(this::tryApplyBless);
-            this.addCoinCount(itemEntities.size());
-            markDirty();
-        }
-        ticks++;
+        itemEntities.forEach(this::tryApplyBless);
+        markDirty();
     }
 
     public void addCoinCount(int count){
@@ -78,7 +75,7 @@ public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEnti
         if (serverWorld.getEntityByUuid(itemEntity.getThrowerId()) instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity) serverWorld.getEntityByUuid(itemEntity.getThrowerId());
             if (player == null) return;
-            testCount(player);
+            testCount(player, itemEntity);
             itemEntity.getItem().shrink(itemEntity.getItem().getCount());
         }
     }
@@ -87,8 +84,9 @@ public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEnti
         return this.count;
     }
 
-    public void testCount(PlayerEntity player) {
+    public void testCount(PlayerEntity player, ItemEntity itemEntity) {
         for (int i = 0; i < BLESS_LIST.size(); i++) {
+            this.addCoinCount(itemEntity.getItem().getCount());
             if (this.getCount() >= BLESS_LIST.get(i).getFirst()) {
                 int duration = 6000 + 500 * i;
                 player.addPotionEffect(new EffectInstance(EffectRegistry.HAKUREI_BLESS_EFFECT.get(), duration, i));

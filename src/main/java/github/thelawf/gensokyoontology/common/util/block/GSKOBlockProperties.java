@@ -27,6 +27,6 @@ public class GSKOBlockProperties {
     }
 
     // public static <T extends Comparable<T>, V extends T> BlockState containsProperty(World world, BlockPos pos, Property<T> property, V value) {
-    //     return world.getBlockState(pos).with(property, value);
+    //     return world.getBlockState(pos).create(property, value);
     // }
 }

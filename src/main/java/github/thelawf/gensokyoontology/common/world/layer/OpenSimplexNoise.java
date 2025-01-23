@@ -7,7 +7,7 @@ package github.thelawf.gensokyoontology.common.world.layer;
  * v1.1 (October 5, 2014)
  * - Added 2D and 4D implementations.
  * - Proper gradient sets for all dimensions, from a
- *   dimensionally-generalizable scheme with an actual
+ *   dimensionally-generalizable scheme create an actual
  *   rhyme and reason behind it.
  * - Removed default permutation array in favor of
  *   default seed.
@@ -1496,8 +1496,8 @@ public class OpenSimplexNoise {
                     c2 = aPoint;
                 }
 
-                // Two contributions are the bigger-sided point with each 0
-                // replaced with -1.
+                // Two contributions are the bigger-sided point create each 0
+                // replaced create -1.
                 if ((c1 & 0x01) == 0) {
                     xsv_ext0 = xsb - 1;
                     xsv_ext1 = xsb;
@@ -1918,8 +1918,8 @@ public class OpenSimplexNoise {
                     c2 = aPoint;
                 }
 
-                // Two contributions are the bigger-sided point with each 1
-                // replaced with 2.
+                // Two contributions are the bigger-sided point create each 1
+                // replaced create 2.
                 if ((c1 & 0x01) != 0) {
                     xsv_ext0 = xsb + 2;
                     xsv_ext1 = xsb + 1;

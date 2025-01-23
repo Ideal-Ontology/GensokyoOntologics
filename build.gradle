@@ -148,16 +148,20 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:")
 
-    implementation 'org.joml:joml:1.10.4'
+    // compileOnly 'org.joml:joml:1.10.4'
+    // runtimeOnly 'org.joml:joml:1.10.4'
+    // implementation 'org.joml:joml:1.10.4'
     implementation 'org.jetbrains:annotations:23.0.0'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf("curse.maven:touhou-little-maid-355044:4968573")
 
     if  (project.gradle.startParameter.taskNames[0] == "build" || project.gradle.startParameter.taskNames[0] == "publish"){
         embed 'org.dom4j:dom4j:[2.1,2.3)'
+        embed 'org.joml:joml:1.10.4'
     }
     else {
         implementation 'org.dom4j:dom4j:[2.1,2.3)'
+        implementation 'org.joml:joml:1.10.4'
     }
 
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'

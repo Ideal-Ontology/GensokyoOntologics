@@ -1,21 +1,13 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
-import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
-import github.thelawf.gensokyoontology.common.util.BeliefType;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.command.impl.TimeCommand;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityType;
-import net.minecraft.world.server.ServerWorld;
 
 import java.util.UUID;
 
