@@ -35,9 +35,19 @@ public class MasterSparkRenderer extends EntityRenderer<MasterSparkEntity> {
         float g = Color.getHSBColor(hue, 0.9f, 0.9f).getGreen() / 255f;
         float b = Color.getHSBColor(hue, 0.9f, 0.9f).getBlue() / 255f;
 
+        if (entityIn.ticksExisted <= 40) {
+            matrixStackIn.push();
+            Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
+            GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, entityIn.getLookVec());
+            GeometryUtil.renderCube(builder, matrix4f, new Vector3f(0.5f, 0.5f, 0.5f), new Vector3i(255, 255, 255));
+            GeometryUtil.renderCylinder(builder, matrix4f, new Vector3f(), new Vector3f(0, 1, 0), 10, 2.5f, 0.1f, 0.5f, 0.5f, 0.5f, 0.5f);
+            matrixStackIn.pop();
+            return;
+        }
+
         matrixStackIn.push();
         Matrix4f matrix4f = matrixStackIn.getLast().getMatrix();
-        GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, entityIn.getLookVec().inverse());
+        GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, entityIn.getLookVec());
         renderSpark(builder, matrix4f, new Vector4f(1, 1, 1, 1), 2f);
         renderSpark(builder, matrix4f, new Vector4f(r, g, b, 1f), 2.5f);
         matrixStackIn.pop();

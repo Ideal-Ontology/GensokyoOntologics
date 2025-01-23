@@ -37,7 +37,7 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceRead
     public void tick() {
         super.tick();
         if (ticksExisted >= 120) this.remove();
-        if (ticksExisted < 10) return;
+        if (ticksExisted < 40) return;
         if (world.isRemote) return;
         ServerWorld serverWorld = (ServerWorld) world;
         List<Vector3d> startList = DanmakuUtil.ellipticPos(Vector2f.ZERO, 0.6, 20);

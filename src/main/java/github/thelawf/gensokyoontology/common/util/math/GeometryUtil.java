@@ -393,9 +393,9 @@ public class GeometryUtil {
         addVertex(matrix4f, builder, x1, y1, z2, color.getX(), color.getY(), color.getZ());
     }
 
-    public static void renderCube(IVertexBuilder builder, Matrix4f matrix4f, Vector3f parameter, Vector3f startPos, Vector3f ebdPos, Vector3i color) {
+    public static void renderCube(IVertexBuilder builder, Matrix4f matrix4f, Vector3f parameter, Vector3f startPos, Vector3f endPos, Vector3i color) {
         float x1 = startPos.getX(), z1 = startPos.getZ(), y1 = startPos.getY();
-        float x2 = parameter.getX() + ebdPos.getX(), y2 = parameter.getY() + ebdPos.getY(), z2 = parameter.getZ() + ebdPos.getZ();
+        float x2 = parameter.getX() + endPos.getX(), y2 = parameter.getY() + endPos.getY(), z2 = parameter.getZ() + endPos.getZ();
         addVertex(matrix4f, builder, x1, y1, z1, color.getX(), color.getY(), color.getZ());
         addVertex(matrix4f, builder, x2, y1, z1, color.getX(), color.getY(), color.getZ());
         addVertex(matrix4f, builder, x2, y2, z1, color.getX(), color.getY(), color.getZ());

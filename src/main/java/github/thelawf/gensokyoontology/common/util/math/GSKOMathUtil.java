@@ -465,7 +465,8 @@ public class GSKOMathUtil {
         }
     }
 
-    public static void rotateMatrixToLookVec(MatrixStack matrixStackIn, Vector3d rotationVec) {
+    public static void rotateMatrixToLookVec(MatrixStack matrixStackIn, Vector3d lookVec) {
+        Vector3d rotationVec = lookVec.inverse();
         float f5 = (float)Math.acos(rotationVec.y);
         float f6 = (float)Math.atan2(rotationVec.z, rotationVec.x);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((float)Math.PI / 2 - f6) * (180 / (float)Math.PI)));
