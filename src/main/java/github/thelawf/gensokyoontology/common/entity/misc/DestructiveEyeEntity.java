@@ -44,7 +44,7 @@ public class DestructiveEyeEntity extends Entity {
         super.tick();
         if (this.ticksExisted == MAX_LIVING_TICK) {
             this.world.getEntitiesWithinAABB(PlayerEntity.class, this.getBoundingBox())
-                    .forEach(player -> player.attackEntityFrom(DamageSource.MAGIC, 40F));
+                    .forEach(player -> player.attackEntityFrom(DamageSource.MAGIC, 25F));
             this.remove();
         }
     }

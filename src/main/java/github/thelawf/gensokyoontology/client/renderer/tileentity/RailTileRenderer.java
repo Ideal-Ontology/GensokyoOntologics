@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.client.renderer.tileentity;
 
-import com.google.common.collect.ImmutableMap;
+import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.limit.Min;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
+import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -16,12 +17,14 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import net.minecraft.util.concurrent.TickDelayedTask;
 import net.minecraft.util.math.vector.*;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.NotNull;
-import org.joml.AxisAngle4d;
 import org.joml.Matrix3d;
 import org.joml.Vector4i;
 
@@ -121,15 +124,27 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         org.joml.Vector3d grad0 = new org.joml.Vector3d(0,0,1).mul(start.basis);
 
         for (int i = 0; i < segments; i++) {
-            double t0 = (double) i / segments;
-            double t1 = (double) (i + 1) / segments;
+            float t0 = (float) i / segments;
+            float t1 = (float) (i + 1) / segments;
 
-            renderHermite3(matrixStackIn, builder, start, end1, new Vector4i((int) r1,(int) g1, (int) b1, 0),
-                    tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
-            renderHermite3(matrixStackIn, builder, start1, end, new Vector4i((int) r1,(int) g1, (int) b1, 0),
-                    tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
+            Vector3d startPos = ConnectionUtil.getCatmullRomSpline(t0, new Vector3d(1,0,0), tileEntityIn.getUnitPosVec(),
+                    endRail.getPosVec(), endRail.getControlPoint());
+            Vector3d endPos = ConnectionUtil.getCatmullRomSpline(t1, new Vector3d(1,0,0), tileEntityIn.getUnitPosVec(),
+                    endRail.getPosVec(), endRail.getControlPoint());
+
+            GSKOUtil.log("Start: " + startPos + "; End: " + endPos);
+            // ConnectionUtil.getCatmullRomSpline((float) i / segments, tileEntityIn.getControlPoint(), tileEntityIn.getPosVec(),
+            //         endRail.getPosVec(), endRail.getControlPoint());
+
+            // renderHermite3(matrixStackIn, builder, start, end1, new Vector4i((int) r1,(int) g1, (int) b1, 0),
+            //         tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
+            // renderHermite3(matrixStackIn, builder, start1, end, new Vector4i((int) r1,(int) g1, (int) b1, 0),
+            //         tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
+
+            this.renderSegment(builder, matrixStackIn, tileEntityIn.getRotation(), startPos, endPos);
         }
     }
+
 
     /**
      * Modify from <a href="https://github.com/FoundationGames/Splinecart/blob/1.21/src/client/java/io/github/foundationgames/splinecart/block/entity/TrackTiesBlockEntityRenderer.java">
@@ -176,6 +191,18 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.translate(0, 0.45, 0);
         GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), mcVec(origin0), mcVec(origin1),
                 15, this.radius, distance, rf1, gf1, bf1, 1);
+        matrixStackIn.pop();
+
+    }
+
+    private void renderSegment(IVertexBuilder builder, MatrixStack matrixStackIn, Vector3f rotation, Vector3d start, Vector3d end) {
+        float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
+        float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
+
+        matrixStackIn.push();
+        matrixStackIn.translate(0, 0.45, 0);
+        GeometryUtil.renderCylinder(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(start), new Vector3f(end),
+                15, this.radius, (float) start.distanceTo(end), rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
     }

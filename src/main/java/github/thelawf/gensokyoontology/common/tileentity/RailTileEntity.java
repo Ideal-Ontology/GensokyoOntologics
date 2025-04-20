@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
@@ -31,6 +32,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     private float yaw = 0f;
     private float pitch = 0f;
     private float roll = 0f;
+    private float radius = 1f;
     private Pose pose;
     private boolean shouldRender = false;
     private BlockPos targetRailPos = new BlockPos(0,0,0);
@@ -80,6 +82,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         if (nbt.contains("yaw")) this.yaw = nbt.getFloat("yaw");
         if (nbt.contains("pitch")) this.pitch = nbt.getFloat("pitch");
         if (nbt.contains("roll")) this.roll = nbt.getFloat("roll");
+        if (nbt.contains("radius")) this.roll = nbt.getFloat("radius");
         if (nbt.contains("shouldRender")) this.shouldRender = nbt.getBoolean("shouldRender");
         if (nbt.contains("targetX") && nbt.contains("targetY") && nbt.contains("targetZ"))
             this.targetRailPos = new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ"));
@@ -93,6 +96,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         compound.putFloat("yaw", this.yaw);
         compound.putFloat("roll", this.roll);
         compound.putFloat("pitch", this.pitch);
+        compound.putFloat("radius", this.radius);
         compound.putBoolean("shouldRender", this.shouldRender);
         compound.putInt("targetX", this.targetRailPos.getX());
         compound.putInt("targetY", this.targetRailPos.getY());
@@ -113,6 +117,11 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         this.setPose(this.toStartPos());
     }
 
+    public void setRadius(float radius) {
+        this.radius = radius;
+        this.setPose(this.toStartPos());
+    }
+
     public float getRoll() {
         return this.roll;
     }
@@ -122,12 +131,40 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     public float getPitch() {
         return this.pitch;
     }
+    public float getRadius() {
+        return this.radius;
+    }
 
     public void setRotation(float roll, float yaw, float pitch) {
         this.setRoll(roll);
         this.setYaw(yaw);
         this.setPitch(pitch);
         this.setPose(this.toStartPos());
+    }
+
+    public void setControlPoint(float roll, float yaw, float pitch, float radius) {
+        this.setRoll(roll);
+        this.setYaw(yaw);
+        this.setPitch(pitch);
+        this.setRadius(radius);
+        this.setPose(this.toStartPos());
+    }
+
+    public Vector3d getControlPoint() {
+        Vector3d facing = Vector3d.fromPitchYaw(this.getPitch(), this.getYaw());
+        return facing.scale(this.getRadius());
+    }
+
+    public Vector3d getPosVec() {
+        return new Vector3d(this.getPos().getX(), this.getPos().getX(), this.getPos().getX());
+    }
+
+    public Vector3d getUnitPosVec() {
+        if (getTargetRailEntity() == null) {
+            GSKOUtil.log("Target Rail is null, Pos: " + getTargetPos());
+            return new Vector3d(0,0,0);
+        }
+        return getTargetRailEntity().getPosVec().subtract(new Vector3d(this.getPos().getX(), this.getPos().getX(), this.getPos().getX()));
     }
 
     public Pose getPose() {

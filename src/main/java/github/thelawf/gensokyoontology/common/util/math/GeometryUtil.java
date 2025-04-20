@@ -116,6 +116,12 @@ public class GeometryUtil {
     }
 
     public static void renderCylinder(IVertexBuilder builder, Matrix4f matrix4f, Vector3f bottomPos, Vector3f topPos,
+                                      int segments, float radius, float height, Vector3i color, float alpha){
+        renderCylinderSides(builder, matrix4f, bottomPos, topPos, radius, height, segments,
+                (float) color.getX() / 255, (float) color.getY() / 255, (float) color.getZ() / 255, alpha);
+    }
+
+    public static void renderCylinder(IVertexBuilder builder, Matrix4f matrix4f, Vector3f bottomPos, Vector3f topPos,
                                       int segments, float radius, float height, float red, float green, float blue, float alpha){
         // renderCircle(builder, matrix4f, bottomPos, radius, segments, red, green, blue, alpha, true);
         // renderCircle(builder, matrix4f, topPos, radius, segments, red, green, blue, alpha, false);

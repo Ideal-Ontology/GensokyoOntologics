@@ -53,12 +53,11 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));
         this.goalSelector.addGoal(3, new SummonEyeGoal(this));
-        // this.goalSelector.addGoal(3, new DamakuAttackGoal(this, 40, 1f));
-        this.goalSelector.addGoal(3, new SpellCardAttackGoal(this, flandreSpell.bossSpell));
-        this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
-        this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
-        this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 0.8f));
-        this.goalSelector.addGoal(6, new LookRandomlyGoal(this));
+        this.goalSelector.addGoal(4, new SpellCardAttackGoal(this, flandreSpell.bossSpell));
+        this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
+        this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
+        this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 0.8f));
+        this.goalSelector.addGoal(7, new LookRandomlyGoal(this));
 
         this.targetSelector.addGoal(1, (new HurtByTargetGoal(this, CreatureEntity.class)).setCallsForHelp());
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, TsumiBukuroEntity.class, true));

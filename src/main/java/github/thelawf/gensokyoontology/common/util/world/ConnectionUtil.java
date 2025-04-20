@@ -103,6 +103,26 @@ public class ConnectionUtil {
         return pairs;
     }
 
+    public static Vector3d getCatmullRomSpline(float t, Vector3d startControl, Vector3d start, Vector3d end, Vector3d endControl) {
+        Vector3d a = start.scale(2.0).scale(0.5);
+        Vector3d b = end.subtract(startControl).scale(0.5);
+        Vector3d c = startControl.scale(2.0)
+                .subtract(start.scale(5.0))
+                .add(end.scale(4.0))
+                .subtract(endControl)
+                .scale(0.5);
+
+        Vector3d d = startControl.scale(-1.0)
+                .add(start.scale(3.0))
+                .subtract(end.scale(3.0))
+                .add(endControl)
+                .scale(0.5);
+
+        return a.add(b.scale(t))
+                .add(c.scale(t * t))
+                .add(d.scale(t * t * t));
+        }
+
     public static List<Pair<Vector3d, Vector3f>> toRotationMap(List<Vector3d> bezierPositions, List<Vector3f> rotations) {
         List<Pair<Vector3d, Vector3f>> list = new ArrayList<>();
         bezierPositions.forEach(vector3d -> list.add(Pair.of(vector3d, rotations.get(

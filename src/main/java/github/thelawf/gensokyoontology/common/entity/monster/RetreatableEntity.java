@@ -77,7 +77,7 @@ public abstract class RetreatableEntity extends TameableEntity implements IAnger
         AtomicBoolean condition = new AtomicBoolean();
         if (target != null) {
             target.getCapability(GSKOCapabilities.IDENTITY).ifPresent(belief ->
-                    condition.set(belief.getValue(IdentityType.BUDDHISM) > 0));
+                    condition.set(belief.getValue(IdentityType.BUDDHISM) > 20));
         }
         return condition.get();
     }

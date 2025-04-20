@@ -4,8 +4,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.NonNullConsumer;
 import org.apache.logging.log4j.LogManager;
@@ -110,6 +112,10 @@ public class GSKOUtil {
             if (player.inventory.getStackInSlot(i).getItem() == item) return true;
         }
         return false;
+    }
+
+    public static RegistryKey<World> getDimension(PlayerEntity player) {
+        return player.getEntityWorld().getDimensionKey();
     }
 
     public static <T> void runIfCapPresent(Entity entity, Capability<T> capability, NonNullConsumer<T> consumer) {

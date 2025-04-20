@@ -38,6 +38,7 @@ public class SSyncRailDataPacket {
         if (!packet.railData.contains("yaw")) return;
         if (!packet.railData.contains("pitch")) return;
         if (!packet.railData.contains("roll")) return;
+        if (!packet.railData.contains("radius")) return;
 
         Minecraft minecraft = Minecraft.getInstance();
         BlockPos pos = new BlockPos(packet.railData.getInt("targetX"), packet.railData.getInt("targetY"), packet.railData.getInt("targetZ"));
@@ -51,5 +52,6 @@ public class SSyncRailDataPacket {
         railTile.setYaw(packet.railData.getFloat("yaw"));
         railTile.setPitch(packet.railData.getFloat("pitch"));
         railTile.setRoll(packet.railData.getFloat("roll"));
+        railTile.setRadius(packet.railData.getFloat("radius"));
     }
 }

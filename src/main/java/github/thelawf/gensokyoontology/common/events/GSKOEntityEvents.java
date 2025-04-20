@@ -42,6 +42,8 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.concurrent.TickDelayedTask;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
@@ -50,9 +52,11 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.util.List;
 import java.util.Objects;
@@ -61,6 +65,9 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = "gensokyoontology")
 public class GSKOEntityEvents {
 
+    public static boolean CAN_PLAY_SOUND = true;
+    public static final int AUDIO_DELAY = 400;
+    public static final int LILY_WHITE_DELAY = 80000;
     @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof PlayerEntity) {
@@ -170,7 +177,6 @@ public class GSKOEntityEvents {
             }
 
             boolean precondition = player.ticksExisted % 20 == 0 && location != null && !player.isPotionActive(EffectRegistry.HAKUREI_BLESS_EFFECT.get());
-
             LazyOptional<BloodyMistCapability> cap = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
             cap.ifPresent((capability -> {
                 List<String> biomes = capability.getBiomeRegistryNames();
@@ -213,14 +219,17 @@ public class GSKOEntityEvents {
 
     @SubscribeEvent
     public static void playBGMToPlayer(TickEvent.PlayerTickEvent event) {
-        if (event.player.getServer() == null) return;
-
-        ServerWorld serverWorld = event.player.getServer().getWorld(GSKODimensions.GENSOKYO);
+        PlayerEntity player = event.player;
+        if (player.getServer() == null) return;
+        ServerWorld serverWorld = player.getServer().getWorld(GSKODimensions.GENSOKYO);
         if (serverWorld == null) return;
-        if (event.player.getEntityWorld().getDimensionKey().equals(GSKODimensions.GENSOKYO) &&
-                serverWorld.getGameTime() % GSKOMathUtil.randomRange(200, 1000) == 0) {
-            event.player.playSound(GSKOSoundEvents.CICADA_AMBIENT.get(), 0.3f, 1f);
+        if (serverWorld.getDimensionKey().equals(GSKODimensions.GENSOKYO) && CAN_PLAY_SOUND) {
+            ServerLifecycleHooks.getCurrentServer().enqueue(new TickDelayedTask(
+                    AUDIO_DELAY + GSKOMathUtil.randomRange(100, 200),
+                    () -> player.playSound(GSKOSoundEvents.CICADA_AMBIENT.get(), 0.6f, 1f)));
+            CAN_PLAY_SOUND = false;
         }
+
     }
 
     public static void onHakureiBless(LivingEvent.LivingUpdateEvent event) {

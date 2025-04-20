@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.spawn;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
+import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.block.BlockState;
@@ -24,10 +25,13 @@ public class LilyWhiteSpawner {
 
     public static void spawn(ServerWorld serverWorld, PlayerEntity player, BlockPos pos, int ticks, float chance) {
         Random random = new Random();
+        if (player.ticksExisted % 10000 != 0)return;
+        if (player.getEntityWorld().getDimensionKey() != GSKODimensions.GENSOKYO) return;
+        EntityRegistry.LILY_WHITE.get().spawn(serverWorld, null, player, pos, SpawnReason.NATURAL, false, false);
 
-        if (validateCondition(serverWorld, ticks, random, chance) && validateSpawnPos(player, serverWorld)) {
-            EntityRegistry.LILY_WHITE.get().spawn(serverWorld, null, null, pos, SpawnReason.NATURAL, false, false);
-        }
+        // if (validateCondition(serverWorld, ticks, random, chance) && validateSpawnPos(player, serverWorld)) {
+        //     EntityRegistry.LILY_WHITE.get().spawn(serverWorld, null, null, pos, SpawnReason.NATURAL, false, false);
+        // }
     }
 
     public static boolean validateCondition(ServerWorld serverWorld, int ticks, Random random, float chance) {
