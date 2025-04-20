@@ -428,6 +428,10 @@
   "gui.gensokyoontology.label.roll": "翻滚角: ",
   "gui.gensokyoontology.label.yaw": "偏航角: ",
   "gui.gensokyoontology.label.pitch": "俯仰角: ",
+  "gui.gensokyoontology.label.radius": "半径: ",
+  "gui.gensokyoontology.label.x": "控制点 X: ",
+  "gui.gensokyoontology.label.y": "控制点 Y: ",
+  "gui.gensokyoontology.label.z": "控制点 Z: ",
 
   "gui.gensokyoontology.button.increase_roll.msg": "翻滚角",
   "gui.gensokyoontology.button.increase_yaw.msg": "偏航角",

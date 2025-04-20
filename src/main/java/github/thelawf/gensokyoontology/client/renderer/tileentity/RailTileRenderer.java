@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.client.renderer.tileentity;
 
-import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.limit.Min;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
@@ -17,13 +16,10 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
-import net.minecraft.util.concurrent.TickDelayedTask;
 import net.minecraft.util.math.vector.*;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Matrix3d;
 import org.joml.Vector4i;
@@ -63,7 +59,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         Quaternion roll = Vector3f.XP.rotationDegrees(tileEntityIn.getRoll());
         Quaternion yaw = Vector3f.YP.rotationDegrees(tileEntityIn.getYaw());
         Quaternion pitch = Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch());
-        Vector3f translation = new Vector3f(0, 0, 0);
+        Vector3f translation = new Vector3f(0f, 0f, 0f); // TODO: 之前这里是（0，0，0）
 
         matrixStackIn.push();
         matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
@@ -127,14 +123,14 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
             float t0 = (float) i / segments;
             float t1 = (float) (i + 1) / segments;
 
-            Vector3d startPos = ConnectionUtil.getCatmullRomSpline(t0, new Vector3d(1,0,0), tileEntityIn.getUnitPosVec(),
-                    endRail.getPosVec(), endRail.getControlPoint());
-            Vector3d endPos = ConnectionUtil.getCatmullRomSpline(t1, new Vector3d(1,0,0), tileEntityIn.getUnitPosVec(),
-                    endRail.getPosVec(), endRail.getControlPoint());
+            Vector3d startPos = ConnectionUtil.getCatmullRomSpline(t0, new Vector3d(tileEntityIn.getControlPoint()),
+                    tileEntityIn.getRailPoint(),
+                    tileEntityIn.getTargetPosVec(), new Vector3d(endRail.getControlPoint()));
+            Vector3d endPos = ConnectionUtil.getCatmullRomSpline(t1, new Vector3d(tileEntityIn.getControlPoint()),
+                    tileEntityIn.getRailPoint(),
+                    tileEntityIn.getTargetPosVec(), new Vector3d(endRail.getControlPoint()));
 
             GSKOUtil.log("Start: " + startPos + "; End: " + endPos);
-            // ConnectionUtil.getCatmullRomSpline((float) i / segments, tileEntityIn.getControlPoint(), tileEntityIn.getPosVec(),
-            //         endRail.getPosVec(), endRail.getControlPoint());
 
             // renderHermite3(matrixStackIn, builder, start, end1, new Vector4i((int) r1,(int) g1, (int) b1, 0),
             //         tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);

@@ -428,6 +428,10 @@
   "gui.gensokyoontology.label.roll": "Roll: ",
   "gui.gensokyoontology.label.yaw": "Yaw: ",
   "gui.gensokyoontology.label.pitch": "Pitch: ",
+  "gui.gensokyoontology.label.radius": "Radius: ",
+  "gui.gensokyoontology.label.x": "Control X: ",
+  "gui.gensokyoontology.label.y": "Control Y: ",
+  "gui.gensokyoontology.label.z": "Control Z: ",
 
   "gui.gensokyoontology.button.increase_roll.msg": "Roll",
   "gui.gensokyoontology.button.increase_yaw.msg": "Yaw",

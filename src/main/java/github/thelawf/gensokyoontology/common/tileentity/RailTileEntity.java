@@ -3,7 +3,6 @@ package github.thelawf.gensokyoontology.common.tileentity;
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
@@ -19,10 +18,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.apache.logging.log4j.core.config.Order;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.AxisAngle4d;
 import org.joml.Matrix3d;
 
 import java.util.ArrayList;
@@ -32,7 +29,8 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     private float yaw = 0f;
     private float pitch = 0f;
     private float roll = 0f;
-    private float radius = 1f;
+    private Vector3f controlPoint = new Vector3f(0,0,0);
+    private Vector3f railPointOffset = new Vector3f(0,0,0);
     private Pose pose;
     private boolean shouldRender = false;
     private BlockPos targetRailPos = new BlockPos(0,0,0);
@@ -82,8 +80,12 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         if (nbt.contains("yaw")) this.yaw = nbt.getFloat("yaw");
         if (nbt.contains("pitch")) this.pitch = nbt.getFloat("pitch");
         if (nbt.contains("roll")) this.roll = nbt.getFloat("roll");
-        if (nbt.contains("radius")) this.roll = nbt.getFloat("radius");
         if (nbt.contains("shouldRender")) this.shouldRender = nbt.getBoolean("shouldRender");
+
+        // if (nbt.contains("railX") && nbt.contains("railY") && nbt.contains("railZ"))
+        //     this.railPointOffset = new Vector3f(nbt.getFloat("railX"), nbt.getFloat("railY"), nbt.getFloat("railZ"));
+        if (nbt.contains("controlX") && nbt.contains("controlY") && nbt.contains("controlZ"))
+            this.controlPoint = new Vector3f(nbt.getFloat("controlX"), nbt.getFloat("controlY"), nbt.getFloat("controlZ"));
         if (nbt.contains("targetX") && nbt.contains("targetY") && nbt.contains("targetZ"))
             this.targetRailPos = new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ"));
         super.read(state, nbt);
@@ -96,7 +98,14 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         compound.putFloat("yaw", this.yaw);
         compound.putFloat("roll", this.roll);
         compound.putFloat("pitch", this.pitch);
-        compound.putFloat("radius", this.radius);
+
+        // compound.putFloat("railX", this.railPointOffset.getX());
+        // compound.putFloat("railY", this.railPointOffset.getY());
+        // compound.putFloat("railZ", this.railPointOffset.getZ());
+        compound.putFloat("controlX", this.controlPoint.getX());
+        compound.putFloat("controlY", this.controlPoint.getY());
+        compound.putFloat("controlZ", this.controlPoint.getZ());
+
         compound.putBoolean("shouldRender", this.shouldRender);
         compound.putInt("targetX", this.targetRailPos.getX());
         compound.putInt("targetY", this.targetRailPos.getY());
@@ -117,8 +126,8 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         this.setPose(this.toStartPos());
     }
 
-    public void setRadius(float radius) {
-        this.radius = radius;
+    public void setControlPoint(Vector3f controlPoint) {
+        this.controlPoint = controlPoint;
         this.setPose(this.toStartPos());
     }
 
@@ -131,9 +140,6 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     public float getPitch() {
         return this.pitch;
     }
-    public float getRadius() {
-        return this.radius;
-    }
 
     public void setRotation(float roll, float yaw, float pitch) {
         this.setRoll(roll);
@@ -142,24 +148,24 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         this.setPose(this.toStartPos());
     }
 
-    public void setControlPoint(float roll, float yaw, float pitch, float radius) {
-        this.setRoll(roll);
-        this.setYaw(yaw);
-        this.setPitch(pitch);
-        this.setRadius(radius);
-        this.setPose(this.toStartPos());
+    public Vector3f getControlPoint() {
+        return this.controlPoint;
     }
 
-    public Vector3d getControlPoint() {
-        Vector3d facing = Vector3d.fromPitchYaw(this.getPitch(), this.getYaw());
-        return facing.scale(this.getRadius());
+    public void setTargetPos(BlockPos targetRailPos) {
+        this.targetRailPos = targetRailPos;
+        markDirty();
+    }
+
+    public void setControlPoint(float controlX, float controlY, float controlZ) {
+        this.controlPoint = new Vector3f(controlX, controlY, controlZ);
     }
 
     public Vector3d getPosVec() {
         return new Vector3d(this.getPos().getX(), this.getPos().getX(), this.getPos().getX());
     }
 
-    public Vector3d getUnitPosVec() {
+    public Vector3d getTargetPosVec() {
         if (getTargetRailEntity() == null) {
             GSKOUtil.log("Target Rail is null, Pos: " + getTargetPos());
             return new Vector3d(0,0,0);
@@ -228,11 +234,10 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         return this.targetRailPos;
     }
 
-    public void setTargetPos(BlockPos targetRailPos) {
-        this.targetRailPos = targetRailPos;
-        markDirty();
-    }
 
+    public Vector3d getRailPoint() {
+        return Vector3d.fromPitchYaw(this.pitch, this.yaw).scale(Math.sqrt(3)/2);
+    }
     public boolean shouldRender() {
         return this.shouldRender;
     }
@@ -375,4 +380,8 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         return normal.normalize();  // 单位化以得到归一化的法向量
     }
 
+
+    // public void setRailPoint(float pitch, float yaw) {
+    //     this.railPointOffset = new Vector3f(Vector3d.fromPitchYaw(this.pitch, this.yaw).scale(Math.sqrt(3)/2));
+    // }
 }

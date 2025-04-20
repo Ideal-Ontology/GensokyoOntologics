@@ -1,15 +1,10 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
-import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -47,6 +42,8 @@ public class CAdjustRailPacket {
         if (railTile == null) return;
 
         railTile.setRotation(packet.railData.getFloat("roll"), packet.railData.getFloat("yaw"), packet.railData.getFloat("pitch"));
+        railTile.setControlPoint(packet.railData.getFloat("controlX"), packet.railData.getFloat("controlY"), packet.railData.getFloat("controlZ"));
+        // railTile.setRailPoint(packet.railData.getFloat("railX"), packet.railData.getFloat("railY"), packet.railData.getFloat("railZ"));
         // 绞尽脑汁终于想到可以手动触发方块更新强制客户端重新渲染方块
         serverWorld.notifyBlockUpdate(pos, railTile.getBlockState(), railTile.getBlockState(), 3);
     }

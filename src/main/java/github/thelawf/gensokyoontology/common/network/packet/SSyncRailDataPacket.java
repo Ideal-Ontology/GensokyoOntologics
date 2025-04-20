@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
-import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.Minecraft;
@@ -52,6 +51,6 @@ public class SSyncRailDataPacket {
         railTile.setYaw(packet.railData.getFloat("yaw"));
         railTile.setPitch(packet.railData.getFloat("pitch"));
         railTile.setRoll(packet.railData.getFloat("roll"));
-        railTile.setRadius(packet.railData.getFloat("radius"));
+        railTile.setControlPoint(packet.railData.getFloat("controlX"), packet.railData.getFloat("controlY"), packet.railData.getFloat("controlZ"));
     }
 }

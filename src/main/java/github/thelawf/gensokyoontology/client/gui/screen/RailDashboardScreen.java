@@ -2,40 +2,35 @@ package github.thelawf.gensokyoontology.client.gui.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.screen.script.LineralContainerScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.LineralLayoutScreen;
-import github.thelawf.gensokyoontology.common.container.RailAdjustContainer;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CAdjustRailPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.widget.AbstractSlider;
-import net.minecraft.client.gui.widget.OptionSlider;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.CheckboxButton;
 import net.minecraft.client.network.play.ClientPlayNetHandler;
-import net.minecraft.command.impl.data.DataCommand;
-import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.container.Container;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.widget.Slider;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
+
 public class RailDashboardScreen extends LineralLayoutScreen {
+    private Vector3f controlPoint;
+    private Vector3f railPos;
     private Vector3f rotation;
-    private BlockPos railPos;
+    private float radius;
     private Slider yawSlider;
     private Slider pitchSlider;
     private Slider rollSlider;
 
-    private TextFieldWidget yawInput;
-    private TextFieldWidget pitchInput;
-    private TextFieldWidget rollInput;
+    private TextFieldWidget xInput;
+    private TextFieldWidget yInput;
+    private TextFieldWidget zInput;
     private CheckboxButton shouldRender;
     private static final TranslationTextComponent ANGLE_X = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.angle_x");
     private static final TranslationTextComponent ANGLE_Y = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.angle_y");
@@ -43,13 +38,15 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     private static final ITextComponent ROLL_LABEL   = GensokyoOntology.fromLocaleKey("gui.", ".label.roll") ;
     private static final ITextComponent YAW_LABEL    = GensokyoOntology.fromLocaleKey("gui.", ".label.yaw");
     private static final ITextComponent PITCH_LABEL  = GensokyoOntology.fromLocaleKey("gui.", ".label.pitch") ;
-    private static final ITextComponent TARGET_LABEL = GensokyoOntology.fromLocaleKey("gui.", ".label.rail_target_pos");
+    private static final ITextComponent X_LABEL = GensokyoOntology.fromLocaleKey("gui.", ".label.x");
+    private static final ITextComponent Y_LABEL = GensokyoOntology.fromLocaleKey("gui.", ".label.y");
+    private static final ITextComponent Z_LABEL = GensokyoOntology.fromLocaleKey("gui.", ".label.z");
     public static final ITextComponent TITLE = GensokyoOntology.fromLocaleKey("gui.", ".rail_dashboard.title");
 
-    public RailDashboardScreen(BlockPos pos, float roll, float yaw, float pitch) {
+    public RailDashboardScreen(float roll, float yaw, float pitch, Vector3f controlPoint) {
         super(TITLE);
         this.rotation = new Vector3f(roll, yaw, pitch);
-        this.railPos = pos;
+        this.controlPoint = controlPoint;
     }
 
     // public RailDashboardScreen(RailAdjustContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
@@ -74,19 +71,48 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.sendPacketToServer();
     }
 
+    private void onXInput(String input) {
+        // this.pitchInput.setText(formatAs(slider.getValue()));
+        if (Objects.equals(input, "")) return;
+        float value;
+        try {
+            value = Float.parseFloat(input);
+        }catch (Exception ignored){
+            return;
+        }
+        this.controlPoint.setX(value);
+        this.sendPacketToServer();
+    }
+
+    private void onYInput(String input) {
+        // this.pitchInput.setText(formatAs(slider.getValue()));
+        if (Objects.equals(input, "")) return;
+        float value;
+        try {
+            value = Float.parseFloat(input);
+        }catch (Exception ignored){
+            return;
+        }
+        this.controlPoint.setY(value);
+        this.sendPacketToServer();
+    }
+
+    private void onZInput(String input) {
+        // this.pitchInput.setText(formatAs(slider.getValue()));
+        if (Objects.equals(input, "")) return;
+        float value;
+        try {
+            value = Float.parseFloat(input);
+        }catch (Exception ignored){
+            return;
+        }
+        this.controlPoint.setZ(value);
+        this.sendPacketToServer();
+    }
+
     @Override
     protected void init() {
         super.init();
-        // this.rollInput = new TextFieldWidget(this.font, 50, 30, 40, 25, withText(this.rotation.getX() + "°"));
-        // this.yawInput = new TextFieldWidget(this.font, 50, 60, 40, 25, withText(this.rotation.getY() + "°"));
-        // this.pitchInput = new TextFieldWidget(this.font, 50, 90, 40, 25, withText(this.rotation.getZ() + "°"));
-
-        // this.rollSlider = new Slider(100, 30, 120, 25, ANGLE_X, withText("°"),
-        //         0, 360, (int) this.rotation.getX(), true, true, iPressable -> {}, this::onRollSlide);
-        // this.yawSlider = new Slider(100, 60, 120, 25, ANGLE_Y, withText("°"),
-        //         0, 360, (int) this.rotation.getY(), true, true, iPressable -> {}, this::onYawSlide);
-        // this.pitchSlider = new Slider(100, 90, 120, 25, ANGLE_Z, withText("°"),
-        //         0, 360, (int) this.rotation.getZ(), true, true, iPressable -> {}, this::onPitchSlide);
 
         this.rollSlider = new Slider(50, 30, 120, 25, ANGLE_X, withText("°"),
                 0, 360, (int) this.rotation.getX(), true, true, iPressable -> {}, this::onRollSlide);
@@ -94,6 +120,12 @@ public class RailDashboardScreen extends LineralLayoutScreen {
                 0, 360, (int) this.rotation.getY(), true, true, iPressable -> {}, this::onYawSlide);
         this.pitchSlider = new Slider(50, 90, 120, 25, ANGLE_Z, withText("°"),
                 0, 360, (int) this.rotation.getZ(), true, true, iPressable -> {}, this::onPitchSlide);
+        this.xInput = new TextFieldWidget(this.font, 200, 30, 120, 25, withText(String.valueOf(controlPoint.getX())));
+        this.yInput = new TextFieldWidget(this.font, 200, 60, 120, 25, withText(String.valueOf(controlPoint.getY())));
+        this.zInput = new TextFieldWidget(this.font, 200, 90, 120, 25, withText(String.valueOf(controlPoint.getZ())));
+        this.xInput.setResponder(this::onXInput);
+        this.yInput.setResponder(this::onYInput);
+        this.zInput.setResponder(this::onZInput);
 
         this.rollSlider.showDecimal = false;
         this.pitchSlider.showDecimal = false;
@@ -102,6 +134,7 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.addButton(this.rollSlider);
         this.addButton(this.yawSlider);
         this.addButton(this.pitchSlider);
+        this.children.add(this.xInput);
 
         // this.rollInput = new TextFieldWidget(this.font, 50, 30, 40, 25, withText(this.rollSlider.getValueInt() + "°"));
         // this.yawInput = new TextFieldWidget(this.font, 50, 60, 40, 25, withText(this.yawSlider.getValueInt() + "°"));
@@ -159,6 +192,9 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         drawString(matrixStack, this.font, ROLL_LABEL, 10, 40, WHITE);
         drawString(matrixStack, this.font, YAW_LABEL, 10, 70, WHITE);
         drawString(matrixStack, this.font, PITCH_LABEL, 10, 100, WHITE);
+        drawString(matrixStack, this.font, X_LABEL, 180, 40, WHITE);
+        drawString(matrixStack, this.font, Y_LABEL, 180, 70, WHITE);
+        drawString(matrixStack, this.font, Z_LABEL, 180, 100, WHITE);
 
         // this.rollInput.render(matrixStack, mouseX, mouseY, partialTicks);
         // this.yawInput.render(matrixStack, mouseX, mouseY, partialTicks);
@@ -167,6 +203,9 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.rollSlider.render(matrixStack, mouseX, mouseY, partialTicks);
         this.yawSlider.render(matrixStack, mouseX, mouseY, partialTicks);
         this.pitchSlider.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.xInput.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.yInput.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.zInput.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
     public String formatAs(double original) {
@@ -196,18 +235,22 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     }
     private void sendPacketToServer() {
         CompoundNBT nbt = new CompoundNBT();
-        nbt.putLong("railPos", this.railPos.toLong());
         nbt.putFloat("roll", this.rotation.getX());
         nbt.putFloat("yaw", this.rotation.getY());
         nbt.putFloat("pitch", this.rotation.getZ());
+        nbt.putFloat("radius", this.radius);
+
+        // nbt.putFloat("railX", this.railPos.getX());
+        // nbt.putFloat("railY", this.railPos.getY());
+        // nbt.putFloat("railZ", this.railPos.getZ());
+        nbt.putFloat("controlX", this.controlPoint.getX());
+        nbt.putFloat("controlY", this.controlPoint.getY());
+        nbt.putFloat("controlZ", this.controlPoint.getZ());
         GSKONetworking.CHANNEL.sendToServer(new CAdjustRailPacket(nbt));
     }
 
     private void sendPacketToClient () {
         CompoundNBT nbt = new CompoundNBT();
-        nbt.putInt("targetX", this.railPos.getX());
-        nbt.putInt("targetY", this.railPos.getY());
-        nbt.putInt("targetZ", this.railPos.getZ());
         nbt.putBoolean("shouldRender", true);
 
         nbt.putFloat("roll", this.rotation.getX());
@@ -215,8 +258,6 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         nbt.putFloat("pitch", this.rotation.getZ());
 
         ClientPlayNetHandler handler = Minecraft.getInstance().getConnection();
-        if (handler != null) {
-            handler.handleUpdateTileEntity(new SUpdateTileEntityPacket(this.railPos, 1, nbt));
-        }
+
     }
 }
