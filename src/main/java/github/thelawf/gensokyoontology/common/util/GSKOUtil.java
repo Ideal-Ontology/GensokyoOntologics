@@ -1,10 +1,17 @@
 package github.thelawf.gensokyoontology.common.util;
 
+import github.thelawf.gensokyoontology.GensokyoOntology;
+import net.minecraft.advancements.Advancement;
+import net.minecraft.advancements.AdvancementManager;
+import net.minecraft.advancements.AdvancementProgress;
+import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -17,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import static github.thelawf.gensokyoontology.GensokyoOntology.LOGGER;
 import static github.thelawf.gensokyoontology.GensokyoOntology.withAffix;
 
 public class GSKOUtil {
@@ -86,6 +94,20 @@ public class GSKOUtil {
     }
     public static TranslationTextComponent fromLocaleFormat(String prefix, String suffix, Object... formats) {
         return new TranslationTextComponent(withAffix(prefix, suffix), formats);
+    }
+
+    public static Advancement getAdvancement(ServerPlayerEntity serverPlayer, ResourceLocation advancementName) {
+        PlayerAdvancements advancements = serverPlayer.getAdvancements();
+        if (serverPlayer.world.getServer() == null) {
+            LOGGER.info("Advancement: {} Not Present", advancementName);
+            return null;
+        }
+        AdvancementManager manager = serverPlayer.world.getServer().getAdvancementManager();
+        if (manager.getAdvancement(advancementName) == null){
+            LOGGER.info("Advancement: {} Not Present", advancementName);
+            return null;
+        }
+        return manager.getAdvancement(advancementName);
     }
 
     public static <K, V> void mapPrintLine(HashMap<K, V> map) {

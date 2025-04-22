@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.world.surface;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.surfacebuilders.*;
 import net.minecraftforge.fml.RegistryObject;
@@ -14,4 +15,6 @@ public final class GSKOSurfaceBuilders {
     public static final RegistryObject<YatsugaTakeSurface> YATSUGA_TAKE_SURFACE = SURFACE_BUILDERS.register(
             "yatsuga_take", () -> new YatsugaTakeSurface(SurfaceBuilderConfig.CODEC));
 
+    public static final RegistryObject<YamotsuHirasakaSurface> YAMOTSU_HIRASAKA_SURFACE = SURFACE_BUILDERS.register(
+            "yamotsu_hirasaka", () -> new YamotsuHirasakaSurface(SurfaceBuilderConfig.CODEC));
 }

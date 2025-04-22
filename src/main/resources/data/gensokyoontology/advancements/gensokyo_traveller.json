@@ -15,7 +15,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "gensokyoontology:root",
+  "parent": "gensokyoontology:login_gensokyo",
   "criteria": {
     "gensokyoontology:human_village": {
       "trigger": "minecraft:location",
@@ -53,6 +53,14 @@
       "conditions": {
         "location": {
           "biome": "gensokyoontology:misty_lake"
+        }
+      }
+    },
+    "gensokyoontology:untrodden_valley": {
+      "trigger": "minecraft:location",
+      "conditions": {
+        "location": {
+          "biome": "gensokyoontology:untrodden_valley"
         }
       }
     }

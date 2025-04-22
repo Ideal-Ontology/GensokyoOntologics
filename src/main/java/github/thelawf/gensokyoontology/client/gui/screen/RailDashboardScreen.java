@@ -11,6 +11,7 @@ import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.CheckboxButton;
 import net.minecraft.client.network.play.ClientPlayNetHandler;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -21,7 +22,7 @@ import java.util.Objects;
 
 public class RailDashboardScreen extends LineralLayoutScreen {
     private Vector3f controlPoint;
-    private Vector3f railPos;
+    private BlockPos railPos;
     private Vector3f rotation;
     private float radius;
     private Slider yawSlider;
@@ -43,8 +44,9 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     private static final ITextComponent Z_LABEL = GensokyoOntology.fromLocaleKey("gui.", ".label.z");
     public static final ITextComponent TITLE = GensokyoOntology.fromLocaleKey("gui.", ".rail_dashboard.title");
 
-    public RailDashboardScreen(float roll, float yaw, float pitch, Vector3f controlPoint) {
+    public RailDashboardScreen(BlockPos pos, float roll, float yaw, float pitch, Vector3f controlPoint) {
         super(TITLE);
+        this.railPos = pos;
         this.rotation = new Vector3f(roll, yaw, pitch);
         this.controlPoint = controlPoint;
     }
@@ -120,9 +122,9 @@ public class RailDashboardScreen extends LineralLayoutScreen {
                 0, 360, (int) this.rotation.getY(), true, true, iPressable -> {}, this::onYawSlide);
         this.pitchSlider = new Slider(50, 90, 120, 25, ANGLE_Z, withText("°"),
                 0, 360, (int) this.rotation.getZ(), true, true, iPressable -> {}, this::onPitchSlide);
-        this.xInput = new TextFieldWidget(this.font, 200, 30, 120, 25, withText(String.valueOf(controlPoint.getX())));
-        this.yInput = new TextFieldWidget(this.font, 200, 60, 120, 25, withText(String.valueOf(controlPoint.getY())));
-        this.zInput = new TextFieldWidget(this.font, 200, 90, 120, 25, withText(String.valueOf(controlPoint.getZ())));
+        this.xInput = new TextFieldWidget(this.font, 50, 120, 120, 25, withText(String.valueOf(controlPoint.getX())));
+        this.yInput = new TextFieldWidget(this.font, 50, 150, 120, 25, withText(String.valueOf(controlPoint.getY())));
+        this.zInput = new TextFieldWidget(this.font, 50, 180, 120, 25, withText(String.valueOf(controlPoint.getZ())));
         this.xInput.setResponder(this::onXInput);
         this.yInput.setResponder(this::onYInput);
         this.zInput.setResponder(this::onZInput);
@@ -135,6 +137,8 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.addButton(this.yawSlider);
         this.addButton(this.pitchSlider);
         this.children.add(this.xInput);
+        this.children.add(this.yInput);
+        this.children.add(this.zInput);
 
         // this.rollInput = new TextFieldWidget(this.font, 50, 30, 40, 25, withText(this.rollSlider.getValueInt() + "°"));
         // this.yawInput = new TextFieldWidget(this.font, 50, 60, 40, 25, withText(this.yawSlider.getValueInt() + "°"));
@@ -192,9 +196,9 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         drawString(matrixStack, this.font, ROLL_LABEL, 10, 40, WHITE);
         drawString(matrixStack, this.font, YAW_LABEL, 10, 70, WHITE);
         drawString(matrixStack, this.font, PITCH_LABEL, 10, 100, WHITE);
-        drawString(matrixStack, this.font, X_LABEL, 180, 40, WHITE);
-        drawString(matrixStack, this.font, Y_LABEL, 180, 70, WHITE);
-        drawString(matrixStack, this.font, Z_LABEL, 180, 100, WHITE);
+        drawString(matrixStack, this.font, X_LABEL, 10, 130, WHITE);
+        drawString(matrixStack, this.font, Y_LABEL, 10, 160, WHITE);
+        drawString(matrixStack, this.font, Z_LABEL, 10, 190, WHITE);
 
         // this.rollInput.render(matrixStack, mouseX, mouseY, partialTicks);
         // this.yawInput.render(matrixStack, mouseX, mouseY, partialTicks);
@@ -235,6 +239,7 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     }
     private void sendPacketToServer() {
         CompoundNBT nbt = new CompoundNBT();
+        nbt.putLong("pos", this.railPos.toLong());
         nbt.putFloat("roll", this.rotation.getX());
         nbt.putFloat("yaw", this.rotation.getY());
         nbt.putFloat("pitch", this.rotation.getZ());

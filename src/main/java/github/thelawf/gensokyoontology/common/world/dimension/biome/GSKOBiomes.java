@@ -27,6 +27,8 @@ public class GSKOBiomes {
     // public static final Biome YATSUGA_TAKE_BIOME = GSKOBiomeMaker.makeYatsugaTakeBiome(() -> GSKOConfiguredSurface.YATSUGA_TAKE);
     public static final RegistryObject<Biome> YATSUGA_TAKE_BIOME = BIOMES.register("mountain_yatsugatake",
             () -> GSKOBiomeMaker.makeYatsugaTakeBiome(() -> GSKOConfiguredSurface.YATSUGA_TAKE));
+    public static final RegistryObject<Biome> YAMOTSU_HIRASAKA = BIOMES.register("yamotsu_hirasaka",
+            () -> GSKOBiomeMaker.makeYamotsuHirasaka(() -> GSKOConfiguredSurface.YAMOTSU_SURFACE));
     public static final RegistryKey<Biome> UNTRODDEN_VALLEY_KEY = makeKey("untrodden_valley");
     // public static final RegistryObject<Biome> UNTRODDEN_VALLEY = BIOMES.register(UNTRODDEN_VALLEY_KEY.getRegistryName().getPath(),
     //         () -> GSKOBiomeMaker.makeUntroddenValley(() -> GSKOConfiguredSurface.UNTRODDEN_VALLEY));

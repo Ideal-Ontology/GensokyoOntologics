@@ -25,7 +25,7 @@ public class LilyWhiteSpawner {
 
     public static void spawn(ServerWorld serverWorld, PlayerEntity player, BlockPos pos, int ticks, float chance) {
         Random random = new Random();
-        if (player.ticksExisted % 10000 != 0)return;
+        if (player.ticksExisted % 10000 != 0 && player.ticksExisted != 0)return;
         if (player.getEntityWorld().getDimensionKey() != GSKODimensions.GENSOKYO) return;
         EntityRegistry.LILY_WHITE.get().spawn(serverWorld, null, player, pos, SpawnReason.NATURAL, false, false);
 

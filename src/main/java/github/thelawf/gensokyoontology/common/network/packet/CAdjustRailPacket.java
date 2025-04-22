@@ -35,7 +35,7 @@ public class CAdjustRailPacket {
     }
 
     private static void changeAndSaveTileData(CAdjustRailPacket packet, ServerWorld serverWorld){
-        BlockPos pos = BlockPos.fromLong(packet.railData.getLong("railPos"));
+        BlockPos pos = BlockPos.fromLong(packet.railData.getLong("pos"));
 
         if (!(serverWorld.getTileEntity(pos) instanceof RailTileEntity)) return;
         RailTileEntity railTile = (RailTileEntity) serverWorld.getTileEntity(pos);

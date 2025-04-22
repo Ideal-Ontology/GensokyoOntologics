@@ -184,24 +184,30 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         this.pose = new Pose(translation, basis);
     }
 
+    // Vector3d look = Vector3d.fromPitchYaw(this.pitch, this.yaw);
     @OnlyIn(Dist.CLIENT)
     public Pose toStartPos() {
-        Vector3f offset = new Vector3f(0,0,1);
-        Vector3d pivot = new Vector3d(-0.5, 0.5, 0.5);
-        offset.add(new Vector3f(new Vector3d(0.5, -0.5, -0.5)
-                .add(pivot.rotateYaw((float) Math.toRadians(this.yaw))
-                        .rotatePitch((float) Math.toRadians(-this.roll)))));
+        Vector3d look = getRailFacing();
+        // Vector3d offset = new Vector3d(0,0,1);
+
+        Vector3d pivot = new Vector3d(0, 0, 0.3);
+        Vector3d offset = Vector3d.fromPitchYaw(this.pitch, this.yaw).scale(Math.sqrt(2) / 2).add(pivot);
+        // offset.add(new Vector3d(0.5, -0.5, -0.5).add(look));
+
+        // offset.add(new Vector3d(0.5, -0.5, -0.5)
+        //         .add(pivot.rotateYaw((float) Math.toRadians(this.yaw))
+        //                 .rotatePitch((float) Math.toRadians(-this.roll))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
         return new Pose(jomlVec(offset), matrix);
     }
 
     @OnlyIn(Dist.CLIENT)
     public Pose toStartPosOffset() {
-        Vector3f offset = new Vector3f(0,0,1);
-        Vector3d vec = new Vector3d(-0.5, 0.5, -0.5);
-        offset.add(new Vector3f(new Vector3d(0.5, -0.5, -0.5)
-                .add(vec.rotateYaw((float) Math.toRadians(this.yaw))
-                        .rotatePitch((float) Math.toRadians(-this.roll)))));
+        Vector3d offset = getRailFacing();
+        // Vector3d vec = new Vector3d(-0.5, 0.5, -0.5);
+        // offset.add(new Vector3d(0.5, -0.5, -0.5)
+        //         .add(vec.rotateYaw((float) Math.toRadians(this.yaw))
+        //                 .rotatePitch((float) Math.toRadians(-this.roll))));
         Matrix3d matrix = new Matrix3d().rotateXYZ(Math.toRadians(this.roll), Math.toRadians(this.yaw - 90), Math.toRadians(this.pitch));
         return new Pose(jomlVec(offset), matrix);
     }
@@ -234,8 +240,8 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         return this.targetRailPos;
     }
 
-
-    public Vector3d getRailPoint() {
+    @OnlyIn(Dist.CLIENT)
+    public Vector3d getRailFacing() {
         return Vector3d.fromPitchYaw(this.pitch, this.yaw).scale(Math.sqrt(3)/2);
     }
     public boolean shouldRender() {
@@ -379,8 +385,6 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         Vector3d normal = vector.crossProduct(other);
         return normal.normalize();  // 单位化以得到归一化的法向量
     }
-
-
     // public void setRailPoint(float pitch, float yaw) {
     //     this.railPointOffset = new Vector3f(Vector3d.fromPitchYaw(this.pitch, this.yaw).scale(Math.sqrt(3)/2));
     // }

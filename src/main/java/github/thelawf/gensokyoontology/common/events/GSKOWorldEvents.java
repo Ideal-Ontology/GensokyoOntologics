@@ -84,8 +84,8 @@ public class GSKOWorldEvents {
         if (!event.player.world.isRemote) {
             ServerWorld serverWorld = (ServerWorld) event.player.world;
             PlayerEntity player = event.player;
-            if (player.ticksExisted % 10000 != 0) return;
-            LilyWhiteSpawner.spawn(serverWorld, player, player.getPosition(), player.ticksExisted, 0.01f);
+            if (player.ticksExisted % 10000 != 0 && player.ticksExisted != 0)return;
+            // LilyWhiteSpawner.spawn(serverWorld, player, player.getPosition(), player.ticksExisted, 0.01f);
         }
     }
 

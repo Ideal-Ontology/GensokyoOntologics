@@ -5,7 +5,6 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
@@ -59,7 +58,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         Quaternion roll = Vector3f.XP.rotationDegrees(tileEntityIn.getRoll());
         Quaternion yaw = Vector3f.YP.rotationDegrees(tileEntityIn.getYaw());
         Quaternion pitch = Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch());
-        Vector3f translation = new Vector3f(0f, 0f, 0f); // TODO: 之前这里是（0，0，0）
+        Vector3f translation = new Vector3f(0f, 0f, 0f);
 
         matrixStackIn.push();
         matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
@@ -124,20 +123,20 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
             float t1 = (float) (i + 1) / segments;
 
             Vector3d startPos = ConnectionUtil.getCatmullRomSpline(t0, new Vector3d(tileEntityIn.getControlPoint()),
-                    tileEntityIn.getRailPoint(),
+                    tileEntityIn.getRailFacing(),
                     tileEntityIn.getTargetPosVec(), new Vector3d(endRail.getControlPoint()));
             Vector3d endPos = ConnectionUtil.getCatmullRomSpline(t1, new Vector3d(tileEntityIn.getControlPoint()),
-                    tileEntityIn.getRailPoint(),
+                    tileEntityIn.getRailFacing(),
                     tileEntityIn.getTargetPosVec(), new Vector3d(endRail.getControlPoint()));
 
-            GSKOUtil.log("Start: " + startPos + "; End: " + endPos);
+            // GSKOUtil.log("Start: " + startPos + "; End: " + endPos);
 
-            // renderHermite3(matrixStackIn, builder, start, end1, new Vector4i((int) r1,(int) g1, (int) b1, 0),
-            //         tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
-            // renderHermite3(matrixStackIn, builder, start1, end, new Vector4i((int) r1,(int) g1, (int) b1, 0),
-            //         tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
+            renderHermite3(matrixStackIn, builder, start, end1, new Vector4i((int) r1,(int) g1, (int) b1, 0),
+                    tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
+            renderHermite3(matrixStackIn, builder, start1, end, new Vector4i((int) r1,(int) g1, (int) b1, 0),
+                    tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
 
-            this.renderSegment(builder, matrixStackIn, tileEntityIn.getRotation(), startPos, endPos);
+            // this.renderSegment(builder, matrixStackIn, tileEntityIn.getRotation(), startPos, endPos);
         }
     }
 
@@ -220,11 +219,11 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
     }
 
     private void rotate(MatrixStack matrixStackIn, Quaternion roll, Quaternion yaw, Quaternion pitch) {
-        matrixStackIn.translate(0.5, 0, 0.5);
+        matrixStackIn.translate(0.5, 0.5, 0.5);
         matrixStackIn.rotate(roll);
         matrixStackIn.rotate(yaw);
         matrixStackIn.rotate(pitch);
-        matrixStackIn.translate(-0.5, 0, -0.5);
+        matrixStackIn.translate(-0.5, -0.5, -0.5);
     }
 
     @Override

@@ -171,6 +171,31 @@ public final class GSKOBiomeMaker {
                 .build();
     }
 
+    public static Biome makeYamotsuHirasaka(final Supplier<ConfiguredSurfaceBuilder<?>> builder) {
+        List<FeatureType> features = new ArrayList<>();
+        features.add(FeatureType.OAK_TREE);
+        features.add(FeatureType.NORMAL_GRASS_PATCH);
+
+        return new Biome.Builder()
+                .depth(0.1f)
+                .scale(0.5f)
+                .downfall(0.2f)
+                .temperature(0.6f)
+                .category(Biome.Category.PLAINS)
+                .precipitation(Biome.RainType.RAIN)
+                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
+                .withTemperatureModifier(Biome.TemperatureModifier.NONE)
+                .withGenerationSettings(
+                        withBuilder(makeCustomSurface(builder), features).build())
+                .setEffects(new BiomeAmbience.Builder()
+                        .setWaterColor(0x0DA7D6)
+                        .setWaterFogColor(0x282E84)
+                        .setFogColor(0xC0D8FF)
+                        .withSkyColor(getSkyColor(0.7F))
+                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
+                        .build())
+                .build();
+    }
 
     private static int getSkyColor(float temperature) {
         float shift = MathHelper.clamp(temperature / 3.0F, -1.0F, 1.0F);

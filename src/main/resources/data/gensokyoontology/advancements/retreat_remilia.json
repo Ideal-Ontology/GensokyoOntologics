@@ -15,7 +15,7 @@
     "announce_to_chat": true,
     "hidden": false
   },
-  "parent": "gensokyoontology:login_gensokyo",
+  "parent": "gensokyoontology:retreat_lilywhite",
   "criteria": {
     "requirement": {
       "trigger": "minecraft:player_killed_entity",

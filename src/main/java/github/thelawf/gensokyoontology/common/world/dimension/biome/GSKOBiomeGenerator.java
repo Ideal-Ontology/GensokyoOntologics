@@ -8,10 +8,9 @@ import net.minecraftforge.registries.ForgeRegistries;
 import java.util.Objects;
 
 public class GSKOBiomeGenerator {
-
     public static void generate() {
         addBiome(GSKOBiomes.YATSUGA_TAKE_BIOME.get(), BiomeManager.BiomeType.WARM, 10);
-        // addBiome(GSKOBiomes.MAGIC_FOREST_BIOME.get(), BiomeManager.BiomeType.WARM, 8);
+        addBiome(GSKOBiomes.YAMOTSU_HIRASAKA.get(), BiomeManager.BiomeType.COOL, 8);
     }
 
     public static void addBiome(Biome biome, BiomeManager.BiomeType type, int weight) {

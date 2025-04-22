@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import com.github.tartaricacid.touhoulittlemaid.event.EntityHurtEvent;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.capability.entity.IdentityCapability;
@@ -25,6 +24,8 @@ import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.EffectRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import github.thelawf.gensokyoontology.data.GSKOPlayerData;
+import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.PlayerAdvancements;
@@ -42,7 +43,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.concurrent.TickDelayedTask;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -151,18 +151,28 @@ public class GSKOEntityEvents {
     }
 
     @SubscribeEvent
-    public static void onAdvancementDone(TickEvent.PlayerTickEvent event) {
+    public static void onRetreatLilywhite(TickEvent.PlayerTickEvent event) {
         if (event.player instanceof ServerPlayerEntity) {
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) event.player;
-            PlayerAdvancements advancement = serverPlayer.getAdvancements();
-            if (serverPlayer.world.getServer() == null) return;
+            ResourceLocation retreatLilywhite = new ResourceLocation(GensokyoOntology.MODID, "retreat_lilywhite");
 
-            AdvancementManager manager = serverPlayer.world.getServer().getAdvancementManager();
-            ResourceLocation location = new ResourceLocation(GensokyoOntology.MODID, "gensokyo_traveller");
-
-            if (manager.getAdvancement(location) == null) return;
-            AdvancementProgress progress = advancement.getProgress(manager.getAdvancement(location));
+            Advancement adv = GSKOUtil.getAdvancement(serverPlayer, retreatLilywhite);
+            if (adv == null) return;
+            AdvancementProgress progress = serverPlayer.getAdvancements().getProgress(adv);
+            if (progress.isDone() && serverPlayer.ticksExisted % 15 == 0) {
+                serverPlayer.heal(0.7f);
+            }
         }
+    }
+
+    @SubscribeEvent
+    public static void onLoadPlayerData(PlayerEvent.LoadFromFile event){
+
+    }
+
+    @SubscribeEvent
+    public static void saveCustomPlayerData(PlayerEvent.SaveToFile event){
+        GSKOPlayerData data = new GSKOPlayerData(event.getPlayer(), event.getPlayerDirectory());
     }
 
     @SubscribeEvent
@@ -304,5 +314,4 @@ public class GSKOEntityEvents {
     private static void performLovePotion(LivingEvent.LivingUpdateEvent event, LovePotionEffect effect) {
 
     }
-
 }
