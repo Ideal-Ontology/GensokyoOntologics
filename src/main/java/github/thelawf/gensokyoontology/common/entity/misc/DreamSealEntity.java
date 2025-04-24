@@ -45,16 +45,12 @@ public class DreamSealEntity extends ScriptedDanmakuEntity implements IRayTraceR
     @Override
     public void tick() {
         super.tick();
-        // if (ticksExisted <= 20) return;
+        if (ticksExisted % 3 == 0) return;
         if (this.getShooter() != null && this.getTarget() != null) {
             Vector3d aimedVec = this.getAimedVec(this.getShooter(), this.getTarget());
             float offset = 0.3f / this.getTarget().getEyeHeight();
             this.shoot(aimedVec.x, aimedVec.y - offset, aimedVec.z, 1.6f, 0f);
         }
-        // this.getShooter().flatMap(this::getTarget).ifPresent(target -> {
-        //     Vector3d direction = this.getAimedVec(target);
-        //     this.setMotion(direction.normalize().scale(0.8f));
-        // });
     }
 
     private boolean isPlayer() {

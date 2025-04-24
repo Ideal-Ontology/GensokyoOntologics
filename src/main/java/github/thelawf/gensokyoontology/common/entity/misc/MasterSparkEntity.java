@@ -40,10 +40,14 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceRead
         if (ticksExisted < 40) return;
         if (world.isRemote) return;
         ServerWorld serverWorld = (ServerWorld) world;
-        List<Vector3d> startList = DanmakuUtil.ellipticPos(Vector2f.ZERO, 0.6, 20);
-        startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 1.5, 20));
-        startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 2, 30));
-        // 1startList.addAll(DanmakuUtil.ellipticPos(Vector2f.ZERO, 0.5, 10));
+        List<Entity> entities = rayTrace(serverWorld, this, DISTANCE, new Vector3d(0,0,0));
+        List<Vector3d> startList = DanmakuUtil.spheroidPos(1.5, 10);
+
+        startList.forEach(vector3d -> entities.addAll(rayTrace(serverWorld, this, DISTANCE, vector3d)));
+        Predicate<Entity> canAttack = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() != this.getOwnerID().get();
+
+        entities.stream().filter(canAttack).forEach(entity -> entity.attackEntityFrom(GSKODamageSource.LASER, 10F));
+        /*
         startList.replaceAll(vector3d -> vector3d.add(0,0.6,0));
         List<Vector3d> endList = startList.stream().map(vector3d -> this.getLookVec().scale(DISTANCE).add(vector3d)).collect(Collectors.toList());
 
@@ -65,5 +69,6 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceRead
             // this.getEntityInCylinder(this.world, this, canAttack, start1, end1, DISTANCE, 3).forEach(
             //         entity -> entity.attackEntityFrom(GSKODamageSource.LASER, 15F));
         }
+         */
     }
 }

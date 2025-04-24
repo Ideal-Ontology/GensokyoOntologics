@@ -4,8 +4,8 @@ import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.util.math.*;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -175,28 +175,30 @@ public interface IRayTraceReader {
 
     }
 
-    @Nullable
-    default EntityRayTraceResult rayTrace(World worldIn, Entity entityIn, Vector3d start, Vector3d end, AxisAlignedBB boundingBox, Predicate<Entity> selector, double limitDist) {
-        double currentDist = limitDist;
-        Entity resultEntity = null;
-
-        for(Entity foundEntity : worldIn.getEntitiesInAABBexcluding(entityIn, boundingBox, selector)) {
-            AxisAlignedBB axisalignedbb = foundEntity.getBoundingBox().grow(0.5F);
-            Optional<Vector3d> optional = axisalignedbb.rayTrace(start, end);
-            if (optional.isPresent()) {
-                double newDist = start.squareDistanceTo(optional.get());
-                if (newDist < currentDist) {
-                    resultEntity = foundEntity;
-                    currentDist = newDist;
-                }
+    default List<Entity> rayTrace(World world, Entity originEntity, float radius, Vector3d offset){
+        List<Entity> tracedEntities = new ArrayList<>();
+        Vector3d start = originEntity.getEyePosition(0f).add(offset);
+        Vector3d end = originEntity.getLookVec().normalize().scale(radius).add(start);
+        BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, originEntity));
+        end = btr.getHitVec();
+        AxisAlignedBB range = originEntity.getBoundingBox().expand(end.subtract(start));
+        List<RayTraceResult> rayTraces = new ArrayList<>();
+        List<? extends Entity> entities = world.getEntitiesInAABBexcluding(originEntity, range, Entity::isAlive);
+        for (Entity entity: entities) {
+            Vector3d intersection = entity.getBoundingBox().rayTrace(start, end).orElse(null);
+            if (intersection != null) {
+                EntityRayTraceResult err = new EntityRayTraceResult(entity, intersection);
+                rayTraces.add(err);
             }
         }
 
-        if (resultEntity == null) {
-            return null;
-        } else {
-            return new EntityRayTraceResult(resultEntity);
+        if (rayTraces.isEmpty()) return new ArrayList<>();
+        // rayTraces.sort((o1, o2) -> o1.getHitVec().distanceTo(start) < o2.getHitVec().distanceTo(start)? -1 : 1);
+        RayTraceResult result = rayTraces.get(0);
+        if (result instanceof EntityRayTraceResult) {
+            tracedEntities.add(((EntityRayTraceResult) result).getEntity());
         }
+        return tracedEntities;
     }
 
     default Optional<Entity> rayTrace(World world, Entity sourceEntity, Vector3d startVec, Vector3d endVec) {

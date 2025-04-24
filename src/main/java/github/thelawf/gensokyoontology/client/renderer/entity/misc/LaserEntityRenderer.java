@@ -152,7 +152,7 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         matrixStackIn.push();
         matrixStackIn.translate(0.0D, entityIn.getEyeHeight(), 0.0D);
         Vector3d vector3d2 = entityIn.getLookVec();
-        GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, vector3d2);
+        GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, vector3d2.scale(-1));
 
         // float f5 = (float)Math.acos(vector3d2.y);
         // float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
