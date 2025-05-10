@@ -63,11 +63,11 @@ public class GSKOCapabilityEvents {
         if (entity instanceof PlayerEntity) {
 
             GSKOPowerProvider power = new GSKOPowerProvider(0f);
-            IdentityCapabilityProvider belief = new IdentityCapabilityProvider();
+            IdentityCapabilityProvider identity = new IdentityCapabilityProvider();
             SecularLifetimeProvider lifetime = new SecularLifetimeProvider(0L);
 
             event.addCapability(GensokyoOntology.withRL("power"), power);
-            event.addCapability(GensokyoOntology.withRL("belief"), belief);
+            event.addCapability(GensokyoOntology.withRL("identities"), identity);
             event.addCapability(GensokyoOntology.withRL("secular_lifetime"), lifetime);
         }
     }

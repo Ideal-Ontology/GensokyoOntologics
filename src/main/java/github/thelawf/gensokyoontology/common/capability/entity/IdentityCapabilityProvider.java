@@ -1,24 +1,21 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.util.IdentityType;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class IdentityCapabilityProvider implements ICapabilitySerializable<ListNBT> {
     private IdentityCapability capability;
-    private final Map<ResourceLocation, Integer> map = IdentityType.getIdMap();
+    private final Map<ResourceLocation, Float> map = IdentityType.createIdentityMap();
 
     public IdentityCapabilityProvider() {
         this.capability = GSKOCapabilities.IDENTITY.getDefaultInstance();

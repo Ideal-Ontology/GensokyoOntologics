@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.api.util.tree;
 
+import net.minecraft.util.DamageSource;
+
 import java.util.*;
 
 public abstract class TreeNode<O> implements ITreeNode<O> {

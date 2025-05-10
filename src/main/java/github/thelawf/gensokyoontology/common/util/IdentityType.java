@@ -33,19 +33,19 @@ public class IdentityType {
         return new ResourceLocation(namespace, id);
     }
 
-    public static Map<ResourceLocation, Integer> getIdMap() {
+    public static Map<ResourceLocation, Float> createIdentityMap() {
         return Util.make(() -> {
-            Map<ResourceLocation, Integer> map = new HashMap<>();
-            map.put(NONE, 0);
-            map.put(HAKUREI, 0);
-            map.put(SCARLET_DEVIL, 0);
+            Map<ResourceLocation, Float> map = new HashMap<>();
+            map.put(NONE, 0f);             // 真实伤害
+            map.put(HAKUREI, 0f);          // 暴击伤害
+            map.put(SCARLET_DEVIL, 0f);    // 回血
 
-            map.put(MARKET, 0);
-            map.put(TAOISM, 0);
-            map.put(BUDDHISM, 0);
+            map.put(MARKET, 0f);           // +金钱
+            map.put(TAOISM, 0f);           // 原地复活
+            map.put(BUDDHISM, 0f);         // 妖怪宽容
 
-            map.put(SHINTOISM, 0);
-            map.put(IDOL, 0);
+            map.put(SHINTOISM, 0f);        // 法术强度
+            map.put(IDOL, 0f);             // 魔法抗性
             return map;
         });
     }
