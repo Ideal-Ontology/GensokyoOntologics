@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.events;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.client.renderer.world.ScarletSkyRenderer;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.capability.entity.IdentityCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
@@ -11,6 +12,7 @@ import github.thelawf.gensokyoontology.common.capability.world.ImperishableNight
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
+import github.thelawf.gensokyoontology.common.network.packet.SScarletMistPacket;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
@@ -30,6 +32,9 @@ import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.world.DimensionRenderInfo;
+import net.minecraft.command.impl.TimeCommand;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -56,6 +61,7 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.util.List;
@@ -133,20 +139,31 @@ public class GSKOEntityEvents {
 
     @SubscribeEvent
     public static void onEnterNamelessHill(LivingEvent.LivingUpdateEvent event) {
-        if (event.getEntityLiving() != null) {
-            LivingEntity living = event.getEntityLiving();
-            ResourceLocation biomeName = living.world.getBiome(living.getPosition()).getRegistryName();
-            if (biomeName == null) return;
-            if (!(living instanceof PlayerEntity)) return;
-            if (living.getActivePotionEffects().contains(new EffectInstance(
+        if (event.getEntityLiving() instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+            if (player.getActivePotionEffects().contains(new EffectInstance(
                     EffectRegistry.HAKUREI_BLESS_EFFECT.get()))) return;
 
-            PlayerEntity player = (PlayerEntity) living;
-            if (biomeName.equals(GSKOBiomes.NAMELESS_HILL_KEY.getLocation())) {
-                living.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 20));
+            if (GSKOWorldUtil.isEntityInBiome(player, GSKOBiomes.NAMELESS_HILL_KEY)){
+                player.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 20));
                 player.sendStatusMessage(GensokyoOntology.fromLocaleKey(
                         "msg.", ".enter_danger_biome.nameless_hill"), true);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onEnterBambooForestOfLost(LivingEvent.LivingUpdateEvent event) {
+        if (!(event.getEntityLiving() instanceof PlayerEntity)) return;
+        if (!(event.getEntityLiving().world instanceof ServerWorld)) return;
+
+        PlayerEntity player = (PlayerEntity) event.getEntityLiving();
+        ServerWorld serverWorld = (ServerWorld) event.getEntityLiving().world;
+
+        if (GSKOWorldUtil.isEntityInBiome(player, GSKOBiomes.BAMBOO_FOREST_LOST_KEY)){
+            serverWorld.setDayTime(16000);
+            player.sendStatusMessage(GensokyoOntology.fromLocaleKey(
+                    "msg.", ".enter_danger_biome.bamboo"), true);
         }
     }
 
@@ -177,28 +194,29 @@ public class GSKOEntityEvents {
 
     @SubscribeEvent
     public static void onLivingEnterBiome(TickEvent.PlayerTickEvent event) {
-        if (event.player.getEntityWorld() instanceof ServerWorld && event.player instanceof ServerPlayerEntity) {
-            ServerPlayerEntity player = (ServerPlayerEntity) event.player;
-            ServerWorld serverWorld = (ServerWorld) event.player.world;
-            ResourceLocation location = serverWorld.getBiome(player.getPosition()).getRegistryName();
+        GSKOWorldUtil.renderCustomSky(null);
+        if (!(event.player.getEntityWorld() instanceof ServerWorld)) return;
+        if (!(event.player instanceof ServerPlayerEntity)) return;
 
-            if (serverWorld.getBiome(player.getPosition()).getRegistryName() == GSKOBiomes.NAMELESS_HILL_KEY.getRegistryName()) {
-                player.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 50));
-            }
+        ServerPlayerEntity player = (ServerPlayerEntity) event.player;
+        ServerWorld serverWorld = (ServerWorld) event.player.world;
 
-            boolean precondition = player.ticksExisted % 20 == 0 && location != null && !player.isPotionActive(EffectRegistry.HAKUREI_BLESS_EFFECT.get());
-            LazyOptional<BloodyMistCapability> cap = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
-            cap.ifPresent((capability -> {
-                List<String> biomes = capability.getBiomeRegistryNames();
-                biomes.forEach((biomeRegistryName -> {
-                    if (precondition && Objects.equals(location.toString(), biomeRegistryName) && capability.isTriggered()) {
-                        player.sendStatusMessage(GensokyoOntology.fromLocaleKey(
-                                "msg.", ".enter_danger_biome.scarlet_mansion_precincts"), true);
-                        player.attackEntityFrom(DamageSource.IN_WALL, 1f);
-                    }
-                }));
+        if (!GSKOWorldUtil.eitherEntityInBiomes(player, BloodyMistCapability.ABNORMAL_BIOMES)) return;
+        boolean precondition = player.ticksExisted % 20 == 0 && !player.isPotionActive(EffectRegistry.HAKUREI_BLESS_EFFECT.get());
+
+        serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent((capability -> {
+            List<String> biomes = capability.getBiomeRegistryNames();
+            biomes.forEach((ignored -> {
+                if (!capability.isTriggered()) GSKOWorldUtil.renderCustomSky(null);
+                if (precondition) {
+                    player.sendStatusMessage(GensokyoOntology.fromLocaleKey(
+                            "msg.", ".enter_danger_biome.scarlet_mansion_precincts"), true);
+                    player.attackEntityFrom(DamageSource.IN_WALL, 1f);
+                }
+                GSKONetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new SScarletMistPacket(true));
+                // GSKOWorldUtil.renderCustomSky(new ScarletSkyRenderer());
             }));
-        }
+        }));
     }
 
     @SubscribeEvent

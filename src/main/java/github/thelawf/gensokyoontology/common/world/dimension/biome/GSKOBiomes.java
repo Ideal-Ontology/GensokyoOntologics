@@ -49,7 +49,9 @@ public class GSKOBiomes {
     public static final RegistryKey<Biome> NAMELESS_HILL_KEY = makeKey("nameless_hill");
     public static final RegistryKey<Biome> MUENZUKA = makeKey("muenzuka");
     public static final RegistryKey<Biome> HUMAN_VILLAGE_KEY = makeKey("human_village");
-    public static final RegistryKey<Biome> MISTY_LAKE_KEY = makeKey("misty_lake");
+    // public static final RegistryKey<Biome> MISTY_LAKE_KEY = makeKey("misty_lake");
+
+    public static final RegistryObject<Biome> MISTY_LAKE_BIOME = BIOMES.register("misty_lake", GSKOBiomeMaker::makeMistyLake);
     public static final RegistryKey<Biome> SANZU_RIVER_KEY = makeKey("sanzu_river");
     public static final RegistryKey<Biome> HIGAN_KEY = makeKey("higan");
     public static final RegistryKey<Biome> WIND_GODDESS_LAKE_KEY = makeKey("wind_goddess_lake");
@@ -65,12 +67,16 @@ public class GSKOBiomes {
     public static final RegistryKey<Biome> NETHER_VOID_KEY = makeKey("nether_void");
     public static final RegistryKey<Biome> NETHER_LAND_KEY = makeKey("nether_land");
     public static final RegistryKey<Biome> NETHER_SAKURA_FOREST_KEY = makeKey("nether_sakura_forest");
+    public static final RegistryKey<Biome> MISTY_LAKE_KEY = asKey(GSKOBiomes.MISTY_LAKE_BIOME);
 
     public static boolean isGensokyoBiome(final BiomeLoadingEvent event) {
         return GSKOBiomesProvider.GSKO_BIOMES.stream().map(RegistryKey::getLocation).map(Objects::toString)
                 .anyMatch(obj -> obj.equals(event.getName().toString()));
     }
 
+    public static RegistryKey<Biome> asKey(RegistryObject<Biome> biome){
+        return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, biome.getId());
+    }
     private static RegistryKey<Biome> makeKey(String name) {
         return RegistryKey.getOrCreateKey(Registry.BIOME_KEY, new ResourceLocation(GensokyoOntology.MODID, name));
     }

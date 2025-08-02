@@ -5,17 +5,21 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.PlayerAdvancements;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.INBT;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.NonNullConsumer;
 import org.apache.logging.log4j.LogManager;
 
@@ -28,6 +32,15 @@ import static github.thelawf.gensokyoontology.GensokyoOntology.LOGGER;
 import static github.thelawf.gensokyoontology.GensokyoOntology.withAffix;
 
 public class GSKOUtil {
+    public static <N extends INBT, T extends INBTSerializable<N>> void syncWorldCapability(ClientWorld clientWorld, ServerWorld serverWorld, Capability<T> capability){
+        if (serverWorld == null) return;
+        if (clientWorld == null) return;
+        clientWorld.getCapability(capability).ifPresent(clientCap -> serverWorld.getCapability(capability).ifPresent(
+                serverCap -> clientCap.deserializeNBT(serverCap.serializeNBT())));
+        serverWorld.getCapability(capability).ifPresent(serverCap -> clientWorld.getCapability(capability).ifPresent(
+                clientCap -> serverCap.deserializeNBT(clientCap.serializeNBT())));
+    }
+
     public static void showChatMsg(PlayerEntity receiver, String text, int frequency) {
         if (receiver.ticksExisted % frequency == 0) {
             receiver.sendMessage(new StringTextComponent(text), receiver.getUniqueID());

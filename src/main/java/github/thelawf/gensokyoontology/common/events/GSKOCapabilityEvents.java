@@ -11,6 +11,7 @@ import github.thelawf.gensokyoontology.common.capability.world.BloodyMistProvide
 import github.thelawf.gensokyoontology.common.capability.world.EternalSummerCapProvider;
 import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapability;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightProvider;
+import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
@@ -18,6 +19,7 @@ import github.thelawf.gensokyoontology.common.network.packet.SLifeTickPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -104,15 +106,12 @@ public class GSKOCapabilityEvents {
     public static void onPacketSync(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;
-        // if (flag) {
-            // trySyncLifetime(player);
-            // if (TouhouLittleMaidCompat.isLoaded()) {
-            //     trySyncPowerFromTLM(player);
-            //     trySyncPowerToTLM(player);
-            // }
-        // }
-        if (GSKOUtil.firstMatch(player, ItemRegistry.SEIGA_HAIRPIN.get())) {
-            SeigaHairpin.trySetNoClip(player, GSKOUtil.findItem(player, ItemRegistry.SEIGA_HAIRPIN.get()));
+        if (flag) {
+            trySyncLifetime(player);
+            if (TouhouLittleMaidCompat.isLoaded()) {
+                trySyncPowerFromTLM(player);
+                trySyncPowerToTLM(player);
+            }
         }
     }
 

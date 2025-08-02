@@ -54,7 +54,7 @@ public class GSKOBiomesProvider extends BiomeProvider {
             GSKOBiomes.HUMAN_VILLAGE_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.SANZU_RIVER_KEY,
-            GSKOBiomes.MISTY_LAKE_KEY,
+            RegistryKey.getOrCreateKey(Registry.BIOME_KEY, GSKOBiomes.MISTY_LAKE_BIOME.getId()),
             GSKOBiomes.HIGAN_KEY,
             GSKOBiomes.MUENZUKA,
             GSKOBiomes.GSKO_RIVER_KEY

@@ -14,6 +14,8 @@ import org.jetbrains.annotations.NotNull;
 import java.lang.annotation.Annotation;
 import java.util.List;
 
+import static github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes.MISTY_LAKE_BIOME;
+
 /**
  * {@link IAreaTransformer0} 是一切生物群系生成的开始，通过噪声函数直接得到一个单一生物群系
  * 温度系数的平滑过渡噪声图。Minecraft原版最开始便是使用该类创建了两张初始地图，一张是海陆分布图，
@@ -53,7 +55,7 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
             GSKOBiomes.SUNFLOWER_GARDEN_KEY,
             GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
-            GSKOBiomes.MISTY_LAKE_KEY,
+            GSKOBiomes.asKey(MISTY_LAKE_BIOME),
             GSKOBiomes.BEAST_PATH_KEY,
             GSKOBiomes.HIGAN_KEY
     );

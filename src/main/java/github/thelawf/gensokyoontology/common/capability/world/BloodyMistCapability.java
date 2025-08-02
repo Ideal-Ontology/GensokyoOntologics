@@ -1,17 +1,24 @@
 package github.thelawf.gensokyoontology.common.capability.world;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.world.biome.Biome;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class BloodyMistCapability implements IIncidentCapability {
 
+    public static final List<RegistryKey<Biome>> ABNORMAL_BIOMES = ImmutableList.of(
+            GSKOBiomes.asKey(GSKOBiomes.MISTY_LAKE_BIOME), GSKOBiomes.SCARLET_MANSION_PRECINCTS_KEY);
     private List<String> biomeRegistryNames;
     private boolean isTriggered;
+    private boolean dirty = false;
     public static final String ID = "bloody_mist";
     private List<Pair<String, Boolean>> biomes;
     public static BloodyMistCapability INSTANCE;
@@ -28,6 +35,7 @@ public class BloodyMistCapability implements IIncidentCapability {
     @Override
     public void setTriggered(boolean triggered) {
         this.isTriggered = triggered;
+        this.dirty = true;
     }
 
     @Override
@@ -35,10 +43,13 @@ public class BloodyMistCapability implements IIncidentCapability {
         return this.isTriggered;
     }
 
-    // @Override
-    // public String getId() {
-    //     return ID;
-    // }
+    public boolean checkAndResetDirty() {
+        if (this.dirty) {
+            this.dirty = false;
+            return true;
+        }
+        return false;
+    }
 
     @Override
     public CompoundNBT serializeNBT() {

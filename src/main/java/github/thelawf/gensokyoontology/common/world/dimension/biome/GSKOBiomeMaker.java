@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.common.world.dimension.biome;
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
@@ -13,6 +15,7 @@ import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Supplier;
 
 public final class GSKOBiomeMaker {
@@ -120,6 +123,33 @@ public final class GSKOBiomeMaker {
                         .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
                         .build())
                 .build().setRegistryName("magic_forest");
+    }
+
+    public static Biome makeMistyLake(){
+        ClientWorld clientWorld = Minecraft.getInstance().world;
+        AtomicInteger skyColor = new AtomicInteger();
+        if (clientWorld != null) {
+            skyColor.set(0x0DA7D6);
+            clientWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent(cap -> skyColor.set(0xEF0417));
+        }
+        return new Biome.Builder()
+                .depth(-0.65f)
+                .scale(0.12f)
+                .downfall(0.33f)
+                .temperature(0.35f)
+                .category(Biome.Category.RIVER)
+                .precipitation(Biome.RainType.RAIN)
+                .withMobSpawnSettings(MobSpawnInfo.EMPTY)
+                .withGenerationSettings(
+                        withBuilder(defaultBuilder()).build())
+                .setEffects(new BiomeAmbience.Builder()
+                        .setWaterColor(7907327)
+                        .setWaterFogColor(0x282E84)
+                        .setFogColor(0xC0D8FF)
+                        .withSkyColor(skyColor.get())
+                        .setMoodSound(MoodSoundAmbience.DEFAULT_CAVE)
+                        .build())
+                .build();
     }
 
     public static Biome makeUntroddenValley(Supplier<ConfiguredSurfaceBuilder<?>> builder) {

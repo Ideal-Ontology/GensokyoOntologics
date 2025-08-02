@@ -130,7 +130,7 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
     }
 
     @Override
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
 
         ITextComponent text = GensokyoOntology.fromLocaleKey("tooltip.", ".hakurei_gohei.mode");

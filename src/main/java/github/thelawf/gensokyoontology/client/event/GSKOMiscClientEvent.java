@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.KoishiEyeSwitchScreen;
 import github.thelawf.gensokyoontology.client.model.KoishiHatModel;
+import github.thelawf.gensokyoontology.client.renderer.world.ScarletSkyRenderer;
 import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
@@ -13,6 +14,7 @@ import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapabil
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
 import github.thelawf.gensokyoontology.common.item.touhou.KoishiEyeOpen;
+import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.Minecraft;
@@ -87,26 +89,30 @@ public class GSKOMiscClientEvent {
     }
 
 
-    // @SubscribeEvent
-    public static void renderBloodyMistColor(EntityViewRenderEvent.FogColors event) {
+    @SubscribeEvent
+    public static void onSkyRendering(RenderWorldLastEvent event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.world != null && mc.world.getServer() != null) {
             ServerWorld serverWorld = mc.world.getServer().getWorld(GSKODimensions.GENSOKYO);
             if (serverWorld != null) {
-                LazyOptional<BloodyMistCapability> capability = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
-                capability.ifPresent(cap -> {
-                    if (cap.isTriggered()) applyBloodyMistRender();
+                serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent(cap -> {
+                    if (cap.isTriggered()) GSKOWorldUtil.renderCustomSky(new ScarletSkyRenderer());
                 });
             }
-            return;
         }
-        event.setRed(1F);
-        event.setGreen(0F);
-        event.setBlue(0F);
     }
 
-    private static void applyBloodyMistRender() {
-
+    @SubscribeEvent
+    @SuppressWarnings("deprecation")
+    public static void onBloodyMistRender(RenderGameOverlayEvent event) {
+        Minecraft mc = Minecraft.getInstance();
+        if (mc.world != null && mc.world.getServer() != null) {
+            ServerWorld serverWorld = mc.world.getServer().getWorld(GSKODimensions.GENSOKYO);
+            if (serverWorld == null) return;
+            serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent(cap -> {
+                if (cap.isTriggered()) RenderSystem.color4f(1F, 0F, 0F, 0.8F);
+            });
+        }
     }
 
     /**

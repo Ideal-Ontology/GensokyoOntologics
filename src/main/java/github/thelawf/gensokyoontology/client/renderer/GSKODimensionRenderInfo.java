@@ -12,8 +12,8 @@ import org.jetbrains.annotations.Nullable;
 
 @OnlyIn(Dist.CLIENT)
 public class GSKODimensionRenderInfo extends DimensionRenderInfo {
-    public GSKODimensionRenderInfo(float couldHeight, boolean placebo, FogType fogType, boolean brightenLightMap, boolean entityLightingBottomsLit) {
-        super(couldHeight, placebo, fogType, brightenLightMap, entityLightingBottomsLit);
+    public GSKODimensionRenderInfo() {
+        super(128.0F, true, DimensionRenderInfo.FogType.NORMAL, false, false);
     }
 
     @Override

@@ -23,7 +23,7 @@ public class GSKONetworking {
 
     public static void register() {
 
-        CHANNEL.messageBuilder(ScarletMistPacket.class, next()).encoder(ScarletMistPacket::toBytes).decoder(ScarletMistPacket::new).consumer(ScarletMistPacket::handle).add();
+        CHANNEL.messageBuilder(SScarletMistPacket.class, next()).encoder(SScarletMistPacket::toBytes).decoder(SScarletMistPacket::new).consumer(SScarletMistPacket::handle).add();
         CHANNEL.messageBuilder(ImperishableNightPacket.class, next()).encoder(ImperishableNightPacket::toBytes).decoder(ImperishableNightPacket::new).consumer(ImperishableNightPacket::handle).add();
         CHANNEL.messageBuilder(FantasyFadingPacket.class, next()).encoder(FantasyFadingPacket::toBytes).decoder(FantasyFadingPacket::decode).consumer(FantasyFadingPacket::handle).add();
         CHANNEL.messageBuilder(CPowerChangedPacket.class, next()).encoder(CPowerChangedPacket::toBytes).decoder(CPowerChangedPacket::fromBytes).consumer(CPowerChangedPacket::handle).add();
