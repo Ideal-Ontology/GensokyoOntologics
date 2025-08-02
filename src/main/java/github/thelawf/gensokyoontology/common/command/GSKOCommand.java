@@ -3,20 +3,30 @@ package github.thelawf.gensokyoontology.common.command;
 import com.google.common.collect.ImmutableList;
 import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapability;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
 import net.minecraft.command.arguments.BlockPosArgument;
+import net.minecraft.nbt.INBT;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
+import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
+import java.util.HashMap;
 import java.util.IdentityHashMap;
+import java.util.Map;
 
 public class GSKOCommand {
     // 实现一个可以显示 GUI的指令
@@ -27,6 +37,10 @@ public class GSKOCommand {
     // 实现一个可以发射弹幕、指定弹幕运动方向和类别的指令 -> /gsko danmaku[type=ENTRY]
     // 实现一个可以渲染贝塞尔曲线轨道的指令 -> /gsko rail x1 y1 z1 x2 y2 z2 {}
 
+    public static final Map<String, Capability<? extends IIncidentCapability>> CAPABILITY_MAP = Util.make(new HashMap<>(), map -> {
+        map.put("scarlet_mist", GSKOCapabilities.BLOODY_MIST);
+    });
+
     public static final ImmutableList<String> GSKO_CMD_LITERALS = ImmutableList.of(
             "get_block_states", "get_capability");
 
@@ -35,14 +49,42 @@ public class GSKOCommand {
     //
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("gsko")
-                .then(Commands.literal(GSKOLiterals.BLOCK_STATE.name).then(Commands.argument("pos", BlockPosArgument.blockPos())
-                        .executes(context -> getBlockState(context.getSource(), BlockPosArgument.getLoadedBlockPos(context, "pos")))))
-                .then(Commands.literal(GSKOLiterals.CAPABILITY.name)
-                        .then(Commands.literal("list").executes(context -> listCapability(context.getSource())))
-                        .then(Commands.literal("get").then(Commands.argument("cap", StringReader::getString))
-                                .executes(context -> getCapability(context.getSource(), context.getArgument("cap", StringArgumentType.class))))
-                ));
+                        .then(Commands.literal("get-current-biome-sky-color").executes(ctx -> getCurrentBiomeSkyColor(ctx.getSource())))
+                        .then(Commands.literal("incident")
+                                .then(Commands.argument("incidentName", StringArgumentType.string())
+                                        .then(Commands.literal("is-triggered").executes(ctx -> getIncidentTriggered(
+                                                ctx.getSource(), StringArgumentType.getString(ctx, "incidentName"))))
+                                        .then(Commands.literal("set-triggered")
+                                                .then(Commands.argument("isTriggered", BoolArgumentType.bool())
+                                                        .executes(ctx -> setIncidentTriggered(ctx.getSource(),
+                                                                StringArgumentType.getString(ctx, "incidentName"),
+                                                                BoolArgumentType.getBool(ctx, "isTriggered"))))))));
 
+    }
+
+    private static int setIncidentTriggered(CommandSource source, String incidentName, boolean triggered){
+        ServerWorld serverWorld = source.getWorld();
+        serverWorld.getCapability(CAPABILITY_MAP.get(incidentName)).ifPresent(cap -> cap.setTriggered(triggered));
+        return 0;
+    }
+
+    private static int getIncidentTriggered(CommandSource source, String incidentName){
+        ServerWorld serverWorld = source.getWorld();
+        serverWorld.getCapability(CAPABILITY_MAP.get(incidentName)).ifPresent(cap -> {
+            try {
+                GSKOUtil.showChatMsg(source.asPlayer(), cap.isTriggered(), 1);
+            } catch (CommandSyntaxException e) {
+                throw new RuntimeException(e);
+            }
+        });
+        return 0;
+    }
+
+    private static int getCurrentBiomeSkyColor(CommandSource source) throws CommandSyntaxException {
+        Biome biome = source.getWorld().getBiome(new BlockPos(source.getPos().x, source.getPos().y, source.getPos().z));
+        GSKOUtil.showChatMsg(source.asPlayer(), biome.getSkyColor(), 1);
+
+        return 0;
     }
 
     private static int getBlockState(CommandSource source, BlockPos pos) {

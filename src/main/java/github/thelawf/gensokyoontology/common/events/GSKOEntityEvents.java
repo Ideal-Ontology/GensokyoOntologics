@@ -154,6 +154,7 @@ public class GSKOEntityEvents {
 
     @SubscribeEvent
     public static void onEnterBambooForestOfLost(LivingEvent.LivingUpdateEvent event) {
+
         if (!(event.getEntityLiving() instanceof PlayerEntity)) return;
         if (!(event.getEntityLiving().world instanceof ServerWorld)) return;
 
@@ -194,7 +195,7 @@ public class GSKOEntityEvents {
 
     @SubscribeEvent
     public static void onLivingEnterBiome(TickEvent.PlayerTickEvent event) {
-        GSKOWorldUtil.renderCustomSky(null);
+        // GSKOWorldUtil.renderCustomSky(null);
         if (!(event.player.getEntityWorld() instanceof ServerWorld)) return;
         if (!(event.player instanceof ServerPlayerEntity)) return;
 
@@ -214,7 +215,7 @@ public class GSKOEntityEvents {
                     player.attackEntityFrom(DamageSource.IN_WALL, 1f);
                 }
                 GSKONetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new SScarletMistPacket(true));
-                // GSKOWorldUtil.renderCustomSky(new ScarletSkyRenderer());
+                GSKOWorldUtil.renderCustomSky(new ScarletSkyRenderer());
             }));
         }));
     }

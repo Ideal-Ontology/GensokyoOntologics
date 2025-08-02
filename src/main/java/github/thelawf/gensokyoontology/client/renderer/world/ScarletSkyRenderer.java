@@ -24,28 +24,26 @@ public class ScarletSkyRenderer implements ISkyRenderHandler {
     public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc) {
         PlayerEntity player = Minecraft.getInstance().player;
         if (player == null) return;
-        if (GSKOWorldUtil.isBiomeAtEquals(world, player.getPosition(), GSKOBiomes.asKey(GSKOBiomes.MISTY_LAKE_BIOME))){
-            RenderSystem.color4f(1F, 1F, 1F, 1F);
-        }
+        this.renderTexture(ticks, partialTicks, matrixStack, world, mc);
     }
 
     public void renderTexture(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc) {
 
+        // 993312
         RenderSystem.disableTexture();
         RenderSystem.disableDepthTest();
+        RenderSystem.depthMask(false);
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
-        RenderSystem.disableFog(); // 禁用雾效，否则可能覆盖颜色
-        RenderSystem.depthMask(false); // 禁用深度写入，避免遮挡后续天空物体
 
-        RenderSystem.clearColor(1.0F, 0.0F, 0.0F, 1.0F); // 设置纯红色背景
+        RenderSystem.clearColor(0.93F, 0.0F, 0.0F, 0.5F); // 设置纯红色背景
         RenderSystem.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT, false); // 清除原有缓冲
 
         // 设置天空颜色
-        float r = 1F;
-        float g = 0F;
-        float b = 0F;
-        float a = 1.0F;
+        float r = 0.93F;
+        float g = 0.1F;
+        float b = 0.12F;
+        float a = 0.8F;
 
         // 绑定天空纹理
         // if(skyTexture != null) {
@@ -67,9 +65,8 @@ public class ScarletSkyRenderer implements ISkyRenderHandler {
         // 恢复渲染状态
         RenderSystem.depthMask(true);
         RenderSystem.enableTexture();
-        RenderSystem.enableBlend();
-        RenderSystem.enableAlphaTest();
-        RenderSystem.enableFog();
+        RenderSystem.disableBlend();
+        RenderSystem.enableDepthTest();
     }
 
     private void renderSkyColor(BufferBuilder buffer, MatrixStack matrixStack,

@@ -55,7 +55,7 @@ public enum GenerateCommonLayer implements IAreaTransformer0 {
             GSKOBiomes.SUNFLOWER_GARDEN_KEY,
             GSKOBiomes.YOUKAI_MOUNTAIN_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
-            GSKOBiomes.asKey(MISTY_LAKE_BIOME),
+            GSKOBiomes.MISTY_LAKE_KEY,
             GSKOBiomes.BEAST_PATH_KEY,
             GSKOBiomes.HIGAN_KEY
     );

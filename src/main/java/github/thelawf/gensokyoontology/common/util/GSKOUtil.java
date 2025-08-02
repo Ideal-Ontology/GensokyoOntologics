@@ -68,6 +68,13 @@ public class GSKOUtil {
         }
     }
 
+
+    public static void showChatMsg(ServerPlayerEntity player, boolean triggered, int frequency) {
+        if (player.ticksExisted % frequency == 0) {
+            player.sendMessage(new StringTextComponent(String.valueOf(triggered)), player.getUniqueID());
+        }
+    }
+
     public static void showChatMsg(PlayerEntity player, Object obj, int frequency) {
         if (player.ticksExisted % frequency == 0) {
             player.sendMessage(new StringTextComponent(obj.toString()), player.getUniqueID());
@@ -165,4 +172,5 @@ public class GSKOUtil {
     public static <K, V> void putDefaultValue(Map<K, V> map, V defaultValue, K... keys) {
         for (K k : keys) map.put(k, defaultValue);
     }
+
 }

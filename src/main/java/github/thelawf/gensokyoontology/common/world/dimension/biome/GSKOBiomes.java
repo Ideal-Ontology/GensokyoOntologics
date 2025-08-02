@@ -67,7 +67,8 @@ public class GSKOBiomes {
     public static final RegistryKey<Biome> NETHER_VOID_KEY = makeKey("nether_void");
     public static final RegistryKey<Biome> NETHER_LAND_KEY = makeKey("nether_land");
     public static final RegistryKey<Biome> NETHER_SAKURA_FOREST_KEY = makeKey("nether_sakura_forest");
-    public static final RegistryKey<Biome> MISTY_LAKE_KEY = asKey(GSKOBiomes.MISTY_LAKE_BIOME);
+    public static final RegistryKey<Biome> MISTY_LAKE = asKey(GSKOBiomes.MISTY_LAKE_BIOME);
+    public static final RegistryKey<Biome> MISTY_LAKE_KEY = makeKey("misty_lake");
 
     public static boolean isGensokyoBiome(final BiomeLoadingEvent event) {
         return GSKOBiomesProvider.GSKO_BIOMES.stream().map(RegistryKey::getLocation).map(Objects::toString)

@@ -15,7 +15,7 @@ import java.util.List;
 public class BloodyMistCapability implements IIncidentCapability {
 
     public static final List<RegistryKey<Biome>> ABNORMAL_BIOMES = ImmutableList.of(
-            GSKOBiomes.asKey(GSKOBiomes.MISTY_LAKE_BIOME), GSKOBiomes.SCARLET_MANSION_PRECINCTS_KEY);
+            GSKOBiomes.MISTY_LAKE_KEY, GSKOBiomes.SCARLET_MANSION_PRECINCTS_KEY);
     private List<String> biomeRegistryNames;
     private boolean isTriggered;
     private boolean dirty = false;

@@ -2,8 +2,10 @@ package github.thelawf.gensokyoontology.common.world.dimension.biome;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
+import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.*;
 import net.minecraft.world.gen.GenerationStage;
@@ -128,9 +130,9 @@ public final class GSKOBiomeMaker {
     public static Biome makeMistyLake(){
         ClientWorld clientWorld = Minecraft.getInstance().world;
         AtomicInteger skyColor = new AtomicInteger();
+        skyColor.set(0xff2820);
         if (clientWorld != null) {
-            skyColor.set(0x0DA7D6);
-            clientWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent(cap -> skyColor.set(0xEF0417));
+            clientWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent(cap -> skyColor.set(0xff2820));
         }
         return new Biome.Builder()
                 .depth(-0.65f)

@@ -31,7 +31,7 @@ public enum AddMistyLakeLayer implements ICastleTransformer {
     @Override
     public int apply(@NotNull INoiseRandom context, int north, int west, int south, int east, int center) {
         int id = GSKOBiomeID.getID(this.registry, GSKOBiomes.SCARLET_MANSION_PRECINCTS_KEY);
-        int mistyLake = GSKOBiomeID.getID(this.registry, GSKOBiomes.asKey(GSKOBiomes.MISTY_LAKE_BIOME));
+        int mistyLake = GSKOBiomeID.getID(this.registry, GSKOBiomes.MISTY_LAKE_KEY);
         return north == id || west == id || south == id || east == id ? center : mistyLake;
     }
 }
