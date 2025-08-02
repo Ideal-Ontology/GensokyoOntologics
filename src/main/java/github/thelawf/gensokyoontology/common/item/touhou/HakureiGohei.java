@@ -9,14 +9,18 @@ import github.thelawf.gensokyoontology.common.item.MultiModeItem;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
@@ -71,6 +75,17 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
         if (playerIn.isCreative()) return ActionResult.resultPass(playerIn.getHeldItem(handIn));
         playerIn.getCooldownTracker().setCooldown(this, 10);
         return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
+    }
+
+
+    @Override
+    public ActionResultType onItemUse(ItemUseContext context) {
+        World world = context.getWorld();
+        BlockPos pos = context.getPos();
+        if (world.getBlockState(pos).getBlock() == BlockRegistry.TREFOIL_KNOT_CORE.get()){
+
+        }
+        return super.onItemUse(context);
     }
 
     public void fireDreamSeal(World worldIn, PlayerEntity playerIn) {

@@ -1,0 +1,22 @@
+{
+  "elements":[
+    {
+      "type": "text-label",
+      "text-i18n": {
+        "en-us": "Hello! This is Json Minecraft User Interface",
+        "zh-cn": "你好！这里是 Json Minecraft 用户界面"
+      },
+      "align": "center"
+    },
+    {
+      "type": "mc-button",
+      "text-i18n": {
+        "default": "X"
+      },
+      "align": "none",
+      "x": 200,
+      "y": 20,
+      "on-click": "minecraft:dispose"
+    }
+  ]
+}

@@ -156,11 +156,9 @@ dependencies {
     implementation fg.deobf("curse.maven:touhou-little-maid-355044:4968573")
 
     if  (project.gradle.startParameter.taskNames[0] == "build" || project.gradle.startParameter.taskNames[0] == "publish"){
-        embed 'org.dom4j:dom4j:[2.1,2.3)'
         embed 'org.joml:joml:1.10.4'
     }
     else {
-        implementation 'org.dom4j:dom4j:[2.1,2.3)'
         implementation 'org.joml:joml:1.10.4'
     }
 

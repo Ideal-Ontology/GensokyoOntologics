@@ -34,7 +34,6 @@ public class DestructiveEyeEntity extends Entity {
         prevScale = 0.1f;
     }
 
-
     @Override
     protected void registerData() {
     }

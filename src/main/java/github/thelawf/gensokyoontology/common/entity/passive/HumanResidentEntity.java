@@ -17,6 +17,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.layer.LayerUtil;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.Nullable;
 

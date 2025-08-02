@@ -58,6 +58,13 @@ public final class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(
             ForgeRegistries.ITEMS, GensokyoOntology.MODID);
 
+    public static final RegistryObject<Item> TREFOIL_KNOT_FRAME = ITEMS.register(
+            "trefoil_knot_frame", () -> new BlockItem(BlockRegistry.TREFOIL_KNOT_FRAME.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> TREFOIL_KNOT_CORE = ITEMS.register(
+            "trefoil_knot_core", () -> new BlockItem(BlockRegistry.TREFOIL_KNOT_FRAME.get(),
+                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     // ======================= GSKO杂项：装饰类方块 ==========================//
     // --------------------------- 泥土石头类方块：----------------------------//
     public static final RegistryObject<BlockItem> DEFOLIATION_DIRT_ITEM = ITEMS.register(

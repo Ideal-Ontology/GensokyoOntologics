@@ -147,6 +147,10 @@ public final class BlockRegistry {
     ///////////////////////////////////////////////////////////////////////////////////
     public static final RegistryObject<Block> BISHAMONTEN_PAGODA = BLOCKS.register("bishamonten_pagoda", BishamontenPagoda::new);
     public static final RegistryObject<Block> ISHI_ZAKURA = BLOCKS.register("ishi_zakura", IshiZakuraBlock::new);
+    public static final RegistryObject<Block> TREFOIL_KNOT_FRAME = BLOCKS.register("trefoil_knot_frame",() -> new Block(
+            AbstractBlock.Properties.from(Blocks.OBSIDIAN)));
+    public static final RegistryObject<Block> TREFOIL_KNOT_CORE = BLOCKS.register("trefoil_knot_core",() -> new Block(
+            AbstractBlock.Properties.from(Blocks.OBSIDIAN)));
 
     // ============================== 矿石类方块 ================================== //
     public static final RegistryObject<Block> IZANO_OBJECT_ORE = BLOCKS.register(
