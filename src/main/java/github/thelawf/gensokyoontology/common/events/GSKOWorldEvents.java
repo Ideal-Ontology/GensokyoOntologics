@@ -3,7 +3,9 @@ package github.thelawf.gensokyoontology.common.events;
 import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.client.renderer.world.GapSkyRenderer;
 import github.thelawf.gensokyoontology.common.entity.spawn.LilyWhiteSpawner;
+import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.GSKOEntityGenerator;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
@@ -77,6 +79,14 @@ public class GSKOWorldEvents {
             }
             onGapEntityTick(itemEntity, ItemRegistry.GAP_BLOCK.get());
         }
+    }
+
+    @SubscribeEvent
+    public static void onRenderEndSky(TickEvent.WorldTickEvent event){
+        if (event.world.getDimensionKey().equals(GSKODimensions.GAP)){
+            GSKOWorldUtil.renderCustomSky(new GapSkyRenderer());
+        }
+        else GSKOWorldUtil.renderCustomSky(null);
     }
 
     @SubscribeEvent

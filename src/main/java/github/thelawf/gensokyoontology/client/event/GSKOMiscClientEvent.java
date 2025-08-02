@@ -118,6 +118,7 @@ public class GSKOMiscClientEvent {
         });
     }
 
+
     /**
      * Copy from Touhou Little Maid: {@link com.github.tartaricacid.touhoulittlemaid.client.event.ShowPowerEvent ShowPowerEvent}
      *
