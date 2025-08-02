@@ -202,7 +202,10 @@ public class GSKOEntityEvents {
         ServerPlayerEntity player = (ServerPlayerEntity) event.player;
         ServerWorld serverWorld = (ServerWorld) event.player.world;
 
-        if (!GSKOWorldUtil.eitherEntityInBiomes(player, BloodyMistCapability.ABNORMAL_BIOMES)) return;
+        if (!GSKOWorldUtil.eitherEntityInBiomes(player, BloodyMistCapability.ABNORMAL_BIOMES)) {
+            GSKOWorldUtil.renderCustomSky(null);
+            return;
+        }
         boolean precondition = player.ticksExisted % 20 == 0 && !player.isPotionActive(EffectRegistry.HAKUREI_BLESS_EFFECT.get());
 
         serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent((capability -> {

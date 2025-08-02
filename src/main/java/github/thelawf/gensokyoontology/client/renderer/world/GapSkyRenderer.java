@@ -16,18 +16,18 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ISkyRenderHandler;
 
 @OnlyIn(Dist.CLIENT)
-public class SukimaWorldRenderer implements ISkyRenderHandler {
+public class GapSkyRenderer implements ISkyRenderHandler {
 
-    public static final ResourceLocation SUKIMA_SKY_TEX = new ResourceLocation(GensokyoOntology.MODID,
-            "textures/environment/sukima_sky.png");
+    public static final ResourceLocation GAP_SKY_TEX = new ResourceLocation(GensokyoOntology.MODID,
+            "textures/environment/gap_sky.png");
 
     @SuppressWarnings("deprecation")
-    private void renderSukimaSky(MatrixStack matrixStackIn, Minecraft mc) {
+    private void renderGapSky(MatrixStack matrixStackIn, Minecraft mc) {
         RenderSystem.disableAlphaTest();
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
         RenderSystem.depthMask(false);
-        mc.getTextureManager().bindTexture(SUKIMA_SKY_TEX);
+        mc.getTextureManager().bindTexture(GAP_SKY_TEX);
         Tessellator tessellator = Tessellator.getInstance();
         BufferBuilder bufferbuilder = tessellator.getBuffer();
 
@@ -71,6 +71,6 @@ public class SukimaWorldRenderer implements ISkyRenderHandler {
 
     @Override
     public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc) {
-        renderSukimaSky(matrixStack, mc);
+        this.renderGapSky(matrixStack, mc);
     }
 }

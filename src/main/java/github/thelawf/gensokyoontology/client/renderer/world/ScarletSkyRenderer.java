@@ -11,6 +11,8 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.vector.Matrix4f;
+import net.minecraft.world.DimensionType;
+import net.minecraft.world.gen.DimensionSettings;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.ISkyRenderHandler;
@@ -20,7 +22,6 @@ import org.lwjgl.opengl.GL11;
 public class ScarletSkyRenderer implements ISkyRenderHandler {
     @Override
     @OnlyIn(Dist.CLIENT)
-    @SuppressWarnings("deprecation")
     public void render(int ticks, float partialTicks, MatrixStack matrixStack, ClientWorld world, Minecraft mc) {
         PlayerEntity player = Minecraft.getInstance().player;
         if (player == null) return;
@@ -36,14 +37,15 @@ public class ScarletSkyRenderer implements ISkyRenderHandler {
         RenderSystem.enableBlend();
         RenderSystem.defaultBlendFunc();
 
-        RenderSystem.clearColor(0.93F, 0.0F, 0.0F, 0.5F); // 设置纯红色背景
+        float r = 178 / 255F;
+        float g = 34 / 255F;
+        float b = 34 / 255F;
+        float a = 0.3F;
+
+        RenderSystem.clearColor(r, g, b, a); // 设置纯红色背景
         RenderSystem.clear(GL11.GL_COLOR_BUFFER_BIT | GL11.GL_DEPTH_BUFFER_BIT, false); // 清除原有缓冲
 
         // 设置天空颜色
-        float r = 0.93F;
-        float g = 0.1F;
-        float b = 0.12F;
-        float a = 0.8F;
 
         // 绑定天空纹理
         // if(skyTexture != null) {
@@ -73,10 +75,10 @@ public class ScarletSkyRenderer implements ISkyRenderHandler {
                                 float r, float g, float b, float a) {
         Matrix4f matrix = matrixStack.getLast().getMatrix();
 
-        buffer.pos(matrix, -100F, -99F, -100F).color(r, g, b, a).endVertex();
-        buffer.pos(matrix, -100F, -99F,  100F).color(r, g, b, a).endVertex();
-        buffer.pos(matrix,  100F, -99F,  100F).color(r, g, b, a).endVertex();
-        buffer.pos(matrix,  100F, -99F, -100F).color(r, g, b, a).endVertex();
+        buffer.pos(matrix, -100F, -100F, -100F).color(r, g, b, a).endVertex();
+        buffer.pos(matrix, -100F, -100F,  100F).color(r, g, b, a).endVertex();
+        buffer.pos(matrix,  100F, -100F,  100F).color(r, g, b, a).endVertex();
+        buffer.pos(matrix,  100F, -100F, -100F).color(r, g, b, a).endVertex();
     }
 
     private void renderSkyTexture(BufferBuilder buffer, MatrixStack matrixStack,

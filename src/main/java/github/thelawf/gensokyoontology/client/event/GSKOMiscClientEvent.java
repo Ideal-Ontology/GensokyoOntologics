@@ -89,7 +89,8 @@ public class GSKOMiscClientEvent {
     }
 
 
-    @SubscribeEvent
+    // @SubscribeEvent
+    @Deprecated
     public static void onSkyRendering(RenderWorldLastEvent event) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.world != null && mc.world.getServer() != null) {
@@ -103,16 +104,18 @@ public class GSKOMiscClientEvent {
     }
 
     @SubscribeEvent
-    @SuppressWarnings("deprecation")
-    public static void onBloodyMistRender(RenderGameOverlayEvent event) {
+    public static void onBloodyMistRender(EntityViewRenderEvent.FogColors event) {
         Minecraft mc = Minecraft.getInstance();
-        if (mc.world != null && mc.world.getServer() != null) {
-            ServerWorld serverWorld = mc.world.getServer().getWorld(GSKODimensions.GENSOKYO);
-            if (serverWorld == null) return;
-            serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent(cap -> {
-                if (cap.isTriggered()) RenderSystem.color4f(1F, 0F, 0F, 0.8F);
-            });
-        }
+        if (mc.world == null || mc.world.getServer() == null) return;
+        ServerWorld serverWorld = mc.world.getServer().getWorld(GSKODimensions.GENSOKYO);
+
+        if (serverWorld == null) return;
+        serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent(cap -> {
+            if (!cap.isTriggered()) return;
+            event.setRed(0.89F);
+            event.setBlue(0.24F);
+            event.setGreen(0.24F);
+        });
     }
 
     /**
@@ -142,7 +145,6 @@ public class GSKOMiscClientEvent {
 
             RenderSystem.enableBlend();
         }
-
     }
 
 

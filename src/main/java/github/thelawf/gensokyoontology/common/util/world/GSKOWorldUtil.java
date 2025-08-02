@@ -20,6 +20,10 @@ import java.util.Objects;
 // 种子：-7023638334721123514
 public class GSKOWorldUtil {
 
+    /**
+     * 渲染自定义天空
+     * @param skyRenderer 天空渲染器实例，设置为 null 表示使用MC默认的天空渲染
+     */
     public static void renderCustomSky(ISkyRenderHandler skyRenderer){
         DimensionRenderInfo.field_239208_a_.defaultReturnValue().setSkyRenderHandler(skyRenderer);
     }
