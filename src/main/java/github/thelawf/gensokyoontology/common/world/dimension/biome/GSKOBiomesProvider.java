@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.layer.GSKOLayerUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.RegistryKey;
@@ -54,7 +55,7 @@ public class GSKOBiomesProvider extends BiomeProvider {
             GSKOBiomes.HUMAN_VILLAGE_KEY,
             GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.SANZU_RIVER_KEY,
-            RegistryKey.getOrCreateKey(Registry.BIOME_KEY, GSKOBiomes.MISTY_LAKE_BIOME.getId()),
+            GSKOBiomes.MISTY_LAKE_KEY,
             GSKOBiomes.HIGAN_KEY,
             GSKOBiomes.MUENZUKA,
             GSKOBiomes.GSKO_RIVER_KEY
@@ -64,9 +65,13 @@ public class GSKOBiomesProvider extends BiomeProvider {
     public GSKOBiomesProvider(long seed, Registry<Biome> biomeRegistry) {
         super(GSKO_BIOMES.stream().map(key -> () -> biomeRegistry.getOrThrow(key)));
         // super(GSKO_BIOMES.stream().map(biomeRegistry::getValueForKey).filter(Objects::nonNull).map(biome -> () -> biome));
+
+        // super(GSKO_BIOMES.stream().map(RegistryKey::getLocation).map(biomeRegistry::getOptional).filter(Optional::isPresent).map(opt -> opt::get));
+
         this.biomeRegistry = biomeRegistry;
         this.seed = seed;
         this.layer = GSKOLayerUtil.makeGSKOLayers(seed, biomeRegistry);
+        GSKOUtil.log("GSKO Biome used in json");
     }
 
     public Registry<Biome> getBiomeRegistry() {

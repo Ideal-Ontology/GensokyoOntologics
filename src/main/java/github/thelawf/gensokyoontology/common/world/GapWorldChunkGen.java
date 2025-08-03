@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common;
+package github.thelawf.gensokyoontology.common.world;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.block.BlockState;
@@ -9,19 +9,18 @@ import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.NoiseChunkGenerator;
 import net.minecraft.world.gen.WorldGenRegion;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import org.jetbrains.annotations.NotNull;
 
 public class GapWorldChunkGen extends ChunkGenerator {
-    public GapWorldChunkGen(BiomeProvider p_i231888_1_, DimensionStructuresSettings p_i231888_2_) {
-        super(p_i231888_1_, p_i231888_2_);
+    public GapWorldChunkGen(BiomeProvider provider, DimensionStructuresSettings settings) {
+        super(provider, settings);
     }
 
     @Override
-    protected Codec<? extends ChunkGenerator> func_230347_a_() {
+    protected @NotNull Codec<? extends ChunkGenerator> func_230347_a_() {
         return ChunkGenerator.field_235948_a_;
     }
 
@@ -32,12 +31,12 @@ public class GapWorldChunkGen extends ChunkGenerator {
     }
 
     @Override
-    public void generateSurface(WorldGenRegion p_225551_1_, IChunk p_225551_2_) {
+    public void generateSurface(@NotNull WorldGenRegion region, @NotNull IChunk chunk) {
 
     }
 
     @Override
-    public void func_230352_b_(IWorld p_230352_1_, StructureManager p_230352_2_, IChunk p_230352_3_) {
+    public void func_230352_b_(@NotNull IWorld world, @NotNull StructureManager manager, @NotNull IChunk chunk) {
 
     }
 

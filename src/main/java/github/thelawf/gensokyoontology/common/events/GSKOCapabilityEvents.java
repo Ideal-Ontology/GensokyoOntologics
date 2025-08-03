@@ -102,7 +102,7 @@ public class GSKOCapabilityEvents {
      * The effect of this method is to sync the power counts from Touhou Little Maid to this Mod.
      *
      */
-    @SubscribeEvent
+    // @SubscribeEvent
     public static void onPacketSync(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;

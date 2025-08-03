@@ -2,12 +2,8 @@ package github.thelawf.gensokyoontology.common.world;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import github.thelawf.gensokyoontology.common.world.layer.SimpleNoise;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Blockreader;
 import net.minecraft.world.IBlockReader;
@@ -28,15 +24,18 @@ import java.util.function.Supplier;
 /**
  * {@link ChunkGenerator} 里面的 func_230352_b()方法是主要的散布维度的方法
  */
-@Deprecated
+
 public final class GSKOChunkGenerator extends NoiseChunkGenerator {
 
     public static final Logger LOGGER = LogManager.getLogger();
+    protected final Supplier<DimensionSettings> dimensionSettings;
     private long seed;
+
 
     public GSKOChunkGenerator(BiomeProvider provider, long seed, Supplier<DimensionSettings> settings) {
         super(provider, seed, settings);
         this.seed = seed;
+        this.dimensionSettings = settings;
         LOGGER.info("Gensokyo Chunk Generator Registered");
     }
 
@@ -48,67 +47,31 @@ public final class GSKOChunkGenerator extends NoiseChunkGenerator {
             ).apply(instance, Settings::new));
 
 
+    public static final Codec<GSKOChunkGenerator> CHUNK_GEN_CODEC = RecordCodecBuilder.create(instance ->
+            instance.group(
+                    BiomeProvider.CODEC.fieldOf("biome_source").forGetter(chunkGenerator -> chunkGenerator.biomeProvider),
+                    Codec.LONG.fieldOf("seed").stable().orElseGet(() -> GSKODimensions.seed).forGetter(obj -> obj.seed),
+                    DimensionSettings.DIMENSION_SETTINGS_CODEC.fieldOf("settings").forGetter(GSKOChunkGenerator::getDimensionSettings)
+            ).apply(instance, instance.stable(GSKOChunkGenerator::new)));
+
     public Registry<Biome> getBiomeRegistry() {
         return ((GSKOBiomesProvider) biomeProvider).getBiomeRegistry();
     }
 
+    private Supplier<DimensionSettings> getDimensionSettings() {
+        return this.dimensionSettings;
+    }
 
     @Override
     @Nonnull
     protected Codec<? extends ChunkGenerator> func_230347_a_() {
-        return field_236079_d_;
+        return CHUNK_GEN_CODEC;
     }
 
     @Override
-    public ChunkGenerator func_230349_a_(long p_230349_1_) {
-        return new GSKOChunkGenerator(this.biomeProvider.getBiomeProvider(p_230349_1_), p_230349_1_, field_236080_h_);
-    }
-
-    @Override
-    public void generateSurface(@NotNull WorldGenRegion region, @NotNull IChunk chunk) {
-        BlockState grassBlock = Blocks.GRASS_BLOCK.getDefaultState();
-        BlockState stone = Blocks.STONE.getDefaultState();
-        BlockState bedrock = Blocks.BEDROCK.getDefaultState();
-
-        ChunkPos chunkPos = chunk.getPos();
-
-        int x, z;
-        BlockPos.Mutable positions = new BlockPos.Mutable();
-
-        // 先在y=0的位置铺一层基岩
-        for (x = 0; x < 16; x++) {
-            for (z = 0; z < 16; z++) {
-                chunk.setBlockState(positions.add(x, 0, z), bedrock, true);
-            }
-        }
-
-        for (x = 0; x < 16; x++) {
-            for (z = 0; z < 16; z++) {
-                chunk.setBlockState(positions.add(x, 64, z), grassBlock, true);
-            }
-        }
-        long seed = region.getWorld().getSeed();
-        LOGGER.info(chunkPos.x + ", " + chunkPos.z);
-
-        // 再使用噪声生成器生成地表的草方块和地下的石头
-        for (x = 0; x < 16; x++) {
-            for (z = 0; z < 16; z++) {
-                int globalX = chunkPos.x * 16 + x;
-                int globalZ = chunkPos.z * 16 + z;
-                chunk.setBlockState(positions.add(globalX, SimpleNoise.getNoiseHeight(
-                                seed, new BlockPos(globalX, 0, globalZ), 64, 60),
-                        globalZ), grassBlock, false);
-                chunk.setBlockState(positions.add(globalX, SimpleNoise.getNoiseHeight(
-                                seed, new BlockPos(globalX, 0, globalZ), 64, 55),
-                        globalZ), stone, false);
-
-            }
-        }
-    }
-
-    @Override
-    public void func_230352_b_(@NotNull IWorld world, @NotNull StructureManager structureManager, @NotNull IChunk chunk) {
-
+    @Nonnull
+    public ChunkGenerator func_230349_a_(long seed) {
+        return new GSKOChunkGenerator(this.biomeProvider.getBiomeProvider(seed), seed, dimensionSettings);
     }
 
     @Override

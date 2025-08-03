@@ -25,7 +25,7 @@ import java.util.function.Function;
 
 public class TeleportHelper {
     public static void teleport(ServerPlayerEntity player, ServerWorld destination, BlockPos pos) {
-
+        GSKOUtil.showChatMsg(player, "Can TP: " + canTeleport(destination, pos), 1);
         if (canTeleport(destination, pos)) {
             player.changeDimension(destination, new ITeleporter() {
                 @Override

@@ -25,7 +25,7 @@ plugins {
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(8)
     }
 }
 
@@ -37,15 +37,10 @@ mixin {
 
 allprojects {
     repositories {
-        maven { url 'https://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'https://maven.aliyun.com/repository/google' }
-        maven { url 'https://maven.aliyun.com/repository/gradle-plugin' }
-        maven { url 'https://maven.aliyun.com/nexus/content/repositories/jcenter' }
+        maven { url 'https://maven.aliyun.com/repository/public' } // 合并所有阿里云源
         maven { url 'https://www.jitpack.io' }
         mavenLocal()
         mavenCentral()
-        google()
-        jcenter()
     }
 }
 
@@ -53,6 +48,7 @@ group = 'com.github.thelawf'
 version = 'forge-1.16.5-preview-0.0.804'
 
 repositories {
+    maven { url "https://jcenter.bintray.com/" } // 必要！
     maven { url 'https://maven.blamejared.com' }
     maven {
         // location of the maven that hosts JEI files
@@ -68,7 +64,6 @@ repositories {
 
 java {
     archivesBaseName = 'gensokyoontology'
-    toolchain.languageVersion = JavaLanguageVersion.of(8)
 }
 
 configurations {
@@ -151,7 +146,7 @@ dependencies {
     // compileOnly 'org.joml:joml:1.10.4'
     // runtimeOnly 'org.joml:joml:1.10.4'
     // implementation 'org.joml:joml:1.10.4'
-    implementation 'org.jetbrains:annotations:23.0.0'
+    implementation 'org.jetbrains:annotations:24.0.0'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf("curse.maven:touhou-little-maid-355044:4968573")
 
@@ -177,12 +172,6 @@ dependencies {
 
 }
 
-//jarJar.fromRuntimeConfiguration()
-//jarJar {
-//    dependencies {
-//        include (dependency('org.dom4j:dom4j:2.1.3'))
-//    }
-//}
 
 // Example for how to get properties into the manifest for reading at runtime.
 jar {

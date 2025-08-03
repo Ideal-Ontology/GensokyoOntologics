@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.TeleportHelper;
 import net.minecraft.client.util.ITooltipFlag;
@@ -44,10 +45,17 @@ public class OccultBall extends Item {
         Biome biome = worldIn.getBiome(playerIn.getPosition());
         nbt.putString("biome", String.valueOf(biome.getRegistryName()));
         nbt.putBoolean("can_travel_to_gensokyo", true);
-
         stack.setTag(nbt);
 
-        if (!worldIn.isRemote() && nbt.getBoolean("can_travel_to_gensokyo") && playerIn instanceof ServerPlayerEntity) {
+        GSKOUtil.showChatMsg(playerIn, "Click: " + nbt.getBoolean("can_travel_to_gensokyo"), 1);
+        if (worldIn.isRemote) return super.onItemRightClick(worldIn, playerIn, handIn);
+
+        GSKOUtil.showChatMsg(playerIn, "Yes", 1);
+        if (!nbt.getBoolean("can_travel_to_gensokyo")) return super.onItemRightClick(worldIn, playerIn, handIn);
+
+        GSKOUtil.showChatMsg(playerIn, "Yes1", 1);
+        if (playerIn instanceof ServerPlayerEntity) {
+            GSKOUtil.showChatMsg(playerIn, "Yes2", 1);
             nbt.remove("can_travel_to_gensokyo");
             nbt.putBoolean("can_travel_to_gensokyo", false);
             stack.setTag(nbt);

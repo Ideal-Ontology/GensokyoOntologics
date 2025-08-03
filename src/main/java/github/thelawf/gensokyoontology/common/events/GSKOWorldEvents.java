@@ -82,7 +82,7 @@ public class GSKOWorldEvents {
     }
 
     @SubscribeEvent
-    public static void onRenderEndSky(TickEvent.WorldTickEvent event){
+    public static void onRenderGapSky(TickEvent.WorldTickEvent event){
         if (event.world.getDimensionKey().equals(GSKODimensions.GAP)){
             GSKOWorldUtil.renderCustomSky(new GapSkyRenderer());
         }

@@ -6,7 +6,6 @@ import net.minecraft.util.math.vector.Vector3d;
 
 import java.util.Random;
 
-@Deprecated
 public class SimpleNoise {
 
     public static int getNoiseHeight(long seed, BlockPos blockPos, int diff, int loud) {
