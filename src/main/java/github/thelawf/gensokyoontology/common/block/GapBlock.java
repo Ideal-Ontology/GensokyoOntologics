@@ -119,9 +119,9 @@ public class GapBlock extends Block implements INBTWriter {
             itemStack.setTag(itemNBT);
             itemStack.grow(1);
 
-            // player.sendMessage(GensokyoOntology.fromLocaleKey("msg.", ".gap_block.set_first_gap"), player.getUniqueID());
+            // player.sendMessage(GensokyoOntology.translate("msg.", ".gap_block.set_first_gap"), player.getUniqueID());
             // player.sendMessage(new StringTextComponent(firstPos.getCoordinatesAsString()), player.getUniqueID());
-            // player.sendMessage(GensokyoOntology.fromLocaleKey("msg.", ".gap_block.in_dimension"), player.getUniqueID());
+            // player.sendMessage(GensokyoOntology.translate("msg.", ".gap_block.in_dimension"), player.getUniqueID());
             // player.sendMessage(new TranslationTextComponent(departureWorld.getLocation().toString()), player.getUniqueID());
         }
 
@@ -165,9 +165,9 @@ public class GapBlock extends Block implements INBTWriter {
                 firstPlacedSukima.setDestinationWorld(arrivalKey);
                 firstPlacedSukima.markDirty();
 
-                // player.sendMessage(GensokyoOntology.fromLocaleKey("msg.", ".gap_block.set_second_gap"), player.getUniqueID());
+                // player.sendMessage(GensokyoOntology.translate("msg.", ".gap_block.set_second_gap"), player.getUniqueID());
                 // player.sendMessage(new StringTextComponent("§3" + firstPos.getCoordinatesAsString()), player.getUniqueID());
-                // player.sendMessage(GensokyoOntology.fromLocaleKey("msg.", ".gap_block.in_dimension"), player.getUniqueID());
+                // player.sendMessage(GensokyoOntology.translate("msg.", ".gap_block.in_dimension"), player.getUniqueID());
                 // player.sendMessage(new TranslationTextComponent("§a" + arrivalKey.getLocation()), player.getUniqueID());
             }
         }
@@ -195,12 +195,12 @@ public class GapBlock extends Block implements INBTWriter {
 
             if (departureGap.getCooldown() > 1) return;
             if (destinationWorld == null) {
-                serverPlayer.sendStatusMessage(GensokyoOntology.fromLocaleKey("msg.", ".gap_block.teleport_fail.destination_not_present"), true);
+                serverPlayer.sendStatusMessage(GensokyoOntology.translate("msg.", ".gap_block.teleport_fail.destination_not_present"), true);
                 return;
             }
 
             if (getGapTile(destinationWorld, departureGap.getDestinationPos()) == null) {
-                serverPlayer.sendStatusMessage(GensokyoOntology.fromLocaleKey("msg.", ".gap_block.teleport_fail.arrival_gap_not_present"), true);
+                serverPlayer.sendStatusMessage(GensokyoOntology.translate("msg.", ".gap_block.teleport_fail.arrival_gap_not_present"), true);
                 return;
             }
             GapTileEntity arrivalGap = getGapTile(destinationWorld, departureGap.getDestinationPos());
@@ -208,7 +208,7 @@ public class GapBlock extends Block implements INBTWriter {
             TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
 
             if (departureGap.getDestinationPos() == BlockPos.ZERO) {
-                serverPlayer.sendStatusMessage(GensokyoOntology.fromLocaleKey("msg.", ".gap_block.teleport_fail.illegal_position"), true);
+                serverPlayer.sendStatusMessage(GensokyoOntology.translate("msg.", ".gap_block.teleport_fail.illegal_position"), true);
             }
         }
     }

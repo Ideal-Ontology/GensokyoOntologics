@@ -819,10 +819,10 @@ public final class ItemRegistry {
             super.addInformation(stack, worldIn, tooltip, flagIn);
             if (stack.getTag() == null) return;
             if (!stack.getTag().contains("startPos")) {
-                tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".coaster_rail.usage"));
+                tooltip.add(GensokyoOntology.translate("tooltip.", ".coaster_rail.usage"));
             };
             BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
-            tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".coaster_rail.start_pos"));
+            tooltip.add(GensokyoOntology.translate("tooltip.", ".coaster_rail.start_pos"));
             tooltip.add(new StringTextComponent("(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")"));
         }
     });
@@ -870,9 +870,9 @@ public final class ItemRegistry {
 
         @Override
         public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-            // TranslationTextComponent entityText = GensokyoOntology.fromLocaleKey("tooltip.",".danmaku_entity");
-            // TranslationTextComponent colorText = GensokyoOntology.fromLocaleKey("tooltip.",".danmaku_color");
-            // TranslationTextComponent typeText = GensokyoOntology.fromLocaleKey("tooltip.",".danmaku_type");
+            // TranslationTextComponent entityText = GensokyoOntology.translate("tooltip.",".danmaku_entity");
+            // TranslationTextComponent colorText = GensokyoOntology.translate("tooltip.",".danmaku_color");
+            // TranslationTextComponent typeText = GensokyoOntology.translate("tooltip.",".danmaku_type");
             if (stack.getTag() != null) {
                 CompoundNBT nbt = stack.getTag();
                 tooltip.add(GSKOUtil.fromLocaleFormat("tooltip.",".danmaku_entity",

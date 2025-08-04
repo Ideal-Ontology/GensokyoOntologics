@@ -31,6 +31,6 @@ public enum V3dFunc {
     }
 
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.fromLocaleKey("gui.",".func_invoker.vector3d." + this.methodName);
+        return GensokyoOntology.translate("gui.",".func_invoker.vector3d." + this.methodName);
     }
 }

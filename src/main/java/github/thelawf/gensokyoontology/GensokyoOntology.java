@@ -319,11 +319,11 @@ public class GensokyoOntology {
         return prefix + MODID + suffix;
     }
 
-    public static TranslationTextComponent fromLocaleKey(String prefix, String suffix) {
+    public static TranslationTextComponent translate(String prefix, String suffix) {
         return new TranslationTextComponent(withAffix(prefix, suffix));
     }
 
-    public static TranslationTextComponent fromLocaleFormat(String prefix, String suffix, Object... formats) {
+    public static TranslationTextComponent translatef(String prefix, String suffix, Object... formats) {
         return new TranslationTextComponent(withAffix(prefix, suffix), formats);
     }
 }

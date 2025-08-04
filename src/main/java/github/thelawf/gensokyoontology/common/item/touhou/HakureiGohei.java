@@ -11,7 +11,6 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
-import net.minecraft.block.Blocks;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
@@ -33,7 +32,7 @@ import java.util.List;
  * 博丽灵梦的御币
  */
 public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
-    public static final ITextComponent TITLE = GensokyoOntology.fromLocaleKey("gui.", ".hakurei_gohei.title");
+    public static final ITextComponent TITLE = GensokyoOntology.translate("gui.", ".hakurei_gohei.title");
     public HakureiGohei(Properties properties) {
         super(properties);
     }
@@ -133,7 +132,7 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
 
-        ITextComponent text = GensokyoOntology.fromLocaleKey("tooltip.", ".hakurei_gohei.mode");
+        ITextComponent text = GensokyoOntology.translate("tooltip.", ".hakurei_gohei.mode");
         if (stack.getTag() != null) {
             switch (getMode(stack.getTag())) {
                 default:

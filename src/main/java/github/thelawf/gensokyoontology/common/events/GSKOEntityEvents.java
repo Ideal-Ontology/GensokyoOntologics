@@ -28,13 +28,8 @@ import github.thelawf.gensokyoontology.core.init.EffectRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.GSKOPlayerData;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
-import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.world.DimensionRenderInfo;
-import net.minecraft.command.impl.TimeCommand;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -49,6 +44,7 @@ import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.concurrent.TickDelayedTask;
+import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
@@ -65,7 +61,6 @@ import net.minecraftforge.fml.network.PacketDistributor;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 @Mod.EventBusSubscriber(modid = "gensokyoontology")
@@ -146,7 +141,7 @@ public class GSKOEntityEvents {
 
             if (GSKOWorldUtil.isEntityInBiome(player, GSKOBiomes.NAMELESS_HILL_KEY)){
                 player.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 20));
-                player.sendStatusMessage(GensokyoOntology.fromLocaleKey(
+                player.sendStatusMessage(GensokyoOntology.translate(
                         "msg.", ".enter_danger_biome.nameless_hill"), true);
             }
         }
@@ -163,7 +158,7 @@ public class GSKOEntityEvents {
 
         if (GSKOWorldUtil.isEntityInBiome(player, GSKOBiomes.BAMBOO_FOREST_LOST_KEY)){
             serverWorld.setDayTime(16000);
-            player.sendStatusMessage(GensokyoOntology.fromLocaleKey(
+            player.sendStatusMessage(GensokyoOntology.translate(
                     "msg.", ".enter_danger_biome.bamboo"), true);
         }
     }
@@ -209,17 +204,20 @@ public class GSKOEntityEvents {
         boolean precondition = player.ticksExisted % 20 == 0 && !player.isPotionActive(EffectRegistry.HAKUREI_BLESS_EFFECT.get());
 
         serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent((capability -> {
-            List<String> biomes = capability.getBiomeRegistryNames();
-            biomes.forEach((ignored -> {
-                if (!capability.isTriggered()) GSKOWorldUtil.renderCustomSky(null);
-                if (precondition) {
-                    player.sendStatusMessage(GensokyoOntology.fromLocaleKey(
-                            "msg.", ".enter_danger_biome.scarlet_mansion_precincts"), true);
-                    player.attackEntityFrom(DamageSource.IN_WALL, 1f);
-                }
-                GSKONetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new SScarletMistPacket(true));
-                GSKOWorldUtil.renderCustomSky(new ScarletSkyRenderer());
-            }));
+
+            if (!capability.isTriggered()){
+                GSKONetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new SScarletMistPacket(false));
+                GSKOWorldUtil.renderCustomSky(null);
+                return;
+            }
+
+            if (precondition) {
+                player.sendStatusMessage(GensokyoOntology.translate(
+                        "msg.", ".enter_danger_biome.scarlet_mansion_precincts"), true);
+                player.attackEntityFrom(DamageSource.IN_WALL, 1f);
+            }
+            GSKONetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> player), new SScarletMistPacket(true));
+            GSKOWorldUtil.renderCustomSky(new ScarletSkyRenderer());
         }));
     }
 

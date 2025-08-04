@@ -127,9 +127,9 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".koishi_eye_open"));
+        tooltip.add(GensokyoOntology.translate("tooltip.", ".koishi_eye_open"));
         if (Screen.hasShiftDown()) {
-            tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".koishi_eye_open.comment"));
+            tooltip.add(GensokyoOntology.translate("tooltip.", ".koishi_eye_open.comment"));
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }

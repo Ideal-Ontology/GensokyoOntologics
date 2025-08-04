@@ -37,7 +37,7 @@ public class SpiritTube extends Item {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.fromLocaleKey("tooltip.", ".spirit_tube"));
+        tooltip.add(GensokyoOntology.translate("tooltip.", ".spirit_tube"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

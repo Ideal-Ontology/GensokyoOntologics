@@ -13,7 +13,7 @@ public enum OperationType {
         this.key = key;
     }
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.fromLocaleKey("gui.",".operation_builder.button.type." + getKey());
+        return GensokyoOntology.translate("gui.",".operation_builder.button.type." + getKey());
     }
 
     private String getKey() {

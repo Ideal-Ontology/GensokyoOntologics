@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.client.renderer.world.ScarletSkyRenderer;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -41,7 +42,7 @@ public class SScarletMistPacket {
             if (clientWorld == null) return;
             ServerWorld serverWorld = serverPlayer.getServerWorld();
             GSKOUtil.syncWorldCapability(clientWorld, serverWorld, GSKOCapabilities.BLOODY_MIST);
-
+            // if (!this.isTriggered) GSKOWorldUtil.renderCustomSky(null);
         });
 
         context.get().setPacketHandled(true);

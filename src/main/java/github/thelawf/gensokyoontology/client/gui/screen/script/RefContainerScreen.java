@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 public class RefContainerScreen extends ScriptContainerScreen<ReferenceContainer> {
     private final CompoundNBT refData = new CompoundNBT();
     private TextFieldWidget nameInput;
-    private final ITextComponent worldTip = GensokyoOntology.fromLocaleKey("gui.",".ref_world.tip");
+    private final ITextComponent worldTip = GensokyoOntology.translate("gui.",".ref_world.tip");
     public RefContainerScreen(ReferenceContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }

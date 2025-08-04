@@ -46,6 +46,6 @@ public enum ConstPreset {
     }
 
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.fromLocaleKey("gui.",".const_builder.button.preset." + getKey());
+        return GensokyoOntology.translate("gui.",".const_builder.button.preset." + getKey());
     }
 }

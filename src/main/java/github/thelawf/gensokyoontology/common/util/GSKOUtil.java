@@ -14,7 +14,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -22,6 +24,7 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.NonNullConsumer;
 import org.apache.logging.log4j.LogManager;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,15 +35,18 @@ import static github.thelawf.gensokyoontology.GensokyoOntology.LOGGER;
 import static github.thelawf.gensokyoontology.GensokyoOntology.withAffix;
 
 public class GSKOUtil {
-    public static <N extends INBT, T extends INBTSerializable<N>> void syncWorldCapability(ClientWorld clientWorld, ServerWorld serverWorld, Capability<T> capability){
-        if (serverWorld == null) return;
-        if (clientWorld == null) return;
+    public static <N extends INBT, T extends INBTSerializable<N>> void syncWorldCapability(@NotNull ClientWorld clientWorld, @NotNull ServerWorld serverWorld, Capability<T> capability){
         clientWorld.getCapability(capability).ifPresent(clientCap -> serverWorld.getCapability(capability).ifPresent(
                 serverCap -> clientCap.deserializeNBT(serverCap.serializeNBT())));
         serverWorld.getCapability(capability).ifPresent(serverCap -> clientWorld.getCapability(capability).ifPresent(
                 clientCap -> serverCap.deserializeNBT(clientCap.serializeNBT())));
     }
 
+    public static void showChatMsg(PlayerEntity player, ITextComponent text, int frequency) {
+        if (player.ticksExisted % frequency == 0) {
+            player.sendMessage(text, player.getUniqueID());
+        }
+    }
     public static void showChatMsg(PlayerEntity receiver, String text, int frequency) {
         if (receiver.ticksExisted % frequency == 0) {
             receiver.sendMessage(new StringTextComponent(text), receiver.getUniqueID());

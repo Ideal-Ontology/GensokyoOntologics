@@ -15,7 +15,7 @@ public enum MathOperation {
         this.key = key;
     }
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.fromLocaleKey("gui.",".operation_builder.button.math." + getKey());
+        return GensokyoOntology.translate("gui.",".operation_builder.button.math." + getKey());
     }
 
     private String getKey() {

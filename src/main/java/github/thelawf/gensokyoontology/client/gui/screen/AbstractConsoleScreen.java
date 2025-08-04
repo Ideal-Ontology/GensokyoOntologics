@@ -12,13 +12,13 @@ public class AbstractConsoleScreen extends ContainerScreen<SpellCardConsoleConta
     /** Menu Hierarchy of Danmaku Command Table 弹幕控制台的菜单层级 */
 
     // Main Hierarchy 主层级
-    private static final ITextComponent ADD_COMMAND = GensokyoOntology.fromLocaleKey("",".add_cmd");
-    private static final ITextComponent NEXT = GensokyoOntology.fromLocaleKey("", "next");
-    private static final ITextComponent NEW_INSTANCE = GensokyoOntology.fromLocaleKey("", ".new_instance");
-    private static final ITextComponent ASSIGN = GensokyoOntology.fromLocaleKey("",".assign");
-    private static final ITextComponent FOR_LOOP = GensokyoOntology.fromLocaleKey("",".for_loop");
-    private static final ITextComponent IF_BRANCH = GensokyoOntology.fromLocaleKey("",".if_branch");
-    private static final ITextComponent BINARY_OPT = GensokyoOntology.fromLocaleKey("",".binary_opt");
+    private static final ITextComponent ADD_COMMAND = GensokyoOntology.translate("",".add_cmd");
+    private static final ITextComponent NEXT = GensokyoOntology.translate("", "next");
+    private static final ITextComponent NEW_INSTANCE = GensokyoOntology.translate("", ".new_instance");
+    private static final ITextComponent ASSIGN = GensokyoOntology.translate("",".assign");
+    private static final ITextComponent FOR_LOOP = GensokyoOntology.translate("",".for_loop");
+    private static final ITextComponent IF_BRANCH = GensokyoOntology.translate("",".if_branch");
+    private static final ITextComponent BINARY_OPT = GensokyoOntology.translate("",".binary_opt");
 
     Button addCmd;
     Button done;

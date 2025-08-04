@@ -4,7 +4,9 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.renderer.world.GapSkyRenderer;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.entity.spawn.LilyWhiteSpawner;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.GSKOEntityGenerator;
@@ -15,6 +17,9 @@ import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.ItemEntity;
@@ -83,10 +88,16 @@ public class GSKOWorldEvents {
 
     @SubscribeEvent
     public static void onRenderGapSky(TickEvent.WorldTickEvent event){
+        ClientPlayerEntity player = Minecraft.getInstance().player;
+        ClientWorld world = Minecraft.getInstance().world;
+        if (player == null) return;
+        if (world == null) return;
+        // world.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent(cap ->
+        //         GSKOUtil.showChatMsg(player, "Is Bloody Mist Triggered: " + cap.isTriggered(), 1));
+
         if (event.world.getDimensionKey().equals(GSKODimensions.GAP)){
             GSKOWorldUtil.renderCustomSky(new GapSkyRenderer());
         }
-        else GSKOWorldUtil.renderCustomSky(null);
     }
 
     @SubscribeEvent

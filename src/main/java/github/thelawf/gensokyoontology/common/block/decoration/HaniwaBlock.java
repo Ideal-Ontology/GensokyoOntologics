@@ -79,7 +79,7 @@ public class HaniwaBlock extends Block {
                 HaniwaTileEntity haniwaTile = (HaniwaTileEntity) serverWorld.getTileEntity(pos);
                 if (haniwaTile != null) {
                     if (!haniwaTile.canAddCount()) {
-                        player.sendMessage(GensokyoOntology.fromLocaleKey("msg.",".haniwa_block.in_cooldown"), player.getUniqueID());
+                        player.sendMessage(GensokyoOntology.translate("msg.",".haniwa_block.in_cooldown"), player.getUniqueID());
                         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
                     }
 
@@ -87,7 +87,7 @@ public class HaniwaBlock extends Block {
                     haniwaTile.setCanAddCount(false);
                     haniwaTile.setOwnerId(player.getUniqueID());
 
-                    player.sendMessage(GensokyoOntology.fromLocaleKey("msg.", ".haniwa_block.added_count"), player.getUniqueID());
+                    player.sendMessage(GensokyoOntology.translate("msg.", ".haniwa_block.added_count"), player.getUniqueID());
                     GSKOUtil.showChatMsg(player, haniwaTile.getFaithCount(), 1);
                 }
             }

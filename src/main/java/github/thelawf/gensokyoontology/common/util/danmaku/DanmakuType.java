@@ -38,7 +38,7 @@ public enum DanmakuType {
     }
 
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.fromLocaleKey("gui.", ".danmaku_type." + this.name);
+        return GensokyoOntology.translate("gui.", ".danmaku_type." + this.name);
     }
 
     public DanmakuType getIfMatches(String name) {

@@ -258,13 +258,13 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
 
     private void sendTypeExceptionFeedback(PlayerEntity player, String msg) {
         if (this.ticksExisted == 2) {
-            player.sendMessage(GensokyoOntology.fromLocaleKey("script.", ".error.type_exception." + msg), player.getUniqueID());
+            player.sendMessage(GensokyoOntology.translate("script.", ".error.type_exception." + msg), player.getUniqueID());
         }
     }
 
     private void sendNullPointerFeedback(PlayerEntity player, String msg) {
         if (this.ticksExisted == 2) {
-            player.sendMessage(GensokyoOntology.fromLocaleKey("script.", ".error.null_pointer_exception." + msg), player.getUniqueID());
+            player.sendMessage(GensokyoOntology.translate("script.", ".error.null_pointer_exception." + msg), player.getUniqueID());
         }
     }
 

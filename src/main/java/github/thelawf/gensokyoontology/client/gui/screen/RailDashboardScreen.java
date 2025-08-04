@@ -36,13 +36,13 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     private static final TranslationTextComponent ANGLE_X = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.angle_x");
     private static final TranslationTextComponent ANGLE_Y = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.angle_y");
     private static final TranslationTextComponent ANGLE_Z = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.angle_z");
-    private static final ITextComponent ROLL_LABEL   = GensokyoOntology.fromLocaleKey("gui.", ".label.roll") ;
-    private static final ITextComponent YAW_LABEL    = GensokyoOntology.fromLocaleKey("gui.", ".label.yaw");
-    private static final ITextComponent PITCH_LABEL  = GensokyoOntology.fromLocaleKey("gui.", ".label.pitch") ;
-    private static final ITextComponent X_LABEL = GensokyoOntology.fromLocaleKey("gui.", ".label.x");
-    private static final ITextComponent Y_LABEL = GensokyoOntology.fromLocaleKey("gui.", ".label.y");
-    private static final ITextComponent Z_LABEL = GensokyoOntology.fromLocaleKey("gui.", ".label.z");
-    public static final ITextComponent TITLE = GensokyoOntology.fromLocaleKey("gui.", ".rail_dashboard.title");
+    private static final ITextComponent ROLL_LABEL   = GensokyoOntology.translate("gui.", ".label.roll") ;
+    private static final ITextComponent YAW_LABEL    = GensokyoOntology.translate("gui.", ".label.yaw");
+    private static final ITextComponent PITCH_LABEL  = GensokyoOntology.translate("gui.", ".label.pitch") ;
+    private static final ITextComponent X_LABEL = GensokyoOntology.translate("gui.", ".label.x");
+    private static final ITextComponent Y_LABEL = GensokyoOntology.translate("gui.", ".label.y");
+    private static final ITextComponent Z_LABEL = GensokyoOntology.translate("gui.", ".label.z");
+    public static final ITextComponent TITLE = GensokyoOntology.translate("gui.", ".rail_dashboard.title");
 
     public RailDashboardScreen(BlockPos pos, float roll, float yaw, float pitch, Vector3f controlPoint) {
         super(TITLE);

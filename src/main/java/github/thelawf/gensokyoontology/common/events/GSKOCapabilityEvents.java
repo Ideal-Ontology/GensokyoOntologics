@@ -11,15 +11,12 @@ import github.thelawf.gensokyoontology.common.capability.world.BloodyMistProvide
 import github.thelawf.gensokyoontology.common.capability.world.EternalSummerCapProvider;
 import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapability;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightProvider;
-import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
-import github.thelawf.gensokyoontology.common.item.touhou.SeigaHairpin;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.network.packet.SLifeTickPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.client.Minecraft;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -41,6 +38,9 @@ import java.util.List;
 
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID)
 public class GSKOCapabilityEvents {
+
+    private static ClientWorld clientWorld;
+    private static ServerWorld serverWorld;
 
     @SubscribeEvent
     public static void onCapabilityAttachToWorld(AttachCapabilitiesEvent<World> event) {
@@ -102,27 +102,34 @@ public class GSKOCapabilityEvents {
      * The effect of this method is to sync the power counts from Touhou Little Maid to this Mod.
      *
      */
-    // @SubscribeEvent
-    public static void onPacketSync(TickEvent.PlayerTickEvent event) {
+    @SubscribeEvent
+    public static void onCapabilitySync(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
         boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;
         if (flag) {
-            trySyncLifetime(player);
-            if (TouhouLittleMaidCompat.isLoaded()) {
-                trySyncPowerFromTLM(player);
-                trySyncPowerToTLM(player);
-            }
+            trySyncCapabilities(player);
+            trySyncCapabilities(player.world);
         }
     }
 
-    public static void trySyncLifetime(PlayerEntity player) {
+    public static void trySyncCapabilities(World world) {
+
+        if (world.isRemote) clientWorld = (ClientWorld) world;
+        if (!world.isRemote) serverWorld = (ServerWorld) world;
+        if (clientWorld == null) return;
+        if (serverWorld == null) return;
+
+        GSKOUtil.syncWorldCapability(clientWorld, serverWorld, GSKOCapabilities.BLOODY_MIST);
+    }
+
+    public static void trySyncCapabilities(PlayerEntity player) {
         player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(cap -> {
             // GSKOUtil.showChatMsg(player, cap.isDirty(), 20);
             cap.addTime(1L);
             GSKONetworking.sendToClientPlayer(new SLifeTickPacket(cap.getLifetime()), player);
         });
-    }
 
+    }
 
     public static void trySyncPower(PlayerEntity player) {
         player.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {

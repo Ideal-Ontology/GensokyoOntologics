@@ -20,6 +20,6 @@ public enum StaticFunc {
     }
 
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.fromLocaleKey("gui.", ".static_func." + this.methodName);
+        return GensokyoOntology.translate("gui.", ".static_func." + this.methodName);
     }
 }

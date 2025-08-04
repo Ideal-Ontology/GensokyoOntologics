@@ -17,8 +17,8 @@ import org.jetbrains.annotations.NotNull;
 @OnlyIn(Dist.CLIENT)
 public class GoheiModeSelectScreen extends ModeSwitchScreen {
     private HakureiGohei.Mode mode;
-    public static final TranslationTextComponent DANMAKU = GensokyoOntology.fromLocaleKey("gui.", ".gohei.mode.danmaku");
-    public static final TranslationTextComponent DREAM_SEAL = GensokyoOntology.fromLocaleKey("gui.", ".gohei.mode.dream_seal");
+    public static final TranslationTextComponent DANMAKU = GensokyoOntology.translate("gui.", ".gohei.mode.danmaku");
+    public static final TranslationTextComponent DREAM_SEAL = GensokyoOntology.translate("gui.", ".gohei.mode.dream_seal");
     public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/gohei_selection_screen.png");
     public GoheiModeSelectScreen(ITextComponent titleIn, HakureiGohei.Mode mode) {
         super(titleIn);

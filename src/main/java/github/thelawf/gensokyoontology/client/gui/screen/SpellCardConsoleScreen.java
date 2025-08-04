@@ -29,10 +29,10 @@ import java.util.*;
 // 10： textHei
 public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConsoleContainer> {
 
-    public static final ITextComponent SAVE_TIP = GensokyoOntology.fromLocaleKey("tooltip.",".spell_console.button.save");
-    public static final ITextComponent COPY_TIP = GensokyoOntology.fromLocaleKey("tooltip.",".spell_console.button.copy");
-    public static final ITextComponent SAVED_MSG = GensokyoOntology.fromLocaleKey("msg.",".spell_console.button.saved");
-    public static final ITextComponent COPIED_MSG = GensokyoOntology.fromLocaleKey("msg.",".spell_console.button.copied");
+    public static final ITextComponent SAVE_TIP = GensokyoOntology.translate("tooltip.",".spell_console.button.save");
+    public static final ITextComponent COPY_TIP = GensokyoOntology.translate("tooltip.",".spell_console.button.copy");
+    public static final ITextComponent SAVED_MSG = GensokyoOntology.translate("msg.",".spell_console.button.saved");
+    public static final ITextComponent COPIED_MSG = GensokyoOntology.translate("msg.",".spell_console.button.copied");
     public static final ResourceLocation BUTTONS_TEX = GensokyoOntology.withRL("textures/gui/widget/buttons.png");
     public static final ResourceLocation SCREEN_TEXTURE = GensokyoOntology.withRL("textures/gui/spell_card_console.png");
     private final CompoundNBT scriptData = new CompoundNBT();

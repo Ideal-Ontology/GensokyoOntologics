@@ -353,6 +353,8 @@
   "block.gensokyoontology.rail_node": "轨道节点",
   "block.gensokyoontology.rotate_frame": "旋转框架测试方块",
 
+  "cmd.gensokyoontology.incident_triggered": "当前是否正在发生异变：",
+
   "container.gensokyoontology.danmaku_craft.title": "弹幕合成",
   "container.gensokyoontology.sorcery_extractor.title": "魔力提取",
   "container.gensokyoontology.const_builder.title": "常量构建",

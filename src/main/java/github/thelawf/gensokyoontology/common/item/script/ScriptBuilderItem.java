@@ -33,9 +33,9 @@ public abstract class ScriptBuilderItem extends Item {
     public static final String FILED_TYPE_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_type");
     public static final String FILED_NAME_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_name");
     public static final String FILED_VALUE_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_value");
-    public static final ITextComponent FILED_TYPE_TIP = GensokyoOntology.fromLocaleKey("tooltip.",".script_builder.field_type");
-    public static final ITextComponent FILED_NAME_TIP = GensokyoOntology.fromLocaleKey("tooltip.",".script_builder.field_name");
-    public static final ITextComponent FILED_VALUE_TIP = GensokyoOntology.fromLocaleKey("tooltip.",".script_builder.field_value");
+    public static final ITextComponent FILED_TYPE_TIP = GensokyoOntology.translate("tooltip.",".script_builder.field_type");
+    public static final ITextComponent FILED_NAME_TIP = GensokyoOntology.translate("tooltip.",".script_builder.field_name");
+    public static final ITextComponent FILED_VALUE_TIP = GensokyoOntology.translate("tooltip.",".script_builder.field_value");
     public ScriptBuilderItem() {
         super(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB));
     }

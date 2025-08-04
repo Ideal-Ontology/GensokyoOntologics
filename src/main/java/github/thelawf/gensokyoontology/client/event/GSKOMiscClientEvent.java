@@ -10,7 +10,6 @@ import github.thelawf.gensokyoontology.client.renderer.world.ScarletSkyRenderer;
 import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
-import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
 import github.thelawf.gensokyoontology.common.item.touhou.KoishiEyeOpen;
@@ -30,12 +29,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
-import net.minecraft.world.gen.NoiseChunkGenerator;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.event.*;
-import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,7 +42,7 @@ import net.minecraftforge.fml.common.Mod;
 public class GSKOMiscClientEvent {
     private static int TIMER = 0;
     private final Minecraft mc = Minecraft.getInstance();
-    public static final ITextComponent GOHEI_TITLE = GensokyoOntology.fromLocaleKey("gui.", ".hakurei_gohei.title");
+    public static final ITextComponent GOHEI_TITLE = GensokyoOntology.translate("gui.", ".hakurei_gohei.title");
 
     @SubscribeEvent
     public void onTerrainGUIOpen(GuiOpenEvent event) {

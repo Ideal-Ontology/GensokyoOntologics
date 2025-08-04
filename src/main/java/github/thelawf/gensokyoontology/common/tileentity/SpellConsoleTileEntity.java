@@ -35,7 +35,7 @@ public class SpellConsoleTileEntity extends TileEntity implements ITickableTileE
     public final int slotCount = 31;
     private final ItemStackHandler itemHandler = createItemHandler();
     private final LazyOptional<IItemHandler> optionalHandler = LazyOptional.of(() -> itemHandler);
-    public static final TranslationTextComponent CONTAINER_NAME = GensokyoOntology.fromLocaleKey("container.", ".spell_card_console.title");
+    public static final TranslationTextComponent CONTAINER_NAME = GensokyoOntology.translate("container.", ".spell_card_console.title");
     public SpellConsoleTileEntity() {
         super(TileEntityRegistry.SPELL_CONSOLE_TILE_ENTITY.get());
     }
