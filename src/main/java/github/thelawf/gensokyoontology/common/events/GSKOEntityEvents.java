@@ -262,23 +262,6 @@ public class GSKOEntityEvents {
 
     }
 
-    public static void onHakureiBless(LivingEvent.LivingUpdateEvent event) {
-        //if (event.getEntityLiving().getActivePotionEffect(EffectRegistry.HAKUREI_BLESS_EFFECT.get()) == null) return;
-        EffectInstance effect = event.getEntityLiving().getActivePotionEffect(EffectRegistry.HAKUREI_BLESS_EFFECT.get());
-        if (effect == null) return;
-        World world = event.getEntity().world;
-        LivingEntity living = event.getEntityLiving();
-        if (effect.getDuration() > 0 && world instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld) world;
-            LazyOptional<BloodyMistCapability> bloodyMist = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
-            bloodyMist.ifPresent(capability -> capability.setTriggered(false));
-        } else if (effect.getDuration() <= 0 && world instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld) world;
-            LazyOptional<BloodyMistCapability> bloodyMist = serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST);
-            bloodyMist.ifPresent(capability -> capability.setTriggered(true));
-        }
-    }
-
     private static void fairyDropDanmaku(LivingDeathEvent event) {
         if (event.getEntityLiving() instanceof FairyEntity) {
             FairyEntity fairy = (FairyEntity) event.getEntityLiving();

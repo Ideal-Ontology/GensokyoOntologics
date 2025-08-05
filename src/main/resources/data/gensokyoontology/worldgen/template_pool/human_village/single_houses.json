@@ -1,47 +1,38 @@
 {
-  "name": "gensokyoontology:human_village/houses_with_roads_back",
+  "name": "gensokyoontology:human_village/start_pool",
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 2,
+      "weight": 5,
       "element": {
-        "location": "gensokyoontology:village_house_01",
+        "location": "gensokyoontology:human_village/warehouse",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     },
     {
-      "weight": 2,
+      "weight": 5,
       "element": {
-        "location": "gensokyoontology:village_house_02",
+        "location": "gensokyoontology:human_village/hotspring_inn",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     },
     {
-      "weight": 8,
+      "weight": 5,
       "element": {
-        "location": "gensokyoontology:jeweler_house_normal",
+        "location": "gensokyoontology:human_village/castle",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
       }
     },
     {
-      "weight": 1,
+      "weight": 5,
       "element": {
-        "location": "gensokyoontology:jeweler_house_rare_01",
-        "processors": "minecraft:empty",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 1,
-      "element": {
-        "location": "gensokyoontology:jeweler_house_rare_02",
+        "location": "gensokyoontology:human_village/temple",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

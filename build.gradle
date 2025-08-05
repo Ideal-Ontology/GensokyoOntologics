@@ -45,7 +45,7 @@ allprojects {
 }
 
 group = 'com.github.thelawf'
-version = 'forge-1.16.5-preview-0.0.804'
+version = 'forge-1.16.5-alpha-0.0.805'
 
 repositories {
     maven { url "https://jcenter.bintray.com/" } // 必要！
