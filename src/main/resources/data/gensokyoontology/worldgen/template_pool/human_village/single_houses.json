@@ -21,18 +21,9 @@
       }
     },
     {
-      "weight": 5,
+      "weight": 15,
       "element": {
         "location": "gensokyoontology:human_village/castle",
-        "processors": "minecraft:empty",
-        "projection": "rigid",
-        "element_type": "minecraft:single_pool_element"
-      }
-    },
-    {
-      "weight": 5,
-      "element": {
-        "location": "gensokyoontology:human_village/temple",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"

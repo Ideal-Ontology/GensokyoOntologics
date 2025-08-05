@@ -47,15 +47,9 @@ public class OccultBall extends Item {
         nbt.putBoolean("can_travel_to_gensokyo", true);
         stack.setTag(nbt);
 
-        GSKOUtil.showChatMsg(playerIn, "Click: " + nbt.getBoolean("can_travel_to_gensokyo"), 1);
         if (worldIn.isRemote) return super.onItemRightClick(worldIn, playerIn, handIn);
-
-        GSKOUtil.showChatMsg(playerIn, "Yes", 1);
         if (!nbt.getBoolean("can_travel_to_gensokyo")) return super.onItemRightClick(worldIn, playerIn, handIn);
-
-        GSKOUtil.showChatMsg(playerIn, "Yes1", 1);
         if (playerIn instanceof ServerPlayerEntity) {
-            GSKOUtil.showChatMsg(playerIn, "Yes2", 1);
             nbt.remove("can_travel_to_gensokyo");
             nbt.putBoolean("can_travel_to_gensokyo", false);
             stack.setTag(nbt);

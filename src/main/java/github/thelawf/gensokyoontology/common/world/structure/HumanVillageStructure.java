@@ -89,7 +89,7 @@ public class HumanVillageStructure extends Structure<NoFeatureConfig> {
             // addPieces() Method
             JigsawManager.func_242837_a(dynamicRegistry,
                     new VillageConfig(() -> dynamicRegistry.getRegistry(Registry.JIGSAW_POOL_KEY)
-                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "start_pool")),
+                            .getOrDefault(new ResourceLocation(GensokyoOntology.MODID, "human_village/start_pool")),
                             10), AbstractVillagePiece::new, chunkGenerator, templateManagerIn,
                     pos, this.components, this.rand, false, true);
 

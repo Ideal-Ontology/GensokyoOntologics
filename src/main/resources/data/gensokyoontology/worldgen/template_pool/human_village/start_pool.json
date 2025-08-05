@@ -32,7 +32,7 @@
     {
       "weight": 5,
       "element": {
-        "location": "gensokyoontology:human_village/jeweler_house",
+        "location": "gensokyoontology:human_village/jeweler_normal",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
@@ -51,6 +51,15 @@
       "weight": 5,
       "element": {
         "location": "gensokyoontology:human_village/warehouse",
+        "processors": "minecraft:empty",
+        "projection": "rigid",
+        "element_type": "minecraft:single_pool_element"
+      }
+    },
+    {
+      "weight": 10,
+      "element": {
+        "location": "gensokyoontology:human_village/castle",
         "processors": "minecraft:empty",
         "projection": "rigid",
         "element_type": "minecraft:single_pool_element"
