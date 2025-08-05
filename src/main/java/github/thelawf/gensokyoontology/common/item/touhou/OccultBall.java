@@ -18,6 +18,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -57,7 +58,7 @@ public class OccultBall extends Item {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) playerIn;
             ServerWorld gensokyo = serverWorld.getServer().getWorld(GSKODimensions.GENSOKYO);
-            TeleportHelper.teleport(serverPlayer, gensokyo, playerIn.getPosition());
+            TeleportHelper.teleport(serverPlayer, gensokyo, new BlockPos(0, 64, 0));
 
         }
 

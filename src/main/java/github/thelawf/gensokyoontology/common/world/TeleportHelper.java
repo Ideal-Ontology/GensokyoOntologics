@@ -14,8 +14,10 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.structure.WoodlandMansionPieces;
 import net.minecraft.world.gen.feature.structure.WoodlandMansionStructure;
 import net.minecraft.world.server.ServerWorld;
@@ -24,11 +26,14 @@ import net.minecraftforge.fluids.IFluidBlock;
 import org.apache.logging.log4j.LogManager;
 
 import javax.annotation.Nullable;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.function.Function;
 
 public class TeleportHelper {
     public static void teleport(ServerPlayerEntity player, ServerWorld destination, BlockPos pos) {
-        GSKOUtil.showChatMsg(player, "Can TP: " + canTeleport(player, destination, pos), 1);
+        // Pair<Boolean, BlockPos> pair = findHumanVillage(destination, pos);
+        // if (!pair.getFirst()) return;
+
         if (canTeleport(player, destination, pos)) {
             player.changeDimension(destination, new ITeleporter() {
                 @Override
@@ -82,46 +87,29 @@ public class TeleportHelper {
         BlockState legBlock = destination.getBlockState(pos);
         BlockState standBlock = destination.getBlockState(standPos);
 
-        GSKOUtil.showChatMsg(player, "Eye is " + eyeBlock.getBlock().getTranslatedName().getString(), 1);
-        GSKOUtil.showChatMsg(player, "Leg is " + legBlock.getBlock().getTranslatedName().getString(), 1);
-        GSKOUtil.showChatMsg(player, "Stands " + standBlock.getBlock().getTranslatedName().getString(), 1);
-
         if (eyeBlock.equals(Blocks.AIR.getDefaultState()) && legBlock.equals(Blocks.AIR.getDefaultState())) {
             if (standBlock.getBlock().equals(Blocks.AIR)) {
                 // GSKOUtil.showChatMsg(player, "Pos Valid", 1);
                 // destination.setBlockState(standPos, BlockRegistry.SAKURA_PLANKS.get().getDefaultState());
-                setBlocks(destination, pos);
-                return true;
+                return setBlocks(destination, standPos);
             } else if (standBlock.getBlock() instanceof IFluidBlock) {
                 // destination.setBlockState(standPos, BlockRegistry.SAKURA_PLANKS.get().getDefaultState());
                 // GSKOUtil.showChatMsg(player, "Stand Pos is Fluid", 1);
-                setBlocks(destination, pos);
-                return true;
+                return setBlocks(destination, standPos);
             }
             return true;
         } else {
             if (standBlock.getBlock().equals(Blocks.AIR)) {
-                return clearAndSetBlocks(destination, pos);
+                return clearAndSetBlocks(destination, standPos, pos);
             }
             return clearBlocks(destination, pos);
         }
     }
 
-    private static boolean clearAndSetBlocks(ServerWorld destination, BlockPos pos) {
-        final BlockState air = Blocks.AIR.getDefaultState();
-        final BlockState sakuraPlanks = BlockRegistry.SAKURA_PLANKS.get().getDefaultState();
-        destination.setBlockState(pos, air);
+    private static boolean clearAndSetBlocks(ServerWorld destination, BlockPos standPos, BlockPos legPos) {
+        clearBlocks(destination, legPos);
+        setBlocks(destination, standPos);
 
-        for (int x = 0; x < 3; x++) {
-            for (int z = 0; z < 3; z++) {
-                destination.setBlockState(pos.toMutable().move(x, pos.getY(), z), sakuraPlanks);
-                destination.setBlockState(pos.toMutable().move(-x, pos.getY(), -z), sakuraPlanks);
-                for (int y = 0; y < 3; y++) {
-                    destination.setBlockState(pos.toMutable().move(x, y, z), air);
-                    destination.setBlockState(pos.toMutable().move(-x, y, -z), air);
-                }
-            }
-        }
         return true;
     }
 
@@ -129,11 +117,10 @@ public class TeleportHelper {
         final BlockState air = Blocks.AIR.getDefaultState();
         destination.setBlockState(pos, air);
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 3; j++) {
-                for (int k = 0; k < 3; k++) {
-                    destination.setBlockState(pos.toMutable().move(i, j, k), air);
-                    destination.setBlockState(pos.toMutable().move(-i, j, -k), air);
+        for (int x = -1; x < 1; x++) {
+            for (int z = -1; z < 1; z++) {
+                for (int y = 0; y < 3; y++) {
+                    destination.setBlockState(pos.toMutable().move(x, y, z), air);
                 }
             }
         }
@@ -142,11 +129,9 @@ public class TeleportHelper {
 
     private static boolean setBlocks(ServerWorld destination, BlockPos pos){
         final BlockState sakuraPlanks = BlockRegistry.SAKURA_PLANKS.get().getDefaultState();
-        for (int x = 0; x < 3; x++) {
-            for (int z = 0; z < 3; z++) {
-                destination.setBlockState(pos.toMutable().move(x, pos.getY(), z), sakuraPlanks);
-                destination.setBlockState(pos.toMutable().move(-x, pos.getY(), -z), sakuraPlanks);
-
+        for (int x = -1; x < 1; x++) {
+            for (int z = -1; z < 1; z++) {
+                destination.setBlockState(new BlockPos(pos.getX() + x, pos.getY(), pos.getZ() + z), sakuraPlanks);
             }
         }
         return true;
@@ -173,6 +158,18 @@ public class TeleportHelper {
 
     private static boolean isInSameDimension(RegistryKey<World> departureWorld, RegistryKey<World> destination) {
         return departureWorld == destination;
+    }
+
+    private static Pair<Boolean, BlockPos> findHumanVillage(ServerWorld serverWorld, BlockPos pos){
+        AtomicReference<Pair<Boolean, BlockPos>> pairRef = new AtomicReference<>();
+        pairRef.set(Pair.of(false, null));
+
+        if (serverWorld.getDimensionKey() != GSKODimensions.GENSOKYO) return pairRef.get();
+        serverWorld.getServer().getDynamicRegistries().getRegistry(Registry.BIOME_KEY)
+                .getOptionalValue(GSKOBiomes.HUMAN_VILLAGE_KEY).ifPresent(biome -> {
+                    pairRef.set(Pair.of(true, serverWorld.getBiomeLocation(biome, pos, 6400, 8)));
+                });
+        return pairRef.get();
     }
 
 }
