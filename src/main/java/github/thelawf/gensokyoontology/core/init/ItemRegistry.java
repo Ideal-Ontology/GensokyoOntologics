@@ -388,7 +388,11 @@ public final class ItemRegistry {
             "sorcery_scarlet_mist", () -> new SorceryScarletMist(new Item.Properties()));
 
     // ----------------------------------- 杂项物品 --------------------------------------//
-    public static final RegistryObject<Item> SILVER_COIN = ITEMS.register("silver_coin", () -> new CoinItem(1F));
+    public static final RegistryObject<Item> COPPER_COIN = ITEMS.register("copper_coin", () -> new CoinItem(1));
+    public static final RegistryObject<Item> SILVER_COIN = ITEMS.register("silver_coin", () -> new CoinItem(10));
+    public static final RegistryObject<Item> GOLDEN_COIN = ITEMS.register("golden_coin", () -> new CoinItem(100));
+    public static final RegistryObject<Item> DIAMOND_COIN = ITEMS.register("diamond_coin", () -> new CoinItem(1000));
+    public static final RegistryObject<Item> JADE_COIN = ITEMS.register("jade_coin", () -> new CoinItem(10000));
     public static final RegistryObject<Item> STRAW_MAN = ITEMS.register("straw_man", () -> new Item(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> BAT_SPECIMEN = ITEMS.register("bat_specimen", () -> new Item(

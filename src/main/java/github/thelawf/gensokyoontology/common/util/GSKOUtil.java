@@ -42,6 +42,7 @@ public class GSKOUtil {
                 clientCap -> serverCap.deserializeNBT(clientCap.serializeNBT())));
     }
 
+
     public static void showChatMsg(PlayerEntity player, ITextComponent text, int frequency) {
         if (player.ticksExisted % frequency == 0) {
             player.sendMessage(text, player.getUniqueID());

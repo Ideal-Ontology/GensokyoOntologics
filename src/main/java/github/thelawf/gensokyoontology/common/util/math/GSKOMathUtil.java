@@ -16,6 +16,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -23,6 +24,51 @@ import java.util.Random;
 public class GSKOMathUtil {
 
     private GSKOMathUtil() {
+    }
+
+    public static Color kelvinToRGB(int kelvin) {
+        // 确保色温在有效范围内（1000K - 40000K）
+        int clampedKelvin = Math.min(40000, Math.max(1000, kelvin));
+        double tmp = clampedKelvin / 100.0;
+
+        double red, green, blue;
+
+        // 计算红色分量
+        if (tmp <= 66) {
+            red = 255;
+        } else {
+            double redCalc = tmp - 60;
+            red = 329.698727446 * Math.pow(redCalc, -0.1332047592);
+            red = clamp(red);
+        }
+
+        // 计算绿色分量
+        if (tmp <= 66) {
+            green = 99.4708025861 * Math.log(tmp) - 161.1195681661;
+            green = clamp(green);
+        } else {
+            double greenCalc = tmp - 60;
+            green = 288.1221695283 * Math.pow(greenCalc, -0.0755148492);
+            green = clamp(green);
+        }
+
+        // 计算蓝色分量
+        if (tmp >= 66) {
+            blue = 255;
+        } else if (tmp <= 19) {
+            blue = 0;
+        } else {
+            double blueCalc = tmp - 10;
+            blue = 138.5177312231 * Math.log(blueCalc) - 305.0447927307;
+            blue = clamp(blue);
+        }
+
+        // 四舍五入取整并返回RGB数组
+        return new Color((int) Math.round(red), (int) Math.round(green), (int) Math.round(blue));
+    }
+
+    private static double clamp(double value) {
+        return Math.min(255, Math.max(0, value));
     }
 
     /**

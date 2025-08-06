@@ -158,8 +158,8 @@ public class GSKOEntityEvents {
 
         if (GSKOWorldUtil.isEntityInBiome(player, GSKOBiomes.BAMBOO_FOREST_LOST_KEY)){
             serverWorld.setDayTime(16000);
-            player.sendStatusMessage(GensokyoOntology.translate(
-                    "msg.", ".enter_danger_biome.bamboo"), true);
+            GSKOUtil.showChatMsg(player, "??????", 20);
+            player.sendStatusMessage(GensokyoOntology.translate("msg.", ".enter_danger_biome.bamboo"), true);
         }
     }
 

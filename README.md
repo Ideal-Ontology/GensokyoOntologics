@@ -27,6 +27,10 @@ try to find out the initiator of the incidents.<br><br>
 - Get along with all the beings in Gensokyo though it lasts short.<br>
 
 ## Game Process (Developing)
+- 节分
+- 夏越大祓祭：消除所有负面效果，净化/提升/纯化物品，多用作将初始材料进一步进行加工为中间材料
+- 驱魔/祈福仪式：使用魔法、祈福、舞蹈或吟唱驱动的魔法类物品合成，多为魔法伤害
+- 唐伞妖怪锻造台：强化/合成物品，多用作物理伤害
 ```mermaid
 flowchart LR
     LoginGensokyo-->Mines["玉石（独有）龙珠（独有）"]
