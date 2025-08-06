@@ -109,7 +109,6 @@ public class TeleportHelper {
     private static boolean clearAndSetBlocks(ServerWorld destination, BlockPos standPos, BlockPos legPos) {
         clearBlocks(destination, legPos);
         setBlocks(destination, standPos);
-
         return true;
     }
 
@@ -120,10 +119,12 @@ public class TeleportHelper {
         for (int x = -1; x < 1; x++) {
             for (int z = -1; z < 1; z++) {
                 for (int y = 0; y < 3; y++) {
-                    destination.setBlockState(pos.toMutable().move(x, y, z), air);
+                    destination.setBlockState(new BlockPos(pos.getX() + x, pos.getY() + y, pos.getZ() + z), air);
                 }
             }
         }
+
+        destination.setBlockState(pos, Blocks.TORCH.getDefaultState());
         return true;
     }
 

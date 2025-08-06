@@ -58,7 +58,7 @@ public class OccultBall extends Item {
             ServerWorld serverWorld = (ServerWorld) worldIn;
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) playerIn;
             ServerWorld gensokyo = serverWorld.getServer().getWorld(GSKODimensions.GENSOKYO);
-            TeleportHelper.teleport(serverPlayer, gensokyo, new BlockPos(0, 64, 0));
+            TeleportHelper.teleport(serverPlayer, gensokyo, playerIn.getPosition());
 
         }
 
