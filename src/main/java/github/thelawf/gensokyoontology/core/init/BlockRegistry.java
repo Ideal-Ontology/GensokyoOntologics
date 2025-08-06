@@ -1,9 +1,12 @@
 package github.thelawf.gensokyoontology.core.init;
 
+import com.github.tartaricacid.touhoulittlemaid.init.InitBlocks;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.decoration.*;
 import github.thelawf.gensokyoontology.common.block.decoration.CoasterRailBlock;
+import github.thelawf.gensokyoontology.common.block.multiblock.AltarTableBlock;
+import github.thelawf.gensokyoontology.common.block.multiblock.OnbaishiraBlock;
 import github.thelawf.gensokyoontology.common.block.nature.*;
 import github.thelawf.gensokyoontology.common.block.ore.*;
 import github.thelawf.gensokyoontology.common.world.feature.tree.MagicTree;
@@ -112,6 +115,11 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> GINKGO_LEAVES = BLOCKS.register("ginkgo_leaves", GinkgoLeaves::new);
     public static final RegistryObject<Block> GINKGO_LOG = BLOCKS.register("ginkgo_log", GinkgoLog::new);
 
+    ////////////////////////////////////////// 御神木 //////////////////////////////////////////
+    public static final RegistryObject<Block> SHINBOKU_LEAVES = BLOCKS.register("shinboku_leaves", ShinbokuLeaves::new);
+    public static final RegistryObject<Block> SHINBOKU_LOG = BLOCKS.register("shinboku_log", ShinbokuLog::new);
+    public static final RegistryObject<Block> SHINBOKU_PLANKS = BLOCKS.register("shinboku_planks", ShinbokuPlanks::new);
+
     ////////////////////////////////////////// 红杉木 //////////////////////////////////////////
     public static final RegistryObject<Block> REDWOOD_LEAVES = BLOCKS.register("redwood_leaves", RedwoodLeaves::new);
 
@@ -183,7 +191,17 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
             "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));
 
-    /// 方块实体
+    /// 多方块与方块实体
+    public static final RegistryObject<Block> ONBASHIRA_BLOCK = BLOCKS.register("onbashira", OnbaishiraBlock::new);
+    public static final RegistryObject<Block> ALTAR_TABLE_BLOCK = BLOCKS.register("altar_table", () -> new AltarTableBlock(
+            AbstractBlock.Properties.from(Blocks.SMITHING_TABLE)));
+    public static final RegistryObject<Block> ALTAR_FLOOR_BLOCK = BLOCKS.register("altar_floor", () -> new Block(
+            AbstractBlock.Properties.from(Blocks.QUARTZ_BLOCK)));
+    public static final RegistryObject<Block> ALTAR_STAIRS_BLOCK = BLOCKS.register("altar_stairs", () -> new Block(
+            AbstractBlock.Properties.from(Blocks.QUARTZ_STAIRS)));
+    public static final RegistryObject<Block> SHRINE_LANTERN_BLOCK = BLOCKS.register("shrine_lantern", () -> new Block(
+            AbstractBlock.Properties.from(Blocks.STONE)));
+
     public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register("danmaku_table", DanmakuTableBlock::new);
     public static final RegistryObject<Block> SORCERY_EXTRACTOR = BLOCKS.register("sorcery_extractor", SorceryExtractorBlock::new);
     public static final RegistryObject<Block> DISPOSABLE_SPAWNER = BLOCKS.register("disposable_spawner", DisposableSpawnerBlock::new);
