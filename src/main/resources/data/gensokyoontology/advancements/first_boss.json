@@ -4,10 +4,10 @@
       "item": "gensokyoontology:lily_white_spawn_egg"
     },
     "title": {
-      "translate": "advancement.gensokyoontology.retreat_lilywhite.title"
+      "translate": "advancement.gensokyoontology.first_boss.title"
     },
     "description": {
-      "translate": "advancement.gensokyoontology.retreat_lilywhite.description"
+      "translate": "advancement.gensokyoontology.first_boss.description"
     },
     "background": "gensokyoontology:block/sakura_planks",
     "frame": "task",

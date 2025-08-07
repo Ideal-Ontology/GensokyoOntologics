@@ -15,11 +15,47 @@
     {
       "type": "entity",
       "entity": "gensokyoontology:fairy",
-      "text": "patchouli.gensokyoontology.entity.fairy.notes"
+      "text": "普通妖精"
     },
     {
       "type": "text",
-      "text": "patchouli.gensokyoontology.entity.fairy.introduction"
+      "text": "妖精是幻想乡内无处不在的敌对生物。用弹幕击败妖精的话会随机掉落一些可以发射的弹幕，如果用其它方式消灭则只能获得弹幕之点（用以合成弹幕），有概率掉落残机和Bomb碎片。"
+    },
+    {
+      "type": "entity",
+      "entity": "gensokyoontology:sunflower_fairy",
+      "text": "向日葵妖精"
+    },
+    {
+      "type": "text",
+      "text": "向日葵妖精比普通妖精生命值更高，但是向日葵妖精除了会掉落普通妖精掉落的战利品外，还必然掉落一个P点。"
+    },
+    {
+      "type": "entity",
+      "entity": "gensokyoontology:spectre",
+      "text": "幽灵"
+    },
+    {
+      "type": "text",
+      "text": "幽灵仅是亡灵生物，仅在夜晚刷新，白天会燃烧。消灭后会掉落灵魂碎片，有概率掉落P点。"
+    },
+    {
+      "type": "entity",
+      "entity": "gensokyoontology:kedama",
+      "text": "毛玉"
+    },
+    {
+      "type": "text",
+      "text": "消灭毛玉后会掉落粘液球，有概率掉落残机碎片和Bomb碎片。"
+    },
+    {
+      "type": "entity",
+      "entity": "gensokyoontology:inyo_jade",
+      "text": "阴阳玉"
+    },
+    {
+      "type": "text",
+      "text": "野生的阴阳玉属于敌对生物，消灭后会掉落阴爻或阳爻，是用以合成阴阳玉弹幕以及后期合成勾玉的重要材料。"
     }
   ]
 }

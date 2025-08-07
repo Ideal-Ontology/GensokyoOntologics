@@ -1,0 +1,16 @@
+{
+  "name": "永夏异变",
+  "icon": "gensokyoontology:fairy_spawn_egg",
+  "advancement": "gensokyoontology:retreat_cirno",
+  "category": "task",
+  "pages": [
+    {
+      "type": "text",
+      "text": "黑皮琪露诺掉落的向日葵勋章可是个好东西，用它可以和妖魔书【永无止境的夏天】一起引发永夏异变。"
+    },
+    {
+      "type": "text",
+      "text": "永夏异变：时间固定为正午，天气仅有晴朗和雷暴两种类型，红雾将被永远高悬的烈日驱散，各种树叶将会变为夏日的绿色版本。"
+    }
+  ]
+}

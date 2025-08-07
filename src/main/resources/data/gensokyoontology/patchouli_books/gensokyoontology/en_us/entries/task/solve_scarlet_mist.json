@@ -1,12 +1,24 @@
 {
-  "name": "Petty Mobs And Rewards",
-  "icon": "gensokyoontology:fairy_spawn_egg",
-  "advancement": "gensokyoontology:login_gensokyo",
+  "name": "解决红雾异变",
+  "icon": "gensokyoontology:remilia_spawn_egg",
+  "advancement": "gensokyoontology:first_boss",
   "category": "task",
   "pages": [
     {
       "type": "text",
-      "text": "There are five petty nobs in Gensokyo dimension."
+      "text": "现在，想必你已经有了基本的打怪能力了。是时候向发起红雾异变，以及导致妖精进入主世界的始作俑者发起挑战了！"
+    },
+    {
+      "type": "text",
+      "text": "步骤1. 向灵梦赛钱获得巫女的赐福。博丽灵梦很久之前便研究出了能够抵消红雾窒息效果的赐福仪式，如果向她的赛钱箱里投入64个铜币，她便会为你降下赐福。"
+    },
+    {
+      "type": "text",
+      "text": "步骤2. 消灭蝙蝠制作一个蝙蝠标本，用中立/被动生物的血或灵魂污染它使其变成被诅咒的蝙蝠标本。此时，标本将会复活并将你抓到红魔馆大门口。"
+    },
+    {
+      "type": "text",
+      "text": "步骤3. 进入红魔馆，如果看不到门番说明她睡觉去了。你要去寻找蕾米莉亚的太师椅。她就是红雾异变的主谋，退治她，让她“自愿”解除红雾吧！"
     }
   ]
 }

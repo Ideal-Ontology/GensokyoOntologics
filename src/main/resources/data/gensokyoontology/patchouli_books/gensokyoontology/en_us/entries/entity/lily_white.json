@@ -1,17 +1,26 @@
 {
-  "name": "patchouli.gensokyoontology.entity.lily_white.title",
+  "name": "莉莉白",
   "icon": "gensokyoontology:lily_white_spawn_egg",
   "category": "entity",
   "advancement": "gensokyoontology:login_gensokyo",
   "pages": [
     {
+      "type": "entity",
+      "entity": "gensokyoontology:lily_white",
+      "text": "莉莉白"
+    },
+    {
       "type": "text",
-      "text": "patchouli.gensokyoontology.entity.lily_white.introduction"
+      "text": "刷新条件：莉莉白会在玩家到达满是樱花树的生物群系一段时间后刷新。"
+    },
+    {
+      "type": "text",
+      "text": "退治奖励：退治莉莉白后，玩家将会获得每秒恢复一点生命值的增益效果。掉落物：Bomb/迎春花/樱花花瓣/破碎的符卡【满开樱】"
     },
     {
       "type": "entity",
       "entity": "gensokyoontology:lily_white",
-      "text": "patchouli.gensokyoontology.entity.lily_white.notes"
+      "text": "莉莉白"
     }
   ]
 }

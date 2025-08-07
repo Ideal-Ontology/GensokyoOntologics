@@ -261,6 +261,8 @@
   "advancement.gensokyoontology.root.description": "Get Story Pages Chapter 1.1",
   "advancement.gensokyoontology.login_gensokyo.title": "Love From Gensokyo ♥~",
   "advancement.gensokyoontology.login_gensokyo.description": "Player change to Gensokyo dimension",
+  "advancement.gensokyoontology.first_boss.title": "First Boss",
+  "advancement.gensokyoontology.first_boss.description": "Retreat any of the first 3 bosses",
 
   "advancement.gensokyoontology.gensokyo_traveller.title": "Gensokyo Traveller",
   "advancement.gensokyoontology.gensokyo_traveller.description": "Travelled to All the Biomes in Gensokyo",
