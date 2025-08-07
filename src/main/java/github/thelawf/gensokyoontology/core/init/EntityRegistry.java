@@ -32,6 +32,8 @@ public final class EntityRegistry {
                     .size(0.5F, 0.9F).trackingRange(5).build("cursed_bat"));
 
     // ================================ 怪物 ==================================== //
+    public static final RegistryObject<EntityType<KedamaEntity>> KEDAMA_ENTITY = register(
+            "kedama", KedamaEntity::new, EntityClassification.MONSTER, 1f, 1f, 10, 2);
     public static final RegistryObject<EntityType<InyoJadeMonsterEntity>> INYO_JADE_ENTITY = register(
             "inyo_jade", InyoJadeMonsterEntity::new, EntityClassification.CREATURE, 0.8f, 0.8f, 10, 2);
     public static final RegistryObject<EntityType<FairyEntity>> FAIRY_ENTITY = register(
@@ -59,6 +61,8 @@ public final class EntityRegistry {
                     .setShouldReceiveVelocityUpdates(true).size(0.6f, 1.58f).trackingRange(10).build("remilia_scarlet"));
 
     // =============================== 可驯服的生物 ============================ //
+    public static final RegistryObject<EntityType<RumiaEntity>> RUMIA = register("rumia",
+            RumiaEntity::new, EntityClassification.CREATURE, 06f, 1.5f, 10, 2);
     public static final RegistryObject<EntityType<HakureiReimuEntity>> HAKUREI_REIMU = ENTITIES.register(
             "hakurei_reimu", () -> EntityType.Builder.create(HakureiReimuEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("hakurei_reimu"));

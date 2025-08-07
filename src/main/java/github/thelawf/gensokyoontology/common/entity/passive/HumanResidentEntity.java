@@ -48,7 +48,7 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
 
     public static Gender randomGender(){
         Random random = new Random();
-        return random.nextBoolean() ? Gender.MALE.ordinal() : Gender.FEMALE.ordinal()
+        return random.nextBoolean() ? Gender.MALE : Gender.FEMALE;
     }
 
     public Gender getGender() {
