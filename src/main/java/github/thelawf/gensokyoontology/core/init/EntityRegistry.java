@@ -62,7 +62,7 @@ public final class EntityRegistry {
 
     // =============================== 可驯服的生物 ============================ //
     public static final RegistryObject<EntityType<RumiaEntity>> RUMIA = register("rumia",
-            RumiaEntity::new, EntityClassification.CREATURE, 06f, 1.5f, 10, 2);
+            RumiaEntity::new, EntityClassification.CREATURE, 0.6f, 1.5f, 10, 2);
     public static final RegistryObject<EntityType<HakureiReimuEntity>> HAKUREI_REIMU = ENTITIES.register(
             "hakurei_reimu", () -> EntityType.Builder.create(HakureiReimuEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("hakurei_reimu"));

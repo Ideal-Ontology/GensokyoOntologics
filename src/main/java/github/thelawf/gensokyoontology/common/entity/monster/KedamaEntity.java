@@ -8,6 +8,7 @@ public class KedamaEntity extends SlimeEntity {
 
     public KedamaEntity(EntityType<? extends SlimeEntity> type, World worldIn) {
         super(type, worldIn);
+        this.setSlimeSize(64, true);
     }
 
 }

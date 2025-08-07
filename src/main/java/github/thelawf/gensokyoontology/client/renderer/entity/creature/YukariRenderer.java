@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.client.renderer.entity.creature;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.model.YukairiModel;
+import github.thelawf.gensokyoontology.client.model.monster.YukairiModel;
 import github.thelawf.gensokyoontology.common.entity.YukariEntity;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;

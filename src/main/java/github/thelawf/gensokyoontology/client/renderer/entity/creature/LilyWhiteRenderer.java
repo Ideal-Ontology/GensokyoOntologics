@@ -2,11 +2,9 @@ package github.thelawf.gensokyoontology.client.renderer.entity.creature;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.model.HumanNPCModel;
-import github.thelawf.gensokyoontology.client.model.LilyWhiteModel;
+import github.thelawf.gensokyoontology.client.model.monster.LilyWhiteModel;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.LivingRenderer;
 import net.minecraft.util.ResourceLocation;

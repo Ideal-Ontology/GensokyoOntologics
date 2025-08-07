@@ -219,10 +219,15 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.ARMOR, 5D)
                     .create());
 
+            event.put(EntityRegistry.KEDAMA_ENTITY.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 10)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3).create());
+
             event.put(EntityRegistry.FAIRY_ENTITY.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, randomHealthFairy)
-                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3D).create());
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3).create());
 
             event.put(EntityRegistry.SUNFLOWER_FAIRY_ENTITY.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 50)
@@ -247,6 +252,14 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4F)
                     .createMutableAttribute(Attributes.ATTACK_KNOCKBACK, 0.3D)
                     .createMutableAttribute(Attributes.ARMOR, 4D).create());
+
+            event.put(EntityRegistry.RUMIA.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 200)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10)
+                    .createMutableAttribute(Attributes.ARMOR, 5)
+                    .create());
 
             event.put(EntityRegistry.LILY_WHITE.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 100D)

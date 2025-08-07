@@ -1,9 +1,10 @@
-package github.thelawf.gensokyoontology.client.model;// Made create Blockbench 4.8.3
+package github.thelawf.gensokyoontology.client.model.monster;// Made create Blockbench 4.8.3
 // Exported for Minecraft version 1.15 - 1.16 create Mojang mappings
 // Paste this class into your mod and generate all required imports
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import github.thelawf.gensokyoontology.client.model.GSKOBipedModel;
 import github.thelawf.gensokyoontology.common.entity.monster.SunflowerFairyEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;

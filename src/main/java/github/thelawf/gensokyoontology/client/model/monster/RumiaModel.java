@@ -1,15 +1,16 @@
-package github.thelawf.gensokyoontology.client.model;// Made with Blockbench 4.12.5
+package github.thelawf.gensokyoontology.client.model.monster;// Made with Blockbench 4.12.5
 // Exported for Minecraft version 1.15 - 1.16 with MCP mappings
 // Paste this class into your mod and generate all required imports
 
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import github.thelawf.gensokyoontology.common.entity.monster.RumiaEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class RumiaModel extends EntityModel<Entity> {
+public class RumiaModel extends EntityModel<RumiaEntity> {
 	private final ModelRenderer head;
 	private final ModelRenderer armRight;
 	private final ModelRenderer armLeft;
@@ -77,7 +78,7 @@ public class RumiaModel extends EntityModel<Entity> {
 	}
 
 	@Override
-	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
+	public void setRotationAngles(RumiaEntity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
 		//previously the render function, render code was moved to a method below
 	}
 

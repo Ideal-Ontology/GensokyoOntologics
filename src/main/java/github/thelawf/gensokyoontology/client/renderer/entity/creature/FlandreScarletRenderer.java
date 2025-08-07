@@ -2,14 +2,12 @@ package github.thelawf.gensokyoontology.client.renderer.entity.creature;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.model.FlandreScarletModel;
+import github.thelawf.gensokyoontology.client.model.monster.FlandreScarletModel;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 public class FlandreScarletRenderer extends BipedRenderer<FlandreScarletEntity, FlandreScarletModel> {

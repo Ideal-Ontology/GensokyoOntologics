@@ -1,9 +1,10 @@
-package github.thelawf.gensokyoontology.client.model;
+package github.thelawf.gensokyoontology.client.model.monster;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Iterables;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import github.thelawf.gensokyoontology.client.model.GSKOBipedModel;
 import github.thelawf.gensokyoontology.common.entity.monster.RemiliaScarletEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelHelper;
