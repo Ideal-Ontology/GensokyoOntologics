@@ -1,0 +1,26 @@
+{
+  "name": "露米娅",
+  "icon": "gensokyoontology:spawn_egg",
+  "category": "entity",
+  "advancement": "gensokyoontology:login_gensokyo",
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "gensokyoontology:rumia",
+      "text": "⑩"
+    },
+    {
+      "type": "text",
+      "text": "刷新条件：合成【露米娅的丝带】在夜晚光照 < 7 的方块上召唤。掉落物：空白符卡/残机/黑暗能量球"
+    },
+    {
+      "type": "text",
+      "text": "Boss机制：位于光照条件 < 10 的区域时自身将被黑色球体笼罩处于无敌状态，与黑色球体接触会持续造成伤害。"
+    },
+    {
+      "type": "entity",
+      "entity": "gensokyoontology:lily_white",
+      "text": "⑨"
+    }
+  ]
+}

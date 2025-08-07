@@ -1,0 +1,16 @@
+{
+  "name": "斯卡蕾特家族吸血鬼能力",
+  "icon": "gensokyoontology:remilia_spawn_egg",
+  "advancement": "gensokyoontology:retreat_remilia",
+  "category": "task",
+  "pages": [
+    {
+      "type": "text",
+      "text": "莉莉白掉落的迎春花可以和妖魔书【春意盎然】一起引发春之异变"
+    },
+    {
+      "type": "text",
+      "text": "春之异变：雪块和冰块将会融化，各种树叶将会开花变为春季版本，玩家将会获得20点额外生命值和每秒2.5点自然生命恢复"
+    }
+  ]
+}

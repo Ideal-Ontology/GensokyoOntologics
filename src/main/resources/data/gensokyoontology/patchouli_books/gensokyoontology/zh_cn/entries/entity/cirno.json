@@ -1,0 +1,26 @@
+{
+  "name": "琪露诺",
+  "icon": "gensokyoontology:lily_white_spawn_egg",
+  "category": "entity",
+  "advancement": "gensokyoontology:login_gensokyo",
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "gensokyoontology:lily_white",
+      "text": "⑨"
+    },
+    {
+      "type": "text",
+      "text": "刷新条件：固定刷新在雾之湖畔的冰屋附近。掉落物：琪露诺的冰晶/向日葵勋章（黑皮形态击败）/空白符卡/破碎的符卡【完美冻结】"
+    },
+    {
+      "type": "text",
+      "text": "Boss机制：弹幕附加减速效果，在阳光下暴晒琪露诺5分钟之后她将变为黑皮琪露诺，符卡将同时附加减速和燃烧效果"
+    },
+    {
+      "type": "entity",
+      "entity": "gensokyoontology:lily_white",
+      "text": "⑨"
+    }
+  ]
+}

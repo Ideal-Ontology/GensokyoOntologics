@@ -1,12 +1,12 @@
 {
-  "name": "Petty Mobs And Rewards",
+  "name": "小怪及其奖励",
   "icon": "gensokyoontology:fairy_spawn_egg",
   "advancement": "gensokyoontology:login_gensokyo",
   "category": "task",
   "pages": [
     {
       "type": "text",
-      "text": "There are five petty nobs in Gensokyo dimension."
+      "text": "幻想乡新增了五种杂鱼小怪，分别是：妖精、向日葵妖精、毛玉、幽灵和阴阳玉。它们是玩家在幻想乡生存时获取基础材料的重要来源。可以查看它们在生物实体的对应界面来获取更多信息"
     }
   ]
 }

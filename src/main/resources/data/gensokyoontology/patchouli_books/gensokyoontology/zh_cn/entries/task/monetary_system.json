@@ -1,0 +1,16 @@
+{
+  "name": "幻想乡货币系统",
+  "icon": "gensokyoontology:golden_coin",
+  "advancement": "gensokyoontology:login_gensokyoo",
+  "category": "task",
+  "pages": [
+    {
+      "type": "text",
+      "text": "基本换算机制：1钻石币=10金币=100银币=1000铜币。铜币只能通过最基础的与村民交易获取。"
+    },
+    {
+      "type": "text",
+      "text": "某些幻想乡居民（如灵梦）会收取这些货币来向玩家售出物品或提供增益。"
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "普通Boss",
+  "icon": "gensokyoontology:lilywhite_spawn_egg",
+  "advancement": "gensokyoontology:login_gensokyo",
+  "category": "task",
+  "pages": [
+    {
+      "type": "text",
+      "text": "There are five petty nobs in Gensokyo dimension."
+    }
+  ]
+}

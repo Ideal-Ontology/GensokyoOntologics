@@ -1,0 +1,17 @@
+{
+  "name": "蕾米莉亚·斯卡蕾特",
+  "icon": "gensokyoontology:remilia_spawn_egg",
+  "category": "entity",
+  "advancement": "gensokyoontology:login_gensokyo",
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "gensokyoontology:remilia_scarlet",
+      "text": "蕾米莉亚"
+    },
+    {
+      "type": "text",
+      "text": "刷新条件：固定刷新在红魔馆。掉落物：吸血鬼之血/破碎的符卡【笼中鸟】/破碎的冈戈尼尔/Bomb/空白符卡。退治奖励：红雾不再会造成伤害"
+    }
+  ]
+}
