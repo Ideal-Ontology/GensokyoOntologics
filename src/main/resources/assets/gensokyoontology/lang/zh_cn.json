@@ -643,15 +643,8 @@
   "patchouli.gensokyoontology.category.task.description": "跟随着指引以前往那个世界！",
   "patchouli.gensokyoontology.category.spell_card.description": "符卡介绍",
 
-  "patchouli.gensokyoontology.chapter.intro.title": "总体介绍",
-  "patchouli.gensokyoontology.chapter.introduction_p1": "你好，我是宇佐见堇子，秘封俱乐部的创始人，当你看见这本书的时候，那就意味着我已经迷失在了那个虚构的国度。也许我，我自己，甚至是正在阅读着这段文字的你，不过也同样是这幻想的一员罢了。我能感受到博丽大结界……十分的不稳定，一场异变马上就要到来了。",
-  "patchouli.gensokyoontology.chapter.introduction_p2": "我将自己的能力的一部分转移到了这本书里，这样，当我进入幻想之时，这本书便会出现在这座图书馆。如果我失败了，请带上这本书，本书中残余的能量或许能够帮助到你。我想请求你，帮我找到解决这场异变的办法！",
-
-  "patchouli.gensokyoontology.chapter.chapter_01.title": "第一章：新的异变？",
-  "patchouli.gensokyoontology.chapter_01.content_01": "怪物们会掉落这样的传说，可是为什么呢？",
-
-  "patchouli.gensokyoontology.chapter.gensokyo.title": "章节：幻想入",
-  "patchouli.gensokyoontology.chapter.gensokyo.introduction": "你需要去挖掘伊奘诺物质的矿石，合成魔力提取台，用这个东西提取出末影之眼、被遗忘的传说：神秘珠和管狐那个装满的试管的魔力，合成出神秘珠。",
+  "patchouli.gensokyoontology.chapter.prelude.title": "序章：幻想入",
+  "patchouli.gensokyoontology.chapter.prelude.p1": "你需要去挖掘伊奘诺物质的矿石，合成魔力提取台，用这个东西提取出末影之眼、被遗忘的传说：神秘珠和管狐那个装满的试管的魔力，合成出神秘珠。",
 
   "patchouli.gensokyoontology.chapter.combat.title": "Chapter Combat: How to Get Level Up",
   "patchouli.gensokyoontology.chapter.combat.entity_loot_01": "Fairy Loots",
@@ -724,5 +717,9 @@
 
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Available Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "Preparation $(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "Preparation $(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
+  "patchouli.gensokyoontology.chapter.chapter_01.title": "Chapter 01: Freshmen",
+  "patchouli.gensokyoontology.chapter_01.p1": "You will be teleported to Human Village Biome by Occult Ball. Find the village structures and get started using the resources there.",
+  "patchouli.gensokyoontology.chapter_01.p2": "\"A note you got from a villager\": You want to find out something? Go asking other villagers. Some of them may still hold the map that can lead you to Hakurei Shrine. The miko there will provide the answer you interested.",
+  "patchouli.gensokyoontology.chapter_01.p3": "\"An old poster on the wall\": Toss 64 copper coin in the Saizen Box give you the health bless. Then you can come to the red-sky place."
 }

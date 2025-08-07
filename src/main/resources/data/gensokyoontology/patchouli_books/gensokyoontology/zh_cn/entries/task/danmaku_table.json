@@ -1,0 +1,16 @@
+{
+  "name": "patchouli.gensokyoontology.task.danmaku_table.title",
+  "icon": "gensokyoontology:danmaku_table",
+  "category": "task",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.task.danmaku_table.text"
+    },
+    {
+      "type": "crafting",
+      "recipe": "gensokyoontology:danmaku_table",
+      "text": "patchouli.gensokyoontology.task.danmaku_table.introduction"
+    }
+  ]
+}

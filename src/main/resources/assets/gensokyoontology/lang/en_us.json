@@ -643,15 +643,13 @@
   "patchouli.gensokyoontology.category.task.description": "Follow these rules to go into that dimension!",
   "patchouli.gensokyoontology.category.spell_card.description": "Spell Card Introductions",
 
-  "patchouli.gensokyoontology.chapter.intro.title": "Introduction Overview",
-  "patchouli.gensokyoontology.chapter.introduction_p1": "Hello, my name is Usami Sumireko, the founder of Hifuu Club. When you see this book, that means I have already lost in that fictional dimension. Or otherwise, me, myself, even you who are reading this book is also part of the fiction itself. I can feel that Hakurei Keikkai is... very unstable, something wrong will happen.",
-  "patchouli.gensokyoontology.chapter.introduction_p2": "I have transferred some of my powers to this book in order that it will appear in this library someday when I lost. The rest of my power will be stored in this book for you to use. If I fail, take this book with you, and please, try to find the way out!",
+  "patchouli.gensokyoontology.chapter.prelude.title": "Prelude: Gensokyo",
+  "patchouli.gensokyoontology.chapter.prelude.p1": "",
 
-  "patchouli.gensokyoontology.chapter.chapter_01.title": "Chapter 1: New Crisis",
-  "patchouli.gensokyoontology.chapter_01.content_01": "$(l)\"Signs often appears before the real crisis.\" -- Her voice haunted me even though she is no longer be here. I don't know when did those meme entities come into being in our world, but I know that fighting against with those entities for too long will lost one's ego -- and that is how she left me.$(br) Her eyes turned into jewels which could show the images of those entities on the paper, and I am collecting the loots from those monsters:",
-
-  "patchouli.gensokyoontology.chapter.gensokyo.title": "Chapter Gensokyo: To Step Within",
-  "patchouli.gensokyoontology.chapter.gensokyo.introduction": "Though making a very complete preperation, it still shocks me the first time when I entered gensokyo. The first thing you have to do is to make sure where you are. Different places in gensokyo have different danger level. ",
+  "patchouli.gensokyoontology.chapter.chapter_01.title": "Chapter 01: Freshmen",
+  "patchouli.gensokyoontology.chapter_01.p1": "You will be teleported to Human Village Biome by Occult Ball. Find the village structures and get started using the resources there.",
+  "patchouli.gensokyoontology.chapter_01.p2": "\"A note you got from a villager\": You want to find out something? Go asking other villagers. Some of them may still hold the map that can lead you to Hakurei Shrine. The miko there will provide the answer you interested.",
+  "patchouli.gensokyoontology.chapter_01.p3": "\"An old poster on the wall\": Toss 64 copper coin in the Saizen Box give you the health bless. Then you can come to the red-sky place.",
 
   "patchouli.gensokyoontology.chapter.combat.title": "Chapter Combat: How to Get Level Up",
   "patchouli.gensokyoontology.chapter.combat.entity_loot_01": "Fairy Loots",

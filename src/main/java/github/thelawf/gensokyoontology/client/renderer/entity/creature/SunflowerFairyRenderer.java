@@ -10,8 +10,8 @@ import org.jetbrains.annotations.NotNull;
 
 public class SunflowerFairyRenderer extends MobRenderer<SunflowerFairyEntity, SunflowerFairyModel> {
     public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/entity/sunflower_fairy.png");
-    public SunflowerFairyRenderer(EntityRendererManager renderManagerIn, SunflowerFairyModel entityModelIn, float shadowSizeIn) {
-        super(renderManagerIn, entityModelIn, shadowSizeIn);
+    public SunflowerFairyRenderer(EntityRendererManager renderManagerIn) {
+        super(renderManagerIn, new SunflowerFairyModel(), 0.6f);
     }
 
     @Override

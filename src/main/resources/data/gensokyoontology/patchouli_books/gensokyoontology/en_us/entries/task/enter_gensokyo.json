@@ -1,0 +1,11 @@
+{
+  "name": "How to enter Gensokyo",
+  "icon": "gensokyoontology:inyo_jade_black",
+  "category": "task",
+  "pages": [
+    {
+      "type": "text",
+      "text": ""
+    }
+  ]
+}

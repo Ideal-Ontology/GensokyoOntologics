@@ -1,0 +1,11 @@
+{
+  "name": "patchouli.gensokyoontology.chapter.structure.title",
+  "icon": "gensokyoontology:inyo_jade_red",
+  "category": "chapter",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.chapter.structure.hakurei_shrine"
+    }
+  ]
+}

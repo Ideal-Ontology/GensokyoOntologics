@@ -1,0 +1,16 @@
+{
+  "name": "patchouli.gensokyoontology.item.koishi_eye.title",
+  "icon": "gensokyoontology:koishi_eye_closed",
+  "category": "item",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.item.koishi_eye.text"
+    },
+    {
+      "type": "spotlight",
+      "item": "gensokyoontology:koishi_eye_closed",
+      "text": "patchouli.gensokyoontology.item.koishi_eye.introduction"
+    }
+  ]
+}

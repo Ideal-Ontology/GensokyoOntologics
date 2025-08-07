@@ -1,0 +1,26 @@
+{
+  "name": "patchouli.gensokyoontology.task.ingredients.title",
+  "icon": "gensokyoontology:kuda_gitsune_tube",
+  "category": "task",
+  "pages": [
+    {
+      "type": "text",
+      "text": "patchouli.gensokyoontology.task.ingredients.text"
+    },
+    {
+      "type": "crafting",
+      "recipe": "gensokyoontology:spirit_tube",
+      "text": "patchouli.gensokyoontology.task.soul_tube.usage"
+    },
+    {
+      "type": "spotlight",
+      "item": "gensokyoontology:kuda_gitsune_tube",
+      "text": "patchouli.gensokyoontology.task.kuda_gitsune_tube.usage"
+    },
+    {
+      "type": "spotlight",
+      "item": "gensokyoontology:gitsune_tube_full",
+      "text": "patchouli.gensokyoontology.task.gitsune_tube_full.usage"
+    }
+  ]
+}
