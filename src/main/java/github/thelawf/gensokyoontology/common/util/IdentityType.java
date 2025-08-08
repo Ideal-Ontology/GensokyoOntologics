@@ -26,6 +26,8 @@ public class IdentityType {
     public static final ResourceLocation IDOL = create("idol");
     public static final ResourceLocation MARKET = create("market");
 
+    public static final ResourceLocation DELAY_SPAWN = create("delayed_spawn_tick");
+
     public static ResourceLocation create(String id) {
         return new ResourceLocation(GensokyoOntology.MODID, id);
     }
@@ -33,7 +35,7 @@ public class IdentityType {
         return new ResourceLocation(namespace, id);
     }
 
-    public static Map<ResourceLocation, Float> createIdentityMap() {
+    public static Map<ResourceLocation, Float> createFloatIdMap() {
         return Util.make(() -> {
             Map<ResourceLocation, Float> map = new HashMap<>();
             map.put(NONE, 0f);             // 真实伤害
@@ -46,6 +48,15 @@ public class IdentityType {
 
             map.put(SHINTOISM, 0f);        // 法术强度
             map.put(IDOL, 0f);             // 魔法抗性
+            return map;
+        });
+    }
+
+    public static Map<ResourceLocation, Integer> createIntIdMap(){
+        return Util.make(() -> {
+            Map<ResourceLocation, Integer> map = new HashMap<>();
+            map.put(DELAY_SPAWN, 0);    // 模组内各种生物实体延迟生成的时间，新的延迟生成任务会覆盖上一个任务
+
             return map;
         });
     }

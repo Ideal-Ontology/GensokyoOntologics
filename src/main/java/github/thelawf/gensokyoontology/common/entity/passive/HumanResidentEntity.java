@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.passive;
 
+import github.thelawf.gensokyoontology.common.capability.entity.VillagerOrder;
 import github.thelawf.gensokyoontology.common.entity.trade.GSKOTrades;
 import net.minecraft.command.impl.data.EntityDataAccessor;
 import net.minecraft.entity.AgeableEntity;
@@ -23,6 +24,10 @@ import java.util.Random;
 public class HumanResidentEntity extends AbstractVillagerEntity {
     public static final DataParameter<Integer> DATA_GENDER = EntityDataManager.createKey(HumanResidentEntity.class,
             DataSerializers.VARINT);
+    public static final DataParameter<CompoundNBT> DATA_ORDER = EntityDataManager.createKey(HumanResidentEntity.class,
+            DataSerializers.COMPOUND_NBT);
+
+    public VillagerOrder order;
     public Gender gender;
 
     public HumanResidentEntity(EntityType<? extends AbstractVillagerEntity> type, World worldIn) {
@@ -49,6 +54,15 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
     public static Gender randomGender(){
         Random random = new Random();
         return random.nextBoolean() ? Gender.MALE : Gender.FEMALE;
+    }
+
+    public VillagerOrder getOrder() {
+        return VillagerOrder.decode(this.dataManager.get(DATA_ORDER));
+    }
+
+    public void setOrder(VillagerOrder order) {
+        this.order = order;
+        this.dataManager.set(DATA_ORDER, order.serializeNBT());
     }
 
     public Gender getGender() {

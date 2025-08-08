@@ -14,8 +14,10 @@ import net.minecraft.util.math.vector.Vector3i;
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
+import java.util.stream.Collectors;
 
 public class GSKONBTUtil {
 
@@ -215,6 +217,11 @@ public class GSKONBTUtil {
         return IntNBT.valueOf(0);
     }
 
+    public static ListNBT getListFrom(String key, CompoundNBT parentNBT, NBTType type){
+        if (!parentNBT.contains(key)) return new ListNBT();
+        return parentNBT.getList(key, type.typeByte);
+    }
+
     public static INBT getFromKey(CompoundNBT nbt, String key) {
         if (nbt.get(key) instanceof NumberNBT) {
             return getNumberFromKey(nbt, key);
@@ -343,4 +350,23 @@ public class GSKONBTUtil {
         return nbtList;
     }
 
+    public enum NBTType{
+        END(0),
+        BYTE(1),
+        SHORT(2),
+        INT(3),
+        LONG(4),
+        FLOAT(5),
+        DOUBLE(6),
+        BYTE_ARRAY(7),
+        STRING(8),
+        LIST(9),
+        COMPOUND(10),
+        INT_ARRAY(11);
+        public final int typeByte;
+
+        NBTType(int typeByte) {
+            this.typeByte = typeByte;
+        }
+    }
 }

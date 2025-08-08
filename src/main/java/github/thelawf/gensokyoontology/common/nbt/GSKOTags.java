@@ -3,10 +3,7 @@ package github.thelawf.gensokyoontology.common.nbt;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
-import net.minecraft.tags.BlockTags;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.TagRegistry;
+import net.minecraft.tags.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 
@@ -20,6 +17,10 @@ public class GSKOTags {
         public static final Tags.IOptionalNamedTag<Item> SMALL_SHOTS = makeModTag("danmaku/small_shots");
         public static final Tags.IOptionalNamedTag<Item> HEART_SHOTS = makeModTag("danmaku/heart_shots");
         public static final Tags.IOptionalNamedTag<Item> SMALL_STAR_SHOTS = makeModTag("danmaku/small_star_shots");
+
+        public static final Tags.IOptionalNamedTag<Item> LITERATE = makeModTag("food/literate");
+        public static final Tags.IOptionalNamedTag<Item> PHOTOGENIC = makeModTag("food/photogenic");
+        public static final Tags.IOptionalNamedTag<Item> PHANTASMAGORICAL = makeModTag("food/phantasmagorical");
 
         private static Tags.IOptionalNamedTag<Item> makeForgeTag(String name) {
             return ItemTags.createOptional(new ResourceLocation("forge", name));

@@ -15,7 +15,8 @@ import java.util.Map;
 
 public class IdentityCapabilityProvider implements ICapabilitySerializable<ListNBT> {
     private IdentityCapability capability;
-    private final Map<ResourceLocation, Float> map = IdentityType.createIdentityMap();
+    private final Map<ResourceLocation, Float> floatIdMap = IdentityType.createFloatIdMap();
+    private final Map<ResourceLocation, Integer> intIdMap = IdentityType.createIntIdMap();
 
     public IdentityCapabilityProvider() {
         this.capability = GSKOCapabilities.IDENTITY.getDefaultInstance();
@@ -23,7 +24,7 @@ public class IdentityCapabilityProvider implements ICapabilitySerializable<ListN
 
     public IdentityCapability getOrCreate() {
         if (this.capability == null) {
-            this.capability = new IdentityCapability(map);
+            this.capability = new IdentityCapability(floatIdMap, intIdMap);
         }
         return this.capability;
     }
