@@ -16,8 +16,8 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class HumanVillagerRenderer extends LivingRenderer<HumanResidentEntity, EntityModel<HumanResidentEntity>> {
-    public static final ResourceLocation MALE_TEX = GensokyoOntology.withRL("textures/entiy/human_villager_male.png");
-    public static final ResourceLocation FEMALE_TEX = GensokyoOntology.withRL("textures/entiy/human_villager_female.png");
+    public static final ResourceLocation MALE_TEX = GensokyoOntology.withRL("textures/entity/human_villager_male.png");
+    public static final ResourceLocation FEMALE_TEX = GensokyoOntology.withRL("textures/entity/human_villager_female.png");
     public HumanVillagerRenderer(EntityRendererManager renderManager, HumanrResidentModel model) {
         super(renderManager, model, 0.8f);
     }

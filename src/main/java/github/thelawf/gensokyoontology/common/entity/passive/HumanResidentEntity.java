@@ -27,10 +27,10 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
     public static final DataParameter<CompoundNBT> DATA_ORDER = EntityDataManager.createKey(HumanResidentEntity.class,
             DataSerializers.COMPOUND_NBT);
 
-    public VillagerOrder order;
-    public Gender gender;
+    public VillagerOrder order = new VillagerOrder();
+    public Gender gender = HumanResidentEntity.randomGender();
 
-    public HumanResidentEntity(EntityType<? extends AbstractVillagerEntity> type, World worldIn) {
+    public HumanResidentEntity(EntityType<HumanResidentEntity> type, World worldIn) {
         super(type, worldIn);
         this.gender = randomGender();
     }
@@ -86,7 +86,7 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(DATA_GENDER, this.gender.ordinal());
+        this.dataManager.register(DATA_GENDER, randomGender().ordinal());
     }
 
     @Override
