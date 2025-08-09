@@ -6,7 +6,7 @@ import github.thelawf.gensokyoontology.client.gui.screen.SpellCardConsoleScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.*;
 import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.CommonSetUp;
-import github.thelawf.gensokyoontology.common.particle.GSKOParticleRegistry;
+import github.thelawf.gensokyoontology.client.particle.GSKOParticleRegistry;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.world.surface.GSKOSurfaceBuilders;

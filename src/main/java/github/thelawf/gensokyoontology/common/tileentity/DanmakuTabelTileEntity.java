@@ -79,7 +79,7 @@ public class DanmakuTabelTileEntity extends TileEntity implements ITickableTileE
     }
 
     private ItemStackHandler createItemHandler() {
-        return new ItemStackHandler(29) {
+        return new ItemStackHandler(2) {
             @Override
             protected void onContentsChanged(int slot) {
                 markDirty();
@@ -88,7 +88,7 @@ public class DanmakuTabelTileEntity extends TileEntity implements ITickableTileE
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
 
-                if (slot >= 0 && slot < 25) {
+                if (slot >= 0 && slot < 2) {
                     return stack.getItem() == ItemRegistry.DANMAKU_SHOT.get();
                 }
                 return super.isItemValid(slot, stack);
@@ -96,7 +96,7 @@ public class DanmakuTabelTileEntity extends TileEntity implements ITickableTileE
 
             @Override
             public int getSlotLimit(int slot) {
-                if (slot >= 0 && slot < 25) {
+                if (slot >= 0 && slot < 2) {
                     return 1;
                 } else {
                     return super.getSlotLimit(slot);
@@ -125,14 +125,6 @@ public class DanmakuTabelTileEntity extends TileEntity implements ITickableTileE
     }
 
     public void checkCraft() {
-        // CraftingInventory inv = new CraftingInventory((Container) createContainer(world, pos), 5, 5);
-        // for (int i = 0; i < itemHandler.getSlots(); i++) {
-        //     inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
-        // }
-        // if (world == null) return;
-
-        // Optional<DanmakuRecipe> recipe = world.getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inv, world);
-        // recipe.ifPresent(iRecipe -> craft(world, inv.getSizeInventory()));
 
         markDirty();
     }
@@ -142,8 +134,6 @@ public class DanmakuTabelTileEntity extends TileEntity implements ITickableTileE
             ItemStack itemstack = ItemStack.EMPTY;
             Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inventory, world);
             if (optional.isPresent()) {
-                ICraftingRecipe icraftingrecipe = optional.get();
-                itemstack = icraftingrecipe.getCraftingResult(inventory);
 
             }
             inventoryResult.setInventorySlotContents(0, itemstack);

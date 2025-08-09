@@ -67,6 +67,33 @@ public class GSKOMathUtil {
         return new Color((int) Math.round(red), (int) Math.round(green), (int) Math.round(blue));
     }
 
+    public static String[][] rotateMatrix(String[][] matrix, Direction direction) {
+        // 处理空矩阵情况
+        if (matrix == null || matrix.length == 0 || matrix[0].length == 0) {
+            return new String[0][0];
+        }
+
+
+        int m = matrix.length;    // 原矩阵行数
+        int n = matrix[0].length; // 原矩阵列数
+
+        // 根据旋转次数k执行不同操作
+        switch (direction) {
+            case EAST: // 0度：直接返回副本
+            case UP:
+            case DOWN:
+            default:
+                return copy(matrix);
+            case SOUTH: // 90度：顺时针旋转
+                return rotate90(matrix, m, n);
+            case WEST: // 180度：旋转两次
+                return rotate180(matrix, m, n);
+            case NORTH: // 270度（逆时针90度）
+                return rotate270(matrix, m, n);
+        }
+    }
+
+
     private static double clamp(double value) {
         return Math.min(255, Math.max(0, value));
     }
@@ -654,6 +681,53 @@ public class GSKOMathUtil {
 
     public static boolean isBetween(double num, double min, double max) {
         return num >= min && num < max;
+    }
+
+
+    // 创建矩阵的副本
+    private static String[][] copy(String[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        String[][] newMatrix = new String[m][n];
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                newMatrix[i][j] = matrix[i][j];
+            }
+        }
+        return newMatrix;
+    }
+
+    // 顺时针旋转90度
+    private static String[][] rotate90(String[][] matrix, int m, int n) {
+        String[][] newMatrix = new String[n][m]; // 新矩阵尺寸: n行×m列
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                newMatrix[i][j] = matrix[m - 1 - j][i];
+            }
+        }
+        return newMatrix;
+    }
+
+    // 旋转180度
+    private static String[][] rotate180(String[][] matrix, int m, int n) {
+        String[][] newMatrix = new String[m][n]; // 尺寸不变
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                newMatrix[i][j] = matrix[m - 1 - i][n - 1 - j];
+            }
+        }
+        return newMatrix;
+    }
+
+    // 顺时针旋转270度（等效逆时针90度）
+    private static String[][] rotate270(String[][] matrix, int m, int n) {
+        String[][] newMatrix = new String[n][m]; // 新矩阵尺寸: n行×m列
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                newMatrix[i][j] = matrix[j][n - 1 - i];
+            }
+        }
+        return newMatrix;
     }
 
 }

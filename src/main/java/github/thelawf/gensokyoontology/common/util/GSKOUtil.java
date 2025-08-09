@@ -1,19 +1,28 @@
 package github.thelawf.gensokyoontology.common.util;
 
+import com.google.gson.JsonElement;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.PlayerAdvancements;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraft.network.PacketBuffer;
+import net.minecraft.state.Property;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextComponent;
@@ -23,6 +32,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.common.util.NonNullConsumer;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
@@ -35,6 +45,49 @@ import static github.thelawf.gensokyoontology.GensokyoOntology.LOGGER;
 import static github.thelawf.gensokyoontology.GensokyoOntology.withAffix;
 
 public class GSKOUtil {
+    public static void writeBlockData(PacketBuffer buffer, BlockPos pos, BlockState state){
+        if (pos != null) buffer.writeBlockPos(pos);
+        if (state != null) {
+            // 写入方块的注册名
+            ResourceLocation blockName = ForgeRegistries.BLOCKS.getKey(state.getBlock());
+            if (blockName == null) return;
+
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putString("block", blockName.toString());
+            state.getValues().forEach((property, value) -> nbt.putString(property.getName(), value.toString()));
+            buffer.writeCompoundTag(nbt);
+        }
+    }
+
+    public static void writeBlockData(PacketBuffer buffer, BlockPos pos, Block block){
+        if (pos != null) buffer.writeBlockPos(pos);
+        if (block != null) {
+            // 写入方块的注册名
+            ResourceLocation blockName = ForgeRegistries.BLOCKS.getKey(block.getBlock());
+            if (blockName == null) return;
+
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putString("block", blockName.toString());
+            buffer.writeCompoundTag(nbt);
+        }
+    }
+
+    public static Block readBlockData(PacketBuffer buf) {
+        // 读取方块注册名
+        ResourceLocation blockName = buf.readResourceLocation();
+        Block block = ForgeRegistries.BLOCKS.getValue(blockName);
+
+        if (block == null) {
+            return Blocks.AIR;
+        }
+        return block;
+    }
+
+    public static Block readBlockFromJson(JsonElement blockElement) {
+        // 读取方块注册名
+        return ForgeRegistries.BLOCKS.getValue(ResourceLocation.tryCreate(blockElement.getAsString()));
+    }
+
     public static <N extends INBT, T extends INBTSerializable<N>> void syncWorldCapability(@NotNull ClientWorld clientWorld, @NotNull ServerWorld serverWorld, Capability<T> capability){
         clientWorld.getCapability(capability).ifPresent(clientCap -> serverWorld.getCapability(capability).ifPresent(
                 serverCap -> clientCap.deserializeNBT(serverCap.serializeNBT())));

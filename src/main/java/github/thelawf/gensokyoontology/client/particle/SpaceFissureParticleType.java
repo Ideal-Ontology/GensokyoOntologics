@@ -1,7 +1,6 @@
-package github.thelawf.gensokyoontology.common.particle;
+package github.thelawf.gensokyoontology.client.particle;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -12,7 +11,6 @@ public class SpaceFissureParticleType extends ParticleType<SpaceFissureParticleD
 
     private static final boolean ALWAYS_SHOW = true;
 
-    @SuppressWarnings("deprecation")
     public SpaceFissureParticleType() {
         super(ALWAYS_SHOW, SpaceFissureParticleData.DESERIALIZER);
     }

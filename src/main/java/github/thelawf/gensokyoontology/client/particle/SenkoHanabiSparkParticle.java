@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.particle;
+package github.thelawf.gensokyoontology.client.particle;
 
 import net.minecraft.client.particle.IParticleRenderType;
 import net.minecraft.client.particle.SpriteTexturedParticle;

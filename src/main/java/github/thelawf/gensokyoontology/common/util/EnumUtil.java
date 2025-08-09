@@ -1,5 +1,8 @@
 package github.thelawf.gensokyoontology.common.util;
 
+import java.util.function.Consumer;
+import java.util.function.Function;
+
 public class EnumUtil {
     public static <T extends Enum<T>> T switchEnum(Class<T> enumClass, T value) {
         T[] values = enumClass.getEnumConstants();
@@ -18,4 +21,11 @@ public class EnumUtil {
         }
         return values[targetIndex];
     }
+
+    public static <T extends Enum<T>> void forEachAct(Class<T> enumClass, Consumer<T> action){
+        for (T enumConst : enumClass.getEnumConstants()) {
+            action.accept(enumConst);
+        }
+    }
+
 }

@@ -99,7 +99,7 @@ public class DanmakuUtil {
 
 
     public static void applyOperation(ArrayList<VectorOperations> operations, TransformFunction function, Vector3d prevVec) {
-        // operations.forEach(operation -> getTransform(operation, function, prevVec));
+        // operations.forEachAct(operation -> getTransform(operation, function, prevVec));
     }
 
     public static Vector3d getTransform(VectorOperations operation, TransformFunction function, Vector3d prevVec) {
@@ -203,7 +203,7 @@ public class DanmakuUtil {
                                                                            double radius, double count, double size, int density) {
         // List<Vector3d> roseLinePos = getRoseLinePos(radius, count, size, density);
         // List<Vector2f> shootVectors = new ArrayList<>();
-        // roseLinePos.forEach(vector3d -> shootVectors.add(GSKOMathUtil.getEulerAngle(new Vector3d(Vector3f.ZP), vector3d)));
+        // roseLinePos.forEachAct(vector3d -> shootVectors.add(GSKOMathUtil.getEulerAngle(new Vector3d(Vector3f.ZP), vector3d)));
     }
 
     /**

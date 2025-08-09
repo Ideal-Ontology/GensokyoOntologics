@@ -64,9 +64,9 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceRead
 
             serverWorld.getEntities()
                     .filter(entity -> canAttack.test(entity) && this.isIntersecting(start1, end1, entity.getBoundingBox()))
-                    .forEach(entity -> entity.attackEntityFrom(GSKODamageSource.LASER, 15F));
+                    .forEachAct(entity -> entity.attackEntityFrom(GSKODamageSource.LASER, 15F));
 
-            // this.getEntityInCylinder(this.world, this, canAttack, start1, end1, DISTANCE, 3).forEach(
+            // this.getEntityInCylinder(this.world, this, canAttack, start1, end1, DISTANCE, 3).forEachAct(
             //         entity -> entity.attackEntityFrom(GSKODamageSource.LASER, 15F));
         }
          */

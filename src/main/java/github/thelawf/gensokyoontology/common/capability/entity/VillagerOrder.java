@@ -118,7 +118,7 @@ public class VillagerOrder implements IVillagerOrder {
             });
         }
 
-        // this.favouriteTags.replaceAll(tag -> listNBT.forEach(nbt -> ItemStack.read(nbt)));
+        // this.favouriteTags.replaceAll(tag -> listNBT.forEachAct(nbt -> ItemStack.read(nbt)));
     }
 
     public static VillagerOrder decode(CompoundNBT nbt){

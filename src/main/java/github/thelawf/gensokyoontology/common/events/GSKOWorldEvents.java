@@ -238,7 +238,7 @@ public class GSKOWorldEvents {
                 int minCount = 3;
                 int maxCount = 8;
 
-                // entityTypes.forEach(entityType -> biome.getMobSpawnInfo().getSpawners(classification)
+                // entityTypes.forEachAct(entityType -> biome.getMobSpawnInfo().getSpawners(classification)
                 //         .add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(),
                 //                 weight, minCount, maxCount)));
             }

@@ -9,11 +9,13 @@ import net.minecraft.block.SoundType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -51,9 +53,9 @@ public class DanmakuTableBlock extends Block {
                 DanmakuTabelTileEntity.CONTAINER_NAME);
     }
 
-    // @Nullable
-    // @Override
-    // public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-    //     return new DanmakuTabelTileEntity();
-    // }
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
+        return new DanmakuTabelTileEntity();
+    }
 }

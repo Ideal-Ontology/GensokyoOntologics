@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.particle;
+package github.thelawf.gensokyoontology.client.particle;
 
 
 import net.minecraft.client.particle.*;
@@ -14,7 +14,7 @@ public class SpaceFissureParticle extends SpriteTexturedParticle {
     protected SpaceFissureParticle(ClientWorld world, double x, double y, double z, Vector3d speed, Color color, float diameter, IAnimatedSprite spriteWithAge) {
         super(world, x, y, z);
         this.spriteWithAge = spriteWithAge;
-        this.particleScale = 1.0F - (float) diameter * 0.5F;
+        this.particleScale = 1.0F - diameter * 0.5F;
     }
 
     public int getBrightnessForRender(float partialTick) {
@@ -42,10 +42,6 @@ public class SpaceFissureParticle extends SpriteTexturedParticle {
 
         public Factory(IAnimatedSprite spriteSet) {
             this.spriteSet = spriteSet;
-        }
-
-        private Factory() {
-            throw new UnsupportedOperationException("Use the SpaceFissureParticle.Factory(IAnimatedSprite sprite) constructor");
         }
 
         @Nullable

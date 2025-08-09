@@ -1,6 +1,5 @@
-package github.thelawf.gensokyoontology.common.particle;
+package github.thelawf.gensokyoontology.client.particle;
 
-/*
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.network.PacketBuffer;
@@ -13,28 +12,23 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.Locale;
 
-public class HotSpringSteamData implements IParticleData {
+public class SpaceFissureParticleData implements IParticleData {
 
     private final Vector3d speed;
     private final Color color;
     private final float diameter;
 
-    public static final HotSpringSteamData HOT_SPRING_STEAM =
-            new HotSpringSteamData(new Vector3d(0.1D,.0D,0.1F),
-                    Color.WHITE,0.8F);
-
-    public HotSpringSteamData(Vector3d speed, Color color, float diameter) {
+    public SpaceFissureParticleData(Vector3d speed, Color color, float diameter) {
         this.speed = speed;
         this.color = color;
         this.diameter = diameter;
     }
 
-
     @SuppressWarnings("deprecation")
-    public static final IDeserializer<HotSpringSteamData> DESERIALIZER = new IDeserializer<HotSpringSteamData>() {
+    public static final IDeserializer<SpaceFissureParticleData> DESERIALIZER = new IDeserializer<SpaceFissureParticleData>() {
         @Override
         @Nonnull
-        public HotSpringSteamData deserialize(@Nonnull ParticleType<HotSpringSteamData> particleTypeIn, StringReader reader) throws CommandSyntaxException {
+        public SpaceFissureParticleData deserialize(@Nonnull ParticleType<SpaceFissureParticleData> particleTypeIn, StringReader reader) throws CommandSyntaxException {
             final int MIN_COLOUR = 0;
             final int MAX_COLOUR = 255;
             reader.expect(' ');
@@ -53,13 +47,12 @@ public class HotSpringSteamData implements IParticleData {
             int alpha = MathHelper.clamp(reader.readInt(), 1, MAX_COLOUR);
             reader.expect(' ');
             float diameter = reader.readFloat();
-            return new HotSpringSteamData(new Vector3d(speedX, speedY, speedZ), new Color(red, green, blue, alpha), diameter);
-
+            return new SpaceFissureParticleData(new Vector3d(speedX, speedY, speedZ), new Color(red, green, blue, alpha), diameter);
         }
 
         @Override
         @Nonnull
-        public HotSpringSteamData read(@Nonnull ParticleType<HotSpringSteamData> particleTypeIn, PacketBuffer buffer) {
+        public SpaceFissureParticleData read(ParticleType<SpaceFissureParticleData> particleTypeIn, PacketBuffer buffer) {
             final int MIN_COLOUR = 0;
             final int MAX_COLOUR = 255;
             double speedX = buffer.readDouble();
@@ -70,20 +63,9 @@ public class HotSpringSteamData implements IParticleData {
             int blue = MathHelper.clamp(buffer.readInt(), MIN_COLOUR, MAX_COLOUR);
             int alpha = MathHelper.clamp(buffer.readInt(), 1, MAX_COLOUR);
             float diameter = buffer.readFloat();
-            return new HotSpringSteamData(new Vector3d(speedX, speedY, speedZ), new Color(red, green, blue, alpha), diameter);
+            return new SpaceFissureParticleData(new Vector3d(speedX, speedY, speedZ), new Color(red, green, blue, alpha), diameter);
         }
     };
-
-
-    @Override
-    public HotSpringSteamData getType() {
-        return this;
-    }
-
-    @Override
-    public ParticleType<?> getType() {
-        return null;
-    }
 
     @Override
     public void write(PacketBuffer buffer) {
@@ -100,12 +82,18 @@ public class HotSpringSteamData implements IParticleData {
     @Override
     @Nonnull
     public String getParameters() {
-        return String.format(Locale.ROOT, "%s %.2f %d %d %d %d %.2g %.2g %.2g",
+        return String.format(Locale.ROOT, "%s %.2f %d %d %d %d %.2f %.2f %.2f",
                 this.getType().getRegistryName(), diameter, color.getRed(), color.getGreen(),
                 color.getBlue(), color.getAlpha(), speed.getX(), speed.getY(), speed.getZ());
     }
 
-    public Vector3d getSpeed(){
+    @Override
+    @Nonnull
+    public ParticleType<?> getType() {
+        return GSKOParticleRegistry.SPACE_FISSURE.get();
+    }
+
+    public Vector3d getSpeed() {
         return speed;
     }
 
@@ -116,6 +104,4 @@ public class HotSpringSteamData implements IParticleData {
     public float getDiameter() {
         return diameter;
     }
-
 }
-*/

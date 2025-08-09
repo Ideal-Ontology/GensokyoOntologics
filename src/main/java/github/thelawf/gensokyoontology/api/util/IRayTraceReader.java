@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.api.util;
 
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.common.util.block.BlockStateData;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -10,6 +12,7 @@ import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import org.graalvm.compiler.nodes.cfg.Block;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
@@ -21,36 +24,6 @@ import java.util.stream.Collectors;
 import static github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil.toDegree;
 
 public interface IRayTraceReader {
-
-    default List<List<AxisAlignedBB>> getRayTraceBox(Vector3d globalPos, Vector3d rayDirection, int length, float size) {
-        List<List<AxisAlignedBB>> boxes = new ArrayList<>();
-        List<AxisAlignedBB> aabb = new ArrayList<>();
-        for (int i = 0; i < 50; i++) {
-
-            Vector3d posRow = new Vector3d(rayDirection.x > 0 ? Vector3f.XP : Vector3f.XN);
-            Vector3d posColumn = new Vector3d(rayDirection.z > 0 ? Vector3f.ZP : Vector3f.ZN);
-            Vector3d posVertical = new Vector3d(rayDirection.y > 0 ? Vector3f.YP : Vector3f.YN);
-
-            Vector3d rayPos = globalPos.add(rayDirection);
-
-            AxisAlignedBB aabb0 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos),
-                    GSKOMathUtil.vecCeil(rayPos));
-            AxisAlignedBB aabb1 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos.add(posRow)),
-                    GSKOMathUtil.vecCeil(rayPos.add(posRow)));
-            AxisAlignedBB aabb2 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos.add(posColumn)),
-                    GSKOMathUtil.vecCeil(rayPos.add(posColumn)));
-            AxisAlignedBB aabb3 = new AxisAlignedBB(GSKOMathUtil.vecFloor(rayPos.add(posVertical)),
-                    GSKOMathUtil.vecCeil(rayPos.add(posVertical)));
-
-            aabb.add(aabb0.grow(size));
-            aabb.add(aabb1.grow(size));
-            aabb.add(aabb2.grow(size));
-            aabb.add(aabb3.grow(size));
-
-            boxes.add(aabb);
-        }
-        return boxes;
-    }
 
     default AxisAlignedBB createCubeBox(Vector3d pos, int radius) {
         return new AxisAlignedBB(pos.subtract(new Vector3d(radius, radius, radius)), pos.add(new Vector3d(radius, radius, radius)));
@@ -116,63 +89,12 @@ public interface IRayTraceReader {
                 new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
     }
 
-    /**
-     * 计算线段与方形碰撞箱是否相交的检测函数。
-     *
-     * @param start     线段起点
-     * @param direction 玩家视线看向的方向
-     * @param distance  向玩家视线方向延伸的长度
-     * @param aabb      碰撞箱
-     * @return 是否相交
-     */
-    default boolean isIntersecting(Vector3d start, Vector3d direction, double distance, AxisAlignedBB aabb) {
-        return isIntersecting(start, start.add(direction).scale(distance),
-                new Vector3d(aabb.minX, aabb.minY, aabb.minZ),
-                new Vector3d(aabb.maxX, aabb.maxY, aabb.maxZ));
-    }
 
-    default List<Entity> getEntityIntersecting(World world, Entity source, Predicate<Entity> predicate,
-                                               Vector3d start, Vector3d end, float radius) {
-        AxisAlignedBB aabb = source.getBoundingBox().grow(radius);
-        return world.getEntitiesWithinAABB(source.getClass(), aabb).stream()
-                .filter(entity -> isIntersecting(start, end, entity.getBoundingBox().offset(0, -1, 0)) && predicate.test(entity))
-                .collect(Collectors.toList());
-    }
-
-    default List<Entity> getEntityInCylinder(World world, Entity source, Predicate<Entity> predicate,
-                                               Vector3d start, Vector3d end, double radius, double height) {
-        AxisAlignedBB aabb = source.getBoundingBox().grow(radius);
-        return getEntityWithinSphere(world, Entity.class, aabb, (float) start.distanceTo(end)).stream()
-                .filter(entity -> isEntityInCylinder(entity, source.getPositionVec(), source.getLookVec(), radius, height) && predicate.test(entity))
-                .collect(Collectors.toList());
-    }
-
-    default boolean isEntityInCylinder(Entity entity, Vector3d center, Vector3d direction, double radius, double height) {
-        // 将方向单位化
-        direction = direction.normalize();
-
-        // 获取实体的碰撞箱中心
-        AxisAlignedBB aabb = entity.getBoundingBox();
-        Vector3d entityCenter = aabb.getCenter();
-
-        // 计算玩家视角方向上的圆柱顶点
-        Vector3d cylinderTop = center.add(direction.scale(height));
-
-        // 投影实体中心到圆柱轴上的点（圆柱底面圆心到顶点形成的直线）
-        Vector3d projection = center.add(direction.scale(entityCenter.subtract(center).dotProduct(direction)));
-
-        // 计算实体中心到圆柱轴的距离
-        double distance = entityCenter.subtract(projection).length();
-
-        // 检查距离是否在圆柱半径内
-        if (distance > radius) {
-            return false; // 距离大于半径，实体不在圆柱范围内
-        }
-
-        // 检查投影点是否在圆柱的高度范围内
-        double projectionHeight = projection.subtract(center).dotProduct(direction);
-        return !(projectionHeight < 0) && !(projectionHeight > height); // 超出高度范围
-
+    default BlockState rayTraceBlock(World world, Entity originEntity, float radius, Vector3d offset){
+        Vector3d start = originEntity.getEyePosition(0f).add(offset);
+        Vector3d end = originEntity.getLookVec().normalize().scale(radius).add(start);
+        BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, originEntity));
+        return world.getBlockState(btr.getPos());
     }
 
     default List<Entity> rayTrace(World world, Entity originEntity, float radius, Vector3d offset){
@@ -220,6 +142,8 @@ public interface IRayTraceReader {
         }
         return Optional.empty();
     }
+
+
 
     default Vector3d getIntersectedPos(Vector3d start, Vector3d end, AxisAlignedBB aabb) {
         return getIntersectedPos(start, end,
