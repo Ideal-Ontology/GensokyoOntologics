@@ -216,10 +216,6 @@ public class GSKOUtil {
         return false;
     }
 
-    public static RegistryKey<World> getDimension(PlayerEntity player) {
-        return player.getEntityWorld().getDimensionKey();
-    }
-
     public static <T> void runIfCapPresent(Entity entity, Capability<T> capability, NonNullConsumer<T> consumer) {
         entity.getCapability(capability).ifPresent(consumer);
     }
