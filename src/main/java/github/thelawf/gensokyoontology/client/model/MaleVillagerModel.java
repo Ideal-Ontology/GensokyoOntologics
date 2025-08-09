@@ -6,11 +6,12 @@ package github.thelawf.gensokyoontology.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class MaleVillagerModel extends EntityModel<Entity> {
+public class MaleVillagerModel extends HumanrResidentModel {
 	private final ModelRenderer head;
 	private final ModelRenderer blink;
 	private final ModelRenderer armRight;
@@ -55,11 +56,6 @@ public class MaleVillagerModel extends EntityModel<Entity> {
 		legRight = new ModelRenderer(this);
 		legRight.setRotationPoint(-2.0F, 15.0F, 0.0F);
 		legRight.setTextureOffset(32, 36).addBox(-1.499F, 2.0F, -1.5F, 3.0F, 7.0F, 3.0F, 0.0F, false);
-	}
-
-	@Override
-	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
-		//previously the render function, render code was moved to a method below
 	}
 
 	@Override

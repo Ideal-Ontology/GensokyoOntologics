@@ -9,7 +9,7 @@ import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
 
-public class FemaleVillagerModel extends EntityModel<Entity> {
+public class FemaleVillagerModel extends HumanrResidentModel {
 	private final ModelRenderer ponytail;
 	private final ModelRenderer hair;
 	private final ModelRenderer hairLeft_r1;
@@ -119,11 +119,6 @@ public class FemaleVillagerModel extends EntityModel<Entity> {
 		hairTie.addChild(tail_r1);
 		setRotationAngle(tail_r1, 0.1745F, 0.0F, 0.0F);
 		tail_r1.setTextureOffset(44, 48).addBox(-1.0F, -3.0F, -1.0F, 2.0F, 7.0F, 2.0F, 0.0F, false);
-	}
-
-	@Override
-	public void setRotationAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch){
-		//previously the render function, render code was moved to a method below
 	}
 
 	@Override

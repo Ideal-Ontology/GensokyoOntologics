@@ -1,8 +1,11 @@
 package github.thelawf.gensokyoontology.common.world.structure;
 
+import com.google.common.collect.ImmutableList;
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +15,7 @@ import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.GenerationStage;
@@ -22,8 +26,12 @@ import net.minecraft.world.gen.feature.structure.*;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.List;
+
 public class HumanVillageStructure extends Structure<NoFeatureConfig> {
 
+    private static final ImmutableList<MobSpawnInfo.Spawners> HUMAN_RESIDENTS = ImmutableList.of(
+            new MobSpawnInfo.Spawners(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), 50, 8, 15));
 
     public HumanVillageStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
@@ -35,6 +43,10 @@ public class HumanVillageStructure extends Structure<NoFeatureConfig> {
         return GenerationStage.Decoration.SURFACE_STRUCTURES;
     }
 
+    @Override
+    public List<MobSpawnInfo.Spawners> getSpawnList() {
+        return HUMAN_RESIDENTS;
+    }
 
     @Override
     @NotNull

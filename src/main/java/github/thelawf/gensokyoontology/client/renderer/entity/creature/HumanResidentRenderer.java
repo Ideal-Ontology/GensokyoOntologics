@@ -13,6 +13,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
+@Deprecated
 @OnlyIn(Dist.CLIENT)
 public class HumanResidentRenderer extends LivingRenderer<HumanResidentEntity, BipedModel<HumanResidentEntity>> {
 

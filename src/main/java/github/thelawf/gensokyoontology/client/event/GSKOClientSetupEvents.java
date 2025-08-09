@@ -1,6 +1,9 @@
 package github.thelawf.gensokyoontology.client.event;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.client.model.FemaleVillagerModel;
+import github.thelawf.gensokyoontology.client.model.MaleVillagerModel;
+import github.thelawf.gensokyoontology.client.model.MasterSparkModel;
 import github.thelawf.gensokyoontology.client.renderer.GSKODimensionRenderInfo;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.*;
@@ -112,8 +115,12 @@ public class GSKOClientSetupEvents {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // =========================== 人形生物的渲染器 ========================= //
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RUMIA.get(), RumiaRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(),
+                manager -> new HumanVillagerRenderer(manager, new FemaleVillagerModel()));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(),
+                manager -> new HumanVillagerRenderer(manager, new MaleVillagerModel()));
 
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RUMIA.get(), RumiaRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAIRY_ENTITY.get(), FairyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SUNFLOWER_FAIRY_ENTITY.get(), SunflowerFairyRenderer::new);
 
@@ -131,7 +138,7 @@ public class GSKOClientSetupEvents {
 
         // ======================== 中立/被动实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.TSUMI_BUKURO_ENTITY.get(), TsumiBukuroRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), HumanResidentRenderer::new);
+        // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), HumanResidentRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CURSED_BAT.get(), BatRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HANIWA.get(), HaniwaRenderer::new);
 
