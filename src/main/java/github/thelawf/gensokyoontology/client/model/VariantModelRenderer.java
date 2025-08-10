@@ -1,9 +1,9 @@
 package github.thelawf.gensokyoontology.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.EntityModel;
@@ -13,7 +13,6 @@ import net.minecraft.entity.Pose;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerModelPart;
 import net.minecraft.util.Direction;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.TextFormatting;
@@ -30,7 +29,21 @@ public abstract class VariantModelRenderer<E extends Entity> extends EntityRende
         this.models = Arrays.asList(models);
     }
 
-    public abstract EntityModel<E> getEntityModel(E entity);
+    public abstract <M extends EntityModel<?>> M getEntityModel(E entity);
+
+
+    protected void invokeLivingRenderer(LivingEntity entityIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, float partialTicks, float packedLightIn) {
+        EntityModel<E> entityModel = this.getEntityModel((E) entityIn);
+        float f = MathHelper.interpolateAngle(partialTicks, entityIn.prevRenderYawOffset, entityIn.renderYawOffset);
+        float f1 = MathHelper.interpolateAngle(partialTicks, entityIn.prevRotationYawHead, entityIn.rotationYawHead);
+        float f6 = MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch);
+        float f2 = f1 - f;
+        boolean shouldSit = entityIn.isPassenger() && (entityIn.getRidingEntity() != null && entityIn.getRidingEntity().shouldRiderSit());
+
+        this.renderHeadRot(entityIn, matrixStackIn, partialTicks, f, f1, f2, shouldSit);
+        this.renderLimbSwingAndGlow(entityIn, entityModel, matrixStackIn, partialTicks, f, f2, f6, shouldSit);
+
+    }
 
     protected void applyRotations(LivingEntity entityLiving, MatrixStack matrixStackIn, float ageInTicks, float rotationYaw, float partialTicks) {
         if (this.func_230495_a_(entityLiving)) {
@@ -110,7 +123,7 @@ public abstract class VariantModelRenderer<E extends Entity> extends EntityRende
         }
     }
 
-    protected void renderHeadRot(HumanResidentEntity entityIn, MatrixStack matrixStackIn, float partialTicks, float f, float f1, float f2, boolean shouldSit){
+    protected void renderHeadRot(LivingEntity entityIn, MatrixStack matrixStackIn, float partialTicks, float f, float f1, float f2, boolean shouldSit){
 
         if (shouldSit && entityIn.getRidingEntity() instanceof LivingEntity) {
             LivingEntity livingentity = (LivingEntity)entityIn.getRidingEntity();
@@ -143,7 +156,7 @@ public abstract class VariantModelRenderer<E extends Entity> extends EntityRende
         }
     }
 
-    protected void renderLimbSwingAndGlow(HumanResidentEntity entityIn, HumanrResidentModel entityModel, MatrixStack matrixStackIn, float partialTicks, float f, float f2, float f6, boolean shouldSit){
+    protected void renderLimbSwingAndGlow(LivingEntity entityIn, EntityModel<E> entityModel, MatrixStack matrixStackIn, float partialTicks, float f, float f2, float f6, boolean shouldSit){
         float f7 = this.handleRotationFloat(entityIn, partialTicks);
         this.applyRotations(entityIn, matrixStackIn, f7, f, partialTicks);
         matrixStackIn.scale(-1.0F, -1.0F, 1.0F);
@@ -161,11 +174,12 @@ public abstract class VariantModelRenderer<E extends Entity> extends EntityRende
                 f8 = 1.0F;
             }
         }
-        entityModel.setLivingAnimations(entityIn, f5, f8, partialTicks);
-        entityModel.setRotationAngles(entityIn, f5, f8, f7, f2, f6);
+        entityModel.setLivingAnimations((E) entityIn, f5, f8, partialTicks);
+        entityModel.setRotationAngles((E) entityIn, f5, f8, f7, f2, f6);
         Minecraft minecraft = Minecraft.getInstance();
         boolean isVisible = !entityIn.isInvisible();
         boolean flag1 = !isVisible && !entityIn.isInvisibleToPlayer(minecraft.player);
         boolean flag2 = minecraft.isEntityGlowing(entityIn);
     }
+
 }

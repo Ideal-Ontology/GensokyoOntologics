@@ -24,14 +24,14 @@ public class ByteInfo {
     }
 
     public static byte[] asByteArray(int intData) {
-        var buf = ByteBuffer.allocate(4);
+        ByteBuffer buf = ByteBuffer.allocate(4);
         buf.order(ByteOrder.LITTLE_ENDIAN);
         buf.putInt(intData);
         return buf.array();
     }
 
     public static byte[] asByteArray(float floatData) {
-        var buf = ByteBuffer.allocate(4);
+        ByteBuffer buf = ByteBuffer.allocate(4);
         buf.order(ByteOrder.LITTLE_ENDIAN);
         buf.putFloat(floatData);
         return buf.array();
@@ -66,7 +66,7 @@ public class ByteInfo {
 
 
     public long asLong() {
-        var buf = ByteBuffer.wrap(this.value);
+        ByteBuffer buf = ByteBuffer.wrap(this.value);
         return buf.flip().getLong();
     }
 
@@ -95,7 +95,7 @@ public class ByteInfo {
     }
 
     public void increment(){
-        var i = this.asInt();
+        int i = this.asInt();
         this.setValue(++i);
     }
 
