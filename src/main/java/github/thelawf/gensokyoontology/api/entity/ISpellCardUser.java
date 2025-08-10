@@ -1,12 +1,9 @@
 package github.thelawf.gensokyoontology.api.entity;
 
-import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import net.minecraft.entity.Entity;
-
-import java.util.function.Predicate;
+import github.thelawf.gensokyoontology.common.entity.spellcard.AbstractSpellCardEntity;
 
 public interface ISpellCardUser {
 
-    void spellCardAttack(SpellCardEntity spellCard, int ticksIn);
-    // void spellCardAttack(SpellCardEntity spellCard);
+    void spellCardAttack(AbstractSpellCardEntity spellCard, int ticksIn);
+    // void spellCardAttack(AbstractSpellCardEntity spellCard);
 }

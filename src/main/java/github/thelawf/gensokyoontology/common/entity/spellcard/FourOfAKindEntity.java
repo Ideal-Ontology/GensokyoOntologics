@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
-import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
@@ -10,7 +9,6 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -18,12 +16,9 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-
-public class FourOfAKindEntity extends SpellCardEntity {
+public class FourOfAKindEntity extends AbstractSpellCardEntity {
 
     private int userIndex = 0;
 
@@ -33,7 +28,7 @@ public class FourOfAKindEntity extends SpellCardEntity {
             EntityType.Builder.<FourOfAKindEntity>create(FourOfAKindEntity::new, EntityClassification.MISC)
                     .size(1F, 1F).trackingRange(4).updateInterval(2).build("four_of_a_kind");
 
-    public FourOfAKindEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
+    public FourOfAKindEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn) {
         super(FOUR_OF_A_KIND, worldIn);
     }
 

@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 /**
  * 恋恋的符卡：本我的解放
  */
-public class IdonokaihoEntity extends SpellCardEntity {
+public class IdonokaihoEntity extends AbstractSpellCardEntity {
 
     public IdonokaihoEntity(World worldIn, LivingEntity player){
         super(EntityRegistry.IDO_NO_KAIHO_ENTITY.get(), worldIn, player);

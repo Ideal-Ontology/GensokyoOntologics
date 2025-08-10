@@ -5,8 +5,7 @@ import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.GSKOBossGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.LilyWhiteBossBattleGoal;
-import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.AbstractSpellCardEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -43,7 +42,7 @@ public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardU
     }
 
     @Override
-    public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
+    public void spellCardAttack(AbstractSpellCardEntity spellCard, int ticksIn) {
         if (spellCard == null) {
             return;
         }

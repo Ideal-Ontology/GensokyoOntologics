@@ -18,8 +18,8 @@ import org.jetbrains.annotations.NotNull;
 /**
  * 八云紫的经典符卡：【境符】波与粒的境界
  */
-public class WaveAndParticleEntity extends SpellCardEntity {
-    public WaveAndParticleEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
+public class WaveAndParticleEntity extends AbstractSpellCardEntity {
+    public WaveAndParticleEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
     }
 

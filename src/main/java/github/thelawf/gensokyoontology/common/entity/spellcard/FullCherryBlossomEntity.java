@@ -17,14 +17,14 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class FullCherryBlossomEntity extends SpellCardEntity {
+public class FullCherryBlossomEntity extends AbstractSpellCardEntity {
 
     public FullCherryBlossomEntity(World worldIn, LivingEntity living) {
         super(EntityRegistry.FULL_CHERRY_BLOSSOM_ENTITY.get(), worldIn, living);
         this.setOwner(living);
     }
 
-    public FullCherryBlossomEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
+    public FullCherryBlossomEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
     }
 

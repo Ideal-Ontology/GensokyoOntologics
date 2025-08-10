@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
@@ -11,9 +10,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Matrix4f;
-import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -23,9 +19,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class MobiusRingEntity extends SpellCardEntity {
+public class MobiusRingEntity extends AbstractSpellCardEntity {
 
-    public MobiusRingEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
+    public MobiusRingEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
     }
 

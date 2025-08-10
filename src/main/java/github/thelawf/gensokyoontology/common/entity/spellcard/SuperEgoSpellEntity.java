@@ -19,13 +19,13 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-public class SuperEgoSpellEntity extends SpellCardEntity {
+public class SuperEgoSpellEntity extends AbstractSpellCardEntity {
 
     public SuperEgoSpellEntity(World worldIn, PlayerEntity player) {
         super(EntityRegistry.SUPER_EGO_SPELL_ENTITY.get(), worldIn, player);
     }
 
-    public SuperEgoSpellEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
+    public SuperEgoSpellEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
     }
 

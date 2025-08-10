@@ -1,8 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.CircleShotEntity;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -15,7 +13,6 @@ import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -25,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // 7799399517919454945
-public class RorschachDanmakuEntity extends SpellCardEntity{
+public class RorschachDanmakuEntity extends AbstractSpellCardEntity {
 
     public RorschachDanmakuEntity(World worldIn, LivingEntity living) {
         super(EntityRegistry.RORSCHACH_DANMAKU_ENTITY.get(), worldIn, living);

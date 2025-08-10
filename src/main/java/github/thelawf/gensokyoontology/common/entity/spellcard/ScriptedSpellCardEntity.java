@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
-public class ScriptedSpellCardEntity extends SpellCardEntity {
+public class ScriptedSpellCardEntity extends AbstractSpellCardEntity {
     private CompoundNBT scriptsNBT = new CompoundNBT();
 
     public static final DataParameter<CompoundNBT> DATA_SCRIPT = EntityDataManager.createKey(ScriptedSpellCardEntity.class,
@@ -40,7 +40,7 @@ public class ScriptedSpellCardEntity extends SpellCardEntity {
         this.setScript(scriptsNBT);
     }
 
-    public ScriptedSpellCardEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
+    public ScriptedSpellCardEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
         this.setLocationAndAngles(0, 0, 0, 0, 0);
     }

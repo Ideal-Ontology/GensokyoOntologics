@@ -2,9 +2,9 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.*;
+import github.thelawf.gensokyoontology.common.entity.spellcard.AbstractSpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.boss.BossSpell;
+import github.thelawf.gensokyoontology.common.entity.spellcard.boss.BossBattle;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.CreatureEntity;
@@ -49,9 +49,9 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));
 
-        this.goalSelector.addGoal(4, new YoukaiCombatGoal<>(this, BossSpell.FLANDRE_SPHERE, 1, 1, 2000));
-        this.goalSelector.addGoal(4, new YoukaiCombatGoal<>(this, BossSpell.FLANDRE_LASER, 1, 2, 2000));
-        this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, BossSpell.SUMMON_EYE, 1, 3, 1000));
+        this.goalSelector.addGoal(4, new YoukaiCombatGoal<>(this, BossBattle.FLANDRE_SPHERE, 1, 1, 2000));
+        this.goalSelector.addGoal(4, new YoukaiCombatGoal<>(this, BossBattle.FLANDRE_LASER, 1, 2, 2000));
+        this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, BossBattle.SUMMON_EYE, 1, 3, 1000));
 
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
@@ -124,7 +124,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     }
 
     @Override
-    public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
+    public void spellCardAttack(AbstractSpellCardEntity spellCard, int ticksIn) {
         if (spellCard == null) return;
         spellCard.onTick(this.world, this, ticksIn);
         spellCard.setLocationAndAngles(this.getPosX(), this.getPosY(), this.getPosZ(), this.rotationYaw, this.rotationPitch);

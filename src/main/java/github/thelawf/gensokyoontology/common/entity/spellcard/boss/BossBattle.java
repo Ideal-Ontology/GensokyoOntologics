@@ -16,7 +16,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import java.util.List;
 
-public class BossSpell {
+public class BossBattle {
     public static final int MAX_DISTANCE = 100;
     public static YoukaiCombat.SkillAction<FlandreScarletEntity> FLANDRE_LASER = (World world, FlandreScarletEntity flandre) -> {
         if (flandre.getAttackTarget() == null) return;
@@ -30,7 +30,7 @@ public class BossSpell {
     };
 
 
-    public static YoukaiCombat.TargetAction<FlandreScarletEntity> SUMMON_EYE = (World world, YoukaiEntity flandre, LivingEntity target) -> {
+    public static YoukaiCombat.TargetAction<FlandreScarletEntity> SUMMON_EYE = (World world, FlandreScarletEntity flandre, LivingEntity target) -> {
         flandre.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
         double distance = flandre.getDistanceSq(target);
 

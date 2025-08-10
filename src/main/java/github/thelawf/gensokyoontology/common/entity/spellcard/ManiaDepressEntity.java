@@ -2,10 +2,8 @@ package github.thelawf.gensokyoontology.common.entity.spellcard;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -20,13 +18,13 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
-public class ManiaDepressEntity extends SpellCardEntity {
+public class ManiaDepressEntity extends AbstractSpellCardEntity {
 
     public ManiaDepressEntity(World worldIn, PlayerEntity player) {
         super(EntityRegistry.MANIA_DEPRESS_ENTITY.get(), worldIn, player);
     }
 
-    public ManiaDepressEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
+    public ManiaDepressEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
     }
 

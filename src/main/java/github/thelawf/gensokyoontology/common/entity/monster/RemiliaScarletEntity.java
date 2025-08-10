@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.GSKOBossGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.LaserSpiralGoal;
-import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.AbstractSpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.boss.RemiliaSpellAttack;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -42,7 +42,7 @@ public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser
     }
 
     @Override
-    public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
+    public void spellCardAttack(AbstractSpellCardEntity spellCard, int ticksIn) {
         List<Runnable> runnables = ImmutableList.of(
                 () -> RemiliaSpellAttack.tickLaserSpiral(this),
                 () -> RemiliaSpellAttack.sphere(this.world, this)

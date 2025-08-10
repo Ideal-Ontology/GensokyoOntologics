@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.ai.goal;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.HanaShigureSpellEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
+import github.thelawf.gensokyoontology.common.entity.spellcard.AbstractSpellCardEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;
@@ -90,7 +90,7 @@ public class LilyWhiteBossBattleGoal extends GSKOBossGoal {
         this.lilyWhite.getNavigator().clearPath();
     }
 
-    private <E extends ISpellCardUser> void switchSpellCardIf(Predicate<ISpellCardUser> predicate, E entity, SpellCardEntity spellCard, int ticksIn) {
+    private <E extends ISpellCardUser> void switchSpellCardIf(Predicate<ISpellCardUser> predicate, E entity, AbstractSpellCardEntity spellCard, int ticksIn) {
         if (predicate.test(entity)) {
             entity.spellCardAttack(spellCard, ticksIn);
         }

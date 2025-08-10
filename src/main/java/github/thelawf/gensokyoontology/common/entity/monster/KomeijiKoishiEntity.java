@@ -5,8 +5,7 @@ import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.KoishiSpellAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.spellcard.IdonokaihoEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.entity.spellcard.AbstractSpellCardEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
@@ -121,7 +120,7 @@ public class KomeijiKoishiEntity extends ConversationalEntity implements ISpellC
     }
 
     @Override
-    public void spellCardAttack(SpellCardEntity spellCard, int ticksIn) {
+    public void spellCardAttack(AbstractSpellCardEntity spellCard, int ticksIn) {
         if (spellCard instanceof IdonokaihoEntity) {
             // this.setNoGravity(true);
             // if (GSKOMathUtil.isBetween(ticksIn, 10, 50)) this.setMotion(0, 0.6, 0);

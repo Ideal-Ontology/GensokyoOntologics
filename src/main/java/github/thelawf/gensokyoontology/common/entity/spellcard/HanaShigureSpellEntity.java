@@ -6,10 +6,8 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
@@ -22,7 +20,7 @@ import java.util.Random;
 /**
  * 春符「花时雨」
  */
-public class HanaShigureSpellEntity extends SpellCardEntity {
+public class HanaShigureSpellEntity extends AbstractSpellCardEntity {
     private Random random = new Random();
     public HanaShigureSpellEntity(World worldIn, LivingEntity player) {
         super(EntityRegistry.HANA_SHIGURE_ENTITY.get(), worldIn);
@@ -31,7 +29,7 @@ public class HanaShigureSpellEntity extends SpellCardEntity {
         this.lifeSpan = 1200;
     }
 
-    public HanaShigureSpellEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
+    public HanaShigureSpellEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn) {
         super(EntityRegistry.HANA_SHIGURE_ENTITY.get(), worldIn);
         this.lifeSpan = 1200;
     }

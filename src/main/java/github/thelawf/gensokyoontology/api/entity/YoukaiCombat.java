@@ -14,6 +14,6 @@ public class YoukaiCombat {
 
     @FunctionalInterface
     public interface TargetAction<Y extends YoukaiEntity> {
-        void act(World world, YoukaiEntity youkai, LivingEntity target);
+        void act(World world, Y youkai, LivingEntity target);
     }
 }

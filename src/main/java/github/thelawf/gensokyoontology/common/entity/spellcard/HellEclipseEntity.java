@@ -23,7 +23,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 
-public class HellEclipseEntity extends SpellCardEntity {
+public class HellEclipseEntity extends AbstractSpellCardEntity {
 
     private final FakeLunarEntity fakeLunar;
 
@@ -37,7 +37,7 @@ public class HellEclipseEntity extends SpellCardEntity {
 
     }
 
-    public HellEclipseEntity(EntityType<? extends SpellCardEntity> entityTypeIn, World world) {
+    public HellEclipseEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World world) {
         super(entityTypeIn, world);
         fakeLunar = new FakeLunarEntity(EntityRegistry.FAKE_LUNAR_ENTITY.get(), world);
         world.addEntity(fakeLunar);

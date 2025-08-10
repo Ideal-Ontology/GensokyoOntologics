@@ -14,12 +14,12 @@ import java.util.List;
 /**
  * 虹光「光风霁月」
  */
-public class TranquilWindAndMoon extends SpellCardEntity {
-    public TranquilWindAndMoon(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
+public class TranquilWindAndMoon extends AbstractSpellCardEntity {
+    public TranquilWindAndMoon(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn, PlayerEntity player) {
         super(entityTypeIn, worldIn, player);
     }
 
-    public TranquilWindAndMoon(EntityType<? extends SpellCardEntity> entityTypeIn, World worldIn) {
+    public TranquilWindAndMoon(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
     }
 

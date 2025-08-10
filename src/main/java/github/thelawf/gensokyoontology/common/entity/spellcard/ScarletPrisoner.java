@@ -17,10 +17,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ScarletPrisoner extends SpellCardEntity {
+public class ScarletPrisoner extends AbstractSpellCardEntity {
     public ScarletPrisoner(World worldIn, LivingEntity living) {
         super(EntityRegistry.SCARLET_PRISONER_ENTITY.get(), worldIn, living);
     }
