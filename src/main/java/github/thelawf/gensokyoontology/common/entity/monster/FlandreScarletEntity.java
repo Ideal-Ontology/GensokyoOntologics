@@ -2,9 +2,9 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.*;
-import github.thelawf.gensokyoontology.common.entity.spellcard.AbstractSpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.boss.BossBattle;
+import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.FullCherryBlossomEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.BossBattle;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.CreatureEntity;

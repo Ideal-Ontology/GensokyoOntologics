@@ -1,10 +1,10 @@
-package github.thelawf.gensokyoontology.common.entity.spellcard.boss;
+package github.thelawf.gensokyoontology.common.entity.combat;
 
 import github.thelawf.gensokyoontology.api.entity.YoukaiCombat;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
-import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.RumiaEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
@@ -61,4 +61,5 @@ public class BossBattle {
             world.addEntity(largeShot);
         });
     };
+
 }

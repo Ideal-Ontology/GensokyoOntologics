@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.spellcard.RorschachDanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.RorschachDanmakuEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 

@@ -5,7 +5,7 @@ import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.GSKOBossGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.LilyWhiteBossBattleGoal;
-import github.thelawf.gensokyoontology.common.entity.spellcard.AbstractSpellCardEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.player.PlayerEntity;

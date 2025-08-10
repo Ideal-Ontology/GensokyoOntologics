@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.entity.spellcard;
+package github.thelawf.gensokyoontology.common.entity.combat;
 
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.entity.spellcard;
+package github.thelawf.gensokyoontology.common.entity.combat;
 
 import com.google.gson.JsonObject;
 import net.minecraft.entity.EntityType;

@@ -1,15 +1,11 @@
-package github.thelawf.gensokyoontology.common.entity.spellcard.boss;
+package github.thelawf.gensokyoontology.common.entity.combat.boss;
 
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.RemiliaScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.entity.projectile.ProjectileEntity;
-import net.minecraft.entity.projectile.ProjectileHelper;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;

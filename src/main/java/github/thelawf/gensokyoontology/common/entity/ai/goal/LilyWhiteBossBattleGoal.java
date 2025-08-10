@@ -2,8 +2,8 @@ package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.monster.LilyWhiteEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.HanaShigureSpellEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.AbstractSpellCardEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.HanaShigureSpellEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.pathfinding.Path;

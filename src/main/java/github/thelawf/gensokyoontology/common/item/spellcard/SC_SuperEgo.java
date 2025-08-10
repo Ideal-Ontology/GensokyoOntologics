@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.spellcard.SuperEgoSpellEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.SuperEgoSpellEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;

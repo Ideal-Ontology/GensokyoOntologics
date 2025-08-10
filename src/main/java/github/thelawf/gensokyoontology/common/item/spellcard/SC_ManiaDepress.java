@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.spellcard.HellEclipseEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.ManiaDepressEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.ManiaDepressEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;

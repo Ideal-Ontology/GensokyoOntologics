@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.api.entity;
 
-import github.thelawf.gensokyoontology.common.entity.spellcard.AbstractSpellCardEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 
 public interface ISpellCardUser {
 

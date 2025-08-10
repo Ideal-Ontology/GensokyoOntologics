@@ -9,7 +9,7 @@ import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity
 import github.thelawf.gensokyoontology.common.entity.monster.*;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
-import github.thelawf.gensokyoontology.common.entity.spellcard.*;
+import github.thelawf.gensokyoontology.common.entity.combat.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;

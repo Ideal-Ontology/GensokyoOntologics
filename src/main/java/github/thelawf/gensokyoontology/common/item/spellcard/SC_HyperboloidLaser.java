@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.spellcard.ScarletPrisoner;
+import github.thelawf.gensokyoontology.common.entity.combat.ScarletPrisoner;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
