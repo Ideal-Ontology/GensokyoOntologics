@@ -1,12 +1,10 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
-import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.*;
 import github.thelawf.gensokyoontology.common.entity.spellcard.FullCherryBlossomEntity;
 import github.thelawf.gensokyoontology.common.entity.spellcard.SpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.spellcard.boss.FlandreSpellAttack;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.common.entity.spellcard.boss.BossSpell;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.CreatureEntity;
@@ -25,7 +23,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
-import java.util.function.Consumer;
 
 public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser {
 
@@ -47,13 +44,15 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     @Override
     protected void registerGoals() {
 
-        FlandreSpellAttack flandreSpell = new FlandreSpellAttack(this.world, this);
 
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));
-        this.goalSelector.addGoal(3, new SummonEyeGoal(this));
-        this.goalSelector.addGoal(4, new SpellCardAttackGoal(this, flandreSpell.bossSpell));
+
+        this.goalSelector.addGoal(4, new YoukaiCombatGoal<>(this, BossSpell.FLANDRE_SPHERE, 1, 1, 2000));
+        this.goalSelector.addGoal(4, new YoukaiCombatGoal<>(this, BossSpell.FLANDRE_LASER, 1, 2, 2000));
+        this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, BossSpell.SUMMON_EYE, 1, 3, 1000));
+
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 0.8f));
@@ -94,8 +93,8 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
 
     @Override
     public void danmakuAttack(LivingEntity target) {
-        ImmutableList<Consumer<FlandreScarletEntity>> list = ImmutableList.of(FlandreSpellAttack::laser, FlandreSpellAttack::sphere);
-        GSKOUtil.rollFrom(list).accept(this);
+        // ImmutableList<Consumer<FlandreScarletEntity>> list = ImmutableList.of(FlandreSpellAttack::laser, FlandreSpellAttack::sphere);
+        // GSKOUtil.rollFrom(list).accept(this);
     }
 
     @Override
@@ -150,7 +149,6 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         protected void registerGoals() {
             this.goalSelector.addGoal(1, new SwimGoal(this));
             this.goalSelector.addGoal(2, new SitGoal(this));
-            this.goalSelector.addGoal(3, new FlandreSpellAttackGoal(this, new GSKOBossGoal.Stage(GSKOBossGoal.Type.SPELL_BREAKABLE, 500, false)));
             this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
             this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4F));
             this.goalSelector.addGoal(8, new LookAtGoal(this, PlayerEntity.class, 0.8F));

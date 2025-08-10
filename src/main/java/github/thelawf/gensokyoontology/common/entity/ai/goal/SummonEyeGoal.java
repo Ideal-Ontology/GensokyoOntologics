@@ -32,12 +32,7 @@ public class SummonEyeGoal extends Goal {
         LivingEntity target = this.entity.getAttackTarget();
         if (target == null || !target.isAlive()) return;
 
-        this.entity.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
-        double distance = this.entity.getDistanceSq(target);
-        if (this.entity.getEntitySenses().canSee(target) && distance < MAX_DISTANCE) {
-            generateEye(entity.world, target);
-            ++tickExecuted;
-        }
+
     }
 
     private void generateEye(World world, LivingEntity target) {

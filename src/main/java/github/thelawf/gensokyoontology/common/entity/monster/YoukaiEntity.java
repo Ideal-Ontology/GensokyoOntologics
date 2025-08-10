@@ -33,9 +33,12 @@ public abstract class YoukaiEntity extends RetreatableEntity {
      */
     protected int favorability = 0;
     protected boolean duringSpellCard = false;
+    private String battlePhase = "1.1";
 
     // @OnlyIn(Dist.CLIENT)
     // private Animation animation = Animation.IDLE;
+    public static final DataParameter<String> DATA_PHASE = EntityDataManager.createKey(YoukaiEntity.class,
+            DataSerializers.STRING);
     public static final DataParameter<Boolean> DATA_RETREATED = EntityDataManager.createKey(
             YoukaiEntity.class, DataSerializers.BOOLEAN);
     public static final DataParameter<Integer> DATA_FAVORABILITY = EntityDataManager.createKey(YoukaiEntity.class, DataSerializers.VARINT);
@@ -87,16 +90,54 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         this.duringSpellCard = isDuringSpellCardAttack;
         return duringSpellCard;
     }
-    // @OnlyIn(Dist.CLIENT)
-    // public void setAnimation(Animation animation) {
-    //     this.animation = animation;
-    // }
 
-    // @OnlyIn(Dist.CLIENT)
-    // public Animation getAnimation() {
-    //     return animation;
-    // }
 
+    public String getBattlePhase() {
+        return this.dataManager.get(DATA_PHASE);
+    }
+
+    public void setBattlePhase(int mainPhase, int subPhase) {
+        this.battlePhase = mainPhase + "." + subPhase;
+        this.dataManager.set(DATA_PHASE, this.battlePhase);
+    }
+
+    private void setBattlePhase(String battlePhase) {
+        this.battlePhase = battlePhase;
+        this.dataManager.set(DATA_PHASE, this.battlePhase);
+    }
+
+    public void nextPhase(){
+        int mainPhase = this.getMainPhase();
+        int subPhase = this.getSubPhase();
+        if ((subPhase + 1) > this.getMaxPhases()[mainPhase - 1].length) {
+            if ((mainPhase + 1) > this.getMaxPhases().length) return;
+            this.setBattlePhase(++mainPhase, + 1);
+        }
+        else {
+            this.setBattlePhase(mainPhase, ++subPhase);
+        }
+    }
+
+    public int getMainPhase(){
+        String phase = this.getBattlePhase();
+        return Integer.parseInt(phase.split("\\.")[0]);
+    }
+
+    public int getSubPhase() {
+        String phase = this.getBattlePhase();
+        return Integer.parseInt(phase.split("\\.")[1]);
+    }
+
+    public int[][] getMaxPhases(){
+        return new int[0][];
+    }
+    public boolean isPhaseMatches(String phase){
+        return this.getBattlePhase().equals(phase);
+    }
+
+    public boolean isPhaseMatches(int main, int sub){
+        return this.getMainPhase() == main & this.getSubPhase() == sub;
+    }
 
     @Override
     public void onKillCommand() {

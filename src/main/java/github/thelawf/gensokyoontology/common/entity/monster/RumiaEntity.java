@@ -11,7 +11,11 @@ public class RumiaEntity extends YoukaiEntity{
     }
 
     @Override
-    public void danmakuAttack(LivingEntity target) {
+    protected void registerGoals() {
+        super.registerGoals();
+    }
 
+    @Override
+    public void danmakuAttack(LivingEntity target) {
     }
 }
