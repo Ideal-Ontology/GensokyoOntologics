@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
 import github.thelawf.gensokyoontology.common.entity.RailRendererEntity;
@@ -61,8 +62,10 @@ public final class EntityRegistry {
                     .setShouldReceiveVelocityUpdates(true).size(0.6f, 1.58f).trackingRange(10).build("remilia_scarlet"));
 
     // =============================== 可驯服的生物 ============================ //
-    public static final RegistryObject<EntityType<RumiaEntity>> RUMIA = register("rumia",
-            RumiaEntity::new, EntityClassification.CREATURE, 0.6f, 1.5f, 10, 2);
+    public static final RegistryObject<EntityType<RumiaEntity>> RUMIA = register("rumia", RumiaEntity::new,
+            EntityClassification.CREATURE, 0.6f, 1.5f, 10, 2);
+    public static final RegistryObject<EntityType<CirnoEntity>> CIRNO = register("cirno", CirnoEntity::new,
+            EntityClassification.MONSTER, 0.6F, 1.6F, 10, 2);
     public static final RegistryObject<EntityType<HakureiReimuEntity>> HAKUREI_REIMU = ENTITIES.register(
             "hakurei_reimu", () -> EntityType.Builder.create(HakureiReimuEntity::new, EntityClassification.CREATURE)
                     .updateInterval(2).size(0.6f, 1.5f).trackingRange(10).build("hakurei_reimu"));

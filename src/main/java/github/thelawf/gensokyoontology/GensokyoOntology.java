@@ -261,6 +261,13 @@ public class GensokyoOntology {
                     .createMutableAttribute(Attributes.ARMOR, 5)
                     .create());
 
+            event.put(EntityRegistry.CIRNO.get(), MobEntity.func_233666_p_()
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 200)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 12)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.6)
+                    .createMutableAttribute(Attributes.ARMOR, 8)
+                    .create());
+
             event.put(EntityRegistry.LILY_WHITE.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 100D)
                     .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35F)

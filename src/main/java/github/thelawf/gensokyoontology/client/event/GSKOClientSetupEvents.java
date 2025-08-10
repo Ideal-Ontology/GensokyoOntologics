@@ -1,9 +1,6 @@
 package github.thelawf.gensokyoontology.client.event;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.model.FemaleVillagerModel;
-import github.thelawf.gensokyoontology.client.model.MaleVillagerModel;
-import github.thelawf.gensokyoontology.client.model.MasterSparkModel;
 import github.thelawf.gensokyoontology.client.renderer.GSKODimensionRenderInfo;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.*;
@@ -118,6 +115,7 @@ public class GSKOClientSetupEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), HumanVillagerRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RUMIA.get(), RumiaRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CIRNO.get(), CirnoRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAIRY_ENTITY.get(), FairyRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SUNFLOWER_FAIRY_ENTITY.get(), SunflowerFairyRenderer::new);
 
