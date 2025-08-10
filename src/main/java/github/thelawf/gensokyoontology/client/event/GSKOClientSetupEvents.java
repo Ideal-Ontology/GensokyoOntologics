@@ -115,10 +115,7 @@ public class GSKOClientSetupEvents {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
 
         // =========================== 人形生物的渲染器 ========================= //
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(),
-                manager -> new HumanVillagerRenderer(manager, new FemaleVillagerModel()));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(),
-                manager -> new HumanVillagerRenderer(manager, new MaleVillagerModel()));
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), HumanVillagerRenderer::new);
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RUMIA.get(), RumiaRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAIRY_ENTITY.get(), FairyRenderer::new);

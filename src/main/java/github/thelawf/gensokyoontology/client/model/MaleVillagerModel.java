@@ -13,7 +13,6 @@ import net.minecraft.entity.Entity;
 
 public class MaleVillagerModel extends HumanrResidentModel {
 	private final ModelRenderer head;
-	private final ModelRenderer blink;
 	private final ModelRenderer armRight;
 	private final ModelRenderer armLeft;
 	private final ModelRenderer body;
@@ -27,11 +26,6 @@ public class MaleVillagerModel extends HumanrResidentModel {
 		head = new ModelRenderer(this);
 		head.setRotationPoint(0.0F, 4.0F, 0.0F);
 		head.setTextureOffset(0, 27).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
-
-		blink = new ModelRenderer(this);
-		blink.setRotationPoint(0.0F, 0.0F, 0.0F);
-		head.addChild(blink);
-		blink.setTextureOffset(48, 24).addBox(-3.0F, -10.0F, -4.001F, 8.0F, 10.0F, 0.0F, 0.0F, false);
 
 		armRight = new ModelRenderer(this);
 		armRight.setRotationPoint(-5.0F, 3.5F, 0.0F);

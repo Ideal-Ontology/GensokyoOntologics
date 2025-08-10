@@ -5,6 +5,7 @@ package github.thelawf.gensokyoontology.client.model;// Made with Blockbench 4.1
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import net.minecraft.client.renderer.entity.VindicatorRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.Entity;
@@ -15,7 +16,6 @@ public class FemaleVillagerModel extends HumanrResidentModel {
 	private final ModelRenderer hairLeft_r1;
 	private final ModelRenderer hairRight_r1;
 	private final ModelRenderer head;
-	private final ModelRenderer blink;
 	private final ModelRenderer armRight;
 	private final ModelRenderer armLeft;
 	private final ModelRenderer body;
@@ -55,11 +55,6 @@ public class FemaleVillagerModel extends HumanrResidentModel {
 		head = new ModelRenderer(this);
 		head.setRotationPoint(0.0F, 4.0F, 0.0F);
 		head.setTextureOffset(0, 27).addBox(-4.0F, -10.0F, -4.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
-
-		blink = new ModelRenderer(this);
-		blink.setRotationPoint(0.0F, 0.0F, 0.0F);
-		head.addChild(blink);
-		blink.setTextureOffset(48, 24).addBox(-3.0F, -10.0F, -4.001F, 8.0F, 10.0F, 0.0F, 0.0F, false);
 
 		armRight = new ModelRenderer(this);
 		armRight.setRotationPoint(-5.0F, 3.5F, 0.0F);
@@ -138,5 +133,7 @@ public class FemaleVillagerModel extends HumanrResidentModel {
 		modelRenderer.rotateAngleX = x;
 		modelRenderer.rotateAngleY = y;
 		modelRenderer.rotateAngleZ = z;
+
 	}
+
 }

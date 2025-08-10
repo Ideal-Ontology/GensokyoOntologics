@@ -27,8 +27,8 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
     public static final DataParameter<CompoundNBT> DATA_ORDER = EntityDataManager.createKey(HumanResidentEntity.class,
             DataSerializers.COMPOUND_NBT);
 
-    public VillagerOrder order = new VillagerOrder();
-    public Gender gender = HumanResidentEntity.randomGender();
+    private VillagerOrder order = new VillagerOrder();
+    private Gender gender;
 
     public HumanResidentEntity(EntityType<HumanResidentEntity> type, World worldIn) {
         super(type, worldIn);
