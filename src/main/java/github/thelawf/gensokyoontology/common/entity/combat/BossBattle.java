@@ -18,7 +18,7 @@ import java.util.List;
 
 public class BossBattle {
     public static final int MAX_DISTANCE = 100;
-    public static YoukaiCombat.SkillAction<FlandreScarletEntity> FLANDRE_LASER = (World world, FlandreScarletEntity flandre) -> {
+    public static final YoukaiCombat.SkillAction<FlandreScarletEntity> FLANDRE_LASER = (world, flandre) -> {
         if (flandre.getAttackTarget() == null) return;
         if (flandre.ticksExisted % 50 == 0) {
             LaserSourceEntity laser = new LaserSourceEntity(world, flandre);
@@ -30,7 +30,7 @@ public class BossBattle {
     };
 
 
-    public static YoukaiCombat.TargetAction<FlandreScarletEntity> SUMMON_EYE = (World world, FlandreScarletEntity flandre, LivingEntity target) -> {
+    public static final YoukaiCombat.TargetAction<FlandreScarletEntity> SUMMON_EYE = (world, flandre, target) -> {
         flandre.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);
         double distance = flandre.getDistanceSq(target);
 
@@ -49,7 +49,7 @@ public class BossBattle {
         }
     };
 
-    public static YoukaiCombat.SkillAction<FlandreScarletEntity> FLANDRE_SPHERE = (World world, FlandreScarletEntity flandre) -> {
+    public static final YoukaiCombat.SkillAction<FlandreScarletEntity> FLANDRE_SPHERE = (world, flandre) -> {
         List<Vector3d> shootVec = DanmakuUtil.spheroidPos(1, 10);
         shootVec.forEach(vector3d -> {
             Vector3d vec = GSKOMathUtil.randomVec(-3, 3);
@@ -62,4 +62,7 @@ public class BossBattle {
         });
     };
 
+    public static final YoukaiCombat.TargetAction<RumiaEntity> DARK_SPHERE = (world, youkai, target) -> {
+
+    };
 }

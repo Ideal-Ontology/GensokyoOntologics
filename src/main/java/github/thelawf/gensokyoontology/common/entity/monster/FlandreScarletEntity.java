@@ -43,8 +43,6 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
 
     @Override
     protected void registerGoals() {
-
-
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));

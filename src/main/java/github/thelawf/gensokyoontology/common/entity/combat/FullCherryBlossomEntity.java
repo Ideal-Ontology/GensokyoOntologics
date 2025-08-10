@@ -32,21 +32,7 @@ public class FullCherryBlossomEntity extends AbstractSpellCardEntity {
      * 这个方法是为了方便其它类在外部调用符卡的弹幕演出
      */
     public void onTick(World world, LivingEntity living, int ticksExisted) {
-        List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos(1.2, 3, 2, 0.05);
 
-        if (ticksExisted % 20 == 0) {
-            for (Vector3d vector3d : roseLinePos) {
-                RiceShotEntity riceShot = new RiceShotEntity(living, world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
-                Vector3d shootVec = new Vector3d(vector3d.x, vector3d.y, vector3d.z);
-                shootVec = DanmakuUtil.rotateRandomAngle(shootVec, (float) Math.PI * 2, (float) Math.PI * 2);
-                vector3d = vector3d.add(DanmakuUtil.getRandomPosWithin(3.5f, DanmakuUtil.Plane.XYZ));
-                vector3d = vector3d.add(this.getPositionVec());
-
-                DanmakuUtil.initDanmaku(riceShot, vector3d, new Vector2f((float) vector3d.x, (float) vector3d.y), true);
-                riceShot.shoot(shootVec.x, shootVec.y, shootVec.z, 0.3f, 0f);
-                world.addEntity(riceShot);
-            }
-        }
     }
 
     @Override

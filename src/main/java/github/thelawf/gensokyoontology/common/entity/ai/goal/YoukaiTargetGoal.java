@@ -5,10 +5,11 @@ import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
 
 public class YoukaiTargetGoal<Y extends YoukaiEntity> extends BattlePhaseGoal{
     protected final Y youkai;
+    private int ticksExecuted;
     protected final YoukaiCombat.TargetAction<Y> action;
 
-    public YoukaiTargetGoal(Y youkai, YoukaiCombat.TargetAction<Y> action, int mainPhase, int subPhase, int continueTicks) {
-        super(mainPhase, subPhase, continueTicks);
+    public YoukaiTargetGoal(Y youkai, YoukaiCombat.TargetAction<Y> action, int mainPhase, int subPhase, int maxTicks) {
+        super(mainPhase, subPhase, maxTicks);
         this.youkai = youkai;
         this.action = action;
     }
@@ -22,5 +23,11 @@ public class YoukaiTargetGoal<Y extends YoukaiEntity> extends BattlePhaseGoal{
     @Override
     public boolean shouldExecute() {
         return this.youkai.isPhaseMatches(mainPhase, subPhase);
+    }
+
+    @Override
+    public void resetTask() {
+        super.resetTask();
+        this.youkai.nextPhase();
     }
 }
