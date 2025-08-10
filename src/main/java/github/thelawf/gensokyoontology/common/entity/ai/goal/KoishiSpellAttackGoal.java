@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
-import github.thelawf.gensokyoontology.common.entity.combat.IdonokaihoEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.spell.IdonokaihoEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.pathfinding.Path;

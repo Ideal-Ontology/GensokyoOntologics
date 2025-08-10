@@ -4,7 +4,7 @@ import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.KoishiSpellAttackGoal;
-import github.thelawf.gensokyoontology.common.entity.combat.IdonokaihoEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.spell.IdonokaihoEntity;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.*;

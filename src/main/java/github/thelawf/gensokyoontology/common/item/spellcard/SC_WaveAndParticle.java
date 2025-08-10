@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
-import github.thelawf.gensokyoontology.common.entity.combat.WaveAndParticleEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.spell.WaveAndParticleEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.world.World;
 

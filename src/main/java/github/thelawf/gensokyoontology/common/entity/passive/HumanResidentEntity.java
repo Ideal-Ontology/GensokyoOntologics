@@ -117,6 +117,8 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
     @Override
     protected void populateTradeData() {
         this.addTrades(this.getOffers(), GSKOTrades.HUMAN_FARMER_TRADE, 2);
+        this.addTrades(this.getOffers(), GSKOTrades.HUMAN_RESIDENT_TRADE, 2);
+        this.addTrades(this.getOffers(), GSKOTrades.HUMAN_RESIDENT_TRADE, 2);
     }
 
     public enum Gender{

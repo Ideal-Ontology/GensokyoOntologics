@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.spellcard;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.combat.MobiusRingEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.spell.MobiusRingEntity;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;

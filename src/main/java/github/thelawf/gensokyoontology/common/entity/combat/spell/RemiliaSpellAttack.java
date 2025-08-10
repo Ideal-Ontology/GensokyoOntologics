@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.entity.combat.boss;
+package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;

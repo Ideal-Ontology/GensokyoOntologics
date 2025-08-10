@@ -1,6 +1,7 @@
-package github.thelawf.gensokyoontology.common.entity.combat;
+package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 import github.thelawf.gensokyoontology.common.nbt.script.StaticFunc;
 import github.thelawf.gensokyoontology.common.nbt.script.V3dFunc;
