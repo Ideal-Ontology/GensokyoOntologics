@@ -67,7 +67,8 @@ public class ByteInfo {
 
     public long asLong() {
         ByteBuffer buf = ByteBuffer.wrap(this.value);
-        return buf.flip().getLong();
+        buf.flip();
+        return buf.getLong();
     }
 
     public double asDouble() {

@@ -5,7 +5,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.FemaleVillagerModel;
 import github.thelawf.gensokyoontology.client.model.HumanrResidentModel;
 import github.thelawf.gensokyoontology.client.model.MaleVillagerModel;
-import github.thelawf.gensokyoontology.client.model.VariantModelRenderer;
+import github.thelawf.gensokyoontology.client.renderer.VariantModelRenderer;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;

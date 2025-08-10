@@ -12,7 +12,7 @@ import static github.thelawf.gensokyoontology.core.init.DataRegistry.EXP_KEY;
 
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class GSKOCommonEvents {
-    @SubscribeEvent
+    // @SubscribeEvent
     public static void onRegisterNewEntry(RegistryEvent.NewRegistry event){
         new RegistryBuilder<IExpressionType>().setName(EXP_KEY.getRegistryName()).setType(IExpressionType.class).setMaxID(256).create();
     }

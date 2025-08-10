@@ -3,19 +3,15 @@ package github.thelawf.gensokyoontology.client.renderer.entity.creature;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.GSKOBipedModel;
-import github.thelawf.gensokyoontology.client.model.HumanrResidentModel;
-import github.thelawf.gensokyoontology.client.model.VariantModelRenderer;
+import github.thelawf.gensokyoontology.client.renderer.VariantModelRenderer;
 import github.thelawf.gensokyoontology.client.model.monster.FairyModel;
 import github.thelawf.gensokyoontology.client.model.monster.SunflowerFairyModel;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.SunflowerFairyEntity;
-import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.projectile.EggEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -45,7 +41,7 @@ public class FairyRenderer extends VariantModelRenderer<FairyEntity> {
 
         matrixStackIn.push();
         this.invokeLivingRenderer(entityIn, matrixStackIn, bufferIn, partialTicks, packedLightIn);
-        this.renderFairyVariants(entityIn, this.getEntityModel(entityIn), matrixStackIn, bufferIn, packedLightIn);
+        this.renderVariants(entityIn, this.getEntityModel(entityIn), matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.pop();
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
     }

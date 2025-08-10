@@ -1,12 +1,14 @@
-package github.thelawf.gensokyoontology.client.model;
+package github.thelawf.gensokyoontology.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import github.thelawf.gensokyoontology.client.model.GSKOBipedModel;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.EntityModel;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
@@ -30,7 +32,10 @@ public abstract class VariantModelRenderer<E extends Entity> extends EntityRende
     }
 
     public abstract <M extends EntityModel<?>> M getEntityModel(E entity);
-
+    public <M extends EntityModel<E>> void renderVariants(E entityIn, M model, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
+        model.render(matrixStackIn, bufferIn.getBuffer(model.getRenderType(this.getEntityTexture(entityIn))),
+                packedLightIn, OverlayTexture.NO_OVERLAY, 1, 1, 1, 1);
+    }
 
     protected void invokeLivingRenderer(LivingEntity entityIn, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, float partialTicks, float packedLightIn) {
         EntityModel<E> entityModel = this.getEntityModel((E) entityIn);

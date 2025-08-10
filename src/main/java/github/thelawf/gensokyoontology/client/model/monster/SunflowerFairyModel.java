@@ -35,11 +35,9 @@ public class SunflowerFairyModel extends GSKOBipedModel<SunflowerFairyEntity> {
         bone = new ModelRenderer(this);
         bone.setRotationPoint(0.0F, 24.0F, 0.0F);
 
-
         flower = new ModelRenderer(this);
         flower.setRotationPoint(0.0F, 0.0F, 0.0F);
         bone.addChild(flower);
-
 
         cube_r1 = new ModelRenderer(this);
         cube_r1.setRotationPoint(-8.5699F, -16.6F, -7.1655F);
