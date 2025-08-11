@@ -6,6 +6,9 @@ import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.RumiaEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -64,5 +67,17 @@ public class BossBattle {
 
     public static final YoukaiCombat.TargetAction<RumiaEntity> DARK_SPHERE = (world, youkai, target) -> {
 
+    };
+
+    public static final YoukaiCombat.TargetAction<RumiaEntity> AIMED_SHOOT = (world, youkai, target) -> {
+
+    };
+
+    public static final YoukaiCombat.SkillAction<RumiaEntity> DARK_BORDER_LINE = (world, rumiaEntity) -> {
+        List<Vector3d> shootVec = DanmakuUtil.spheroidPos(1, 15);
+        shootVec.forEach(vector3d -> {
+            RiceShotEntity riceShot = new RiceShotEntity(rumiaEntity, world, DanmakuType.RICE_SHOT, DanmakuColor.PINK);
+
+        });
     };
 }

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " A ",
+    "BCD"
+  ],
+  "key": {
+    "A": {
+      "item": "gensokyoontology:bat_head"
+    },
+    "B": {
+      "item": "gensokyoontology:bat_wing_left"
+    },
+    "C": {
+      "item": "gensokyoontology:bat_body"
+    },
+    "D": {
+      "item": "gensokyoontology:bat_wing_right"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:bat_specimen",
+    "count": 1
+  }
+}

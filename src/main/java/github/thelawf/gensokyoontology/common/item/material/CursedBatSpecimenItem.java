@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.common.entity.misc.CursedBatEntity;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.command.impl.LocateCommand;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.item.minecart.MinecartEntity;
@@ -12,6 +13,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -39,4 +41,5 @@ public class CursedBatSpecimenItem extends Item {
         }
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
+
 }

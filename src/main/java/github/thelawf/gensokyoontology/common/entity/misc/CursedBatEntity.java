@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.client.renderer.entity.model.BatModel;
 import net.minecraft.entity.Entity;
@@ -10,6 +11,7 @@ import net.minecraft.entity.Pose;
 import net.minecraft.entity.ai.goal.Goal;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -17,9 +19,11 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
@@ -92,6 +96,12 @@ public class CursedBatEntity extends BatEntity implements IFlyingAnimal {
             this.hasDestination = compound.getBoolean("mansion_pos");
             this.dataManager.set(HAS_DESTINATION, this.hasDestination);
         }
+    }
+
+    @Override
+    public void onDeath(DamageSource cause) {
+        this.entityDropItem(new ItemStack(ItemRegistry.CURSED_BAT_SPECIMEN.get()));
+        super.onDeath(cause);
     }
 
     @Override

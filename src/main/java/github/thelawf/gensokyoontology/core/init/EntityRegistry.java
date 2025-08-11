@@ -178,6 +178,9 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
             "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);
 
+    public static final RegistryObject<EntityType<Danmaku>> DANMAKU = register("danmaku", Danmaku::new,
+            EntityClassification.MISC, 0.4F, 0.4F, 20, 2);
+
     public static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.IFactory<T> factoryIn,
                                                                             EntityClassification classification, float width,
                                                                             float height, int trackingRange, int interval) {

@@ -1,0 +1,279 @@
+package github.thelawf.gensokyoontology.common.entity.projectile;
+
+
+import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import github.thelawf.gensokyoontology.data.expression.IExpressionType;
+import net.minecraft.entity.*;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.datasync.DataParameter;
+import net.minecraft.network.datasync.DataSerializers;
+import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.IItemProvider;
+import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 抽象弹幕类，用于处理所有继承于该类的弹幕实体的那些相似的逻辑，包含如下几个方面：<br>
+ * 弹幕的生命周期或存在时间：125 个游戏刻<br>
+ * 弹幕的tick()方法<br>
+ * 弹幕击中生物时的逻辑<br>
+ * TODO: 弹幕攻击伤害的数值设定 <br>
+ * （待补充……）
+ */
+@OnlyIn(value = Dist.CLIENT, _interface = IItemProvider.class)
+public class Danmaku extends ProjectileItemEntity {
+    public static final DataParameter<Float> DATA_DAMAGE = EntityDataManager.createKey(
+            Danmaku.class, DataSerializers.FLOAT);
+    public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
+            Danmaku.class, DataSerializers.VARINT);
+    protected float damage = 2.0f;
+    // protected ClosureExpression behavior;
+    private int lifespan = 125;
+
+    // public static final EntityDataAccessor<ClosureExpression> DATA_SPELL = SynchedEntityData.defineId(
+    //         Danmaku.class, GSKOSerializers.EXP_SERIALIZER.get());
+    public Map<String, IExpressionType> varMap = new HashMap<>();
+
+    // private Danmaku(World world, Item danmakuItem, ClosureExpression behavior) {
+    //     this(EntityRegistry.DANMAKU.get(), world);
+    //     this.behavior = behavior;
+    //     this.setItem(new ItemStack(danmakuItem));
+    // }
+
+    public Danmaku(ServerWorld world, Item danmakuItem, LivingEntity owner) {
+        super(EntityRegistry.DANMAKU.get(), owner, world);
+        // this.behavior = new ClosureExpression();
+        this.setItem(new ItemStack(danmakuItem));
+        this.setNoGravity(true);
+    }
+
+    public Danmaku(EntityType<? extends ProjectileItemEntity> entityType, World level) {
+        super(entityType, level);
+        this.setItem(ItemStack.EMPTY);
+        this.setNoGravity(true);
+    }
+
+    public Danmaku(ServerWorld serverWorld, LivingEntity owner, ItemStack itemStack) {
+        super(EntityRegistry.DANMAKU.get(), owner, serverWorld);
+    }
+
+    public static void shootTo(World level, PlayerEntity player, Danmaku danmaku, float speed){
+        Vector3d angle = player.getLookVec();
+        level.addEntity(danmaku);
+        danmaku.shoot(angle.x, angle.y, angle.z, speed, 0f);
+    }
+
+    public static Danmaku create(ServerWorld serverWorld, LivingEntity owner, ItemStack stack) {
+        return new Danmaku(serverWorld, stack.getItem(), owner);
+    }
+
+    public static Danmaku create(World level, Item item, LivingEntity living) {
+        if (!(level instanceof ServerWorld)) return null;
+        ServerWorld serverWorld = (ServerWorld) level;
+        return new Danmaku(serverWorld, item, living);
+    }
+
+    public Danmaku lifespan(int lifespan) {
+        this.lifespan = lifespan;
+        // this.getEntityData().set(DATA_LIFESPAN, lifespan);
+        return this;
+    }
+
+    public Danmaku damage(float damage) {
+        this.damage = damage;
+        // this.getEntityData().set(DATA_DAMAGE, damage);
+        return this;
+    }
+
+    public Danmaku owner(Entity owner) {
+        this.setShooter(owner);
+        return this;
+    }
+
+    public Danmaku pos(Vector3d pos) {
+        this.setPos(pos);
+        return this;
+    }
+
+    private void setPos(Vector3d pos) {
+        this.setPos(pos);
+    }
+
+    public Danmaku rot(Vector2f rot) {
+        this.setRotation(rot.y, rot.x);
+        return this;
+    }
+
+    public void init(int lifespan, float damage, String color, Entity owner) {
+        this.lifespan(lifespan).damage(damage).owner(owner);
+    }
+
+
+    public int getLifespan() {
+        return this.dataManager.get(DATA_LIFESPAN);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+        if (this.world.isRemote) return;
+        if (this.ticksExisted >= this.lifespan) this.remove();
+
+        if (this.getDefaultItem() != ItemRegistry.DANMAKU_SHOT.get()) this.onBehaviorTick();
+    }
+
+    public void onBehaviorTick(){
+        // var danmaku = this.getItem();
+        // var closure = danmaku.get(DataRegistry.CLOSURE);
+        // if (closure == null) return;
+        // closure.compile(this.varMap).getExpressions().forEach(this::run);
+    }
+
+    // public void run(IExpressionType type){
+    //     if (type instanceof InvokeExpression invoker) {
+    //         if (invoker.getAccessibleClass() != AccessibleClass.THIS) GSKOUtil.error(
+    //                 "Method invoker is not a Danmaku instance.");
+    //         if (!Expressions.DANMAKU_METHODS.contains(invoker.getAccessibleMethod()))
+    //             Expressions.NoSuchMethod(this.getClass(), invoker);
+// 
+    //         if (invoker.getAccessibleMethod() == AccessibleMethod.PROJECTILE_SET_MOTION)
+    //             this.tryInvokeSetMotion(invoker);
+// 
+    //         if (invoker.getAccessibleMethod() == AccessibleMethod.PROJECTILE_SHOOT)
+    //             this.tryInvokeShoot(invoker);
+    //     }
+    // }
+
+    // public void tryInvokeShoot(InvokeExpression invoker){
+    //     var list = invoker.getParameters();
+    //     this.checkParamInMap(list, invoker);
+    // }
+
+    /**
+    public void tryInvokeSetMotion(InvokeExpression invoker){
+        var list = invoker.getParameters();
+        this.checkParamInMap(list, invoker);
+        if (invoker.isInitRef(0)){
+            var init = invoker.getVarInit(list.getFirst(), this.varMap);
+            if (!init.matchesInit(AccessibleInit.VEC3_INIT)) Expressions.UnexpectedExpression(invoker);
+            if (!init.isAllConst())Expressions.ParametersNotMatch(invoker);
+
+            var initParams = init.getAsConstList();
+            var vec3 = new Vec3(
+                    initParams.get(0).getDouble(),
+                    initParams.get(1).getDouble(),
+                    initParams.get(2).getDouble());
+            this.setDeltaMovement(vec3);
+
+        }
+    }
+
+    private void checkParamInMap(List<ParamExpression> list, InvokeExpression invoker){
+        var paramInMap = list.stream().allMatch(param -> this.varMap.containsKey(param.paramName));
+        if (!paramInMap) Expressions.NotInMap();
+    }
+
+     */
+    @Override
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(DATA_DAMAGE, this.damage);
+        this.dataManager.register(DATA_LIFESPAN, this.lifespan);
+        // this.behavior = new ClosureExpression();
+        // builder.define(DATA_SPELL, this.behavior);
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        // var registryops = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+        this.setDamage(compound.getFloat("damage"));
+        this.setLifespan(compound.getInt("lifespan"));
+        // this.setBehavior((ClosureExpression) ExpressionType.CODEC.parse(NbtOps.INSTANCE, compound.get("behavior")).getOrThrow());
+    }
+
+    @Override
+    public void writeAdditional(@NotNull CompoundNBT compound) {
+        super.writeAdditional(compound);
+        // var registryops = this.registryAccess().createSerializationContext(NbtOps.INSTANCE);
+        compound.putFloat("damage", this.getDamage());
+        compound.putInt("lifespan", this.getLifespan());
+
+        // if (this.getBehavior() == null) return;
+        // compound.put("behavior", this.getBehavior().toNbt());
+    }
+
+    public void setDamage(float damage) {
+        this.dataManager.set(DATA_DAMAGE, damage);
+        this.damage = damage;
+    }
+
+    public void setLifespan(int lifespan) {
+        this.dataManager.set(DATA_DAMAGE, damage);
+        this.lifespan = lifespan;
+    }
+
+    public float getDamage() {
+        return this.dataManager.get(DATA_DAMAGE);
+    }
+
+
+    @Override
+    public boolean canBeCollidedWith() {
+        return true;
+    }
+
+    @Override
+    protected void onEntityHit(EntityRayTraceResult result) {
+        if (!(result.getEntity() instanceof LivingEntity)) return;
+        LivingEntity living = (LivingEntity) result.getEntity();
+        if (!(living.world instanceof ServerWorld)) return;
+
+        if (this.getShooter() instanceof MobEntity || this.getShooter() instanceof IAngerable) {
+            if (this.getType() != EntityRegistry.FAKE_LUNAR_ENTITY.get())
+                this.hurtLiving(living, GSKODamageSource.DANMAKU, 12f);
+            this.remove();
+            return;
+        }
+
+        if (result.getEntity() instanceof Danmaku) {
+            Danmaku danmaku = (Danmaku) result.getEntity();
+            if (danmaku.getType() != EntityRegistry.FAKE_LUNAR_ENTITY.get()) return;
+            this.remove();
+            return;
+        }
+
+        if (!(living instanceof PlayerEntity)) {
+            this.hurtLiving(living, GSKODamageSource.DANMAKU, this.damage);
+            this.remove();
+        }
+    }
+
+    @Override
+    public @NotNull Item getDefaultItem() {
+        return ItemRegistry.DANMAKU_SHOT.get();
+    }
+
+    public void hurtLiving(LivingEntity hurtLiving, DamageSource source, float amount) {
+        hurtLiving.attackEntityFrom(source, amount);
+    }
+}

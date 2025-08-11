@@ -417,7 +417,13 @@ public final class ItemRegistry {
                     .maxStackSize(1).containerItem(BUCKET)));
 
     // ========================== GSKO杂项：合成消耗品 =========================//
-    public static final RegistryObject<Item> BAT_WING = ITEMS.register("bat_wing", () -> new Item(
+    public static final RegistryObject<Item> BAT_WING_LEFT = ITEMS.register("bat_wing_left", () -> new Item(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> BAT_WING_RIGHT = ITEMS.register("bat_wing_right", () -> new Item(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> BAT_HEAD = ITEMS.register("bat_head", () -> new Item(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> BAT_BODY = ITEMS.register("bat_body", () -> new Item(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> ISHI_ZAKURA_FRAGMENT = ITEMS.register("ishi_zakura_fragment",
             () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
