@@ -1,11 +1,10 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
+import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.Entity;
@@ -31,9 +30,10 @@ public class HellEclipseEntity extends AbstractSpellCardEntity {
     public HellEclipseEntity(World worldIn, PlayerEntity player) {
         super(EntityRegistry.HELL_ECLIPSE_ENTITY.get(), worldIn, player);
         this.setOwner(player.getEntity());
-        this.fakeLunar = new FakeLunarEntity(player, world, DanmakuType.FAKE_LUNAR, DanmakuColor.NONE);
-        this.fakeLunar.setLifespan(this.lifeSpan);
-        setDanmakuInit(this.fakeLunar, this.getPositionVec(), new Vector2f(this.rotationYaw, this.rotationPitch));
+        this.fakeLunar = (FakeLunarEntity) new FakeLunarEntity(worldIn, player, ItemRegistry.FAKE_LUNAR_ITEM.get())
+                .lifespan(this.lifeSpan)
+                .pos(this.getPositionVec())
+                .rot(Rot2f.of(this.rotationYaw, this.rotationPitch));
         worldIn.addEntity(this.fakeLunar);
 
     }
@@ -70,10 +70,10 @@ public class HellEclipseEntity extends AbstractSpellCardEntity {
         this.fakeLunar.setMotion(lunarMotion);
 
         for (int i = 0; i < 8; i++) {
-            SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
             Vector3d vector3d = center.rotateYaw((float) (Math.PI / 4 * i)).rotateYaw((float) (Math.PI / 100 * ticksExisted));
-            smallShot.setLocationAndAngles(global.x, global.y, global.z, (float) center.y, (float) center.z);
-            smallShot.setNoGravity(true);
+            Danmaku smallShot = Danmaku.create(world, (LivingEntity) this.getOwner(), ItemRegistry.SMALL_SHOT_RED.get())
+                    .pos(global)
+                    .rot(Rot2f.clip(center));
             smallShot.shoot(vector3d.x, 0, vector3d.z, 0.5F, 0F);
             world.addEntity(smallShot);
         }

@@ -1,12 +1,16 @@
 package github.thelawf.gensokyoontology.common.entity;
 
 
+import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
+import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.expression.IExpressionType;
 import net.minecraft.entity.*;
+import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
@@ -19,7 +23,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -48,29 +51,29 @@ public class Danmaku extends ProjectileItemEntity{
     /**
      * 这个哈希表中存放的是那些应该被进行法向渲染的投掷物弹幕。使用普通精灵渲染的弹幕物品不在此列内。布尔值表示是否将该弹幕贴图朝下的方向作为其法向。
      */
-    public static final Map<Item,Boolean> NORMAL_DANMAKU = Util.make(() -> {
-        Map<Item, Boolean> map = new HashMap<>();
-        map.put(ItemRegistry.SCALE_SHOT.get(), false);
-        map.put(ItemRegistry.SCALE_SHOT_RED.get(), false);
-        map.put(ItemRegistry.SCALE_SHOT_YELLOW.get(), false);
-        map.put(ItemRegistry.SCALE_SHOT_GREEN.get(), false);
-        map.put(ItemRegistry.SCALE_SHOT_BLUE.get(), false);
-        map.put(ItemRegistry.SCALE_SHOT_PURPLE.get(), false);
+    public static final Map<Item,Pair<Boolean, Float>> NORMAL_DANMAKU = Util.make(() -> {
+        Map<Item, Pair<Boolean, Float>> map = new HashMap<>();
+        map.put(ItemRegistry.SCALE_SHOT.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT_RED.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT_YELLOW.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT_GREEN.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT_BLUE.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT_PURPLE.get(), Pair.of(false, 0.3F));
 
-        map.put(ItemRegistry.TALISMAN_SHOT.get(), false);
-        map.put(ItemRegistry.TALISMAN_SHOT_RED.get(), false);
-        map.put(ItemRegistry.TALISMAN_SHOT_GREEN.get(), false);
-        map.put(ItemRegistry.TALISMAN_SHOT_BLUE.get(), false);
-        map.put(ItemRegistry.TALISMAN_SHOT_PURPLE.get(), false);
+        map.put(ItemRegistry.TALISMAN_SHOT.get(), Pair.of(false, 1F));
+        map.put(ItemRegistry.TALISMAN_SHOT_RED.get(), Pair.of(false, 1F));
+        map.put(ItemRegistry.TALISMAN_SHOT_GREEN.get(), Pair.of(false, 1F));
+        map.put(ItemRegistry.TALISMAN_SHOT_BLUE.get(), Pair.of(false, 1F));
+        map.put(ItemRegistry.TALISMAN_SHOT_PURPLE.get(), Pair.of(false, 1F));
 
-        map.put(ItemRegistry.RICE_SHOT.get(), false);
-        map.put(ItemRegistry.RICE_SHOT_RED.get(), false);
-        map.put(ItemRegistry.RICE_SHOT_BLUE.get(), false);
-        map.put(ItemRegistry.RICE_SHOT_PURPLE.get(), false);
+        map.put(ItemRegistry.RICE_SHOT.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.RICE_SHOT_RED.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.RICE_SHOT_BLUE.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.RICE_SHOT_PURPLE.get(), Pair.of(false, 0.4F));
 
-        map.put(ItemRegistry.HEART_SHOT.get(), true);
-        map.put(ItemRegistry.HEART_SHOT_RED.get(), true);
-        map.put(ItemRegistry.HEART_SHOT_BLUE.get(), true);
+        map.put(ItemRegistry.HEART_SHOT.get(), Pair.of(true, 2.0F));
+        map.put(ItemRegistry.HEART_SHOT_RED.get(), Pair.of(true, 2.0F));
+        map.put(ItemRegistry.HEART_SHOT_BLUE.get(), Pair.of(true, 2.0F));
 
         return map;
     });
@@ -108,13 +111,17 @@ public class Danmaku extends ProjectileItemEntity{
     }
 
     public static Danmaku create(World world, LivingEntity owner, ItemStack stack) {
-        return new Danmaku(world, stack.getItem(), owner);
+        return new Danmaku(world, stack.getItem(), owner)
+                .pos(owner.getPositionVec())
+                .rot(Rot2f.from(owner.getLookVec()))
+                .noGravity();
     }
 
     public static Danmaku create(World world, LivingEntity owner, Item item) {
-        if (!(world instanceof ServerWorld)) return null;
-        ServerWorld serverWorld = (ServerWorld) world;
-        return new Danmaku(serverWorld, item, owner);
+        return new Danmaku(world, item, owner)
+                .pos(owner.getPositionVec())
+                .rot(Rot2f.from(owner.getLookVec()))
+                .noGravity();
     }
 
     public Danmaku lifespan(int lifespan) {
@@ -139,12 +146,17 @@ public class Danmaku extends ProjectileItemEntity{
         return this;
     }
 
+    public Danmaku noGravity(){
+        this.setNoGravity(true);
+        return this;
+    }
+
     private void setPos(Vector3d pos) {
         this.setPosition(pos.x, pos.y, pos.z);
     }
 
-    public Danmaku rot(Vector2f rot) {
-        this.setRotation(rot.y, rot.x);
+    public Danmaku rot(Rot2f rotation) {
+        this.setRotation(rotation.yaw(), rotation.pitch());
         return this;
     }
 
@@ -287,7 +299,6 @@ public class Danmaku extends ProjectileItemEntity{
             this.remove();
         }
     }
-
 
     @Override
     public @NotNull Item getDefaultItem() {

@@ -85,33 +85,6 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<DanmakuShotEntity>> DANMAKU_ENTITY = ENTITIES.register(
             "danmaku_shot", () -> EntityType.Builder.<DanmakuShotEntity>create(DanmakuShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("danmaku_shot"));
-    public static final RegistryObject<EntityType<HeartShotEntity>> HEART_SHOT_ENTITY = ENTITIES.register(
-            "heart_shot", () -> EntityType.Builder.<HeartShotEntity>create(HeartShotEntity::new, EntityClassification.MISC)
-                    .size(1.2F, 1.2F).trackingRange(4).updateInterval(2).build("heart_shot"));
-    public static final RegistryObject<EntityType<LargeShotEntity>> LARGE_SHOT_ENTITY = ENTITIES.register(
-            "large_shot", () -> EntityType.Builder.<LargeShotEntity>create(LargeShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("large_shot"));
-    public static final RegistryObject<EntityType<SmallShotEntity>> SMALL_SHOT_ENTITY = ENTITIES.register(
-            "small_shot", () -> EntityType.Builder.<SmallShotEntity>create(SmallShotEntity::new, EntityClassification.MISC)
-                    .size(0.3F, 0.3F).trackingRange(4).updateInterval(2).build("small_shot"));
-    public static final RegistryObject<EntityType<CircleShotEntity>> CIRCLE_SHOT_ENTITY = ENTITIES.register(
-            "circle_shot", () -> EntityType.Builder.<CircleShotEntity>create(CircleShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("circle_shot"));
-    public static final RegistryObject<EntityType<SmallStarShotEntity>> STAR_SHOT_SMALL_ENTITY = ENTITIES.register(
-            "star_shot_small", () -> EntityType.Builder.<SmallStarShotEntity>create(SmallStarShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("star_shot_small"));
-    public static final RegistryObject<EntityType<LargeStarShotEntity>> STAR_SHOT_LARGE_ENTITY = ENTITIES.register(
-            "start_shot_large", () -> EntityType.Builder.<LargeStarShotEntity>create(LargeStarShotEntity::new, EntityClassification.MISC)
-                    .size(2.8F, 2.8F).trackingRange(4).updateInterval(2).build("star_shot_large"));
-    public static final RegistryObject<EntityType<RiceShotEntity>> RICE_SHOT_ENTITY = ENTITIES.register(
-            "rice_shot", () -> EntityType.Builder.<RiceShotEntity>create(RiceShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("rice_shot"));
-    public static final RegistryObject<EntityType<ScaleShotEntity>> SCALE_SHOT_ENTITY = ENTITIES.register(
-            "scale_shot", () -> EntityType.Builder.<ScaleShotEntity>create(ScaleShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("scale_shot"));
-    public static final RegistryObject<EntityType<TalismanShotEntity>> TALISMAN_SHOT_ENTITY = ENTITIES.register(
-            "talisman_shot", () -> EntityType.Builder.<TalismanShotEntity>create(TalismanShotEntity::new, EntityClassification.MISC)
-                    .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("talisman_shot"));
     public static final RegistryObject<EntityType<FakeLunarEntity>> FAKE_LUNAR_ENTITY = ENTITIES.register(
             "fake_lunar", () -> EntityType.Builder.<FakeLunarEntity>create(FakeLunarEntity::new, EntityClassification.MISC).size(2.8F, 2.8F)
                     .trackingRange(4).updateInterval(2).build("fake_lunar"));
@@ -157,17 +130,6 @@ public final class EntityRegistry {
             registerSpell("mountain_of_faith", MountainOfFaithEntity::new);
     public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY =
             registerSpell("ido_no_kaiho", IdonokaihoEntity::new);
-    public static final RegistryObject<EntityType<GalacticArmSpellEntity>> GALACTIC_ARM_SPELL_ENTITY =
-            ENTITIES.register("galactic_arm_spell", () -> EntityType.Builder.<GalacticArmSpellEntity>create((entityTypeIn, worldIn) -> {
-                        try {
-                            return new GalacticArmSpellEntity(entityTypeIn, worldIn);
-                        } catch (InvocationTargetException | NoSuchMethodException | InstantiationException |
-                                 IllegalAccessException e) {
-                            throw new RuntimeException(e);
-                        }
-                    },
-                    EntityClassification.MISC).size(1F,1F).trackingRange(4).updateInterval(2).build("galactic_arm_spell"));
-
     // ============================================= 特殊能力实体 ====================================================//
     public static final RegistryObject<EntityType<LaserSourceEntity>> LASER_SOURCE_ENTITY = register(
             "laser_source", LaserSourceEntity::new, EntityClassification.MISC,1F, 1F, 4, 2);
@@ -175,8 +137,8 @@ public final class EntityRegistry {
             "destructive_eye", DestructiveEyeEntity::new, EntityClassification.MISC, 3F, 3F, 10, 2);
     public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = register(
             "master_spark", MasterSparkEntity::new, EntityClassification.MISC, 2.F, 2.F, 10, 2);
-    public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
-            "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);
+    // public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
+    //         "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);
 
     public static final RegistryObject<EntityType<Danmaku>> DANMAKU = register("danmaku", Danmaku::new,
             EntityClassification.MISC, 0.4F, 0.4F, 20, 2);

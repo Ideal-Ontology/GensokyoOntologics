@@ -30,7 +30,7 @@ public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardU
     @Override
     protected void registerGoals() {
         GSKOBossGoal.Stage stage = new GSKOBossGoal.Stage(GSKOBossGoal.Type.NON_SPELL, 500, true);
-        // stages.put(GSKOBossGoal.Type.SPELL_CARD_BREAKABLE, Pair.of(50f, 2000));
+        // stages.put(GSKOBossGoal.Type.SPELL_CARD_BREAKABLE, Pair.clip(50f, 2000));
 
         this.goalSelector.addGoal(0, new SwimGoal(this));
         this.goalSelector.addGoal(1, new LilyWhiteBossBattleGoal(this, stage, 0.4f));

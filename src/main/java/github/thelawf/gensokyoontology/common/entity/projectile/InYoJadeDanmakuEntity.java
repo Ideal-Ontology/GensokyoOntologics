@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -21,9 +22,10 @@ public class InYoJadeDanmakuEntity extends AbstractDanmakuEntity {
         this.setShooter(shooter);
     }
 
-    public InYoJadeDanmakuEntity(EntityType<? extends ThrowableEntity> type, World world) {
+    public InYoJadeDanmakuEntity(EntityType<InYoJadeDanmakuEntity> type, World world) {
         super(type, world);
     }
+
 
     @Override
     protected void registerData() {
@@ -37,6 +39,11 @@ public class InYoJadeDanmakuEntity extends AbstractDanmakuEntity {
             youkai.attackEntityFrom(DamageSource.WITHER, 5F);
         }
         super.onEntityHit(result);
+    }
+
+    @Override
+    protected Item getDefaultItem() {
+        return ItemStack.EMPTY.getItem();
     }
 
     @Override

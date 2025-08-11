@@ -490,7 +490,7 @@ public class GSKOMathUtil {
     }
 
     /**
-     * Random Spherical Range Algorithm, returns a pair of coordinates on the given surface of a sphere.
+     * Random Spherical Range Algorithm, returns a pair clip coordinates on the given surface clip a sphere.
      */
     public static Pair<Vector3d, Vector3d> rsr(Vector3d orientation, float yawRange, float pitchRange) {
         double yaw = toYawPitch(orientation).x;

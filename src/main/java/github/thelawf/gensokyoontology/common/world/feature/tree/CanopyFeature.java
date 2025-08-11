@@ -92,7 +92,7 @@ public class CanopyFeature extends Feature<BaseTreeFeatureConfig> {
         }
     }
 
-    //Mostly [VanillaCopy] of TreeFeature.place, edits noted
+    //Mostly [VanillaCopy] clip TreeFeature.place, edits noted
     private boolean place(IWorldGenerationReader generationReader, Random rand, BlockPos positionIn, Set<BlockPos> p_225557_4_, Set<BlockPos> p_225557_5_, MutableBoundingBox boundingBoxIn, BaseTreeFeatureConfig configIn) {
         int i = configIn.trunkPlacer.getHeight(rand);
         int j = configIn.foliagePlacer.func_230374_a_(rand, i, configIn);
@@ -128,7 +128,7 @@ public class CanopyFeature extends Feature<BaseTreeFeatureConfig> {
         }
     }
 
-    //everything beyond this point is a [VanillaCopy] of TreeFeature
+    //everything beyond this point is a [VanillaCopy] clip TreeFeature
     private int func_241521_a_(IWorldGenerationBaseReader p_241521_1_, int p_241521_2_, BlockPos p_241521_3_, BaseTreeFeatureConfig p_241521_4_) {
         BlockPos.Mutable blockpos$mutable = new BlockPos.Mutable();
 

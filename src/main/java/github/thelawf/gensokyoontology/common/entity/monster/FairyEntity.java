@@ -1,10 +1,13 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.DamakuAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.projectile.*;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.util.math.Rot2f;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.ai.controller.MovementController;
@@ -12,6 +15,7 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.GhastEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
@@ -169,33 +173,33 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
         }
     }
 
-    private AbstractDanmakuEntity randomSelect() {
+    private Danmaku randomSelect() {
         Random r2 = new Random(this.getUniqueID().getLeastSignificantBits());
         switch (r2.nextInt(4)){
             case 0:
-                return new LargeShotEntity(this, world, DanmakuType.LARGE_SHOT, DanmakuColor.BLUE);
+                return Danmaku.create(world, this, ItemRegistry.LARGE_SHOT_BLUE.get());
             case 1:
-                return new ScaleShotEntity(this, world, DanmakuType.SCALE_SHOT, DanmakuColor.RED);
+                return Danmaku.create(world, this, ItemRegistry.SCALE_SHOT_RED.get());
             case 2:
-                return new RiceShotEntity(this, world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
+                return Danmaku.create(world, this, ItemRegistry.RICE_SHOT_PURPLE.get());
             default:
-                return new SmallShotEntity(this, world, DanmakuType.SMALL_SHOT, DanmakuColor.RED);
+                return Danmaku.create(world, this, ItemRegistry.SMALL_SHOT_RED.get());
         }
     }
 
     private void aimedShot(LivingEntity target) {
         Vector3d direction = new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
         // SmallShotEntity smallShot = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
-        AbstractDanmakuEntity danmaku = randomSelect();
-        DanmakuUtil.initDanmaku(danmaku, this.getPositionVec().add(0,1,0), true);
+        Danmaku danmaku = randomSelect();
+        DanmakuUtil.init(danmaku, this.getPositionVec().add(0,1,0), Rot2f.ZERO, true);
         danmaku.shoot(direction.x, direction.y, direction.z, 0.7f, 0f);
         this.world.addEntity(danmaku);
 
     }
 
     private void oddAimedShot(Vector3d pos, Vector3d shootVec) {
-        AbstractDanmakuEntity danmaku = randomSelect();
-        DanmakuUtil.initDanmaku(danmaku, pos, true);
+        Danmaku danmaku = randomSelect();
+        DanmakuUtil.init(danmaku, pos, Rot2f.ZERO, true);
         danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, 0.7f, 0f);
         this.world.addEntity(danmaku);
     }
@@ -213,8 +217,8 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
         for (int i = 0; i < 4; i++) {
             Vector3d shootVec = new Vector3d(Vector3f.XP).rotateYaw((float) Math.PI / 36 * ticksExisted)
                     .rotatePitch((float) Math.PI / 36 * ticksExisted).rotateYaw((float) Math.PI / 2 * i);
-            AbstractDanmakuEntity danmaku = randomSelect();
-            DanmakuUtil.initDanmaku(danmaku, this.getPositionVec().add(0,1,0), true);
+            Danmaku danmaku = randomSelect();
+            DanmakuUtil.init(danmaku, this.getPositionVec().add(0,1,0), Rot2f.ZERO, true);
             danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, 0.7f, 0f);
             world.addEntity(danmaku);
         }

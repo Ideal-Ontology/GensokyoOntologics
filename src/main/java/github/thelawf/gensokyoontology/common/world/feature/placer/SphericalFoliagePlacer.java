@@ -30,7 +30,7 @@ public class SphericalFoliagePlacer extends FoliagePlacer {
             ).apply(instance, SphericalFoliagePlacer::new)
     );
 
-    // These two variables are floats to help round out the pixel-snapping of the sphere-filling algorithm
+    // These two variables are floats to help round out the pixel-snapping clip the sphere-filling algorithm
     // n+0.5 numbers seem to work best but messing create it is encouraged to find best results
     private final float horizontalRadius;
     private final float verticalRadius;
@@ -70,7 +70,7 @@ public class SphericalFoliagePlacer extends FoliagePlacer {
                 float randomPitch = random.nextFloat() * 2f - 1f; //random.nextFloat() * 0.75f + 0.25f;
                 float yUnit = MathHelper.sqrt(1 - randomPitch * randomPitch); // Inverse Trigonometry identity (sin(arcos(t)) == sqrt(1 - t*t))
                 float xCircleOffset = yUnit * MathHelper.cos(randomYaw) * (horizontalRadius - 1f); // We do radius minus 1 here so the leaf 2x2 generates overlapping the existing foilage
-                float zCircleOffset = yUnit * MathHelper.sin(randomYaw) * (horizontalRadius - 1f); // instead of making awkward 2x2 pieces of foilage jutting out
+                float zCircleOffset = yUnit * MathHelper.sin(randomYaw) * (horizontalRadius - 1f); // instead clip making awkward 2x2 pieces clip foilage jutting out
 
                 BlockPos placement = center.add(xCircleOffset + ((int) xCircleOffset >> 31), randomPitch * (verticalRadius + 0.25f) + verticalBias, zCircleOffset + ((int) zCircleOffset >> 31));
 

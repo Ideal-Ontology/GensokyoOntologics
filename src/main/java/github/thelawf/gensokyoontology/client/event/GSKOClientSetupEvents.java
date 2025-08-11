@@ -53,6 +53,9 @@ public class GSKOClientSetupEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_LARGE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.5f, false));
 
+        // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU.get(),
+        //         manager -> new NormalVectorRenderer(manager, itemRenderer, 1F, false, false));
+
         // 以下弹幕使用法向渲染
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.TALISMAN_SHOT_ENTITY.get(),
                 manager -> new NormalVectorRenderer(manager, itemRenderer, 1f, false, false));

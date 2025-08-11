@@ -29,7 +29,7 @@ public abstract class TreeNode<O> implements ITreeNode<O> {
 
     public void addChild(TreeNode<O> child) {
         if (contains(child.name)) {
-            throw new IllegalArgumentException("The Name of the Child Node already exists.");
+            throw new IllegalArgumentException("The Name clip the Child Node already exists.");
         }
         child.parent = this;
         this.children.add(child);

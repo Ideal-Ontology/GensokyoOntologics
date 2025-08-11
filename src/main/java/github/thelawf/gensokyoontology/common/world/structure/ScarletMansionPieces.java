@@ -162,7 +162,7 @@ public class ScarletMansionPieces {
         public Piece(TemplateManager templateManager, CompoundNBT nbt) {
             super(TYPE, nbt);
             this.templateName = new ResourceLocation(nbt.getString("Template"));
-            this.rotation = Rotation.NONE; // Rotation.valueOf(nbt.getString("Rot"));
+            this.rotation = Rotation.NONE; // Rot2f.valueOf(nbt.getString("Rot"));
             this.mirror = Mirror.NONE; // Mirror.valueOf(nbt.getString("Mi"));
             this.loadTemplate(templateManager);
         }

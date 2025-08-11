@@ -1,19 +1,20 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.ScriptedDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.EntityPredicate;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileItemEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.EntityRayTraceResult;
@@ -26,7 +27,11 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-public class DreamSealEntity extends ScriptedDanmakuEntity implements IRayTraceReader {
+public class DreamSealEntity extends Danmaku implements IRayTraceReader {
+    public DreamSealEntity(World world, Item danmakuItem, LivingEntity owner) {
+        super(world, danmakuItem, owner);
+    }
+    /*
     private int color;
     public DreamSealEntity(World worldIn, LivingEntity shooter, DanmakuColor color) {
         super(EntityRegistry.DREAM_SEAL_ENTITY.get(), worldIn);
@@ -37,8 +42,13 @@ public class DreamSealEntity extends ScriptedDanmakuEntity implements IRayTraceR
         this.setScript(new CompoundNBT());
         this.setTarget(findTarget(world, shooter.getPositionVec(), createCubeBox(shooter.getPositionVec(), 20)));
     }
-    public DreamSealEntity(EntityType<? extends AbstractDanmakuEntity> entityTypeIn, World worldIn) {
+    public DreamSealEntity(EntityType<? extends ProjectileItemEntity> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
+    }
+
+    @Override
+    protected Item getDefaultItem() {
+        return Items.AIR;
     }
 
     // /tp -19 70.0 -164
@@ -47,7 +57,7 @@ public class DreamSealEntity extends ScriptedDanmakuEntity implements IRayTraceR
         super.tick();
         if (ticksExisted % 3 == 0) return;
         if (this.getShooter() != null && this.getTarget() != null) {
-            Vector3d aimedVec = this.getAimedVec(this.getShooter(), this.getTarget());
+            Vector3d aimedVec = this.getAimedVec((LivingEntity) this.getShooter(), this.getTarget());
             float offset = 0.3f / this.getTarget().getEyeHeight();
             this.shoot(aimedVec.x, aimedVec.y - offset, aimedVec.z, 1.6f, 0f);
         }
@@ -70,8 +80,8 @@ public class DreamSealEntity extends ScriptedDanmakuEntity implements IRayTraceR
     @Override
     protected void onEntityHit(@NotNull EntityRayTraceResult result) {
         super.onEntityHit(result);
-        if (result.getEntity() instanceof AbstractDanmakuEntity) {
-            AbstractDanmakuEntity danmaku = (AbstractDanmakuEntity) result.getEntity();
+        if (result.getEntity() instanceof ProjectileItemEntity) {
+            ProjectileItemEntity danmaku = (ProjectileItemEntity) result.getEntity();
             danmaku.remove();
         }
         if (result.getEntity() instanceof YoukaiEntity) {
@@ -95,4 +105,6 @@ public class DreamSealEntity extends ScriptedDanmakuEntity implements IRayTraceR
     public @NotNull ItemStack getItem() {
         return ItemStack.EMPTY;
     }
+
+     */
 }

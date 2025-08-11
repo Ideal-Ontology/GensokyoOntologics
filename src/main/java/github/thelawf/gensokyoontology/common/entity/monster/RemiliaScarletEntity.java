@@ -44,8 +44,7 @@ public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser
     @Override
     public void spellCardAttack(AbstractSpellCardEntity spellCard, int ticksIn) {
         List<Runnable> runnables = ImmutableList.of(
-                () -> RemiliaSpellAttack.tickLaserSpiral(this),
-                () -> RemiliaSpellAttack.sphere(this.world, this)
+                () -> RemiliaSpellAttack.tickLaserSpiral(this)
         );
 
         runnables.get(this.getRNG().nextInt(runnables.size())).run();

@@ -1,27 +1,22 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.SmallStarShotEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 public class GalacticArmSpellEntity extends AbstractSpellCardEntity {
+    public GalacticArmSpellEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn, LivingEntity living) {
+        super(entityTypeIn, worldIn, living);
+    }
+
+    @Override
+    public @NotNull ItemStack getItem() {
+        return ItemStack.EMPTY;
+    }
+    /*
     private List<SmallStarShotEntity> list;
     private static final int COUNT = 60;
     private ArrayList<List<SmallStarShotEntity>> starLists = new ArrayList<>();
@@ -137,4 +132,6 @@ public class GalacticArmSpellEntity extends AbstractSpellCardEntity {
     public @NotNull ItemStack getItem() {
         return ItemStack.EMPTY;
     }
+
+     */
 }

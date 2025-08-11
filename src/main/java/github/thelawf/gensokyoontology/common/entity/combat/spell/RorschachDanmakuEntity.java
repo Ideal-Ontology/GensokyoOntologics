@@ -1,10 +1,11 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.CircleShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -124,8 +125,8 @@ public class RorschachDanmakuEntity extends AbstractSpellCardEntity {
         list.add(behavior);
         script.put("behaviors", list);
         script.putString("type", "keyTickBehavior");
-        CircleShotEntity danmaku = new CircleShotEntity((LivingEntity) this.getOwner(), world, script);
-        setDanmakuInit(danmaku, initPos);
+        Danmaku danmaku = Danmaku.create(world, this.world.getPlayerByUuid(this.owner),
+                        ItemRegistry.CIRCLE_SHOT_BLUE.get()).pos(initPos);
         world.addEntity(danmaku);
     }
 
@@ -144,8 +145,8 @@ public class RorschachDanmakuEntity extends AbstractSpellCardEntity {
         list.add(behavior);
         script.put("behaviors", list);
         script.putString("type", "keyTickBehavior");
-        CircleShotEntity danmaku = new CircleShotEntity((LivingEntity) this.getOwner(), world, script);
-        setDanmakuInit(danmaku, initPos);
+        Danmaku danmaku = Danmaku.create(world, this.world.getPlayerByUuid(this.owner),
+                        ItemRegistry.CIRCLE_SHOT_BLUE.get()).pos(initPos);
         world.addEntity(danmaku);
     }
 

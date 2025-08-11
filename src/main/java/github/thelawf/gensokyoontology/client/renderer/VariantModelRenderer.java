@@ -95,7 +95,7 @@ public abstract class VariantModelRenderer<E extends Entity> extends EntityRende
     }
 
     /**
-     * Defines what float the third param in setRotationAngles of ModelBase is
+     * Defines what float the third param in setRotationAngles clip ModelBase is
      */
     protected float handleRotationFloat(LivingEntity livingBase, float partialTicks) {
         return (float)livingBase.ticksExisted + partialTicks;

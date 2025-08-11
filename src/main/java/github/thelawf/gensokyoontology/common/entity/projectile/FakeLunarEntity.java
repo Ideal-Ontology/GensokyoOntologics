@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.projectile;
 
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
@@ -10,7 +11,9 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.world.World;
@@ -18,18 +21,15 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
-public class FakeLunarEntity extends AbstractDanmakuEntity {
+public class FakeLunarEntity extends Danmaku {
 
-    public FakeLunarEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
+    public FakeLunarEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public FakeLunarEntity(LivingEntity throwerIn, World world, SpellData spellData) {
-        super(EntityRegistry.FAKE_LUNAR_ENTITY.get(), throwerIn, world, spellData);
-    }
 
-    public FakeLunarEntity(LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
-        super(EntityRegistry.FAKE_LUNAR_ENTITY.get(), throwerIn, worldIn, danmakuTypeIn, danmakuColorIn);
+    public FakeLunarEntity(World worldIn, LivingEntity throwerIn, Item item) {
+        super(worldIn, item, throwerIn);
     }
 
     @Override

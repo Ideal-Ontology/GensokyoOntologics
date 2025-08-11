@@ -1,17 +1,11 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.common.entity.ai.goal.DamakuAttackGoal;
-import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
 import net.minecraft.entity.ai.goal.WaterAvoidingRandomFlyingGoal;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -89,13 +83,11 @@ public class SpectreEntity extends RetreatableEntity implements IRendersAsItem, 
     public void danmakuAttack(LivingEntity target) {
         if (ticksExisted % 10 == 0) {
             Vector3d direction = new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
-            SmallShotEntity danmaku = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.BLUE);
-            DanmakuUtil.initDanmaku(danmaku, this.getPositionVec(), true);
-            danmaku.shoot(direction.x, direction.y, direction.z, 0.78f, 0f);
-            this.world.addEntity(danmaku);
+            // SmallShotEntity danmaku = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.BLUE);
+            // DanmakuUtil.initDanmaku(danmaku, this.getPositionVec(), true);
+            // danmaku.shoot(direction.x, direction.y, direction.z, 0.78f, 0f);
+            // this.world.addEntity(danmaku);
         }
     }
 
-    private <D extends AbstractDanmakuEntity> void aimedShot(LivingEntity target) {
-    }
 }

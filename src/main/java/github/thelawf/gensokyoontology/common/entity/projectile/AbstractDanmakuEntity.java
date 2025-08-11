@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
 import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
@@ -36,7 +37,7 @@ import java.util.Deque;
  * （待补充……）
  */
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public abstract class AbstractDanmakuEntity extends ThrowableEntity implements IRendersAsItem {
+public abstract class AbstractDanmakuEntity extends ProjectileItemEntity implements IRendersAsItem {
     private int lifespan = 125;
     protected float damage = 2.0f;
 
@@ -56,11 +57,11 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     public TransformFunction function;
     public CompoundNBT compoundNBT = new CompoundNBT();
 
-    protected AbstractDanmakuEntity(EntityType<? extends ThrowableEntity> type, World worldIn) {
+    protected AbstractDanmakuEntity(EntityType<? extends ProjectileItemEntity> type, World worldIn) {
         super(type, worldIn);
     }
 
-    public AbstractDanmakuEntity(EntityType<? extends ThrowableEntity> type, LivingEntity throwerIn, World world, SpellData spellData) {
+    public AbstractDanmakuEntity(EntityType<? extends ProjectileItemEntity> type, LivingEntity throwerIn, World world, SpellData spellData) {
         this(type, world);
         this.spellData = spellData;
         this.damage = spellData.danmakuType.damage;
@@ -68,7 +69,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         // this.setSpellData(spellData);
     }
 
-    public AbstractDanmakuEntity(EntityType<? extends ThrowableEntity> type, LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
+    public AbstractDanmakuEntity(EntityType<? extends ProjectileItemEntity> type, LivingEntity throwerIn, World worldIn, DanmakuType danmakuTypeIn, DanmakuColor danmakuColorIn) {
         super(type, worldIn);
         this.damage = danmakuTypeIn.damage;
         this.danmakuColor = danmakuColorIn.ordinal();
@@ -100,7 +101,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     }
 
     @Override
-    protected void readAdditional(@NotNull CompoundNBT compound) {
+    public void readAdditional(@NotNull CompoundNBT compound) {
         super.readAdditional(compound);
         if (compound.contains("damage")) {
             this.damage = compound.getFloat("damage");
@@ -117,7 +118,7 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     }
 
     @Override
-    protected void writeAdditional(@NotNull CompoundNBT compound) {
+    public void writeAdditional(@NotNull CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putFloat("damage", this.damage);
         compound.putInt("color", this.danmakuColor);
@@ -147,45 +148,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     @Override
     public boolean canBeCollidedWith() {
         return true;
-    }
-
-    @Override
-    protected void onEntityHit(@NotNull EntityRayTraceResult result) {
-        if (this.getShooter() instanceof MonsterEntity || this.getShooter() instanceof IAngerable) {
-            if (result.getEntity() instanceof PlayerEntity) {
-                PlayerEntity player = (PlayerEntity) result.getEntity();
-                if (this instanceof FakeLunarEntity) {
-                    player.attackEntityFrom(GSKODamageSource.DANMAKU, 12f);
-                    // player.applyKnockback(0.1f, 0.05, 0.05);
-                }
-                player.attackEntityFrom(GSKODamageSource.DANMAKU, this.damage);
-            } else if (result.getEntity() instanceof LivingEntity) {
-                LivingEntity living = (LivingEntity) result.getEntity();
-                if (this instanceof FakeLunarEntity) {
-                    living.attackEntityFrom(GSKODamageSource.DANMAKU, 12f);
-                }
-            }
-            this.remove();
-            return;
-        }
-
-        if (result.getEntity() instanceof AbstractDanmakuEntity) {
-            AbstractDanmakuEntity danmakuEntity = (AbstractDanmakuEntity) result.getEntity();
-            if (danmakuEntity instanceof FakeLunarEntity) {
-                this.remove();
-                return;
-            }
-        }
-
-        if (!(result.getEntity() instanceof LivingEntity)) {
-            return;
-        }
-
-        LivingEntity entityHit = (LivingEntity) result.getEntity();
-        if (!(entityHit instanceof PlayerEntity)) {
-            entityHit.attackEntityFrom(GSKODamageSource.DANMAKU, this.damage);
-            this.remove();
-        }
     }
 
     public void setDanmakuColor(DanmakuColor danmakuColor) {

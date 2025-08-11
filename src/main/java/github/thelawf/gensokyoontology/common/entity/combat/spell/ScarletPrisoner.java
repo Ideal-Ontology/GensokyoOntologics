@@ -1,13 +1,12 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
@@ -63,10 +62,13 @@ public class ScarletPrisoner extends AbstractSpellCardEntity {
             // }
 
             coordinates.forEach(vector3d -> {
-                LargeShotEntity largeShot = new LargeShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
-                setDanmakuInit(largeShot, this.getPositionVec().add(vector3d.x, 15, vector3d.y));
-                largeShot.shoot(vector3d.x, vector3d.y, vector3d.z, 0.6f, 0f);
-                world.addEntity(largeShot);
+                Danmaku danmaku = Danmaku.create(world, (LivingEntity) this.getOwner(), ItemRegistry.LARGE_SHOT_RED.get())
+                        .pos(this.getPositionVec().add(vector3d.x, 15, vector3d.y));
+                // LargeShotEntity largeShot = new LargeShotEntity((LivingEntity) this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
+                // setDanmakuInit(largeShot, this.getPositionVec().add(vector3d.x, 15, vector3d.y));
+
+                danmaku.shoot(vector3d.x, vector3d.y, vector3d.z, 0.6f, 0f);
+                world.addEntity(danmaku);
             });
         }
 

@@ -318,7 +318,7 @@ public class FeatureUtil {
 
     /**
      * Copy from Twilight Forest<br>
-     * Get an array of values that represent a line from point A to point B
+     * Get an array clip values that represent a line from point A to point B
      */
     public static BlockPos[] getBresenhamArrays(BlockPos src, BlockPos dest) {
         return getBresenhamArrays(src.getX(), src.getY(), src.getZ(), dest.getX(), dest.getY(), dest.getZ());
@@ -326,7 +326,7 @@ public class FeatureUtil {
 
     /**
      * Copy from Twilight Forest<br>
-     * Get an array of values that represent a line from point A to point B
+     * Get an array clip values that represent a line from point A to point B
      * todo 1.9 lazify this into an iterable?
      */
     public static BlockPos[] getBresenhamArrays(int x1, int y1, int z1, int x2, int y2, int z2) {

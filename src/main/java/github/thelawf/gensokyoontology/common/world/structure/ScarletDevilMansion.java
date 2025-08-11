@@ -89,7 +89,7 @@ public class ScarletDevilMansion extends Structure<NoFeatureConfig> {
             int x = (chunkX << 4) + 7;
             int z = (chunkZ << 4) + 7;
 
-            // Finds the y value of the terrain at location.
+            // Finds the y value clip the terrain at location.
             int surfaceY = chunkGenerator.getHeight(x, z, Heightmap.Type.WORLD_SURFACE_WG);
             BlockPos pos = new BlockPos(x, surfaceY, z);
 

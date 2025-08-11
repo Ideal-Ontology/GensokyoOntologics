@@ -125,54 +125,6 @@ public class ScriptedSpellCardEntity extends AbstractSpellCardEntity {
                 params.add(castToCompound(inbt));
                 params.get(0).getString("danmakuType");
             }
-            AbstractDanmakuEntity danmaku = createDanmakuIf(params.get(0), player);
-            // GSKOUtil.showChatMsg(player, params.get(1).getCompound("value").toString(), 80);
-            Vector3d shootVec = new Vector3d(
-                    params.get(1).getCompound("value").getDouble("x"),
-                    params.get(1).getCompound("value").getDouble("y"),
-                    params.get(1).getCompound("value").getDouble("z"));
-
-            shootVec = shootVec.normalize();
-            setDanmakuInit(danmaku, this.getPositionVec());
-            danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, params.get(2).getFloat("value"), params.get(3).getFloat("value"));
-
-            // GSKOUtil.showChatMsg(player, danmaku.getPosition().toString(), 60);
-            this.world.addEntity(danmaku);
-        }
-    }
-
-    private AbstractDanmakuEntity createDanmakuIf(CompoundNBT danmakuData, PlayerEntity player) {
-        AtomicReference<DanmakuType> danmakuTypeAtom = new AtomicReference<>();
-        AtomicReference<DanmakuColor> danmakuColorAtom = new AtomicReference<>();
-        Arrays.stream(DanmakuType.values()).forEach(dt -> danmakuTypeAtom.set(dt.getIfMatches(danmakuData.getString("danmakuType"))));
-        Arrays.stream(DanmakuColor.values()).forEach(dc -> danmakuColorAtom.set(dc.getIfMatches(danmakuData.getString("danmakuColor"))));
-
-        return createDanmakuInstance(danmakuTypeAtom.get(), danmakuColorAtom.get(), player);
-    }
-
-    private AbstractDanmakuEntity createDanmakuInstance(DanmakuType danmakuType, DanmakuColor danmakuColor, PlayerEntity player){
-        switch (danmakuType) {
-            case INYO_JADE:
-            case LARGE_SHOT:
-            default:
-                return new LargeShotEntity(player, player.world, danmakuType, danmakuColor);
-            case SMALL_SHOT:
-                return new SmallShotEntity(player, player.world, danmakuType, danmakuColor);
-            case RICE_SHOT:
-                return new RiceShotEntity(player, player.world, danmakuType, danmakuColor);
-            case SCALE_SHOT:
-                return new ScaleShotEntity(player, player.world, danmakuType, danmakuColor);
-            // case HEART_SHOT:
-            //     return new HeartShotEntity(player, player.world, danmakuType, danmakuColor);
-            case TALISMAN_SHOT:
-                return new TalismanShotEntity(player, player.world, danmakuType, danmakuColor);
-            case STAR_SHOT_SMALL:
-                return new SmallStarShotEntity(player, player.world, danmakuType, danmakuColor);
-            case STAR_SHOT_LARGE:
-                return new LargeStarShotEntity(player, player.world, danmakuType, danmakuColor);
-            case FAKE_LUNAR:
-                return new FakeLunarEntity(player, player.world, danmakuType, danmakuColor);
-
         }
     }
 

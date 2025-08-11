@@ -18,8 +18,8 @@ public class ScriptedSpellCard extends SpellCardItem {
 
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (stack.getTag() != null && stack.getTag().contains("scripts")) {
-            ScriptedSpellCardEntity scriptedSpellCard = new ScriptedSpellCardEntity(worldIn, playerIn, stack.getTag());
-            worldIn.addEntity(scriptedSpellCard);
+            // ScriptedSpellCardEntity scriptedSpellCard = new ScriptedSpellCardEntity(worldIn, playerIn, stack.getTag());
+            // worldIn.addEntity(scriptedSpellCard);
 
             playerIn.getCooldownTracker().setCooldown(this, 1200);
         }

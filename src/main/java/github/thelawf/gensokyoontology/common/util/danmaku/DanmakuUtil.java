@@ -6,6 +6,7 @@ import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.item.danmaku.DanmakuItem;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.SpellCardRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.Entity;
@@ -33,35 +34,6 @@ import java.util.Objects;
 import java.util.function.Supplier;
 
 public class DanmakuUtil {
-
-
-    /**
-     * 这是个怪方法，请不要理睬（）
-     *
-     * @param <D>          弹幕实体的具体类
-     * @param danmaku      弹幕的提供器，在这里初始化弹幕
-     * @param danmakuClass 需要初始化的弹幕的类
-     * @param count        弹幕对象池的大小
-     * @return 弹幕对象池
-     * @throws IllegalAccessException 非法访问
-     */
-    public static <D extends AbstractDanmakuEntity> List<D> newDanmakuPool(Supplier<D> danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        List<D> danmakuPool = new ArrayList<>();
-        for (int i = 0; i < count; i++) {
-            Constructor<D> constructor = danmakuClass.getDeclaredConstructor(EntityType.class, World.class, Entity.class, DanmakuType.class, DanmakuColor.class);
-            danmakuPool.add(constructor.newInstance(danmaku.get().getType(), danmaku.get().world,
-                    danmaku.get().getShooter(), danmaku.get().getDanmakuType(), danmaku.get().getDanmakuColor()));
-        }
-        return danmakuPool;
-    }
-
-    public static <D extends AbstractDanmakuEntity> AbstractDanmakuEntity newDanmaku(D danmaku, Class<D> danmakuClass) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        Constructor<D> constructor = danmakuClass.getDeclaredConstructor(EntityType.class, World.class, Entity.class, DanmakuType.class, DanmakuColor.class);
-
-        return constructor.newInstance(danmaku.getType(), danmaku.world, danmaku.getShooter(),
-                danmaku.getDanmakuType(), danmaku.getDanmakuColor());
-    }
-
     public static <D extends AbstractDanmakuEntity> void shootDanmaku(@NotNull World worldIn, PlayerEntity playerIn,
                                                                       D danmakuEntityType, float velocity, float inaccuracy) {
         Vector3d lookVec = playerIn.getLookVec();
@@ -76,7 +48,7 @@ public class DanmakuUtil {
     public static void createAndShoot(@NotNull World worldIn, LivingEntity living, DanmakuItem danmakuItem,
                                       float velocity, float inaccuracy) {
         Vector3d lookVec = living.getLookVec();
-        Danmaku danmaku = Danmaku.create(worldIn, living, danmakuItem)
+        Danmaku danmaku = Danmaku.create(worldIn, living, danmakuItem);
         danmaku.setNoGravity(true);
         danmaku.setLocationAndAngles(living.getPosX(), living.getPosY() + living.getEyeHeight(), living.getPosZ(),
                 (float) lookVec.y, (float) lookVec.z);
@@ -95,7 +67,9 @@ public class DanmakuUtil {
                 Vector2f.ZERO.x, Vector2f.ZERO.y);
     }
 
-
+    public static void init(Danmaku danmaku, Vector3d globalPos, Rot2f rotation, boolean noGravity) {
+        danmaku.noGravity().pos(globalPos).rot(rotation);
+    }
 
     public static void applyOperation(ArrayList<VectorOperations> operations, TransformFunction function, Vector3d prevVec) {
         // operations.forEachAct(operation -> getTransform(operation, function, prevVec));
@@ -333,18 +307,19 @@ public class DanmakuUtil {
         // return new Vector3d(target.getPosX() - shooter.getPosX(), target.getPosY() - shooter.getPosY(), target.getPosZ() - shooter.getPosZ());
     }
 
-    public static List<DanmakuColor> getRainbowColoredDanmaku() {
+    public static List<Item> getRainbowColoredDanmaku() {
 
         return Lists.newArrayList(
-                DanmakuColor.RED,
-                DanmakuColor.ORANGE,
-                DanmakuColor.YELLOW,
-                DanmakuColor.GREEN,
-                DanmakuColor.AQUA,
-                DanmakuColor.BLUE,
-                DanmakuColor.PURPLE,
-                DanmakuColor.MAGENTA);
+                ItemRegistry.SMALL_SHOT_RED.get(),
+                ItemRegistry.SMALL_SHOT_ORANGE.get(),
+                ItemRegistry.SMALL_SHOT_YELLOW.get(),
+                ItemRegistry.SMALL_SHOT_GREEN.get(),
+                ItemRegistry.SMALL_SHOT_AQUA.get(),
+                ItemRegistry.SMALL_SHOT_BLUE.get(),
+                ItemRegistry.SMALL_SHOT_PURPLE.get(),
+                ItemRegistry.SMALL_SHOT_MAGENTA.get());
     }
+
 
     public enum Plane {
         XZ,

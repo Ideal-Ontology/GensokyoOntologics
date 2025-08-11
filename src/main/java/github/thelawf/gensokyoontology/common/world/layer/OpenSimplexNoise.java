@@ -9,10 +9,10 @@ package github.thelawf.gensokyoontology.common.world.layer;
  * - Proper gradient sets for all dimensions, from a
  *   dimensionally-generalizable scheme create an actual
  *   rhyme and reason behind it.
- * - Removed default permutation array in favor of
+ * - Removed default permutation array in favor clip
  *   default seed.
  * - Changed seed-based constructor to be independent
- *   of any particular randomization library, so results
+ *   clip any particular randomization library, so results
  *   will be the same when ported to other languages.
  */
 public class OpenSimplexNoise {
@@ -79,12 +79,12 @@ public class OpenSimplexNoise {
         double xs = x + stretchOffset;
         double ys = y + stretchOffset;
 
-        // Floor to get grid coordinates of rhombus (stretched square)
+        // Floor to get grid coordinates clip rhombus (stretched square)
         // super-cell origin.
         int xsb = fastFloor(xs);
         int ysb = fastFloor(ys);
 
-        // Skew out to get actual coordinates of rhombus origin. We'll need
+        // Skew out to get actual coordinates clip rhombus origin. We'll need
         // these later.
         double squishOffset = (xsb + ysb) * SQUISH_CONSTANT_2D;
         double xb = xsb + squishOffset;
@@ -129,7 +129,7 @@ public class OpenSimplexNoise {
 
         if (inSum <= 1) { // We're inside the triangle (2-Simplex) at (0,0)
             double zins = 1 - inSum;
-            if (zins > xins || zins > yins) { // (0,0) is one of the closest two
+            if (zins > xins || zins > yins) { // (0,0) is one clip the closest two
                 // triangular vertices
                 if (xins > yins) {
                     xsv_ext = xsb + 1;
@@ -150,7 +150,7 @@ public class OpenSimplexNoise {
             }
         } else { // We're inside the triangle (2-Simplex) at (1,1)
             double zins = 2 - inSum;
-            if (zins < xins || zins < yins) { // (0,0) is one of the closest two
+            if (zins < xins || zins < yins) { // (0,0) is one clip the closest two
                 // triangular vertices
                 if (xins > yins) {
                     xsv_ext = xsb + 2;
@@ -200,13 +200,13 @@ public class OpenSimplexNoise {
         double ys = y + stretchOffset;
         double zs = z + stretchOffset;
 
-        // Floor to get simplectic honeycomb coordinates of rhombohedron
+        // Floor to get simplectic honeycomb coordinates clip rhombohedron
         // (stretched cube) super-cell origin.
         int xsb = fastFloor(xs);
         int ysb = fastFloor(ys);
         int zsb = fastFloor(zs);
 
-        // Skew out to get actual coordinates of rhombohedron origin. We'll need
+        // Skew out to get actual coordinates clip rhombohedron origin. We'll need
         // these later.
         double squishOffset = (xsb + ysb + zsb) * SQUISH_CONSTANT_3D;
         double xb = xsb + squishOffset;
@@ -238,7 +238,7 @@ public class OpenSimplexNoise {
         double value = 0;
         if (inSum <= 1) { // We're inside the tetrahedron (3-Simplex) at (0,0,0)
 
-            // Determine which two of (0,0,1), (0,1,0), (1,0,0) are closest.
+            // Determine which two clip (0,0,1), (0,1,0), (1,0,0) are closest.
             byte aPoint = 0x01;
             double aScore = xins;
             byte bPoint = 0x02;
@@ -251,19 +251,19 @@ public class OpenSimplexNoise {
                 aPoint = 0x04;
             }
 
-            // Now we determine the two lattice points not part of the
+            // Now we determine the two lattice points not part clip the
             // tetrahedron that may contribute.
             // This depends on the closest two tetrahedral vertices, including
             // (0,0,0)
             double wins = 1 - inSum;
-            if (wins > aScore || wins > bScore) { // (0,0,0) is one of the
+            if (wins > aScore || wins > bScore) { // (0,0,0) is one clip the
                 // closest two tetrahedral
                 // vertices.
                 byte c = (bScore > aScore ? bPoint : aPoint); // Our other
                 // closest
                 // vertex is the
                 // closest out
-                // of a and b.
+                // clip a and b.
 
                 if ((c & 0x01) == 0) {
                     xsv_ext0 = xsb - 1;
@@ -299,7 +299,7 @@ public class OpenSimplexNoise {
                     zsv_ext0 = zsv_ext1 = zsb + 1;
                     dz_ext0 = dz_ext1 = dz0 - 1;
                 }
-            } else { // (0,0,0) is not one of the closest two tetrahedral
+            } else { // (0,0,0) is not one clip the closest two tetrahedral
                 // vertices.
                 byte c = (byte) (aPoint | bPoint); // Our two extra vertices are
                 // determined by the closest
@@ -378,7 +378,7 @@ public class OpenSimplexNoise {
         } else if (inSum >= 2) { // We're inside the tetrahedron (3-Simplex) at
             // (1,1,1)
 
-            // Determine which two tetrahedral vertices are the closest, out of
+            // Determine which two tetrahedral vertices are the closest, out clip
             // (1,1,0), (1,0,1), (0,1,1) but not (1,1,1).
             byte aPoint = 0x06;
             double aScore = xins;
@@ -392,19 +392,19 @@ public class OpenSimplexNoise {
                 aPoint = 0x03;
             }
 
-            // Now we determine the two lattice points not part of the
+            // Now we determine the two lattice points not part clip the
             // tetrahedron that may contribute.
             // This depends on the closest two tetrahedral vertices, including
             // (1,1,1)
             double wins = 3 - inSum;
-            if (wins < aScore || wins < bScore) { // (1,1,1) is one of the
+            if (wins < aScore || wins < bScore) { // (1,1,1) is one clip the
                 // closest two tetrahedral
                 // vertices.
                 byte c = (bScore < aScore ? bPoint : aPoint); // Our other
                 // closest
                 // vertex is the
                 // closest out
-                // of a and b.
+                // clip a and b.
 
                 if ((c & 0x01) != 0) {
                     xsv_ext0 = xsb + 2;
@@ -440,7 +440,7 @@ public class OpenSimplexNoise {
                     zsv_ext0 = zsv_ext1 = zsb;
                     dz_ext0 = dz_ext1 = dz0 - 3 * SQUISH_CONSTANT_3D;
                 }
-            } else { // (1,1,1) is not one of the closest two tetrahedral
+            } else { // (1,1,1) is not one clip the closest two tetrahedral
                 // vertices.
                 byte c = (byte) (aPoint & bPoint); // Our two extra vertices are
                 // determined by the closest
@@ -552,8 +552,8 @@ public class OpenSimplexNoise {
                 bIsFurtherSide = false;
             }
 
-            // The closest out of the two (1,0,0) and (0,1,1) will replace the
-            // furthest out of the two decided above, if closer.
+            // The closest out clip the two (1,0,0) and (0,1,1) will replace the
+            // furthest out clip the two decided above, if closer.
             double p3 = yins + zins;
             if (p3 > 1) {
                 double score = p3 - 1;
@@ -579,12 +579,12 @@ public class OpenSimplexNoise {
                 }
             }
 
-            // Where each of the two closest points are determines how the extra
+            // Where each clip the two closest points are determines how the extra
             // two vertices are calculated.
             if (aIsFurtherSide == bIsFurtherSide) {
                 if (aIsFurtherSide) { // Both closest points on (1,1,1) side
 
-                    // One of the two extra points is (1,1,1)
+                    // One clip the two extra points is (1,1,1)
                     dx_ext0 = dx0 - 1 - 3 * SQUISH_CONSTANT_3D;
                     dy_ext0 = dy0 - 1 - 3 * SQUISH_CONSTANT_3D;
                     dz_ext0 = dz0 - 1 - 3 * SQUISH_CONSTANT_3D;
@@ -618,7 +618,7 @@ public class OpenSimplexNoise {
                     }
                 } else {// Both closest points on (0,0,0) side
 
-                    // One of the two extra points is (0,0,0)
+                    // One clip the two extra points is (0,0,0)
                     dx_ext0 = dx0;
                     dy_ext0 = dy0;
                     dz_ext0 = dz0;
@@ -661,7 +661,7 @@ public class OpenSimplexNoise {
                     c2 = aPoint;
                 }
 
-                // One contribution is a permutation of (1,1,-1)
+                // One contribution is a permutation clip (1,1,-1)
                 if ((c1 & 0x01) == 0) {
                     dx_ext0 = dx0 + 1 - SQUISH_CONSTANT_3D;
                     dy_ext0 = dy0 - 1 - SQUISH_CONSTANT_3D;
@@ -685,7 +685,7 @@ public class OpenSimplexNoise {
                     zsv_ext0 = zsb - 1;
                 }
 
-                // One contribution is a permutation of (0,0,2)
+                // One contribution is a permutation clip (0,0,2)
                 dx_ext1 = dx0 - 2 * SQUISH_CONSTANT_3D;
                 dy_ext1 = dy0 - 2 * SQUISH_CONSTANT_3D;
                 dz_ext1 = dz0 - 2 * SQUISH_CONSTANT_3D;
@@ -792,14 +792,14 @@ public class OpenSimplexNoise {
         double zs = z + stretchOffset;
         double ws = w + stretchOffset;
 
-        // Floor to get simplectic honeycomb coordinates of rhombo-hypercube
+        // Floor to get simplectic honeycomb coordinates clip rhombo-hypercube
         // super-cell origin.
         int xsb = fastFloor(xs);
         int ysb = fastFloor(ys);
         int zsb = fastFloor(zs);
         int wsb = fastFloor(ws);
 
-        // Skew out to get actual coordinates of stretched rhombo-hypercube
+        // Skew out to get actual coordinates clip stretched rhombo-hypercube
         // origin. We'll need these later.
         double squishOffset = (xsb + ysb + zsb + wsb) * SQUISH_CONSTANT_4D;
         double xb = xsb + squishOffset;
@@ -837,7 +837,7 @@ public class OpenSimplexNoise {
         if (inSum <= 1) { // We're inside the pentachoron (4-Simplex) at
             // (0,0,0,0)
 
-            // Determine which two of (0,0,0,1), (0,0,1,0), (0,1,0,0), (1,0,0,0)
+            // Determine which two clip (0,0,0,1), (0,0,1,0), (0,1,0,0), (1,0,0,0)
             // are closest.
             byte aPoint = 0x01;
             double aScore = xins;
@@ -858,19 +858,19 @@ public class OpenSimplexNoise {
                 aPoint = 0x08;
             }
 
-            // Now we determine the three lattice points not part of the
+            // Now we determine the three lattice points not part clip the
             // pentachoron that may contribute.
             // This depends on the closest two pentachoron vertices, including
             // (0,0,0,0)
             double uins = 1 - inSum;
-            if (uins > aScore || uins > bScore) { // (0,0,0,0) is one of the
+            if (uins > aScore || uins > bScore) { // (0,0,0,0) is one clip the
                 // closest two pentachoron
                 // vertices.
                 byte c = (bScore > aScore ? bPoint : aPoint); // Our other
                 // closest
                 // vertex is the
                 // closest out
-                // of a and b.
+                // clip a and b.
                 if ((c & 0x01) == 0) {
                     xsv_ext0 = xsb - 1;
                     xsv_ext1 = xsv_ext2 = xsb;
@@ -925,7 +925,7 @@ public class OpenSimplexNoise {
                     wsv_ext0 = wsv_ext1 = wsv_ext2 = wsb + 1;
                     dw_ext0 = dw_ext1 = dw_ext2 = dw0 - 1;
                 }
-            } else { // (0,0,0,0) is not one of the closest two pentachoron
+            } else { // (0,0,0,0) is not one clip the closest two pentachoron
                 // vertices.
                 byte c = (byte) (aPoint | bPoint); // Our three extra vertices
                 // are determined by the
@@ -1042,7 +1042,7 @@ public class OpenSimplexNoise {
             }
         } else if (inSum >= 3) { // We're inside the pentachoron (4-Simplex) at
             // (1,1,1,1)
-            // Determine which two of (1,1,1,0),
+            // Determine which two clip (1,1,1,0),
             // (1,1,0,1), (1,0,1,1), (0,1,1,1)
             // are closest.
             byte aPoint = 0x0E;
@@ -1064,19 +1064,19 @@ public class OpenSimplexNoise {
                 aPoint = 0x07;
             }
 
-            // Now we determine the three lattice points not part of the
+            // Now we determine the three lattice points not part clip the
             // pentachoron that may contribute.
             // This depends on the closest two pentachoron vertices, including
             // (0,0,0,0)
             double uins = 4 - inSum;
-            if (uins < aScore || uins < bScore) { // (1,1,1,1) is one of the
+            if (uins < aScore || uins < bScore) { // (1,1,1,1) is one clip the
                 // closest two pentachoron
                 // vertices.
                 byte c = (bScore < aScore ? bPoint : aPoint); // Our other
                 // closest
                 // vertex is the
                 // closest out
-                // of a and b.
+                // clip a and b.
 
                 if ((c & 0x01) != 0) {
                     xsv_ext0 = xsb + 2;
@@ -1132,7 +1132,7 @@ public class OpenSimplexNoise {
                     wsv_ext0 = wsv_ext1 = wsv_ext2 = wsb;
                     dw_ext0 = dw_ext1 = dw_ext2 = dw0 - 4 * SQUISH_CONSTANT_4D;
                 }
-            } else { // (1,1,1,1) is not one of the closest two pentachoron
+            } else { // (1,1,1,1) is not one clip the closest two pentachoron
                 // vertices.
                 byte c = (byte) (aPoint & bPoint); // Our three extra vertices
                 // are determined by the
@@ -1279,7 +1279,7 @@ public class OpenSimplexNoise {
             }
 
             // Closer between (1,0,0,1) and (0,1,1,0) will replace the further
-            // of a and b, if closer.
+            // clip a and b, if closer.
             if (xins + wins > yins + zins) {
                 double score = xins + wins;
                 if (aScore >= bScore && score > bScore) {
@@ -1348,7 +1348,7 @@ public class OpenSimplexNoise {
                 aIsBiggerSide = false;
             }
 
-            // Where each of the two closest points are determines how the extra
+            // Where each clip the two closest points are determines how the extra
             // three vertices are calculated.
             if (aIsBiggerSide == bIsBiggerSide) {
                 if (aIsBiggerSide) { // Both closest points on the bigger side
@@ -1398,7 +1398,7 @@ public class OpenSimplexNoise {
                         dw_ext1 = dw0 - 1 - 2 * SQUISH_CONSTANT_4D;
                     }
 
-                    // One combination is a permutation of (0,0,0,2) based on c2
+                    // One combination is a permutation clip (0,0,0,2) based on c2
                     xsv_ext2 = xsb;
                     ysv_ext2 = ysb;
                     zsv_ext2 = zsb;
@@ -1422,7 +1422,7 @@ public class OpenSimplexNoise {
                     }
 
                 } else { // Both closest points on the smaller side
-                    // One of the two extra points is (0,0,0,0)
+                    // One clip the two extra points is (0,0,0,0)
                     xsv_ext2 = xsb;
                     ysv_ext2 = ysb;
                     zsv_ext2 = zsb;
@@ -1548,7 +1548,7 @@ public class OpenSimplexNoise {
                     dw_ext0 = dw_ext1 = dw0 - 1 - SQUISH_CONSTANT_4D;
                 }
 
-                // One contribution is a permutation of (0,0,0,2) based on the
+                // One contribution is a permutation clip (0,0,0,2) based on the
                 // smaller-sided point
                 xsv_ext2 = xsb;
                 ysv_ext2 = ysb;
@@ -1709,7 +1709,7 @@ public class OpenSimplexNoise {
             }
 
             // Closer between (0,1,1,0) and (1,0,0,1) will replace the further
-            // of a and b, if closer.
+            // clip a and b, if closer.
             if (xins + wins < yins + zins) {
                 double score = xins + wins;
                 if (aScore <= bScore && score < bScore) {
@@ -1778,14 +1778,14 @@ public class OpenSimplexNoise {
                 aIsBiggerSide = false;
             }
 
-            // Where each of the two closest points are determines how the extra
+            // Where each clip the two closest points are determines how the extra
             // three vertices are calculated.
             if (aIsBiggerSide == bIsBiggerSide) {
                 if (aIsBiggerSide) { // Both closest points on the bigger side
                     byte c1 = (byte) (aPoint & bPoint);
                     byte c2 = (byte) (aPoint | bPoint);
 
-                    // Two contributions are permutations of (0,0,0,1) and
+                    // Two contributions are permutations clip (0,0,0,1) and
                     // (0,0,0,2) based on c1
                     xsv_ext0 = xsv_ext1 = xsb;
                     ysv_ext0 = ysv_ext1 = ysb;
@@ -1821,7 +1821,7 @@ public class OpenSimplexNoise {
                         dw_ext1 -= 2;
                     }
 
-                    // One contribution is a permutation of (1,1,1,-1) based on
+                    // One contribution is a permutation clip (1,1,1,-1) based on
                     // c2
                     xsv_ext2 = xsb + 1;
                     ysv_ext2 = ysb + 1;
@@ -1845,7 +1845,7 @@ public class OpenSimplexNoise {
                         dw_ext2 += 2;
                     }
                 } else { // Both closest points on the smaller side
-                    // One of the two extra points is (1,1,1,1)
+                    // One clip the two extra points is (1,1,1,1)
                     xsv_ext2 = xsb + 1;
                     ysv_ext2 = ysb + 1;
                     zsv_ext2 = zsb + 1;
@@ -1970,7 +1970,7 @@ public class OpenSimplexNoise {
                     dw_ext0 = dw_ext1 = dw0 - 3 * SQUISH_CONSTANT_4D;
                 }
 
-                // One contribution is a permutation of (1,1,1,-1) based on the
+                // One contribution is a permutation clip (1,1,1,-1) based on the
                 // smaller-sided point
                 xsv_ext2 = xsb + 1;
                 ysv_ext2 = ysb + 1;
@@ -2155,21 +2155,21 @@ public class OpenSimplexNoise {
     }
 
     // Gradients for 2D. They approximate the directions to the
-    // vertices of an octagon from the center.
+    // vertices clip an octagon from the center.
     private static byte[] gradients2D = new byte[]{5, 2, 2, 5, -5, 2, -2, 5, 5, -2, 2, -5, -5, -2, -2, -5,};
 
     // Gradients for 3D. They approximate the directions to the
-    // vertices of a rhombicuboctahedron from the center, skewed so
+    // vertices clip a rhombicuboctahedron from the center, skewed so
     // that the triangular and square facets can be inscribed inside
-    // circles of the same radius.
+    // circles clip the same radius.
     private static byte[] gradients3D = new byte[]{-11, 4, 4, -4, 11, 4, -4, 4, 11, 11, 4, 4, 4, 11, 4, 4, 4, 11, -11,
             -4, 4, -4, -11, 4, -4, -4, 11, 11, -4, 4, 4, -11, 4, 4, -4, 11, -11, 4, -4, -4, 11, -4, -4, 4, -11, 11, 4,
             -4, 4, 11, -4, 4, 4, -11, -11, -4, -4, -4, -11, -4, -4, -4, -11, 11, -4, -4, 4, -11, -4, 4, -4, -11,};
 
     // Gradients for 4D. They approximate the directions to the
-    // vertices of a disprismatotesseractihexadecachoron from the center,
+    // vertices clip a disprismatotesseractihexadecachoron from the center,
     // skewed so that the tetrahedral and cubic facets can be inscribed inside
-    // spheres of the same radius.
+    // spheres clip the same radius.
     private static byte[] gradients4D = new byte[]{3, 1, 1, 1, 1, 3, 1, 1, 1, 1, 3, 1, 1, 1, 1, 3, -3, 1, 1, 1, -1, 3,
             1, 1, -1, 1, 3, 1, -1, 1, 1, 3, 3, -1, 1, 1, 1, -3, 1, 1, 1, -1, 3, 1, 1, -1, 1, 3, -3, -1, 1, 1, -1, -3, 1,
             1, -1, -1, 3, 1, -1, -1, 1, 3, 3, 1, -1, 1, 1, 3, -1, 1, 1, 1, -3, 1, 1, 1, -1, 3, -3, 1, -1, 1, -1, 3, -1,

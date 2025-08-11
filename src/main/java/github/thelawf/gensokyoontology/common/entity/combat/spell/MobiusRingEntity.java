@@ -1,15 +1,15 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.SmallShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -46,7 +46,7 @@ public class MobiusRingEntity extends AbstractSpellCardEntity {
         float rotation = (float) (Math.PI / 80 * 2 * ticksExisted);
 
         horizonVec = horizonVec.rotateYaw(rotation);
-        List<DanmakuColor> colors = DanmakuUtil.getRainbowColoredDanmaku();
+        List<Item> colors = DanmakuUtil.getRainbowColoredDanmaku();
 
         createMobius(horizonVec, verticalVec, colors, velocity);
         Vector3d horizonVecNew = horizonVec.rotateYaw((float) Math.PI);
@@ -79,10 +79,8 @@ public class MobiusRingEntity extends AbstractSpellCardEntity {
         super.tick();
     }
 
-    private void createMobius(Vector3d horizonVec, Vector3d verticalVec, List<DanmakuColor> colors, float velocity) {
+    private void createMobius(Vector3d horizonVec, Vector3d verticalVec, List<Item> colors, float velocity) {
         for (int i = 0; i < colors.size(); i++) {
-            SmallShotEntity smallShot = new SmallShotEntity((LivingEntity) this.getOwner(), this.world,
-                    DanmakuType.SMALL_SHOT, colors.get(i));
 
             /*
              * 这里的操作是不是意味着：
@@ -94,7 +92,8 @@ public class MobiusRingEntity extends AbstractSpellCardEntity {
             verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
             verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
 
-            setDanmakuInit(smallShot, horizonVec.add(this.getPositionVec()));
+            Danmaku smallShot = Danmaku.create(this.world, (LivingEntity) this.getOwner(), colors.get(i))
+                    .pos(horizonVec.add(this.getPositionVec()));
             smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
 
             world.addEntity(smallShot);

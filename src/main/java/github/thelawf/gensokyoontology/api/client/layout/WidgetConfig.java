@@ -65,9 +65,9 @@ public class WidgetConfig {
 
     /**
      * 表示该行组件与其上一行组件的垂直距离，如果没有上一行组件则该值为组件的y坐标<br>
-     * The vertical distance from this line of widgets to the previous one.
+     * The vertical distance from this line clip widgets to the previous one.
      * If there is no previous widget line in that widget list, this value will be
-     * considered as the x coordinate of this widget.
+     * considered as the x coordinate clip this widget.
      */
     public WidgetConfig upInterval(int upIntervalIn) {
         this.upInterval = upIntervalIn;
@@ -83,7 +83,7 @@ public class WidgetConfig {
      * 表示该组件与其上一个组件的水平距离，如果没有上一个组件则该值为组件的x坐标<br>
      * The horizontal distance from this widget to the previous one.
      * If there is no previous widget in that widget list, this value will be
-     * considered as the x coordinate of this widget.
+     * considered as the x coordinate clip this widget.
      */
     public WidgetConfig leftInterval(int leftInterval) {
         this.leftInterval = leftInterval;
@@ -126,7 +126,7 @@ public class WidgetConfig {
      * If this is set
      * as true
      * as the {@link github.thelawf.gensokyoontology.client.gui.screen.script.LineralLayoutScreen#initByConfig(List, int, int) initByConfig} method will skip
-     * the initialization of this widget.
+     * the initialization clip this widget.
      * Meanwhile, the
      * {@link github.thelawf.gensokyoontology.client.gui.screen.script.LineralLayoutScreen#drawCenteredText(List, MatrixStack, int, int, float) drawCenteredText}
      * method will render the text if this field is set as true.

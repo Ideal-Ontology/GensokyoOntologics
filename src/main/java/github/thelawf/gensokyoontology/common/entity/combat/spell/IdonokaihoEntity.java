@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.HeartShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.nbt.BehaviorFuncKeys;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -11,7 +10,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -53,18 +51,19 @@ public class IdonokaihoEntity extends AbstractSpellCardEntity {
             clockwise = clockwise.rotateYaw((float) Math.PI / 180 * ticksExisted);
             counterClockwise = counterClockwise.rotateYaw((float) -Math.PI / 180 * ticksExisted);
 
-            applyFunc(new Vector3d(-0.2, 0, 0), nbtClockWise);
-            applyFunc(new Vector3d(0.2, 0, 0), nbtCounterClockWise);
-
-            HeartShotEntity heartClockwise = new HeartShotEntity((LivingEntity) this.getOwner(), world, nbtClockWise);
-            HeartShotEntity heartCounterClockwise = new HeartShotEntity((LivingEntity) this.getOwner(), world, nbtCounterClockWise);
-            setDanmakuInit(heartClockwise, this.getPositionVec(), new Vector2f(this.rotationYaw, this.rotationPitch));
-            setDanmakuInit(heartCounterClockwise, this.getPositionVec(), new Vector2f(this.rotationYaw, this.rotationPitch));
-
-            heartClockwise.shoot(clockwise.x, clockwise.y, clockwise.z, 0.4f, 0f);
-            heartCounterClockwise.shoot(counterClockwise.x, counterClockwise.y, counterClockwise.z, 0.4f, 0f);
-            world.addEntity(heartClockwise);
-            world.addEntity(heartCounterClockwise);
+            // applyFunc(new Vector3d(-0.2, 0, 0), nbtClockWise);
+            // applyFunc(new Vector3d(0.2, 0, 0), nbtCounterClockWise);
+            //
+//
+            // HeartShotEntity heartClockwise = new HeartShotEntity((LivingEntity) this.getOwner(), world, nbtClockWise);
+            // HeartShotEntity heartCounterClockwise = new HeartShotEntity((LivingEntity) this.getOwner(), world, nbtCounterClockWise);
+            // setDanmakuInit(heartClockwise, this.getPositionVec(), new Vector2f(this.rotationYaw, this.rotationPitch));
+            // setDanmakuInit(heartCounterClockwise, this.getPositionVec(), new Vector2f(this.rotationYaw, this.rotationPitch));
+//
+            // heartClockwise.shoot(clockwise.x, clockwise.y, clockwise.z, 0.4f, 0f);
+            // heartCounterClockwise.shoot(counterClockwise.x, counterClockwise.y, counterClockwise.z, 0.4f, 0f);
+            // world.addEntity(heartClockwise);
+            // world.addEntity(heartCounterClockwise);
         }
     }
 

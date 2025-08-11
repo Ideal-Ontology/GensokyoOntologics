@@ -1,22 +1,20 @@
 package github.thelawf.gensokyoontology.common.entity.combat;
 
 import github.thelawf.gensokyoontology.api.entity.YoukaiCombat;
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.CirnoEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.RumiaEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.CircleShotEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import net.minecraft.entity.LivingEntity;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.List;
@@ -54,13 +52,14 @@ public class BossBattle {
         }
     };
 
-    public static final YoukaiCombat.SkillAction<FlandreScarletEntity> FLANDRE_SPHERE = (world, flandre) -> {
+    public static final YoukaiCombat.SkillAction<FlandreScarletEntity> REMILIA_SPHERE = (world, flandre) -> {
         List<Vector3d> shootVec = DanmakuUtil.spheroidPos(1, 10);
         shootVec.forEach(vector3d -> {
             Vector3d vec = GSKOMathUtil.randomVec(-3, 3);
-            LargeShotEntity largeShot = new LargeShotEntity(world);
-            DanmakuUtil.initDanmaku(largeShot, flandre.getPositionVec().add(vector3d.x, 1.2, vector3d.z)
-                    .add(vec.x, 0, vec.z), true);
+            Danmaku largeShot = Danmaku.create(world, flandre, ItemRegistry.LARGE_SHOT_RED.get())
+                    .pos(flandre.getPositionVec().add(vector3d.x, 1.2, vector3d.z).add(vec.x, 0, vec.z));
+            // DanmakuUtil.initDanmaku(largeShot, flandre.getPositionVec().add(vector3d.x, 1.2, vector3d.z)
+            //         .add(vec.x, 0, vec.z), true);
             largeShot.shoot(vector3d.x, vector3d.y, vector3d.z, 0.7f, 0f);
             largeShot.setShooter(flandre);
             world.addEntity(largeShot);
@@ -78,7 +77,7 @@ public class BossBattle {
     public static final YoukaiCombat.SkillAction<RumiaEntity> DARK_BORDER_LINE = (world, rumiaEntity) -> {
         List<Vector3d> shootVec = DanmakuUtil.spheroidPos(1, 15);
         shootVec.forEach(vector3d -> {
-            RiceShotEntity riceShot = new RiceShotEntity(rumiaEntity, world, DanmakuType.RICE_SHOT, DanmakuColor.PINK);
+            // RiceShotEntity riceShot = new RiceShotEntity(rumiaEntity, world, DanmakuType.RICE_SHOT, DanmakuColor.PINK);
 
         });
     };

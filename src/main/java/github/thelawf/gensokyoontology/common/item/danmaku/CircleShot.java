@@ -1,12 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.danmaku;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.projectile.CircleShotEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.ScriptedDanmakuEntity;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
