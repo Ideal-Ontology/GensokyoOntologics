@@ -123,11 +123,11 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
             // Vector3d shootVec = playerIn.getLookVec();
             Vector3d initPos = vector3d.add(playerIn.getPositionVec());
 
-            DreamSealEntity dreamSeal = new DreamSealEntity(worldIn, playerIn, color);
-            dreamSeal.setNoGravity(true);
-            dreamSeal.shoot(vector3d.x, vector3d.y, vector3d.z, 1.2f, 0f);
-            dreamSeal.setLocationAndAngles(initPos.x, initPos.y, initPos.z, playerIn.rotationYaw, playerIn.rotationPitch);
-            worldIn.addEntity(dreamSeal);
+            // DreamSealEntity dreamSeal = new DreamSealEntity(worldIn, playerIn, color);
+            // dreamSeal.setNoGravity(true);
+            // dreamSeal.shoot(vector3d.x, vector3d.y, vector3d.z, 1.2f, 0f);
+            // dreamSeal.setLocationAndAngles(initPos.x, initPos.y, initPos.z, playerIn.rotationYaw, playerIn.rotationPitch);
+            // worldIn.addEntity(dreamSeal);
 
         }
     }

@@ -36,35 +36,13 @@ public class GSKOClientSetupEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer));
 
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LARGE_SHOT_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 2.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SMALL_SHOT_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 0.6f, false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.CIRCLE_SHOT_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 1.0f, false));
-
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.FAKE_LUNAR_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 8.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_DANMAKU.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 4f, false));
 
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_SMALL_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 0.8f, false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.STAR_SHOT_LARGE_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.5f, false));
-
         // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU.get(),
         //         manager -> new NormalVectorRenderer(manager, itemRenderer, 1F, false, false));
-
-        // 以下弹幕使用法向渲染
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.TALISMAN_SHOT_ENTITY.get(),
-                manager -> new NormalVectorRenderer(manager, itemRenderer, 1f, false, false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RICE_SHOT_ENTITY.get(),
-                manager -> new NormalVectorRenderer(manager, itemRenderer, 0.4f, false, false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SCALE_SHOT_ENTITY.get(),
-                manager -> new NormalVectorRenderer(manager, itemRenderer, 0.3f, false, false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.HEART_SHOT_ENTITY.get(),
-                manager -> new NormalVectorRenderer(manager, itemRenderer, 2.0f, false, true));
 
         // ======================== 贴图类怪物的渲染器 ==================== //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_ENTITY.get(),
@@ -77,8 +55,8 @@ public class GSKOClientSetupEvents {
         //         CoasterVehicleRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LASER_SOURCE_ENTITY.get(),
                 LaserEntityRenderer::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DREAM_SEAL_ENTITY.get(),
-                manager -> new DreamSealRenderer(manager, itemRenderer));
+        // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DREAM_SEAL_ENTITY.get(),
+        //         manager -> new DreamSealRenderer(manager, itemRenderer));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DESTRUCTIVE_EYE_ENTITY.get(),
                 manager -> new DestructiveEyeRenderer(manager, itemRenderer));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MASTER_SPARK_ENTITY.get(),
@@ -99,8 +77,6 @@ public class GSKOClientSetupEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SCARLET_PRISONER_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RORSCHACH_DANMAKU_ENTITY.get(),
-                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
-        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.GALACTIC_ARM_SPELL_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SCRIPTED_SPELL_CARD_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));

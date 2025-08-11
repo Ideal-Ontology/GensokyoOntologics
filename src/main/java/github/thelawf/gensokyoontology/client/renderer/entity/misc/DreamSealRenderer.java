@@ -43,23 +43,23 @@ public class DreamSealRenderer extends EntityRenderer<DreamSealEntity> {
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
         float r, g, b;
 
-        switch (entityIn.getDanmakuColor()){
-            case RED:
-                r = 1f; g = 0f; b = 0f;
-                break;
-            case BLUE:
-                r = 0f; g = 0f; b = 1f;
-                break;
-            case GREEN:
-                r = 0f; g = 1f; b = 0f;
-                break;
-            default:
-            case NONE:
-                r = 1f; g = 1f; b = 1f;
-                break;
-        }
-        GeometryUtil.renderSphere(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
-                10, 10, 0.3f, r, g, b, 0.5f);
+        // switch (entityIn.getDanmakuColor()){
+        //     case RED:
+        //         r = 1f; g = 0f; b = 0f;
+        //         break;
+        //     case BLUE:
+        //         r = 0f; g = 0f; b = 1f;
+        //         break;
+        //     case GREEN:
+        //         r = 0f; g = 1f; b = 0f;
+        //         break;
+        //     default:
+        //     case NONE:
+        //         r = 1f; g = 1f; b = 1f;
+        //         break;
+        // }
+        // GeometryUtil.renderSphere(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
+        //         10, 10, 0.3f, r, g, b, 0.5f);
         GeometryUtil.renderSphere(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
                 10, 10, 0.2f, 1f, 1f, 1f, 1f);
         // this.itemRenderer.renderItem(new ItemStack(ItemRegistry.DREAM_SEAL_ITEM.get()), ItemCameraTransforms.TransformType.GROUND, packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);

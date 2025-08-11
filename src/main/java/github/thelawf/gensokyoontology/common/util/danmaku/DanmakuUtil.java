@@ -4,7 +4,9 @@ import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.item.DanmakuItem;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.LivingEntity;
@@ -35,6 +37,7 @@ public class DanmakuUtil {
                                       float velocity, float inaccuracy) {
         Vector3d lookVec = living.getLookVec();
         Danmaku danmaku = Danmaku.create(worldIn, living, danmakuItem);
+        GSKOUtil.log(danmaku.getPositionVec());
         danmaku.setNoGravity(true);
         danmaku.setLocationAndAngles(living.getPosX(), living.getPosY() + living.getEyeHeight(), living.getPosZ(),
                 (float) lookVec.y, (float) lookVec.z);

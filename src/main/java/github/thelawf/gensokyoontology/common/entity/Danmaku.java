@@ -92,6 +92,7 @@ public class Danmaku extends ProjectileItemEntity{
         super(EntityRegistry.DANMAKU.get(), owner, world);
         // this.behavior = new ClosureExpression();
         this.setItem(new ItemStack(danmakuItem));
+        this.setPos(owner.getPositionVec());
         this.setNoGravity(true);
     }
 
