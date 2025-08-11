@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.item;
+package github.thelawf.gensokyoontology.common.item.material;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;

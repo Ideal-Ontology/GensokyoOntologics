@@ -1,16 +1,21 @@
 package github.thelawf.gensokyoontology.common.entity.trade;
 
 import com.google.common.collect.ImmutableMap;
+import github.thelawf.gensokyoontology.api.Tree;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.merchant.villager.VillagerTrades;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.Util;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 public class GSKOTrades {
@@ -21,14 +26,20 @@ public class GSKOTrades {
     };
 
     public static final VillagerTrades.ITrade[] HUMAN_JEWELER_TRADE = new VillagerTrades.ITrade[]{
-            new ItemForCoinTrade(ItemRegistry.JADE_LEVEL_S.get(), ItemRegistry.SILVER_COIN.get(), 1, 14),
-            new ItemForCoinTrade(ItemRegistry.JADE_LEVEL_SS.get(), ItemRegistry.GOLDEN_COIN.get(), 1, 5),
-            new ItemForCoinTrade(ItemRegistry.JADE_LEVEL_SSS.get(), ItemRegistry.DIAMOND_COIN.get(), 1, 3)
+            new ItemForCoinTrade(ItemRegistry.JADE_LEVEL_S.get(), ItemRegistry.GOLDEN_COIN.get(), 1, 18),
+            new ItemForCoinTrade(ItemRegistry.JADE_LEVEL_SS.get(), ItemRegistry.EMERALD_COIN.get(), 1, 18),
+            new ItemForCoinTrade(ItemRegistry.JADE_LEVEL_SSS.get(), ItemRegistry.DIAMOND_COIN.get(), 1, 5)
     };
 
-    public static final VillagerTrades.ITrade[] HUMAN_RESIDENT_TRADE = new VillagerTrades.ITrade[]{
 
-    };
+
+    public static final Map<VillagerProfession, VillagerTrades.ITrade[]> TRADE_MAP = Util.make(() -> {
+        Map<VillagerProfession, VillagerTrades.ITrade[]> map = new HashMap<>();
+        map.put(VillagerProfession.MASON, HUMAN_JEWELER_TRADE);
+        map.put(VillagerProfession.FARMER, HUMAN_FARMER_TRADE);
+        return map;
+    });
+
 
     static class ItemForCoinTrade implements VillagerTrades.ITrade{
         IItemProvider tradeItem;

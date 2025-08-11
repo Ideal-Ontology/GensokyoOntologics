@@ -6,7 +6,7 @@ import github.thelawf.gensokyoontology.client.gui.screen.SpellCardConsoleScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.*;
 import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.CommonSetUp;
-import github.thelawf.gensokyoontology.client.particle.GSKOParticleRegistry;
+import github.thelawf.gensokyoontology.client.particle.ParticleRegistry;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.world.surface.GSKOSurfaceBuilders;
@@ -67,7 +67,7 @@ public class GensokyoOntology {
         ItemRegistry.ITEMS.register(eventBus);
         FluidRegistry.FLUIDS.register(eventBus);
         BlockRegistry.BLOCKS.register(eventBus);
-        GSKOParticleRegistry.PARTICLE_TYPES.register(eventBus);
+        ParticleRegistry.PARTICLE_TYPES.register(eventBus);
         EffectRegistry.POTION_EFFECTS.register(eventBus);
         TileEntityRegistry.TILE_ENTITIES.register(eventBus);
         EntityRegistry.ENTITIES.register(eventBus);

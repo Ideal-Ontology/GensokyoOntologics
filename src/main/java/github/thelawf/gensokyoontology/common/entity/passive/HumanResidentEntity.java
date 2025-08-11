@@ -1,14 +1,21 @@
 package github.thelawf.gensokyoontology.common.entity.passive;
 
+import com.mojang.serialization.DataResult;
+import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.common.capability.entity.VillagerOrder;
 import github.thelawf.gensokyoontology.common.entity.trade.GSKOTrades;
 import net.minecraft.command.impl.data.EntityDataAccessor;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
+import net.minecraft.entity.merchant.villager.VillagerData;
+import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.villager.VillagerType;
 import net.minecraft.item.MerchantOffer;
+import net.minecraft.item.MerchantOffers;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -21,9 +28,16 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
 
+/**
+ * StayNearPointTask.field_220549_b -> walkingSpeed （行走速度）<br>
+ * StayNearPointTask.field_220550_c -> distance （目标行走距离）<br>
+ * StayNearPointTask.field_220551_d -> maxDistance （最大巡航距离）
+ * */
 public class HumanResidentEntity extends AbstractVillagerEntity {
     public static final DataParameter<Integer> DATA_GENDER = EntityDataManager.createKey(HumanResidentEntity.class,
             DataSerializers.VARINT);
+    public static final DataParameter<VillagerData> DATA_VILLAGER = EntityDataManager.createKey(HumanResidentEntity.class,
+            DataSerializers.VILLAGER_DATA);
     public static final DataParameter<CompoundNBT> DATA_ORDER = EntityDataManager.createKey(HumanResidentEntity.class,
             DataSerializers.COMPOUND_NBT);
 
@@ -33,6 +47,11 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
     public HumanResidentEntity(EntityType<HumanResidentEntity> type, World worldIn) {
         super(type, worldIn);
         this.gender = randomGender();
+    }
+
+    @Override
+    protected void registerGoals() {
+        super.registerGoals();
     }
 
     @Nullable
@@ -83,22 +102,60 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         this.gender = Gender.values()[genderOrdinal];
     }
 
+    public void setVillagerData(VillagerData data) {
+        VillagerData villagerdata = this.getVillagerData();
+        if (villagerdata.getProfession() != data.getProfession()) {
+            this.offers = null;
+        }
+
+        this.dataManager.set(DATA_VILLAGER, data);
+    }
+
+    public VillagerData getVillagerData() {
+        return this.dataManager.get(DATA_VILLAGER);
+    }
+
     @Override
     protected void registerData() {
         super.registerData();
         this.dataManager.register(DATA_GENDER, randomGender().ordinal());
+        this.dataManager.register(DATA_VILLAGER, new VillagerData(VillagerType.PLAINS, randomProf(), 1));
+    }
+
+    public static VillagerProfession randomProf(){
+        Random random = new Random();
+        switch (random.nextInt(3)){
+            case 0:
+                return VillagerProfession.MASON;
+            default:
+            case 1:
+                return VillagerProfession.FARMER;
+        }
     }
 
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
+        if (compound.contains("VillagerData", 10)) {
+            DataResult<VillagerData> dataresult = VillagerData.CODEC.parse(new Dynamic<>(NBTDynamicOps.INSTANCE, compound.get("VillagerData")));
+            dataresult.resultOrPartial(LOGGER::error).ifPresent(this::setVillagerData);
+        }
+
         if (compound.contains("gender")) this.setGenderOrdinal(compound.getInt("gender"));
+        if (compound.contains("Offers", 10)) this.offers = new MerchantOffers(compound.getCompound("Offers"));
+
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.putInt("gender", this.getGenderOrdinal());
+        MerchantOffers offers = this.getOffers();
+        if (!offers.isEmpty()) compound.put("Offers", offers.write());
+
+        VillagerData.CODEC.encodeStart(NBTDynamicOps.INSTANCE, this.getVillagerData()).resultOrPartial(LOGGER::error).ifPresent((data) -> {
+            compound.put("VillagerData", data);
+        });
     }
 
     @Override
@@ -114,11 +171,14 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         return super.getEntityInteractionResult(playerIn, hand);
     }
 
+    private VillagerProfession getProf(){
+        return this.getVillagerData().getProfession();
+    }
+
     @Override
     protected void populateTradeData() {
-        this.addTrades(this.getOffers(), GSKOTrades.HUMAN_FARMER_TRADE, 2);
-        this.addTrades(this.getOffers(), GSKOTrades.HUMAN_RESIDENT_TRADE, 2);
-        this.addTrades(this.getOffers(), GSKOTrades.HUMAN_RESIDENT_TRADE, 2);
+        if (this.getProf() == VillagerProfession.NONE) return;
+        this.addTrades(this.getOffers(), GSKOTrades.TRADE_MAP.get(this.getProf()), GSKOTrades.TRADE_MAP.get(this.getProf()).length);
     }
 
     public enum Gender{

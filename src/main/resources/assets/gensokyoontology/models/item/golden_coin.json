@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "gensokyoontology:item/silver_coin"
+    "layer0": "gensokyoontology:item/golden_coin"
   }
 }

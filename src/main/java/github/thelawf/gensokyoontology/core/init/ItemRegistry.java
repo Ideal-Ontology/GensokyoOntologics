@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.armor.KoishiHatArmorItem;
 import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
+import github.thelawf.gensokyoontology.common.item.material.*;
 import github.thelawf.gensokyoontology.common.item.ore.*;
 import github.thelawf.gensokyoontology.common.item.script.ConstBuilderItem;
 import github.thelawf.gensokyoontology.common.item.script.DynamicScriptItem;
@@ -391,8 +392,9 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> COPPER_COIN = ITEMS.register("copper_coin", () -> new CoinItem(1));
     public static final RegistryObject<Item> SILVER_COIN = ITEMS.register("silver_coin", () -> new CoinItem(10));
     public static final RegistryObject<Item> GOLDEN_COIN = ITEMS.register("golden_coin", () -> new CoinItem(100));
-    public static final RegistryObject<Item> DIAMOND_COIN = ITEMS.register("diamond_coin", () -> new CoinItem(1000));
-    public static final RegistryObject<Item> JADE_COIN = ITEMS.register("jade_coin", () -> new CoinItem(10000));
+    public static final RegistryObject<Item> EMERALD_COIN = ITEMS.register("emerald_coin", () -> new CoinItem(1000));
+    public static final RegistryObject<Item> DIAMOND_COIN = ITEMS.register("diamond_coin", () -> new CoinItem(10000));
+    public static final RegistryObject<Item> JADE_COIN = ITEMS.register("jade_coin", () -> new CoinItem(10_0000));
     public static final RegistryObject<Item> STRAW_MAN = ITEMS.register("straw_man", () -> new Item(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> BAT_SPECIMEN = ITEMS.register("bat_specimen", () -> new Item(

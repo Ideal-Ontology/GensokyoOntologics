@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.client.particle;
 
-import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.limit.Min;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
@@ -13,9 +12,9 @@ public class GSKOParticleEvents {
 
     @SubscribeEvent
     public static void onParticleFactoryRegistry(ParticleFactoryRegisterEvent event) {
-        Minecraft.getInstance().particles.registerFactory(GSKOParticleRegistry.SPACE_FISSURE.get(),
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.SPACE_FISSURE.get(),
                 SpaceFissureParticle.Factory::new);
-        Minecraft.getInstance().particles.registerFactory(GSKOParticleRegistry.POWER_PARTICLE.get(),
+        Minecraft.getInstance().particles.registerFactory(ParticleRegistry.POWER_PARTICLE.get(),
                 PowerParticle.Factory::new);
     }
 

@@ -60,7 +60,7 @@ public class PowerParticleData implements IParticleData {
 
     @Override
     public @NotNull ParticleType<?> getType() {
-        return GSKOParticleRegistry.POWER_PARTICLE.get();
+        return ParticleRegistry.POWER_PARTICLE.get();
     }
 
     @Override

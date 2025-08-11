@@ -90,7 +90,7 @@ public class SpaceFissureParticleData implements IParticleData {
     @Override
     @Nonnull
     public ParticleType<?> getType() {
-        return GSKOParticleRegistry.SPACE_FISSURE.get();
+        return ParticleRegistry.SPACE_FISSURE.get();
     }
 
     public Vector3d getSpeed() {

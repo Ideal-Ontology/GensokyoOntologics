@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.item;
+package github.thelawf.gensokyoontology.common.item.material;
 
 import github.thelawf.gensokyoontology.common.entity.misc.CursedBatEntity;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
