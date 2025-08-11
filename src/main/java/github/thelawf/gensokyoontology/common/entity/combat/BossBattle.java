@@ -7,9 +7,6 @@ import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.CirnoEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.RumiaEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -52,7 +49,7 @@ public class BossBattle {
         }
     };
 
-    public static final YoukaiCombat.SkillAction<FlandreScarletEntity> REMILIA_SPHERE = (world, flandre) -> {
+    public static final YoukaiCombat.SkillAction<FlandreScarletEntity> FLANDRE_SPHERE = (world, flandre) -> {
         List<Vector3d> shootVec = DanmakuUtil.spheroidPos(1, 10);
         shootVec.forEach(vector3d -> {
             Vector3d vec = GSKOMathUtil.randomVec(-3, 3);

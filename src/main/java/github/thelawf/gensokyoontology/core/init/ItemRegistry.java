@@ -2,11 +2,11 @@ package github.thelawf.gensokyoontology.core.init;
 
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.container.script.*;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.armor.KoishiHatArmorItem;
-import github.thelawf.gensokyoontology.common.item.danmaku.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.material.*;
 import github.thelawf.gensokyoontology.common.item.ore.*;
@@ -573,10 +573,10 @@ public final class ItemRegistry {
     //         "sc_galactic_spiral_arms", SC_GalacticSpiralArms::new);
 
     // --------------------- 投掷物：弹幕 阴阳玉 灵符 -----------------------//
-    public static final RegistryObject<DanmakuShotItem> DANMAKU_SHOT = ITEMS.register("danmaku_shot",
-            () -> new DanmakuShotItem(DanmakuType.DANMAKU_SHOT));
 
     /////////////////////////// 所有的灰色弹幕 ////////////////////////////////
+    public static final RegistryObject<Item> DANMAKU_SHOT = ITEMS.register("danmaku_shot", () -> new Item(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> SMALL_SHOT = ITEMS.register("small_shot", DanmakuItem::new);
     public static final RegistryObject<Item> SMALL_STAR_SHOT = ITEMS.register("small_star_shot", DanmakuItem::new);
     public static final RegistryObject<Item> RICE_SHOT = ITEMS.register("rice_shot", DanmakuItem::new);

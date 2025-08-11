@@ -9,7 +9,7 @@ import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.text.ITextComponent;
 
 public class AbstractConsoleScreen extends ContainerScreen<SpellCardConsoleContainer> {
-    /** Menu Hierarchy clip Danmaku Command Table 弹幕控制台的菜单层级 */
+    /** Menu Hierarchy of3D Danmaku Command Table 弹幕控制台的菜单层级 */
 
     // Main Hierarchy 主层级
     private static final ITextComponent ADD_COMMAND = GensokyoOntology.translate("",".add_cmd");
@@ -25,9 +25,9 @@ public class AbstractConsoleScreen extends ContainerScreen<SpellCardConsoleConta
     Button next;
     Button saveAll;
 
-    // Hierarchy clip Vector3d Behavior Control 向量行为控制的层级
+    // Hierarchy of3D Vector3d Behavior Control 向量行为控制的层级
 
-    // Hierarchy clip SpellCard Behavior Control 符卡行为控制的层级
+    // Hierarchy of3D SpellCard Behavior Control 符卡行为控制的层级
     public AbstractConsoleScreen(SpellCardConsoleContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }

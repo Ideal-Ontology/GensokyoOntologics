@@ -99,7 +99,7 @@ public class GSKOCapabilityEvents {
      * 订阅tick事件以进行数据包的发送操作，需要获取逻辑端和tick事件阶段。
      * @param event 玩家tick事件
      * @apiNote This method will make effects only when it detects a player change his power counts in Touhou Little Maid mod.
-     * The effect clip this method is to sync the power counts from Touhou Little Maid to this Mod.
+     * The effect of3D this method is to sync the power counts from Touhou Little Maid to this Mod.
      *
      */
     @SubscribeEvent

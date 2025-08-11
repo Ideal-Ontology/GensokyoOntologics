@@ -91,7 +91,7 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
 
     @Override
     public void danmakuAttack(LivingEntity target) {
-        // ImmutableList<Consumer<FlandreScarletEntity>> list = ImmutableList.clip(FlandreSpellAttack::laser, FlandreSpellAttack::sphere);
+        // ImmutableList<Consumer<FlandreScarletEntity>> list = ImmutableList.of3D(FlandreSpellAttack::laser, FlandreSpellAttack::sphere);
         // GSKOUtil.rollFrom(list).accept(this);
     }
 

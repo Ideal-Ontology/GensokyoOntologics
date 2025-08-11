@@ -46,7 +46,7 @@ public class TunnelingWarpEntity extends AbstractSpellCardEntity {
                 tunnelPos = tunnelPos.rotateYaw((float) Math.PI / colors.size() * i);
                 Danmaku smallShot = Danmaku.create(world, shooter, colors.get(i))
                         .pos(tunnelPos.add(this.getPositionVec()))
-                        .rot(Rot2f.clip(tunnelPos));
+                        .rot(Rot2f.of3D(tunnelPos));
                 world.addEntity(smallShot);
             }
         }

@@ -1,10 +1,12 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.EntityType;
@@ -46,13 +48,13 @@ public class HanaShigureSpellEntity extends AbstractSpellCardEntity {
 
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                RiceShotEntity riceShot = new RiceShotEntity((LivingEntity) this.getOwner(), this.world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
+
                 Vector3d initPos = pos.add(0, 0.05 * i, 0);
                 Vector3d shootVec = pos.rotateYaw((float) Math.PI * 2 / 60 * j);
-
-                setDanmakuInit(riceShot, this.getPositionVec().add(initPos), GSKOMathUtil.toYawPitch(shootVec), false);
+                Danmaku riceShot =Danmaku.create(this.world, (LivingEntity) this.getOwner(), ItemRegistry.RICE_SHOT_PURPLE.get())
+                        .pos(this.getPositionVec().add(initPos))
+                        .rot(Rot2f.from(shootVec));
                 riceShot.shoot(shootVec.x, shootVec.y, shootVec.z, 0.5f, 0f);
-                riceShot.setNoGravity(false);
                 LogManager.getLogger().info(riceShot.hasNoGravity());
                 world.addEntity(riceShot);
             }

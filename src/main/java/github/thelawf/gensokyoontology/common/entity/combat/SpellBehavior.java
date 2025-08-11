@@ -1,10 +1,14 @@
 package github.thelawf.gensokyoontology.common.entity.combat;
 
 import github.thelawf.gensokyoontology.api.entity.EntityBehavior;
+import github.thelawf.gensokyoontology.api.util.INBTReader;
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.util.math.Rot2f;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
@@ -19,13 +23,16 @@ public class SpellBehavior {
         List<Vector3d> roseLinePos = DanmakuUtil.getRoseLinePos(1.2, 3, 2, 0.05);
         if (living.ticksExisted % 20 == 0) {
             for (Vector3d vector3d : roseLinePos) {
-                RiceShotEntity riceShot = new RiceShotEntity(living, world, DanmakuType.RICE_SHOT, DanmakuColor.PURPLE);
                 Vector3d shootVec = new Vector3d(vector3d.x, vector3d.y, vector3d.z);
                 shootVec = DanmakuUtil.rotateRandomAngle(shootVec, (float) Math.PI * 2, (float) Math.PI * 2);
                 vector3d = vector3d.add(DanmakuUtil.getRandomPosWithin(3.5f, DanmakuUtil.Plane.XYZ));
                 vector3d = vector3d.add(spellCard.getPositionVec());
 
-                DanmakuUtil.initDanmaku(riceShot, vector3d, new Vector2f((float) vector3d.x, (float) vector3d.y), true);
+                Danmaku riceShot = Danmaku.create(world, living, ItemRegistry.RICE_SHOT_PURPLE.get())
+                        .pos(vector3d)
+                        .rot(Rot2f.of(new Vector2f((float) vector3d.x, (float) vector3d.y)))
+                        .enableGravity();
+
                 riceShot.shoot(shootVec.x, shootVec.y, shootVec.z, 0.3f, 0f);
                 world.addEntity(riceShot);
             }

@@ -20,6 +20,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -229,8 +230,8 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
         List<Vector3d> coordinates = DanmakuUtil.spheroidPos(1, 20);
         coordinates.forEach(vector3d -> {
             // SmallShotEntity danmaku = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
-            AbstractDanmakuEntity danmaku = randomSelect();
-            DanmakuUtil.initDanmaku(danmaku, this.getPositionVec().add(vector3d.x, 1.2, vector3d.z), true);
+            Danmaku danmaku = randomSelect();
+            DanmakuUtil.init(danmaku, this.getPositionVec().add(vector3d.x, 1.2, vector3d.z), Rot2f.ZERO, true);
             danmaku.shoot(vector3d.x, vector3d.y, vector3d.z, 0.7f, 0f);
             world.addEntity(danmaku);
         });

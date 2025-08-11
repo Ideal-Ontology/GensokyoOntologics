@@ -2,15 +2,12 @@ package github.thelawf.gensokyoontology.common.entity;
 
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.expression.IExpressionType;
 import net.minecraft.entity.*;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
@@ -114,14 +111,14 @@ public class Danmaku extends ProjectileItemEntity{
         return new Danmaku(world, stack.getItem(), owner)
                 .pos(owner.getPositionVec())
                 .rot(Rot2f.from(owner.getLookVec()))
-                .noGravity();
+                .disableGravity();
     }
 
     public static Danmaku create(World world, LivingEntity owner, Item item) {
         return new Danmaku(world, item, owner)
                 .pos(owner.getPositionVec())
                 .rot(Rot2f.from(owner.getLookVec()))
-                .noGravity();
+                .disableGravity();
     }
 
     public Danmaku lifespan(int lifespan) {
@@ -146,8 +143,12 @@ public class Danmaku extends ProjectileItemEntity{
         return this;
     }
 
-    public Danmaku noGravity(){
+    public Danmaku disableGravity(){
         this.setNoGravity(true);
+        return this;
+    }
+    public Danmaku enableGravity(){
+        this.setNoGravity(false);
         return this;
     }
 

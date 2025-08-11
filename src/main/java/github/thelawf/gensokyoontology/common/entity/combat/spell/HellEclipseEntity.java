@@ -13,7 +13,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -73,7 +72,7 @@ public class HellEclipseEntity extends AbstractSpellCardEntity {
             Vector3d vector3d = center.rotateYaw((float) (Math.PI / 4 * i)).rotateYaw((float) (Math.PI / 100 * ticksExisted));
             Danmaku smallShot = Danmaku.create(world, (LivingEntity) this.getOwner(), ItemRegistry.SMALL_SHOT_RED.get())
                     .pos(global)
-                    .rot(Rot2f.clip(center));
+                    .rot(Rot2f.of3D(center));
             smallShot.shoot(vector3d.x, 0, vector3d.z, 0.5F, 0F);
             world.addEntity(smallShot);
         }

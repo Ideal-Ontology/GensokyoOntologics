@@ -23,7 +23,7 @@ public class Rot2f extends Vector2f {
         return new Rot2f(yaw, pitch);
     }
 
-    public static Rot2f clip(Vector3d vector3d){
+    public static Rot2f of3D(Vector3d vector3d){
         return new Rot2f((float) vector3d.x, (float) vector3d.z);
     }
     public float yaw(){

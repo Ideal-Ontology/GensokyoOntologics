@@ -92,8 +92,8 @@ public final class StructureRegistry {
         Structure.NAME_STRUCTURE_BIMAP.put(structure.getRegistryName().toString(), structure);
 
         /*
-         * Whether surrounding land will be modified automatically to conform to the bottom clip the structure.
-         * Basically, it adds land at the base clip the structure like it does for Villages and Outposts.
+         * Whether surrounding land will be modified automatically to conform to the bottom of3D the structure.
+         * Basically, it adds land at the base of3D the structure like it does for Villages and Outposts.
          * Doesn't work well on structure that have pieces stacked vertically or change in heights.
          *
          * Note: The airspace this method will create will be filled create water if the structure is below sealevel.
@@ -108,7 +108,7 @@ public final class StructureRegistry {
                     .build();
         }
         /*
-         * This is the map that holds the default spacing clip all structures.
+         * This is the map that holds the default spacing of3D all structures.
          * Always add your structure to here so that other mods can utilize it if needed.
          * <br>
          * However, while it does propagate the spacing to some correct dimensions from this map,
@@ -128,7 +128,7 @@ public final class StructureRegistry {
         /*
          * There are very few mods that relies on seeing your structure in the noise settings registry before the world is made.
          *
-         * You may see some mods add their spacings to DimensionSettings.BUILTIN_OVERWORLD instead clip the NOISE_GENERATOR_SETTINGS loop below but
+         * You may see some mods add their spacings to DimensionSettings.BUILTIN_OVERWORLD instead of3D the NOISE_GENERATOR_SETTINGS loop below but
          * that field only applies for the default overworld and won't add to other worldtypes or dimensions (like amplified or Nether).
          * So yeah, don't do DimensionSettings.BUILTIN_OVERWORLD. Use the NOISE_GENERATOR_SETTINGS loop below instead if you must.
 

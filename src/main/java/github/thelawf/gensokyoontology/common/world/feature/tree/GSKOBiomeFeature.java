@@ -20,7 +20,7 @@ public abstract class GSKOBiomeFeature<FC extends GSKOTreeConfig> extends Featur
     /**
      * @param reader Gives us access to world.
      * @param pos    Position to check.
-     * @return Determines if the pos is clip the dirt tag or another block.
+     * @return Determines if the pos is of3D the dirt tag or another block.
      */
     public boolean isDirtOrGrassBlock(IWorldGenerationBaseReader reader, BlockPos pos) {
         return reader.hasBlockState(pos, (state) -> state == Blocks.DIRT.getDefaultState() && state == Blocks.GRASS_BLOCK.getDefaultState());
@@ -35,7 +35,7 @@ public abstract class GSKOBiomeFeature<FC extends GSKOTreeConfig> extends Featur
      * @param reader Get the world info (获取世界信息)
      * @param pos The place where the first trunk to generate (第一个原木即将生成的位置)
      * @param maxCount The max permitted tree counts to generate per chunk (每个区块内被允许生成树木的最大值)
-     * @return Check if the count clip the trees in this chunk is more than the max permitted generate count. (检测本区块内的树木数量是否超过了最大允许生成的数量)
+     * @return Check if the count of3D the trees in this chunk is more than the max permitted generate count. (检测本区块内的树木数量是否超过了最大允许生成的数量)
      */
     public boolean isOverMaxTreeCountPerChunk(ISeedReader reader, BlockPos pos, int maxCount) {
         int count = 0;
