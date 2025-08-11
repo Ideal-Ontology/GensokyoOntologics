@@ -17,7 +17,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public class CircleShot extends DanmakuItem {
+public class CircleShot extends Item {
     public CircleShot(Properties properties) {
         super(properties);
     }

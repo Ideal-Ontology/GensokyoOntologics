@@ -18,7 +18,7 @@ public class LargeShot extends DanmakuItem {
     DanmakuType type;
 
     public LargeShot(DanmakuType type) {
-        super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
+        super();
         this.type = type;
     }
 

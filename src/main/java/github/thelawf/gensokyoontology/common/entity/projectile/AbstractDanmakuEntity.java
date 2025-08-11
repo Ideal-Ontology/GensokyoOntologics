@@ -8,6 +8,7 @@ import net.minecraft.entity.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ThrowableEntity;
+import net.minecraft.item.Item;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -138,18 +139,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-
-    @Override
-    public void setShooter(@Nullable Entity entityIn) {
-        super.setShooter(entityIn);
-    }
-
-    @Nullable
-    @Override
-    public LivingEntity getShooter() {
-        return (LivingEntity) super.getShooter();
-    }
-
     @Override
     public void setNoGravity(boolean noGravity) {
         super.setNoGravity(noGravity);
@@ -208,7 +197,6 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
         return this;
     }
 
-
     public DanmakuColor getDanmakuColor() {
         return DanmakuColor.values()[this.dataManager.get(DATA_COLOR)];
     }
@@ -216,4 +204,5 @@ public abstract class AbstractDanmakuEntity extends ThrowableEntity implements I
     public DanmakuType getDanmakuType() {
         return DanmakuType.values()[0];
     }
+
 }

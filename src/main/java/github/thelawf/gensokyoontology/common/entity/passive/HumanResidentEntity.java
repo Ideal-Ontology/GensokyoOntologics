@@ -32,7 +32,7 @@ import java.util.Random;
  * StayNearPointTask.field_220549_b -> walkingSpeed （行走速度）<br>
  * StayNearPointTask.field_220550_c -> distance （目标行走距离）<br>
  * StayNearPointTask.field_220551_d -> maxDistance （最大巡航距离）
- * */
+ */
 public class HumanResidentEntity extends AbstractVillagerEntity {
     public static final DataParameter<Integer> DATA_GENDER = EntityDataManager.createKey(HumanResidentEntity.class,
             DataSerializers.VARINT);

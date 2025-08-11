@@ -2,7 +2,9 @@ package github.thelawf.gensokyoontology.common.util.danmaku;
 
 import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.item.danmaku.DanmakuItem;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.SpellCardRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -69,20 +71,17 @@ public class DanmakuUtil {
                 (float) lookVec.y, (float) lookVec.z);
         danmakuEntityType.shoot(lookVec.x, lookVec.y, lookVec.z, velocity, inaccuracy);
         worldIn.addEntity(danmakuEntityType);
-
     }
 
-    public static <D extends AbstractDanmakuEntity> void shootDanmaku(@NotNull World worldIn, Entity entityIn,
-                                                                      D danmakuEntityType, Vector3d shootVec,
-                                                                      float velocity, float inaccuracy) {
-        Vector3d lookVec = entityIn.getLookVec();
-
-        danmakuEntityType.setNoGravity(true);
-        danmakuEntityType.setLocationAndAngles(entityIn.getPosX(), entityIn.getPosY() + entityIn.getEyeHeight(), entityIn.getPosZ(),
+    public static void createAndShoot(@NotNull World worldIn, LivingEntity living, DanmakuItem danmakuItem,
+                                      float velocity, float inaccuracy) {
+        Vector3d lookVec = living.getLookVec();
+        Danmaku danmaku = Danmaku.create(worldIn, living, danmakuItem)
+        danmaku.setNoGravity(true);
+        danmaku.setLocationAndAngles(living.getPosX(), living.getPosY() + living.getEyeHeight(), living.getPosZ(),
                 (float) lookVec.y, (float) lookVec.z);
-        danmakuEntityType.shoot(shootVec.x, shootVec.y, shootVec.z, velocity, inaccuracy);
-        worldIn.addEntity(danmakuEntityType);
-
+        danmaku.shoot(lookVec.x, lookVec.y, lookVec.z, velocity, inaccuracy);
+        worldIn.addEntity(danmaku);
     }
 
     public static <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d globalPos, Vector2f rotation, boolean noGravity) {

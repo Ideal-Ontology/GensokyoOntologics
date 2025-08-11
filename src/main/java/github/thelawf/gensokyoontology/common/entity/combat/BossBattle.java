@@ -3,8 +3,10 @@ package github.thelawf.gensokyoontology.common.entity.combat;
 import github.thelawf.gensokyoontology.api.entity.YoukaiCombat;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.CirnoEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.RumiaEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.CircleShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.LargeShotEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
@@ -69,7 +71,7 @@ public class BossBattle {
 
     };
 
-    public static final YoukaiCombat.TargetAction<RumiaEntity> AIMED_SHOOT = (world, youkai, target) -> {
+    public static final YoukaiCombat.TargetAction<RumiaEntity> AIMED_SHOOT_RUMIA = (world, youkai, target) -> {
 
     };
 
@@ -79,5 +81,17 @@ public class BossBattle {
             RiceShotEntity riceShot = new RiceShotEntity(rumiaEntity, world, DanmakuType.RICE_SHOT, DanmakuColor.PINK);
 
         });
+    };
+
+    public static final YoukaiCombat.TargetAction<CirnoEntity> PERFECT_FREEZE = (world, cirnoEntity, target) -> {
+
+    };
+
+    public static final YoukaiCombat.TargetAction<CirnoEntity> ICY_STORM = (world, youkai, target) -> {
+
+    };
+
+    public static final YoukaiCombat.TargetAction<CirnoEntity> SUNBURNT_CRYSTALS = (world, youkai, target) -> {
+
     };
 }

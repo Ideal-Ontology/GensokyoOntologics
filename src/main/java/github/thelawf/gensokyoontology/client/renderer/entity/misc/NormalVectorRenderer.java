@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
+import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -13,6 +14,7 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
+import org.lwjgl.system.CallbackI;
 
 @OnlyIn(Dist.CLIENT)
 public class NormalVectorRenderer extends SpriteRenderer<AbstractDanmakuEntity> {
@@ -31,13 +33,19 @@ public class NormalVectorRenderer extends SpriteRenderer<AbstractDanmakuEntity> 
     @Override
     public void render(@NotNull AbstractDanmakuEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         //if (entityIn.ticksExisted >= 2 || !(this.renderManager.info.getRenderViewEntity().getDistanceSq(entityIn) < 12.25D)) {
+        if (Danmaku.NORMAL_DANMAKU.get(entityIn.getItem().getItem()) == null) {
+            super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+            return;
+        }
         matrixStackIn.push();
         matrixStackIn.scale(scale, scale, scale);
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw) - 90f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch) - 90f));
 
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90.f));
-        if (isUp) matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(180.F));
+        if (Danmaku.NORMAL_DANMAKU.get(entityIn.getItem().getItem())) {
+            matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(180.F));
+        }
         itemRenderer.renderItem(entityIn.getItem(), ItemCameraTransforms.TransformType.GUI,
                 packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
         matrixStackIn.pop();

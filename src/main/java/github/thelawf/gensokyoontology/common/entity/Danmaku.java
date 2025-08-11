@@ -1,8 +1,8 @@
-package github.thelawf.gensokyoontology.common.entity.projectile;
+package github.thelawf.gensokyoontology.common.entity;
 
 
+import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.expression.IExpressionType;
@@ -17,6 +17,7 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IItemProvider;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
@@ -25,10 +26,8 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,11 +39,41 @@ import java.util.Map;
  * （待补充……）
  */
 @OnlyIn(value = Dist.CLIENT, _interface = IItemProvider.class)
-public class Danmaku extends ProjectileItemEntity {
+public class Danmaku extends ProjectileItemEntity{
     public static final DataParameter<Float> DATA_DAMAGE = EntityDataManager.createKey(
             Danmaku.class, DataSerializers.FLOAT);
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
             Danmaku.class, DataSerializers.VARINT);
+
+    /**
+     * 这个哈希表中存放的是那些应该被进行法向渲染的投掷物弹幕。使用普通精灵渲染的弹幕物品不在此列内。布尔值表示是否将该弹幕贴图朝下的方向作为其法向。
+     */
+    public static final Map<Item,Boolean> NORMAL_DANMAKU = Util.make(() -> {
+        Map<Item, Boolean> map = new HashMap<>();
+        map.put(ItemRegistry.SCALE_SHOT.get(), false);
+        map.put(ItemRegistry.SCALE_SHOT_RED.get(), false);
+        map.put(ItemRegistry.SCALE_SHOT_YELLOW.get(), false);
+        map.put(ItemRegistry.SCALE_SHOT_GREEN.get(), false);
+        map.put(ItemRegistry.SCALE_SHOT_BLUE.get(), false);
+        map.put(ItemRegistry.SCALE_SHOT_PURPLE.get(), false);
+
+        map.put(ItemRegistry.TALISMAN_SHOT.get(), false);
+        map.put(ItemRegistry.TALISMAN_SHOT_RED.get(), false);
+        map.put(ItemRegistry.TALISMAN_SHOT_GREEN.get(), false);
+        map.put(ItemRegistry.TALISMAN_SHOT_BLUE.get(), false);
+        map.put(ItemRegistry.TALISMAN_SHOT_PURPLE.get(), false);
+
+        map.put(ItemRegistry.RICE_SHOT.get(), false);
+        map.put(ItemRegistry.RICE_SHOT_RED.get(), false);
+        map.put(ItemRegistry.RICE_SHOT_BLUE.get(), false);
+        map.put(ItemRegistry.RICE_SHOT_PURPLE.get(), false);
+
+        map.put(ItemRegistry.HEART_SHOT.get(), true);
+        map.put(ItemRegistry.HEART_SHOT_RED.get(), true);
+        map.put(ItemRegistry.HEART_SHOT_BLUE.get(), true);
+
+        return map;
+    });
     protected float damage = 2.0f;
     // protected ClosureExpression behavior;
     private int lifespan = 125;
@@ -59,21 +88,17 @@ public class Danmaku extends ProjectileItemEntity {
     //     this.setItem(new ItemStack(danmakuItem));
     // }
 
-    public Danmaku(ServerWorld world, Item danmakuItem, LivingEntity owner) {
+    public Danmaku(World world, Item danmakuItem, LivingEntity owner) {
         super(EntityRegistry.DANMAKU.get(), owner, world);
         // this.behavior = new ClosureExpression();
         this.setItem(new ItemStack(danmakuItem));
         this.setNoGravity(true);
     }
 
-    public Danmaku(EntityType<? extends ProjectileItemEntity> entityType, World level) {
-        super(entityType, level);
+    public Danmaku(EntityType<? extends ProjectileItemEntity> entityType, World world) {
+        super(entityType, world);
         this.setItem(ItemStack.EMPTY);
         this.setNoGravity(true);
-    }
-
-    public Danmaku(ServerWorld serverWorld, LivingEntity owner, ItemStack itemStack) {
-        super(EntityRegistry.DANMAKU.get(), owner, serverWorld);
     }
 
     public static void shootTo(World level, PlayerEntity player, Danmaku danmaku, float speed){
@@ -82,14 +107,14 @@ public class Danmaku extends ProjectileItemEntity {
         danmaku.shoot(angle.x, angle.y, angle.z, speed, 0f);
     }
 
-    public static Danmaku create(ServerWorld serverWorld, LivingEntity owner, ItemStack stack) {
-        return new Danmaku(serverWorld, stack.getItem(), owner);
+    public static Danmaku create(World world, LivingEntity owner, ItemStack stack) {
+        return new Danmaku(world, stack.getItem(), owner);
     }
 
-    public static Danmaku create(World level, Item item, LivingEntity living) {
-        if (!(level instanceof ServerWorld)) return null;
-        ServerWorld serverWorld = (ServerWorld) level;
-        return new Danmaku(serverWorld, item, living);
+    public static Danmaku create(World world, LivingEntity owner, Item item) {
+        if (!(world instanceof ServerWorld)) return null;
+        ServerWorld serverWorld = (ServerWorld) world;
+        return new Danmaku(serverWorld, item, owner);
     }
 
     public Danmaku lifespan(int lifespan) {
@@ -115,18 +140,13 @@ public class Danmaku extends ProjectileItemEntity {
     }
 
     private void setPos(Vector3d pos) {
-        this.setPos(pos);
+        this.setPosition(pos.x, pos.y, pos.z);
     }
 
     public Danmaku rot(Vector2f rot) {
         this.setRotation(rot.y, rot.x);
         return this;
     }
-
-    public void init(int lifespan, float damage, String color, Entity owner) {
-        this.lifespan(lifespan).damage(damage).owner(owner);
-    }
-
 
     public int getLifespan() {
         return this.dataManager.get(DATA_LIFESPAN);
@@ -168,7 +188,7 @@ public class Danmaku extends ProjectileItemEntity {
     //     this.checkParamInMap(list, invoker);
     // }
 
-    /**
+    /*
     public void tryInvokeSetMotion(InvokeExpression invoker){
         var list = invoker.getParameters();
         this.checkParamInMap(list, invoker);
@@ -268,6 +288,7 @@ public class Danmaku extends ProjectileItemEntity {
         }
     }
 
+
     @Override
     public @NotNull Item getDefaultItem() {
         return ItemRegistry.DANMAKU_SHOT.get();
@@ -276,4 +297,5 @@ public class Danmaku extends ProjectileItemEntity {
     public void hurtLiving(LivingEntity hurtLiving, DamageSource source, float amount) {
         hurtLiving.attackEntityFrom(source, amount);
     }
+
 }

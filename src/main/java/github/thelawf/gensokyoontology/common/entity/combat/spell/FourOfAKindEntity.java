@@ -67,8 +67,8 @@ public class FourOfAKindEntity extends AbstractSpellCardEntity {
                 vector3d = vector3d.rotatePitch((float) (Math.PI / 12 * i));
                 vector3d = vector3d.rotateYaw((float) (Math.PI / 12 * j));
 
-                DanmakuUtil.shootDanmaku(this.world, user, danmaku, vector3d, 0.4f, 0f);
-                DanmakuUtil.shootDanmaku(this.world, user, danmaku, vector3d.inverse(), 0.4f, 0f);
+                // DanmakuUtil.shootDanmaku(this.world, user, danmaku, vector3d, 0.4f, 0f);
+                // DanmakuUtil.shootDanmaku(this.world, user, danmaku, vector3d.inverse(), 0.4f, 0f);
             }
         }
     }
