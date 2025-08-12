@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.event;
+package github.thelawf.gensokyoontology.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;

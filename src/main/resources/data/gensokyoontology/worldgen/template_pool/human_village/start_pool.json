@@ -3,7 +3,7 @@
   "fallback": "minecraft:empty",
   "elements": [
     {
-      "weight": 60,
+      "weight": 50,
       "element": {
         "location": "gensokyoontology:human_village/bazaar",
         "processors": "minecraft:empty",
@@ -48,7 +48,7 @@
       }
     },
     {
-      "weight": 20,
+      "weight": 15,
       "element": {
         "location": "gensokyoontology:human_village/warehouse",
         "processors": "minecraft:empty",
@@ -57,7 +57,7 @@
       }
     },
     {
-      "weight": 50,
+      "weight": 40,
       "element": {
         "location": "gensokyoontology:human_village/castle",
         "processors": "minecraft:empty",

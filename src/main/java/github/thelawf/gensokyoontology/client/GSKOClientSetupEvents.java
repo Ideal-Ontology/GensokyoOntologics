@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.event;
+package github.thelawf.gensokyoontology.client;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.renderer.GSKODimensionRenderInfo;
@@ -41,8 +41,11 @@ public class GSKOClientSetupEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_DANMAKU.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 4f, false));
 
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU.get(),
+                manager -> new NormalVectorRenderer(manager, itemRenderer, 1F, false, false));
+
         // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU.get(),
-        //         manager -> new NormalVectorRenderer(manager, itemRenderer, 1F, false, false));
+        //         manager -> new SpriteRenderer<>(manager, itemRenderer));
 
         // ======================== 贴图类怪物的渲染器 ==================== //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_ENTITY.get(),

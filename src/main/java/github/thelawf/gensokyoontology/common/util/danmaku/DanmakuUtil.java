@@ -37,7 +37,6 @@ public class DanmakuUtil {
                                       float velocity, float inaccuracy) {
         Vector3d lookVec = living.getLookVec();
         Danmaku danmaku = Danmaku.create(worldIn, living, danmakuItem);
-        GSKOUtil.log(danmaku.getPositionVec());
         danmaku.setNoGravity(true);
         danmaku.setLocationAndAngles(living.getPosX(), living.getPosY() + living.getEyeHeight(), living.getPosZ(),
                 (float) lookVec.y, (float) lookVec.z);

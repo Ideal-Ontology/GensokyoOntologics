@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity;
 
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -13,9 +14,11 @@ import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.network.play.server.SSpawnObjectPacket;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.Util;
@@ -25,6 +28,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -40,10 +44,6 @@ import java.util.Map;
  */
 @OnlyIn(value = Dist.CLIENT, _interface = IItemProvider.class)
 public class Danmaku extends ProjectileItemEntity{
-    public static final DataParameter<Float> DATA_DAMAGE = EntityDataManager.createKey(
-            Danmaku.class, DataSerializers.FLOAT);
-    public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
-            Danmaku.class, DataSerializers.VARINT);
 
     /**
      * 这个哈希表中存放的是那些应该被进行法向渲染的投掷物弹幕。使用普通精灵渲染的弹幕物品不在此列内。布尔值表示是否将该弹幕贴图朝下的方向作为其法向。
@@ -71,9 +71,60 @@ public class Danmaku extends ProjectileItemEntity{
         map.put(ItemRegistry.HEART_SHOT.get(), Pair.of(true, 2.0F));
         map.put(ItemRegistry.HEART_SHOT_RED.get(), Pair.of(true, 2.0F));
         map.put(ItemRegistry.HEART_SHOT_BLUE.get(), Pair.of(true, 2.0F));
+        map.put(ItemRegistry.HEART_SHOT_PINK.get(), Pair.of(true, 2.0F));
 
         return map;
     });
+
+    /**
+     * 这个哈希表中存放的是那些应该被进行法向渲染的投掷物弹幕。使用普通精灵渲染的弹幕物品不在此列内。布尔值表示是否将该弹幕贴图朝下的方向作为其法向。
+     */
+    public static final Map<Item,Float> DANMAKU_SIZES = Util.make(() -> {
+        Map<Item, Float> map = new HashMap<>();
+        map.put(ItemRegistry.LARGE_SHOT.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_RED.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_ORANGE.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_YELLOW.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_GREEN.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_AQUA.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_BLUE.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_PURPLE.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_MAGENTA.get(), 3F);
+
+        map.put(ItemRegistry.SMALL_SHOT.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_RED.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_ORANGE.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_YELLOW.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_GREEN.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_AQUA.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_BLUE.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_PURPLE.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_MAGENTA.get(), 0.4F);
+
+        map.put(ItemRegistry.LARGE_STAR_SHOT.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_RED.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_YELLOW.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_GREEN.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_AQUA.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_BLUE.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_PURPLE.get(), 3F);
+
+        map.put(ItemRegistry.SMALL_STAR_SHOT.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_RED.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_YELLOW.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_GREEN.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_AQUA.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_BLUE.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_PURPLE.get(), 0.4F);
+
+        return map;
+    });
+
+    public static final DataParameter<Float> DATA_DAMAGE = EntityDataManager.createKey(
+            Danmaku.class, DataSerializers.FLOAT);
+    public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
+            Danmaku.class, DataSerializers.VARINT);
+
     protected float damage = 2.0f;
     // protected ClosureExpression behavior;
     private int lifespan = 125;
@@ -94,12 +145,25 @@ public class Danmaku extends ProjectileItemEntity{
         this.setItem(new ItemStack(danmakuItem));
         this.setPos(owner.getPositionVec());
         this.setNoGravity(true);
+        this.setLifespan(this.lifespan);
+        this.setDamage(this.damage);
     }
 
     public Danmaku(EntityType<? extends ProjectileItemEntity> entityType, World world) {
         super(entityType, world);
-        this.setItem(ItemStack.EMPTY);
+        this.setItem(new ItemStack(ItemRegistry.LARGE_SHOT_RED.get()));
         this.setNoGravity(true);
+        this.setLifespan(this.lifespan);
+        this.setDamage(this.damage);
+    }
+
+    public Danmaku(EntityType<? extends ProjectileItemEntity> type, double x, double y, double z, World world) {
+        super(type, x, y, z, world);
+        this.setItem(new ItemStack(ItemRegistry.LARGE_SHOT_RED.get()));
+        this.setPos(new Vector3d(x, y, z));
+        this.setNoGravity(true);
+        this.setLifespan(this.lifespan);
+        this.setDamage(this.damage);
     }
 
     public static void shootTo(World level, PlayerEntity player, Danmaku danmaku, float speed){
@@ -172,7 +236,7 @@ public class Danmaku extends ProjectileItemEntity{
         if (this.world.isRemote) return;
         if (this.ticksExisted >= this.lifespan) this.remove();
 
-        if (this.getDefaultItem() != ItemRegistry.DANMAKU_SHOT.get()) this.onBehaviorTick();
+        // if (this.getDefaultItem() != ItemRegistry.DANMAKU_SHOT.get()) this.onBehaviorTick();
     }
 
     public void onBehaviorTick(){
@@ -262,7 +326,7 @@ public class Danmaku extends ProjectileItemEntity{
     }
 
     public void setLifespan(int lifespan) {
-        this.dataManager.set(DATA_DAMAGE, damage);
+        this.dataManager.set(DATA_LIFESPAN, this.lifespan);
         this.lifespan = lifespan;
     }
 
@@ -278,37 +342,51 @@ public class Danmaku extends ProjectileItemEntity{
 
     @Override
     protected void onEntityHit(EntityRayTraceResult result) {
+        this.onLunarCollide(result);
+        if (this.getShooter() instanceof MobEntity || this.getShooter() instanceof IAngerable)
+            this.onMobShoot(result);
+
+        if (this.getShooter() instanceof PlayerEntity)
+            this.onPlayerShoot(result);
+    }
+
+    private void onMobShoot(EntityRayTraceResult result){
         if (!(result.getEntity() instanceof LivingEntity)) return;
-        LivingEntity living = (LivingEntity) result.getEntity();
-        if (!(living.world instanceof ServerWorld)) return;
+        if (result.getEntity() instanceof MobEntity) return;
 
-        if (this.getShooter() instanceof MobEntity || this.getShooter() instanceof IAngerable) {
-            if (this.getType() != EntityRegistry.FAKE_LUNAR_ENTITY.get())
-                this.hurtLiving(living, GSKODamageSource.DANMAKU, 12f);
-            this.remove();
-            return;
-        }
+        LivingEntity target = (LivingEntity) result.getEntity();
+        if (target.getUniqueID() == this.getUniqueID()) return;
 
-        if (result.getEntity() instanceof Danmaku) {
-            Danmaku danmaku = (Danmaku) result.getEntity();
-            if (danmaku.getType() != EntityRegistry.FAKE_LUNAR_ENTITY.get()) return;
-            this.remove();
-            return;
-        }
+        target.attackEntityFrom(GSKODamageSource.DANMAKU, this.getDamage());
+        this.remove();
+    }
 
-        if (!(living instanceof PlayerEntity)) {
-            this.hurtLiving(living, GSKODamageSource.DANMAKU, this.damage);
-            this.remove();
-        }
+    @Override
+    public IPacket<?> createSpawnPacket() {
+        return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    private void onPlayerShoot(EntityRayTraceResult result){
+        if (!(result.getEntity() instanceof LivingEntity)) return;
+
+        LivingEntity target = (LivingEntity) result.getEntity();
+        if (target.getUniqueID() == this.getUniqueID()) return;
+
+        target.attackEntityFrom(GSKODamageSource.DANMAKU, this.getDamage());
+        this.remove();
+    }
+
+    private void onLunarCollide(EntityRayTraceResult result){
+        if (!(this instanceof FakeLunarEntity)) return;
+        if (!(result.getEntity() instanceof Danmaku)) return;
+
+        Danmaku danmaku = (Danmaku) result.getEntity();
+        danmaku.remove();
     }
 
     @Override
     public @NotNull Item getDefaultItem() {
-        return ItemRegistry.DANMAKU_SHOT.get();
-    }
-
-    public void hurtLiving(LivingEntity hurtLiving, DamageSource source, float amount) {
-        hurtLiving.attackEntityFrom(source, amount);
+        return ItemRegistry.LARGE_SHOT_RED.get();
     }
 
 }

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.event;
+package github.thelawf.gensokyoontology.client;
 
 import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.GensokyoOntology;

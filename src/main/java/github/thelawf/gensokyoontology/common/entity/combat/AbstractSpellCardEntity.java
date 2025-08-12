@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.combat;
 
+import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuPool;
@@ -33,7 +34,7 @@ import java.util.function.Supplier;
 
 // TODO: 按照符卡的强度决定其登场和获取顺序
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
-public abstract class AbstractSpellCardEntity extends Entity implements IRendersAsItem {
+public abstract class AbstractSpellCardEntity extends AffiliatedEntity implements IRendersAsItem {
 
     protected int lifeSpan = 500;
     protected UUID owner;
@@ -107,10 +108,6 @@ public abstract class AbstractSpellCardEntity extends Entity implements IRenders
         }
     }
 
-    private void setOwnerId(UUID uuid) {
-        this.dataManager.set(DATA_OWNER_UUID, Optional.ofNullable(uuid));
-    }
-
     @Nullable
     public Entity getOwner() {
         if (this.world instanceof ServerWorld) {
@@ -121,11 +118,6 @@ public abstract class AbstractSpellCardEntity extends Entity implements IRenders
             }
         }
         return null;
-    }
-
-    @Nullable
-    public UUID getOwnerId() {
-        return this.dataManager.get(DATA_OWNER_UUID).orElse(null);
     }
 
     public int getLifeSpan() {

@@ -82,6 +82,10 @@ public final class EntityRegistry {
                     .size(0.6f, 0.8f).trackingRange(20).build("haniwa"));
 
     // =========================== 技术性实体：弹幕 ========================= //
+
+
+    public static final RegistryObject<EntityType<Danmaku>> DANMAKU = register("danmaku", Danmaku::new,
+            EntityClassification.MISC, 0.5F, 0.5F, 20, 2);
     public static final RegistryObject<EntityType<DanmakuShotEntity>> DANMAKU_ENTITY = ENTITIES.register(
             "danmaku_shot", () -> EntityType.Builder.<DanmakuShotEntity>create(DanmakuShotEntity::new, EntityClassification.MISC)
                     .size(0.5F, 0.5F).trackingRange(4).updateInterval(2).build("danmaku_shot"));
@@ -139,9 +143,6 @@ public final class EntityRegistry {
             "master_spark", MasterSparkEntity::new, EntityClassification.MISC, 2.F, 2.F, 10, 2);
     // public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
     //         "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);
-
-    public static final RegistryObject<EntityType<Danmaku>> DANMAKU = register("danmaku", Danmaku::new,
-            EntityClassification.MISC, 0.4F, 0.4F, 20, 2);
 
     public static <T extends Entity> RegistryObject<EntityType<T>> register(String name, EntityType.IFactory<T> factoryIn,
                                                                             EntityClassification classification, float width,

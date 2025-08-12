@@ -51,8 +51,8 @@ public final class StructureRegistry {
         setupMapSpacingAndLand(HAKUREI_SHRINE.get(), new StructureSeparationSettings(30, 20, 51392147), true);
         setupMapSpacingAndLand(CHIREIDEN.get(), new StructureSeparationSettings(80, 50, 413054656), true);
         setupMapSpacingAndLand(CIRNO_ICE_HOUSE.get(), new StructureSeparationSettings(25, 15, 64916420), true);
-        setupMapSpacingAndLand(BEAST_PATHWAY.get(), new StructureSeparationSettings(8, 3, 994251466), true);
-        setupMapSpacingAndLand(HUMAN_VILLAGE.get(), new StructureSeparationSettings(15, 8, 854694869), true);
+        setupMapSpacingAndLand(BEAST_PATHWAY.get(), new StructureSeparationSettings(5, 3, 994251466), true);
+        setupMapSpacingAndLand(HUMAN_VILLAGE.get(), new StructureSeparationSettings(12, 6, 854694869), true);
         // setupMapSpacingAndLand(WATERFALL_NINE_HEAVEN.get(), new StructureSeparationSettings(40, 30, 95323460), true);
     }
 

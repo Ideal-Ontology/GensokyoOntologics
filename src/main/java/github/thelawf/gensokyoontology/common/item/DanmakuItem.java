@@ -18,15 +18,9 @@ public class DanmakuItem extends Item {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
-        boolean danmakuInHand = playerIn.getHeldItem(handIn).getItem() instanceof DanmakuItem;
-        if (danmakuInHand) {
-            DanmakuUtil.createAndShoot(worldIn, playerIn, this, 0.7F, 0F);
-            ItemStack stack = playerIn.getHeldItem(Hand.MAIN_HAND);
-            stack.shrink(1);
-            return ActionResult.resultConsume(stack);
-        }
-        else {
-            return ActionResult.resultPass(playerIn.getHeldItem(handIn));
-        }
+        DanmakuUtil.createAndShoot(worldIn, playerIn, this, 0.7F, 0F);
+        ItemStack stack = playerIn.getHeldItem(handIn);
+        stack.shrink(1);
+        return ActionResult.resultConsume(stack);
     }
 }
