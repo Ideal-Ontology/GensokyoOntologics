@@ -1,10 +1,8 @@
 package github.thelawf.gensokyoontology.common.util;
 
 import com.google.gson.JsonElement;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
-import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,16 +16,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.state.Property;
-import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;

@@ -23,12 +23,11 @@ public abstract class BattlePhaseGoal extends Goal {
 
     @Override
     public boolean shouldContinueExecuting() {
-        return this.ticksExecuted >= this.maxTicks;
+        return this.ticksExecuted < this.maxTicks;
     }
 
     @Override
     public void resetTask() {
         super.resetTask();
-
     }
 }

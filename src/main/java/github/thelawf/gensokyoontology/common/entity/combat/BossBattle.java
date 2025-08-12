@@ -67,15 +67,27 @@ public class BossBattle {
 
     };
 
-    public static final YoukaiCombat.TargetAction<RumiaEntity> AIMED_SHOOT_RUMIA = (world, youkai, target) -> {
-
+    public static final YoukaiCombat.TargetAction<RumiaEntity> WALL_SHOOT_RUMIA = (world, youkai, target) -> {
+        if (target == null) return;
+        for (int i = 0; i < 7; i++) {
+            for (int j = 0; j < 7; j++) {
+                Danmaku danmaku = Danmaku.create(world, youkai, ItemRegistry.SMALL_SHOT_BLUE.get()).damage(3F);
+                DanmakuUtil.wallShoot(danmaku, DanmakuUtil.getAimedVec(youkai, target), 5F, i, j, 0.65F);
+            }
+        }
     };
 
-    public static final YoukaiCombat.SkillAction<RumiaEntity> DARK_BORDER_LINE = (world, rumiaEntity) -> {
-        List<Vector3d> shootVec = DanmakuUtil.spheroidPos(1, 15);
-        shootVec.forEach(vector3d -> {
-            // RiceShotEntity riceShot = new RiceShotEntity(rumiaEntity, world, DanmakuType.RICE_SHOT, DanmakuColor.PINK);
+    public static final YoukaiCombat.TimerAction<RumiaEntity> DARK_BORDER_LINE = (world, rumiaEntity, target, currentTick) -> {
+        List<Vector3d> positions = DanmakuUtil.spheroidPos(1, 15);
+        positions.forEach(vector3d -> {
+            int unit = currentTick % 80;
+            int increment = currentTick % 80 > 40 ? 3 * unit : -3 * unit;
 
+            Vector3d shootVec = vector3d.rotateYaw(Danmaku.rad(increment) * rumiaEntity.ticksExisted);
+            Danmaku danmaku = Danmaku.create(world, rumiaEntity, ItemRegistry.SMALL_SHOT_GREEN.get()).damage(4F);
+            danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, 0.7F, 0F);
+            world.addEntity(danmaku);
+            // RiceShotEntity riceShot = new RiceShotEntity(rumiaEntity, world, DanmakuType.RICE_SHOT, DanmakuColor.PINK);
         });
     };
 

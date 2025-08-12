@@ -16,4 +16,14 @@ public class YoukaiCombat {
     public interface TargetAction<Y extends YoukaiEntity> {
         void act(World world, Y youkai, LivingEntity target);
     }
+
+    @FunctionalInterface
+    public interface TimerAction<Y extends YoukaiEntity> {
+        void act(World world, Y youkai, LivingEntity target, int currentTick);
+    }
+
+    @FunctionalInterface
+    public interface KeyframeAction<Y extends YoukaiEntity> {
+        void act(World world, Y youkai, LivingEntity target, int currentTick);
+    }
 }

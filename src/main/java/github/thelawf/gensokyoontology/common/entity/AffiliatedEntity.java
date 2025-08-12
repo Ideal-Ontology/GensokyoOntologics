@@ -44,7 +44,6 @@ public abstract class AffiliatedEntity extends Entity {
         if (compound.hasUniqueId("Owner")) {
             uuid = compound.getUniqueId("Owner");
         }
-
         if (uuid != null) {
             this.setDataOwner();
         }

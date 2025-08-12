@@ -295,6 +295,51 @@ public class DanmakuUtil {
         // return new Vector3d(target.getPosX() - shooter.getPosX(), target.getPosY() - shooter.getPosY(), target.getPosZ() - shooter.getPosZ());
     }
 
+    public static void curveShoot(Danmaku danmaku, Vector3d aimedVec, float angleDeg, int index, float speed){
+        if (index % 2 == 0){
+            danmaku.shoot(aimedVec.rotateYaw(Danmaku.rad(angleDeg) / 2), speed);
+            danmaku.shoot(aimedVec.rotateYaw(-Danmaku.rad(angleDeg) / 2), speed);
+
+            int i = (index - 2) / 2;
+            Vector3d rightVec = aimedVec.rotateYaw(Danmaku.rad(angleDeg) * i + (angleDeg / 2));
+            Vector3d leftVec = aimedVec.rotateYaw(-Danmaku.rad(angleDeg) * i - (angleDeg / 2));
+            danmaku.shoot(rightVec, speed);
+            danmaku.shoot(leftVec, speed);
+
+        }
+        else {
+            danmaku.shoot(aimedVec, speed);
+            int i = (index - 1) / 2;
+            Vector3d rightVec = aimedVec.rotateYaw(Danmaku.rad(angleDeg) * i);
+            Vector3d leftVec = aimedVec.rotateYaw(-Danmaku.rad(angleDeg) * i);
+            danmaku.shoot(rightVec, speed);
+            danmaku.shoot(leftVec, speed);
+
+        }
+    }
+
+    public static void wallShoot(Danmaku danmaku, Vector3d aimedVec, float angleDeg, int widthIndex, int heightIndex, float speed){
+        if (heightIndex % 2 == 0){
+            int i = (heightIndex - 2) / 2;
+            curveShoot(danmaku, aimedVec.rotatePitch(angleDeg / 2), angleDeg, widthIndex, speed);
+            curveShoot(danmaku, aimedVec.rotatePitch(-angleDeg / 2), angleDeg, widthIndex, speed);
+            applyLR(danmaku, aimedVec, angleDeg, widthIndex, speed, i);
+        }
+        else {
+            int i = (heightIndex - 1) / 2;
+            curveShoot(danmaku, aimedVec, angleDeg, widthIndex, speed);
+            applyLR(danmaku, aimedVec, angleDeg, widthIndex, speed, i);
+        }
+    }
+
+    private static void applyLR(Danmaku danmaku, Vector3d aimedVec, float angleDeg, int widthIndex, float speed, int i) {
+        Vector3d rightVec = aimedVec.rotatePitch(Danmaku.rad(angleDeg) * i + (angleDeg / 2));
+        Vector3d leftVec = aimedVec.rotatePitch(-Danmaku.rad(angleDeg) * i - (angleDeg / 2));
+        curveShoot(danmaku, rightVec,angleDeg, widthIndex, speed);
+        curveShoot(danmaku, leftVec, angleDeg, widthIndex, speed);
+    }
+
+
     public static List<Item> getRainbowColoredDanmaku() {
 
         return Lists.newArrayList(

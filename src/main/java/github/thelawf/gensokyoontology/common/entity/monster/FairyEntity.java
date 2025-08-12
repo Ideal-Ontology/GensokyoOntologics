@@ -2,9 +2,6 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.DamakuAttackGoal;
-import github.thelawf.gensokyoontology.common.entity.projectile.*;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -15,15 +12,11 @@ import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.GhastEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.network.IPacket;
 import net.minecraft.pathfinding.FlyingPathNavigator;
 import net.minecraft.pathfinding.PathNavigator;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -35,7 +28,6 @@ import org.jetbrains.annotations.NotNull;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;
 
 @OnlyIn(value = Dist.CLIENT, _interface = IRendersAsItem.class)
 public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
@@ -163,7 +155,7 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
                 aimedShot(target);
                 break;
             case 1:
-                oddAimedShot(target);
+                oddArcShot(target);
                 break;
             case 2:
                 spiralShot();
@@ -183,6 +175,8 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
                 return Danmaku.create(world, this, ItemRegistry.SCALE_SHOT_RED.get());
             case 2:
                 return Danmaku.create(world, this, ItemRegistry.RICE_SHOT_PURPLE.get());
+            case 3:
+                return Danmaku.create(world, this, ItemRegistry.SMALL_STAR_SHOT_YELLOW.get());
             default:
                 return Danmaku.create(world, this, ItemRegistry.SMALL_SHOT_RED.get());
         }
@@ -198,26 +192,27 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
 
     }
 
-    private void oddAimedShot(Vector3d pos, Vector3d shootVec) {
+    private void applyShoot(Vector3d pos, Vector3d shootVec) {
         Danmaku danmaku = randomSelect();
-        DanmakuUtil.init(danmaku, pos, Rot2f.ZERO, true);
+        DanmakuUtil.init(danmaku, pos, Rot2f.from(shootVec), true);
         danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, 0.7f, 0f);
         this.world.addEntity(danmaku);
     }
 
-    private void oddAimedShot(LivingEntity target) {
-        aimedShot(target);
-        for (int i = 0; i < 2; i++) {
-            Vector3d shootVec = getAimedVec(target).rotateYaw((float) Math.PI / 10 * (i + 1));
-            oddAimedShot(this.getPositionVec().add(shootVec).add(0,1,0), shootVec);
-            oddAimedShot(this.getPositionVec().add(shootVec).add(0,1,0), shootVec.inverse());
+    private void oddArcShot(LivingEntity target) {
+        this.aimedShot(target);
+        for (int i = 1; i < 3; i++) {
+            Vector3d rightVec = getAimedVec(target).rotateYaw(Danmaku.rad(10) * i);
+            Vector3d leftVec = getAimedVec(target).rotateYaw(-Danmaku.rad(10) * i);
+            this.applyShoot(this.getPositionVec().add(0,1,0), rightVec);
+            this.applyShoot(this.getPositionVec().add(0,1,0), leftVec);
         }
     }
 
+
     private void spiralShot() {
-        for (int i = 0; i < 4; i++) {
-            Vector3d shootVec = new Vector3d(Vector3f.XP).rotateYaw((float) Math.PI / 36 * ticksExisted)
-                    .rotatePitch((float) Math.PI / 36 * ticksExisted).rotateYaw((float) Math.PI / 2 * i);
+        for (int i = 1; i < 5; i++) {
+            Vector3d shootVec = new Vector3d(Vector3f.XP).rotateYaw(Danmaku.rad(5) * ticksExisted * i);
             Danmaku danmaku = randomSelect();
             DanmakuUtil.init(danmaku, this.getPositionVec().add(0,1,0), Rot2f.ZERO, true);
             danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, 0.7f, 0f);

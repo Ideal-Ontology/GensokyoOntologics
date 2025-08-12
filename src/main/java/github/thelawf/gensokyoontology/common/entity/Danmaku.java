@@ -18,14 +18,11 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.network.play.server.SSpawnObjectPacket;
-import net.minecraft.util.DamageSource;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -77,7 +74,7 @@ public class Danmaku extends ProjectileItemEntity{
     });
 
     /**
-     * 这个哈希表中存放的是那些应该被进行法向渲染的投掷物弹幕。使用普通精灵渲染的弹幕物品不在此列内。布尔值表示是否将该弹幕贴图朝下的方向作为其法向。
+     * 这个哈希表中存放的是普通渲染的弹幕，通过浮点数哈希值来确定弹幕应该被渲染的大小
      */
     public static final Map<Item,Float> DANMAKU_SIZES = Util.make(() -> {
         Map<Item, Float> map = new HashMap<>();
@@ -186,6 +183,10 @@ public class Danmaku extends ProjectileItemEntity{
                 .disableGravity();
     }
 
+    public static float rad(double degIn){
+        return (float) Math.toRadians(degIn);
+    }
+
     public Danmaku lifespan(int lifespan) {
         this.lifespan = lifespan;
         // this.getEntityData().set(DATA_LIFESPAN, lifespan);
@@ -194,6 +195,7 @@ public class Danmaku extends ProjectileItemEntity{
 
     public Danmaku damage(float damage) {
         this.damage = damage;
+        this.setDamage(damage);
         // this.getEntityData().set(DATA_DAMAGE, damage);
         return this;
     }
@@ -389,4 +391,7 @@ public class Danmaku extends ProjectileItemEntity{
         return ItemRegistry.LARGE_SHOT_RED.get();
     }
 
+    public void shoot(Vector3d shootVec, float speed){
+        this.shoot(shootVec.x, shootVec.y, shootVec.z, speed, 0);
+    }
 }

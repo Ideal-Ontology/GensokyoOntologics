@@ -89,7 +89,6 @@ public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceRead
         compound.putInt("lifespan", this.lifespan);
         compound.putInt("preparation", this.preparation);
         compound.putInt("argb", this.argb);
-
         compound.putFloat("range", this.range);
     }
 

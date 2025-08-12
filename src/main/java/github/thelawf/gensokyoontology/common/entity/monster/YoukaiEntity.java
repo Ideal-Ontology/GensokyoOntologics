@@ -7,6 +7,7 @@ import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
@@ -45,14 +46,9 @@ public abstract class YoukaiEntity extends RetreatableEntity {
 
     protected YoukaiEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
+        this.setBattlePhase("1.1");
     }
 
-    @Override
-    protected void registerData() {
-        super.registerData();
-        this.dataManager.register(DATA_RETREATED, this.isRetreated);
-        this.dataManager.register(DATA_FAVORABILITY, this.favorability);
-    }
 
     /**
      * 怪不得继承自YoukaiEntity的实体死不了呢（）原来是我之前在这里判断如果战胜了妖怪则将她驯服了啊（
@@ -60,13 +56,6 @@ public abstract class YoukaiEntity extends RetreatableEntity {
      */
     @Override
     public void onDeath(@NotNull DamageSource cause) {
-        // if (!this.isRetreated) {
-        //     this.setHealth(this.getMaxHealth());
-        //     this.setOwnerId(cause.getTrueSource() instanceof PlayerEntity && cause.getTrueSource() == null ?
-        //             cause.getTrueSource().getUniqueID() : null);
-        //     if (this.getOwnerId() != null) this.setRetreated(true);
-        //     return;
-        // }
         super.onDeath(cause);
     }
 
@@ -91,6 +80,26 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         return duringSpellCard;
     }
 
+    @Override
+    protected void registerData() {
+        super.registerData();
+        this.dataManager.register(DATA_RETREATED, this.isRetreated);
+        this.dataManager.register(DATA_FAVORABILITY, this.favorability);
+        this.dataManager.register(DATA_PHASE, "1.1");
+    }
+
+    @Override
+    public void readAdditional(CompoundNBT compound) {
+        super.readAdditional(compound);
+        this.setBattlePhase(compound.getString("phase"));
+    }
+
+
+    @Override
+    public void writeAdditional(CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putString("phase", this.battlePhase);
+    }
 
     public String getBattlePhase() {
         return this.dataManager.get(DATA_PHASE);
@@ -98,12 +107,12 @@ public abstract class YoukaiEntity extends RetreatableEntity {
 
     public void setBattlePhase(int mainPhase, int subPhase) {
         this.battlePhase = mainPhase + "." + subPhase;
-        this.dataManager.set(DATA_PHASE, this.battlePhase);
+        this.dataManager.set(DATA_PHASE, mainPhase + "." + subPhase);
     }
 
     private void setBattlePhase(String battlePhase) {
         this.battlePhase = battlePhase;
-        this.dataManager.set(DATA_PHASE, this.battlePhase);
+        this.dataManager.set(DATA_PHASE, battlePhase);
     }
 
     public void nextPhase(){
@@ -120,11 +129,13 @@ public abstract class YoukaiEntity extends RetreatableEntity {
 
     public int getMainPhase(){
         String phase = this.getBattlePhase();
+        if (phase.equals("")) return 1;
         return Integer.parseInt(phase.split("\\.")[0]);
     }
 
     public int getSubPhase() {
         String phase = this.getBattlePhase();
+        if (phase.equals("")) return 1;
         return Integer.parseInt(phase.split("\\.")[1]);
     }
 
