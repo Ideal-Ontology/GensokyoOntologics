@@ -189,7 +189,6 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
         DanmakuUtil.init(danmaku, this.getPositionVec().add(0,1,0), Rot2f.ZERO, true);
         danmaku.shoot(direction.x, direction.y, direction.z, 0.7f, 0f);
         this.world.addEntity(danmaku);
-
     }
 
     private void applyShoot(Vector3d pos, Vector3d shootVec) {

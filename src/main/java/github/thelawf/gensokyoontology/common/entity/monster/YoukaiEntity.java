@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -34,7 +35,7 @@ public abstract class YoukaiEntity extends RetreatableEntity {
      */
     protected int favorability = 0;
     protected boolean duringSpellCard = false;
-    private String battlePhase = "1.1";
+    public String battlePhase = "1.1";
 
     // @OnlyIn(Dist.CLIENT)
     // private Animation animation = Animation.IDLE;
@@ -46,9 +47,7 @@ public abstract class YoukaiEntity extends RetreatableEntity {
 
     protected YoukaiEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
-        this.setBattlePhase("1.1");
     }
-
 
     /**
      * 怪不得继承自YoukaiEntity的实体死不了呢（）原来是我之前在这里判断如果战胜了妖怪则将她驯服了啊（
@@ -91,14 +90,19 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     @Override
     public void readAdditional(CompoundNBT compound) {
         super.readAdditional(compound);
-        this.setBattlePhase(compound.getString("phase"));
+        if (compound.contains("phase")) {
+            this.dataManager.set(DATA_PHASE, compound.getString("phase"));
+        } else {
+            this.dataManager.set(DATA_PHASE, "1.1");
+        }
     }
 
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
         super.writeAdditional(compound);
-        compound.putString("phase", this.battlePhase);
+        // 直接使用DataManager中的值
+        compound.putString("phase", this.getBattlePhase());
     }
 
     public String getBattlePhase() {
@@ -106,24 +110,38 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     }
 
     public void setBattlePhase(int mainPhase, int subPhase) {
-        this.battlePhase = mainPhase + "." + subPhase;
         this.dataManager.set(DATA_PHASE, mainPhase + "." + subPhase);
     }
 
     private void setBattlePhase(String battlePhase) {
-        this.battlePhase = battlePhase;
         this.dataManager.set(DATA_PHASE, battlePhase);
     }
 
     public void nextPhase(){
-        int mainPhase = this.getMainPhase();
-        int subPhase = this.getSubPhase();
-        if ((subPhase + 1) > this.getMaxPhases()[mainPhase - 1].length) {
-            if ((mainPhase + 1) > this.getMaxPhases().length) return;
-            this.setBattlePhase(++mainPhase, + 1);
+        String currentPhase = this.getBattlePhase();
+        String[] parts = currentPhase.split("\\.");
+
+        if (parts.length != 2) {
+            this.setBattlePhase(1, 1);
+            return;
         }
-        else {
-            this.setBattlePhase(mainPhase, ++subPhase);
+
+        try {
+            int main = Integer.parseInt(parts[0]);
+            int sub = Integer.parseInt(parts[1]);
+            int maxMain = this.getMaxPhases().length;
+
+            if (maxMain == 0) return;
+            if ((sub + 1) > this.getMaxPhases()[main - 1]) {
+
+                if ((main + 1) > maxMain) return;
+                this.setBattlePhase(++main, 1);
+            }
+            else this.setBattlePhase(main, ++sub);
+
+        } catch (NumberFormatException e) {
+            // 处理无效格式
+            this.setBattlePhase(1, 1);
         }
     }
 
@@ -139,8 +157,11 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         return Integer.parseInt(phase.split("\\.")[1]);
     }
 
-    public int[][] getMaxPhases(){
-        return new int[0][];
+    /**
+     * @return 返回一个以数组长度为主阶段数量，数组元素为每个主阶段内小阶段数量的整数数组
+     */
+    public int[] getMaxPhases(){
+        return new int[]{3};
     }
     public boolean isPhaseMatches(String phase){
         return this.getBattlePhase().equals(phase);

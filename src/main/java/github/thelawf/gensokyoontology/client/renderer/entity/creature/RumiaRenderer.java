@@ -29,7 +29,7 @@ public class RumiaRenderer extends MobRenderer<RumiaEntity, RumiaModel> {
     public void render(RumiaEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         int blockLight = this.getBlockLight(packedLightIn);
-        if (blockLight < 10){
+        if (entityIn.isInvulnerable()){
             matrixStackIn.push();
             GeometryUtil.renderSphere(bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID), matrixStackIn.getLast().getMatrix(),
                     16, 16, 5F, 0F, 0F, 0F, 1F);

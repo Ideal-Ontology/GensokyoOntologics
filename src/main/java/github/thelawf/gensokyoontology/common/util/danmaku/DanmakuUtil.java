@@ -305,15 +305,17 @@ public class DanmakuUtil {
             Vector3d leftVec = aimedVec.rotateYaw(-Danmaku.rad(angleDeg) * i - (angleDeg / 2));
             danmaku.shoot(rightVec, speed);
             danmaku.shoot(leftVec, speed);
-
+            danmaku.world.addEntity(danmaku);
         }
         else {
             danmaku.shoot(aimedVec, speed);
             int i = (index - 1) / 2;
             Vector3d rightVec = aimedVec.rotateYaw(Danmaku.rad(angleDeg) * i);
             Vector3d leftVec = aimedVec.rotateYaw(-Danmaku.rad(angleDeg) * i);
+
             danmaku.shoot(rightVec, speed);
             danmaku.shoot(leftVec, speed);
+            danmaku.world.addEntity(danmaku);
 
         }
     }

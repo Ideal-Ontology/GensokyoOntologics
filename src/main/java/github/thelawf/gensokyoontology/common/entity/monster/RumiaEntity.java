@@ -8,16 +8,13 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.passive.TameableEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.world.LightType;
 import net.minecraft.world.World;
 
 public class RumiaEntity extends YoukaiEntity{
     public RumiaEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
-    }
-
-    @Override
-    protected void registerData() {
-        super.registerData();
+        this.setBattlePhase(1, 1);
     }
 
     @Override
@@ -27,6 +24,7 @@ public class RumiaEntity extends YoukaiEntity{
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));
 
         this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, BossBattle.WALL_SHOOT_RUMIA, 1, 1, 1200));
+        this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, BossBattle.WALL_SHOOT_RUMIA, 1, 2, 1200));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 0.8f));
@@ -39,14 +37,15 @@ public class RumiaEntity extends YoukaiEntity{
     }
 
     @Override
-    public int[][] getMaxPhases() {
-        return new int[][]{{1, 2, 3}};
+    public int[] getMaxPhases() {
+        return new int[]{3};
     }
 
     @Override
     public void tick() {
         super.tick();
-        this.setInvulnerable(this.world.getLightValue(this.getPosition()) < 10);
+        int light = this.world.getLightManager().getLightEngine(LightType.BLOCK).getLightFor(this.getPosition());
+        this.setInvulnerable(light < 10);
     }
 
     @Override

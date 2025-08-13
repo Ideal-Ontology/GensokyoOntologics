@@ -3,14 +3,12 @@ package github.thelawf.gensokyoontology.common.entity.ai.goal;
 import github.thelawf.gensokyoontology.api.entity.YoukaiCombat;
 import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
 
-public class YoukaiTargetGoal<Y extends YoukaiEntity> extends BattlePhaseGoal{
-    protected final Y youkai;
+public class YoukaiTargetGoal<Y extends YoukaiEntity> extends YoukaiBattlePhaseGoal<Y> {
     private int ticksExecuted;
     protected final YoukaiCombat.TargetAction<Y> action;
 
     public YoukaiTargetGoal(Y youkai, YoukaiCombat.TargetAction<Y> action, int mainPhase, int subPhase, int maxTicks) {
-        super(mainPhase, subPhase, maxTicks);
-        this.youkai = youkai;
+        super(youkai, mainPhase, subPhase, maxTicks);
         this.action = action;
     }
 

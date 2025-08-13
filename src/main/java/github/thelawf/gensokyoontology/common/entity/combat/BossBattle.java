@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.CirnoEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.RumiaEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -67,12 +68,14 @@ public class BossBattle {
 
     };
 
-    public static final YoukaiCombat.TargetAction<RumiaEntity> WALL_SHOOT_RUMIA = (world, youkai, target) -> {
+    public static final YoukaiCombat.TargetAction<RumiaEntity> WALL_SHOOT_RUMIA = (world, rumia, target) -> {
         if (target == null) return;
+        if (rumia.ticksExisted % 10 != 0) return;
         for (int i = 0; i < 7; i++) {
             for (int j = 0; j < 7; j++) {
-                Danmaku danmaku = Danmaku.create(world, youkai, ItemRegistry.SMALL_SHOT_BLUE.get()).damage(3F);
-                DanmakuUtil.wallShoot(danmaku, DanmakuUtil.getAimedVec(youkai, target), 5F, i, j, 0.65F);
+                GSKOUtil.log("tick");
+                Danmaku danmaku = Danmaku.create(world, rumia, ItemRegistry.SMALL_SHOT_BLUE.get()).damage(3F);
+                DanmakuUtil.wallShoot(danmaku, DanmakuUtil.getAimedVec(rumia, target), 5F, i, j, 0.65F);
             }
         }
     };
