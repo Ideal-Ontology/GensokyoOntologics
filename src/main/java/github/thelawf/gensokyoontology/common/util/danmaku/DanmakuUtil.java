@@ -157,7 +157,8 @@ public class DanmakuUtil {
 
     public static Vector3d getAimingShootVec(LivingEntity thrower, LivingEntity target) {
         float offset = (float) (0.3f / target.getYOffset());
-        return new Vector3d(target.getPosX() - thrower.getPosX(), target.getPosY() - thrower.getPosY() - offset, target.getPosZ() - thrower.getPosZ());
+        return new Vector3d(target.getPosX() - thrower.getPosX(), target.getPosY() - thrower.getPosY() - offset, target.getPosZ() - thrower.getPosZ())
+                .normalize();
     }
 
     public static <D extends AbstractDanmakuEntity> void shootWithRoseLine(D danmaku, Plane planeIn, Vector3d offsetRotation,
@@ -291,7 +292,7 @@ public class DanmakuUtil {
     }
 
     public static Vector3d getAimedVec(LivingEntity shooter, LivingEntity target) {
-        return target.getPositionVec().subtract(shooter.getPositionVec());
+        return target.getPositionVec().subtract(shooter.getPositionVec()).scale(-1);
         // return new Vector3d(target.getPosX() - shooter.getPosX(), target.getPosY() - shooter.getPosY(), target.getPosZ() - shooter.getPosZ());
     }
 

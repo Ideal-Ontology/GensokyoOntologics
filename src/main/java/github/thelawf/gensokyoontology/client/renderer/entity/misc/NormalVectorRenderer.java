@@ -54,6 +54,7 @@ public class NormalVectorRenderer extends SpriteRenderer<Danmaku> {
 
     private void useSuperRenderer(@NotNull Danmaku entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
         float renderScale = Danmaku.DANMAKU_SIZES.get(entityIn.getItem().getItem());
+        if (!Danmaku.DANMAKU_SIZES.containsKey(entityIn.getItem().getItem())) return;
 
         if (entityIn.ticksExisted >= 2 || !(this.renderManager.info.getRenderViewEntity().getDistanceSq(entityIn) < 12.25D)) {
             matrixStackIn.push();

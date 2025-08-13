@@ -114,6 +114,8 @@ public class Danmaku extends ProjectileItemEntity{
         map.put(ItemRegistry.SMALL_STAR_SHOT_BLUE.get(), 0.4F);
         map.put(ItemRegistry.SMALL_STAR_SHOT_PURPLE.get(), 0.4F);
 
+        map.put(ItemRegistry.FAKE_LUNAR_ITEM.get(), 4F);
+
         return map;
     });
 
@@ -393,5 +395,6 @@ public class Danmaku extends ProjectileItemEntity{
 
     public void shoot(Vector3d shootVec, float speed){
         this.shoot(shootVec.x, shootVec.y, shootVec.z, speed, 0);
+        this.world.addEntity(this);
     }
 }

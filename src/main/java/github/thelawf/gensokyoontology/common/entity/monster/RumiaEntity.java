@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiTargetGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiTimerGoal;
 import github.thelawf.gensokyoontology.common.entity.combat.BossBattle;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -24,7 +25,7 @@ public class RumiaEntity extends YoukaiEntity{
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));
 
         this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, BossBattle.WALL_SHOOT_RUMIA, 1, 1, 1200));
-        this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, BossBattle.WALL_SHOOT_RUMIA, 1, 2, 1200));
+        this.goalSelector.addGoal(4, new YoukaiTimerGoal<>(this, BossBattle.DARK_BORDER_LINE, 1, 2, 1200));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 0.8f));

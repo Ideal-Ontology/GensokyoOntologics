@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.ai.goal;
 
 import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.entity.ai.goal.Goal;
 
 public abstract class YoukaiBattlePhaseGoal<Y extends YoukaiEntity> extends Goal {
@@ -21,6 +22,12 @@ public abstract class YoukaiBattlePhaseGoal<Y extends YoukaiEntity> extends Goal
     public void tick() {
         super.tick();
         this.ticksExecuted++;
+    }
+
+    @Override
+    public void startExecuting() {
+        super.startExecuting();
+        GSKOUtil.log("当前Boss阶段 = " + this.youkai.battlePhase);
     }
 
     @Override

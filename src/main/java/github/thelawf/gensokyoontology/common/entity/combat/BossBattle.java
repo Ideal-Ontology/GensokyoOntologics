@@ -70,12 +70,18 @@ public class BossBattle {
 
     public static final YoukaiCombat.TargetAction<RumiaEntity> WALL_SHOOT_RUMIA = (world, rumia, target) -> {
         if (target == null) return;
-        if (rumia.ticksExisted % 10 != 0) return;
-        for (int i = 0; i < 7; i++) {
-            for (int j = 0; j < 7; j++) {
-                GSKOUtil.log("tick");
-                Danmaku danmaku = Danmaku.create(world, rumia, ItemRegistry.SMALL_SHOT_BLUE.get()).damage(3F);
-                DanmakuUtil.wallShoot(danmaku, DanmakuUtil.getAimedVec(rumia, target), 5F, i, j, 0.65F);
+        if (rumia.ticksExisted % 20 != 0) return;
+        for (int i = -4; i <= 4; i++) {
+            for (int j = -4; j < 4; j++) {
+                Vector3d shootVec = DanmakuUtil.getAimingShootVec(rumia, target)
+                        .rotateYaw(Danmaku.rad(j * 5))
+                        .add(0, i * 0.1, 0)
+                        .normalize();
+                Danmaku.create(world, rumia, ItemRegistry.SMALL_SHOT_BLUE.get())
+                        .damage(3F)
+                        .shoot(shootVec, 0.65F);
+
+                // DanmakuUtil.wallShoot(danmaku, DanmakuUtil.getAimedVec(rumia, target), 5F, i, j, 0.65F);
             }
         }
     };
