@@ -21,6 +21,7 @@ public abstract class YoukaiBattlePhaseGoal<Y extends YoukaiEntity> extends Goal
     @Override
     public void tick() {
         super.tick();
+        if (this.youkai.getAttackTarget() == null) return;
         this.ticksExecuted++;
     }
 

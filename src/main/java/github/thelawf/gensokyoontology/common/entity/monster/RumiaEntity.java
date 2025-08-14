@@ -24,8 +24,9 @@ public class RumiaEntity extends YoukaiEntity{
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));
 
-        this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, BossBattle.WALL_SHOOT_RUMIA, 1, 1, 1800));
-        this.goalSelector.addGoal(4, new YoukaiTimerGoal<>(this, BossBattle.DARK_BORDER_LINE, 1, 2, 1800));
+        this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, BossBattle.WALL_SHOOT_RUMIA, 1, 1, 1200));
+        this.goalSelector.addGoal(4, new YoukaiTimerGoal<>(this, BossBattle.DARK_BORDER_LINE, 1, 2, 1200));
+        this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, BossBattle.DARK_SPHERE, 1, 3, 1600));
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
         this.goalSelector.addGoal(7, new LookAtGoal(this, PlayerEntity.class, 0.8f));
@@ -47,6 +48,11 @@ public class RumiaEntity extends YoukaiEntity{
         super.tick();
         int light = this.world.getLightManager().getLightEngine(LightType.BLOCK).getLightFor(this.getPosition());
         this.setInvulnerable(light < 10);
+    }
+
+    @Override
+    public void nextPhase() {
+        this.nextRandomPhase();
     }
 
     @Override

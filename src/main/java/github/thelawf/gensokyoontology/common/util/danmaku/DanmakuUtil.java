@@ -4,11 +4,10 @@ import com.google.common.collect.Lists;
 import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.item.DanmakuItem;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.command.impl.WeatherCommand;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -155,11 +154,25 @@ public class DanmakuUtil {
         return vector3d;
     }
 
-    public static Vector3d getAimingShootVec(LivingEntity thrower, LivingEntity target) {
+    public static Vector3d getAimingAt(LivingEntity thrower, LivingEntity target) {
         float offset = (float) (0.3f / target.getYOffset());
         return new Vector3d(target.getPosX() - thrower.getPosX(), target.getPosY() - thrower.getPosY() - offset, target.getPosZ() - thrower.getPosZ())
                 .normalize();
     }
+
+    public static List<Vector3d> oddCurveVec(LivingEntity shooter, LivingEntity target, float count, int angleDeg) {
+        List<Vector3d> vectors = new ArrayList<>();
+        vectors.add(getAimedVec(shooter, target));
+        for (int i = 1; i < (count - 1) / 2 + 1; i++) {
+            Vector3d rightVec = getAimingAt(shooter, target).rotateYaw(Danmaku.rad(angleDeg) * i);
+            Vector3d leftVec = getAimingAt(shooter, target).rotateYaw(-Danmaku.rad(angleDeg) * i);
+            vectors.add(leftVec);
+            vectors.add(rightVec);
+        }
+
+        return vectors;
+    }
+
 
     public static <D extends AbstractDanmakuEntity> void shootWithRoseLine(D danmaku, Plane planeIn, Vector3d offsetRotation,
                                                                            double radius, double count, double size, int density) {

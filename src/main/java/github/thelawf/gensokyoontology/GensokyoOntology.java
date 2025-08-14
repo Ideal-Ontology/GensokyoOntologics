@@ -85,7 +85,7 @@ public class GensokyoOntology {
         GSKOBiomes.BIOMES.register(eventBus);
         StructureRegistry.STRUCTURES.register(eventBus);
         // PlacerRegistry.FOLIAGE_PLACERS.register(eventBus);
-        Expressions.EXPRESSIONS.register(eventBus);
+        // Expressions.EXPRESSIONS.register(eventBus);
         GSKOSurfaceBuilders.SURFACE_BUILDERS.register(eventBus);
 
         RecipeRegistry.register(eventBus);

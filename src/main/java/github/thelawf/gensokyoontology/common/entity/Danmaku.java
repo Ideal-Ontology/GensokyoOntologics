@@ -331,7 +331,9 @@ public class Danmaku extends ProjectileItemEntity{
     }
 
     public void shootTo(LivingEntity target, float speed){
-        Vector3d shootVec = new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
+        float offset = (float) (0.3f / target.getYOffset());
+        Vector3d shootVec = new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY() - offset, target.getPosZ() - this.getPosZ())
+                .normalize();
         this.shoot(shootVec, speed);
     }
 

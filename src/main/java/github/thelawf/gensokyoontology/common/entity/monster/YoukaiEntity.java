@@ -140,10 +140,6 @@ public abstract class YoukaiEntity extends RetreatableEntity {
                     this.setBattlePhase(main, 1);
                     return;
                 }
-                if (!this.shouldEnterNextMainPhase()) {
-                    this.setBattlePhase(main, 1);
-                    return;
-                }
                 this.setBattlePhase(++main, 1);
             }
             else this.setBattlePhase(main, ++sub);
@@ -173,6 +169,10 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         } catch (NumberFormatException e) {
             this.setBattlePhase(1, 1);
         }
+    }
+
+    public void loopSubPhase(){
+
     }
 
     /**
