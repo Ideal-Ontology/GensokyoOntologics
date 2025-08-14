@@ -25,7 +25,7 @@ public class RumiaHairTie extends Item {
         if (world.isRemote) return super.onItemUse(context);
 
         ServerWorld serverWorld = (ServerWorld) world;
-        EntityRegistry.RUMIA.get().spawn(serverWorld, context.getItem(), player, pos, SpawnReason.TRIGGERED, false, false);
+        EntityRegistry.RUMIA.get().spawn(serverWorld, context.getItem(), player, pos, SpawnReason.SPAWN_EGG, false, false);
         context.getItem().shrink(1);
 
         return ActionResultType.CONSUME;

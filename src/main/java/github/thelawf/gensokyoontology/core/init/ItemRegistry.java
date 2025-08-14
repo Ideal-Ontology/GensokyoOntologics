@@ -341,6 +341,8 @@ public final class ItemRegistry {
     public static final RegistryObject<MarisaHakkeiro> MARISA_HAKKEIRO = ITEMS.register(
             "marisa_hakkeiro", () -> new MarisaHakkeiro(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+    public static final RegistryObject<Item> RUMIA_HAIR_TIE = ITEMS.register("rumia_hair_tie",
+            () -> new RumiaHairTie(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
             "sakuya_stop_watch", () -> new SakuyaStopWatch(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
