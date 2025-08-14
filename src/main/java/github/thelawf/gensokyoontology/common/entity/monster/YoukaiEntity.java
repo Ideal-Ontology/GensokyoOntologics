@@ -117,6 +117,9 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         this.dataManager.set(DATA_PHASE, battlePhase);
     }
 
+    /**
+     * 该方法是{@link github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiBattlePhaseGoal YoukaiBattlePhaseGoal.java}中默认调用的方法，重写该方法以自定义你想实现的切换战斗阶段的逻辑。
+     */
     public void nextPhase(){
         String currentPhase = this.getBattlePhase();
         String[] parts = currentPhase.split("\\.");
@@ -152,7 +155,7 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     }
 
     /**
-     * 如果希望
+     * 如果希望BOSS的下一个小阶段是从可选阶段中随机选择一个的话，可以使用该方法覆盖{@link this#nextPhase() this.nextPhase}
      */
     public void nextRandomPhase(){
         String currentPhase = this.getBattlePhase();
@@ -173,8 +176,7 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     }
 
     /**
-     *
-     * @return 在各个具体类中实现是否应该进入下一个主要阶段，否则
+     * 在各个具体类中实现这个方法，以此来判断BOSS此时是否应该进入下一个主要阶段
      */
     public abstract boolean shouldEnterNextMainPhase();
 
