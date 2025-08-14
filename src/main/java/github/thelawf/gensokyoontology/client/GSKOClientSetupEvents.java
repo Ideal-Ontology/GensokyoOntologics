@@ -42,7 +42,7 @@ public class GSKOClientSetupEvents {
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 4f, false));
 
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU.get(),
-                manager -> new NormalVectorRenderer(manager, itemRenderer, 1F, false, false));
+                manager -> new DanmakuRenderer(manager, itemRenderer, 1F, false, false));
 
         // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU.get(),
         //         manager -> new SpriteRenderer<>(manager, itemRenderer));

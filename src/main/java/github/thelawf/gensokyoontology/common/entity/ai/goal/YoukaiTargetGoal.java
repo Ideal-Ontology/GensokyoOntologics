@@ -23,9 +23,4 @@ public class YoukaiTargetGoal<Y extends YoukaiEntity> extends YoukaiBattlePhaseG
         return this.youkai.isPhaseMatches(mainPhase, subPhase);
     }
 
-    @Override
-    public void resetTask() {
-        super.resetTask();
-        this.youkai.nextPhase();
-    }
 }

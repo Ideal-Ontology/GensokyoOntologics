@@ -16,11 +16,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
-public class NormalVectorRenderer extends SpriteRenderer<Danmaku> {
+public class DanmakuRenderer extends SpriteRenderer<Danmaku> {
     private final boolean isUp;
     private ItemRenderer itemRenderer;
 
-    public NormalVectorRenderer(EntityRendererManager manager, ItemRenderer itemRenderer, float scale, boolean p_i226035_4_, boolean isUp) {
+    public DanmakuRenderer(EntityRendererManager manager, ItemRenderer itemRenderer, float scale, boolean p_i226035_4_, boolean isUp) {
         super(manager, itemRenderer, scale, p_i226035_4_);
         this.itemRenderer = itemRenderer;
         this.isUp = isUp;

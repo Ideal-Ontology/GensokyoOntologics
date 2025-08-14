@@ -69,7 +69,6 @@ public class BossBattle {
     };
 
     public static final YoukaiCombat.TargetAction<RumiaEntity> WALL_SHOOT_RUMIA = (world, rumia, target) -> {
-        if (target == null) return;
         if (rumia.ticksExisted % 20 != 0) return;
         for (int i = -4; i <= 4; i++) {
             for (int j = -4; j < 4; j++) {
@@ -86,18 +85,22 @@ public class BossBattle {
         }
     };
 
-    public static final YoukaiCombat.TimerAction<RumiaEntity> DARK_BORDER_LINE = (world, rumiaEntity, target, currentTick) -> {
-        List<Vector3d> positions = DanmakuUtil.spheroidPos(1, 15);
-        positions.forEach(vector3d -> {
-            int unit = currentTick % 80;
-            int increment = currentTick % 80 > 40 ? 3 * unit : -3 * unit;
+    public static final YoukaiCombat.TimerAction<RumiaEntity> DARK_BORDER_LINE = (world, rumiaEntity, target, currentTimer) -> {
+        int unit = currentTimer.get() % 10;
+        int increment = currentTimer.get() % 10 > 5 ? 3 * unit : -3 * unit;
+        Vector3d vector3d = DanmakuUtil.getAimingShootVec(rumiaEntity, target).rotateYaw(Danmaku.rad(increment) * rumiaEntity.ticksExisted);
 
-            Vector3d shootVec = vector3d.rotateYaw(Danmaku.rad(increment) * rumiaEntity.ticksExisted);
-            Danmaku danmaku = Danmaku.create(world, rumiaEntity, ItemRegistry.SMALL_SHOT_GREEN.get()).damage(4F);
-            danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, 0.7F, 0F);
-            world.addEntity(danmaku);
-            // RiceShotEntity riceShot = new RiceShotEntity(rumiaEntity, world, DanmakuType.RICE_SHOT, DanmakuColor.PINK);
-        });
+        for (int i = -2; i <= 2; i++) {
+            for (int j = -2; j < 2; j++) {
+                Vector3d shootVec = vector3d
+                        .rotateYaw(Danmaku.rad(j * 5))
+                        .add(0, i * 0.1, 0).normalize();
+                Danmaku.create(world, rumiaEntity, ItemRegistry.SMALL_SHOT_GREEN.get())
+                        .damage(3F)
+                        .shoot(shootVec, 0.65F);
+            }
+        }
+        currentTimer.set(currentTimer.get() + 1);
     };
 
     public static final YoukaiCombat.TargetAction<CirnoEntity> PERFECT_FREEZE = (world, cirnoEntity, target) -> {

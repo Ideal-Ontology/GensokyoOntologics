@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.util.IdentityType;

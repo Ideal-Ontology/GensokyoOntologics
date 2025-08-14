@@ -35,6 +35,11 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         // this.setHeldItem(Hand.MAIN_HAND, new ItemStack(ItemRegistry.CLOCK_HAND_ITEM.get()));
     }
 
+    @Override
+    public boolean shouldEnterNextMainPhase() {
+        return false;
+    }
+
     @Nullable
     @Override
     public AgeableEntity createChild(ServerWorld world, AgeableEntity mate) {

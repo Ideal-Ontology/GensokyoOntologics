@@ -32,6 +32,7 @@ public abstract class YoukaiBattlePhaseGoal<Y extends YoukaiEntity> extends Goal
 
     @Override
     public boolean shouldContinueExecuting() {
+        if (this.youkai.getAttackTarget() == null) return false;
         return this.ticksExecuted < this.maxTicks;
     }
 

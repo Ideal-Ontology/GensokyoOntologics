@@ -4,6 +4,9 @@ import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.world.World;
 
+import java.sql.Time;
+import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.BiConsumer;
 
 public class YoukaiCombat {
@@ -19,11 +22,11 @@ public class YoukaiCombat {
 
     @FunctionalInterface
     public interface TimerAction<Y extends YoukaiEntity> {
-        void act(World world, Y youkai, LivingEntity target, int currentTick);
+        void act(World world, Y youkai, LivingEntity target, AtomicInteger currentTick);
     }
 
     @FunctionalInterface
     public interface KeyframeAction<Y extends YoukaiEntity> {
-        void act(World world, Y youkai, LivingEntity target, int currentTick);
+        void act(Map<Integer, TimerAction<Y>> map);
     }
 }

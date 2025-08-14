@@ -11,6 +11,11 @@ public class CirnoEntity extends YoukaiEntity{
     }
 
     @Override
+    public boolean shouldEnterNextMainPhase() {
+        return false;
+    }
+
+    @Override
     public void danmakuAttack(LivingEntity target) {
 
     }

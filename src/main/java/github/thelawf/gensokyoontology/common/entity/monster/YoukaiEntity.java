@@ -133,8 +133,14 @@ public abstract class YoukaiEntity extends RetreatableEntity {
 
             if (maxMain == 0) return;
             if ((sub + 1) > this.getMaxPhases()[main - 1]) {
-
-                if ((main + 1) > maxMain) return;
+                if ((main + 1) > maxMain) {
+                    this.setBattlePhase(main, 1);
+                    return;
+                }
+                if (!this.shouldEnterNextMainPhase()) {
+                    this.setBattlePhase(main, 1);
+                    return;
+                }
                 this.setBattlePhase(++main, 1);
             }
             else this.setBattlePhase(main, ++sub);
@@ -144,6 +150,33 @@ public abstract class YoukaiEntity extends RetreatableEntity {
             this.setBattlePhase(1, 1);
         }
     }
+
+    /**
+     * 如果希望
+     */
+    public void nextRandomPhase(){
+        String currentPhase = this.getBattlePhase();
+        String[] parts = currentPhase.split("\\.");
+
+        if (parts.length != 2) {
+            this.setBattlePhase(1, 1);
+            return;
+        }
+
+        try {
+            final int main = Integer.parseInt(parts[0]);
+            final int currentSubPhaseCount = this.getMaxPhases()[main];
+            this.setBattlePhase(main, this.rand.nextInt(currentSubPhaseCount));
+        } catch (NumberFormatException e) {
+            this.setBattlePhase(1, 1);
+        }
+    }
+
+    /**
+     *
+     * @return 在各个具体类中实现是否应该进入下一个主要阶段，否则
+     */
+    public abstract boolean shouldEnterNextMainPhase();
 
     public int getMainPhase(){
         String phase = this.getBattlePhase();
@@ -163,6 +196,15 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     public int[] getMaxPhases(){
         return new int[]{3};
     }
+
+    public int getMaxMainPhase(){
+        return this.getMaxPhases().length - 1;
+    }
+
+    public int getMaxSubPhase(){
+        return this.getMaxPhases()[this.getMainPhase()];
+    }
+
     public boolean isPhaseMatches(String phase){
         return this.getBattlePhase().equals(phase);
     }

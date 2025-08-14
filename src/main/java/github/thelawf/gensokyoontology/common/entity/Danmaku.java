@@ -2,8 +2,11 @@ package github.thelawf.gensokyoontology.common.entity;
 
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -116,6 +119,14 @@ public class Danmaku extends ProjectileItemEntity{
 
         map.put(ItemRegistry.FAKE_LUNAR_ITEM.get(), 4F);
 
+        return map;
+    });
+
+    public static final Map<Item, Actions.EntityRender<Danmaku>> SPECIAL_RENDERER = Util.make(() -> {
+        Map<Item, Actions.EntityRender<Danmaku>> map = new HashMap<>();
+        map.put(ItemRegistry.DESTRUCTIVE_EYE.get(), (entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn) -> {
+
+        });
         return map;
     });
 
@@ -396,5 +407,10 @@ public class Danmaku extends ProjectileItemEntity{
     public void shoot(Vector3d shootVec, float speed){
         this.shoot(shootVec.x, shootVec.y, shootVec.z, speed, 0);
         this.world.addEntity(this);
+    }
+
+    public void shootTo(LivingEntity target, float speed){
+        Vector3d shootVec = new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
+        this.shoot(shootVec, speed);
     }
 }

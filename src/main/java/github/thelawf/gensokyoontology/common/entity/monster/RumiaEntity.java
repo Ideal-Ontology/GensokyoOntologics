@@ -52,4 +52,9 @@ public class RumiaEntity extends YoukaiEntity{
     @Override
     public void danmakuAttack(LivingEntity target) {
     }
+
+    @Override
+    public boolean shouldEnterNextMainPhase() {
+        return false;
+    }
 }
