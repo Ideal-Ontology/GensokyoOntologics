@@ -330,8 +330,8 @@ public final class ItemRegistry {
     // ------------------------------- 技术性道具 ----------------------------------//
     public static final RegistryObject<BlockItem> DISPOSABLE_SPAWNER_ITEM = ITEMS.register(
             "disposable_spawner", () -> new BlockItem(BlockRegistry.DISPOSABLE_SPAWNER.get(), new Item.Properties()));
-    public static final RegistryObject<Item> DESTRUCTIVE_EYE = ITEMS.register("destructive_eye",
-            () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DESTRUCTIVE_EYE = ITEMS.register("destructive_eye", () -> new Item(new Item.Properties()));
+    public static final RegistryObject<Item> DREAM_SEAL_ITEM = ITEMS.register("dream_seal", () -> new Item(new Item.Properties()));
 
     // ======================= GSKO杂项：道具类物品 =========================//
     // ----------------------- 东方project特殊功能道具 ----------------------//
@@ -790,8 +790,7 @@ public final class ItemRegistry {
     });
 
 
-    // ====================================== 技术性物品 ====================================== //
-    public static final RegistryObject<Item> DREAM_SEAL_ITEM = ITEMS.register("dream_seal", () -> new Item(new Item.Properties()));
+    // ====================================== 脚本构建物品 ====================================== //
     public static final RegistryObject<Item> SPHERE_EFFECT_ITEM = ITEMS.register("sphere", () -> new Item(new Item.Properties()));
     public static final RegistryObject<Item> CONST_BUILDER = ITEMS.register("const_builder", ConstBuilderItem::new);
 

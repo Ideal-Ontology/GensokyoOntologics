@@ -47,14 +47,21 @@ public class GensokyoOntology {
     public static final String MODID = "gensokyoontology";
 
     /**
-     * TODO:被紫妈踢出幻想乡后生成一个建筑，表示幻想乡是玩家做过的一场梦。清空玩家背包并将其中的物品放置在建筑内的箱子里。
-     * TODO:同时，玩家左键和右键使用物品时将会进入2-3秒的强制冷却。或者降低玩家最远攻击距离和最远方块交互距离。
+     * MC的注册方式：
+     * 1. 使用 {@link net.minecraft.util.RegistryKey#getOrCreateRootKey(ResourceLocation)  RegistryKey.getOrCreateRootKey}
+     * 创建注册表资源的根节点。参考世界生成的代码，这部分类似于文件路径或者叫唯一标识路径。<br>
+     * 2. 让你的数据实现自 {@link net.minecraftforge.registries.IForgeRegistry IForgeRegistry}
+     * 接口，用 {@link net.minecraftforge.registries.RegistryManager RegistryManager}
+     * 创建forge注册表。（Forge 强制要求的，NF改了）<br>
+     * 3. 使用 {@link net.minecraftforge.registries.DeferredRegister DeferredRegister}
+     * 延迟注册器来愉快地注册你的自定义类型数据吧，不要忘记订阅 {@link net.minecraftforge.event.RegistryEvent.NewRegistry NewRegistry}
+     * 事件以及在你的主类让延迟注册器订阅事件总线哦。
      */
     public GensokyoOntology() {
         // final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         // ClientOnlyRegistry cog = new ClientOnlyRegistry(modEventBus);
         // Register ourselves for server and other game events we are interested in
-        // 目前MC的注册方式：
+        // MC的注册方式：
         // 1. Registry<IForgeRegistry>
         // 2. Registry<CODEC>
         // 3. RegistryKey<class>
@@ -78,6 +85,7 @@ public class GensokyoOntology {
         GSKOBiomes.BIOMES.register(eventBus);
         StructureRegistry.STRUCTURES.register(eventBus);
         // PlacerRegistry.FOLIAGE_PLACERS.register(eventBus);
+        Expressions.EXPRESSIONS.register(eventBus);
         GSKOSurfaceBuilders.SURFACE_BUILDERS.register(eventBus);
 
         RecipeRegistry.register(eventBus);

@@ -3,14 +3,16 @@ package github.thelawf.gensokyoontology.common.entity;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.api.Actions;
+import github.thelawf.gensokyoontology.client.GSKORenderTypes;
+import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.expression.IExpressionType;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
@@ -25,6 +27,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -33,6 +36,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 /**
  * 抽象弹幕类，用于处理所有继承于该类的弹幕实体的那些相似的逻辑，包含如下几个方面：<br>
@@ -45,95 +49,12 @@ import java.util.Map;
 @OnlyIn(value = Dist.CLIENT, _interface = IItemProvider.class)
 public class Danmaku extends ProjectileItemEntity{
 
-    /**
-     * 这个哈希表中存放的是那些应该被进行法向渲染的投掷物弹幕。使用普通精灵渲染的弹幕物品不在此列内。布尔值表示是否将该弹幕贴图朝下的方向作为其法向。
-     */
-    public static final Map<Item,Pair<Boolean, Float>> NORMAL_DANMAKU = Util.make(() -> {
-        Map<Item, Pair<Boolean, Float>> map = new HashMap<>();
-        map.put(ItemRegistry.SCALE_SHOT.get(), Pair.of(false, 0.3F));
-        map.put(ItemRegistry.SCALE_SHOT_RED.get(), Pair.of(false, 0.3F));
-        map.put(ItemRegistry.SCALE_SHOT_YELLOW.get(), Pair.of(false, 0.3F));
-        map.put(ItemRegistry.SCALE_SHOT_GREEN.get(), Pair.of(false, 0.3F));
-        map.put(ItemRegistry.SCALE_SHOT_BLUE.get(), Pair.of(false, 0.3F));
-        map.put(ItemRegistry.SCALE_SHOT_PURPLE.get(), Pair.of(false, 0.3F));
-
-        map.put(ItemRegistry.TALISMAN_SHOT.get(), Pair.of(false, 1F));
-        map.put(ItemRegistry.TALISMAN_SHOT_RED.get(), Pair.of(false, 1F));
-        map.put(ItemRegistry.TALISMAN_SHOT_GREEN.get(), Pair.of(false, 1F));
-        map.put(ItemRegistry.TALISMAN_SHOT_BLUE.get(), Pair.of(false, 1F));
-        map.put(ItemRegistry.TALISMAN_SHOT_PURPLE.get(), Pair.of(false, 1F));
-
-        map.put(ItemRegistry.RICE_SHOT.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.RICE_SHOT_RED.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.RICE_SHOT_BLUE.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.RICE_SHOT_PURPLE.get(), Pair.of(false, 0.4F));
-
-        map.put(ItemRegistry.HEART_SHOT.get(), Pair.of(true, 2.0F));
-        map.put(ItemRegistry.HEART_SHOT_RED.get(), Pair.of(true, 2.0F));
-        map.put(ItemRegistry.HEART_SHOT_BLUE.get(), Pair.of(true, 2.0F));
-        map.put(ItemRegistry.HEART_SHOT_PINK.get(), Pair.of(true, 2.0F));
-
-        return map;
-    });
-
-    /**
-     * 这个哈希表中存放的是普通渲染的弹幕，通过浮点数哈希值来确定弹幕应该被渲染的大小
-     */
-    public static final Map<Item,Float> DANMAKU_SIZES = Util.make(() -> {
-        Map<Item, Float> map = new HashMap<>();
-        map.put(ItemRegistry.LARGE_SHOT.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_RED.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_ORANGE.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_YELLOW.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_GREEN.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_AQUA.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_BLUE.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_PURPLE.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_MAGENTA.get(), 3F);
-
-        map.put(ItemRegistry.SMALL_SHOT.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_SHOT_RED.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_SHOT_ORANGE.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_SHOT_YELLOW.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_SHOT_GREEN.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_SHOT_AQUA.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_SHOT_BLUE.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_SHOT_PURPLE.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_SHOT_MAGENTA.get(), 0.4F);
-
-        map.put(ItemRegistry.LARGE_STAR_SHOT.get(), 3F);
-        map.put(ItemRegistry.LARGE_STAR_SHOT_RED.get(), 3F);
-        map.put(ItemRegistry.LARGE_STAR_SHOT_YELLOW.get(), 3F);
-        map.put(ItemRegistry.LARGE_STAR_SHOT_GREEN.get(), 3F);
-        map.put(ItemRegistry.LARGE_STAR_SHOT_AQUA.get(), 3F);
-        map.put(ItemRegistry.LARGE_STAR_SHOT_BLUE.get(), 3F);
-        map.put(ItemRegistry.LARGE_STAR_SHOT_PURPLE.get(), 3F);
-
-        map.put(ItemRegistry.SMALL_STAR_SHOT.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_STAR_SHOT_RED.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_STAR_SHOT_YELLOW.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_STAR_SHOT_GREEN.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_STAR_SHOT_AQUA.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_STAR_SHOT_BLUE.get(), 0.4F);
-        map.put(ItemRegistry.SMALL_STAR_SHOT_PURPLE.get(), 0.4F);
-
-        map.put(ItemRegistry.FAKE_LUNAR_ITEM.get(), 4F);
-
-        return map;
-    });
-
-    public static final Map<Item, Actions.EntityRender<Danmaku>> SPECIAL_RENDERER = Util.make(() -> {
-        Map<Item, Actions.EntityRender<Danmaku>> map = new HashMap<>();
-        map.put(ItemRegistry.DESTRUCTIVE_EYE.get(), (entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn) -> {
-
-        });
-        return map;
-    });
-
     public static final DataParameter<Float> DATA_DAMAGE = EntityDataManager.createKey(
             Danmaku.class, DataSerializers.FLOAT);
     public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(
             Danmaku.class, DataSerializers.VARINT);
+    public static final DataParameter<CompoundNBT> DAT_EXP = EntityDataManager.createKey(
+            Danmaku.class, DataSerializers.COMPOUND_NBT);
 
     protected float damage = 2.0f;
     // protected ClosureExpression behavior;
@@ -256,7 +177,7 @@ public class Danmaku extends ProjectileItemEntity{
 
     public void onBehaviorTick(){
         // var danmaku = this.getItem();
-        // var closure = danmaku.get(DataRegistry.CLOSURE);
+        // var closure = danmaku.get(Expressions.CLOSURE);
         // if (closure == null) return;
         // closure.compile(this.varMap).getExpressions().forEach(this::run);
     }
@@ -413,4 +334,122 @@ public class Danmaku extends ProjectileItemEntity{
         Vector3d shootVec = new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
         this.shoot(shootVec, speed);
     }
+
+
+    /**
+     * 这个哈希表中存放的是那些应该被进行法向渲染的投掷物弹幕。使用普通精灵渲染的弹幕物品不在此列内。布尔值表示是否将该弹幕贴图朝下的方向作为其法向。
+     */
+    public static final Map<Item,Pair<Boolean, Float>> NORMAL_DANMAKU = Util.make(() -> {
+        Map<Item, Pair<Boolean, Float>> map = new HashMap<>();
+        map.put(ItemRegistry.SCALE_SHOT.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT_RED.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT_YELLOW.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT_GREEN.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT_BLUE.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT_PURPLE.get(), Pair.of(false, 0.3F));
+
+        map.put(ItemRegistry.TALISMAN_SHOT.get(), Pair.of(false, 1F));
+        map.put(ItemRegistry.TALISMAN_SHOT_RED.get(), Pair.of(false, 1F));
+        map.put(ItemRegistry.TALISMAN_SHOT_GREEN.get(), Pair.of(false, 1F));
+        map.put(ItemRegistry.TALISMAN_SHOT_BLUE.get(), Pair.of(false, 1F));
+        map.put(ItemRegistry.TALISMAN_SHOT_PURPLE.get(), Pair.of(false, 1F));
+
+        map.put(ItemRegistry.RICE_SHOT.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.RICE_SHOT_RED.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.RICE_SHOT_BLUE.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.RICE_SHOT_PURPLE.get(), Pair.of(false, 0.4F));
+
+        map.put(ItemRegistry.HEART_SHOT.get(), Pair.of(true, 2.0F));
+        map.put(ItemRegistry.HEART_SHOT_RED.get(), Pair.of(true, 2.0F));
+        map.put(ItemRegistry.HEART_SHOT_BLUE.get(), Pair.of(true, 2.0F));
+        map.put(ItemRegistry.HEART_SHOT_PINK.get(), Pair.of(true, 2.0F));
+
+        return map;
+    });
+
+    /**
+     * 这个哈希表中存放的是普通渲染的弹幕，通过浮点数哈希值来确定弹幕应该被渲染的大小
+     */
+    public static final Map<Item,Float> DANMAKU_SIZES = Util.make(() -> {
+        Map<Item, Float> map = new HashMap<>();
+        map.put(ItemRegistry.LARGE_SHOT.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_RED.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_ORANGE.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_YELLOW.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_GREEN.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_AQUA.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_BLUE.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_PURPLE.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT_MAGENTA.get(), 3F);
+
+        map.put(ItemRegistry.SMALL_SHOT.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_RED.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_ORANGE.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_YELLOW.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_GREEN.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_AQUA.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_BLUE.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_PURPLE.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_SHOT_MAGENTA.get(), 0.4F);
+
+        map.put(ItemRegistry.LARGE_STAR_SHOT.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_RED.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_YELLOW.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_GREEN.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_AQUA.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_BLUE.get(), 3F);
+        map.put(ItemRegistry.LARGE_STAR_SHOT_PURPLE.get(), 3F);
+
+        map.put(ItemRegistry.SMALL_STAR_SHOT.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_RED.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_YELLOW.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_GREEN.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_AQUA.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_BLUE.get(), 0.4F);
+        map.put(ItemRegistry.SMALL_STAR_SHOT_PURPLE.get(), 0.4F);
+
+        map.put(ItemRegistry.FAKE_LUNAR_ITEM.get(), 4F);
+
+        return map;
+    });
+
+    public static final Map<Item, Actions.EntityRender<Danmaku>> SPECIAL_RENDERER = Util.make(() -> {
+        Map<Item, Actions.EntityRender<Danmaku>> map = new HashMap<>();
+        map.put(ItemRegistry.DESTRUCTIVE_EYE.get(), (entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn) -> {
+            matrixStackIn.push();
+            GeometryUtil.renderSphere(bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID), matrixStackIn.getLast().getMatrix(),
+                    12, 12, 0.5F, 0F, 0F, 0F, 1F);
+            matrixStackIn.pop();
+        });
+
+        map.put(ItemRegistry.DREAM_SEAL_ITEM.get(), (entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn) -> {
+            matrixStackIn.push();
+            matrixStackIn.scale(4f, 4f, 4f);
+            matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
+            int rand = new Random().nextInt(3);
+            int color = 0;
+            switch (rand){
+                case 0:
+                default:
+                    color = 0xFF0000;
+                    break;
+                case 1:
+                    color = 0x00FF00;
+                    break;
+                case 2:
+                    color = 0x0000FF;
+                    break;
+            }
+            float r = (color >> 16) & 0xFF;
+            float g = (color >> 8) & 0xFF;
+            float b = color & 0xFF;
+
+            GeometryUtil.renderSphere(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
+                    10, 10, 0.3f, r, g, b, 0.5f);
+            GeometryUtil.renderSphere(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
+                    10, 10, 0.2f, 1f, 1f, 1f, 1f);
+            matrixStackIn.pop();
+        });
+        return map;
+    });
 }

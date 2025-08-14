@@ -169,7 +169,7 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         try {
             final int main = Integer.parseInt(parts[0]);
             final int currentSubPhaseCount = this.getMaxPhases()[main];
-            this.setBattlePhase(main, this.rand.nextInt(currentSubPhaseCount));
+            this.setBattlePhase(main, this.rand.nextInt(currentSubPhaseCount) + 1);
         } catch (NumberFormatException e) {
             this.setBattlePhase(1, 1);
         }

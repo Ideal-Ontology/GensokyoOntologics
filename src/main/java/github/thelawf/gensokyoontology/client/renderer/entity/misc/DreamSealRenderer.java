@@ -17,6 +17,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
 
+@Deprecated
 @OnlyIn(Dist.CLIENT)
 public class DreamSealRenderer extends EntityRenderer<DreamSealEntity> {
 

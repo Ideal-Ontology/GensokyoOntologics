@@ -30,6 +30,12 @@ public class DanmakuRenderer extends SpriteRenderer<Danmaku> {
     @Override
     public void render(@NotNull Danmaku entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         //if (entityIn.ticksExisted >= 2 || !(this.renderManager.info.getRenderViewEntity().getDistanceSq(entityIn) < 12.25D)) {
+        if (Danmaku.SPECIAL_RENDERER.containsKey(entityIn.getItem().getItem())){
+            Danmaku.SPECIAL_RENDERER.get(entityIn.getItem().getItem())
+                    .render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+            return;
+        }
+
         Pair<Boolean, Float> renderInfo = Danmaku.NORMAL_DANMAKU.get(entityIn.getItem().getItem());
         if (renderInfo == null) {
             this.useSuperRenderer(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
@@ -39,10 +45,11 @@ public class DanmakuRenderer extends SpriteRenderer<Danmaku> {
         float renderScale = renderInfo.getSecond();
         matrixStackIn.push();
         matrixStackIn.scale(renderScale, renderScale, renderScale);
+
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationYaw, entityIn.rotationYaw) - 90f));
         matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(MathHelper.lerp(partialTicks, entityIn.prevRotationPitch, entityIn.rotationPitch) - 90f));
-
         matrixStackIn.rotate(Vector3f.YP.rotationDegrees(90.f));
+
         if (Danmaku.NORMAL_DANMAKU.get(entityIn.getItem().getItem()).getFirst()) {
             matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(180.F));
         }

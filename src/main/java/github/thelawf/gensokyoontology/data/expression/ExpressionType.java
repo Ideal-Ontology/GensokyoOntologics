@@ -10,7 +10,7 @@ import java.lang.reflect.Method;
 
 public abstract class ExpressionType<E extends IExpressionType> extends ForgeRegistryEntry<IExpressionType> implements IExpressionType, IForgeRegistryEntry<IExpressionType> {
 
-    // public static final Codec<IExpressionType> CODEC = Expressions.REGISTRY.byNameCodec().dispatch(
+    // public static final Codec<IExpressionType> CODEC = Expressions.EXP_KEY.REGISTRY.byNameCodec().dispatch(
     //         "expression", IExpressionType::getExp, IExpressionType::type);
 //
     // public static final RegistryKeyCodec<RegistryFriendlyByteBuf, IExpressionType> STREAM_CODEC = ByteBufCodecs.registry(
