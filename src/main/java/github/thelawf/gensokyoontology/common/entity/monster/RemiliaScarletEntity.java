@@ -22,6 +22,11 @@ public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser
     }
 
     @Override
+    public boolean shouldEnterNextMainPhase() {
+        return false;
+    }
+
+    @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));

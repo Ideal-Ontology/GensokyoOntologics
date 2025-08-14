@@ -62,6 +62,11 @@ public class KomeijiKoishiEntity extends ConversationalEntity implements ISpellC
     }
 
     @Override
+    public boolean shouldEnterNextMainPhase() {
+        return false;
+    }
+
+    @Override
     public void readAdditional(@NotNull CompoundNBT compound) {
         super.readAdditional(compound);
     }

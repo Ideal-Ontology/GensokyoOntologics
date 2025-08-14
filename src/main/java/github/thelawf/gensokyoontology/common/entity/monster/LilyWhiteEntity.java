@@ -97,6 +97,11 @@ public class LilyWhiteEntity extends ConversationalEntity implements ISpellCardU
     }
 
     @Override
+    public boolean shouldEnterNextMainPhase() {
+        return false;
+    }
+
+    @Override
     public void danmakuAttack(LivingEntity target) {
 
     }
