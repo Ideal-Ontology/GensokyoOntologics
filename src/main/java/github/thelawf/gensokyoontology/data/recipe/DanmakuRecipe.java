@@ -58,7 +58,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
         for (int x = 1; x < 6; x++) {
             for (int z = 1; z < 6; z++) {
                 pos.add(x, 0, z);
-                if (this.blockStates.get((x * z) - 1).equals(worldIn.getBlockState(pos).getBlock())) matches++;
+                if (this.blockStates.get(matches).equals(worldIn.getBlockState(pos).getBlock())) matches++;
             }
         }
         return matches == 25;
@@ -100,7 +100,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public @NotNull ItemStack getRecipeOutput() {
         return this.recipeOutput.copy();
     }
 
@@ -136,6 +136,10 @@ public class DanmakuRecipe implements IJigsawRecipe {
 
         map.put(" ", Blocks.AIR);
         return map;
+    }
+
+    public int getMinOutputCount(IInventory inventory){
+        return inventory.getStackInSlot(0).getCount() % this.getUnitCount();
     }
 
     public static NonNullList<Block> mapStrPatternToBlock(Map<String, Block> map, JsonArray jArray){

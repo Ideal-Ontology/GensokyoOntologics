@@ -7,12 +7,13 @@ import net.minecraft.world.World;
 
 import java.util.Optional;
 
-public class TileEntityHelper {
-    public static <T extends TileEntity> Optional<TileEntity> getTileIf(World world, BlockPos pos, TileEntityType<T> type) {
+public interface ITileEntityGetter<T extends TileEntity> {
+
+    @SuppressWarnings("unchecked")
+    default Optional<T> getTileEntity(World world, BlockPos pos) {
 
         TileEntity tile = world.getTileEntity(pos);
         if (tile == null) return Optional.empty();
-        if (tile.getType() != type) return Optional.empty();
 
         T te = (T) tile;
         return Optional.of(te);

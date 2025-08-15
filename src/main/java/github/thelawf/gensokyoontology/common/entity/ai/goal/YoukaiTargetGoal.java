@@ -18,9 +18,4 @@ public class YoukaiTargetGoal<Y extends YoukaiEntity> extends YoukaiBattlePhaseG
         action.act(youkai.world, youkai, youkai.getAttackTarget());
     }
 
-    @Override
-    public boolean shouldExecute() {
-        return this.youkai.isPhaseMatches(mainPhase, subPhase);
-    }
-
 }

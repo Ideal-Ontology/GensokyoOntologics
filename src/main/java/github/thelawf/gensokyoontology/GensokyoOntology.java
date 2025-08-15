@@ -263,7 +263,7 @@ public class GensokyoOntology {
 
             event.put(EntityRegistry.RUMIA.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 200)
-                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.5)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10)
                     .createMutableAttribute(Attributes.ARMOR, 5)

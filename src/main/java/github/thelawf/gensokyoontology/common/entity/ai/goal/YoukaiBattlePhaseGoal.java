@@ -22,13 +22,13 @@ public abstract class YoukaiBattlePhaseGoal<Y extends YoukaiEntity> extends Goal
     public void tick() {
         super.tick();
         if (this.youkai.getAttackTarget() == null) return;
+        if (!this.youkai.isPhaseMatches(this.mainPhase, this.subPhase)) return;
         this.ticksExecuted++;
     }
 
     @Override
     public void startExecuting() {
         super.startExecuting();
-        GSKOUtil.log("当前Boss阶段 = " + this.youkai.battlePhase);
     }
 
     @Override
@@ -41,6 +41,7 @@ public abstract class YoukaiBattlePhaseGoal<Y extends YoukaiEntity> extends Goal
     public void resetTask() {
         super.resetTask();
         youkai.nextPhase();
+        this.ticksExecuted = 0;
     }
 
     @Override

@@ -1,11 +1,16 @@
 package github.thelawf.gensokyoontology.common.block;
 
 import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
+import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
+import github.thelawf.gensokyoontology.common.tileentity.ITileEntityGetter;
+import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.SoundType;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
@@ -20,7 +25,7 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public class DanmakuTableBlock extends Block {
+public class DanmakuTableBlock extends Block implements ITileEntityGetter<DanmakuTabelTileEntity> {
     public DanmakuTableBlock() {
         super(Properties.from(Blocks.CRAFTING_TABLE).sound(SoundType.WOOD));
     }
@@ -35,21 +40,34 @@ public class DanmakuTableBlock extends Block {
     @SuppressWarnings("deprecation")
     public ActionResultType onBlockActivated(@NotNull BlockState state, World worldIn, @NotNull BlockPos pos, @NotNull PlayerEntity player,
                                              @NotNull Hand handIn, @NotNull BlockRayTraceResult hit) {
-        if (worldIn.isRemote) {
-            return ActionResultType.SUCCESS;
-        } else {
+        if (Screen.hasShiftDown()) {
             player.openContainer(state.getContainer(worldIn, pos));
             return ActionResultType.CONSUME;
         }
+        this.getTileEntity(worldIn, pos).ifPresent(tile -> tile.tryCraft(worldIn));
+        return ActionResultType.SUCCESS;
     }
 
+
+    @Nullable
+    @Deprecated
+    public INamedContainerProvider getContainerOld(BlockState state, World worldIn, BlockPos pos) {
+        return new SimpleNamedContainerProvider((id, inventory, player) ->
+                new DanmakuCraftingContainer(id, inventory, IWorldPosCallable.of(worldIn, pos)),
+                DanmakuTabelTileEntity.CONTAINER_NAME);
+    }
 
     @Nullable
     @Override
     @SuppressWarnings("deprecation")
     public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
         return new SimpleNamedContainerProvider((id, inventory, player) ->
-                new DanmakuCraftingContainer(id, inventory, IWorldPosCallable.of(worldIn, pos)),
+                new OneSlotContainer(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(), id, inventory) {
+                    @Override
+                    public void onContainerClosed(PlayerEntity playerIn) {
+                        super.onContainerClosed(playerIn);
+                    }
+                },
                 DanmakuTabelTileEntity.CONTAINER_NAME);
     }
 

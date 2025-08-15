@@ -5,22 +5,17 @@ import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
-import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
-import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
-import net.minecraft.block.CraftingTableBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.ICraftingRecipe;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
@@ -35,12 +30,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Optional;
-
-public class DanmakuTabelTileEntity extends TileEntity implements ITickableTileEntity {
+public class DanmakuTabelTileEntity extends TileEntity {
     public DanmakuTabelTileEntity() {
         super(TileEntityRegistry.DANMAKU_TABLE_TILE.get());
     }
@@ -79,7 +69,7 @@ public class DanmakuTabelTileEntity extends TileEntity implements ITickableTileE
     }
 
     private ItemStackHandler createItemHandler() {
-        return new ItemStackHandler(2) {
+        return new ItemStackHandler(1) {
             @Override
             protected void onContentsChanged(int slot) {
                 markDirty();
@@ -124,25 +114,20 @@ public class DanmakuTabelTileEntity extends TileEntity implements ITickableTileE
         return super.getCapability(cap);
     }
 
-    public void checkCraft() {
 
+    public void tryCraft(World world) {
+        Inventory inv = new Inventory(this.itemHandler.getSlots());
+        for (int i = 0; i < this.itemHandler.getSlots() - 1; i++)
+            inv.setInventorySlotContents(i, this.itemHandler.getStackInSlot(i));
+        if (world.isRemote) return;
+
+        world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inv, world)
+                .ifPresent(recipe -> {
+                    ItemStack outputs = recipe.getRecipeOutput();
+                    outputs.grow(recipe.getMinOutputCount(inv));
+                    Block.spawnAsEntity(world, this.pos, outputs);
+                });
         markDirty();
-    }
 
-    private void craft(World world, CraftingInventory inventory, CraftResultInventory inventoryResult) {
-        if (!world.isRemote) {
-            ItemStack itemstack = ItemStack.EMPTY;
-            Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inventory, world);
-            if (optional.isPresent()) {
-
-            }
-            inventoryResult.setInventorySlotContents(0, itemstack);
-        }
-
-    }
-
-    @Override
-    public void tick() {
-        checkCraft();
     }
 }

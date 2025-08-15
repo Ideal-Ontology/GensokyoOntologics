@@ -89,7 +89,7 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
 
         Vector3d motion = user.getLookVec().normalize().scale(0.8F);
         ParticleRegistry.shootParticle(world, ParticleRegistry.POWER_PARTICLE.get(), user.getPositionVec(), motion);
-        // TileEntityHelper.getTileIf(world, btr.getPos(), TileEntityRegistry)
+        // ITileEntityGetter.getTileEntity(world, btr.getPos(), TileEntityRegistry)
     }
 
     @Override
