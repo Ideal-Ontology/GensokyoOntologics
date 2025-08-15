@@ -8,7 +8,7 @@ import net.minecraft.world.gen.area.IArea;
 import net.minecraft.world.gen.area.IAreaFactory;
 
 public interface IBiomeAreaFinder {
-    IBiomeAreaFinder setup(Registry<Biome> registry);
+    <A extends IBiomeAreaFinder> A setup(Registry<Biome> registry);
     default int getID(Registry<Biome> biomes, RegistryKey<Biome> biomeKey) {
         return biomes.getId(biomes.getValueForKey(biomeKey));
     }

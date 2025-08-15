@@ -7,6 +7,7 @@ import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.*;
+import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
@@ -69,6 +70,7 @@ public class GSKOBiomes {
     public static final RegistryKey<Biome> NETHER_SAKURA_FOREST_KEY = makeKey("nether_sakura_forest");
     public static final RegistryKey<Biome> MISTY_LAKE = asKey(GSKOBiomes.MISTY_LAKE_BIOME);
     public static final RegistryKey<Biome> MISTY_LAKE_KEY = makeKey("misty_lake");
+    public static final RegistryKey<Biome> MISTY_BANK_KEY = makeKey("misty_lake_bank");
 
     public static boolean isGensokyoBiome(final BiomeLoadingEvent event) {
         return GSKOBiomesProvider.GSKO_BIOMES.stream().map(RegistryKey::getLocation).map(Objects::toString)

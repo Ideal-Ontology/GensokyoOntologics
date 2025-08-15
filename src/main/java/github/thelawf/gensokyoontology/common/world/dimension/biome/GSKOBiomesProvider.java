@@ -56,6 +56,7 @@ public class GSKOBiomesProvider extends BiomeProvider {
             GSKOBiomes.MAGIC_FOREST_KEY,
             GSKOBiomes.SANZU_RIVER_KEY,
             GSKOBiomes.MISTY_LAKE_KEY,
+            GSKOBiomes.MISTY_BANK_KEY,
             GSKOBiomes.HIGAN_KEY,
             GSKOBiomes.MUENZUKA,
             GSKOBiomes.GSKO_RIVER_KEY
