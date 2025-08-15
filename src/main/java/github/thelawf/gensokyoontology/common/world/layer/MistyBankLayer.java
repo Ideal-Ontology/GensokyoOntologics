@@ -17,11 +17,13 @@ public enum MistyBankLayer implements ICastleTransformer {
 
     @Override
     public int apply(@NotNull INoiseRandom context, int north, int west, int south, int east, int center) {
-        if (north == getId(this.registry, GSKOBiomes.MISTY_LAKE_KEY) ||
-                west == getId(this.registry, GSKOBiomes.MISTY_LAKE_KEY)||
-                south == getId(this.registry, GSKOBiomes.MISTY_LAKE_KEY) ||
-                east == getId(this.registry, GSKOBiomes.MISTY_LAKE_KEY)) {
-            return getId(this.registry, GSKOBiomes.MISTY_BANK_KEY);
+        if (center != getId(this.registry, GSKOBiomes.MISTY_LAKE_KEY)) {
+            if (north == getId(this.registry, GSKOBiomes.MISTY_LAKE_KEY) ||
+                    west == getId(this.registry, GSKOBiomes.MISTY_LAKE_KEY)||
+                    south == getId(this.registry, GSKOBiomes.MISTY_LAKE_KEY) ||
+                    east == getId(this.registry, GSKOBiomes.MISTY_LAKE_KEY)) {
+                return getId(this.registry, GSKOBiomes.MISTY_BANK_KEY);
+            }
         }
         return center;
     }

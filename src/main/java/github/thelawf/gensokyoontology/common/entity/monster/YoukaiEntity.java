@@ -151,7 +151,7 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     }
 
     /**
-     * 如果希望BOSS的下一个小阶段是从可选阶段中随机选择一个的话，可以使用该方法覆盖{@link this#nextPhase() this.nextPhase}
+     * 如果希望BOSS的下一个小阶段是从可选阶段中随机选择一个的话，可以使用该方法覆盖{@link YoukaiEntity#nextPhase() this.nextPhase}
      */
     public void nextRandomPhase(){
         String currentPhase = this.getBattlePhase();
@@ -164,7 +164,7 @@ public abstract class YoukaiEntity extends RetreatableEntity {
 
         try {
             final int main = Integer.parseInt(parts[0]);
-            final int currentSubPhaseCount = this.getMaxPhases()[main];
+            final int currentSubPhaseCount = this.getMaxPhases()[main - 1];
             this.setBattlePhase(main, this.rand.nextInt(currentSubPhaseCount) + 1);
         } catch (NumberFormatException e) {
             this.setBattlePhase(1, 1);

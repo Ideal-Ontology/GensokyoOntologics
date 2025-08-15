@@ -10,7 +10,7 @@ import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.util.ResourceLocation;
 
-public class CirnoRenderer extends LivingRenderer<CirnoEntity, EntityModel<CirnoEntity>> {
+public class CirnoRenderer extends MobRenderer<CirnoEntity, EntityModel<CirnoEntity>> {
     public static final ResourceLocation CIRNO_TEX = GensokyoOntology.withRL("textures/entity/cirno_texture.png");
     public CirnoRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new CirnoModel(), 0.6f);
