@@ -82,7 +82,8 @@ public class GSKOEntityEvents {
         }
     }
 
-    @SubscribeEvent
+    // @SubscribeEvent
+    @Deprecated
     public static void onPlayerLife(LivingEvent.LivingUpdateEvent event) {
         if (!(event.getEntityLiving() instanceof PlayerEntity)) return;
         PlayerEntity player = (PlayerEntity) event.getEntityLiving();

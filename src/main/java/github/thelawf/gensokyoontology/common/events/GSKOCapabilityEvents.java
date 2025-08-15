@@ -145,7 +145,7 @@ public class GSKOCapabilityEvents {
                         {
                             tlmCap.set(gskoCap.getCount());
                             NetworkHandler.sendToClientPlayer(new SyncCapabilityMessage(gskoCap.getCount(), maidNumCap.get()), player);
-                            tlmCap.setDirty(false);
+                            tlmCap.setDirty(true);
                         })));
     }
     public static void trySyncPowerFromTLM(PlayerEntity player) {
@@ -154,7 +154,7 @@ public class GSKOCapabilityEvents {
                 {
                     gskoCap.setCount(tlmCap.get());
                     GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(tlmCap.get()), player);
-                    tlmCap.setDirty(false);
+                    tlmCap.setDirty(true);
                 }));
     }
 
