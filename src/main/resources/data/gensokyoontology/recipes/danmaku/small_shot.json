@@ -1,0 +1,20 @@
+{
+  "type": "gensokyoontology:danmaku",
+  "power": 1.0,
+  "unit_count": 10,
+  "output": {
+    "item": "gensokyontology:small_shot",
+    "count": 1
+  },
+  "jigsaw_pattern": [
+    "OOOOO",
+    "OXXXO",
+    "OXOXO",
+    "OXXXO",
+    "OOOOO"],
+  "key":
+  {
+    "O": "gensokyoontology:totem_bricks",
+    "X": "gensokyoontology:asanoha_bricks"
+  }
+}

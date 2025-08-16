@@ -124,8 +124,9 @@ public class DanmakuTabelTileEntity extends TileEntity {
         world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inv, world)
                 .ifPresent(recipe -> {
                     ItemStack outputs = recipe.getRecipeOutput();
-                    outputs.grow(recipe.getMinOutputCount(inv));
+                    ItemStack remaining = recipe.getRemaining(inv);
                     Block.spawnAsEntity(world, this.pos, outputs);
+                    inv.setInventorySlotContents(0, remaining);
                 });
         markDirty();
 

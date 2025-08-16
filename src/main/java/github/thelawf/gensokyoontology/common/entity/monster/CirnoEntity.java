@@ -35,6 +35,11 @@ public class CirnoEntity extends YoukaiEntity{
     }
 
     @Override
+    public int[] getMaxPhases() {
+        return new int[]{3};
+    }
+
+    @Override
     public void nextPhase() {
         this.nextRandomPhase();
     }

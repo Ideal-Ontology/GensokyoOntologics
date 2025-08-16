@@ -139,7 +139,13 @@ public class DanmakuRecipe implements IJigsawRecipe {
     }
 
     public int getMinOutputCount(IInventory inventory){
-        return inventory.getStackInSlot(0).getCount() % this.getUnitCount();
+        int totalInvCount = inventory.getStackInSlot(0).getCount();
+        return totalInvCount / this.getUnitCount();
+    }
+
+    public ItemStack getRemaining(IInventory inventory){
+        ItemStack prev = inventory.getStackInSlot(0);
+        return new ItemStack(prev.getItem(), this.getMinOutputCount(inventory) * this.getUnitCount());
     }
 
     public static NonNullList<Block> mapStrPatternToBlock(Map<String, Block> map, JsonArray jArray){

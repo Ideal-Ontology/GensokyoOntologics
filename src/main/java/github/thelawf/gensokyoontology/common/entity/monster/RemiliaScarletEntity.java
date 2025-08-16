@@ -47,6 +47,11 @@ public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser
     }
 
     @Override
+    public int[] getMaxPhases() {
+        return new int[]{3};
+    }
+
+    @Override
     public void danmakuAttack(LivingEntity target) {
     }
 
