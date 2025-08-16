@@ -34,7 +34,7 @@ public class DanmakuTabelTileEntity extends TileEntity {
     public DanmakuTabelTileEntity() {
         super(TileEntityRegistry.DANMAKU_TABLE_TILE.get());
     }
-
+    private float powerStored = 0F;
     private final ItemStackHandler itemHandler = createItemHandler();
     private final LazyOptional<IItemHandler> optionalHandler = LazyOptional.of(() -> itemHandler);
     public static final TranslationTextComponent CONTAINER_NAME = new TranslationTextComponent("container." +
@@ -55,16 +55,26 @@ public class DanmakuTabelTileEntity extends TileEntity {
         };
     }
 
+    public float getPower() {
+        return this.powerStored;
+    }
+
+    public void setPower(float power){
+        this.powerStored = power;
+    }
+
     @Override
     public void read(@NotNull BlockState state, CompoundNBT nbt) {
-        itemHandler.deserializeNBT(nbt.getCompound("inv"));
+        this.itemHandler.deserializeNBT(nbt.getCompound("inv"));
+        this.setPower(nbt.getFloat("power"));
         super.read(state, nbt);
     }
 
     @Override
     @NotNull
     public CompoundNBT write(CompoundNBT compound) {
-        compound.put("inv", itemHandler.serializeNBT());
+        compound.put("inv", this.itemHandler.serializeNBT());
+        compound.putFloat("power", this.getPower());
         return super.write(compound);
     }
 
