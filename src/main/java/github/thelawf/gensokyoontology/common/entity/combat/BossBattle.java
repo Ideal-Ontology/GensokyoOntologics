@@ -80,8 +80,14 @@ public class BossBattle {
 
     };
 
-    public static final YoukaiCombat.TargetAction<CirnoEntity> ICY_STORM = (world, youkai, target) -> {
+    public static final YoukaiCombat.SkillAction<CirnoEntity> ICY_STORM = (world, youkai) -> {
+        if (youkai.ticksExisted % 11 != 0) return;
 
+        Vector3d randPos = GSKOMathUtil.randomVec(-3, 3);
+        DanmakuUtil.spheroidPos(1, 8).forEach(shoot -> Danmaku.create(world, youkai, ItemRegistry.CRYSTAL_AQUA.get())
+                .rot(Rot2f.from(shoot))
+                .pos(randPos)
+                .shoot(shoot, 0.4F));
     };
 
     public static final YoukaiCombat.TargetAction<CirnoEntity> SUNBURNT_CRYSTALS = (world, youkai, target) -> {
@@ -89,9 +95,23 @@ public class BossBattle {
     };
 
     public static final YoukaiCombat.SkillAction<RemiliaScarletEntity> THOUSAND_KNIVES = (world, remilia) -> {
-        if (remilia.ticksExisted % 20 == 0){
+        if (remilia.getAttackTarget() == null) return;
+        if (remilia.ticksExisted % 20 != 0) return;
+        DanmakuUtil.ellipticPos(Vector2f.ZERO, 1.2F, 8).forEach(initPos -> {
+            Vector3d shootA = initPos.rotateYaw(Danmaku.rad(5)).normalize();
+            Vector3d shootB = initPos.rotateYaw(Danmaku.rad(-5)).normalize();
 
-        }
+            for (int i = -2; i < 2; i++) {
+                Danmaku.create(world, remilia, ItemRegistry.KNIFE_RED.get())
+                        .pos(remilia.getPositionVec().add(initPos).add(0, i, 0))
+                        .rot(Rot2f.from(shootA))
+                        .shoot(shootA, 0.45F);
+                Danmaku.create(world, remilia, ItemRegistry.KNIFE_RED.get())
+                        .pos(remilia.getPositionVec().add(initPos).add(0, i, 0))
+                        .rot(Rot2f.from(shootB))
+                        .shoot(shootB, 0.45F);
+            }
+        });
     };
 
     public static final YoukaiCombat.SkillAction<FlandreScarletEntity> FLANDRE_LASER = (world, flandre) -> {

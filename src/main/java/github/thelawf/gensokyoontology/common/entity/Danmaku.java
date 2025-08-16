@@ -18,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -25,10 +26,12 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -111,6 +114,11 @@ public class Danmaku extends ProjectileItemEntity{
     }
 
     public static Danmaku create(World world, LivingEntity owner, Item item) {
+        if (!world.isRemote){
+            ServerWorld serverWorld = (ServerWorld) world;
+            long count = serverWorld.getEntities().filter(entity -> entity.getType() == EntityRegistry.DANMAKU.get()).count();
+            if (count >= 500) return new Danmaku(world, Items.AIR, owner).pos(new Vector3d(0, -129, 0));
+        }
         return new Danmaku(world, item, owner)
                 .pos(owner.getPositionVec())
                 .rot(Rot2f.from(owner.getLookVec()))
@@ -159,6 +167,11 @@ public class Danmaku extends ProjectileItemEntity{
 
     public Danmaku rot(Rot2f rotation) {
         this.setRotation(rotation.yaw(), rotation.pitch());
+        return this;
+    }
+
+    public Danmaku boundingBox(double width, double height){
+        this.setBoundingBox(AxisAlignedBB.withSizeAtOrigin(width, height, width));
         return this;
     }
 
@@ -343,12 +356,12 @@ public class Danmaku extends ProjectileItemEntity{
      */
     public static final Map<Item,Pair<Boolean, Float>> NORMAL_DANMAKU = Util.make(() -> {
         Map<Item, Pair<Boolean, Float>> map = new HashMap<>();
-        map.put(ItemRegistry.SCALE_SHOT.get(), Pair.of(false, 0.3F));
-        map.put(ItemRegistry.SCALE_SHOT_RED.get(), Pair.of(false, 0.3F));
-        map.put(ItemRegistry.SCALE_SHOT_YELLOW.get(), Pair.of(false, 0.3F));
-        map.put(ItemRegistry.SCALE_SHOT_GREEN.get(), Pair.of(false, 0.3F));
-        map.put(ItemRegistry.SCALE_SHOT_BLUE.get(), Pair.of(false, 0.3F));
-        map.put(ItemRegistry.SCALE_SHOT_PURPLE.get(), Pair.of(false, 0.3F));
+        map.put(ItemRegistry.SCALE_SHOT.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.SCALE_SHOT_RED.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.SCALE_SHOT_YELLOW.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.SCALE_SHOT_GREEN.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.SCALE_SHOT_BLUE.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.SCALE_SHOT_PURPLE.get(), Pair.of(false, 0.4F));
 
         map.put(ItemRegistry.TALISMAN_SHOT.get(), Pair.of(false, 1F));
         map.put(ItemRegistry.TALISMAN_SHOT_RED.get(), Pair.of(false, 1F));
@@ -365,6 +378,12 @@ public class Danmaku extends ProjectileItemEntity{
         map.put(ItemRegistry.HEART_SHOT_RED.get(), Pair.of(true, 2.0F));
         map.put(ItemRegistry.HEART_SHOT_BLUE.get(), Pair.of(true, 2.0F));
         map.put(ItemRegistry.HEART_SHOT_PINK.get(), Pair.of(true, 2.0F));
+
+        map.put(ItemRegistry.CRYSTAL_AQUA.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.CRYSTAL_BLUE.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.KNIFE_BLUE.get(), Pair.of(false, 0.6F));
+        map.put(ItemRegistry.KNIFE_RED.get(), Pair.of(false, 0.6F));
+        map.put(ItemRegistry.KNIFE_GREEN.get(), Pair.of(false, 0.6F));
 
         return map;
     });

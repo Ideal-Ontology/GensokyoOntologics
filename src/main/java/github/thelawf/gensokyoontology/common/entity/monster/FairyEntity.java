@@ -221,7 +221,7 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
     }
 
     private void sphereShot() {
-        List<Vector3d> coordinates = DanmakuUtil.spheroidPos(1, 20);
+        List<Vector3d> coordinates = DanmakuUtil.spheroidPos(1, 12);
         coordinates.forEach(vector3d -> {
             // SmallShotEntity danmaku = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
             Danmaku danmaku = randomSelect();

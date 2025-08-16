@@ -668,6 +668,15 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> TALISMAN_SHOT_BLUE = ITEMS.register("talisman_shot_blue", DanmakuItem::new);
     public static final RegistryObject<Item> TALISMAN_SHOT_PURPLE = ITEMS.register("talisman_shot_purple", DanmakuItem::new);
 
+    ////////////////////////////// 所有颜色的晶弹  /////////////////////////////////
+    public static final RegistryObject<Item> CRYSTAL_AQUA = ITEMS.register("crystal_aqua", DanmakuItem::new);
+    public static final RegistryObject<Item> CRYSTAL_BLUE = ITEMS.register("crystal_blue", DanmakuItem::new);
+
+    ////////////////////////////// 所有颜色的刀弹  /////////////////////////////////
+    public static final RegistryObject<Item> KNIFE_BLUE = ITEMS.register("knife_blue", DanmakuItem::new);
+    public static final RegistryObject<Item> KNIFE_RED = ITEMS.register("knife_red", DanmakuItem::new);
+    public static final RegistryObject<Item> KNIFE_GREEN = ITEMS.register("knife_green", DanmakuItem::new);
+
     ////////////////////////////// 所有颜色的阴阳玉 ///////////////////////////////////
     public static final RegistryObject<Item> INYO_JADE_BLACK = ITEMS.register(
             "inyo_jade_black", () -> new InyoJade(DyeColor.BLACK,
