@@ -356,6 +356,9 @@ public class Danmaku extends ProjectileItemEntity{
      */
     public static final Map<Item,Pair<Boolean, Float>> NORMAL_DANMAKU = Util.make(() -> {
         Map<Item, Pair<Boolean, Float>> map = new HashMap<>();
+        map.put(null, Pair.of(false, 0F));
+        map.put(Items.AIR, Pair.of(false, 0F));
+
         map.put(ItemRegistry.SCALE_SHOT.get(), Pair.of(false, 0.4F));
         map.put(ItemRegistry.SCALE_SHOT_RED.get(), Pair.of(false, 0.4F));
         map.put(ItemRegistry.SCALE_SHOT_YELLOW.get(), Pair.of(false, 0.4F));
@@ -393,6 +396,9 @@ public class Danmaku extends ProjectileItemEntity{
      */
     public static final Map<Item,Float> DANMAKU_SIZES = Util.make(() -> {
         Map<Item, Float> map = new HashMap<>();
+        map.put(null, 0F);
+        map.put(Items.AIR, 0F);
+
         map.put(ItemRegistry.LARGE_SHOT.get(), 3F);
         map.put(ItemRegistry.LARGE_SHOT_RED.get(), 3F);
         map.put(ItemRegistry.LARGE_SHOT_ORANGE.get(), 3F);
@@ -436,6 +442,10 @@ public class Danmaku extends ProjectileItemEntity{
 
     public static final Map<Item, Actions.EntityRender<Danmaku>> SPECIAL_RENDERER = Util.make(() -> {
         Map<Item, Actions.EntityRender<Danmaku>> map = new HashMap<>();
+
+        map.put(null, (entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn) -> {});
+        map.put(Items.AIR, (entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn) -> {});
+
         map.put(ItemRegistry.DESTRUCTIVE_EYE.get(), (entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn) -> {
             matrixStackIn.push();
             GeometryUtil.renderSphere(bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID), matrixStackIn.getLast().getMatrix(),
