@@ -3,11 +3,14 @@ package github.thelawf.gensokyoontology.common.container;
 import com.mojang.datafixers.DataFixUtils;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.client.GSKOGUIUtil;
+import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import github.thelawf.gensokyoontology.data.recipe.GSKORecipeHandler;
+import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -33,6 +36,7 @@ import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -45,15 +49,17 @@ import java.util.stream.Stream;
  * - 弹幕之点槽位数量：5 × 5<br>
  * - 合成结果槽位数量：4 × 4
  */
+// js9qg@powerscrews.com
 public class DanmakuCraftingContainer extends Container {
     // private final DomainFieldEntity fieldEntity;
+    protected final int centerX = 79;
+    protected final int centerY = 32;
     private final PlayerEntity player;
     private final IItemHandler playerInventory;
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    private final CraftingInventory craftingMatrix = new CraftingInventory(this, 5, 5);
-    private final IInventory resultInv = new CraftResultInventory();
+    private final IInventory danmakuInv;
     public DanmakuCraftingContainer(int windowId, PlayerInventory playerInventory) {
         this(windowId, playerInventory, IWorldPosCallable.DUMMY);
     }
@@ -62,15 +68,27 @@ public class DanmakuCraftingContainer extends Container {
         super(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(), windowId);
         this.player = playerInventory.player;
         this.playerInventory = new InvWrapper(playerInventory);
+        this.danmakuInv = new Inventory(ItemStack.EMPTY);
 
         this.addPlayerInventorySlots(playerInventory, 28, 124, 182);
-        for (int i = 0; i < 5; ++i) {
-            for (int j = 0; j < 5; ++j) {
-                this.addSlot(new Slot(this.craftingMatrix, j + i * 5, 16 + j * 18, 21 + i * 18));
-            }
-        }
-        this.addSlot(new CraftingResultSlot(this.player, this.craftingMatrix, this.resultInv, 0, 170, 58));
+        this.addSlot(new Slot(this.danmakuInv, 0, centerX, centerY));
+
+//        for (int i = 0; i < 5; ++i) {
+//            for (int j = 0; j < 5; ++j) {
+//                this.addSlot(new Slot(this.craftingMatrix, j + i * 5, 16 + j * 18, 21 + i * 18));
+//            }
+//        }
+        // this.addSlot(new CraftingResultSlot(this.player, this.craftingMatrix, this.resultInv, 0, 170, 58));
         // this.addSlot(new Slot(this.resultInv, 0, 165, 58));
+    }
+
+    public Block getJigsawPart(int relativeX, int relativeY){
+        if (relativeX < 0 || relativeX > 4 || relativeY < 0 || relativeY > 4) return Blocks.AIR;
+        AtomicReference<Block> blockRef = new AtomicReference<>();
+        GSKOUtil.getRecipeIf(this.player.world, RecipeRegistry.DANMAKU_RECIPE, this.danmakuInv, recipe -> {
+            blockRef.set(recipe.getBlockStates().get(relativeY * 5 + relativeX));
+        });
+        return blockRef.get() == null ? Blocks.AIR : blockRef.get();
     }
 
     @Override
@@ -81,62 +99,37 @@ public class DanmakuCraftingContainer extends Container {
     @Override
     public void onContainerClosed(@NotNull PlayerEntity playerIn) {
         super.onContainerClosed(playerIn);
-        this.clearContainer(playerIn, playerIn.world, this.craftingMatrix);
-        this.clearContainer(playerIn, playerIn.world, this.resultInv);
     }
 
     protected void updateCraftingResult() {
         if (!this.player.world.isRemote) {
             World world = this.player.world;
             ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)this.player;
-            ItemStack itemstack = ItemStack.EMPTY;
 
             Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipes().stream().flatMap(iRecipe ->  {
                 if (iRecipe instanceof DanmakuRecipe) {
                     DanmakuRecipe recipe = (DanmakuRecipe) iRecipe;
-                    return DataFixUtils.orElseGet(RecipeRegistry.DANMAKU_RECIPE.matches(recipe, world, this.craftingMatrix).map(Stream::of),
+                    return DataFixUtils.orElseGet(RecipeRegistry.DANMAKU_RECIPE.matches(recipe, world, this.danmakuInv).map(Stream::of),
                             Stream::empty);
                 }
                 return null;
             }).findFirst();
             // Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inventory, world);
 
-            if (optional.isPresent()) {
-                DanmakuRecipe recipe = optional.get();
-                if (recipe.matches(this.craftingMatrix, world)) {
-                    itemstack = recipe.getCraftingResult(this.craftingMatrix);
+            GSKOUtil.getRecipeIf(this.player.world, RecipeRegistry.DANMAKU_RECIPE, this.danmakuInv, recipe -> {
+                if (recipe.matches(this.danmakuInv, world)) {
+                    ItemStack itemstack = recipe.getCraftingResult(this.danmakuInv);
+                    // serverplayerentity.connection.sendPacket(new SSetSlotPacket(this.windowId, 0, itemstack));
                 }
-            }
+            });
 
-            this.resultInv.setInventorySlotContents(0, itemstack);
-            serverplayerentity.connection.sendPacket(new SSetSlotPacket(this.windowId, 61, itemstack));
         }
-    }
-
-    private ItemStack onItemTake(ServerPlayerEntity serverPlayer, IInventory result) {
-        ServerWorld world = serverPlayer.getServerWorld();
-        Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE,
-                this.craftingMatrix, world);
-        if (optional.isPresent()) {
-            DanmakuRecipe recipe = optional.get();
-            if (recipe.matches(this.craftingMatrix, world)) {
-                ItemStack itemStack = recipe.getRecipeOutput();
-                result.setInventorySlotContents(0, itemStack);
-                NonNullList<Ingredient> list = recipe.getIngredients();
-                for (int i = 0; i < list.size(); ++i) {
-                    this.craftingMatrix.decrStackSize(i, this.craftingMatrix.getStackInSlot(i) == ItemStack.EMPTY ? 0 :
-                            GSKORecipeHandler.getMinForIngredients(list));
-                }
-                return itemStack;
-            }
-        }
-        return ItemStack.EMPTY;
     }
 
     @Override
     public void onCraftMatrixChanged(@NotNull IInventory inventoryIn) {
         super.onCraftMatrixChanged(inventoryIn);
-        this.updateCraftingResult();
+        // this.updateCraftingResult();
     }
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {

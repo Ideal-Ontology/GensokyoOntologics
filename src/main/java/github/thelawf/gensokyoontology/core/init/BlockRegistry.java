@@ -149,6 +149,20 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> CLAY_ADOBE_BLOCK = BLOCKS.register("clay_adobe", ClayAdobeBlock::new);
     public static final RegistryObject<Block> ADOBE_TILE_BLOCK = BLOCKS.register("adobe_tile", AdobeTileBlock::new);
     public static final RegistryObject<Block> HANIWA_BLOCK = BLOCKS.register("haniwa", HaniwaBlock::new);
+    public static final RegistryObject<Block> TOTEM_BRICKS = BLOCKS.register("totem_bricks",
+            () -> new Block(AbstractBlock.Properties.from(Blocks.QUARTZ_BLOCK)));
+    public static final RegistryObject<Block> SAKURA_PATTERN_BRICKS = BLOCKS.register("sakura_pattern_bricks",
+            () -> new Block(AbstractBlock.Properties.from(Blocks.QUARTZ_BLOCK)));
+    public static final RegistryObject<Block> ARROW_PATTERN_BRICKS = BLOCKS.register("arrow_pattern_bricks",
+            () -> new Block(AbstractBlock.Properties.from(Blocks.QUARTZ_BLOCK)));
+    public static final RegistryObject<Block> TURTLE_SHELL_PATTERN_BRICKS = BLOCKS.register("turtle_shell_pattern_bricks",
+            () -> new Block(AbstractBlock.Properties.from(Blocks.QUARTZ_BLOCK)));
+    public static final RegistryObject<Block> HEMP_PATTERN_BRICKS = BLOCKS.register("hemp_pattern_bricks",
+            () -> new Block(AbstractBlock.Properties.from(Blocks.QUARTZ_BLOCK)));
+    public static final RegistryObject<Block> ICHIMATSU_PATTERN_BRICKS = BLOCKS.register("ichimatsu_pattern_bricks",
+            () -> new Block(AbstractBlock.Properties.from(Blocks.QUARTZ_BLOCK)));
+    public static final RegistryObject<Block> WAVE_PATTERN_BRICKS = BLOCKS.register("wave_pattern_bricks",
+            () -> new Block(AbstractBlock.Properties.from(Blocks.QUARTZ_BLOCK)));
 
     ///////////////////////////////////////////////////////////////////////////////////
     /////////////                     实用类方块                          ///////////////

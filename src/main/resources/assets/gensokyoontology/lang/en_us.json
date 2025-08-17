@@ -93,7 +93,12 @@
 
   "item.gensokyoontology.dark_spirit": "Dark Spirit",
   "item.gensokyoontology.light_spirit": "Light Spirit",
+  "item.gensokyoontology.copper_coin": "Copper Coin",
   "item.gensokyoontology.silver_coin": "Silver Coin",
+  "item.gensokyoontology.golden_coin": "Golden Coin",
+  "item.gensokyoontology.emerald_coin": "Emerald Coin",
+  "item.gensokyoontology.diamond_coin": "Diamond Coin",
+  "item.gensokyoontology.jade_coin": "Jade Coin",
 
   "item.gensokyoontology.fairy_spawn_egg": "Fairy Spawn Egg",
   "item.gensokyoontology.hakurei_reimu_spawn_egg": "Hakurei Reimu Spawn Egg",

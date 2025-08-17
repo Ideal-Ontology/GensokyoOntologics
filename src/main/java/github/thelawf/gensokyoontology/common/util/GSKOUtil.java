@@ -1,6 +1,9 @@
 package github.thelawf.gensokyoontology.common.util;
 
 import com.google.gson.JsonElement;
+import com.mojang.datafixers.DataFixUtils;
+import github.thelawf.gensokyoontology.core.RecipeRegistry;
+import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.PlayerAdvancements;
@@ -11,8 +14,11 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
@@ -21,6 +27,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
@@ -29,15 +36,28 @@ import net.minecraftforge.registries.ForgeRegistries;
 import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 import static github.thelawf.gensokyoontology.GensokyoOntology.LOGGER;
 import static github.thelawf.gensokyoontology.GensokyoOntology.withAffix;
 
 public class GSKOUtil {
+
+    public static <I extends IInventory, R extends IRecipe<I>, T extends IRecipeType<R>> Optional<R> getRecipeIf(
+            World world, T type, I inv, Consumer<R> action){
+        Optional<R> optional = world.getRecipeManager().getRecipes().stream().flatMap(iRecipe -> {
+            if (iRecipe.getType() == type){
+                IRecipe<I> recipe = (R) iRecipe;
+                return DataFixUtils.orElseGet(type.matches(recipe, world, inv).map(Stream::of), Stream::empty);
+            }
+            return Stream.empty();
+        }).findFirst();
+        optional.ifPresent(action);
+        return optional;
+    }
+
     public static void writeBlockData(PacketBuffer buffer, BlockPos pos, BlockState state){
         if (pos != null) buffer.writeBlockPos(pos);
         if (state != null) {
