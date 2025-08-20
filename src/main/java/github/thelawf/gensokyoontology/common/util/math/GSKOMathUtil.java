@@ -8,10 +8,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -25,6 +22,24 @@ public class GSKOMathUtil {
 
     private GSKOMathUtil() {
     }
+
+    public static Matrix4f transform(MatrixStack matrixStack, Vector3f pivot, Rot3f rot3f, Vector3f scale, Vector3f translation) {
+
+        matrixStack.translate(pivot.getX(), pivot.getY(), pivot.getZ());
+        matrixStack.rotate(rot3f.applyRotation());
+        matrixStack.scale(scale.getX(), scale.getY(), scale.getZ());
+        matrixStack.translate(translation.getX(), translation.getY(), translation.getZ());
+        return matrixStack.getLast().getMatrix();
+    }
+
+    public static Matrix4f transform(MatrixStack matrixStack, Vector3f pivot, Quaternion q, Vector3f scale, Vector3f translation) {
+        matrixStack.translate(pivot.getX(), pivot.getY(), pivot.getZ());
+        matrixStack.rotate(q);
+        matrixStack.scale(scale.getX(), scale.getY(), scale.getZ());
+        matrixStack.translate(translation.getX(), translation.getY(), translation.getZ());
+        return matrixStack.getLast().getMatrix();
+    }
+
 
     public static Color kelvinToRGB(int kelvin) {
         // 确保色温在有效范围内（1000K - 40000K）

@@ -1,16 +1,16 @@
-package github.thelawf.gensokyoontology.common.entity.misc;
+package github.thelawf.gensokyoontology.common.entity.passive;
 
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
-import net.minecraft.client.renderer.entity.model.BatModel;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MoverType;
-import net.minecraft.entity.Pose;
 import net.minecraft.entity.ai.goal.Goal;
+import net.minecraft.entity.item.BoatEntity;
 import net.minecraft.entity.passive.BatEntity;
 import net.minecraft.entity.passive.IFlyingAnimal;
+import net.minecraft.entity.passive.horse.HorseEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
@@ -19,11 +19,12 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.pathfinding.Path;
 import net.minecraft.potion.Effects;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
@@ -99,10 +100,22 @@ public class CursedBatEntity extends BatEntity implements IFlyingAnimal {
     }
 
     @Override
-    public void onDeath(DamageSource cause) {
-        this.entityDropItem(new ItemStack(ItemRegistry.CURSED_BAT_SPECIMEN.get()));
-        super.onDeath(cause);
+    protected ActionResultType getEntityInteractionResult(PlayerEntity player, Hand p_230254_2_) {
+        player.startRiding(this);
+        return super.getEntityInteractionResult(player, p_230254_2_);
     }
+
+
+    @Override
+    public boolean canBeLeashedTo(PlayerEntity p_184652_1_) {
+        return true;
+    }
+
+    @Override
+    public boolean canPassengerSteer() {
+        return true;
+    }
+
 
     @Override
     public void tick() {
@@ -254,17 +267,18 @@ public class CursedBatEntity extends BatEntity implements IFlyingAnimal {
     static class BatFlyToTargetGoal extends Goal {
         private Path path;
         private final CursedBatEntity bat;
+        private final Vector3d mansionPos;
         public BatFlyToTargetGoal(CursedBatEntity bat) {
             this.bat = bat;
+            this.mansionPos = Vector3d.copyCentered(bat.getMansionPos());
         }
 
         @Override
         public void tick() {
             super.tick();
-            Vector3d vector3d = new Vector3d(this.bat.getMansionPos().getX(), this.bat.getMansionPos().getY(), this.bat.getMansionPos().getZ());
             final float speed = 0.6f;
-            this.bat.getLookController().setLookPosition(vector3d);
-            this.bat.getNavigator().tryMoveToXYZ(vector3d.x, vector3d.y, vector3d.z, speed);
+            this.bat.getLookController().setLookPosition(this.mansionPos);
+            this.bat.getNavigator().tryMoveToXYZ(this.mansionPos.x, this.mansionPos.y, this.mansionPos.z, speed);
             this.bat.setNoGravity(true);
 
             Vector3d pos = this.bat.getPositionVec();
@@ -273,7 +287,7 @@ public class CursedBatEntity extends BatEntity implements IFlyingAnimal {
 
         @Override
         public boolean shouldExecute() {
-            return this.bat.hasDestination();
+            return this.bat.hasDestination() && !this.bat.getPassengers().isEmpty();
         }
     }
 }

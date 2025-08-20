@@ -40,7 +40,6 @@ public class DanmakuUtil {
         danmaku.setLocationAndAngles(living.getPosX(), living.getPosY() + living.getEyeHeight(), living.getPosZ(),
                 (float) lookVec.y, (float) lookVec.z);
         danmaku.shoot(lookVec.x, lookVec.y, lookVec.z, velocity, inaccuracy);
-        worldIn.addEntity(danmaku);
     }
 
     public static <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d globalPos, Vector2f rotation, boolean noGravity) {

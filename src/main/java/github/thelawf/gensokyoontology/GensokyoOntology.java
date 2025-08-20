@@ -58,14 +58,6 @@ public class GensokyoOntology {
      * 事件以及在你的主类让延迟注册器订阅事件总线哦。
      */
     public GensokyoOntology() {
-        // final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        // ClientOnlyRegistry cog = new ClientOnlyRegistry(modEventBus);
-        // Register ourselves for server and other game events we are interested in
-        // MC的注册方式：
-        // 1. Registry<IForgeRegistry>
-        // 2. Registry<CODEC>
-        // 3. RegistryKey<class>
-
         MinecraftForge.EVENT_BUS.register(this);
 
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();

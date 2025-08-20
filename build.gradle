@@ -1,27 +1,30 @@
 buildscript {
     repositories {
-        maven { url = 'https://files.minecraftforge.net/maven' }
+        maven { url = 'https://maven.minecraftforge.net/' }
         maven { url = 'https://maven.aliyun.com/repository/central' }
-        maven { url = 'https://maven.aliyun.com/repository/jcenter' }
-        jcenter()
-        mavenCentral()
+        maven {
+            url "https://libraries.minecraft.net"
+            // 跳过证书验证
+            allowInsecureProtocol = true
+        }
         gradlePluginPortal()
+        mavenCentral()
     }
     dependencies {
-        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.+', changing: true
-        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        // classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7.+'
         classpath 'com.github.johnrengelman:shadow:8.1.1'
         classpath 'org.joml:joml:1.10.4'
     }
 }
 
-plugins {
-    id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '6.+'
-    id 'org.spongepowered.mixin' version '0.7.+'
-    id 'com.github.johnrengelman.shadow' version '7.+'
-    id 'java'
-}
+apply plugin: 'net.minecraftforge.gradle'
+// apply plugin: 'org.spongepowered.mixin'
+apply plugin: 'eclipse'
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven-publish'
+
 
 java {
     toolchain {
@@ -29,11 +32,11 @@ java {
     }
 }
 
-mixin {
-    // add sourceSets.main, "mixins.gensokyoontology.refmap.json"
-    // config 'mixins.gensokyoontology.json'
-    add sourceSets.main, "patchouli.refmap.json"
-}
+// mixin {
+//     config 'mixins.gensokyoontology.json'
+//     add sourceSets.main, "mixins.gensokyoontology.refmap.json"
+//     add sourceSets.main, "patchouli.refmap.json"
+// }
 
 allprojects {
     repositories {
@@ -78,10 +81,11 @@ minecraft {
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
     runs {
+
         client {
+            property 'assetDirectory', file('run/assets')
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            workingDirectory project.file('run')
 
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
@@ -94,8 +98,7 @@ minecraft {
         }
 
         server {
-            workingDirectory project.file('run')
-
+            property 'assetDirectory', file('run/assets')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
@@ -143,11 +146,8 @@ dependencies {
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53.3:")
 
-    // compileOnly 'org.joml:joml:1.10.4'
-    // runtimeOnly 'org.joml:joml:1.10.4'
-    // implementation 'org.joml:joml:1.10.4'
     implementation 'org.jetbrains:annotations:24.0.0'
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+//    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     implementation fg.deobf("curse.maven:touhou-little-maid-355044:4968573")
 
     if  (project.gradle.startParameter.taskNames[0] == "build" || project.gradle.startParameter.taskNames[0] == "publish"){

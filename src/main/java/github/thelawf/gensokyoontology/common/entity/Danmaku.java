@@ -7,8 +7,7 @@ import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
-import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
-import github.thelawf.gensokyoontology.common.util.math.Rot2f;
+import github.thelawf.gensokyoontology.common.util.math.*;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.expression.IExpressionType;
@@ -28,6 +27,7 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.EntityRayTraceResult;
+import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -117,10 +117,10 @@ public class Danmaku extends ProjectileItemEntity{
         if (!world.isRemote){
             ServerWorld serverWorld = (ServerWorld) world;
             long count = serverWorld.getEntities().filter(entity -> entity.getType() == EntityRegistry.DANMAKU.get()).count();
-            if (count >= 500) return new Danmaku(world, Items.AIR, owner).pos(new Vector3d(0, -129, 0));
+            if (count >= 800) return new Danmaku(world, Items.AIR, owner);
         }
         return new Danmaku(world, item, owner)
-                .pos(owner.getPositionVec())
+                .pos(owner.getPositionVec().add(0,owner.getEyeHeight(),0))
                 .rot(Rot2f.from(owner.getLookVec()))
                 .disableGravity();
     }
@@ -172,6 +172,12 @@ public class Danmaku extends ProjectileItemEntity{
 
     public Danmaku boundingBox(double width, double height){
         this.setBoundingBox(AxisAlignedBB.withSizeAtOrigin(width, height, width));
+        return this;
+    }
+
+    public Danmaku size(float size){
+        this.setBoundingBox(AxisAlignedBB.withSizeAtOrigin(size, size, size));
+        this.recalculateSize();
         return this;
     }
 
@@ -339,6 +345,8 @@ public class Danmaku extends ProjectileItemEntity{
     }
 
     public void shoot(Vector3d shootVec, float speed){
+        if (this.getItem().getItem() == Items.AIR) return;
+
         this.shoot(shootVec.x, shootVec.y, shootVec.z, speed, 0);
         this.world.addEntity(this);
     }
@@ -448,14 +456,20 @@ public class Danmaku extends ProjectileItemEntity{
 
         map.put(ItemRegistry.DESTRUCTIVE_EYE.get(), (entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn) -> {
             matrixStackIn.push();
-            GeometryUtil.renderSphere(bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID), matrixStackIn.getLast().getMatrix(),
-                    12, 12, 0.5F, 0F, 0F, 0F, 1F);
+            Matrix4f matrix4f = GSKOMathUtil.transform(matrixStackIn,
+                    V3f.of(0, 0.5f, 0),
+                    Rot3f.identity(),
+                    V3f.one(),
+                    V3f.zero());
+
+            GeometryUtil.renderSphere(bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID),
+                    matrix4f, 12, 12, 0.5F, 0F, 0F, 0F, 1F);
             matrixStackIn.pop();
         });
 
         map.put(ItemRegistry.DREAM_SEAL_ITEM.get(), (entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn) -> {
             matrixStackIn.push();
-            matrixStackIn.scale(4f, 4f, 4f);
+            matrixStackIn.translate(0, 0.5f, 0f);
             matrixStackIn.rotate(Vector3f.YP.rotationDegrees(180.0F));
             int rand = new Random().nextInt(3);
             int color = 0;
@@ -475,6 +489,8 @@ public class Danmaku extends ProjectileItemEntity{
             float g = (color >> 8) & 0xFF;
             float b = color & 0xFF;
 
+            matrixStackIn.scale(4f, 4f, 4f);
+            matrixStackIn.translate(-0.5f, -0.5f, 0f);
             GeometryUtil.renderSphere(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
                     10, 10, 0.3f, r, g, b, 0.5f);
             GeometryUtil.renderSphere(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
