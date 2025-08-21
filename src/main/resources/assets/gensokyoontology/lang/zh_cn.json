@@ -13,7 +13,7 @@
   "advancement.gensokyoontology.retreat_remilia.title": "威严满满大小姐",
   "advancement.gensokyoontology.root.description": "获得被遗忘的传说",
   "advancement.gensokyoontology.root.title": "灵梦，这是异变啊！",
-
+  "block.gensokyoontology.arrow_pattern_bricks": "箭羽纹样砖",
   "block.gensokyoontology.blue_mushroom_block": "蓝色蘑菇方块",
   "block.gensokyoontology.blue_rose_bush": "蓝蔷薇",
   "block.gensokyoontology.clay_adobe": "陶土坯",
@@ -28,6 +28,8 @@
   "block.gensokyoontology.ginkgo_leaves_pile": "银杏落叶堆",
   "block.gensokyoontology.ginkgo_log": "银杏原木",
   "block.gensokyoontology.haniwa": "埴轮",
+  "block.gensokyoontology.hemp_pattern_bricks": "麻叶纹样砖",
+  "block.gensokyoontology.ichimatsu_pattern_bricks": "市松纹样砖",
   "block.gensokyoontology.immemorial_alloy_block": "超古代合金方块",
   "block.gensokyoontology.ishi_zakura": "石樱",
   "block.gensokyoontology.izano_object_ore": "伊奘诺物质矿石",
@@ -64,6 +66,7 @@
   "block.gensokyoontology.sakura_leaves": "樱花树叶",
   "block.gensokyoontology.sakura_leaves_pile": "樱树落叶堆",
   "block.gensokyoontology.sakura_log": "樱花树原木",
+  "block.gensokyoontology.sakura_pattern_bricks": "樱花纹样砖",
   "block.gensokyoontology.sakura_planks": "樱花树木板",
   "block.gensokyoontology.sakura_pressure_plate": "樱花木压力板",
   "block.gensokyoontology.sakura_sapling": "樱花树苗",
@@ -72,7 +75,10 @@
   "block.gensokyoontology.sakura_trapdoor": "樱花木活板门",
   "block.gensokyoontology.sorcery_extractor": "魔力提取台",
   "block.gensokyoontology.spell_card_console": "符卡控制台",
+  "block.gensokyoontology.totem_bricks": "图腾砖",
+  "block.gensokyoontology.turtle_shell_pattern_bricks": "龟甲纹样砖",
   "block.gensokyoontology.wasabi": "山葵",
+  "block.gensokyoontology.wave_pattern_bricks": "波浪纹样砖",
   "block.gensokyoontology.zelkova_button": "榉树按钮",
   "block.gensokyoontology.zelkova_door": "榉树木门",
   "block.gensokyoontology.zelkova_fence": "榉树栅栏",
@@ -261,12 +267,9 @@
   "gui.gensokyoontology.text_field.rotation_yaw": "0",
   "gui.gensokyoontology.v3d_invoker.param": "参数",
   "item.gensokyoontology.aya_fans": "文文的扇子",
-
-  "item.gensokyoontology.bat_specimen": "蝙蝠标本",
-  "item.gensokyoontology.cursed_bat_specimen": "被诅咒的蝙蝠标本",
-
   "item.gensokyoontology.bat_body": "蝙蝠身体",
   "item.gensokyoontology.bat_head": "蝙蝠脑袋",
+  "item.gensokyoontology.bat_specimen": "蝙蝠标本",
   "item.gensokyoontology.bat_wing_left": "蝙蝠左翼",
   "item.gensokyoontology.bat_wing_right": "蝙蝠右翼",
   "item.gensokyoontology.binary_operation_builder": "二元表达式构建器",
@@ -287,6 +290,7 @@
   "item.gensokyoontology.crimson_alloy_fragment": "绯色合金碎片",
   "item.gensokyoontology.crimson_alloy_ingot": "绯色合金锭",
   "item.gensokyoontology.crooked_clock_needle": "歪曲的钟楼指针",
+  "item.gensokyoontology.cursed_bat_specimen": "被诅咒的蝙蝠标本",
   "item.gensokyoontology.danmaku_builder": "弹幕构建器",
   "item.gensokyoontology.danmaku_shot": "弹幕之点",
   "item.gensokyoontology.dark_spirit": "阴爻",
@@ -343,7 +347,6 @@
   "item.gensokyoontology.koishi_hat_mousse": "无意识妖怪慕斯",
   "item.gensokyoontology.komeiji_koishi_spawn_egg": "古明地恋刷怪蛋",
   "item.gensokyoontology.kuda_gitsune_tube": "管狐的试管",
-
   "item.gensokyoontology.large_shot": "大弹",
   "item.gensokyoontology.large_shot_aqua": "大弹（淡蓝）",
   "item.gensokyoontology.large_shot_blue": "大弹（蓝）",
@@ -354,7 +357,6 @@
   "item.gensokyoontology.large_shot_red": "大弹（红）",
   "item.gensokyoontology.large_shot_yellow": "大弹（黄）",
   "item.gensokyoontology.large_star_shot": "大型星弹",
-
   "item.gensokyoontology.large_star_shot_aqua": "大型星弹（淡蓝）",
   "item.gensokyoontology.large_star_shot_blue": "大型星弹（蓝）",
   "item.gensokyoontology.large_star_shot_green": "大型星弹（绿）",
@@ -456,6 +458,8 @@
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
   "itemGroup.gensokyoontology_combat": "幻想存有论：战斗",
   "itemGroup.gensokyoontology_items": "幻想存有论：物品",
+  "itemGroup.gensokyoontology.block": "幻想存有论：方块",
+
   "key.category.gensokyoontology": "幻想存有论（按键绑定）",
   "minecraft:beach": "海洋",
   "minecraft:desert": "沙漠",
@@ -612,6 +616,5 @@
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "「三种神器　玉」",
   "tooltip.gensokyoontology.three_sacred_treasures.sword": "「三种神器　剑」",
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题",
-  "xmmui.gensokyoontology.test_xmmui_screen.style_test": "欢迎使用XMMUI作为Minecraft前端GUI框架",
-
+  "xmmui.gensokyoontology.test_xmmui_screen.style_test": "欢迎使用XMMUI作为Minecraft前端GUI框架"
 }

@@ -42,11 +42,11 @@
   "item.gensokyoontology.aya_fans": "Aya Fans",
   "itemGroup.gensokyoontology_items": "Gensokyo Ontology: Items",
   "itemGroup.gensokyoontology_combat": "Gensokyo Ontology: Combat",
+  "itemGroup.gensokyoontology.block": "Gensokyo Ontology: Blocks",
 
   "item.gensokyoontology.hotspring_bucket": "Hot Spring Bucket",
   "item.gensokyoontology.sake_bucket": "Sake Bucket",
   "item.gensokyoontology.paper_pulp_bucket": "Paper Pulp Bucket",
-
 
   "item.gensokyoontology.bat_specimen": "Bat Specimen",
   "item.gensokyoontology.cursed_bat_specimen": "Cursed Bat Specimen",
@@ -346,6 +346,14 @@
   "block.gensokyoontology.ginkgo_leaves": "Ginkgo Leaves",
   "block.gensokyoontology.ginkgo_log": "Ginkgo Log",
   "block.gensokyoontology.redwood_leaves": "Redwood Leaves",
+
+  "block.gensokyoontology.totem_bricks": "Totem Bricks",
+  "block.gensokyoontology.sakura_pattern_bricks": "Sakura Pattern Bricks",
+  "block.gensokyoontology.arrow_pattern_bricks": "Arrow Pattern Bricks",
+  "block.gensokyoontology.ichimatsu_pattern_bricks": "Ichimatsu Pattern Bricks",
+  "block.gensokyoontology.hemp_pattern_bricks": "Hemp Pattern Bricks",
+  "block.gensokyoontology.wave_pattern_bricks": "Wave Pattern Bricks",
+  "block.gensokyoontology.turtle_shell_pattern_bricks": "Turtle Shell Pattern Bricks",
 
   "block.gensokyoontology.gap": "Gap",
   "block.gensokyoontology.haniwa": "Haniwa",

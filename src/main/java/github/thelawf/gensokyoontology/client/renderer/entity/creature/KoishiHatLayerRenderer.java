@@ -30,13 +30,13 @@ public class KoishiHatLayerRenderer extends LayerRenderer<PlayerEntity, PlayerMo
     public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn, PlayerEntity playerIn, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch) {
         if (!playerIn.isInvisible()) {
             ItemStack helmetStack = playerIn.getItemStackFromSlot(EquipmentSlotType.HEAD);
-            if (!helmetStack.isEmpty() && helmetStack.getItem().equals(ItemRegistry.KOISHI_HAT.get())) {
-                // 获取玩家头部位置
-                Minecraft mc = Minecraft.getInstance();
-                EntityRenderer<?> renderer = mc.getRenderManager().getRenderer(playerIn);
-                this.itemRenderer.renderItem(new ItemStack(ItemRegistry.KOISHI_HAT.get()), ItemCameraTransforms.TransformType.HEAD,
-                        packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
-            }
+//            if (!helmetStack.isEmpty() && helmetStack.getItem().equals(ItemRegistry.KOISHI_HAT.get())) {
+//                // 获取玩家头部位置
+//                Minecraft mc = Minecraft.getInstance();
+//                EntityRenderer<?> renderer = mc.getRenderManager().getRenderer(playerIn);
+//                this.itemRenderer.renderItem(new ItemStack(ItemRegistry.KOISHI_HAT.get()), ItemCameraTransforms.TransformType.HEAD,
+//                        packedLightIn, OverlayTexture.NO_OVERLAY, matrixStackIn, bufferIn);
+//            }
         }
     }
 }

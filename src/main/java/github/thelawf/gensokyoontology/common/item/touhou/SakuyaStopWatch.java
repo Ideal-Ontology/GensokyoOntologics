@@ -32,40 +32,34 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader{
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
-        ItemStack stack = playerIn.getHeldItem(handIn);
+        return super.onItemRightClick(worldIn, playerIn, handIn);
+//        ItemStack stack = playerIn.getHeldItem(handIn);
 
-        if (stack.getTag() != null && stack.hasTag()) {
-            stack.setTag(new CompoundNBT());
-            totalTicks = 0;
-
-            if (playerIn.isCreative()) return super.onItemRightClick(worldIn, playerIn, handIn);
-            playerIn.getCooldownTracker().setCooldown(this, 6000);
-            return ActionResult.resultPass(stack);
-        }
-
-        CompoundNBT nbt = new CompoundNBT();
-        nbt.putBoolean("pause_start", true);
-        stack.setTag(nbt);
-        totalTicks = pauseTicks + playerIn.ticksExisted;
-
-        if (playerIn.isCreative())
-            return super.onItemRightClick(worldIn, playerIn, handIn);
-        if (playerIn.getHeldItemMainhand().getItem() == this &&
-                playerIn.getHeldItemOffhand().getItem() == ItemRegistry.WASHI_PAPER.get()) {
-            ItemStack offHand = playerIn.getHeldItemOffhand();
-            offHand.shrink(1);
-            ItemStack itemStack = new ItemStack(ItemRegistry.TIME_STAMP.get());
-            playerIn.setHeldItem(Hand.OFF_HAND, itemStack);
-        }
-
-        playerIn.getCooldownTracker().setCooldown(this, 6000);
-        return ActionResult.resultPass(stack);
-    }
-
-    @Override
-    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.translate("tooltip.", ".sakuya_stop_watch"));
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+//        if (stack.getTag() != null && stack.hasTag()) {
+//            stack.setTag(new CompoundNBT());
+//            totalTicks = 0;
+//
+//            if (playerIn.isCreative()) return super.onItemRightClick(worldIn, playerIn, handIn);
+//            playerIn.getCooldownTracker().setCooldown(this, 6000);
+//            return ActionResult.resultPass(stack);
+//        }
+//
+//        CompoundNBT nbt = new CompoundNBT();
+//        nbt.putBoolean("pause_start", true);
+//        stack.setTag(nbt);
+//        totalTicks = pauseTicks + playerIn.ticksExisted;
+//
+//        if (playerIn.isCreative())
+//            return super.onItemRightClick(worldIn, playerIn, handIn);
+//        if (playerIn.getHeldItemMainhand().getItem() == this &&
+//                playerIn.getHeldItemOffhand().getItem() == ItemRegistry.WASHI_PAPER.get()) {
+//            ItemStack offHand = playerIn.getHeldItemOffhand();
+//            offHand.shrink(1);
+//            ItemStack itemStack = new ItemStack(ItemRegistry.TIME_STAMP.get());
+//            playerIn.setHeldItem(Hand.OFF_HAND, itemStack);
+//        }
+//
+//        playerIn.getCooldownTracker().setCooldown(this, 6000);
     }
 
     @Override

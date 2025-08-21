@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "gensokyoontology:block/turtle_shell_pattern_bricks"
+  }
+}

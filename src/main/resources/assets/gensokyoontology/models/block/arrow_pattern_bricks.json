@@ -1,0 +1,6 @@
+{
+  "parent": "block/cube_all",
+  "textures": {
+    "all": "gensokyoontology:block/arrow_pattern_bricks"
+  }
+}

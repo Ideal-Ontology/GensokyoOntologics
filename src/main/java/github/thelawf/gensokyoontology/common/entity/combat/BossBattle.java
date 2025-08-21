@@ -35,6 +35,9 @@ public class BossBattle {
         }
     };
 
+    /** 在Goal中添加该空白阶段以便让玩家拥有反击BOSS的喘息时间，降低玩家BOSS战生存难度。 */
+    public static final YoukaiCombat.SkillAction<YoukaiEntity> BLANK_PHASE = (world, youkaiEntity) -> {};
+
     public static final YoukaiCombat.TargetAction<RumiaEntity> DARK_SPHERE = (world, rumia, target) -> {
         if (target == null) return;
         if (rumia.ticksExisted % 10 != 0) return;

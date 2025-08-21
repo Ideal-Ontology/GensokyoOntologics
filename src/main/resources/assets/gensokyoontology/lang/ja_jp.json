@@ -37,6 +37,8 @@
   "item.gensokyoontology.aya_fans": "Aya Fans",
   "itemGroup.gensokyoontology_items": "Gensokyo Ontology: Items",
   "itemGroup.gensokyoontology_combat": "Gensokyo Ontology: Combat",
+  "itemGroup.gensokyoontology.block": "Gensokyo Ontology: Blocks",
+
   "item.gensokyoontology.hotspring_bucket": "Hot Spring Bucket",
   "item.gensokyoontology.sake_bucket": "Sake Bucket",
   "item.gensokyoontology.paper_pulp_bucket": "Paper Pulp Bucket",
@@ -607,18 +609,5 @@
   "patchouli.gensokyoontology.task.gitsune_tube_full.usage": "Taken part in the Sorcery Extractor crafting.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "container.gensokyoontology.v3d_builder.title": "Name: ",
-  "gui.gensokyoontology.silder_prefix.angle": "Angle: ",
-  "item.gensokyoontology.bat_Body": "Bat Body",
-  "item.gensokyoontology.bat_wing": "Bat Wing",
-  "item.gensokyoontology.sc_spiral_wheel": "Spell Card Original: Spiral Wheel",
-  "network.gensokyoontology.countdown.end": "Countdown End",
-  "network.gensokyoontology.countdown.start": "Countdown Start",
-  "patchouli.gensokyoontology.chapter.gensokyo.introduction": "Though making a very complete preperation, it still shocks me the first time when I entered gensokyo. The first thing you have to do is to make sure where you are. Different places in gensokyo have different danger level. ",
-  "patchouli.gensokyoontology.chapter.gensokyo.title": "Chapter Gensokyo: To Step Within",
-  "patchouli.gensokyoontology.chapter.intro.title": "Introduction Overview",
-  "patchouli.gensokyoontology.chapter.introduction_p1": "Hello, my name is Usami Sumireko, the founder of Hifuu Club. When you see this book, that means I have already lost in that fictional dimension. Or otherwise, me, myself, even you who are reading this book is also part of the fiction itself. I can feel that Hakurei Keikkai is... very unstable, something wrong will happen.",
-  "patchouli.gensokyoontology.chapter.introduction_p2": "I have transferred some of my powers to this book in order that it will appear in this library someday when I lost. The rest of my power will be stored in this book for you to use. If I fail, take this book with you, and please, try to find the way out!",
-  "patchouli.gensokyoontology.chapter_01.content_01": "$(l)\"Signs often appears before the real crisis.\" -- Her voice haunted me even though she is no longer be here. I don't know when did those meme entities come into being in our world, but I know that fighting against with those entities for too long will lost one's ego -- and that is how she left me.$(br) Her eyes turned into jewels which could show the images of those entities on the paper, and I am collecting the loots from those monsters:"
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }

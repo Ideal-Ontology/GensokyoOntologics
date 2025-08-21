@@ -8,7 +8,7 @@ import org.jetbrains.annotations.NotNull;
 public class GSKOBlockTab extends ItemGroup {
     public static final GSKOBlockTab GSKO_BLOCK_TAB = new GSKOBlockTab();
     public GSKOBlockTab() {
-        super("gensokyoontology_block");
+        super("gensokyoontology.block");
     }
 
     @Override

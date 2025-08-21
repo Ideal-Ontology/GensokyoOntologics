@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
+import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiCombatGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiTargetGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiTimerGoal;
 import github.thelawf.gensokyoontology.common.entity.combat.BossBattle;
@@ -23,9 +24,10 @@ public class RumiaEntity extends YoukaiEntity{
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
 
-        this.goalSelector.addGoal(3, new YoukaiTargetGoal<>(this, BossBattle.WALL_SHOOT_RUMIA, 1, 1, 1000));
-        this.goalSelector.addGoal(3, new YoukaiTimerGoal<>(this, BossBattle.DARK_BORDER_LINE, 1, 2, 1000));
-        this.goalSelector.addGoal(3, new YoukaiTargetGoal<>(this, BossBattle.DARK_SPHERE, 1, 3, 1000));
+        this.goalSelector.addGoal(3, new YoukaiTargetGoal<>(this, BossBattle.WALL_SHOOT_RUMIA, 1, 1, 800));
+        this.goalSelector.addGoal(3, new YoukaiTimerGoal<>(this, BossBattle.DARK_BORDER_LINE, 1, 2, 800));
+        this.goalSelector.addGoal(3, new YoukaiTargetGoal<>(this, BossBattle.DARK_SPHERE, 1, 3, 800));
+        this.goalSelector.addGoal(4, new YoukaiCombatGoal<>(this, BossBattle.BLANK_PHASE, 1, 4, 100));
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
         this.goalSelector.addGoal(6, new LookAtGoal(this, PlayerEntity.class, 0.8f));
@@ -39,7 +41,7 @@ public class RumiaEntity extends YoukaiEntity{
 
     @Override
     public int[] getMaxPhases() {
-        return new int[]{3};
+        return new int[]{4};
     }
 
     @Override

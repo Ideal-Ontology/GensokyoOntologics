@@ -48,6 +48,11 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
         return ActionResultType.SUCCESS;
     }
 
+    @SuppressWarnings("deprecation")
+    @Override
+    public void onBlockClicked(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
+        super.onBlockClicked(state, worldIn, pos, player);
+    }
 
     @Nullable
     @Deprecated
