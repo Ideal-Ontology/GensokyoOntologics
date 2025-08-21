@@ -37,7 +37,7 @@ public class DanmakuItem extends Item {
         int l3 = this.tryApplyEnchant(EnchantRegistry.SPHERE_SHAPE.get(), worldIn, playerIn, stack, size);
 
         if (l1 == 0 && l2 == 0 && l3 == 0) {
-            Danmaku.create(worldIn, playerIn, stack)
+            Danmaku.create(worldIn, playerIn, this)
                     .size(size)
                     .shoot(playerIn.getLookVec(), 0.55F);
         }
@@ -54,6 +54,7 @@ public class DanmakuItem extends Item {
         Map<Enchantment, Actions.DanmakuEnchant> map = new HashMap<>();
         map.put(EnchantRegistry.CURVED_SHAPE.get(),  (enchantment, stack, worldIn, playerIn, size) -> {
             int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
+            if (level > 0) return level;
             DanmakuUtil.oddCurveVec(playerIn, level, 180 / level).forEach(shoot -> {
                 Danmaku.create(worldIn, playerIn, stack)
                         .size(size)
@@ -64,6 +65,7 @@ public class DanmakuItem extends Item {
 
         map.put(EnchantRegistry.CIRCLE_SHAPE.get(),  (enchantment, stack, worldIn, playerIn, size) -> {
             int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
+            if (level > 0) return level;
             DanmakuUtil.ellipticPos(1F, level).forEach(shoot -> {
                 Danmaku.create(worldIn, playerIn, stack)
                         .size(size)
@@ -74,6 +76,7 @@ public class DanmakuItem extends Item {
 
         map.put(EnchantRegistry.SPHERE_SHAPE.get(), (enchantment, stack, worldIn, playerIn, size) -> {
             int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
+            if (level > 0) return level;
             DanmakuUtil.spheroidPos(1F, level).forEach(shoot -> {
                 Danmaku.create(worldIn, playerIn, stack)
                         .size(size)
