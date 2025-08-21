@@ -3,7 +3,6 @@ package github.thelawf.gensokyoontology.common.entity.combat;
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuPool;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -246,27 +245,6 @@ public abstract class AbstractSpellCardEntity extends AffiliatedEntity implement
         Constructor<D> constructor = danmakuClass.getDeclaredConstructor(LivingEntity.class, World.class, DanmakuType.class, DanmakuColor.class);
         return constructor.newInstance(danmaku.getShooter(), danmaku.world,
                 danmaku.getDanmakuType(), danmaku.getDanmakuColor());
-    }
-
-    protected <D extends AbstractDanmakuEntity> DanmakuPool<D> newDanmakuPool(D danmaku, Class<D> danmakuClass, int count) throws NoSuchMethodException, InvocationTargetException, InstantiationException, IllegalAccessException {
-        DanmakuPool<D> danmakuPool = new DanmakuPool<>();
-        for (int i = 0; i < count; i++) {
-            Constructor<D> constructor = danmakuClass.getDeclaredConstructor(LivingEntity.class, World.class, DanmakuType.class, DanmakuColor.class);
-            danmakuPool.add(constructor.newInstance(danmaku.getShooter(), danmaku.world,
-                    danmaku.getDanmakuType(), danmaku.getDanmakuColor()));
-        }
-        return danmakuPool;
-    }
-
-    public <D extends AbstractDanmakuEntity> D acquire(Deque<D> deque, Vector3d positionVec, Vector2f rotationVec) {
-        D entity = deque.pollFirst();
-        if (entity != null) {
-            entity.setNoGravity(true);
-            entity.setLocationAndAngles(positionVec.x, positionVec.y, positionVec.z, rotationVec.x, rotationVec.y);
-            return entity;
-        } else {
-            return null;
-        }
     }
 
     protected CompoundNBT initColor(DanmakuColor colorIn) {

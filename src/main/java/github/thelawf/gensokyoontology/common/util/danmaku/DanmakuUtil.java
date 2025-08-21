@@ -21,74 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DanmakuUtil {
-    public static <D extends AbstractDanmakuEntity> void shootDanmaku(@NotNull World worldIn, PlayerEntity playerIn,
-                                                                      D danmakuEntityType, float velocity, float inaccuracy) {
-        Vector3d lookVec = playerIn.getLookVec();
-
-        danmakuEntityType.setNoGravity(true);
-        danmakuEntityType.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight(), playerIn.getPosZ(),
-                (float) lookVec.y, (float) lookVec.z);
-        danmakuEntityType.shoot(lookVec.x, lookVec.y, lookVec.z, velocity, inaccuracy);
-        worldIn.addEntity(danmakuEntityType);
-    }
-
-    public static void createAndShoot(@NotNull World worldIn, LivingEntity living, DanmakuItem danmakuItem,
-                                      float velocity, float inaccuracy) {
-        Vector3d lookVec = living.getLookVec();
-        Danmaku danmaku = Danmaku.create(worldIn, living, danmakuItem);
-        danmaku.setNoGravity(true);
-        danmaku.setLocationAndAngles(living.getPosX(), living.getPosY() + living.getEyeHeight(), living.getPosZ(),
-                (float) lookVec.y, (float) lookVec.z);
-        danmaku.shoot(lookVec.x, lookVec.y, lookVec.z, velocity, inaccuracy);
-    }
-
-    public static <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d globalPos, Vector2f rotation, boolean noGravity) {
-        danmaku.setNoGravity(noGravity);
-        danmaku.setLocationAndAngles(globalPos.getX(), globalPos.getY(), globalPos.getZ(),
-                rotation.x, rotation.y);
-    }
-    public static <D extends AbstractDanmakuEntity> void initDanmaku(D danmaku, Vector3d globalPos, boolean noGravity) {
-        danmaku.setNoGravity(noGravity);
-        danmaku.setLocationAndAngles(globalPos.getX(), globalPos.getY(), globalPos.getZ(),
-                Vector2f.ZERO.x, Vector2f.ZERO.y);
-    }
-
-    public static void init(Danmaku danmaku, Vector3d globalPos, Rot2f rotation, boolean noGravity) {
-        danmaku.disableGravity().pos(globalPos).rot(rotation);
-    }
-
-    public static void applyOperation(ArrayList<VectorOperations> operations, TransformFunction function, Vector3d prevVec) {
-        // operations.forEachAct(operation -> getTransform(operation, function, prevVec));
-    }
-
-    public static Vector3d getTransform(VectorOperations operation, TransformFunction function, Vector3d prevVec) {
-        if (function.scaling > 0F) {
-            if (operation == VectorOperations.ROTATE_YAW) {
-                return prevVec.rotateYaw(function.scaling);
-            } else if (operation == VectorOperations.ROTATE_ROLL) {
-                return prevVec.rotateRoll(function.scaling);
-            } else if (operation == VectorOperations.ROTATE_PITCH) {
-                return prevVec.rotatePitch(function.scaling);
-            } else if (operation == VectorOperations.VECTOR_SCALE) {
-                return prevVec.scale(function.scaling);
-            }
-        } else if (function.acceleration != null) {
-            if (operation == VectorOperations.VECTOR_ADD) {
-                return prevVec.add(function.acceleration);
-            } else if (operation == VectorOperations.VECTOR_SUBTRACT) {
-                return prevVec.subtract(function.acceleration);
-            }
-        } else if (operation == VectorOperations.ARCHIMEDE_SPIRAL) {
-            return getArchimedeSpiral(prevVec, 1.0f, Math.PI);
-        }
-
-        return prevVec;
-    }
-
-    public static Vector3d getArchimedeSpiral(Vector3d prevVec, double radius, double angle) {
-        return new Vector3d(prevVec.x * radius * Math.cos(angle),
-                prevVec.y, prevVec.z * radius * Math.signum(angle));
-    }
 
     public static List<Item> getAllDanmakuItem() {
         List<Item> danmakuItems = new ArrayList<>();
@@ -170,14 +102,6 @@ public class DanmakuUtil {
         }
 
         return vectors;
-    }
-
-
-    public static <D extends AbstractDanmakuEntity> void shootWithRoseLine(D danmaku, Plane planeIn, Vector3d offsetRotation,
-                                                                           double radius, double count, double size, int density) {
-        // List<Vector3d> roseLinePos = getRoseLinePos(radius, count, size, density);
-        // List<Vector2f> shootVectors = new ArrayList<>();
-        // roseLinePos.forEachAct(vector3d -> shootVectors.add(GSKOMathUtil.getEulerAngle(new Vector3d(Vector3f.ZP), vector3d)));
     }
 
     /**
@@ -288,6 +212,33 @@ public class DanmakuUtil {
         return coordinates;
     }
 
+    public static List<Vector3d> ellipticPos(double radius, int count) {
+        ArrayList<Vector3d> coordinates = new ArrayList<>();
+        Vector2f center = new Vector2f(0, 0);
+        double angleInterval = 2 * Math.PI / count;
+        for (int i = 0; i < count; i++) {
+            double angle = i * angleInterval;
+            double x = center.x + radius * Math.cos(angle);
+            double y = center.y + radius * Math.sin(angle);
+            coordinates.add(new Vector3d(x, 0, y));
+        }
+        return coordinates;
+    }
+
+    public static List<Vector3d> ellipticVeritcal(double radius, int count) {
+        ArrayList<Vector3d> coordinates = new ArrayList<>();
+        Vector2f center = new Vector2f(0, 0);
+        double angleInterval = 2 * Math.PI / count;
+        for (int i = 0; i < count; i++) {
+            double angle = i * angleInterval;
+            double x = center.x + radius * Math.cos(angle);
+            double y = center.y + radius * Math.sin(angle);
+            coordinates.add(new Vector3d(x, y, 0));
+        }
+        return coordinates;
+    }
+
+
     public static List<Vector3d> ellipticPos(Vector2f center, double radius, int count) {
         ArrayList<Vector3d> coordinates = new ArrayList<>();
         // 定义生成坐标的数量
@@ -329,30 +280,9 @@ public class DanmakuUtil {
             danmaku.shoot(rightVec, speed);
             danmaku.shoot(leftVec, speed);
             danmaku.world.addEntity(danmaku);
-
         }
     }
 
-    public static void wallShoot(Danmaku danmaku, Vector3d aimedVec, float angleDeg, int widthIndex, int heightIndex, float speed){
-        if (heightIndex % 2 == 0){
-            int i = (heightIndex - 2) / 2;
-            curveShoot(danmaku, aimedVec.rotatePitch(angleDeg / 2), angleDeg, widthIndex, speed);
-            curveShoot(danmaku, aimedVec.rotatePitch(-angleDeg / 2), angleDeg, widthIndex, speed);
-            applyLR(danmaku, aimedVec, angleDeg, widthIndex, speed, i);
-        }
-        else {
-            int i = (heightIndex - 1) / 2;
-            curveShoot(danmaku, aimedVec, angleDeg, widthIndex, speed);
-            applyLR(danmaku, aimedVec, angleDeg, widthIndex, speed, i);
-        }
-    }
-
-    private static void applyLR(Danmaku danmaku, Vector3d aimedVec, float angleDeg, int widthIndex, float speed, int i) {
-        Vector3d rightVec = aimedVec.rotatePitch(Danmaku.rad(angleDeg) * i + (angleDeg / 2));
-        Vector3d leftVec = aimedVec.rotatePitch(-Danmaku.rad(angleDeg) * i - (angleDeg / 2));
-        curveShoot(danmaku, rightVec,angleDeg, widthIndex, speed);
-        curveShoot(danmaku, leftVec, angleDeg, widthIndex, speed);
-    }
 
 
     public static List<Item> getRainbowColoredDanmaku() {

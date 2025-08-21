@@ -185,17 +185,11 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
     private void aimedShot(LivingEntity target) {
         Vector3d direction = new Vector3d(target.getPosX() - this.getPosX(), target.getPosY() - this.getPosY(), target.getPosZ() - this.getPosZ());
         // SmallShotEntity smallShot = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
-        Danmaku danmaku = randomSelect();
-        DanmakuUtil.init(danmaku, this.getPositionVec().add(0,1,0), Rot2f.ZERO, true);
-        danmaku.shoot(direction.x, direction.y, direction.z, 0.7f, 0f);
-        this.world.addEntity(danmaku);
+        this.randomSelect().pos(this.getPositionVec().add(0, 1, 0)).shoot(direction, 0.5f);
     }
 
     private void applyShoot(Vector3d pos, Vector3d shootVec) {
-        Danmaku danmaku = randomSelect();
-        DanmakuUtil.init(danmaku, pos, Rot2f.from(shootVec), true);
-        danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, 0.7f, 0f);
-        this.world.addEntity(danmaku);
+        this.randomSelect().pos(pos).shoot(shootVec, 0.6f);
     }
 
     private void oddCurveShoot(LivingEntity target) {
@@ -212,10 +206,7 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
     private void spiralShot() {
         for (int i = 1; i < 5; i++) {
             Vector3d shootVec = new Vector3d(Vector3f.XP).rotateYaw(Danmaku.rad(5) * ticksExisted * i);
-            Danmaku danmaku = randomSelect();
-            DanmakuUtil.init(danmaku, this.getPositionVec().add(0,1,0), Rot2f.ZERO, true);
-            danmaku.shoot(shootVec.x, shootVec.y, shootVec.z, 0.7f, 0f);
-            world.addEntity(danmaku);
+            this.randomSelect().pos(this.getPositionVec()).shoot(shootVec, 0.6f);
         }
 
     }
@@ -224,10 +215,9 @@ public class FairyEntity extends RetreatableEntity implements IFlyingAnimal {
         List<Vector3d> coordinates = DanmakuUtil.spheroidPos(1, 12);
         coordinates.forEach(vector3d -> {
             // SmallShotEntity danmaku = new SmallShotEntity(this.getOwner(), world, DanmakuType.LARGE_SHOT, DanmakuColor.RED);
-            Danmaku danmaku = randomSelect();
-            DanmakuUtil.init(danmaku, this.getPositionVec().add(vector3d.x, 1.2, vector3d.z), Rot2f.ZERO, true);
-            danmaku.shoot(vector3d.x, vector3d.y, vector3d.z, 0.7f, 0f);
-            world.addEntity(danmaku);
+            this.randomSelect()
+                    .pos(this.getPositionVec().add(vector3d.x, 1.2, vector3d.z))
+                    .shoot(vector3d, 0.6F);
         });
     }
 

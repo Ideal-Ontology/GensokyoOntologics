@@ -40,6 +40,10 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * 抽象弹幕类，用于处理所有继承于该类的弹幕实体的那些相似的逻辑，包含如下几个方面：<br>
@@ -66,6 +70,8 @@ public class Danmaku extends ProjectileItemEntity{
     // public static final EntityDataAccessor<ClosureExpression> DATA_SPELL = SynchedEntityData.defineId(
     //         Danmaku.class, GSKOSerializers.EXP_SERIALIZER.get());
     public Map<String, IExpressionType> varMap = new HashMap<>();
+    public Consumer<EntityRayTraceResult> onHit;
+    public Consumer<Danmaku> onTick;
 
     // private Danmaku(World world, Item danmakuItem, ClosureExpression behavior) {
     //     this(EntityRegistry.DANMAKU.get(), world);
@@ -181,6 +187,16 @@ public class Danmaku extends ProjectileItemEntity{
         return this;
     }
 
+    public Danmaku onHit(Consumer<EntityRayTraceResult> onHit) {
+        this.onHit = onHit;
+        return this;
+    }
+
+    public Danmaku onTick(Consumer<Danmaku> onTick) {
+        this.onTick = onTick;
+        return this;
+    }
+
     public int getLifespan() {
         return this.dataManager.get(DATA_LIFESPAN);
     }
@@ -190,6 +206,8 @@ public class Danmaku extends ProjectileItemEntity{
         super.tick();
         if (this.world.isRemote) return;
         if (this.ticksExisted >= this.lifespan) this.remove();
+        if (this.onTick != null) this.onTick.accept(this);
+
 
         // if (this.getDefaultItem() != ItemRegistry.DANMAKU_SHOT.get()) this.onBehaviorTick();
     }
@@ -297,6 +315,7 @@ public class Danmaku extends ProjectileItemEntity{
 
     @Override
     protected void onEntityHit(EntityRayTraceResult result) {
+        if (this.onHit != null) this.onHit.accept(result);
         this.onLunarCollide(result);
         if (this.getShooter() instanceof MobEntity || this.getShooter() instanceof IAngerable)
             this.onMobShoot(result);

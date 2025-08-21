@@ -7,7 +7,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class YoukaiTimerGoal<Y extends YoukaiEntity> extends YoukaiBattlePhaseGoal<Y> {
     protected final YoukaiCombat.TimerAction<Y> action;
-    private AtomicInteger timer = new AtomicInteger(0);
+    private final AtomicInteger timer = new AtomicInteger(0);
     public YoukaiTimerGoal(Y youkai, YoukaiCombat.TimerAction<Y> action, int mainPhase, int subPhase, int maxTicks) {
         super(youkai, mainPhase, subPhase, maxTicks);
         this.action = action;

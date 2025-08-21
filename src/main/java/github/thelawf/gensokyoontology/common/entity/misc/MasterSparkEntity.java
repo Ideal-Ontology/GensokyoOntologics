@@ -41,7 +41,8 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceRead
         if (world.isRemote) return;
         ServerWorld serverWorld = (ServerWorld) world;
         List<Entity> entities = rayTrace(serverWorld, this, DISTANCE, new Vector3d(0,0,0));
-        List<Vector3d> startList = DanmakuUtil.spheroidPos(1.5, 10);
+        List<Vector3d> startList = DanmakuUtil.ellipticPos(1.5, 10);
+        startList.addAll(DanmakuUtil.ellipticPos(2.5, 10));
 
         startList.forEach(vector3d -> entities.addAll(rayTrace(serverWorld, this, DISTANCE, vector3d)));
         Predicate<Entity> canAttack = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() != this.getOwnerID().get();

@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
+import cpw.mods.modlauncher.api.LamdbaExceptionUtils;
 import github.thelawf.gensokyoontology.common.entity.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
@@ -11,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
@@ -82,21 +84,12 @@ public class MobiusRingEntity extends AbstractSpellCardEntity {
     private void createMobius(Vector3d horizonVec, Vector3d verticalVec, List<Item> colors, float velocity) {
         for (int i = 0; i < colors.size(); i++) {
 
-            /*
-             * 这里的操作是不是意味着：
-             * 设verticalVec 为 V，俯仰角为θ，偏航角为φ
-             * 俯仰角旋转操作等同于 V(x, y * cos(θ) + z * sin(θ), z * cos(θ) - y * sin(θ))
-             * 偏航角旋转操作等同于 V(x * cos(φ) + z * sin(φ), y, z1 * cos(φ) - x * sin(φ))
-             * 整体的旋转操作等同于 V(x * cos(φ) + z * sin(φ), y, (z * cos(θ) - y * sin(θ) * cos(φ)) - x * sin(φ))
-             */
             verticalVec = verticalVec.rotatePitch((float) Math.PI / colors.size() * i);
             verticalVec = verticalVec.rotateYaw((float) Math.PI / 80 * 2 * ticksExisted);
 
-            Danmaku smallShot = Danmaku.create(this.world, (LivingEntity) this.getOwner(), colors.get(i))
-                    .pos(horizonVec.add(this.getPositionVec()));
-            smallShot.shoot((float) verticalVec.getX(), (float) verticalVec.getY(), (float) verticalVec.getZ(), velocity, 0f);
-
-            world.addEntity(smallShot);
+            Danmaku.create(this.world, (LivingEntity) this.getOwner(), colors.get(i))
+                    .pos(horizonVec.add(this.getPositionVec()))
+                    .shoot(verticalVec, velocity);
         }
     }
 

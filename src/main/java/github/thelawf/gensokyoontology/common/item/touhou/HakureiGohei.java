@@ -65,8 +65,8 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
             switch(getMode(stack.getTag())) {
                 default:
                 case DANMAKU:
-                    InYoJadeDanmakuEntity inYoJade = new InYoJadeDanmakuEntity(worldIn, playerIn);
-                    DanmakuUtil.shootDanmaku(worldIn, playerIn, inYoJade, 1F, 0F);
+//                    InYoJadeDanmakuEntity inYoJade = new InYoJadeDanmakuEntity(worldIn, playerIn);
+//                    DanmakuUtil.shootDanmaku(worldIn, playerIn, inYoJade, 1F, 0F);
                     break;
                 case DREAM_SEAL:
                     this.fireDreamSeal(worldIn, playerIn);

@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.GSKOBossGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.LaserSpiralGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiCombatGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiTargetGoal;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.combat.BossBattle;
 import github.thelawf.gensokyoontology.common.entity.combat.spell.RemiliaSpellAttack;
@@ -32,8 +33,9 @@ public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 0.4, true));
         this.goalSelector.addGoal(3, new YoukaiCombatGoal<>(this, BossBattle.THOUSAND_KNIVES, 1, 1, 1000));
+        this.goalSelector.addGoal(3, new YoukaiTargetGoal<>(this, BossBattle.CROSS_SHOTS, 1, 2, 1000));
         // this.goalSelector.addGoal(3, new LaserSpiralGoal(this, new GSKOBossGoal.Stage(GSKOBossGoal.Type.NON_SPELL, 500, false)));
 
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
@@ -48,7 +50,7 @@ public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser
 
     @Override
     public int[] getMaxPhases() {
-        return new int[]{3};
+        return super.getMaxPhases();
     }
 
     @Override
