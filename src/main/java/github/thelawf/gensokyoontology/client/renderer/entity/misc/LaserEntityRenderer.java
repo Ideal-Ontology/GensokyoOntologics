@@ -44,6 +44,42 @@ public class LaserEntityRenderer extends EntityRenderer<Laser> {
         return LASER_SOURCE_TEX;
     }
 
+    @Override
+    @SuppressWarnings("deprecation")
+    public void render(@NotNull Laser entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int packedLightIn) {
+        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+
+        // TODO: 实现激光源头的贴图渲染
+        TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(LASER_SOURCE_TEX);
+        IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
+        IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
+        float length = entityIn.getRange();
+        matrixStackIn.push();
+        matrixStackIn.translate(0.0D, entityIn.getEyeHeight(), 0.0D);
+        Vector3d vector3d2 = entityIn.getLookVec();
+        GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, vector3d2.scale(-1));
+
+        if (entityIn.ticksExisted <= entityIn.getPreparation()) {
+            drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+                    length, 1.0f, 1.0F, 1.0F, 0.7F, 0.02f);
+            matrixStackIn.pop();
+            return;
+        }
+
+        drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+                length, red(entityIn), green(entityIn), blue(entityIn), alpha(entityIn), 0.15f);
+        drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
+                length, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f);
+
+        matrixStackIn.pop();
+
+    }
+
+
+    @Override
+    public boolean shouldRender(Laser livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
+        return super.shouldRender(livingEntityIn, camera, camX, camY, camZ);
+    }
 
     private static void drawSprite(IVertexBuilder builder, Matrix4f matrix4f, TextureAtlasSprite sprite) {
         builder.pos(matrix4f, 0,0,1).color(255, 255, 255, 255).tex(sprite.getMinU(), sprite.getMinV()).lightmap(0, 240).endVertex();
@@ -132,66 +168,29 @@ public class LaserEntityRenderer extends EntityRenderer<Laser> {
                 .endVertex();
     }
 
-    private void addVertices(MatrixStack matrixStack, IVertexBuilder builder, Vector3f start, Vector3f end, float red, float green, float blue, float alpha) {
 
+    private void draw(float f4, int j, int k, int l, float f19, float f20, float f21, float f22, float f29, float f30, IVertexBuilder ivertexbuilder, Matrix4f matrix4f, Matrix3f matrix3f) {
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f19, f4, f20, j, k, l, 0.4999F, f30);
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f19, 0.0F, f20, j, k, l, 0.4999F, f29);
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f21, 0.0F, f22, j, k, l, 0.0F, f29);
+        drawLaser(ivertexbuilder, matrix4f, matrix3f, f21, f4, f22, j, k, l, 0.0F, f30);
     }
 
-    @Override
-    @SuppressWarnings("deprecation")
-    public void render(@NotNull Laser entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int packedLightIn) {
-        super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-
-        // TODO: 实现激光源头的贴图渲染
-        TextureAtlasSprite sprite = Minecraft.getInstance().getAtlasSpriteGetter(AtlasTexture.LOCATION_BLOCKS_TEXTURE).apply(LASER_SOURCE_TEX);
-        IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
-        IVertexBuilder builder = buffer.getBuffer(GSKORenderTypes.LASER_LINE);
-        float length = entityIn.getRange(); // (float) new Vector3d(0, 1, 0).distanceTo(entityIn.getLookVec().scale(100));
-
-        // renderLaserUsingGardianLaser(entityIn, null, partialTicks, matrixStackIn, bufferIn, packedLightIn);
-
-        matrixStackIn.push();
-        matrixStackIn.translate(0.0D, entityIn.getEyeHeight(), 0.0D);
-        Vector3d vector3d2 = entityIn.getLookVec();
-        GSKOMathUtil.rotateMatrixToLookVec(matrixStackIn, vector3d2.scale(-1));
-
-        // float f5 = (float)Math.acos(vector3d2.y);
-        // float f6 = (float)Math.atan2(vector3d2.z, vector3d2.x);
-        // matrixStackIn.rotate(Vector3f.YP.rotationDegrees(((float)Math.PI / 2 - f6) * (180 / (float)Math.PI)));
-        // matrixStackIn.rotate(Vector3f.XP.rotationDegrees(f5 * (180 / (float)Math.PI)));
-
-        if (entityIn.ticksExisted <= entityIn.getPreparation()) {
-            drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
-                    length, 1.0f, 1.0F, 1.0F, 0.7F, 0.02f);
-            matrixStackIn.pop();
-            return;
-        }
-
-        // drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
-        //         length, 1.0f, 0F, 0F, 0.5F, 0.15f);
-
-        // GeometryUtil.renderIcosahedron(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
-        //         0.8f, 1.f, 0.f, 0.f, 0.7f);
-        // GeometryUtil.renderIcosahedron(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
-        //         0.75f, 1.f, 1.f, 1.f, 1f);
-
-        drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
-                length, red(entityIn), green(entityIn), blue(entityIn), alpha(entityIn), 0.15f);
-        drawLaser(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn,
-                length, 1.0f, 1.0f, 1.0f, 1.0f, 0.05f);
-
-        matrixStackIn.pop();
-
+    private float red(Laser entityIn) {
+        return (float) entityIn.getRed() / 255;
     }
 
-    private void toLookVec(MatrixStack matrixStack, Laser entityIn) {
-        Vector3d vector3d2 = entityIn.getLookVec();
-        float yaw = (float)Math.atan2(vector3d2.z, vector3d2.x);
-        float pitch = (float)Math.asin(vector3d2.y);
-
-        matrixStack.rotate(Vector3f.YP.rotation(yaw * (180f / (float) Math.PI)));
-        matrixStack.rotate(Vector3f.XP.rotation(-pitch * (180f / (float) Math.PI)));
+    private float green(Laser entityIn) {
+        return (float) entityIn.getGreen() / 255;
     }
 
+    private float blue(Laser entityIn) {
+        return (float) entityIn.getBlue() / 255;
+    }
+
+    private float alpha(Laser entityIn) {
+        return (float) entityIn.getAlpha() / 255;
+    }
 
     /** Render laser using Mojang's shit. <br>
      * Copy from {@link net.minecraft.client.renderer.entity.GuardianRenderer}. Mojang official uses these codes below only for rendering
@@ -212,8 +211,6 @@ public class LaserEntityRenderer extends EntityRenderer<Laser> {
         matrixStackIn.translate(0.0D, eyeHeight, 0.0D);
         Vector3d vector3d = entityIn.getPositionVec();
 
-        // RenderType.getLightning().getVertexFormat()
-        // Using this.getPosition(entityIn, eyeHeight, partialTicks);
         Vector3d vector3d1 = entityIn.getLookVec().scale(entityIn.getRange());
         float f4 = (float)(vector3d1.length() + 1.0D);
 
@@ -227,12 +224,6 @@ public class LaserEntityRenderer extends EntityRenderer<Laser> {
         float f7 = f1 * 0.05F * -1.5F;
         float f8 = scale * scale;
 
-        // 这里是获取渲染颜色数值
-        // int j = 64 + (int)(f8 * 191.0F); // Red: 111.75 -> 111
-        // int k = 32 + (int)(f8 * 191.0F); // Green: 79.75 -> 79
-        // int l = 128 - (int)(f8 * 64.0F); // Blue: 80.25 -> 80
-
-        // entityIn.setARGB(0xFFFF0000);
         int j = 255;
         int k = 255;
         int l = 255;
@@ -265,21 +256,12 @@ public class LaserEntityRenderer extends EntityRenderer<Laser> {
         Matrix4f matrix4f = matrixstack$entry.getMatrix();
         Matrix3f matrix3f = matrixstack$entry.getNormal();
 
-        // draw(f4, j, k, l, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
-        // draw(f4, j, k, l, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
-
         draw(f4, r, g, b, f19, f20, f21, f22, f29, f30, ivertexbuilder, matrix4f, matrix3f);
         draw(f4, r, g, b, f23, f24, f25, f26, f29, f30, ivertexbuilder, matrix4f, matrix3f);
         float f31 = 0.0F;
         if (entityIn.ticksExisted % 2 == 0) {
             f31 = 0.5F;
         }
-
-        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, j, k, l, 0.5F, f31 + 0.5F);
-        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, j, k, l, 1.0F, f31 + 0.5F);
-        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, j, k, l, 1.0F, f31);
-        // drawLaser(ivertexbuilder, matrix4f, matrix3f, f15, f4, f16, j, k, l, 0.5F, f31);
-
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f11, f4, f12, r, g, b, 0.5F, f31 + 0.5F);
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f13, f4, f14, r, g, b, 1.0F, f31 + 0.5F);
         drawLaser(ivertexbuilder, matrix4f, matrix3f, f17, f4, f18, r, g, b, 1.0F, f31);
@@ -287,35 +269,4 @@ public class LaserEntityRenderer extends EntityRenderer<Laser> {
         matrixStackIn.pop();
     }
 
-    @Override
-    public boolean shouldRender(Laser livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
-        return super.shouldRender(livingEntityIn, camera, camX, camY, camZ);
-    }
-
-    private void draw(float f4, int j, int k, int l, float f19, float f20, float f21, float f22, float f29, float f30, IVertexBuilder ivertexbuilder, Matrix4f matrix4f, Matrix3f matrix3f) {
-        drawLaser(ivertexbuilder, matrix4f, matrix3f, f19, f4, f20, j, k, l, 0.4999F, f30);
-        drawLaser(ivertexbuilder, matrix4f, matrix3f, f19, 0.0F, f20, j, k, l, 0.4999F, f29);
-        drawLaser(ivertexbuilder, matrix4f, matrix3f, f21, 0.0F, f22, j, k, l, 0.0F, f29);
-        drawLaser(ivertexbuilder, matrix4f, matrix3f, f21, f4, f22, j, k, l, 0.0F, f30);
-    }
-
-    private Vector3f toVec3f(Vector3d v3d) {
-        return new Vector3f((float) v3d.x, (float) v3d.y, (float) v3d.z);
-    }
-
-    private float red(Laser entityIn) {
-        return (float) entityIn.getRed() / 255;
-    }
-
-    private float green(Laser entityIn) {
-        return (float) entityIn.getGreen() / 255;
-    }
-
-    private float blue(Laser entityIn) {
-        return (float) entityIn.getBlue() / 255;
-    }
-
-    private float alpha(Laser entityIn) {
-        return (float) entityIn.getAlpha() / 255;
-    }
 }

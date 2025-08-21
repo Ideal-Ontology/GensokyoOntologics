@@ -46,6 +46,7 @@ public class Laser extends AffiliatedEntity implements IRayTraceReader {
 
     public static Laser create(World worldIn, Entity owner) {
         Laser laser = new Laser(worldIn, owner);
+        laser.setPosition(owner.getPosX(), owner.getPosY(), owner.getPosZ());
         worldIn.addEntity(laser);
         return laser;
     }

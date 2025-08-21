@@ -45,7 +45,7 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
 
         Laser laserSource = new Laser(worldIn, playerIn);
         laserSource.init(200, 40, 85);
-        laserSource.setARGB(0x88FF0000);
+        laserSource.setARGB(0x8800FF00);
         // lasers(worldIn, playerIn);
 
         laserSource.setLocationAndAngles(playerIn.getPosX(), playerIn.getPosY() + playerIn.getEyeHeight() * 0.5,

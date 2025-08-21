@@ -47,22 +47,22 @@ public class RemiliaBattle {
     public static final YoukaiCombat.SkillAction<RemiliaScarletEntity> PETTY_DEVIL_LORD = (world, remilia) -> {
         if (remilia.getAttackTarget() == null) return;
         if (remilia.ticksExisted % 400 == 0) {
-            DanmakuUtil.spheroidPos(1F, 15).forEach(laserVec -> {
+            DanmakuUtil.spheroidPos(1F, 5).forEach(laserVec -> {
                 Laser.create(world, remilia).rot(Rot2f.from(laserVec));
                 Laser.create(world, remilia).rot(Rot2f.from(laserVec.scale(2F).rotateYaw(Danmaku.rad(30))));
                 Laser.create(world, remilia).rot(Rot2f.from(laserVec.scale(2F).rotateYaw(Danmaku.rad(-30))));
             });
         }
 
-        if (remilia.ticksExisted % 40 == 20) {
+        if (remilia.ticksExisted % 60 == 30) {
             DanmakuUtil.spheroidPos(1F, 12).forEach(laserVec -> {
                 Danmaku.create(world, remilia, ItemRegistry.LARGE_SHOT_PURPLE.get())
                         .shoot(laserVec, 0.5F);
             });
         }
-        if (remilia.ticksExisted % 40 == 0) {
+        if (remilia.ticksExisted % 60 == 0) {
             DanmakuUtil.spheroidPos(1F, 12).forEach(laserVec -> {
-                Danmaku.create(world, remilia, ItemRegistry.LARGE_SHOT_PURPLE.get())
+                Danmaku.create(world, remilia, ItemRegistry.LARGE_SHOT_AQUA.get())
                         .shoot(laserVec.rotateYaw(Danmaku.rad(15)), 0.5F);
             });
         }

@@ -59,12 +59,12 @@ public final class ItemRegistry {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(
             ForgeRegistries.ITEMS, GensokyoOntology.MODID);
 
-    public static final RegistryObject<Item> TREFOIL_KNOT_FRAME = ITEMS.register(
-            "trefoil_knot_frame", () -> new BlockItem(BlockRegistry.TREFOIL_KNOT_FRAME.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<Item> TREFOIL_KNOT_CORE = ITEMS.register(
-            "trefoil_knot_core", () -> new BlockItem(BlockRegistry.TREFOIL_KNOT_FRAME.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+//    public static final RegistryObject<Item> TREFOIL_KNOT_FRAME = ITEMS.register(
+//            "trefoil_knot_frame", () -> new BlockItem(BlockRegistry.TREFOIL_KNOT_FRAME.get(),
+//                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+//    public static final RegistryObject<Item> TREFOIL_KNOT_CORE = ITEMS.register(
+//            "trefoil_knot_core", () -> new BlockItem(BlockRegistry.TREFOIL_KNOT_FRAME.get(),
+//                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     // ======================= GSKO杂项：装饰类方块 ==========================//
     // --------------------------- 泥土石头类方块：----------------------------//
@@ -193,9 +193,9 @@ public final class ItemRegistry {
             "maple_pressure_plate", () -> new BlockItem(BlockRegistry.MAPLE_PRESSURE_PLATE.get(),
                     new Item.Properties().group(ItemGroup.REDSTONE)));
 
-    public static final RegistryObject<BlockItem> MAGIC_SAPLING_ITEM = ITEMS.register(
-            "magic_sapling", () -> new BlockItem(BlockRegistry.MAGIC_SAPLING.get(),
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+//    public static final RegistryObject<BlockItem> MAGIC_SAPLING_ITEM = ITEMS.register(
+//            "magic_sapling", () -> new BlockItem(BlockRegistry.MAGIC_SAPLING.get(),
+//                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<BlockItem> MAGIC_LEAVES_ITEM = ITEMS.register(
             "magic_leaves", () -> new BlockItem(BlockRegistry.MAGIC_LEAVES.get(),
                     new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -364,9 +364,9 @@ public final class ItemRegistry {
     public static final RegistryObject<KoishiEyeClosed> KOISHI_EYE_CLOSED = ITEMS.register(
             "koishi_eye_closed", () -> new KoishiEyeClosed(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<ArmorItem> KOISHI_HAT = ITEMS.register(
-            "koishi_hat", () -> new KoishiHatArmorItem(GSKOArmorMaterial.JADE, EquipmentSlotType.HEAD,
-                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+//    public static final RegistryObject<ArmorItem> KOISHI_HAT = ITEMS.register(
+//            "koishi_hat", () -> new KoishiHatArmorItem(GSKOArmorMaterial.JADE, EquipmentSlotType.HEAD,
+//                    new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<SatoriEye> SATORI_EYE = ITEMS.register(
             "satori_eye", () -> new SatoriEye(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB)));
@@ -397,8 +397,8 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> EMERALD_COIN = ITEMS.register("emerald_coin", () -> new CoinItem(1000));
     public static final RegistryObject<Item> DIAMOND_COIN = ITEMS.register("diamond_coin", () -> new CoinItem(10000));
     public static final RegistryObject<Item> JADE_COIN = ITEMS.register("jade_coin", () -> new CoinItem(10_0000));
-    public static final RegistryObject<Item> STRAW_MAN = ITEMS.register("straw_man", () -> new Item(
-            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+//    public static final RegistryObject<Item> STRAW_MAN = ITEMS.register("straw_man", () -> new Item(
+//            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> BAT_SPECIMEN = ITEMS.register("bat_specimen", () -> new Item(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> CURSED_BAT_SPECIMEN = ITEMS.register("cursed_bat_specimen",
@@ -738,9 +738,9 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> JADE_BOOTS = ITEMS.register("jade_boots", () -> new ArmorItem(
             GSKOArmorMaterial.JADE, EquipmentSlotType.FEET, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> RAIL_WRENCH = ITEMS.register("rail_wrench", () -> new Item(
-            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+            new Item.Properties()));
     public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new Item(
-            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)) {
+            new Item.Properties()) {
         @Override
         public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
             World world = context.getWorld();
@@ -769,7 +769,7 @@ public final class ItemRegistry {
         }
     });
     public static final RegistryObject<BlockItem> COASTER_RAIL_ITEM = ITEMS.register("coaster_rail", () -> new BlockItem(
-            BlockRegistry.COASTER_RAIL.get(), new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB))
+            BlockRegistry.COASTER_RAIL.get(), new Item.Properties())
     {
         @Override
         public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
