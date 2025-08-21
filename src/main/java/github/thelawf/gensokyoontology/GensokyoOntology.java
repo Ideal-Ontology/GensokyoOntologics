@@ -10,6 +10,7 @@ import github.thelawf.gensokyoontology.client.particle.ParticleRegistry;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
 import github.thelawf.gensokyoontology.common.world.surface.GSKOSurfaceBuilders;
+import github.thelawf.gensokyoontology.core.EnchantRegistry;
 import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.SerializerRegistry;
@@ -66,6 +67,7 @@ public class GensokyoOntology {
         ItemRegistry.ITEMS.register(eventBus);
         FluidRegistry.FLUIDS.register(eventBus);
         BlockRegistry.BLOCKS.register(eventBus);
+        EnchantRegistry.ENCHANTS.register(eventBus);
         ParticleRegistry.PARTICLE_TYPES.register(eventBus);
         EffectRegistry.POTION_EFFECTS.register(eventBus);
         TileEntityRegistry.TILE_ENTITIES.register(eventBus);

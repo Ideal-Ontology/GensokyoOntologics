@@ -97,6 +97,19 @@ public class DanmakuUtil {
         return vectors;
     }
 
+    public static List<Vector3d> oddCurveVec(LivingEntity shooter, float count, int angleDeg) {
+        List<Vector3d> vectors = new ArrayList<>();
+        vectors.add(shooter.getLookVec());
+        for (int i = 1; i < (count - 1) / 2 + 1; i++) {
+            Vector3d rightVec = shooter.getLookVec().rotateYaw(Danmaku.rad(angleDeg) * i);
+            Vector3d leftVec = shooter.getLookVec().rotateYaw(-Danmaku.rad(angleDeg) * i);
+            vectors.add(leftVec);
+            vectors.add(rightVec);
+        }
+
+        return vectors;
+    }
+
     /**
      * 按照玫瑰线来初始化弹幕的位置和旋转
      *
