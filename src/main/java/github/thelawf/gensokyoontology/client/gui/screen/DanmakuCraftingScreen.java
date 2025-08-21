@@ -6,12 +6,14 @@ import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
@@ -24,7 +26,7 @@ import java.util.Map;
 public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContainer> {
 
     protected int centerX = 79;
-    protected int centerY = 32;
+    protected int centerY = 30;
     protected int jigsawU = 176;
     protected int jigsawV = 0;
     protected int jigsawX = 48;
@@ -33,6 +35,10 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
     protected int slotX = 176;
     protected int slotY = 80;
     protected int slotSize = 18;
+    protected int powerInfoX = 8;
+    protected int powerInfoY = 30;
+
+    protected float storedPower;
 
     public static final Map<Block, Vector2i> BLOCK_UV_OFFS = Util.make(() -> {
        Map<Block, Vector2i> map = new HashMap<>();
@@ -47,6 +53,9 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
 
        return map;
     });
+
+    public static final TranslationTextComponent POWER_INFO = GensokyoOntology.translate("gui.", ".power");
+
     public static final ResourceLocation DANMAKU_CRAFTING_TEXTURE = new ResourceLocation(
             GensokyoOntology.MODID, "textures/gui/danmaku_crafting.png"
     );
@@ -82,5 +91,17 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
                 this.blit(matrixStack, this.jigsawX + 16 * i, this.jigsawY + 16 * j, this.jigsawU + 16 * uv.x, this.jigsawV + 16 * uv.y, 16, 16);
             }
         }
+
+        drawCenteredString(matrixStack, this.font, POWER_INFO, this.powerInfoX, this.powerInfoY, 0xFFFFFF);
+        drawCenteredString(matrixStack, this.font, " × " + this.getStoredPower(),
+                POWER_INFO.getFormatArgs().length + this.powerInfoX, this.powerInfoY, 0xFFFFFF);
+    }
+
+    public void setStoredPower(float storedPower) {
+        this.storedPower = storedPower;
+    }
+
+    public float getStoredPower() {
+        return this.storedPower;
     }
 }

@@ -2,6 +2,8 @@ package github.thelawf.gensokyoontology.common.block;
 
 import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.SDanmakuTilePacket;
 import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.tileentity.ITileEntityGetter;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
@@ -36,6 +38,11 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
 
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        DanmakuTabelTileEntity tile = (DanmakuTabelTileEntity) worldIn.getTileEntity(pos);
+        if (tile != null) {
+            GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(tile.getPower()), player);
+        }
+
         if (worldIn.isRemote) {
             return ActionResultType.SUCCESS;
         }

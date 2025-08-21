@@ -132,6 +132,7 @@ public class DanmakuCraftingContainer extends Container {
         // this.updateCraftingResult();
     }
 
+
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {
             addSlot(new SlotItemHandler(handler, index, x, y));
