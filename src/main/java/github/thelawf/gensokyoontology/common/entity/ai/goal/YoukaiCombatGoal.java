@@ -19,4 +19,9 @@ public class YoukaiCombatGoal<Y extends YoukaiEntity> extends YoukaiBattlePhaseG
         super.tick();
         action.accept(youkai.world, youkai);
     }
+
+    @Override
+    public boolean shouldExecute() {
+        return super.shouldExecute();
+    }
 }

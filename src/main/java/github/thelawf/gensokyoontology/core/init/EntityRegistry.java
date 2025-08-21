@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.entity.Danmaku;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
 import github.thelawf.gensokyoontology.common.entity.RailRendererEntity;

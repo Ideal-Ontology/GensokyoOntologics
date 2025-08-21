@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.common.item;
 
-import github.thelawf.gensokyoontology.common.entity.Danmaku;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

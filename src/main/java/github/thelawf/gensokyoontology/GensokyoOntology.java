@@ -264,6 +264,7 @@ public class GensokyoOntology {
             event.put(EntityRegistry.CIRNO.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 200)
                     .createMutableAttribute(Attributes.ATTACK_DAMAGE, 12)
+                    .createMutableAttribute(Attributes.FOLLOW_RANGE, 30)
                     .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.6)
                     .createMutableAttribute(Attributes.ARMOR, 8)
                     .create());

@@ -1,31 +1,10 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
-import github.thelawf.gensokyoontology.common.entity.Danmaku;
-import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
-import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
-import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import net.minecraft.entity.EntityPredicate;
-import net.minecraft.entity.EntityType;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.projectile.ProjectileItemEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class DreamSealEntity extends Danmaku implements IRayTraceReader {
     public DreamSealEntity(World world, Item danmakuItem, LivingEntity owner) {

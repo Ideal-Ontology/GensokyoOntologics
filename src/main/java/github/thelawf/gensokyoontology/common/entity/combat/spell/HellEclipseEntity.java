@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
-import github.thelawf.gensokyoontology.common.entity.Danmaku;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;

@@ -1,21 +1,14 @@
 package github.thelawf.gensokyoontology.common.util.danmaku;
 
 import com.google.common.collect.Lists;
-import github.thelawf.gensokyoontology.common.entity.Danmaku;
-import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
-import github.thelawf.gensokyoontology.common.item.DanmakuItem;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.command.impl.WeatherCommand;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.world.World;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;

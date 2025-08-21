@@ -33,7 +33,7 @@ public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 0.4, true));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 0.8, true));
         this.goalSelector.addGoal(3, new YoukaiCombatGoal<>(this, BossBattle.THOUSAND_KNIVES, 1, 1, 1000));
         this.goalSelector.addGoal(3, new YoukaiTargetGoal<>(this, BossBattle.CROSS_SHOTS, 1, 2, 1000));
         // this.goalSelector.addGoal(3, new LaserSpiralGoal(this, new GSKOBossGoal.Stage(GSKOBossGoal.Type.NON_SPELL, 500, false)));

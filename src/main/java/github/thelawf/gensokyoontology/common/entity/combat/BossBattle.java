@@ -1,9 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.combat;
 
 import github.thelawf.gensokyoontology.api.entity.YoukaiCombat;
-import github.thelawf.gensokyoontology.common.entity.Danmaku;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
-import github.thelawf.gensokyoontology.common.entity.misc.LaevateinEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.*;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
@@ -14,7 +13,6 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
-import net.minecraft.potion.Potions;
 import net.minecraft.util.math.EntityRayTraceResult;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
@@ -22,10 +20,8 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.server.ServerWorld;
 import org.apache.commons.lang3.RandomUtils;
 
-import java.time.Duration;
 import java.util.List;
 import java.util.Random;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class BossBattle {
@@ -101,7 +97,7 @@ public class BossBattle {
 
     };
 
-    public static final YoukaiCombat.SkillAction<CirnoEntity> ICY_STORM = (world, youkai) -> {
+    public static final YoukaiCombat.TargetAction<CirnoEntity> ICY_STORM = (world, youkai, target) -> {
         if (youkai.ticksExisted % 11 != 0) return;
 
         Vector3d randPos = GSKOMathUtil.randomVec(-3, 3);
@@ -115,7 +111,8 @@ public class BossBattle {
     /** 案例：周期往复运动 */
     public static final YoukaiCombat.TimerAction<CirnoEntity> CRYSTAL_TUNNEL = (world, cirno, target, timer) -> {
         if (target == null) return;
-        boolean shouldTurnBack = cirno.ticksExisted % 50 >= 25;
+        if (cirno.ticksExisted % 2 != 0) return;
+        boolean shouldTurnBack = cirno.ticksExisted % 140 >= 70;
         int prev = timer.get();
         timer.set(shouldTurnBack ? --prev : ++prev);
         int increment = 5 * timer.get();
@@ -159,7 +156,7 @@ public class BossBattle {
     public static final YoukaiCombat.TargetAction<RemiliaScarletEntity> CROSS_SHOTS = (world, remilia, target) -> {
         if (target == null) return;
         if (remilia.ticksExisted % 10 != 0) return;
-        DanmakuUtil.oddCurveVec(remilia, target, 11, 33).forEach(shootVec -> {
+        DanmakuUtil.oddCurveVec(remilia, target, 13, 30).forEach(shootVec -> {
             Danmaku.create(world, remilia,  ItemRegistry.RICE_SHOT_RED.get())
                     .pos(remilia.getPositionVec().add(-1, 0, 0))
                     .rot(Rot2f.from(shootVec))
@@ -174,11 +171,11 @@ public class BossBattle {
     public static final YoukaiCombat.SkillAction<RemiliaScarletEntity> THOUSAND_KNIVES = (world, remilia) -> {
         if (remilia.getAttackTarget() == null) return;
         if (remilia.ticksExisted % 20 != 0) return;
-        DanmakuUtil.ellipticPos(Vector2f.ZERO, 1.2F, 8).forEach(initPos -> {
+        DanmakuUtil.ellipticPos(Vector2f.ZERO, 1.2F, 15).forEach(initPos -> {
             Vector3d shootA = initPos.rotateYaw(Danmaku.rad(5)).normalize();
             Vector3d shootB = initPos.rotateYaw(Danmaku.rad(-5)).normalize();
 
-            for (int i = -2; i < 2; i++) {
+            for (int i = -1; i < 4; i++) {
                 Danmaku.create(world, remilia, ItemRegistry.KNIFE_RED.get())
                         .pos(remilia.getPositionVec().add(initPos).add(0, i, 0))
                         .rot(Rot2f.from(shootA))

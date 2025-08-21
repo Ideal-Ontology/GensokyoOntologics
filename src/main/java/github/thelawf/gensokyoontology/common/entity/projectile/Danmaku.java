@@ -1,11 +1,9 @@
-package github.thelawf.gensokyoontology.common.entity;
+package github.thelawf.gensokyoontology.common.entity.projectile;
 
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
-import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.FakeLunarEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.math.*;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -40,10 +38,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
-import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * 抽象弹幕类，用于处理所有继承于该类的弹幕实体的那些相似的逻辑，包含如下几个方面：<br>

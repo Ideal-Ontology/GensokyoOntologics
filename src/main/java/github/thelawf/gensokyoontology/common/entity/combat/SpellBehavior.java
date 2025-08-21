@@ -1,11 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.combat;
 
 import github.thelawf.gensokyoontology.api.entity.EntityBehavior;
-import github.thelawf.gensokyoontology.api.util.INBTReader;
-import github.thelawf.gensokyoontology.common.entity.Danmaku;
-import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;

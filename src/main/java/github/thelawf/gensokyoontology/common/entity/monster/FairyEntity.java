@@ -1,9 +1,8 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
-import github.thelawf.gensokyoontology.common.entity.Danmaku;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.DamakuAttackGoal;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
-import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.Attributes;

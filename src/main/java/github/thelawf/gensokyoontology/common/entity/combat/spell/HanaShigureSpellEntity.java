@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
-import github.thelawf.gensokyoontology.common.entity.Danmaku;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.RiceShotEntity;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
