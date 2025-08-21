@@ -18,14 +18,11 @@ public abstract class OneSlotContainer extends WrapPlayerContainer {
     public OneSlotContainer(ContainerType<?> type, int id, PlayerInventory playerInventory) {
         super(type, playerInventory, id);
         this.addPlayerInventorySlots(32, 130);
-        addSlot(new Slot(this.inv, 0, 176, 59){
-            @Override
-            public boolean isItemValid(@NotNull ItemStack stack) {
-                return stack.getItem() == ItemRegistry.CONST_BUILDER.get() ||
-                        stack.getItem() == ItemRegistry.V3D_BUILDER.get() ||
-                        stack.getItem() == ItemRegistry.DANMAKU_BUILDER.get();
-            }
-        });
+        this.addOnlySlot(0, 176, 59);
+    }
+
+    public void addOnlySlot(int index, int x, int y) {
+        this.addSlot(new Slot(this.inv, index, x, y));
     }
 
     @Override

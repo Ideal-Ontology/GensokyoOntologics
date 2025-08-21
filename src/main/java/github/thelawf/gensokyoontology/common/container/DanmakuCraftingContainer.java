@@ -70,7 +70,7 @@ public class DanmakuCraftingContainer extends Container {
         this.playerInventory = new InvWrapper(playerInventory);
         this.danmakuInv = new Inventory(ItemStack.EMPTY);
 
-        this.addPlayerInventorySlots(playerInventory, 28, 124, 182);
+        this.addPlayerInventorySlots(playerInventory, 7, 83, 141);
         this.addSlot(new Slot(this.danmakuInv, 0, centerX, centerY));
 
 //        for (int i = 0; i < 5; ++i) {

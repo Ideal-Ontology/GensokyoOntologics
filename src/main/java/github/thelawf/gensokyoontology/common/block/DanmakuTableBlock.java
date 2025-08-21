@@ -6,14 +6,13 @@ import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.tileentity.ITileEntityGetter;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.monster.piglin.PiglinTasks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
+import net.minecraft.inventory.container.Slot;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -36,22 +35,16 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
     }
 
     @Override
-    @NotNull
-    @SuppressWarnings("deprecation")
-    public ActionResultType onBlockActivated(@NotNull BlockState state, World worldIn, @NotNull BlockPos pos, @NotNull PlayerEntity player,
-                                             @NotNull Hand handIn, @NotNull BlockRayTraceResult hit) {
-        if (Screen.hasShiftDown()) {
-            player.openContainer(state.getContainer(worldIn, pos));
+    public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+        if (worldIn.isRemote) {
+            return ActionResultType.SUCCESS;
+        }
+        else {
+            INamedContainerProvider container = this.getContainer(state, worldIn, pos);
+            if (container != null) player.openContainer(container);
+
             return ActionResultType.CONSUME;
         }
-        this.getTileEntity(worldIn, pos).ifPresent(tile -> tile.tryCraft(worldIn));
-        return ActionResultType.SUCCESS;
-    }
-
-    @SuppressWarnings("deprecation")
-    @Override
-    public void onBlockClicked(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) {
-        super.onBlockClicked(state, worldIn, pos, player);
     }
 
     @Nullable
@@ -68,6 +61,11 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
     public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
         return new SimpleNamedContainerProvider((id, inventory, player) ->
                 new OneSlotContainer(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(), id, inventory) {
+                    @Override
+                    public void addOnlySlot(int index, int x, int y) {
+                        this.addSlot(new Slot(this.inv, 0, 79, 30));
+                    }
+
                     @Override
                     public void onContainerClosed(PlayerEntity playerIn) {
                         super.onContainerClosed(playerIn);

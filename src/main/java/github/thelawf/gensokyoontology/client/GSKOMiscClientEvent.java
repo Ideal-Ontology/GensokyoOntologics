@@ -181,13 +181,12 @@ public class GSKOMiscClientEvent {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
 
-        if (player != null && player.getHeldItemMainhand().getItem() == ItemRegistry.HAKUREI_GOHEI.get()) {
-            ItemStack stack = player.getHeldItemMainhand();
-            // 检测如果alt被按下则打开御币的能力选择界面
-            if (GSKOKeyboardManager.KEY_SWITCH_MODE.isKeyDown() && stack.getTag() != null) {
-                minecraft.displayGuiScreen(new GoheiModeSelectScreen(GOHEI_TITLE, HakureiGohei.getMode(stack.getTag())));
-            }
-        }
+        // 检测如果alt被按下则打开御币的能力选择界面
+        if (player == null || player.getHeldItemMainhand().getItem() != ItemRegistry.HAKUREI_GOHEI.get()) return;
+        ItemStack stack = player.getHeldItemMainhand();
+        if (!GSKOKeyboardManager.KEY_SWITCH_MODE.isKeyDown() || stack.getTag() == null) return;
+
+        minecraft.displayGuiScreen(new GoheiModeSelectScreen(GOHEI_TITLE, HakureiGohei.getMode(stack.getTag())));
     }
 
     @SubscribeEvent
@@ -208,14 +207,13 @@ public class GSKOMiscClientEvent {
     public static void onHakureiGoheiModeScroll(GuiScreenEvent.MouseScrollEvent event) {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
-        if (player != null && player.getHeldItem(Hand.MAIN_HAND).getItem() == ItemRegistry.HAKUREI_GOHEI.get()) {
-            // alt+鼠标滚轮切换模式
-            if (minecraft.currentScreen instanceof GoheiModeSelectScreen) {
-                GoheiModeSelectScreen screen = (GoheiModeSelectScreen) minecraft.currentScreen;
-                if (event.getScrollDelta() > 0) screen.switchMode(-1);
-                else if (event.getScrollDelta() < 0) screen.switchMode(1);
-            }
-        }
+        // alt+鼠标滚轮切换模式
+        if (player == null || player.getHeldItem(Hand.MAIN_HAND).getItem() != ItemRegistry.HAKUREI_GOHEI.get()) return;
+        if (!(minecraft.currentScreen instanceof GoheiModeSelectScreen)) return;
+
+        GoheiModeSelectScreen screen = (GoheiModeSelectScreen) minecraft.currentScreen;
+        if (event.getScrollDelta() > 0) screen.switchMode(-1);
+        else if (event.getScrollDelta() < 0) screen.switchMode(1);
     }
 
     @SubscribeEvent

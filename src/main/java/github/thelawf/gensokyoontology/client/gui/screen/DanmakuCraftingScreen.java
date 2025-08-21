@@ -10,6 +10,7 @@ import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -57,6 +58,7 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
 
         this.playerInventoryTitleX = 7;
         this.playerInventoryTitleY = 68;
+
     }
 
     @Override
@@ -72,11 +74,12 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
         this.minecraft.getTextureManager().bindTexture(DANMAKU_CRAFTING_TEXTURE);
         int left = this.guiLeft;
         int top = this.guiTop;
-        this.blit(matrixStack, left, top, 0, 0, 256, 256);
+        this.blit(matrixStack, left, top, 0, 0, 175, 165);
         for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
+                if (this.container.getJigsawPart(i, j) == Blocks.AIR) return;
                 Vector2i uv = BLOCK_UV_OFFS.get(this.container.getJigsawPart(i, j));
-                this.blit(matrixStack, this.jigsawX + 16 * i, this.jigsawY + 16 * j, this.jigsawU + 16 * uv.x, this.jigsawV + 16 * uv.y, 256, 256);
+                this.blit(matrixStack, this.jigsawX + 16 * i, this.jigsawY + 16 * j, this.jigsawU + 16 * uv.x, this.jigsawV + 16 * uv.y, 16, 16);
             }
         }
     }

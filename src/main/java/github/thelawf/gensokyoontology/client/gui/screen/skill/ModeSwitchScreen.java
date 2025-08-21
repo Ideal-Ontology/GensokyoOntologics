@@ -27,4 +27,5 @@ public abstract class ModeSwitchScreen extends Screen {
     }
 
     public abstract void switchMode(int index);
+
 }

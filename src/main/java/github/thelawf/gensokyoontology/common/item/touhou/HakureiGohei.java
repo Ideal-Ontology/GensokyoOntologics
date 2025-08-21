@@ -83,12 +83,18 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
     }
 
     public void powering(World world, LivingEntity user, double radius){
-        Vector3d start = user.getEyePosition(0f);
-        Vector3d end = user.getLookVec().normalize().scale(radius).add(start);
-        BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, user));
+        if (world.isRemote) {
+            Vector3d start = user.getEyePosition(0f);
+            Vector3d end = user.getLookVec().normalize().scale(radius).add(start);
+            BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, user));
 
-        Vector3d motion = user.getLookVec().normalize().scale(0.8F);
-        ParticleRegistry.shootParticle(world, ParticleRegistry.POWER_PARTICLE.get(), user.getPositionVec(), motion);
+            for (int i = 0; i < 50; i++) {
+                Vector3d pos = user.getLookVec().scale(i).add(start);
+                Vector3d motion = user.getLookVec().normalize().scale(0.8F);
+                ParticleRegistry.shootParticle(world, ParticleRegistry.POWER_PARTICLE.get(),
+                        pos, motion);
+            }
+        }
         // ITileEntityGetter.getTileEntity(world, btr.getPos(), TileEntityRegistry)
     }
 

@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
+@Deprecated
 public class MemoryStoryPageGUI extends Screen {
 
     Button nextPage;
