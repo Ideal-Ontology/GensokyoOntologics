@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
-import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -43,7 +43,7 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
             stack.setTag(nbt);
         }
 
-        LaserSourceEntity laserSource = new LaserSourceEntity(worldIn, playerIn);
+        Laser laserSource = new Laser(worldIn, playerIn);
         laserSource.init(200, 40, 85);
         laserSource.setARGB(0x88FF0000);
         // lasers(worldIn, playerIn);
@@ -71,7 +71,7 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
                 0x88FF0000, 0x88FF8C00, 0x88FFFF00, 0x8800FF00, 0x8800FFFF, 0x880000FF, 0x88FF00FF, 0x88800080
         );
         for (int i = 0; i < colors.size(); i++) {
-            LaserSourceEntity laser = new LaserSourceEntity(worldIn, playerIn);
+            Laser laser = new Laser(worldIn, playerIn);
             laser.init(500, 40, 120);
             laser.setARGB(colors.get(i));
             laser.setLocationAndAngles(playerIn.getPosX() + (double) i / 2, playerIn.getPosY() + playerIn.getEyeHeight() * 0.5,

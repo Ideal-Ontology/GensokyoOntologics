@@ -134,8 +134,8 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<IdonokaihoEntity>> IDO_NO_KAIHO_ENTITY =
             registerSpell("ido_no_kaiho", IdonokaihoEntity::new);
     // ============================================= 特殊能力实体 ====================================================//
-    public static final RegistryObject<EntityType<LaserSourceEntity>> LASER_SOURCE_ENTITY = register(
-            "laser_source", LaserSourceEntity::new, EntityClassification.MISC,1F, 1F, 4, 2);
+    public static final RegistryObject<EntityType<Laser>> LASER_SOURCE_ENTITY = register(
+            "laser_source", Laser::new, EntityClassification.MISC,1F, 1F, 4, 2);
     public static final RegistryObject<EntityType<DestructiveEyeEntity>> DESTRUCTIVE_EYE_ENTITY = register(
             "destructive_eye", DestructiveEyeEntity::new, EntityClassification.MISC, 3F, 3F, 10, 2);
     public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = register(

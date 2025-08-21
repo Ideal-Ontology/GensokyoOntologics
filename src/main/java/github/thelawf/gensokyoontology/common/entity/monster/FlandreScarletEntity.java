@@ -36,6 +36,11 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     }
 
     @Override
+    public void nextSubPhase() {
+        this.nextRandomPhase();
+    }
+
+    @Override
     public boolean shouldEnterNextMainPhase() {
         return false;
     }

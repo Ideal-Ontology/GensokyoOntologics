@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
-import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.entity.monster.RemiliaScarletEntity;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.util.math.vector.Vector2f;
@@ -21,7 +21,7 @@ public class RemiliaSpellAttack {
             position = position.add(new Vector3d(0, 0.5, 0));
 
             Vector2f direction = GSKOMathUtil.toYawPitch(initRot);
-            LaserSourceEntity laser = new LaserSourceEntity(remilia.world, remilia);
+            Laser laser = new Laser(remilia.world, remilia);
             laser.setLocationAndAngles(position.x, position.y, position.z, direction.x, direction.y);
             laser.init(500, 30, 100);
             remilia.world.addEntity(laser);

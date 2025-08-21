@@ -2,12 +2,10 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
-import github.thelawf.gensokyoontology.common.entity.ai.goal.GSKOBossGoal;
-import github.thelawf.gensokyoontology.common.entity.ai.goal.LaserSpiralGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiCombatGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiTargetGoal;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.combat.BossBattle;
+import github.thelawf.gensokyoontology.common.entity.combat.RemiliaBattle;
 import github.thelawf.gensokyoontology.common.entity.combat.spell.RemiliaSpellAttack;
 import net.minecraft.entity.CreatureEntity;
 import net.minecraft.entity.EntityType;
@@ -24,19 +22,15 @@ public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser
         super(type, worldIn);
     }
 
-    @Override
-    public boolean shouldEnterNextMainPhase() {
-        return false;
-    }
 
     @Override
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 0.8, true));
-        this.goalSelector.addGoal(3, new YoukaiCombatGoal<>(this, BossBattle.THOUSAND_KNIVES, 1, 1, 1000));
-        this.goalSelector.addGoal(3, new YoukaiTargetGoal<>(this, BossBattle.CROSS_SHOTS, 1, 2, 1000));
-        // this.goalSelector.addGoal(3, new LaserSpiralGoal(this, new GSKOBossGoal.Stage(GSKOBossGoal.Type.NON_SPELL, 500, false)));
+        this.goalSelector.addGoal(3, new YoukaiCombatGoal<>(this, RemiliaBattle.THOUSAND_KNIVES, 1, 1, 1000));
+        this.goalSelector.addGoal(3, new YoukaiTargetGoal<>(this, RemiliaBattle.CROSS_SHOTS, 1, 2, 1000));
+        this.goalSelector.addGoal(3, new YoukaiCombatGoal<>(this, RemiliaBattle.PETTY_DEVIL_LORD, 2, 1, 1000));
 
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(5, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
@@ -50,8 +44,19 @@ public class RemiliaScarletEntity extends YoukaiEntity implements ISpellCardUser
 
     @Override
     public int[] getMaxPhases() {
-        return super.getMaxPhases();
+        return new int[]{2, 3};
     }
+
+    @Override
+    public void nextSubPhase() {
+        this.nextRandomPhase();
+    }
+
+    @Override
+    public boolean shouldEnterNextMainPhase() {
+        return this.getHealth() <= this.getMaxHealth() / 2;
+    }
+
 
     @Override
     public void danmakuAttack(LivingEntity target) {

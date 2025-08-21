@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
@@ -39,7 +39,7 @@ public class ScarletPrisoner extends AbstractSpellCardEntity {
 
         if (ticksExisted <= 20 && !world.isRemote()) {
             ServerWorld serverWorld = (ServerWorld) world;
-            LaserSourceEntity laser = new LaserSourceEntity(world, this.getOwner());
+            Laser laser = new Laser(world, this.getOwner());
             laser.init(450, 30, 40);
             laser.setLocationAndAngles(nextPos.x, nextPos.y, nextPos.z, emitVec.x, emitVec.y);
             boolean flag = serverWorld.getEntities()

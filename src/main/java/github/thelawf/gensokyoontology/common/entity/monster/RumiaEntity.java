@@ -55,6 +55,11 @@ public class RumiaEntity extends YoukaiEntity{
     }
 
     @Override
+    public void nextSubPhase() {
+
+    }
+
+    @Override
     public void danmakuAttack(LivingEntity target) {
     }
 

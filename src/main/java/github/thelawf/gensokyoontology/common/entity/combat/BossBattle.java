@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.combat;
 import github.thelawf.gensokyoontology.api.entity.YoukaiCombat;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
-import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.entity.monster.*;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
@@ -34,7 +34,6 @@ public class BossBattle {
             living.addPotionEffect(new EffectInstance(Effects.SLOWNESS, 20, 1));
         }
     };
-
 
     public static final YoukaiCombat.TargetAction<RumiaEntity> DARK_SPHERE = (world, rumia, target) -> {
         if (target == null) return;
@@ -153,52 +152,16 @@ public class BossBattle {
         }
     };
 
-    public static final YoukaiCombat.TargetAction<RemiliaScarletEntity> CROSS_SHOTS = (world, remilia, target) -> {
-        if (target == null) return;
-        if (remilia.ticksExisted % 10 != 0) return;
-        DanmakuUtil.oddCurveVec(remilia, target, 13, 30).forEach(shootVec -> {
-            Danmaku.create(world, remilia,  ItemRegistry.RICE_SHOT_RED.get())
-                    .pos(remilia.getPositionVec().add(-1, 0, 0))
-                    .rot(Rot2f.from(shootVec))
-                    .shoot(shootVec, 0.4F);
-            Danmaku.create(world, remilia,  ItemRegistry.RICE_SHOT_RED.get())
-                    .pos(remilia.getPositionVec().add(1, 0, 0))
-                    .rot(Rot2f.from(shootVec))
-                    .shoot(shootVec, 0.4F);
-        });
-    };
-
-    public static final YoukaiCombat.SkillAction<RemiliaScarletEntity> THOUSAND_KNIVES = (world, remilia) -> {
-        if (remilia.getAttackTarget() == null) return;
-        if (remilia.ticksExisted % 20 != 0) return;
-        DanmakuUtil.ellipticPos(Vector2f.ZERO, 1.2F, 15).forEach(initPos -> {
-            Vector3d shootA = initPos.rotateYaw(Danmaku.rad(5)).normalize();
-            Vector3d shootB = initPos.rotateYaw(Danmaku.rad(-5)).normalize();
-
-            for (int i = -1; i < 4; i++) {
-                Danmaku.create(world, remilia, ItemRegistry.KNIFE_RED.get())
-                        .pos(remilia.getPositionVec().add(initPos).add(0, i, 0))
-                        .rot(Rot2f.from(shootA))
-                        .shoot(shootA, 0.45F);
-                Danmaku.create(world, remilia, ItemRegistry.KNIFE_RED.get())
-                        .pos(remilia.getPositionVec().add(initPos).add(0, i, 0))
-                        .rot(Rot2f.from(shootB))
-                        .shoot(shootB, 0.45F);
-            }
-        });
-    };
-
     public static final YoukaiCombat.SkillAction<FlandreScarletEntity> FLANDRE_LASER = (world, flandre) -> {
         if (flandre.getAttackTarget() == null) return;
         if (flandre.ticksExisted % 50 == 0) {
-            LaserSourceEntity laser = new LaserSourceEntity(world, flandre);
+            Laser laser = new Laser(world, flandre);
             laser.setLocationAndAngles(flandre.getPosX(), flandre.getPosY(), flandre.getPosZ(),
                     flandre.getAimedYaw(), flandre.getAimedPitch());
             laser.setOwnerId(flandre.getUniqueID());
             world.addEntity(laser);
         }
     };
-
 
     public static final YoukaiCombat.TargetAction<FlandreScarletEntity> SUMMON_EYE = (world, flandre, target) -> {
         flandre.getLookController().setLookPositionWithEntity(target, 30.0F, 30.0F);

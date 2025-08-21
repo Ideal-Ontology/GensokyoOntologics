@@ -48,6 +48,11 @@ public class CirnoEntity extends YoukaiEntity{
     }
 
     @Override
+    public void nextSubPhase() {
+        this.nextRandomPhase();
+    }
+
+    @Override
     public boolean shouldEnterNextMainPhase() {
         return false;
     }

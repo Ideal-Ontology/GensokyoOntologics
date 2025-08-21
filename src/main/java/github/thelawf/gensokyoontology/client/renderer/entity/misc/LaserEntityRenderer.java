@@ -4,7 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
-import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -28,7 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 // 种子：-8902379324748255918 坐标：1519 76 441 维度：幻想乡 群系：博丽神社周边
 @OnlyIn(Dist.CLIENT)
-public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
+public class LaserEntityRenderer extends EntityRenderer<Laser> {
 
     public static final ResourceLocation LASER_SOURCE_TEX = GensokyoOntology.withRL("textures/entity/laser_source.png");
     public static final ResourceLocation LASER_BEAM_TEX = GensokyoOntology.withRL("textures/entity/laser_beam_1.png");
@@ -40,7 +40,7 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
 
     @Override
     @NotNull
-    public ResourceLocation getEntityTexture(@NotNull LaserSourceEntity entity) {
+    public ResourceLocation getEntityTexture(@NotNull Laser entity) {
         return LASER_SOURCE_TEX;
     }
 
@@ -138,7 +138,7 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
 
     @Override
     @SuppressWarnings("deprecation")
-    public void render(@NotNull LaserSourceEntity entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int packedLightIn) {
+    public void render(@NotNull Laser entityIn, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStackIn, @NotNull IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 
         // TODO: 实现激光源头的贴图渲染
@@ -183,7 +183,7 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
 
     }
 
-    private void toLookVec(MatrixStack matrixStack, LaserSourceEntity entityIn) {
+    private void toLookVec(MatrixStack matrixStack, Laser entityIn) {
         Vector3d vector3d2 = entityIn.getLookVec();
         float yaw = (float)Math.atan2(vector3d2.z, vector3d2.x);
         float pitch = (float)Math.asin(vector3d2.y);
@@ -198,7 +198,7 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
      * Guardian Entity's laser.
      */
     @Deprecated
-    private void renderLaserUsingGardianLaser(LaserSourceEntity entityIn, @Nullable Vector3d lookVec, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
+    private void renderLaserUsingGardianLaser(Laser entityIn, @Nullable Vector3d lookVec, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn){
         //LivingEntity livingentity = entityIn.getTargetedEntity();
         IRenderTypeBuffer.Impl buffer = Minecraft.getInstance().getRenderTypeBuffers().getBufferSource();
         IVertexBuilder builder = buffer.getBuffer(RenderType.getLightning());
@@ -288,7 +288,7 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
     }
 
     @Override
-    public boolean shouldRender(LaserSourceEntity livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
+    public boolean shouldRender(Laser livingEntityIn, ClippingHelper camera, double camX, double camY, double camZ) {
         return super.shouldRender(livingEntityIn, camera, camX, camY, camZ);
     }
 
@@ -303,19 +303,19 @@ public class LaserEntityRenderer extends EntityRenderer<LaserSourceEntity> {
         return new Vector3f((float) v3d.x, (float) v3d.y, (float) v3d.z);
     }
 
-    private float red(LaserSourceEntity entityIn) {
+    private float red(Laser entityIn) {
         return (float) entityIn.getRed() / 255;
     }
 
-    private float green(LaserSourceEntity entityIn) {
+    private float green(Laser entityIn) {
         return (float) entityIn.getGreen() / 255;
     }
 
-    private float blue(LaserSourceEntity entityIn) {
+    private float blue(Laser entityIn) {
         return (float) entityIn.getBlue() / 255;
     }
 
-    private float alpha(LaserSourceEntity entityIn) {
+    private float alpha(Laser entityIn) {
         return (float) entityIn.getAlpha() / 255;
     }
 }

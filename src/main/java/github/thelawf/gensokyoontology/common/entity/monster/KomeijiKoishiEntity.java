@@ -62,6 +62,11 @@ public class KomeijiKoishiEntity extends ConversationalEntity implements ISpellC
     }
 
     @Override
+    public void nextSubPhase() {
+        this.nextRandomPhase();
+    }
+
+    @Override
     public boolean shouldEnterNextMainPhase() {
         return false;
     }

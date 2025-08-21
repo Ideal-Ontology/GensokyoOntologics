@@ -3,54 +3,76 @@ package github.thelawf.gensokyoontology.common.entity.misc;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellBehavior;
+import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.monster.GuardianEntity;
-import net.minecraft.entity.passive.SheepEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.math.EntityRayTraceResult;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class LaserSourceEntity extends AffiliatedEntity implements IRayTraceReader {
+public class Laser extends AffiliatedEntity implements IRayTraceReader {
     private int lifespan = 100;
     private int preparation = 30;
     private float range = 128;
-    public int argb = 0xFFFF0000;
+    private int argb = 0xFFFF0000;
     private final List<SpellBehavior> behaviors = new ArrayList<>();
-    public static final DataParameter<Integer> DATA_COLOR = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
-    public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
-    public static final DataParameter<Integer> DATA_PREPARATION = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.VARINT);
-    public static final DataParameter<Float> DATA_RANGE = EntityDataManager.createKey(LaserSourceEntity.class, DataSerializers.FLOAT);
-    public LaserSourceEntity(EntityType<?> entityTypeIn, World worldIn) {
+    public static final DataParameter<Integer> DATA_COLOR = EntityDataManager.createKey(Laser.class, DataSerializers.VARINT);
+    public static final DataParameter<Integer> DATA_LIFESPAN = EntityDataManager.createKey(Laser.class, DataSerializers.VARINT);
+    public static final DataParameter<Integer> DATA_PREPARATION = EntityDataManager.createKey(Laser.class, DataSerializers.VARINT);
+    public static final DataParameter<Float> DATA_RANGE = EntityDataManager.createKey(Laser.class, DataSerializers.FLOAT);
+    public Laser(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
         this.ignoreFrustumCheck = true;
         this.setARGB(0x88FF0000);
         this.init(100, 30, 128F);
     }
 
-    public LaserSourceEntity(World worldIn, Entity owner) {
+    public Laser(World worldIn, Entity owner) {
         super(EntityRegistry.LASER_SOURCE_ENTITY.get(), owner, worldIn);
         this.ignoreFrustumCheck = true;
         this.setARGB(0x88FF0000);
         this.init(100, 30, 128F);
+    }
+
+    public static Laser create(World worldIn, Entity owner) {
+        Laser laser = new Laser(worldIn, owner);
+        worldIn.addEntity(laser);
+        return laser;
+    }
+
+    public Laser rot(Rot2f rotation){
+        this.setRotation(rotation.yaw(), rotation.pitch());
+        return this;
+    }
+
+    public Laser color(int color) {
+        this.setARGB(color);
+        return this;
+    }
+
+    public Laser lifespan(int lifespan) {
+        this.setLifespan(lifespan);
+        return this;
+    }
+
+    public Laser range(float range) {
+        this.setRange(range);
+        return this;
+    }
+
+    public Laser preparation(int preparation) {
+        this.setPreparation(preparation);
+        return this;
     }
 
     @Override

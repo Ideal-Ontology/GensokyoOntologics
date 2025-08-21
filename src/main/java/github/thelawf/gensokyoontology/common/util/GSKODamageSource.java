@@ -1,11 +1,10 @@
 package github.thelawf.gensokyoontology.common.util;
 
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
-import github.thelawf.gensokyoontology.common.entity.misc.LaserSourceEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.IndirectEntityDamageSource;
 
@@ -19,7 +18,7 @@ public class GSKODamageSource extends DamageSource {
             .setDamageBypassesArmor()
             .setDamageIsAbsolute();
     public static final DamageSource LASER = new DamageSource("laser");
-    public static DamageSource causeIndirectLaser(LaserSourceEntity laser, Entity laserOwnerIn) {
+    public static DamageSource causeIndirectLaser(Laser laser, Entity laserOwnerIn) {
         return new IndirectEntityDamageSource("indirect_laser", laser, laserOwnerIn);
     }
     public static DamageSource causeMasterSpark(MasterSparkEntity laser, Entity sparkOwnerIn) {

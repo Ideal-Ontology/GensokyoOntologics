@@ -118,7 +118,11 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     }
 
     /**
-     * 该方法是{@link github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiBattlePhaseGoal YoukaiBattlePhaseGoal.java}中默认调用的方法，重写该方法以自定义你想实现的切换战斗阶段的逻辑。
+     * 该方法是{@link github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiBattlePhaseGoal YoukaiBattlePhaseGoal.java}中默认调用的方法，重写该方法以自定义你想实现的切换战斗阶段的逻辑。<br>
+     * 核心思路：<br>
+     * 1. 判断小阶段的值是否大于当前小阶段的数量<br>
+     * 2. 如果大于最大值且允许进入下一个大阶段则进入下一个大阶段<br>
+     * 3. 如果小于最大值调用该实体实现的如何进入下一个小阶段的函数<br>
      */
     public void nextPhase(){
         String currentPhase = this.getBattlePhase();
@@ -142,13 +146,14 @@ public abstract class YoukaiEntity extends RetreatableEntity {
                 }
                 this.setBattlePhase(++main, 1);
             }
-            else this.setBattlePhase(main, ++sub);
+            else this.nextSubPhase();
 
         } catch (NumberFormatException e) {
-            // 处理无效格式
             this.setBattlePhase(1, 1);
         }
     }
+
+    public abstract void nextSubPhase();
 
     /**
      * 如果希望BOSS的下一个小阶段是从可选阶段中随机选择一个的话，可以使用该方法覆盖{@link YoukaiEntity#nextPhase() this.nextPhase}
@@ -182,13 +187,13 @@ public abstract class YoukaiEntity extends RetreatableEntity {
 
     public int getMainPhase(){
         String phase = this.getBattlePhase();
-        if (phase.equals("")) return 1;
+        if (phase.isEmpty()) return 1;
         return Integer.parseInt(phase.split("\\.")[0]);
     }
 
     public int getSubPhase() {
         String phase = this.getBattlePhase();
-        if (phase.equals("")) return 1;
+        if (phase.isEmpty()) return 1;
         return Integer.parseInt(phase.split("\\.")[1]);
     }
 
