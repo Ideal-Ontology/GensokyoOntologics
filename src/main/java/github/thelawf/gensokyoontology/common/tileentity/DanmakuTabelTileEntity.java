@@ -5,23 +5,22 @@ import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
+import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.CraftResultInventory;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -29,6 +28,8 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import java.util.Optional;
 
 public class DanmakuTabelTileEntity extends TileEntity {
     public DanmakuTabelTileEntity() {
@@ -117,28 +118,30 @@ public class DanmakuTabelTileEntity extends TileEntity {
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap) {
-
         if (cap == CapabilityItemHandler.ITEM_HANDLER_CAPABILITY) {
             return optionalHandler.cast();
         }
         return super.getCapability(cap);
     }
 
-
     public void tryCraft(World world) {
         Inventory inv = new Inventory(this.itemHandler.getSlots());
         for (int i = 0; i < this.itemHandler.getSlots() - 1; i++)
             inv.setInventorySlotContents(i, this.itemHandler.getStackInSlot(i));
         if (world.isRemote) return;
+        if (world.getServer() == null) return;
 
-        world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inv, world)
-                .ifPresent(recipe -> {
-                    ItemStack outputs = recipe.getRecipeOutput();
-                    ItemStack remaining = recipe.getRemaining(inv);
-                    Block.spawnAsEntity(world, this.pos, outputs);
-                    inv.setInventorySlotContents(0, remaining);
-                });
+        ServerWorld serverWorld = (ServerWorld) world;
+        Optional<DanmakuRecipe> optional = DanmakuRecipe.getInstance(serverWorld, inv, this.pos);
+        if (!optional.isPresent()) return;
+
+        DanmakuRecipe recipe = optional.get();
+        ItemStack outputs = recipe.getRecipeOutput();
+        ItemStack remaining = recipe.getRemaining(inv);
+        Block.spawnAsEntity(world, this.pos.up(), outputs);
+        inv.setInventorySlotContents(0, remaining);
+
         markDirty();
-
+        world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inv, world);
     }
 }

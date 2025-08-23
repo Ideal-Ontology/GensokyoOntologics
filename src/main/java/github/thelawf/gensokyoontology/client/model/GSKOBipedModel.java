@@ -6,6 +6,9 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelHelper;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
+import net.minecraft.util.Hand;
 import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
@@ -169,6 +172,17 @@ public abstract class GSKOBipedModel<T extends LivingEntity> extends BipedModel<
 
     @Override
     public void setLivingAnimations(@NotNull T entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
+        this.rightArmPose = BipedModel.ArmPose.EMPTY;
+        this.leftArmPose = BipedModel.ArmPose.EMPTY;
+        ItemStack itemstack = entityIn.getHeldItem(Hand.MAIN_HAND);
+        if (itemstack.getItem() == Items.TRIDENT) {
+            if (entityIn.getPrimaryHand() == HandSide.RIGHT) {
+                this.rightArmPose = BipedModel.ArmPose.THROW_SPEAR;
+            } else {
+                this.leftArmPose = BipedModel.ArmPose.THROW_SPEAR;
+            }
+        }
+
         super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
         //previously the render function, render code was moved to a method below
     }

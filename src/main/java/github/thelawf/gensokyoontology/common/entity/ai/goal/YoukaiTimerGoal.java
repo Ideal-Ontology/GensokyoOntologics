@@ -18,4 +18,8 @@ public class YoukaiTimerGoal<Y extends YoukaiEntity> extends YoukaiBattlePhaseGo
         super.tick();
         action.act(this.youkai.world, youkai, youkai.getAttackTarget(), this.timer);
     }
+
+    public int getCurrentGoalTick() {
+        return this.timer.get();
+    }
 }

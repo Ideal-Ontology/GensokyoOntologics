@@ -118,7 +118,13 @@ public class Danmaku extends ProjectileItemEntity{
         if (!world.isRemote){
             ServerWorld serverWorld = (ServerWorld) world;
             long count = serverWorld.getEntities().filter(entity -> entity.getType() == EntityRegistry.DANMAKU.get()).count();
-            if (count >= 800) return new Danmaku(world, Items.AIR, owner);
+            if (count >= 800) {
+                Danmaku danmaku = new Danmaku(world, item, owner)
+                        .pos(new Vector3d(0,0,0))
+                        .disableGravity();
+                danmaku.remove();
+                return danmaku;
+            }
         }
         return new Danmaku(world, item, owner)
                 .pos(owner.getPositionVec().add(0,owner.getEyeHeight(),0))
@@ -151,6 +157,10 @@ public class Danmaku extends ProjectileItemEntity{
     public Danmaku pos(Vector3d pos) {
         this.setPos(pos);
         return this;
+    }
+
+    public void addToWorld(World wrold) {
+        wrold.addEntity(this);
     }
 
     public Danmaku disableGravity(){

@@ -5,8 +5,11 @@ import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.entity.monster.RemiliaScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 
@@ -66,5 +69,29 @@ public class RemiliaBattle {
                         .shoot(laserVec.rotateYaw(Danmaku.rad(15)), 0.5F);
             });
         }
+    };
+
+    public static final YoukaiCombat.TimerAction<RemiliaScarletEntity> SPEAR_GUNGNIR = (world, remilia, target, timer) -> {
+        if (timer.get() < 80) {
+            remilia.setHeldItem(Hand.MAIN_HAND, new ItemStack(ItemRegistry.GUNGNIR.get()));
+            if (timer.get() % 20 == 0) {
+                Vector3d randPos = GSKOMathUtil.randomVec(-3, 3);
+                new Danmaku(world,ItemRegistry.GUNGNIR.get(),remilia){
+                    @Override
+                    public void tick() {
+                        super.tick();
+                        if (timer.get() > 80) this.shootTo(target, 0.5F);
+                    }
+                }.pos(remilia.getPositionVec().add(randPos));
+            }
+        }
+        if (target == null) return;
+        if (timer.get() < 160) {
+
+        }
+    };
+
+    public static final YoukaiCombat.TargetAction<RemiliaScarletEntity> VAMPIRE_SQUARE = (world, remilia, target) -> {
+
     };
 }

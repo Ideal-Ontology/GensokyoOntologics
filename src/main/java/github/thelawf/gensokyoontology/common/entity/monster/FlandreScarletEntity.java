@@ -3,8 +3,8 @@ package github.thelawf.gensokyoontology.common.entity.monster;
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.*;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.FlandreBattle;
 import github.thelawf.gensokyoontology.common.entity.combat.spell.FullCherryBlossomEntity;
-import github.thelawf.gensokyoontology.common.entity.combat.BossBattle;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.CreatureEntity;
@@ -57,9 +57,9 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));
 
-        this.goalSelector.addGoal(4, new YoukaiCombatGoal(this, BossBattle.FLANDRE_SPHERE, 1, 1, 2000));
-        this.goalSelector.addGoal(4, new YoukaiCombatGoal(this, BossBattle.FLANDRE_LASER, 1, 2, 2000));
-        this.goalSelector.addGoal(4, new YoukaiTargetGoal(this, BossBattle.SUMMON_EYE, 1, 3, 1000));
+        this.goalSelector.addGoal(4, new YoukaiCombatGoal(this, FlandreBattle.FLANDRE_SPHERE, 1, 1, 2000));
+        this.goalSelector.addGoal(4, new YoukaiCombatGoal(this, FlandreBattle.FLANDRE_LASER, 1, 2, 2000));
+        this.goalSelector.addGoal(4, new YoukaiTargetGoal(this, FlandreBattle.SUMMON_EYE, 1, 3, 1000));
 
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.4f));

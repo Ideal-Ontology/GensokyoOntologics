@@ -139,21 +139,29 @@ public class GSKOMathUtil {
     }
 
     /**
-     * 波动周期算法，用于处理周期长度为 max - min，且周期在最大值和最小值之间线性变化，当超过最大值后，函数开始线性递减，直到达到最小值，然后再次线性递增的算法
+     * 三角波周期算法，思路来源于信号处理中的三角波波形。该算法用于处理周期长度为 max - min，且周期在最大值和最小值之间线性变化，当超过最大值后，函数开始线性递减，直到达到最小值，然后再次线性递增的算法。
      */
-    public static float wavyPeriod(float time, float min, float max) {
+    public static float triangularPeriod(float time, float min, float max) {
         float period = max - min;
         float mod = time % (period * 2);
         return mod <= period ? min + mod : max - (mod - period);
     }
 
     /**
-     * 波动周期算法，用于处理周期长度为 max - min，且周期在最大值和最小值之间线性变化，当超过最大值后，函数开始线性递减，直到达到最小值，然后再次线性递增的算法
+     * 三角波周期算法，思路来源于信号处理中的三角波波形。该算法用于处理周期长度为 max - min，且周期在最大值和最小值之间线性变化，当超过最大值后，函数开始线性递减，直到达到最小值，然后再次线性递增的算法。
      */
-    public static double wavyPeriod(double time, double max, double min) {
+    public static double triangularPeriod(double time, double min, double max) {
         double period = max - min;
         double mod = time % (period * 2);
         return mod <= period ? min + mod : max - (mod - period);
+    }
+
+    public static float sineSmoothPeriod(float time, float period, float min, float max) {
+        float amplitude = (max - min) / 2.0f;
+        float midpoint = (min + max) / 2.0f;
+        float phase = (time % period) / period * 2.0f * (float)Math.PI;
+        float sineValue = (float)Math.sin(phase);
+        return midpoint + amplitude * sineValue;
     }
 
     /**
@@ -171,25 +179,6 @@ public class GSKOMathUtil {
 
     public static double distanceOf3D(double x1, double y1, double z1, double x2, double y2, double z2) {
         return Math.pow(Math.pow(x1 - x2, 2) + Math.pow(y1 - y2, 2) + Math.pow(z1 + z2, 2), 0.5);
-    }
-
-    public static ArrayList<Vector3d> getCirclePoints2D(Vector3d center, double radius, int count) {
-
-        ArrayList<Vector3d> coordinates = new ArrayList<>();
-        double radians = (Math.PI / 180) * Math.round(360d / count);
-        for (int i = 0; i < count; i++) {
-            double x = center.getX() + radius * Math.sin(radians * i);
-            double y = center.getY() + radius * Math.cos(radians * i);
-            Vector3d coordinate = new Vector3d(x, y, 0);
-            coordinates.add(coordinate);
-        }
-        return coordinates;
-    }
-
-    public static Vector3d getPointOnCircle(Vector3d center, double radius, double angle) {
-        return new Vector3d(
-                center.getX() + radius * Math.cos(Math.toDegrees(angle)),
-                0, center.getZ() + radius * Math.sin(Math.toDegrees(angle)));
     }
 
     public static Vector3d getIntersection(Vector3d A1, Vector3d A2, Vector3d B1, Vector3d B2) {
@@ -335,7 +324,7 @@ public class GSKOMathUtil {
         return MathHelper.lerp((presentTick + partial) / maxTick, minValue, maxValue);
     }
 
-    public static float wavyLerpTicks(int presentTick, int monotonicPeriod, float partial, float min, float max) {
+    public static float triangularLerpTicks(int presentTick, int monotonicPeriod, float partial, float min, float max) {
         float mod = (presentTick + partial) % (monotonicPeriod * 2);
         float lerpTick = lerpTicks(partial, monotonicPeriod, clampPeriod(presentTick, 0, monotonicPeriod * 2), min, max);
         return mod <= monotonicPeriod ? min + lerpTick : lerpTick - (mod - monotonicPeriod);

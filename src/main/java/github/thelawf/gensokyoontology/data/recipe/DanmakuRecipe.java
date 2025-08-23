@@ -18,10 +18,12 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class DanmakuRecipe implements IJigsawRecipe {
     public static final ResourceLocation RECIPE_ID = new ResourceLocation(GensokyoOntology.MODID, "danmaku");
@@ -31,6 +33,12 @@ public class DanmakuRecipe implements IJigsawRecipe {
     private final float powerConsumption;
     private BlockPos center;
     private final ResourceLocation id;
+
+    public static Optional<DanmakuRecipe> getInstance(ServerWorld world, IInventory inv, BlockPos pos) {
+        return world.getRecipeManager().getRecipesForType(RecipeRegistry.DANMAKU_RECIPE).stream().filter(
+                danmakuRecipe -> danmakuRecipe.matchesIncludePos(world, inv, pos))
+                .findFirst();
+    }
 
     public DanmakuRecipe(ResourceLocation id, NonNullList<Block> blockStates, int unitCount, float power, ItemStack recipeOutputIn) {
         this.id = id;
@@ -51,6 +59,10 @@ public class DanmakuRecipe implements IJigsawRecipe {
     @Override
     public boolean matches(IInventory inv, World worldIn) {
         if (this.center == null) return false;
+        return this.matchesIncludePos(worldIn, inv, this.center);
+    }
+
+    public boolean matchesIncludePos(World world, IInventory inv, BlockPos center) {
         if (!inv.getStackInSlot(0).equals(new ItemStack(ItemRegistry.DANMAKU_SHOT.get()))) return false;
 
         BlockPos.Mutable pos = new BlockPos.Mutable(center.getX() -2, center.getY(), center.getZ()-2);
@@ -58,7 +70,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
         for (int x = 1; x < 6; x++) {
             for (int z = 1; z < 6; z++) {
                 pos.add(x, 0, z);
-                if (this.blockStates.get(matches).equals(worldIn.getBlockState(pos).getBlock())) matches++;
+                if (this.blockStates.get(matches).equals(world.getBlockState(pos).getBlock())) matches++;
             }
         }
         return matches == 25;

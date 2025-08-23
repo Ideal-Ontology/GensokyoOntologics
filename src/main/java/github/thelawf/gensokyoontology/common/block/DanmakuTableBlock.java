@@ -6,15 +6,18 @@ import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.SDanmakuTilePacket;
 import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.tileentity.ITileEntityGetter;
+import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.*;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.monster.piglin.PiglinTasks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -39,19 +42,18 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         DanmakuTabelTileEntity tile = (DanmakuTabelTileEntity) worldIn.getTileEntity(pos);
-        if (tile != null) {
-            GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(tile.getPower()), player);
-        }
+        if (tile == null) {return ActionResultType.FAIL;}
+        if (worldIn.isRemote) return ActionResultType.SUCCESS;
+        if (Screen.hasShiftDown()) {
 
-        if (worldIn.isRemote) {
-            return ActionResultType.SUCCESS;
-        }
-        else {
+            GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(tile.getPower()), player);
             INamedContainerProvider container = this.getContainer(state, worldIn, pos);
             if (container != null) player.openContainer(container);
-
             return ActionResultType.CONSUME;
         }
+
+        tile.tryCraft(worldIn);
+        return ActionResultType.SUCCESS;
     }
 
     @Nullable
@@ -80,6 +82,7 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
                 },
                 DanmakuTabelTileEntity.CONTAINER_NAME);
     }
+
 
     @Nullable
     @Override

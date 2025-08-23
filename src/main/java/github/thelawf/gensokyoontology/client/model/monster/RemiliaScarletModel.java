@@ -5,19 +5,17 @@ import com.google.common.collect.Iterables;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.client.model.GSKOBipedModel;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiTimerGoal;
 import github.thelawf.gensokyoontology.common.entity.monster.RemiliaScarletEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
-import net.minecraft.client.renderer.model.ModelHelper;
 import net.minecraft.client.renderer.model.ModelRenderer;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.util.HandSide;
 import net.minecraft.util.math.MathHelper;
 import org.jetbrains.annotations.NotNull;
 
 public class RemiliaScarletModel extends GSKOBipedModel<RemiliaScarletEntity> {
 	private final ModelRenderer remilia;
 	public final ModelRenderer body;
-	private final ModelRenderer hand;
+	private final ModelRenderer head;
 	private final ModelRenderer hat;
 	private final ModelRenderer hE_r1;
 	private final ModelRenderer hW_r1;
@@ -69,16 +67,15 @@ public class RemiliaScarletModel extends GSKOBipedModel<RemiliaScarletEntity> {
 
 		remilia = new ModelRenderer(this);
 		remilia.setRotationPoint(0.0F, 24.0F, 0.0F);
-		
 
-		hand = new ModelRenderer(this);
-		hand.setRotationPoint(0.0F, 0.0F, 0.0F);
-		remilia.addChild(hand);
-		hand.setTextureOffset(0, 0).addBox(-4.0F, -31.25F, -3.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
+		head = new ModelRenderer(this);
+		head.setRotationPoint(0.0F, 0.0F, 0.0F);
+		remilia.addChild(head);
+		head.setTextureOffset(0, 0).addBox(-4.0F, -31.25F, -3.0F, 8.0F, 8.0F, 8.0F, 0.0F, false);
 
 		hat = new ModelRenderer(this);
 		hat.setRotationPoint(0.0F, 0.0F, 0.0F);
-		hand.addChild(hat);
+		head.addChild(hat);
 		hat.setTextureOffset(63, 17).addBox(-4.0F, -31.3F, -3.2F, 8.0F, 8.0F, 0.0F, 0.0F, false);
 		hat.setTextureOffset(56, 9).addBox(-4.0F, -31.5F, -3.0F, 8.0F, 0.0F, 8.0F, 0.0F, false);
 		hat.setTextureOffset(63, 35).addBox(-4.0F, -31.0F, 5.25F, 8.0F, 8.0F, 0.0F, 0.0F, false);
@@ -322,9 +319,49 @@ public class RemiliaScarletModel extends GSKOBipedModel<RemiliaScarletEntity> {
 		return Iterables.concat(super.getBodyParts(), ImmutableList.of(this.body, this.rightArm, this.leftArm, this.rightLeg, this.leftLeg));
 	}
 
+    @Override
+    public void setRotationAngles(RemiliaScarletEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        super.setRotationAngles(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch);
+        if (this.leftArmPose == BipedModel.ArmPose.THROW_SPEAR) {
+            this.leftArm.rotateAngleX = this.bipedLeftArm.rotateAngleX * 0.5F - (float)Math.PI;
+            this.leftArm.rotateAngleY = 0.0F;
+        }
+
+        if (this.rightArmPose == BipedModel.ArmPose.THROW_SPEAR) {
+            this.rightArm.rotateAngleX = this.bipedRightArm.rotateAngleX * 0.5F - (float)Math.PI;
+            this.rightArm.rotateAngleY = 0.0F;
+        }
+
+        if (this.swimAnimation > 0.0F) {
+            this.rightArm.rotateAngleX = this.rotLerpRad(this.swimAnimation, this.bipedRightArm.rotateAngleX, -2.5132742F) + this.swimAnimation * 0.35F * MathHelper.sin(0.1F * ageInTicks);
+            this.leftArm.rotateAngleX = this.rotLerpRad(this.swimAnimation, this.bipedLeftArm.rotateAngleX, -2.5132742F) - this.swimAnimation * 0.35F * MathHelper.sin(0.1F * ageInTicks);
+            this.rightArm.rotateAngleZ = this.rotLerpRad(this.swimAnimation, this.bipedRightArm.rotateAngleZ, -0.15F);
+            this.leftArm.rotateAngleZ = this.rotLerpRad(this.swimAnimation, this.bipedLeftArm.rotateAngleZ, 0.15F);
+            this.leftLeg.rotateAngleX -= this.swimAnimation * 0.55F * MathHelper.sin(0.1F * ageInTicks);
+            this.rightLeg.rotateAngleX += this.swimAnimation * 0.55F * MathHelper.sin(0.1F * ageInTicks);
+            this.head.rotateAngleX = 0.0F;
+        }
+    }
+
 	@Override
+    @SuppressWarnings("unchecked")
 	public void setLivingAnimations(@NotNull RemiliaScarletEntity entityIn, float limbSwing, float limbSwingAmount, float partialTick) {
-		super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
+        if (!entityIn.getBattlePhase().equals("2.2")) {
+            super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
+            return;
+        }
+
+        if (entityIn.goalSelector.getRunningGoals() instanceof YoukaiTimerGoal) {
+            YoukaiTimerGoal<RemiliaScarletEntity> timerGoal = (YoukaiTimerGoal<RemiliaScarletEntity>)entityIn.goalSelector.getRunningGoals();
+            int currentTick = timerGoal.getCurrentGoalTick();
+            if (currentTick < 80) {
+                this.rightArmPose = ArmPose.THROW_SPEAR;
+            }
+            else {
+                this.rightArmPose = ArmPose.EMPTY;
+            }
+        }
+        super.setLivingAnimations(entityIn, limbSwing, limbSwingAmount, partialTick);
 		//previously the render function, render code was moved to a method below
 	}
 

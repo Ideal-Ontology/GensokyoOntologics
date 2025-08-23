@@ -366,9 +366,14 @@ public final class ItemRegistry {
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
     public static final RegistryObject<Item> RUMIA_HAIR_TIE = ITEMS.register("rumia_hair_tie",
             () -> new RumiaHairTie(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+
     public static final RegistryObject<SakuyaStopWatch> SAKUYA_WATCH = ITEMS.register(
             "sakuya_stop_watch", () -> new SakuyaStopWatch(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+
+    public static final RegistryObject<Item> GUNGNIR = ITEMS.register("gungnir",
+            () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
+
     public static final RegistryObject<CrookedClockNeedle> CROOKED_CLOCK_NEEDLE = ITEMS.register(
             "crooked_clock_needle", () -> new CrookedClockNeedle(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));

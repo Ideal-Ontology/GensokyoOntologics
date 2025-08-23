@@ -64,10 +64,10 @@ public class GensokyoOntology {
         final IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
         eventBus.addListener(CommonSetUp::init);
 
+        EnchantRegistry.ENCHANTS.register(eventBus);
         ItemRegistry.ITEMS.register(eventBus);
         FluidRegistry.FLUIDS.register(eventBus);
         BlockRegistry.BLOCKS.register(eventBus);
-        EnchantRegistry.ENCHANTS.register(eventBus);
         ParticleRegistry.PARTICLE_TYPES.register(eventBus);
         EffectRegistry.POTION_EFFECTS.register(eventBus);
         TileEntityRegistry.TILE_ENTITIES.register(eventBus);
@@ -265,7 +265,7 @@ public class GensokyoOntology {
 
             event.put(EntityRegistry.CIRNO.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 200)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 12)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 5)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30)
                     .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.6)
                     .createMutableAttribute(Attributes.ARMOR, 8)
@@ -273,31 +273,31 @@ public class GensokyoOntology {
 
             event.put(EntityRegistry.LILY_WHITE.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 100D)
-                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35F)
-                    .createMutableAttribute(Attributes.FLYING_SPEED, 0.4F)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.35)
+                    .createMutableAttribute(Attributes.FLYING_SPEED, 0.4)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 7D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 3)
                     .create());
 
             event.put(EntityRegistry.FLANDRE_SCARLET.get(), MobEntity.func_233666_p_()
-                    .createMutableAttribute(Attributes.MAX_HEALTH, 500D)
-                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4F)
-                    .createMutableAttribute(Attributes.FLYING_SPEED, 0.5F)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10D)
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 500)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4)
+                    .createMutableAttribute(Attributes.FLYING_SPEED, 0.5)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
                     .create());
             event.put(EntityRegistry.FLANDRE_DOPPELDANGER.get(), MobEntity.func_233666_p_()
-                    .createMutableAttribute(Attributes.MAX_HEALTH, 500D)
-                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4F)
-                    .createMutableAttribute(Attributes.FLYING_SPEED, 0.5F)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10D)
+                    .createMutableAttribute(Attributes.MAX_HEALTH, 500)
+                    .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4)
+                    .createMutableAttribute(Attributes.FLYING_SPEED, 0.5)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 4)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE, 30D)
                     .create());
             event.put(EntityRegistry.REMILIA_SCARLET.get(), MobEntity.func_233666_p_()
                     .createMutableAttribute(Attributes.MAX_HEALTH, 500D)
                     .createMutableAttribute(Attributes.MOVEMENT_SPEED, 0.4F)
                     .createMutableAttribute(Attributes.FLYING_SPEED, 0.5F)
-                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10D)
+                    .createMutableAttribute(Attributes.ATTACK_DAMAGE, 10)
                     .createMutableAttribute(Attributes.FOLLOW_RANGE,30D)
                     .create());
 
