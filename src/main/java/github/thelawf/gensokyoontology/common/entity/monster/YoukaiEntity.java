@@ -1,29 +1,22 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SpawnReason;
-import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Difficulty;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.BossInfo;
 import net.minecraft.world.World;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraft.world.server.ServerBossInfo;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Random;
-import java.util.function.Predicate;
-
+/**
+ * 妖怪实体内置Boss战斗阶段
+ */
 public abstract class YoukaiEntity extends RetreatableEntity {
 
     /**
@@ -37,6 +30,7 @@ public abstract class YoukaiEntity extends RetreatableEntity {
     protected boolean duringSpellCard = false;
     public String battlePhase = "1.1";
 
+    protected final ServerBossInfo bossBar;
     // @OnlyIn(Dist.CLIENT)
     // private Animation animation = Animation.IDLE;
     public static final DataParameter<String> DATA_PHASE = EntityDataManager.createKey(YoukaiEntity.class,
@@ -47,6 +41,21 @@ public abstract class YoukaiEntity extends RetreatableEntity {
 
     protected YoukaiEntity(EntityType<? extends TameableEntity> type, World worldIn) {
         super(type, worldIn);
+        this.bossBar = new ServerBossInfo(type.getName(), BossInfo.Color.RED, BossInfo.Overlay.PROGRESS);
+    }
+
+    @Override
+    public void tick() {
+        super.tick();
+
+        // 更新血条位置和血量
+        if (!this.world.isRemote) {
+            this.bossBar.setPercent(this.getHealth() / this.getMaxHealth());
+            this.world.getEntitiesWithinAABB(ServerPlayerEntity.class, this.getBoundingBox().grow(50))
+                    .forEach(player -> {
+                        if (player instanceof ServerPlayerEntity) this.bossBar.addPlayer(player);
+                    });
+        }
     }
 
     /**

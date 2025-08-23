@@ -1,11 +1,7 @@
 package github.thelawf.gensokyoontology.common.item;
 
-import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
-import github.thelawf.gensokyoontology.core.EnchantRegistry;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
@@ -13,12 +9,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
-import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class DanmakuItem extends Item {
     public DanmakuItem() {

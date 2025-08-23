@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.item.DanmakuItem;
@@ -20,11 +19,9 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -45,7 +42,8 @@ public class GSKOItemStackEvents {
     @SubscribeEvent
     public static void onShootDanmaku(PlayerInteractEvent.RightClickItem event) {
         if (event.getItemStack().getItem() instanceof DanmakuItem) {
-            Item item = event.getItemStack().getItem().getItem();
+            ItemStack stack = event.getItemStack();
+            Item item = stack.getItem();
             float size =
                     Danmaku.NORMAL_DANMAKU.containsKey(item) ?
                     Danmaku.NORMAL_DANMAKU.get(item).getSecond() :
@@ -53,6 +51,13 @@ public class GSKOItemStackEvents {
 
             tryApplyEnchant(EnchantRegistry.SPHERE_SHAPE.get(), event.getWorld(), event.getPlayer(),
                     event.getItemStack(), size);
+            tryApplyEnchant(EnchantRegistry.CURVED_SHAPE.get(), event.getWorld(), event.getPlayer(),
+                    event.getItemStack(), size);
+            tryApplyEnchant(EnchantRegistry.CIRCLE_SHAPE.get(), event.getWorld(), event.getPlayer(),
+                    event.getItemStack(), size);
+
+            stack.shrink(tryApplyEnchant(EnchantRegistry.INFINITE_DANMAKU.get(), event.getWorld(), event.getPlayer(),
+                    event.getItemStack(), size) == 0 ? 1 : 0 );
         }
     }
 
@@ -123,8 +128,8 @@ public class GSKOItemStackEvents {
         entity.canUpdate(true);
     }
 
-    private static void tryApplyEnchant(Enchantment enchant, World worldIn, PlayerEntity playerIn, ItemStack itemStack, float size) {
-        ENCHANT_BEHAVIORS.get(enchant).apply(enchant, itemStack, worldIn, playerIn, size);
+    private static int tryApplyEnchant(Enchantment enchant, World worldIn, PlayerEntity playerIn, ItemStack itemStack, float size) {
+        return ENCHANT_BEHAVIORS.get(enchant).apply(enchant, itemStack, worldIn, playerIn, size);
     }
 //
     public static final Map<Enchantment, Actions.DanmakuEnchant> ENCHANT_BEHAVIORS = Util.make(() -> {
