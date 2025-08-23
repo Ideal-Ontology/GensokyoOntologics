@@ -48,46 +48,5 @@ public class DanmakuItem extends Item {
         return ActionResult.resultConsume(stack);
     }
 
-//    private int tryApplyEnchant(Enchantment enchant, World worldIn, PlayerEntity playerIn, ItemStack itemStack, float size) {
-//        return ENCHANT_BEHAVIORS.get(enchant).apply(enchant, itemStack, worldIn, playerIn, size);
-//    }
-//
-//    public static final Map<Enchantment, Actions.DanmakuEnchant> ENCHANT_BEHAVIORS = Util.make(() -> {
-//        Map<Enchantment, Actions.DanmakuEnchant> map = new HashMap<>();
-//        map.put(EnchantRegistry.CURVED_SHAPE.get(),  (enchantment, stack, worldIn, playerIn, size) -> {
-//            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-//            if (level > 0) return level;
-//            DanmakuUtil.oddCurveVec(playerIn, level, 180 / level).forEach(shoot -> {
-//                Danmaku.create(worldIn, playerIn, stack)
-//                        .size(size)
-//                        .shoot(shoot, 0.55F);
-//            });
-//            return level;
-//        });
-//
-//        map.put(EnchantRegistry.CIRCLE_SHAPE.get(),  (enchantment, stack, worldIn, playerIn, size) -> {
-//            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-//            if (level > 0) return level;
-//            DanmakuUtil.ellipticPos(1F, level).forEach(shoot -> {
-//                Danmaku.create(worldIn, playerIn, stack)
-//                        .size(size)
-//                        .shoot(shoot, 0.55F);
-//            });
-//            return level;
-//        });
-//
-//        map.put(EnchantRegistry.SPHERE_SHAPE.get(), (enchantment, stack, worldIn, playerIn, size) -> {
-//            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-//            if (level > 0) return level;
-//            DanmakuUtil.spheroidPos(1F, level).forEach(shoot -> {
-//                Danmaku.create(worldIn, playerIn, stack)
-//                        .size(size)
-//                        .shoot(shoot, 0.55F);
-//            });
-//            return level;
-//        });
-//
-//        return map;
-//    });
 
 }

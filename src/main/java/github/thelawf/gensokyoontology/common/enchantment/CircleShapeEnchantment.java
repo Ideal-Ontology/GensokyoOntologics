@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.common.enchantment;
 import github.thelawf.gensokyoontology.core.EnchantRegistry;
 import net.minecraft.enchantment.Enchantment;
 
-public class CircleShapeEnchantment extends DanmakuShapeEnchant {
+public class CircleShapeEnchantment extends DanmakuShotEnchant {
     public CircleShapeEnchantment() {
         super(Rarity.UNCOMMON);
     }

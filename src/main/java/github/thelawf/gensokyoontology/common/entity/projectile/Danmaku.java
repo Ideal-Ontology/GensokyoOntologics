@@ -428,8 +428,8 @@ public class Danmaku extends ProjectileItemEntity{
      */
     public static final Map<Item,Float> DANMAKU_SIZES = Util.make(() -> {
         Map<Item, Float> map = new HashMap<>();
-        map.put(null, 0F);
-        map.put(Items.AIR, 0F);
+        map.put(null, 0.5F);
+        map.put(Items.AIR, 0.5F);
 
         map.put(ItemRegistry.LARGE_SHOT.get(), 2F);
         map.put(ItemRegistry.LARGE_SHOT_RED.get(), 2F);

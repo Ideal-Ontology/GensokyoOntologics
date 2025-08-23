@@ -4,8 +4,8 @@ import github.thelawf.gensokyoontology.core.EnchantRegistry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EquipmentSlotType;
 
-public abstract class DanmakuShapeEnchant extends Enchantment {
-    protected DanmakuShapeEnchant(Rarity rarityIn) {
+public abstract class DanmakuShotEnchant extends Enchantment {
+    protected DanmakuShotEnchant(Rarity rarityIn) {
         super(rarityIn, EnchantRegistry.DANMAKU, new EquipmentSlotType[]{EquipmentSlotType.MAINHAND, EquipmentSlotType.OFFHAND});
     }
 

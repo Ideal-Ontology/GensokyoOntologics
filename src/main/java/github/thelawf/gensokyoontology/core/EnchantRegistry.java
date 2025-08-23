@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.core;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.enchantment.CircleShapeEnchantment;
 import github.thelawf.gensokyoontology.common.enchantment.CurvedShapeEnchantment;
+import github.thelawf.gensokyoontology.common.enchantment.InfiniteShotEnchantment;
 import github.thelawf.gensokyoontology.common.enchantment.SphereShapeEnchantment;
 import github.thelawf.gensokyoontology.common.item.DanmakuItem;
 import net.minecraft.enchantment.Enchantment;
@@ -23,5 +24,6 @@ public class EnchantRegistry {
             SphereShapeEnchantment::new);
     public static final RegistryObject<Enchantment> CIRCLE_SHAPE = ENCHANTS.register("circle_shape",
             CircleShapeEnchantment::new);
-
+    public static final RegistryObject<Enchantment> INFINITE_DANMAKU = ENCHANTS.register("infite_danmaku",
+            InfiniteShotEnchantment::new);
 }
