@@ -7,11 +7,16 @@ import github.thelawf.gensokyoontology.client.particle.ParticleRegistry;
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
+import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
+import net.minecraft.block.Block;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -63,7 +68,6 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (stack.getTag() != null) {
             switch(getMode(stack.getTag())) {
-                default:
                 case DANMAKU:
 //                    InYoJadeDanmakuEntity inYoJade = new InYoJadeDanmakuEntity(worldIn, playerIn);
 //                    DanmakuUtil.shootDanmaku(worldIn, playerIn, inYoJade, 1F, 0F);
@@ -74,6 +78,9 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
                 case POWER:
                     this.powering(worldIn, playerIn, 10);
                     break;
+                case SPELL_CARD:
+                default:
+                    break;
             }
         }
 
@@ -83,19 +90,23 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
     }
 
     public void powering(World world, LivingEntity user, double radius){
-        if (world.isRemote) {
-            Vector3d start = user.getEyePosition(0f);
-            Vector3d end = user.getLookVec().normalize().scale(radius).add(start);
-            BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, user));
+        Vector3d start = user.getEyePosition(0f);
+        Vector3d end = user.getLookVec().normalize().scale(radius).add(start);
+        BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, user));
 
+        if (world.isRemote) {
             for (int i = 0; i < 50; i++) {
                 Vector3d pos = user.getLookVec().scale(i).add(start);
                 Vector3d motion = user.getLookVec().normalize().scale(0.8F);
                 ParticleRegistry.shootParticle(world, ParticleRegistry.POWER_PARTICLE.get(),
-                        pos, motion);
+                        user.getPositionVec().add(pos), motion);
             }
         }
-        // ITileEntityGetter.getTileEntity(world, btr.getPos(), TileEntityRegistry)
+        else {
+            GSKOUtil.getTileByType(world, btr.getPos(), TileEntityRegistry.DANMAKU_TABLE_TILE.get()).ifPresent(tile -> {
+                tile.setPower(tile.getPower() + (Screen.hasShiftDown() ? 1F : 0.1F));
+            });
+        }
     }
 
     @Override

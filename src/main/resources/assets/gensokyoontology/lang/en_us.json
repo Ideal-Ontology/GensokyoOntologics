@@ -105,6 +105,8 @@
   "item.gensokyoontology.jade_coin": "Jade Coin",
 
   "item.gensokyoontology.fairy_spawn_egg": "Fairy Spawn Egg",
+  "item.gensokyoontology.rumia_spawn_egg": "Rumia Spawn Egg",
+  "item.gensokyoontology.cirno_spawn_egg": "Cirno Spawn Egg",
   "item.gensokyoontology.hakurei_reimu_spawn_egg": "Hakurei Reimu Spawn Egg",
   "item.gensokyoontology.remilia_scarlet_spawn_egg": "Remilia Scarlet Spawn Egg",
   "item.gensokyoontology.flandre_scarlet_spawn_egg": "Flandre Scarlet Spawn Egg",
@@ -420,6 +422,8 @@
   "entity.gensokyoontology.spellcard.sc_mobius_ring_world": "\"Mobius Ring World\"",
 
   "entity.gensokyoontology.fairy": "Fairy",
+  "entity.gensokyoontology.rumia": "Rumia",
+  "entity.gensokyoontology.cirno": "Cirno",
   "entity.gensokyoontology.lily_white": "Lily White",
   "entity.gensokyoontology.hakurei_reimu": "Hakurei Reimu",
   "entity.gensokyoontology.flandre_scarlet": "Flandre Scarlet",

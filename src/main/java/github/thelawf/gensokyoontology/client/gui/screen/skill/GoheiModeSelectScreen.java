@@ -37,7 +37,7 @@ public class GoheiModeSelectScreen extends ModeSwitchScreen {
     private HakureiGohei.Mode mode;
     public static final TranslationTextComponent DANMAKU = GensokyoOntology.translate("gui.", ".gohei.mode.danmaku");
     public static final TranslationTextComponent DREAM_SEAL = GensokyoOntology.translate("gui.", ".gohei.mode.dream_seal");
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/gohei_selection_screen.png");
+    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/selection_gui.png");
 
     public GoheiModeSelectScreen(ITextComponent titleIn, HakureiGohei.Mode mode) {
         super(titleIn);
@@ -91,14 +91,15 @@ public class GoheiModeSelectScreen extends ModeSwitchScreen {
 
         MODES_RENDER_MAP.get(this.mode).accept(this, matrixStack);
 
-        if (mode == HakureiGohei.Mode.DANMAKU) {
-            this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 32, 32, 32);
-            this.blit(matrixStack, this.guiLeft + 52, this.guiTop, 32, 0, 32, 32);
-        }
-        else {
-            this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, 32, 32);
-            this.blit(matrixStack, this.guiLeft + 52, this.guiTop, 32, 32, 32, 32);
-        }
+//
+//        if (mode == HakureiGohei.Mode.DANMAKU) {
+//            this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 32, 32, 32);
+//            this.blit(matrixStack, this.guiLeft + 52, this.guiTop, 32, 0, 32, 32);
+//        }
+//        else {
+//            this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, 32, 32);
+//            this.blit(matrixStack, this.guiLeft + 52, this.guiTop, 32, 32, 32, 32);
+//        }
         matrixStack.pop();
 
         this.font.drawTextWithShadow(matrixStack, DANMAKU, this.guiLeft, this.guiTop + 52, 16777215);

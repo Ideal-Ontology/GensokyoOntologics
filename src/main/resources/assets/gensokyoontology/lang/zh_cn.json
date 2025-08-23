@@ -115,6 +115,10 @@
   "entity.gensokyoontology.danmaku_entity": "弹幕实体",
   "entity.gensokyoontology.fairy": "妖精",
   "entity.gensokyoontology.fake_lunar": "虚假之月",
+
+  "entity.gensokyoontology.rumia": "露米娅",
+  "entity.gensokyoontology.cirno": "琪露诺",
+
   "entity.gensokyoontology.flandre_scarlet": "芙兰朵露·斯卡蕾特",
   "entity.gensokyoontology.hakurei_reimu": "博丽灵梦",
   "entity.gensokyoontology.heart_shot": "心弹",
@@ -301,6 +305,9 @@
   "item.gensokyoontology.eirin_yagookoro_arrow": "永琳的箭矢",
   "item.gensokyoontology.emerald_coin": "绿宝石币",
   "item.gensokyoontology.extend_item": "Extend Item",
+
+  "item.gensokyoontology.rumia_spawn_egg": "露米娅刷怪蛋",
+  "item.gensokyoontology.cirno_spawn_egg": "琪露诺刷怪蛋",
   "item.gensokyoontology.fairy_spawn_egg": "妖精刷怪蛋",
   "item.gensokyoontology.fake_lunar": "虚假之月",
   "item.gensokyoontology.flandre_scarlet_spawn_egg": "芙兰朵露刷怪蛋",
@@ -615,6 +622,5 @@
   "tooltip.gensokyoontology.three_sacred_treasures.mirror": "「三种神器　镜」",
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "「三种神器　玉」",
   "tooltip.gensokyoontology.three_sacred_treasures.sword": "「三种神器　剑」",
-  "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题",
-  "xmmui.gensokyoontology.test_xmmui_screen.style_test": "欢迎使用XMMUI作为Minecraft前端GUI框架"
+  "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题"
 }

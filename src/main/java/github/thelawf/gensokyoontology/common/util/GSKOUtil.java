@@ -22,6 +22,8 @@ import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
@@ -240,6 +242,14 @@ public class GSKOUtil {
     @SafeVarargs
     public static <K, V> void putDefaultValue(Map<K, V> map, V defaultValue, K... keys) {
         for (K k : keys) map.put(k, defaultValue);
+    }
+
+    @SuppressWarnings("unchecked")
+    public static  <T extends TileEntity> Optional<T> getTileByType(World world, BlockPos pos, TileEntityType<T> type) {
+        TileEntity tileEntity = world.getTileEntity(pos);
+        if (tileEntity == null) return Optional.empty();
+        if (tileEntity.getType() != type) return Optional.empty();
+        return Optional.of((T) tileEntity);
     }
 
 }

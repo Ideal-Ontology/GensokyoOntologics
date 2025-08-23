@@ -24,17 +24,10 @@ public class DanmakuItem extends Item {
         if (Danmaku.DANMAKU_SIZES.containsKey(this)) size = Danmaku.DANMAKU_SIZES.get(this);
 
         ItemStack stack = playerIn.getHeldItem(handIn);
-        // int l1 = this.tryApplyEnchant(EnchantRegistry.CIRCLE_SHAPE.get(), worldIn, playerIn, stack, size);
-        // int l2 = this.tryApplyEnchant(EnchantRegistry.CURVED_SHAPE.get(), worldIn, playerIn, stack, size);
-        // int l3 = this.tryApplyEnchant(EnchantRegistry.SPHERE_SHAPE.get(), worldIn, playerIn, stack, size);
-
         Danmaku.create(worldIn, playerIn, this)
                 .size(size)
                 .shoot(playerIn.getLookVec(), 0.55F);
 
-        // if (l1 == 0 && l2 == 0 && l3 == 0) {
-        //
-        // }
 
         if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) == 0) stack.shrink(1);
         return ActionResult.resultConsume(stack);

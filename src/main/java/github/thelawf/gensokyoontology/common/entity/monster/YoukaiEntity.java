@@ -58,6 +58,12 @@ public abstract class YoukaiEntity extends RetreatableEntity {
         }
     }
 
+    @Override
+    public void onRemovedFromWorld() {
+        super.onRemovedFromWorld();
+        this.bossBar.removeAllPlayers();
+    }
+
     /**
      * 怪不得继承自YoukaiEntity的实体死不了呢（）原来是我之前在这里判断如果战胜了妖怪则将她驯服了啊（
      *
