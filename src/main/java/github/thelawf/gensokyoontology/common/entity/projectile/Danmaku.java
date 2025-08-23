@@ -391,12 +391,12 @@ public class Danmaku extends ProjectileItemEntity{
         map.put(null, Pair.of(false, 0F));
         map.put(Items.AIR, Pair.of(false, 0F));
 
-        map.put(ItemRegistry.SCALE_SHOT.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.SCALE_SHOT_RED.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.SCALE_SHOT_YELLOW.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.SCALE_SHOT_GREEN.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.SCALE_SHOT_BLUE.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.SCALE_SHOT_PURPLE.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.SCALE_SHOT.get(), Pair.of(false, 0.5F));
+        map.put(ItemRegistry.SCALE_SHOT_RED.get(), Pair.of(false, 0.5F));
+        map.put(ItemRegistry.SCALE_SHOT_YELLOW.get(), Pair.of(false, 0.5F));
+        map.put(ItemRegistry.SCALE_SHOT_GREEN.get(), Pair.of(false, 0.5F));
+        map.put(ItemRegistry.SCALE_SHOT_BLUE.get(), Pair.of(false, 0.5F));
+        map.put(ItemRegistry.SCALE_SHOT_PURPLE.get(), Pair.of(false, 0.5F));
 
         map.put(ItemRegistry.TALISMAN_SHOT.get(), Pair.of(false, 1F));
         map.put(ItemRegistry.TALISMAN_SHOT_RED.get(), Pair.of(false, 1F));
@@ -404,10 +404,10 @@ public class Danmaku extends ProjectileItemEntity{
         map.put(ItemRegistry.TALISMAN_SHOT_BLUE.get(), Pair.of(false, 1F));
         map.put(ItemRegistry.TALISMAN_SHOT_PURPLE.get(), Pair.of(false, 1F));
 
-        map.put(ItemRegistry.RICE_SHOT.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.RICE_SHOT_RED.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.RICE_SHOT_BLUE.get(), Pair.of(false, 0.4F));
-        map.put(ItemRegistry.RICE_SHOT_PURPLE.get(), Pair.of(false, 0.4F));
+        map.put(ItemRegistry.RICE_SHOT.get(), Pair.of(false, 0.5F));
+        map.put(ItemRegistry.RICE_SHOT_RED.get(), Pair.of(false, 0.5F));
+        map.put(ItemRegistry.RICE_SHOT_BLUE.get(), Pair.of(false, 0.5F));
+        map.put(ItemRegistry.RICE_SHOT_PURPLE.get(), Pair.of(false, 0.5F));
 
         map.put(ItemRegistry.HEART_SHOT.get(), Pair.of(true, 2.0F));
         map.put(ItemRegistry.HEART_SHOT_RED.get(), Pair.of(true, 2.0F));
@@ -431,15 +431,15 @@ public class Danmaku extends ProjectileItemEntity{
         map.put(null, 0F);
         map.put(Items.AIR, 0F);
 
-        map.put(ItemRegistry.LARGE_SHOT.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_RED.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_ORANGE.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_YELLOW.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_GREEN.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_AQUA.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_BLUE.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_PURPLE.get(), 3F);
-        map.put(ItemRegistry.LARGE_SHOT_MAGENTA.get(), 3F);
+        map.put(ItemRegistry.LARGE_SHOT.get(), 2F);
+        map.put(ItemRegistry.LARGE_SHOT_RED.get(), 2F);
+        map.put(ItemRegistry.LARGE_SHOT_ORANGE.get(), 2F);
+        map.put(ItemRegistry.LARGE_SHOT_YELLOW.get(), 2F);
+        map.put(ItemRegistry.LARGE_SHOT_GREEN.get(), 2F);
+        map.put(ItemRegistry.LARGE_SHOT_AQUA.get(), 2F);
+        map.put(ItemRegistry.LARGE_SHOT_BLUE.get(), 2F);
+        map.put(ItemRegistry.LARGE_SHOT_PURPLE.get(), 2F);
+        map.put(ItemRegistry.LARGE_SHOT_MAGENTA.get(), 2F);
 
         map.put(ItemRegistry.SMALL_SHOT.get(), 0.4F);
         map.put(ItemRegistry.SMALL_SHOT_RED.get(), 0.4F);

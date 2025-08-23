@@ -91,7 +91,18 @@ public class RemiliaBattle {
         }
     };
 
-    public static final YoukaiCombat.TargetAction<RemiliaScarletEntity> VAMPIRE_SQUARE = (world, remilia, target) -> {
-
+    public static final YoukaiCombat.SkillAction<RemiliaScarletEntity> VAMPIRE_SQUARE = (world, remilia) -> {
+        float raidus = GSKOMathUtil.triangularPeriod(remilia.ticksExisted, 0, 2);
+        if (remilia.ticksExisted % 3 != 0) return;
+        float angleDeg = remilia.ticksExisted / 3F * 3;
+        for (int i = -1; i < 4; i++) {
+            int finalI = i;
+            DanmakuUtil.ellipticPos(raidus, 5).forEach(pos -> {
+                Vector3d shoot = pos.inverse().rotateYaw(angleDeg);
+                Danmaku.create(world, remilia, ItemRegistry.RICE_SHOT_RED.get())
+                        .pos(remilia.getPositionVec().add(pos).add(0, finalI, 0))
+                        .shoot(shoot, 0.3F);
+            });
+        }
     };
 }

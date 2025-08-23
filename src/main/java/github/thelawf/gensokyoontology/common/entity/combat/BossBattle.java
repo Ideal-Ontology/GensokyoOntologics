@@ -96,12 +96,12 @@ public class BossBattle {
     };
 
     public static final YoukaiCombat.TargetAction<CirnoEntity> ICY_STORM = (world, youkai, target) -> {
-        if (youkai.ticksExisted % 11 != 0) return;
+        // if (youkai.ticksExisted % 11 != 0) return;
 
         Vector3d randPos = GSKOMathUtil.randomVec(-3, 3);
         DanmakuUtil.spheroidPos(1, 8).forEach(shoot -> Danmaku.create(world, youkai, ItemRegistry.CRYSTAL_AQUA.get())
                 .rot(Rot2f.from(shoot))
-                .pos(randPos)
+                .pos(youkai.getPositionVec().add(randPos))
                 .onHit(ON_CRYSTAL_HIT)
                 .shoot(shoot, 0.4F));
     };

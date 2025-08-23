@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.api.entity.YoukaiCombat;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
 import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
+import github.thelawf.gensokyoontology.common.entity.monster.RemiliaScarletEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
@@ -41,11 +42,12 @@ public class FlandreBattle {
             world.addEntity(eye);
         }
     };
-    public static final YoukaiCombat.SkillAction<FlandreScarletEntity> FLANDRE_SPHERE = (world, flandre) -> {
+
+    public static final YoukaiCombat.SkillAction<RemiliaScarletEntity> FLANDRE_SPHERE = (world, flandre) -> {
         float raidus = GSKOMathUtil.triangularPeriod(flandre.ticksExisted, 0, 2);
-        if (flandre.ticksExisted % 11 != 0) return;
-        float angleDeg = flandre.ticksExisted / 11F * 3;
-        DanmakuUtil.spheroidPos(raidus, 11).forEach(pos -> {
+        if (flandre.ticksExisted % 7 != 0) return;
+        float angleDeg = flandre.ticksExisted / 7F * 3;
+        DanmakuUtil.spheroidPos(raidus, 7).forEach(pos -> {
             Vector3d shoot = pos.inverse().rotateYaw(angleDeg);
             Danmaku.create(world, flandre, ItemRegistry.RICE_SHOT_RED.get())
                     .pos(flandre.getPositionVec().add(pos))

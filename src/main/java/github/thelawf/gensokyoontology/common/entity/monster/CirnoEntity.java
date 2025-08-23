@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
-import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiCombatGoal;
+import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiSkillGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiTargetGoal;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.YoukaiTimerGoal;
 import github.thelawf.gensokyoontology.common.entity.combat.BossBattle;
@@ -24,9 +24,9 @@ public class CirnoEntity extends YoukaiEntity{
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 0.4, true));
 
         this.goalSelector.addGoal(3, new YoukaiTargetGoal<>(this, BossBattle.ICY_STORM, 1, 1, 800));
-        this.goalSelector.addGoal(3, new YoukaiCombatGoal<>(this, BossBattle.BLANK_PHASE, 1, 2, 100));
+        this.goalSelector.addGoal(3, new YoukaiSkillGoal<>(this, BossBattle.BLANK_PHASE, 1, 2, 100));
         this.goalSelector.addGoal(3, new YoukaiTimerGoal<>(this, BossBattle.FROST_COLUMNS, 1, 3, 800));
-        this.goalSelector.addGoal(3, new YoukaiCombatGoal<>(this, BossBattle.BLANK_PHASE, 1, 4, 100));
+        this.goalSelector.addGoal(3, new YoukaiSkillGoal<>(this, BossBattle.BLANK_PHASE, 1, 4, 100));
         this.goalSelector.addGoal(3, new YoukaiTimerGoal<>(this, BossBattle.CRYSTAL_TUNNEL, 1, 5, 800));
 
         this.goalSelector.addGoal(4, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));

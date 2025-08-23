@@ -57,8 +57,8 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         this.goalSelector.addGoal(2, new SitGoal(this));
         this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));
 
-        this.goalSelector.addGoal(4, new YoukaiCombatGoal(this, FlandreBattle.FLANDRE_SPHERE, 1, 1, 2000));
-        this.goalSelector.addGoal(4, new YoukaiCombatGoal(this, FlandreBattle.FLANDRE_LASER, 1, 2, 2000));
+        this.goalSelector.addGoal(4, new YoukaiSkillGoal(this, FlandreBattle.FLANDRE_SPHERE, 1, 1, 2000));
+        this.goalSelector.addGoal(4, new YoukaiSkillGoal(this, FlandreBattle.FLANDRE_LASER, 1, 2, 2000));
         this.goalSelector.addGoal(4, new YoukaiTargetGoal(this, FlandreBattle.SUMMON_EYE, 1, 3, 1000));
 
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
