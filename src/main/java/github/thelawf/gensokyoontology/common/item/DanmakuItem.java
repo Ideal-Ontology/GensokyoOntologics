@@ -28,10 +28,8 @@ public class DanmakuItem extends Item {
                 .size(size)
                 .shoot(playerIn.getLookVec(), 0.55F);
 
-
         if (EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) == 0) stack.shrink(1);
         return ActionResult.resultConsume(stack);
     }
-
 
 }

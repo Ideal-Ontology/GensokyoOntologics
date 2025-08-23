@@ -110,15 +110,12 @@
   "effect.gensokyoontology.hypnosis": "催眠",
   "effect.gensokyoontology.love_potion": "迷恋",
   "effect.gensokyoontology.mania": "躁狂",
+  "entity.gensokyoontology.cirno": "琪露诺",
   "entity.gensokyoontology.citizen": "市民",
   "entity.gensokyoontology.cursed_bat": "Cursed Bat",
   "entity.gensokyoontology.danmaku_entity": "弹幕实体",
   "entity.gensokyoontology.fairy": "妖精",
   "entity.gensokyoontology.fake_lunar": "虚假之月",
-
-  "entity.gensokyoontology.rumia": "露米娅",
-  "entity.gensokyoontology.cirno": "琪露诺",
-
   "entity.gensokyoontology.flandre_scarlet": "芙兰朵露·斯卡蕾特",
   "entity.gensokyoontology.hakurei_reimu": "博丽灵梦",
   "entity.gensokyoontology.heart_shot": "心弹",
@@ -129,6 +126,7 @@
   "entity.gensokyoontology.lily_white": "莉莉白",
   "entity.gensokyoontology.remilia_scarlet": "蕾米莉亚·斯卡蕾特",
   "entity.gensokyoontology.rice_shot": "米弹",
+  "entity.gensokyoontology.rumia": "露米娅",
   "entity.gensokyoontology.scale_shot": "鳞弹",
   "entity.gensokyoontology.small_shot": "小弹",
   "entity.gensokyoontology.spectre": "幽灵",
@@ -161,6 +159,7 @@
   "gensokyoontology:wind_goddess_lake": "风神之湖",
   "gensokyoontology:yamotsu_hirasaka": "黄泉比良坂",
   "gensokyoontology:youkai_mountain": "妖怪之山",
+
   "gui.gensokyoontology.binary_operation.button.operation.And": "逻辑与",
   "gui.gensokyoontology.binary_operation.button.operation.BitwiseAnd": "按位与",
   "gui.gensokyoontology.binary_operation.button.operation.BitwiseLeft": "按位左移",
@@ -176,8 +175,10 @@
   "gui.gensokyoontology.binary_operation.button.operation.Or": "逻辑或",
   "gui.gensokyoontology.binary_operation.button.operation.Plus": "加",
   "gui.gensokyoontology.binary_operation.button.operation.Subtract": "减",
+
   "gui.gensokyoontology.binary_operation.left.text": "左值：",
   "gui.gensokyoontology.binary_operation.right.text": "右值：",
+
   "gui.gensokyoontology.button.decrease_pitch": "-",
   "gui.gensokyoontology.button.decrease_pitch.msg": "Pitch",
   "gui.gensokyoontology.button.decrease_roll": "-",
@@ -190,6 +191,7 @@
   "gui.gensokyoontology.button.increase_roll.msg": "翻滚角",
   "gui.gensokyoontology.button.increase_yaw": "+",
   "gui.gensokyoontology.button.increase_yaw.msg": "偏航角",
+
   "gui.gensokyoontology.const_builder.button.constType.boolean": "布尔类型",
   "gui.gensokyoontology.const_builder.button.constType.double": "双精度浮点数类型",
   "gui.gensokyoontology.const_builder.button.constType.float": "浮点数类型",
@@ -198,14 +200,17 @@
   "gui.gensokyoontology.const_builder.button.constType.string": "字符串类型",
   "gui.gensokyoontology.const_builder.button.preset.custom": "自定义设置",
   "gui.gensokyoontology.const_builder.button.preset.default": "默认设置",
+
   "gui.gensokyoontology.const_builder.button.preset.e": "预设值：e",
   "gui.gensokyoontology.const_builder.button.preset.none": "默认设置",
   "gui.gensokyoontology.const_builder.button.preset.pi": "预设值：π",
   "gui.gensokyoontology.const_builder.button.preset.two_pi": "预设值：2π",
   "gui.gensokyoontology.const_builder.tip.valueInput": "值：",
+
   "gui.gensokyoontology.danmaku_builder.button.color": "弹幕颜色：",
   "gui.gensokyoontology.danmaku_builder.button.name": "名称：",
   "gui.gensokyoontology.danmaku_builder.button.type": "弹幕类型：",
+
   "gui.gensokyoontology.danmaku_color.aqua": "§b淡蓝色",
   "gui.gensokyoontology.danmaku_color.blue": "§9蓝色",
   "gui.gensokyoontology.danmaku_color.green": "§a绿色",
@@ -216,6 +221,7 @@
   "gui.gensokyoontology.danmaku_color.purple": "§5紫色",
   "gui.gensokyoontology.danmaku_color.red": "§c红色",
   "gui.gensokyoontology.danmaku_color.yellow": "§e黄色",
+
   "gui.gensokyoontology.danmaku_type.arrow_shot": "箭弹",
   "gui.gensokyoontology.danmaku_type.butterfly_shot": "蝶弹",
   "gui.gensokyoontology.danmaku_type.crystal_shot": "晶弹",
@@ -233,23 +239,31 @@
   "gui.gensokyoontology.danmaku_type.small_shot": "小弹",
   "gui.gensokyoontology.danmaku_type.small_star_shot": "小型星弹",
   "gui.gensokyoontology.danmaku_type.talisman_shot": "札弹",
+
   "gui.gensokyoontology.default.set_name": "§7§oPlease set name",
   "gui.gensokyoontology.default.set_value": "§7§oPlease set value",
+
   "gui.gensokyoontology.func_invoker.params": "参数：",
   "gui.gensokyoontology.func_invoker.return": "返回值",
+
   "gui.gensokyoontology.func_invoker.vector3d.add": "向量加法",
   "gui.gensokyoontology.func_invoker.vector3d.cross_product": "向量叉乘",
   "gui.gensokyoontology.func_invoker.vector3d.dot_product": "向量点乘",
   "gui.gensokyoontology.func_invoker.vector3d.inverse": "反向",
   "gui.gensokyoontology.func_invoker.vector3d.length": "模长",
   "gui.gensokyoontology.func_invoker.vector3d.normalize": "归一化",
+
   "gui.gensokyoontology.func_invoker.vector3d.rotate_pitch": "绕Z轴旋转",
   "gui.gensokyoontology.func_invoker.vector3d.rotate_yaw": "绕Y轴旋转",
   "gui.gensokyoontology.func_invoker.vector3d.scale": "向量乘法",
   "gui.gensokyoontology.func_invoker.vector3d.subtract": "向量减法",
+
   "gui.gensokyoontology.gohei.mode.danmaku": "弹幕攻击",
   "gui.gensokyoontology.gohei.mode.dream_seal": "梦想封印",
-  "gui.gensokyoontology.hakurei_gohei.title": "",
+  "gui.gensokyoontology.gohei.mode.power": "充能模式",
+  "gui.gensokyoontology.gohei.mode.spell_card": "符卡攻击",
+  "gui.gensokyoontology.hakurei_gohei.title": "御币 - 切换功能",
+
   "gui.gensokyoontology.label.pitch": "俯仰角: ",
   "gui.gensokyoontology.label.radius": "半径: ",
   "gui.gensokyoontology.label.roll": "翻滚角: ",
@@ -288,6 +302,7 @@
   "item.gensokyoontology.circle_shot_blue": "环玉（蓝）",
   "item.gensokyoontology.circle_shot_green": "环玉（绿）",
   "item.gensokyoontology.circle_shot_magenta": "环玉（品红）",
+  "item.gensokyoontology.cirno_spawn_egg": "琪露诺刷怪蛋",
   "item.gensokyoontology.clock_needle": "钟楼指针",
   "item.gensokyoontology.const_builder": "常量构建器",
   "item.gensokyoontology.copper_coin": "铜币",
@@ -305,9 +320,6 @@
   "item.gensokyoontology.eirin_yagookoro_arrow": "永琳的箭矢",
   "item.gensokyoontology.emerald_coin": "绿宝石币",
   "item.gensokyoontology.extend_item": "Extend Item",
-
-  "item.gensokyoontology.rumia_spawn_egg": "露米娅刷怪蛋",
-  "item.gensokyoontology.cirno_spawn_egg": "琪露诺刷怪蛋",
   "item.gensokyoontology.fairy_spawn_egg": "妖精刷怪蛋",
   "item.gensokyoontology.fake_lunar": "虚假之月",
   "item.gensokyoontology.flandre_scarlet_spawn_egg": "芙兰朵露刷怪蛋",
@@ -399,6 +411,7 @@
   "item.gensokyoontology.rice_shot_red": "米弹（红）",
   "item.gensokyoontology.rice_shot_yellow": "米弹（黄）",
   "item.gensokyoontology.rumia_hair_tie": "露米娅的发带",
+  "item.gensokyoontology.rumia_spawn_egg": "露米娅刷怪蛋",
   "item.gensokyoontology.sake_bucket": "清酒桶",
   "item.gensokyoontology.sake_worm": "酒虫",
   "item.gensokyoontology.sakuya_stop_watch": "咲夜的怀表",
@@ -463,10 +476,9 @@
   "item.gensokyoontology.white_snow": "白雪",
   "item.gensokyoontology.yattsume_una": "八目鳗",
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
+  "itemGroup.gensokyoontology.block": "幻想存有论：方块",
   "itemGroup.gensokyoontology_combat": "幻想存有论：战斗",
   "itemGroup.gensokyoontology_items": "幻想存有论：物品",
-  "itemGroup.gensokyoontology.block": "幻想存有论：方块",
-
   "key.category.gensokyoontology": "幻想存有论（按键绑定）",
   "minecraft:beach": "海洋",
   "minecraft:desert": "沙漠",
@@ -622,5 +634,6 @@
   "tooltip.gensokyoontology.three_sacred_treasures.mirror": "「三种神器　镜」",
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "「三种神器　玉」",
   "tooltip.gensokyoontology.three_sacred_treasures.sword": "「三种神器　剑」",
-  "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题"
+  "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题",
+  "xmmui.gensokyoontology.test_xmmui_screen.style_test": "Welcome"
 }

@@ -567,8 +567,10 @@
   "gui.gensokyoontology.func_invoker.return": "Return",
 
   "gui.gensokyoontology.hakurei_gohei.title": "",
+  "gui.gensokyoontology.gohei.mode.power": "Powering",
   "gui.gensokyoontology.gohei.mode.danmaku": "Danmaku",
   "gui.gensokyoontology.gohei.mode.dream_seal": "Dream Seal",
+  "gui.gensokyoontology.gohei.mode.spell_card": "Spell Card",
 
   "key.category.gensokyoontology": "Gensokyo Ontology",
 

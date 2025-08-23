@@ -55,9 +55,6 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
         return Mode.values()[nbt.getInt("mode")];
     }
 
-    private Mode switchMode(CompoundNBT nbt) {
-        return EnumUtil.switchEnum(Mode.class, getMode(nbt));
-    }
 
     @Override
     @NotNull
@@ -67,7 +64,8 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
 
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (stack.getTag() != null) {
-            switch(getMode(stack.getTag())) {
+            GSKOUtil.showChatMsg(playerIn, getMode(stack.getTag()), 1);
+            switch (getMode(stack.getTag())) {
                 case DANMAKU:
 //                    InYoJadeDanmakuEntity inYoJade = new InYoJadeDanmakuEntity(worldIn, playerIn);
 //                    DanmakuUtil.shootDanmaku(worldIn, playerIn, inYoJade, 1F, 0F);
@@ -81,9 +79,9 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
                 case SPELL_CARD:
                 default:
                     break;
+
             }
         }
-
         if (playerIn.isCreative()) return ActionResult.resultPass(playerIn.getHeldItem(handIn));
         playerIn.getCooldownTracker().setCooldown(this, 10);
         return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
@@ -96,6 +94,10 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
 
         if (world.isRemote) {
             for (int i = 0; i < 50; i++) {
+                if (user instanceof PlayerEntity && i % 10 == 0) {
+                    PlayerEntity player = (PlayerEntity) user;
+                    GSKOUtil.showChatMsg(player, "pos = " + i, 1);
+                }
                 Vector3d pos = user.getLookVec().scale(i).add(start);
                 Vector3d motion = user.getLookVec().normalize().scale(0.8F);
                 ParticleRegistry.shootParticle(world, ParticleRegistry.POWER_PARTICLE.get(),
@@ -189,7 +191,7 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
     public enum Mode {
         POWER,
         DANMAKU,
-        SPELL_CARD,
-        DREAM_SEAL
+        DREAM_SEAL,
+        SPELL_CARD
     }
 }

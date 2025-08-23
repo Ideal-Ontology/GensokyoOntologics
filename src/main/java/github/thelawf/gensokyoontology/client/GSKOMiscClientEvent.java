@@ -13,6 +13,7 @@ import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapabil
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
 import github.thelawf.gensokyoontology.common.item.touhou.KoishiEyeOpen;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -204,7 +205,7 @@ public class GSKOMiscClientEvent {
     }
 
     @SubscribeEvent
-    public static void onHakureiGoheiModeScroll(GuiScreenEvent.MouseScrollEvent event) {
+    public static void onHakureiGoheiModeScroll(GuiScreenEvent.MouseScrollEvent.Post event) {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
         // alt+鼠标滚轮切换模式
@@ -212,24 +213,9 @@ public class GSKOMiscClientEvent {
         if (!(minecraft.currentScreen instanceof GoheiModeSelectScreen)) return;
 
         GoheiModeSelectScreen screen = (GoheiModeSelectScreen) minecraft.currentScreen;
-        if (event.getScrollDelta() > 0) screen.switchMode(-1);
-        else if (event.getScrollDelta() < 0) screen.switchMode(1);
+        if (player.world.isRemote) screen.switchMode((int) -event.getScrollDelta());
     }
 
-    @SubscribeEvent
-    public static void onKoishiEyeModeScroll(GuiScreenEvent.MouseScrollEvent event) {
-        Minecraft minecraft = Minecraft.getInstance();
-        PlayerEntity player = minecraft.player;
-        if (player != null && player.getHeldItem(Hand.MAIN_HAND).getItem() == ItemRegistry.KOISHI_EYE_OPEN.get()) {
-            if (minecraft.currentScreen instanceof KoishiEyeSwitchScreen) {
-                KoishiEyeSwitchScreen screen = (KoishiEyeSwitchScreen) minecraft.currentScreen;
-                if (event.getScrollDelta() > 0) screen.switchMode(-1);
-                else if (event.getScrollDelta() < 0) screen.switchMode(1);
-            }
-        }
-    }
-
-    // TODO: 当玩家乘坐过山车时实现摄像机的旋转
     @SubscribeEvent
     public static void onCameraRotate(EntityViewRenderEvent.CameraSetup event) {
     }

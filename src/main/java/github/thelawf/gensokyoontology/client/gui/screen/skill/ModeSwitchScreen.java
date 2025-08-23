@@ -1,9 +1,10 @@
 package github.thelawf.gensokyoontology.client.gui.screen.skill;
 
+import github.thelawf.gensokyoontology.api.client.layout.IParentLayoutScreen;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.ITextComponent;
 
-public abstract class ModeSwitchScreen extends Screen {
+public abstract class ModeSwitchScreen extends Screen implements IParentLayoutScreen {
 
     protected int guiLeft = 0;
     protected int guiTop = 0;

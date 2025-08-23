@@ -14,6 +14,13 @@ public class EnumUtil {
         T[] values = enumClass.getEnumConstants();
         int currentIndex = value.ordinal();
 
+        StackTraceElement[] stackTrace = Thread.currentThread().getStackTrace();
+        // 堆栈的第0个是getStackTrace方法本身，第1个是当前方法（moveTo），第2个是调用者
+        if (stackTrace.length >= 3) {
+            StackTraceElement caller = stackTrace[2];
+            GSKOUtil.log("Called by: " + caller.getClassName() + "." + caller.getMethodName());
+        }
+
         // 根据参数规定移动至values[]的对应位置
         int targetIndex = (currentIndex + index) % values.length;
         if (targetIndex < 0) {
