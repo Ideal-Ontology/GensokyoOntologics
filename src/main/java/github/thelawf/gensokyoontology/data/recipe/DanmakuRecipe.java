@@ -17,9 +17,11 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
@@ -48,6 +50,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
         this.recipeOutput = recipeOutputIn;
     }
 
+
     public static class Type implements IRecipeType<DanmakuRecipe> {
         @Override
         public String toString() {
@@ -55,20 +58,18 @@ public class DanmakuRecipe implements IJigsawRecipe {
         }
     }
 
-
     @Override
     public boolean matches(IInventory inv, World worldIn) {
-        if (this.center == null) return false;
-        return this.matchesIncludePos(worldIn, inv, this.center);
+        return true;
+        // if (this.center == null) return false;
+        // return this.matchesIncludePos(worldIn, inv, this.center);
     }
 
     public boolean matchesIncludePos(World world, IInventory inv, BlockPos center) {
-        if (!inv.getStackInSlot(0).equals(new ItemStack(ItemRegistry.DANMAKU_SHOT.get()))) return false;
-
         BlockPos.Mutable pos = new BlockPos.Mutable(center.getX() -2, center.getY(), center.getZ()-2);
         int matches = 0;
-        for (int x = 1; x < 6; x++) {
-            for (int z = 1; z < 6; z++) {
+        for (int x = 0; x < 5; x++) {
+            for (int z = 0; z < 5; z++) {
                 pos.add(x, 0, z);
                 if (this.blockStates.get(matches).equals(world.getBlockState(pos).getBlock())) matches++;
             }
@@ -122,12 +123,12 @@ public class DanmakuRecipe implements IJigsawRecipe {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
-        return new Serializer();
+    public @NotNull IRecipeSerializer<?> getSerializer() {
+        return RecipeRegistry.DANMAKU_CRAFT_SERIALIZER.get();
     }
 
     @Override
-    public IRecipeType<?> getType() {
+    public @NotNull IRecipeType<?> getType() {
         return RecipeRegistry.DANMAKU_RECIPE;
     }
 
@@ -165,11 +166,16 @@ public class DanmakuRecipe implements IJigsawRecipe {
         for (int i = 0; i < jArray.size(); i++) pattern[i] = jArray.get(i).getAsString();
 
         NonNullList<Block> blocks = NonNullList.create();
-        for (String s : pattern) blocks.add(map.get(s));
+        for (String str : pattern) {
+            for (int i = 0; i < 5; i++) {
+                String s = String.valueOf(str.charAt(i));
+                blocks.add(map.get(s));
+            }
+        }
         return blocks;
     }
 
-    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>>  implements IRecipeSerializer<DanmakuRecipe> {
+    public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<DanmakuRecipe> {
         private static final ResourceLocation NAME = GensokyoOntology.withRL("danmaku");
 
         /**
@@ -226,7 +232,6 @@ public class DanmakuRecipe implements IJigsawRecipe {
         }
 
         public void write(PacketBuffer buffer, DanmakuRecipe recipe) {
-            buffer.writeResourceLocation(recipe.id);
             buffer.writeItemStack(recipe.getRecipeOutput(), false);
             buffer.writeInt(recipe.getUnitCount());
             buffer.writeFloat(recipe.getPowerConsumption());

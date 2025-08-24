@@ -108,10 +108,7 @@ public class Danmaku extends ProjectileItemEntity{
     }
 
     public static Danmaku create(World world, LivingEntity owner, ItemStack stack) {
-        return new Danmaku(world, stack.getItem(), owner)
-                .pos(owner.getPositionVec())
-                .rot(Rot2f.from(owner.getLookVec()))
-                .disableGravity();
+        return Danmaku.create(world, owner, stack.getItem());
     }
 
     public static Danmaku create(World world, LivingEntity owner, Item item) {

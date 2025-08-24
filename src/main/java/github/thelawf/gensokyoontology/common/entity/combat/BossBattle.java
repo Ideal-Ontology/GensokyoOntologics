@@ -16,6 +16,7 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import org.apache.commons.lang3.RandomUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Consumer;
@@ -149,5 +150,39 @@ public class BossBattle {
             });
             timer.set(++lifespan);
         }
+    };
+
+    public static final YoukaiCombat.SkillAction<YoukaiEntity> ORBITING_WEB = (world, youkai) -> {
+        List<Danmaku> danmakuList = new ArrayList<>();
+        List<Vector3d> horizontalPos = DanmakuUtil.ellipticPos(8F, 60);
+        List<Vector3d> verticalPos = new ArrayList<>();
+
+        for (int i = 0; i < horizontalPos.size(); i++) {
+            float yawDeg = 360F / horizontalPos.size() * i;
+            float vertRadius = GSKOMathUtil.sineSmoothPeriod(i, 10,0F, 4F);
+            int vertCount = 8;
+            for (int j = 0; j < vertCount; j++) {
+                float pitchDeg = 360F / vertCount * j;
+                Vector3d vertPos = new Vector3d(Vector3f.XP).scale(vertRadius)
+                        .rotateYaw(Danmaku.rad(yawDeg))
+                        .rotatePitch(Danmaku.rad(pitchDeg));
+                verticalPos.add(vertPos);
+            }
+        }
+
+        verticalPos.forEach(pos -> {
+            Danmaku danmaku = new Danmaku(world, ItemRegistry.CIRCLE_SHOT_BLUE.get(), youkai){
+                @Override
+                public void tick() {
+                    super.tick();
+                    if (this.ticksExisted > 50) {
+                        Vector3d shoot = pos.inverse();
+                        this.shoot(shoot.x, shoot.y, shoot.z, 0.4F, 0);
+                    }
+                }
+            }.pos(youkai.getPositionVec().add(pos));
+            danmakuList.add(danmaku);
+        });
+
     };
 }

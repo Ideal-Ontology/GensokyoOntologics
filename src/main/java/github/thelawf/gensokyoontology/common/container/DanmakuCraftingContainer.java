@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import github.thelawf.gensokyoontology.data.recipe.GSKORecipeHandler;
+import net.minecraft.block.AbstractChestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
@@ -24,10 +25,13 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
 import net.minecraft.network.play.server.SSetSlotPacket;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 import net.minecraftforge.items.wrapper.InvWrapper;
@@ -55,31 +59,28 @@ public class DanmakuCraftingContainer extends Container {
     protected final int centerX = 79;
     protected final int centerY = 32;
     private final PlayerEntity player;
-    private final IItemHandler playerInventory;
+    private final TileEntity tileEntity;
+    private final PlayerInventory playerInv;
+    private final IInventory danmakuInv;
 
     public static final Logger LOGGER = LogManager.getLogger();
 
-    private final IInventory danmakuInv;
-    public DanmakuCraftingContainer(int windowId, PlayerInventory playerInventory) {
-        this(windowId, playerInventory, IWorldPosCallable.DUMMY);
-    }
 
-    public DanmakuCraftingContainer(int windowId, PlayerInventory playerInventory, IWorldPosCallable callable) {
+    public DanmakuCraftingContainer(int windowId, PlayerInventory playerInv, BlockPos pos) {
         super(ContainerRegistry.DANMAKU_CRAFTING_CONTAINER.get(), windowId);
-        this.player = playerInventory.player;
-        this.playerInventory = new InvWrapper(playerInventory);
-        this.danmakuInv = new Inventory(ItemStack.EMPTY);
 
-        this.addPlayerInventorySlots(playerInventory, 7, 83, 141);
-        this.addSlot(new Slot(this.danmakuInv, 0, centerX, centerY));
+        this.player = playerInv.player;
+        this.tileEntity = player.world.getTileEntity(pos);
+        this.playerInv = player.inventory;
+        this.danmakuInv = new Inventory(1);
 
-//        for (int i = 0; i < 5; ++i) {
-//            for (int j = 0; j < 5; ++j) {
-//                this.addSlot(new Slot(this.craftingMatrix, j + i * 5, 16 + j * 18, 21 + i * 18));
-//            }
-//        }
-        // this.addSlot(new CraftingResultSlot(this.player, this.craftingMatrix, this.resultInv, 0, 170, 58));
-        // this.addSlot(new Slot(this.resultInv, 0, 165, 58));
+        if (this.tileEntity != null) {
+            this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
+                this.danmakuInv.setInventorySlotContents(0, itemHandler.getStackInSlot(0));
+                this.addSlot(new SlotItemHandler(itemHandler, 0, 80, 35));
+            });
+        }
+        this.addPlayerInventorySlots(this.playerInv, 8, 83, 141);
     }
 
     public Block getJigsawPart(int relativeX, int relativeY){
@@ -96,41 +97,13 @@ public class DanmakuCraftingContainer extends Container {
         return true;
     }
 
-    @Override
-    public void onContainerClosed(@NotNull PlayerEntity playerIn) {
-        super.onContainerClosed(playerIn);
-    }
-
-    protected void updateCraftingResult() {
-        if (!this.player.world.isRemote) {
-            World world = this.player.world;
-            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)this.player;
-
-            Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipes().stream().flatMap(iRecipe ->  {
-                if (iRecipe instanceof DanmakuRecipe) {
-                    DanmakuRecipe recipe = (DanmakuRecipe) iRecipe;
-                    return DataFixUtils.orElseGet(RecipeRegistry.DANMAKU_RECIPE.matches(recipe, world, this.danmakuInv).map(Stream::of),
-                            Stream::empty);
-                }
-                return null;
-            }).findFirst();
-            // Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inventory, world);
-
-            GSKOUtil.getRecipeIf(this.player.world, RecipeRegistry.DANMAKU_RECIPE, this.danmakuInv, recipe -> {
-                if (recipe.matches(this.danmakuInv, world)) {
-                    ItemStack itemstack = recipe.getCraftingResult(this.danmakuInv);
-                    // serverplayerentity.connection.sendPacket(new SSetSlotPacket(this.windowId, 0, itemstack));
-                }
-            });
-
-        }
-    }
 
     @Override
     public void onCraftMatrixChanged(@NotNull IInventory inventoryIn) {
         super.onCraftMatrixChanged(inventoryIn);
         // this.updateCraftingResult();
     }
+
 
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
@@ -165,17 +138,6 @@ public class DanmakuCraftingContainer extends Container {
         return index;
     }
 
-    private void layoutPlayerInventorySlots(int leftCol, int topRow) {
-        addSlotBox(playerInventory, 9, leftCol, topRow, 9, 3, 18, 18);
-        topRow += 58;
-        addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
-    }
-
-    private void layoutPlayerInventorySlots(PlayerInventory playerInventory, int leftCol, int topRow) {
-        addSlotBox(playerInventory, 9, leftCol, topRow, 9, 3, 18, 18);
-        topRow += 58;
-        addSlotRange(playerInventory, 0, leftCol, topRow, 9, 18);
-    }
 
     private void addPlayerInventorySlots(PlayerInventory playerInventory, int left, int top, int hotBarTop) {
         for(int k = 0; k < 3; ++k) {
@@ -208,52 +170,82 @@ public class DanmakuCraftingContainer extends Container {
     private static final int DANMAKU_SLOT_COUNT = 29;  // must match TileEntityInventoryBasic.NUMBER_OF_SLOTS
 
     @Override
-    @NotNull
-    public ItemStack transferStackInSlot(@NotNull PlayerEntity playerIn, int index) {
+    public @NotNull ItemStack transferStackInSlot(PlayerEntity playerIn, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
-
         Slot slot = this.inventorySlots.get(index);
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
-            if (index == 0) {
 
-                if (!this.mergeItemStack(itemstack1, 10, 46, true)) {
+        if (slot != null && slot.getHasStack()) {
+            ItemStack slotStack = slot.getStack();
+            itemstack = slotStack.copy();
+
+            // 容器槽位
+            if (index == 0) {
+                if (!this.mergeItemStack(slotStack, 1, 37, true)) {
                     return ItemStack.EMPTY;
                 }
-
-                slot.onSlotChange(itemstack1, itemstack);
-            } else if (index >= 10 && index < 46) {
-                if (!this.mergeItemStack(itemstack1, 1, 10, false)) {
-                    if (index < 37) {
-                        if (!this.mergeItemStack(itemstack1, 37, 46, false)) {
-                            return ItemStack.EMPTY;
-                        }
-                    } else if (!this.mergeItemStack(itemstack1, 10, 37, false)) {
+                slot.onSlotChange(slotStack, itemstack);
+            }
+            // 玩家背包槽位
+            else if (index < 37) {
+                // 检查是否为弹幕射击物品
+                if (slotStack.getItem() == ItemRegistry.DANMAKU_SHOT.get()) {
+                    if (!this.mergeItemStack(slotStack, 0, 1, false)) {
                         return ItemStack.EMPTY;
                     }
                 }
-            } else if (!this.mergeItemStack(itemstack1, 10, 46, false)) {
-                return ItemStack.EMPTY;
+                // 主背包区 (1-27)
+                else if (index < 28) {
+                    if (!this.mergeItemStack(slotStack, 28, 37, false)) {
+                        return ItemStack.EMPTY;
+                    }
+                }
+                // 快捷栏 (28-36)
+                else if (!this.mergeItemStack(slotStack, 1, 28, false)) {
+                    return ItemStack.EMPTY;
+                }
             }
 
-            if (itemstack1.isEmpty()) {
+            if (slotStack.isEmpty()) {
                 slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
 
-            if (itemstack1.getCount() == itemstack.getCount()) {
+            if (slotStack.getCount() == itemstack.getCount()) {
                 return ItemStack.EMPTY;
             }
 
-            ItemStack itemstack2 = slot.onTake(playerIn, itemstack1);
-            if (index == 0) {
-                playerIn.dropItem(itemstack2, false);
-            }
+            slot.onTake(playerIn, slotStack);
         }
 
         return itemstack;
+    }
+
+
+    @Deprecated
+    protected void updateCraftingResult() {
+        if (!this.player.world.isRemote) {
+            World world = this.player.world;
+            ServerPlayerEntity serverplayerentity = (ServerPlayerEntity)this.player;
+
+            Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipes().stream().flatMap(iRecipe ->  {
+                if (iRecipe instanceof DanmakuRecipe) {
+                    DanmakuRecipe recipe = (DanmakuRecipe) iRecipe;
+                    return DataFixUtils.orElseGet(RecipeRegistry.DANMAKU_RECIPE.matches(recipe, world, this.danmakuInv).map(Stream::of),
+                            Stream::empty);
+                }
+                return null;
+            }).findFirst();
+            // Optional<DanmakuRecipe> optional = world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inventory, world);
+
+            GSKOUtil.getRecipeIf(this.player.world, RecipeRegistry.DANMAKU_RECIPE, this.danmakuInv, recipe -> {
+                if (recipe.matches(this.danmakuInv, world)) {
+                    ItemStack itemstack = recipe.getCraftingResult(this.danmakuInv);
+                    // serverplayerentity.connection.sendPacket(new SSetSlotPacket(this.windowId, 0, itemstack));
+                }
+            });
+
+        }
     }
 
     /**
@@ -284,11 +276,13 @@ public class DanmakuCraftingContainer extends Container {
      * @param slots 槽位的索引
      * @return 能够合成出物品的槽位的索引集合
      */
+    @Deprecated
     private List<Integer> createRecipeIndexes(Integer... slots) {
         List<Integer> list = new ArrayList<>();
         return new ArrayList<>(Arrays.asList(slots));
     }
 
+    @Deprecated
     private boolean matches(IInventory inventoryIn, List<Integer> list) {
         int matchCount = 0;
         for (int i : list) {
@@ -299,6 +293,7 @@ public class DanmakuCraftingContainer extends Container {
         return matchCount == list.size();
     }
 
+    @Deprecated
     private boolean matches(IInventory inventoryIn, Map<Integer, ItemStack> stackMap) {
         int matchCount = 0;
         int emptyCount = 0;
@@ -313,6 +308,7 @@ public class DanmakuCraftingContainer extends Container {
         return matchCount == stackMap.size() && matchCount + emptyCount == inventoryIn.getSizeInventory();
     }
 
+    @Deprecated
     private boolean isResultMatrixChange(IInventory inventory) {
         for (Slot inventorySlot : this.inventorySlots) {
             return inventorySlot.getHasStack();

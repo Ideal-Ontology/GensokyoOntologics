@@ -12,9 +12,6 @@ public class CircleShapeEnchantment extends DanmakuShotEnchant {
     public int getMaxLevel() {
         return 15;
     }
-    public int getMinLevel() {
-        return 5;
-    }
 
     @Override
     protected boolean canApplyTogether(Enchantment ench) {

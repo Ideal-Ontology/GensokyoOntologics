@@ -16,10 +16,10 @@ public class RecipeRegistry {
 
     public static final RegistryObject<SorceryExtractorRecipe.Serializer> SORCERY_SERIALIZER = RECIPE_SERIALIZERS.register(
             "sorcery_extract", SorceryExtractorRecipe.Serializer::new);
-    // public static final RegistryObject<DanmakuRecipe.Serializer> DANMAKU_CRAFT_SERIALIZER = RECIPE_SERIALIZERS.register(
-    //         "danmaku_craft", DanmakuRecipe.Serializer::new);
+    public static final RegistryObject<DanmakuRecipe.Serializer> DANMAKU_CRAFT_SERIALIZER = RECIPE_SERIALIZERS.register(
+            "danmaku", DanmakuRecipe.Serializer::new);
 
-    public static final IRecipeType<SorceryExtractorRecipe> SORCERY_RECIPE = new SorceryExtractorRecipe.SorceryRecipeType();
+    public static final IRecipeType<SorceryExtractorRecipe> SORCERY_RECIPE = new SorceryExtractorRecipe.Type();
     public static final IRecipeType<DanmakuRecipe> DANMAKU_RECIPE = new DanmakuRecipe.Type();
 
     public static void register(IEventBus eventBus) {

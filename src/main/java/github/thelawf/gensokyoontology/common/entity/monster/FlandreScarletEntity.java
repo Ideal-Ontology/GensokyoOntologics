@@ -55,11 +55,12 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
     protected void registerGoals() {
         this.goalSelector.addGoal(1, new SwimGoal(this));
         this.goalSelector.addGoal(2, new SitGoal(this));
-        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 1D, true));
+        this.goalSelector.addGoal(3, new MeleeAttackGoal(this, 0.7, true));
 
-        this.goalSelector.addGoal(4, new YoukaiSkillGoal(this, FlandreBattle.FLANDRE_SPHERE, 1, 1, 2000));
-        this.goalSelector.addGoal(4, new YoukaiSkillGoal(this, FlandreBattle.FLANDRE_LASER, 1, 2, 2000));
-        this.goalSelector.addGoal(4, new YoukaiTargetGoal(this, FlandreBattle.SUMMON_EYE, 1, 3, 1000));
+        this.goalSelector.addGoal(4, new YoukaiSkillGoal<>(this, FlandreBattle.LINEAR_SPIRAL, 1, 1, 800));
+        this.goalSelector.addGoal(4, new YoukaiSkillGoal<>(this, FlandreBattle.WAVE_PACKET, 1, 2, 800));
+        this.goalSelector.addGoal(4, new YoukaiSkillGoal<>(this, FlandreBattle.FLANDRE_LASER, 1, 3, 800));
+        this.goalSelector.addGoal(4, new YoukaiTargetGoal<>(this, FlandreBattle.SUMMON_EYE, 2, 1, 600));
 
         this.goalSelector.addGoal(5, new FollowOwnerGoal(this, 1.0D, 10.0F, 2.0F, false));
         this.goalSelector.addGoal(6, new WaterAvoidingRandomWalkingGoal(this, 0.4f));
@@ -70,6 +71,11 @@ public class FlandreScarletEntity extends YoukaiEntity implements ISpellCardUser
         this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, TsumiBukuroEntity.class, true));
         this.targetSelector.addGoal(3, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
         this.targetSelector.addGoal(5, new ResetAngerGoal<>(this, true));
+    }
+
+    @Override
+    public int[] getMaxPhases() {
+        return new int[]{3, 1};
     }
 
     @Override

@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.client.particle.ParticleRegistry;
 import github.thelawf.gensokyoontology.client.particle.PowerParticle;
+import github.thelawf.gensokyoontology.client.particle.PowerParticleData;
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
@@ -19,11 +20,13 @@ import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.command.impl.ParticleCommand;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.particles.IParticleData;
+import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -34,8 +37,10 @@ import net.minecraft.util.math.RayTraceContext;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.joml.Vector4i;
 
 import java.util.List;
 
@@ -93,24 +98,25 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
         Vector3d end = user.getLookVec().normalize().scale(radius).add(start);
         BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, user));
 
-        if (world.isRemote) {
-            GSKOUtil.log("???");
-            for (int i = 0; i < 50; i++) {
-                if (user instanceof PlayerEntity && i % 10 == 0) {
-                    PlayerEntity player = (PlayerEntity) user;
-                    GSKOUtil.showChatMsg(player, "pos = " + i, 1);
-                }
-                Vector3d pos = user.getLookVec().scale(i).add(start);
-                Vector3d motion = user.getLookVec().normalize().scale(0.01F);
-                ParticleRegistry.shootParticle(world, ParticleRegistry.POWER_PARTICLE.get(),
-                        user.getPositionVec().add(pos), motion);
-            }
+        if (world.isRemote) return;
+        ServerWorld serverWorld = (ServerWorld) world;
+
+        for (int i = 0; i < 50; i++) {
+            Vector3d pos = user.getLookVec().scale(i).add(0, user.getEyeHeight(), 0);
+            GSKOUtil.log("Particle at: " + user.getPositionVec().add(pos));
+            Vector3d motion = user.getLookVec().normalize().scale(0.01F);
+            world.addParticle(new PowerParticleData(motion, new Vector4i(255,255, 255, 255)),
+                    user.getPositionVec().add(pos).x,
+                    user.getPositionVec().add(pos).y,
+                    user.getPositionVec().add(pos).z,
+                    motion.x,
+                    motion.y,
+                    motion.z);
         }
-        else {
-            GSKOUtil.getTileByType(world, btr.getPos(), TileEntityRegistry.DANMAKU_TABLE_TILE.get()).ifPresent(tile -> {
-                tile.setPower(tile.getPower() + (Screen.hasShiftDown() ? 1F : 0.1F));
-            });
-        }
+        GSKOUtil.getTileByType(world, btr.getPos(), TileEntityRegistry.DANMAKU_TABLE_TILE.get()).ifPresent(tile -> {
+            tile.setPower(tile.getPower() + (Screen.hasShiftDown() ? 1F : 0.1F));
+        });
+
     }
 
     @Override

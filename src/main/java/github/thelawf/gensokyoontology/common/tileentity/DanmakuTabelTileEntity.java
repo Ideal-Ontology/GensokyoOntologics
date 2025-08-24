@@ -15,12 +15,16 @@ import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -29,6 +33,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class DanmakuTabelTileEntity extends TileEntity {
@@ -41,20 +47,6 @@ public class DanmakuTabelTileEntity extends TileEntity {
     public static final TranslationTextComponent CONTAINER_NAME = new TranslationTextComponent("container." +
             GensokyoOntology.MODID + ".danmaku_craft.title");
 
-    public static INamedContainerProvider createContainer(World worldIn, BlockPos posIn) {
-        return new INamedContainerProvider() {
-            @Override
-            public ITextComponent getDisplayName() {
-                return CONTAINER_NAME;
-            }
-
-            @Nullable
-            @Override
-            public Container createMenu(int winwdowId, PlayerInventory playerInventory, PlayerEntity player) {
-                return new DanmakuCraftingContainer(winwdowId, playerInventory);
-            }
-        };
-    }
 
     public float getPower() {
         return this.powerStored;
@@ -88,20 +80,7 @@ public class DanmakuTabelTileEntity extends TileEntity {
 
             @Override
             public boolean isItemValid(int slot, @NotNull ItemStack stack) {
-
-                if (slot >= 0 && slot < 2) {
-                    return stack.getItem() == ItemRegistry.DANMAKU_SHOT.get();
-                }
-                return super.isItemValid(slot, stack);
-            }
-
-            @Override
-            public int getSlotLimit(int slot) {
-                if (slot >= 0 && slot < 2) {
-                    return 1;
-                } else {
-                    return super.getSlotLimit(slot);
-                }
+                return stack.getItem() == ItemRegistry.DANMAKU_SHOT.get();
             }
 
             @NotNull
@@ -126,12 +105,19 @@ public class DanmakuTabelTileEntity extends TileEntity {
 
     public void tryCraft(World world) {
         Inventory inv = new Inventory(this.itemHandler.getSlots());
-        for (int i = 0; i < this.itemHandler.getSlots() - 1; i++)
-            inv.setInventorySlotContents(i, this.itemHandler.getStackInSlot(i));
+        inv.setInventorySlotContents(0, this.itemHandler.getStackInSlot(0));
+
         if (world.isRemote) return;
         if (world.getServer() == null) return;
 
         ServerWorld serverWorld = (ServerWorld) world;
+        List<DanmakuRecipe> danmakuRecipes = serverWorld.getRecipeManager().getRecipesForType(RecipeRegistry.DANMAKU_RECIPE);
+        danmakuRecipes.get(0).matchesIncludePos(world, inv, this.pos.down());
+        danmakuRecipes.forEach(danmakuRecipe -> {
+            if (danmakuRecipe.matchesIncludePos(world, inv, pos)) {
+
+            }
+        });
         Optional<DanmakuRecipe> optional = DanmakuRecipe.getInstance(serverWorld, inv, this.pos);
         if (!optional.isPresent()) return;
 
@@ -143,5 +129,34 @@ public class DanmakuTabelTileEntity extends TileEntity {
 
         markDirty();
         world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inv, world);
+    }
+
+    @Override
+    @NotNull
+    public CompoundNBT getUpdateTag() {
+        CompoundNBT compound = new CompoundNBT();
+        this.write(compound);
+        return compound;
+    }
+
+    @Override
+    public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) {
+        this.read(this.getBlockState(), pkt.getNbtCompound());
+    }
+
+    @Override
+    public @Nullable SUpdateTileEntityPacket getUpdatePacket() {
+        return new SUpdateTileEntityPacket(this.pos, 1, this.getUpdateTag());
+    }
+
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public double getMaxRenderDistanceSquared() {
+        return 128.0D;
+    }
+
+    @Override
+    public void handleUpdateTag(BlockState state, CompoundNBT tag) {
+        this.read(state, tag);
     }
 }

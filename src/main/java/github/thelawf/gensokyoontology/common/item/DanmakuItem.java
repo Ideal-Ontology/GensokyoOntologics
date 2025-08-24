@@ -39,33 +39,30 @@ public class DanmakuItem extends Item {
             map.put(EnchantRegistry.CURVED_SHAPE.get(),  (enchantment, stackIn, world, player, sizeIn) -> {
                 int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
                 if (level == 0) return level;
-                DanmakuUtil.oddCurveVec(playerIn, level, 180 / level).forEach(shoot -> {
-                    Danmaku.create(worldIn, playerIn, stack)
+                DanmakuUtil.oddCurveVec(playerIn, level, 180 / level).forEach(shoot ->
+                    Danmaku.create(worldIn, player, stack)
                             .size(sizeIn)
-                            .shoot(shoot, 0.55F);
-                });
+                            .shoot(shoot, 0.55F));
                 return level;
             });
 
             map.put(EnchantRegistry.CIRCLE_SHAPE.get(), (enchantment, stackIn, world, player, sizeIn) -> {
                 int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
                 if (level == 0) return level;
-                DanmakuUtil.ellipticPos(1F, level).forEach(shoot -> {
-                    Danmaku.create(worldIn, playerIn, stack)
+                DanmakuUtil.ellipticPos(1F, level).forEach(shoot ->
+                    Danmaku.create(worldIn, player, stack)
                             .size(sizeIn)
-                            .shoot(shoot, 0.55F);
-                });
+                            .shoot(shoot, 0.55F));
                 return level;
             });
 
             map.put(EnchantRegistry.SPHERE_SHAPE.get(),(enchantment, stackIn, world, player, sizeIn) -> {
                 int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
                 if (level == 0) return level;
-                DanmakuUtil.spheroidPos(1F, level).forEach(shoot -> {
-                    Danmaku.create(worldIn, playerIn, stack)
+                DanmakuUtil.spheroidPos(1F, level).forEach(shoot ->
+                    Danmaku.create(worldIn, player, stack)
                             .size(sizeIn)
-                            .shoot(shoot, 0.55F);
-                });
+                            .shoot(shoot, 0.55F));
                 return level;
             });
 

@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.data.recipe;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import net.minecraft.inventory.IInventory;
@@ -14,7 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistryEntry;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -73,7 +71,7 @@ public class SorceryExtractorRecipe implements ISorceryExtractorRecipe {
         return RecipeRegistry.SORCERY_SERIALIZER.get();
     }
 
-    public static class SorceryRecipeType implements IRecipeType<SorceryExtractorRecipe> {
+    public static class Type implements IRecipeType<SorceryExtractorRecipe> {
         @Override
         public String toString() {
             return SorceryExtractorRecipe.RECIPE_ID.toString();

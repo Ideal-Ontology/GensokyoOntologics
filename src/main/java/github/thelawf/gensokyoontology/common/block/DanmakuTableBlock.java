@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.block;
 
 import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
+import github.thelawf.gensokyoontology.common.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.SDanmakuTilePacket;
@@ -13,7 +14,10 @@ import net.minecraft.block.*;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.monster.piglin.PiglinTasks;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.container.Container;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.inventory.container.Slot;
@@ -24,10 +28,13 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.lwjgl.system.CallbackI;
 
 public class DanmakuTableBlock extends Block implements ITileEntityGetter<DanmakuTabelTileEntity> {
     public DanmakuTableBlock() {
@@ -36,7 +43,7 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
 
     @Override
     public boolean hasTileEntity(BlockState state) {
-        return false;
+        return true;
     }
 
     @Override
@@ -45,23 +52,21 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
         if (tile == null) {return ActionResultType.FAIL;}
         if (worldIn.isRemote) return ActionResultType.SUCCESS;
         if (Screen.hasShiftDown()) {
-
-            GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(tile.getPower()), player);
-            INamedContainerProvider container = this.getContainer(state, worldIn, pos);
-            if (container != null) player.openContainer(container);
+            tile.tryCraft(worldIn);
             return ActionResultType.CONSUME;
         }
 
-        tile.tryCraft(worldIn);
+        ServerPlayerEntity sender = (ServerPlayerEntity) player;
+        GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(tile.getPower()), player);
+        NetworkHooks.openGui(sender, createContainer(worldIn, pos), tile.getPos());
+
         return ActionResultType.SUCCESS;
     }
 
     @Nullable
-    @Deprecated
     public INamedContainerProvider getContainerOld(BlockState state, World worldIn, BlockPos pos) {
         return new SimpleNamedContainerProvider((id, inventory, player) ->
-                new DanmakuCraftingContainer(id, inventory, IWorldPosCallable.of(worldIn, pos)),
-                DanmakuTabelTileEntity.CONTAINER_NAME);
+                new DanmakuCraftingContainer(id, player.inventory, pos), DanmakuTabelTileEntity.CONTAINER_NAME);
     }
 
     @Nullable
@@ -83,6 +88,20 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
                 DanmakuTabelTileEntity.CONTAINER_NAME);
     }
 
+    public static INamedContainerProvider createContainer(World worldIn, BlockPos posIn) {
+        return new INamedContainerProvider() {
+            @Override
+            @NotNull
+            public ITextComponent getDisplayName() {
+                return DanmakuTabelTileEntity.CONTAINER_NAME;
+            }
+
+            @Override
+            public Container createMenu(int windowId, @NotNull PlayerInventory playerInventory, @NotNull PlayerEntity player) {
+                return new DanmakuCraftingContainer(windowId, playerInventory, posIn);
+            }
+        };
+    }
 
     @Nullable
     @Override

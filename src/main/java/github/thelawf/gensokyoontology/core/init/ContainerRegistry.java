@@ -6,6 +6,8 @@ import github.thelawf.gensokyoontology.common.container.RailAdjustContainer;
 import github.thelawf.gensokyoontology.common.container.SorceryExtractorContainer;
 import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
 import github.thelawf.gensokyoontology.common.container.script.*;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -24,7 +26,8 @@ public final class ContainerRegistry {
 
     public static final RegistryObject<ContainerType<DanmakuCraftingContainer>> DANMAKU_CRAFTING_CONTAINER =
             CONTAINERS.register("danmaku_crafting_container", () -> IForgeContainerType.create(
-                    (windowId, inv, data) -> new DanmakuCraftingContainer(windowId, inv)));
+                    (windowId, inv, data) -> new DanmakuCraftingContainer(windowId, inv, data.readBlockPos())));
+
     public static final RegistryObject<ContainerType<SorceryExtractorContainer>> SORCERY_EXTRACTOR_CONTAINER =
             CONTAINERS.register("sorcery_extractor_container", () -> IForgeContainerType.create(
                     ((windowId, inv, data) -> {

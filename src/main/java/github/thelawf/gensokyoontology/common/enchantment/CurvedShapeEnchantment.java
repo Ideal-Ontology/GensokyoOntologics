@@ -11,7 +11,7 @@ public class CurvedShapeEnchantment extends Enchantment {
 
     @Override
     public int getMaxLevel() {
-        return 5;
+        return 11;
     }
 
     @Override
