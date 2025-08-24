@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.core;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.enchantment.CircleShapeEnchantment;
-import github.thelawf.gensokyoontology.common.enchantment.CurvedShapeEnchantment;
-import github.thelawf.gensokyoontology.common.enchantment.InfiniteShotEnchantment;
-import github.thelawf.gensokyoontology.common.enchantment.SphereShapeEnchantment;
+import github.thelawf.gensokyoontology.common.enchantment.*;
 import github.thelawf.gensokyoontology.common.item.DanmakuItem;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -18,12 +15,14 @@ public class EnchantRegistry {
     public static final DeferredRegister<Enchantment> ENCHANTS = DeferredRegister.create(
             ForgeRegistries.ENCHANTMENTS, GensokyoOntology.MODID);
 
+    public static final RegistryObject<Enchantment> LINEAR_SHAPE = ENCHANTS.register("linear_shape",
+            LinearShapeEnchantment::new);
     public static final RegistryObject<Enchantment> CURVED_SHAPE = ENCHANTS.register("curved_shape",
             CurvedShapeEnchantment::new);
     public static final RegistryObject<Enchantment> SPHERE_SHAPE = ENCHANTS.register("sphere_shape",
             SphereShapeEnchantment::new);
     public static final RegistryObject<Enchantment> CIRCLE_SHAPE = ENCHANTS.register("circle_shape",
             CircleShapeEnchantment::new);
-    public static final RegistryObject<Enchantment> INFINITE_DANMAKU = ENCHANTS.register("infite_danmaku",
+    public static final RegistryObject<Enchantment> INFINITE_DANMAKU = ENCHANTS.register("infinite_danmaku",
             InfiniteShotEnchantment::new);
 }

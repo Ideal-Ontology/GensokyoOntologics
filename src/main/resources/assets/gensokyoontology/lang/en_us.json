@@ -404,6 +404,18 @@
   "effect.gensokyoontology.depression": "Depression",
   "effect.gensokyoontology.hakurei_bless": "Hakurei Bless",
 
+  "enchantment.gensokyoontology.linear_shape": "Linear Shape",
+  "enchantment.gensokyoontology.curved_shape": "Curved Shape",
+  "enchantment.gensokyoontology.circle_shape": "Circle Shape",
+  "enchantment.gensokyoontology.sphere_shape": "Sphere Shape",
+  "enchantment.gensokyoontology.infinite_danmaku": "Infinite Danmaku",
+
+  "enchantment.level.11": "XI",
+  "enchantment.level.12": "XII",
+  "enchantment.level.13": "XIII",
+  "enchantment.level.14": "XIV",
+  "enchantment.level.15": "XV",
+
   "entity.gensokyoontology.danmaku_entity": "Danmaku Shot",
   "entity.gensokyoontology.large_shot": "Large Shot",
   "entity.gensokyoontology.small_shot": "Small Shot",

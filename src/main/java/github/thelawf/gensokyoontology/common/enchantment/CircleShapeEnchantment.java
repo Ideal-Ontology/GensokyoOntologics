@@ -19,6 +19,7 @@ public class CircleShapeEnchantment extends DanmakuShotEnchant {
     @Override
     protected boolean canApplyTogether(Enchantment ench) {
         return super.canApplyTogether(ench) && EnchantRegistry.CURVED_SHAPE.get() != ench &&
-                EnchantRegistry.SPHERE_SHAPE.get() != ench;
+                EnchantRegistry.SPHERE_SHAPE.get() != ench &&
+                EnchantRegistry.LINEAR_SHAPE.get() != ench;
     }
 }

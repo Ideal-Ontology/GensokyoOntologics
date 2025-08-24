@@ -11,7 +11,7 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector4i;
 
 public class PowerParticle extends SpriteTexturedParticle {
-    protected PowerParticle(ClientWorld world, double x, double y, double z, Vector3d speed, Vector4i color) {
+    public PowerParticle(ClientWorld world, double x, double y, double z, Vector3d speed, Vector4i color) {
         super(world, x, y, z, speed.x, speed.y, speed.z);
         this.maxAge = 100;
         this.motionX = speed.x;

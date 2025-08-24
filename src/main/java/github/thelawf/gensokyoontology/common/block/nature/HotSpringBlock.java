@@ -50,9 +50,9 @@ public class HotSpringBlock extends FlowingFluidBlock implements IForgeFluid {
         double dy = (double) pos.getY() + 1.0D;
         double dz = (double) pos.getZ() + 0.5D;
 
-        double speedX = .0D;
-        double speedY = .05D;
-        double speedZ = .0D;
+        double speedX = .0;
+        double speedY = .05;
+        double speedZ = .0;
 
         final boolean IGNORE_RANGE_CHECK = false; // if true, always render particle regardless of3D how far away the player is
         final double SPAWN_PROBABILITY = 10.D;  // only spawn Lava particles occasionally (visually distracting if too many)

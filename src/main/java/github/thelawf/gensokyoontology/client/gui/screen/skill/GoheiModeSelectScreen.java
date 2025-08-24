@@ -109,7 +109,7 @@ public class GoheiModeSelectScreen extends ModeSwitchScreen {
 
             int x = screen.mode1X() + 1;
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            itemRenderer.renderItemIntoGUI(ItemRegistry.POWER_ITEM.get().getDefaultInstance(), x, screen.guiTop);
+            itemRenderer.renderItemIntoGUI(ItemRegistry.POWER_ITEM.get().getDefaultInstance(), x, screen.guiTop + 20);
 
         });
 
@@ -121,7 +121,7 @@ public class GoheiModeSelectScreen extends ModeSwitchScreen {
 
             int x = screen.mode2X() + 1;
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            itemRenderer.renderItemIntoGUI(ItemRegistry.INYO_JADE_RED.get().getDefaultInstance(), x, screen.guiTop);
+            itemRenderer.renderItemIntoGUI(ItemRegistry.INYO_JADE_RED.get().getDefaultInstance(), x, screen.guiTop + 20);
 
         });
 
@@ -140,7 +140,7 @@ public class GoheiModeSelectScreen extends ModeSwitchScreen {
 
             int x = screen.mode4X() + 1;
             ItemRenderer itemRenderer = Minecraft.getInstance().getItemRenderer();
-            itemRenderer.renderItemIntoGUI(ItemRegistry.SPELL_CARD_BLANK.get().getDefaultInstance(), x, screen.guiTop);
+            itemRenderer.renderItemIntoGUI(ItemRegistry.SPELL_CARD_BLANK.get().getDefaultInstance(), x, screen.guiTop + 20);
         });
         return map;
     });

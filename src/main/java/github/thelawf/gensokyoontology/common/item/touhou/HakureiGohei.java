@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.client.particle.ParticleRegistry;
+import github.thelawf.gensokyoontology.client.particle.PowerParticle;
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
@@ -93,13 +94,14 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
         BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, user));
 
         if (world.isRemote) {
+            GSKOUtil.log("???");
             for (int i = 0; i < 50; i++) {
                 if (user instanceof PlayerEntity && i % 10 == 0) {
                     PlayerEntity player = (PlayerEntity) user;
                     GSKOUtil.showChatMsg(player, "pos = " + i, 1);
                 }
                 Vector3d pos = user.getLookVec().scale(i).add(start);
-                Vector3d motion = user.getLookVec().normalize().scale(0.8F);
+                Vector3d motion = user.getLookVec().normalize().scale(0.01F);
                 ParticleRegistry.shootParticle(world, ParticleRegistry.POWER_PARTICLE.get(),
                         user.getPositionVec().add(pos), motion);
             }

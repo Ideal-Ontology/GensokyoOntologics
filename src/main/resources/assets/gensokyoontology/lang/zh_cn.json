@@ -140,6 +140,13 @@
   "entity.gensokyoontology.star_shot_small": "小型星弹",
   "entity.gensokyoontology.usami_sumireko": "宇佐见堇子",
   "entity.gensokyoontology.yakumo_yukari": "八云紫",
+
+  "enchantment.gensokyoontology.linear_shape": "线形",
+  "enchantment.gensokyoontology.curved_shape": "弧形",
+  "enchantment.gensokyoontology.circle_shape": "圆形",
+  "enchantment.gensokyoontology.sphere_shape": "球形",
+  "enchantment.gensokyoontology.infinite_danmaku": "无限弹幕",
+
   "fluid.gensokyoontology.hot_spring_fluid": "温泉",
   "fluid.gensokyoontology.paper_pulp_fluid": "纸浆",
   "fluid.gensokyoontology.sake_wine_fluid": "清酒",

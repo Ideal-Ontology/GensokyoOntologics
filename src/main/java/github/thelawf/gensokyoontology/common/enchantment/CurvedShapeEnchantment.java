@@ -17,7 +17,8 @@ public class CurvedShapeEnchantment extends Enchantment {
     @Override
     protected boolean canApplyTogether(Enchantment ench) {
         return super.canApplyTogether(ench) && EnchantRegistry.SPHERE_SHAPE.get() != ench &&
-                EnchantRegistry.CIRCLE_SHAPE.get() != ench;
+                EnchantRegistry.CIRCLE_SHAPE.get() != ench &&
+                EnchantRegistry.LINEAR_SHAPE.get() != ench;
     }
 }
 
