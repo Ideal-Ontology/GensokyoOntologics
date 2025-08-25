@@ -29,11 +29,11 @@ public interface ILayoutScreen {
     }
 
     default int getCenteredWidgetX(int widgetWidth, int parentWidth, int parentLeft) {
-        return (widgetWidth + widgetWidth) / 2 + parentWidth;
+        return ((parentWidth - widgetWidth) / 2) + parentWidth;
     }
 
     default int getCenteredWidgetY(int widgetHeight, int parentHeight, int parentTop){
-        return (widgetHeight + widgetHeight) / 2 + parentHeight;
+        return ((parentHeight - widgetHeight) / 2) + parentHeight;
     }
 
     default int centeredStrXOffset(FontRenderer font, ITextComponent text, int screenWidth, int xOffset) {

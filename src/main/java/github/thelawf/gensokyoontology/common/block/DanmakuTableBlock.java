@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.SDanmakuTilePacket;
 import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.tileentity.ITileEntityGetter;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
@@ -54,7 +55,6 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         DanmakuTabelTileEntity tile = (DanmakuTabelTileEntity) worldIn.getTileEntity(pos);
         if (tile == null) {return ActionResultType.FAIL;}
-        if (worldIn.isRemote) return ActionResultType.SUCCESS;
         if (Screen.hasShiftDown()) {
             tile.tryCraft(worldIn, false);
             return ActionResultType.CONSUME;
@@ -64,11 +64,12 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
             tile.tryCraft(worldIn, true);
             return ActionResultType.CONSUME;
         }
-
-        ServerPlayerEntity sender = (ServerPlayerEntity) player;
-        GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(tile.getPower(),
-                tile.getConsumption().getFirst(), tile.getConsumption().getSecond()), player);
-        NetworkHooks.openGui(sender, createContainer(worldIn, pos), tile.getPos());
+        if (player instanceof ServerPlayerEntity) {
+            ServerPlayerEntity sender = (ServerPlayerEntity) player;
+            NetworkHooks.openGui(sender, createContainer(worldIn, pos), tile.getPos());
+            GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(tile.getPower(),
+                    tile.getConsumption().getFirst(), tile.getConsumption().getSecond()), player);
+        }
 
         return ActionResultType.SUCCESS;
     }

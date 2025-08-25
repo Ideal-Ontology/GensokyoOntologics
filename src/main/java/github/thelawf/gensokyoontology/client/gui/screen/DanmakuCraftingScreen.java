@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.ILayoutScreen;
 import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -24,15 +25,15 @@ import java.util.Map;
 @OnlyIn(Dist.CLIENT)
 public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContainer> implements ILayoutScreen {
 
-    public static final int JIGSAW_SIZE = 18 * 5;
+    public static final int JIGSAW_SIZE = 16 * 5;
     protected int jigsawU = 176;
     protected int jigsawV = 0;
     protected int jigsawX = 48;
     protected int jigsawY = 3;
 
-    protected int powerInfoX = 8;
-    protected int consumedDanX = 0;
-    protected int consumedPowerX = 0;
+    protected int piLength = 0;
+    protected int cdLength = 0;
+    protected int cpLength = 0;
 
     protected float storedPower;
     protected float consumedPower;
@@ -66,19 +67,22 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
         this.ySize = 191;
 
         this.playerInventoryTitleX = 7;
-        this.playerInventoryTitleY = 88;
+        this.playerInventoryTitleY = 90;
 
     }
 
     @Override
     protected void init() {
         super.init();
-        this.jigsawX = this.getCenteredWidgetX(JIGSAW_SIZE, this.guiLeft, this.guiLeft);
-        this.jigsawY = this.getCenteredWidgetY(JIGSAW_SIZE, this.guiTop, this.guiTop);
+        // xsize = 175
+        // jigsawsize = 125
+        // (175 - 90) / 2 + (wid - 175) / 2
+        this.jigsawX = this.guiLeft + 93;
+        this.jigsawY = this.guiTop + 12;
 
-        this.powerInfoX = this.getCenteredWidgetX(this.getStrLength(this.font, POWER_INFO), this.guiLeft, 0);
-        this.consumedPowerX = this.getCenteredWidgetX(this.getStrLength(this.font, CONSUMED_POWER), this.guiLeft, 0);
-        this.consumedDanX = this.getCenteredWidgetX(this.getStrLength(this.font, CONSUMED_DANMAKU_SHOT), this.guiLeft, 0);
+        this.piLength =  this.guiLeft + 4 + this.getStrLength(this.font, POWER_INFO);
+        this.cpLength =  this.guiLeft + 4 + this.getStrLength(this.font, CONSUMED_POWER);
+        this.cdLength =  this.guiLeft + 4 + this.getStrLength(this.font, CONSUMED_DANMAKU_SHOT);
 
     }
 
@@ -103,26 +107,21 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
             }
         }
 
-        int powerInfoX = this.centeredStrXOffset(this.font, POWER_INFO, this.width, this.powerInfoX);
-        int powerInfoY = this.centeredStrYOffset(this.font, this.height, -20);
+        int powerInfoY = this.centeredStrYOffset(this.font, this.height, -40);
+        int consumptionPY = this.centeredStrYOffset(this.font, this.height, -30);
+        int consumptionDY = this.centeredStrYOffset(this.font, this.height, -20);
 
-        int consumptionPX = this.centeredStrXOffset(this.font, CONSUMED_POWER, this.width, this.consumedPowerX);
-        int consumptionPY = this.centeredStrYOffset(this.font, this.height, -10);
+        this.font.drawText(matrixStack, POWER_INFO, this.guiLeft + 8, powerInfoY, 0x111111);
+        this.font.drawString(matrixStack, String.format("%.2f", this.getStoredPower()),
+                this.piLength, powerInfoY, 0x111111);
 
-        int consumptionDX = this.centeredStrXOffset(this.font, CONSUMED_DANMAKU_SHOT, this.width, this.consumedDanX);
-        int consumptionDY = this.centeredStrYOffset(this.font, this.height, 0);
+        this.font.drawText(matrixStack,  CONSUMED_POWER, this.guiLeft + 8, consumptionPY, 0x111111);
+        this.font.drawString(matrixStack, String.format("%.2f", this.getConsumedPower()),
+                this.cpLength, consumptionPY, 0x111111);
 
-        this.font.drawText(matrixStack, POWER_INFO, powerInfoX, powerInfoY, 0x111111);
-        this.font.drawString(matrixStack, String.format("%.2f", this.storedPower),
-                powerInfoX, powerInfoY, 0x111111);
-
-        this.font.drawText(matrixStack,  CONSUMED_POWER, consumptionPX, consumptionPY, 0x111111);
-        this.font.drawString(matrixStack, String.format("%.2f", this.consumedPower),
-                consumptionPX, consumptionPY, 0x111111);
-
-        this.font.drawText(matrixStack, POWER_INFO, consumptionDX, consumptionDY, 0x111111);
-        this.font.drawString(matrixStack, String.valueOf(this.consumedDanmakuShot),
-                consumptionDX, consumptionDY, 0x111111);
+        this.font.drawText(matrixStack, CONSUMED_DANMAKU_SHOT, this.guiLeft + 8, consumptionDY, 0x111111);
+        this.font.drawString(matrixStack, String.valueOf(this.getConsumedDanmakuShot()),
+                this.cdLength, consumptionDY, 0x111111);
     }
 
     public void setStoredPower(float storedPower) {

@@ -2,6 +2,8 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.SDanmakuTilePacket;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
@@ -13,6 +15,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
+import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -31,6 +34,7 @@ import java.util.List;
 import java.util.Optional;
 
 public class DanmakuTabelTileEntity extends TileEntity {
+
     public DanmakuTabelTileEntity() {
         super(TileEntityRegistry.DANMAKU_TABLE_TILE.get());
     }
@@ -106,10 +110,11 @@ public class DanmakuTabelTileEntity extends TileEntity {
         ServerWorld serverWorld = (ServerWorld) world;
         Optional<DanmakuRecipe> optional = DanmakuRecipe.getInstance(serverWorld, inv, this.pos.down());
         if (!optional.isPresent()) return;
+        if (this.getPower() < (shouldCraftAll ? this.getConsumption().getFirst() : 0.1)) return;
 
         DanmakuRecipe recipe = optional.get();
         ItemStack outputs = recipe.getRecipeOutput();
-        outputs.setCount(this.getMaxOutputCount(recipe));
+        outputs.setCount(shouldCraftAll ? this.getMaxOutputCount(recipe) : 1);
 
         this.consume(recipe, shouldCraftAll);
         Block.spawnAsEntity(world, this.pos.up(), outputs);
@@ -119,7 +124,7 @@ public class DanmakuTabelTileEntity extends TileEntity {
     }
 
     /**
-     * @return 最多应该生成多少个物品
+     * @return 最多生成多少个物品
      */
     public int getMaxOutputCount(DanmakuRecipe recipe) {
         int totalInvCount = this.itemHandler.getStackInSlot(0).getCount();

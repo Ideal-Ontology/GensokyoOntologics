@@ -77,7 +77,7 @@ public class DanmakuCraftingContainer extends Container {
         if (this.tileEntity != null) {
             this.tileEntity.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
                 this.danmakuInv.setInventorySlotContents(0, itemHandler.getStackInSlot(0));
-                this.addSlot(new SlotItemHandler(itemHandler, 0, 80, 35));
+                this.addSlot(new SlotItemHandler(itemHandler, 0, 125, 44));
             });
         }
         this.addPlayerInventorySlots(this.playerInv, 8, 110, 168);

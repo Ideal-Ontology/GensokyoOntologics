@@ -34,15 +34,11 @@ public class SDanmakuTilePacket {
 
     public static void handle(SDanmakuTilePacket packet, Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
-            ctx.get().enqueueWork(() -> {
-                ServerPlayerEntity serverPlayer = ctx.get().getSender();
-                if (serverPlayer != null) renderPowerTip(packet);
-            });
+            ctx.get().enqueueWork(() -> renderPowerTip(packet));
         }
         ctx.get().setPacketHandled(true);
     }
 
-    @OnlyIn(Dist.CLIENT)
     private static void renderPowerTip(SDanmakuTilePacket packet) {
         Minecraft minecraft = Minecraft.getInstance();
         if (!(minecraft.currentScreen instanceof DanmakuCraftingScreen)) return;
