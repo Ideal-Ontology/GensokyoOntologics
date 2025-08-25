@@ -9,6 +9,9 @@ import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectSc
 import github.thelawf.gensokyoontology.client.particle.ParticleRegistry;
 import github.thelawf.gensokyoontology.client.particle.PowerParticle;
 import github.thelawf.gensokyoontology.client.particle.PowerParticleData;
+import github.thelawf.gensokyoontology.common.capability.CapabilityHandler;
+import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
@@ -42,11 +45,14 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.Vector4i;
 
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 博丽灵梦的御币
@@ -100,7 +106,19 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
         return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
     }
 
+    /**
+     * 御币的充能模式，当玩家P点不足时
+     */
     public void powering(World world, LivingEntity user, double radius) throws CommandSyntaxException {
+        LazyOptional<GSKOPowerCapability> optional = user.getCapability(GSKOCapabilities.POWER);
+        if (!user.getCapability(GSKOCapabilities.POWER).isPresent()) return;
+        AtomicReference<Float> f = new AtomicReference<>(.1F);
+        optional.ifPresent(cap -> {
+            f.set(cap.getCount());
+        });
+
+        float consumedCount = this.getConsumedCount(f, Screen.hasShiftDown());
+
         Vector3d start = user.getEyePosition(0f);
         Vector3d end = user.getLookVec().normalize().scale(radius).add(start);
         BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, user));
@@ -110,7 +128,7 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
 
         for (int i = 0; i < 100; i++) {
             Vector3d pos = user.getLookVec().scale(i * 0.1).add(0, user.getEyeHeight(), 0);
-            Vector3d motion = user.getLookVec().normalize().scale(0.01F * i);
+            Vector3d motion = user.getLookVec().normalize().scale(0.1F * i);
             serverWorld.spawnParticle(ParticleRegistry.POWER_PARTICLE.get().getDeserializer().deserialize(
                     ParticleRegistry.POWER_PARTICLE.get(), new StringReader(" 1 1 1 1 1 1 1")),
                     1.0,1,1,1,1,1,1,1);
@@ -125,7 +143,7 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
                     1);
         }
         GSKOUtil.getTileByType(world, btr.getPos(), TileEntityRegistry.DANMAKU_TABLE_TILE.get()).ifPresent(tile -> {
-            tile.setPower(tile.getPower() + (Screen.hasShiftDown() ? 1F : 0.1F));
+            tile.setPower(tile.getPower() + consumedCount);
         });
 
     }
@@ -199,6 +217,24 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
                     break;
             }
         }
+    }
+
+    private float getConsumedCount(AtomicReference<Float> f, boolean hasShiftDown) {
+        float consumedCount = 0.0F;
+        if (hasShiftDown) {
+            if (f.get() > 1F) {
+                consumedCount = 1;
+            }
+            else consumedCount = f.get();
+        }
+        else
+        {
+            if (f.get() > 0.1F) {
+                consumedCount = 0.1F;
+            }
+            else  consumedCount = f.get();
+        }
+        return consumedCount;
     }
 
     @Override
