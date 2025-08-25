@@ -167,6 +167,10 @@
   "gensokyoontology:yamotsu_hirasaka": "黄泉比良坂",
   "gensokyoontology:youkai_mountain": "妖怪之山",
 
+  "gui.gensokyoontology.power": "存储的P点数量: ",
+  "gui.gensokyoontology.power_consumed": "消耗P点: ",
+  "gui.gensokyoontology.danmaku_shot_consumed": "消耗弹幕之点: ",
+
   "gui.gensokyoontology.binary_operation.button.operation.And": "逻辑与",
   "gui.gensokyoontology.binary_operation.button.operation.BitwiseAnd": "按位与",
   "gui.gensokyoontology.binary_operation.button.operation.BitwiseLeft": "按位左移",
@@ -642,5 +646,10 @@
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "「三种神器　玉」",
   "tooltip.gensokyoontology.three_sacred_treasures.sword": "「三种神器　剑」",
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题",
-  "xmmui.gensokyoontology.test_xmmui_screen.style_test": "Welcome"
+  "xmmui.gensokyoontology.test_xmmui_screen.style_test": "Welcome",
+  "enchantment.level.11": "XI",
+  "enchantment.level.12": "XII",
+  "enchantment.level.13": "XIII",
+  "enchantment.level.14": "XIV",
+  "enchantment.level.15": "XV"
 }

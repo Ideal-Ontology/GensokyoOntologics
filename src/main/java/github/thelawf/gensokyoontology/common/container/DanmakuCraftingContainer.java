@@ -80,7 +80,7 @@ public class DanmakuCraftingContainer extends Container {
                 this.addSlot(new SlotItemHandler(itemHandler, 0, 80, 35));
             });
         }
-        this.addPlayerInventorySlots(this.playerInv, 8, 83, 141);
+        this.addPlayerInventorySlots(this.playerInv, 8, 110, 168);
     }
 
     public Block getJigsawPart(int relativeX, int relativeY){

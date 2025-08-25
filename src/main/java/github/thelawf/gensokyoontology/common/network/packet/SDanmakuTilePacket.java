@@ -11,18 +11,25 @@ import net.minecraftforge.fml.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class SDanmakuTilePacket {
-    private float power;
+    private final float powerStroed;
+    private final float powerConsumed;
+    private final int danmakuShotConsumed;
 
-    public SDanmakuTilePacket(float power) {
-        this.power = power;
+
+    public SDanmakuTilePacket(float powerStroed,  float powerConsumed, int danmakuShotConsumed) {
+        this.powerStroed = powerStroed;
+        this.powerConsumed = powerConsumed;
+        this.danmakuShotConsumed = danmakuShotConsumed;
     }
 
     public static SDanmakuTilePacket fromBytes(PacketBuffer buf) {
-        return new SDanmakuTilePacket(buf.readFloat());
+        return new SDanmakuTilePacket(buf.readFloat(),  buf.readFloat(), buf.readInt());
     }
 
     public void toBytes(PacketBuffer buf) {
-        buf.writeFloat(this.power);
+        buf.writeFloat(this.powerStroed);
+        buf.writeFloat(this.powerConsumed);
+        buf.writeInt(this.danmakuShotConsumed);
     }
 
     public static void handle(SDanmakuTilePacket packet, Supplier<NetworkEvent.Context> ctx) {
@@ -40,10 +47,12 @@ public class SDanmakuTilePacket {
         Minecraft minecraft = Minecraft.getInstance();
         if (!(minecraft.currentScreen instanceof DanmakuCraftingScreen)) return;
         DanmakuCraftingScreen screen = (DanmakuCraftingScreen) minecraft.currentScreen;
-        screen.setStoredPower(packet.power);
+        screen.setStoredPower(packet.powerStroed);
+        screen.setConsumedPower(packet.powerConsumed);
+        screen.setConsumedDanmakuShot(packet.danmakuShotConsumed);
     }
 
     public float getCount() {
-        return this.power;
+        return this.powerStroed;
     }
 }

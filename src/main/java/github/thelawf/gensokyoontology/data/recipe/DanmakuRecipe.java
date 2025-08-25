@@ -6,7 +6,6 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -17,10 +16,10 @@ import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 
@@ -151,15 +150,6 @@ public class DanmakuRecipe implements IJigsawRecipe {
         return map;
     }
 
-    public int getMinOutputCount(IInventory inventory){
-        int totalInvCount = inventory.getStackInSlot(0).getCount();
-        return totalInvCount / this.getUnitCount();
-    }
-
-    public ItemStack getRemaining(IInventory inventory){
-        ItemStack prev = inventory.getStackInSlot(0);
-        return new ItemStack(prev.getItem(), this.getMinOutputCount(inventory) * this.getUnitCount());
-    }
 
     public static NonNullList<Block> mapStrPatternToBlock(Map<String, Block> map, JsonArray jArray){
         String[] pattern = new String[jArray.size()];
@@ -182,16 +172,19 @@ public class DanmakuRecipe implements IJigsawRecipe {
          * 该合成配方的json格式如下（以 crystal_shot.json 为例）：<br>
          * <code>
          *     {<br>
-         *         &ensp "type": "gensokyoontology:danmaku",<br>
-         *         &ensp "power": 1.0,<br>
-         *         &ensp "unit_count": 10,<br>
-         *         &ensp "output": "gensokyontology:crytal_shot"<br>
-         *         &ensp "jigsaw_pattern": [<br>
-         *         &ensp&ensp "OOXOO", <br>
-         *         &ensp&ensp "OXOXO" <br>
-         *         &ensp&ensp "XOOOX", <br>
-         *         &ensp&ensp "OXOXO", <br>
-         *         &ensp&ensp "OOXOO", <br>
+         *         "type": "gensokyoontology:danmaku",<br>
+         *         "power": 1.0,<br>
+         *         "unit_count": 10,<br>
+         *         "output": {
+         *              "item": "gensokyontology:crytal_shot",
+         *              "count": 1
+         *         }<br>
+         *         "jigsaw_pattern": [<br>
+         *             "OOXOO", <br>
+         *             "OXOXO" <br>
+         *             "XOOOX", <br>
+         *             "OXOXO", <br>
+         *             "OOXOO", <br>
          *         ],<br>
          *         "key": {<br>
          *         "O": "gensokyoontology:totem_bricks",<br>
@@ -225,8 +218,9 @@ public class DanmakuRecipe implements IJigsawRecipe {
             int unit = buffer.readVarInt();
             float powerConsume = buffer.readFloat();
             ItemStack output = buffer.readItemStack();
+            int i = buffer.readVarInt();
 
-            NonNullList<Block> jigsawBlocks = NonNullList.withSize(25, BlockRegistry.ALTAR_FLOOR_BLOCK.get());
+            NonNullList<Block> jigsawBlocks = NonNullList.withSize(i, BlockRegistry.ALTAR_FLOOR_BLOCK.get());
             jigsawBlocks.replaceAll(ignored -> GSKOUtil.readBlockData(buffer));
             return new DanmakuRecipe(recipeId, jigsawBlocks, unit, powerConsume, output);
         }
@@ -234,6 +228,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
         public void write(PacketBuffer buffer, DanmakuRecipe recipe) {
             buffer.writeItemStack(recipe.getRecipeOutput(), false);
             buffer.writeInt(recipe.getUnitCount());
+            buffer.writeVarInt(recipe.getBlockStates().size());
             buffer.writeFloat(recipe.getPowerConsumption());
             for (Block blockState : recipe.blockStates) GSKOUtil.writeBlockData(buffer, null, blockState);
         }

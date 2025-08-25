@@ -455,6 +455,10 @@
   "fluid.gensokyoontology.sake_wine_fluid": "Sake Wine",
   "fluid.gensokyoontology.paper_pulp_fluid": "Paper Pulp",
 
+  "gui.gensokyoontology.power": "Power Stored: ",
+  "gui.gensokyoontology.power_consumed": "Power Consumed: ",
+  "gui.gensokyoontology.danmaku_shot_consumed": "Danmaku Shot Consumed: ",
+
   "gui.gensokyoontology.rail_adjust.title": "Rail Adjustment",
   "gui.gensokyoontology.button.increase_roll": "+",
   "gui.gensokyoontology.button.increase_yaw": "+",

@@ -10,6 +10,7 @@ import github.thelawf.gensokyoontology.common.tileentity.ITileEntityGetter;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
+import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import net.minecraft.block.*;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.monster.piglin.PiglinTasks;
@@ -46,18 +47,27 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
         return true;
     }
 
+    /**
+     * 直接右键点击方块打开GUI界面放入弹幕之点，shift+右键点击方块合成 1 个，control+右键点击方块合成当前最大允许数量
+     */
     @Override
     public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         DanmakuTabelTileEntity tile = (DanmakuTabelTileEntity) worldIn.getTileEntity(pos);
         if (tile == null) {return ActionResultType.FAIL;}
         if (worldIn.isRemote) return ActionResultType.SUCCESS;
         if (Screen.hasShiftDown()) {
-            tile.tryCraft(worldIn);
+            tile.tryCraft(worldIn, false);
+            return ActionResultType.CONSUME;
+        }
+
+        if (Screen.hasControlDown()) {
+            tile.tryCraft(worldIn, true);
             return ActionResultType.CONSUME;
         }
 
         ServerPlayerEntity sender = (ServerPlayerEntity) player;
-        GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(tile.getPower()), player);
+        GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(tile.getPower(),
+                tile.getConsumption().getFirst(), tile.getConsumption().getSecond()), player);
         NetworkHooks.openGui(sender, createContainer(worldIn, pos), tile.getPos());
 
         return ActionResultType.SUCCESS;
