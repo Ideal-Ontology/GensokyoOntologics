@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.client.particle;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import net.minecraft.particles.BasicParticleType;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleType;
 import net.minecraft.util.math.vector.Vector3d;
@@ -14,7 +15,7 @@ public class ParticleRegistry {
             ForgeRegistries.PARTICLE_TYPES, GensokyoOntology.MODID);
     public static final RegistryObject<ParticleType<SpaceFissureParticleData>> SPACE_FISSURE = PARTICLE_TYPES.register(
             "space_fissure", SpaceFissureParticleType::new);
-    public static final RegistryObject<ParticleType<PowerParticleData>> POWER_PARTICLE = PARTICLE_TYPES.register(
+    public static final RegistryObject<PowerParticle.Type> POWER_PARTICLE = PARTICLE_TYPES.register(
             "power_particle", PowerParticle.Type::new);
 
 }

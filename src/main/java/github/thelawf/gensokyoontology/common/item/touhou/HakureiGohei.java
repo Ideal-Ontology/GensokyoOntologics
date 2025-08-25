@@ -1,5 +1,8 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
+import com.mojang.brigadier.StringReader;
+import com.mojang.brigadier.exceptions.CommandSyntaxException;
+import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
@@ -25,6 +28,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
@@ -70,7 +74,6 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
 
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (stack.getTag() != null) {
-            GSKOUtil.showChatMsg(playerIn, getMode(stack.getTag()), 1);
             switch (getMode(stack.getTag())) {
                 case DANMAKU:
 //                    InYoJadeDanmakuEntity inYoJade = new InYoJadeDanmakuEntity(worldIn, playerIn);
@@ -80,7 +83,11 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
                     this.fireDreamSeal(worldIn, playerIn);
                     break;
                 case POWER:
-                    this.powering(worldIn, playerIn, 10);
+                    try {
+                        this.powering(worldIn, playerIn, 10);
+                    } catch (CommandSyntaxException e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
                 case SPELL_CARD:
                 default:
@@ -93,7 +100,7 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
         return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
     }
 
-    public void powering(World world, LivingEntity user, double radius){
+    public void powering(World world, LivingEntity user, double radius) throws CommandSyntaxException {
         Vector3d start = user.getEyePosition(0f);
         Vector3d end = user.getLookVec().normalize().scale(radius).add(start);
         BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end, RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, user));
@@ -101,17 +108,21 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
         if (world.isRemote) return;
         ServerWorld serverWorld = (ServerWorld) world;
 
-        for (int i = 0; i < 50; i++) {
-            Vector3d pos = user.getLookVec().scale(i).add(0, user.getEyeHeight(), 0);
-            GSKOUtil.log("Particle at: " + user.getPositionVec().add(pos));
-            Vector3d motion = user.getLookVec().normalize().scale(0.01F);
-            world.addParticle(new PowerParticleData(motion, new Vector4i(255,255, 255, 255)),
+        for (int i = 0; i < 100; i++) {
+            Vector3d pos = user.getLookVec().scale(i * 0.1).add(0, user.getEyeHeight(), 0);
+            Vector3d motion = user.getLookVec().normalize().scale(0.01F * i);
+            serverWorld.spawnParticle(ParticleRegistry.POWER_PARTICLE.get().getDeserializer().deserialize(
+                    ParticleRegistry.POWER_PARTICLE.get(), new StringReader(" 1 1 1 1 1 1 1")),
+                    1.0,1,1,1,1,1,1,1);
+            serverWorld.spawnParticle(new PowerParticleData(motion, new Vector4i(255, 0, 0, 120)),
                     user.getPositionVec().add(pos).x,
                     user.getPositionVec().add(pos).y,
                     user.getPositionVec().add(pos).z,
+                    1,
                     motion.x,
                     motion.y,
-                    motion.z);
+                    motion.z,
+                    1);
         }
         GSKOUtil.getTileByType(world, btr.getPos(), TileEntityRegistry.DANMAKU_TABLE_TILE.get()).ifPresent(tile -> {
             tile.setPower(tile.getPower() + (Screen.hasShiftDown() ? 1F : 0.1F));

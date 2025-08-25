@@ -112,13 +112,9 @@ public class DanmakuTabelTileEntity extends TileEntity {
 
         ServerWorld serverWorld = (ServerWorld) world;
         List<DanmakuRecipe> danmakuRecipes = serverWorld.getRecipeManager().getRecipesForType(RecipeRegistry.DANMAKU_RECIPE);
-        danmakuRecipes.get(0).matchesIncludePos(world, inv, this.pos.down());
-        danmakuRecipes.forEach(danmakuRecipe -> {
-            if (danmakuRecipe.matchesIncludePos(world, inv, pos)) {
+        // danmakuRecipes.get(0).matchesIncludePos(world, inv, this.pos.down());
 
-            }
-        });
-        Optional<DanmakuRecipe> optional = DanmakuRecipe.getInstance(serverWorld, inv, this.pos);
+        Optional<DanmakuRecipe> optional = DanmakuRecipe.getInstance(serverWorld, inv, this.pos.down());
         if (!optional.isPresent()) return;
 
         DanmakuRecipe recipe = optional.get();

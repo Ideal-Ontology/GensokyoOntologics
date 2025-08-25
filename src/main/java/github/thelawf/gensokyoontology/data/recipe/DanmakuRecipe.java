@@ -71,7 +71,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
         for (int x = 0; x < 5; x++) {
             for (int z = 0; z < 5; z++) {
                 pos.add(x, 0, z);
-                if (this.blockStates.get(matches).equals(world.getBlockState(pos).getBlock())) matches++;
+                if (this.blockStates.get(x * 5 + z).equals(world.getBlockState(pos.add(x, 0, z)).getBlock())) matches++;
             }
         }
         return matches == 25;
