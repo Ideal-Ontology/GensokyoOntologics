@@ -14,6 +14,7 @@ import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
+import github.thelawf.gensokyoontology.common.events.GSKOEntityEvents;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
 import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
@@ -112,12 +113,13 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
     public void powering(World world, LivingEntity user, double radius) throws CommandSyntaxException {
         LazyOptional<GSKOPowerCapability> optional = user.getCapability(GSKOCapabilities.POWER);
         if (!user.getCapability(GSKOCapabilities.POWER).isPresent()) return;
-        AtomicReference<Float> f = new AtomicReference<>(.1F);
+
+        AtomicReference<Float> floatRef = new AtomicReference<>(.1F);
         optional.ifPresent(cap -> {
-            f.set(cap.getCount());
+            floatRef.set(cap.getCount());
         });
 
-        float consumedCount = this.getConsumedCount(f, Screen.hasShiftDown());
+        float consumedCount = this.getConsumedCount(floatRef, Screen.hasShiftDown());
 
         Vector3d start = user.getEyePosition(0f);
         Vector3d end = user.getLookVec().normalize().scale(radius).add(start);
@@ -145,6 +147,8 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
         GSKOUtil.getTileByType(world, btr.getPos(), TileEntityRegistry.DANMAKU_TABLE_TILE.get()).ifPresent(tile -> {
             tile.setPower(tile.getPower() + consumedCount);
         });
+
+        optional.ifPresent(cap -> cap.setCount(cap.getCount() - consumedCount));
 
     }
 

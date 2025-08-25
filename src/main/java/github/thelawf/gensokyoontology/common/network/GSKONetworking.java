@@ -26,7 +26,7 @@ public class GSKONetworking {
         CHANNEL.messageBuilder(SScarletMistPacket.class, next()).encoder(SScarletMistPacket::toBytes).decoder(SScarletMistPacket::new).consumer(SScarletMistPacket::handle).add();
         CHANNEL.messageBuilder(ImperishableNightPacket.class, next()).encoder(ImperishableNightPacket::toBytes).decoder(ImperishableNightPacket::new).consumer(ImperishableNightPacket::handle).add();
         CHANNEL.messageBuilder(FantasyFadingPacket.class, next()).encoder(FantasyFadingPacket::toBytes).decoder(FantasyFadingPacket::decode).consumer(FantasyFadingPacket::handle).add();
-        CHANNEL.messageBuilder(CPowerChangedPacket.class, next()).encoder(CPowerChangedPacket::toBytes).decoder(CPowerChangedPacket::fromBytes).consumer(CPowerChangedPacket::handle).add();
+        CHANNEL.messageBuilder(PowerChangedPacket.class, next()).encoder(PowerChangedPacket::toBytes).decoder(PowerChangedPacket::fromBytes).consumer(PowerChangedPacket::handle).add();
         CHANNEL.messageBuilder(SLifeTickPacket.class, next()).encoder(SLifeTickPacket::toBytes).decoder(SLifeTickPacket::fromBytes).consumer(SLifeTickPacket::handle).add();
 
         CHANNEL.messageBuilder(CMergeScriptPacket.class, next()).encoder(CMergeScriptPacket::toBytes).decoder(CMergeScriptPacket::fromBytes).consumer(CMergeScriptPacket::handle).add();

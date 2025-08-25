@@ -7,6 +7,7 @@ import github.thelawf.gensokyoontology.common.command.GUICommand;
 import github.thelawf.gensokyoontology.common.command.MathFuncCommand;
 import github.thelawf.gensokyoontology.common.entity.monster.RetreatableEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
+import github.thelawf.gensokyoontology.common.events.GSKOEventSystem;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.world.GSKOChunkGenerator;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
@@ -25,6 +26,7 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.Dimension;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.gen.Heightmap;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -39,6 +41,7 @@ public class CommonSetUp {
             // Registry.register(Registry.CHUNK_GENERATOR_CODEC,
             //         new ResourceLocation(GensokyoOntology.MODID, "chunkgen"),
             //         GSKOChunkGenerator.CHUNK_GEN_CODEC);
+            MinecraftForge.EVENT_BUS.register(new GSKOEventSystem());
 
             GSKOFeatures.registerOre();
             GSKOFeatures.registerFeature();

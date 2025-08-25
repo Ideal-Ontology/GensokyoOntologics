@@ -1,10 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
-import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
-import github.thelawf.gensokyoontology.common.network.GSKONetworking;
-import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -24,7 +20,9 @@ public class PowerItem extends Item {
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
         if (!worldIn.isRemote) {
             float count = GSKOMathUtil.randomRange(0.1f, 1f);
-            GSKOPowerCapability.INSTANCE.add(count);
+            playerIn.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+               gskoCap.add(count);
+            });
         }
 
         return super.onItemRightClick(worldIn, playerIn, handIn);

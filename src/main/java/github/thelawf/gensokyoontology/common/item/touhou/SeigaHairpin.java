@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
-import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
+import github.thelawf.gensokyoontology.common.network.packet.PowerChangedPacket;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -61,7 +61,7 @@ public class SeigaHairpin extends Item {
             player.setNoGravity(true);
 
             player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
-                GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(gskoCap.getCount() - 0.01f), player);
+                GSKONetworking.sendToClientPlayer(new PowerChangedPacket(gskoCap.getCount() - 0.01f), player);
             });
 
         }

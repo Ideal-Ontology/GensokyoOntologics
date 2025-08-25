@@ -1,17 +1,20 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
-import github.thelawf.gensokyoontology.common.events.ValueChangedEvent;
+import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapability;
+import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
+import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
+import github.thelawf.gensokyoontology.common.events.GSKOEntityEvents;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.PowerChangedPacket;
+import github.thelawf.gensokyoontology.common.network.packet.SPowerChangedPacket;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.FloatNBT;
-import net.minecraft.nbt.INBT;
-import net.minecraft.nbt.LongNBT;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
-import org.jetbrains.annotations.Nullable;
+
+import javax.smartcardio.ATR;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class GSKOPowerCapability implements INBTSerializable<FloatNBT> {
     private float count;
@@ -37,8 +40,23 @@ public class GSKOPowerCapability implements INBTSerializable<FloatNBT> {
     }
 
     public void setCount(float count) {
-        MinecraftForge.EVENT_BUS.post(new ValueChangedEvent<>(this.count, count));
+        // MinecraftForge.EVENT_BUS.post(new ValueChangedEvent<>(this.count, count));
+
+        Minecraft mc = Minecraft.getInstance();
+        PlayerEntity player = mc.player;
+        AtomicReference<PowerCapability> cap = new AtomicReference<>();
+
+        if (player == null) return;
+
+        if (TouhouLittleMaidCompat.isTouhouMaidLoaded()) {
+            player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> {
+                cap.set(tlmCap);
+                tlmCap.set(count);
+            });
+        }
+
         this.count = MathHelper.clamp(count, MIN, MAX);
+        GSKONetworking.CHANNEL.sendToServer(new PowerChangedPacket(this.count));
         this.markDirty();
     }
 
@@ -47,7 +65,7 @@ public class GSKOPowerCapability implements INBTSerializable<FloatNBT> {
     }
 
     public void add(float count) {
-        this.count = MathHelper.clamp(this.count + count, MIN, MAX);
+        this.setCount(MathHelper.clamp(this.count + count, MIN, MAX));
         this.markDirty();
     }
 

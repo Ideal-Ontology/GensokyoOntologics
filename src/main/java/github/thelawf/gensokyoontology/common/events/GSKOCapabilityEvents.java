@@ -13,7 +13,7 @@ import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapabili
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightProvider;
 import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
-import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
+import github.thelawf.gensokyoontology.common.network.packet.PowerChangedPacket;
 import github.thelawf.gensokyoontology.common.network.packet.SLifeTickPacket;
 import github.thelawf.gensokyoontology.common.network.packet.SPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
@@ -155,7 +155,7 @@ public class GSKOCapabilityEvents {
 
     public static void trySyncPower(PlayerEntity player) {
         player.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
-            GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(cap.getCount()), player);
+            GSKONetworking.sendToClientPlayer(new PowerChangedPacket(cap.getCount()), player);
             cap.markDirty();
         });
     }
@@ -175,7 +175,7 @@ public class GSKOCapabilityEvents {
                 player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap ->
                 {
                     gskoCap.setCount(tlmCap.get());
-                    GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(tlmCap.get()), player);
+                    GSKONetworking.sendToClientPlayer(new PowerChangedPacket(tlmCap.get()), player);
                     tlmCap.setDirty(true);
                 }));
     }
@@ -188,7 +188,7 @@ public class GSKOCapabilityEvents {
                 GSKONetworking.CHANNEL.sendToServer(new GSKOPowerCapability(cap.getCount()));
             });
             player.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
-                GSKONetworking.sendToClientPlayer(new CPowerChangedPacket(cap.getCount()), player);
+                GSKONetworking.sendToClientPlayer(new PowerChangedPacket(cap.getCount()), player);
             });
         }
     }
@@ -199,7 +199,8 @@ public class GSKOCapabilityEvents {
             LazyOptional<GSKOPowerCapability> newCapability = event.getPlayer().getCapability(GSKOCapabilities.POWER);
 
             newCapability.ifPresent(capNew -> oldCapability.ifPresent(capOld -> {
-                capNew.deserializeNBT(GSKOPowerCapability.INSTANCE.serializeNBT());
+                capNew.setCount(capOld.getCount());
+
             }));
         }
     }
@@ -243,6 +244,6 @@ public class GSKOCapabilityEvents {
     }
 
     private static void updateCapability(ServerPlayerEntity serverPlayer) {
-        GSKONetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new CPowerChangedPacket(3));
+        GSKONetworking.CHANNEL.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new PowerChangedPacket(3));
     }
 }

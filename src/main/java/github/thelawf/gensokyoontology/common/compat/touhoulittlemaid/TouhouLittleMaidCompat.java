@@ -4,14 +4,14 @@ import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapability;
 import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
-import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.fml.ModList;
-import org.jetbrains.annotations.NotNull;
 
 public class TouhouLittleMaidCompat {
+    public static boolean ALLOW_SYNC = true;
+
     private static final String MAID_MODID = "touhou_little_maid";
     private static final ResourceLocation MAID_POWER_CAP = new ResourceLocation(MAID_MODID, "power");
 
@@ -43,7 +43,7 @@ public class TouhouLittleMaidCompat {
         });
     }
 
-    public enum SyncType {
+    public enum SyncPhase {
         GSKO_TO_TLM,
         TLM_TO_GSKO;
     }

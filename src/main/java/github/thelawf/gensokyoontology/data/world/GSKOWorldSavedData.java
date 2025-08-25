@@ -35,6 +35,14 @@ public class GSKOWorldSavedData extends WorldSavedData {
         return storage.getOrCreate(GSKOWorldSavedData::new, NAME);
     }
 
+    public void writePower(float power) {
+        this.power = power;
+    }
+
+    public float getPower() {
+        return this.power;
+    }
+
     @Override
     public void read(CompoundNBT nbt) {
         this.power = nbt.getFloat("power");
