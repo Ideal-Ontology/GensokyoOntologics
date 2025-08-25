@@ -380,6 +380,7 @@
   "entity.gensokyoontology.komeiji_koishi": "Komeiji Koishi",
   "entity.gensokyoontology.usami_sumireko": "Usami Sumireko",
   "entity.gensokyoontology.yakumo_yukari": "Yakumo Yukari",
+  "error.titleentity.gensokyoontlogy.no_enough_power": "No Enough Power",
   "fluid.gensokyoontology.hot_spring_fluid": "Hot Spring",
   "fluid.gensokyoontology.sake_wine_fluid": "Sake Wine",
   "fluid.gensokyoontology.paper_pulp_fluid": "Paper Pulp",

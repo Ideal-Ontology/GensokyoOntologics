@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
+import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
@@ -31,8 +32,11 @@ public class SPowerChangedPacket {
     public static void handle(SPowerChangedPacket packet, Supplier<NetworkEvent.Context> ctx) {
         if (ctx.get().getDirection().getReceptionSide().isClient()) {
             ctx.get().enqueueWork(() -> {
-                ServerPlayerEntity serverPlayer = ctx.get().getSender();
-                if (serverPlayer != null) renderPowerIf(packet);
+                Minecraft mc = Minecraft.getInstance();
+                if (mc.player != null) {
+                    mc.player.getCapability(GSKOCapabilities.POWER)
+                            .ifPresent(power -> power.setCount(packet.getCount()));
+                }
             });
         }
         ctx.get().setPacketHandled(true);

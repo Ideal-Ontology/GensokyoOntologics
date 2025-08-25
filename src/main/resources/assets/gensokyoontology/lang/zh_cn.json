@@ -147,6 +147,8 @@
   "enchantment.gensokyoontology.sphere_shape": "球形",
   "enchantment.gensokyoontology.infinite_danmaku": "无限弹幕",
 
+  "error.titleentity.gensokyoontlogy.no_enough_power": "P点不足",
+
   "fluid.gensokyoontology.hot_spring_fluid": "温泉",
   "fluid.gensokyoontology.paper_pulp_fluid": "纸浆",
   "fluid.gensokyoontology.sake_wine_fluid": "清酒",

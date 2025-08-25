@@ -22,15 +22,10 @@ public class PowerItem extends Item {
     @NotNull
     @Override
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, @NotNull PlayerEntity playerIn, @NotNull Hand handIn) {
-        if (worldIn.isRemote) {
-            GSKOUtil.showChatMsg(playerIn, "[Client] Power: " + GSKOPowerCapability.INSTANCE.getCount(), 1);
-        }
         if (!worldIn.isRemote) {
-            GSKOUtil.showChatMsg(playerIn, "[Server] Power: " + GSKOPowerCapability.INSTANCE.getCount(), 1);
+            float count = GSKOMathUtil.randomRange(0.1f, 1f);
+            GSKOPowerCapability.INSTANCE.add(count);
         }
-
-        float count = GSKOMathUtil.randomRange(0.1f, 1f);
-        GSKOPowerCapability.INSTANCE.add(count);
 
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }

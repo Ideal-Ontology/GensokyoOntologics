@@ -57,6 +57,10 @@ public class DanmakuRecipe implements IJigsawRecipe {
         }
     }
 
+    /**
+     * 由于原版合成配方不支持自动检测位于某个位置的方块，所以请参阅下列方法：
+     * @see DanmakuRecipe#matchesIncludePos(World, IInventory, BlockPos)
+     */
     @Override
     public boolean matches(IInventory inv, World worldIn) {
         return true;
@@ -64,6 +68,9 @@ public class DanmakuRecipe implements IJigsawRecipe {
         // return this.matchesIncludePos(worldIn, inv, this.center);
     }
 
+    /**
+     * @param center 拼图图案中心方块的世界坐标
+     */
     public boolean matchesIncludePos(World world, IInventory inv, BlockPos center) {
         BlockPos.Mutable pos = new BlockPos.Mutable(center.getX() -2, center.getY(), center.getZ()-2);
         int matches = 0;
@@ -169,35 +176,35 @@ public class DanmakuRecipe implements IJigsawRecipe {
         private static final ResourceLocation NAME = GensokyoOntology.withRL("danmaku");
 
         /**
-         * 该合成配方的json格式如下（以 crystal_shot.json 为例）：<br>
+         * 该合成配方的json格式如下（以 small_shot.json 为例）：<br>
          * <code>
          *     {<br>
          *         "type": "gensokyoontology:danmaku",<br>
          *         "power": 1.0,<br>
          *         "unit_count": 10,<br>
-         *         "output": {
-         *              "item": "gensokyontology:crytal_shot",
-         *              "count": 1
+         *         "output": {<br>
+         *              "item": "gensokyontology:small_shot",<br>
+         *              "count": 1<br>
          *         }<br>
          *         "jigsaw_pattern": [<br>
-         *             "OOXOO", <br>
-         *             "OXOXO" <br>
-         *             "XOOOX", <br>
+         *             "OOOOO", <br>
+         *             "OXXXO" <br>
          *             "OXOXO", <br>
-         *             "OOXOO", <br>
+         *             "OXOXO", <br>
+         *             "OXXXO", <br>
          *         ],<br>
          *         "key": {<br>
          *         "O": "gensokyoontology:totem_bricks",<br>
-         *         "X": "gensokyoontology:asanoha_bricks"<br>
+         *         "X": "gensokyoontology:hemp_pattern_bricks"<br>
          *         }<br>
          *     }<br>
          * </code>
          * 即当地砖的图案为：<br>
-         *   O O X O O <br>
+         *   O O O O O <br>
+         *   O X X X O <br>
          *   O X O X O <br>
-         *   X O O O X <br>
          *   O X O X O <br>
-         *   O O X O O <br>
+         *   O X X X O <br>
          * 其中，"O" 为图腾砖，"X" 为麻叶花纹砖的时候，在弹幕工作台中每放置10个弹幕之点可以通过消耗1.0点法力值将这些弹幕之点合成为1个晶弹。
          * */
         public @NotNull DanmakuRecipe read(ResourceLocation recipeId, @NotNull JsonObject json) {

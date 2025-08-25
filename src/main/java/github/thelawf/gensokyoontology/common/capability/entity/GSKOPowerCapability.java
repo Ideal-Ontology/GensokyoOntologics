@@ -1,11 +1,14 @@
 package github.thelawf.gensokyoontology.common.capability.entity;
 
+import github.thelawf.gensokyoontology.common.events.ValueChangedEvent;
+import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.FloatNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.LongNBT;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.INBTSerializable;
 import org.jetbrains.annotations.Nullable;
@@ -34,6 +37,7 @@ public class GSKOPowerCapability implements INBTSerializable<FloatNBT> {
     }
 
     public void setCount(float count) {
+        MinecraftForge.EVENT_BUS.post(new ValueChangedEvent<>(this.count, count));
         this.count = MathHelper.clamp(count, MIN, MAX);
         this.markDirty();
     }

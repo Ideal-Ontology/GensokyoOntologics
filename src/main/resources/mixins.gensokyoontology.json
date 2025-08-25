@@ -4,6 +4,7 @@
   "compatibilityLevel": "JAVA_8",
   "refmap": "gensokyoontology-refmap.json",
   "mixins": [
+    "PowerCapabilityMixin"
   ],
   "minVersion": "0.8.5"
 }

@@ -56,12 +56,12 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
         DanmakuTabelTileEntity tile = (DanmakuTabelTileEntity) worldIn.getTileEntity(pos);
         if (tile == null) {return ActionResultType.FAIL;}
         if (Screen.hasShiftDown()) {
-            tile.tryCraft(worldIn, false);
+            tile.tryCraft(worldIn, player, false);
             return ActionResultType.CONSUME;
         }
 
         if (Screen.hasControlDown()) {
-            tile.tryCraft(worldIn, true);
+            tile.tryCraft(worldIn, player, true);
             return ActionResultType.CONSUME;
         }
         if (player instanceof ServerPlayerEntity) {

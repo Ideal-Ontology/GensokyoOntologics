@@ -2,20 +2,20 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.network.GSKONetworking;
-import github.thelawf.gensokyoontology.common.network.packet.SDanmakuTilePacket;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
@@ -30,7 +30,6 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.List;
 import java.util.Optional;
 
 public class DanmakuTabelTileEntity extends TileEntity {
@@ -100,7 +99,7 @@ public class DanmakuTabelTileEntity extends TileEntity {
         return super.getCapability(cap);
     }
 
-    public void tryCraft(World world, boolean shouldCraftAll) {
+    public void tryCraft(World world, PlayerEntity player, boolean shouldCraftAll) {
         Inventory inv = new Inventory(this.itemHandler.getSlots());
         inv.setInventorySlotContents(0, this.itemHandler.getStackInSlot(0));
 
@@ -110,9 +109,13 @@ public class DanmakuTabelTileEntity extends TileEntity {
         ServerWorld serverWorld = (ServerWorld) world;
         Optional<DanmakuRecipe> optional = DanmakuRecipe.getInstance(serverWorld, inv, this.pos.down());
         if (!optional.isPresent()) return;
-        if (this.getPower() < (shouldCraftAll ? this.getConsumption().getFirst() : 0.1)) return;
 
         DanmakuRecipe recipe = optional.get();
+        if (this.getPower() < this.getRemainingPower(recipe, shouldCraftAll)) {
+            GSKOUtil.showChatMsg(player, GensokyoOntology.translate("error.tileentity.",".no_enough_power"), 1);
+            return;
+        }
+
         ItemStack outputs = recipe.getRecipeOutput();
         outputs.setCount(shouldCraftAll ? this.getMaxOutputCount(recipe) : 1);
 
@@ -121,6 +124,12 @@ public class DanmakuTabelTileEntity extends TileEntity {
 
         markDirty();
         world.getServer().getRecipeManager().getRecipe(RecipeRegistry.DANMAKU_RECIPE, inv, world);
+    }
+
+    public float getRemainingPower(DanmakuRecipe recipe, boolean shouldCraftAll) {
+        return this.getPower() - (shouldCraftAll ?
+                this.getMaxOutputCount(recipe) * recipe.getUnitCount() * 0.1F :
+                recipe.getUnitCount() * 0.1F);
     }
 
     /**
@@ -136,18 +145,18 @@ public class DanmakuTabelTileEntity extends TileEntity {
      */
     public void consume(DanmakuRecipe recipe, boolean shouldCraftAll) {
         ItemStack prev = this.itemHandler.getStackInSlot(0);
-        this.itemHandler.setStackInSlot(0, new ItemStack(prev.getItem(), this.getRemainingCount(recipe, shouldCraftAll)));
-        this.setPower(this.getPower() - this.getRemainingCount(recipe, shouldCraftAll) * 0.1F);
+        this.setPower(this.getRemainingPower(recipe, shouldCraftAll));
+        this.itemHandler.setStackInSlot(0, this.getRemainingItem(recipe, prev.getItem(), shouldCraftAll));
     }
 
     /**
      * @param recipe 弹幕合成配方
-     * @param shouldCraftAll 是否应该全部合成，为 true 则返回 原数量 - 最大合成数量 * 每次合成消耗的单位量。为 false 则返回 原数量 - 1
+     * @param shouldCraftAll 是否应该全部合成，为 true 则返回 原数量 - 最大合成数量 * 每次合成消耗的单位量。为 false 则返回 原数量 - 每次合成的消耗量
      * @return 根据是否应该全部合成的布尔值来判断方块实体中的物品应该剩余多少
      */
-    public int getRemainingCount(DanmakuRecipe recipe, boolean shouldCraftAll) {
-        return this.itemHandler.getStackInSlot(0).getCount() -
-                (shouldCraftAll ? (this.getMaxOutputCount(recipe) * recipe.getUnitCount()) : 1);
+    public ItemStack getRemainingItem(DanmakuRecipe recipe, Item item, boolean shouldCraftAll) {
+        return new ItemStack(item, this.itemHandler.getStackInSlot(0).getCount() - (shouldCraftAll ?
+                (this.getMaxOutputCount(recipe) * recipe.getUnitCount()) : recipe.getUnitCount()));
     }
 
     private Optional<DanmakuRecipe> getRecipe() {

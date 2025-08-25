@@ -11,9 +11,11 @@ import github.thelawf.gensokyoontology.common.capability.world.BloodyMistProvide
 import github.thelawf.gensokyoontology.common.capability.world.EternalSummerCapProvider;
 import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapability;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightProvider;
+import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.network.packet.SLifeTickPacket;
+import github.thelawf.gensokyoontology.common.network.packet.SPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import net.minecraft.client.world.ClientWorld;
@@ -33,12 +35,11 @@ import net.minecraftforge.fml.LogicalSide;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID)
 public class GSKOCapabilityEvents {
-
+    private static final Map<UUID, Float> lastPowerValues = new HashMap<>();
     private static ClientWorld clientWorld;
     private static ServerWorld serverWorld;
 
@@ -102,13 +103,34 @@ public class GSKOCapabilityEvents {
      * The effect of3D this method is to sync the power counts from Touhou Little Maid to this Mod.
      *
      */
-    @SubscribeEvent
+    // @SubscribeEvent
     public static void onCapabilitySync(TickEvent.PlayerTickEvent event) {
+        if (event.phase != TickEvent.Phase.END) return;
+        if (event.player.world.isRemote) return; // 只在服务端执行
         PlayerEntity player = event.player;
-        boolean flag = event.side == LogicalSide.SERVER && event.phase == TickEvent.Phase.END;
-        if (flag) {
-            trySyncCapabilities(player);
-            trySyncCapabilities(player.world);
+        UUID playerId = player.getUniqueID();
+
+        // 获取当前能力值
+        float currentPower = player.getCapability(GSKOCapabilities.POWER)
+                .map(GSKOPowerCapability::getCount)
+                .orElse(0.0f);
+
+        // 检查是否变化
+        Float lastPower = lastPowerValues.get(playerId);
+        if (lastPower == null || Math.abs(currentPower - lastPower) > 0.001f) {
+            // 同步到车万女仆系统
+            TouhouLittleMaidCompat.syncPower(player);
+            // 更新记录
+            lastPowerValues.put(playerId, currentPower);
+
+            // 同步到客户端
+            syncToClient(player, currentPower);
+        }
+    }
+
+    private static void syncToClient(PlayerEntity player, float power) {
+        if (player instanceof ServerPlayerEntity) {
+            GSKONetworking.sendToClientPlayer(new SPowerChangedPacket(power), player);
         }
     }
 
