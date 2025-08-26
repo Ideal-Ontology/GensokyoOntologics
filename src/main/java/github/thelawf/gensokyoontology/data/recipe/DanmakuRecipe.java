@@ -36,6 +36,9 @@ public class DanmakuRecipe implements IJigsawRecipe {
     private final ResourceLocation id;
 
     public static Optional<DanmakuRecipe> getInstance(ServerWorld world, IInventory inv, BlockPos pos) {
+        world.getRecipeManager().getRecipesForType(RecipeRegistry.DANMAKU_RECIPE).forEach(recipe -> {
+            recipe.matchesIncludePos(world, inv, pos);
+        });
         return world.getRecipeManager().getRecipesForType(RecipeRegistry.DANMAKU_RECIPE).stream().filter(
                 danmakuRecipe -> danmakuRecipe.matchesIncludePos(world, inv, pos))
                 .findFirst();
@@ -125,7 +128,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
 
     @Override
     public ResourceLocation getId() {
-        return RECIPE_ID;
+        return this.id;
     }
 
     @Override

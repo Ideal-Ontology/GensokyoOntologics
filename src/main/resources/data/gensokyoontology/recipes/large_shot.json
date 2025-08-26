@@ -1,0 +1,20 @@
+{
+  "type": "gensokyoontology:danmaku",
+  "power": 2.0,
+  "unit_count": 20,
+  "output": {
+    "item": "gensokyoontology:large_shot",
+    "count": 1
+  },
+  "jigsaw_pattern": [
+    "XXXXX",
+    "XOOOX",
+    "XOXOX",
+    "XOOOX",
+    "XXXXX"
+  ],
+  "key": {
+    "O": "gensokyoontology:turtle_shell_pattern_bricks",
+    "X": "gensokyoontology:totem_bricks"
+  }
+}

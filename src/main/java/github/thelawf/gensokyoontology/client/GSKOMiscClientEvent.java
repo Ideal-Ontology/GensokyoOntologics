@@ -140,9 +140,10 @@ public class GSKOMiscClientEvent {
             final ItemStack POWER_ITEM = ItemRegistry.POWER_ITEM.get().getDefaultInstance();
 
             itemRenderer.renderItemIntoGUI(POWER_ITEM, 5, 5);
-            fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD,
-                    GSKOPowerCapability.INSTANCE.getCount()), 20.0F, 10.0F, 16777215);
-
+            player.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
+                fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD,
+                        GSKOPowerCapability.INSTANCE.getCount()), 20.0F, 10.0F, 16777215);
+            });
             RenderSystem.enableBlend();
         }
     }

@@ -3,19 +3,19 @@
   "power": 1.0,
   "unit_count": 10,
   "output": {
-    "item": "gensokyoontology:small_shot",
+    "item": "gensokyoontology:small_star_shot",
     "count": 1
   },
   "jigsaw_pattern": [
-    "OOOOO",
-    "OXXXO",
-    "OXOXO",
-    "OXXXO",
-    "OOOOO"
+    "OOXOO",
+    "OOXXO",
+    "OXXOO",
+    "OOXXO",
+    "OOXOO"
   ],
   "key":
   {
     "O": "gensokyoontology:totem_bricks",
-    "X": "gensokyoontology:hemp_pattern_bricks"
+    "X": "gensokyoontology:arrow_pattern_bricks"
   }
 }
