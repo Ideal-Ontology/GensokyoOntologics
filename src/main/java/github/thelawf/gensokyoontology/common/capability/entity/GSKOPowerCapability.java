@@ -3,17 +3,14 @@ package github.thelawf.gensokyoontology.common.capability.entity;
 import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapability;
 import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
 import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
-import github.thelawf.gensokyoontology.common.events.GSKOEntityEvents;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.PowerChangedPacket;
-import github.thelawf.gensokyoontology.common.network.packet.SPowerChangedPacket;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.FloatNBT;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.INBTSerializable;
 
-import javax.smartcardio.ATR;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class GSKOPowerCapability implements INBTSerializable<FloatNBT> {

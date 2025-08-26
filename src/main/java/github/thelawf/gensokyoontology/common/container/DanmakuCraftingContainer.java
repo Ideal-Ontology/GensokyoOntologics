@@ -1,47 +1,38 @@
 package github.thelawf.gensokyoontology.common.container;
 
 import com.mojang.datafixers.DataFixUtils;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.SJigsawPatternRenderPacket;
+import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import github.thelawf.gensokyoontology.common.util.client.GSKOGUIUtil;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
-import github.thelawf.gensokyoontology.data.recipe.GSKORecipeHandler;
-import net.minecraft.block.AbstractChestBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.inventory.CraftResultInventory;
-import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.CraftingResultSlot;
+import net.minecraft.inventory.container.IContainerListener;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.*;
-import net.minecraft.network.play.server.SSetSlotPacket;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
-import net.minecraftforge.items.wrapper.InvWrapper;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -62,6 +53,7 @@ public class DanmakuCraftingContainer extends Container {
     private final TileEntity tileEntity;
     private final PlayerInventory playerInv;
     private final IInventory danmakuInv;
+    private NonNullList<Block> jigsawBlocks;
 
     public static final Logger LOGGER = LogManager.getLogger();
 
@@ -81,15 +73,32 @@ public class DanmakuCraftingContainer extends Container {
             });
         }
         this.addPlayerInventorySlots(this.playerInv, 8, 110, 168);
+        this.jigsawBlocks = NonNullList.create();
+    }
+
+    @Override
+    public void detectAndSendChanges() {
+        super.detectAndSendChanges();
+    }
+
+    public void setJigsawPattern() {
+        if (this.tileEntity instanceof DanmakuTabelTileEntity) {
+            if (this.player.world.isRemote) return;
+            DanmakuTabelTileEntity dtm = (DanmakuTabelTileEntity) this.tileEntity;
+            this.jigsawBlocks = (NonNullList<Block>) dtm.getJigsawPattern();
+            GSKONetworking.sendToClientPlayer(new SJigsawPatternRenderPacket(this.jigsawBlocks), player);
+        }
     }
 
     public Block getJigsawPart(int relativeX, int relativeY){
         if (relativeX < 0 || relativeX > 4 || relativeY < 0 || relativeY > 4) return Blocks.AIR;
-        AtomicReference<Block> blockRef = new AtomicReference<>();
-        GSKOUtil.getRecipeIf(this.player.world, RecipeRegistry.DANMAKU_RECIPE, this.danmakuInv, recipe -> {
-            blockRef.set(recipe.getBlockStates().get(relativeY * 5 + relativeX));
-        });
-        return blockRef.get() == null ? Blocks.AIR : blockRef.get();
+
+        return Blocks.AIR;
+        // AtomicReference<Block> blockRef = new AtomicReference<>();
+        // GSKOUtil.getRecipeIf(this.player.world, RecipeRegistry.DANMAKU_RECIPE, this.danmakuInv, recipe -> {
+        //     blockRef.set(recipe.getJigsawPattern().get(relativeY * 5 + relativeX));
+        // });
+        // return blockRef.get() == null ? Blocks.AIR : blockRef.get();
     }
 
     @Override
@@ -103,8 +112,6 @@ public class DanmakuCraftingContainer extends Container {
         super.onCraftMatrixChanged(inventoryIn);
         // this.updateCraftingResult();
     }
-
-
 
     private int addSlotRange(IItemHandler handler, int index, int x, int y, int amount, int dx) {
         for (int i = 0; i < amount; i++) {

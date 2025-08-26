@@ -15,7 +15,6 @@ import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLitt
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.PowerChangedPacket;
 import github.thelawf.gensokyoontology.common.network.packet.SLifeTickPacket;
-import github.thelawf.gensokyoontology.common.network.packet.SPowerChangedPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import net.minecraft.client.world.ClientWorld;
@@ -123,14 +122,6 @@ public class GSKOCapabilityEvents {
             // 更新记录
             lastPowerValues.put(playerId, currentPower);
 
-            // 同步到客户端
-            syncToClient(player, currentPower);
-        }
-    }
-
-    private static void syncToClient(PlayerEntity player, float power) {
-        if (player instanceof ServerPlayerEntity) {
-            GSKONetworking.sendToClientPlayer(new SPowerChangedPacket(power), player);
         }
     }
 

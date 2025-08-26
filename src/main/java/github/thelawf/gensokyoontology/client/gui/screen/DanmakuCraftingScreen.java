@@ -4,7 +4,6 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.ILayoutScreen;
 import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -19,7 +18,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2i;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
@@ -38,6 +39,8 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
     protected float storedPower;
     protected float consumedPower;
     protected int consumedDanmakuShot;
+
+    protected List<Block> jigsawBlocks = new ArrayList<>();
 
     public static final Map<Block, Vector2i> BLOCK_UV_OFFS = Util.make(() -> {
        Map<Block, Vector2i> map = new HashMap<>();
@@ -99,10 +102,16 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
         this.minecraft.getTextureManager().bindTexture(DANMAKU_CRAFTING_TEXTURE);
 
         this.blit(matrixStack, this.guiLeft, this.guiTop, 0, 0, 175, 191);
-        for (int i = 0; i < 5; i++) {
+        outerLoop: for (int i = 0; i < 5; i++) {
             for (int j = 0; j < 5; j++) {
-                if (this.container.getJigsawPart(i, j) == Blocks.AIR) return;
-                Vector2i uv = BLOCK_UV_OFFS.get(this.container.getJigsawPart(i, j));
+//                if (this.container.getJigsawPart(i, j) == Blocks.AIR) break x;
+                if (this.jigsawBlocks.size() < 25) break outerLoop;
+                if (this.jigsawBlocks.get(j + i * 5) == null) break outerLoop;
+                if (!BLOCK_UV_OFFS.containsKey(this.jigsawBlocks.get(j + i * 5))) break outerLoop;
+
+//                Vector2i uv = BLOCK_UV_OFFS.get(this.container.getJigsawPart(i, j));
+                // Block block = this.container.getJigsawPart(i, j);
+                Vector2i uv = BLOCK_UV_OFFS.get(this.jigsawBlocks.get(j + i * 5));
                 this.blit(matrixStack, this.jigsawX + 16 * i, this.jigsawY + 16 * j, this.jigsawU + 16 * uv.x, this.jigsawV + 16 * uv.y, 16, 16);
             }
         }
@@ -122,6 +131,10 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
         this.font.drawText(matrixStack, CONSUMED_DANMAKU_SHOT, this.guiLeft + 8, consumptionDY, 0x111111);
         this.font.drawString(matrixStack, String.valueOf(this.getConsumedDanmakuShot()),
                 this.cdLength, consumptionDY, 0x111111);
+    }
+
+    public void setRenderedBlocks(List<Block> blocks) {
+        this.jigsawBlocks = blocks;
     }
 
     public void setStoredPower(float storedPower) {

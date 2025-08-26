@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.container.SorceryExtractorContaine
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.SDanmakuTilePacket;
+import github.thelawf.gensokyoontology.common.network.packet.SJigsawPatternRenderPacket;
 import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
 import github.thelawf.gensokyoontology.common.tileentity.ITileEntityGetter;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
@@ -32,8 +33,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
+import net.minecraftforge.items.CapabilityItemHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.system.CallbackI;
@@ -65,13 +68,34 @@ public class DanmakuTableBlock extends Block implements ITileEntityGetter<Danmak
             return ActionResultType.CONSUME;
         }
         if (player instanceof ServerPlayerEntity) {
+
             ServerPlayerEntity sender = (ServerPlayerEntity) player;
             NetworkHooks.openGui(sender, createContainer(worldIn, pos), tile.getPos());
-            GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(tile.getPower(),
-                    tile.getConsumption().getFirst(), tile.getConsumption().getSecond()), player);
+            GSKONetworking.sendToClientPlayer(new SJigsawPatternRenderPacket(tile.getJigsawPattern()), player);
+            GSKONetworking.sendToClientPlayer(new SDanmakuTilePacket(
+                    tile.getPower(),
+                    tile.getConsumption().getFirst(),
+                    tile.getConsumption().getSecond()), player);
+
         }
 
         return ActionResultType.SUCCESS;
+    }
+
+    @Override
+    public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) {
+        super.onPlayerDestroy(worldIn, pos, state);
+        GSKOUtil.getTileByType((World) worldIn, pos, TileEntityRegistry.DANMAKU_TABLE_TILE.get()).ifPresent(tile ->
+                tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).ifPresent(itemHandler -> {
+                    Block.spawnAsEntity((World) worldIn, pos, itemHandler.extractItem(
+                            0, itemHandler.getStackInSlot(0).getCount(), false));
+        }));
+    }
+
+    @Override
+    public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) {
+        super.onBlockHarvested(worldIn, pos, state, player);
+        this.onPlayerDestroy(worldIn, pos, state);
     }
 
     @Nullable

@@ -22,7 +22,7 @@ public class BlessingRecipe implements IJigsawRecipe{
     }
 
     @Override
-    public NonNullList<Block> getBlockStates() {
+    public NonNullList<Block> getJigsawPattern() {
         return null;
     }
 

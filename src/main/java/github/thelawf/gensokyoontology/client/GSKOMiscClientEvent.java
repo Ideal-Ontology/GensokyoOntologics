@@ -140,6 +140,8 @@ public class GSKOMiscClientEvent {
             final ItemStack POWER_ITEM = ItemRegistry.POWER_ITEM.get().getDefaultInstance();
 
             itemRenderer.renderItemIntoGUI(POWER_ITEM, 5, 5);
+
+            // FIXME: 在玩家第一次进入游戏时由于能力系统未创建导致渲染p点点数时闪退
             player.getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
                 fontRenderer.drawString(event.getMatrixStack(), String.format("%s×%.2f", TextFormatting.BOLD,
                         GSKOPowerCapability.INSTANCE.getCount()), 20.0F, 10.0F, 16777215);

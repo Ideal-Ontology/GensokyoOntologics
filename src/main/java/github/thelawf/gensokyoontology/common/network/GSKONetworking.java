@@ -25,7 +25,6 @@ public class GSKONetworking {
 
         CHANNEL.messageBuilder(SScarletMistPacket.class, next()).encoder(SScarletMistPacket::toBytes).decoder(SScarletMistPacket::new).consumer(SScarletMistPacket::handle).add();
         CHANNEL.messageBuilder(ImperishableNightPacket.class, next()).encoder(ImperishableNightPacket::toBytes).decoder(ImperishableNightPacket::new).consumer(ImperishableNightPacket::handle).add();
-        CHANNEL.messageBuilder(FantasyFadingPacket.class, next()).encoder(FantasyFadingPacket::toBytes).decoder(FantasyFadingPacket::decode).consumer(FantasyFadingPacket::handle).add();
         CHANNEL.messageBuilder(PowerChangedPacket.class, next()).encoder(PowerChangedPacket::toBytes).decoder(PowerChangedPacket::fromBytes).consumer(PowerChangedPacket::handle).add();
         CHANNEL.messageBuilder(SLifeTickPacket.class, next()).encoder(SLifeTickPacket::toBytes).decoder(SLifeTickPacket::fromBytes).consumer(SLifeTickPacket::handle).add();
 
@@ -37,6 +36,7 @@ public class GSKONetworking {
         CHANNEL.messageBuilder(CAdjustRailPacket.class, next()).encoder(CAdjustRailPacket::toBytes).decoder(CAdjustRailPacket::fromBytes).consumer(CAdjustRailPacket::handle).add();
         CHANNEL.messageBuilder(SRotateCameraPacket.class, next()).encoder(SRotateCameraPacket::toBytes).decoder(SRotateCameraPacket::fromBytes).consumer(SRotateCameraPacket::handle).add();
         CHANNEL.messageBuilder(SDanmakuTilePacket.class, next()).encoder(SDanmakuTilePacket::toBytes).decoder(SDanmakuTilePacket::fromBytes).consumer(SDanmakuTilePacket::handle).add();
+        CHANNEL.messageBuilder(SJigsawPatternRenderPacket.class, next()).encoder(SJigsawPatternRenderPacket::toBytes).decoder(SJigsawPatternRenderPacket::fromBytes).consumer(SJigsawPatternRenderPacket::handle).add();
     }
 
     public static void sendToClientPlayer(Object message, PlayerEntity player) {

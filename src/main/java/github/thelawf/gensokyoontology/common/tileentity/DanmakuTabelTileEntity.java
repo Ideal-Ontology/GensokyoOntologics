@@ -30,6 +30,8 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class DanmakuTabelTileEntity extends TileEntity {
@@ -110,8 +112,16 @@ public class DanmakuTabelTileEntity extends TileEntity {
         Optional<DanmakuRecipe> optional = DanmakuRecipe.getInstance(serverWorld, inv, this.pos.down());
         if (!optional.isPresent()) return;
 
+        //FIXME:
+        //TODO:
+        // 1. 提供网络发包来向客户端同步能力数据
+        // 2. GUI图案显示错误，需要提供 server -> client 的网络发包来渲染当前拼图样式
         DanmakuRecipe recipe = optional.get();
-        if (this.getPower() < this.getRemainingPower(recipe, shouldCraftAll)) {
+        ItemStack stack = this.itemHandler.getStackInSlot(0);
+        if (stack.isEmpty())
+            return;
+
+        if (this.getRemainingPower(recipe, shouldCraftAll) < 0) {
             GSKOUtil.showChatMsg(player, GensokyoOntology.translate("error.tileentity.",".no_enough_power"), 1);
             return;
         }
@@ -157,6 +167,16 @@ public class DanmakuTabelTileEntity extends TileEntity {
     public ItemStack getRemainingItem(DanmakuRecipe recipe, Item item, boolean shouldCraftAll) {
         return new ItemStack(item, this.itemHandler.getStackInSlot(0).getCount() - (shouldCraftAll ?
                 (this.getMaxOutputCount(recipe) * recipe.getUnitCount()) : recipe.getUnitCount()));
+    }
+
+    public List<Block> getJigsawPattern(){
+        if (this.world instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld) this.world;
+            Optional<DanmakuRecipe> recipe = DanmakuRecipe.getInstance(serverWorld,
+                    new Inventory(this.itemHandler.getSlots()), this.pos.down());
+            return recipe.<List<Block>>map(DanmakuRecipe::getJigsawPattern).orElse(new ArrayList<>());
+        }
+        return new ArrayList<>();
     }
 
     private Optional<DanmakuRecipe> getRecipe() {

@@ -74,12 +74,20 @@ public class GSKOEntityEvents {
     public static final int LILY_WHITE_DELAY = 80000;
 
     @SubscribeEvent
+    public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        event.getPlayer().getCapability(GSKOCapabilities.POWER).ifPresent(cap -> {
+            GSKONetworking.sendToClientPlayer(new PowerChangedPacket(cap.getCount()), event.getPlayer());
+            GSKOPowerCapability.INSTANCE = cap;
+        });
+    }
+
+    @SubscribeEvent
     public static void onEntityJoinWorld(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)event.getEntity();
             player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
                 GSKONetworking.sendToClientPlayer(new PowerChangedPacket(gskoCap.getCount()), player);
-                GSKOPowerCapability.INSTANCE = gskoCap;
+                GSKOPowerCapability.INSTANCE = gskoCap; // FIXME: 在玩家第一次进入游戏时由于能力系统未创建导致渲染p点点数时闪退
             });
             player.getCapability(GSKOCapabilities.SECULAR_LIFE).ifPresent(SecularLifeCapability::markDirty);
             player.getCapability(GSKOCapabilities.IDENTITY).ifPresent(belief -> IdentityCapability.INSTANCE = belief);
@@ -95,7 +103,9 @@ public class GSKOEntityEvents {
         if (player.world.isRemote) return;
         if (!TouhouLittleMaidCompat.isTouhouMaidLoaded()) return;
 
+
         player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+            GSKONetworking.sendToClientPlayer(new PowerChangedPacket(gskoCap.getCount()), player);
             player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> {
                 tlmCap.markDirty();
                 handleDataSaved(player.world, tlmCap, gskoCap);

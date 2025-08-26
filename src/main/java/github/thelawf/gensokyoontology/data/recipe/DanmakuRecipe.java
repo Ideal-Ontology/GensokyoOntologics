@@ -19,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.crafting.CraftingHelper;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 
@@ -36,9 +35,6 @@ public class DanmakuRecipe implements IJigsawRecipe {
     private final ResourceLocation id;
 
     public static Optional<DanmakuRecipe> getInstance(ServerWorld world, IInventory inv, BlockPos pos) {
-        world.getRecipeManager().getRecipesForType(RecipeRegistry.DANMAKU_RECIPE).forEach(recipe -> {
-            recipe.matchesIncludePos(world, inv, pos);
-        });
         return world.getRecipeManager().getRecipesForType(RecipeRegistry.DANMAKU_RECIPE).stream().filter(
                 danmakuRecipe -> danmakuRecipe.matchesIncludePos(world, inv, pos))
                 .findFirst();
@@ -102,7 +98,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
     }
 
     @Override
-    public NonNullList<Block> getBlockStates() {
+    public NonNullList<Block> getJigsawPattern() {
         return this.blockStates;
     }
 
@@ -238,7 +234,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
         public void write(PacketBuffer buffer, DanmakuRecipe recipe) {
             buffer.writeItemStack(recipe.getRecipeOutput(), false);
             buffer.writeInt(recipe.getUnitCount());
-            buffer.writeVarInt(recipe.getBlockStates().size());
+            buffer.writeVarInt(recipe.getJigsawPattern().size());
             buffer.writeFloat(recipe.getPowerConsumption());
             for (Block blockState : recipe.blockStates) GSKOUtil.writeBlockData(buffer, null, blockState);
         }
