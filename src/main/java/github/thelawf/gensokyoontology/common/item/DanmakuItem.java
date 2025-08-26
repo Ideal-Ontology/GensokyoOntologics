@@ -69,11 +69,11 @@ public class DanmakuItem extends Item {
             map.put(EnchantRegistry.LINEAR_SHAPE.get(),(enchantment, stackIn, world, player, sizeIn) -> {
                 int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
                 if (level == 0) return level;
-                for (float speed = level * 0.1F + 0.2F; speed == 0.2F; speed -= 0.1F) {
+                for (float speed = level * 0.1F + 0.2F; speed >= 0.2F; speed -= 0.1F) {
                     float eye = playerIn.getEyeHeight();
                     Danmaku.create(worldIn, playerIn, stack)
                             .size(sizeIn)
-                            .shoot(playerIn.getLookVec().add(0, eye, 0), speed);
+                            .shoot(playerIn.getLookVec(), speed);
                 }
                 return level;
             });
