@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.IHasCooldown;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
 import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
@@ -31,7 +32,7 @@ import java.util.function.Predicate;
 /**
  * 魔理沙的八卦炉
  */
-public class MarisaHakkeiro extends ShootableItem implements IRayTraceReader {
+public class MarisaHakkeiro extends ShootableItem implements IRayTraceReader, IHasCooldown {
     public MarisaHakkeiro(Properties properties) {
         super(properties);
     }
@@ -62,9 +63,10 @@ public class MarisaHakkeiro extends ShootableItem implements IRayTraceReader {
         }
         // Vector3d explodeStartPos = playerIn.getEyePosition(1.0F).add(playerIn.getLookVec().scale(8));
         // this.causeExplosion(worldIn, playerIn, explodeStartPos);
-        int cooldownTicks = 1800;
-        if (playerIn.isCreative()) return;
-        playerIn.getCooldownTracker().setCooldown(this, cooldownTicks);
+        this.setCD(playerIn, stack, 1800);
+//        int cooldownTicks = 1800;
+//        if (playerIn.isCreative()) return;
+//        playerIn.getCooldownTracker().setCooldown(this, cooldownTicks);
 
     }
 
@@ -85,10 +87,11 @@ public class MarisaHakkeiro extends ShootableItem implements IRayTraceReader {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID + ".marisa_hakkeiro"));
-        if (Screen.hasShiftDown()) {
-            tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID + ".marisa_hakkeiro.info"));
-        }
+        tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID + ".marisa_hakkeiro.info"));
+//        tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID + ".marisa_hakkeiro"));
+//        if (Screen.hasShiftDown()) {
+//            tooltip.add(new TranslationTextComponent("tooltip." + GensokyoOntology.MODID + ".marisa_hakkeiro.info"));
+//         }
     }
 
     @Override
