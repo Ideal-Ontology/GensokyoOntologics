@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.EnchantRegistry;
+import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -94,6 +95,7 @@ public class DanmakuItem extends Item {
             hasEnchantments += tryApplyEnchant(behaviors.get(enchantment), enchantment, worldIn, playerIn, stack, size);
         }
         if (hasEnchantments == 0) Danmaku.create(worldIn, playerIn, this).size(size).shoot(playerIn.getLookVec(), 0.55F);
+        if (worldIn.isRemote) playerIn.playSound(GSKOSoundEvents.SHOOT_DANMAKU.get(), 0.5F, 1F);
 
         stack.shrink(tryApplyEnchant(behaviors.get(EnchantRegistry.INFINITE_DANMAKU.get()),
                 EnchantRegistry.INFINITE_DANMAKU.get(), worldIn, playerIn,

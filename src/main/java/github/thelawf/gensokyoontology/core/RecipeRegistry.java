@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.core;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
+import github.thelawf.gensokyoontology.data.recipe.KogasaSmithingRecipe;
 import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
 import net.minecraft.item.crafting.*;
 import net.minecraft.util.registry.Registry;
@@ -14,11 +15,14 @@ public class RecipeRegistry {
     public static final DeferredRegister<IRecipeSerializer<?>> RECIPE_SERIALIZERS = DeferredRegister.create(
             ForgeRegistries.RECIPE_SERIALIZERS, GensokyoOntology.MODID);
 
+    public static final RegistryObject<KogasaSmithingRecipe.Serializer> KOGASA_SMITHING_SERIALIZER = RECIPE_SERIALIZERS.register(
+            "kogasa_smithing", KogasaSmithingRecipe.Serializer::new);
     public static final RegistryObject<SorceryExtractorRecipe.Serializer> SORCERY_SERIALIZER = RECIPE_SERIALIZERS.register(
             "sorcery_extract", SorceryExtractorRecipe.Serializer::new);
     public static final RegistryObject<DanmakuRecipe.Serializer> DANMAKU_CRAFT_SERIALIZER = RECIPE_SERIALIZERS.register(
             "danmaku", DanmakuRecipe.Serializer::new);
 
+    public static final IRecipeType<KogasaSmithingRecipe> KOGASA_SMITHING = new KogasaSmithingRecipe.Type();
     public static final IRecipeType<SorceryExtractorRecipe> SORCERY_RECIPE = new SorceryExtractorRecipe.Type();
     public static final IRecipeType<DanmakuRecipe> DANMAKU_RECIPE = new DanmakuRecipe.Type();
 
