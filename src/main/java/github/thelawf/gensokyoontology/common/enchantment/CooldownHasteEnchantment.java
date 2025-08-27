@@ -11,7 +11,7 @@ public class CooldownHasteEnchantment extends Enchantment {
 
     @Override
     public int getMaxLevel() {
-        return 5;
+        return 20;
     }
 
     @Override

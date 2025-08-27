@@ -66,21 +66,6 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 
-    private void lasers(World worldIn, PlayerEntity playerIn) {
-        List<Integer> colors = ImmutableList.of(
-                0x88FF0000, 0x88FF8C00, 0x88FFFF00, 0x8800FF00, 0x8800FFFF, 0x880000FF, 0x88FF00FF, 0x88800080
-        );
-        for (int i = 0; i < colors.size(); i++) {
-            Laser laser = new Laser(worldIn, playerIn);
-            laser.init(500, 40, 120);
-            laser.setARGB(colors.get(i));
-            laser.setLocationAndAngles(playerIn.getPosX() + (double) i / 2, playerIn.getPosY() + playerIn.getEyeHeight() * 0.5,
-                    playerIn.getPosZ(), 0, 0);
-            worldIn.addEntity(laser);
-        }
-    }
-
-
     /**
      * 这里实现的是妖怪测谎仪的激光，需要注意的是这里第一行的谓词需要取非再传入IRayTraceReader.getEntityWithinSphere()
      */
@@ -118,11 +103,6 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
     public @NotNull ItemStack onItemUseFinish(@NotNull ItemStack stack, @NotNull World worldIn, @NotNull LivingEntity entityLiving) {
         stack.setTag(new CompoundNBT());
         return super.onItemUseFinish(stack, worldIn, entityLiving);
-    }
-
-    @Override
-    public int getUseDuration(@NotNull ItemStack stack) {
-        return 50;
     }
 
     @Override

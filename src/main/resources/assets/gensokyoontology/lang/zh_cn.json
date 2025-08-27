@@ -146,8 +146,7 @@
   "enchantment.gensokyoontology.circle_shape": "圆形",
   "enchantment.gensokyoontology.sphere_shape": "球形",
   "enchantment.gensokyoontology.infinite_danmaku": "无限弹幕",
-
-  "error.titleentity.gensokyoontlogy.no_enough_power": "P点不足",
+  "enchantment.gensokyoontology.cooldown_haste": "技能急速",
 
   "fluid.gensokyoontology.hot_spring_fluid": "温泉",
   "fluid.gensokyoontology.paper_pulp_fluid": "纸浆",
@@ -512,6 +511,13 @@
   "minecraft:swampland": "沼泽",
   "minecraft:taiga": "针叶林",
   "minecraft:the_end": "末地",
+
+  "error.gensokyoontlogy.titleentity.no_enough_power": "P点不足",
+  "error.gensokyoontlogy.hakkeiro.no_enough_bomb": "Bomb不足",
+  "error.gensokyoontlogy.hakkeiro.no_enough_fire_charge": "火焰弹不足",
+
+  "msg.gensokyoontology.hakkeiro.charged": "极限火花已装填！",
+
   "msg.gensokyoontology.enter_danger_biome.nameless_hill": "§5这里遍地盛开的铃兰正散发着有毒的花香",
   "msg.gensokyoontology.enter_danger_biome.scarlet_mansion_precincts": "§c这片区域正被一片能使人窒息的红雾笼罩",
   "msg.gensokyoontology.gap_block.in_dimension": "且位于该世界维度：",
@@ -653,5 +659,10 @@
   "enchantment.level.12": "XII",
   "enchantment.level.13": "XIII",
   "enchantment.level.14": "XIV",
-  "enchantment.level.15": "XV"
+  "enchantment.level.15": "XV",
+  "enchantment.level.16": "XVI",
+  "enchantment.level.17": "XVII",
+  "enchantment.level.18": "XVIII",
+  "enchantment.level.19": "XIX",
+  "enchantment.level.20": "XX"
 }
