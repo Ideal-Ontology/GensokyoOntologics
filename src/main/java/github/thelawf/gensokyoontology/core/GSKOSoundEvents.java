@@ -18,6 +18,7 @@ public class GSKOSoundEvents {
     public static final RegistryObject<SoundEvent> CICADA_AMBIENT = register("cicada_ambient");
     public static final RegistryObject<SoundEvent> BAMBOO_PARTRIDGE = register("bamboo_partridge");
     public static final RegistryObject<SoundEvent> MASTER_SPARK = register("master_spark");
+    public static final RegistryObject<SoundEvent> SHOOT_DANMAKU = register("shoot_danmaku");
 
     private static RegistryObject<SoundEvent> register(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(

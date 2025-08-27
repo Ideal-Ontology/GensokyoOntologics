@@ -21,7 +21,6 @@ import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
@@ -47,7 +46,6 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.concurrent.TickDelayedTask;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
@@ -61,7 +59,6 @@ import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 
 import java.util.List;
 import java.util.Random;
@@ -69,8 +66,10 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = "gensokyoontology")
 public class GSKOEntityEvents {
 
-    public static boolean CAN_PLAY_SOUND = true;
-    public static final int AUDIO_DELAY = 400;
+    public static int AMBIENT_SOUND_TIMER = 0;
+    public static boolean CAN_START_SOUND_TIMER = true;
+
+    public static int CICADA_SOUND = 20 * 60 * 2;
     public static final int LILY_WHITE_DELAY = 80000;
 
     @SubscribeEvent
@@ -306,16 +305,14 @@ public class GSKOEntityEvents {
     @SubscribeEvent
     public static void playBGMToPlayer(TickEvent.PlayerTickEvent event) {
         PlayerEntity player = event.player;
-        if (player.getServer() == null) return;
-        ServerWorld serverWorld = player.getServer().getWorld(GSKODimensions.GENSOKYO);
-        if (serverWorld == null) return;
-        if (serverWorld.getDimensionKey().equals(GSKODimensions.GENSOKYO) && CAN_PLAY_SOUND) {
-            ServerLifecycleHooks.getCurrentServer().enqueue(new TickDelayedTask(
-                    AUDIO_DELAY + GSKOMathUtil.randomRange(100, 200),
-                    () -> player.playSound(GSKOSoundEvents.CICADA_AMBIENT.get(), 0.6f, 1f)));
-            CAN_PLAY_SOUND = false;
-        }
+        Random random = new Random();
+        CAN_START_SOUND_TIMER = random.nextInt(10) == 0;
 
+        if (!CAN_START_SOUND_TIMER) return;
+        AMBIENT_SOUND_TIMER++;
+        if (AMBIENT_SOUND_TIMER > CICADA_SOUND + random.nextInt(10000)) {
+            player.playSound(GSKOSoundEvents.CICADA_AMBIENT.get(), 0.6f, 1f);
+        }
     }
 
     private static void fairyDropDanmaku(LivingDeathEvent event) {
