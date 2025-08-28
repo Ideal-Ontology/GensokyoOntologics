@@ -4,8 +4,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.JsonOps;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import net.minecraft.inventory.IInventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.*;
 import net.minecraft.nbt.CompoundNBT;
@@ -17,26 +19,28 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
 
     private final float powerConsumption;
     private final ResourceLocation id;
-    private final NonNullList<ItemStack> materials;
+    private final ItemStack material;
     private final CompoundNBT tagEntry;
 
-    public KogasaSmithingRecipe(ResourceLocation id, NonNullList<ItemStack> materials, CompoundNBT tagEntry, float power) {
+    public KogasaSmithingRecipe(ResourceLocation id, ItemStack material, CompoundNBT tagEntry, float power) {
         this.id = id;
         this.powerConsumption = power;
-        this.materials = materials;
+        this.material = material;
         this.tagEntry = tagEntry;
     }
 
     @Override
     public boolean matches(IInventory inv, World worldIn) {
+        List<Item> itemList = GSKOUtil.toItemList(inv).stream().map(ItemStack::getItem).collect(Collectors.toList());
         return true;
     }
 
@@ -71,23 +75,24 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
     }
 
     @Override
-    public ItemStack getMaterial(int slotIndex) {
-        return this.materials.get(slotIndex);
+    public ItemStack getMaterial() {
+        return this.material;
     }
 
     @Override
-    public int getMaterialCount(ItemStack stack) {
-        return Math.toIntExact(this.materials.stream().filter(itemStack -> itemStack.getItem() == stack.getItem()).count());
-    }
-
-    @Override
-    public CompoundNBT getTagEntry(ItemStack stack) {
+    public CompoundNBT getTagEntry() {
         return this.tagEntry;
     }
 
     @Override
     public float getPowerConsumption() {
         return this.powerConsumption;
+    }
+
+    @Override
+    public int getDuplicateMaterialCount(IInventory inventory) {
+        return Math.toIntExact(GSKOUtil.toItemList(inventory).subList(1, 4).stream().filter(stack ->
+                stack.getItem() == this.getMaterial().getItem()).count());
     }
 
     public static class Type implements IRecipeType<KogasaSmithingRecipe> {
@@ -113,34 +118,23 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
                     JSONUtils.getJsonObject(json, "tag_entry")).result()
                     .orElse(Pair.of(new CompoundNBT(), new JsonObject())).getFirst();
 
-            NonNullList<ItemStack> materials = NonNullList.create();
-
-            for (JsonElement jsonElement : JSONUtils.getJsonArray(json, "materials")) {
-                materials.add(deserializeItem(jsonElement.getAsJsonObject()));
-            }
-            return new KogasaSmithingRecipe(recipeId, materials, tagEntry, powerConsumption);
+            ItemStack material = deserializeItem(JSONUtils.getJsonObject(json, "material"));
+            return new KogasaSmithingRecipe(recipeId, material, tagEntry, powerConsumption);
         }
 
         @Override
         public @Nullable KogasaSmithingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             float power = buffer.readFloat();
-            CompoundNBT recastTag = buffer.readCompoundTag();
-
-            NonNullList<ItemStack> materials = NonNullList.create();
-            for (int i = 0; i < buffer.readVarInt(); i++) {
-                materials.add(buffer.readItemStack());
-            }
-            return new KogasaSmithingRecipe(recipeId, materials, recastTag, power);
+            CompoundNBT tagEntry = buffer.readCompoundTag();
+            ItemStack material = buffer.readItemStack();
+            return new KogasaSmithingRecipe(recipeId, material, tagEntry, power);
         }
 
         @Override
         public void write(PacketBuffer buffer, KogasaSmithingRecipe recipe) {
             buffer.writeFloat(recipe.powerConsumption);
             buffer.writeCompoundTag(recipe.tagEntry);
-            buffer.writeVarInt(recipe.materials.size());
-            for (ItemStack stack : recipe.materials) {
-                buffer.writeItemStack(stack);
-            }
+            buffer.writeItemStack(recipe.material);
         }
     }
 }

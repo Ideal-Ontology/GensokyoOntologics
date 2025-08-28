@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.api.Functions;
 import github.thelawf.gensokyoontology.api.client.AbstractContainer;
 import github.thelawf.gensokyoontology.api.util.INBTReader;
 import github.thelawf.gensokyoontology.api.util.IntRange;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.EnchantRegistry;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
@@ -24,6 +25,7 @@ import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.registries.ForgeRegistries;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.List;
@@ -64,7 +66,13 @@ public class KogasaSmitingContainer extends AbstractContainer implements INBTRea
                 @Override
                 public void onSlotChanged() {
                     super.onSlotChanged();
-                    KogasaSmitingContainer.this.onCraftMatrixChanged(this.inventory);
+                    KogasaSmitingContainer.this.trySmithing();
+                }
+
+                @Override
+                public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
+                    KogasaSmitingContainer.this.trySmithing();
+                    return super.onTake(thePlayer, stack);
                 }
             });
         }
@@ -84,10 +92,10 @@ public class KogasaSmitingContainer extends AbstractContainer implements INBTRea
         this.trySmithing();
     }
 
-
     private void setMaterialsWhenHasSpecialTag() {
         this.detectAndSendChanges();
         ItemStack smithingItem = this.inventory.getStackInSlot(0);
+        this.resultInv.setInventorySlotContents(0, smithingItem);
         List<ItemStack> materials = this.getNBTList(smithingItem, "materials", Type.COMPOUND).stream()
                 .map(inbt -> ItemStack.read(Type.COMPOUND.cast(inbt))).collect(Collectors.toList());
         materials.forEach(stack ->
@@ -96,6 +104,7 @@ public class KogasaSmitingContainer extends AbstractContainer implements INBTRea
 
     private void removeMaterialWhenTaken() {
         ItemStack smithingItem = this.inventory.getStackInSlot(0);
+        this.resultInv.setInventorySlotContents(0, ItemStack.EMPTY);
         List<ItemStack> materials = this.getNBTList(smithingItem, "materials", Type.COMPOUND).stream()
                 .map(inbt -> ItemStack.read(Type.COMPOUND.cast(inbt))).collect(Collectors.toList());
         materials.forEach(stack ->
@@ -103,12 +112,14 @@ public class KogasaSmitingContainer extends AbstractContainer implements INBTRea
     }
 
     public void trySmithing(){
+        this.detectAndSendChanges();
         if (!this.world.isRemote) {
             ServerWorld serverWorld = (ServerWorld)this.world;
             Optional<KogasaSmithingRecipe> optional = serverWorld.getRecipeManager().getRecipe(
                     RecipeRegistry.KOGASA_SMITHING, this.inventory, serverWorld);
             if (!optional.isPresent()) return;
             KogasaSmithingRecipe recipe = optional.get();
+            CompoundNBT tag = recipe.getTagEntry();
             this.resultInv.setInventorySlotContents(0, recipe.getRecipeOutput());
         }
     }

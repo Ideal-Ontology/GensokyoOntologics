@@ -47,6 +47,15 @@ import static github.thelawf.gensokyoontology.GensokyoOntology.withAffix;
 
 public class GSKOUtil {
 
+    public static List<ItemStack> toItemList(IInventory inv) {
+        List<ItemStack> list = new ArrayList<>();
+        for (int i = 0; i < inv.getSizeInventory(); i++) {
+            ItemStack stack = inv.getStackInSlot(i);
+            if (!stack.isEmpty()) list.add(stack);
+        }
+        return list;
+    }
+
     public static <I extends IInventory, R extends IRecipe<I>, T extends IRecipeType<R>> Optional<R> getRecipeIf(
             World world, T type, I inv, Consumer<R> action){
         Optional<R> optional = world.getRecipeManager().getRecipes().stream().flatMap(iRecipe -> {
