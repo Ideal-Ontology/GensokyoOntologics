@@ -205,7 +205,7 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> ONION_CROP_BLOCK = BLOCKS.register(
             "onion_crop", () -> new OnionCropBlock(AbstractBlock.Properties.from(Blocks.CARROTS)));
 
-    /// 多方块与方块实体
+    // ============================= 多方块、方块实体与功能类方块 =============================//
     public static final RegistryObject<Block> ONBASHIRA_BLOCK = BLOCKS.register("onbashira", OnbaishiraBlock::new);
     public static final RegistryObject<Block> ALTAR_TABLE_BLOCK = BLOCKS.register("altar_table", () -> new AltarTableBlock(
             AbstractBlock.Properties.from(Blocks.SMITHING_TABLE)));
@@ -216,6 +216,7 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> SHRINE_LANTERN_BLOCK = BLOCKS.register("shrine_lantern", () -> new Block(
             AbstractBlock.Properties.from(Blocks.STONE)));
 
+    public static final RegistryObject<Block> KOGASA_SMITHING_TABLE = BLOCKS.register("kogasa_smithing_table", KogasaSmithingTable::new);
     public static final RegistryObject<Block> DANMAKU_TABLE = BLOCKS.register("danmaku_table", DanmakuTableBlock::new);
     public static final RegistryObject<Block> SORCERY_EXTRACTOR = BLOCKS.register("sorcery_extractor", SorceryExtractorBlock::new);
     public static final RegistryObject<Block> DISPOSABLE_SPAWNER = BLOCKS.register("disposable_spawner", DisposableSpawnerBlock::new);

@@ -2,11 +2,13 @@ package github.thelawf.gensokyoontology.common.container;
 
 import github.thelawf.gensokyoontology.api.client.AbstractContainer;
 import github.thelawf.gensokyoontology.api.util.INBTReader;
+import github.thelawf.gensokyoontology.api.util.IntRange;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.data.recipe.KogasaSmithingRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
+import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.inventory.container.Container;
@@ -22,16 +24,14 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class KogasaSmitingContainer extends AbstractContainer implements INBTReader {
-    private Inventory inventory = new Inventory(5);
-    private Inventory resultInv = new Inventory(0);
-    private World world;
-    private PlayerEntity player;
-    private PlayerInventory playerInv;
+    private final Inventory inventory = new Inventory(5);
+    private final CraftResultInventory resultInv = new CraftResultInventory();
+    private final World world;
+    private final PlayerInventory playerInv;
 
     public KogasaSmitingContainer(PlayerInventory playerInv, int id) {
         super(ContainerRegistry.KOGASA_SMITHING_CONTAINER.get(), id);
         this.playerInv = playerInv;
-        this.player = playerInv.player;
         this.world = playerInv.player.world;
         this.addPlayerInventorySlots(this.playerInv, 7, 109, 167);
 
@@ -107,5 +107,10 @@ public class KogasaSmitingContainer extends AbstractContainer implements INBTRea
     @Override
     public boolean canInteractWith(PlayerEntity playerIn) {
         return true;
+    }
+
+    @Override
+    public IntRange getContainerSlotRange() {
+        return new IntRange(0, 5);
     }
 }

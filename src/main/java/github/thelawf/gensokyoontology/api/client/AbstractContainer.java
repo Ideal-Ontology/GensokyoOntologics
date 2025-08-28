@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.api.client;
 
-import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.api.util.IntRange;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -10,7 +10,7 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class AbstractContainer extends Container {
+public abstract class AbstractContainer extends Container implements ISlotMergeable {
     protected AbstractContainer(@Nullable ContainerType<?> type, int id) {
         super(type, id);
     }
@@ -35,47 +35,35 @@ public abstract class AbstractContainer extends Container {
         Slot slot = this.inventorySlots.get(index);
 
         if (slot != null && slot.getHasStack()) {
-            ItemStack slotStack = slot.getStack();
-            itemstack = slotStack.copy();
+            ItemStack itemstack1 = slot.getStack();
+            itemstack = itemstack1.copy();
 
-            // 容器槽位
-            if (index == 0) {
-                if (!this.mergeItemStack(slotStack, 1, 37, true)) {
+            IntRange customRange = this.getContainerSlotRange();
+
+            if (customRange == null) {
+                return ItemStack.EMPTY;
+            }
+
+            // 如果点击的是自定义槽位
+            if (this.isContainerSlot(index)) {
+                // 尝试将物品转移到玩家背包
+                if (!this.mergeItemStack(itemstack1, customRange.max() + 1, this.inventorySlots.size(), true)) {
                     return ItemStack.EMPTY;
                 }
-                slot.onSlotChange(slotStack, itemstack);
             }
-            // 玩家背包槽位
-            else if (index < 37) {
-                // 检查是否为弹幕射击物品
-                if (slotStack.getItem() == ItemRegistry.DANMAKU_SHOT.get()) {
-                    if (!this.mergeItemStack(slotStack, 0, 1, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                }
-                // 主背包区 (1-27)
-                else if (index < 28) {
-                    if (!this.mergeItemStack(slotStack, 28, 37, false)) {
-                        return ItemStack.EMPTY;
-                    }
-                }
-                // 快捷栏 (28-36)
-                else if (!this.mergeItemStack(slotStack, 1, 28, false)) {
+            // 如果点击的是玩家背包槽位
+            else {
+                // 尝试将物品转移到自定义槽位
+                if (!this.mergeItemStack(itemstack1, customRange.min(), customRange.max() + 1, false)) {
                     return ItemStack.EMPTY;
                 }
             }
 
-            if (slotStack.isEmpty()) {
+            if (itemstack1.isEmpty()) {
                 slot.putStack(ItemStack.EMPTY);
             } else {
                 slot.onSlotChanged();
             }
-
-            if (slotStack.getCount() == itemstack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            slot.onTake(playerIn, slotStack);
         }
 
         return itemstack;

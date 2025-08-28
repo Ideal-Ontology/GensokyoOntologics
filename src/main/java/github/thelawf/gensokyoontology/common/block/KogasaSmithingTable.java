@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.KogasaSmitingContainer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
@@ -20,8 +21,8 @@ import org.jetbrains.annotations.Nullable;
 public class KogasaSmithingTable extends Block {
     public static final TranslationTextComponent NAME = GensokyoOntology.translate("container.", ".kogasa_smithing");
 
-    public KogasaSmithingTable(Properties properties) {
-        super(properties);
+    public KogasaSmithingTable() {
+        super(Properties.from(Blocks.SMITHING_TABLE));
     }
 
     @Override

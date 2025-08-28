@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.monster;
 
 import github.thelawf.gensokyoontology.api.entity.ISpellCardUser;
-import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.entity.ConversationalEntity;
 import github.thelawf.gensokyoontology.common.entity.ai.goal.KoishiSpellAttackGoal;
 import github.thelawf.gensokyoontology.common.entity.combat.spell.IdonokaihoEntity;
@@ -123,11 +122,6 @@ public class KomeijiKoishiEntity extends ConversationalEntity implements ISpellC
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 
-    @Override
-    public DialogTreeNode getNextDialog(int optionIndex) {
-        return optionIndex == 0 ? new DialogTreeNode("root").accessBranch(optionIndex) :
-                new DialogTreeNode("root");
-    }
 
     @Override
     public void spellCardAttack(AbstractSpellCardEntity spellCard, int ticksIn) {

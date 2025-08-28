@@ -1,8 +1,5 @@
 package github.thelawf.gensokyoontology.common.entity;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
-import github.thelawf.gensokyoontology.api.dialog.IEntityDialog;
 import github.thelawf.gensokyoontology.common.entity.monster.YoukaiEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.IAngerable;
@@ -14,9 +11,8 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
-public abstract class ConversationalEntity extends YoukaiEntity implements IAngerable, IEntityDialog {
+public abstract class ConversationalEntity extends YoukaiEntity implements IAngerable {
 
-    private DialogTreeNode dialog;
     public static final DataParameter<String> DATA_DIALOG_KEY = EntityDataManager.createKey(
             ConversationalEntity.class, DataSerializers.STRING);
 
@@ -27,7 +23,7 @@ public abstract class ConversationalEntity extends YoukaiEntity implements IAnge
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(DATA_DIALOG_KEY, new DialogTreeNode("dialog." + GensokyoOntology.MODID + ".hello").getName());
+        // this.dataManager.register(DATA_DIALOG_KEY, new DialogTreeNode("dialog." + GensokyoOntology.MODID + ".hello").getName());
     }
 
     @Override
@@ -44,13 +40,4 @@ public abstract class ConversationalEntity extends YoukaiEntity implements IAnge
         // compound.putString("dialog_key", this.dialog.getName());
     }
 
-    @Override
-    public DialogTreeNode getDialog() {
-        return this.dialog;
-    }
-
-    @Override
-    public void setDialog(DialogTreeNode dialog) {
-        this.dialog = dialog;
-    }
 }

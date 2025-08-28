@@ -2,11 +2,9 @@ package github.thelawf.gensokyoontology.core.init;
 
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.container.script.*;
 import github.thelawf.gensokyoontology.common.item.*;
-import github.thelawf.gensokyoontology.common.item.armor.KoishiHatArmorItem;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.material.*;
 import github.thelawf.gensokyoontology.common.item.ore.*;
@@ -288,15 +286,22 @@ public final class ItemRegistry {
 
     // ======================= GSKO杂项：功能性方块 =========================//
     //----------------------------- 合成台 --------------------------//
+    public static final RegistryObject<BlockItem> KOGASA_SMITHING_TABLE_ITEM = ITEMS.register(
+            "kogasa_smithing_table", () -> new BlockItem(BlockRegistry.KOGASA_SMITHING_TABLE.get(),
+                    new Item.Properties().group(GSKOBlockTab.GSKO_BLOCK_TAB)));
+
     public static final RegistryObject<BlockItem> DANMAKU_TABLE_ITEM = ITEMS.register(
             "danmaku_table", () -> new BlockItem(BlockRegistry.DANMAKU_TABLE.get(),
                     new Item.Properties().group(GSKOBlockTab.GSKO_BLOCK_TAB)));
+
     public static final RegistryObject<BlockItem> SORCERY_EXTRACTOR_ITEM = ITEMS.register(
             "sorcery_extractor", () -> new BlockItem(BlockRegistry.SORCERY_EXTRACTOR.get(),
                     new Item.Properties().group(GSKOBlockTab.GSKO_BLOCK_TAB)));
+
     public static final RegistryObject<BlockItem> SAISEN_BOX_ITEM = ITEMS.register(
             "saisen_box", () -> new BlockItem(BlockRegistry.SAISEN_BOX.get(),
                     new Item.Properties().group(GSKOBlockTab.GSKO_BLOCK_TAB)));
+
     public static final RegistryObject<BlockItem> SPELL_CONSOLE_ITEM = ITEMS.register(
             "spell_card_console", () -> new BlockItem(BlockRegistry.SPELL_CARD_CONSOLE.get(),
                     new Item.Properties().group(GSKOBlockTab.GSKO_BLOCK_TAB)));
