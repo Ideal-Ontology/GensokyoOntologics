@@ -1,10 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
-import github.thelawf.gensokyoontology.common.container.RailAdjustContainer;
-import github.thelawf.gensokyoontology.common.container.SorceryExtractorContainer;
-import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
+import github.thelawf.gensokyoontology.common.container.*;
 import github.thelawf.gensokyoontology.common.container.script.*;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.ScreenManager;
@@ -27,6 +24,10 @@ public final class ContainerRegistry {
     public static final RegistryObject<ContainerType<DanmakuCraftingContainer>> DANMAKU_CRAFTING_CONTAINER =
             CONTAINERS.register("danmaku_crafting_container", () -> IForgeContainerType.create(
                     (windowId, inv, data) -> new DanmakuCraftingContainer(windowId, inv, data.readBlockPos())));
+
+    public static final RegistryObject<ContainerType<KogasaSmitingContainer>> KOGASA_SMITHING_CONTAINER =
+            CONTAINERS.register("kogasa_smithing_container", () -> IForgeContainerType.create(
+                    (windowId, inv, data) -> new KogasaSmitingContainer(inv, windowId)));
 
     public static final RegistryObject<ContainerType<SorceryExtractorContainer>> SORCERY_EXTRACTOR_CONTAINER =
             CONTAINERS.register("sorcery_extractor_container", () -> IForgeContainerType.create(

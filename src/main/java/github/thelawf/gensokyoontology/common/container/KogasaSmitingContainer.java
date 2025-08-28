@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.common.container;
 
+import github.thelawf.gensokyoontology.api.client.AbstractContainer;
 import github.thelawf.gensokyoontology.api.util.INBTReader;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
+import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.data.recipe.KogasaSmithingRecipe;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -19,30 +21,37 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class KogasaSmitingContainer extends Container implements INBTReader {
+public class KogasaSmitingContainer extends AbstractContainer implements INBTReader {
     private Inventory inventory = new Inventory(5);
     private Inventory resultInv = new Inventory(0);
     private World world;
     private PlayerEntity player;
     private PlayerInventory playerInv;
 
-    protected KogasaSmitingContainer(@Nullable ContainerType<?> type, PlayerInventory playerInv, int id) {
-        super(type, id);
+    public KogasaSmitingContainer(PlayerInventory playerInv, int id) {
+        super(ContainerRegistry.KOGASA_SMITHING_CONTAINER.get(), id);
         this.playerInv = playerInv;
         this.player = playerInv.player;
         this.world = playerInv.player.world;
+        this.addPlayerInventorySlots(this.playerInv, 7, 109, 167);
 
-        this.addSlot(new Slot(this.inventory, 0, 56, 35){
+        this.addSlot(new Slot(this.inventory, 0, 51, 75){
             @Override
             public void onSlotChanged() {
                 super.onSlotChanged();
-                KogasaSmitingContainer.this.onSmithingAdded();
+                KogasaSmitingContainer.this.setMaterialsWhenHasSpecialTag();
                 KogasaSmitingContainer.this.trySmithing();
+            }
+
+            @Override
+            public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
+                KogasaSmitingContainer.this.removeMaterialWhenTaken();
+                return super.onTake(thePlayer, stack);
             }
         });
 
         for (int i = 1; i <= 4; i++) {
-            this.addSlot(new Slot(this.inventory, i, 56, 35){
+            this.addSlot(new Slot(this.inventory, i, 51 + 18 * i, 21 + 18 * i) {
                 @Override
                 public void onSlotChanged() {
                     super.onSlotChanged();
@@ -51,7 +60,7 @@ public class KogasaSmitingContainer extends Container implements INBTReader {
             });
         }
 
-        this.addSlot(new Slot(this.resultInv, 0, 56, 35){
+        this.addSlot(new Slot(this.resultInv, 0, 105, 75){
             @Override
             public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
                 this.inventory.clear();
@@ -66,19 +75,22 @@ public class KogasaSmitingContainer extends Container implements INBTReader {
         this.trySmithing();
     }
 
-    public void onSmithingAdded(){
+
+    private void setMaterialsWhenHasSpecialTag() {
         this.detectAndSendChanges();
-        this.setMaterialsWhenHasSpecialTag();
-    }
-
-    public void setMaterialsWhenHasSpecialTag() {
         ItemStack smithingItem = this.inventory.getStackInSlot(0);
-
         List<ItemStack> materials = this.getNBTList(smithingItem, "materials", Type.COMPOUND).stream()
                 .map(inbt -> ItemStack.read(Type.COMPOUND.cast(inbt))).collect(Collectors.toList());
-
         materials.forEach(stack ->
                 this.inventory.setInventorySlotContents(materials.indexOf(stack) + 1, stack));
+    }
+
+    private void removeMaterialWhenTaken() {
+        ItemStack smithingItem = this.inventory.getStackInSlot(0);
+        List<ItemStack> materials = this.getNBTList(smithingItem, "materials", Type.COMPOUND).stream()
+                .map(inbt -> ItemStack.read(Type.COMPOUND.cast(inbt))).collect(Collectors.toList());
+        materials.forEach(stack ->
+                this.inventory.setInventorySlotContents(materials.indexOf(stack) + 1, ItemStack.EMPTY));
     }
 
     public void trySmithing(){
