@@ -1,26 +1,35 @@
 package github.thelawf.gensokyoontology.common.container;
 
+import github.thelawf.gensokyoontology.api.Functions;
 import github.thelawf.gensokyoontology.api.client.AbstractContainer;
 import github.thelawf.gensokyoontology.api.util.INBTReader;
 import github.thelawf.gensokyoontology.api.util.IntRange;
+import github.thelawf.gensokyoontology.core.EnchantRegistry;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.recipe.KogasaSmithingRecipe;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.inventory.container.Container;
-import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.inventory.container.Slot;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.ListNBT;
+import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import org.jetbrains.annotations.Nullable;
+import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class KogasaSmitingContainer extends AbstractContainer implements INBTReader {
@@ -112,5 +121,38 @@ public class KogasaSmitingContainer extends AbstractContainer implements INBTRea
     @Override
     public IntRange getContainerSlotRange() {
         return new IntRange(0, 5);
+    }
+
+    public static final Map<Item, Functions.Func3<Item, Enchantment, IInventory, CompoundNBT>> MATERIAL_ENCHANTS = Util.make(() -> {
+        Map<Item, Functions.Func3<Item, Enchantment, IInventory, CompoundNBT>> map = new HashMap<>();
+        map.put(ItemRegistry.SAKUYA_WATCH.get(), KogasaSmitingContainer::withEnchantTag);
+        return map;
+    });
+
+    public final Map<Item, Function<IInventory, CompoundNBT>> RECAST_TAG_ENTRY = Util.make(() -> {
+        Map<Item, Function<IInventory, CompoundNBT>> map = new HashMap<>();
+        map.put(ItemRegistry.SAKUYA_WATCH.get(), inv -> MATERIAL_ENCHANTS.get(ItemRegistry.SAKUYA_WATCH.get())
+                .apply(ItemRegistry.SAKUYA_WATCH.get(), EnchantRegistry.COOLDOWN_HASTE.get(), inv));
+        return map;
+    });
+
+    private static CompoundNBT withEnchantTag(Item material ,Enchantment enchantment, IInventory inventory) {
+        CompoundNBT tag = new CompoundNBT();
+        if (!tag.contains("Enchantments", 9)) {
+            tag.put("Enchantments", new ListNBT());
+        }
+
+        int itemCount = 0;
+        for (int i = 0; i < inventory.getSizeInventory() - 1; i++) {
+            if (inventory.getStackInSlot(i).getItem() == material) itemCount++;
+        }
+
+        ListNBT listnbt = tag.getList("Enchantments", 10);
+        CompoundNBT compoundnbt = new CompoundNBT();
+        compoundnbt.putString("id", String.valueOf(ForgeRegistries.ENCHANTMENTS.getKey(enchantment)));
+        compoundnbt.putShort("lvl", (byte)itemCount);
+        listnbt.add(compoundnbt);
+
+        return tag;
     }
 }

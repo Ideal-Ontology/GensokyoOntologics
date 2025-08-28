@@ -48,10 +48,12 @@ public class DanmakuCraftingScreen extends ContainerScreen<DanmakuCraftingContai
        map.put(Blocks.AIR , new Vector2i(240, 240));
 
        map.put(BlockRegistry.TOTEM_BRICKS.get(), new Vector2i(0,0));
-       map.put(BlockRegistry.HEMP_PATTERN_BRICKS.get(), new Vector2i(0, 1));
+       map.put(BlockRegistry.TURTLE_SHELL_PATTERN_BRICKS.get(), new Vector2i(0, 1));
        map.put(BlockRegistry.SAKURA_PATTERN_BRICKS.get(), new Vector2i(0, 2));
        map.put(BlockRegistry.ARROW_PATTERN_BRICKS.get(), new Vector2i(0, 3));
-       map.put(BlockRegistry.TURTLE_SHELL_PATTERN_BRICKS.get(), new Vector2i(0, 4));
+       map.put(BlockRegistry.HEMP_PATTERN_BRICKS.get(), new Vector2i(0, 4));
+       map.put(BlockRegistry.ICHIMATSU_PATTERN_BRICKS.get(), new Vector2i(1, 0));
+       map.put(BlockRegistry.WAVE_PATTERN_BRICKS.get(),  new Vector2i(1, 1));
 
        return map;
     });
