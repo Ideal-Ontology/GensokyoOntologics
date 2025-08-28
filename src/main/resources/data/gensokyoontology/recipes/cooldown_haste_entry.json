@@ -1,12 +1,12 @@
 {
   "type": "gensokyoontology:kogasa_smithing",
   "material": {
-    "item": "gensokyoontology:sakuya_watch",
+    "item": "gensokyoontology:sakuya_stop_watch",
     "count": 1
   },
-  "tag_entry": {
+  "recast_entry": {
     "type": "minecraft:enchantment",
-    "Enchantments": [
+    "enchantments": [
       {
         "id": "gensokyoontology:cooldown_haste",
         "lvl": 1

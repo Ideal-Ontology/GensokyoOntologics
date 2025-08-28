@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.data.recipe;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.JsonOps;
@@ -13,7 +12,6 @@ import net.minecraft.item.crafting.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -29,13 +27,13 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
     private final float powerConsumption;
     private final ResourceLocation id;
     private final ItemStack material;
-    private final CompoundNBT tagEntry;
+    private final RecastEntry recastEntry;
 
-    public KogasaSmithingRecipe(ResourceLocation id, ItemStack material, CompoundNBT tagEntry, float power) {
+    public KogasaSmithingRecipe(ResourceLocation id, ItemStack material, RecastEntry recastEntry, float power) {
         this.id = id;
         this.powerConsumption = power;
         this.material = material;
-        this.tagEntry = tagEntry;
+        this.recastEntry = recastEntry;
     }
 
     @Override
@@ -80,8 +78,8 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
     }
 
     @Override
-    public CompoundNBT getTagEntry() {
-        return this.tagEntry;
+    public RecastEntry getRecastEntry() {
+        return this.recastEntry;
     }
 
     @Override
@@ -89,11 +87,7 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
         return this.powerConsumption;
     }
 
-    @Override
-    public int getDuplicateMaterialCount(IInventory inventory) {
-        return Math.toIntExact(GSKOUtil.toItemList(inventory).subList(1, 4).stream().filter(stack ->
-                stack.getItem() == this.getMaterial().getItem()).count());
-    }
+
 
     public static class Type implements IRecipeType<KogasaSmithingRecipe> {
         @Override
@@ -115,26 +109,27 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
             float powerConsumption = JSONUtils.getFloat(json, "power");
 
             CompoundNBT tagEntry = CompoundNBT.CODEC.decode(JsonOps.INSTANCE,
-                    JSONUtils.getJsonObject(json, "tag_entry")).result()
+                    JSONUtils.getJsonObject(json, "recast_entry")).result()
                     .orElse(Pair.of(new CompoundNBT(), new JsonObject())).getFirst();
+            RecastEntry recastEntry = RecastEntry.deserialize(json);
 
             ItemStack material = deserializeItem(JSONUtils.getJsonObject(json, "material"));
-            return new KogasaSmithingRecipe(recipeId, material, tagEntry, powerConsumption);
+            return new KogasaSmithingRecipe(recipeId, material, recastEntry, powerConsumption);
         }
 
         @Override
         public @Nullable KogasaSmithingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             float power = buffer.readFloat();
-            CompoundNBT tagEntry = buffer.readCompoundTag();
             ItemStack material = buffer.readItemStack();
-            return new KogasaSmithingRecipe(recipeId, material, tagEntry, power);
+            RecastEntry recastEntry = RecastEntry.read(buffer);
+            return new KogasaSmithingRecipe(recipeId, material, recastEntry, power);
         }
 
         @Override
         public void write(PacketBuffer buffer, KogasaSmithingRecipe recipe) {
             buffer.writeFloat(recipe.powerConsumption);
-            buffer.writeCompoundTag(recipe.tagEntry);
             buffer.writeItemStack(recipe.material);
+            recipe.recastEntry.write(buffer);
         }
     }
 }

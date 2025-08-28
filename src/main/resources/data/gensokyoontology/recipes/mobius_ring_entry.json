@@ -1,0 +1,14 @@
+{
+  "type": "gensokyoontology:kogasa_smithing",
+  "material": {
+    "item": "gensokyoontology:sc_mobius_ring_world",
+    "count": 1
+  },
+  "recast_entry": {
+    "type": "gensokyoontology:spell_card",
+    "spell_card": {
+      "item": "gensokyoontology:sc_mobius_ring_world",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "type": "gensokyoontology:kogasa_smithing",
+  "material": {
+    "item": "gensokyoontology:orb_jade",
+    "count": 1
+  },
+  "recast_entry": {
+    "type": "minecraft:enchantment",
+    "enchantments": [
+      {
+        "id": "gensokyoontology:infinite_danmaku",
+        "lvl": 1
+      }
+    ]
+  }
+}

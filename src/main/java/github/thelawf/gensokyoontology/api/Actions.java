@@ -20,4 +20,14 @@ public class Actions {
     public interface DanmakuEnchant{
         int apply(Enchantment enchantment, ItemStack stack, World worldIn, PlayerEntity playerIn, float size);
     }
+
+    @FunctionalInterface
+    public interface Act3<R1, R2, R3> {
+        void act(R1 r1, R2 r2, R3 r3);
+    }
+
+    @FunctionalInterface
+    public interface Act4<R1, R2, R3, R4> {
+        void act(R1 r1, R2 r2, R3 r3, R4 r4);
+    }
 }

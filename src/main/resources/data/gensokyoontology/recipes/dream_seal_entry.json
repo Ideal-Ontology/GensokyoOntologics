@@ -1,0 +1,13 @@
+{
+  "type": "gensokyoontology:kogasa_smithing",
+  "material": {
+    "item": "gensokyoontology:sc_dream_seal",
+    "count": 1
+  },
+  "recast_entry": {
+    "type": "gensokyoontology:skill",
+    "skill": {
+      "type": "gensokyoontology:dream_seal"
+    }
+  }
+}

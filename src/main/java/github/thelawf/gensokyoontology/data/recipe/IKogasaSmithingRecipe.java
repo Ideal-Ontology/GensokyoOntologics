@@ -4,7 +4,6 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
 
 public interface IKogasaSmithingRecipe extends IRecipe<IInventory> {
@@ -13,11 +12,12 @@ public interface IKogasaSmithingRecipe extends IRecipe<IInventory> {
     /** 获取用于物品词条重铸的材料 */
     ItemStack getMaterial();
 
-    /** 获取物品重铸词条（可以是附魔或别的强化tag） */
-    CompoundNBT getTagEntry();
+    /**
+     * 获取物品重铸词条（可以是附魔或别的强化tag）
+     */
+    RecastEntry getRecastEntry();
 
     /** 获取该合成所需的P点 */
     float getPowerConsumption();
 
-    int getDuplicateMaterialCount(IInventory inventory);
 }

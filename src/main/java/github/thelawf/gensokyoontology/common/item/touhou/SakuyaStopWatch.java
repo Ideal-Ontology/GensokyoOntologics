@@ -1,7 +1,9 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.IHasCooldown;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -11,8 +13,10 @@ import net.minecraft.item.UseAction;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -21,7 +25,7 @@ import java.util.List;
 /**
  * 咲夜的怀表物品
  */
-public class SakuyaStopWatch extends Item implements IRayTraceReader{
+public class SakuyaStopWatch extends Item implements IRayTraceReader, IHasCooldown {
     public static int pauseTicks = 100;
     public static int totalTicks = 0;
 
@@ -32,6 +36,14 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader{
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+        if (worldIn.isRemote) return super.onItemRightClick(worldIn, playerIn, handIn);
+        if (playerIn.getCooldownTracker().hasCooldown(this)) return super.onItemRightClick(worldIn, playerIn, handIn);
+
+        ServerWorld serverWorld = (ServerWorld) worldIn;
+        serverWorld.getEntities().filter(entity -> entity instanceof Danmaku)
+                .forEach(entity -> entity.setMotion(Vector3d.ZERO));
+        this.setCD(playerIn, playerIn.getHeldItem(handIn), 1000);
+
         return super.onItemRightClick(worldIn, playerIn, handIn);
 //        ItemStack stack = playerIn.getHeldItem(handIn);
 
