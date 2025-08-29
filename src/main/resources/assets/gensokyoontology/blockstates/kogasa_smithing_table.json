@@ -1,7 +1,19 @@
 {
   "variants": {
-    "": {
+    "facing=east": {
+      "model": "gensokyoontology:block/kogasa_smithing_table",
+      "y": 90
+    },
+    "facing=north": {
       "model": "gensokyoontology:block/kogasa_smithing_table"
+    },
+    "facing=south": {
+      "model": "gensokyoontology:block/kogasa_smithing_table",
+      "y": 270
+    },
+    "facing=west": {
+      "model": "gensokyoontology:block/kogasa_smithing_table",
+      "y": 180
     }
   }
 }

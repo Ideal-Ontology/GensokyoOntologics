@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.gui.screen;
+package github.thelawf.gensokyoontology.client.gui;
 
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.util.text.ITextComponent;

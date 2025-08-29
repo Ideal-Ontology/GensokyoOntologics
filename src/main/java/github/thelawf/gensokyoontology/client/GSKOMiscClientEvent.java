@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.client;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.client.gui.screen.GensokyoLoadingScreen;
+import github.thelawf.gensokyoontology.client.gui.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.KoishiEyeSwitchScreen;
 import github.thelawf.gensokyoontology.client.model.KoishiHatModel;
@@ -13,7 +13,6 @@ import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapabil
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
 import github.thelawf.gensokyoontology.common.item.touhou.KoishiEyeOpen;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;

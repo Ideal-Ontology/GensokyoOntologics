@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.client.gui.screen;
+package github.thelawf.gensokyoontology.client.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.gui.screen.Screen;
