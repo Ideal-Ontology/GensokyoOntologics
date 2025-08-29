@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.passive.WingPlaneEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
@@ -61,6 +62,9 @@ public final class EntityRegistry {
                     .setShouldReceiveVelocityUpdates(true).size(0.6f, 1.58f).trackingRange(10).build("remilia_scarlet"));
 
     // =============================== 可驯服的生物 ============================ //
+    public static final RegistryObject<EntityType<WingPlaneEntity>> WING_PLANE = register("wing_plane",
+            WingPlaneEntity::new, EntityClassification.MISC, 0.6F, 0.6F, 10, 2);
+
     public static final RegistryObject<EntityType<RumiaEntity>> RUMIA = register("rumia", RumiaEntity::new,
             EntityClassification.CREATURE, 0.6f, 1.5f, 10, 2);
     public static final RegistryObject<EntityType<CirnoEntity>> CIRNO = register("cirno", CirnoEntity::new,
@@ -81,8 +85,6 @@ public final class EntityRegistry {
                     .size(0.6f, 0.8f).trackingRange(20).build("haniwa"));
 
     // =========================== 技术性实体：弹幕 ========================= //
-
-
     public static final RegistryObject<EntityType<Danmaku>> DANMAKU = register("danmaku", Danmaku::new,
             EntityClassification.MISC, 0.5F, 0.5F, 20, 2);
     public static final RegistryObject<EntityType<DanmakuShotEntity>> DANMAKU_ENTITY = ENTITIES.register(

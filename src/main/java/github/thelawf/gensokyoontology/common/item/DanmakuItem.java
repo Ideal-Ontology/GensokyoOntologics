@@ -2,6 +2,8 @@ package github.thelawf.gensokyoontology.common.item;
 
 import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
+import github.thelawf.gensokyoontology.common.events.GSKOItemStackEvents;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.EnchantRegistry;
 import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
@@ -25,80 +27,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DanmakuItem extends Item {
-    public final Map<Enchantment, Actions.DanmakuEnchant> ENCHANT_ACTIONS = new HashMap<>();
+
     public DanmakuItem() {
         super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
-
-
-
-        ENCHANT_ACTIONS.put(EnchantRegistry.CURVED_SHAPE.get(),  (enchantment, stack, world, player, sizeIn) -> {
-            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-            if (level == 0) return level;
-            DanmakuUtil.oddCurveVec(player, level, 180 / level).forEach(shoot ->
-                    Danmaku.create(world, player, stack)
-                            .size(sizeIn)
-                            .shoot(shoot, 0.55F));
-            return level;
-        });
-
-        ENCHANT_ACTIONS.put(EnchantRegistry.CIRCLE_SHAPE.get(), (enchantment, stack, world, player, sizeIn) -> {
-            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-            if (level == 0) return level;
-            DanmakuUtil.ellipticPos(1F, level).forEach(shoot ->
-                    Danmaku.create(world, player, stack)
-                            .size(sizeIn)
-                            .shoot(shoot, 0.55F));
-            return level;
-        });
-
-        ENCHANT_ACTIONS.put(EnchantRegistry.SPHERE_SHAPE.get(),(enchantment, stack, world, player, sizeIn) -> {
-            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-            if (level == 0) return level;
-            DanmakuUtil.spheroidPos(1F, level).forEach(shoot ->
-                    Danmaku.create(world, player, stack)
-                            .size(sizeIn)
-                            .shoot(shoot, 0.55F));
-            return level;
-        });
     }
 
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
+        final Map<Enchantment, Actions.DanmakuEnchant> actions =
+                GSKOItemStackEvents.registerEnchantActions();
 
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (playerIn.getCooldownTracker().hasCooldown(this)) return ActionResult.resultPass(stack);
-
-        final Map<Enchantment, Actions.DanmakuEnchant> behaviors = Util.make(() -> {
-            Map<Enchantment, Actions.DanmakuEnchant> map = new HashMap<>();
-
-            map.put(EnchantRegistry.SPHERE_SHAPE.get(),(enchantment, stackIn, world, player, sizeIn) -> {
-                int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-                if (level == 0) return level;
-                DanmakuUtil.spheroidPos(1F, level).forEach(shoot ->
-                    Danmaku.create(worldIn, player, stack)
-                            .size(sizeIn)
-                            .shoot(shoot, 0.55F));
-                return level;
-            });
-
-            map.put(EnchantRegistry.LINEAR_SHAPE.get(),(enchantment, stackIn, world, player, sizeIn) -> {
-                int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-                if (level == 0) return level;
-                for (float speed = level * 0.1F + 0.2F; speed >= 0.2F; speed -= 0.1F) {
-                    float eye = playerIn.getEyeHeight();
-                    Danmaku.create(worldIn, playerIn, stack)
-                            .size(sizeIn)
-                            .shoot(playerIn.getLookVec(), speed);
-                }
-                return level;
-            });
-
-            map.put(EnchantRegistry.INFINITE_DANMAKU.get(),(enchantment, stackIn, world, player, sizeIn) ->
-                    EnchantmentHelper.getEnchantmentLevel(enchantment, stack));
-            return map;
-        });
-
 
         Item item = stack.getItem();
         float size = Danmaku.NORMAL_DANMAKU.containsKey(item) ?
@@ -108,20 +49,18 @@ public class DanmakuItem extends Item {
         int hasEnchantments = 0;
         for (RegistryObject<Enchantment> enchantRegistry : EnchantRegistry.ENCHANTS.getEntries()) {
             Enchantment enchantment = enchantRegistry.get();
-            hasEnchantments += tryApplyEnchant(ENCHANT_ACTIONS.get(enchantment), enchantment, worldIn, playerIn, stack, size);
+            hasEnchantments += actions.getOrDefault(enchantment, (e, i, w, p, s) -> 0)
+                    .apply(enchantment, stack, worldIn, playerIn, size);
+            // GSKOUtil.showChatMsg(playerIn, "size + " actions.size(), 1);
         }
         if (hasEnchantments == 0) Danmaku.create(worldIn, playerIn, this).size(size).shoot(playerIn.getLookVec(), 0.55F);
         if (worldIn.isRemote) playerIn.playSound(GSKOSoundEvents.SHOOT_DANMAKU.get(), 0.5F, 1F);
 
-        stack.shrink(tryApplyEnchant(behaviors.get(EnchantRegistry.INFINITE_DANMAKU.get()),
-                EnchantRegistry.INFINITE_DANMAKU.get(), worldIn, playerIn,
-                stack, size) == 0 ? 1 : 0 );
+        stack.shrink(actions.get(EnchantRegistry.INFINITE_DANMAKU.get()).apply(
+                EnchantRegistry.INFINITE_DANMAKU.get(), stack, worldIn, playerIn, size) == 0 ? 1 : 0 );
 
         playerIn.getCooldownTracker().setCooldown(this, 20);
         return ActionResult.resultConsume(stack);
     }
 
-    private static int tryApplyEnchant(Actions.DanmakuEnchant enchantAction, Enchantment enchant, World worldIn, PlayerEntity playerIn, ItemStack itemStack, float size) {
-        return enchantAction.apply(enchant, itemStack, worldIn, playerIn, size);
-    }
 }

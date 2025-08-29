@@ -39,6 +39,7 @@ import org.apache.logging.log4j.Logger;
 
 import java.util.List;
 
+
 // {LootTable:"gensokyoontology:chests/human_village_ingredients"}
 // {LootTable:"gensokyoontology:chests/human_village_inventories"}_01
 @Mod(GensokyoOntology.MODID)
@@ -88,13 +89,12 @@ public class GensokyoOntology {
 
     // You can use EventBusSubscriber to automatically subscribe events on the contained class (this is subscribing to the MOD
     // Event bus for receiving Registry Events)
-    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.FORGE, modid = GensokyoOntology.MODID)
+    @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GensokyoOntology.MODID)
     public static class InitializationEvents {
 
         @SubscribeEvent
-        public static void onOtherModLoad(FMLLoadCompleteEvent event) {
+        public static void onModLoaded(FMLLoadCompleteEvent event) {
             List<ModInfo> forgeMods = ModList.get().getMods();
-
         }
     }
 
