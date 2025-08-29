@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.item.touhou;
+package github.thelawf.gensokyoontology.common.item.material;
 
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import net.minecraft.entity.player.PlayerEntity;

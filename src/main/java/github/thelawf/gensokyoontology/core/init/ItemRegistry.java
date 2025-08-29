@@ -554,7 +554,6 @@ public final class ItemRegistry {
     // public static final RegistryObject<Item> PRAXIS_SWORD = ITEMS.register(
     //         "praxis_sword", PraxisSword::new);
 
-
     // ============================ GSKO生物刷怪蛋 ================================//
     public static final RegistryObject<ForgeSpawnEggItem> HAKURE_REIMU_SPAWN_EGG = ITEMS.register(
             "hakurei_reimu_spawn_egg", () -> new ForgeSpawnEggItem(EntityRegistry.HAKUREI_REIMU,

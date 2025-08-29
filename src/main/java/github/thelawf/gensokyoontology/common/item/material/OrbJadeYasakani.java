@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.common.item.touhou;
+package github.thelawf.gensokyoontology.common.item.material;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.client.util.ITooltipFlag;

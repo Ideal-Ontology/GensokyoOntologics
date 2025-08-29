@@ -17,6 +17,7 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
+import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
@@ -24,8 +25,41 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class DanmakuItem extends Item {
+    public final Map<Enchantment, Actions.DanmakuEnchant> ENCHANT_ACTIONS = new HashMap<>();
     public DanmakuItem() {
         super(new Properties().group(GSKOCombatTab.GSKO_COMBAT_TAB));
+
+
+
+        ENCHANT_ACTIONS.put(EnchantRegistry.CURVED_SHAPE.get(),  (enchantment, stack, world, player, sizeIn) -> {
+            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
+            if (level == 0) return level;
+            DanmakuUtil.oddCurveVec(player, level, 180 / level).forEach(shoot ->
+                    Danmaku.create(world, player, stack)
+                            .size(sizeIn)
+                            .shoot(shoot, 0.55F));
+            return level;
+        });
+
+        ENCHANT_ACTIONS.put(EnchantRegistry.CIRCLE_SHAPE.get(), (enchantment, stack, world, player, sizeIn) -> {
+            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
+            if (level == 0) return level;
+            DanmakuUtil.ellipticPos(1F, level).forEach(shoot ->
+                    Danmaku.create(world, player, stack)
+                            .size(sizeIn)
+                            .shoot(shoot, 0.55F));
+            return level;
+        });
+
+        ENCHANT_ACTIONS.put(EnchantRegistry.SPHERE_SHAPE.get(),(enchantment, stack, world, player, sizeIn) -> {
+            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
+            if (level == 0) return level;
+            DanmakuUtil.spheroidPos(1F, level).forEach(shoot ->
+                    Danmaku.create(world, player, stack)
+                            .size(sizeIn)
+                            .shoot(shoot, 0.55F));
+            return level;
+        });
     }
 
     @Override
@@ -37,25 +71,6 @@ public class DanmakuItem extends Item {
 
         final Map<Enchantment, Actions.DanmakuEnchant> behaviors = Util.make(() -> {
             Map<Enchantment, Actions.DanmakuEnchant> map = new HashMap<>();
-            map.put(EnchantRegistry.CURVED_SHAPE.get(),  (enchantment, stackIn, world, player, sizeIn) -> {
-                int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-                if (level == 0) return level;
-                DanmakuUtil.oddCurveVec(playerIn, level, 180 / level).forEach(shoot ->
-                    Danmaku.create(worldIn, player, stack)
-                            .size(sizeIn)
-                            .shoot(shoot, 0.55F));
-                return level;
-            });
-
-            map.put(EnchantRegistry.CIRCLE_SHAPE.get(), (enchantment, stackIn, world, player, sizeIn) -> {
-                int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
-                if (level == 0) return level;
-                DanmakuUtil.ellipticPos(1F, level).forEach(shoot ->
-                    Danmaku.create(worldIn, player, stack)
-                            .size(sizeIn)
-                            .shoot(shoot, 0.55F));
-                return level;
-            });
 
             map.put(EnchantRegistry.SPHERE_SHAPE.get(),(enchantment, stackIn, world, player, sizeIn) -> {
                 int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
@@ -84,6 +99,7 @@ public class DanmakuItem extends Item {
             return map;
         });
 
+
         Item item = stack.getItem();
         float size = Danmaku.NORMAL_DANMAKU.containsKey(item) ?
                 Danmaku.NORMAL_DANMAKU.get(item).getSecond() :
@@ -92,7 +108,7 @@ public class DanmakuItem extends Item {
         int hasEnchantments = 0;
         for (RegistryObject<Enchantment> enchantRegistry : EnchantRegistry.ENCHANTS.getEntries()) {
             Enchantment enchantment = enchantRegistry.get();
-            hasEnchantments += tryApplyEnchant(behaviors.get(enchantment), enchantment, worldIn, playerIn, stack, size);
+            hasEnchantments += tryApplyEnchant(ENCHANT_ACTIONS.get(enchantment), enchantment, worldIn, playerIn, stack, size);
         }
         if (hasEnchantments == 0) Danmaku.create(worldIn, playerIn, this).size(size).shoot(playerIn.getLookVec(), 0.55F);
         if (worldIn.isRemote) playerIn.playSound(GSKOSoundEvents.SHOOT_DANMAKU.get(), 0.5F, 1F);

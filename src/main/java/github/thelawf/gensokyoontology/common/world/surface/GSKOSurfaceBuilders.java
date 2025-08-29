@@ -1,8 +1,7 @@
 package github.thelawf.gensokyoontology.common.world.surface;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.dialog.DialogTreeNode;
-import net.minecraft.util.registry.WorldGenRegistries;
+
 import net.minecraft.world.gen.surfacebuilders.*;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
