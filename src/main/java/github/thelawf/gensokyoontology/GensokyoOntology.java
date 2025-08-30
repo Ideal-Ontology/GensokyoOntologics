@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology;
 
 import github.thelawf.gensokyoontology.client.gui.screen.DanmakuCraftingScreen;
+import github.thelawf.gensokyoontology.client.gui.screen.KogasaSmithingScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.SorceryExtractorScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.SpellCardConsoleScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.script.*;
@@ -171,6 +172,8 @@ public class GensokyoOntology {
                         RenderType.getTranslucent());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.SAISEN_BOX.get(),
                         RenderType.getCutout());
+                RenderTypeLookup.setRenderLayer(BlockRegistry.KOGASA_SMITHING_TABLE.get(),
+                        RenderType.getCutout());
                 RenderTypeLookup.setRenderLayer(BlockRegistry.ISHI_ZAKURA.get(),
                         RenderType.getTranslucent());
 
@@ -180,6 +183,8 @@ public class GensokyoOntology {
                         DanmakuCraftingScreen::new);
                 ScreenManager.registerFactory(ContainerRegistry.SORCERY_EXTRACTOR_CONTAINER.get(),
                         SorceryExtractorScreen::new);
+                ScreenManager.registerFactory(ContainerRegistry.KOGASA_SMITHING_CONTAINER.get(),
+                        KogasaSmithingScreen::new);
 
                 ScreenManager.registerFactory(ContainerRegistry.CB_CONTAINER.get(),
                         ConstBuilderScreen::new);

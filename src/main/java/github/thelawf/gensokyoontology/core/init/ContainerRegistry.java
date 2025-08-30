@@ -3,8 +3,6 @@ package github.thelawf.gensokyoontology.core.init;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.*;
 import github.thelawf.gensokyoontology.common.container.script.*;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.inventory.container.ContainerType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -25,9 +23,9 @@ public final class ContainerRegistry {
             CONTAINERS.register("danmaku_crafting_container", () -> IForgeContainerType.create(
                     (windowId, inv, data) -> new DanmakuCraftingContainer(windowId, inv, data.readBlockPos())));
 
-    public static final RegistryObject<ContainerType<KogasaSmitingContainer>> KOGASA_SMITHING_CONTAINER =
+    public static final RegistryObject<ContainerType<KogasaSmithingContainer>> KOGASA_SMITHING_CONTAINER =
             CONTAINERS.register("kogasa_smithing_container", () -> IForgeContainerType.create(
-                    (windowId, inv, data) -> new KogasaSmitingContainer(inv, windowId)));
+                    (windowId, inv, data) -> new KogasaSmithingContainer(inv, windowId)));
 
     public static final RegistryObject<ContainerType<SorceryExtractorContainer>> SORCERY_EXTRACTOR_CONTAINER =
             CONTAINERS.register("sorcery_extractor_container", () -> IForgeContainerType.create(

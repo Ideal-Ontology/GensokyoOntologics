@@ -52,6 +52,7 @@ public class GSKOUtil {
         for (int i = 0; i < inv.getSizeInventory(); i++) {
             ItemStack stack = inv.getStackInSlot(i);
             if (!stack.isEmpty()) list.add(stack);
+            else list.add(ItemStack.EMPTY);
         }
         return list;
     }

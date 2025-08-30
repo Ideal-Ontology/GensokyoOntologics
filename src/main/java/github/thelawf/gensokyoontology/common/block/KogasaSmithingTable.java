@@ -1,18 +1,14 @@
 package github.thelawf.gensokyoontology.common.block;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.common.container.KogasaSmitingContainer;
+import github.thelawf.gensokyoontology.common.container.KogasaSmithingContainer;
 import net.minecraft.block.*;
-import net.minecraft.entity.item.FallingBlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
-import net.minecraft.item.BlockItemUseContext;
 import net.minecraft.state.DirectionProperty;
-import net.minecraft.state.StateContainer;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -55,6 +51,6 @@ public class KogasaSmithingTable extends AnvilBlock {
     @SuppressWarnings("deprecation")
     public @Nullable INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
     return new SimpleNamedContainerProvider((id, plyerInv, player) ->
-            new KogasaSmitingContainer(plyerInv, id), NAME);
+            new KogasaSmithingContainer(plyerInv, id), NAME);
     }
 }

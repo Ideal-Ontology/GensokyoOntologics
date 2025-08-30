@@ -113,7 +113,7 @@ public class RecastEntry {
         map.put("gensokyoontology:none", jsonObject -> new JsonObject());
         map.put("minecraft:enchantment", jsonObject -> {
             JsonObject enchantmentJson = new JsonObject();
-            enchantmentJson.add("Enchantments", JSONUtils.getJsonArray(jsonObject, "enchantments"));
+            enchantmentJson.add("enchantments", JSONUtils.getJsonArray(jsonObject, "enchantments"));
             return enchantmentJson;
         });
         map.put("gensokyoontology:default", jsonObject -> jsonObject);

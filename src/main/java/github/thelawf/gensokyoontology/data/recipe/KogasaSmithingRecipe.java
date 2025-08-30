@@ -26,10 +26,10 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
 
     private final float powerConsumption;
     private final ResourceLocation id;
-    private final ItemStack material;
+    private final Item material;
     private final RecastEntry recastEntry;
 
-    public KogasaSmithingRecipe(ResourceLocation id, ItemStack material, RecastEntry recastEntry, float power) {
+    public KogasaSmithingRecipe(ResourceLocation id, Item material, RecastEntry recastEntry, float power) {
         this.id = id;
         this.powerConsumption = power;
         this.material = material;
@@ -73,7 +73,7 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
     }
 
     @Override
-    public ItemStack getMaterial() {
+    public Item getMaterial() {
         return this.material;
     }
 
@@ -87,12 +87,10 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
         return this.powerConsumption;
     }
 
-
-
     public static class Type implements IRecipeType<KogasaSmithingRecipe> {
         @Override
         public String toString() {
-            return RECIPE_ID.toString();
+            return ID.toString();
         }
     }
 
@@ -107,20 +105,17 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
         @Override
         public KogasaSmithingRecipe read(ResourceLocation recipeId, JsonObject json) {
             float powerConsumption = JSONUtils.getFloat(json, "power");
+            Item material = ForgeRegistries.ITEMS.getValue(
+                    new ResourceLocation(JSONUtils.getString(json, "material")));
 
-            CompoundNBT tagEntry = CompoundNBT.CODEC.decode(JsonOps.INSTANCE,
-                    JSONUtils.getJsonObject(json, "recast_entry")).result()
-                    .orElse(Pair.of(new CompoundNBT(), new JsonObject())).getFirst();
             RecastEntry recastEntry = RecastEntry.deserialize(json);
-
-            ItemStack material = deserializeItem(JSONUtils.getJsonObject(json, "material"));
             return new KogasaSmithingRecipe(recipeId, material, recastEntry, powerConsumption);
         }
 
         @Override
         public @Nullable KogasaSmithingRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
             float power = buffer.readFloat();
-            ItemStack material = buffer.readItemStack();
+            Item material = ForgeRegistries.ITEMS.getValue(new ResourceLocation(buffer.readString()));
             RecastEntry recastEntry = RecastEntry.read(buffer);
             return new KogasaSmithingRecipe(recipeId, material, recastEntry, power);
         }
@@ -128,7 +123,7 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
         @Override
         public void write(PacketBuffer buffer, KogasaSmithingRecipe recipe) {
             buffer.writeFloat(recipe.powerConsumption);
-            buffer.writeItemStack(recipe.material);
+            buffer.writeString(recipe.material.getRegistryName().toString());
             recipe.recastEntry.write(buffer);
         }
     }
