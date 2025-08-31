@@ -21,16 +21,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class KogasaSmithingTable extends AnvilBlock {
-    public static final DirectionProperty FACING = HorizontalBlock.HORIZONTAL_FACING;
-    private static final VoxelShape PART_BASE = Block.makeCuboidShape(2.0D, 0.0D, 2.0D, 14.0D, 4.0D, 14.0D);
-    private static final VoxelShape PART_LOWER_X = Block.makeCuboidShape(3.0D, 4.0D, 4.0D, 13.0D, 5.0D, 12.0D);
-    private static final VoxelShape PART_MID_X = Block.makeCuboidShape(4.0D, 5.0D, 6.0D, 12.0D, 10.0D, 10.0D);
-    private static final VoxelShape PART_UPPER_X = Block.makeCuboidShape(0.0D, 10.0D, 3.0D, 16.0D, 16.0D, 13.0D);
-    private static final VoxelShape PART_LOWER_Z = Block.makeCuboidShape(4.0D, 4.0D, 3.0D, 12.0D, 5.0D, 13.0D);
-    private static final VoxelShape PART_MID_Z = Block.makeCuboidShape(6.0D, 5.0D, 4.0D, 10.0D, 10.0D, 12.0D);
-    private static final VoxelShape PART_UPPER_Z = Block.makeCuboidShape(3.0D, 10.0D, 0.0D, 13.0D, 16.0D, 16.0D);
-    private static final VoxelShape X_AXIS_AABB = VoxelShapes.or(PART_BASE, PART_LOWER_X, PART_MID_X, PART_UPPER_X);
-    private static final VoxelShape Z_AXIS_AABB = VoxelShapes.or(PART_BASE, PART_LOWER_Z, PART_MID_Z, PART_UPPER_Z);
     public static final TranslationTextComponent NAME = GensokyoOntology.translate("container.", ".kogasa_smithing");
 
     public KogasaSmithingTable() {
@@ -38,7 +28,6 @@ public class KogasaSmithingTable extends AnvilBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public @NotNull ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
         if (player instanceof ServerPlayerEntity){
             ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
@@ -48,7 +37,6 @@ public class KogasaSmithingTable extends AnvilBlock {
     }
 
     @Override
-    @SuppressWarnings("deprecation")
     public @Nullable INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
     return new SimpleNamedContainerProvider((id, plyerInv, player) ->
             new KogasaSmithingContainer(plyerInv, id), NAME);

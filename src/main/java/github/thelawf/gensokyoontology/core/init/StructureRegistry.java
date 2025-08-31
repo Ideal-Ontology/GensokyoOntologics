@@ -52,7 +52,7 @@ public final class StructureRegistry {
         setupMapSpacingAndLand(CHIREIDEN.get(), new StructureSeparationSettings(80, 50, 413054656), true);
         setupMapSpacingAndLand(CIRNO_ICE_HOUSE.get(), new StructureSeparationSettings(25, 15, 64916420), true);
         setupMapSpacingAndLand(BEAST_PATHWAY.get(), new StructureSeparationSettings(5, 3, 994251466), true);
-        setupMapSpacingAndLand(HUMAN_VILLAGE.get(), new StructureSeparationSettings(15, 6, 854694869), true);
+        setupMapSpacingAndLand(HUMAN_VILLAGE.get(), new StructureSeparationSettings(13, 1, 854694869), true);
         // setupMapSpacingAndLand(WATERFALL_NINE_HEAVEN.get(), new StructureSeparationSettings(40, 30, 95323460), true);
     }
 

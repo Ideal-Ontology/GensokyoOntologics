@@ -14,10 +14,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.atomic.AtomicReference;
 
 public abstract class AffiliatedEntity extends Entity {
 
@@ -57,6 +58,18 @@ public abstract class AffiliatedEntity extends Entity {
 
     public Optional<UUID> getOwnerID() {
         return this.dataManager.get(DATA_OWNER);
+    }
+
+    @Nullable
+    public Entity getOwner() {
+        if (this.world instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld) this.world;
+            Optional<UUID> optionalUUID = this.getDataManager().get(DATA_OWNER);
+            if (optionalUUID.isPresent()) {
+                return serverWorld.getEntityByUuid(optionalUUID.get());
+            }
+        }
+        return null;
     }
 
     public void setOwnerId(UUID uuid) {

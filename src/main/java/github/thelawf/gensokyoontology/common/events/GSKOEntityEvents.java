@@ -159,17 +159,6 @@ public class GSKOEntityEvents {
     }
 
     @SubscribeEvent
-    public static void onWorldLoad(WorldEvent.Load event) {
-    }
-
-    @SubscribeEvent
-    public static void onHakureiIdentity(LivingAttackEvent event) {
-        LivingEntity living = event.getEntityLiving();
-        living.getCapability(GSKOCapabilities.IDENTITY).ifPresent(cap -> {
-        });
-    }
-
-    @SubscribeEvent
     public static void onHotSpringIn(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() != null && event.getEntityLiving().isInWater()) {
             BlockState blockState = event.getEntityLiving().getBlockState();
@@ -231,6 +220,7 @@ public class GSKOEntityEvents {
             if (adv == null) return;
             AdvancementProgress progress = serverPlayer.getAdvancements().getProgress(adv);
             if (progress.isDone() && serverPlayer.ticksExisted % 15 == 0) {
+                serverPlayer.addPotionEffect(new EffectInstance(Effects.HEALTH_BOOST, 2 * 20, 4));
                 serverPlayer.heal(0.7f);
             }
         }
@@ -315,6 +305,7 @@ public class GSKOEntityEvents {
         AMBIENT_SOUND_TIMER++;
         if (AMBIENT_SOUND_TIMER > CICADA_SOUND + random.nextInt(10000)) {
             player.playSound(GSKOSoundEvents.CICADA_AMBIENT.get(), 0.6f, 1f);
+            AMBIENT_SOUND_TIMER = 0;
         }
     }
 

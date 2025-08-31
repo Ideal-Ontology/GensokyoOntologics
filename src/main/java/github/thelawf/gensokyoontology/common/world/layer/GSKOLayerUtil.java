@@ -50,6 +50,7 @@ public class GSKOLayerUtil extends Layer {
         area = ZoomLayer.NORMAL.apply(context.apply(1003L), area);
         area = ZoomLayer.NORMAL.apply(context.apply(1004L), area);
         area = ZoomLayer.NORMAL.apply(context.apply(1005L), area);
+        area = ZoomLayer.NORMAL.apply(context.apply(1006L), area);
 
         IAreaFactory<T> river = repeat(1000L, ZoomLayer.NORMAL, area, 0, context);
         river = GSKORiverLayer.INSTANCE.setUp(registry).apply(context.apply(7L), area);

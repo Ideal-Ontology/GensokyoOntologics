@@ -13,14 +13,17 @@ import org.joml.Vector4i;
 public class PowerParticle extends SpriteTexturedParticle {
     public PowerParticle(ClientWorld world, double x, double y, double z, Vector3d speed, Vector4i color) {
         super(world, x, y, z, speed.x, speed.y, speed.z);
+        
         this.maxAge = 100;
         this.motionX = speed.x;
         this.motionY = speed.y;
         this.motionZ = speed.z;
 
+        this.setSize(0.02F, 0.02F);
         this.setColor(color.x / 255F, color.y / 255F, color.z / 255F);
         this.setAlphaF(color.w / 255F);
     }
+
 
     @Override
     public IParticleRenderType getRenderType() {

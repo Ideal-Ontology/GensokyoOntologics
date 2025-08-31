@@ -16,6 +16,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
@@ -35,12 +36,14 @@ public class DanmakuItem extends Item {
     @Override
     @NotNull
     public ActionResult<ItemStack> onItemRightClick(@NotNull World worldIn, PlayerEntity playerIn, @NotNull Hand handIn) {
-        final Map<Enchantment, Actions.DanmakuEnchant> actions =
-                GSKOItemStackEvents.registerEnchantActions();
-
+        final Map<Enchantment, Actions.DanmakuEnchant> actions = GSKOItemStackEvents.registerEnchantActions();
         ItemStack stack = playerIn.getHeldItem(handIn);
         if (playerIn.getCooldownTracker().hasCooldown(this)) return ActionResult.resultPass(stack);
 
+        if (worldIn.isRemote) {
+            worldIn.playSound(playerIn, playerIn.getPosition(),
+                    GSKOSoundEvents.SHOOT_DANMAKU.get(), SoundCategory.PLAYERS, 0.6F, 1F);
+        }
         Item item = stack.getItem();
         float size = Danmaku.NORMAL_DANMAKU.containsKey(item) ?
                 Danmaku.NORMAL_DANMAKU.get(item).getSecond() :
@@ -54,7 +57,7 @@ public class DanmakuItem extends Item {
             // GSKOUtil.showChatMsg(playerIn, "size + " actions.size(), 1);
         }
         if (hasEnchantments == 0) Danmaku.create(worldIn, playerIn, this).size(size).shoot(playerIn.getLookVec(), 0.55F);
-        if (worldIn.isRemote) playerIn.playSound(GSKOSoundEvents.SHOOT_DANMAKU.get(), 0.5F, 1F);
+
 
         stack.shrink(actions.get(EnchantRegistry.INFINITE_DANMAKU.get()).apply(
                 EnchantRegistry.INFINITE_DANMAKU.get(), stack, worldIn, playerIn, size) == 0 ? 1 : 0 );

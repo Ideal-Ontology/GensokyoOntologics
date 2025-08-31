@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.data.recipe.IKogasaSmithingRecipe;
 import github.thelawf.gensokyoontology.data.recipe.RecastEntry;
+import net.minecraft.block.CraftingTableBlock;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -73,6 +74,14 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
         }
 
         this.addSlot(new Slot(this.resultInv, 0, 106, 76){
+            /**
+             *
+             */
+            @Override
+            public boolean canTakeStack(PlayerEntity playerIn) {
+                return super.canTakeStack(playerIn);
+            }
+
             @Override
             public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
                 KogasaSmithingContainer.this.consumeAllMaterials();
@@ -167,25 +176,25 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
                 map.put(new ResourceLocation("minecraft:enchantment"),
                         (container, entry) -> {
                             CompoundNBT nbt = new CompoundNBT();
-                            int count = container.getDuplicateMaterialCount((IKogasaSmithingRecipe)
-                                    container.world.getRecipeManager());
-                            if (count > 0) {
-                                ListNBT listnbt = new ListNBT();
-
-                                entry.getValue().getList("Enchantments", Type.COMPOUND.id).forEach(enchantment -> {
-                                    if (enchantment instanceof CompoundNBT) {
-                                        CompoundNBT tag = (CompoundNBT)enchantment;
-                                        CompoundNBT newTag = new CompoundNBT();
-
-                                        listnbt.add(tag);
-                                        newTag.putString("id", tag.getString("id"));
-                                        newTag.putInt("lvl", count);
-                                    }
-                                });
-
-                                nbt.put("Enchantments", listnbt);
-                                return nbt;
-                            }
+//                            int count = container.getDuplicateMaterialCount((IKogasaSmithingRecipe)
+//                                    container.world.getRecipeManager());
+//                            if (count > 0) {
+//                                ListNBT listnbt = new ListNBT();
+//
+//                                entry.getValue().getList("Enchantments", Type.COMPOUND.id).forEach(enchantment -> {
+//                                    if (enchantment instanceof CompoundNBT) {
+//                                        CompoundNBT tag = (CompoundNBT)enchantment;
+//                                        CompoundNBT newTag = new CompoundNBT();
+//
+//                                        listnbt.add(tag);
+//                                        newTag.putString("id", tag.getString("id"));
+//                                        newTag.putInt("lvl", count);
+//                                    }
+//                                });
+//
+//                                nbt.put("Enchantments", listnbt);
+//                                return nbt;
+//                            }
                             return nbt;
         });
     });

@@ -142,6 +142,12 @@ public final class EntityRegistry {
             "destructive_eye", DestructiveEyeEntity::new, EntityClassification.MISC, 3F, 3F, 10, 2);
     public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = register(
             "master_spark", MasterSparkEntity::new, EntityClassification.MISC, 2.F, 2.F, 10, 2);
+
+
+    public static final RegistryObject<EntityType<LunarFallEntity>> LUNAR_FALL = register(
+            "lunar_fall", LunarFallEntity::new, EntityClassification.MISC,
+            3.F, 3.F, 10, 2);
+
     // public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
     //         "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);
 
