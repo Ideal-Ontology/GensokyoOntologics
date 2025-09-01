@@ -19,16 +19,21 @@ public class LunarFallEntity extends AffiliatedEntity {
 
     public LunarFallEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
+        this.ignoreFrustumCheck = true;
     }
 
     public LunarFallEntity(Entity owner, World worldIn) {
         super(EntityRegistry.LUNAR_FALL.get(), owner, worldIn);
+        this.ignoreFrustumCheck = true;
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (this.ticksExisted > MAX_TICK) return;
+        if (this.ticksExisted > MAX_TICK) {
+            this.remove();
+            return;
+        }
         if (this.ticksExisted == PREPARATION) {
             this.world.getEntitiesWithinAABB(LivingEntity.class, this.getBoundingBox()).stream().filter(
                     this::isEntityInRange).forEach(entity -> {

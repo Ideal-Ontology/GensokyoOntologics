@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.util.math;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.api.util.Color4i;
+import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.*;
 import org.joml.Vector4i;
@@ -533,6 +534,84 @@ public class GeometryUtil {
                 .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
     }
 
+    public static void texturedCylinder(IVertexBuilder builder, MatrixStack matrixStack, int packedLight,
+                                        float radius, float height,
+                                        int segments, Color4i color) {
+        Matrix4f matrix = matrixStack.getLast().getMatrix();
+        Matrix3f normal = matrixStack.getLast().getNormal();
+        for (int i = 0; i < segments; i++) {
+            double angle1 = 2 * Math.PI * i / segments;
+            double angle2 = 2 * Math.PI * (i + 1) / segments;
+
+            float x1 = (float) Math.cos(angle1) * radius;
+            float z1 = (float) Math.sin(angle1) * radius;
+            float x2 = (float) Math.cos(angle2) * radius;
+            float z2 = (float) Math.sin(angle2) * radius;
+
+            // 计算法线（侧面法线指向外部）
+            float normalX = (x1 + x2) / 2 / radius;
+            float normalZ = (z1 + z2) / 2 / radius;
+
+            float u0 = i / (float) segments;       // 当前分段起始U值
+            float u1 = (i + 1) / (float) segments; // 当前分段结束U值
+            float vBottom = 1.0f;                  // 底部V坐标 (1.0)
+            float vTop = 0.0f;                     // 顶部V坐标 (0.0)
+
+            // 解码光照贴图坐标
+            int blockLight = packedLight & 0xFFFF;       // 区块光照
+            int skyLight = (packedLight >> 16) & 0xFFFF; // 天空光照
+            int lightU = (int) (blockLight / 65535.0);        // UV2 U分量
+            int lightV = (int) (skyLight / 65535.0);          // UV2 V分量
+
+            Vector3f v3f = new Vector3f(0F,1F,0F);
+
+            // ============== 构建单个四边面 ==============
+            texVertex(matrix, normal, builder, packedLight, radius, height, segments,
+                    u0, vBottom, v3f, color);
+            texVertex(matrix, normal, builder, packedLight, radius, height, segments,
+                    u1, vBottom, v3f, color);
+            texVertex(matrix, normal, builder, packedLight, radius, height, segments,
+                    u1, vTop, v3f, color);
+            texVertex(matrix, normal, builder, packedLight, radius, height, segments,
+                    u0, vTop, v3f, color);
+
+//            builder.pos(matrix, x1, 0, z1)
+//                    .color(color.r, color.g, color.b, color.a)
+//                    .tex(u0, vBottom) // UV坐标
+//                    .normal(normal, 0.0F, 1.0F, 0.0F)
+//                    .lightmap(lightU, lightV)
+//                    .overlay(OverlayTexture.NO_OVERLAY)
+//                    .endVertex();
+//
+//            // 顶点2: 底部右前 (x2, 0, z2)
+//            builder.pos(matrix, x2, 0, z2)
+//                    .color(color.r, color.g, color.b, color.a)
+//                    .tex(u1, vBottom) // UV坐标
+//                    .normal(normal, 0.0F, 1.0F, 0.0F)
+//                    .lightmap(lightU, lightV)
+//                    .overlay(OverlayTexture.NO_OVERLAY)
+//                    .endVertex();
+//
+//            // 顶点3: 顶部右前 (x2, height, z2)
+//            builder.pos(matrix, x2, height, z2)
+//                    .color(color.r, color.g, color.b, color.a)
+//                    .tex(u1, vTop)   // UV坐标
+//                    .normal(normal, 0.0F, 1.0F, 0.0F)
+//                    .lightmap(lightU, lightV)
+//                    .overlay(OverlayTexture.NO_OVERLAY)
+//                    .endVertex();
+//
+//            // 顶点4: 顶部左前 (x1, height, z1)
+//            builder.pos(matrix, x1, height, z1)
+//                    .color(color.r, color.g, color.b, color.a)
+//                    .tex(u0, vTop)   // UV坐标
+//                    .normal(normal, 0.0F, 1.0F, 0.0F)
+//                    .lightmap(lightU, lightV)
+//                    .overlay(OverlayTexture.NO_OVERLAY)
+//                    .endVertex();
+        }
+    }
+
     public static void texturedCylinder(MatrixStack matrixStack, IVertexBuilder vertexBuilder,
                                         int packedLight, float radius, float height, int segments, Color4i color) {
         Matrix4f matrix = matrixStack.getLast().getMatrix();
@@ -572,13 +651,56 @@ public class GeometryUtil {
         }
     }
 
+    public static void texturedCircle(MatrixStack matrixStack, IVertexBuilder builder,
+                                        int packedLight, Vector3f center, float radius, int segments, Color4i color) {
+        Matrix4f matrix = matrixStack.getLast().getMatrix();
+        for (int i = 0; i < segments; i++) {
+            double angle1 = 2 * Math.PI * i / segments;
+            double angle2 = 2 * Math.PI * (i + 1) / segments;
+            double angle3 = 2 * Math.PI * (i + 2) / segments;
+            double angle4 = 2 * Math.PI * (i + 3) / segments;
+
+            float x1 = (float) Math.cos(angle1) * radius;
+            float z1 = (float) Math.sin(angle1) * radius;
+            float x2 = (float) Math.cos(angle2) * radius;
+            float z2 = (float) Math.sin(angle2) * radius;
+
+            float x3 = (float) Math.cos(angle3) * radius;
+            float z3 = (float) Math.sin(angle3) * radius;
+            float x4 = (float) Math.cos(angle4) * radius;
+            float z4 = (float) Math.sin(angle4) * radius;
+
+//            texVertex(matrix, matrixStack.getLast().getNormal(), builder, packedLight,
+//                    center.getX(), center.getY(), center.getZ(), );
+
+            // 三角形顶点：中心点，边缘点1，边缘点2
+//            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(color.r, color.g, color.b, color.a)
+//                    .normal(0.0f, normalY, 0.0f).endVertex();
+//            builder.pos(matrix, x1, center.getY(), z1).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+//            builder.pos(matrix, x2, center.getY(), z2).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+//
+//            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+//            builder.pos(matrix, x2, center.getY(), z2).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+//            builder.pos(matrix, x3, center.getY(), z3).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+//
+//            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+//            builder.pos(matrix, x3, center.getY(), z3).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+//            builder.pos(matrix, x4, center.getY(), z4).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+//
+//            builder.pos(matrix, center.getX(), center.getY(), center.getZ()).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+//            builder.pos(matrix, x4, center.getY(), z4).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+//            builder.pos(matrix, x1, center.getY(), z1).color(red, green, blue, alpha).normal(0.0f, normalY, 0.0f).endVertex();
+        }
+    }
+
     private static void texVertex(Matrix4f matrix, Matrix3f normalMatrix, IVertexBuilder builder, int light,
                                   float x, float y, float z, float u, float v, Vector3f normal) {
         builder.pos(matrix, x, y, z)
                 .color(255, 255, 255, 255)
                 .tex(u, v)
+                .overlay(OverlayTexture.NO_OVERLAY)
                 .lightmap(light)
-                .normal(normalMatrix, normal.getX(), normal.getY(), normal.getZ())
+                .normal(normalMatrix, 0, 1, 0)
                 .endVertex();
     }
 
@@ -587,6 +709,7 @@ public class GeometryUtil {
         builder.pos(matrix, x, y, z)
                 .color(color.r, color.g, color.b, color.a)
                 .tex(u, v)
+                .overlay(OverlayTexture.NO_OVERLAY)
                 .lightmap(light)
                 .normal(normalMatrix, normal.getX(), normal.getY(), normal.getZ())
                 .endVertex();

@@ -1,15 +1,18 @@
 package github.thelawf.gensokyoontology.common.container;
 
 import com.google.common.collect.Maps;
+import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.api.client.AbstractContainer;
 import github.thelawf.gensokyoontology.api.util.INBTReader;
 import github.thelawf.gensokyoontology.api.util.IntRange;
+import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.data.recipe.IKogasaSmithingRecipe;
 import github.thelawf.gensokyoontology.data.recipe.RecastEntry;
 import net.minecraft.block.CraftingTableBlock;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -27,6 +30,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.stream.Collectors;
 
@@ -54,6 +58,11 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
                 KogasaSmithingContainer.this.removeMaterialWhenTaken();
                 return super.onTake(thePlayer, stack);
             }
+
+            @Override
+            public int getSlotStackLimit() {
+                return 1;
+            }
         });
 
         for (int i = 1; i <= 4; i++) {
@@ -68,6 +77,11 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
                 public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
                     KogasaSmithingContainer.this.trySmithing();
                     return super.onTake(thePlayer, stack);
+                }
+
+                @Override
+                public int getSlotStackLimit() {
+                    return 1;
                 }
             });
         }
@@ -85,6 +99,11 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
             public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) {
                 KogasaSmithingContainer.this.consumeAllMaterials();
                 return super.onTake(thePlayer, stack);
+            }
+
+            @Override
+            public int getSlotStackLimit() {
+                return 1;
             }
         });
     }
@@ -122,22 +141,13 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
 
     public void trySmithing(){
         this.detectAndSendChanges();
-        if (!this.world.isRemote) {
-            ServerWorld serverWorld = (ServerWorld)this.world;
-            CompoundNBT mergedNBT = new CompoundNBT();
+        if (this.world.isRemote) return;
 
-            this.getTagListFromAllMaterials(serverWorld.getRecipeManager()).forEach(entry -> {
-                CompoundNBT materialNBT = RECAST_LOGICS.getOrDefault(entry.getKey(),
-                        (container, defaultEntry) ->
-                                defaultEntry.getValue()).apply(this, entry);
-                mergedNBT.merge(materialNBT);
-            });
-            ItemStack resultStack = this.resultInv.getStackInSlot(0).copy();
-            resultStack.setTag(mergedNBT);
-
-            this.resultInv.setInventorySlotContents(0, resultStack);
-            ItemStack smithingItem = this.resultInv.getStackInSlot(1).copy();
-        }
+        ServerWorld serverWorld = (ServerWorld)this.world;
+        this.getTagListFromAllMaterials(serverWorld.getRecipeManager()).forEach(entry ->
+                RECAST_LOGICS.getOrDefault(entry.getKey(),
+                (container, defaultEntry, stack) -> {})
+                        .act(this, entry, this.resultInv));
     }
 
     public int getDuplicateMaterialCount(IKogasaSmithingRecipe recipe) {
@@ -145,8 +155,8 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
                 stack.getItem() == recipe.getMaterial()).count());
     }
 
-
     private List<Item> craftingItems() {
+        GSKOUtil.log(GSKOUtil.toItemList(this.inventory).subList(1, this.inventory.getSizeInventory() - 1));
         return GSKOUtil.toItemList(this.inventory).subList(1, 3).stream().map(ItemStack::getItem).collect(Collectors.toList());
     }
 
@@ -170,31 +180,13 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
         return new IntRange(0, 5);
     }
 
-    public static final Map<ResourceLocation, BiFunction<KogasaSmithingContainer, RecastEntry, CompoundNBT>> RECAST_LOGICS =
-            Util.make(Maps.newHashMap(), map -> {
-                map.put(new ResourceLocation("minecraft:enchantment"),
-                        (container, entry) -> {
-                            CompoundNBT nbt = new CompoundNBT();
-//                            int count = container.getDuplicateMaterialCount((IKogasaSmithingRecipe)
-//                                    container.world.getRecipeManager());
-//                            if (count > 0) {
-//                                ListNBT listnbt = new ListNBT();
-//
-//                                entry.getValue().getList("Enchantments", Type.COMPOUND.id).forEach(enchantment -> {
-//                                    if (enchantment instanceof CompoundNBT) {
-//                                        CompoundNBT tag = (CompoundNBT)enchantment;
-//                                        CompoundNBT newTag = new CompoundNBT();
-//
-//                                        listnbt.add(tag);
-//                                        newTag.putString("id", tag.getString("id"));
-//                                        newTag.putInt("lvl", count);
-//                                    }
-//                                });
-//
-//                                nbt.put("Enchantments", listnbt);
-//                                return nbt;
-//                            }
-                            return nbt;
-        });
-    });
+    public static final Map<ResourceLocation, Actions.Act3<KogasaSmithingContainer, RecastEntry, CraftResultInventory>>
+            RECAST_LOGICS = Util.make(Maps.newHashMap(), map ->
+            map.put(new ResourceLocation("minecraft:enchantment"),
+                    (container, entry, resultInv) -> {
+                        int count = container.getDuplicateMaterialCount((IKogasaSmithingRecipe)
+                                container.world.getRecipeManager());
+                        GSKONBTUtil.setEnchantWithLevel(resultInv, entry, count);
+    }));
+
 }

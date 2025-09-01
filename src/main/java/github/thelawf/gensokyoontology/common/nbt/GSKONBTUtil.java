@@ -2,14 +2,22 @@ package github.thelawf.gensokyoontology.common.nbt;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import github.thelawf.gensokyoontology.api.util.INBTReader;
 import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
+import github.thelawf.gensokyoontology.data.recipe.IKogasaSmithingRecipe;
+import github.thelawf.gensokyoontology.data.recipe.RecastEntry;
+import javafx.util.Pair;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -37,6 +45,20 @@ public class GSKONBTUtil {
             "vector3d_list",
             "danmaku_list"
     );
+
+    public static void setEnchantWithLevel(CraftResultInventory resultInv, RecastEntry entry, int level) {
+        if (level <= 0) return;
+        getListCompound(entry.getValue().getList("enchantments", INBTReader.Type.COMPOUND.id)).forEach(tag -> {
+            if (tag instanceof CompoundNBT) {
+                Enchantment enchant = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(tag.getString("id")));
+                ItemStack stack = resultInv.getStackInSlot(0).copy();
+                if (enchant != null) {
+                    stack.addEnchantment(enchant, level);
+                }
+                resultInv.setInventorySlotContents(0, stack);
+            }
+        });
+    }
 
     public static boolean hasItemStack(PlayerEntity player, Item item) {
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
