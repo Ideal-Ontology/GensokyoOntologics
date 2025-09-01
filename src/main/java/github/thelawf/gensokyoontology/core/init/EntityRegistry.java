@@ -144,9 +144,9 @@ public final class EntityRegistry {
             "master_spark", MasterSparkEntity::new, EntityClassification.MISC, 2.F, 2.F, 10, 2);
 
 
-    public static final RegistryObject<EntityType<LunarFallEntity>> LUNAR_FALL = register(
-            "lunar_fall", LunarFallEntity::new, EntityClassification.MISC,
-            LunarFallEntity.MIN_RADIUS, 1.5F, 10, 2);
+    public static final RegistryObject<EntityType<LunarFall>> LUNAR_FALL = register(
+            "lunar_fall", LunarFall::new, EntityClassification.MISC,
+            LunarFall.MIN_RADIUS, 1.5F, 10, 2);
 
     // public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
     //         "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);

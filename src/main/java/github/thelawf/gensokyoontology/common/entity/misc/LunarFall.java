@@ -9,20 +9,22 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
-public class LunarFallEntity extends AffiliatedEntity {
+public class LunarFall extends AffiliatedEntity {
     public static final int PREPARATION = 45;
-    public static final int MAX_TICK = 120;
+    public static final int MAX_TICK = 200;
     public static final float MIN_RADIUS = 3.F;
-    public static final float MAX_RADIUS = 6.F;
+    public static final float MAX_RADIUS = 100.F;
+    public static final int FALL_START = PREPARATION - 30;
 
-    public LunarFallEntity(EntityType<?> entityTypeIn, World worldIn) {
+    public LunarFall(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
         this.ignoreFrustumCheck = true;
     }
 
-    public LunarFallEntity(Entity owner, World worldIn) {
+    public LunarFall(Entity owner, World worldIn) {
         super(EntityRegistry.LUNAR_FALL.get(), owner, worldIn);
         this.ignoreFrustumCheck = true;
     }
@@ -35,6 +37,7 @@ public class LunarFallEntity extends AffiliatedEntity {
             return;
         }
         if (this.ticksExisted == PREPARATION) {
+            this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 3, Explosion.Mode.NONE);
             this.world.getEntitiesWithinAABB(LivingEntity.class, this.getBoundingBox()).stream().filter(
                     this::isEntityInRange).forEach(entity -> {
                 if (this.getOwner() == null) return;

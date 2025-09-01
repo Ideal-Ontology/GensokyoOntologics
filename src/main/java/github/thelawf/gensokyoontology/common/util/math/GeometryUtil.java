@@ -548,32 +548,17 @@ public class GeometryUtil {
             float x2 = (float) Math.cos(angle2) * radius;
             float z2 = (float) Math.sin(angle2) * radius;
 
-            // 计算法线（侧面法线指向外部）
-            float normalX = (x1 + x2) / 2 / radius;
-            float normalZ = (z1 + z2) / 2 / radius;
-
             float u0 = i / (float) segments;       // 当前分段起始U值
             float u1 = (i + 1) / (float) segments; // 当前分段结束U值
             float vBottom = 1.0f;                  // 底部V坐标 (1.0)
             float vTop = 0.0f;                     // 顶部V坐标 (0.0)
 
-            // 解码光照贴图坐标
-            int blockLight = packedLight & 0xFFFF;       // 区块光照
-            int skyLight = (packedLight >> 16) & 0xFFFF; // 天空光照
-            int lightU = (int) (blockLight / 65535.0);        // UV2 U分量
-            int lightV = (int) (skyLight / 65535.0);          // UV2 V分量
-
             Vector3f v3f = new Vector3f(0F,1F,0F);
 
-            // ============== 构建单个四边面 ==============
-            texVertex(matrix, normal, builder, packedLight, radius, height, segments,
-                    u0, vBottom, v3f, color);
-            texVertex(matrix, normal, builder, packedLight, radius, height, segments,
-                    u1, vBottom, v3f, color);
-            texVertex(matrix, normal, builder, packedLight, radius, height, segments,
-                    u1, vTop, v3f, color);
-            texVertex(matrix, normal, builder, packedLight, radius, height, segments,
-                    u0, vTop, v3f, color);
+            texVertex(matrix, normal, builder, packedLight, x1, 0, z1, u0, vBottom, v3f, color);
+            texVertex(matrix, normal, builder, packedLight, x2, 0, z2, u1, vBottom, v3f, color);
+            texVertex(matrix, normal, builder, packedLight, x2, height, z2, u1, vTop, v3f, color);
+            texVertex(matrix, normal, builder, packedLight, x1, height, z1, u0, vTop, v3f, color);
 
 //            builder.pos(matrix, x1, 0, z1)
 //                    .color(color.r, color.g, color.b, color.a)
@@ -609,45 +594,6 @@ public class GeometryUtil {
 //                    .lightmap(lightU, lightV)
 //                    .overlay(OverlayTexture.NO_OVERLAY)
 //                    .endVertex();
-        }
-    }
-
-    public static void texturedCylinder(MatrixStack matrixStack, IVertexBuilder vertexBuilder,
-                                        int packedLight, float radius, float height, int segments, Color4i color) {
-        Matrix4f matrix = matrixStack.getLast().getMatrix();
-        Matrix3f normalMatrix = matrixStack.getLast().getNormal();
-
-        for (int i = 0; i < segments; i++) {
-            float angle1 = (float) (2 * Math.PI * i / segments);
-            float angle2 = (float) (2 * Math.PI * (i + 1) / segments);
-
-            float x1 = MathHelper.cos(angle1) * radius;
-            float z1 = MathHelper.sin(angle1) * radius;
-            float x2 = MathHelper.cos(angle2) * radius;
-            float z2 = MathHelper.sin(angle2) * radius;
-
-            Vector3f normal = new Vector3f(x1, 0, z1);
-            normal.normalize();
-
-            // UV映射：侧面使用单独纹理
-            float u1 = (float) i / segments;
-            float u2 = (float) (i + 1) / segments;
-
-            // 三角形1 (左下 -> 左上 -> 右上)
-            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
-                    x1, -height / 2, z1, u1, 1.0f, normal, color);
-            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
-                    x1, height / 2, z1, u1, 0.0f, normal, color);
-            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
-                    x2, height / 2, z2, u2, 0.0f, normal, color);
-
-            // 三角形2 (左下 -> 右上 -> 右下)
-            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
-                    x1, -height / 2, z1, u1, 1.0f, normal, color);
-            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
-                    x2, height / 2, z2, u2, 0.0f, normal, color);
-            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
-                    x2, -height / 2, z2, u2, 1.0f, normal, color);
         }
     }
 

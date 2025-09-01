@@ -320,8 +320,8 @@ public class GSKOMathUtil {
     // partialTicks => a value between zero and one and is called between each tick
     // tick: 0, 0.1, 0.2, 0.3 ... 1, 1.1, 1.2, 1.3 ... 2 ...
     // ∴ (tickEx + partial) / MAX_TICK => a very smooth approach.
-    public static float lerpTicks(float partial, int maxTick, int presentTick, float minValue, float maxValue) {
-        return MathHelper.lerp((presentTick + partial) / maxTick, minValue, maxValue);
+    public static float lerpTicks(float partial, int maxTick, int presentTick, float from, float to) {
+        return MathHelper.lerp((presentTick + partial) / maxTick, from, to);
     }
 
     public static float triangularLerpTicks(int presentTick, int monotonicPeriod, float partial, float min, float max) {
