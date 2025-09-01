@@ -44,8 +44,6 @@ public class GSKOClientSetupEvents {
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU.get(),
                 manager -> new DanmakuRenderer(manager, itemRenderer, 1F, false, false));
 
-        // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DANMAKU.get(),
-        //         manager -> new SpriteRenderer<>(manager, itemRenderer));
 
         // ======================== 贴图类怪物的渲染器 ==================== //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.INYO_JADE_ENTITY.get(),
@@ -64,6 +62,8 @@ public class GSKOClientSetupEvents {
                 manager -> new DestructiveEyeRenderer(manager, itemRenderer));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MASTER_SPARK_ENTITY.get(),
                 MasterSparkRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LUNAR_FALL.get(),
+                LunarFallRenderer::new);
 
         // ======================== 符卡实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get(),
@@ -121,8 +121,6 @@ public class GSKOClientSetupEvents {
 
         // ======================== 自定义渲染器 ======================= //
         MinecraftForge.EVENT_BUS.register(new GSKOMiscClientEvent());
-        // MinecraftForge.EVENT_BUS.addListener(LaserRenderer::onRenderThirdPerson);
-        // MinecraftForge.EVENT_BUS.addListener(LaserViewRenderer::onRenderFirstPerson);
     }
 
     @SubscribeEvent

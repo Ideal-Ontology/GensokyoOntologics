@@ -46,7 +46,6 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
             @Override
             public void onSlotChanged() {
                 super.onSlotChanged();
-                KogasaSmithingContainer.this.setMaterialsWhenHasSpecialTag();
                 KogasaSmithingContainer.this.trySmithing();
             }
 

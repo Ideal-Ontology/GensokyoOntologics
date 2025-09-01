@@ -41,8 +41,7 @@ import org.apache.logging.log4j.Logger;
 import java.util.List;
 
 
-// {LootTable:"gensokyoontology:chests/human_village_ingredients"}
-// {LootTable:"gensokyoontology:chests/human_village_inventories"}_01
+// BGM：幻想乡的夏祭
 @Mod(GensokyoOntology.MODID)
 public class GensokyoOntology {
 

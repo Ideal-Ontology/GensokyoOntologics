@@ -146,7 +146,7 @@ public final class EntityRegistry {
 
     public static final RegistryObject<EntityType<LunarFallEntity>> LUNAR_FALL = register(
             "lunar_fall", LunarFallEntity::new, EntityClassification.MISC,
-            3.F, 3.F, 10, 2);
+            LunarFallEntity.MIN_RADIUS, 1.5F, 10, 2);
 
     // public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
     //         "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);

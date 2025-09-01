@@ -1,7 +1,11 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
+import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import github.thelawf.gensokyoontology.api.util.Color4i;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.*;
+import org.joml.Vector4i;
 
 public class GeometryUtil {
     public static final double PHI = (1 + Math.sqrt(5)) / 2;
@@ -490,22 +494,6 @@ public class GeometryUtil {
                 .endVertex();
     }
 
-    private static void texturedVertex(Matrix4f matrix, IVertexBuilder vertexBuilder, float[] pos, float red, float green, float blue, float alpha) {
-        vertexBuilder.pos(matrix, pos[0], pos[1], pos[2])
-                .color(red, green, blue, alpha)
-                .endVertex();
-    }
-
-    public static void triangularFace(IVertexBuilder builder, Matrix4f matrix4f, Vector3f a, Vector3f b, Vector3f c) {
-        builder.pos(matrix4f, a.getX(), a.getY(), a.getZ()).endVertex();
-        builder.pos(matrix4f, b.getX(), b.getY(), b.getZ()).endVertex();
-        builder.pos(matrix4f, c.getX(), c.getY(), c.getZ()).endVertex();
-
-        builder.pos(matrix4f, c.getX(), c.getY(), c.getZ()).endVertex();
-        builder.pos(matrix4f, b.getX(), b.getY(), b.getZ()).endVertex();
-        builder.pos(matrix4f, a.getX(), a.getY(), a.getZ()).endVertex();
-    }
-
     public static Vector3f of(double x, double y, double z) {
         return new Vector3f((float) x, (float) y, (float) z);
     }
@@ -545,26 +533,62 @@ public class GeometryUtil {
                 .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
     }
 
-    public static void quadFaceLightmap(IVertexBuilder builder, Matrix4f matrix, Vector3f leftUp, Vector3f rightUp,
-                                        Vector3f rightDown, Vector3f leftDown, Vector4f color, int light) {
+    public static void texturedCylinder(MatrixStack matrixStack, IVertexBuilder vertexBuilder,
+                                        int packedLight, float radius, float height, int segments, Color4i color) {
+        Matrix4f matrix = matrixStack.getLast().getMatrix();
+        Matrix3f normalMatrix = matrixStack.getLast().getNormal();
 
-        builder.pos(matrix, leftUp.getX(), leftUp.getY(), leftUp.getZ()).lightmap(light)
-                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
-        builder.pos(matrix, rightUp.getX(), rightUp.getY(), rightUp.getZ()).lightmap(light)
-                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
-        builder.pos(matrix, rightDown.getX(), rightDown.getY(), rightDown.getZ()).lightmap(light)
-                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
-        builder.pos(matrix, leftDown.getX(), leftDown.getY(), leftDown.getZ()).lightmap(light)
-                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+        for (int i = 0; i < segments; i++) {
+            float angle1 = (float) (2 * Math.PI * i / segments);
+            float angle2 = (float) (2 * Math.PI * (i + 1) / segments);
 
-        builder.pos(matrix, leftDown.getX(), leftDown.getY(), leftDown.getZ()).lightmap(light)
-                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
-        builder.pos(matrix, rightDown.getX(), rightDown.getY(), rightDown.getZ()).lightmap(light)
-                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
-        builder.pos(matrix, rightUp.getX(), rightUp.getY(), rightUp.getZ()).lightmap(light)
-                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
-        builder.pos(matrix, leftUp.getX(), leftUp.getY(), leftUp.getZ()).lightmap(light)
-                .color(color.getX(), color.getY(), color.getZ(), color.getW()).endVertex();
+            float x1 = MathHelper.cos(angle1) * radius;
+            float z1 = MathHelper.sin(angle1) * radius;
+            float x2 = MathHelper.cos(angle2) * radius;
+            float z2 = MathHelper.sin(angle2) * radius;
+
+            Vector3f normal = new Vector3f(x1, 0, z1);
+            normal.normalize();
+
+            // UV映射：侧面使用单独纹理
+            float u1 = (float) i / segments;
+            float u2 = (float) (i + 1) / segments;
+
+            // 三角形1 (左下 -> 左上 -> 右上)
+            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
+                    x1, -height / 2, z1, u1, 1.0f, normal, color);
+            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
+                    x1, height / 2, z1, u1, 0.0f, normal, color);
+            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
+                    x2, height / 2, z2, u2, 0.0f, normal, color);
+
+            // 三角形2 (左下 -> 右上 -> 右下)
+            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
+                    x1, -height / 2, z1, u1, 1.0f, normal, color);
+            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
+                    x2, height / 2, z2, u2, 0.0f, normal, color);
+            texVertex(matrix, normalMatrix, vertexBuilder, packedLight,
+                    x2, -height / 2, z2, u2, 1.0f, normal, color);
+        }
     }
 
+    private static void texVertex(Matrix4f matrix, Matrix3f normalMatrix, IVertexBuilder builder, int light,
+                                  float x, float y, float z, float u, float v, Vector3f normal) {
+        builder.pos(matrix, x, y, z)
+                .color(255, 255, 255, 255)
+                .tex(u, v)
+                .lightmap(light)
+                .normal(normalMatrix, normal.getX(), normal.getY(), normal.getZ())
+                .endVertex();
+    }
+
+    private static void texVertex(Matrix4f matrix, Matrix3f normalMatrix, IVertexBuilder builder, int light,
+                                       float x, float y, float z, float u, float v, Vector3f normal, Color4i color) {
+        builder.pos(matrix, x, y, z)
+                .color(color.r, color.g, color.b, color.a)
+                .tex(u, v)
+                .lightmap(light)
+                .normal(normalMatrix, normal.getX(), normal.getY(), normal.getZ())
+                .endVertex();
+    }
 }

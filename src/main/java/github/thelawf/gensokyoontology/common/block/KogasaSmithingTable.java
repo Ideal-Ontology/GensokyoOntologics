@@ -5,6 +5,8 @@ import github.thelawf.gensokyoontology.common.container.KogasaSmithingContainer;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.inventory.container.EnchantmentContainer;
+import net.minecraft.inventory.container.GrindstoneContainer;
 import net.minecraft.inventory.container.INamedContainerProvider;
 import net.minecraft.inventory.container.SimpleNamedContainerProvider;
 import net.minecraft.state.DirectionProperty;

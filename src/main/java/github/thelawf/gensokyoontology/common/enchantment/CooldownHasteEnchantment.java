@@ -16,11 +16,11 @@ public class CooldownHasteEnchantment extends Enchantment {
 
     @Override
     public int getMinEnchantability(int level) {
-        return 114514;
+        return -114514;
     }
 
     @Override
     public int getMaxEnchantability(int enchantmentLevel) {
-        return 1919810;
+        return -1919810;
     }
 }
