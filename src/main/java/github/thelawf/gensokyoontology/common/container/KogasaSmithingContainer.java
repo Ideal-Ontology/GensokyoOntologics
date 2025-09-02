@@ -40,6 +40,11 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
     private final World world;
     private final PlayerInventory playerInv;
 
+    //TODO:
+    // 1. 测试这个容器类能否正常合成
+    // 2. 光与暗的灵魂还没有获取方式
+    // 3. 添加更多道具能力接口
+    // 4. 红魔馆能不能把最后的围墙修好
     public KogasaSmithingContainer(PlayerInventory playerInv, int id) {
         super(ContainerRegistry.KOGASA_SMITHING_CONTAINER.get(), id);
         this.playerInv = playerInv;
