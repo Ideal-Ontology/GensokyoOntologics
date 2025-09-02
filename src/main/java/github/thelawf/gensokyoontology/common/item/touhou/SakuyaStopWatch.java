@@ -42,8 +42,8 @@ public class SakuyaStopWatch extends Item implements IRayTraceReader, IHasCooldo
         ServerWorld serverWorld = (ServerWorld) worldIn;
         serverWorld.getEntities().filter(entity -> entity instanceof Danmaku)
                 .forEach(entity -> entity.setMotion(Vector3d.ZERO));
-        this.setCD(playerIn, playerIn.getHeldItem(handIn), 1000);
 
+        this.setCD(playerIn, playerIn.getHeldItem(handIn), 1000);
         return super.onItemRightClick(worldIn, playerIn, handIn);
 //        ItemStack stack = playerIn.getHeldItem(handIn);
 

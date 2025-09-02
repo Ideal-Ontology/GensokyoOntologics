@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.IHasCooldown;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.client.gui.screen.Screen;
@@ -23,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class KoishiEyeClosed extends Item {
+public class KoishiEyeClosed extends Item implements IHasCooldown {
     public KoishiEyeClosed(Properties properties) {
         super(properties);
     }
@@ -68,10 +69,9 @@ public class KoishiEyeClosed extends Item {
             }
         }
 
-        if (playerIn.isCreative())
-            return super.onItemRightClick(worldIn, playerIn, handIn);
+        if (playerIn.isCreative()) return super.onItemRightClick(worldIn, playerIn, handIn);
 
-        playerIn.getCooldownTracker().setCooldown(this, 300);
+        this.setCD(playerIn, playerIn.getHeldItem(handIn), 400);
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 

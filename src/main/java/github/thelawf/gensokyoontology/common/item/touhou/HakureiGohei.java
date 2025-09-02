@@ -4,6 +4,7 @@ import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.IHasCooldown;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.client.particle.ParticleRegistry;
@@ -58,7 +59,7 @@ import java.util.concurrent.atomic.AtomicReference;
 /**
  * 博丽灵梦的御币
  */
-public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
+public class HakureiGohei extends MultiModeItem implements IRayTraceReader, IHasCooldown {
     public static final ITextComponent TITLE = GensokyoOntology.translate("gui.", ".hakurei_gohei.title");
     public HakureiGohei(Properties properties) {
         super(properties);
@@ -85,9 +86,11 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
                 case DANMAKU:
 //                    InYoJadeDanmakuEntity inYoJade = new InYoJadeDanmakuEntity(worldIn, playerIn);
 //                    DanmakuUtil.shootDanmaku(worldIn, playerIn, inYoJade, 1F, 0F);
+                    this.setCD(playerIn, stack, 40);
                     break;
                 case DREAM_SEAL:
                     this.fireDreamSeal(worldIn, playerIn);
+                    this.setCD(playerIn, stack, 1800);
                     break;
                 case POWER:
                     try {
@@ -98,12 +101,13 @@ public class HakureiGohei extends MultiModeItem implements IRayTraceReader {
                     break;
                 case SPELL_CARD:
                 default:
+                    this.setCD(playerIn, stack, 2000);
                     break;
 
             }
         }
+
         if (playerIn.isCreative()) return ActionResult.resultPass(playerIn.getHeldItem(handIn));
-        playerIn.getCooldownTracker().setCooldown(this, 10);
         return ActionResult.resultSuccess(playerIn.getHeldItem(handIn));
     }
 

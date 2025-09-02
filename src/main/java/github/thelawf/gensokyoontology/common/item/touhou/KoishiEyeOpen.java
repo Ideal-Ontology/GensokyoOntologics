@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.IHasCooldown;
 import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
 import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
@@ -24,7 +25,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
+public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader, IHasCooldown {
     private int totalCount = 0;
     public KoishiEyeOpen(Properties properties) {
         super(properties);
@@ -61,8 +62,8 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader {
             else onItemUseFinish(stack, worldIn, playerIn);
         }
 
+        this.setCD(playerIn, stack, 300);
         if (playerIn.isCreative()) return super.onItemRightClick(worldIn, playerIn, handIn);
-        // playerIn.getCooldownTracker().setCooldown(this, 100);
         return super.onItemRightClick(worldIn, playerIn, handIn);
     }
 

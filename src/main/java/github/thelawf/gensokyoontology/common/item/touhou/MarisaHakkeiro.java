@@ -88,8 +88,6 @@ public class MarisaHakkeiro extends ShootableItem implements IRayTraceReader, IH
         // Vector3d explodeStartPos = playerIn.getEyePosition(1.0F).add(playerIn.getLookVec().scale(8));
         // this.causeExplosion(worldIn, playerIn, explodeStartPos);
         this.setCD(playerIn, stack, 1800);
-//        int cooldownTicks = 1800;
-//        if (playerIn.isCreative()) return;
     }
 
     @Override
