@@ -1,7 +1,8 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
+import javafx.util.Pair;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -37,6 +38,34 @@ public class CurveUtil {
             bezierPositions.add(GSKOMathUtil.bezier2(start, end, p, i));
         }
         return bezierPositions;
+    }
+
+    public static List<Vector3d> getBezierPos(List<Vector3d> bezierPositions, Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, float time) {
+        for (float i = 0; i < 1; i += time) {
+            if (bezierPositions.size() > 1F / time) break;
+            bezierPositions.add(GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, i));
+        }
+        return bezierPositions;
+    }
+
+    public static List<Vector3d> getBezierNormal(List<Vector3d> bezierPositions, Vector3d start, Vector3d end,  Vector3d ctrl1, Vector3d ctrl2, float time) {
+        for (float i = 0; i < 1; i += time) {
+            if (bezierPositions.size() > 1F / time) break;
+            bezierPositions.add(GSKOMathUtil.bezierDerivative(start, end, ctrl1, ctrl2, i));
+        }
+        return bezierPositions;
+    }
+
+    public static Pair<Vector3d, Vector3d> getParallelDotAt(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, int maxStep, int currentStep) {
+        float unitStep = 1F / maxStep;
+        if (currentStep > maxStep) currentStep = maxStep - 1;
+        else if (currentStep < 0) currentStep = 0;
+
+        Vector3d startPos = getBezierNormal(new ArrayList<>(), start, end, ctrl1, ctrl2, unitStep)
+                .get(currentStep).rotateYaw(Danmaku.rad(90));
+        Vector3d endPos = getBezierNormal(new ArrayList<>(), start, end, ctrl1, ctrl2, unitStep)
+                .get(currentStep).rotateYaw(Danmaku.rad(90));
+        return new Pair<>(startPos, endPos);
     }
 
 }

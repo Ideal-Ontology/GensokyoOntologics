@@ -10,9 +10,8 @@ import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import github.thelawf.gensokyoontology.data.recipe.IKogasaSmithingRecipe;
+import github.thelawf.gensokyoontology.data.recipe.KogasaSmithingRecipe;
 import github.thelawf.gensokyoontology.data.recipe.RecastEntry;
-import net.minecraft.block.CraftingTableBlock;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.CraftResultInventory;
@@ -22,16 +21,13 @@ import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.RecipeManager;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.*;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class KogasaSmithingContainer extends AbstractContainer implements INBTReader {
@@ -149,10 +145,10 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
         if (this.world.isRemote) return;
 
         ServerWorld serverWorld = (ServerWorld)this.world;
-        this.getTagListFromAllMaterials(serverWorld.getRecipeManager()).forEach(entry ->
-                RECAST_LOGICS.getOrDefault(entry.getKey(),
-                (container, defaultEntry, stack) -> {})
-                        .act(this, entry, this.resultInv));
+        this.getRecastDuplicateCount(serverWorld.getRecipeManager()).forEach((key, value) -> {
+            RECAST_LOGICS.getOrDefault(key.getKey(), (e, i, c) -> {})
+                    .act(key, value, this.resultInv);
+        });
     }
 
     public int getDuplicateMaterialCount(IKogasaSmithingRecipe recipe) {
@@ -165,14 +161,16 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
         return GSKOUtil.toItemList(this.inventory).subList(1, 3).stream().map(ItemStack::getItem).collect(Collectors.toList());
     }
 
-    private List<RecastEntry> getTagListFromAllMaterials(RecipeManager manager) {
-        List<RecastEntry> entries = new ArrayList<>();
-        manager.getRecipesForType(RecipeRegistry.KOGASA_SMITHING).forEach(recipe -> {
-            if (this.craftingItems().contains(recipe.getMaterial())) {
-                entries.add(recipe.getRecastEntry());
-            }
-        });
-        return entries;
+    private Map<RecastEntry, Integer> getRecastDuplicateCount(RecipeManager manager) {
+        AtomicReference<Map<RecastEntry, Integer>> mapRef = new AtomicReference<>();
+        this.craftingItems().forEach(item ->
+                mapRef.set(manager.getRecipesForType(RecipeRegistry.KOGASA_SMITHING).stream()
+                      .filter(recipe -> recipe.getMaterial() == item)
+                      .collect(Collectors.toMap(KogasaSmithingRecipe::getRecastEntry, recipe ->
+                          Math.toIntExact(this.craftingItems().stream()
+                                  .filter(stack -> stack == item).count())))));
+
+        return mapRef.get();
     }
 
     @Override
@@ -185,12 +183,10 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
         return new IntRange(0, 5);
     }
 
-    public static final Map<ResourceLocation, Actions.Act3<KogasaSmithingContainer, RecastEntry, CraftResultInventory>>
+    public static final Map<ResourceLocation, Actions.Act3<RecastEntry, Integer, CraftResultInventory>>
             RECAST_LOGICS = Util.make(Maps.newHashMap(), map ->
             map.put(new ResourceLocation("minecraft:enchantment"),
-                    (container, entry, resultInv) -> {
-                        int count = container.getDuplicateMaterialCount((IKogasaSmithingRecipe)
-                                container.world.getRecipeManager());
+                    (entry, count, resultInv) -> {
                         GSKONBTUtil.setEnchantWithLevel(resultInv, entry, count);
     }));
 

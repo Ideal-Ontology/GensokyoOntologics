@@ -286,22 +286,22 @@ public class GSKOMathUtil {
         return v1.add(v2.add(v3));
     }
 
-    public static Vector3d bezier3(Vector3d p1, Vector3d p2, Vector3d q1, Vector3d q2, float time) {
+    public static Vector3d bezier3(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, float time) {
         if (time > 1 || time < 0)
             return null;
-        Vector3d v1 = lerp(time, p1, q1);
-        Vector3d v2 = lerp(time, q1, q2);
-        Vector3d v3 = lerp(time, q2, p2);
+        Vector3d v1 = lerp(time, start, ctrl1);
+        Vector3d v2 = lerp(time, ctrl1, ctrl2);
+        Vector3d v3 = lerp(time, ctrl2, end);
         Vector3d inner1 = lerp(time, v1, v2);
         Vector3d inner2 = lerp(time, v2, v3);
         return lerp(time, inner1, inner2);
     }
 
-    public static Vector3d bezierDerivative(Vector3d p1, Vector3d p2, Vector3d q1, Vector3d q2, float t) {
-        return p1.scale(-3 * t * t + 6 * t - 3)
-                .add(q1.scale(9 * t * t - 12 * t + 3))
-                .add(q2.scale(-9 * t * t + 6 * t))
-                .add(p2.scale(3 * t * t));
+    public static Vector3d bezierDerivative(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, float t) {
+        return start.scale(-3 * t * t + 6 * t - 3)
+                .add(ctrl1.scale(9 * t * t - 12 * t + 3))
+                .add(ctrl2.scale(-9 * t * t + 6 * t))
+                .add(end.scale(3 * t * t));
     }
 
     public static Vector3d lerp(float progress, Vector3d start, Vector3d end) {
