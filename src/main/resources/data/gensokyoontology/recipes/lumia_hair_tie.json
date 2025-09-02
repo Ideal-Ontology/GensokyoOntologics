@@ -1,19 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "##X",
-    "#OX",
-    "#XX"
+    "##",
+    "##",
+    "XX"
   ],
   "key": {
     "#": {
-      "item": "gensokyoontology:dark_spirit"
-    },
-    "O": {
-      "item": "gensokyoontology:jade_level_ss"
+      "item": "gensokyoontology:inyo_jade_red"
     },
     "X": {
-      "item": "gensokyoontology:light_spirit"
+      "item": "gensokyoontology:kedama_fur"
     }
   },
   "result": {
