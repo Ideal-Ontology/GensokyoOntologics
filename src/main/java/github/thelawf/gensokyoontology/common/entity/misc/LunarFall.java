@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.misc;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
+import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.client.particle.DragonBreathParticle;
 import net.minecraft.entity.Entity;
@@ -11,6 +12,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.GlassBottleItem;
 import net.minecraft.network.IPacket;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
@@ -18,11 +20,11 @@ import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 public class LunarFall extends AffiliatedEntity {
-    public static final int PREPARATION = 45;
+    public static final int PREPARATION = 60;
     public static final int MAX_TICK = 200;
     public static final float MIN_RADIUS = 3.F;
     public static final float MAX_RADIUS = 100.F;
-    public static final int FALL_START = PREPARATION - 30;
+    public static final int FALL_START = PREPARATION - 20;
 
     public LunarFall(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);
@@ -42,6 +44,11 @@ public class LunarFall extends AffiliatedEntity {
             return;
         }
 
+        if(this.ticksExisted == 0 && this.world.isRemote) {
+            this.world.playSound(this.getPosX(), this.getPosY(), this.getPosZ(), GSKOSoundEvents.MUSIC_GENSOKYO.get(),
+                    SoundCategory.VOICE, 1.0F, 1.0F, false);
+        }
+
         if (this.ticksExisted == PREPARATION) {
             this.world.createExplosion(this, this.getPosX(), this.getPosY(), this.getPosZ(), 3, Explosion.Mode.NONE);
             this.world.getEntitiesWithinAABB(LivingEntity.class, this.getBoundingBox()).stream().filter(
@@ -54,7 +61,6 @@ public class LunarFall extends AffiliatedEntity {
             if (this.ticksExisted > PREPARATION) {
                 double amount = (this.ticksExisted - PREPARATION);
                 this.setBoundingBox(this.getBoundingBox().expand(amount, 0.0D, amount));
-                // this.getType().getSize().scale()
                 this.recalculateSize();
 
                 this.world.getEntitiesWithinAABB(LivingEntity.class, this.getBoundingBox())
@@ -74,7 +80,9 @@ public class LunarFall extends AffiliatedEntity {
 
     public boolean isEntityInRange(LivingEntity living) {
         AxisAlignedBB aabb = this.getBoundingBox();
-        double radius = aabb.maxX - aabb.minX;
-        return living.getPositionVec().distanceTo(aabb.getCenter()) <= radius;
+        double maxRadius = aabb.maxX - aabb.minX;
+        double minRadius = maxRadius - 1;
+        double distance = living.getPositionVec().distanceTo(aabb.getCenter());
+        return distance >= minRadius && distance <= maxRadius;
     }
 }

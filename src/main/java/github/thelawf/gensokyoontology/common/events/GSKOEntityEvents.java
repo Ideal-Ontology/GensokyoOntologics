@@ -21,6 +21,7 @@ import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.potion.HypnosisEffect;
 import github.thelawf.gensokyoontology.common.potion.LovePotionEffect;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.common.util.client.GSKOMusicSelector;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
@@ -35,6 +36,8 @@ import github.thelawf.gensokyoontology.data.world.GSKOWorldSavedData;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
@@ -69,6 +72,7 @@ import java.util.Random;
 @Mod.EventBusSubscriber(modid = "gensokyoontology")
 public class GSKOEntityEvents {
 
+    public static final MusicTicker MUSIC_TICKER = new MusicTicker(Minecraft.getInstance());
     public static int AMBIENT_SOUND_TIMER = 0;
     public static boolean CAN_START_SOUND_TIMER = true;
 
@@ -297,16 +301,9 @@ public class GSKOEntityEvents {
 
     @SubscribeEvent
     public static void playBGMToPlayer(TickEvent.PlayerTickEvent event) {
-        PlayerEntity player = event.player;
-        Random random = new Random();
-        CAN_START_SOUND_TIMER = random.nextInt(10) == 0;
-
-        if (!CAN_START_SOUND_TIMER) return;
-        AMBIENT_SOUND_TIMER++;
-        if (AMBIENT_SOUND_TIMER > CICADA_SOUND + random.nextInt(10000)) {
-            player.playSound(GSKOSoundEvents.CICADA_AMBIENT.get(), 0.6f, 1f);
-            AMBIENT_SOUND_TIMER = 0;
-        }
+       if (MUSIC_TICKER.isBackgroundMusicPlaying(GSKOMusicSelector.MUSIC_BAMBOO_PARTRIDGE)){
+           MUSIC_TICKER.selectRandomBackgroundMusic(GSKOMusicSelector.MUSIC_BAMBOO_PARTRIDGE);
+       }
     }
 
     private static void fairyDropDanmaku(LivingDeathEvent event) {

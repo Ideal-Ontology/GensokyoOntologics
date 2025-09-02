@@ -18,6 +18,8 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.audio.BackgroundMusicSelector;
+import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.EntityClassification;
@@ -27,6 +29,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
@@ -50,14 +53,37 @@ import org.apache.logging.log4j.LogManager;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Predicate;
 
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID)
 public class GSKOWorldEvents {
+    public static final MusicTicker MUSIC_TICKER = new MusicTicker(Minecraft.getInstance());
+    public static final Random RANDOM = new Random();
+
+    @SubscribeEvent
+    public static void onWorldTickPlayMusic(TickEvent.WorldTickEvent event) {
+        Minecraft mc = Minecraft.getInstance();
+        BackgroundMusicSelector backgroundmusicselector = mc.getBackgroundMusicSelector();
+        if (MUSIC_TICKER.currentMusic != null) {
+            if (!backgroundmusicselector.getSoundEvent().getName().equals(MUSIC_TICKER.currentMusic.getSoundLocation()) && backgroundmusicselector.shouldReplaceCurrentMusic()) {
+                mc.getSoundHandler().stop(MUSIC_TICKER.currentMusic);
+                MUSIC_TICKER.timeUntilNextMusic = MathHelper.nextInt(RANDOM, 0, backgroundmusicselector.getMinDelay() / 2);
+            }
+
+            if (!mc.getSoundHandler().isPlaying(MUSIC_TICKER.currentMusic)) {
+                MUSIC_TICKER.currentMusic = null;
+                MUSIC_TICKER.timeUntilNextMusic = Math.min(MUSIC_TICKER.timeUntilNextMusic,
+                        MathHelper.nextInt(RANDOM, backgroundmusicselector.getMinDelay(),
+                                backgroundmusicselector.getMaxDelay()));
+            }
+        }
+
+        MUSIC_TICKER.timeUntilNextMusic = Math.min(MUSIC_TICKER.timeUntilNextMusic, backgroundmusicselector.getMaxDelay());
+        if (MUSIC_TICKER.currentMusic == null && MUSIC_TICKER.timeUntilNextMusic-- <= 0) {
+            MUSIC_TICKER.selectRandomBackgroundMusic(backgroundmusicselector);
+        }
+    }
 
     @SubscribeEvent
     public static void onLivingSpawn(BiomeLoadingEvent event) {
@@ -201,47 +227,4 @@ public class GSKOWorldEvents {
         }
     }
 
-
-    private static void spawnEntityIn(ServerWorld serverWorld, EntityClassification classification,
-                                      WorldEvent.PotentialSpawns event) {
-
-        List<ResourceLocation> biomeIds = Arrays.asList(
-                new ResourceLocation("minecraft:plains"),
-                new ResourceLocation("minecraft:desert"),
-                new ResourceLocation("minecraft:forest"),
-                new ResourceLocation("miencraft:taiga"),
-                new ResourceLocation("minecraft:mountains"),
-                new ResourceLocation("minecraft:snowy_tundra"),
-                new ResourceLocation("minecraft:snowy_mountains"),
-                new ResourceLocation("minecraft:jungle"),
-                new ResourceLocation("minecraft:birch_forest"),
-                new ResourceLocation("minecraft:savanna"),
-                new ResourceLocation("minecraft:savanna_plateau"),
-                new ResourceLocation("minecraft:dark_forest"),
-                new ResourceLocation("minecraft:bamboo_jungle"),
-                new ResourceLocation("minecraft:giant_spruce_taiga")
-        );
-
-        serverWorld.getChunkProvider().getChunkGenerator().getBiomeProvider()
-                .getBiomes().forEach(biome -> spawnEntityIn(biome, biomeIds, classification));
-    }
-
-    private static void spawnEntityIn(Biome biome, List<ResourceLocation> biomeIds,
-                                      EntityClassification classification) {
-        List<EntityType<?>> entityTypes = ImmutableList.of(
-                EntityRegistry.FAIRY_ENTITY.get()
-        );
-
-        biomeIds.forEach(resourceLocation -> {
-            if (biome.getRegistryName() != null && biome.getRegistryName().equals(resourceLocation)) {
-                int weight = 8;
-                int minCount = 3;
-                int maxCount = 8;
-
-                // entityTypes.forEachAct(entityType -> biome.getMobSpawnInfo().getSpawners(classification)
-                //         .add(new MobSpawnInfo.Spawners(EntityRegistry.FAIRY_ENTITY.get(),
-                //                 weight, minCount, maxCount)));
-            }
-        });
-    }
 }

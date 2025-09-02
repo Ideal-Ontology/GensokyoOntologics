@@ -20,6 +20,7 @@ public class GSKOSoundEvents {
     public static final RegistryObject<SoundEvent> MASTER_SPARK = register("master_spark");
     public static final RegistryObject<SoundEvent> SHOOT_DANMAKU = register("shoot_danmaku");
     public static final RegistryObject<SoundEvent> SPELL_CARD = register("spell_card");
+    public static final RegistryObject<SoundEvent> WARNING = register("warning");
 
     private static RegistryObject<SoundEvent> register(String name) {
         return SOUND_EVENTS.register(name, () -> new SoundEvent(new ResourceLocation(

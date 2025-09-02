@@ -99,15 +99,18 @@ public class ScarletMansionPieces {
             .put(withStructureRL("dungeon_06"), new BlockPos(4+48, -22, -48-15))
             .put(withStructureRL("dungeon_07"), new BlockPos(29-51, -22, 32))
             .build();
+
     public static final List<ResourceLocation> LOOT_TABLES = ImmutableList.of(
             withLootRL("mansion_danmaku_loot.json"),
             withLootRL("mansion_vanilla_loot.json"),
             withLootRL("mansion_shot_loot.json"),
             withLootRL("mansion_small_shot_loot.json"),
             withLootRL("mansion_color_shot_loot.json"));
+
     public static ResourceLocation withStructureRL(String name) {
         return GensokyoOntology.withRL(STRUCTURE_PATH + name);
     }
+
     public static ResourceLocation withLootRL(String name) {
         return GensokyoOntology.withRL(LOOT_PATH + name);
     }
@@ -118,7 +121,7 @@ public class ScarletMansionPieces {
 
         for (Map.Entry<ResourceLocation, BlockPos> entry: OFFSET.entrySet()) {
             String name = entry.getKey().toString().replace("gensokyoontology:scarlet_devil_mansion/","");
-            BlockPos rotationOffSet = new BlockPos(0, 0, 0).rotate(setRotFrom(warp(name)));
+            BlockPos rotationOffSet = new BlockPos(0, 0, 0).rotate(setRotFrom(wrap(name)));
             BlockPos blockpos = rotationOffSet.add(x, pos.getY(), z);
             pieces.add(new Piece(templateManager, name, blockpos, rotation, Mirror.NONE));
         }
@@ -135,7 +138,7 @@ public class ScarletMansionPieces {
     /**
      * 根据模板的名字返回其相对坐标
      */
-    private static Vector3i warp(String templateName) {
+    private static Vector3i wrap(String templateName) {
         String regex = "[^0-9]+";
         Pattern pattern = Pattern.compile(regex);
         List<String> ls = Arrays.asList(pattern.split(templateName));

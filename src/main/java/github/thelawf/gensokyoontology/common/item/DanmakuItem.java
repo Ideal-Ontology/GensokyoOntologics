@@ -42,7 +42,7 @@ public class DanmakuItem extends Item {
 
         if (worldIn.isRemote) {
             worldIn.playSound(playerIn, playerIn.getPosition(),
-                    GSKOSoundEvents.SHOOT_DANMAKU.get(), SoundCategory.PLAYERS, 0.6F, 1F);
+                    GSKOSoundEvents.SHOOT_DANMAKU.get(), SoundCategory.PLAYERS, 1F, 1F);
         }
         Item item = stack.getItem();
         float size = Danmaku.NORMAL_DANMAKU.containsKey(item) ?
