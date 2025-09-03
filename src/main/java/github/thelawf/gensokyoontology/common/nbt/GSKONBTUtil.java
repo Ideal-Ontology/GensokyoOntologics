@@ -1,31 +1,22 @@
 package github.thelawf.gensokyoontology.common.nbt;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
-import github.thelawf.gensokyoontology.api.util.INBTReader;
 import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
-import github.thelawf.gensokyoontology.data.recipe.IKogasaSmithingRecipe;
 import github.thelawf.gensokyoontology.data.recipe.RecastEntry;
-import javafx.util.Pair;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftResultInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
-import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.BiFunction;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 public class GSKONBTUtil {
 
@@ -46,18 +37,55 @@ public class GSKONBTUtil {
             "danmaku_list"
     );
 
-    public static void setEnchantWithLevel(CraftResultInventory resultInv, RecastEntry entry, int level) {
+    public static void mergeEnchantment(CraftResultInventory resultInv, RecastEntry entry, int level) {
         if (level <= 0) return;
-        getListCompound(entry.getValue().getList("enchantments", INBTReader.Type.COMPOUND.id)).forEach(tag -> {
-            if (tag instanceof CompoundNBT) {
-                Enchantment enchant = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(tag.getString("id")));
-                ItemStack stack = resultInv.getStackInSlot(0).copy();
-                if (enchant != null) {
-                    stack.addEnchantment(enchant, level);
+
+        ItemStack stack = resultInv.getStackInSlot(0).copy();
+        entry.replaceEnchantLvl(level);
+
+        ListNBT listInStack = resultInv.getStackInSlot(0).getEnchantmentTagList();
+        ListNBT listInRecast = entry.getValue().getList("enchantments", 10);
+
+        // 创建合并后的列表
+        ListNBT mergedList = new ListNBT();
+        CompoundNBT enchantsMapping = new CompoundNBT();
+
+        // 创建映射表存储最高等级附魔
+        Map<String, Integer> enchantmentMap = new HashMap<>();
+        processEnchantmentList(listInStack, enchantmentMap);
+        processEnchantmentList(listInRecast, enchantmentMap);
+
+        // 将映射表转换回 ListNBT
+        for (Map.Entry<String, Integer> mapEntry : enchantmentMap.entrySet()) {
+            CompoundNBT enchantment = new CompoundNBT();
+            enchantment.putString("id", mapEntry.getKey());
+            enchantment.putInt("lvl", level);
+            mergedList.add(enchantment);
+        }
+        enchantsMapping.put("Enchantments", mergedList);
+        stack.setTag(enchantsMapping);
+
+        resultInv.setInventorySlotContents(0, stack);
+    }
+
+    private static void processEnchantmentList(ListNBT list, Map<String, Integer> map) {
+        for (INBT nbt : list) {
+            if (nbt instanceof CompoundNBT) {
+                CompoundNBT enchantment = (CompoundNBT) nbt;
+                String id = enchantment.getString("id");
+                int level = enchantment.getInt("lvl");
+
+                // 如果已有相同附魔，取等级更高的
+                if (map.containsKey(id)) {
+                    int currentLevel = map.get(id);
+                    if (level > currentLevel) {
+                        map.put(id, level);
+                    }
+                } else {
+                    map.put(id, level);
                 }
-                resultInv.setInventorySlotContents(0, stack);
             }
-        });
+        }
     }
 
     public static boolean hasItemStack(PlayerEntity player, Item item) {

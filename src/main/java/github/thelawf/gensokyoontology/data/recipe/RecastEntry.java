@@ -5,11 +5,16 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.serialization.JsonOps;
+import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
+import net.minecraft.item.Item;
+import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -17,17 +22,22 @@ import java.util.function.Function;
 public class RecastEntry {
     private final ResourceLocation typeKey;
     private final CompoundNBT value;
+    private final Item material;
 
-    public RecastEntry(ResourceLocation typeKey, CompoundNBT value) {
+    public RecastEntry(ResourceLocation typeKey, Item material, CompoundNBT value) {
         this.typeKey = typeKey;
+        this.material = material;
         this.value = value;
     }
+
+    public static RecastEntry EMPTY = new RecastEntry(new ResourceLocation("empty"), Items.AIR, new CompoundNBT());
 
     public static RecastEntry read(PacketBuffer buf) {
         String typeKey = buf.readString();
         ResourceLocation type = new ResourceLocation(typeKey);
+        Item material = ForgeRegistries.ITEMS.getValue(new ResourceLocation(buf.readString()));
         CompoundNBT nbt = buf.readCompoundTag();
-        return new RecastEntry(type, nbt);
+        return new RecastEntry(type, material, nbt);
     }
 
     public void write(PacketBuffer buf) {
@@ -43,15 +53,35 @@ public class RecastEntry {
         return this.value;
     }
 
+    public RecastEntry replaceEnchantLvl(int level) {
+        this.value.getList("enchantments", 10).replaceAll(inbt -> this.getLevel(inbt, level));
+        return this;
+    }
+
+    private CompoundNBT getLevel(INBT inbt, int level) {
+        String id = GSKONBTUtil.castToCompound(inbt).getString("id");
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putString("id", id);
+        nbt.putInt("level", level);
+        return nbt;
+    }
+
+    public Item getMaterial() {
+        return this.material;
+    }
+
     public static RecastEntry deserialize(JsonObject json) {
         JsonObject recastEntryJson = JSONUtils.getJsonObject(json, "recast_entry");
         String typeString = JSONUtils.getString(recastEntryJson, "type");
         ResourceLocation typeKey = new ResourceLocation(typeString);
 
+        Item material = ForgeRegistries.ITEMS.getValue(
+                new ResourceLocation(JSONUtils.getString(json, "material")));
+
         JsonElement entryValueJson = JSON_TO_NBT_MAP.get(typeString).apply(recastEntryJson);
         CompoundNBT valueNBT = CompoundNBT.CODEC.decode(JsonOps.INSTANCE, recastEntryJson).result()
                 .orElse(Pair.of(new CompoundNBT(), entryValueJson)).getFirst();
-        return new RecastEntry(typeKey, valueNBT);
+        return new RecastEntry(typeKey, material, valueNBT);
     }
 
     /**

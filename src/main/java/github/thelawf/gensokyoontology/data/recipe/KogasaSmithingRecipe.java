@@ -77,6 +77,10 @@ public class KogasaSmithingRecipe implements IKogasaSmithingRecipe{
         return this.material;
     }
 
+    public boolean isValidMaterial(Item material) {
+        return material == this.material;
+    }
+
     @Override
     public RecastEntry getRecastEntry() {
         return this.recastEntry;
