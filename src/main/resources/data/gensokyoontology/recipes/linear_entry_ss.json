@@ -1,13 +1,13 @@
 {
   "type": "gensokyoontology:kogasa_smithing",
-  "material": "gensokyoontology:orb_jade",
-  "power": 2.0,
+  "material": "gensokyoontology:jade_level_ss",
+  "power": 1.0,
   "recast_entry": {
     "type": "minecraft:enchantment",
     "enchantments": [
       {
-        "id": "gensokyoontology:infinite_danmaku",
-        "lvl": 1
+        "id": "gensokyoontology:linear_shape",
+        "lvl": 3
       }
     ]
   }

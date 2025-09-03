@@ -381,6 +381,9 @@
 
   "cmd.gensokyoontology.incident_triggered": "Is incident triggered: ",
 
+
+  "container.gensokyoontology.kogasa_smithing.title": "Kogasa Smithing",
+
   "container.gensokyoontology.danmaku_craft.title": "Danmaku Crafting",
   "container.gensokyoontology.sorcery_extractor.title": "Sorcery Extracting",
   "container.gensokyoontology.const_builder.title": "Const Builder",

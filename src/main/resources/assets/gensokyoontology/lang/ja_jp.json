@@ -322,6 +322,7 @@
   "block.gensokyoontology.rail_node": "Rail Node",
   "block.gensokyoontology.rotate_frame": "Rotate Frame Test",
   "cmd.gensokyoontology.incident_triggered": "Incident is now: ",
+  "container.gensokyoontology.kogasa_smithing.title": "Kogasa Smithing",
   "container.gensokyoontology.danmaku_craft.title": "Danmaku Crafting",
   "container.gensokyoontology.sorcery_extractor.title": "Sorcery Extracting",
   "container.gensokyoontology.const_builder.title": "Const Builder",

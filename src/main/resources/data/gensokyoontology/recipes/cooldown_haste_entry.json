@@ -1,7 +1,7 @@
 {
   "type": "gensokyoontology:kogasa_smithing",
   "material": "gensokyoontology:sakuya_stop_watch",
-  "power": 1,
+  "power": 1.0,
   "recast_entry": {
     "type": "minecraft:enchantment",
     "enchantments": [

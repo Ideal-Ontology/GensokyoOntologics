@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.container;
 
 import com.google.common.collect.Maps;
-import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.api.client.AbstractContainer;
 import github.thelawf.gensokyoontology.api.util.INBTReader;
 import github.thelawf.gensokyoontology.api.util.IntRange;
@@ -26,14 +25,16 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 public class KogasaSmithingContainer extends AbstractContainer implements INBTReader {
     private final CraftResultInventory craftInv = new CraftResultInventory();
-    private final Inventory inventory = new Inventory(5);
+    private final Inventory inventory = new Inventory(4);
     private final CraftResultInventory resultInv = new CraftResultInventory();
     private final World world;
     private final PlayerInventory playerInv;
+    private int matchCount;
 
     //TODO:
     // 1. 测试这个容器类能否正常合成
@@ -51,7 +52,6 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
             public void onSlotChanged() {
                 super.onSlotChanged();
                 KogasaSmithingContainer.this.setResultInv();
-                KogasaSmithingContainer.this.trySmithing();
             }
 
             @Override
@@ -66,12 +66,11 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
             }
         });
 
-        for (int i = 1; i < 5; i++) {
-            this.addSlot(new Slot(this.inventory, i, 52 + 18 * (i-1), 22) {
+        for (int i = 0; i < 4; i++) {
+            this.addSlot(new Slot(this.inventory, i, 52 + 18 * i, 22) {
                 @Override
                 public void onSlotChanged() {
                     super.onSlotChanged();
-                    GSKOUtil.log(this.getClass(), this.getSlotIndex());
                     KogasaSmithingContainer.this.trySmithing();
                 }
 
@@ -134,21 +133,41 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
         this.craftInv.setInventorySlotContents(0, ItemStack.EMPTY);
     }
 
+    /**
+     * 1. 首先获取所有重铸配方的列表，遍历容器中的所有材料<br>
+     * 2. 如果该材料和配方中的材料匹配，则将该材料、配方中的NBT数据、重铸类型字符串全部打包为RecastEntry中间数据类放入列表并返回<br>
+     * 3. 再次获取容器中的所有材料，如果该材料和配方中的材料匹配，则根据重铸类型字符串获取到重铸等级，情况如下：<br><br>
+     *   A. 如果重铸类型为原版附魔，则获取附魔等级，再根据材料数量累加得到最终等级，累加次数为材料数量<br>
+     *   B. 如果重铸类型为幻想存有论魔咒，则返回0。<br><br>
+     * 4. 通过一个双重迭代，从RECAST_ACTIONS中查表，查询对应的重铸业务逻辑，情况如下：<br><br>
+     *   A. 如果重铸类型为原版附魔，则根据上下文提供的附魔等级为CraftingResultSlot内的物品添加附魔效果<br>
+     *   B. 如果重铸类型为幻想存有论魔咒，则直接为CraftingResultSlot内的物品添加RecastEntry的NBT数据<br>
+     */
     public void trySmithing(){
         this.detectAndSendChanges();
         if (this.world.isRemote) return;
 
         ServerWorld serverWorld = (ServerWorld)this.world;
         List<RecastEntry> entries = this.getRecastList(serverWorld.getRecipeManager());
-
-        entries.forEach(entry -> RECAST_LOGICS.getOrDefault(entry.getKey(),
-                        (r, i, c) -> {})
-                .act(entry, this.getMaterialCount(entry.getMaterial()), this.resultInv));
+        Map<RecastEntry, Integer> map = this.replaceEntryIf(entries);
+        map.forEach((entry, count) -> RECAST_ACTIONS.getOrDefault(entry.getKey(),
+                        (m, c) -> {}).accept(map, this.resultInv));
     }
 
-    public int getMaterialCount(Item material) {
-        return Math.toIntExact(this.materials().stream().filter(stack ->
-                stack.getItem() == material).count());
+    public Map<RecastEntry, Integer> replaceEntryIf(List<RecastEntry> list){
+        Map<RecastEntry, Integer> map = new HashMap<>();
+        list.forEach(entry -> map.put(entry, this.getMaterialCount(entry)));
+        return map;
+    }
+
+    public int getMaterialCount(RecastEntry entry) {
+        this.matchCount = 0;
+        for (int i = 0; i < this.inventory.getSizeInventory(); i++) {
+            if (this.inventory.getStackInSlot(i).getItem() == entry.getMaterial()) {
+                this.matchCount += entry.remapEnchantLevel();
+            }
+        }
+        return this.matchCount;
     }
 
     private List<Item> materials() {
@@ -183,10 +202,11 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
         return new IntRange(0, 5);
     }
 
-    public static final Map<ResourceLocation, Actions.Act3<RecastEntry, Integer, CraftResultInventory>>
-            RECAST_LOGICS = Util.make(Maps.newHashMap(), map ->
-            map.put(new ResourceLocation("minecraft:enchantment"),
-                    (entry, count, resultInv) ->
-                            GSKONBTUtil.mergeEnchantment(resultInv, entry, count)));
+    public static final Map<ResourceLocation, BiConsumer<Map<RecastEntry, Integer>, CraftResultInventory>>
+            RECAST_ACTIONS = Util.make(Maps.newHashMap(), map -> {
+                map.put(new ResourceLocation("minecraft:enchantment"), GSKONBTUtil::mergeEnchantment);
+                map.put(new ResourceLocation("gensoyoontology:spell"), GSKONBTUtil::mergeSpell);
+    }
+    );
 
 }

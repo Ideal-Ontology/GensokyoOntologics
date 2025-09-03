@@ -9,13 +9,13 @@ import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.INBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
@@ -53,16 +53,23 @@ public class RecastEntry {
         return this.value;
     }
 
-    public RecastEntry replaceEnchantLvl(int level) {
-        this.value.getList("enchantments", 10).replaceAll(inbt -> this.getLevel(inbt, level));
-        return this;
+    public int remapEnchantLevel() {
+        return RECAST_LEVEL_GETTER.getOrDefault(this.getKey().toString(), entry -> 0).apply(this);
     }
 
-    private CompoundNBT getLevel(INBT inbt, int level) {
-        String id = GSKONBTUtil.castToCompound(inbt).getString("id");
+    public CompoundNBT getAsEnchantNBT() {
+        if (this.getValue().getList("enchantments", 10).isEmpty()) {
+            return new CompoundNBT();
+        }
+        return GSKONBTUtil.castToCompound(this.getValue().getList("enchantments", 10)
+                .get(0));
+    }
+
+    public CompoundNBT remapEnchantLevel(int level) {
+        String id = this.getAsEnchantNBT().getString("id");
         CompoundNBT nbt = new CompoundNBT();
         nbt.putString("id", id);
-        nbt.putInt("level", level);
+        nbt.putInt("lvl", level);
         return nbt;
     }
 
@@ -83,6 +90,14 @@ public class RecastEntry {
                 .orElse(Pair.of(new CompoundNBT(), entryValueJson)).getFirst();
         return new RecastEntry(typeKey, material, valueNBT);
     }
+
+    public static final Map<String, Function<RecastEntry, Integer>> RECAST_LEVEL_GETTER = Util.make(new HashMap<>(), map -> {
+        map.put("minecraft:empty", entry -> 0);
+        map.put("gensokyoontology:none", entry -> 0);
+        map.put("minecraft:enchantment", entry -> GSKONBTUtil.castToCompound(entry.value.getList(
+                "enchantments", 10).get(0)).getInt("lvl"));
+        map.put("gensokyoontology:spell", entry -> 0);
+    });
 
     /**
      * 这里是存放所有被允许进行装备重铸的词条类型对词条内容的映射<br>
@@ -147,7 +162,6 @@ public class RecastEntry {
             return enchantmentJson;
         });
         map.put("gensokyoontology:default", jsonObject -> jsonObject);
-        map.put("gensokyoontology:spell_card", jsonObject -> JSONUtils.getJsonObject(jsonObject, "spell_card"));
-        map.put("gensokyoontology:skill", jsonObject -> JSONUtils.getJsonObject(jsonObject, "skill"));
+        map.put("gensokyoontology:spell", jsonObject -> JSONUtils.getJsonObject(jsonObject, "spell"));
     });
 }

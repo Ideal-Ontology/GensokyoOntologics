@@ -3,14 +3,18 @@ package github.thelawf.gensokyoontology.common.nbt;
 import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
 import github.thelawf.gensokyoontology.data.recipe.RecastEntry;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.CraftResultInventory;
+import net.minecraft.inventory.CraftingInventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.*;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -37,11 +41,35 @@ public class GSKONBTUtil {
             "danmaku_list"
     );
 
+    public static void mergeEnchantment(Map<RecastEntry, Integer> map, CraftResultInventory resultInv) {
+        ListNBT mergedList = new ListNBT();
+        CompoundNBT enchantsMapping = new CompoundNBT();
+        map.forEach((entry, count) -> mergedList.add(entry.remapEnchantLevel(count)));
+
+        mergedList.replaceAll(it -> {
+            CompoundNBT nbt = new CompoundNBT();
+            CompoundNBT merged = castToCompound(it);
+            Enchantment enchant = ForgeRegistries.ENCHANTMENTS.getValue(new ResourceLocation(merged.getString("id")));
+            if (enchant != null && enchant.getMaxLevel() < merged.getInt("lvl")) {
+                nbt.putInt("lvl", enchant.getMaxLevel());
+                return nbt;
+            }
+            return it;
+        });
+
+        enchantsMapping.put("Enchantments", mergedList);
+        ItemStack stack = resultInv.getStackInSlot(0).copy();
+        stack.setTag(enchantsMapping);
+        resultInv.setInventorySlotContents(0, stack);
+    }
+
+    public static void mergeSpell(Map<RecastEntry, Integer> map, CraftResultInventory resultInv) {}
+
     public static void mergeEnchantment(CraftResultInventory resultInv, RecastEntry entry, int level) {
         if (level <= 0) return;
 
         ItemStack stack = resultInv.getStackInSlot(0).copy();
-        entry.replaceEnchantLvl(level);
+        // entry.replaceEnchantLvl(level);
 
         ListNBT listInStack = resultInv.getStackInSlot(0).getEnchantmentTagList();
         ListNBT listInRecast = entry.getValue().getList("enchantments", 10);
@@ -62,6 +90,8 @@ public class GSKONBTUtil {
             enchantment.putInt("lvl", level);
             mergedList.add(enchantment);
         }
+
+
         enchantsMapping.put("Enchantments", mergedList);
         stack.setTag(enchantsMapping);
 

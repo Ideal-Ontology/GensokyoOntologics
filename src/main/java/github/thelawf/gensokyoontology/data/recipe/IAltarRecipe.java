@@ -1,4 +1,4 @@
 package github.thelawf.gensokyoontology.data.recipe;
 
-public interface IAltarRecipe {
+public interface IAltarRecipe extends IJigsawRecipe{
 }

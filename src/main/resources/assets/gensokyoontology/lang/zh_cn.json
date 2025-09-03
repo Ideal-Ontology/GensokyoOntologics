@@ -92,6 +92,9 @@
   "block.gensokyoontology.zelkova_stairs": "榉树楼梯",
   "block.gensokyoontology.zelkova_trapdoor": "榉树活板门",
   "cmd.gensokyoontology.incident_triggered": "当前是否正在发生异变：",
+
+  "container.gensokyoontology.kogasa_smithing.title": "灵力锻造",
+
   "container.gensokyoontology.binary_operation.title": "二元运算",
   "container.gensokyoontology.const_builder.title": "常量构建",
   "container.gensokyoontology.danmaku_builder.title": "弹幕构建",

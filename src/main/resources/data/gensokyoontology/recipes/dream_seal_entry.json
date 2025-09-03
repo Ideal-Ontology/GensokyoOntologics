@@ -5,9 +5,10 @@
     "count": 1
   },
   "recast_entry": {
-    "type": "gensokyoontology:skill",
-    "skill": {
-      "type": "gensokyoontology:dream_seal"
+    "type": "gensokyoontology:spell",
+    "spell": {
+      "item": "gensokyoontology:sc_dream_seal",
+      "count": 1
     }
   }
 }
