@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smelting",
+  "ingredient": {
+    "item": "gensokyoontology:ishi_zakura_cube"
+  },
+  "result": "gensokyoontology:ishi_zakura_gem",
+  "experience": 0.35,
+  "cookingtime": 1200
+}

@@ -1,0 +1,35 @@
+{
+  "type": "gensokyoontology:altar",
+  "power": 3.5,
+  "center_material": "gensokyoontology:ishi_zakura_gem",
+  "jigsaw_pattern": [
+    "O###O",
+    "XOOOX",
+    "XOOOX",
+    "XOOOX",
+    "O###O"
+  ],
+  "key": {
+    "#": "gensokyoontology:sakura_pattern_bricks",
+    "X": "gensokyoontology:totem_bricks",
+    "O": "gensokyootology:solar_pattern_bricks"
+  },
+  "output": {
+    "item": "gensokyoontology:yasagani_magatama",
+    "count": 1
+  },
+  "offerings": [
+    {
+      "item": "gensokyoontology:orb_jade"
+    },
+    {
+      "item": "gensokyoontology:orb_jade"
+    },
+    {
+      "item": "gensokyoontology:orb_jade"
+    },
+    {
+      "item": "gensokyoontology:orb_jade"
+    }
+  ]
+}

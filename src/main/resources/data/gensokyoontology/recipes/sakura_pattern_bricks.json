@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XOX",
+    "XXX"
+  ],
+  "key": {
+    "#": {
+      "item": "gensokyoontology:totem_bricks"
+    },
+    "O": {
+      "item": "gensokyoontology:cherry_blossom"
+    },
+    "X": {
+      "item": "gensokyoontology:kaolin"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:sakura_pattern_bricks",
+    "count": 3
+  }
+}

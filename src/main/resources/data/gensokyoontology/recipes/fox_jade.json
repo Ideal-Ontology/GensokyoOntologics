@@ -1,0 +1,35 @@
+{
+  "type": "gensokyoontology:altar",
+  "power": 1.0,
+  "center_material": "gensokyoontology:jade_level_ss",
+  "jigsaw_pattern": [
+    "#X#X#",
+    "XOOOX",
+    "#OOO#",
+    "XOOOX",
+    "#X#X#"
+  ],
+  "key": {
+    "#": "gensokyoontology:sakura_pattern_bricks",
+    "X": "gensokyoontology:totem_bricks",
+    "O": "gensokyoontology:eye_pattern_bricks"
+  },
+  "output": {
+    "item": "gensokyoontology:fox_jade",
+    "count": 1
+  },
+  "offerings": [
+    {
+      "item": "gensokyoontology:kudagitsune_tube"
+    },
+    {
+      "item": "gensokyoontology:kudagitsune_tube"
+    },
+    {
+      "item": "gensokyoontology:kudagitsune_tube"
+    },
+    {
+      "item": "gensokyoontology:kudagitsune_tube"
+    }
+  ]
+}

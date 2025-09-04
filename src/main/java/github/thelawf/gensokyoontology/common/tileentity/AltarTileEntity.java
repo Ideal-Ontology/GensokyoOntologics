@@ -24,11 +24,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 
 public class AltarTileEntity extends TileEntity implements ITickableTileEntity {
-    private final int slotCount = 8;
     private final ItemStackHandler itemHandler = createItemHandler();
     private final LazyOptional<IItemHandler> optionalHandler = LazyOptional.of(() -> itemHandler);
     public static final TranslationTextComponent CONTAINER_NAME = new TranslationTextComponent("container." +
-            GensokyoOntology.MODID + ".blessing_table.title");
+            GensokyoOntology.MODID + ".altar_table.title");
 
     public AltarTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
@@ -65,7 +64,8 @@ public class AltarTileEntity extends TileEntity implements ITickableTileEntity {
 
     }
     private ItemStackHandler createItemHandler() {
-        return new ItemStackHandler(this.slotCount) {
+        int slotCount = 9;
+        return new ItemStackHandler(slotCount) {
             @Override
             protected void onContentsChanged(int slot) {
                 markDirty();

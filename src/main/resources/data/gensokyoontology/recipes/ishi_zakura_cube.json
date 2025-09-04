@@ -1,0 +1,20 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "#X#",
+    "X#X",
+    "#X#"
+  ],
+  "key": {
+    "#": {
+      "item": "gensokyoontology:ishi_zakura"
+    },
+    "X": {
+      "item": "gensokyoontology:jade_level_ss"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:ishi_zakura_cube",
+    "count": 1
+  }
+}

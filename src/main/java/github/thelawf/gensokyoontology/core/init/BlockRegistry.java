@@ -144,6 +144,9 @@ public final class BlockRegistry {
             "wasabi", WasabiBlock::new);
 
     /////////////////////////////     工艺装饰类方块     ////////////////////////////////
+    public static final RegistryObject<Block> ISHI_ZAKURA_CUBE = BLOCKS.register(
+            "ishi_zakura_cube", () -> new Block(AbstractBlock.Properties.from(Blocks.GLASS)));
+
     public static final RegistryObject<GlassBlock> CHIREIDEN_COLORED_GLASS = BLOCKS.register(
             "chireiden_colored_glass", ChireitenColoredGlassBlock::new);
     public static final RegistryObject<Block> CLAY_ADOBE_BLOCK = BLOCKS.register("clay_adobe", ClayAdobeBlock::new);

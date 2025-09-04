@@ -388,6 +388,12 @@ public final class ItemRegistry {
     // public static final RegistryObject<EirinYagokoroArrow> EIRIN_YAGOKORO_ARROW = ITEMS.register(
     //         "eirin_yagokoro_arrow", () -> new EirinYagokoroArrow(new Item.Properties()
     //                 .group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> YASAGANI_MAGATAMA = ITEMS.register(
+            "yasagani_magatama", () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)
+                    .maxStackSize(1)));
+
+
     public static final RegistryObject<AyaFans> AYA_FANS = ITEMS.register(
             "aya_fans", () -> new AyaFans(new Item.Properties()
                     .group(GSKOItemTab.GSKO_ITEM_TAB).maxStackSize(1)));
@@ -477,6 +483,8 @@ public final class ItemRegistry {
 
     // public static final RegistryObject<Item> PAPER_SHIDE = ITEMS.register("paper_shide",
     //         () -> new PaperShide(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> FOX_JADE = ITEMS.register("fox_jade",
+            () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<Item> IZANO_OBJECT = ITEMS.register("izano_object",
             () -> new IzanoObject(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));

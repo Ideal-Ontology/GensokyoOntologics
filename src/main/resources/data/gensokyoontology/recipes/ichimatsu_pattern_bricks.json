@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "###",
+    "XOX",
+    "OXO"
+  ],
+  "key": {
+    "#": {
+      "item": "gensokyoontology:totem_bricks"
+    },
+    "O": {
+      "item": "gensokyoontology:kaolinite"
+    },
+    "X": {
+      "item": "gensokyoontology:kaolin"
+    }
+  },
+  "result": {
+    "item": "gensokyoontology:hemp_pattern_bricks",
+    "count": 3
+  }
+}

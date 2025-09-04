@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "##X",
+    "#OX",
+    "#XX"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:obsidian"
+    },
+    "O": {
+      "item": "gensokyoontology:kaolinite"
+    },
+    "X": {
+      "item": "minecraft:quartz_bricks"
+    }
+  },
+  "result": {
+    "item": "gensokyootology:totem_bricks",
+    "count": 4
+  }
+}
