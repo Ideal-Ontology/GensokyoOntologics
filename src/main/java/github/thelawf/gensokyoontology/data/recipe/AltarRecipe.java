@@ -17,7 +17,9 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.ForgeRegistryEntry;
@@ -25,6 +27,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Map;
+import java.util.Optional;
 
 public class AltarRecipe implements IAltarRecipe {
     private final NonNullList<Block> blocks;
@@ -42,6 +45,12 @@ public class AltarRecipe implements IAltarRecipe {
         this.centerMaterial = centerMaterial;
         this.recipeOutput = recipeOutput;
         this.powerConsumption = powerConsumption;
+    }
+
+    public static Optional<AltarRecipe> getInstance(ServerWorld world, IInventory inv, BlockPos pos) {
+        return world.getRecipeManager().getRecipesForType(RecipeRegistry.ALTAR_RECIPE).stream().filter(
+                        recipe -> recipe.matchesIncludePos(world, inv, pos))
+                .findFirst();
     }
 
     @Override

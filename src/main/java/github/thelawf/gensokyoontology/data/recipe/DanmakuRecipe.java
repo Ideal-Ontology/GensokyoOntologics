@@ -58,28 +58,13 @@ public class DanmakuRecipe implements IJigsawRecipe {
 
     /**
      * 由于原版合成配方不支持自动检测位于某个位置的方块，所以请参阅下列方法：
-     * @see DanmakuRecipe#matchesIncludePos(World, IInventory, BlockPos)
+     * @see IJigsawRecipe#matchesIncludePos(ServerWorld, IInventory, BlockPos)
      */
     @Override
     public boolean matches(IInventory inv, World worldIn) {
         return true;
         // if (this.center == null) return false;
         // return this.matchesIncludePos(worldIn, inv, this.center);
-    }
-
-    /**
-     * @param center 拼图图案中心方块的世界坐标
-     */
-    public boolean matchesIncludePos(World world, IInventory inv, BlockPos center) {
-        BlockPos.Mutable pos = new BlockPos.Mutable(center.getX() -2, center.getY(), center.getZ()-2);
-        int matches = 0;
-        for (int x = 0; x < 5; x++) {
-            for (int z = 0; z < 5; z++) {
-                pos.add(x, 0, z);
-                if (this.blockStates.get(x * 5 + z).equals(world.getBlockState(pos.add(x, 0, z)).getBlock())) matches++;
-            }
-        }
-        return matches == 25;
     }
 
     @Override

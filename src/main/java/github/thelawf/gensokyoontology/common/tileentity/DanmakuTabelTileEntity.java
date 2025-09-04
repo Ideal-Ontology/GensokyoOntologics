@@ -112,10 +112,6 @@ public class DanmakuTabelTileEntity extends TileEntity {
         Optional<DanmakuRecipe> optional = DanmakuRecipe.getInstance(serverWorld, inv, this.pos.down());
         if (!optional.isPresent()) return;
 
-        //FIXME:
-        //TODO:
-        // 1. 提供网络发包来向客户端同步能力数据
-        // 2. GUI图案显示错误，需要提供 server -> client 的网络发包来渲染当前拼图样式
         DanmakuRecipe recipe = optional.get();
         ItemStack stack = this.itemHandler.getStackInSlot(0);
         if (stack.isEmpty())

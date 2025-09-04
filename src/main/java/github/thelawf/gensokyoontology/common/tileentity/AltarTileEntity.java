@@ -1,7 +1,8 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.core.RecipeRegistry;
+import github.thelawf.gensokyoontology.data.recipe.AltarRecipe;
+import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
 import net.minecraft.block.BlockState;
 import net.minecraft.inventory.Inventory;
@@ -12,6 +13,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -20,16 +22,15 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.Optional;
 
-public class BlessingTileEntity extends TileEntity implements ITickableTileEntity {
+public class AltarTileEntity extends TileEntity implements ITickableTileEntity {
     private final int slotCount = 8;
     private final ItemStackHandler itemHandler = createItemHandler();
     private final LazyOptional<IItemHandler> optionalHandler = LazyOptional.of(() -> itemHandler);
     public static final TranslationTextComponent CONTAINER_NAME = new TranslationTextComponent("container." +
             GensokyoOntology.MODID + ".blessing_table.title");
 
-    public BlessingTileEntity(TileEntityType<?> tileEntityTypeIn) {
+    public AltarTileEntity(TileEntityType<?> tileEntityTypeIn) {
         super(tileEntityTypeIn);
     }
     public void checkCraft() {
@@ -38,9 +39,12 @@ public class BlessingTileEntity extends TileEntity implements ITickableTileEntit
             inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
     }
 
-    private void doCraft(SorceryExtractorRecipe recipe) {
-        itemHandler.insertItem(4, recipe.getRecipeOutput(), false);
-        this.markDirty();
+    public void tryCraft(){
+        if (this.world == null) return;
+        if (this.world.isRemote) return;
+
+        ServerWorld serverWorld = (ServerWorld)this.world;
+        AltarRecipe.getInstance(serverWorld, new Inventory(this.itemHandler.getSlots()), this.pos.down());
     }
 
     @Override
