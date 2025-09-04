@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.container;
 
+import github.thelawf.gensokyoontology.api.client.AbstractContainer;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.container.Container;
@@ -12,7 +13,7 @@ import net.minecraftforge.items.wrapper.InvWrapper;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-public abstract class WrapPlayerContainer extends Container {
+public abstract class WrapPlayerContainer extends Container{
     protected final IItemHandler playerInventory;
     protected WrapPlayerContainer(@Nullable ContainerType<?> type, PlayerInventory playerInventory, int id) {
         super(type, id);

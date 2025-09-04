@@ -65,59 +65,6 @@ public class GSKONBTUtil {
 
     public static void mergeSpell(Map<RecastEntry, Integer> map, CraftResultInventory resultInv) {}
 
-    public static void mergeEnchantment(CraftResultInventory resultInv, RecastEntry entry, int level) {
-        if (level <= 0) return;
-
-        ItemStack stack = resultInv.getStackInSlot(0).copy();
-        // entry.replaceEnchantLvl(level);
-
-        ListNBT listInStack = resultInv.getStackInSlot(0).getEnchantmentTagList();
-        ListNBT listInRecast = entry.getValue().getList("enchantments", 10);
-
-        // 创建合并后的列表
-        ListNBT mergedList = new ListNBT();
-        CompoundNBT enchantsMapping = new CompoundNBT();
-
-        // 创建映射表存储最高等级附魔
-        Map<String, Integer> enchantmentMap = new HashMap<>();
-        processEnchantmentList(listInStack, enchantmentMap);
-        processEnchantmentList(listInRecast, enchantmentMap);
-
-        // 将映射表转换回 ListNBT
-        for (Map.Entry<String, Integer> mapEntry : enchantmentMap.entrySet()) {
-            CompoundNBT enchantment = new CompoundNBT();
-            enchantment.putString("id", mapEntry.getKey());
-            enchantment.putInt("lvl", level);
-            mergedList.add(enchantment);
-        }
-
-
-        enchantsMapping.put("Enchantments", mergedList);
-        stack.setTag(enchantsMapping);
-
-        resultInv.setInventorySlotContents(0, stack);
-    }
-
-    private static void processEnchantmentList(ListNBT list, Map<String, Integer> map) {
-        for (INBT nbt : list) {
-            if (nbt instanceof CompoundNBT) {
-                CompoundNBT enchantment = (CompoundNBT) nbt;
-                String id = enchantment.getString("id");
-                int level = enchantment.getInt("lvl");
-
-                // 如果已有相同附魔，取等级更高的
-                if (map.containsKey(id)) {
-                    int currentLevel = map.get(id);
-                    if (level > currentLevel) {
-                        map.put(id, level);
-                    }
-                } else {
-                    map.put(id, level);
-                }
-            }
-        }
-    }
-
     public static boolean hasItemStack(PlayerEntity player, Item item) {
         for (int i = 0; i < player.inventory.getSizeInventory(); i++) {
             ItemStack stack = player.inventory.getStackInSlot(i);
@@ -197,42 +144,6 @@ public class GSKONBTUtil {
             return nbt;
         }
         return new CompoundNBT();
-    }
-
-    public static CompoundNBT putStory() {
-        String key = "story";
-        String storyText = "";
-        CompoundNBT nbt = new CompoundNBT();
-        nbt.putString(key, storyText);
-        return nbt;
-    }
-
-    public static CompoundNBT putRandomStory(List<String> stories) {
-        String key = "story";
-        CompoundNBT nbt = new CompoundNBT();
-        nbt.putString(key, stories.get(new Random().nextInt(stories.size())));
-        return nbt;
-    }
-
-    public static <T> CompoundNBT putStoryIf(Predicate<T> predicate, T t) {
-        if (predicate.test(t)) {
-            String key = "story";
-            CompoundNBT nbt = new CompoundNBT();
-            nbt.putString(key, predicate.toString());
-            return nbt;
-        }
-        return new CompoundNBT();
-    }
-
-    public static ItemStack removeAllChildNBTFromStack(ItemStack stack, CompoundNBT nbt) {
-        if (stack.getTag() == nbt && nbt != null) {
-            for (String key : nbt.keySet()) {
-                nbt.remove(key);
-                stack.setTag(nbt);
-            }
-            return stack;
-        }
-        return new ItemStack(stack.getItem());
     }
 
     public static Vector3d blockPosToVec(BlockPos blockPos) {

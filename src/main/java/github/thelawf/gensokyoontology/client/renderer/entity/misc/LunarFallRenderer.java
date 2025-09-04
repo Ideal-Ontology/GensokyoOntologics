@@ -16,11 +16,13 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
+import net.minecraftforge.client.model.CompositeModel;
 import org.jetbrains.annotations.NotNull;
+import org.joml.GeometryUtils;
 
 public class LunarFallRenderer extends EntityRenderer<LunarFall> {
 
-    public static final ResourceLocation BEAM_TEX = GensokyoOntology.withRL("textures/entity/beam_overlay.png");
+    public static final ResourceLocation BEAM_TEX = GensokyoOntology.withRL("textures/entity/beam_cutout.png");
     public static final ResourceLocation IMPACT_TEX = GensokyoOntology.withRL("textures/entity/impact.png");
 
     public LunarFallRenderer(EntityRendererManager renderManager) {
@@ -51,8 +53,10 @@ public class LunarFallRenderer extends EntityRenderer<LunarFall> {
 //            GeometryUtil.renderCylinder(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
 //                     16, 0.2F, height, 140F/ 255, 90F / 255, 230F / 255, 180F / 255);
 
+            GeometryUtil.renderCylinder(bufferIn.getBuffer(RenderType.getLightning()), matrixStackIn.getLast().getMatrix(),
+                    6, .58F, height, 1, 1, 1, 1);
             GeometryUtil.texturedCylinder(beamVertex, matrixStackIn, packedLightIn,
-                    0.4F, height, 6, Color4i.of(140, 90, 230, 150));
+                    .6F, height, 6, Color4i.of(140, 90, 230, 150));
             matrixStackIn.pop();
             return;
         }

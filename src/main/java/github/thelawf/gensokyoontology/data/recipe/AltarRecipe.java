@@ -10,7 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class AltarRecipe implements IAltarRecipe{
+public class AltarRecipe implements IAltarRecipe {
     @Override
     public int getUnitCount() {
         return 0;

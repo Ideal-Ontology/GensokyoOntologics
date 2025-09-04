@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.container.script;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.util.IntRange;
 import github.thelawf.gensokyoontology.core.init.ContainerRegistry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -77,4 +78,5 @@ public class BinaryOperationContainer extends ScriptBuilderContainer{
             }
         };
     }
+
 }

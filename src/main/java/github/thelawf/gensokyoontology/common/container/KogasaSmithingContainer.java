@@ -199,7 +199,7 @@ public class KogasaSmithingContainer extends AbstractContainer implements INBTRe
 
     @Override
     public IntRange getContainerSlotRange() {
-        return new IntRange(0, 5);
+        return new IntRange(0, 4);
     }
 
     public static final Map<ResourceLocation, BiConsumer<Map<RecastEntry, Integer>, CraftResultInventory>>

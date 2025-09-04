@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.container.script;
 
+import github.thelawf.gensokyoontology.api.util.IntRange;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.Inventory;

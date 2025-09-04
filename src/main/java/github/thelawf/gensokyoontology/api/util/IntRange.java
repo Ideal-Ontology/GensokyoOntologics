@@ -9,6 +9,10 @@ public class IntRange {
         this.max = max;
     }
 
+    public static IntRange of(int min, int max) {
+        return new IntRange(min, max);
+    }
+
     public boolean contains(int value) {
         return value >= min && value <= max;
     }
