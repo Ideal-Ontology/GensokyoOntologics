@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.core;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.data.recipe.AltarRecipe;
 import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import github.thelawf.gensokyoontology.data.recipe.KogasaSmithingRecipe;
 import github.thelawf.gensokyoontology.data.recipe.SorceryExtractorRecipe;
@@ -19,12 +20,16 @@ public class RecipeRegistry {
             "kogasa_smithing", KogasaSmithingRecipe.Serializer::new);
     public static final RegistryObject<SorceryExtractorRecipe.Serializer> SORCERY_SERIALIZER = RECIPE_SERIALIZERS.register(
             "sorcery_extract", SorceryExtractorRecipe.Serializer::new);
+
     public static final RegistryObject<DanmakuRecipe.Serializer> DANMAKU_CRAFT_SERIALIZER = RECIPE_SERIALIZERS.register(
             "danmaku", DanmakuRecipe.Serializer::new);
+    public static final RegistryObject<AltarRecipe.Serializer> ALTAR_SERIALIZER = RECIPE_SERIALIZERS.register(
+            "altar", AltarRecipe.Serializer::new);
 
     public static final IRecipeType<KogasaSmithingRecipe> KOGASA_SMITHING = new KogasaSmithingRecipe.Type();
     public static final IRecipeType<SorceryExtractorRecipe> SORCERY_RECIPE = new SorceryExtractorRecipe.Type();
     public static final IRecipeType<DanmakuRecipe> DANMAKU_RECIPE = new DanmakuRecipe.Type();
+    public static final IRecipeType<AltarRecipe> ALTAR_RECIPE = new AltarRecipe.Type();
 
     public static void register(IEventBus eventBus) {
         RECIPE_SERIALIZERS.register(eventBus);

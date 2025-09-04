@@ -93,18 +93,8 @@ public class DanmakuRecipe implements IJigsawRecipe {
     }
 
     @Override
-    public void setCenterPos(BlockPos pos){
-        this.center = pos;
-    }
-
-    @Override
     public NonNullList<Block> getJigsawPattern() {
         return this.blockStates;
-    }
-
-    @Override
-    public BlockPos getCenterPos() {
-        return this.center;
     }
 
     @Override
