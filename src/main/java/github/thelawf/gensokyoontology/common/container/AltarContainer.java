@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.container;
 
 import github.thelawf.gensokyoontology.api.client.AbstractContainer;
 import github.thelawf.gensokyoontology.api.util.IntRange;
+import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.data.recipe.RecastEntry;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -28,7 +29,7 @@ public class AltarContainer extends AbstractContainer {
         if (this.world.isRemote) return;
 
         ServerWorld serverWorld = (ServerWorld)this.world;
-        serverWorld.getRecipeManager().getRecipesForType()
+        serverWorld.getRecipeManager().getRecipesForType(RecipeRegistry.ALTAR_RECIPE);
     }
 
     @Override

@@ -1,104 +1,6 @@
 {
   "type": "gensokyoontology:altar",
   "power": 1.0,
-  "offerings": [
-    {
-      "item": "gensokyoontology:small_shot_red",
-      "count": 1,
-      "tag": {
-        "Enchantments": [
-          {
-            "id": "gensokyoontology:infinite_danmaku",
-            "lvl": 1
-          }
-        ]
-      }
-    },
-    {
-      "item": "gensokyoontology:small_shot_orange",
-      "count": 1,
-      "tag": {
-        "Enchantments": [
-          {
-            "id": "gensokyoontology:infinite_danmaku",
-            "lvl": 1
-          }
-        ]
-      }
-    },
-    {
-      "item": "gensokyoontology:small_shot_yellow",
-      "count": 1,
-      "tag": {
-        "Enchantments": [
-          {
-            "id": "gensokyoontology:infinite_danmaku",
-            "lvl": 1
-          }
-        ]
-      }
-    },
-    {
-      "item": "gensokyoontology:small_shot_green",
-      "count": 1,
-      "tag": {
-        "Enchantments": [
-          {
-            "id": "gensokyoontology:infinite_danmaku",
-            "lvl": 1
-          }
-        ]
-      }
-    },
-    {
-      "item": "gensokyoontology:small_shot_aqua",
-      "count": 1,
-      "tag": {
-        "Enchantments": [
-          {
-            "id": "gensokyoontology:infinite_danmaku",
-            "lvl": 1
-          }
-        ]
-      }
-    },
-    {
-      "item": "gensokyoontology:small_shot_blue",
-      "count": 1,
-      "tag": {
-        "Enchantments": [
-          {
-            "id": "gensokyoontology:infinite_danmaku",
-            "lvl": 1
-          }
-        ]
-      }
-    },
-    {
-      "item": "gensokyoontology:small_shot_purple",
-      "count": 1,
-      "tag": {
-        "Enchantments": [
-          {
-            "id": "gensokyoontology:infinite_danmaku",
-            "lvl": 1
-          }
-        ]
-      }
-    },
-    {
-      "item": "gensokyoontology:small_shot_magenta",
-      "count": 1,
-      "tag": {
-        "Enchantments": [
-          {
-            "id": "gensokyoontology:infinite_danmaku",
-            "lvl": 1
-          }
-        ]
-      }
-    }
-  ],
   "center_material": "gensokyoontology:spell_card_blank",
   "output": {
     "item": "gensokyontology:small_shot",
@@ -114,5 +16,47 @@
   "key": {
     "O": "gensokyoontology:totem_bricks",
     "X": "gensokyoontology:hemp_pattern_bricks"
-  }
+  },
+  "offerings": [
+    {
+      "item": "gensokyoontology:small_shot_red",
+      "count": 1,
+      "nbt": "{Enchantments: [{id: \"gensokyoontology:infinite_danmaku\",lvl: 1}]}"
+    },
+    {
+      "item": "gensokyoontology:small_shot_orange",
+      "count": 1,
+      "nbt": "{Enchantments: [{id: \"gensokyoontology:infinite_danmaku\",lvl: 1}]}"
+    },
+    {
+      "item": "gensokyoontology:small_shot_yellow",
+      "count": 1,
+      "nbt": "{Enchantments: [{id: \"gensokyoontology:infinite_danmaku\",lvl: 1}]}"
+    },
+    {
+      "item": "gensokyoontology:small_shot_green",
+      "count": 1,
+      "nbt": "{Enchantments: [{id: \"gensokyoontology:infinite_danmaku\",lvl: 1}]}"
+    },
+    {
+      "item": "gensokyoontology:small_shot_aqua",
+      "count": 1,
+      "nbt": "{Enchantments: [{id: \"gensokyoontology:infinite_danmaku\",lvl: 1}]}"
+    },
+    {
+      "item": "gensokyoontology:small_shot_blue",
+      "count": 1,
+      "nbt": "{Enchantments: [{id: \"gensokyoontology:infinite_danmaku\",lvl: 1}]}"
+    },
+    {
+      "item": "gensokyoontology:small_shot_purple",
+      "count": 1,
+      "nbt": "{Enchantments: [{id: \"gensokyoontology:infinite_danmaku\",lvl: 1}]}"
+    },
+    {
+      "item": "gensokyoontology:small_shot_magenta",
+      "count": 1,
+      "nbt": "{Enchantments: [{id: \"gensokyoontology:infinite_danmaku\",lvl: 1}]}"
+    }
+  ]
 }
