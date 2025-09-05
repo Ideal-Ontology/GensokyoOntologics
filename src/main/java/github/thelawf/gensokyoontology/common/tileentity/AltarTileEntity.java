@@ -38,6 +38,7 @@ public class AltarTileEntity extends TileEntity implements ITickableTileEntity {
             inv.setInventorySlotContents(i, itemHandler.getStackInSlot(i));
     }
 
+    //TODO: 添加合成配方和战利品表
     public void tryCraft(){
         if (this.world == null) return;
         if (this.world.isRemote) return;

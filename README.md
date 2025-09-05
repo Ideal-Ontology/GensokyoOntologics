@@ -45,6 +45,30 @@ If you want to parse it, use `org.w3c.dom.Document`.
 - 驱魔/祈福仪式：使用魔法、祈福、舞蹈或吟唱驱动的魔法类物品合成，多为魔法伤害
 - 唐伞妖怪锻造台：强化/合成物品，多用作物理伤害
 
+### 主世界游玩流程 Overworld Process
+```mermaid
+flowchart TD
+    overworldM["主世界挖矿"]-->kaolin["高岭土"]
+    overworldM-->kaolinite["高岭石"]
+    
+    overworldM-->obsidian["黑曜石"]
+    overworldM-->izano["伊奘诺物质"]
+    overworldE["主世界生物掉落"]-->enderman["末影人"]-->endPearl["末影珍珠"]
+    overworldC["主世界战利品宝箱"]-->village["村庄"]-->GSKOtales["被遗忘的传说：幻想乡"]
+    
+    kaolin-->jigsawBlocks["用于合成拼图系列方块"]
+    kaolinite-->jigsawBlocks
+    netherM["下界挖矿"]-->quartz["石英"]
+    
+    quartz-->craftSorcery["合成魔力提取台"]
+    obsidian-->craftSorcery
+    izano-->craftSorcery-->obRecipe["神秘珠合成配方"]
+    izano-->obRecipe
+    endPearl-->obRecipe
+    GSKOtales-->obRecipe
+    obRecipe-->occultBall["神秘珠"]
+```
+
 ```mermaid
 flowchart LR
     LoginGensokyo-->Mines["玉石（独有）龙珠（独有）"]

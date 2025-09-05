@@ -78,7 +78,28 @@
       "minecraft:canyon"
     ]
   },
-  "spawners": {},
+  "spawners": {
+    "creature": [
+      {
+        "type": "minecraft:sheep",
+        "weight": 2,
+        "minCount": 2,
+        "maxCount": 5
+      },
+      {
+        "type": "minecraft:pig",
+        "weight": 2,
+        "minCount": 2,
+        "maxCount": 5
+      },
+      {
+        "type": "minecraft:cow",
+        "weight": 2,
+        "minCount": 2,
+        "maxCount": 5
+      }
+    ]
+  },
   "starts": [
     "gensokyoontology:human_village"
   ]
