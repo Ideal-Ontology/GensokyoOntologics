@@ -1,20 +1,13 @@
 package github.thelawf.gensokyoontology.common.entity.ai.brain;
 
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.gen.feature.structure.VillageStructure;
-import net.minecraft.world.gen.feature.structure.VillagesPools;
-import net.minecraft.world.spawner.WorldEntitySpawner;
 
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class BoidsUtil {
     public static <E extends MobEntity> void separate(World world, List<E> boids, E mob, double distance) {

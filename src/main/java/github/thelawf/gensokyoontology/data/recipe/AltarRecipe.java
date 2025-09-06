@@ -75,11 +75,13 @@ public class AltarRecipe implements IAltarRecipe {
                             .ifPresent(onbashira -> itemMatches.addAndGet(this.offerings.stream()
                                     .anyMatch(offer -> offer.test(onbashira.getMaterial())) ? 1 : 0));
                 }
-                blockMatches += world.getBlockState(center.add(x, y, z)).getBlock() ==
-                        BlockRegistry.ONBASHIRA_TOP_BLOCK.get() ? 1 : 0;
+                else {
+                    blockMatches += world.getBlockState(center.add(x, y, z)).getBlock() ==
+                            BlockRegistry.ONBASHIRA_BLOCK.get() ? 1 : 0;
+                }
             }
         }
-        return blockMatches == 24 & jigsawMatches & itemMatches.get() == this.offerings.size();
+        return jigsawMatches & blockMatches == 24 & itemMatches.get() == this.offerings.size();
     }
 
     @Override
