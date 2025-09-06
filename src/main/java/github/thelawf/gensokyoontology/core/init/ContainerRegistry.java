@@ -34,6 +34,10 @@ public final class ContainerRegistry {
                         World world = inv.player.world;
                         return new SorceryExtractorContainer(windowId, world, pos, inv);
                     })));
+    public static final RegistryObject<ContainerType<AltarContainer>> ALTAR_CONTAINER =
+            CONTAINERS.register("altar_container", () -> IForgeContainerType.create(
+                    (windowId, inv, data) -> new AltarContainer(windowId, inv, data.readBlockPos())));
+
     public static final RegistryObject<ContainerType<BinaryOperationContainer>> BINARY_OPERATION_CONTAINER =
             CONTAINERS.register("binary_operation_container", () -> IForgeContainerType.create(
                     ((windowId, inv, data) -> new BinaryOperationContainer(windowId, inv))));

@@ -31,7 +31,7 @@ import java.util.List;
 public class HumanVillageStructure extends Structure<NoFeatureConfig> {
 
     private static final ImmutableList<MobSpawnInfo.Spawners> HUMAN_RESIDENTS = ImmutableList.of(
-            new MobSpawnInfo.Spawners(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), 50, 8, 15));
+            new MobSpawnInfo.Spawners(EntityRegistry.HUMAN_RESIDENT_ENTITY.get(), 1, 15, 25));
 
     public HumanVillageStructure(Codec<NoFeatureConfig> codec) {
         super(codec);
@@ -44,7 +44,7 @@ public class HumanVillageStructure extends Structure<NoFeatureConfig> {
     }
 
     @Override
-    public List<MobSpawnInfo.Spawners> getSpawnList() {
+    public List<MobSpawnInfo.Spawners> getDefaultSpawnList() {
         return HUMAN_RESIDENTS;
     }
 

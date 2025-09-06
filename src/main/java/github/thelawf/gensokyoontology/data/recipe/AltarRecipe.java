@@ -209,7 +209,7 @@ public class AltarRecipe implements IAltarRecipe {
         }
     }
 
-    public List<Pair<Integer, Integer>> ONBASHIRA_POS = ImmutableList.of(
+    public static final List<Pair<Integer, Integer>> ONBASHIRA_POS = ImmutableList.of(
               Pair.of(-1, -2), Pair.of(1, -2),
             Pair.of(-2, -1),     Pair.of(2, -1),
             Pair.of(-2,  1),     Pair.of(2,  1),
