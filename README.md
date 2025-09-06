@@ -45,7 +45,7 @@ If you want to parse it, use `org.w3c.dom.Document`.
 - 驱魔/祈福仪式：使用魔法、祈福、舞蹈或吟唱驱动的魔法类物品合成，多为魔法伤害
 - 唐伞妖怪锻造台：强化/合成物品，多用作物理伤害
 
-### 主世界游玩流程 Overworld Process
+### 物品合成树（主世界部分）
 ```mermaid
 flowchart TD
     overworldM["主世界挖矿"]-->kaolin["高岭土"]
@@ -68,6 +68,61 @@ flowchart TD
     GSKOtales-->obRecipe
     obRecipe-->occultBall["神秘珠"]
 ```
+### 物品合成树（玉石、石樱、绯色合金）
+```mermaid
+flowchart TD
+  gskoC["幻想乡战利品宝箱"]-->jade["玉石"]
+  gskoM["幻想乡挖矿"]-->jade
+  gskoM-->dragonS["龙珠"]
+  dragonS-->spiritRecipe["阴阳爻合成配方"]
+  spiritRecipe-->spirit["阴阳爻"]
+  
+  gskoM-->kaolin["高岭土"]
+  gskoM-->kaolinite["高岭石"]
+  kaolin-->jigsaws["拼图系列方块"]
+  kaolinite-->jigsaws
+  
+  gskoM-->obsidian["黑曜石"]
+  obsidian-->cameraRecipe["文文的相机：祭坛合成"]
+  cameraRecipe-->camera["文文的相机"]
+  gskoM-->alloy["绯色合金"]
+  
+  alloy-->alloyEquips["绯色合金装备"]
+  alloy-->alloyArms["绯色合金武器"]
+  
+  jade-->jadeGam["赌石"]-->lvlS["S级玉石"]
+  jadeGam-->lvlSS["S级玉石"]-->inyoRecipe["阴阳玉：祭坛合成配方"]
+  lvlSS-->jadeEquips["玉石装备"]
+  lvlSS-->jadeArms["玉石武器"]
+  
+  inyoRecipe-->inyoBlack["阴阳玉：黑色"]
+  spirit-->inyoRecipe
+  
+  alloy-->hakeiroRecipe["八卦炉：祭坛合成"]
+  inyoBlack-->hakeiroRecipe
+  hakeiroRecipe-->hakeiro["八卦炉"]
+  
+  gskoE["幻想乡：生物掉落物"]-->zako["杂鱼妖精"]
+  zako-->dan["弹幕"]
+  dan-->danRecipe["弹幕合成台合成"]-->smallDan["小弹"]
+  danRecipe-->midDan["中型弹幕"]
+  zako-->spectre["幽灵"]-->sufferSoul["痛苦的灵魂"]
+  sufferSoul-->spiritRecipe
+  
+  zako-->kedama["毛玉"]-->kdmFur["毛玉的皮毛"]
+  zako-->inyoE["阴阳玉实体"]-->fireCharge["火焰弹"]
+  
+  gskoB["幻想乡：方块掉落物"]-->sakura["樱花树叶"]-->cherry["樱花花瓣"]
+  zako-->fairy["妖精"]-->ishiF["石樱碎片"]
+  cherry-->ishiCRecipe["石樱结晶：工作台合成"]
+  ishiF-->ishiCRecipe
+  ishiCRecipe-->ishiC["石樱结晶"]
+    
+  ishiC-->ishiBRecipe
+  lvlSS-->ishiBRecipe
+  ishiBRecipe-->ishiB["石樱立方"]
+```
+
 
 ```mermaid
 flowchart LR

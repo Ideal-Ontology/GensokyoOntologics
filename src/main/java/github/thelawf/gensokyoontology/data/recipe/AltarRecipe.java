@@ -1,11 +1,14 @@
 package github.thelawf.gensokyoontology.data.recipe;
 
+import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
+import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.Item;
@@ -26,8 +29,10 @@ import net.minecraftforge.registries.ForgeRegistryEntry;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class AltarRecipe implements IAltarRecipe {
     private final NonNullList<Block> blocks;
@@ -51,6 +56,30 @@ public class AltarRecipe implements IAltarRecipe {
         return world.getRecipeManager().getRecipesForType(RecipeRegistry.ALTAR_RECIPE).stream().filter(
                         recipe -> recipe.matchesIncludePos(world, inv, pos))
                 .findFirst();
+    }
+
+    @Override
+    public boolean matchesIncludePos(ServerWorld world, IInventory inv, BlockPos center) {
+        boolean jigsawMatches = IAltarRecipe.super.matchesIncludePos(world, inv, center);
+        int blockMatches = 0;
+        AtomicInteger itemMatches = new AtomicInteger();
+        for (int z = 1; z <= 3; z++) {
+            for (int i = 0; i < 8; i++) {
+                int x = ONBASHIRA_POS.get(i).getFirst();
+                int y = ONBASHIRA_POS.get(i).getSecond();
+                if (z == 3){
+                    blockMatches += world.getBlockState(center.add(x, y, z)).getBlock() ==
+                            BlockRegistry.ONBASHIRA_TOP_BLOCK.get() ? 1 : 0;
+
+                    GSKOUtil.getTileByType(world, center.add(x, y, z), TileEntityRegistry.ONBASHIRA_TILE_ENTITY.get())
+                            .ifPresent(onbashira -> itemMatches.addAndGet(this.offerings.stream()
+                                    .anyMatch(offer -> offer.test(onbashira.getMaterial())) ? 1 : 0));
+                }
+                blockMatches += world.getBlockState(center.add(x, y, z)).getBlock() ==
+                        BlockRegistry.ONBASHIRA_TOP_BLOCK.get() ? 1 : 0;
+            }
+        }
+        return blockMatches == 24 & jigsawMatches & itemMatches.get() == this.offerings.size();
     }
 
     @Override
@@ -125,129 +154,6 @@ public class AltarRecipe implements IAltarRecipe {
         }
     }
 
-    /**
-     * 该合成配方的格式同样为拼图合成格式，（以 sc_mobius_ring.json 为例）：<br>
-     * <code>
-     *     {<br>
-     *         "type": "gensokyoontology:altar",<br>
-     *         "power": 1.0,<br>
-     *         "offerings": [<br>
-     *           {<br>
-     *              "item": "gensokyoontology:small_shot_red",<br>
-     *              "count": 1,<br>
-     *              "tag":{<br>
-     *                "Enchantments": [<br>
-     *                  {<br>
-     *                    "id": "gensokyoontology:infinite_danmaku",<br>
-     *                    "lvl": 1<br>
-     *                  }<br>
-     *               ]<br>
-     *             }<br>
-     *           },<br>
-     *            {<br>
-     *              "item": "gensokyoontology:small_shot_orange",<br>
-     *              "count": 1,<br>
-     *              "tag":{<br>
-     *                "Enchantments": [<br>
-     *                  {<br>
-     *                    "id": "gensokyoontology:infinite_danmaku",<br>
-     *                    "lvl": 1<br>
-     *                  }<br>
-     *               ]<br>
-     *             }<br>
-     *           }, <br>
-     *           {<br>
-     *               "item": "gensokyoontology:small_shot_yellow",<br>
-     *               "count": 1,<br>
-     *               "tag":{<br>
-     *                 "Enchantments": [<br>
-     *                   {<br>
-     *                     "id": "gensokyoontology:infinite_danmaku",<br>
-     *                     "lvl": 1<br>
-     *                   }<br>
-     *                ]<br>
-     *              }<br>
-     *            },<br>
-     *           {<br>
-     *               "item": "gensokyoontology:small_shot_green",<br>
-     *               "count": 1,<br>
-     *               "tag":{<br>
-     *                 "Enchantments": [<br>
-     *                   {<br>
-     *                     "id": "gensokyoontology:infinite_danmaku",<br>
-     *                     "lvl": 1<br>
-     *                   }<br>
-     *                ]<br>
-     *              }<br>
-     *            },<br>
-     *           {<br>
-     *               "item": "gensokyoontology:small_shot_aqua",<br>
-     *               "count": 1,<br>
-     *               "tag":{<br>
-     *                 "Enchantments": [<br>
-     *                   {<br>
-     *                     "id": "gensokyoontology:infinite_danmaku",<br>
-     *                     "lvl": 1<br>
-     *                   }<br>
-     *                ]<br>
-     *              }<br>
-     *            },<br>
-     *           {<br>
-     *               "item": "gensokyoontology:small_shot_blue",<br>
-     *               "count": 1,<br>
-     *               "tag":{<br>
-     *                 "Enchantments": [<br>
-     *                   {<br>
-     *                     "id": "gensokyoontology:infinite_danmaku",<br>
-     *                     "lvl": 1<br>
-     *                   }<br>
-     *                ]<br>
-     *              }<br>
-     *            },<br>
-     *           {<br>
-     *               "item": "gensokyoontology:small_shot_purple",<br>
-     *               "count": 1,<br>
-     *               "tag":{<br>
-     *                 "Enchantments": [<br>
-     *                   {<br>
-     *                     "id": "gensokyoontology:infinite_danmaku",<br>
-     *                     "lvl": 1<br>
-     *                   }<br>
-     *                ]<br>
-     *              }<br>
-     *            },<br>
-     *           {<br>
-     *               "item": "gensokyoontology:small_shot_magenta",<br>
-     *               "count": 1,<br>
-     *               "tag":{<br>
-     *                 "Enchantments": [<br>
-     *                   {<br>
-     *                     "id": "gensokyoontology:infinite_danmaku",<br>
-     *                     "lvl": 1<br>
-     *                   }<br>
-     *                ]<br>
-     *              }<br>
-     *            },<br>
-     *         ],<br>
-     *         "center_material": "gensokyoontology:spell_card_blank"<br>
-     *         "output": {<br>
-     *              "item": "gensokyontology:small_shot",<br>
-     *              "count": 1<br>
-     *         }<br>
-     *         "jigsaw_pattern": [<br>
-     *             "OXXXO", <br>
-     *             "XOOOX" <br>
-     *             "OXXXO", <br>
-     *             "XOOOX", <br>
-     *             "OXXXO", <br>
-     *         ],<br>
-     *         "key": {<br>
-     *         "O": "gensokyoontology:totem_bricks",<br>
-     *         "X": "gensokyoontology:hemp_pattern_bricks"<br>
-     *         }<br>
-     *     }<br>
-     * </code>
-     * */
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<AltarRecipe> {
 
         @Override
@@ -277,7 +183,7 @@ public class AltarRecipe implements IAltarRecipe {
             Item centerMaterial = ForgeRegistries.ITEMS.getValue(new ResourceLocation(buffer.readString()));
 
             int size = buffer.readVarInt();
-            NonNullList<Block> jigsawBlocks = NonNullList.withSize(size, BlockRegistry.ALTAR_FLOOR_BLOCK.get());
+            NonNullList<Block> jigsawBlocks = NonNullList.withSize(size, BlockRegistry.TOTEM_BRICKS.get());
             jigsawBlocks.replaceAll(ignored -> GSKOUtil.readBlockData(buffer));
 
             int i = buffer.readVarInt();
@@ -302,4 +208,11 @@ public class AltarRecipe implements IAltarRecipe {
             }
         }
     }
+
+    public List<Pair<Integer, Integer>> ONBASHIRA_POS = ImmutableList.of(
+              Pair.of(-1, -2), Pair.of(1, -2),
+            Pair.of(-2, -1),     Pair.of(2, -1),
+            Pair.of(-2,  1),     Pair.of(2,  1),
+              Pair.of(-1 , 2), Pair.of(1,  2)
+    );
 }

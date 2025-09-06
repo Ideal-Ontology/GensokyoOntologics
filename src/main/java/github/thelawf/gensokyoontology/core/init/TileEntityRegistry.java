@@ -20,12 +20,18 @@ public final class TileEntityRegistry {
     public static final RegistryObject<TileEntityType<GapTileEntity>> GAP_TILE_ENTITY =
             TILE_ENTITIES.register("sukima_tileentity", () -> TileEntityType.Builder.create(
                     GapTileEntity::new, BlockRegistry.GAP_BLOCK.get()).build(null));
+
+    public static final RegistryObject<TileEntityType<OnbashiraTileEntity>> ONBASHIRA_TILE_ENTITY =
+            TILE_ENTITIES.register("onbashira_tileentity", () -> TileEntityType.Builder.create(
+                    OnbashiraTileEntity::new, BlockRegistry.ONBASHIRA_BLOCK.get()).build(null));
+
     public static final RegistryObject<TileEntityType<SorceryExtractorTileEntity>> SORCERY_EXTRACTOR_TILE_ENTITY =
             TILE_ENTITIES.register("sorcery_tileentity", () -> TileEntityType.Builder.create(
                     SorceryExtractorTileEntity::new, BlockRegistry.SORCERY_EXTRACTOR.get()).build(null));
     public static final RegistryObject<TileEntityType<SaisenBoxTileEntity>> SAISEN_BOX_TILE_ENTITY =
             TILE_ENTITIES.register("saisen_box_tileentity", () -> TileEntityType.Builder.create(
                     SaisenBoxTileEntity::new, BlockRegistry.SAISEN_BOX.get()).build(null));
+
     public static final RegistryObject<TileEntityType<DisposableSpawnerTile>> DISPOSABLE_SPAWNER_TILE_ENTITY =
             TILE_ENTITIES.register("disposable_spawner_tileentity", () -> TileEntityType.Builder.create(
                     DisposableSpawnerTile::new, BlockRegistry.DISPOSABLE_SPAWNER.get()).build(null));

@@ -201,7 +201,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
             ItemStack output = buffer.readItemStack();
             int i = buffer.readVarInt();
 
-            NonNullList<Block> jigsawBlocks = NonNullList.withSize(i, BlockRegistry.ALTAR_FLOOR_BLOCK.get());
+            NonNullList<Block> jigsawBlocks = NonNullList.withSize(i, BlockRegistry.TOTEM_BRICKS.get());
             jigsawBlocks.replaceAll(ignored -> GSKOUtil.readBlockData(buffer));
             return new DanmakuRecipe(recipeId, jigsawBlocks, unit, powerConsume, output);
         }

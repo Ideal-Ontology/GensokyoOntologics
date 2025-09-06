@@ -212,11 +212,11 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> ONBASHIRA_BLOCK = BLOCKS.register("onbashira", OnbaishiraBlock::new);
     public static final RegistryObject<Block> ALTAR_TABLE_BLOCK = BLOCKS.register("altar_table", () -> new AltarTableBlock(
             AbstractBlock.Properties.from(Blocks.SMITHING_TABLE)));
-    public static final RegistryObject<Block> ALTAR_FLOOR_BLOCK = BLOCKS.register("altar_floor", () -> new Block(
+    public static final RegistryObject<Block> ONBASHIRA_FLOOR_BLOCK = BLOCKS.register("onbashira_floor", () -> new Block(
             AbstractBlock.Properties.from(Blocks.QUARTZ_BLOCK)));
-    public static final RegistryObject<Block> ALTAR_STAIRS_BLOCK = BLOCKS.register("altar_stairs", () -> new Block(
+    public static final RegistryObject<Block> ONBASHIRA_COLUMN_BLOCK = BLOCKS.register("onbashira_column", () -> new Block(
             AbstractBlock.Properties.from(Blocks.QUARTZ_STAIRS)));
-    public static final RegistryObject<Block> SHRINE_LANTERN_BLOCK = BLOCKS.register("shrine_lantern", () -> new Block(
+    public static final RegistryObject<Block> ONBASHIRA_TOP_BLOCK = BLOCKS.register("onbashira_top", () -> new Block(
             AbstractBlock.Properties.from(Blocks.STONE)));
 
     public static final RegistryObject<Block> KOGASA_SMITHING_TABLE = BLOCKS.register("kogasa_smithing_table", KogasaSmithingTable::new);
