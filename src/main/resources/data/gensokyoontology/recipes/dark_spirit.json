@@ -10,11 +10,11 @@
       "item": "minecraft:obsidian"
     },
     "X": {
-      "item": "gensokyoontology:izano_object"
+      "item": "gensokyoontology:kind_soul"
     }
   },
   "result": {
     "item": "gensokyoontology:dark_spirit",
-    "count": 3
+    "count": 2
   }
 }

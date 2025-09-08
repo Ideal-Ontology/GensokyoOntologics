@@ -10,11 +10,11 @@
       "item": "minecraft:quartz_block"
     },
     "X": {
-      "item": "gensokyoontology:izano_object"
+      "item": "gensokyoontology:evil_soul"
     }
   },
   "result": {
     "item": "gensokyoontology:light_spirit",
-    "count": 3
+    "count": 2
   }
 }

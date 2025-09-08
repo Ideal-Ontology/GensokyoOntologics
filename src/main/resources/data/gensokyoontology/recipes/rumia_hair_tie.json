@@ -1,0 +1,21 @@
+{
+  "type": "gensokyoontology:sorcery_extract",
+  "ingredients": [
+    {
+      "item": "minecraft:red_wool"
+    },
+    {
+      "item": "minecraft:white_wool"
+    },
+    {
+      "item": "gensokyoontology:inyo_jade_red"
+    },
+    {
+      "item": "gensokyoontology:darkness"
+    }
+  ],
+  "output": {
+    "item": "gensokyoontology:rumia_hair_tie",
+    "count": 1
+  }
+}

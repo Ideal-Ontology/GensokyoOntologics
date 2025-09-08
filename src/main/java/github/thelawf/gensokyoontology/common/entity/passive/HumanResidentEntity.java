@@ -1,12 +1,16 @@
 package github.thelawf.gensokyoontology.common.entity.passive;
 
+import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.common.capability.entity.VillagerOrder;
+import github.thelawf.gensokyoontology.common.entity.ai.brain.BrainUtils;
 import github.thelawf.gensokyoontology.common.entity.trade.GSKOTrades;
-import net.minecraft.command.impl.data.EntityDataAccessor;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.ai.brain.Brain;
+import net.minecraft.entity.ai.brain.schedule.Activity;
+import net.minecraft.entity.ai.brain.schedule.Schedule;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerData;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
@@ -19,7 +23,6 @@ import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.pathfinding.PathNavigator;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -54,17 +57,51 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         super.registerGoals();
     }
 
+    /**
+     * <code lang="mermaid">
+     *  stateDiagram<br>
+     *   [*] --> stroll<br>
+     *   stroll --> panic<br>
+     *   panic --> stroll<br>
+     *   stroll --> order<br>
+     *   stroll --> findBed<br>
+     *   panic --> findBed<br>
+     *   order --> findBed<br>
+     *   findBed --> sleep<br>
+     *   sleep --> stroll<br>
+     * </code>
+     */
+    @Override
+    protected Brain<?> createBrain(Dynamic<?> dynamic) {
+        Brain<HumanResidentEntity> brain = this.getBrainCodec().deserialize(dynamic);
+        this.initBrain(brain);
+        return brain;
+    }
+
+    @Override
+    protected Brain.BrainCodec<HumanResidentEntity> getBrainCodec() {
+        return Brain.createCodec(BrainUtils.HUMAN_MEMORIES, BrainUtils.SENSOR_TYPES);
+    }
+
+    @Override
+    public Brain<?> getBrain() {
+        return super.getBrain();
+    }
+
+    public void initBrain(Brain<HumanResidentEntity> brain) {
+        brain.setSchedule(Schedule.VILLAGER_DEFAULT);
+        brain.registerActivity(Activity.CORE, BrainUtils.CORE);
+        brain.registerActivity(Activity.IDLE, BrainUtils.idle());
+
+        brain.setPersistentActivities(ImmutableSet.of(Activity.CORE));
+        brain.setFallbackActivity(Activity.IDLE);
+    }
+
     @Nullable
     @Override
     public AgeableEntity createChild(ServerWorld world, AgeableEntity mate) {
         return null;
     }
-
-    @Override
-    protected PathNavigator createNavigator(World worldIn) {
-        return super.createNavigator(worldIn);
-    }
-
 
     @Override
     protected void onVillagerTrade(MerchantOffer offer) {
@@ -76,7 +113,7 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
     }
 
     public VillagerOrder getOrder() {
-        return VillagerOrder.decode(this.dataManager.get(DATA_ORDER));
+        return VillagerOrder.deserialize(this.dataManager.get(DATA_ORDER));
     }
 
     public void setOrder(VillagerOrder order) {
@@ -127,8 +164,8 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         switch (random.nextInt(3)){
             case 0:
                 return VillagerProfession.MASON;
-            default:
             case 1:
+            default:
                 return VillagerProfession.FARMER;
         }
     }

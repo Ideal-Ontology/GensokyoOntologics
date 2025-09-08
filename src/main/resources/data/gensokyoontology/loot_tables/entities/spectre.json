@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "gensokyoontology:spirit_fragment",
+          "name": "gensokyoontology:spectre_fragment",
           "conditions": [
             {
               "condition": "minecraft:random_chance_with_looting",

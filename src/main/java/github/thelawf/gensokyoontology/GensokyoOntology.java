@@ -14,7 +14,7 @@ import github.thelawf.gensokyoontology.common.world.surface.GSKOSurfaceBuilders;
 import github.thelawf.gensokyoontology.core.EnchantRegistry;
 import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.RecipeRegistry;
-import github.thelawf.gensokyoontology.core.SerializerRegistry;
+import github.thelawf.gensokyoontology.core.GSKORegistry;
 import github.thelawf.gensokyoontology.core.init.*;
 import net.minecraft.client.gui.ScreenManager;
 import net.minecraft.client.renderer.RenderType;
@@ -74,7 +74,7 @@ public class GensokyoOntology {
         TileEntityRegistry.TILE_ENTITIES.register(eventBus);
         EntityRegistry.ENTITIES.register(eventBus);
         ContainerRegistry.CONTAINERS.register(eventBus);
-        SerializerRegistry.SPELL_DATA_SERIALIZER.register(eventBus);
+        GSKORegistry.SPELL_DATA_SERIALIZER.register(eventBus);
         FeatureRegistry.FEATURES.register(eventBus);
 
         GSKOBiomes.BIOMES.register(eventBus);

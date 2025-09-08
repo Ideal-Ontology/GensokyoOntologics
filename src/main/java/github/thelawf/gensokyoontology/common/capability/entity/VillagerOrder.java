@@ -7,7 +7,6 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.nbt.StringNBT;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +28,6 @@ public class VillagerOrder implements IVillagerOrder {
         this.drinks = ItemStack.EMPTY;
         this.favouriteTags = new ArrayList<>();
     }
-
 
     @Override
     public void setAppetizer(ItemStack appetizer) {
@@ -122,7 +120,7 @@ public class VillagerOrder implements IVillagerOrder {
         // this.favouriteTags.replaceAll(tag -> listNBT.forEachAct(nbt -> ItemStack.read(nbt)));
     }
 
-    public static VillagerOrder decode(CompoundNBT nbt){
+    public static VillagerOrder deserialize(CompoundNBT nbt){
         VillagerOrder order = new VillagerOrder();
         order.deserializeNBT(nbt);
         return order;

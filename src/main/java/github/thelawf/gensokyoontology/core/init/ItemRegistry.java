@@ -474,15 +474,15 @@ public final class ItemRegistry {
 
     public static final RegistryObject<Item> CHERRY_BLOSSOM = ITEMS.register("cherry_blossom",
             () -> new CherryBlossom(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
-    public static final RegistryObject<Item> WANDERING_SOUL = ITEMS.register("wandering_soul",
-            () -> new WanderingSoul(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-
     public static final RegistryObject<Item> WASHI_PAPER = ITEMS.register("washi_paper",
             () -> new WashiPaper(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
-    // public static final RegistryObject<Item> PAPER_SHIDE = ITEMS.register("paper_shide",
-    //         () -> new PaperShide(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> SPECTRE_FRAG = ITEMS.register("spectre_fragment",
+            () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
+    public static final RegistryObject<Item> WANDERING_SOUL = ITEMS.register("wandering_soul",
+            () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
     public static final RegistryObject<Item> FOX_JADE = ITEMS.register("fox_jade",
             () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
