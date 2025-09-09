@@ -28,6 +28,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Random;
@@ -75,19 +76,20 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
      * </code>
      */
     @Override
-    protected Brain<HumanResidentEntity> createBrain(Dynamic<?> dynamic) {
+    protected @NotNull Brain<HumanResidentEntity> createBrain(Dynamic<?> dynamic) {
         Brain<HumanResidentEntity> brain = this.getBrainCodec().deserialize(dynamic);
         this.initBrain(brain);
         return brain;
     }
 
     @Override
-    protected Brain.BrainCodec<HumanResidentEntity> getBrainCodec() {
+    protected Brain.@NotNull BrainCodec<HumanResidentEntity> getBrainCodec() {
         return Brain.createCodec(BrainUtils.HUMAN_MEMORIES, BrainUtils.SENSOR_TYPES);
     }
 
     @Override
-    public Brain<HumanResidentEntity> getBrain() {
+    @SuppressWarnings("unchecked")
+    public @NotNull Brain<HumanResidentEntity> getBrain() {
         return (Brain<HumanResidentEntity>) super.getBrain();
     }
 
@@ -112,6 +114,7 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         this.world.getProfiler().startSection("GSKOHumanBrain");
         this.getBrain().tick((ServerWorld)this.world, this);
         this.world.getProfiler().endSection();
+        super.updateAITasks();
     }
 
     @Nullable

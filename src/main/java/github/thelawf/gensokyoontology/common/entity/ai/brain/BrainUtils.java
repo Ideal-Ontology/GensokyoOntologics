@@ -16,6 +16,7 @@ import net.minecraft.entity.ai.brain.task.*;
 public final class BrainUtils {
     public static final ImmutableList<MemoryModuleType<?>> HUMAN_MEMORIES = ImmutableList.of(
             MemoryModuleType.PATH,
+            MemoryModuleType.HOME,
             MemoryModuleType.INTERACTABLE_DOORS,
             MemoryModuleType.OPENED_DOORS,
             MemoryModuleType.LOOK_TARGET,
