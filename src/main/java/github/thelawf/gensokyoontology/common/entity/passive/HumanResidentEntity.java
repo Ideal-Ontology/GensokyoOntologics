@@ -23,6 +23,7 @@ import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.pathfinding.GroundPathNavigator;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
@@ -50,6 +51,8 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
     public HumanResidentEntity(EntityType<HumanResidentEntity> type, World worldIn) {
         super(type, worldIn);
         this.gender = randomGender();
+        ((GroundPathNavigator)this.getNavigator()).setBreakDoors(true);
+        this.getNavigator().setCanSwim(true);
     }
 
     @Override
@@ -72,7 +75,7 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
      * </code>
      */
     @Override
-    protected Brain<?> createBrain(Dynamic<?> dynamic) {
+    protected Brain<HumanResidentEntity> createBrain(Dynamic<?> dynamic) {
         Brain<HumanResidentEntity> brain = this.getBrainCodec().deserialize(dynamic);
         this.initBrain(brain);
         return brain;
@@ -84,8 +87,15 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
     }
 
     @Override
-    public Brain<?> getBrain() {
-        return super.getBrain();
+    public Brain<HumanResidentEntity> getBrain() {
+        return (Brain<HumanResidentEntity>) super.getBrain();
+    }
+
+    public void resetBrain(ServerWorld serverWorldIn) {
+        Brain<HumanResidentEntity> brain = this.getBrain();
+        brain.stopAllTasks(serverWorldIn, this);
+        this.brain = brain.copy();
+        this.initBrain(brain);
     }
 
     public void initBrain(Brain<HumanResidentEntity> brain) {
@@ -95,6 +105,13 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
 
         brain.setPersistentActivities(ImmutableSet.of(Activity.CORE));
         brain.setFallbackActivity(Activity.IDLE);
+    }
+
+    @Override
+    protected void updateAITasks() {
+        this.world.getProfiler().startSection("GSKOHumanBrain");
+        this.getBrain().tick((ServerWorld)this.world, this);
+        this.world.getProfiler().endSection();
     }
 
     @Nullable
@@ -180,7 +197,9 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
 
         if (compound.contains("gender")) this.setGenderOrdinal(compound.getInt("gender"));
         if (compound.contains("Offers", 10)) this.offers = new MerchantOffers(compound.getCompound("Offers"));
-
+        if (this.world instanceof ServerWorld) {
+            this.resetBrain((ServerWorld)this.world);
+        }
     }
 
     @Override

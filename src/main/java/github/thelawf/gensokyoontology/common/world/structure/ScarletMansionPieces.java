@@ -77,19 +77,19 @@ public class ScarletMansionPieces {
             .put(withStructureRL("garden_sw"), new BlockPos(-34-47, -1, 33))
             .put(withStructureRL("garden_front_left"), new BlockPos(14-47, -1, 33))
             .put(withStructureRL("garden_front"), new BlockPos(15, -1, 33))
-            .put(withStructureRL("garden_front_right"), new BlockPos(84-47, -1, 33))
-            .put(withStructureRL("garden_se"), new BlockPos(85, -1, 33))
+            .put(withStructureRL("garden_front_right"), new BlockPos(83-47, -1, 33)) // prev -> x = 84-47
+            .put(withStructureRL("garden_se"), new BlockPos(83, -1, 33)) // prev -> x = 84
 
             .put(withStructureRL("garden_maze_1"), new BlockPos(-34-47, -1, -13))
             .put(withStructureRL("garden_maze_2"), new BlockPos(-34-47, -1, -48-13))
-            .put(withStructureRL("garden_maze_3"), new BlockPos(84+27, -1, -13))
-            .put(withStructureRL("garden_maze_4"), new BlockPos(84+27, -1, -48-13))
+            .put(withStructureRL("garden_maze_3"), new BlockPos(69+27, -1, -13)) // prev -> x = 72+27
+            .put(withStructureRL("garden_maze_4"), new BlockPos(69+27, -1, -48-13)) // prev -> x = 72+27
 
             .put(withStructureRL("garden_nw"), new BlockPos(-34-47, -1, -48*2-13))
             .put(withStructureRL("garden_back_left"), new BlockPos(-47, -1, -48*2-13))
             .put(withStructureRL("garden_back"), new BlockPos(0, -1, -48*2-13))
             .put(withStructureRL("garden_back_right"), new BlockPos(48, -1, -48*2-13))
-            .put(withStructureRL("garden_ne"), new BlockPos(48*2, -1, -48*2-11))
+            .put(withStructureRL("garden_ne"), new BlockPos(48*2, -1, -48*2-10)) // prev -> z = -48*2-11
 
             .put(withStructureRL("dungeon_01"), new BlockPos(-44, -22, -15))
             .put(withStructureRL("dungeon_02"), new BlockPos(-44, -22, -48-15))

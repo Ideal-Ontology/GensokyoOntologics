@@ -4,7 +4,10 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import net.minecraft.entity.CreatureEntity;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
@@ -52,4 +55,5 @@ public final class BrainUtils {
         Pair<Integer, Task<? super HumanResidentEntity>> findHome = Pair.of(0, new FindHomeTask());
         return ImmutableList.of();
     }
+
 }
