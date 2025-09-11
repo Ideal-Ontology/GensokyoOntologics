@@ -288,7 +288,7 @@ public class GSKOMathUtil {
 
     public static Vector3d bezier3(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, float time) {
         if (time > 1 || time < 0)
-            return null;
+            return Vector3d.ZERO;
         Vector3d v1 = lerp(time, start, ctrl1);
         Vector3d v2 = lerp(time, ctrl1, ctrl2);
         Vector3d v3 = lerp(time, ctrl2, end);

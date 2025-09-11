@@ -777,73 +777,6 @@ public final class ItemRegistry {
             GSKOArmorMaterial.JADE, EquipmentSlotType.LEGS, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
     public static final RegistryObject<Item> JADE_BOOTS = ITEMS.register("jade_boots", () -> new ArmorItem(
             GSKOArmorMaterial.JADE, EquipmentSlotType.FEET, (new Item.Properties()).group(GSKOCombatTab.GSKO_COMBAT_TAB)));
-    public static final RegistryObject<Item> RAIL_WRENCH = ITEMS.register("rail_wrench", () -> new Item(
-            new Item.Properties()));
-    public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new Item(
-            new Item.Properties()) {
-        @Override
-        public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
-            World world = context.getWorld();
-            PlayerEntity player = context.getPlayer();
-            BlockState blockState = world.getBlockState(context.getPos());
-            ItemStack connector = context.getItem();
-
-            if (player == null) return ActionResultType.FAIL;
-            if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return ActionResultType.CONSUME;
-
-            TileEntity tile = null;
-            if (connector.getTag() != null) tile = world.getTileEntity(BlockPos.fromLong(connector.getTag().getLong("startPos")));
-            if (!(tile instanceof RailTileEntity)) return super.onItemUse(context);
-
-            BlockPos pos = BlockPos.fromLong(connector.getTag().getLong("startPos"));
-            RailTileEntity startRail = (RailTileEntity) world.getTileEntity(pos);
-            if (startRail == null) return super.onItemUse(context);
-
-            startRail.setTargetPos(context.getPos());
-            startRail.setShouldRender(true);
-
-            ItemStack stack = new ItemStack(ItemRegistry.COASTER_RAIL_ITEM.get());
-            context.getItem().shrink(1);
-            player.addItemStackToInventory(stack);
-            return ActionResultType.SUCCESS;
-        }
-    });
-    public static final RegistryObject<BlockItem> COASTER_RAIL_ITEM = ITEMS.register("coaster_rail", () -> new BlockItem(
-            BlockRegistry.COASTER_RAIL.get(), new Item.Properties())
-    {
-        @Override
-        public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
-            if (!Screen.hasShiftDown()) return super.onItemUse(context);
-            World world = context.getWorld();
-            PlayerEntity player = context.getPlayer();
-            BlockState blockState = world.getBlockState(context.getPos());
-
-            if (player == null) return super.onItemUse(context);
-            if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return super.onItemUse(context);
-
-            ItemStack stack = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());
-            CompoundNBT nbt = new CompoundNBT();
-            nbt.putLong("startPos", context.getPos().toLong());
-            stack.setTag(nbt);
-
-            context.getItem().shrink(1);
-            player.addItemStackToInventory(stack);
-            return ActionResultType.SUCCESS;
-        }
-
-        @Override
-        public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-            super.addInformation(stack, worldIn, tooltip, flagIn);
-            if (stack.getTag() == null) return;
-            if (!stack.getTag().contains("startPos")) {
-                tooltip.add(GensokyoOntology.translate("tooltip.", ".coaster_rail.usage"));
-            };
-            BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
-            tooltip.add(GensokyoOntology.translate("tooltip.", ".coaster_rail.start_pos"));
-            tooltip.add(new StringTextComponent("(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")"));
-        }
-    });
-
 
     // ====================================== 脚本构建物品 ====================================== //
     public static final RegistryObject<Item> SPHERE_EFFECT_ITEM = ITEMS.register("sphere", () -> new Item(new Item.Properties()));
@@ -949,9 +882,69 @@ public final class ItemRegistry {
         }
     });
 
-    // public static final RegistryObject<Item> FUNC_INVOCATION = ITEMS.register("func_invocation", () -> new ScriptReadOnlyItem() {
-    //     @Override
-    //     public void addReadOnlyData(World world, PlayerEntity player, ItemStack stack) {
-    //     }
-    // });
+    public static final RegistryObject<Item> RAIL_WRENCH = ITEMS.register("rail_wrench", () -> new Item(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new Item(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)) {
+        @Override
+        public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
+            World world = context.getWorld();
+            PlayerEntity player = context.getPlayer();
+            BlockState blockState = world.getBlockState(context.getPos());
+            ItemStack connector = context.getItem();
+
+            if (player == null) return ActionResultType.FAIL;
+            if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return ActionResultType.CONSUME;
+
+            TileEntity tile = null;
+            if (connector.getTag() != null) tile = world.getTileEntity(BlockPos.fromLong(connector.getTag().getLong("startPos")));
+            if (!(tile instanceof RailTileEntity)) return super.onItemUse(context);
+
+            BlockPos pos = BlockPos.fromLong(connector.getTag().getLong("startPos"));
+            RailTileEntity startRail = (RailTileEntity) world.getTileEntity(pos);
+            if (startRail == null) return super.onItemUse(context);
+
+            startRail.setTargetPos(context.getPos());
+            startRail.setShouldRender(true);
+
+            ItemStack stack = new ItemStack(ItemRegistry.COASTER_RAIL_ITEM.get());
+            context.getItem().shrink(1);
+            player.addItemStackToInventory(stack);
+            return ActionResultType.SUCCESS;
+        }
+    });
+    public static final RegistryObject<BlockItem> COASTER_RAIL_ITEM = ITEMS.register("coaster_rail", () -> new BlockItem(
+            BlockRegistry.COASTER_RAIL.get(), new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)){
+        @Override
+        public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
+            if (!Screen.hasShiftDown()) return super.onItemUse(context);
+            World world = context.getWorld();
+            PlayerEntity player = context.getPlayer();
+            BlockState blockState = world.getBlockState(context.getPos());
+
+            if (player == null) return super.onItemUse(context);
+            if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return super.onItemUse(context);
+
+            ItemStack stack = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());
+            CompoundNBT nbt = new CompoundNBT();
+            nbt.putLong("startPos", context.getPos().toLong());
+            stack.setTag(nbt);
+
+            context.getItem().shrink(1);
+            player.addItemStackToInventory(stack);
+            return ActionResultType.SUCCESS;
+        }
+
+        @Override
+        public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
+            super.addInformation(stack, worldIn, tooltip, flagIn);
+            if (stack.getTag() == null) return;
+            if (!stack.getTag().contains("startPos")) {
+                tooltip.add(GensokyoOntology.translate("tooltip.", ".coaster_rail.usage"));
+            };
+            BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
+            tooltip.add(GensokyoOntology.translate("tooltip.", ".coaster_rail.start_pos"));
+            tooltip.add(new StringTextComponent("(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")"));
+        }
+    });
 }

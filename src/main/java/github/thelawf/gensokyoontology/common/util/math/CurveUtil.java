@@ -1,7 +1,8 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
+import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
-import javafx.util.Pair;
+import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -66,6 +67,14 @@ public class CurveUtil {
         Vector3d endPos = getBezierNormal(new ArrayList<>(), start, end, ctrl1, ctrl2, unitStep)
                 .get(currentStep).rotateYaw(Danmaku.rad(90));
         return new Pair<>(startPos, endPos);
+    }
+
+    public static Vector3d getStartCtrlDot(Vector3d startPos, Vector2f startRot, float scale) {
+        return Vector3d.fromPitchYaw(startRot).scale(scale).add(startPos);
+    }
+
+    public static Vector3d getEndCtrlDot(Vector3d endPos, Vector2f endRot, float scale) {
+        return Vector3d.fromPitchYaw(endRot).scale(-scale).add(endPos);
     }
 
 }

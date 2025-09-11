@@ -14,6 +14,7 @@ import net.minecraft.entity.ai.brain.schedule.Activity;
 import net.minecraft.entity.ai.brain.schedule.Schedule;
 import net.minecraft.entity.merchant.villager.AbstractVillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerData;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
 import net.minecraft.entity.merchant.villager.VillagerProfession;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.villager.VillagerType;
@@ -106,6 +107,7 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         brain.setSchedule(Schedule.VILLAGER_DEFAULT);
         brain.registerActivity(Activity.CORE, BrainUtils.CORE);
         brain.registerActivity(Activity.IDLE, BrainUtils.idle());
+        brain.registerActivity(Activity.REST, BrainUtils.rest());
 
         brain.setPersistentActivities(ImmutableSet.of(Activity.IDLE));
         brain.setFallbackActivity(Activity.IDLE);
@@ -119,15 +121,6 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         super.updateAITasks();
     }
 
-    @Nullable
-    @Override
-    public AgeableEntity createChild(ServerWorld world, AgeableEntity mate) {
-        return null;
-    }
-
-    @Override
-    protected void onVillagerTrade(MerchantOffer offer) {
-    }
 
     public static Gender randomGender(){
         Random random = new Random();
@@ -202,6 +195,9 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
 
         if (compound.contains("gender")) this.setGenderOrdinal(compound.getInt("gender"));
         if (compound.contains("Offers", 10)) this.offers = new MerchantOffers(compound.getCompound("Offers"));
+        if (compound.contains("Brain", 10)) {
+            this.brain = this.createBrain(new Dynamic<>(NBTDynamicOps.INSTANCE, compound.getCompound("Brain")));
+        }
         if (this.world instanceof ServerWorld) {
             this.resetBrain((ServerWorld)this.world);
         }
@@ -240,6 +236,16 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         return this.getVillagerData().getProfession();
     }
 
+    @Nullable
+    @Override
+    public AgeableEntity createChild(ServerWorld world, AgeableEntity mate) {
+        return null;
+    }
+
+    @Override
+    protected void onVillagerTrade(MerchantOffer offer) {
+    }
+
     @Override
     protected void populateTradeData() {
         if (this.getProf() == VillagerProfession.NONE) return;
@@ -250,4 +256,6 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         MALE,
         FEMALE
     }
+
+
 }

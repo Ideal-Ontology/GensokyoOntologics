@@ -4,10 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
 import net.minecraft.entity.CreatureEntity;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.brain.Brain;
 import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
@@ -35,11 +32,11 @@ public final class BrainUtils {
 
     public static final ImmutableList<Pair<Integer, Task<? super CreatureEntity>>> CORE = ImmutableList.of(
             Pair.of(0, new SwimTask(0.85F)),
-            Pair.of(1, new SwimTask(0.85F)),
             Pair.of(0, new LookTask(45, 90)),
             Pair.of(0, new InteractWithDoorTask()),
             Pair.of(0, new CreaturePanicTask()),
             Pair.of(0, new WakeUpTask()),
+            Pair.of(1, new WalkRandomlyTask(0.5F)),
             Pair.of(99, new UpdateActivityTask()));
 
     public static final ImmutableList<Pair<Integer, Task<? super HumanResidentEntity>>> PANIC = ImmutableList.of(
@@ -54,8 +51,9 @@ public final class BrainUtils {
     }
 
     public static ImmutableList<Pair<Integer, Task<? super HumanResidentEntity>>> rest(){
-        Pair<Integer, Task<? super HumanResidentEntity>> findHome = Pair.of(0, new FindHomeTask());
-        return ImmutableList.of();
+        Pair<Integer, Task<? super HumanResidentEntity>> stayAtHome = Pair.of(2, new StayNearPointTask(
+                MemoryModuleType.HOME, 0.5F, 1, 150, 2000));
+        return ImmutableList.of(stayAtHome);
     }
 
 }
