@@ -35,6 +35,7 @@ public final class BrainUtils {
 
     public static final ImmutableList<Pair<Integer, Task<? super CreatureEntity>>> CORE = ImmutableList.of(
             Pair.of(0, new SwimTask(0.85F)),
+            Pair.of(1, new SwimTask(0.85F)),
             Pair.of(0, new LookTask(45, 90)),
             Pair.of(0, new InteractWithDoorTask()),
             Pair.of(0, new CreaturePanicTask()),

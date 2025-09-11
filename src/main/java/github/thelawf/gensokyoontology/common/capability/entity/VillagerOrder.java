@@ -87,9 +87,9 @@ public class VillagerOrder implements IVillagerOrder {
     @Override
     public CompoundNBT serializeNBT() {
         CompoundNBT nbt = new CompoundNBT();
-        if (this.getDrinks() != ItemStack.EMPTY) nbt.put("appetizer", this.appetizer.serializeNBT());
-        if (this.getDrinks() != ItemStack.EMPTY) nbt.put("entrees", this.entrees.serializeNBT());
-        if (this.getDrinks() != ItemStack.EMPTY) nbt.put("dessert", this.dessert.serializeNBT());
+        if (this.getAppetizer() != ItemStack.EMPTY) nbt.put("appetizer", this.appetizer.serializeNBT());
+        if (this.getEntrees() != ItemStack.EMPTY) nbt.put("entrees", this.entrees.serializeNBT());
+        if (this.getDessert() != ItemStack.EMPTY) nbt.put("dessert", this.dessert.serializeNBT());
         if (this.getDrinks() != ItemStack.EMPTY) nbt.put("drinks", this.drinks.serializeNBT());
 
         ListNBT listNBT = new ListNBT();

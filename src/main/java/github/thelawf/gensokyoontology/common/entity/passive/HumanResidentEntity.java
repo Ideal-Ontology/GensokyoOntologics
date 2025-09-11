@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.passive;
 
+import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
 import com.google.common.collect.ImmutableSet;
 import com.mojang.serialization.DataResult;
 import com.mojang.serialization.Dynamic;
@@ -19,6 +20,7 @@ import net.minecraft.entity.villager.VillagerType;
 import net.minecraft.item.MerchantOffer;
 import net.minecraft.item.MerchantOffers;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
 import net.minecraft.nbt.NBTDynamicOps;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
@@ -105,13 +107,13 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         brain.registerActivity(Activity.CORE, BrainUtils.CORE);
         brain.registerActivity(Activity.IDLE, BrainUtils.idle());
 
-        brain.setPersistentActivities(ImmutableSet.of(Activity.CORE));
+        brain.setPersistentActivities(ImmutableSet.of(Activity.IDLE));
         brain.setFallbackActivity(Activity.IDLE);
     }
 
     @Override
     protected void updateAITasks() {
-        this.world.getProfiler().startSection("GSKOHumanBrain");
+        this.world.getProfiler().startSection("humanBrain");
         this.getBrain().tick((ServerWorld)this.world, this);
         this.world.getProfiler().endSection();
         super.updateAITasks();
@@ -215,6 +217,10 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         VillagerData.CODEC.encodeStart(NBTDynamicOps.INSTANCE, this.getVillagerData()).resultOrPartial(LOGGER::error).ifPresent((data) -> {
             compound.put("VillagerData", data);
         });
+
+        DataResult<INBT> dataresult = this.brain.encode(NBTDynamicOps.INSTANCE);
+        dataresult.resultOrPartial(LOGGER::error).ifPresent((inbt) ->
+                compound.put("Brain", inbt));
     }
 
     @Override

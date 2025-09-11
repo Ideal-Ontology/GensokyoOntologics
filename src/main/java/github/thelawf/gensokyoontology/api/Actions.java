@@ -1,8 +1,6 @@
 package github.thelawf.gensokyoontology.api;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.client.gui.screen.skill.ModeSwitchScreen;
-import github.thelawf.gensokyoontology.common.entity.misc.FireEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
@@ -29,5 +27,10 @@ public class Actions {
     @FunctionalInterface
     public interface Act4<R1, R2, R3, R4> {
         void act(R1 r1, R2 r2, R3 r3, R4 r4);
+    }
+
+    @FunctionalInterface
+    public interface Sup3 {
+        <R1, R2, R3> Act3<R1, R2, R3> get();
     }
 }
