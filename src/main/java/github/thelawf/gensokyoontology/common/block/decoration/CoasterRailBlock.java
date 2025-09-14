@@ -105,7 +105,7 @@ public class CoasterRailBlock extends Block {
         if (!(worldIn.getTileEntity(pos) instanceof RailTileEntity)) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
         RailTileEntity railTile = (RailTileEntity) worldIn.getTileEntity(pos);
         if (railTile == null) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-        if (!worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
+        if (worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
             new RailDashboardScreen(pos, (int) railTile.getRoll(), (int) railTile.getYaw(), (int) railTile.getPitch(),
                     railTile.getW()).open();
             // NetworkHooks.openGui((ServerPlayerEntity) player, RailAdjustContainer.create(worldIn, pos), railTile.getPos());

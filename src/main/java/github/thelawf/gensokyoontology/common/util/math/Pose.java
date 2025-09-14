@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
  * Copy from <a href="https://github.com/FoundationGames/Splinecart/blob/1.21/src/main/java/io/github/foundationgames/splinecart/util/Pose.java">
  *     SplineCart: Pose.java </a>
  */
+@Deprecated
 public class Pose {
     public final Vector3d translation;
     public final Matrix3d basis;

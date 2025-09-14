@@ -52,9 +52,29 @@ public class CurveUtil {
     public static List<Vector3d> getBezierNormal(List<Vector3d> bezierPositions, Vector3d start, Vector3d end,  Vector3d ctrl1, Vector3d ctrl2, float time) {
         for (float i = 0; i < 1; i += time) {
             if (bezierPositions.size() > 1F / time) break;
-            bezierPositions.add(GSKOMathUtil.bezierDerivative(start, end, ctrl1, ctrl2, i));
+            bezierPositions.add(GSKOMathUtil.bezier3Derivative(start, end, ctrl1, ctrl2, i));
         }
         return bezierPositions;
+    }
+
+    public static List<Vector3d> getBezierNormal(List<Vector3d> bezierPositions, Vector3d start, Vector3d ctrl,  Vector3d end, float time) {
+        for (float i = 0; i < 1; i += time) {
+            if (bezierPositions.size() > 1F / time) break;
+            bezierPositions.add(GSKOMathUtil.bezier2Derivative(start, ctrl, end, i));
+        }
+        return bezierPositions;
+    }
+
+    public static Pair<Vector3d, Vector3d> getParallelDotAt(Vector3d start, Vector3d end, Vector3d intersection, int maxStep, int currentStep) {
+        float unitStep = 1F / maxStep;
+        if (currentStep > maxStep) currentStep = maxStep - 1;
+        else if (currentStep < 0) currentStep = 0;
+
+        Vector3d startPos = getBezierNormal(new ArrayList<>(), start, intersection, end, unitStep)
+                .get(currentStep).rotateYaw(Danmaku.rad(90));
+        Vector3d endPos = getBezierNormal(new ArrayList<>(), start, intersection, end, unitStep)
+                .get(currentStep).rotateYaw(Danmaku.rad(-90));
+        return new Pair<>(startPos.normalize(), endPos.normalize());
     }
 
     public static Pair<Vector3d, Vector3d> getParallelDotAt(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, int maxStep, int currentStep) {
@@ -66,7 +86,16 @@ public class CurveUtil {
                 .get(currentStep).rotateYaw(Danmaku.rad(90));
         Vector3d endPos = getBezierNormal(new ArrayList<>(), start, end, ctrl1, ctrl2, unitStep)
                 .get(currentStep).rotateYaw(Danmaku.rad(90));
-        return new Pair<>(startPos, endPos);
+        return new Pair<>(startPos.normalize(), endPos.normalize());
+    }
+
+    public static Pair<Vector3d, Vector3d> getParallelDotAt(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, float time) {
+
+        Vector3d startPos = GSKOMathUtil.bezier3Derivative(start, end, ctrl1, ctrl2, time)
+                .rotateYaw(Danmaku.rad(90)).scale(0.5F);
+        Vector3d endPos = GSKOMathUtil.bezier3Derivative(start, end, ctrl1, ctrl2, time)
+                .rotateYaw(Danmaku.rad(-90)).scale(0.5F);
+        return new Pair<>(startPos.normalize(), endPos.normalize());
     }
 
     public static Vector3d getStartCtrlDot(Vector3d startPos, Vector2f startRot, float scale) {

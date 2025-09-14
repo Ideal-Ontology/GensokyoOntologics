@@ -905,7 +905,7 @@ public final class ItemRegistry {
             if (startRail == null) return super.onItemUse(context);
 
             startRail.setTargetPos(context.getPos());
-            startRail.setShouldRender(true);
+            startRail.setShouldRender(false);
 
             ItemStack stack = new ItemStack(ItemRegistry.COASTER_RAIL_ITEM.get());
             context.getItem().shrink(1);

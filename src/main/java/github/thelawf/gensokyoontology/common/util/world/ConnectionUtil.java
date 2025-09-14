@@ -18,7 +18,8 @@ public class ConnectionUtil {
     public static boolean tryConnect(BlockPos startPos, BlockPos endPos) {
         if (startPos.getY() == endPos.getY()) {
             return true;
-        } else if (GSKOMathUtil.distanceOf3D(
+        }
+        else if (GSKOMathUtil.distanceOf3D(
                 startPos.getX(), startPos.getY(), startPos.getZ(),
                 endPos.getX(), endPos.getY(), endPos.getZ()) == 0) {
             return false;

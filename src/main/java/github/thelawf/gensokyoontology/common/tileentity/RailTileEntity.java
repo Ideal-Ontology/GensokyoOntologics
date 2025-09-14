@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.tileentity;
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
 import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
@@ -15,6 +16,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -33,8 +35,9 @@ public class RailTileEntity extends TileEntity {
     private float roll = 0f;
     private float w = 0f;
     // private Pose pose;
-    private boolean shouldRender = false;
+    private boolean shouldRender = true;
     private BlockPos targetRailPos = new BlockPos(0,0,0);
+    private Quaternion rotation = Quaternion.ONE;
 
     public RailTileEntity() {
         super(TileEntityRegistry.RAIL_TILE_ENTITY.get());
@@ -74,10 +77,11 @@ public class RailTileEntity extends TileEntity {
 
     @Override
     public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
-        if (nbt.contains("yaw")) this.yaw = nbt.getFloat("yaw");
-        if (nbt.contains("pitch")) this.pitch = nbt.getFloat("pitch");
-        if (nbt.contains("roll")) this.roll = nbt.getFloat("roll");
-        if (nbt.contains("w")) this.w = nbt.getFloat("w");
+        float qx = nbt.getFloat("qx");
+        float qy = nbt.getFloat("qy");
+        float qz = nbt.getFloat("qz");
+        float qw = nbt.getFloat("qw");
+        this.setRotation(new Quaternion(qx, qy, qz, qw));
 
         if (nbt.contains("shouldRender")) this.shouldRender = nbt.getBoolean("shouldRender");
         if (nbt.contains("targetX") && nbt.contains("targetY") && nbt.contains("targetZ"))
@@ -89,10 +93,15 @@ public class RailTileEntity extends TileEntity {
     @NotNull
     public CompoundNBT write(@NotNull CompoundNBT compound) {
         super.write(compound);
-        compound.putFloat("yaw", this.yaw);
-        compound.putFloat("roll", this.roll);
-        compound.putFloat("pitch", this.pitch);
-        compound.putFloat("w", this.w);
+        float qx = compound.getFloat("qx");
+        float qy = compound.getFloat("qy");
+        float qz = compound.getFloat("qz");
+        float qw = compound.getFloat("qw");
+
+        compound.putFloat("qx", qx);
+        compound.putFloat("qy", qy);
+        compound.putFloat("qz", qz);
+        compound.putFloat("qw", qw);
 
         compound.putBoolean("shouldRender", this.shouldRender);
         compound.putInt("targetX", this.targetRailPos.getX());
@@ -131,13 +140,19 @@ public class RailTileEntity extends TileEntity {
         return this.w;
     }
 
-    public void setRotation(float roll, float yaw, float pitch, float w) {
-        this.setRoll(roll);
-        this.setYaw(yaw);
-        this.setPitch(pitch);
-        this.setW(w);
+    public void setRotation(float x, float y, float z, float w) {
+        this.setRotation(new Quaternion(x, y, z, w));
+        markDirty();
+    }
+    // 获取和设置旋转四元数
+    public Quaternion getRotation() {
+        return this.rotation.copy();
     }
 
+    public void setRotation(Quaternion rotation) {
+        this.rotation = rotation.copy();
+        markDirty();
+    }
     public void setTargetPos(BlockPos targetRailPos) {
         this.targetRailPos = targetRailPos;
         markDirty();
@@ -172,7 +187,7 @@ public class RailTileEntity extends TileEntity {
     }
 
     public Vector3d getFacingVec() {
-        return Vector3d.fromPitchYaw(this.pitch, this.yaw);
+        return GSKOMathUtil.quaterToVector3d(this.getRotation());
     }
 
     @Nullable
@@ -190,5 +205,12 @@ public class RailTileEntity extends TileEntity {
         }
         return null;
     }
-
+    @OnlyIn(Dist.CLIENT)
+    public List<Vector3d> getBezierPos() {
+        if(!this.shouldRender) return new ArrayList<>();
+        Vector3d target = new Vector3d(this.targetRailPos.getX(), this.targetRailPos.getY(), this.targetRailPos.getZ())
+                .subtract(new Vector3d(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
+        return CurveUtil.getBezierPos(new ArrayList<>(), Vector3d.ZERO, target, ConnectionUtil.getIntersection(
+                Vector3d.copyCentered(this.pos), Vector3d.copyCentered(this.targetRailPos)), 0.01F);
+    }
 }

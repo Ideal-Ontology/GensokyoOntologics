@@ -297,11 +297,17 @@ public class GSKOMathUtil {
         return lerp(time, inner1, inner2);
     }
 
-    public static Vector3d bezierDerivative(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, float t) {
+    public static Vector3d bezier3Derivative(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, float t) {
         return start.scale(-3 * t * t + 6 * t - 3)
                 .add(ctrl1.scale(9 * t * t - 12 * t + 3))
                 .add(ctrl2.scale(-9 * t * t + 6 * t))
                 .add(end.scale(3 * t * t));
+    }
+
+    public static Vector3d bezier2Derivative(Vector3d start, Vector3d ctrl, Vector3d end, float t) {
+        Vector3d term1 = ctrl.subtract(start).scale(2 * (1 - t));
+        Vector3d term2 = end.subtract(ctrl).scale(2 * t);
+        return term1.add(term2);
     }
 
     public static Vector3d lerp(float progress, Vector3d start, Vector3d end) {
@@ -673,6 +679,43 @@ public class GSKOMathUtil {
         quaternion.multiply(new Quaternion(Vector3f.XP, (float) Math.toDegrees(pitch), true)); // 设置垂直旋转
 
         return quaternion;
+    }
+
+    public static Vector3d quaterToVector3d(Quaternion quaternion) {
+        Vector3d reference = new Vector3d(0, 0, 1);
+        return rotateVector(quaternion, reference);
+    }
+
+    /**
+     * 使用四元数旋转向量
+     * @param quaternion 旋转四元数
+     * @param vector 要旋转的向量
+     * @return 旋转后的向量
+     */
+    public static Vector3d rotateVector(Quaternion quaternion, Vector3d vector) {
+        // 提取四元数分量
+        double qx = quaternion.getX();
+        double qy = quaternion.getY();
+        double qz = quaternion.getZ();
+        double qw = quaternion.getW();
+
+        // 提取向量分量
+        double vx = vector.x;
+        double vy = vector.y;
+        double vz = vector.z;
+
+        // 计算 q * v
+        double ix = qw * vx + qy * vz - qz * vy;
+        double iy = qw * vy + qz * vx - qx * vz;
+        double iz = qw * vz + qx * vy - qy * vx;
+        double iw = -qx * vx - qy * vy - qz * vz;
+
+        // 计算 (q * v) * q⁻¹
+        double rx = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+        double ry = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+        double rz = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+
+        return new Vector3d(rx, ry, rz);
     }
 
     public static boolean isBetween(int num, int min, int max) {

@@ -67,31 +67,32 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         Vector3d start = Vector3d.ZERO;
         Vector3d end = Vector3d.copy(endRail.getPos()).subtract(startVec);
 
-//        Pose start = tileEntityIn.toStartPos();
-//        Pose start1 = tileEntityIn.toStartPosOffset();
-//        Pose end = endRail.toEndPos(tileEntityIn.getPos());
-//        Pose end1 = endRail.toEndPosOffset(tileEntityIn.getPos());
-//        if (world.getGameTime() % 100 == 0) GSKOUtil.log(this.getClass(), start.basis.toString());
-
-//
-//        org.joml.Vector3d origin0 = new org.joml.Vector3d(1,0,0);
-//        org.joml.Matrix3d basis0 = new Matrix3d();
-//        org.joml.Vector3d grad0 = new org.joml.Vector3d(0,0,1).mul(start.basis);
-
         int segments = 32;
+        this.renderUnconnectedTrack(b, builder, matrixStackIn, tileEntityIn);
+
         for (int i = 0; i < segments; i++) {
             float t0 = (float) i / segments;
             float t1 = (float) (i + 1) / segments;
 
-            Vector3d ctrl1 = CurveUtil.getStartCtrlDot(start, tileEntityIn.getRot2f(), 1F);
-            Vector3d ctrl2 = CurveUtil.getEndCtrlDot(end, endRail.getRot2f(), 1F);
+            double scale = endRail.getPosVec().distanceTo(tileEntityIn.getPosVec()) * 0.5;
+            Vector3d ctrl1 = tileEntityIn.getFacingVec().scale(scale);
+            Vector3d ctrl2 = endRail.getFacingVec().scale(scale);
+//
+//            Vector3d intersection = ConnectionUtil.getIntersection(tileEntityIn.getFacingVec(), endRail.getFacingVec());
+//            Pair<Vector3d, Vector3d> leftRightDots = CurveUtil.getParallelDotAt(start, end, intersection, segments, i);
 
-            Pair<Vector3d, Vector3d> leftRightDots = CurveUtil.getParallelDotAt(start, end, ctrl1, ctrl2, segments, i);
-            Vector3d firstLeft = leftRightDots.getFirst();
-            Vector3d firstRight = leftRightDots.getSecond();
+            Pair<Vector3d, Vector3d> firstLRDots = CurveUtil.getParallelDotAt(start, end, ctrl1, ctrl2, t0);
+            Pair<Vector3d, Vector3d> nextLRDots = CurveUtil.getParallelDotAt(start, end, ctrl1, ctrl2, t1);
 
-            Vector3d nextLeft = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, t1).add(firstLeft);
-            Vector3d nextRight = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, t1).add(firstRight);
+            Vector3d left0 = firstLRDots.getFirst();
+            Vector3d right0 = firstLRDots.getSecond();
+            Vector3d left1 = nextLRDots.getFirst();
+            Vector3d right1 = nextLRDots.getSecond();
+
+            Vector3d firstLeft = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, t0).add(left0);
+            Vector3d firstRight = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, t0).add(right0);
+            Vector3d nextLeft = GSKOMathUtil.bezier3(start,  end, ctrl1, ctrl2, t1).add(left1);
+            Vector3d nextRight = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, t1).add(right1);
 
             this.renderSegment(builder, matrixStackIn, firstLeft, nextLeft);
             this.renderSegment(builder, matrixStackIn, firstRight, nextRight);
@@ -205,30 +206,28 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
     public void renderUnconnectedTrack(IVertexBuilder b, IVertexBuilder builder, MatrixStack matrixStackIn, RailTileEntity tileEntityIn) {
         float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
         float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
-        Quaternion roll = Vector3f.XP.rotationDegrees(tileEntityIn.getRoll());
-        Quaternion yaw = Vector3f.YP.rotationDegrees(tileEntityIn.getYaw());
-        Quaternion pitch = Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch());
-        Vector3f translation = new Vector3f(0f, 0f, 0f);
+//        Quaternion roll = Vector3f.XP.rotationDegrees(tileEntityIn.getRoll());
+//        Quaternion yaw = Vector3f.YP.rotationDegrees(tileEntityIn.getYaw());
+//        Quaternion pitch = Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch());
 
+        Quaternion rotation = tileEntityIn.getRotation();
         matrixStackIn.push();
-        matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
-        this.rotate(matrixStackIn, roll, yaw, pitch);
+        matrixStackIn.rotate(rotation);
+//        this.rotate(matrixStackIn, roll, yaw, pitch);
         matrixStackIn.translate(0, 0.45, 0);
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
+//        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
         GeometryUtil.renderCylinder(b, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
-        this.rotate(matrixStackIn, roll, yaw, pitch);
+        matrixStackIn.rotate(rotation);
         matrixStackIn.translate(0, 0.45, 1);
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
+//        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
         GeometryUtil.renderCylinder(b, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
-        this.rotate(matrixStackIn, roll, yaw, pitch);
+        matrixStackIn.rotate(rotation);
         matrixStackIn.translate(0, 0.35, 0);
         GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
                 new Vector3f(0.2F,0,0), new Vector3f(0.2F,0,1F), new Vector3f(0.2F,-0.15F,0.8F), new Vector3f(0.2F,-0.15F,0.2F),
@@ -239,8 +238,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         matrixStackIn.pop();
 
         matrixStackIn.push();
-        matrixStackIn.translate(translation.getX(), translation.getY(), translation.getZ());
-        this.rotate(matrixStackIn, roll, yaw, pitch);
+        matrixStackIn.rotate(rotation);
         matrixStackIn.translate(0, 0, 0.3);
         GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(1F, 0.15F, 0.4F),
                 new Vector3i(r1, g1, b1));

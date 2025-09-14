@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.common.network.packet;
 
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
@@ -11,17 +10,17 @@ import net.minecraftforge.fml.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class CAdjustRailPacket {
-    private final float yaw;
-    private final float pitch;
-    private final float roll;
+    private final float x;
+    private final float y;
+    private final float z;
     private final float w;
     private final BlockPos pos;
 
-    public CAdjustRailPacket(BlockPos pos, float yaw, float pitch, float roll, float w) {
+    public CAdjustRailPacket(BlockPos pos, float x, float y, float z, float w) {
         this.pos = pos;
-        this.yaw = yaw;
-        this.pitch = pitch;
-        this.roll = roll;
+        this.x = x;
+        this.y = y;
+        this.z = z;
         this.w = w;
     }
 
@@ -30,9 +29,9 @@ public class CAdjustRailPacket {
     }
     public void toBytes(PacketBuffer buf) {
         buf.writeBlockPos(pos);
-        buf.writeFloat(this.yaw);
-        buf.writeFloat(this.pitch);
-        buf.writeFloat(this.roll);
+        buf.writeFloat(this.x);
+        buf.writeFloat(this.y);
+        buf.writeFloat(this.z);
         buf.writeFloat(this.w);
     }
 
@@ -54,7 +53,7 @@ public class CAdjustRailPacket {
         RailTileEntity railTile = (RailTileEntity) serverWorld.getTileEntity(pos);
         if (railTile == null) return;
 
-        railTile.setRotation(packet.roll, packet.yaw, packet.pitch, packet.w);
+        railTile.setRotation(packet.x, packet.y, packet.z, packet.w);
         serverWorld.notifyBlockUpdate(pos, railTile.getBlockState(), railTile.getBlockState(), 3);
     }
 }
