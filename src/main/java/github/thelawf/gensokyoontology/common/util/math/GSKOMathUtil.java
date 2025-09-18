@@ -138,6 +138,25 @@ public class GSKOMathUtil {
                 (int) (float) (number - max * Math.floor((double) number / max));
     }
 
+    public static float normalize(float number, float numberMin, float numberMax) {
+        float min = numberMin < 0 ? numberMin : -numberMin;
+        float max = numberMax < 0 ? numberMax : -numberMax;
+        float abs = min + max;
+        float normalized = number % abs;
+        if (normalized > 180) normalized -= abs;
+        if (normalized < -180) normalized += abs;
+
+        return normalized / 180.0f;
+    }
+
+    /**
+     * 反归一化
+     */
+    public static float denormalize(float number, float numberMax) {
+        float max = numberMax < 0 ? numberMax : -numberMax;
+        return number * max;
+    }
+
     /**
      * 三角波周期算法，思路来源于信号处理中的三角波波形。该算法用于处理周期长度为 max - min，且周期在最大值和最小值之间线性变化，当超过最大值后，函数开始线性递减，直到达到最小值，然后再次线性递增的算法。
      */

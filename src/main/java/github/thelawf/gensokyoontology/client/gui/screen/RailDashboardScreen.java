@@ -116,12 +116,12 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     protected void init() {
         super.init();
 
-        this.rollSlider = new Slider(50, 30, 120, 25, ANGLE_X, withText("°"),
-                0, 360, (int) this.rotation.getX(), true, true, iPressable -> {}, this::onRollSlide);
-        this.yawSlider = new Slider(50, 60, 120, 25, ANGLE_Y, withText("°"),
-                0, 360, (int) this.rotation.getY(), true, true, iPressable -> {}, this::onYawSlide);
-        this.pitchSlider = new Slider(50, 90, 120, 25, ANGLE_Z, withText("°"),
-                0, 360, (int) this.rotation.getZ(), true, true, iPressable -> {}, this::onPitchSlide);
+        this.rollSlider = new Slider(50, 30, 180, 25, ANGLE_X, withText("°"),
+                -180, 180, (int) this.rotation.getX(), true, true, iPressable -> {}, this::onRollSlide);
+        this.yawSlider = new Slider(50, 60, 180, 25, ANGLE_Y, withText("°"),
+                -180, 180, (int) this.rotation.getY(), true, true, iPressable -> {}, this::onYawSlide);
+        this.pitchSlider = new Slider(50, 90, 180, 25, ANGLE_Z, withText("°"),
+                -180, 180, (int) this.rotation.getZ(), true, true, iPressable -> {}, this::onPitchSlide);
 //        this.xInput = new TextFieldWidget(this.font, 50, 120, 120, 25, withText(String.valueOf(controlPoint.getX())));
 //        this.yInput = new TextFieldWidget(this.font, 50, 150, 120, 25, withText(String.valueOf(controlPoint.getY())));
 //        this.zInput = new TextFieldWidget(this.font, 50, 180, 120, 25, withText(String.valueOf(controlPoint.getZ())));

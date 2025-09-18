@@ -68,7 +68,9 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         Vector3d end = Vector3d.copy(endRail.getPos()).subtract(startVec);
 
         int segments = 32;
-        this.renderUnconnectedTrack(b, builder, matrixStackIn, tileEntityIn);
+        if (tileEntityIn.shouldRender()) {
+            this.renderUnconnectedTrack(b, builder, matrixStackIn, tileEntityIn);
+        }
 
         for (int i = 0; i < segments; i++) {
             float t0 = (float) i / segments;
@@ -212,6 +214,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         Quaternion rotation = tileEntityIn.getRotation();
         matrixStackIn.push();
+        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(180));
         matrixStackIn.rotate(rotation);
 //        this.rotate(matrixStackIn, roll, yaw, pitch);
         matrixStackIn.translate(0, 0.45, 0);

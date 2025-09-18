@@ -16,6 +16,7 @@ import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
@@ -30,10 +31,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RailTileEntity extends TileEntity {
-    private float yaw = 0f;
-    private float pitch = 0f;
-    private float roll = 0f;
-    private float w = 0f;
     // private Pose pose;
     private boolean shouldRender = true;
     private BlockPos targetRailPos = new BlockPos(0,0,0);
@@ -93,10 +90,11 @@ public class RailTileEntity extends TileEntity {
     @NotNull
     public CompoundNBT write(@NotNull CompoundNBT compound) {
         super.write(compound);
-        float qx = compound.getFloat("qx");
-        float qy = compound.getFloat("qy");
-        float qz = compound.getFloat("qz");
-        float qw = compound.getFloat("qw");
+        Quaternion q = this.getRotation();
+        float qx = q.getX();
+        float qy = q.getY();
+        float qz = q.getZ();
+        float qw = q.getW();
 
         compound.putFloat("qx", qx);
         compound.putFloat("qy", qy);
@@ -110,40 +108,31 @@ public class RailTileEntity extends TileEntity {
         return super.write(compound);
     }
 
-    public void setYaw(float yaw) {
-        this.yaw = yaw;
-    }
-    public void setPitch(float pitch) {
-        this.pitch = pitch;
-    }
-    public void setRoll(float roll) {
-        this.roll = roll;
-    }
-    public void setW(float w) {
-        this.w = w;
+    public float getRotX(){
+        return GSKOMathUtil.denormalize(this.getRotation().getX(), 180);
     }
 
-    public Vector2f getRot2f() {
-        return new Vector2f(this.yaw, this.pitch);
+    public float getRotY(){
+        return GSKOMathUtil.denormalize(this.getRotation().getY(), 180);
     }
 
-    public float getRoll() {
-        return this.roll;
+    public float getRotZ(){
+        return GSKOMathUtil.denormalize(this.getRotation().getZ(), 180);
     }
-    public float getYaw() {
-        return this.yaw;
-    }
-    public float getPitch() {
-        return this.pitch;
-    }
-    public float getW() {
-        return this.w;
+
+    public float getRotW(){
+        return this.getRotation().getW();
     }
 
     public void setRotation(float x, float y, float z, float w) {
-        this.setRotation(new Quaternion(x, y, z, w));
+        float nx = GSKOMathUtil.normalize(x, -180F, 180F);
+        float ny = GSKOMathUtil.normalize(y, -180F, 180F);
+        float nz = GSKOMathUtil.normalize(z, -180F, 180F);
+        this.setRotation(new Quaternion(nx, ny, nz, w));
         markDirty();
     }
+
+
     // 获取和设置旋转四元数
     public Quaternion getRotation() {
         return this.rotation.copy();
@@ -174,10 +163,6 @@ public class RailTileEntity extends TileEntity {
         return this.targetRailPos;
     }
 
-    @OnlyIn(Dist.CLIENT)
-    public Vector3d getRailFacing() {
-        return Vector3d.fromPitchYaw(this.pitch, this.yaw).scale(Math.sqrt(3)/2);
-    }
     public boolean shouldRender() {
         return this.shouldRender;
     }

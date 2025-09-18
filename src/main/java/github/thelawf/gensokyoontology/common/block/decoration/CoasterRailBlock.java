@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -85,7 +86,7 @@ public class CoasterRailBlock extends Block {
                 break;
             }
         }
-        railTile.setYaw(yaw);
+        railTile.setRotation(GSKOMathUtil.vecToQuaternion(placer.getLookVec()));
     }
 
     /*
@@ -104,10 +105,13 @@ public class CoasterRailBlock extends Block {
                                              @NotNull PlayerEntity player, @NotNull Hand handIn, @NotNull BlockRayTraceResult hit) {
         if (!(worldIn.getTileEntity(pos) instanceof RailTileEntity)) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
         RailTileEntity railTile = (RailTileEntity) worldIn.getTileEntity(pos);
+
         if (railTile == null) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-        if (worldIn.isRemote && player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
-            new RailDashboardScreen(pos, (int) railTile.getRoll(), (int) railTile.getYaw(), (int) railTile.getPitch(),
-                    railTile.getW()).open();
+        if (!worldIn.isRemote) return ActionResultType.SUCCESS;
+
+        if (player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
+            new RailDashboardScreen(pos, (int) railTile.getRotX(), (int) railTile.getRotY(), (int) railTile.getRotZ(),
+                    railTile.getRotW()).open();
             // NetworkHooks.openGui((ServerPlayerEntity) player, RailAdjustContainer.create(worldIn, pos), railTile.getPos());
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
