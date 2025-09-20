@@ -23,6 +23,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
@@ -78,14 +80,9 @@ public class CoasterRailBlock extends Block {
         if (railTile == null) return;
         if (placer == null) return;
 
-        Vector2f rotation = GSKOMathUtil.toYawPitch(placer.getLookVec());
-        float yaw = 0F;
-        for (Map.Entry<Vector2f, Float> entry : VECTOR2F_MAPPING.entrySet()) {
-            if (rotation.x > entry.getKey().x && rotation.x <= entry.getKey().y) {
-                yaw = entry.getValue();
-                break;
-            }
-        }
+        Vector3d rotation = placer.getLookVec();
+        railTile.setShouldRender(true);
+        railTile.setDirection(new Vector3f((float) rotation.x, 0F, (float) rotation.z));
         railTile.setRotation(GSKOMathUtil.vecToQuaternion(placer.getLookVec()));
     }
 

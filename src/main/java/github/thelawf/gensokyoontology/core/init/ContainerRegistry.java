@@ -15,10 +15,6 @@ public final class ContainerRegistry {
     public static final DeferredRegister<ContainerType<?>> CONTAINERS = DeferredRegister.create(
             ForgeRegistries.CONTAINERS, GensokyoOntology.MODID);
 
-    public static final RegistryObject<ContainerType<RailAdjustContainer>> RAIL_DASHBOARD_CONTAINER =
-            CONTAINERS.register("rail_dashboard_container", () -> IForgeContainerType.create(
-                    (windowId, inv, data) -> new RailAdjustContainer(windowId, inv.player.world, data.readBlockPos())));
-
     public static final RegistryObject<ContainerType<DanmakuCraftingContainer>> DANMAKU_CRAFTING_CONTAINER =
             CONTAINERS.register("danmaku_crafting_container", () -> IForgeContainerType.create(
                     (windowId, inv, data) -> new DanmakuCraftingContainer(windowId, inv, data.readBlockPos())));

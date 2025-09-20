@@ -35,6 +35,7 @@ public class RailTileEntity extends TileEntity {
     private boolean shouldRender = true;
     private BlockPos targetRailPos = new BlockPos(0,0,0);
     private Quaternion rotation = Quaternion.ONE;
+    private Vector3f direction = new Vector3f(0,0,0);
 
     public RailTileEntity() {
         super(TileEntityRegistry.RAIL_TILE_ENTITY.get());
@@ -78,12 +79,23 @@ public class RailTileEntity extends TileEntity {
         float qy = nbt.getFloat("qy");
         float qz = nbt.getFloat("qz");
         float qw = nbt.getFloat("qw");
+
+        float dx = nbt.getFloat("dx");
+        float dy = nbt.getFloat("dy");
+        float dz = nbt.getFloat("dz");
+
         this.setRotation(new Quaternion(qx, qy, qz, qw));
+        this.setDirection(new Vector3f(dx, dy, dz));
 
         if (nbt.contains("shouldRender")) this.shouldRender = nbt.getBoolean("shouldRender");
         if (nbt.contains("targetX") && nbt.contains("targetY") && nbt.contains("targetZ"))
             this.targetRailPos = new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ"));
         super.read(state, nbt);
+    }
+
+    public void setDirection(Vector3f direction) {
+        this.direction = direction;
+        this.write(new CompoundNBT());
     }
 
     @Override
@@ -100,6 +112,10 @@ public class RailTileEntity extends TileEntity {
         compound.putFloat("qy", qy);
         compound.putFloat("qz", qz);
         compound.putFloat("qw", qw);
+
+        compound.putFloat("dx", this.direction.getX());
+        compound.putFloat("dy", this.direction.getY());
+        compound.putFloat("dz", this.direction.getZ());
 
         compound.putBoolean("shouldRender", this.shouldRender);
         compound.putInt("targetX", this.targetRailPos.getX());
@@ -172,7 +188,8 @@ public class RailTileEntity extends TileEntity {
     }
 
     public Vector3d getFacingVec() {
-        return GSKOMathUtil.quaterToVector3d(this.getRotation());
+        Quaternion q = this.getRotation();
+        return new Vector3d(q.getX(), q.getY(), q.getZ());
     }
 
     @Nullable
@@ -197,5 +214,9 @@ public class RailTileEntity extends TileEntity {
                 .subtract(new Vector3d(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
         return CurveUtil.getBezierPos(new ArrayList<>(), Vector3d.ZERO, target, ConnectionUtil.getIntersection(
                 Vector3d.copyCentered(this.pos), Vector3d.copyCentered(this.targetRailPos)), 0.01F);
+    }
+
+    public Vector3f getDirection() {
+        return direction;
     }
 }
