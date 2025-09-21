@@ -57,6 +57,27 @@ public class CurveUtil {
         return bezierPositions;
     }
 
+    /**
+     * 计算法线向量
+     * @param tangent 切线向量
+     * @return 法线向量
+     */
+    private static Vector3d calculateNormal(Vector3d tangent) {
+        // 选择参考上向量（通常是世界向上或曲线平面法线）
+        Vector3d upVector = new Vector3d(0, 1, 0);
+
+        // 计算法线（垂直于切线和上向量）
+        Vector3d binormal = tangent.crossProduct(upVector).normalize();
+
+        // 如果法线太小（切线接近垂直），使用备用上向量
+        if (binormal.lengthSquared() < 0.01) {
+            upVector = new Vector3d(0, 0, 1);
+            binormal = tangent.crossProduct(upVector).normalize();
+        }
+
+        return binormal;
+    }
+
     public static List<Vector3d> getBezierNormal(List<Vector3d> bezierPositions, Vector3d start, Vector3d ctrl,  Vector3d end, float time) {
         for (float i = 0; i < 1; i += time) {
             if (bezierPositions.size() > 1F / time) break;
@@ -65,37 +86,44 @@ public class CurveUtil {
         return bezierPositions;
     }
 
-    public static Pair<Vector3d, Vector3d> getParallelDotAt(Vector3d start, Vector3d end, Vector3d intersection, int maxStep, int currentStep) {
-        float unitStep = 1F / maxStep;
-        if (currentStep > maxStep) currentStep = maxStep - 1;
-        else if (currentStep < 0) currentStep = 0;
-
-        Vector3d startPos = getBezierNormal(new ArrayList<>(), start, intersection, end, unitStep)
-                .get(currentStep).rotateYaw(Danmaku.rad(90));
-        Vector3d endPos = getBezierNormal(new ArrayList<>(), start, intersection, end, unitStep)
-                .get(currentStep).rotateYaw(Danmaku.rad(-90));
-        return new Pair<>(startPos.normalize(), endPos.normalize());
-    }
 
     public static Pair<Vector3d, Vector3d> getParallelDotAt(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, int maxStep, int currentStep) {
         float unitStep = 1F / maxStep;
         if (currentStep > maxStep) currentStep = maxStep - 1;
         else if (currentStep < 0) currentStep = 0;
 
-        Vector3d startPos = getBezierNormal(new ArrayList<>(), start, end, ctrl1, ctrl2, unitStep)
-                .get(currentStep).rotateYaw(Danmaku.rad(90));
-        Vector3d endPos = getBezierNormal(new ArrayList<>(), start, end, ctrl1, ctrl2, unitStep)
-                .get(currentStep).rotateYaw(Danmaku.rad(90));
-        return new Pair<>(startPos.normalize(), endPos.normalize());
+        // 1. 计算曲线上的点
+        Vector3d curvePoint = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, unitStep);
+
+        // 2. 计算切线向量（曲线方向）
+        Vector3d tangent = GSKOMathUtil.bezier3Derivative(start, end, ctrl1, ctrl2, unitStep).normalize();
+
+        // 3. 计算法线向量（垂直于曲线）
+        Vector3d normal = calculateNormal(tangent);
+
+        // 4. 计算偏移点
+        Vector3d leftRail = curvePoint.add(normal.scale(1.2F / 2));
+        Vector3d rightRail = curvePoint.subtract(normal.scale(1.2F / 2));
+
+        return Pair.of(leftRail, rightRail);
     }
 
     public static Pair<Vector3d, Vector3d> getParallelDotAt(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, float time) {
 
-        Vector3d startPos = GSKOMathUtil.bezier3Derivative(start, end, ctrl1, ctrl2, time)
-                .rotateYaw(Danmaku.rad(90)).scale(0.5F);
-        Vector3d endPos = GSKOMathUtil.bezier3Derivative(start, end, ctrl1, ctrl2, time)
-                .rotateYaw(Danmaku.rad(-90)).scale(0.5F);
-        return new Pair<>(startPos.normalize(), endPos.normalize());
+        // 1. 计算曲线上的点
+        Vector3d curvePoint = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, time);
+
+        // 2. 计算切线向量（曲线方向）
+        Vector3d tangent = GSKOMathUtil.bezier3Derivative(start, end, ctrl1, ctrl2, time).normalize();
+
+        // 3. 计算法线向量（垂直于曲线）
+        Vector3d normal = calculateNormal(tangent);
+
+        // 4. 计算偏移点
+        Vector3d leftRail = curvePoint.add(normal.scale(1.2F / 2));
+        Vector3d rightRail = curvePoint.subtract(normal.scale(1.2F / 2));
+
+        return Pair.of(leftRail, rightRail);
     }
 
     public static Vector3d getStartCtrlDot(Vector3d startPos, Vector2f startRot, float scale) {

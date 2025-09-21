@@ -12,7 +12,6 @@ import net.minecraft.util.math.vector.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.lwjgl.system.windows.MSG;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -20,9 +19,6 @@ import java.util.List;
 import java.util.Random;
 
 public class GSKOMathUtil {
-
-    private GSKOMathUtil() {
-    }
 
     public static Matrix4f transform(MatrixStack matrixStack, Vector3f pivot, Rot3f rot3f, Vector3f scale, Vector3f translation) {
 
@@ -704,6 +700,67 @@ public class GSKOMathUtil {
     public static Vector3d quaterToVector3d(Quaternion quaternion) {
         Vector3d reference = new Vector3d(0, 0, 1);
         return rotateVector(quaternion, reference);
+    }
+
+    public static Quaternion getRotationFrom(Vector3f firstVec, Vector3f targetVec) {
+        // 归一化向量
+        firstVec.normalize();
+        targetVec.normalize();
+
+        // 处理向量平行的情况
+        double dot = firstVec.dot(targetVec);
+        if (Math.abs(dot - 1.0) < 1e-6) {
+            // 向量相同，无旋转
+            return Quaternion.ONE.copy();
+        }
+        if (Math.abs(dot + 1.0) < 1e-6) {
+            // 向量相反，旋转180度（任意垂直轴）
+            Vector3f axis = findPerpendicularAxis(firstVec);
+            return new Quaternion(axis, 180.0f, true);
+        }
+
+        // 计算旋转轴
+        firstVec.cross(targetVec);
+        firstVec.normalize();
+        Vector3f axis = firstVec.copy();
+
+        // 计算旋转角度
+        double angle = Math.acos(dot);
+
+        // 转换为半角
+        double halfAngle = angle / 2.0;
+        double sinHalf = Math.sin(halfAngle);
+        double cosHalf = Math.cos(halfAngle);
+
+        // 构造四元数
+        return new Quaternion(
+                (float)(axis.getX() * sinHalf),
+                (float)(axis.getY() * sinHalf),
+                (float)(axis.getZ() * sinHalf),
+                (float)cosHalf
+        );
+    }
+
+    /**
+     * 找到与给定向量垂直的轴
+     * @param vector 输入向量
+     * @return 垂直向量
+     */
+    private static Vector3f findPerpendicularAxis(Vector3f vector) {
+        // 尝试使用 (1,0,0) 叉乘
+        Vector3f candidate = new Vector3f(1, 0, 0);
+        vector.cross(candidate);
+
+        float f = MathHelper.sqrt(vector.getX() * vector.getX() +
+                vector.getY() * vector.getY() +
+                vector.getZ() * vector.getZ());
+        // 如果叉积太小，尝试其他轴
+        if (f * f < 1e-5) {
+            candidate = new Vector3f(0, 1, 0);
+            vector.cross(candidate);
+        }
+        vector.normalize();
+        return vector;
     }
 
     /**

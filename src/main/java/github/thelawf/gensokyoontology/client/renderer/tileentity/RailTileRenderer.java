@@ -68,8 +68,10 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         Vector3d end = Vector3d.copy(endRail.getPos()).subtract(startVec);
 
         int segments = 32;
+
         if (tileEntityIn.shouldRender()) {
             this.renderUnconnectedTrack(b, builder, matrixStackIn, tileEntityIn);
+            return;
         }
 
         for (int i = 0; i < segments; i++) {
@@ -91,27 +93,11 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
             Vector3d left1 = nextLRDots.getFirst();
             Vector3d right1 = nextLRDots.getSecond();
 
-            Vector3d firstLeft = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, t0).add(left0);
-            Vector3d firstRight = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, t0).add(right0);
-            Vector3d nextLeft = GSKOMathUtil.bezier3(start,  end, ctrl1, ctrl2, t1).add(left1);
-            Vector3d nextRight = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, t1).add(right1);
+            this.renderSegment(builder, matrixStackIn, left0, left1);
+            this.renderSegment(builder, matrixStackIn, right0, right1);
 
-            this.renderSegment(builder, matrixStackIn, firstLeft, nextLeft);
-            this.renderSegment(builder, matrixStackIn, firstRight, nextRight);
-
-//            Vector3d startPos = ConnectionUtil.getCatmullRomSpline(t0, new Vector3d(tileEntityIn.getControlPoint()),
-//                    tileEntityIn.getRailFacing(),
-//                    tileEntityIn.getTargetPosVec(), new Vector3d(endRail.getControlPoint()));
-//            Vector3d endPos = ConnectionUtil.getCatmullRomSpline(t1, new Vector3d(tileEntityIn.getControlPoint()),
-//                    tileEntityIn.getRailFacing(),
-//                    tileEntityIn.getTargetPosVec(), new Vector3d(endRail.getControlPoint()));
-//            GSKOUtil.log("Start: " + startPos + "; End: " + endPos);
-//
-//            renderHermite3(matrixStackIn, builder, start, end1, new Vector4i((int) r1,(int) g1, (int) b1, 0),
-//                    tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
-//            renderHermite3(matrixStackIn, builder, start1, end, new Vector4i((int) r1,(int) g1, (int) b1, 0),
-//                    tileEntityIn.getRotation(), combinedLightIn, t0, t1, blockProgress, origin0, basis0, grad0);
         }
+
     }
 
     /**
@@ -176,13 +162,6 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
     }
 
-    private org.joml.Vector3d jomlVec(Vector3d vec) {
-        return new org.joml.Vector3d(vec.x, vec.y, vec.z);
-    }
-
-    private org.joml.Vector3f jomlVec(Vector3f vec) {
-        return new org.joml.Vector3f(vec.getX(), vec.getY(), vec.getZ());
-    }
 
     private Vector3f mcVec(org.joml.Vector3f vec) {
         return new Vector3f(vec.x, vec.y, vec.z);
@@ -214,7 +193,48 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
         Quaternion rotation = tileEntityIn.getRotation();
         matrixStackIn.push();
-        matrixStackIn.rotate(Vector3f.XP.rotationDegrees(180));
+        matrixStackIn.rotate(rotation);
+//        this.rotate(matrixStackIn, roll, yaw, pitch);
+        matrixStackIn.translate(0, 0.45, 0);
+//        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
+        GeometryUtil.renderCylinder(b, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
+        matrixStackIn.pop();
+
+        matrixStackIn.push();
+        matrixStackIn.rotate(rotation);
+        matrixStackIn.translate(0, 0.45, 1);
+//        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
+        GeometryUtil.renderCylinder(b, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
+        matrixStackIn.pop();
+
+        matrixStackIn.push();
+        matrixStackIn.rotate(rotation);
+        matrixStackIn.translate(0, 0.35, 0);
+        GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
+                new Vector3f(0.2F,0,0), new Vector3f(0.2F,0,1F), new Vector3f(0.2F,-0.15F,0.8F), new Vector3f(0.2F,-0.15F,0.2F),
+                new Vector4f(rf2, gf2, bf2, 1));
+        GeometryUtil.quadFace(builder, matrixStackIn.getLast().getMatrix(),
+                new Vector3f(0.7F,0,0), new Vector3f(0.7F,0,1F), new Vector3f(0.7F,-0.15F,0.8F), new Vector3f(0.7F,-0.15F,0.2F),
+                new Vector4f(rf2, gf2, bf2, 1));
+        matrixStackIn.pop();
+
+        matrixStackIn.push();
+        matrixStackIn.rotate(rotation);
+        matrixStackIn.translate(0, 0, 0.3);
+        GeometryUtil.renderCube(builder, matrixStackIn.getLast().getMatrix(), new Vector3f(1F, 0.15F, 0.4F),
+                new Vector3i(r1, g1, b1));
+        matrixStackIn.pop();
+    }
+
+    public void renderTrackBlock(IVertexBuilder b, IVertexBuilder builder, MatrixStack matrixStackIn, RailTileEntity tileEntityIn) {
+        float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
+        float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
+//        Quaternion roll = Vector3f.XP.rotationDegrees(tileEntityIn.getRoll());
+//        Quaternion yaw = Vector3f.YP.rotationDegrees(tileEntityIn.getYaw());
+//        Quaternion pitch = Vector3f.ZP.rotationDegrees(tileEntityIn.getPitch());
+
+        Quaternion rotation = tileEntityIn.getRotation();
+        matrixStackIn.push();
         matrixStackIn.rotate(rotation);
 //        this.rotate(matrixStackIn, roll, yaw, pitch);
         matrixStackIn.translate(0, 0.45, 0);

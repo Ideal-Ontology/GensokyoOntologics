@@ -39,6 +39,7 @@
   "gensokyoontology:hakurei_shrine": "Hakurei Shine",
   "gensokyoontology:mystia_izakaya": "Mystia Izakaya",
 
+
   "item.gensokyoontology.aya_fans": "Aya Fans",
   "itemGroup.gensokyoontology_items": "Gensokyo Ontology: Items",
   "itemGroup.gensokyoontology_combat": "Gensokyo Ontology: Combat",
@@ -258,6 +259,7 @@
   "item.gensokyoontology.onion": "Onion",
 
   "item.gensokyoontology.cherry_blossom": "Cherry Blossom",
+  "item.gensokyoontology.rail_connector": "R",
 
   "item.gensokyoontology.kitchen_knife": "Kitchen Knife",
   "item.gensokyoontology.burger_meat_raw": "Burger Meat Raw",
@@ -477,9 +479,9 @@
   "gui.gensokyoontology.button.decrease_yaw": "-",
   "gui.gensokyoontology.button.decrease_pitch": "-",
 
-  "gui.gensokyoontology.silder_prefix.qx": "X Axis Angle: ",
-  "gui.gensokyoontology.silder_prefix.qy": "Y Axis Angle: ",
-  "gui.gensokyoontology.silder_prefix.qz": "Z Axis Angle: ",
+  "gui.gensokyoontology.silder_prefix.qx": "Direction X: ",
+  "gui.gensokyoontology.silder_prefix.qy": "Direction Y: ",
+  "gui.gensokyoontology.silder_prefix.qz": "Direction Z: ",
   "gui.gensokyoontology.silder_prefix.qw": "W: ",
 
   "gui.gensokyoontology.label.qx": "Rotation X: ",
@@ -691,6 +693,8 @@
   "tooltip.gensokyoontology.binary_builder.operation_type": "Operation Type: %s",
   "tooltip.gensokyoontology.binary_builder.left_type": "Left Type: %s",
   "tooltip.gensokyoontology.binary_builder.right_type": "Right Type: %s",
+
+  "tooltip.gensokyoontology.rail_tile.start_pos": "Start Pos: ",
 
   "tooltip.gensokyoontology.spell_console.button.save": "Save",
   "tooltip.gensokyoontology.spell_console.button.copy": "Copy",

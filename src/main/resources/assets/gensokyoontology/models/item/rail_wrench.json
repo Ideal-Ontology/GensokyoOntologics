@@ -1,3 +1,6 @@
 {
-  "parent": "gensokyoontology:item/rail_wrench.obj"
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "gensokyoontology:item/rail_wrench"
+  }
 }

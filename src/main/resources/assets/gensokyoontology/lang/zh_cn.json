@@ -283,9 +283,9 @@
   "gui.gensokyoontology.script.button.save": "保存",
   "gui.gensokyoontology.script_builder.fieldName": "名称: ",
 
-  "gui.gensokyoontology.silder_prefix.qx": "X轴角度: ",
-  "gui.gensokyoontology.silder_prefix.qy": "Y轴角度: ",
-  "gui.gensokyoontology.silder_prefix.qz": "Z轴角度: ",
+  "gui.gensokyoontology.silder_prefix.qx": "X朝向: ",
+  "gui.gensokyoontology.silder_prefix.qy": "Y朝向: ",
+  "gui.gensokyoontology.silder_prefix.qz": "Z朝向: ",
   "gui.gensokyoontology.silder_prefix.qw": "W: ",
   "gui.gensokyoontology.label.qx": "Rotation X: ",
   "gui.gensokyoontology.label.qy": "Rotation Y: ",
@@ -423,7 +423,7 @@
   "item.gensokyoontology.paper_shide": "纸垂",
   "item.gensokyoontology.power_item": "P点",
   "item.gensokyoontology.praxis_sword": "实践",
-  "item.gensokyoontology.rail_wrench": "Rail Wrench",
+  "item.gensokyoontology.rail_wrench": "轨道扳手",
   "item.gensokyoontology.realism_sword": "实在论之剑",
   "item.gensokyoontology.remilia_scarlet_spawn_egg": "蕾米莉亚刷怪蛋",
   "item.gensokyoontology.rice_shot": "米弹",
@@ -499,6 +499,8 @@
   "item.gensokyoontology.white_snow": "白雪",
   "item.gensokyoontology.yattsume_una": "八目鳗",
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
+  "item.gensokyoontology.rail_connector": "轨道连接器",
+
   "itemGroup.gensokyoontology.block": "幻想存有论：方块",
   "itemGroup.gensokyoontology_combat": "幻想存有论：战斗",
   "itemGroup.gensokyoontology_items": "幻想存有论：物品",
@@ -664,6 +666,9 @@
   "tooltip.gensokyoontology.three_sacred_treasures.mirror": "「三种神器　镜」",
   "tooltip.gensokyoontology.three_sacred_treasures.orb": "「三种神器　玉」",
   "tooltip.gensokyoontology.three_sacred_treasures.sword": "「三种神器　剑」",
+
+  "tooltip.gensokyoontology.rail_tile.start_pos": "轨道连接起点位置: ",
+
   "xmmui.gensokyoonotlogy.test_xmmui_screen.title": "标题",
   "xmmui.gensokyoontology.test_xmmui_screen.style_test": "Welcome",
   "enchantment.level.11": "XI",

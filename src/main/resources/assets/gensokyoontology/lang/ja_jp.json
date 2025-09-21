@@ -572,6 +572,7 @@
   "tooltip.gensokyoontology.binary_builder.operation_type": "§9Operation Type: ",
   "tooltip.gensokyoontology.binary_builder.left_type": "§dLeft Type: ",
   "tooltip.gensokyoontology.binary_builder.right_type": "§dRight Type: ",
+  "tooltip.gensokyoontology.rail_tile.start_pos": "Start Pos: ",
   "tooltip.gensokyoontology.spell_console.button.save": "Save",
   "tooltip.gensokyoontology.spell_console.button.copy": "Copy",
   "patchouli.gensokyoontology.book.name": "Gensokyo Ontology",
@@ -649,15 +650,5 @@
   "patchouli.gensokyoontology.task.gitsune_tube_full.usage": "Taken part in the Sorcery Extractor crafting.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "gui.gensokyoontology.label.pitch": "Pitch: ",
-  "gui.gensokyoontology.label.radius": "Radius: ",
-  "gui.gensokyoontology.label.roll": "Roll: ",
-  "gui.gensokyoontology.label.x": "Control X: ",
-  "gui.gensokyoontology.label.y": "Control Y: ",
-  "gui.gensokyoontology.label.yaw": "Yaw: ",
-  "gui.gensokyoontology.label.z": "Control Z: ",
-  "gui.gensokyoontology.silder_prefix.angle_x": "X Axis Angle: ",
-  "gui.gensokyoontology.silder_prefix.angle_y": "Y Axis Angle: ",
-  "gui.gensokyoontology.silder_prefix.angle_z": "Z Axis Angle: "
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }

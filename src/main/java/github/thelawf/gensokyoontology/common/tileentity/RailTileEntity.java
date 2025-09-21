@@ -1,31 +1,21 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
-import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.util.math.Pose;
-import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
-import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
+import net.minecraft.util.math.vector.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Matrix3d;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +24,7 @@ public class RailTileEntity extends TileEntity {
     // private Pose pose;
     private boolean shouldRender = true;
     private BlockPos targetRailPos = new BlockPos(0,0,0);
-    private Quaternion rotation = Quaternion.ONE;
+    private Quaternion rotation = new Quaternion(0,0,0,1);
     private Vector3f direction = new Vector3f(0,0,0);
 
     public RailTileEntity() {
@@ -73,19 +63,37 @@ public class RailTileEntity extends TileEntity {
         this.read(state, tag);
     }
 
+    public Vector3f getDirection() {
+        return this.direction;
+    }
+    public void setDirection(Vector3f direction) {
+        this.direction = direction;
+        this.write(new CompoundNBT());
+        markDirty();
+    }
+
+    public Quaternion getRotation() {
+        return this.rotation;
+    }
+    public void setRotation(Quaternion rotation) {
+        this.rotation = rotation;
+        this.write(new CompoundNBT());
+        markDirty();
+    }
+
     @Override
     public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
+        float dx = nbt.getFloat("dx");
+        float dy = nbt.getFloat("dy");
+        float dz = nbt.getFloat("dz");
+
         float qx = nbt.getFloat("qx");
         float qy = nbt.getFloat("qy");
         float qz = nbt.getFloat("qz");
         float qw = nbt.getFloat("qw");
 
-        float dx = nbt.getFloat("dx");
-        float dy = nbt.getFloat("dy");
-        float dz = nbt.getFloat("dz");
-
-        this.setRotation(new Quaternion(qx, qy, qz, qw));
         this.setDirection(new Vector3f(dx, dy, dz));
+        this.setRotation(new Quaternion(qx, qy, qz, qw));
 
         if (nbt.contains("shouldRender")) this.shouldRender = nbt.getBoolean("shouldRender");
         if (nbt.contains("targetX") && nbt.contains("targetY") && nbt.contains("targetZ"))
@@ -93,29 +101,19 @@ public class RailTileEntity extends TileEntity {
         super.read(state, nbt);
     }
 
-    public void setDirection(Vector3f direction) {
-        this.direction = direction;
-        this.write(new CompoundNBT());
-    }
-
     @Override
     @NotNull
     public CompoundNBT write(@NotNull CompoundNBT compound) {
         super.write(compound);
-        Quaternion q = this.getRotation();
-        float qx = q.getX();
-        float qy = q.getY();
-        float qz = q.getZ();
-        float qw = q.getW();
-
-        compound.putFloat("qx", qx);
-        compound.putFloat("qy", qy);
-        compound.putFloat("qz", qz);
-        compound.putFloat("qw", qw);
 
         compound.putFloat("dx", this.direction.getX());
         compound.putFloat("dy", this.direction.getY());
         compound.putFloat("dz", this.direction.getZ());
+
+        compound.putFloat("qx", this.rotation.getX());
+        compound.putFloat("qy", this.rotation.getY());
+        compound.putFloat("qz", this.rotation.getZ());
+        compound.putFloat("qw", this.rotation.getW());
 
         compound.putBoolean("shouldRender", this.shouldRender);
         compound.putInt("targetX", this.targetRailPos.getX());
@@ -124,42 +122,9 @@ public class RailTileEntity extends TileEntity {
         return super.write(compound);
     }
 
-    public float getRotX(){
-        return GSKOMathUtil.denormalize(this.getRotation().getX(), 180);
-    }
-
-    public float getRotY(){
-        return GSKOMathUtil.denormalize(this.getRotation().getY(), 180);
-    }
-
-    public float getRotZ(){
-        return GSKOMathUtil.denormalize(this.getRotation().getZ(), 180);
-    }
-
-    public float getRotW(){
-        return this.getRotation().getW();
-    }
-
-    public void setRotation(float x, float y, float z, float w) {
-        float nx = GSKOMathUtil.normalize(x, -180F, 180F);
-        float ny = GSKOMathUtil.normalize(y, -180F, 180F);
-        float nz = GSKOMathUtil.normalize(z, -180F, 180F);
-        this.setRotation(new Quaternion(nx, ny, nz, w));
-        markDirty();
-    }
-
-
-    // 获取和设置旋转四元数
-    public Quaternion getRotation() {
-        return this.rotation.copy();
-    }
-
-    public void setRotation(Quaternion rotation) {
-        this.rotation = rotation.copy();
-        markDirty();
-    }
     public void setTargetPos(BlockPos targetRailPos) {
         this.targetRailPos = targetRailPos;
+        this.write(new CompoundNBT());
         markDirty();
     }
 
@@ -184,12 +149,12 @@ public class RailTileEntity extends TileEntity {
     }
     public void setShouldRender(boolean shouldRender) {
         this.shouldRender = shouldRender;
+        this.write(new CompoundNBT());
         markDirty();
     }
 
     public Vector3d getFacingVec() {
-        Quaternion q = this.getRotation();
-        return new Vector3d(q.getX(), q.getY(), q.getZ());
+        return new Vector3d(this.getDirection());
     }
 
     @Nullable
@@ -216,7 +181,4 @@ public class RailTileEntity extends TileEntity {
                 Vector3d.copyCentered(this.pos), Vector3d.copyCentered(this.targetRailPos)), 0.01F);
     }
 
-    public Vector3f getDirection() {
-        return direction;
-    }
 }

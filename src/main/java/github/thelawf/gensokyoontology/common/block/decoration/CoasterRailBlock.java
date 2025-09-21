@@ -3,12 +3,10 @@ package github.thelawf.gensokyoontology.common.block.decoration;
 import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.util.math.Pose;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -30,10 +28,8 @@ import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.joml.AxisAngle4d;
-import org.joml.Matrix3d;
 
 import java.util.HashMap;
-import java.util.Map;
 
 public class CoasterRailBlock extends Block {
     public static final HashMap<Vector2f, Float> VECTOR2F_MAPPING = Util.make(new HashMap<>(), map -> {
@@ -86,15 +82,6 @@ public class CoasterRailBlock extends Block {
         railTile.setRotation(GSKOMathUtil.vecToQuaternion(placer.getLookVec()));
     }
 
-    /*
-    private Pose withPose(LivingEntity living) {
-        Matrix3d matrix = new Matrix3d().identity();
-        Direction dir = GSKOMathUtil.toDirection(living.getLookVec());
-        AxisAngle4d aa4d = new AxisAngle4d();
-        return new Pose(n);
-    }
-     */
-
     @Override
     @NotNull
     @SuppressWarnings("deprecation")
@@ -107,8 +94,7 @@ public class CoasterRailBlock extends Block {
         if (!worldIn.isRemote) return ActionResultType.SUCCESS;
 
         if (player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
-            new RailDashboardScreen(pos, (int) railTile.getRotX(), (int) railTile.getRotY(), (int) railTile.getRotZ(),
-                    railTile.getRotW()).open();
+            new RailDashboardScreen(pos, railTile.getDirection()).open();
             // NetworkHooks.openGui((ServerPlayerEntity) player, RailAdjustContainer.create(worldIn, pos), railTile.getPos());
         }
         return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
