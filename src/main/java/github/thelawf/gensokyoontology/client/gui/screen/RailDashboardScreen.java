@@ -80,8 +80,8 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     }
 
     private void onQXSlide(Slider slider) {
-        float val = this.to3Digits((float) slider.sliderValue);
-        this.rotation = new Quaternion(val, (float) this.qySlider.sliderValue, (float) this.qzSlider.sliderValue,
+        float x = this.to3Digits((float) slider.sliderValue);
+        this.rotation = new Quaternion(x, (float) this.qySlider.sliderValue, (float) this.qzSlider.sliderValue,
                 (float) this.qwSlider.sliderValue);
 
         Vector3f result = this.facingVec.copy();
@@ -90,6 +90,8 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.nextFacing = result;
         this.sendPacketToServer();
         slider.setValue(result.getX());
+        this.qySlider.setValue(result.getY());
+        this.qzSlider.setValue(result.getZ());
     }
     private void onQYSlide(Slider slider) {
         float val = this.to3Digits((float) slider.sliderValue);
@@ -102,6 +104,8 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.nextFacing = result;
         this.sendPacketToServer();
         slider.setValue(result.getX());
+        this.qxSlider.setValue(result.getY());
+        this.qzSlider.setValue(result.getZ());
     }
     private void onQZSlide(Slider slider) {
         float val = this.to3Digits((float) slider.getValue());
@@ -114,6 +118,8 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.nextFacing = result;
         this.sendPacketToServer();
         slider.setValue(result.getZ());
+        this.qxSlider.setValue(result.getX());
+        this.qySlider.setValue(result.getY());
     }
     private void onQWSlide(Slider slider) {
         float val = this.to3Digits((float) slider.getValue());

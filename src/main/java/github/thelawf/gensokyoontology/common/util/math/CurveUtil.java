@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
@@ -122,7 +121,6 @@ public class CurveUtil {
         // 4. 计算偏移点
         Vector3d leftRail = curvePoint.add(normal.scale(1.2F / 2));
         Vector3d rightRail = curvePoint.subtract(normal.scale(1.2F / 2));
-
         return Pair.of(leftRail, rightRail);
     }
 

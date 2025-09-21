@@ -7,10 +7,8 @@ import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
-import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -18,7 +16,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -95,7 +92,6 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
             this.renderSegment(builder, matrixStackIn, left0, left1);
             this.renderSegment(builder, matrixStackIn, right0, right1);
-
         }
 
     }
@@ -127,10 +123,11 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         blockProgress[0] = v1;
 
         // FIXME: 这里是求轨道的法向
-        v1 = 1 - v1;
-        v0 = 1 - v0;
+        v1 = 1 - v1 + 0.5F;
+        v0 = 1 - v0 + 0.5F;
 
         org.joml.Vector3f point = new org.joml.Vector3f();
+        point.mul(basis1).add((float) origin0.x, (float) origin0.y, (float) origin0.z);
         // point.mul(basis1);
         this.renderSegment(builder, matrixStack, rotation, basis0, basis1, origin0.get(new org.joml.Vector3f()),
                 origin1.get(new org.joml.Vector3f()));

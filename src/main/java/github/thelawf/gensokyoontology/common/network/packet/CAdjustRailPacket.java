@@ -59,7 +59,6 @@ public class CAdjustRailPacket {
         if (railTile == null) return;
 
         railTile.setTargetPos(pos);
-        railTile.setShouldRender(false);
         railTile.setRotation(packet.rotation);
         railTile.setDirection(packet.direction);
         serverWorld.notifyBlockUpdate(pos, railTile.getBlockState(), railTile.getBlockState(), 3);

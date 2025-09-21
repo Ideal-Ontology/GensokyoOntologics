@@ -1,8 +1,7 @@
-package github.thelawf.gensokyoontology.common.util.world;
+package github.thelawf.gensokyoontology.common.util.math;
 
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;

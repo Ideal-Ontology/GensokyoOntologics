@@ -2,8 +2,7 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.util.world.ConnectionUtil;
+import github.thelawf.gensokyoontology.common.util.math.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
