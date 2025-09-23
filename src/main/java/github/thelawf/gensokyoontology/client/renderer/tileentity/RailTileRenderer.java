@@ -2,11 +2,11 @@ package github.thelawf.gensokyoontology.client.renderer.tileentity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.common.util.math.Pose;
 import net.minecraft.client.Minecraft;
@@ -75,25 +75,85 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
             float t0 = (float) i / segments;
             float t1 = (float) (i + 1) / segments;
 
-            double scale = endRail.getPosVec().distanceTo(tileEntityIn.getPosVec()) * 0.5;
-            Vector3d ctrl1 = tileEntityIn.getFacingVec().scale(scale);
-            Vector3d ctrl2 = endRail.getFacingVec().scale(scale);
+            double scale = 0.55;
+            Vector3d ctrl1 = tileEntityIn.defaultCtrlDot();
+            Vector3d ctrl2 = endRail.defaultCtrlDot();
+
+            Vector3d current = CurveUtil.catmullRom(start, ctrl1, end, ctrl2, t0);
+            Vector3d next = CurveUtil.catmullRom(start, ctrl1, end, ctrl2, t1);
+            Vector3d tangent = CurveUtil.catmullRomTangent(start, ctrl1, end, ctrl2, t0);
+            Vector3d normal = CurveUtil.catmullRomNormal(tangent);
+
+            Quaternion rotation = GSKOMathUtil.slerp(tileEntityIn.getRotation(), endRail.getRotation(), t0);
+
+            Vector3d left0 = current.add(normal.scale(-scale));
+            Vector3d right0 = current.add(normal.scale(scale));
+            Vector3d left1 = next.add(normal.scale(-scale));
+            Vector3d right1 = next.add(normal.scale(scale));
+
+//            this.renderHermite3(matrixStackIn, builder, startPose0, endPose0, red, new Vector3f(), combinedLightIn,
+//                    t0, t1, new double[]{0}, startPose0.translation, startPose0.basis, new org.joml.Vector3d());
 //
-//            Vector3d intersection = ConnectionUtil.getIntersection(tileEntityIn.getFacingVec(), endRail.getFacingVec());
-//            Pair<Vector3d, Vector3d> leftRightDots = CurveUtil.getParallelDotAt(start, end, intersection, segments, i);
+//            this.renderHermite3(matrixStackIn, builder, startPose1, endPose1, red, new Vector3f(), combinedLightIn,
+//                    t0, t1, new double[]{0}, startPose0.translation, startPose0.basis, new org.joml.Vector3d());
 
-            Pair<Vector3d, Vector3d> firstLRDots = CurveUtil.getParallelDotAt(start, end, ctrl1, ctrl2, t0);
-            Pair<Vector3d, Vector3d> nextLRDots = CurveUtil.getParallelDotAt(start, end, ctrl1, ctrl2, t1);
-
-            Vector3d left0 = firstLRDots.getFirst();
-            Vector3d right0 = firstLRDots.getSecond();
-            Vector3d left1 = nextLRDots.getFirst();
-            Vector3d right1 = nextLRDots.getSecond();
-
-            this.renderSegment(builder, matrixStackIn, left0, left1);
-            this.renderSegment(builder, matrixStackIn, right0, right1);
+            this.renderCatmullRom(builder, matrixStackIn, left0, left1, rotation);
+            this.renderCatmullRom(builder, matrixStackIn, right0, right1, rotation);
+//            this.renderSegment(builder, matrixStackIn, left0, left1);
+//            this.renderSegment(builder, matrixStackIn, right0, right1);
         }
 
+    }
+
+    private void renderCatmullRom(IVertexBuilder builder, MatrixStack matrixStack,
+                                  Vector3d start, Vector3d end,
+                                  Quaternion rotation) {
+        matrixStack.push();
+        matrixStack.translate(start.x, start.y, start.z);
+
+        // 应用旋转
+        matrixStack.rotate(rotation);
+
+        // 计算线段方向和长度
+        Vector3d direction = end.subtract(start);
+        float length = (float) direction.length();
+
+        // 渲染轨道段
+        GeometryUtil.renderCylinder(builder, matrixStack.getLast().getMatrix(),
+                8, 0.1f, length, 0.8f, 0f, 0f, 1.0f);
+
+        matrixStack.pop();
+    }
+
+    private void renderRailTie(IVertexBuilder builder, MatrixStack matrixStack,
+                               Vector3d position, Vector3d next, Vector3d normal,
+                               Quaternion rotation) {
+        matrixStack.push();
+        matrixStack.translate(position.x, position.y - 0.1, position.z);
+
+        // 应用旋转
+        matrixStack.rotate(rotation);
+
+        // 渲染枕木
+        GeometryUtil.renderCube(builder, matrixStack.getLast().getMatrix(),
+                new Vector3f(1.5f, 0.1f, 0.1f), new Vector3i(100, 50, 0));
+
+        matrixStack.pop();
+    }
+
+    private void renderSingleRail(RailTileEntity tileEntity, MatrixStack matrixStack,
+                                  IRenderTypeBuffer buffer) {
+        // 渲染单个轨道方块
+        IVertexBuilder builder = buffer.getBuffer(RenderType.getEntitySolid(TEXTURE));
+
+        matrixStack.push();
+        matrixStack.translate(0.5, 0.5, 0.5);
+        matrixStack.rotate(tileEntity.getRotation());
+        matrixStack.translate(-0.5, -0.5, -0.5);
+
+        // 渲染轨道模型
+        this.renderUnconnectedTrack(builder, builder, matrixStack, tileEntity);
+        matrixStack.pop();
     }
 
     /**
@@ -191,16 +251,15 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         Quaternion rotation = tileEntityIn.getRotation();
         matrixStackIn.push();
         matrixStackIn.rotate(rotation);
-//        this.rotate(matrixStackIn, roll, yaw, pitch);
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90));
         matrixStackIn.translate(0, 0.45, 0);
-//        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
         GeometryUtil.renderCylinder(b, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 
         matrixStackIn.push();
         matrixStackIn.rotate(rotation);
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90));
         matrixStackIn.translate(0, 0.45, 1);
-//        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90F));
         GeometryUtil.renderCylinder(b, matrixStackIn.getLast().getMatrix(), 15, this.radius, -1f, rf1, gf1, bf1, 1);
         matrixStackIn.pop();
 

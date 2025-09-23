@@ -20,6 +20,76 @@ import java.util.Random;
 
 public class GSKOMathUtil {
 
+    /**
+     * 四元数球面线性插值（SLERP）
+     * @param start 起始四元数
+     * @param end 结束四元数
+     * @param t 插值因子 (0.0 - 1.0)
+     * @return 插值后的四元数
+     */
+    public static Quaternion slerp(Quaternion start, Quaternion end, float t) {
+        // 确保四元数是单位四元数
+        Quaternion q0 = start.copy();
+        Quaternion q1 = end.copy();
+        q0.normalize();
+        q1.normalize();
+
+        // 计算点积（余弦值）
+        float dot = qDot(q0, q1);
+
+        // 如果点积为负，反转一个四元数（确保走最短路径）
+        if (dot < 0.0f) {
+            q1 = new Quaternion(-q1.getX(), -q1.getY(), -q1.getZ(), -q1.getW());
+            dot = -dot;
+        }
+
+        // 如果点积接近1，使用线性插值避免除零错误
+        if (dot > 0.9995f) {
+            return qlerp(q0, q1, t);
+        }
+
+        // 计算夹角
+        float theta = (float) Math.acos(dot);
+        float sinTheta = (float) Math.sin(theta);
+
+        // 计算插值系数
+        float scale0 = (float) Math.sin((1 - t) * theta) / sinTheta;
+        float scale1 = (float) Math.sin(t * theta) / sinTheta;
+
+        // 计算插值结果
+        return new Quaternion(
+                scale0 * q0.getX() + scale1 * q1.getX(),
+                scale0 * q0.getY() + scale1 * q1.getY(),
+                scale0 * q0.getZ() + scale1 * q1.getZ(),
+                scale0 * q0.getW() + scale1 * q1.getW()
+        );
+    }
+
+    private static float qDot(Quaternion q0, Quaternion q1) {
+        return q0.getX() * q1.getX() +
+                q0.getY() * q1.getY() +
+                q0.getZ() * q1.getZ() +
+                q0.getW() * q1.getW();
+    }
+
+    /**
+     * 线性插值（当夹角很小时使用）
+     * @param q0 起始四元数
+     * @param q1 结束四元数
+     * @param t 插值因子
+     * @return 插值后的四元数
+     */
+    private static Quaternion qlerp(Quaternion q0, Quaternion q1, float t) {
+        Quaternion result = new Quaternion(
+                q0.getX() + t * (q1.getX() - q0.getX()),
+                q0.getY() + t * (q1.getY() - q0.getY()),
+                q0.getZ() + t * (q1.getZ() - q0.getZ()),
+                q0.getW() + t * (q1.getW() - q0.getW())
+        );
+        result.normalize();
+        return result;
+    }
+
     public static Matrix4f transform(MatrixStack matrixStack, Vector3f pivot, Rot3f rot3f, Vector3f scale, Vector3f translation) {
 
         matrixStack.translate(pivot.getX(), pivot.getY(), pivot.getZ());

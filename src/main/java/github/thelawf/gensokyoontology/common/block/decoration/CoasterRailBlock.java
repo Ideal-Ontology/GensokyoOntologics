@@ -78,26 +78,7 @@ public class CoasterRailBlock extends Block {
 
         Vector3d rotation = placer.getLookVec();
         railTile.setShouldRender(true);
-        railTile.setDirection(new Vector3f((float) rotation.x, 0F, (float) rotation.z));
         railTile.setRotation(GSKOMathUtil.vecToQuaternion(placer.getLookVec()));
-    }
-
-    @Override
-    @NotNull
-    @SuppressWarnings("deprecation")
-    public ActionResultType onBlockActivated(@NotNull BlockState state, @NotNull World worldIn, @NotNull BlockPos pos,
-                                             @NotNull PlayerEntity player, @NotNull Hand handIn, @NotNull BlockRayTraceResult hit) {
-        if (!(worldIn.getTileEntity(pos) instanceof RailTileEntity)) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-        RailTileEntity railTile = (RailTileEntity) worldIn.getTileEntity(pos);
-
-        if (railTile == null) return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-        if (!worldIn.isRemote) return ActionResultType.SUCCESS;
-
-        if (player.getHeldItem(handIn).getItem() == ItemRegistry.RAIL_WRENCH.get()) {
-            new RailDashboardScreen(pos, railTile.getDirection()).open();
-            // NetworkHooks.openGui((ServerPlayerEntity) player, RailAdjustContainer.create(worldIn, pos), railTile.getPos());
-        }
-        return super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
     }
 
     @Override

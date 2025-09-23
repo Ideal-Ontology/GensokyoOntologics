@@ -1,6 +1,8 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
+import net.minecraft.client.Minecraft;
 import org.joml.*;
+import org.joml.Vector3f;
 
 import javax.annotation.Nullable;
 
@@ -15,6 +17,11 @@ public class Pose {
 
     public Pose(Vector3d translation, Matrix3d basis) {
         this.translation = translation;
+        this.basis = basis;
+    }
+
+    public Pose(net.minecraft.util.math.vector.Vector3d translation, Matrix3d basis) {
+        this.translation = new Vector3d(translation.x, translation.y, translation.z);
         this.basis = basis;
     }
 

@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.tool;
 
+import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
@@ -27,20 +28,23 @@ public class RailWrench extends Item {
     @Override
     public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
         World world = context.getWorld();
+        BlockPos pos = context.getPos();
         PlayerEntity player = context.getPlayer();
-        BlockState blockState = world.getBlockState(context.getPos());
+        BlockState blockState = world.getBlockState(pos);
         ItemStack wrench = context.getItem();
 
         if (player == null) return ActionResultType.FAIL;
         if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return super.onItemUse(context);
+        Optional<RailTileEntity> optional = GSKOUtil.getTileByType(world, pos, TileEntityRegistry.RAIL_TILE_ENTITY.get());
+
+        if (!optional.isPresent()) return super.onItemUse(context);
+        RailTileEntity railTile = optional.get();
 
         if (Screen.hasShiftDown()) {
-            BlockPos pos = context.getPos();
-            Optional<RailTileEntity> optional = GSKOUtil.getTileByType(world, pos, TileEntityRegistry.RAIL_TILE_ENTITY.get());
-            if (!optional.isPresent()) return super.onItemUse(context);
-            return this.onClickFirstRail(pos, player, wrench);
+            new RailDashboardScreen(pos, railTile.getRotation()).open();
+            return super.onItemUse(context);
         }
-        return super.onItemUse(context);
+        return this.onClickFirstRail(pos, player, wrench);
     }
 
     private ActionResultType onClickFirstRail(BlockPos startPos, @NotNull PlayerEntity player,

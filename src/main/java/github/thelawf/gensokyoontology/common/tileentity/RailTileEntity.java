@@ -5,6 +5,7 @@ import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
 import github.thelawf.gensokyoontology.common.util.math.ConnectionUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -21,10 +22,9 @@ import java.util.List;
 
 public class RailTileEntity extends TileEntity {
     // private Pose pose;
-    private boolean shouldRender = true;
+    private boolean shouldRender;
     private BlockPos targetRailPos = new BlockPos(0,0,0);
     private Quaternion rotation = new Quaternion(0,0,0,1);
-    private Vector3f direction = new Vector3f(0,0,0);
 
     public RailTileEntity() {
         super(TileEntityRegistry.RAIL_TILE_ENTITY.get());
@@ -62,15 +62,6 @@ public class RailTileEntity extends TileEntity {
         this.read(state, tag);
     }
 
-    public Vector3f getDirection() {
-        return this.direction;
-    }
-    public void setDirection(Vector3f direction) {
-        this.direction = direction;
-        this.write(new CompoundNBT());
-        markDirty();
-    }
-
     public Quaternion getRotation() {
         return this.rotation;
     }
@@ -80,45 +71,8 @@ public class RailTileEntity extends TileEntity {
         markDirty();
     }
 
-    @Override
-    public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
-        float dx = nbt.getFloat("dx");
-        float dy = nbt.getFloat("dy");
-        float dz = nbt.getFloat("dz");
-
-        float qx = nbt.getFloat("qx");
-        float qy = nbt.getFloat("qy");
-        float qz = nbt.getFloat("qz");
-        float qw = nbt.getFloat("qw");
-
-        this.setDirection(new Vector3f(dx, dy, dz));
-        this.setRotation(new Quaternion(qx, qy, qz, qw));
-
-        if (nbt.contains("shouldRender")) this.shouldRender = nbt.getBoolean("shouldRender");
-        if (nbt.contains("targetX") && nbt.contains("targetY") && nbt.contains("targetZ"))
-            this.targetRailPos = new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ"));
-        super.read(state, nbt);
-    }
-
-    @Override
-    @NotNull
-    public CompoundNBT write(@NotNull CompoundNBT compound) {
-        super.write(compound);
-
-        compound.putFloat("dx", this.direction.getX());
-        compound.putFloat("dy", this.direction.getY());
-        compound.putFloat("dz", this.direction.getZ());
-
-        compound.putFloat("qx", this.rotation.getX());
-        compound.putFloat("qy", this.rotation.getY());
-        compound.putFloat("qz", this.rotation.getZ());
-        compound.putFloat("qw", this.rotation.getW());
-
-        compound.putBoolean("shouldRender", this.shouldRender);
-        compound.putInt("targetX", this.targetRailPos.getX());
-        compound.putInt("targetY", this.targetRailPos.getY());
-        compound.putInt("targetZ", this.targetRailPos.getZ());
-        return super.write(compound);
+    public BlockPos getTargetPos() {
+        return this.targetRailPos;
     }
 
     public void setTargetPos(BlockPos targetRailPos) {
@@ -127,24 +81,9 @@ public class RailTileEntity extends TileEntity {
         markDirty();
     }
 
-    public Vector3d getPosVec() {
-        return new Vector3d(this.getPos().getX(), this.getPos().getX(), this.getPos().getX());
-    }
-
-    public Vector3d getTargetPosVec() {
-        if (getTargetRailEntity() == null) {
-            GSKOUtil.log("Target Rail is null, Pos: " + getTargetPos());
-            return new Vector3d(0,0,0);
-        }
-        return getTargetRailEntity().getPosVec().subtract(new Vector3d(this.getPos().getX(), this.getPos().getX(), this.getPos().getX()));
-    }
-
-    public BlockPos getTargetPos() {
-        return this.targetRailPos;
-    }
-
     public boolean shouldRender() {
-        return this.shouldRender;
+        if (this.world == null) return false;
+        return this.shouldRender && this.world.getTileEntity(this.targetRailPos) instanceof RailTileEntity;
     }
     public void setShouldRender(boolean shouldRender) {
         this.shouldRender = shouldRender;
@@ -152,8 +91,50 @@ public class RailTileEntity extends TileEntity {
         markDirty();
     }
 
-    public Vector3d getFacingVec() {
-        return new Vector3d(this.getDirection());
+    @Override
+    public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
+
+        float qx = nbt.getFloat("qx");
+        float qy = nbt.getFloat("qy");
+        float qz = nbt.getFloat("qz");
+        float qw = nbt.getFloat("qw");
+
+        this.setRotation(new Quaternion(qx, qy, qz, qw));
+
+        if (nbt.contains("shouldRender")) this.shouldRender = nbt.getBoolean("shouldRender");
+        if (nbt.contains("targetPos")) this.setTargetPos(BlockPos.fromLong(nbt.getLong("targetPos")));
+        super.read(state, nbt);
+    }
+
+    @Override
+    @NotNull
+    public CompoundNBT write(@NotNull CompoundNBT compound) {
+        super.write(compound);
+
+        compound.putFloat("qx", this.rotation.getX());
+        compound.putFloat("qy", this.rotation.getY());
+        compound.putFloat("qz", this.rotation.getZ());
+        compound.putFloat("qw", this.rotation.getW());
+
+        compound.putBoolean("shouldRender", this.shouldRender);
+        compound.putLong("targetPos", this.getTargetPos().toLong());
+        return super.write(compound);
+    }
+
+    public Vector3d defaultCtrlDot(){
+        if (this.world == null) return Vector3d.ZERO;
+        if (this.world.getTileEntity(this.targetRailPos) instanceof RailTileEntity) {
+            RailTileEntity targetRail = (RailTileEntity) this.world.getTileEntity(this.targetRailPos);
+            if (targetRail == null) return Vector3d.ZERO;
+
+            CurveUtil.defaultCtrlDot(this.getPosVec(), targetRail.getPosVec(),
+                    this.getRotation(), targetRail.getRotation());
+        }
+        return Vector3d.ZERO;
+    }
+
+    public Vector3d getPosVec() {
+        return new Vector3d(this.getPos().getX(), this.getPos().getX(), this.getPos().getX());
     }
 
     @Nullable
@@ -162,22 +143,6 @@ public class RailTileEntity extends TileEntity {
             return this.world.getBlockState(this.targetRailPos);
         }
         return null;
-    }
-
-    @Nullable
-    public RailTileEntity getTargetRailEntity() {
-        if (this.world != null) {
-            return (RailTileEntity) this.world.getTileEntity(this.targetRailPos);
-        }
-        return null;
-    }
-    @OnlyIn(Dist.CLIENT)
-    public List<Vector3d> getBezierPos() {
-        if(!this.shouldRender) return new ArrayList<>();
-        Vector3d target = new Vector3d(this.targetRailPos.getX(), this.targetRailPos.getY(), this.targetRailPos.getZ())
-                .subtract(new Vector3d(this.pos.getX(), this.pos.getY(), this.pos.getZ()));
-        return CurveUtil.getBezierPos(new ArrayList<>(), Vector3d.ZERO, target, ConnectionUtil.getIntersection(
-                Vector3d.copyCentered(this.pos), Vector3d.copyCentered(this.targetRailPos)), 0.01F);
     }
 
 }

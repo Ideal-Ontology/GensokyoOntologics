@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
 import com.mojang.datafixers.util.Pair;
-import net.minecraft.util.math.vector.Vector2f;
+import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -107,29 +107,80 @@ public class CurveUtil {
         return Pair.of(leftRail, rightRail);
     }
 
-    public static Pair<Vector3d, Vector3d> getParallelDotAt(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, float time) {
+    /**
+     * 自动计算控制点
+     * @param start 起点位置
+     * @param end 终点位置
+     * @param startRotation 起点旋转
+     * @param endRotation 终点旋转
+     * @return 控制点位置
+     */
+    public static Vector3d defaultCtrlDot(Vector3d start, Vector3d end,
+                                          Quaternion startRotation, Quaternion endRotation) {
+        // 计算中点
+        Vector3d midPoint = start.add(end).scale(0.5);
 
-        // 1. 计算曲线上的点
-        Vector3d curvePoint = GSKOMathUtil.bezier3(start, end, ctrl1, ctrl2, time);
+        // 计算起点方向
+        Vector3d startDirection = GSKOMathUtil.rotateVector(startRotation, new Vector3d(0, 0, 1));
+        // 计算终点方向
+        Vector3d endDirection = GSKOMathUtil.rotateVector(endRotation, new Vector3d(0, 0, 1));
+        // 计算平均方向
+        Vector3d avgDirection = startDirection.add(endDirection).normalize();
 
-        // 2. 计算切线向量（曲线方向）
-        Vector3d tangent = GSKOMathUtil.bezier3Derivative(start, end, ctrl1, ctrl2, time).normalize();
+        // 计算偏移距离
+        double distance = start.distanceTo(end);
+        double offset = distance * 0.5;
 
-        // 3. 计算法线向量（垂直于曲线）
-        Vector3d normal = calculateNormal(tangent);
-
-        // 4. 计算偏移点
-        Vector3d leftRail = curvePoint.add(normal.scale(1.2F / 2));
-        Vector3d rightRail = curvePoint.subtract(normal.scale(1.2F / 2));
-        return Pair.of(leftRail, rightRail);
+        // 计算控制点
+        return midPoint.add(avgDirection.scale(offset));
     }
 
-    public static Vector3d getStartCtrlDot(Vector3d startPos, Vector2f startRot, float scale) {
-        return Vector3d.fromPitchYaw(startRot).scale(scale).add(startPos);
+    public static Vector3d catmullRom(Vector3d start, Vector3d ctrl1, Vector3d end,  Vector3d ctrl2, float time) {
+        double t2 = time * time;
+        double t3 = t2 * time;
+
+        return new Vector3d(
+                0.5 * ((2 * ctrl1.x) + (-start.x + end.x) * time +
+                        (2 * start.x - 5 * ctrl1.x + 4 * end.x - ctrl2.x) * t2 +
+                        (-start.x + 3 * ctrl1.x - 3 * end.x + ctrl2.x) * t3),
+                0.5 * ((2 * ctrl1.y) + (-start.y + end.y) * time +
+                        (2 * start.y - 5 * ctrl1.y + 4 * end.y - ctrl2.y) * t2 +
+                        (-start.y + 3 * ctrl1.y - 3 * end.y + ctrl2.y) * t3),
+                0.5 * ((2 * ctrl1.z) + (-start.z + end.z) * time +
+                        (2 * start.z - 5 * ctrl1.z + 4 * end.z - ctrl2.z) * t2 +
+                        (-start.z + 3 * ctrl1.z - 3 * end.z + ctrl2.z) * t3)
+        );
     }
 
-    public static Vector3d getEndCtrlDot(Vector3d endPos, Vector2f endRot, float scale) {
-        return Vector3d.fromPitchYaw(endRot).scale(-scale).add(endPos);
+    /**
+     * 计算切线向量
+     * @param t 参数 (0.0 - 1.0)
+     * @return 切线向量
+     */
+    public static Vector3d catmullRomTangent(Vector3d start, Vector3d ctrl1, Vector3d end,  Vector3d ctrl2, double t) {
+        Vector3d p0 = start;
+        Vector3d p1 = ctrl1;
+        Vector3d p2 = end;
+        Vector3d p3 = ctrl2;
+
+        double t2 = t * t;
+
+        return new Vector3d(
+                0.5 * ((-p0.x + p2.x) +
+                        2 * (2 * p0.x - 5 * p1.x + 4 * p2.x - p3.x) * t +
+                        3 * (-p0.x + 3 * p1.x - 3 * p2.x + p3.x) * t2),
+                0.5 * ((-p0.y + p2.y) +
+                        2 * (2 * p0.y - 5 * p1.y + 4 * p2.y - p3.y) * t +
+                        3 * (-p0.y + 3 * p1.y - 3 * p2.y + p3.y) * t2),
+                0.5 * ((-p0.z + p2.z) +
+                        2 * (2 * p0.z - 5 * p1.z + 4 * p2.z - p3.z) * t +
+                        3 * (-p0.z + 3 * p1.z - 3 * p2.z + p3.z) * t2)
+        ).normalize();
     }
 
+    public static Vector3d catmullRomNormal(Vector3d tangent) {
+        Vector3d up = new Vector3d(0, 1, 0);
+        Vector3d binormal = tangent.crossProduct(up).normalize();
+        return binormal.crossProduct(tangent).normalize();
+    }
 }

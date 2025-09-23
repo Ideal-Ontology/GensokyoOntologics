@@ -1,11 +1,11 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
+import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -13,25 +13,19 @@ import java.util.function.Supplier;
 
 public class CAdjustRailPacket {
     private final Quaternion rotation;
-    private final Vector3f direction;
-    private final BlockPos pos;
+    private final BlockPos targetPos;
 
-    public CAdjustRailPacket(BlockPos pos, Vector3f direction, Quaternion rotation) {
-        this.pos = pos;
-        this.direction = direction;
+    public CAdjustRailPacket(BlockPos targetPos, Quaternion rotation) {
+        this.targetPos = targetPos;
         this.rotation = rotation;
     }
 
     public static CAdjustRailPacket fromBytes(PacketBuffer buf) {
-        return new CAdjustRailPacket(buf.readBlockPos(), new Vector3f(buf.readFloat(), buf.readFloat(), buf.readFloat()),
+        return new CAdjustRailPacket(buf.readBlockPos(),
                 new Quaternion(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat()));
     }
     public void toBytes(PacketBuffer buf) {
-        buf.writeBlockPos(pos);
-
-        buf.writeFloat(this.direction.getX());
-        buf.writeFloat(this.direction.getY());
-        buf.writeFloat(this.direction.getZ());
+        buf.writeBlockPos(targetPos);
 
         buf.writeFloat(this.rotation.getX());
         buf.writeFloat(this.rotation.getY());
@@ -52,7 +46,8 @@ public class CAdjustRailPacket {
     }
 
     private static void changeAndSaveTileData(CAdjustRailPacket packet, ServerWorld serverWorld){
-        BlockPos pos = packet.pos;
+        BlockPos pos = packet.targetPos;
+        serverWorld.getBlockState(pos);
 
         if (!(serverWorld.getTileEntity(pos) instanceof RailTileEntity)) return;
         RailTileEntity railTile = (RailTileEntity) serverWorld.getTileEntity(pos);
@@ -60,7 +55,11 @@ public class CAdjustRailPacket {
 
         railTile.setTargetPos(pos);
         railTile.setRotation(packet.rotation);
-        railTile.setDirection(packet.direction);
         serverWorld.notifyBlockUpdate(pos, railTile.getBlockState(), railTile.getBlockState(), 3);
+
+        if (railTile.getTargetRail() != null) {
+            BlockState blockState = railTile.getTargetRail().getBlockState();
+            serverWorld.notifyBlockUpdate(pos, blockState, blockState, 3);
+        }
     }
 }
