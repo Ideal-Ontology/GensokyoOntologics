@@ -37,6 +37,7 @@ public class GSKONetworking {
         CHANNEL.messageBuilder(SRotateCameraPacket.class, next()).encoder(SRotateCameraPacket::toBytes).decoder(SRotateCameraPacket::fromBytes).consumer(SRotateCameraPacket::handle).add();
         CHANNEL.messageBuilder(SDanmakuTilePacket.class, next()).encoder(SDanmakuTilePacket::toBytes).decoder(SDanmakuTilePacket::fromBytes).consumer(SDanmakuTilePacket::handle).add();
         CHANNEL.messageBuilder(SJigsawPatternRenderPacket.class, next()).encoder(SJigsawPatternRenderPacket::toBytes).decoder(SJigsawPatternRenderPacket::fromBytes).consumer(SJigsawPatternRenderPacket::handle).add();
+        CHANNEL.messageBuilder(SRenderRailPacket.class, next()).encoder(SRenderRailPacket::toBytes).decoder(SRenderRailPacket::fromBytes).consumer(SRenderRailPacket::handle).add();
     }
 
     public static void sendToClientPlayer(Object message, PlayerEntity player) {

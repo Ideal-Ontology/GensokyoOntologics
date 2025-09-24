@@ -562,7 +562,30 @@ public class GSKOMathUtil {
         double yaw = Math.atan2(m12, m11);
         double pitch = Math.asin(m31);
 
-        return new Vector2f((float) yaw, (float) pitch);
+        return new Vector2f((float) pitch, (float) yaw);
+    }
+
+    public static Rot2f getEulerAngle(Vector3d direction) {
+        // 确保是单位向量
+        Vector3d normalized = direction.normalize();
+        double x = normalized.x;
+        double y = normalized.y;
+        double z = normalized.z;
+
+        // 计算偏航角 (yaw)
+        double yaw = Math.atan2(z, x);
+        float yawDegrees = (float) Math.toDegrees(yaw);
+
+        // 调整范围到 [0, 360)
+        if (yawDegrees < 0) {
+            yawDegrees += 360.0f;
+        }
+
+        // 计算俯仰角 (pitch)
+        double pitch = Math.asin(-y);
+        float pitchDegrees = (float) Math.toDegrees(pitch);
+
+        return new Rot2f(yawDegrees, pitchDegrees);
     }
 
     public static int randomRange(int min, int max) {
@@ -644,6 +667,13 @@ public class GSKOMathUtil {
 
     public static Vector3d fromYawPitch(float yaw, float pitch) {
         return new Vector3d(Math.cos(yaw) * Math.cos(pitch), Math.sin(yaw) * Math.sin(pitch), Math.sin(pitch));
+    }
+
+    public static Vector3f fromYawPitch(Number yaw, float pitch) {
+        return new Vector3f(
+                (float) (Math.cos(yaw.floatValue()) * Math.cos(pitch)),
+                (float) (Math.sin(yaw.floatValue()) * Math.sin(pitch)),
+                (float) Math.sin(pitch));
     }
 
     /**
@@ -741,35 +771,47 @@ public class GSKOMathUtil {
         return vecList;
     }
 
-    public static Quaternion conjugate(Quaternion quaternionIn) {
-        return new Quaternion(-quaternionIn.getX(), -quaternionIn.getY(), -quaternionIn.getZ(), quaternionIn.getW());
+    public static Quaternion vecToQuaternion(Vector3f direction) {
+        // 确保是单位向量
+        Vector3f v = direction.copy();
+        v.normalize();
+        Vector3f ZP = new Vector3f(0,0,1);
+
+        // 计算旋转轴
+        Vector3f axis = ZP.copy();
+        axis.cross(direction);
+
+        // 如果向量平行（叉积接近零），使用默认四元数
+        if (v3fLength(axis) * v3fLength(axis) < 1e-4) {
+            // 相同方向
+            if (ZP.dot(direction) > 0) {
+                return Quaternion.ONE.copy();
+            }
+            // 相反方向，使用Y轴旋转180度
+            return new Quaternion(new Vector3f(0, 1, 0), 180, true);
+        }
+
+        // 归一化旋转轴
+        axis.normalize();
+
+        // 计算旋转角度
+        float cosTheta = ZP.dot(v);
+        float theta = (float) Math.acos(MathHelper.clamp(cosTheta, -1.0, 1.0));
+
+        // 计算四元数分量
+        double halfTheta = theta / 2.0;
+        double sinHalfTheta = Math.sin(halfTheta);
+
+        return new Quaternion(
+                (float)(axis.getX() * sinHalfTheta),
+                (float)(axis.getY() * sinHalfTheta),
+                (float)(axis.getZ() * sinHalfTheta),
+                (float)Math.cos(halfTheta)
+        );
     }
 
-    public static Quaternion vecToQuaternion(Vector3d vector3d) {
-        double yaw = Math.atan2(vector3d.z, vector3d.x);
-        double pitch = Math.asin(vector3d.y);
-
-        // 将角度转为四元数
-        Quaternion quaternion = new Quaternion(Vector3f.YP, (float) Math.toDegrees(-yaw), true);// 设置水平旋转
-        quaternion.multiply(new Quaternion(Vector3f.XP, (float) Math.toDegrees(pitch), true)); // 设置垂直旋转
-
-        return quaternion;
-    }
-
-    public static Quaternion vecToQuaternion(Vector3f vector3f) {
-        double yaw = Math.atan2(vector3f.getZ(), vector3f.getX());
-        double pitch = Math.asin(vector3f.getY());
-
-        // 将角度转为四元数
-        Quaternion quaternion = new Quaternion(Vector3f.YP, (float) Math.toDegrees(-yaw), true);// 设置水平旋转
-        quaternion.multiply(new Quaternion(Vector3f.XP, (float) Math.toDegrees(pitch), true)); // 设置垂直旋转
-
-        return quaternion;
-    }
-
-    public static Vector3d quaterToVector3d(Quaternion quaternion) {
-        Vector3d reference = new Vector3d(0, 0, 1);
-        return rotateVector(quaternion, reference);
+    public static float v3fLength(Vector3f vec) {
+        return MathHelper.sqrt(vec.getX() * vec.getX() + vec.getY() * vec.getY() + vec.getZ() * vec.getZ());
     }
 
     public static Quaternion getRotationFrom(Vector3f firstVec, Vector3f targetVec) {

@@ -1,14 +1,18 @@
 package github.thelawf.gensokyoontology.common.item.tool;
 
 import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.SRenderRailPacket;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -40,8 +44,8 @@ public class RailWrench extends Item {
         if (!optional.isPresent()) return super.onItemUse(context);
         RailTileEntity railTile = optional.get();
 
-        if (Screen.hasShiftDown()) {
-            new RailDashboardScreen(pos, railTile.getRotation()).open();
+        if (Screen.hasShiftDown() && world.isRemote) {
+            new RailDashboardScreen(pos, railTile.getFacingVec()).open();
             return super.onItemUse(context);
         }
         return this.onClickFirstRail(pos, player, wrench);

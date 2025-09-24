@@ -1,27 +1,24 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
-import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.SRenderRailPacket;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
@@ -76,9 +73,17 @@ public class CoasterRailBlock extends Block {
         if (railTile == null) return;
         if (placer == null) return;
 
-        Vector3d rotation = placer.getLookVec();
         railTile.setShouldRender(true);
-        railTile.setRotation(GSKOMathUtil.vecToQuaternion(placer.getLookVec()));
+        float yaw = GSKOMathUtil.getEulerAngle(placer.getLookVec()).yaw();
+
+        VECTOR2F_MAPPING.entrySet().stream().map((entry) -> {
+            if (yaw > entry.getKey().x && yaw <= entry.getKey().y) {
+                return entry.getValue();
+            }
+            return 0;
+        }).findFirst().ifPresent(value -> {
+            railTile.setFacing(GSKOMathUtil.fromYawPitch(value, 0));
+        });
     }
 
     @Override

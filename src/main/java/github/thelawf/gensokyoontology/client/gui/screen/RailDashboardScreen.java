@@ -7,9 +7,12 @@ import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CAdjustRailPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.Rot2f;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
@@ -20,14 +23,13 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class RailDashboardScreen extends LineralLayoutScreen {
-    private Vector3f ctrl1;
-    private Vector3f ctrl2;
+    private Vector3f selfFacing;
     private Quaternion rotation;
     private BlockPos targetPos;
 
-    private Slider qySlider;
+    private Slider yawSlider;
     private Slider qzSlider;
-    private Slider qxSlider;
+    private Slider pitchSlider;
     private Slider qwSlider;
 
     private TextFieldWidget x1Input;
@@ -58,60 +60,43 @@ public class RailDashboardScreen extends LineralLayoutScreen {
 
     public static final ITextComponent TITLE = GensokyoOntology.translate("gui.", ".rail_dashboard.title");
 
-    public RailDashboardScreen(BlockPos pos, Quaternion rotation) {
+    public RailDashboardScreen(BlockPos pos, Vector3f facing) {
         super(TITLE);
         this.targetPos = pos;
-        this.rotation = rotation;
+        this.selfFacing = facing;
     }
 
-    private void updateRotation(Slider slider) {
-        float x = this.value(this.qxSlider.getValue());
-        float y = this.value(this.qySlider.getValue());
-        float z = this.value(this.qzSlider.getValue());
-        this.rotation = new Quaternion(x, y, z, (float) this.qwSlider.sliderValue);
+    private void onPitchSlide(Slider slider) {
+        float pitch = (float) slider.getValue();
+        float yaw = this.to3Digits((float) this.yawSlider.getValue());
+        slider.setValue(this.to3Digits(pitch));
+        this.selfFacing = new Vector3f(Vector3d.fromPitchYaw(pitch, yaw));
+        this.sendPacketToServer();
+    }
+
+    private void onYawSlide(Slider slider) {
+        float pitch = (float) this.pitchSlider.getValue();
+        float yaw = this.to3Digits((float) this.yawSlider.getValue());
+        this.selfFacing = new Vector3f(Vector3d.fromPitchYaw(pitch, yaw));
         this.sendPacketToServer();
     }
 
     @Override
     protected void init() {
         super.init();
+        Rot2f rot2f = Rot2f.from(new Vector3d(this.selfFacing));
+        float pitch = rot2f.pitch();
+        float yaw = rot2f.yaw();
+        this.pitchSlider = new Slider(50, 20, 180, 20, QX, withText("°"),
+                -90, 90, pitch,
+                true, true, iPressable -> {}, this::onPitchSlide);
 
-        this.qxSlider = new Slider(50, 20, 180, 20, QX, withText("°"),
-                -180, 180, 0,
-                true, true, iPressable -> {}, this::updateRotation);
+        this.yawSlider = new Slider(50, 45, 180, 20, QY, withText("°"),
+                0, 360, yaw,
+                true, true, iPressable -> {}, this::onYawSlide);
 
-        this.qySlider = new Slider(50, 45, 180, 20, QY, withText("°"),
-                -180, 180, 0,
-                true, true, iPressable -> {}, this::updateRotation);
-
-        this.qzSlider = new Slider(50, 70, 180, 20, QZ, withText("°"),
-                -180, 180, 0,
-                true, true, iPressable -> {}, this::updateRotation);
-
-        this.qwSlider = new Slider(50, 95, 180, 20, QW, withText(""),
-                0, 1, 1,
-                true, true, iPressable -> {}, this::updateRotation);
-
-        this.x1Input = new TextFieldWidget(this.font, 80, 120, 60, 20, CX1_LABEL);
-        this.y1Input = new TextFieldWidget(this.font, 80, 145, 60, 20, CY1_LABEL);
-        this.z1Input = new TextFieldWidget(this.font, 80, 170, 60, 20, CZ1_LABEL);
-
-        this.x2Input = new TextFieldWidget(this.font, 230, 120, 60, 20, CX2_LABEL);
-        this.y2Input = new TextFieldWidget(this.font, 230, 145, 60, 20, CY2_LABEL);
-        this.z2Input = new TextFieldWidget(this.font, 230, 170, 60, 20, CZ2_LABEL);
-
-        this.addButton(this.qxSlider);
-        this.addButton(this.qySlider);
-        this.addButton(this.qzSlider);
-        this.addButton(this.qwSlider);
-
-        this.children.add(this.x1Input);
-        this.children.add(this.y1Input);
-        this.children.add(this.z1Input);
-
-        this.children.add(this.x2Input);
-        this.children.add(this.y2Input);
-        this.children.add(this.z2Input);
+        this.addButton(this.pitchSlider);
+        this.addButton(this.yawSlider);
     }
 
     @Override
@@ -119,31 +104,19 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         // this.renderAbsoluteXY(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
         this.renderBackground(matrixStack);
-//        drawString(matrixStack, this.font, QX_LABEL, 10, 20, WHITE);
-//        drawString(matrixStack, this.font, QY_LABEL, 10, 45, WHITE);
-//        drawString(matrixStack, this.font, QZ_LABEL, 10, 70, WHITE);
-//        drawString(matrixStack, this.font, QW_LABEL, 10, 95, WHITE);
+//
+//        drawString(matrixStack, this.font, CX1_LABEL, 10, 120, WHITE);
+//        drawString(matrixStack, this.font, CY1_LABEL, 10, 145, WHITE);
+//        drawString(matrixStack, this.font, CZ1_LABEL, 10, 170, WHITE);
+//
+//        drawString(matrixStack, this.font, CX2_LABEL, 180, 120, WHITE);
+//        drawString(matrixStack, this.font, CY2_LABEL, 180, 145, WHITE);
+//        drawString(matrixStack, this.font, CZ2_LABEL, 180, 170, WHITE);
 
-        drawString(matrixStack, this.font, CX1_LABEL, 10, 120, WHITE);
-        drawString(matrixStack, this.font, CY1_LABEL, 10, 145, WHITE);
-        drawString(matrixStack, this.font, CZ1_LABEL, 10, 170, WHITE);
-
-        drawString(matrixStack, this.font, CX2_LABEL, 180, 120, WHITE);
-        drawString(matrixStack, this.font, CY2_LABEL, 180, 145, WHITE);
-        drawString(matrixStack, this.font, CZ2_LABEL, 180, 170, WHITE);
-
-        this.x1Input.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.y1Input.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.z1Input.render(matrixStack, mouseX, mouseY, partialTicks);
-
-        this.x2Input.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.y2Input.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.z2Input.render(matrixStack, mouseX, mouseY, partialTicks);
-
-        this.qxSlider.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.qySlider.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.qzSlider.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.qwSlider.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.pitchSlider.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.yawSlider.render(matrixStack, mouseX, mouseY, partialTicks);
+//        this.qzSlider.render(matrixStack, mouseX, mouseY, partialTicks);
+//        this.qwSlider.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -162,10 +135,12 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     }
 
     private void sendPacketToServer() {
-        GSKONetworking.CHANNEL.sendToServer(new CAdjustRailPacket(this.targetPos, this.rotation));
+        GSKONetworking.CHANNEL.sendToServer(new CAdjustRailPacket(this.targetPos, this.selfFacing));
     }
 
-    private float value(double value) {
-        return GSKOMathUtil.normalize(this.to3Digits((float) value), -180, 180);
+    private float value(Slider slider) {
+        if (slider == null) return 0;
+        slider.setValue(this.to3Digits((float) slider.getValue()));
+        return GSKOMathUtil.normalize(this.to3Digits((float) slider.getValue()), -180, 180);
     }
 }

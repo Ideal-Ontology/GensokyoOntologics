@@ -4,9 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.api.util.Color4i;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.*;
-import org.joml.Vector4i;
 
 public class GeometryUtil {
     public static final double PHI = (1 + Math.sqrt(5)) / 2;
@@ -139,6 +137,11 @@ public class GeometryUtil {
                 radius, segments, red, green, blue, alpha, true);
         renderCircle(builder, matrix4f, new Vector3f(0, height, 0),
                 radius, segments, red, green, blue, alpha, false);
+        renderCylinderSides(builder, matrix4f, radius, height, segments, red, green, blue, alpha);
+    }
+
+    public static void renderCylinderNoCircle(IVertexBuilder builder, Matrix4f matrix4f, int segments, float radius, float height,
+                                      float red, float green, float blue, float alpha){
         renderCylinderSides(builder, matrix4f, radius, height, segments, red, green, blue, alpha);
     }
 
@@ -287,7 +290,7 @@ public class GeometryUtil {
                     .add(new Vector3d(end));
 
             renderQuad(builder, matrix, p0, p1, p2, p3, red, green, blue, alpha);
-            renderQuad(builder, matrix, p3, p3, p1, p0, red, green, blue, alpha);
+            renderQuad(builder, matrix, p3, p2, p1, p0, red, green, blue, alpha);
         }
     }
 
@@ -659,5 +662,98 @@ public class GeometryUtil {
                 .lightmap(light)
                 .normal(normalMatrix, normal.getX(), normal.getY(), normal.getZ())
                 .endVertex();
+    }
+
+    private static Vector3d cylPos(Vector3d center, Vector3d normal, Vector3d binormal,
+                                   float radius, double theta) {
+        return normal.scale(Math.cos(theta) * radius)
+                .add(binormal.scale(Math.sin(theta) * radius))
+                .add(center);
+    }
+
+    public static void renderCyl(IVertexBuilder builder, Matrix4f matrix,
+                                 Vector3d start, Vector3d end,
+                                 float radius, int segments,
+                                 float red, float green, float blue, float alpha) {
+        Vector3d direction = end.subtract(start);
+        double length = direction.length();
+
+        // 计算法线
+        Vector3d normal = normal(direction);
+        Vector3d binormal = direction.crossProduct(normal).normalize();
+
+        for (int i = 0; i < segments; i++) {
+            double theta0 = (2.0 * Math.PI / segments) * i;
+            double theta1 = (2.0 * Math.PI / segments) * (i + 1);
+
+            // 计算当前和下一个圆周上的点
+            Vector3d p0 = cylPos(start, normal, binormal, radius, theta0);
+            Vector3d p1 = cylPos(start, normal, binormal, radius, theta1);
+            Vector3d p2 = cylPos(end, normal, binormal, radius, theta1);
+            Vector3d p3 = cylPos(end, normal, binormal, radius, theta0);
+
+            // 渲染四边形
+            renderQuad(builder, matrix, p0, p1, p2, p3, red, green, blue, alpha);
+            renderQuad(builder, matrix, p3, p2, p1, p0, red, green, blue, alpha);
+        }
+    }
+
+    @SuppressWarnings("all")
+    /**
+     * 渲染四边形（使用三角形带）
+     * @param builder 顶点构建器
+     * @param matrix 变换矩阵
+     * @param p0 点1
+     * @param p1 点2
+     * @param p2 点3
+     * @param p3 点4
+     * @param red 红色分量
+     * @param green 绿色分量
+     * @param blue 蓝色分量
+     * @param alpha 透明度
+     */
+    private static void quad(IVertexBuilder builder, Matrix4f matrix,
+                                   Vector3d p0, Vector3d p1, Vector3d p2, Vector3d p3,
+                                   float red, float green, float blue, float alpha) {
+        // 使用三角形带渲染四边形
+        builder.pos(matrix, (float) p0.x, (float) p0.y, (float) p0.z)
+                .color(red, green, blue, alpha)
+                .endVertex();
+
+        builder.pos(matrix, (float) p1.x, (float) p1.y, (float) p1.z)
+                .color(red, green, blue, alpha)
+                .endVertex();
+
+        builder.pos(matrix, (float) p3.x, (float) p3.y, (float) p3.z)
+                .color(red, green, blue, alpha)
+                .endVertex();
+
+        builder.pos(matrix, (float) p1.x, (float) p1.y, (float) p1.z)
+                .color(red, green, blue, alpha)
+                .endVertex();
+
+        builder.pos(matrix, (float) p2.x, (float) p2.y, (float) p2.z)
+                .color(red, green, blue, alpha)
+                .endVertex();
+
+        builder.pos(matrix, (float) p3.x, (float) p3.y, (float) p3.z)
+                .color(red, green, blue, alpha)
+                .endVertex();
+    }
+
+    private static Vector3d normal(Vector3d direction) {
+        Vector3d up = new Vector3d(0, 1, 0);
+        if (Math.abs(direction.dotProduct(up)) > 0.99) {
+            up = new Vector3d(0, 0, 1);
+        }
+        return direction.crossProduct(up).normalize();
+    }
+
+    private static Vector3d binormal(Vector3d normal) {
+        Vector3d up = new Vector3d(0, 1, 0);
+        if (Math.abs(normal.dotProduct(up)) > 0.99) {
+            up = new Vector3d(0, 0, 1);
+        }
+        return normal.crossProduct(up).normalize();
     }
 }

@@ -3,6 +3,7 @@ package github.thelawf.gensokyoontology.common.util.math;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -135,20 +136,20 @@ public class CurveUtil {
         return midPoint.add(avgDirection.scale(offset));
     }
 
-    public static Vector3d catmullRom(Vector3d start, Vector3d ctrl1, Vector3d end,  Vector3d ctrl2, float time) {
+    public static Vector3d catmullRom(Vector3d ctrl1, Vector3d start, Vector3d end,  Vector3d ctrl2, float time) {
         double t2 = time * time;
         double t3 = t2 * time;
 
         return new Vector3d(
-                0.5 * ((2 * ctrl1.x) + (-start.x + end.x) * time +
-                        (2 * start.x - 5 * ctrl1.x + 4 * end.x - ctrl2.x) * t2 +
-                        (-start.x + 3 * ctrl1.x - 3 * end.x + ctrl2.x) * t3),
-                0.5 * ((2 * ctrl1.y) + (-start.y + end.y) * time +
-                        (2 * start.y - 5 * ctrl1.y + 4 * end.y - ctrl2.y) * t2 +
-                        (-start.y + 3 * ctrl1.y - 3 * end.y + ctrl2.y) * t3),
-                0.5 * ((2 * ctrl1.z) + (-start.z + end.z) * time +
-                        (2 * start.z - 5 * ctrl1.z + 4 * end.z - ctrl2.z) * t2 +
-                        (-start.z + 3 * ctrl1.z - 3 * end.z + ctrl2.z) * t3)
+                0.5 * ((2 * start.x) + (-ctrl1.x + end.x) * time +
+                        (2 * ctrl1.x - 5 * start.x + 4 * end.x - ctrl2.x) * t2 +
+                        (-ctrl1.x + 3 * start.x - 3 * end.x + ctrl2.x) * t3),
+                0.5 * ((2 * start.y) + (-ctrl1.y + end.y) * time +
+                        (2 * ctrl1.y - 5 * start.y + 4 * end.y - ctrl2.y) * t2 +
+                        (-ctrl1.y + 3 * start.y - 3 * end.y + ctrl2.y) * t3),
+                0.5 * ((2 * start.z) + (-ctrl1.z + end.z) * time +
+                        (2 * ctrl1.z - 5 * start.z + 4 * end.z - ctrl2.z) * t2 +
+                        (-ctrl1.z + 3 * start.z - 3 * end.z + ctrl2.z) * t3)
         );
     }
 
@@ -178,9 +179,75 @@ public class CurveUtil {
         ).normalize();
     }
 
-    public static Vector3d catmullRomNormal(Vector3d tangent) {
+    public static Vector3d normal(Vector3d tangent) {
         Vector3d up = new Vector3d(0, 1, 0);
         Vector3d binormal = tangent.crossProduct(up).normalize();
         return binormal.crossProduct(tangent).normalize();
     }
+
+    public static Vector3d catmullRomNormal(Vector3d start, Vector3d end, Vector3d ctrl1, Vector3d ctrl2, int index, int segments) {
+        // 使用平均法线确保连续性
+        List<Vector3d> tangents = tangents(start, end, ctrl1, ctrl2, segments);
+        if (index == 0) {
+            return tangents.get(0);
+        }
+
+        Vector3d prevNormal = CurveUtil.normal(tangents.get(index - 1));
+        Vector3d currentNormal = CurveUtil.normal(tangents.get(index));
+
+        return prevNormal.add(currentNormal).scale(0.5).normalize();
+    }
+
+    public static List<Vector3d> tangents(Vector3d start, Vector3d end,
+                                          Vector3d ctrl1, Vector3d ctrl2,
+                                          int segments) {
+        List<Vector3d> tangents = new ArrayList<>();
+        for (int i = 0; i <= segments; i++) {
+            float t = i / (float) segments;
+            tangents.add(CurveUtil.catmullRomTangent(ctrl1, start, end, ctrl2, t).normalize());
+        }
+        return tangents;
+    }
+    public static List<Vector3d> curveDots(Vector3d start, Vector3d end,
+                                           Vector3d ctrl1, Vector3d ctrl2,
+                                           int segments) {
+        List<Vector3d> points = new ArrayList<>();
+        for (int i = 0; i <= segments; i++) {
+            float t = i / (float) segments;
+            points.add(CurveUtil.catmullRom(ctrl1, start, end, ctrl2, t));
+        }
+        return points;
+    }
+
+    public static Vector3d catmulRomNormals(List<Vector3d> tangents, int index) {
+        // 使用平均法线确保连续性
+        if (index == 0) {
+            return CurveUtil.normal(tangents.get(0));
+        }
+
+        Vector3d prevNormal = CurveUtil.normal(tangents.get(index - 1));
+        Vector3d currentNormal = CurveUtil.normal(tangents.get(index));
+
+        return prevNormal.add(currentNormal).scale(0.5).normalize();
+    }
+
+    public static Vector3d hermite3(Vector3d start, Vector3d end,
+                                    Vector3f startTangent, Vector3f endTangent, float time) {
+        double t2 = time * time;
+        double t3 = t2 * time;
+
+        double h1 = 2 * t3 - 3 * t2 + 1;
+        double h2 = -2 * t3 + 3 * t2;
+        double h3 = t3 - 2 * t2 + time;
+        double h4 = t3 - t2;
+
+        Vector3d startDirection = new Vector3d(startTangent);
+        Vector3d endDirection = new Vector3d(endTangent);
+
+        return start.scale(h1)
+                .add(end.scale(h2))
+                .add(startDirection.scale(h3))
+                .add(endDirection.scale(h4));
+    }
+
 }
