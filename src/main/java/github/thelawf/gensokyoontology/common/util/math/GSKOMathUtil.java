@@ -90,15 +90,6 @@ public class GSKOMathUtil {
         return result;
     }
 
-    public static Matrix4f transform(MatrixStack matrixStack, Vector3f pivot, Rot3f rot3f, Vector3f scale, Vector3f translation) {
-
-        matrixStack.translate(pivot.getX(), pivot.getY(), pivot.getZ());
-        matrixStack.rotate(rot3f.applyRotation());
-        matrixStack.scale(scale.getX(), scale.getY(), scale.getZ());
-        matrixStack.translate(translation.getX(), translation.getY(), translation.getZ());
-        return matrixStack.getLast().getMatrix();
-    }
-
     public static Matrix4f transform(MatrixStack matrixStack, Vector3f pivot, Quaternion q, Vector3f scale, Vector3f translation) {
         matrixStack.translate(pivot.getX(), pivot.getY(), pivot.getZ());
         matrixStack.rotate(q);
@@ -248,19 +239,6 @@ public class GSKOMathUtil {
         float phase = (time % period) / period * 2.0f * (float)Math.PI;
         float sineValue = (float)Math.sin(phase);
         return midpoint + amplitude * sineValue;
-    }
-
-    /**
-     * 传入四个双精度浮点数
-     *
-     * @param x1 第一个点的x坐标
-     * @param y1 第一个点的y坐标
-     * @param x2 第二个点的x坐标
-     * @param y2 第二个点的y坐标
-     * @return 上述两点间的距离
-     */
-    public static double distanceOf2D(double x1, double y1, double x2, double y2) {
-        return Math.sqrt(square(x1 - x2) + square(y1 - y2));
     }
 
     public static double distanceOf3D(double x1, double y1, double z1, double x2, double y2, double z2) {
@@ -488,50 +466,6 @@ public class GSKOMathUtil {
         return new Vector3d(sphereVec.x, sphereVec.y + thetaRotation, sphereVec.z + phiRotation);
     }
 
-    public static Vector3d toLocalCoordinate(Vector3d newOriginIn, Vector3d globalIn) {
-        return new Vector3d(globalIn.getX() - newOriginIn.getX(),
-                globalIn.getY() - newOriginIn.getY(),
-                globalIn.getZ() - newOriginIn.getZ());
-
-    }
-
-    /**
-     * 计算方法：设斜边为r，两条直角边为x和y，斜边与y轴夹角为d，那么——
-     * <p>
-     * 1. 求出 tan(d) 的值，为一个常量，用a表示，由已知条件可得：tan()函数表示的是对边比邻边，即x比上y，且两条直角边的平方和等于斜边的平方，所以——
-     * <p>
-     * 2. 设方程① -- x / y = a;
-     * <p>
-     * 3. 设方程② -- x^2 + y^2 = r^2;
-     * <p>
-     * 4. 联立方程①②可得：
-     * <p>
-     * x = a * y;
-     * <p>
-     * a^2 * y^2 + y^2 = r^2;
-     * <p>
-     * y^2 * (a^2 + 1) = r^2;
-     * <p>
-     * ∴ y = √(z^2 / a^2 + 1)
-     *
-     * @param hypotenuse 斜边长，即空间向量在该平面上的投影线段
-     * @param roll       斜边与y轴的夹角
-     * @return 返回一个仅有可知的两边组成的平面向量坐标
-     */
-    public static Vector3d toRollCoordinate(double hypotenuse, double roll) {
-        double x = Math.sqrt(Math.pow(hypotenuse, 2) / Math.pow(Math.tan(roll), 2) + 1);
-        return new Vector3d(x, Math.tan(roll) * x, 0);
-    }
-
-    public static Vector3d toYawCoordinate(double hypotenuse, double yaw) {
-        double z = Math.sqrt(Math.pow(hypotenuse, 2) / Math.pow(Math.tan(yaw), 2) + 1);
-        return new Vector3d(Math.tan(yaw) * z, 0, z);
-    }
-
-    public static Vector3d toPitchCoordinate(double hypotenuse, double pitch) {
-        double y = Math.sqrt(Math.pow(hypotenuse, 2) / Math.pow(Math.tan(pitch), 2) + 1);
-        return new Vector3d(0, y, Math.tan(pitch) * y);
-    }
 
     public static Vector3d vecCeil(Vector3d vec) {
         return new Vector3d(
@@ -587,6 +521,41 @@ public class GSKOMathUtil {
 
         return new Rot2f(yawDegrees, pitchDegrees);
     }
+
+    public static EulerAngle getEulerAngle(Quaternion quaternion) {
+        float w = quaternion.getW();
+        float x = quaternion.getX();
+        float y = quaternion.getY();
+        float z = quaternion.getZ();
+
+        // 计算翻滚角（绕X轴）
+        float roll = (float) Math.atan2(2.0 * (w * x + y * z), 1.0 - 2.0 * (x * x + y * y));
+
+        // 计算俯仰角（绕Y轴）
+        float pitch = (float) Math.asin(2.0 * (w * y - z * x));
+
+        // 计算偏航角（绕Z轴）
+        float yaw = (float) Math.atan2(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z));
+
+        // 将弧度转换为角度
+        roll = (float) Math.toDegrees(roll);
+        pitch = (float) Math.toDegrees(pitch);
+        yaw = (float) Math.toDegrees(yaw);
+
+        return new EulerAngle(roll, pitch, yaw).handleLock();
+    }
+
+    public static Quaternion fromEulerAngle(EulerAngle eulerAngle) {
+        Quaternion qy = new Quaternion(Vector3f.YP, eulerAngle.yaw(), true);
+        Quaternion qx = new Quaternion(Vector3f.XP, eulerAngle.pitch(), true);
+        Quaternion qz = new Quaternion(Vector3f.ZP, eulerAngle.roll(), true);
+
+        qy.multiply(qx);
+        qy.multiply(qz);
+
+        return qy.copy();
+    }
+
 
     public static int randomRange(int min, int max) {
         return new Random().nextInt(max - min + 1) + min;

@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
+import net.minecraft.util.math.vector.Matrix3f;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 
@@ -23,4 +24,6 @@ public class Rot3f {
     public static Quaternion identity() {
         return Quaternion.ONE;
     }
+
+
 }

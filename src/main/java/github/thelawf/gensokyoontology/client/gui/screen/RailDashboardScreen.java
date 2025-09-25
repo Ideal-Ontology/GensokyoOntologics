@@ -6,11 +6,10 @@ import github.thelawf.gensokyoontology.client.gui.screen.script.LineralLayoutScr
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CAdjustRailPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.common.util.math.EulerAngle;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.util.math.Rot2f;
-import net.minecraft.client.gui.widget.TextFieldWidget;
+import github.thelawf.gensokyoontology.common.util.math.RotMatrix;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -26,97 +25,84 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     private Vector3f selfFacing;
     private Quaternion rotation;
     private BlockPos targetPos;
+    private EulerAngle eulerAngle;
 
-    private Slider yawSlider;
-    private Slider qzSlider;
-    private Slider pitchSlider;
-    private Slider qwSlider;
+    private final Vector3d initHandleValue;
+    private Vector3d nextHandleValue;
 
-    private TextFieldWidget x1Input;
-    private TextFieldWidget y1Input;
-    private TextFieldWidget z1Input;
-
-    private TextFieldWidget x2Input;
-    private TextFieldWidget y2Input;
-    private TextFieldWidget z2Input;
+    private Slider xHandle;
+    private Slider yHandle;
+    private Slider zHandle;
 
     private static final TranslationTextComponent QX = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qx");
     private static final TranslationTextComponent QY = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qy");
     private static final TranslationTextComponent QZ = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qz");
     private static final TranslationTextComponent QW = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qw");
 
-    private static final ITextComponent QX_LABEL = GensokyoOntology.translate("gui.", ".label.qx") ;
-    private static final ITextComponent QY_LABEL = GensokyoOntology.translate("gui.", ".label.qy");
-    private static final ITextComponent QZ_LABEL = GensokyoOntology.translate("gui.", ".label.qx") ;
-    private static final ITextComponent QW_LABEL = GensokyoOntology.translate("gui.", ".label.qw");
-
-    private static final ITextComponent CX1_LABEL = GensokyoOntology.translate("gui.", ".label.cx1");
-    private static final ITextComponent CY1_LABEL = GensokyoOntology.translate("gui.", ".label.cy1");
-    private static final ITextComponent CZ1_LABEL = GensokyoOntology.translate("gui.", ".label.cz1");
-
-    private static final ITextComponent CX2_LABEL = GensokyoOntology.translate("gui.", ".label.cx2");
-    private static final ITextComponent CY2_LABEL = GensokyoOntology.translate("gui.", ".label.cy2");
-    private static final ITextComponent CZ2_LABEL = GensokyoOntology.translate("gui.", ".label.cz2");
-
     public static final ITextComponent TITLE = GensokyoOntology.translate("gui.", ".rail_dashboard.title");
 
-    public RailDashboardScreen(BlockPos pos, Vector3f facing) {
+    public RailDashboardScreen(BlockPos pos, RotMatrix matrix) {
         super(TITLE);
         this.targetPos = pos;
-        this.selfFacing = facing;
+        this.initHandleValue = matrix.toHandleValue();
+        this.nextHandleValue = new Vector3d(this.initHandleValue.x, this.initHandleValue.y, this.initHandleValue.z);
     }
 
-    private void onPitchSlide(Slider slider) {
-        float pitch = (float) slider.getValue();
-        float yaw = this.to3Digits((float) this.yawSlider.getValue());
-        slider.setValue(this.to3Digits(pitch));
+    private void onXHandleSlide(Slider slider) {
+        this.nextHandleValue = new Vector3d(slider.getValue(), this.yHandle.getValue(), this.zHandle.getValue());
+        this.setSliderValue();
+        this.sendPacketToServer();
+    }
+
+    private void onYHandleSlide(Slider slider) {
+        this.eulerAngle = this.getEulerAngleFrom(this.xHandle, slider, this.zHandle);
+        this.rotation = this.eulerAngle.toRotation();
+        this.setSliderValue();
+        this.sendPacketToServer();
+    }
+
+    private void onZHandleSlide(Slider slider) {
+        float pitch = this.to3Digits((float) this.zHandle.getValue());
+        float yaw = this.to3Digits((float) this.xHandle.getValue());
+        float roll = (float) slider.getValue();
+
         this.selfFacing = new Vector3f(Vector3d.fromPitchYaw(pitch, yaw));
         this.sendPacketToServer();
     }
 
-    private void onYawSlide(Slider slider) {
-        float pitch = (float) this.pitchSlider.getValue();
-        float yaw = this.to3Digits((float) this.yawSlider.getValue());
-        this.selfFacing = new Vector3f(Vector3d.fromPitchYaw(pitch, yaw));
-        this.sendPacketToServer();
-    }
 
     @Override
     protected void init() {
         super.init();
-        Rot2f rot2f = Rot2f.from(new Vector3d(this.selfFacing));
-        float pitch = rot2f.pitch();
-        float yaw = rot2f.yaw();
-        this.pitchSlider = new Slider(50, 20, 180, 20, QX, withText("°"),
-                -90, 90, pitch,
-                true, true, iPressable -> {}, this::onPitchSlide);
+        double x = this.initHandleValue.x;
+        double y = this.initHandleValue.y;
+        double z = this.initHandleValue.z;
 
-        this.yawSlider = new Slider(50, 45, 180, 20, QY, withText("°"),
-                0, 360, yaw,
-                true, true, iPressable -> {}, this::onYawSlide);
+        this.xHandle = new Slider(50, 20, 180, 20, QX, withText("°"),
+                -90, 90, x,
+                true, true, iPressable -> {}, this::onXHandleSlide);
 
-        this.addButton(this.pitchSlider);
-        this.addButton(this.yawSlider);
+        this.yHandle = new Slider(50, 45, 180, 20, QY, withText("°"),
+                -180, 180, y,
+                true, true, iPressable -> {}, this::onYHandleSlide);
+
+        this.zHandle = new Slider(50, 70, 180, 20, QZ, withText("°"),
+                -180, 180, z,
+                true, true, iPressable -> {}, this::onZHandleSlide);
+
+        this.addButton(this.xHandle);
+        this.addButton(this.yHandle);
+        this.addButton(this.zHandle);
     }
 
     @Override
     public void render(@NotNull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
-        // this.renderAbsoluteXY(WIDGETS, matrixStack, mouseX, mouseY, partialTicks);
         this.renderBackground(matrixStack);
-//
-//        drawString(matrixStack, this.font, CX1_LABEL, 10, 120, WHITE);
-//        drawString(matrixStack, this.font, CY1_LABEL, 10, 145, WHITE);
-//        drawString(matrixStack, this.font, CZ1_LABEL, 10, 170, WHITE);
-//
-//        drawString(matrixStack, this.font, CX2_LABEL, 180, 120, WHITE);
-//        drawString(matrixStack, this.font, CY2_LABEL, 180, 145, WHITE);
-//        drawString(matrixStack, this.font, CZ2_LABEL, 180, 170, WHITE);
 
-        this.pitchSlider.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.yawSlider.render(matrixStack, mouseX, mouseY, partialTicks);
-//        this.qzSlider.render(matrixStack, mouseX, mouseY, partialTicks);
-//        this.qwSlider.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.xHandle.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.yHandle.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.zHandle.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -142,5 +128,22 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         if (slider == null) return 0;
         slider.setValue(this.to3Digits((float) slider.getValue()));
         return GSKOMathUtil.normalize(this.to3Digits((float) slider.getValue()), -180, 180);
+    }
+
+    private void setSliderValue() {
+        if (this.yHandle == null) return;
+        if (this.zHandle == null) return;
+        if (this.xHandle == null) return;
+
+        this.xHandle.setValue(this.nextHandleValue.getX());
+        this.yHandle.setValue(this.nextHandleValue.getY());
+        this.zHandle.setValue(this.nextHandleValue.getZ());
+    }
+
+    private EulerAngle getEulerAngleFrom(Slider xHandle, Slider yHandle, Slider zHandle) {
+        return EulerAngle.of(
+                xHandle == null ? 0F : (float) xHandle.getValue(),
+                yHandle == null ? 0F : (float) yHandle.getValue(),
+                zHandle == null ? 0F : (float) zHandle.getValue(), true);
     }
 }

@@ -1,11 +1,9 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
-import github.thelawf.gensokyoontology.common.network.GSKONetworking;
-import github.thelawf.gensokyoontology.common.network.packet.SRenderRailPacket;
+import github.thelawf.gensokyoontology.common.util.math.RotMatrix;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
@@ -15,8 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.*;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.MinecraftForge;
-import org.apache.logging.log4j.core.pattern.NotANumber;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -29,6 +25,7 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     private boolean shouldRender = true;
     private BlockPos targetRailPos = new BlockPos(Float.NaN, Float.NaN, Float.NaN);
     private Vector3f facing = new Vector3f(0,0,0);
+    private Quaternion rotation = new Quaternion(0,0,0,1);
 
     public RailTileEntity() {
         super(TileEntityRegistry.RAIL_TILE_ENTITY.get());
@@ -86,16 +83,19 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
         markDirty();
     }
 
-    public void setFacing(Vector3f facing) {
-        this.facing = facing;
-    }
-    public void setFacingVec(float dx, float dy, float dz) {
-        this.facing = new Vector3f(dx, dy, dz);
+    public void setRotation(Quaternion rotation) {
+        this.rotation = rotation;
         this.write(new CompoundNBT());
     }
-    public Vector3f getFacingVec() {
-        return this.facing;
+
+    public Quaternion getRotation() {
+        return this.rotation;
     }
+
+    public Vector3f getFacing() {
+        return new RotMatrix(this.rotation).tangent();
+    }
+
     public boolean hasTarget() {
         return this.getTargetRail() != null & this.getTargetRail().getBlock() == BlockRegistry.COASTER_RAIL.get();
     }
@@ -103,10 +103,12 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     @Override
     public void read(@NotNull BlockState state, @NotNull CompoundNBT nbt) {
 
-        float dx = nbt.getFloat("dx");
-        float dy = nbt.getFloat("dy");
-        float dz = nbt.getFloat("dz");
-        this.setFacingVec(dx, dy, dz);
+        float qx = nbt.getFloat("qx");
+        float qy = nbt.getFloat("qy");
+        float qz = nbt.getFloat("qz");
+        float qw = nbt.getFloat("qw");
+
+        this.setRotation(new Quaternion(qx, qy, qz, qw));
         this.setShouldRender(nbt.getBoolean("shouldRender"));
 
         if (nbt.contains("targetPos")) this.setTargetPos(BlockPos.fromLong(nbt.getLong("targetPos")));
@@ -119,9 +121,11 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     public CompoundNBT write(@NotNull CompoundNBT compound) {
         super.write(compound);
 
-        compound.putFloat("dx", this.getFacingVec().getX());
-        compound.putFloat("dy", this.getFacingVec().getY());
-        compound.putFloat("dz", this.getFacingVec().getZ());
+        compound.putFloat("qx", this.getRotation().getX());
+        compound.putFloat("qy", this.getRotation().getY());
+        compound.putFloat("qz", this.getRotation().getZ());
+        compound.putFloat("qw", this.getRotation().getW());
+
         compound.putLong("targetPos", this.getTargetPos().toLong());
         compound.putBoolean("shouldRender", this.shouldRender);
         return super.write(compound);

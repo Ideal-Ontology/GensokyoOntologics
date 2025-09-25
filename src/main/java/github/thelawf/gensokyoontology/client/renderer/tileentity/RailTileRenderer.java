@@ -71,8 +71,8 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         Vector3d start = Vector3d.ZERO;
         Vector3d end = Vector3d.copy(railTile.getPos()).subtract(startVec);
 
-        Vector3f startDirection = tileEntityIn.getFacingVec().copy();
-        Vector3f endDirection = railTile.getFacingVec().copy();
+        Vector3f startDirection = tileEntityIn.getFacing().copy();
+        Vector3f endDirection = railTile.getFacing().copy();
 
         startDirection.mul(50);
         endDirection.mul(50);
@@ -143,7 +143,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
         float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
 
-        Quaternion rotation = GSKOMathUtil.getRotationFrom(new Vector3f(0,0,1), tileEntityIn.getFacingVec());
+        Quaternion rotation = GSKOMathUtil.getRotationFrom(new Vector3f(0,0,1), tileEntityIn.getFacing());
         matrixStackIn.push();
         matrixStackIn.translate(0.5, 0.5, 0.5);
         matrixStackIn.rotate(rotation);
@@ -190,7 +190,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
     public void renderTrackBlock(IVertexBuilder b, IVertexBuilder builder, MatrixStack matrixStackIn, RailTileEntity tileEntityIn) {
         float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
         float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
-        Quaternion rotation = GSKOMathUtil.getRotationFrom(new Vector3f(0,0,1), tileEntityIn.getFacingVec());
+        Quaternion rotation = GSKOMathUtil.getRotationFrom(new Vector3f(0,0,1), tileEntityIn.getFacing());
         matrixStackIn.push();
         matrixStackIn.rotate(rotation);
 //        this.rotate(matrixStackIn, roll, yaw, pitch);
