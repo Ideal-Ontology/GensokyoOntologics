@@ -41,32 +41,41 @@ public class RailDashboardScreen extends LineralLayoutScreen {
 
     public static final ITextComponent TITLE = GensokyoOntology.translate("gui.", ".rail_dashboard.title");
 
+    public RailDashboardScreen(BlockPos pos, Quaternion rotation) {
+        super(TITLE);
+        this.targetPos = pos;
+        this.rotation = rotation;
+
+        this.initHandleValue = new RotMatrix(this.rotation).toHandleValue();
+        this.nextHandleValue = new Vector3d(this.initHandleValue.x, this.initHandleValue.y, this.initHandleValue.z);
+    }
+
     public RailDashboardScreen(BlockPos pos, RotMatrix matrix) {
         super(TITLE);
         this.targetPos = pos;
+        this.rotation = matrix.toQuaternion();
         this.initHandleValue = matrix.toHandleValue();
         this.nextHandleValue = new Vector3d(this.initHandleValue.x, this.initHandleValue.y, this.initHandleValue.z);
     }
 
     private void onXHandleSlide(Slider slider) {
-        this.nextHandleValue = new Vector3d(slider.getValue(), this.yHandle.getValue(), this.zHandle.getValue());
+        this.eulerAngle = EulerAngle.of(slider.getValue(), 0, 0);
+        this.rotation = this.eulerAngle.toRotation();
         this.setSliderValue();
         this.sendPacketToServer();
     }
 
     private void onYHandleSlide(Slider slider) {
-        this.eulerAngle = this.getEulerAngleFrom(this.xHandle, slider, this.zHandle);
+        this.eulerAngle = EulerAngle.of(0, slider.getValue(), 0);
         this.rotation = this.eulerAngle.toRotation();
         this.setSliderValue();
         this.sendPacketToServer();
     }
 
     private void onZHandleSlide(Slider slider) {
-        float pitch = this.to3Digits((float) this.zHandle.getValue());
-        float yaw = this.to3Digits((float) this.xHandle.getValue());
-        float roll = (float) slider.getValue();
-
-        this.selfFacing = new Vector3f(Vector3d.fromPitchYaw(pitch, yaw));
+        this.eulerAngle = this.getEulerAngleFrom(this.xHandle, this.yHandle, slider);
+        this.rotation = this.eulerAngle.toRotation();
+        this.setSliderValue();
         this.sendPacketToServer();
     }
 
@@ -121,7 +130,7 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     }
 
     private void sendPacketToServer() {
-        GSKONetworking.CHANNEL.sendToServer(new CAdjustRailPacket(this.targetPos, this.selfFacing));
+        GSKONetworking.CHANNEL.sendToServer(new CAdjustRailPacket(this.targetPos, this.rotation));
     }
 
     private float value(Slider slider) {
@@ -144,6 +153,6 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         return EulerAngle.of(
                 xHandle == null ? 0F : (float) xHandle.getValue(),
                 yHandle == null ? 0F : (float) yHandle.getValue(),
-                zHandle == null ? 0F : (float) zHandle.getValue(), true);
+                zHandle == null ? 0F : (float) zHandle.getValue());
     }
 }

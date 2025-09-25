@@ -65,19 +65,17 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
             return;
         }
 
-        RailTileEntity railTile = optional.get();
-        BlockPos pos = railTile.getPos();
-        Vector3d startVec = new Vector3d(pos.getX(), pos.getY(), pos.getZ());
+        RailTileEntity targetRail = optional.get();
+        Vector3d startVec = Vector3d.copy(tileEntityIn.getPos());
         Vector3d start = Vector3d.ZERO;
-        Vector3d end = Vector3d.copy(railTile.getPos()).subtract(startVec);
+        Vector3d end = Vector3d.copy(targetRail.getPos()).subtract(startVec);
 
         Vector3f startDirection = tileEntityIn.getFacing().copy();
-        Vector3f endDirection = railTile.getFacing().copy();
+        Vector3f endDirection = targetRail.getFacing().copy();
 
         startDirection.mul(50);
         endDirection.mul(50);
 
-        Matrix4f matrix = matrixStackIn.getLast().getMatrix();
         final int segments = 32;
 
         for (int i = 0; i < segments; i++) {
@@ -86,7 +84,10 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
 
             Vector3d prev = CurveUtil.hermite3(start, end, startDirection, endDirection, t0);
             Vector3d next = CurveUtil.hermite3(start, end, startDirection, endDirection, t1);
+
+            Matrix4f matrix = matrixStackIn.getLast().getMatrix();
             GeometryUtil.renderCyl(builder, matrix, prev, next, RAIL_RADIUS, segments, 1F, 0F, 0F, 1F);
+
         }
 
     }

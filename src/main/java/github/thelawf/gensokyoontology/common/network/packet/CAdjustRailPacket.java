@@ -5,6 +5,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
@@ -12,17 +13,17 @@ import net.minecraftforge.fml.network.NetworkEvent;
 import java.util.function.Supplier;
 
 public class CAdjustRailPacket {
-    private final Vector3f selfFacing;
+    private final Quaternion selfFacing;
     private final BlockPos targetPos;
 
-    public CAdjustRailPacket(BlockPos targetPos, Vector3f selfFacing) {
+    public CAdjustRailPacket(BlockPos targetPos, Quaternion selfFacing) {
         this.targetPos = targetPos;
         this.selfFacing = selfFacing;
     }
 
     public static CAdjustRailPacket fromBytes(PacketBuffer buf) {
         return new CAdjustRailPacket(buf.readBlockPos(),
-                new Vector3f(buf.readFloat(), buf.readFloat(), buf.readFloat()));
+                new Quaternion(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat()));
     }
     public void toBytes(PacketBuffer buf) {
         buf.writeBlockPos(targetPos);
@@ -30,6 +31,7 @@ public class CAdjustRailPacket {
         buf.writeFloat(this.selfFacing.getX());
         buf.writeFloat(this.selfFacing.getY());
         buf.writeFloat(this.selfFacing.getZ());
+        buf.writeFloat(this.selfFacing.getW());
 
     }
 
@@ -53,7 +55,7 @@ public class CAdjustRailPacket {
         if (railTile == null) return;
 
         // railTile.setTargetPos(pos);
-        railTile.setFacing(packet.selfFacing);
+        railTile.setRotation(packet.selfFacing);
         serverWorld.notifyBlockUpdate(pos, railTile.getBlockState(), railTile.getBlockState(), 3);
 
         if (railTile.getTargetRail() != null) {

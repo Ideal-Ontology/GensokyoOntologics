@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Matrix3f;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -38,6 +37,14 @@ public class RotMatrix {
         this.m02 = 2.0F * (f9 + f11);
         this.m21 = 2.0F * (f8 + f10);
         this.m12 = 2.0F * (f8 - f10);
+    }
+
+    public static RotMatrix from(Quaternion quaternionIn) {
+        return new RotMatrix(quaternionIn);
+    }
+
+    public static RotMatrix from(EulerAngle eulerAngleIn) {
+        return new RotMatrix(GSKOMathUtil.fromEulerAngle(eulerAngleIn));
     }
 
     RotMatrix(float m00, float m01, float m02,
@@ -177,7 +184,7 @@ public class RotMatrix {
         yaw = MathHelper.wrapDegrees(yaw);
         roll = MathHelper.wrapDegrees(roll);
 
-        return EulerAngle.of(pitch, yaw, roll, true);
+        return EulerAngle.of(pitch, yaw, roll);
     }
 
     public Vector3d toHandleValue() {

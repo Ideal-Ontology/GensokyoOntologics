@@ -4,7 +4,9 @@ import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.SRenderRailPacket;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.common.util.math.EulerAngle;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.common.util.math.RotMatrix;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -82,7 +84,7 @@ public class CoasterRailBlock extends Block {
             }
             return 0;
         }).findFirst().ifPresent(value -> {
-            railTile.setFacing(GSKOMathUtil.fromYawPitch(value, 0));
+            railTile.setRotation(EulerAngle.of(0, yaw, 0).toRotation());
         });
     }
 
