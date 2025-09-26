@@ -51,7 +51,7 @@ public class RailConnector extends Item implements IRayTracer {
             int id = stack.getTag().getInt("id");
             RailWrench.getStartRail(worldIn, id).ifPresent(rail -> tooltip.add(
                     GSKOUtil.translateText("tooltip.", ".coaster_rail.start_pos").appendSibling(
-                            GSKOUtil.stringText("(" +
+                            GSKOUtil.stringText("§a(" +
                                     rail.getPosX() + ", " +
                                     rail.getPosY() + ", " +
                                     rail.getPosZ() + ")"))));

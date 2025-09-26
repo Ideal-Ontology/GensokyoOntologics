@@ -889,44 +889,8 @@ public final class ItemRegistry {
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> RAIL_WRENCH = ITEMS.register("rail_wrench", () -> new RailWrench(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
-    public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new Item(
-            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)) {
-        @Override
-        public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
-            ItemStack connector = player.getHeldItem(hand);
-            Vector3d lookVec = player.getLookVec();
-            Vector3d start = player.getEyePosition(1);
-            Vector3d end = player.getEyePosition(1).add(lookVec.scale(10));
-
-            AtomicReference<ActionResult<ItemStack>> result = new AtomicReference<>();
-            result.set(ActionResult.resultPass(connector));
-
-            IRayTracer.rayCast(world, player, start, end).ifPresent(entity -> {
-                if(!(entity instanceof RailEntity)) return;
-                RailEntity rail = (RailEntity) entity;
-                RailWrench.onClickNextRail(world, player, rail, connector);
-                result.set(ActionResult.resultConsume(connector));
-            });
-            return result.get();
-        }
-
-//        @Override
-//        public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
-//            return RailWrench.onClickNextRailBlock(context);
-//        }
-
-        @Override
-        public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-            super.addInformation(stack, worldIn, tooltip, flagIn);
-            if (stack.getTag() == null) return;
-            if (!stack.getTag().contains("startPos")) {
-                tooltip.add(GSKOUtil.translateText("tooltip.", ".coaster_rail.usage"));
-            }
-            BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
-            tooltip.add(GSKOUtil.translateText("tooltip.", ".coaster_rail.start_pos"));
-            tooltip.add(new StringTextComponent("(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")"));
-        }
-    });
+    public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new RailConnector(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
 
     public static final RegistryObject<BlockItem> COASTER_RAIL_ITEM = ITEMS.register("coaster_rail", () -> new BlockItem(
             BlockRegistry.COASTER_RAIL.get(), new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)){

@@ -650,11 +650,7 @@
   "story.gensokyoontology.chapter_1_2.page_1": "That was a cold spring which I was starved to die. Snows fall until May 1st. I have wandered around on this icy land for many years ever since then. I was unreconciled, why me? why only my vitality was been taken altogether with the spring?",
   "story.gensokyoontology.chapter_1_3.page_1": "Quite a lengthy night!\nThis is the only thing that I can remember.",
 
-  "tooltip.gensokyoontology.idealism_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
-  "tooltip.gensokyoontology.praxis_sword_info": "Press \u00A79SHIFT\u00A7r to Show More",
-  "tooltip.gensokyoontology.idealism_sword_shift": "\u00A75Left Click to Release Space Fissure\u00A7r",
-  "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality.",
-
+  "tooltip.gensokyoontology.coaster_rail.start_pos": "§dFirst Coaster Track Node at: §r",
   "tooltip.blank_line": "",
 
   "tooltip.gensokyoontology.aya_fans": "§eRight click to release Ten-gu Wind to blow up entities away.",

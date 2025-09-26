@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
+import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.limit.Min;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
@@ -8,8 +9,10 @@ import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
@@ -42,7 +45,10 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
     @Override
     public void render(@NotNull RailEntity startRail, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStack, IRenderTypeBuffer bufferIn, int light) {
         super.render(startRail, entityYaw, partialTicks, matrixStack, bufferIn, light);
-        Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
+        Minecraft minecraft = Minecraft.getInstance();
+        minecraft.getTextureManager().bindTexture(TEXTURE);
+        ClientPlayerEntity player = minecraft.player;
+
         IVertexBuilder builder = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(TEXTURE));
         IVertexBuilder buffer = bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID);
 
@@ -51,8 +57,11 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
             this.renderUnconnectedTrack(buffer, matrixStack, startRail);
             return;
         }
-
         if (!(optional.get() instanceof RailEntity)) return;
+        if (player != null && player.getHeldItemMainhand().getItem() == ItemRegistry.RAIL_WRENCH.get()){
+            this.renderUnconnectedTrack(buffer, matrixStack, startRail);
+        }
+
         RailEntity targetRail = (RailEntity) optional.get();
 
         Vector3d startVec = Vector3d.copy(startRail.getPosition());

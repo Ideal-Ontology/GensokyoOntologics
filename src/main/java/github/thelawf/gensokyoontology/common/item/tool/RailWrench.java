@@ -69,9 +69,9 @@ public class RailWrench extends Item implements IRayTracer {
 //        return this.onClickFirstRailBlock(pos, player, wrench);
 //    }
 
-    private void onClickFirstRail(@NotNull PlayerEntity player, RailEntity startRail , ItemStack wrench) {
-        if (Screen.hasShiftDown()) {
-            new RailDashboardScreen(startRail.getPosition(), startRail.getRotation(), startRail.getEntityId());
+    private void onClickFirstRail(@NotNull PlayerEntity player, RailEntity startRail, ItemStack wrench) {
+        if (Screen.hasShiftDown() & player.world.isRemote) {
+            new RailDashboardScreen(startRail.getPosition(), startRail.getRotation(), startRail.getEntityId()).open();
             return;
         }
         ItemStack connector = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());

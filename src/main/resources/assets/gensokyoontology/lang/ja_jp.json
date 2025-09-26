@@ -541,10 +541,7 @@
   "story.gensokyoontology.chapter_1_1.page_1": "I can't forget the day when I rest down in peace. The sky was stained by a crimson color like the end of the world. People spread rumors that there falls a mansion of vampires on another side of Misty Lake. I do not believe at first for no one ever comes to the other side of Misty Lake, but here, look at me, I should have believe it...",
   "story.gensokyoontology.chapter_1_2.page_1": "That was a cold spring which I was starved to die. Snows fall until May 1st. I have wandered around on this icy land for many years ever since then. I was unreconciled, why me? why only my vitality was been taken altogether with the spring?",
   "story.gensokyoontology.chapter_1_3.page_1": "Quite a lengthy night!\nThis is the only thing that I can remember.",
-  "tooltip.gensokyoontology.idealism_sword_info": "Press §9SHIFT§r to Show More",
-  "tooltip.gensokyoontology.praxis_sword_info": "Press §9SHIFT§r to Show More",
-  "tooltip.gensokyoontology.idealism_sword_shift": "§5Left Click to Release Space Fissure§r",
-  "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality.",
+  "tooltip.gensokyoontology.coaster_rail.start_pos": "§dFirst Coaster Track Node at: §r",
   "tooltip.blank_line": "",
   "tooltip.gensokyoontology.aya_fans": "§eRight click to release Ten-gu Wind to blow up entities away.",
   "tooltip.gensokyoontology.sakuya_stop_watch": "§eRight click entity to freeze or unfreeze it.",
@@ -653,5 +650,9 @@
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
   "block.gensokyoontology.rail_node": "Rail Node",
-  "block.gensokyoontology.rail_track": "Rail Track"
+  "block.gensokyoontology.rail_track": "Rail Track",
+  "tooltip.gensokyoontology.idealism_sword_info": "Press §9SHIFT§r to Show More",
+  "tooltip.gensokyoontology.idealism_sword_shift": "§5Left Click to Release Space Fissure§r",
+  "tooltip.gensokyoontology.praxis_sword_info": "Press §9SHIFT§r to Show More",
+  "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality."
 }

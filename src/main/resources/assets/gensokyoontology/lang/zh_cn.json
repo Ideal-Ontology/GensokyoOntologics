@@ -635,6 +635,9 @@
   "story.gensokyoontology.chapter_1_1.page_1": "I can't forget the day when I rest down in peace. The sky was stained by a crimson color like the end of the world. People spread rumors that there falls a mansion of vampires on another side of Misty Lake. I do not believe at first for no one ever comes to the other side of Misty Lake, but here, look at me, I should have believe it...",
   "story.gensokyoontology.chapter_1_2.page_1": "That was a cold spring which I was starved to die. Snows fall until May 1st. I have wandered around on this icy land for many years ever since then. I was unreconciled, why me? why only my vitality was been taken altogether with the spring?",
   "story.gensokyoontology.chapter_1_3.page_1": "Quite a lengthy night!\nThis is the only thing that I can remember.",
+
+  "tooltip.gensokyoontology.coaster_rail.start_pos": "§d第一个轨道节点位于: §r",
+
   "tooltip.blank_line": "",
   "tooltip.gensokyoontology.aya_fans": "§e右键点击时释放可以将生物和弹幕吹走的天狗风",
   "tooltip.gensokyoontology.binary_builder.left_type": "左值类型： %s",
@@ -643,8 +646,6 @@
   "tooltip.gensokyoontology.danmaku_color": "弹幕颜色： %s",
   "tooltip.gensokyoontology.danmaku_entity": "字段类型： %s",
   "tooltip.gensokyoontology.danmaku_type": "弹幕类型： %s",
-  "tooltip.gensokyoontology.idealism_sword_info": "按住 §9SHIFT§r 查看更多信息",
-  "tooltip.gensokyoontology.idealism_sword_shift": "§5右键释放现实裂缝§r",
   "tooltip.gensokyoontology.koishi_eye_closed": "§9右键点击时清除弹幕",
   "tooltip.gensokyoontology.koishi_eye_closed.comment": "§7你能看得见恋恋吗！哇，这是我们之间的秘密哦~",
   "tooltip.gensokyoontology.koishi_eye_open": "§a右键点击时对指向的生物实体造成巨额伤害",
@@ -654,8 +655,6 @@
   "tooltip.gensokyoontology.marisa_hakkeiro.info": "右键消耗§c32个火焰弹§r和§a一个B点§r发射极限火花",
   "tooltip.gensokyoontology.occult_ball.biome": "§d神秘地点: ",
   "tooltip.gensokyoontology.occult_ball.hint": "一个也许能将人送到另外一个世界的奇怪宝珠。",
-  "tooltip.gensokyoontology.praxis_sword_info": "按住 §9SHIFT§r 查看更多信息",
-  "tooltip.gensokyoontology.praxis_sword_shift": "过于OP，已被弃用",
   "tooltip.gensokyoontology.sakuya_stop_watch": "§6右键点击实体以暂停或恢复其运动",
   "tooltip.gensokyoontology.script_builder.field_name": "字段名称： %s",
   "tooltip.gensokyoontology.script_builder.field_type": "字段类型： %s",

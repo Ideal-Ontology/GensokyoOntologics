@@ -1,21 +1,32 @@
 package github.thelawf.gensokyoontology.client;
 
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.renderer.GSKODimensionRenderInfo;
+import github.thelawf.gensokyoontology.client.renderer.InWorldRailRenderer;
 import github.thelawf.gensokyoontology.client.renderer.entity.creature.*;
 import github.thelawf.gensokyoontology.client.renderer.entity.misc.*;
 import github.thelawf.gensokyoontology.client.renderer.tileentity.RailTileRenderer;
+import github.thelawf.gensokyoontology.common.entity.RailEntity;
 import github.thelawf.gensokyoontology.common.item.armor.KoishiHatArmorItem;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.entity.BatRenderer;
 import net.minecraft.client.renderer.entity.SpriteRenderer;
 import net.minecraft.client.renderer.texture.AtlasTexture;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.client.world.DimensionRenderInfo;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.RenderLivingEvent;
+import net.minecraftforge.client.event.RenderWorldLastEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -26,7 +37,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD, modid = GensokyoOntology.MODID, value = Dist.CLIENT)
-public class GSKOClientSetupEvents {
+public class GSKOClientEvents {
 
     @SubscribeEvent
     public static void onEntityModelSetup(FMLClientSetupEvent event) {
