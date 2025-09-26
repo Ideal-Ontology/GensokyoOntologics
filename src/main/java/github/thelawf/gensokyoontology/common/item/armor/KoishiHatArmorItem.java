@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.armor;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.KoishiHatModel;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.entity.player.AbstractClientPlayerEntity;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.entity.Entity;
@@ -25,7 +25,7 @@ public class KoishiHatArmorItem extends ArmorItem {
 
     @Override
     public String getArmorTexture(ItemStack itemstack, Entity entity, EquipmentSlotType slot, String layer) {
-        return GensokyoOntology.withRL("textures/entity/komeiji_koishi.png").toString();
+        return GSKOUtil.withRL("textures/entity/komeiji_koishi.png").toString();
     }
 
     @Nullable

@@ -5,7 +5,6 @@ import com.mojang.brigadier.CommandDispatcher;
 import com.mojang.brigadier.arguments.BoolArgumentType;
 import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapability;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
@@ -66,7 +65,7 @@ public class GSKOCommand {
         serverWorld.getCapability(CAPABILITY_MAP.get(incidentName)).ifPresent(cap -> {
             cap.setTriggered(triggered);
             try {
-                GSKOUtil.showChatMsg(source.asPlayer(), GensokyoOntology.translate("cmd.", ".incident_triggered")
+                GSKOUtil.showChatMsg(source.asPlayer(), GSKOUtil.translate("cmd.", ".incident_triggered")
                         .appendSibling(new StringTextComponent(String.valueOf(cap.isTriggered()))), 1);
             } catch (CommandSyntaxException e) {
                 throw new RuntimeException(e);
@@ -81,7 +80,7 @@ public class GSKOCommand {
         ServerWorld serverWorld = source.getWorld();
         serverWorld.getCapability(CAPABILITY_MAP.get(incidentName)).ifPresent(cap -> {
             try {
-                GSKOUtil.showChatMsg(source.asPlayer(), GensokyoOntology.translate("cmd.", ".incident_triggered")
+                GSKOUtil.showChatMsg(source.asPlayer(), GSKOUtil.translate("cmd.", ".incident_triggered")
                         .appendSibling(new StringTextComponent(String.valueOf(cap.isTriggered()))), 1);
                 // GSKOUtil.showChatMsg(source.asPlayer(), cap.isTriggered(), 1);
             } catch (CommandSyntaxException e) {

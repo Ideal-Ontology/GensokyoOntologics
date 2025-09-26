@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.IRayTracer;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
@@ -83,7 +83,7 @@ public class DisposableSpawnerTile extends TileEntity implements ITickableTileEn
     public CompoundNBT write(@NotNull CompoundNBT compound) {
         super.write(compound);
         compound.putString("id", this.getSpawnEntity().getRegistryName() == null ?
-                GensokyoOntology.withRL("flandre_scarlet").toString() : this.getSpawnEntity().getRegistryName().toString());
+                GSKOUtil.withRL("flandre_scarlet").toString() : this.getSpawnEntity().getRegistryName().toString());
         compound.putBoolean("can_continue_spawn", this.canContinueSpawn);
         return compound;
     }

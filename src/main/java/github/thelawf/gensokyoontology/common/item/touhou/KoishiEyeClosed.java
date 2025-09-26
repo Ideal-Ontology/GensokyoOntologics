@@ -1,8 +1,8 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.IHasCooldown;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -77,9 +77,9 @@ public class KoishiEyeClosed extends Item implements IHasCooldown {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.translate("tooltip.", ".koishi_eye_closed"));
+        tooltip.add(GSKOUtil.translate("tooltip.", ".koishi_eye_closed"));
         if (Screen.hasShiftDown()) {
-            tooltip.add(GensokyoOntology.translate("tooltip.", ".koishi_eye_closed.comment"));
+            tooltip.add(GSKOUtil.translate("tooltip.", ".koishi_eye_closed.comment"));
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }

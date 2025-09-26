@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.client.gui.screen.script;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
@@ -15,8 +15,8 @@ public abstract class ScriptBuilderScreen extends LineralLayoutScreen {
     protected Button resetBtn;
     protected Button renameBtn;
     protected ItemStack stack;
-    protected final ITextComponent fieldName = GensokyoOntology.translate("gui.", ".script_builder.fieldName");
-    protected ITextComponent saveText = GensokyoOntology.translate("gui.", ".script.button.save");
+    protected final ITextComponent fieldName = GSKOUtil.translate("gui.", ".script_builder.fieldName");
+    protected ITextComponent saveText = GSKOUtil.translate("gui.", ".script.button.save");
 
     public ScriptBuilderScreen(ITextComponent titleIn, ItemStack stack) {
         super(titleIn);

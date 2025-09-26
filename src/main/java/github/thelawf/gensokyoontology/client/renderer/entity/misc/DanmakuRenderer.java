@@ -3,8 +3,8 @@ package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
@@ -154,9 +154,9 @@ public class DanmakuRenderer extends SpriteRenderer<Danmaku> {
             return null;
         }
         if (MAPPED_TEXTURES.containsKey(danmaku.getItem().getItem())) {
-            return GensokyoOntology.withRL("textures/item/" + MAPPED_TEXTURES.get(danmaku.getItem().getItem()) + ".png");
+            return GSKOUtil.withRL("textures/item/" + MAPPED_TEXTURES.get(danmaku.getItem().getItem()) + ".png");
         }
-        return GensokyoOntology.withRL("textures/item/" + danmaku.getItem().getItem().getRegistryName().getPath() + ".png");
+        return GSKOUtil.withRL("textures/item/" + danmaku.getItem().getItem().getRegistryName().getPath() + ".png");
     }
 
     public void vertex(Matrix4f matrix, IVertexBuilder builder, float x, float y, float z, float u, float v, int packedLight) {

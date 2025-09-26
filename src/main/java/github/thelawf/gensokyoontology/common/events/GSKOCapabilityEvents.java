@@ -53,9 +53,9 @@ public class GSKOCapabilityEvents {
             ImperishableNightProvider imperishableNight = new ImperishableNightProvider(18000, false);
             EternalSummerCapProvider eternalSummer = new EternalSummerCapProvider(true);
 
-            event.addCapability(GensokyoOntology.withRL("bloody_mist"), bloodyMist);
-            event.addCapability(GensokyoOntology.withRL("imperishable_night"), imperishableNight);
-            event.addCapability(GensokyoOntology.withRL("eternal_summer"), eternalSummer);
+            event.addCapability(GSKOUtil.withRL("bloody_mist"), bloodyMist);
+            event.addCapability(GSKOUtil.withRL("imperishable_night"), imperishableNight);
+            event.addCapability(GSKOUtil.withRL("eternal_summer"), eternalSummer);
         }
     }
 
@@ -68,9 +68,9 @@ public class GSKOCapabilityEvents {
             IdentityCapabilityProvider identity = new IdentityCapabilityProvider();
             SecularLifetimeProvider lifetime = new SecularLifetimeProvider(0L);
 
-            event.addCapability(GensokyoOntology.withRL("power"), power);
-            event.addCapability(GensokyoOntology.withRL("identities"), identity);
-            event.addCapability(GensokyoOntology.withRL("secular_lifetime"), lifetime);
+            event.addCapability(GSKOUtil.withRL("power"), power);
+            event.addCapability(GSKOUtil.withRL("identities"), identity);
+            event.addCapability(GSKOUtil.withRL("secular_lifetime"), lifetime);
         }
     }
 

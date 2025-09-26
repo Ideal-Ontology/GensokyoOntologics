@@ -2,14 +2,13 @@ package github.thelawf.gensokyoontology.client.gui.screen.script;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.common.container.script.StaticInvokerContainer;
-import github.thelawf.gensokyoontology.common.container.script.V3dInvokerContainer;
 import github.thelawf.gensokyoontology.common.nbt.script.StaticFunc;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CInvokeFunctionPacket;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.nbt.CompoundNBT;
@@ -25,7 +24,7 @@ public class StaticInvokerScreen extends InvokerContainerScreen<StaticInvokerCon
     public static final String TYPE = "static_invoker";
     private CompoundNBT funcData = new CompoundNBT();
     private final List<WidgetConfig> CONFIGS;
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/static_invoker_screen.png");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/gui/static_invoker_screen.png");
     public StaticInvokerScreen(StaticInvokerContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
         this.func = StaticFunc.SHOOT;

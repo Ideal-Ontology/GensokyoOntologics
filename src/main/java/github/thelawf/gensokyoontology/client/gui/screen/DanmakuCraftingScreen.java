@@ -4,24 +4,15 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.ILayoutScreen;
 import github.thelawf.gensokyoontology.common.container.DanmakuCraftingContainer;
-import github.thelawf.gensokyoontology.core.init.BlockRegistry;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.client.gui.screen.inventory.ContainerScreen;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.joml.Vector2i;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 @OnlyIn(Dist.CLIENT)
 public class DanmakuCraftingScreen extends JigsawCraftingScreen<DanmakuCraftingContainer> implements ILayoutScreen {
@@ -36,9 +27,9 @@ public class DanmakuCraftingScreen extends JigsawCraftingScreen<DanmakuCraftingC
     protected float consumedPower;
     protected int consumedDanmakuShot;
 
-    public static final TranslationTextComponent POWER_INFO = GensokyoOntology.translate("gui.", ".power");
-    public static final TranslationTextComponent CONSUMED_POWER = GensokyoOntology.translate("gui.", ".power_consumed");
-    public static final TranslationTextComponent CONSUMED_DANMAKU_SHOT = GensokyoOntology.translate("gui.", ".danmaku_shot_consumed");
+    public static final TranslationTextComponent POWER_INFO = GSKOUtil.translate("gui.", ".power");
+    public static final TranslationTextComponent CONSUMED_POWER = GSKOUtil.translate("gui.", ".power_consumed");
+    public static final TranslationTextComponent CONSUMED_DANMAKU_SHOT = GSKOUtil.translate("gui.", ".danmaku_shot_consumed");
 
     public static final ResourceLocation DANMAKU_CRAFTING_TEXTURE = new ResourceLocation(
             GensokyoOntology.MODID, "textures/gui/danmaku_crafting.png"

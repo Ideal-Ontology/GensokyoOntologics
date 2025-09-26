@@ -1,9 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.ai;
 
-import com.mojang.brigadier.ResultConsumer;
-import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.api.Tree;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.brain.schedule.Activity;
 import net.minecraft.entity.ai.brain.task.Task;
@@ -12,9 +10,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * 任务管理器（还真是）<br>
@@ -41,7 +36,7 @@ import java.util.stream.Collectors;
  */
 public class TaskManager {
     public static final Tree<TaskEntry<? extends LivingEntity>> TASKS = new Tree<>();
-    public static final ResourceLocation HUMAN_TASKS = GensokyoOntology.withRL("human_tasks");
+    public static final ResourceLocation HUMAN_TASKS = GSKOUtil.withRL("human_tasks");
 
     public static void registerGSKOTasks() {
         registerTask(HUMAN_TASKS, Activity.CORE, "walk", new WalkRandomlyTask(0,0,0));

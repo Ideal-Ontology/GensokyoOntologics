@@ -2,13 +2,13 @@ package github.thelawf.gensokyoontology.client.gui.screen.script;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import net.minecraft.client.gui.widget.TextFieldWidget;
@@ -33,13 +33,13 @@ public class DanmakuBuilderScreen extends OneSlotContainerScreen {
     private final ItemStack stack;
     private List<WidgetConfig> CONFIGS;
     private final CompoundNBT danmakuData = new CompoundNBT();
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/one_slot_screen.png");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/gui/one_slot_screen.png");
     private final WidgetConfig NAME_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TYPE_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig COLOR_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
-    public static final ITextComponent DAN_TYPE_TEXT = GensokyoOntology.translate("gui.", ".danmaku_builder.button.type");
-    public static final ITextComponent COLOR_TEXT = GensokyoOntology.translate("gui.", ".danmaku_builder.button.color");
-    public static final ITextComponent NAME_TEXT = GensokyoOntology.translate("gui.", ".danmaku_builder.button.name");
+    public static final ITextComponent DAN_TYPE_TEXT = GSKOUtil.translate("gui.", ".danmaku_builder.button.type");
+    public static final ITextComponent COLOR_TEXT = GSKOUtil.translate("gui.", ".danmaku_builder.button.color");
+    public static final ITextComponent NAME_TEXT = GSKOUtil.translate("gui.", ".danmaku_builder.button.name");
 
     public DanmakuBuilderScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);

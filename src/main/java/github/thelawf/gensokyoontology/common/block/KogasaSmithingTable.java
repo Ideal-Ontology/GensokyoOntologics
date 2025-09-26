@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.block;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.KogasaSmithingContainer;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.block.*;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class KogasaSmithingTable extends AnvilBlock {
-    public static final TranslationTextComponent NAME = GensokyoOntology.translate("container.", ".kogasa_smithing");
+    public static final TranslationTextComponent NAME = GSKOUtil.translate("container.", ".kogasa_smithing");
 
     public KogasaSmithingTable() {
         super(Properties.from(Blocks.ANVIL));

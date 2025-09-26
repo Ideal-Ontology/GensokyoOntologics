@@ -1,8 +1,8 @@
 package github.thelawf.gensokyoontology.client.gui.screen.script;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.script.ScriptBuilderContainer;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.item.ItemStack;
@@ -12,8 +12,8 @@ public abstract class ScriptContainerScreen<C extends ScriptBuilderContainer> ex
     protected Button saveBtn;
 
     protected ItemStack stack;
-    protected final ITextComponent fieldName = GensokyoOntology.translate("gui.", ".script_builder.fieldName");
-    protected ITextComponent saveText = GensokyoOntology.translate("gui.", ".script.button.save");
+    protected final ITextComponent fieldName = GSKOUtil.translate("gui.", ".script_builder.fieldName");
+    protected ITextComponent saveText = GSKOUtil.translate("gui.", ".script.button.save");
     public ScriptContainerScreen(C screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }

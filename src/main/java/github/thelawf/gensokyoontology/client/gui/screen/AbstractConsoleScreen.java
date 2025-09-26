@@ -1,8 +1,8 @@
 package github.thelawf.gensokyoontology.client.gui.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.screen.inventory.ContainerScreen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
@@ -12,13 +12,13 @@ public class AbstractConsoleScreen extends ContainerScreen<SpellCardConsoleConta
     /** Menu Hierarchy of3D Danmaku Command Table 弹幕控制台的菜单层级 */
 
     // Main Hierarchy 主层级
-    private static final ITextComponent ADD_COMMAND = GensokyoOntology.translate("",".add_cmd");
-    private static final ITextComponent NEXT = GensokyoOntology.translate("", "next");
-    private static final ITextComponent NEW_INSTANCE = GensokyoOntology.translate("", ".new_instance");
-    private static final ITextComponent ASSIGN = GensokyoOntology.translate("",".assign");
-    private static final ITextComponent FOR_LOOP = GensokyoOntology.translate("",".for_loop");
-    private static final ITextComponent IF_BRANCH = GensokyoOntology.translate("",".if_branch");
-    private static final ITextComponent BINARY_OPT = GensokyoOntology.translate("",".binary_opt");
+    private static final ITextComponent ADD_COMMAND = GSKOUtil.translate("",".add_cmd");
+    private static final ITextComponent NEXT = GSKOUtil.translate("", "next");
+    private static final ITextComponent NEW_INSTANCE = GSKOUtil.translate("", ".new_instance");
+    private static final ITextComponent ASSIGN = GSKOUtil.translate("",".assign");
+    private static final ITextComponent FOR_LOOP = GSKOUtil.translate("",".for_loop");
+    private static final ITextComponent IF_BRANCH = GSKOUtil.translate("",".if_branch");
+    private static final ITextComponent BINARY_OPT = GSKOUtil.translate("",".binary_opt");
 
     Button addCmd;
     Button done;

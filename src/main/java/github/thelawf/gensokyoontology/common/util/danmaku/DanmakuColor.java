@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.util.danmaku;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.util.text.ITextComponent;
 
 public enum DanmakuColor {
@@ -16,7 +16,7 @@ public enum DanmakuColor {
     NONE;
 
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.translate("gui.", ".danmaku_color." + this.name().toLowerCase());
+        return GSKOUtil.translate("gui.", ".danmaku_color." + this.name().toLowerCase());
     }
 
     public DanmakuColor getIfMatches(String name) {

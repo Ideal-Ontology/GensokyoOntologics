@@ -2,13 +2,13 @@ package github.thelawf.gensokyoontology.client.gui.screen.script;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
@@ -37,13 +37,13 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
     private TextFieldWidget xInput;
     private TextFieldWidget yInput;
     private TextFieldWidget zInput;
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/one_slot_screen_vec.png");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/gui/one_slot_screen_vec.png");
     private final WidgetConfig TEXT_LABEL1 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TEXT_LABEL2 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TEXT_LABEL3 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TEXT_LABEL4 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
 
-    private final ITextComponent tipName = GensokyoOntology.translate("gui.",".vector3d.builder.name");
+    private final ITextComponent tipName = GSKOUtil.translate("gui.",".vector3d.builder.name");
     private List<WidgetConfig> WIDGETS;
 
     public Vector3dBuilderScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {

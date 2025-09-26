@@ -13,6 +13,7 @@ import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapabil
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
 import github.thelawf.gensokyoontology.common.item.touhou.KoishiEyeOpen;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -42,7 +43,7 @@ import net.minecraftforge.fml.common.Mod;
 public class GSKOMiscClientEvent {
     private static int TIMER = 0;
     private final Minecraft mc = Minecraft.getInstance();
-    public static final ITextComponent GOHEI_TITLE = GensokyoOntology.translate("gui.", ".hakurei_gohei.title");
+    public static final ITextComponent GOHEI_TITLE = GSKOUtil.translate("gui.", ".hakurei_gohei.title");
 
     @SubscribeEvent
     public void onTerrainGUIOpen(GuiOpenEvent event) {

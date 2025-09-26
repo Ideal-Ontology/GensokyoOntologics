@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -37,7 +37,7 @@ public class SpiritTube extends Item {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.translate("tooltip.", ".spirit_tube"));
+        tooltip.add(GSKOUtil.translate("tooltip.", ".spirit_tube"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

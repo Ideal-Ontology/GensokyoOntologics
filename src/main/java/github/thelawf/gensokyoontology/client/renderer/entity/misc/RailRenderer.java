@@ -87,6 +87,7 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
         Quaternion rotation = rail.getRotation();
         matrixStackIn.push();
         matrixStackIn.rotate(rotation);
+        matrixStackIn.translate(0, 0.5F, 0);
 
         matrixStackIn.push();
         matrixStackIn.translate(-0.5, 0.1, -0.5);

@@ -2,9 +2,9 @@ package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.Color4i;
 import github.thelawf.gensokyoontology.common.entity.misc.LunarFall;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -16,14 +16,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Matrix4f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import net.minecraftforge.client.model.CompositeModel;
 import org.jetbrains.annotations.NotNull;
-import org.joml.GeometryUtils;
 
 public class LunarFallRenderer extends EntityRenderer<LunarFall> {
 
-    public static final ResourceLocation BEAM_TEX = GensokyoOntology.withRL("textures/entity/beam_cutout.png");
-    public static final ResourceLocation IMPACT_TEX = GensokyoOntology.withRL("textures/entity/impact.png");
+    public static final ResourceLocation BEAM_TEX = GSKOUtil.withRL("textures/entity/beam_cutout.png");
+    public static final ResourceLocation IMPACT_TEX = GSKOUtil.withRL("textures/entity/impact.png");
 
     public LunarFallRenderer(EntityRendererManager renderManager) {
         super(renderManager);

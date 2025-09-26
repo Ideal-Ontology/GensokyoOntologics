@@ -142,11 +142,11 @@ public class MarisaHakkeiro extends ShootableItem implements IRayTracer, IHasCoo
             }
         }
         if (bomb.isEmpty() || !hasBomb) {
-            GSKOUtil.showChatMsg(player, GensokyoOntology.translate("error.",".hakkeiro.no_enough_bomb"), 1);
+            GSKOUtil.showChatMsg(player, GSKOUtil.translate("error.",".hakkeiro.no_enough_bomb"), 1);
             return false;
         }
         if (fireCharge.isEmpty() || !has32FireCharge) {
-            GSKOUtil.showChatMsg(player, GensokyoOntology.translate("error.", ".hakkeiro.no_enough_fire_charge"), 1);
+            GSKOUtil.showChatMsg(player, GSKOUtil.translate("error.", ".hakkeiro.no_enough_fire_charge"), 1);
             return false;
         }
 

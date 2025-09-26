@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.client.renderer.tileentity;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
@@ -17,7 +16,6 @@ import net.minecraft.client.renderer.tileentity.TileEntityRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.*;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -42,7 +40,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
     private static final HashMap<Vector3f, Vector3f> MAPPING = Util.make(new HashMap<>(), map -> {
         map.put(new Vector3f(), new Vector3f());
     });
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/block/coaster_rail.png");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/block/coaster_rail.png");
     public RailTileRenderer(TileEntityRendererDispatcher rendererDispatcherIn, float radius, float width) {
         super(rendererDispatcherIn);
         this.radius = radius;

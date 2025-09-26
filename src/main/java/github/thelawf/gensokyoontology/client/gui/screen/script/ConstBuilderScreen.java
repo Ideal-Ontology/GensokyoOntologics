@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.client.gui.screen.script;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
@@ -12,6 +11,7 @@ import github.thelawf.gensokyoontology.common.util.EnumUtil;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.nbt.script.ConstPreset;
 import github.thelawf.gensokyoontology.common.nbt.script.ConstType;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
@@ -40,14 +40,14 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
     private TextFieldWidget nameInput;
     private TextFieldWidget valueInput;
     private final CompoundNBT constData = new CompoundNBT();
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/one_slot_screen_const.png");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/gui/one_slot_screen_const.png");
     private final WidgetConfig NAME_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig VALUE_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
-    private final ITextComponent defaultName = GensokyoOntology.translate("gui.",".default.set_name");
-    private final ITextComponent defaultValue = GensokyoOntology.translate("gui.",".default.set_value");
-    private final ITextComponent presetDefault = GensokyoOntology.translate("gui.",".const_builder.button.preset.none");
-    private final ITextComponent intTypeText = GensokyoOntology.translate("gui.",".const_builder.button.constType.int");
-    private final ITextComponent valueText = GensokyoOntology.translate("gui.", ".const_builder.tip.valueInput");
+    private final ITextComponent defaultName = GSKOUtil.translate("gui.",".default.set_name");
+    private final ITextComponent defaultValue = GSKOUtil.translate("gui.",".default.set_value");
+    private final ITextComponent presetDefault = GSKOUtil.translate("gui.",".const_builder.button.preset.none");
+    private final ITextComponent intTypeText = GSKOUtil.translate("gui.",".const_builder.button.constType.int");
+    private final ITextComponent valueText = GSKOUtil.translate("gui.", ".const_builder.tip.valueInput");
 
     public List<WidgetConfig> WIDGETS;
 

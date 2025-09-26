@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.nbt.script;
 
 import com.google.common.collect.Lists;
-import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.util.text.ITextComponent;
 
 import java.util.List;
@@ -20,6 +20,6 @@ public enum StaticFunc {
     }
 
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.translate("gui.", ".static_func." + this.methodName);
+        return GSKOUtil.translate("gui.", ".static_func." + this.methodName);
     }
 }

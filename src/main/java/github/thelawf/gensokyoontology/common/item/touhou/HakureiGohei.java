@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.IHasCooldown;
 import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
@@ -45,7 +44,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * 博丽灵梦的御币
  */
 public class HakureiGohei extends MultiModeItem implements IRayTracer, IHasCooldown {
-    public static final ITextComponent TITLE = GensokyoOntology.translate("gui.", ".hakurei_gohei.title");
+    public static final ITextComponent TITLE = GSKOUtil.translate("gui.", ".hakurei_gohei.title");
     public HakureiGohei(Properties properties) {
         super(properties);
     }
@@ -196,7 +195,7 @@ public class HakureiGohei extends MultiModeItem implements IRayTracer, IHasCoold
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
 
-        ITextComponent text = GensokyoOntology.translate("tooltip.", ".hakurei_gohei.mode");
+        ITextComponent text = GSKOUtil.translate("tooltip.", ".hakurei_gohei.mode");
         if (stack.getTag() != null) {
             switch (getMode(stack.getTag())) {
                 default:

@@ -13,7 +13,6 @@ import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
 import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.PowerChangedPacket;
 import github.thelawf.gensokyoontology.common.network.packet.SScarletMistPacket;
@@ -26,8 +25,6 @@ import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomes;
-import github.thelawf.gensokyoontology.core.EnchantRegistry;
-import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.EffectRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -38,7 +35,6 @@ import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MusicTicker;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -57,11 +53,9 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -193,7 +187,7 @@ public class GSKOEntityEvents {
 
             if (GSKOWorldUtil.isEntityInBiome(player, GSKOBiomes.NAMELESS_HILL_KEY)){
                 player.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 20));
-                player.sendStatusMessage(GensokyoOntology.translate(
+                player.sendStatusMessage(GSKOUtil.translate(
                         "msg.", ".enter_danger_biome.nameless_hill"), true);
             }
         }
@@ -264,7 +258,7 @@ public class GSKOEntityEvents {
             }
 
             if (precondition) {
-                player.sendStatusMessage(GensokyoOntology.translate(
+                player.sendStatusMessage(GSKOUtil.translate(
                         "msg.", ".enter_danger_biome.scarlet_mansion_precincts"), true);
                 player.attackEntityFrom(DamageSource.IN_WALL, 1f);
             }

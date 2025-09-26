@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.client.gui.screen;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.screen.script.LineralLayoutScreen;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CAdjustRailPacket;
@@ -13,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.fml.client.gui.widget.Slider;
@@ -40,7 +38,7 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     private static final TranslationTextComponent QZ = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qz");
     private static final TranslationTextComponent QW = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qw");
 
-    public static final ITextComponent TITLE = GensokyoOntology.translate("gui.", ".rail_dashboard.title");
+    public static final ITextComponent TITLE = GSKOUtil.translate("gui.", ".rail_dashboard.title");
 
     public RailDashboardScreen(BlockPos pos, Quaternion rotation, int startEntityId) {
         super(TITLE);

@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.client.model.monster.FairyModel;
 import github.thelawf.gensokyoontology.client.model.monster.SunflowerFairyModel;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.SunflowerFairyEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.model.EntityModel;
@@ -22,7 +23,7 @@ public class FairyRenderer extends VariantModelRenderer<FairyEntity> {
 
     private static final ResourceLocation NORMAL_FAIRY = new ResourceLocation(GensokyoOntology.MODID, "textures/entity/fairy_texture_1.png");
 
-    public static final ResourceLocation SUNFLOWER_FAIRY = GensokyoOntology.withRL("textures/entity/sunflower_fairy.png");
+    public static final ResourceLocation SUNFLOWER_FAIRY = GSKOUtil.withRL("textures/entity/sunflower_fairy.png");
 
     public FairyRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn);

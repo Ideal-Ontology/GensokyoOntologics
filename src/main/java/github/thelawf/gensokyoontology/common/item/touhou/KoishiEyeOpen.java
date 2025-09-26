@@ -1,10 +1,10 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.IHasCooldown;
 import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -107,9 +107,9 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTracer, IHasCool
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.translate("tooltip.", ".koishi_eye_open"));
+        tooltip.add(GSKOUtil.translate("tooltip.", ".koishi_eye_open"));
         if (Screen.hasShiftDown()) {
-            tooltip.add(GensokyoOntology.translate("tooltip.", ".koishi_eye_open.comment"));
+            tooltip.add(GSKOUtil.translate("tooltip.", ".koishi_eye_open.comment"));
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }

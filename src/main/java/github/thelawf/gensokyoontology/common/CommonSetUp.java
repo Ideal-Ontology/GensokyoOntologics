@@ -9,8 +9,8 @@ import github.thelawf.gensokyoontology.common.entity.monster.RetreatableEntity;
 import github.thelawf.gensokyoontology.common.entity.monster.SpectreEntity;
 import github.thelawf.gensokyoontology.common.events.GSKOEventSystem;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.GSKOChunkGenerator;
-import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomeGenerator;
 import github.thelawf.gensokyoontology.common.world.dimension.biome.GSKOBiomesProvider;
 import github.thelawf.gensokyoontology.common.world.feature.GSKOFeatures;
@@ -21,10 +21,7 @@ import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.StructureRegistry;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.passive.TameableEntity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.Dimension;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegisterCommandsEvent;
@@ -56,9 +53,9 @@ public class CommonSetUp {
 
             PlacerRegistry.registerTrunkPlacer("branch_trunk_placer", BranchTrunkPlacer.CODEC);
 
-            Registry.register(Registry.CHUNK_GENERATOR_CODEC, GensokyoOntology.withRL("chunkgen"),
+            Registry.register(Registry.CHUNK_GENERATOR_CODEC, GSKOUtil.withRL("chunkgen"),
                     GSKOChunkGenerator.CHUNK_GEN_CODEC);
-            Registry.register(Registry.BIOME_PROVIDER_CODEC, GensokyoOntology.withRL("gensokyo"),
+            Registry.register(Registry.BIOME_PROVIDER_CODEC, GSKOUtil.withRL("gensokyo"),
                     GSKOBiomesProvider.GSKO_BIOME_CODEC);
 
             EntitySpawnPlacementRegistry.register(EntityRegistry.FAIRY_ENTITY.get(),

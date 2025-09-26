@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.world.surface;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
@@ -20,6 +20,6 @@ public class GSKOConfiguredSurface {
 
     public static void registerSurface() {
         Registry<ConfiguredSurfaceBuilder<?>> registry = WorldGenRegistries.CONFIGURED_SURFACE_BUILDER;
-        Registry.register(registry, GensokyoOntology.withRL("untrodden_valley"), UNTRODDEN_VALLEY);
+        Registry.register(registry, GSKOUtil.withRL("untrodden_valley"), UNTRODDEN_VALLEY);
     }
 }

@@ -1,11 +1,11 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.container.SpellCardConsoleContainer;
 import github.thelawf.gensokyoontology.common.item.script.DynamicScriptItem;
 import github.thelawf.gensokyoontology.common.item.script.ScriptBuilderItem;
 import github.thelawf.gensokyoontology.common.item.script.ScriptReadOnlyItem;
 import github.thelawf.gensokyoontology.common.item.spellcard.SpellCardItem;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
@@ -35,7 +35,7 @@ public class SpellConsoleTileEntity extends TileEntity implements ITickableTileE
     public final int slotCount = 31;
     private final ItemStackHandler itemHandler = createItemHandler();
     private final LazyOptional<IItemHandler> optionalHandler = LazyOptional.of(() -> itemHandler);
-    public static final TranslationTextComponent CONTAINER_NAME = GensokyoOntology.translate("container.", ".spell_card_console.title");
+    public static final TranslationTextComponent CONTAINER_NAME = GSKOUtil.translate("container.", ".spell_card_console.title");
     public SpellConsoleTileEntity() {
         super(TileEntityRegistry.SPELL_CONSOLE_TILE_ENTITY.get());
     }

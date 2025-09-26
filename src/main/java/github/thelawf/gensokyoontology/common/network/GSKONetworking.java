@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.network;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.network.packet.*;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -12,7 +12,7 @@ public class GSKONetworking {
 
     public static final String VERSION = "1.0";
     public static final SimpleChannel CHANNEL = NetworkRegistry.newSimpleChannel(
-            GensokyoOntology.withRL("network"),
+            GSKOUtil.withRL("network"),
             () -> VERSION, VERSION::equals, VERSION::equals);
 
     private static int ID = 0;

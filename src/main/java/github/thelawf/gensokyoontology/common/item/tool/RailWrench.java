@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.tool;
 
 import github.thelawf.gensokyoontology.api.util.IRayTracer;
+import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
 import github.thelawf.gensokyoontology.common.entity.RailEntity;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
@@ -8,6 +9,7 @@ import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -67,7 +69,11 @@ public class RailWrench extends Item implements IRayTracer {
 //        return this.onClickFirstRailBlock(pos, player, wrench);
 //    }
 
-    private ActionResultType onClickFirstRail(@NotNull PlayerEntity player, RailEntity startRail ,ItemStack wrench) {
+    private void onClickFirstRail(@NotNull PlayerEntity player, RailEntity startRail , ItemStack wrench) {
+        if (Screen.hasShiftDown()) {
+            new RailDashboardScreen(startRail.getPosition(), startRail.getRotation(), startRail.getEntityId());
+            return;
+        }
         ItemStack connector = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());
         CompoundNBT nbt = new CompoundNBT();
         nbt.putInt("id", startRail.getEntityId());
@@ -75,7 +81,6 @@ public class RailWrench extends Item implements IRayTracer {
 
         wrench.shrink(1);
         player.addItemStackToInventory(connector);
-        return ActionResultType.SUCCESS;
     }
 
     private ActionResultType onClickFirstRailBlock(BlockPos startPos, @NotNull PlayerEntity player,

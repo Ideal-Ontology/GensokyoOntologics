@@ -20,7 +20,6 @@ import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.MobEntity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
@@ -332,23 +331,4 @@ public class GensokyoOntology {
         }
     }
 
-    public static ResourceLocation withRL(String id) {
-        return new ResourceLocation(GensokyoOntology.MODID, id);
-    }
-
-    public static String withId(String id) {
-        return MODID + "." + id;
-    }
-
-    public static String withAffix(String prefix, String suffix) {
-        return prefix + MODID + suffix;
-    }
-
-    public static TranslationTextComponent translate(String prefix, String suffix) {
-        return new TranslationTextComponent(withAffix(prefix, suffix));
-    }
-
-    public static TranslationTextComponent translatef(String prefix, String suffix, Object... formats) {
-        return new TranslationTextComponent(withAffix(prefix, suffix), formats);
-    }
 }

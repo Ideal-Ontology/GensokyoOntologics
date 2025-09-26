@@ -30,7 +30,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.command.impl.data.DataCommand;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
@@ -905,8 +904,6 @@ public final class ItemRegistry {
             IRayTracer.rayCast(world, player, start, end).ifPresent(entity -> {
                 if(!(entity instanceof RailEntity)) return;
                 RailEntity rail = (RailEntity) entity;
-
-                GSKOUtil.showChatMsg(player, rail.writeWithoutTypeId(new CompoundNBT()).toString(), 1);
                 RailWrench.onClickNextRail(world, player, rail, connector);
                 result.set(ActionResult.resultConsume(connector));
             });
@@ -923,10 +920,10 @@ public final class ItemRegistry {
             super.addInformation(stack, worldIn, tooltip, flagIn);
             if (stack.getTag() == null) return;
             if (!stack.getTag().contains("startPos")) {
-                tooltip.add(GensokyoOntology.translate("tooltip.", ".coaster_rail.usage"));
+                tooltip.add(GSKOUtil.translate("tooltip.", ".coaster_rail.usage"));
             }
             BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
-            tooltip.add(GensokyoOntology.translate("tooltip.", ".coaster_rail.start_pos"));
+            tooltip.add(GSKOUtil.translate("tooltip.", ".coaster_rail.start_pos"));
             tooltip.add(new StringTextComponent("(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")"));
         }
     });

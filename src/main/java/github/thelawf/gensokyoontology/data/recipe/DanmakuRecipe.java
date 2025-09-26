@@ -147,7 +147,7 @@ public class DanmakuRecipe implements IJigsawRecipe {
     }
 
     public static class Serializer extends ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<DanmakuRecipe> {
-        private static final ResourceLocation NAME = GensokyoOntology.withRL("danmaku");
+        private static final ResourceLocation NAME = GSKOUtil.withRL("danmaku");
 
         /**
          * 该合成配方的json格式如下（以 small_shot.json 为例）：<br>

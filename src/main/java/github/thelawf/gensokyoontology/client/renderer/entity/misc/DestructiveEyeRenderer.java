@@ -1,31 +1,25 @@
 package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.misc.DestructiveEyeEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
-import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.ItemRenderer;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.*;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.entity.projectile.FishingBobberEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
-import org.apache.logging.log4j.LogManager;
 import org.jetbrains.annotations.NotNull;
 
 public class DestructiveEyeRenderer extends EntityRenderer<DestructiveEyeEntity> {
 
     private final ItemRenderer itemRenderer;
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/entity/sphere_dark");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/entity/sphere_dark");
 
     public DestructiveEyeRenderer(EntityRendererManager renderManager, ItemRenderer itemRenderer) {
         super(renderManager);

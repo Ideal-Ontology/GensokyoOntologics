@@ -2,11 +2,11 @@ package github.thelawf.gensokyoontology.client.gui.screen.script;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.common.container.script.ScriptBuilderContainer;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.BlankWidget;
 import github.thelawf.gensokyoontology.client.gui.screen.widget.SlotWidget;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
@@ -21,7 +21,7 @@ import java.util.List;
 // ref name input: 30, 55
 public class AssignInstanceScreen extends ScriptContainerScreen {
     public static final String TYPE = "assignment";
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/assign_screen.png");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/gui/assign_screen.png");
     private final CompoundNBT assignData = new CompoundNBT();
     private TextFieldWidget nameInput;
     private SlotWidget slotWidget;

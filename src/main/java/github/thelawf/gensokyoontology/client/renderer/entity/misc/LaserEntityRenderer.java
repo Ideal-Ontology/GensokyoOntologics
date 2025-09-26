@@ -2,9 +2,9 @@ package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.misc.Laser;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -30,8 +30,8 @@ import org.jetbrains.annotations.Nullable;
 @OnlyIn(Dist.CLIENT)
 public class LaserEntityRenderer extends EntityRenderer<Laser> {
 
-    public static final ResourceLocation LASER_SOURCE_TEX = GensokyoOntology.withRL("textures/entity/laser_source.png");
-    public static final ResourceLocation LASER_BEAM_TEX = GensokyoOntology.withRL("textures/entity/laser_beam_1.png");
+    public static final ResourceLocation LASER_SOURCE_TEX = GSKOUtil.withRL("textures/entity/laser_source.png");
+    public static final ResourceLocation LASER_BEAM_TEX = GSKOUtil.withRL("textures/entity/laser_beam_1.png");
     public static final RenderType LASER_BEAM = RenderType.getEntityTranslucent(LASER_BEAM_TEX);
 
     public LaserEntityRenderer(EntityRendererManager renderManager) {

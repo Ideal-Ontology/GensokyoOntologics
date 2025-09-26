@@ -1,9 +1,9 @@
 package github.thelawf.gensokyoontology.client.renderer.entity.creature;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.monster.FlandreScarletModel;
 import github.thelawf.gensokyoontology.common.entity.monster.FlandreScarletEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.BipedRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class FlandreScarletRenderer extends BipedRenderer<FlandreScarletEntity, FlandreScarletModel> {
 
-    public static final ResourceLocation FLANDRE_TEXTURE = GensokyoOntology.withRL("textures/entity/flandre_scarlet.png");
+    public static final ResourceLocation FLANDRE_TEXTURE = GSKOUtil.withRL("textures/entity/flandre_scarlet.png");
 
     public FlandreScarletRenderer(EntityRendererManager renderManagerIn) {
         super(renderManagerIn, new FlandreScarletModel(1.0f), 0.9f);

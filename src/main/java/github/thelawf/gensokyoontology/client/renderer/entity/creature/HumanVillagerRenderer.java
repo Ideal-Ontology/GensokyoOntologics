@@ -1,12 +1,12 @@
 package github.thelawf.gensokyoontology.client.renderer.entity.creature;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.model.FemaleVillagerModel;
 import github.thelawf.gensokyoontology.client.model.HumanrResidentModel;
 import github.thelawf.gensokyoontology.client.model.MaleVillagerModel;
 import github.thelawf.gensokyoontology.client.renderer.VariantModelRenderer;
 import github.thelawf.gensokyoontology.common.entity.passive.HumanResidentEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -17,8 +17,8 @@ import org.jetbrains.annotations.NotNull;
 
 @OnlyIn(Dist.CLIENT)
 public class HumanVillagerRenderer extends VariantModelRenderer<HumanResidentEntity> {
-    public static final ResourceLocation MALE_TEX = GensokyoOntology.withRL("textures/entity/human_villager_male.png");
-    public static final ResourceLocation FEMALE_TEX = GensokyoOntology.withRL("textures/entity/human_villager_female.png");
+    public static final ResourceLocation MALE_TEX = GSKOUtil.withRL("textures/entity/human_villager_male.png");
+    public static final ResourceLocation FEMALE_TEX = GSKOUtil.withRL("textures/entity/human_villager_female.png");
     public static final MaleVillagerModel MALE_MODEL = new MaleVillagerModel();
     public static final FemaleVillagerModel FEMALE_MODEL = new FemaleVillagerModel();
     public HumanVillagerRenderer(EntityRendererManager renderManager) {

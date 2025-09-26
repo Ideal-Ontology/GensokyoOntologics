@@ -1,12 +1,9 @@
 package github.thelawf.gensokyoontology.common.entity.combat.spell;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.combat.AbstractSpellCardEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.*;
 import github.thelawf.gensokyoontology.common.nbt.script.StaticFunc;
 import github.thelawf.gensokyoontology.common.nbt.script.V3dFunc;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -19,14 +16,11 @@ import net.minecraft.nbt.ListNBT;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 import java.util.stream.Collectors;
 
 public class ScriptedSpellCardEntity extends AbstractSpellCardEntity {
@@ -211,13 +205,13 @@ public class ScriptedSpellCardEntity extends AbstractSpellCardEntity {
 
     private void sendTypeExceptionFeedback(PlayerEntity player, String msg) {
         if (this.ticksExisted == 2) {
-            player.sendMessage(GensokyoOntology.translate("script.", ".error.type_exception." + msg), player.getUniqueID());
+            player.sendMessage(GSKOUtil.translate("script.", ".error.type_exception." + msg), player.getUniqueID());
         }
     }
 
     private void sendNullPointerFeedback(PlayerEntity player, String msg) {
         if (this.ticksExisted == 2) {
-            player.sendMessage(GensokyoOntology.translate("script.", ".error.null_pointer_exception." + msg), player.getUniqueID());
+            player.sendMessage(GSKOUtil.translate("script.", ".error.null_pointer_exception." + msg), player.getUniqueID());
         }
     }
 

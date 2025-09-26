@@ -1,0 +1,55 @@
+package github.thelawf.gensokyoontology.common.item;
+
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
+import github.thelawf.gensokyoontology.common.entity.RailEntity;
+import github.thelawf.gensokyoontology.common.item.tool.RailWrench;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+import java.util.concurrent.atomic.AtomicReference;
+
+public class RailConnector extends Item implements IRayTracer {
+    public RailConnector(Properties properties) {
+        super(properties);
+    }
+
+    @Override
+    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+        ItemStack connector = player.getHeldItem(hand);
+        Vector3d lookVec = player.getLookVec();
+        Vector3d start = player.getEyePosition(1);
+        Vector3d end = player.getEyePosition(1).add(lookVec.scale(10));
+
+        AtomicReference<ActionResult<ItemStack>> result = new AtomicReference<>();
+        result.set(ActionResult.resultPass(connector));
+
+        this.rayTrace(world, player, start, end).ifPresent(entity -> {
+            if(!(entity instanceof RailEntity)) return;
+            RailEntity rail = (RailEntity) entity;
+            RailWrench.onClickNextRail(world, player, rail, connector);
+            result.set(ActionResult.resultConsume(connector));
+        });
+        return result.get();
+    }
+
+    @Override
+    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        if (stack.getTag() == null) return;
+        if (!stack.getTag().contains("id")) {
+            tooltip.add(GSKOUtil.translate("tooltip.", ".coaster_rail.usage")
+                    .appendSibling(GSKOUtil.translate("tooltip.", ".coaster_rail.start_pos")));
+        }
+    }
+}

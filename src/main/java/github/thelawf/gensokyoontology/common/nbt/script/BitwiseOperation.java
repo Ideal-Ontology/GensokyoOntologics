@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.nbt.script;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.util.text.ITextComponent;
 
 public enum BitwiseOperation {
@@ -18,7 +18,7 @@ public enum BitwiseOperation {
         this.key = key;
     }
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.translate("gui.",".operation_builder.button.math." + getKey());
+        return GSKOUtil.translate("gui.",".operation_builder.button.math." + getKey());
     }
 
     private String getKey() {

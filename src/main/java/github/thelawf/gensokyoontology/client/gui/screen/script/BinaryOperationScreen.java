@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.client.gui.screen.script;
 
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.client.layout.WidgetConfig;
 import github.thelawf.gensokyoontology.common.container.script.BinaryOperationContainer;
 import github.thelawf.gensokyoontology.common.container.script.ScriptBuilderContainer;
@@ -10,6 +9,7 @@ import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.CMergeScriptPacket;
 import github.thelawf.gensokyoontology.common.util.EnumUtil;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.client.gui.widget.TextFieldWidget;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.entity.player.PlayerInventory;
@@ -28,13 +28,13 @@ import java.util.List;
 // right input: 48, 71
 public class BinaryOperationScreen extends ScriptContainerScreen<ScriptBuilderContainer> {
     CompoundNBT optData = new CompoundNBT();
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/gui/binary_operation_screen.png");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/gui/binary_operation_screen.png");
     private BinaryOperation operation;
     public static String FIELD_TYPE = "binary_operation";
     private TextFieldWidget leftInput;
     private TextFieldWidget rightInput;
-    private final ITextComponent leftText = GensokyoOntology.translate("gui.",".binary_operation.left.text");
-    private final ITextComponent rightText = GensokyoOntology.translate("gui.",".binary_operation.right.text");
+    private final ITextComponent leftText = GSKOUtil.translate("gui.",".binary_operation.left.text");
+    private final ITextComponent rightText = GSKOUtil.translate("gui.",".binary_operation.right.text");
 
     private final List<WidgetConfig> WIDGETS;
     public BinaryOperationScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {

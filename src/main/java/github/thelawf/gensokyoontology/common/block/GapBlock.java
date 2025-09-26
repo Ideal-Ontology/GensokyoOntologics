@@ -1,8 +1,8 @@
 package github.thelawf.gensokyoontology.common.block;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.util.INBTWriter;
 import github.thelawf.gensokyoontology.common.tileentity.GapTileEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.TeleportHelper;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import net.minecraft.block.Block;
@@ -195,12 +195,12 @@ public class GapBlock extends Block implements INBTWriter {
 
             if (departureGap.getCooldown() > 1) return;
             if (destinationWorld == null) {
-                serverPlayer.sendStatusMessage(GensokyoOntology.translate("msg.", ".gap_block.teleport_fail.destination_not_present"), true);
+                serverPlayer.sendStatusMessage(GSKOUtil.translate("msg.", ".gap_block.teleport_fail.destination_not_present"), true);
                 return;
             }
 
             if (getGapTile(destinationWorld, departureGap.getDestinationPos()) == null) {
-                serverPlayer.sendStatusMessage(GensokyoOntology.translate("msg.", ".gap_block.teleport_fail.arrival_gap_not_present"), true);
+                serverPlayer.sendStatusMessage(GSKOUtil.translate("msg.", ".gap_block.teleport_fail.arrival_gap_not_present"), true);
                 return;
             }
             GapTileEntity arrivalGap = getGapTile(destinationWorld, departureGap.getDestinationPos());
@@ -208,7 +208,7 @@ public class GapBlock extends Block implements INBTWriter {
             TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
 
             if (departureGap.getDestinationPos() == BlockPos.ZERO) {
-                serverPlayer.sendStatusMessage(GensokyoOntology.translate("msg.", ".gap_block.teleport_fail.illegal_position"), true);
+                serverPlayer.sendStatusMessage(GSKOUtil.translate("msg.", ".gap_block.teleport_fail.illegal_position"), true);
             }
         }
     }

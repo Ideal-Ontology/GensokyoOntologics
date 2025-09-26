@@ -1,13 +1,12 @@
 package github.thelawf.gensokyoontology.client.settings;
 
 import com.google.common.collect.Lists;
-import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.SpawnReason;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -17,7 +16,6 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 import org.lwjgl.glfw.GLFW;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @OnlyIn(Dist.CLIENT)
 public class GSKOKeyboardManager {
@@ -25,9 +23,9 @@ public class GSKOKeyboardManager {
     public static int RENDER_TICK = 80;
 
     public static final KeyBinding MOUSE_RIGHT = new GSKOKeyBinding("mouse_right", KeyConflictContext.IN_GAME,
-            InputMappings.Type.MOUSE, 1, GensokyoOntology.withAffix("key.category.",""));
+            InputMappings.Type.MOUSE, 1, GSKOUtil.withAffix("key.category.",""));
     public static final KeyBinding KEY_SWITCH_MODE = new GSKOKeyBinding("switch_mode", KeyConflictContext.IN_GAME,
-            InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, GensokyoOntology.withAffix("key.category.",""));
+            InputMappings.Type.KEYSYM, GLFW.GLFW_KEY_LEFT_ALT, GSKOUtil.withAffix("key.category.",""));
     public static final List<KeyBinding> KEY_BINDINGS = Lists.newArrayList(KEY_SWITCH_MODE);
 
     public static void register() {

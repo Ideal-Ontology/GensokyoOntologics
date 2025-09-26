@@ -1,8 +1,8 @@
 package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
@@ -23,7 +23,7 @@ public class DreamSealRenderer extends EntityRenderer<DreamSealEntity> {
 
     private final ItemRenderer itemRenderer;
     public static final int COLOR = new Random().nextInt(3);
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/entity/dream_seal_overlay.png");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/entity/dream_seal_overlay.png");
 
     public DreamSealRenderer(EntityRendererManager renderManager, ItemRenderer itemRenderer) {
         super(renderManager);

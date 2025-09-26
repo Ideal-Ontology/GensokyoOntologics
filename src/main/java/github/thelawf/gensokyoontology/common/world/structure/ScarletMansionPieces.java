@@ -4,6 +4,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.tileentity.DisposableSpawnerTile;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.block.Blocks;
@@ -108,11 +109,11 @@ public class ScarletMansionPieces {
             withLootRL("mansion_color_shot_loot.json"));
 
     public static ResourceLocation withStructureRL(String name) {
-        return GensokyoOntology.withRL(STRUCTURE_PATH + name);
+        return GSKOUtil.withRL(STRUCTURE_PATH + name);
     }
 
     public static ResourceLocation withLootRL(String name) {
-        return GensokyoOntology.withRL(LOOT_PATH + name);
+        return GSKOUtil.withRL(LOOT_PATH + name);
     }
     public static void start(TemplateManager templateManager, BlockPos pos, Rotation rotation,
                              List<StructurePiece> pieces) {
@@ -154,7 +155,7 @@ public class ScarletMansionPieces {
 
         public Piece(TemplateManager templateManager, String templateName, BlockPos pos, Rotation rotation, Mirror mirror) {
             super(TYPE, 0);
-            this.templateName = GensokyoOntology.withRL("scarlet_devil_mansion/" + templateName);
+            this.templateName = GSKOUtil.withRL("scarlet_devil_mansion/" + templateName);
             BlockPos blockPos = OFFSET.get(this.templateName);
             this.templatePosition = pos.add(blockPos.getX(), blockPos.getY(), blockPos.getZ());
             this.rotation = rotation;

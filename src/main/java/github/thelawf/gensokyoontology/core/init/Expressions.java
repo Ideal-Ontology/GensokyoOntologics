@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.data.expression.ByteInfo;
 import github.thelawf.gensokyoontology.data.expression.ConstExpression;
 import github.thelawf.gensokyoontology.data.expression.IExpressionType;
@@ -11,7 +12,7 @@ import net.minecraftforge.registries.*;
 
 public class Expressions {
     public static final RegistryKey<Registry<IExpressionType>> EXP_KEY = RegistryKey.getOrCreateRootKey(
-            GensokyoOntology.withRL("expression"));
+            GSKOUtil.withRL("expression"));
     public static final IForgeRegistry<IExpressionType> REGISTRY = RegistryManager.ACTIVE.getRegistry(IExpressionType.class);
     public static final DeferredRegister<IExpressionType> EXPRESSIONS = DeferredRegister.create(REGISTRY,
             GensokyoOntology.MODID);

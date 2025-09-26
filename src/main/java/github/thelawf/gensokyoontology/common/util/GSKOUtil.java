@@ -2,8 +2,7 @@ package github.thelawf.gensokyoontology.common.util;
 
 import com.google.gson.JsonElement;
 import com.mojang.datafixers.DataFixUtils;
-import github.thelawf.gensokyoontology.core.RecipeRegistry;
-import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.PlayerAdvancements;
@@ -43,7 +42,6 @@ import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 import static github.thelawf.gensokyoontology.GensokyoOntology.LOGGER;
-import static github.thelawf.gensokyoontology.GensokyoOntology.withAffix;
 
 public class GSKOUtil {
 
@@ -262,4 +260,23 @@ public class GSKOUtil {
         return Optional.of((T) tileEntity);
     }
 
+    public static ResourceLocation withRL(String id) {
+        return new ResourceLocation(GensokyoOntology.MODID, id);
+    }
+
+    public static String withId(String id) {
+        return GensokyoOntology.MODID + "." + id;
+    }
+
+    public static String withAffix(String prefix, String suffix) {
+        return prefix + GensokyoOntology.MODID + suffix;
+    }
+
+    public static TranslationTextComponent translate(String prefix, String suffix) {
+        return new TranslationTextComponent(withAffix(prefix, suffix));
+    }
+
+    public static TranslationTextComponent translatef(String prefix, String suffix, Object... formats) {
+        return new TranslationTextComponent(withAffix(prefix, suffix), formats);
+    }
 }

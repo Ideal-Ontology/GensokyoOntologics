@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.nbt.script;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
 
@@ -46,6 +46,6 @@ public enum ConstPreset {
     }
 
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.translate("gui.",".const_builder.button.preset." + getKey());
+        return GSKOUtil.translate("gui.",".const_builder.button.preset." + getKey());
     }
 }

@@ -1,8 +1,8 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.IHasCooldown;
 import github.thelawf.gensokyoontology.api.util.IRayTracer;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
@@ -71,7 +71,7 @@ public class AyaFans extends Item implements IRayTracer, IHasCooldown {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GensokyoOntology.translate("tooltip.", ".aya_fans"));
+        tooltip.add(GSKOUtil.translate("tooltip.", ".aya_fans"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.script;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -30,12 +30,12 @@ public abstract class ScriptBuilderItem extends Item {
     public static final String EXCEPTION_HIGHLIGHT = "§c";  /// 红色 ///
     public static final String RESET_HIGHLIGHT = "§r";    /// 重置 ///
 
-    public static final String FILED_TYPE_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_type");
-    public static final String FILED_NAME_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_name");
-    public static final String FILED_VALUE_STR = GensokyoOntology.withAffix("tooltip.",".script_builder.field_value");
-    public static final ITextComponent FILED_TYPE_TIP = GensokyoOntology.translate("tooltip.",".script_builder.field_type");
-    public static final ITextComponent FILED_NAME_TIP = GensokyoOntology.translate("tooltip.",".script_builder.field_name");
-    public static final ITextComponent FILED_VALUE_TIP = GensokyoOntology.translate("tooltip.",".script_builder.field_value");
+    public static final String FILED_TYPE_STR = GSKOUtil.withAffix("tooltip.",".script_builder.field_type");
+    public static final String FILED_NAME_STR = GSKOUtil.withAffix("tooltip.",".script_builder.field_name");
+    public static final String FILED_VALUE_STR = GSKOUtil.withAffix("tooltip.",".script_builder.field_value");
+    public static final ITextComponent FILED_TYPE_TIP = GSKOUtil.translate("tooltip.",".script_builder.field_type");
+    public static final ITextComponent FILED_NAME_TIP = GSKOUtil.translate("tooltip.",".script_builder.field_name");
+    public static final ITextComponent FILED_VALUE_TIP = GSKOUtil.translate("tooltip.",".script_builder.field_value");
     public ScriptBuilderItem() {
         super(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB));
     }

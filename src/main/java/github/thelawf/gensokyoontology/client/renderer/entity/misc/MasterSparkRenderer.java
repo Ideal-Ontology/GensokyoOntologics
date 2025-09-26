@@ -2,8 +2,8 @@ package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -19,7 +19,7 @@ import java.awt.*;
 
 public class MasterSparkRenderer extends EntityRenderer<MasterSparkEntity> {
 
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/entity/master_spark_overlay.png");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/entity/master_spark_overlay.png");
     public MasterSparkRenderer(EntityRendererManager renderManager) {
         super(renderManager);
     }

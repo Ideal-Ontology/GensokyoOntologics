@@ -1,7 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.script;
 
 import com.mojang.serialization.Dynamic;
-import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -16,9 +16,9 @@ import org.jetbrains.annotations.NotNull;
 public abstract class DynamicScriptItem extends Item {
     public static final String TYPE_HIGHLIGHT = "§b";    /// 浅蓝 ///
     public static final String EXCEPTION_HIGHLIGHT = "§c";  /// 红色 ///
-    public static final ITextComponent OPERATION_TYPE_TIP = GensokyoOntology.translate("tooltip.",".binary_builder.operation_type");
-    public static final ITextComponent LEFT_TYPE_TIP = GensokyoOntology.translate("tooltip.",".binary_builder.left_type");
-    public static final ITextComponent RIGHT_TYPE_TIP = GensokyoOntology.translate("tooltip.",".binary_builder.right_type");
+    public static final ITextComponent OPERATION_TYPE_TIP = GSKOUtil.translate("tooltip.",".binary_builder.operation_type");
+    public static final ITextComponent LEFT_TYPE_TIP = GSKOUtil.translate("tooltip.",".binary_builder.left_type");
+    public static final ITextComponent RIGHT_TYPE_TIP = GSKOUtil.translate("tooltip.",".binary_builder.right_type");
     public DynamicScriptItem() {
         super(new Properties().group(GSKOItemTab.GSKO_ITEM_TAB));
     }

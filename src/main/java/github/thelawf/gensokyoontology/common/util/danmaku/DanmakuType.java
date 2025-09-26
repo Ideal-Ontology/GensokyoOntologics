@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.util.danmaku;
 
-import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import net.minecraft.util.text.ITextComponent;
 
 import java.util.Objects;
@@ -38,7 +38,7 @@ public enum DanmakuType {
     }
 
     public ITextComponent toTextComponent() {
-        return GensokyoOntology.translate("gui.", ".danmaku_type." + this.name);
+        return GSKOUtil.translate("gui.", ".danmaku_type." + this.name);
     }
 
     public DanmakuType getIfMatches(String name) {

@@ -2,10 +2,10 @@ package github.thelawf.gensokyoontology.core;
 
 import com.mojang.serialization.Codec;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.world.feature.placer.*;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.util.registry.WorldGenRegistries;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacer;
 import net.minecraft.world.gen.foliageplacer.FoliagePlacerType;
 import net.minecraft.world.gen.trunkplacer.AbstractTrunkPlacer;
@@ -26,7 +26,7 @@ public class PlacerRegistry {
     public static final TrunkPlacerType<MagicTrunkPlacer> MAGIC_TRUNK_PLACER = registerTrunkPlacer("magic_trunk_placer",
             MagicTrunkPlacer.CODEC);
     public static final FoliagePlacerType<SphericalFoliagePlacer> SPHERICAL_FOLIAGE_PLACER = foliage(
-            GensokyoOntology.withRL("spherical_foliage_placer"), SphericalFoliagePlacer.CODEC);
+            GSKOUtil.withRL("spherical_foliage_placer"), SphericalFoliagePlacer.CODEC);
 
     public static void registerPlacers() {
         Registry<TrunkPlacerType<?>> registry = Registry.TRUNK_REPLACER;
@@ -39,7 +39,7 @@ public class PlacerRegistry {
     }
 
     public static <P extends AbstractTrunkPlacer> TrunkPlacerType<P> registerTrunkPlacer(String id, Codec<P> codec) {
-        return Registry.register(Registry.TRUNK_REPLACER, GensokyoOntology.withRL(id), new TrunkPlacerType<>(codec));
+        return Registry.register(Registry.TRUNK_REPLACER, GSKOUtil.withRL(id), new TrunkPlacerType<>(codec));
     }
 
     public static <P extends FoliagePlacer> FoliagePlacerType<P> foliage(ResourceLocation name, Codec<P> codec) {

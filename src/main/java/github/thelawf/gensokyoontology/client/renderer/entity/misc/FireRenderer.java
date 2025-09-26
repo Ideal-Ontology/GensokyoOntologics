@@ -2,7 +2,6 @@ package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.entity.misc.FireEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
@@ -18,7 +17,7 @@ import java.awt.*;
 
 public class FireRenderer extends EntityRenderer<FireEntity> {
 
-    public static final ResourceLocation TEXTURE = GensokyoOntology.withRL("textures/entity/fire");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/entity/fire");
 
     protected FireRenderer(EntityRendererManager renderManager) {
         super(renderManager);
