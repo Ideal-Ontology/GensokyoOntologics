@@ -107,9 +107,9 @@ public class KoishiEyeOpen extends MultiModeItem implements IRayTracer, IHasCool
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GSKOUtil.translate("tooltip.", ".koishi_eye_open"));
+        tooltip.add(GSKOUtil.translateText("tooltip.", ".koishi_eye_open"));
         if (Screen.hasShiftDown()) {
-            tooltip.add(GSKOUtil.translate("tooltip.", ".koishi_eye_open.comment"));
+            tooltip.add(GSKOUtil.translateText("tooltip.", ".koishi_eye_open.comment"));
         }
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }

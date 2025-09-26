@@ -71,7 +71,7 @@ public class AyaFans extends Item implements IRayTracer, IHasCooldown {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GSKOUtil.translate("tooltip.", ".aya_fans"));
+        tooltip.add(GSKOUtil.translateText("tooltip.", ".aya_fans"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

@@ -26,8 +26,8 @@ import java.util.function.BiConsumer;
 public class GoheiModeSelectScreen extends ModeSwitchScreen {
     private HakureiGohei.Mode mode;
 
-    public static final TranslationTextComponent DANMAKU = GSKOUtil.translate("gui.", ".gohei.mode.danmaku");
-    public static final TranslationTextComponent DREAM_SEAL = GSKOUtil.translate("gui.", ".gohei.mode.dream_seal");
+    public static final TranslationTextComponent DANMAKU = GSKOUtil.translateText("gui.", ".gohei.mode.danmaku");
+    public static final TranslationTextComponent DREAM_SEAL = GSKOUtil.translateText("gui.", ".gohei.mode.dream_seal");
     public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/gui/selection_gui.png");
 
     public GoheiModeSelectScreen(ITextComponent titleIn, HakureiGohei.Mode mode) {
@@ -89,8 +89,8 @@ public class GoheiModeSelectScreen extends ModeSwitchScreen {
 
     public static final Map<HakureiGohei.Mode, ITextComponent> MODE_NAMES = Util.make(() -> {
         Map<HakureiGohei.Mode, ITextComponent> map = new HashMap<>();
-        map.put(HakureiGohei.Mode.POWER, GSKOUtil.translate("gui.", ".gohei.mode.power"));
-        map.put(HakureiGohei.Mode.SPELL_CARD, GSKOUtil.translate("gui.", ".gohei.mode.spell_card"));
+        map.put(HakureiGohei.Mode.POWER, GSKOUtil.translateText("gui.", ".gohei.mode.power"));
+        map.put(HakureiGohei.Mode.SPELL_CARD, GSKOUtil.translateText("gui.", ".gohei.mode.spell_card"));
 
         map.put(HakureiGohei.Mode.DANMAKU, DANMAKU);
         map.put(HakureiGohei.Mode.DREAM_SEAL, DREAM_SEAL);

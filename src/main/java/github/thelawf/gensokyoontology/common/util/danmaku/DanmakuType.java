@@ -38,7 +38,7 @@ public enum DanmakuType {
     }
 
     public ITextComponent toTextComponent() {
-        return GSKOUtil.translate("gui.", ".danmaku_type." + this.name);
+        return GSKOUtil.translateText("gui.", ".danmaku_type." + this.name);
     }
 
     public DanmakuType getIfMatches(String name) {

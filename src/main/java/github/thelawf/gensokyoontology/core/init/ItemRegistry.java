@@ -920,10 +920,10 @@ public final class ItemRegistry {
             super.addInformation(stack, worldIn, tooltip, flagIn);
             if (stack.getTag() == null) return;
             if (!stack.getTag().contains("startPos")) {
-                tooltip.add(GSKOUtil.translate("tooltip.", ".coaster_rail.usage"));
+                tooltip.add(GSKOUtil.translateText("tooltip.", ".coaster_rail.usage"));
             }
             BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
-            tooltip.add(GSKOUtil.translate("tooltip.", ".coaster_rail.start_pos"));
+            tooltip.add(GSKOUtil.translateText("tooltip.", ".coaster_rail.start_pos"));
             tooltip.add(new StringTextComponent("(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")"));
         }
     });

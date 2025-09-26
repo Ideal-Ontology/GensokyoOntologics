@@ -27,9 +27,9 @@ public class DanmakuCraftingScreen extends JigsawCraftingScreen<DanmakuCraftingC
     protected float consumedPower;
     protected int consumedDanmakuShot;
 
-    public static final TranslationTextComponent POWER_INFO = GSKOUtil.translate("gui.", ".power");
-    public static final TranslationTextComponent CONSUMED_POWER = GSKOUtil.translate("gui.", ".power_consumed");
-    public static final TranslationTextComponent CONSUMED_DANMAKU_SHOT = GSKOUtil.translate("gui.", ".danmaku_shot_consumed");
+    public static final TranslationTextComponent POWER_INFO = GSKOUtil.translateText("gui.", ".power");
+    public static final TranslationTextComponent CONSUMED_POWER = GSKOUtil.translateText("gui.", ".power_consumed");
+    public static final TranslationTextComponent CONSUMED_DANMAKU_SHOT = GSKOUtil.translateText("gui.", ".danmaku_shot_consumed");
 
     public static final ResourceLocation DANMAKU_CRAFTING_TEXTURE = new ResourceLocation(
             GensokyoOntology.MODID, "textures/gui/danmaku_crafting.png"

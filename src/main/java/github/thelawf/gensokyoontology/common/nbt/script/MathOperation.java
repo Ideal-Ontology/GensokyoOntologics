@@ -15,7 +15,7 @@ public enum MathOperation {
         this.key = key;
     }
     public ITextComponent toTextComponent() {
-        return GSKOUtil.translate("gui.",".operation_builder.button.math." + getKey());
+        return GSKOUtil.translateText("gui.",".operation_builder.button.math." + getKey());
     }
 
     private String getKey() {

@@ -38,7 +38,7 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     private static final TranslationTextComponent QZ = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qz");
     private static final TranslationTextComponent QW = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qw");
 
-    public static final ITextComponent TITLE = GSKOUtil.translate("gui.", ".rail_dashboard.title");
+    public static final ITextComponent TITLE = GSKOUtil.translateText("gui.", ".rail_dashboard.title");
 
     public RailDashboardScreen(BlockPos pos, Quaternion rotation, int startEntityId) {
         super(TITLE);

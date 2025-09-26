@@ -12,8 +12,8 @@ public abstract class ScriptContainerScreen<C extends ScriptBuilderContainer> ex
     protected Button saveBtn;
 
     protected ItemStack stack;
-    protected final ITextComponent fieldName = GSKOUtil.translate("gui.", ".script_builder.fieldName");
-    protected ITextComponent saveText = GSKOUtil.translate("gui.", ".script.button.save");
+    protected final ITextComponent fieldName = GSKOUtil.translateText("gui.", ".script_builder.fieldName");
+    protected ITextComponent saveText = GSKOUtil.translateText("gui.", ".script.button.save");
     public ScriptContainerScreen(C screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }

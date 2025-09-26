@@ -20,6 +20,6 @@ public enum StaticFunc {
     }
 
     public ITextComponent toTextComponent() {
-        return GSKOUtil.translate("gui.", ".static_func." + this.methodName);
+        return GSKOUtil.translateText("gui.", ".static_func." + this.methodName);
     }
 }

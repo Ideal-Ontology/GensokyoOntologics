@@ -33,8 +33,8 @@ public class BinaryOperationScreen extends ScriptContainerScreen<ScriptBuilderCo
     public static String FIELD_TYPE = "binary_operation";
     private TextFieldWidget leftInput;
     private TextFieldWidget rightInput;
-    private final ITextComponent leftText = GSKOUtil.translate("gui.",".binary_operation.left.text");
-    private final ITextComponent rightText = GSKOUtil.translate("gui.",".binary_operation.right.text");
+    private final ITextComponent leftText = GSKOUtil.translateText("gui.",".binary_operation.left.text");
+    private final ITextComponent rightText = GSKOUtil.translateText("gui.",".binary_operation.right.text");
 
     private final List<WidgetConfig> WIDGETS;
     public BinaryOperationScreen(ScriptBuilderContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {

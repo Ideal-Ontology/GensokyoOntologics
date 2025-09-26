@@ -54,7 +54,7 @@ public class KudaGitsuneTube extends Item {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GSKOUtil.translate("tooltip.", ".kuda_gitsune_tube"));
+        tooltip.add(GSKOUtil.translateText("tooltip.", ".kuda_gitsune_tube"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

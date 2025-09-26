@@ -21,6 +21,6 @@ public enum ConstType {
     }
 
     public ITextComponent toTextComponent() {
-        return GSKOUtil.translate("gui.",".const_builder.button.constType." + getKey());
+        return GSKOUtil.translateText("gui.",".const_builder.button.constType." + getKey());
     }
 }

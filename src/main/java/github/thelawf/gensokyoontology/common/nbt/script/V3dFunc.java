@@ -31,6 +31,6 @@ public enum V3dFunc {
     }
 
     public ITextComponent toTextComponent() {
-        return GSKOUtil.translate("gui.",".func_invoker.vector3d." + this.methodName);
+        return GSKOUtil.translateText("gui.",".func_invoker.vector3d." + this.methodName);
     }
 }

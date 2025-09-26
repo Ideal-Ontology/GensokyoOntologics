@@ -29,10 +29,10 @@ import java.util.*;
 // 10： textHei
 public class SpellCardConsoleScreen extends ScriptContainerScreen<SpellCardConsoleContainer> {
 
-    public static final ITextComponent SAVE_TIP = GSKOUtil.translate("tooltip.",".spell_console.button.save");
-    public static final ITextComponent COPY_TIP = GSKOUtil.translate("tooltip.",".spell_console.button.copy");
-    public static final ITextComponent SAVED_MSG = GSKOUtil.translate("msg.",".spell_console.button.saved");
-    public static final ITextComponent COPIED_MSG = GSKOUtil.translate("msg.",".spell_console.button.copied");
+    public static final ITextComponent SAVE_TIP = GSKOUtil.translateText("tooltip.",".spell_console.button.save");
+    public static final ITextComponent COPY_TIP = GSKOUtil.translateText("tooltip.",".spell_console.button.copy");
+    public static final ITextComponent SAVED_MSG = GSKOUtil.translateText("msg.",".spell_console.button.saved");
+    public static final ITextComponent COPIED_MSG = GSKOUtil.translateText("msg.",".spell_console.button.copied");
     public static final ResourceLocation BUTTONS_TEX = GSKOUtil.withRL("textures/gui/widget/buttons.png");
     public static final ResourceLocation SCREEN_TEXTURE = GSKOUtil.withRL("textures/gui/spell_card_console.png");
     private final CompoundNBT scriptData = new CompoundNBT();

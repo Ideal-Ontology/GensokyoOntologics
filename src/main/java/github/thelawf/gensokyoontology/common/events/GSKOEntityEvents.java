@@ -187,7 +187,7 @@ public class GSKOEntityEvents {
 
             if (GSKOWorldUtil.isEntityInBiome(player, GSKOBiomes.NAMELESS_HILL_KEY)){
                 player.addPotionEffect(new EffectInstance(Effects.POISON, 2 * 20));
-                player.sendStatusMessage(GSKOUtil.translate(
+                player.sendStatusMessage(GSKOUtil.translateText(
                         "msg.", ".enter_danger_biome.nameless_hill"), true);
             }
         }
@@ -258,7 +258,7 @@ public class GSKOEntityEvents {
             }
 
             if (precondition) {
-                player.sendStatusMessage(GSKOUtil.translate(
+                player.sendStatusMessage(GSKOUtil.translateText(
                         "msg.", ".enter_danger_biome.scarlet_mansion_precincts"), true);
                 player.attackEntityFrom(DamageSource.IN_WALL, 1f);
             }

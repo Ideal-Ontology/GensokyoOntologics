@@ -205,13 +205,13 @@ public class ScriptedSpellCardEntity extends AbstractSpellCardEntity {
 
     private void sendTypeExceptionFeedback(PlayerEntity player, String msg) {
         if (this.ticksExisted == 2) {
-            player.sendMessage(GSKOUtil.translate("script.", ".error.type_exception." + msg), player.getUniqueID());
+            player.sendMessage(GSKOUtil.translateText("script.", ".error.type_exception." + msg), player.getUniqueID());
         }
     }
 
     private void sendNullPointerFeedback(PlayerEntity player, String msg) {
         if (this.ticksExisted == 2) {
-            player.sendMessage(GSKOUtil.translate("script.", ".error.null_pointer_exception." + msg), player.getUniqueID());
+            player.sendMessage(GSKOUtil.translateText("script.", ".error.null_pointer_exception." + msg), player.getUniqueID());
         }
     }
 

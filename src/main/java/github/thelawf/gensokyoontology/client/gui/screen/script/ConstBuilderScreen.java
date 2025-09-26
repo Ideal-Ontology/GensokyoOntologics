@@ -43,11 +43,11 @@ public class ConstBuilderScreen extends OneSlotContainerScreen {
     public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/gui/one_slot_screen_const.png");
     private final WidgetConfig NAME_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig VALUE_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
-    private final ITextComponent defaultName = GSKOUtil.translate("gui.",".default.set_name");
-    private final ITextComponent defaultValue = GSKOUtil.translate("gui.",".default.set_value");
-    private final ITextComponent presetDefault = GSKOUtil.translate("gui.",".const_builder.button.preset.none");
-    private final ITextComponent intTypeText = GSKOUtil.translate("gui.",".const_builder.button.constType.int");
-    private final ITextComponent valueText = GSKOUtil.translate("gui.", ".const_builder.tip.valueInput");
+    private final ITextComponent defaultName = GSKOUtil.translateText("gui.",".default.set_name");
+    private final ITextComponent defaultValue = GSKOUtil.translateText("gui.",".default.set_value");
+    private final ITextComponent presetDefault = GSKOUtil.translateText("gui.",".const_builder.button.preset.none");
+    private final ITextComponent intTypeText = GSKOUtil.translateText("gui.",".const_builder.button.constType.int");
+    private final ITextComponent valueText = GSKOUtil.translateText("gui.", ".const_builder.tip.valueInput");
 
     public List<WidgetConfig> WIDGETS;
 

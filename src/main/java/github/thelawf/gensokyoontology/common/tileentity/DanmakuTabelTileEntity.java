@@ -118,7 +118,7 @@ public class DanmakuTabelTileEntity extends TileEntity {
             return;
 
         if (this.getRemainingPower(recipe, shouldCraftAll) < 0) {
-            GSKOUtil.showChatMsg(player, GSKOUtil.translate("error.",".danmaku_tile.no_enough_power"), 1);
+            GSKOUtil.showChatMsg(player, GSKOUtil.translateText("error.",".danmaku_tile.no_enough_power"), 1);
             return;
         }
 

@@ -43,7 +43,7 @@ public class Vector3dBuilderScreen extends OneSlotContainerScreen {
     private final WidgetConfig TEXT_LABEL3 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TEXT_LABEL4 = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
 
-    private final ITextComponent tipName = GSKOUtil.translate("gui.",".vector3d.builder.name");
+    private final ITextComponent tipName = GSKOUtil.translateText("gui.",".vector3d.builder.name");
     private List<WidgetConfig> WIDGETS;
 
     public Vector3dBuilderScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {

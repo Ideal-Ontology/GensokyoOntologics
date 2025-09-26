@@ -12,8 +12,8 @@ public abstract class InvokerContainerScreen<C extends FunctionInvokerContainer>
     protected Button functionNameBtn;
     public final WidgetConfig PARAMS_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     public final WidgetConfig RETURN_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
-    public static final ITextComponent PARAMS_TEXT = GSKOUtil.translate("gui.", ".func_invoker.params");
-    public static final ITextComponent RETURN_TEXT = GSKOUtil.translate("gui.", ".func_invoker.return");
+    public static final ITextComponent PARAMS_TEXT = GSKOUtil.translateText("gui.", ".func_invoker.params");
+    public static final ITextComponent RETURN_TEXT = GSKOUtil.translateText("gui.", ".func_invoker.return");
     public InvokerContainerScreen(C screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);
     }

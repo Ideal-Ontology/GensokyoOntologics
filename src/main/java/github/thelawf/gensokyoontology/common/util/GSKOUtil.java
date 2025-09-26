@@ -272,8 +272,12 @@ public class GSKOUtil {
         return prefix + GensokyoOntology.MODID + suffix;
     }
 
-    public static TranslationTextComponent translate(String prefix, String suffix) {
+    public static TranslationTextComponent translateText(String prefix, String suffix) {
         return new TranslationTextComponent(withAffix(prefix, suffix));
+    }
+
+    public static StringTextComponent stringText(String content) {
+        return new StringTextComponent(content);
     }
 
     public static TranslationTextComponent translatef(String prefix, String suffix, Object... formats) {

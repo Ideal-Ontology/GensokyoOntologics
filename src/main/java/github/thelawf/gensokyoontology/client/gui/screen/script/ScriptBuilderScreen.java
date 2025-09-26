@@ -15,8 +15,8 @@ public abstract class ScriptBuilderScreen extends LineralLayoutScreen {
     protected Button resetBtn;
     protected Button renameBtn;
     protected ItemStack stack;
-    protected final ITextComponent fieldName = GSKOUtil.translate("gui.", ".script_builder.fieldName");
-    protected ITextComponent saveText = GSKOUtil.translate("gui.", ".script.button.save");
+    protected final ITextComponent fieldName = GSKOUtil.translateText("gui.", ".script_builder.fieldName");
+    protected ITextComponent saveText = GSKOUtil.translateText("gui.", ".script.button.save");
 
     public ScriptBuilderScreen(ITextComponent titleIn, ItemStack stack) {
         super(titleIn);

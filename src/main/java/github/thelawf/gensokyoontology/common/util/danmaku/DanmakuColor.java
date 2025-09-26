@@ -16,7 +16,7 @@ public enum DanmakuColor {
     NONE;
 
     public ITextComponent toTextComponent() {
-        return GSKOUtil.translate("gui.", ".danmaku_color." + this.name().toLowerCase());
+        return GSKOUtil.translateText("gui.", ".danmaku_color." + this.name().toLowerCase());
     }
 
     public DanmakuColor getIfMatches(String name) {

@@ -37,7 +37,7 @@ public class SpiritTube extends Item {
 
     @Override
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
-        tooltip.add(GSKOUtil.translate("tooltip.", ".spirit_tube"));
+        tooltip.add(GSKOUtil.translateText("tooltip.", ".spirit_tube"));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 

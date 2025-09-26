@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 public class KogasaSmithingTable extends AnvilBlock {
-    public static final TranslationTextComponent NAME = GSKOUtil.translate("container.", ".kogasa_smithing");
+    public static final TranslationTextComponent NAME = GSKOUtil.translateText("container.", ".kogasa_smithing");
 
     public KogasaSmithingTable() {
         super(Properties.from(Blocks.ANVIL));

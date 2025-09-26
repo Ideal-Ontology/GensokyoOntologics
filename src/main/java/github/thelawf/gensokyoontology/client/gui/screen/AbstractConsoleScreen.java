@@ -12,13 +12,13 @@ public class AbstractConsoleScreen extends ContainerScreen<SpellCardConsoleConta
     /** Menu Hierarchy of3D Danmaku Command Table 弹幕控制台的菜单层级 */
 
     // Main Hierarchy 主层级
-    private static final ITextComponent ADD_COMMAND = GSKOUtil.translate("",".add_cmd");
-    private static final ITextComponent NEXT = GSKOUtil.translate("", "next");
-    private static final ITextComponent NEW_INSTANCE = GSKOUtil.translate("", ".new_instance");
-    private static final ITextComponent ASSIGN = GSKOUtil.translate("",".assign");
-    private static final ITextComponent FOR_LOOP = GSKOUtil.translate("",".for_loop");
-    private static final ITextComponent IF_BRANCH = GSKOUtil.translate("",".if_branch");
-    private static final ITextComponent BINARY_OPT = GSKOUtil.translate("",".binary_opt");
+    private static final ITextComponent ADD_COMMAND = GSKOUtil.translateText("",".add_cmd");
+    private static final ITextComponent NEXT = GSKOUtil.translateText("", "next");
+    private static final ITextComponent NEW_INSTANCE = GSKOUtil.translateText("", ".new_instance");
+    private static final ITextComponent ASSIGN = GSKOUtil.translateText("",".assign");
+    private static final ITextComponent FOR_LOOP = GSKOUtil.translateText("",".for_loop");
+    private static final ITextComponent IF_BRANCH = GSKOUtil.translateText("",".if_branch");
+    private static final ITextComponent BINARY_OPT = GSKOUtil.translateText("",".binary_opt");
 
     Button addCmd;
     Button done;

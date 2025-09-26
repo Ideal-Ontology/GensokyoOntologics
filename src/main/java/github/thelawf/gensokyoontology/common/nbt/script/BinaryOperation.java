@@ -25,7 +25,7 @@ public enum BinaryOperation {
         this.key = key;
     }
     public ITextComponent toTextComponent() {
-        return GSKOUtil.translate("gui.",".binary_operation.button.operation." + getKey());
+        return GSKOUtil.translateText("gui.",".binary_operation.button.operation." + getKey());
     }
 
     private String getKey() {

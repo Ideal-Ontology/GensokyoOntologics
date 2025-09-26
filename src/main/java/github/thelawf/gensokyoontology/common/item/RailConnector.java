@@ -14,7 +14,6 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
@@ -44,12 +43,18 @@ public class RailConnector extends Item implements IRayTracer {
     }
 
     @Override
-    public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
+    public void addInformation(@NotNull ItemStack stack, World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         if (stack.getTag() == null) return;
+        if (worldIn == null) return;
         if (!stack.getTag().contains("id")) {
-            tooltip.add(GSKOUtil.translate("tooltip.", ".coaster_rail.usage")
-                    .appendSibling(GSKOUtil.translate("tooltip.", ".coaster_rail.start_pos")));
+            int id = stack.getTag().getInt("id");
+            RailWrench.getStartRail(worldIn, id).ifPresent(rail -> tooltip.add(
+                    GSKOUtil.translateText("tooltip.", ".coaster_rail.start_pos").appendSibling(
+                            GSKOUtil.stringText("(" +
+                                    rail.getPosX() + ", " +
+                                    rail.getPosY() + ", " +
+                                    rail.getPosZ() + ")"))));
         }
     }
 }

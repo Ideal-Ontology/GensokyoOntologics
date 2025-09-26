@@ -65,7 +65,7 @@ public class GSKOCommand {
         serverWorld.getCapability(CAPABILITY_MAP.get(incidentName)).ifPresent(cap -> {
             cap.setTriggered(triggered);
             try {
-                GSKOUtil.showChatMsg(source.asPlayer(), GSKOUtil.translate("cmd.", ".incident_triggered")
+                GSKOUtil.showChatMsg(source.asPlayer(), GSKOUtil.translateText("cmd.", ".incident_triggered")
                         .appendSibling(new StringTextComponent(String.valueOf(cap.isTriggered()))), 1);
             } catch (CommandSyntaxException e) {
                 throw new RuntimeException(e);
@@ -80,7 +80,7 @@ public class GSKOCommand {
         ServerWorld serverWorld = source.getWorld();
         serverWorld.getCapability(CAPABILITY_MAP.get(incidentName)).ifPresent(cap -> {
             try {
-                GSKOUtil.showChatMsg(source.asPlayer(), GSKOUtil.translate("cmd.", ".incident_triggered")
+                GSKOUtil.showChatMsg(source.asPlayer(), GSKOUtil.translateText("cmd.", ".incident_triggered")
                         .appendSibling(new StringTextComponent(String.valueOf(cap.isTriggered()))), 1);
                 // GSKOUtil.showChatMsg(source.asPlayer(), cap.isTriggered(), 1);
             } catch (CommandSyntaxException e) {

@@ -195,12 +195,12 @@ public class GapBlock extends Block implements INBTWriter {
 
             if (departureGap.getCooldown() > 1) return;
             if (destinationWorld == null) {
-                serverPlayer.sendStatusMessage(GSKOUtil.translate("msg.", ".gap_block.teleport_fail.destination_not_present"), true);
+                serverPlayer.sendStatusMessage(GSKOUtil.translateText("msg.", ".gap_block.teleport_fail.destination_not_present"), true);
                 return;
             }
 
             if (getGapTile(destinationWorld, departureGap.getDestinationPos()) == null) {
-                serverPlayer.sendStatusMessage(GSKOUtil.translate("msg.", ".gap_block.teleport_fail.arrival_gap_not_present"), true);
+                serverPlayer.sendStatusMessage(GSKOUtil.translateText("msg.", ".gap_block.teleport_fail.arrival_gap_not_present"), true);
                 return;
             }
             GapTileEntity arrivalGap = getGapTile(destinationWorld, departureGap.getDestinationPos());
@@ -208,7 +208,7 @@ public class GapBlock extends Block implements INBTWriter {
             TeleportHelper.applyGapTeleport(serverPlayer, destinationWorld, departureGap);
 
             if (departureGap.getDestinationPos() == BlockPos.ZERO) {
-                serverPlayer.sendStatusMessage(GSKOUtil.translate("msg.", ".gap_block.teleport_fail.illegal_position"), true);
+                serverPlayer.sendStatusMessage(GSKOUtil.translateText("msg.", ".gap_block.teleport_fail.illegal_position"), true);
             }
         }
     }

@@ -37,9 +37,9 @@ public class DanmakuBuilderScreen extends OneSlotContainerScreen {
     private final WidgetConfig NAME_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig TYPE_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
     private final WidgetConfig COLOR_LABEL = WidgetConfig.of(new BlankWidget(0,0,0,0, withText("null")),0,0).isText(true);
-    public static final ITextComponent DAN_TYPE_TEXT = GSKOUtil.translate("gui.", ".danmaku_builder.button.type");
-    public static final ITextComponent COLOR_TEXT = GSKOUtil.translate("gui.", ".danmaku_builder.button.color");
-    public static final ITextComponent NAME_TEXT = GSKOUtil.translate("gui.", ".danmaku_builder.button.name");
+    public static final ITextComponent DAN_TYPE_TEXT = GSKOUtil.translateText("gui.", ".danmaku_builder.button.type");
+    public static final ITextComponent COLOR_TEXT = GSKOUtil.translateText("gui.", ".danmaku_builder.button.color");
+    public static final ITextComponent NAME_TEXT = GSKOUtil.translateText("gui.", ".danmaku_builder.button.name");
 
     public DanmakuBuilderScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);

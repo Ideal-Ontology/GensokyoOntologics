@@ -44,7 +44,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * 博丽灵梦的御币
  */
 public class HakureiGohei extends MultiModeItem implements IRayTracer, IHasCooldown {
-    public static final ITextComponent TITLE = GSKOUtil.translate("gui.", ".hakurei_gohei.title");
+    public static final ITextComponent TITLE = GSKOUtil.translateText("gui.", ".hakurei_gohei.title");
     public HakureiGohei(Properties properties) {
         super(properties);
     }
@@ -195,7 +195,7 @@ public class HakureiGohei extends MultiModeItem implements IRayTracer, IHasCoold
     public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
 
-        ITextComponent text = GSKOUtil.translate("tooltip.", ".hakurei_gohei.mode");
+        ITextComponent text = GSKOUtil.translateText("tooltip.", ".hakurei_gohei.mode");
         if (stack.getTag() != null) {
             switch (getMode(stack.getTag())) {
                 default:

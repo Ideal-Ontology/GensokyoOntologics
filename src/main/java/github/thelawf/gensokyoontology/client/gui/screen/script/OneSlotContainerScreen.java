@@ -13,8 +13,8 @@ import net.minecraft.util.text.ITextComponent;
 public abstract class OneSlotContainerScreen extends LineralContainerScreen<OneSlotContainer> {
     protected ItemStack stack;
     protected Button saveBtn;
-    protected final ITextComponent fieldName = GSKOUtil.translate("gui.", ".script_builder.fieldName");
-    protected ITextComponent saveText = GSKOUtil.translate("gui.", ".script.button.save");
+    protected final ITextComponent fieldName = GSKOUtil.translateText("gui.", ".script_builder.fieldName");
+    protected ITextComponent saveText = GSKOUtil.translateText("gui.", ".script.button.save");
 
     public OneSlotContainerScreen(OneSlotContainer screenContainer, PlayerInventory inv, ITextComponent titleIn) {
         super(screenContainer, inv, titleIn);

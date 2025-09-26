@@ -46,6 +46,6 @@ public enum ConstPreset {
     }
 
     public ITextComponent toTextComponent() {
-        return GSKOUtil.translate("gui.",".const_builder.button.preset." + getKey());
+        return GSKOUtil.translateText("gui.",".const_builder.button.preset." + getKey());
     }
 }
