@@ -54,8 +54,6 @@
   "block.gensokyoontology.maple_trapdoor": "枫树活板门",
   "block.gensokyoontology.onion_crop": "洋葱",
   "block.gensokyoontology.purple_mushroom_block": "紫色蘑菇方块",
-  "block.gensokyoontology.rail_node": "轨道节点",
-  "block.gensokyoontology.rail_track": "轨道",
   "block.gensokyoontology.redwood_leaves": "红杉树叶",
   "block.gensokyoontology.rotate_frame": "旋转框架测试方块",
   "block.gensokyoontology.saisen_box": "赛钱箱",
@@ -500,11 +498,16 @@
   "item.gensokyoontology.yattsume_una": "八目鳗",
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
   "item.gensokyoontology.rail_connector": "轨道连接器",
+  "item.gensokyoontology.track_placer": "轨道放置器",
+
+  "block.gensokyoontology.coaster_rail_node": "轨道节点",
 
   "itemGroup.gensokyoontology.block": "幻想存有论：方块",
   "itemGroup.gensokyoontology_combat": "幻想存有论：战斗",
   "itemGroup.gensokyoontology_items": "幻想存有论：物品",
+
   "key.category.gensokyoontology": "幻想存有论（按键绑定）",
+
   "minecraft:beach": "海洋",
   "minecraft:desert": "沙漠",
   "minecraft:desert_hills": "海洋",

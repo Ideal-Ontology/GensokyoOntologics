@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.*;
 import net.minecraft.world.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 
@@ -31,30 +32,29 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
         super(manager);
     }
 
+    @NotNull
     @Override
-    public ResourceLocation getEntityTexture(RailEntity entity) {
+    public ResourceLocation getEntityTexture(@NotNull RailEntity entity) {
         return TEXTURE;
     }
 
     @Override
-    public void render(RailEntity startRail, float entityYaw, float partialTicks, MatrixStack matrixStack, IRenderTypeBuffer bufferIn, int light) {
+    public void render(@NotNull RailEntity startRail, float entityYaw, float partialTicks, @NotNull MatrixStack matrixStack, IRenderTypeBuffer bufferIn, int light) {
         super.render(startRail, entityYaw, partialTicks, matrixStack, bufferIn, light);
         Minecraft.getInstance().getTextureManager().bindTexture(TEXTURE);
         IVertexBuilder builder = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(TEXTURE));
         IVertexBuilder buffer = bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID);
 
-        World world = startRail.world;
-        if (world == null) return;
-        Optional<RailTileEntity> optional = GSKOUtil.getTileByType(world, startRail.getTargetPos(), TileEntityRegistry.RAIL_TILE_ENTITY.get());
+        Optional<RailEntity> optional = startRail.getTargetRail();
         if (!optional.isPresent()) {
             this.renderUnconnectedTrack(buffer, matrixStack, startRail);
             return;
         }
 
-        RailTileEntity targetRail = optional.get();
+        RailEntity targetRail = optional.get();
         Vector3d startVec = Vector3d.copy(startRail.getPosition());
         Vector3d start = Vector3d.ZERO;
-        Vector3d end = Vector3d.copy(targetRail.getPos()).subtract(startVec);
+        Vector3d end = Vector3d.copy(targetRail.getPosition()).subtract(startVec);
 
         Vector3f startDirection = startRail.getFacing().copy();
         Vector3f endDirection = targetRail.getFacing().copy();

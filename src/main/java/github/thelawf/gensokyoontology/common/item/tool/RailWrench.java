@@ -40,10 +40,6 @@ public class RailWrench extends Item {
         if (!optional.isPresent()) return super.onItemUse(context);
         RailTileEntity railTile = optional.get();
 
-        if (Screen.hasShiftDown() && world.isRemote) {
-            new RailDashboardScreen(pos, railTile.getRotation()).open();
-            return super.onItemUse(context);
-        }
         return this.onClickFirstRail(pos, player, wrench);
     }
 

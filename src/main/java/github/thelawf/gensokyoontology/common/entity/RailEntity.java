@@ -1,11 +1,15 @@
 package github.thelawf.gensokyoontology.common.entity;
 
+import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
 import github.thelawf.gensokyoontology.common.item.tool.RailWrench;
 import github.thelawf.gensokyoontology.common.util.math.RotMatrix;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.GSKOSerializers;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
@@ -23,6 +27,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Optional;
+
 public class RailEntity extends Entity {
     public static final float NAN = Float.NaN;
     public static final DataParameter<Integer> DATA_TARGET_ID = EntityDataManager.createKey(
@@ -32,9 +38,19 @@ public class RailEntity extends Entity {
     public static final DataParameter<BlockPos> DATA_TARGET = EntityDataManager.createKey(
             RailEntity.class, DataSerializers.BLOCK_POS);
 
-    public RailEntity(EntityType<?> entityTypeIn, World worldIn) {
-        super(entityTypeIn, worldIn);
+    public RailEntity(EntityType<RailEntity> entityType, World worldIn) {
+        super(entityType, worldIn);
         this.setNoGravity(true);
+    }
+
+    public RailEntity(World worldIn) {
+        this(EntityRegistry.RAIL_ENTITY.get(), worldIn);
+    }
+
+    public static RailEntity place(World world, BlockPos pos) {
+        RailEntity railEntity = new RailEntity(world);
+        railEntity.setPosition(pos.getX(), pos.getY(), pos.getZ());
+        return railEntity;
     }
 
     @Override
@@ -51,6 +67,10 @@ public class RailEntity extends Entity {
 
     public ActionResultType onClickFirstRail(PlayerEntity player, ItemStack stack, BlockPos startPos) {
         if (stack.getItem() != ItemRegistry.RAIL_WRENCH.get()) return ActionResultType.PASS;
+        if (Screen.hasShiftDown()){
+            new RailDashboardScreen(this.getPosition(), this.getRotation(), this.getEntityId()).open();
+            return ActionResultType.SUCCESS;
+        }
         ItemStack connector = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());
         CompoundNBT nbt = new CompoundNBT();
         nbt.putLong("startPos", startPos.toLong());
@@ -58,20 +78,20 @@ public class RailEntity extends Entity {
 
         stack.shrink(1);
         player.addItemStackToInventory(connector);
-        return ActionResultType.SUCCESS;
+        return ActionResultType.CONSUME;
     }
 
     public ActionResultType onClickNextRail(PlayerEntity player, ItemStack stack) {
         if (this.world.getEntityByID(this.getTargetId()) == null) return ActionResultType.FAIL;
         if (stack.getItem() != ItemRegistry.RAIL_CONNECTOR.get()) return ActionResultType.PASS;
+        if (stack.getTag() == null) return ActionResultType.PASS;
 
-        CompoundNBT nbt = stack.getTag();
-        if (nbt == null) return ActionResultType.FAIL;
-
-        BlockPos targetPos = BlockPos.fromLong(nbt.getLong("startPos"));
+        BlockPos targetPos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
         this.setTargetPos(targetPos);
+        stack.shrink(1);
+        player.addItemStackToInventory(new ItemStack(ItemRegistry.RAIL_WRENCH.get()));
 
-        return ActionResultType.PASS;
+        return ActionResultType.CONSUME;
     }
 
     @Override
@@ -110,7 +130,6 @@ public class RailEntity extends Entity {
         compound.putFloat("qw", this.getRotation().getW());
 
         compound.putInt("targetId", this.getTargetId());
-
         compound.putInt("targetX", this.getTargetPos().getX());
         compound.putInt("targetY", this.getTargetPos().getY());
         compound.putInt("targetZ", this.getTargetPos().getZ());
@@ -135,12 +154,6 @@ public class RailEntity extends Entity {
         return this.dataManager.get(DATA_ROT);
     }
 
-    @Override
-    public void tick() {
-        super.tick();
-        this.setMotion(Vector3d.ZERO);
-    }
-
     public BlockPos getTargetPos() {
         return this.dataManager.get(DATA_TARGET);
     }
@@ -153,4 +166,7 @@ public class RailEntity extends Entity {
         return new RotMatrix(this.getRotation()).tangent();
     }
 
+    public Optional<RailEntity> getTargetRail() {
+        return Optional.ofNullable((RailEntity) this.world.getEntityByID(this.dataManager.get(DATA_TARGET_ID)));
+    }
 }

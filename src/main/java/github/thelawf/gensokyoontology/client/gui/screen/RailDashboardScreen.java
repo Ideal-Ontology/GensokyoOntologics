@@ -23,7 +23,7 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class RailDashboardScreen extends LineralLayoutScreen {
-    private Vector3f selfFacing;
+    private int startEntityId;
     private Quaternion rotation;
     private BlockPos targetPos;
     private EulerAngle eulerAngle;
@@ -42,19 +42,22 @@ public class RailDashboardScreen extends LineralLayoutScreen {
 
     public static final ITextComponent TITLE = GensokyoOntology.translate("gui.", ".rail_dashboard.title");
 
-    public RailDashboardScreen(BlockPos pos, Quaternion rotation) {
+    public RailDashboardScreen(BlockPos pos, Quaternion rotation, int startEntityId) {
         super(TITLE);
         this.targetPos = pos;
         this.rotation = rotation;
+        this.startEntityId = startEntityId;
 
         this.initHandleValue = new RotMatrix(this.rotation).toHandleValue();
         this.nextHandleValue = new Vector3d(this.initHandleValue.x, this.initHandleValue.y, this.initHandleValue.z);
     }
 
-    public RailDashboardScreen(BlockPos pos, RotMatrix matrix) {
+    public RailDashboardScreen(BlockPos pos, RotMatrix matrix, int startEntityId) {
         super(TITLE);
         this.targetPos = pos;
         this.rotation = matrix.toQuaternion();
+        this.startEntityId = startEntityId;
+
         this.initHandleValue = matrix.toHandleValue();
         this.nextHandleValue = new Vector3d(this.initHandleValue.x, this.initHandleValue.y, this.initHandleValue.z);
     }
@@ -131,7 +134,7 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     }
 
     private void sendPacketToServer() {
-        GSKONetworking.CHANNEL.sendToServer(new CAdjustRailPacket(this.targetPos, this.rotation));
+        GSKONetworking.CHANNEL.sendToServer(new CAdjustRailPacket(this.targetPos, this.rotation, this.startEntityId));
     }
 
     private float value(Slider slider) {

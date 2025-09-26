@@ -18,7 +18,6 @@ import github.thelawf.gensokyoontology.common.item.touhou.*;
 import github.thelawf.gensokyoontology.common.nbt.GSKONBTUtil;
 import github.thelawf.gensokyoontology.common.nbt.script.BinaryOperation;
 import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
-import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
@@ -26,7 +25,6 @@ import github.thelawf.gensokyoontology.core.init.itemtab.GSKOBlockTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
@@ -35,7 +33,6 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
@@ -882,6 +879,8 @@ public final class ItemRegistry {
         }
     });
 
+    public static final RegistryObject<Item> TRACK_PLACER = ITEMS.register("track_placer", () -> new TrackPlacer(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> RAIL_WRENCH = ITEMS.register("rail_wrench", () -> new RailWrench(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new Item(

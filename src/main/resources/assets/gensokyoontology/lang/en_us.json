@@ -259,7 +259,8 @@
   "item.gensokyoontology.onion": "Onion",
 
   "item.gensokyoontology.cherry_blossom": "Cherry Blossom",
-  "item.gensokyoontology.rail_connector": "R",
+  "item.gensokyoontology.track_placer": "Track Placer",
+  "item.gensokyoontology.rail_connector": "Rail Connector",
 
   "item.gensokyoontology.kitchen_knife": "Kitchen Knife",
   "item.gensokyoontology.burger_meat_raw": "Burger Meat Raw",
@@ -377,8 +378,7 @@
 
   "block.gensokyoontology.fried_pane": "Fried Pane",
   "block.gensokyoontology.dakimakura": "Dakimakura",
-  "block.gensokyoontology.rail_track": "Rail Track",
-  "block.gensokyoontology.rail_node": "Rail Node",
+  "block.gensokyoontology.coaster_rail_node": "Coaster Rail Node",
   "block.gensokyoontology.rotate_frame": "Rotate Frame Test",
 
   "cmd.gensokyoontology.incident_triggered": "Is incident triggered: ",
