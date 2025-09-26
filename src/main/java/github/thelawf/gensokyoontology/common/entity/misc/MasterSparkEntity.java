@@ -39,28 +39,6 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTracer {
         Predicate<Entity> canAttack = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() != this.getOwnerID().get();
 
         entities.stream().filter(canAttack).forEach(entity -> entity.attackEntityFrom(GSKODamageSource.LASER, 10F));
-        /*
-        startList.replaceAll(vector3d -> vector3d.add(0,0.6,0));
-        List<Vector3d> endList = startList.stream().map(vector3d -> this.getLookVec().scale(DISTANCE).add(vector3d)).collect(Collectors.toList());
 
-        Map<Vector3d, Vector3d> vectorMap = IntStream.range(0, startList.size()).boxed()
-                .collect(Collectors.toMap(startList::get, endList::get));
-        Predicate<Entity> canAttack = entity -> this.getOwnerID().isPresent() && entity.getUniqueID() != this.getOwnerID().get();
-
-        Vector3d start = this.getPositionVec();
-        Vector3d end = this.getLookVec().scale(DISTANCE).add(this.getPositionVec());
-
-        for (Map.Entry<Vector3d, Vector3d> entry : vectorMap.entrySet()) {
-            Vector3d start1 = entry.getKey().add(this.getEyePosition(1));
-            Vector3d end1 = entry.getValue().add(this.getEyePosition(1));
-
-            serverWorld.getEntities()
-                    .filter(entity -> canAttack.test(entity) && this.isIntersecting(start1, end1, entity.getBoundingBox()))
-                    .forEachAct(entity -> entity.attackEntityFrom(GSKODamageSource.LASER, 15F));
-
-            // this.getEntityInCylinder(this.world, this, canAttack, start1, end1, DISTANCE, 3).forEachAct(
-            //         entity -> entity.attackEntityFrom(GSKODamageSource.LASER, 15F));
-        }
-         */
     }
 }

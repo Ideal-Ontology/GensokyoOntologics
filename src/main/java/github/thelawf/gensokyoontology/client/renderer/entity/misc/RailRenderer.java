@@ -14,6 +14,7 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.*;
 import net.minecraft.world.World;
@@ -45,13 +46,15 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
         IVertexBuilder builder = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(TEXTURE));
         IVertexBuilder buffer = bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID);
 
-        Optional<RailEntity> optional = startRail.getTargetRail();
+        Optional<Entity> optional = startRail.getTargetRail();
         if (!optional.isPresent()) {
             this.renderUnconnectedTrack(buffer, matrixStack, startRail);
             return;
         }
 
-        RailEntity targetRail = optional.get();
+        if (!(optional.get() instanceof RailEntity)) return;
+        RailEntity targetRail = (RailEntity) optional.get();
+
         Vector3d startVec = Vector3d.copy(startRail.getPosition());
         Vector3d start = Vector3d.ZERO;
         Vector3d end = Vector3d.copy(targetRail.getPosition()).subtract(startVec);

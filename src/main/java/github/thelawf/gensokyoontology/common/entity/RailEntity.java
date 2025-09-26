@@ -41,6 +41,7 @@ public class RailEntity extends Entity {
 
     public RailEntity(EntityType<RailEntity> entityType, World worldIn) {
         super(entityType, worldIn);
+        this.ignoreFrustumCheck = true;
         this.setNoGravity(true);
     }
 
@@ -51,20 +52,8 @@ public class RailEntity extends Entity {
     public static RailEntity place(World world, BlockPos pos) {
         RailEntity railEntity = new RailEntity(world);
         railEntity.setPosition(pos.getX(), pos.getY(), pos.getZ());
+        world.addEntity(railEntity);
         return railEntity;
-    }
-
-    @Override
-    @NotNull
-    public ActionResultType processInitialInteract(@NotNull PlayerEntity player, @NotNull Hand hand) {
-        ItemStack stack = player.getHeldItem(hand);
-        GSKOUtil.showChatMsg(player, stack.toString(), 1);
-        if (stack.hasTag()) {
-            return this.onClickNextRail(player, stack);
-        }
-        else {
-            return this.onClickFirstRail(player, stack, this.getPosition());
-        }
     }
 
     public ActionResultType onClickFirstRail(PlayerEntity player, ItemStack stack, BlockPos startPos) {
@@ -84,16 +73,14 @@ public class RailEntity extends Entity {
         return ActionResultType.CONSUME;
     }
 
-    public ActionResultType onClickNextRail(PlayerEntity player, ItemStack stack) {
-        if (this.world.getEntityByID(this.getTargetId()) == null) return ActionResultType.FAIL;
-        if (stack.getItem() != ItemRegistry.RAIL_CONNECTOR.get()) return ActionResultType.PASS;
-        if (stack.getTag() == null) return ActionResultType.PASS;
-
-        BlockPos targetPos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
-        this.setTargetPos(targetPos);
-        stack.shrink(1);
-        player.addItemStackToInventory(new ItemStack(ItemRegistry.RAIL_WRENCH.get()));
-
+    public ActionResultType onClickNextRail(PlayerEntity player, RailEntity targetRail, ItemStack connector) {
+        if (connector.getTag() == null) return ActionResultType.PASS;
+        RailWrench.getStartRail(world, connector.getTag().getInt("id")).ifPresent(startRail -> {
+            startRail.setTargetPos(targetRail.getPosition());
+            startRail.setTargetId(targetRail.getEntityId());
+            connector.shrink(1);
+            player.addItemStackToInventory(new ItemStack(ItemRegistry.RAIL_WRENCH.get()));
+        });
         return ActionResultType.CONSUME;
     }
 
@@ -168,7 +155,8 @@ public class RailEntity extends Entity {
         return new RotMatrix(this.getRotation()).tangent();
     }
 
-    public Optional<RailEntity> getTargetRail() {
-        return Optional.ofNullable((RailEntity) this.world.getEntityByID(this.dataManager.get(DATA_TARGET_ID)));
+    public Optional<Entity> getTargetRail() {
+        return Optional.ofNullable(this.world.getEntityByID(this.dataManager.get(DATA_TARGET_ID)));
     }
+
 }

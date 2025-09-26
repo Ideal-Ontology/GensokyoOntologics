@@ -2,8 +2,10 @@ package github.thelawf.gensokyoontology.core.init;
 
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.container.script.*;
+import github.thelawf.gensokyoontology.common.entity.RailEntity;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.material.*;
@@ -28,14 +30,18 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.command.impl.data.DataCommand;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -48,6 +54,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.atomic.AtomicReference;
 
 import static net.minecraft.item.Items.BUCKET;
 
@@ -886,9 +893,30 @@ public final class ItemRegistry {
     public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new Item(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)) {
         @Override
-        public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
-            return RailWrench.onClickNextRail(context);
+        public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+            ItemStack connector = player.getHeldItem(hand);
+            Vector3d lookVec = player.getLookVec();
+            Vector3d start = player.getEyePosition(1);
+            Vector3d end = player.getEyePosition(1).add(lookVec.scale(10));
+
+            AtomicReference<ActionResult<ItemStack>> result = new AtomicReference<>();
+            result.set(ActionResult.resultPass(connector));
+
+            IRayTracer.rayCast(world, player, start, end).ifPresent(entity -> {
+                if(!(entity instanceof RailEntity)) return;
+                RailEntity rail = (RailEntity) entity;
+
+                GSKOUtil.showChatMsg(player, rail.writeWithoutTypeId(new CompoundNBT()).toString(), 1);
+                RailWrench.onClickNextRail(world, player, rail, connector);
+                result.set(ActionResult.resultConsume(connector));
+            });
+            return result.get();
         }
+
+//        @Override
+//        public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
+//            return RailWrench.onClickNextRailBlock(context);
+//        }
 
         @Override
         public void addInformation(@NotNull ItemStack stack, @Nullable World worldIn, @NotNull List<ITextComponent> tooltip, @NotNull ITooltipFlag flagIn) {
@@ -896,7 +924,7 @@ public final class ItemRegistry {
             if (stack.getTag() == null) return;
             if (!stack.getTag().contains("startPos")) {
                 tooltip.add(GensokyoOntology.translate("tooltip.", ".coaster_rail.usage"));
-            };
+            }
             BlockPos pos = BlockPos.fromLong(stack.getTag().getLong("startPos"));
             tooltip.add(GensokyoOntology.translate("tooltip.", ".coaster_rail.start_pos"));
             tooltip.add(new StringTextComponent("(" + pos.getX() + ", " + pos.getY() + ", " + pos.getZ() + ")"));

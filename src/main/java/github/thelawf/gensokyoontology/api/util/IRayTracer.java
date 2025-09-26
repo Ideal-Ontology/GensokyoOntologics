@@ -133,7 +133,25 @@ public interface IRayTracer {
         return Optional.empty();
     }
 
+    static Optional<Entity> rayCast(World world, Entity sourceEntity, Vector3d startVec, Vector3d endVec){
+        double closestDistance = startVec.distanceTo(endVec);
+        // GSKOUtil.log(world.getEntitiesWithinAABB(Entity.class, sourceEntity.getBoundingBox().grow(startVec.distanceTo(endVec))).size());
+        for (Entity entity : world.getEntitiesWithinAABB(Entity.class, sourceEntity.getBoundingBox().grow(startVec.distanceTo(endVec)))) {
+            if (entity != sourceEntity) {
+                AxisAlignedBB entityAABB = entity.getBoundingBox();
+                Optional<Vector3d> result = entityAABB.rayTrace(startVec, endVec);
 
+                if (result.isPresent()) {
+                    double distance = startVec.squareDistanceTo(result.get());
+
+                    if (distance < closestDistance) {
+                        return Optional.of(entity);
+                    }
+                }
+            }
+        }
+        return Optional.empty();
+    }
 
     default Vector3d getIntersectedPos(Vector3d start, Vector3d end, AxisAlignedBB aabb) {
         return getIntersectedPos(start, end,

@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.item.tool;
 
 import github.thelawf.gensokyoontology.api.util.IRayTracer;
+import github.thelawf.gensokyoontology.common.entity.RailEntity;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
@@ -16,44 +17,60 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class RailWrench extends Item implements IRayTracer {
     public RailWrench(Properties properties) {
         super(properties);
     }
 
+    @NotNull
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World world, PlayerEntity player, Hand hand) {
+    public ActionResult<ItemStack> onItemRightClick(@NotNull World world, PlayerEntity player, @NotNull Hand hand) {
+        ItemStack wrench = player.getHeldItem(hand);
+        Vector3d lookVec = player.getLookVec();
+        Vector3d start = player.getEyePosition(1);
+        Vector3d end = player.getEyePosition(1).add(lookVec.scale(10));
 
+        AtomicReference<ActionResult<ItemStack>> result = new AtomicReference<>();
+        result.set(ActionResult.resultPass(wrench));
+
+        this.rayTrace(world, player, start, end).ifPresent(entity -> {
+            if(!(entity instanceof RailEntity)) return;
+            RailEntity rail = (RailEntity) entity;
+            this.onClickFirstRail(player, rail, wrench);
+            result.set(ActionResult.resultConsume(wrench));
+        });
+        return result.get();
     }
 
-    @Override
-    public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
-        World world = context.getWorld();
-        BlockPos pos = context.getPos();
-        PlayerEntity player = context.getPlayer();
-        BlockState blockState = world.getBlockState(pos);
-        ItemStack wrench = context.getItem();
+//    @Override
+//    public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
+//        World world = context.getWorld();
+//        BlockPos pos = context.getPos();
+//        PlayerEntity player = context.getPlayer();
+//        BlockState blockState = world.getBlockState(pos);
+//        ItemStack wrench = context.getItem();
+//
+//        if (player == null) return ActionResultType.FAIL;
+//        if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return super.onItemUse(context);
+//        Optional<RailTileEntity> optional = GSKOUtil.getTileByType(world, pos, TileEntityRegistry.RAIL_TILE_ENTITY.get());
+//
+//        if (!optional.isPresent()) return super.onItemUse(context);
+//        RailTileEntity railTile = optional.get();
+//
+//        return this.onClickFirstRailBlock(pos, player, wrench);
+//    }
 
-        if (player == null) return ActionResultType.FAIL;
-        if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return super.onItemUse(context);
-        Optional<RailTileEntity> optional = GSKOUtil.getTileByType(world, pos, TileEntityRegistry.RAIL_TILE_ENTITY.get());
-
-        if (!optional.isPresent()) return super.onItemUse(context);
-        RailTileEntity railTile = optional.get();
-
-        return this.onClickFirstRail(pos, player, wrench);
-    }
-
-    private ActionResultType onClickFirstRail(BlockPos startPos, @NotNull PlayerEntity player,
-                                              ItemStack wrench) {
+    private ActionResultType onClickFirstRail(@NotNull PlayerEntity player, RailEntity startRail ,ItemStack wrench) {
         ItemStack connector = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());
         CompoundNBT nbt = new CompoundNBT();
-        nbt.putLong("startPos", startPos.toLong());
+        nbt.putInt("id", startRail.getEntityId());
         connector.setTag(nbt);
 
         wrench.shrink(1);
@@ -61,7 +78,19 @@ public class RailWrench extends Item implements IRayTracer {
         return ActionResultType.SUCCESS;
     }
 
-    public static ActionResultType onClickNextRail(ItemUseContext targetCtx) {
+    private ActionResultType onClickFirstRailBlock(BlockPos startPos, @NotNull PlayerEntity player,
+                                              ItemStack wrench) {
+        ItemStack connector = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());
+        CompoundNBT nbt = new CompoundNBT();
+        nbt.putLong("id", startPos.toLong());
+        connector.setTag(nbt);
+
+        wrench.shrink(1);
+        player.addItemStackToInventory(connector);
+        return ActionResultType.SUCCESS;
+    }
+
+    public static ActionResultType onClickNextRailBlock(ItemUseContext targetCtx) {
         World world = targetCtx.getWorld();
         PlayerEntity player = targetCtx.getPlayer();
         BlockState blockState = world.getBlockState(targetCtx.getPos());
@@ -83,6 +112,22 @@ public class RailWrench extends Item implements IRayTracer {
         connector.shrink(1);
         player.addItemStackToInventory(railItem);
         return ActionResultType.SUCCESS;
+    }
+
+    public static void onClickNextRail(World world, @NotNull PlayerEntity player,
+                                       RailEntity targetRail , ItemStack connector) {
+        if (connector.getTag() == null) return;
+        getStartRail(world, connector.getTag().getInt("id")).ifPresent(startRail -> {
+            startRail.setTargetPos(targetRail.getPosition());
+            startRail.setTargetId(targetRail.getEntityId());
+            connector.shrink(1);
+            player.addItemStackToInventory(new ItemStack(ItemRegistry.RAIL_WRENCH.get()));
+        });
+
+    }
+
+    public static Optional<RailEntity> getStartRail(World world, int entityId) {
+        return Optional.ofNullable((RailEntity) world.getEntityByID(entityId));
     }
 
     public static ActionResultType onRemoveConnection(BlockPos pos, PlayerEntity player, ItemStack connector) {
