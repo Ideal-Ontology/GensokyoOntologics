@@ -5,7 +5,7 @@ import github.thelawf.gensokyoontology.common.entity.passive.WingPlaneEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
-import github.thelawf.gensokyoontology.common.entity.RailRendererEntity;
+import github.thelawf.gensokyoontology.common.entity.RailEntity;
 import github.thelawf.gensokyoontology.common.entity.combat.spell.*;
 import github.thelawf.gensokyoontology.common.entity.misc.*;
 import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity;
@@ -105,8 +105,8 @@ public final class EntityRegistry {
     //         "namespace_domain", () -> NamespaceDomain.NAMESPACE_DOMAIN);
 
     // ============================ 技术性实体：轨道和载具 ============================= //
-    public static final RegistryObject<EntityType<RailRendererEntity>> RAIL_ENTITY = register(
-            "rail_entity", RailRendererEntity::new, EntityClassification.MISC, 1, 1, 16, 2);
+    public static final RegistryObject<EntityType<RailEntity>> RAIL_ENTITY = register(
+            "rail_entity", RailEntity::new, EntityClassification.MISC, 1, 1, 16, 2);
     // public static final RegistryObject<EntityType<CoasterVehicleEntity>> COASTER_ENTITY = register(
     //         "coaster", CoasterVehicleEntity::new, EntityClassification.MISC, 2, 2, 10, 2);
 

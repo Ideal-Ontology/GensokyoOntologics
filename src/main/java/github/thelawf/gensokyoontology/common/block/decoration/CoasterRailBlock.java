@@ -84,7 +84,7 @@ public class CoasterRailBlock extends Block {
             }
             return 0;
         }).findFirst().ifPresent(value -> {
-            railTile.setRotation(EulerAngle.of(0, yaw, 0).toRotation());
+            railTile.setRotation(EulerAngle.of(0, yaw, 0).toQuaternion());
         });
     }
 

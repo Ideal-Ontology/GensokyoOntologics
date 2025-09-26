@@ -16,6 +16,11 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+/**
+ * @deprecated 因为申必的Forge在玩家视角内不包含方块实体时将不会渲染和方块实体一同渲染的其它模型，故废弃。
+ * @see github.thelawf.gensokyoontology.common.entity.RailEntity RailEntity - 轨道实体
+ */
+@Deprecated
 public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     @Override
     public void tick() {
@@ -24,7 +29,6 @@ public class RailTileEntity extends TileEntity implements ITickableTileEntity {
     // private Pose pose;
     private boolean shouldRender = true;
     private BlockPos targetRailPos = new BlockPos(Float.NaN, Float.NaN, Float.NaN);
-    private Vector3f facing = new Vector3f(0,0,0);
     private Quaternion rotation = new Quaternion(0,0,0,1);
 
     public RailTileEntity() {

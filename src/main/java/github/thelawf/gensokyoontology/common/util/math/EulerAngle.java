@@ -25,6 +25,10 @@ public class EulerAngle {
         return GSKOMathUtil.fromEulerAngle(this);
     }
 
+    public Quaternion toQuaternion() {
+        return new Quaternion(xAngle, yAngle, zAngle, true);
+    }
+
     public EulerAngle handleLock(){
         if (this.pitch() > 89.9){
             this.setYaw(this.yaw() + this.roll());

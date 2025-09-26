@@ -28,6 +28,11 @@ import org.joml.Matrix3d;
 import java.util.HashMap;
 import java.util.Optional;
 
+/**
+ * @deprecated 因为申必的Forge在玩家视角内不包含方块实体时将不会渲染和方块实体一同渲染的其它模型，故废弃。
+ * @see github.thelawf.gensokyoontology.client.renderer.entity.misc.RailRenderer RailRenderer - 轨道实体渲染器
+ */
+@Deprecated
 @OnlyIn(Dist.CLIENT)
 public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
     private static final double RAIL_WIDTH = 0.25;
@@ -144,7 +149,7 @@ public class RailTileRenderer extends TileEntityRenderer<RailTileEntity> {
         float r1 = 195, g1 = 35, b1 = 35, r2 = 155, g2 = 23, b2 = 23;
         float rf1 = r1 / 255, gf1 = g1 / 255, bf1 = b1 / 255, rf2 = r2 / 255, gf2 =  g2 / 255, bf2 = b2 / 255;
 
-        Quaternion rotation = GSKOMathUtil.getRotationFrom(new Vector3f(0,0,1), tileEntityIn.getFacing());
+        Quaternion rotation = tileEntityIn.getRotation();
         matrixStackIn.push();
         matrixStackIn.translate(0.5, 0.5, 0.5);
         matrixStackIn.rotate(rotation);

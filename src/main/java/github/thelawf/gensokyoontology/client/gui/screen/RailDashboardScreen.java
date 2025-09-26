@@ -10,6 +10,7 @@ import github.thelawf.gensokyoontology.common.util.math.EulerAngle;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.RotMatrix;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -60,21 +61,21 @@ public class RailDashboardScreen extends LineralLayoutScreen {
 
     private void onXHandleSlide(Slider slider) {
         this.eulerAngle = EulerAngle.of(slider.getValue(), 0, 0);
-        this.rotation = this.eulerAngle.toRotation();
+        this.rotation = this.eulerAngle.toQuaternion();
         this.setSliderValue();
         this.sendPacketToServer();
     }
 
     private void onYHandleSlide(Slider slider) {
         this.eulerAngle = EulerAngle.of(0, slider.getValue(), 0);
-        this.rotation = this.eulerAngle.toRotation();
+        this.rotation = this.eulerAngle.toQuaternion();
         this.setSliderValue();
         this.sendPacketToServer();
     }
 
     private void onZHandleSlide(Slider slider) {
-        this.eulerAngle = this.getEulerAngleFrom(this.xHandle, this.yHandle, slider);
-        this.rotation = this.eulerAngle.toRotation();
+        this.eulerAngle = EulerAngle.of(0, 0, slider.getValue());
+        this.rotation = this.eulerAngle.toQuaternion();
         this.setSliderValue();
         this.sendPacketToServer();
     }
@@ -144,9 +145,9 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         if (this.zHandle == null) return;
         if (this.xHandle == null) return;
 
-        this.xHandle.setValue(this.nextHandleValue.getX());
-        this.yHandle.setValue(this.nextHandleValue.getY());
-        this.zHandle.setValue(this.nextHandleValue.getZ());
+        this.xHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.pitch()));
+        this.yHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.yaw()));
+        this.zHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.roll()));
     }
 
     private EulerAngle getEulerAngleFrom(Slider xHandle, Slider yHandle, Slider zHandle) {
