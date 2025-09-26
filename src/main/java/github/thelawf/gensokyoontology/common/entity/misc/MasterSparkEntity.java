@@ -1,29 +1,20 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
-import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import github.thelawf.gensokyoontology.data.recipe.DanmakuRecipe;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 import java.util.function.Predicate;
-import java.util.function.UnaryOperator;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
-public class MasterSparkEntity extends AffiliatedEntity implements IRayTraceReader {
+public class MasterSparkEntity extends AffiliatedEntity implements IRayTracer {
     public static final float DISTANCE = 50F;
     public MasterSparkEntity(EntityType<?> entityTypeIn, World worldIn) {
         super(entityTypeIn, worldIn);

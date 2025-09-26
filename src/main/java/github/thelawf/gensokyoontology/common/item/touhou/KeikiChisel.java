@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
-import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.block.decoration.ClayAdobeBlock;
 import github.thelawf.gensokyoontology.common.tileentity.AdobeTileEntity;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
@@ -13,11 +13,10 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3i;
-import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
-public class KeikiChisel extends Item implements IRayTraceReader {
+public class KeikiChisel extends Item implements IRayTracer {
     public KeikiChisel(Properties properties) {
         super(properties);
     }

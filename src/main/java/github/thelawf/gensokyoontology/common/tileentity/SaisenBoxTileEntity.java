@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.tileentity;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.util.BlessType;
 import github.thelawf.gensokyoontology.core.init.EffectRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -23,7 +23,7 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEntity, IRayTraceReader {
+public class SaisenBoxTileEntity extends TileEntity implements ITickableTileEntity, IRayTracer {
     private int count;
     private UUID ownerId;
     private UUID throwerId;

@@ -28,7 +28,7 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
 
     public static final ResourceLocation TEXTURE = new ResourceLocation("textures/entity/rail.png");
 
-    protected RailRenderer(EntityRendererManager manager) {
+    public RailRenderer(EntityRendererManager manager) {
         super(manager);
     }
 
@@ -83,7 +83,6 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
 
         Quaternion rotation = rail.getRotation();
         matrixStackIn.push();
-        matrixStackIn.translate(0.5, 0.5, 0.5);
         matrixStackIn.rotate(rotation);
 
         matrixStackIn.push();

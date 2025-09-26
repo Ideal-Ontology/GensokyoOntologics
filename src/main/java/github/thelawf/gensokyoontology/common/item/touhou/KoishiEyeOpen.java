@@ -1,9 +1,8 @@
 package github.thelawf.gensokyoontology.common.item.touhou;
 
-import com.google.common.collect.ImmutableList;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.IHasCooldown;
-import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
 import net.minecraft.client.gui.screen.Screen;
@@ -25,7 +24,7 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class KoishiEyeOpen extends MultiModeItem implements IRayTraceReader, IHasCooldown {
+public class KoishiEyeOpen extends MultiModeItem implements IRayTracer, IHasCooldown {
     private int totalCount = 0;
     public KoishiEyeOpen(Properties properties) {
         super(properties);

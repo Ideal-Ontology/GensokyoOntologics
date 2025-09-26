@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
-import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellBehavior;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 
-public class Laser extends AffiliatedEntity implements IRayTraceReader {
+public class Laser extends AffiliatedEntity implements IRayTracer {
     private int lifespan = 100;
     private int preparation = 30;
     private float range = 128;

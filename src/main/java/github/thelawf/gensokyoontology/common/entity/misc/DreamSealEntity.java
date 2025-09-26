@@ -1,12 +1,12 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
-import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.Item;
 import net.minecraft.world.World;
 
-public class DreamSealEntity extends Danmaku implements IRayTraceReader {
+public class DreamSealEntity extends Danmaku implements IRayTracer {
     public DreamSealEntity(World world, Item danmakuItem, LivingEntity owner) {
         super(world, danmakuItem, owner);
     }

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity;
 
 import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
 import github.thelawf.gensokyoontology.common.item.tool.RailWrench;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.RotMatrix;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -57,6 +58,7 @@ public class RailEntity extends Entity {
     @NotNull
     public ActionResultType processInitialInteract(@NotNull PlayerEntity player, @NotNull Hand hand) {
         ItemStack stack = player.getHeldItem(hand);
+        GSKOUtil.showChatMsg(player, stack.toString(), 1);
         if (stack.hasTag()) {
             return this.onClickNextRail(player, stack);
         }
@@ -67,6 +69,7 @@ public class RailEntity extends Entity {
 
     public ActionResultType onClickFirstRail(PlayerEntity player, ItemStack stack, BlockPos startPos) {
         if (stack.getItem() != ItemRegistry.RAIL_WRENCH.get()) return ActionResultType.PASS;
+        GSKOUtil.showChatMsg(player, stack.toString(), 1);
         if (Screen.hasShiftDown()){
             new RailDashboardScreen(this.getPosition(), this.getRotation(), this.getEntityId()).open();
             return ActionResultType.SUCCESS;
@@ -119,7 +122,6 @@ public class RailEntity extends Entity {
         if (nbt.contains("targetX") && nbt.contains("targetY") && nbt.contains("targetZ")){
             this.dataManager.set(DATA_TARGET, new BlockPos(nbt.getInt("targetX"), nbt.getInt("targetY"), nbt.getInt("targetZ")));
         }
-        super.read(nbt);
     }
 
     @Override

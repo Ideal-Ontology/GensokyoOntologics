@@ -2,7 +2,7 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.IHasCooldown;
-import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
@@ -11,7 +11,6 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.ShootableItem;
@@ -33,7 +32,7 @@ import java.util.function.Predicate;
 /**
  * 魔理沙的八卦炉
  */
-public class MarisaHakkeiro extends ShootableItem implements IRayTraceReader, IHasCooldown {
+public class MarisaHakkeiro extends ShootableItem implements IRayTracer, IHasCooldown {
     public MarisaHakkeiro(Properties properties) {
         super(properties);
     }

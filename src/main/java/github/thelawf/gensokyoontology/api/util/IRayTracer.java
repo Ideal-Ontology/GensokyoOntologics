@@ -1,28 +1,19 @@
 package github.thelawf.gensokyoontology.api.util;
 
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import github.thelawf.gensokyoontology.common.util.block.BlockStateData;
-import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.util.math.*;
-import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil.toDegree;
-
-public interface IRayTraceReader {
+public interface IRayTracer {
 
     default AxisAlignedBB createCubeBox(Vector3d pos, int radius) {
         return new AxisAlignedBB(pos.subtract(new Vector3d(radius, radius, radius)), pos.add(new Vector3d(radius, radius, radius)));

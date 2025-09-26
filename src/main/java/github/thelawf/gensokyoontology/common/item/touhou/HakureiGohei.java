@@ -2,40 +2,26 @@ package github.thelawf.gensokyoontology.common.item.touhou;
 
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.api.IHasCooldown;
-import github.thelawf.gensokyoontology.api.util.IRayTraceReader;
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.client.particle.ParticleRegistry;
-import github.thelawf.gensokyoontology.client.particle.PowerParticle;
 import github.thelawf.gensokyoontology.client.particle.PowerParticleData;
-import github.thelawf.gensokyoontology.common.capability.CapabilityHandler;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
-import github.thelawf.gensokyoontology.common.entity.misc.DreamSealEntity;
-import github.thelawf.gensokyoontology.common.entity.projectile.InYoJadeDanmakuEntity;
-import github.thelawf.gensokyoontology.common.events.GSKOEntityEvents;
 import github.thelawf.gensokyoontology.common.item.MultiModeItem;
-import github.thelawf.gensokyoontology.common.tileentity.DanmakuTabelTileEntity;
-import github.thelawf.gensokyoontology.common.util.EnumUtil;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
-import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
-import net.minecraft.block.Block;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.command.impl.ParticleCommand;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTDynamicOps;
-import net.minecraft.particles.IParticleData;
-import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -53,13 +39,12 @@ import org.jetbrains.annotations.Nullable;
 import org.joml.Vector4i;
 
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 博丽灵梦的御币
  */
-public class HakureiGohei extends MultiModeItem implements IRayTraceReader, IHasCooldown {
+public class HakureiGohei extends MultiModeItem implements IRayTracer, IHasCooldown {
     public static final ITextComponent TITLE = GensokyoOntology.translate("gui.", ".hakurei_gohei.title");
     public HakureiGohei(Properties properties) {
         super(properties);
