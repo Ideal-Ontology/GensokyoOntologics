@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity;
 
+import github.thelawf.gensokyoontology.common.entity.misc.Laser;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -31,7 +32,6 @@ public abstract class AffiliatedEntity extends Entity {
 
     public AffiliatedEntity(EntityType<?> entityTypeIn, Entity owner, World worldIn) {
         super(entityTypeIn, worldIn);
-        this.ownerId = owner.getUniqueID();
         this.setOwnerId(this.ownerId);
     }
 
@@ -46,14 +46,12 @@ public abstract class AffiliatedEntity extends Entity {
             uuid = compound.getUniqueId("Owner");
         }
         if (uuid != null) {
-            this.setDataOwner();
+            this.setOwnerId(uuid);
         }
     }
 
     protected void writeAdditional(@NotNull CompoundNBT compound) {
-        if (this.ownerId != null) {
-            compound.putUniqueId("Owner", this.ownerId);
-        }
+        this.getOwnerId().ifPresent(uuid -> compound.putUniqueId("Owner", uuid));
     }
 
     public Optional<UUID> getOwnerID() {
@@ -73,9 +71,7 @@ public abstract class AffiliatedEntity extends Entity {
     }
 
     public void setOwnerId(UUID uuid) {
-        if (this.ownerId != null) {
-            this.dataManager.set(DATA_OWNER, Optional.of(uuid));
-        }
+        this.dataManager.set(DATA_OWNER, Optional.of(uuid));
     }
 
     public void setDataOwner() {

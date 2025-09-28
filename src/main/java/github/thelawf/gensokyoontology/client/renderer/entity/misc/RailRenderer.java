@@ -2,13 +2,15 @@ package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
 import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.limit.Min;
 import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.sun.scenario.effect.Color4f;
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.RailEntity;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
-import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
-import github.thelawf.gensokyoontology.common.util.math.GeometryUtil;
+import github.thelawf.gensokyoontology.common.util.math.*;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.client.Minecraft;
@@ -30,7 +32,7 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
     public static final float RAIL_RADIUS = 0.07F;
     public static final float SEGMENTS = 32;
 
-    public static final ResourceLocation TEXTURE = new ResourceLocation("textures/entity/rail.png");
+    public static final ResourceLocation TEXTURE = GSKOUtil.withRL("textures/entity/entity_blank.png");
 
     public RailRenderer(EntityRendererManager manager) {
         super(manager);
@@ -63,6 +65,8 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
         }
 
         RailEntity targetRail = (RailEntity) optional.get();
+        Quaternion startRot = startRail.getRotation();
+        Quaternion endRot = targetRail.getRotation();
 
         Vector3d startVec = Vector3d.copy(startRail.getPosition());
         Vector3d start = Vector3d.ZERO;
@@ -75,18 +79,53 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
         endDirection.mul(50);
 
         final int segments = 32;
+        Vector3d prevNormal = null;
+
+        Vector3d prevLeft0;
+        Vector3d nextLeft;
+        Vector3d prevLeft1 = new Vector3d(0,0,0);
+
+        Vector3d prevRight0;
+        Vector3d nextRight;
+        Vector3d prevRight1 = new Vector3d(0,0,0);
 
         for (int i = 0; i < segments; i++) {
             float t0 = (float) i / segments;
             float t1 = (float) (i + 1) / segments;
 
-            Vector3d prev = CurveUtil.hermite3(start, end, startDirection, endDirection, t0);
-            Vector3d next = CurveUtil.hermite3(start, end, startDirection, endDirection, t1);
+            Vector3d left = CurveUtil.hermiteBinormal(start, end,
+                    new Vector3d(startDirection), new Vector3d(endDirection), t1);
+            Vector3d right = new Vector3d(-left.x, 0, -left.z).scale(0.25);
+            EulerAngle euler = EulerAngle.from(GSKOMathUtil.slerp(startRot, endRot, t1));
 
-            Matrix4f matrix = matrixStack.getLast().getMatrix();
-            GeometryUtil.renderCyl(builder, matrix, prev, next, RAIL_RADIUS, segments, 1F, 0F, 0F, 1F);
+            Vector3d prev = CurveUtil.hermite3(start,end, startDirection, endDirection, t0);
+            Vector3d next = CurveUtil.hermite3(start,end, startDirection, endDirection, t1);
 
+            prevLeft0 = prev.add(left);// .add(left.rotateRoll(euler.roll()));
+            nextLeft =  next.add(left);// .add(left.rotateRoll(euler.roll()));
+
+            prevRight0 = prev.add(right);// .add(right.rotateRoll(euler.roll()));
+            nextRight =  prev.add(right);// .add(right.rotateRoll(euler.roll()));
+
+            this.renderHermite3(builder, matrixStack,
+                    i == 0 ? prevLeft0 : prevLeft1, nextLeft,
+                    i == 0 ? prevRight0 : prevRight1, nextRight,
+                    euler.roll(), new Color4f(1, 0, 0, 1));
+
+            prevLeft1 = nextLeft;
+            prevRight1 = nextRight;
         }
+    }
+
+    public void renderHermite3(IVertexBuilder builder, MatrixStack matrixStack, Vector3d prevLeft, Vector3d nextLeft,
+                               Vector3d prevRight, Vector3d nextRight, float roll, Color4f color) {
+
+        matrixStack.push();
+        GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(), prevLeft, nextLeft,
+                RAIL_RADIUS, 32, color.getRed(), color.getGreen(), color.getBlue(), 1F);
+        GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(), prevRight, nextRight,
+                RAIL_RADIUS, 32, color.getRed(), color.getGreen(), color.getBlue(), 1F);
+        matrixStack.pop();
     }
 
     public void renderUnconnectedTrack(IVertexBuilder builder, MatrixStack matrixStackIn, RailEntity rail) {

@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.combat.SpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.WingPlaneEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
@@ -111,6 +112,9 @@ public final class EntityRegistry {
     //         "coaster", CoasterVehicleEntity::new, EntityClassification.MISC, 2, 2, 10, 2);
 
     // ============================ 技术性实体：符卡以及特殊技能 ============================= //
+    public static final RegistryObject<EntityType<SpellCardEntity>> SPELL_CARD_ENTITY =
+            registerSpell("spell_card", SpellCardEntity::new);
+
     public static final RegistryObject<EntityType<ScarletPrisoner>> SCARLET_PRISONER_ENTITY =
             registerSpell("scarlet_prisoner", ScarletPrisoner::new);
     public static final RegistryObject<EntityType<MobiusRingEntity>> MOBIUS_RING_WORLD_ENTITY =

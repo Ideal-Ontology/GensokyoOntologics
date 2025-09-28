@@ -4,7 +4,11 @@ import github.thelawf.gensokyoontology.common.entity.RailEntity;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.math.EulerAngle;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,6 +18,7 @@ import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
@@ -42,7 +47,13 @@ public class TrackPlacer extends Item {
         World world = context.getWorld();
         BlockPos pos = context.getPos();
         ItemStack stack = context.getItem();
-        RailEntity rail = RailEntity.place(world, pos);
+
+        if (world.isRemote) return ActionResultType.FAIL;
+        ServerWorld serverWorld = (ServerWorld) world;
+        Entity entity = EntityRegistry.RAIL_ENTITY.get().spawn(serverWorld, stack, player, pos.up(), SpawnReason.TRIGGERED, false, false);
+        if (!(entity instanceof RailEntity)) return ActionResultType.FAIL;
+        RailEntity rail = (RailEntity) entity;
+        // RailEntity rail = RailEntity.place(world, pos);
 
         if (player == null) return ActionResultType.FAIL;
         float yaw = GSKOMathUtil.getEulerAngle(player.getLookVec()).yaw();

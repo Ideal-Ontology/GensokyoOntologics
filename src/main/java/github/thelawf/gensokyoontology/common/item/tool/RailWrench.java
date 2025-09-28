@@ -10,6 +10,7 @@ import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -122,7 +123,9 @@ public class RailWrench extends Item implements IRayTracer {
     public static void onClickNextRail(World world, @NotNull PlayerEntity player,
                                        RailEntity targetRail , ItemStack connector) {
         if (connector.getTag() == null) return;
-        getStartRail(world, connector.getTag().getInt("id")).ifPresent(startRail -> {
+        getStartRail(world, connector.getTag().getInt("id")).ifPresent(entity -> {
+            if (!(entity instanceof RailEntity)) return;
+            RailEntity startRail = (RailEntity) entity;
             startRail.setTargetPos(targetRail.getPosition());
             startRail.setTargetId(targetRail.getEntityId());
             connector.shrink(1);
@@ -131,8 +134,8 @@ public class RailWrench extends Item implements IRayTracer {
 
     }
 
-    public static Optional<RailEntity> getStartRail(World world, int entityId) {
-        return Optional.ofNullable((RailEntity) world.getEntityByID(entityId));
+    public static Optional<Entity> getStartRail(World world, int entityId) {
+        return Optional.ofNullable(world.getEntityByID(entityId));
     }
 
     public static ActionResultType onRemoveConnection(BlockPos pos, PlayerEntity player, ItemStack connector) {

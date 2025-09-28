@@ -9,6 +9,7 @@ import github.thelawf.gensokyoontology.common.util.math.*;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.expression.IExpressionType;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.entity.*;
 import net.minecraft.entity.player.PlayerEntity;
@@ -21,6 +22,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.tileentity.DispenserTileEntity;
 import net.minecraft.util.IItemProvider;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -319,6 +321,7 @@ public class Danmaku extends ProjectileItemEntity{
     protected void onEntityHit(EntityRayTraceResult result) {
         if (this.onHit != null) this.onHit.accept(result);
         this.onLunarCollide(result);
+        if (this.getShooter() == null) return;
         if (this.getShooter() instanceof MobEntity || this.getShooter() instanceof IAngerable)
             this.onMobShoot(result);
 
@@ -327,6 +330,7 @@ public class Danmaku extends ProjectileItemEntity{
     }
 
     private void onMobShoot(EntityRayTraceResult result){
+        if (this.getShooter() == null) return;
         if (!(result.getEntity() instanceof LivingEntity)) return;
         if (result.getEntity() instanceof MobEntity) return;
 
@@ -343,6 +347,8 @@ public class Danmaku extends ProjectileItemEntity{
     }
 
     private void onPlayerShoot(EntityRayTraceResult result){
+
+        if (this.getShooter() == null) return;
         if (!(result.getEntity() instanceof LivingEntity)) return;
 
         LivingEntity target = (LivingEntity) result.getEntity();

@@ -77,6 +77,9 @@ public class GSKOClientEvents {
                 LunarFallRenderer::new);
 
         // ======================== 符卡实体的渲染器 ======================= //
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.SPELL_CARD_ENTITY.get(),
+                manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
+
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.WAVE_AND_PARTICLE_ENTITY.get(),
                 manager -> new SpriteRenderer<>(manager, itemRenderer, 3.0f, false));
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.MOUNTAIN_OF_FAITH_ENTITY.get(),

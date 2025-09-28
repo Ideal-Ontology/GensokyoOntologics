@@ -54,7 +54,7 @@ public class ScriptedSpellCardEntity extends AbstractSpellCardEntity {
     }
 
     @Override
-    protected void writeAdditional(CompoundNBT compound) {
+    protected void writeAdditional(@NotNull CompoundNBT compound) {
         super.writeAdditional(compound);
         compound.put("script", this.scriptsNBT);
     }

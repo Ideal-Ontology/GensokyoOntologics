@@ -13,12 +13,15 @@ public class EulerAngle {
         this.zAngle = zAngle;
     }
 
-
     public static EulerAngle of(float pitch, float yaw, float roll) {
         return new EulerAngle(pitch, yaw, roll);
     }
     public static EulerAngle of(double pitch, double yaw, double roll) {
         return new EulerAngle((float) pitch, (float) yaw, (float) roll);
+    }
+
+    public static EulerAngle from(Quaternion quaternion) {
+        return GSKOMathUtil.getEulerAngle(quaternion);
     }
 
     public Quaternion toRotation() {

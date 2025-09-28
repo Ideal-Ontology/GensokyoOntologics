@@ -250,4 +250,110 @@ public class CurveUtil {
                 .add(endDirection.scale(h4));
     }
 
+    /**
+     * 计算埃尔米特三次曲线在参数t处的切线
+     */
+    public static Vector3d hermiteTangent(Vector3d start, Vector3d end,
+                                          Vector3d startTangent, Vector3d endTangent,
+                                          double t) {
+        double t2 = t * t;
+
+        double h1_deriv = 6 * t2 - 6 * t;
+        double h2_deriv = -6 * t2 + 6 * t;
+        double h3_deriv = 3 * t2 - 4 * t + 1;
+        double h4_deriv = 3 * t2 - 2 * t;
+
+        Vector3d tangent = start.scale(h1_deriv)
+                .add(end.scale(h2_deriv))
+                .add(startTangent.scale(h3_deriv))
+                .add(endTangent.scale(h4_deriv));
+
+        return tangent.normalize();
+    }
+
+    public static Vector3d hermiteNormal(Vector3d start, Vector3d end,
+                                         Vector3d startTangent, Vector3d endTangent,
+                                         double t) {
+        // 计算切线
+        Vector3d tangent = hermiteTangent(start, end, startTangent, endTangent, t);
+        Vector3d upVector = new Vector3d(0, 1, 0);
+        // 确保上向量与切线不平行
+        if (Math.abs(tangent.dotProduct(upVector)) > 0.99) {
+            upVector = new Vector3d(1, 0, 0);
+            if (Math.abs(tangent.dotProduct(upVector)) > 0.99) {
+                upVector = new Vector3d(0, 0, 1);
+            }
+        }
+
+        // 计算副法线（切线 × 上向量）
+        Vector3d binormal = tangent.crossProduct(upVector).normalize();
+        // 计算法线（副法线 × 切线）
+        return binormal.crossProduct(tangent).normalize();
+    }
+
+    public static Vector3d hermiteBinormal(Vector3d start, Vector3d end,
+                                           Vector3d startTangent, Vector3d endTangent,
+                                           double t){
+        Vector3d tangent = hermiteTangent(start, end, startTangent, endTangent, t);
+        Vector3d upVector = new Vector3d(0, 1, 0);
+        // 确保上向量与切线不平行
+        if (Math.abs(tangent.dotProduct(upVector)) > 0.99) {
+            upVector = new Vector3d(1, 0, 0);
+            if (Math.abs(tangent.dotProduct(upVector)) > 0.99) {
+                upVector = new Vector3d(0, 0, 1);
+            }
+        }
+
+        // 计算副法线（切线 × 上向量）
+        return tangent.crossProduct(upVector).normalize();
+    }
+
+    public static Vector3d hermiteDerivative(Vector3d start, Vector3d end,
+                                               Vector3d startTangent, Vector3d endTangent,
+                                               double t) {
+        double h1_deriv2 = 12 * t - 6;
+        double h2_deriv2 = -12 * t + 6;
+        double h3_deriv2 = 6 * t - 4;
+        double h4_deriv2 = 6 * t - 2;
+
+        return start.scale(h1_deriv2)
+                .add(end.scale(h2_deriv2))
+                .add(startTangent.scale(h3_deriv2))
+                .add(endTangent.scale(h4_deriv2));
+    }
+
+    /**
+     * 计算埃尔米特三次曲线在参数t处的法线
+     */
+    public static Vector3d hermiteNormalAdvanced(Vector3d start, Vector3d end, Vector3d startTangent, Vector3d endTangent,
+                                                 Vector3d previousNormal, double t) {
+
+        // 计算曲率向量（加速度在切线垂直方向的分量）
+        Vector3d derivative = hermiteDerivative(start, end, startTangent, endTangent, t);
+        Vector3d tangent = hermiteTangent(start, end, startTangent, endTangent, t);
+        Vector3d curvatureVector = derivative.subtract(
+                tangent.scale(derivative.dotProduct(tangent)));
+
+        // 如果曲率太小，使用参考向量法
+        if (curvatureVector.lengthSquared() < 1e-10) {
+            return CurveUtil.normal(tangent);
+        }
+        // 计算基于曲率的法线
+        Vector3d curvatureNormal = curvatureVector.normalize();
+
+        // 如果曲率法线与前一个法线方向相反，翻转它
+        if (previousNormal != null && curvatureNormal.dotProduct(previousNormal) < 0) {
+            curvatureNormal = curvatureNormal.scale(-1);
+        }
+
+        // 如果曲率太小，使用参考向量法并保持连续性
+        if (curvatureNormal.lengthSquared() < 1e-10) {
+            curvatureNormal = CurveUtil.normal(tangent);
+            if (previousNormal != null && curvatureNormal.dotProduct(previousNormal) < 0) {
+                curvatureNormal = curvatureNormal.scale(-1);
+            }
+        }
+
+        return curvatureNormal;
+    }
 }

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.common.entity.combat;
 
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.AbstractDanmakuEntity;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import net.minecraft.entity.Entity;
@@ -15,6 +16,7 @@ import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -50,6 +52,9 @@ public abstract class AbstractSpellCardEntity extends AffiliatedEntity implement
     public static final DataParameter<Optional<UUID>> DATA_OWNER_UUID = EntityDataManager.createKey(
             AbstractSpellCardEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
+    public static final DataParameter<String> SPELL_ID = EntityDataManager.createKey(
+            AbstractSpellCardEntity.class, DataSerializers.STRING);
+
     public AbstractSpellCardEntity(EntityType<? extends AbstractSpellCardEntity> entityTypeIn, World worldIn, LivingEntity living) {
         this(entityTypeIn, worldIn);
         // this.setPosition(living.getPosX(), living.getPosY(), living.getPosZ());
@@ -68,36 +73,33 @@ public abstract class AbstractSpellCardEntity extends AffiliatedEntity implement
         super(entityTypeIn, worldIn);
     }
 
+    public void setSpellId(ResourceLocation key) {
+        this.dataManager.set(SPELL_ID, key.toString());
+        this.writeAdditional(new CompoundNBT());
+    }
+
+    public ResourceLocation getSpellId() {
+        return new ResourceLocation(this.dataManager.get(SPELL_ID));
+    }
+
     @Override
     protected void registerData() {
-        this.dataManager.register(DATA_LIFESPAN, this.lifeSpan);
-        this.dataManager.register(DATA_OWNER_UUID, Optional.empty());
+        this.dataManager.register(DATA_LIFESPAN, 125);
+        this.dataManager.register(SPELL_ID, GSKOUtil.withRL("empty_spell_card").toString());
     }
 
     protected void readAdditional(@NotNull CompoundNBT compound) {
-        if (compound.contains("Lifespan")) {
-            this.lifeSpan = compound.getInt("Lifespan");
-        }
-
-        UUID uuid = null;
-        if (compound.hasUniqueId("Owner")) {
-            uuid = compound.getUniqueId("Owner");
-        }
-
-        if (uuid != null) {
-            setOwnerId(uuid);
-        }
+        super.readAdditional(compound);
+        if (compound.contains("Lifespan"))
+            this.dataManager.set(DATA_LIFESPAN, compound.getInt("Lifespan"));
+        if (compound.contains("spellId"))
+            this.setSpellId(GSKOUtil.withRL(compound.getString("spellId")));
     }
 
-    protected void writeAdditional(CompoundNBT compound) {
-        compound.putInt("Lifespan", this.lifeSpan);
-        if (this.owner != null) {
-            compound.putUniqueId("Owner", this.owner);
-        }
-    }
-
-    public boolean hasOwner() {
-        return this.dataManager.get(DATA_OWNER_UUID).isPresent();
+    protected void writeAdditional(@NotNull CompoundNBT compound) {
+        super.writeAdditional(compound);
+        compound.putInt("Lifespan", this.getLifeSpan());
+        compound.putString("spellId", this.getSpellId().toString());
     }
 
     public void setOwner(@Nullable Entity entityIn) {
@@ -107,20 +109,8 @@ public abstract class AbstractSpellCardEntity extends AffiliatedEntity implement
         }
     }
 
-    @Nullable
-    public Entity getOwner() {
-        if (this.world instanceof ServerWorld) {
-            ServerWorld serverWorld = (ServerWorld) this.world;
-            Optional<UUID> optionalUUID = this.getDataManager().get(DATA_OWNER_UUID);
-            if (optionalUUID.isPresent()) {
-                return serverWorld.getEntityByUuid(optionalUUID.get());
-            }
-        }
-        return null;
-    }
-
     public int getLifeSpan() {
-        return lifeSpan;
+        return this.dataManager.get(DATA_LIFESPAN);
     }
 
 

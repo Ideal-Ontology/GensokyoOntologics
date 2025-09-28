@@ -1,22 +1,33 @@
 package github.thelawf.gensokyoontology.core;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.common.entity.combat.SpellCardEntity;
+import github.thelawf.gensokyoontology.common.entity.combat.spell.SimpleSpells;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
 import github.thelawf.gensokyoontology.common.util.danmaku.SpellData;
 import github.thelawf.gensokyoontology.common.util.danmaku.TransformFunction;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryBuilder;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.function.BiConsumer;
 
 public class SpellCardRegistry {
 
     public static final IForgeRegistry<SpellData> SPELL_CARD_REGISTRY;
+    public static final Map<ResourceLocation, BiConsumer<World, SpellCardEntity>> SIMPLE_SPELLS = Util.make(new HashMap<>(), (map) -> {
+        map.put(GSKOUtil.withRL("empty_spell_card"), SimpleSpells.EMPTY_SPELl);
+        map.put(GSKOUtil.withRL("wall_shoot_rumia"), SimpleSpells.MOBIUS_RING);
+    });
 
     static {
         SPELL_CARD_REGISTRY = new RegistryBuilder<SpellData>()

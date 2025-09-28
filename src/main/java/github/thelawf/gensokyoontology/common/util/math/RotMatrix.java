@@ -47,6 +47,47 @@ public class RotMatrix {
         return new RotMatrix(GSKOMathUtil.fromEulerAngle(eulerAngleIn));
     }
 
+    public static RotMatrix from(Vector3d tangent, Vector3d normal, Vector3d binormal) {
+        // 确保向量正交和归一化
+        // 确保切线是单位向量
+        tangent = tangent.normalize();
+
+        // 确保法线与切线正交
+        double dotTN = tangent.dotProduct(normal);
+        normal = normal.subtract(tangent.scale(dotTN)).normalize();
+
+        // 重新计算副法线（确保右手系）
+        binormal = tangent.crossProduct(normal).normalize();
+
+        // 验证正交性
+        if (Math.abs(tangent.dotProduct(normal)) > 1e-5 ||
+                Math.abs(tangent.dotProduct(binormal)) > 1e-5 ||
+                Math.abs(normal.dotProduct(binormal)) > 1e-5) {
+            // 如果仍然不正交，使用备用方法
+            binormal = tangent.crossProduct(normal).normalize();
+        }
+
+        RotMatrix matrix = RotMatrix.IDENTITY;
+
+        // 设置矩阵列向量
+        // 第一列：法线方向 (X轴)
+        matrix.m00 = (float) normal.x;
+        matrix.m10 = (float) normal.y;
+        matrix.m20 = (float) normal.z;
+
+        // 第二列：副法线方向 (Y轴)
+        matrix.m01 = (float) binormal.x;
+        matrix.m11 = (float) binormal.y;
+        matrix.m21 = (float) binormal.z;
+
+        // 第三列：切线方向 (Z轴)
+        matrix.m02 = (float) tangent.x;
+        matrix.m12 = (float) tangent.y;
+        matrix.m22 = (float) tangent.z;
+
+        return matrix.copy();
+    }
+
     RotMatrix(float m00, float m01, float m02,
               float m10, float m11, float m12,
               float m20, float m21, float m22) {
@@ -86,6 +127,13 @@ public class RotMatrix {
         this.m21 = m21;
         this.m22 = m22;
         return this;
+    }
+
+    public RotMatrix copy() {
+        return new RotMatrix(
+                this.m00, this.m01, this.m02,
+                this.m10, this.m11, this.m12,
+                this.m20, this.m21, this.m22);
     }
 
     public static RotMatrix fromXHandle(float rotationX) {

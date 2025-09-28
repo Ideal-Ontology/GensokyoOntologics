@@ -75,7 +75,9 @@ public class RailEntity extends Entity {
 
     public ActionResultType onClickNextRail(PlayerEntity player, RailEntity targetRail, ItemStack connector) {
         if (connector.getTag() == null) return ActionResultType.PASS;
-        RailWrench.getStartRail(world, connector.getTag().getInt("id")).ifPresent(startRail -> {
+        RailWrench.getStartRail(world, connector.getTag().getInt("id")).ifPresent(entity -> {
+            if (!(entity instanceof RailEntity)) return;
+            RailEntity startRail = (RailEntity) entity;
             startRail.setTargetPos(targetRail.getPosition());
             startRail.setTargetId(targetRail.getEntityId());
             connector.shrink(1);
