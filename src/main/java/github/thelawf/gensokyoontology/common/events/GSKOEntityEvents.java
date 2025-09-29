@@ -13,6 +13,7 @@ import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
 import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
+import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.network.packet.PowerChangedPacket;
 import github.thelawf.gensokyoontology.common.network.packet.SScarletMistPacket;
@@ -35,6 +36,7 @@ import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MusicTicker;
+import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
 import net.minecraft.entity.merchant.villager.VillagerEntity;
@@ -52,6 +54,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -350,6 +353,15 @@ public class GSKOEntityEvents {
                 villager.startSleeping(villager.getPosition());
             }
         }
+    }
+
+    @SubscribeEvent
+    public static void resetDanmakuSize(EntityEvent.Size event) {
+        if (!(event.getEntity() instanceof Danmaku)) return;
+        Danmaku danmaku = (Danmaku) event.getEntity();
+        if (danmaku.getItem().getItem() != ItemRegistry.FAKE_LUNAR_ITEM.get()) return;
+        GSKOUtil.log("??? " + danmaku.getItem().getItem());
+        event.setNewSize(new EntitySize(5,5, true), true);
     }
 
     private static void performLovePotion(LivingEvent.LivingUpdateEvent event, LovePotionEffect effect) {

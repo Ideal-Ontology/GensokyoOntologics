@@ -6,6 +6,7 @@ import com.mojang.brigadier.context.CommandContext;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.brigadier.suggestion.Suggestions;
 import com.mojang.brigadier.suggestion.SuggestionsBuilder;
+import net.minecraft.command.arguments.ItemArgument;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -33,7 +34,7 @@ public class StringListArgumentType implements ArgumentType<String> {
     }
     @Override
     public String parse(StringReader reader) throws CommandSyntaxException {
-        return reader.readString();
+        return reader.readUnquotedString();
     }
 
     @Override

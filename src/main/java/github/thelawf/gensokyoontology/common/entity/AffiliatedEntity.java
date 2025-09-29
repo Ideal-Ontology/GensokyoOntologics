@@ -32,7 +32,7 @@ public abstract class AffiliatedEntity extends Entity {
 
     public AffiliatedEntity(EntityType<?> entityTypeIn, Entity owner, World worldIn) {
         super(entityTypeIn, worldIn);
-        this.setOwnerId(this.ownerId);
+        this.setOwnerId(owner.getUniqueID());
     }
 
     @Override

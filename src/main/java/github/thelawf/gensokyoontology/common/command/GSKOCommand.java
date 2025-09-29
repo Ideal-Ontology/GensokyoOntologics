@@ -7,9 +7,15 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.IIncidentCapability;
+import github.thelawf.gensokyoontology.common.entity.combat.SpellCardEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.Commands;
+import net.minecraft.command.arguments.EntityArgument;
+import net.minecraft.command.arguments.ResourceLocationArgument;
+import net.minecraft.entity.Entity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
@@ -40,13 +46,25 @@ public class GSKOCommand {
 
     public static final ImmutableList<String> GSKO_CMD_LITERALS = ImmutableList.of(
             "get_block_states", "get_capability");
+    public static final ImmutableList<String> SIMPLE_SPELLS = ImmutableList.of(
+            "empty_spell_card",
+            "hell_eclipse",
+            "mobius_ring",
+            "laser_maze"
+    );
 
     //.then(Commands.literal(GSKOLiterals.GET_CAPABILITY.name).then(Commands.argument("cap", CapabilityArgument.capability())
     //        .executes(context -> getCapability(context.getSource(), CapabilityArgument.getCapability("cap")))))
     //
     public static void register(CommandDispatcher<CommandSource> dispatcher) {
         dispatcher.register(Commands.literal("gsko")
-                        // .then(Commands.literal("get-current-biome-sky-color").executes(ctx -> getCurrentBiomeSkyColor(ctx.getSource())))
+                        .then(Commands.literal("set-spell")
+                                .then(Commands.argument("spell_entity", EntityArgument.entity())
+                                        .then(Commands.argument("spell_id", StringListArgumentType.stringList(SIMPLE_SPELLS))
+                                                .executes(ctx -> setSimpleSpell(ctx.getSource(),
+                                                        EntityArgument.getEntity(ctx, "spell_entity"),
+                                                        StringListArgumentType.getString(ctx, "spell_id"))))))
+
                         .then(Commands.literal("incident").requires(source -> source.hasPermissionLevel(2))
                                 .then(Commands.argument("incidentName", StringListArgumentType.stringList(new ArrayList<>(CAPABILITY_MAP.keySet())))
                                         .then(Commands.literal("is-triggered").executes(ctx -> getIncidentTriggered(
@@ -87,6 +105,17 @@ public class GSKOCommand {
                 throw new RuntimeException(e);
             }
         });
+        return 0;
+    }
+
+    private static int setSimpleSpell(CommandSource source, Entity entity, String spellName){
+        ServerWorld serverWorld = source.getWorld();
+        if (!(entity instanceof SpellCardEntity)) {
+            source.sendErrorMessage(GSKOUtil.translateText("cmd.", ".not_a_spell_entity"));
+            return 114514;
+        }
+        SpellCardEntity spellCard = (SpellCardEntity) entity;
+        spellCard.setSpellId(GSKOUtil.withRL(spellName).toString());
         return 0;
     }
 

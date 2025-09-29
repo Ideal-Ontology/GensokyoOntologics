@@ -38,10 +38,11 @@ public class Laser extends AffiliatedEntity implements IRayTracer {
     }
 
     public Laser(World worldIn, Entity owner) {
-        super(EntityRegistry.LASER_SOURCE_ENTITY.get(), owner, worldIn);
+        this(EntityRegistry.LASER_SOURCE_ENTITY.get(), worldIn);
         this.ignoreFrustumCheck = true;
         this.setARGB(0x88FF0000);
         this.init(100, 30, 128F);
+        this.setOwnerId(owner.getUniqueID());
     }
 
     public static Laser create(World worldIn, Entity owner) {
@@ -49,6 +50,11 @@ public class Laser extends AffiliatedEntity implements IRayTracer {
         laser.setPosition(owner.getPosX(), owner.getPosY(), owner.getPosZ());
         worldIn.addEntity(laser);
         return laser;
+    }
+
+    public Laser pos(Vector3d pos) {
+        this.setPosition(pos.x, pos.y, pos.z);
+        return this;
     }
 
     public Laser rot(Rot2f rotation){
@@ -73,6 +79,11 @@ public class Laser extends AffiliatedEntity implements IRayTracer {
 
     public Laser preparation(int preparation) {
         this.setPreparation(preparation);
+        return this;
+    }
+
+    public Laser owner(Entity owner) {
+        this.setOwnerId(owner.getUniqueID());
         return this;
     }
 

@@ -35,6 +35,7 @@ public class SpellCardEntity extends AffiliatedEntity implements IRendersAsItem 
             SpellCardEntity.class, DataSerializers.VARINT);
     public static final DataParameter<String> DATA_SPELL_ID = EntityDataManager.createKey(
             SpellCardEntity.class, DataSerializers.STRING);
+    public static final int MAX_LIFE = 200;
 
     public SpellCardEntity(EntityType<AbstractSpellCardEntity> entityType, World world, Item spellItem) {
         super(entityType, world);
@@ -57,9 +58,9 @@ public class SpellCardEntity extends AffiliatedEntity implements IRendersAsItem 
     @Override
     public void tick() {
         super.tick();
-        if (this.getLifespan() > 125) this.remove();
         ResourceLocation key = new ResourceLocation(this.getSpellId());
-        SIMPLE_SPELLS.getOrDefault(key, (w, e) -> {}).accept(this.world, this);
+        SIMPLE_SPELLS.getOrDefault(key, SimpleSpells.EMPTY_SPELl).accept(this.world, this);
+        if (this.ticksExisted >= MAX_LIFE) this.remove();
     }
 
     public void setLifespan(int lifespan) {
@@ -80,7 +81,7 @@ public class SpellCardEntity extends AffiliatedEntity implements IRendersAsItem 
     @Override
     protected void registerData() {
         super.registerData();
-        this.dataManager.register(DATA_LIFE, 0);
+        this.dataManager.register(DATA_LIFE, 200);
         this.dataManager.register(DATA_SPELL_ID, GSKOUtil.withRL("empty_spell_card").toString());
     }
 
@@ -114,6 +115,9 @@ public class SpellCardEntity extends AffiliatedEntity implements IRendersAsItem 
 
     public static final Map<ResourceLocation, BiConsumer<World, SpellCardEntity>> SIMPLE_SPELLS = Util.make(new HashMap<>(), (map) -> {
         map.put(GSKOUtil.withRL("empty_spell_card"), SimpleSpells.EMPTY_SPELl);
+        map.put(GSKOUtil.withRL("laser_maze"), SimpleSpells.LASER_MAZE);
         map.put(GSKOUtil.withRL("mobius_ring"), SimpleSpells.MOBIUS_RING);
+        map.put(GSKOUtil.withRL("hell_eclipse"), SimpleSpells.HELL_ECLIPSE);
+        map.put(GSKOUtil.withRL("master_spark"), SimpleSpells.MASTER_SPARK);
     });
 }
