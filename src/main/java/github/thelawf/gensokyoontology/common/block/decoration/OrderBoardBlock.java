@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.block.decoration;
 
+import github.thelawf.gensokyoontology.common.tileentity.OrderingTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -29,7 +30,7 @@ public class OrderBoardBlock extends HorizontalBlock {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return super.createTileEntity(state, world);
+        return new OrderingTileEntity();
     }
 
     @Nullable

@@ -2,6 +2,7 @@ package github.thelawf.gensokyoontology.core.init;
 
 import com.github.tartaricacid.touhoulittlemaid.init.InitBlocks;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.common.block.*;
 import github.thelawf.gensokyoontology.common.block.decoration.*;
 import github.thelawf.gensokyoontology.common.block.decoration.CoasterRailBlock;
@@ -229,4 +230,5 @@ public final class BlockRegistry {
     public static final RegistryObject<Block> SPELL_CARD_CONSOLE = BLOCKS.register("spell_card_console", SpellCardConsoleBlock::new);
 
     public static final RegistryObject<Block> COASTER_RAIL = BLOCKS.register("coaster_rail_node", () -> new CoasterRailBlock(AbstractBlock.Properties.from(Blocks.IRON_BARS)));
+    public static final RegistryObject<Block> ORDER_BOARD = BLOCKS.register("order_board", OrderBoardBlock::new);
 }

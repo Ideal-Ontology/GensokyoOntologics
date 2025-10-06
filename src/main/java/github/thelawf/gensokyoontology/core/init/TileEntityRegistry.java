@@ -47,4 +47,9 @@ public final class TileEntityRegistry {
     public static final RegistryObject<TileEntityType<RailTileEntity>> RAIL_TILE_ENTITY =
             TILE_ENTITIES.register("rail_tileentity", () -> TileEntityType.Builder.create(
                     RailTileEntity::new, BlockRegistry.COASTER_RAIL.get()).build(null));
+
+
+    public static final RegistryObject<TileEntityType<OrderingTileEntity>> ORDERING_TILE_ENTITY =
+            TILE_ENTITIES.register("ordering_tileentity", () -> TileEntityType.Builder.create(
+                    OrderingTileEntity::new, BlockRegistry.ORDER_BOARD.get()).build(null));
 }

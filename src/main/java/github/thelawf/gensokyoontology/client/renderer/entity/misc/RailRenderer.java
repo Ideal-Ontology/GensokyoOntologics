@@ -1,18 +1,13 @@
 package github.thelawf.gensokyoontology.client.renderer.entity.misc;
 
-import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.limit.Min;
 import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import com.sun.scenario.effect.Color4f;
-import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.GSKORenderTypes;
 import github.thelawf.gensokyoontology.common.entity.RailEntity;
-import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.*;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -22,7 +17,6 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.*;
-import net.minecraft.world.World;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;

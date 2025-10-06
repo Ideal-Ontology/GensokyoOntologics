@@ -7,6 +7,7 @@ import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.common.capability.entity.VillagerOrder;
 import github.thelawf.gensokyoontology.common.entity.ai.brain.BrainUtils;
 import github.thelawf.gensokyoontology.common.entity.trade.GSKOTrades;
+import github.thelawf.gensokyoontology.data.GSKOSerializers;
 import net.minecraft.entity.AgeableEntity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.ai.brain.Brain;

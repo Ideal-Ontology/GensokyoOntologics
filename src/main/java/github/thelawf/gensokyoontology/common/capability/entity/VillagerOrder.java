@@ -48,6 +48,9 @@ public class VillagerOrder implements IVillagerOrder {
     public void setDrinks(ItemStack drinks) {
         this.drinks = drinks;
     }
+    public void setFavouriteTags(List<Tags.IOptionalNamedTag<Item>> tags) {
+        this.favouriteTags.addAll(tags);
+    }
 
     @Override
     public final void addFavouriteTag(Tags.IOptionalNamedTag<Item> tag) {

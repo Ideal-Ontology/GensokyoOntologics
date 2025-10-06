@@ -13,6 +13,8 @@ public class DataRegistry {
             ForgeRegistries.DATA_SERIALIZERS, GensokyoOntology.MODID);
 
     public static final RegistryObject<DataSerializerEntry> QUAT_SERIALIZER = SERIALIZERS.register(
-            "quaternion", () -> new DataSerializerEntry(GSKOSerializers.QUATERNION)
-    );
+            "quaternion", () -> new DataSerializerEntry(GSKOSerializers.QUATERNION));
+
+    public static final RegistryObject<DataSerializerEntry> ORDER_SERIALIZER = SERIALIZERS.register(
+            "villager_order", () -> new DataSerializerEntry(GSKOSerializers.VILLAGER_ORDER));
 }

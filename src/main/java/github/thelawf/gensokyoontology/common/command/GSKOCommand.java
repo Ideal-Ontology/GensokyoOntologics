@@ -32,13 +32,6 @@ import java.util.IdentityHashMap;
 import java.util.Map;
 
 public class GSKOCommand {
-    // 实现一个可以显示 GUI的指令
-    // 实现一个可以更换维度的指令
-    // 实现一个可以发射粒子的指令
-    // 实现一个可以指定催眠者和被催眠者的命令
-    // 实现一个可以高亮代码串的命令
-    // 实现一个可以发射弹幕、指定弹幕运动方向和类别的指令 -> /gsko danmaku[type=ENTRY]
-    // 实现一个可以渲染贝塞尔曲线轨道的指令 -> /gsko rail x1 y1 z1 x2 y2 z2 {}
 
     public static final Map<String, Capability<? extends IIncidentCapability>> CAPABILITY_MAP = Util.make(new HashMap<>(), map -> {
         map.put("scarlet-mist", GSKOCapabilities.BLOODY_MIST);

@@ -22,6 +22,7 @@ public class MasterSparkEntity extends AffiliatedEntity implements IRayTracer {
 
     public MasterSparkEntity(Entity owner, World worldIn) {
         super(EntityRegistry.MASTER_SPARK_ENTITY.get(), owner, worldIn);
+
     }
 
     @Override

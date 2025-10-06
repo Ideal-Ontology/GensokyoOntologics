@@ -118,7 +118,7 @@ public class GSKOCapabilityEvents {
         Float lastPower = lastPowerValues.get(playerId);
         if (lastPower == null || Math.abs(currentPower - lastPower) > 0.001f) {
             // 同步到车万女仆系统
-            TouhouLittleMaidCompat.syncPower(player);
+            // TouhouLittleMaidCompat.syncPower(player);
             // 更新记录
             lastPowerValues.put(playerId, currentPower);
 
