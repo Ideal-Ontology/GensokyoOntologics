@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.entity.AffiliatedEntity;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
@@ -19,7 +20,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
-public class LunarFall extends AffiliatedEntity {
+public class LunarFall extends AffiliatedEntity implements IRayTracer {
     public static final int PREPARATION = 60;
     public static final int MAX_TICK = 200;
     public static final float MIN_RADIUS = 3.F;
@@ -60,10 +61,7 @@ public class LunarFall extends AffiliatedEntity {
 
             if (this.ticksExisted > PREPARATION) {
                 double amount = (this.ticksExisted - PREPARATION);
-                this.setBoundingBox(this.getBoundingBox().expand(amount, 0.0D, amount));
-                this.recalculateSize();
-
-                this.world.getEntitiesWithinAABB(LivingEntity.class, this.getBoundingBox())
+                this.world.getEntitiesWithinAABB(LivingEntity.class, this.getBoundingBox().expand(amount, 0.0D, amount))
                         .stream().filter(this::isEntityInRange).forEach(entity -> {
                             if (this.getOwner() == null) return;
                             GSKODamageSource.causeImpact(this.getOwner(), entity, 0.3F);
@@ -79,7 +77,8 @@ public class LunarFall extends AffiliatedEntity {
     }
 
     public boolean isEntityInRange(LivingEntity living) {
-        AxisAlignedBB aabb = this.getBoundingBox();
+        double amount = (this.ticksExisted - PREPARATION);
+        AxisAlignedBB aabb = this.getBoundingBox().expand(amount, 0.0D, amount);
         double maxRadius = aabb.maxX - aabb.minX;
         double minRadius = maxRadius - 1;
         double distance = living.getPositionVec().distanceTo(aabb.getCenter());

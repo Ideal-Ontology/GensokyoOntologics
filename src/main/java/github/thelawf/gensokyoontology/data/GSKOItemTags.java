@@ -1,31 +1,40 @@
 package github.thelawf.gensokyoontology.data;
 
-import github.thelawf.gensokyoontology.common.nbt.GSKOTags;
-import github.thelawf.gensokyoontology.core.init.ItemRegistry;
-import net.minecraft.data.BlockTagsProvider;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.ItemTagsProvider;
+import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.item.Item;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.IItemProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import org.jetbrains.annotations.Nullable;
+import net.minecraft.tags.*;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.Tags;
 
-import java.util.Arrays;
+public class GSKOItemTags {
 
-public class GSKOItemTags extends ItemTagsProvider {
+    public static final Tags.IOptionalNamedTag<Item> INYO_JADE = makeForgeTag("gems/inyo_jade");
+    public static final Tags.IOptionalNamedTag<Item> DANMAKU = makeModTag("danmaku");
 
-    public GSKOItemTags(DataGenerator dataGenerator, BlockTagsProvider blockTagProvider, String modId, @Nullable ExistingFileHelper existingFileHelper) {
-        super(dataGenerator, blockTagProvider, modId, existingFileHelper);
+    public static final Tags.IOptionalNamedTag<Item> LARGE_SHOTS = makeModTag("danmaku/large_shots");
+    public static final Tags.IOptionalNamedTag<Item> SMALL_SHOTS = makeModTag("danmaku/small_shots");
+    public static final Tags.IOptionalNamedTag<Item> HEART_SHOTS = makeModTag("danmaku/heart_shots");
+    public static final Tags.IOptionalNamedTag<Item> SMALL_STAR_SHOTS = makeModTag("danmaku/small_star_shots");
+
+    public static final Tags.IOptionalNamedTag<Item> LITERATE = makeModTag("food/literate");
+    public static final Tags.IOptionalNamedTag<Item> PHOTOGENIC = makeModTag("food/photogenic");
+    public static final Tags.IOptionalNamedTag<Item> PHANTASMAGORICAL = makeModTag("food/phantasmagorical");
+
+    public static final Tags.IOptionalNamedTag<Item> ORDERABLE = makeModTag("food/orderable");
+    public static final Tags.IOptionalNamedTag<Item> APPETIZER = makeModTag("food/appetizer");
+    public static final Tags.IOptionalNamedTag<Item> DRINKS = makeModTag("food/drinks");
+    public static final Tags.IOptionalNamedTag<Item> ENTREES = makeModTag("food/entrees");
+    public static final Tags.IOptionalNamedTag<Item> DESSERT = makeModTag("food/dessert");
+
+    private static Tags.IOptionalNamedTag<Item> makeForgeTag(String name) {
+        return ItemTags.createOptional(new ResourceLocation("forge", name));
     }
 
-    @Override
-    protected void registerTags() {
-        // addItemTags(GSKOTags.ONION, ItemRegistry.ONION.get());
-        // this.getOrCreateBuilder(GSKOTags.INYO_JADE).addItemEntry()
+    private static Tags.IOptionalNamedTag<Item> makeMcTag(String name) {
+        return ItemTags.createOptional(new ResourceLocation("minecraft", name));
     }
 
-    protected void addItemTags(ITag.INamedTag<Item> tag, IItemProvider... items) {
-        getOrCreateBuilder(tag).add(Arrays.stream(items).map(IItemProvider::asItem).toArray(Item[]::new));
+    private static Tags.IOptionalNamedTag<Item> makeModTag(String name) {
+        return ItemTags.createOptional(new ResourceLocation(GensokyoOntology.MODID, name));
     }
 }

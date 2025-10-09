@@ -9,6 +9,7 @@ import net.minecraft.entity.ai.brain.memory.MemoryModuleType;
 import net.minecraft.entity.ai.brain.sensor.Sensor;
 import net.minecraft.entity.ai.brain.sensor.SensorType;
 import net.minecraft.entity.ai.brain.task.*;
+import net.minecraft.entity.merchant.villager.VillagerEntity;
 
 public final class BrainUtils {
     public static final ImmutableList<MemoryModuleType<?>> HUMAN_MEMORIES = ImmutableList.of(
@@ -43,15 +44,15 @@ public final class BrainUtils {
 
     );
 
-    public static ImmutableList<Pair<Integer, Task<? super HumanResidentEntity>>> idle(){
-        Pair<Task<? super HumanResidentEntity>, Integer> lookPlayer = Pair.of(new LookAtEntityTask(EntityType.PLAYER, 5.F), 1);
-        Pair<Task<? super HumanResidentEntity>, Integer> randomWalk = Pair.of(new WalkRandomlyTask(0.3F, 5, 3), 3);
-        FirstShuffledTask<HumanResidentEntity> shuffledTask = new FirstShuffledTask<>(ImmutableList.of(lookPlayer, randomWalk));
+    public static ImmutableList<Pair<Integer, Task<? super VillagerEntity>>> idle(){
+        Pair<Task<? super VillagerEntity>, Integer> lookPlayer = Pair.of(new LookAtEntityTask(EntityType.PLAYER, 5.F), 1);
+        Pair<Task<? super VillagerEntity>, Integer> randomWalk = Pair.of(new WalkRandomlyTask(0.3F, 5, 3), 3);
+        FirstShuffledTask<VillagerEntity> shuffledTask = new FirstShuffledTask<>(ImmutableList.of(lookPlayer, randomWalk));
         return ImmutableList.of(Pair.of(10, shuffledTask));
     }
 
-    public static ImmutableList<Pair<Integer, Task<? super HumanResidentEntity>>> rest(){
-        Pair<Integer, Task<? super HumanResidentEntity>> stayAtHome = Pair.of(2, new StayNearPointTask(
+    public static ImmutableList<Pair<Integer, Task<? super VillagerEntity>>> rest(){
+        Pair<Integer, Task<? super VillagerEntity>> stayAtHome = Pair.of(2, new StayNearPointTask(
                 MemoryModuleType.HOME, 0.5F, 1, 150, 2000));
         return ImmutableList.of(stayAtHome);
     }

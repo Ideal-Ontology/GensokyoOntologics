@@ -1,0 +1,10 @@
+{
+  "replace": false,
+  "values": [
+    "#gensokyoontology:food/orderable",
+    "#gensokyoontology:food/entrees",
+    "#gensokyoontology:food/appetizer",
+    "#gensokyoontology:food/dessert",
+    "#gensokyoontology:food/drinks"
+  ]
+}

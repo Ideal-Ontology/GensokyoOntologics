@@ -61,23 +61,27 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     }
 
     private void onXHandleSlide(Slider slider) {
-        this.eulerAngle = EulerAngle.of(slider.getValue(), 0, 0);
+        double y = this.yHandle == null ? 0 : this.yHandle.getValue();
+        double z = this.zHandle == null ? 0 : this.zHandle.getValue();
+
+        this.eulerAngle = EulerAngle.of(z, y, slider.getValue());
         this.rotation = this.eulerAngle.toQuaternion();
-        this.setSliderValue();
         this.sendPacketToServer();
     }
 
     private void onYHandleSlide(Slider slider) {
-        this.eulerAngle = EulerAngle.of(0, slider.getValue(), 0);
+        double x = this.yHandle == null ? 0 : this.xHandle.getValue();
+        double z = this.zHandle == null ? 0 : this.zHandle.getValue();
+        this.eulerAngle = EulerAngle.of(z, slider.getValue(), x);
         this.rotation = this.eulerAngle.toQuaternion();
-        this.setSliderValue();
         this.sendPacketToServer();
     }
 
     private void onZHandleSlide(Slider slider) {
-        this.eulerAngle = EulerAngle.of(0, 0, slider.getValue());
+        double y = this.yHandle == null ? 0 : this.yHandle.getValue();
+        double x = this.zHandle == null ? 0 : this.xHandle.getValue();
+        this.eulerAngle = EulerAngle.of(slider.getValue(), y, x);
         this.rotation = this.eulerAngle.toQuaternion();
-        this.setSliderValue();
         this.sendPacketToServer();
     }
 
@@ -90,7 +94,7 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         double z = this.initHandleValue.z;
 
         this.xHandle = new Slider(50, 20, 180, 20, QX, withText("°"),
-                -90, 90, x,
+                -180, 180, x,
                 true, true, iPressable -> {}, this::onXHandleSlide);
 
         this.yHandle = new Slider(50, 45, 180, 20, QY, withText("°"),
@@ -146,8 +150,8 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         if (this.zHandle == null) return;
         if (this.xHandle == null) return;
 
-        this.xHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.pitch()));
-        this.yHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.yaw()));
+        this.xHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.yaw()));
+        this.yHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.pitch()));
         this.zHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.roll()));
     }
 

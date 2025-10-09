@@ -44,43 +44,56 @@ public class RotMatrix {
     }
 
     public static RotMatrix from(EulerAngle eulerAngleIn) {
-        return new RotMatrix(GSKOMathUtil.fromEulerAngle(eulerAngleIn));
+        return new RotMatrix(GSKOMathUtil.toQuaternion(eulerAngleIn));
+    }
+
+    public static RotMatrix from(Vector3d tangent, Vector3d upReference) {
+        if (tangent.lengthSquared() < 1e-5 || upReference.lengthSquared() < 1e-5) {
+            return IDENTITY;
+        }
+
+        tangent = tangent.normalize();
+
+        Vector3d binormal = tangent.crossProduct(upReference);
+
+        if (binormal.lengthSquared() < 1e-5) {
+            Vector3d altReference = Math.abs(tangent.dotProduct(new Vector3d(1, 0, 0))) > 0.9 ?
+                    new Vector3d(0, 1, 0) : new Vector3d(1, 0, 0);
+            binormal = tangent.crossProduct(altReference);
+        }
+
+        binormal = binormal.normalize();
+        Vector3d normal = binormal.crossProduct(tangent).normalize();
+        return new RotMatrix(
+                (float) normal.x, (float) binormal.x, (float) tangent.x,
+                (float) normal.y, (float) binormal.y, (float) tangent.y,
+                (float) normal.z, (float) binormal.z, (float) tangent.z
+        );
     }
 
     public static RotMatrix from(Vector3d tangent, Vector3d normal, Vector3d binormal) {
-        // 确保向量正交和归一化
-        // 确保切线是单位向量
         tangent = tangent.normalize();
 
-        // 确保法线与切线正交
         double dotTN = tangent.dotProduct(normal);
         normal = normal.subtract(tangent.scale(dotTN)).normalize();
-
-        // 重新计算副法线（确保右手系）
         binormal = tangent.crossProduct(normal).normalize();
 
-        // 验证正交性
         if (Math.abs(tangent.dotProduct(normal)) > 1e-5 ||
                 Math.abs(tangent.dotProduct(binormal)) > 1e-5 ||
                 Math.abs(normal.dotProduct(binormal)) > 1e-5) {
-            // 如果仍然不正交，使用备用方法
             binormal = tangent.crossProduct(normal).normalize();
         }
 
         RotMatrix matrix = RotMatrix.IDENTITY;
 
-        // 设置矩阵列向量
-        // 第一列：法线方向 (X轴)
         matrix.m00 = (float) normal.x;
         matrix.m10 = (float) normal.y;
         matrix.m20 = (float) normal.z;
 
-        // 第二列：副法线方向 (Y轴)
         matrix.m01 = (float) binormal.x;
         matrix.m11 = (float) binormal.y;
         matrix.m21 = (float) binormal.z;
 
-        // 第三列：切线方向 (Z轴)
         matrix.m02 = (float) tangent.x;
         matrix.m12 = (float) tangent.y;
         matrix.m22 = (float) tangent.z;
@@ -232,7 +245,7 @@ public class RotMatrix {
         yaw = MathHelper.wrapDegrees(yaw);
         roll = MathHelper.wrapDegrees(roll);
 
-        return EulerAngle.of(pitch, yaw, roll);
+        return EulerAngle.of(yaw, pitch, roll);
     }
 
     public Vector3d toHandleValue() {

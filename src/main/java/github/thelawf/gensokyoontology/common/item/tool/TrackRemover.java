@@ -1,10 +1,9 @@
-package github.thelawf.gensokyoontology.common.item;
+package github.thelawf.gensokyoontology.common.item.tool;
 
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.ItemUseContext;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 

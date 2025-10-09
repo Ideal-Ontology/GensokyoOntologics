@@ -98,6 +98,32 @@ public class GSKOMathUtil {
         return matrixStack.getLast().getMatrix();
     }
 
+    public static Vector3d rotateBy(Vector3d oldVector, Quaternion rotation) {
+        rotation.normalize();
+
+        double qx = rotation.getX();
+        double qy = rotation.getY();
+        double qz = rotation.getZ();
+        double qw = rotation.getW();
+
+        // 提取向量分量
+        double vx = oldVector.x;
+        double vy = oldVector.y;
+        double vz = oldVector.z;
+
+        // 计算 q * v
+        double ix = qw * vx + qy * vz - qz * vy;
+        double iy = qw * vy + qz * vx - qx * vz;
+        double iz = qw * vz + qx * vy - qy * vx;
+        double iw = -qx * vx - qy * vy - qz * vz;
+
+        // 计算 (q * v) * q⁻¹
+        double x = ix * qw + iw * -qx + iy * -qz - iz * -qy;
+        double y = iy * qw + iw * -qy + iz * -qx - ix * -qz;
+        double z = iz * qw + iw * -qz + ix * -qy - iy * -qx;
+
+        return new Vector3d(x, y, z);
+    }
 
     public static Color kelvinToRGB(int kelvin) {
         // 确保色温在有效范围内（1000K - 40000K）
@@ -523,39 +549,22 @@ public class GSKOMathUtil {
     }
 
     public static EulerAngle getEulerAngle(Quaternion quaternion) {
-        float w = quaternion.getW();
-        float x = quaternion.getX();
-        float y = quaternion.getY();
-        float z = quaternion.getZ();
-
-        // 计算翻滚角（绕X轴）
-        float roll = (float) Math.atan2(2.0 * (w * x + y * z), 1.0 - 2.0 * (x * x + y * y));
-
-        // 计算俯仰角（绕Y轴）
-        float pitch = (float) Math.asin(2.0 * (w * y - z * x));
-
-        // 计算偏航角（绕Z轴）
-        float yaw = (float) Math.atan2(2.0 * (w * z + x * y), 1.0 - 2.0 * (y * y + z * z));
-
-        // 将弧度转换为角度
-        roll = (float) Math.toDegrees(roll);
-        pitch = (float) Math.toDegrees(pitch);
-        yaw = (float) Math.toDegrees(yaw);
-
-        return new EulerAngle(roll, pitch, yaw).handleLock();
+        float w = quaternion.getW(), x = quaternion.getX(), y = quaternion.getY(), z = quaternion.getZ();
+        float yaw = (float) Math.atan2(2 * (w * z + x * y), 1 - 2 * (y * y + z * z));    // 绕Z轴
+        float pitch = (float) Math.asin(2 * (w * y - z * x));                            // 绕Y轴
+        float roll = (float) Math.atan2(2 * (w * x + y * z), 1 - 2 * (x * x + y * y));   // 绕X轴
+        return new EulerAngle((float) Math.toDegrees(yaw), (float) Math.toDegrees(pitch), (float) Math.toDegrees(roll));
     }
 
-    public static Quaternion fromEulerAngle(EulerAngle eulerAngle) {
-        Quaternion qy = new Quaternion(Vector3f.YP, eulerAngle.yaw(), true);
-        Quaternion qx = new Quaternion(Vector3f.XP, eulerAngle.pitch(), true);
-        Quaternion qz = new Quaternion(Vector3f.ZP, eulerAngle.roll(), true);
-
-        qy.multiply(qx);
-        qy.multiply(qz);
-
-        return qy.copy();
+    // 欧拉角 → 四元数（ZYX顺序）
+    public static Quaternion toQuaternion(EulerAngle eulerAngle) {
+        Quaternion qz = new Quaternion(Vector3f.ZP, eulerAngle.yaw(), true);    // 先绕Z轴（Yaw）
+        Quaternion qy = new Quaternion(Vector3f.YP, eulerAngle.pitch(), true);   // 再绕Y轴（Pitch）
+        Quaternion qx = new Quaternion(Vector3f.XP, eulerAngle.roll(), true);    // 后绕X轴（Roll）
+        qz.multiply(qy);
+        qz.multiply(qx); // 顺序: Z → Y → X
+        return qz;
     }
-
 
     public static int randomRange(int min, int max) {
         return new Random().nextInt(max - min + 1) + min;
@@ -935,4 +944,7 @@ public class GSKOMathUtil {
         return newMatrix;
     }
 
+    public static Vector3d getMidPointOf(Vector3d prev, Vector3d next) {
+        return new Vector3d((prev.x + next.x) / 2, (prev.y + next.y) / 2, (prev.z + next.z) / 2);
+    }
 }

@@ -42,13 +42,13 @@ import java.util.Random;
  * StayNearPointTask.field_220550_c -> distance （目标行走距离）<br>
  * StayNearPointTask.field_220551_d -> maxDistance （最大巡航距离）
  */
-public class HumanResidentEntity extends AbstractVillagerEntity {
+public class HumanResidentEntity extends VillagerEntity {
     public static final DataParameter<Integer> DATA_GENDER = EntityDataManager.createKey(HumanResidentEntity.class,
             DataSerializers.VARINT);
     public static final DataParameter<VillagerData> DATA_VILLAGER = EntityDataManager.createKey(HumanResidentEntity.class,
             DataSerializers.VILLAGER_DATA);
-    public static final DataParameter<CompoundNBT> DATA_ORDER = EntityDataManager.createKey(HumanResidentEntity.class,
-            DataSerializers.COMPOUND_NBT);
+    public static final DataParameter<VillagerOrder> DATA_ORDER = EntityDataManager.createKey(HumanResidentEntity.class,
+            GSKOSerializers.VILLAGER_ORDER);
 
     private VillagerOrder order = new VillagerOrder();
     private Gender gender;
@@ -65,46 +65,15 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         super.registerGoals();
     }
 
-    /**
-     * <code lang="mermaid">
-     *  stateDiagram<br>
-     *   [*] --> stroll<br>
-     *   stroll --> panic<br>
-     *   panic --> stroll<br>
-     *   stroll --> order<br>
-     *   stroll --> findBed<br>
-     *   panic --> findBed<br>
-     *   order --> findBed<br>
-     *   findBed --> sleep<br>
-     *   sleep --> stroll<br>
-     * </code>
-     */
-    @Override
-    protected @NotNull Brain<HumanResidentEntity> createBrain(Dynamic<?> dynamic) {
-        Brain<HumanResidentEntity> brain = this.getBrainCodec().deserialize(dynamic);
-        this.initBrain(brain);
-        return brain;
-    }
-
-    @Override
-    protected Brain.@NotNull BrainCodec<HumanResidentEntity> getBrainCodec() {
-        return Brain.createCodec(BrainUtils.HUMAN_MEMORIES, BrainUtils.SENSOR_TYPES);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public @NotNull Brain<HumanResidentEntity> getBrain() {
-        return (Brain<HumanResidentEntity>) super.getBrain();
-    }
 
     public void resetBrain(ServerWorld serverWorldIn) {
-        Brain<HumanResidentEntity> brain = this.getBrain();
+        Brain<VillagerEntity> brain = this.getBrain();
         brain.stopAllTasks(serverWorldIn, this);
         this.brain = brain.copy();
         this.initBrain(brain);
     }
 
-    public void initBrain(Brain<HumanResidentEntity> brain) {
+    public void initBrain(Brain<VillagerEntity> brain) {
         brain.setSchedule(Schedule.VILLAGER_DEFAULT);
         brain.registerActivity(Activity.CORE, BrainUtils.CORE);
         brain.registerActivity(Activity.IDLE, BrainUtils.idle());
@@ -112,6 +81,8 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
 
         brain.setPersistentActivities(ImmutableSet.of(Activity.IDLE));
         brain.setFallbackActivity(Activity.IDLE);
+        brain.switchTo(Activity.IDLE);
+        brain.updateActivity(this.world.getDayTime(), this.world.getGameTime());
     }
 
     @Override
@@ -129,12 +100,12 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
     }
 
     public VillagerOrder getOrder() {
-        return VillagerOrder.deserialize(this.dataManager.get(DATA_ORDER));
+        return this.dataManager.get(DATA_ORDER);
     }
 
     public void setOrder(VillagerOrder order) {
         this.order = order;
-        this.dataManager.set(DATA_ORDER, order.serializeNBT());
+        this.dataManager.set(DATA_ORDER, order);
     }
 
     public Gender getGender() {
@@ -173,6 +144,7 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
         super.registerData();
         this.dataManager.register(DATA_GENDER, randomGender().ordinal());
         this.dataManager.register(DATA_VILLAGER, new VillagerData(VillagerType.PLAINS, randomProf(), 1));
+        this.dataManager.register(DATA_ORDER, new VillagerOrder());
     }
 
     public static VillagerProfession randomProf(){
@@ -188,40 +160,29 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
 
     @Override
     public void readAdditional(CompoundNBT compound) {
-        super.readAdditional(compound);
-        if (compound.contains("VillagerData", 10)) {
-            DataResult<VillagerData> dataresult = VillagerData.CODEC.parse(new Dynamic<>(NBTDynamicOps.INSTANCE, compound.get("VillagerData")));
-            dataresult.resultOrPartial(LOGGER::error).ifPresent(this::setVillagerData);
-        }
 
+        if (compound.contains("Order")) this.setOrder(VillagerOrder.deserialize(compound.getCompound("Order")));
         if (compound.contains("gender")) this.setGenderOrdinal(compound.getInt("gender"));
         if (compound.contains("Offers", 10)) this.offers = new MerchantOffers(compound.getCompound("Offers"));
-        if (compound.contains("Brain", 10)) {
-            this.brain = this.createBrain(new Dynamic<>(NBTDynamicOps.INSTANCE, compound.getCompound("Brain")));
-        }
+
         if (this.world instanceof ServerWorld) {
-            this.resetBrain((ServerWorld)this.world);
+            this.resetBrain((ServerWorld) this.world);
         }
+        super.readAdditional(compound);
     }
 
     @Override
     public void writeAdditional(CompoundNBT compound) {
-        super.writeAdditional(compound);
         compound.putInt("gender", this.getGenderOrdinal());
         MerchantOffers offers = this.getOffers();
         if (!offers.isEmpty()) compound.put("Offers", offers.write());
 
-        VillagerData.CODEC.encodeStart(NBTDynamicOps.INSTANCE, this.getVillagerData()).resultOrPartial(LOGGER::error).ifPresent((data) -> {
-            compound.put("VillagerData", data);
-        });
-
-        DataResult<INBT> dataresult = this.brain.encode(NBTDynamicOps.INSTANCE);
-        dataresult.resultOrPartial(LOGGER::error).ifPresent((inbt) ->
-                compound.put("Brain", inbt));
+        compound.put("Order", this.getOrder().serializeNBT());
+        super.writeAdditional(compound);
     }
 
     @Override
-    protected ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
+    public ActionResultType getEntityInteractionResult(PlayerEntity playerIn, Hand hand) {
         if (!this.isAlive() || this.hasCustomer() || this.isSleeping()) return super.getEntityInteractionResult(playerIn, hand);
         if (this.getOffers().isEmpty()) return ActionResultType.func_233537_a_(this.world.isRemote);
 
@@ -235,12 +196,6 @@ public class HumanResidentEntity extends AbstractVillagerEntity {
 
     private VillagerProfession getProf(){
         return this.getVillagerData().getProfession();
-    }
-
-    @Nullable
-    @Override
-    public AgeableEntity createChild(ServerWorld world, AgeableEntity mate) {
-        return null;
     }
 
     @Override

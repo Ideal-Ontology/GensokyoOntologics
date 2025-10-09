@@ -69,45 +69,50 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
         Vector3f startDirection = startRail.getFacing().copy();
         Vector3f endDirection = targetRail.getFacing().copy();
 
-        startDirection.mul(50);
-        endDirection.mul(50);
+        startDirection.mul(25);
+        endDirection.mul(25);
 
         final int segments = 32;
-        Vector3d prevNormal = null;
-
-        Vector3d prevLeft0;
-        Vector3d nextLeft;
-        Vector3d prevLeft1 = new Vector3d(0,0,0);
-
-        Vector3d prevRight0;
-        Vector3d nextRight;
-        Vector3d prevRight1 = new Vector3d(0,0,0);
 
         for (int i = 0; i < segments; i++) {
             float t0 = (float) i / segments;
             float t1 = (float) (i + 1) / segments;
 
-            Vector3d left = CurveUtil.hermiteBinormal(start, end,
-                    new Vector3d(startDirection), new Vector3d(endDirection), t1);
-            Vector3d right = new Vector3d(-left.x, 0, -left.z).scale(0.25);
-            EulerAngle euler = EulerAngle.from(GSKOMathUtil.slerp(startRot, endRot, t1));
-
             Vector3d prev = CurveUtil.hermite3(start,end, startDirection, endDirection, t0);
             Vector3d next = CurveUtil.hermite3(start,end, startDirection, endDirection, t1);
+            Vector3d pivot = GSKOMathUtil.getMidPointOf(prev, next);
 
-            prevLeft0 = prev.add(left);// .add(left.rotateRoll(euler.roll()));
-            nextLeft =  next.add(left);// .add(left.rotateRoll(euler.roll()));
+            Vector3d binormal = CurveUtil.hermiteBinormal(start, end,
+                    new Vector3d(startDirection), new Vector3d(endDirection), t1);
+            Vector3d tangent = tangent(start, end, startDirection, endDirection, t0, 1F / segments);
 
-            prevRight0 = prev.add(right);// .add(right.rotateRoll(euler.roll()));
-            nextRight =  prev.add(right);// .add(right.rotateRoll(euler.roll()));
+            // 计算旋转矩阵
+            RotMatrix rotMatrix = RotMatrix.from(tangent, new Vector3d(0, 1, 0));
+            Quaternion rotation = rotMatrix.toQuaternion();
 
-            this.renderHermite3(builder, matrixStack,
-                    i == 0 ? prevLeft0 : prevLeft1, nextLeft,
-                    i == 0 ? prevRight0 : prevRight1, nextRight,
-                    euler.roll(), new Color4f(1, 0, 0, 1));
+            Vector3d left = binormal.scale(RAIL_RADIUS);
+            Vector3d right = binormal.scale(-RAIL_RADIUS);
 
-            prevLeft1 = nextLeft;
-            prevRight1 = nextRight;
+            double length = prev.distanceTo(next);
+
+            Vector3d prevLeft =  GSKOMathUtil.rotateBy(new Vector3d(0, -0.5, 0),  rotation);
+            Vector3d nextLeft =  GSKOMathUtil.rotateBy(new Vector3d(0, -0.5, length), rotation);
+            Vector3d prevRight = GSKOMathUtil.rotateBy(new Vector3d(0, 0.5, 0),   rotation);
+            Vector3d nextRight = GSKOMathUtil.rotateBy(new Vector3d(0, 0.5,  length), rotation);
+
+            matrixStack.push();
+            matrixStack.translate(prev.x, prev.y, prev.z);
+
+            GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(),
+                    prevLeft, nextLeft,
+                    RAIL_RADIUS, 32, 1, 0, 0, 1);
+
+            GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(),
+                    prevRight, nextRight,
+                    RAIL_RADIUS, 32, 1, 0, 0, 1);
+
+            matrixStack.pop();
+
         }
     }
 
@@ -118,6 +123,24 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
         GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(), prevLeft, nextLeft,
                 RAIL_RADIUS, 32, color.getRed(), color.getGreen(), color.getBlue(), 1F);
         GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(), prevRight, nextRight,
+                RAIL_RADIUS, 32, color.getRed(), color.getGreen(), color.getBlue(), 1F);
+        matrixStack.pop();
+    }
+
+    public void renderHermite(IVertexBuilder builder, MatrixStack matrixStack, Vector3d prev, Vector3d next, Quaternion rotation, Color4f color) {
+        Vector3d left = Vector3d.ZERO;
+        Vector3d right = new Vector3d(1, 0, 0);
+        double length = prev.distanceTo(next);
+
+        Vector3d pivot = GSKOMathUtil.getMidPointOf(prev, next);
+
+        matrixStack.push();
+        matrixStack.translate(prev.x, prev.y, prev.z);
+        matrixStack.rotate(rotation);
+        GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(), left, new Vector3d(left.x, left.y, length),
+                RAIL_RADIUS, 32, color.getRed(), color.getGreen(), color.getBlue(), 1F);
+
+        GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(), right, new Vector3d(right.x, right.y, length),
                 RAIL_RADIUS, 32, color.getRed(), color.getGreen(), color.getBlue(), 1F);
         matrixStack.pop();
     }
@@ -168,5 +191,15 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
                 new Vector3i(r1, g1, b1));
         matrixStackIn.pop();
         matrixStackIn.pop();
+    }
+
+    private Vector3d tangent(Vector3d start, Vector3d end, Vector3f startDirection, Vector3f endDirection,
+                             float t, float delta) {
+        Vector3d point1 = CurveUtil.hermite3(start, end,
+                startDirection, endDirection, t);
+        Vector3d point2 = CurveUtil.hermite3(start, end,
+                startDirection, endDirection, t + delta);
+
+        return point2.subtract(point1).normalize();
     }
 }

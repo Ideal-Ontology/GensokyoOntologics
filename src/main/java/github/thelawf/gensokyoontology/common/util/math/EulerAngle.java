@@ -3,21 +3,21 @@ package github.thelawf.gensokyoontology.common.util.math;
 import net.minecraft.util.math.vector.Quaternion;
 
 public class EulerAngle {
-    private float xAngle;
-    private float yAngle;
-    private float zAngle;
+    private float pitch;
+    private float yaw;
+    private float roll;
 
-    public EulerAngle(float xAngle, float yAngle, float zAngle) {
-        this.xAngle = xAngle;
-        this.yAngle = yAngle;
-        this.zAngle = zAngle;
+    public EulerAngle(float yaw, float pitch, float roll) {
+        this.yaw = yaw;
+        this.pitch = pitch;
+        this.roll = roll;
     }
 
-    public static EulerAngle of(float pitch, float yaw, float roll) {
-        return new EulerAngle(pitch, yaw, roll);
+    public static EulerAngle of(float yaw, float pitch,  float roll) {
+        return new EulerAngle(yaw, pitch, roll);
     }
-    public static EulerAngle of(double pitch, double yaw, double roll) {
-        return new EulerAngle((float) pitch, (float) yaw, (float) roll);
+    public static EulerAngle of(double yaw, double pitch,  double roll) {
+        return new EulerAngle((float) yaw, (float) pitch,  (float) roll);
     }
 
     public static EulerAngle from(Quaternion quaternion) {
@@ -25,64 +25,40 @@ public class EulerAngle {
     }
 
     public Quaternion toRotation() {
-        return GSKOMathUtil.fromEulerAngle(this);
+        return GSKOMathUtil.toQuaternion(this);
     }
 
     public Quaternion toQuaternion() {
-        return new Quaternion(xAngle, yAngle, zAngle, true);
+        return this.toRotation();
     }
 
-    public EulerAngle handleLock(){
-        if (this.pitch() > 89.9){
-            this.setYaw(this.yaw() + this.roll());
-            this.setRoll(0);
-        }
-        else if (this.pitch() < -89.9){
-            this.setYaw(this.yaw() - this.roll());
-            this.setRoll(0);
+    public EulerAngle handleLock() {
+        // 万向锁条件：绕Y轴（Pitch）接近±90°
+        if (Math.abs(pitch) >= 89.9f) {
+            this.yaw += this.roll;
+            this.roll = 0;    // 固定Roll为0，避免歧义
         }
         return this;
     }
 
-    public float roll(){
-        return this.xAngle;
+    public float yaw(){
+        return this.yaw;
     }
     public float pitch(){
-        return this.yAngle;
+        return this.pitch;
     }
-    public float yaw(){
-        return this.zAngle;
-    }
-
-    public float getXAngle() {
-        return this.xAngle;
-    }
-    public float getYAngle() {
-        return this.yAngle;
-    }
-    public float getZAngle() {
-        return this.zAngle;
+    public float roll(){
+        return this.roll;
     }
 
     public void setRoll(float roll){
-        this.xAngle = roll;
+        this.pitch = roll;
     }
     public void setPitch(float pitch){
-        this.yAngle = pitch;
+        this.roll = pitch;
     }
     public void setYaw(float yaw){
-        this.zAngle = yaw;
+        this.yaw = yaw;
     }
 
-    public void setxAngle(float xAngle) {
-        this.xAngle = xAngle;
-    }
-
-    public void setyAngle(float yAngle) {
-        this.yAngle = yAngle;
-    }
-
-    public void setzAngle(float zAngle) {
-        this.zAngle = zAngle;
-    }
 }

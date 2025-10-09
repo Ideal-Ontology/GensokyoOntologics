@@ -1,13 +1,10 @@
-package github.thelawf.gensokyoontology.common.item;
+package github.thelawf.gensokyoontology.common.item.tool;
 
 import github.thelawf.gensokyoontology.common.entity.RailEntity;
-import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.math.EulerAngle;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -63,7 +60,7 @@ public class TrackPlacer extends Item {
             }
             return 0;
         }).findFirst().ifPresent(value -> {
-            rail.setRotation(EulerAngle.of(0, yaw, 0).toQuaternion());
+            rail.setRotation(EulerAngle.of(yaw, 0, 0).toQuaternion());
         });
         stack.shrink(1);
         return ActionResultType.CONSUME;

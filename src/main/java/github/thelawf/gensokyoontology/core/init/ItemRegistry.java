@@ -2,10 +2,8 @@ package github.thelawf.gensokyoontology.core.init;
 
 import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.container.script.*;
-import github.thelawf.gensokyoontology.common.entity.RailEntity;
 import github.thelawf.gensokyoontology.common.item.*;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.material.*;
@@ -35,12 +33,8 @@ import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
-import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
 import net.minecraft.util.SoundEvents;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -53,7 +47,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.atomic.AtomicReference;
 
 import static net.minecraft.item.Items.BUCKET;
 
@@ -887,10 +880,13 @@ public final class ItemRegistry {
 
     public static final RegistryObject<Item> TRACK_PLACER = ITEMS.register("track_placer", () -> new TrackPlacer(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+    public static final RegistryObject<Item> TRACK_REMOVER = ITEMS.register("track_remover", () -> new TrackRemover(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> RAIL_WRENCH = ITEMS.register("rail_wrench", () -> new RailWrench(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> RAIL_CONNECTOR = ITEMS.register("rail_connector", () -> new RailConnector(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
+
 
     public static final RegistryObject<BlockItem> COASTER_RAIL_ITEM = ITEMS.register("coaster_rail", () -> new BlockItem(
             BlockRegistry.COASTER_RAIL.get(), new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)){

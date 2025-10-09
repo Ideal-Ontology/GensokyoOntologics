@@ -52,23 +52,23 @@ public class RailWrench extends Item implements IRayTracer {
         return result.get();
     }
 
-//    @Override
-//    public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
-//        World world = context.getWorld();
-//        BlockPos pos = context.getPos();
-//        PlayerEntity player = context.getPlayer();
-//        BlockState blockState = world.getBlockState(pos);
-//        ItemStack wrench = context.getItem();
-//
-//        if (player == null) return ActionResultType.FAIL;
-//        if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return super.onItemUse(context);
-//        Optional<RailTileEntity> optional = GSKOUtil.getTileByType(world, pos, TileEntityRegistry.RAIL_TILE_ENTITY.get());
-//
-//        if (!optional.isPresent()) return super.onItemUse(context);
-//        RailTileEntity railTile = optional.get();
-//
-//        return this.onClickFirstRailBlock(pos, player, wrench);
-//    }
+    @Override
+    public @NotNull ActionResultType onItemUse(@NotNull ItemUseContext context) {
+        World world = context.getWorld();
+        BlockPos pos = context.getPos();
+        PlayerEntity player = context.getPlayer();
+        BlockState blockState = world.getBlockState(pos);
+        ItemStack wrench = context.getItem();
+
+        if (player == null) return ActionResultType.FAIL;
+        if (blockState.getBlock() != BlockRegistry.COASTER_RAIL.get()) return super.onItemUse(context);
+        Optional<RailTileEntity> optional = GSKOUtil.getTileByType(world, pos, TileEntityRegistry.RAIL_TILE_ENTITY.get());
+
+        if (!optional.isPresent()) return super.onItemUse(context);
+        RailTileEntity railTile = optional.get();
+
+        return this.onClickFirstRailBlock(pos, player, wrench);
+    }
 
     private void onClickFirstRail(@NotNull PlayerEntity player, RailEntity startRail, ItemStack wrench) {
         if (Screen.hasShiftDown() & player.world.isRemote) {
@@ -80,7 +80,6 @@ public class RailWrench extends Item implements IRayTracer {
         nbt.putInt("id", startRail.getEntityId());
         connector.setTag(nbt);
 
-        wrench.shrink(1);
         player.addItemStackToInventory(connector);
     }
 
@@ -115,13 +114,13 @@ public class RailWrench extends Item implements IRayTracer {
         startRail.setShouldRender(false);
 
         ItemStack railItem = new ItemStack(ItemRegistry.RAIL_WRENCH.get());
-        connector.shrink(1);
         player.addItemStackToInventory(railItem);
         return ActionResultType.SUCCESS;
     }
 
     public static void onClickNextRail(World world, @NotNull PlayerEntity player,
                                        RailEntity targetRail , ItemStack connector) {
+        if (connector.getItem() != ItemRegistry.RAIL_CONNECTOR.get()) return;
         if (connector.getTag() == null) return;
         getStartRail(world, connector.getTag().getInt("id")).ifPresent(entity -> {
             if (!(entity instanceof RailEntity)) return;
