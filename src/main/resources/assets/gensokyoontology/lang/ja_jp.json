@@ -405,9 +405,9 @@
   "gui.gensokyoontology.silder_prefix.qy": "Y Axis Angle: ",
   "gui.gensokyoontology.silder_prefix.qz": "Z Axis Angle: ",
   "gui.gensokyoontology.silder_prefix.qw": "W: ",
-  "gui.gensokyoontology.label.qx": "Rotation X: ",
-  "gui.gensokyoontology.label.qy": "Rotation Y: ",
-  "gui.gensokyoontology.label.qz": "Rotation Z: ",
+  "gui.gensokyoontology.button.reset_x": "Reset X: ",
+  "gui.gensokyoontology.button.reset_y": "Reset Y: ",
+  "gui.gensokyoontology.button.reset_z": "Reset Z: ",
   "gui.gensokyoontology.label.qw": "Rotation W: ",
   "gui.gensokyoontology.label.cx1": "Control X1 Offset: ",
   "gui.gensokyoontology.label.cy1": "Control Y1 Offset: ",
@@ -648,11 +648,5 @@
   "patchouli.gensokyoontology.task.gitsune_tube_full.usage": "Taken part in the Sorcery Extractor crafting.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p1": "Yes! Programming in Minecraft. Remember what I wrote on the first page? Stay sane! or you will become Cyber Spirits. To check whether you could read this digital gibberish to test if you are becoming cyber ghost or not.",
   "patchouli.gensokyoontology.ideology.dia.tutorial_p2": "In inner IDE, your code should be highlighted like this:$(br2)$(l)SAMPLE 1: $(br)$(1)public abstract class$() $(l)ThrowableEntity $(1)extends$() $(l)ProjectileEntity(){$(br)  $(1)protected$() $(l)$(#ffa500)ThrowableEntity$()$(l)(EntityType<? $(1)extends$() $(l)ThrowableEntity> type, World worldIn) {$(br)$(1)    super$() $(l)worldIn;$(br)  }$(br)})",
-  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));",
-  "block.gensokyoontology.rail_node": "Rail Node",
-  "block.gensokyoontology.rail_track": "Rail Track",
-  "tooltip.gensokyoontology.idealism_sword_info": "Press §9SHIFT§r to Show More",
-  "tooltip.gensokyoontology.idealism_sword_shift": "§5Left Click to Release Space Fissure§r",
-  "tooltip.gensokyoontology.praxis_sword_info": "Press §9SHIFT§r to Show More",
-  "tooltip.gensokyoontology.praxis_sword_shift": "You can do coding in game, why not in reality."
+  "patchouli.gensokyoontology.ideology.dia.tutorial_p3": "$(l)SAMPLE 2: $(br)$(1)public static final$() $(l)RegistryObject<Item> $(#800080)SPIRIT_DIALECTIC$() $(l)= $(#800080)ITEMS$()$(l).register($(#32cd32)\"spirit_dialectic\"$()$(l), () -> $(1)new$() $(l)Items.Properties().group(GensokyoOntologics.$(#800080)GSKO_ITEM_TAB$()));"
 }

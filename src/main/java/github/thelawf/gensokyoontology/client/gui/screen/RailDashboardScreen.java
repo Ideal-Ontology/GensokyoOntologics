@@ -8,6 +8,7 @@ import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.EulerAngle;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.common.util.math.RotMatrix;
+import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
@@ -33,10 +34,17 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     private Slider yHandle;
     private Slider zHandle;
 
+    private Button resetX0;
+    private Button resetY0;
+    private Button resetZ0;
+
     private static final TranslationTextComponent QX = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qx");
     private static final TranslationTextComponent QY = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qy");
     private static final TranslationTextComponent QZ = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qz");
-    private static final TranslationTextComponent QW = GSKOUtil.fromLocaleKey("gui.", ".silder_prefix.qw");
+
+    private static final TranslationTextComponent RX = GSKOUtil.fromLocaleKey("gui.", ".button.reset_x");
+    private static final TranslationTextComponent RY = GSKOUtil.fromLocaleKey("gui.", ".button.reset_y");
+    private static final TranslationTextComponent RZ = GSKOUtil.fromLocaleKey("gui.", ".button.reset_z");
 
     public static final ITextComponent TITLE = GSKOUtil.translateText("gui.", ".rail_dashboard.title");
 
@@ -44,6 +52,7 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         super(TITLE);
         this.targetPos = pos;
         this.rotation = rotation;
+        this.eulerAngle = EulerAngle.from(this.rotation);
         this.startEntityId = startEntityId;
 
         this.initHandleValue = new RotMatrix(this.rotation).toHandleValue();
@@ -66,6 +75,8 @@ public class RailDashboardScreen extends LineralLayoutScreen {
 
         this.eulerAngle = EulerAngle.of(z, y, slider.getValue());
         this.rotation = this.eulerAngle.toQuaternion();
+
+        this.setSliderValue();
         this.sendPacketToServer();
     }
 
@@ -74,6 +85,8 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         double z = this.zHandle == null ? 0 : this.zHandle.getValue();
         this.eulerAngle = EulerAngle.of(z, slider.getValue(), x);
         this.rotation = this.eulerAngle.toQuaternion();
+
+        this.setSliderValue();
         this.sendPacketToServer();
     }
 
@@ -82,9 +95,23 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         double x = this.zHandle == null ? 0 : this.xHandle.getValue();
         this.eulerAngle = EulerAngle.of(slider.getValue(), y, x);
         this.rotation = this.eulerAngle.toQuaternion();
+
+        this.setSliderValue();
         this.sendPacketToServer();
     }
 
+    private void onResetXSlide(Button btn) {
+        this.xHandle.setValue(0);
+        this.eulerAngle.setRoll(0);
+    }
+    private void onResetYSlide(Button btn) {
+        this.yHandle.setValue(0);
+        this.eulerAngle.setPitch(0);
+    }
+    private void onResetZSlide(Button btn) {
+        this.zHandle.setValue(0);
+        this.eulerAngle.setYaw(0);
+    }
 
     @Override
     protected void init() {
@@ -105,9 +132,17 @@ public class RailDashboardScreen extends LineralLayoutScreen {
                 -180, 180, z,
                 true, true, iPressable -> {}, this::onZHandleSlide);
 
+        this.resetX0 = new Button(250, 20, 60, 20, RX, this::onResetXSlide);
+        this.resetY0 = new Button(250, 45, 60, 20, RY, this::onResetYSlide);
+        this.resetZ0 = new Button(250, 70, 60, 20, RZ, this::onResetZSlide);
+
         this.addButton(this.xHandle);
         this.addButton(this.yHandle);
         this.addButton(this.zHandle);
+
+        this.addButton(this.resetX0);
+        this.addButton(this.resetY0);
+        this.addButton(this.resetZ0);
     }
 
     @Override
@@ -118,6 +153,10 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.xHandle.render(matrixStack, mouseX, mouseY, partialTicks);
         this.yHandle.render(matrixStack, mouseX, mouseY, partialTicks);
         this.zHandle.render(matrixStack, mouseX, mouseY, partialTicks);
+
+        this.resetX0.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.resetY0.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.resetZ0.render(matrixStack, mouseX, mouseY, partialTicks);
     }
 
     @Override
@@ -149,10 +188,10 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         if (this.yHandle == null) return;
         if (this.zHandle == null) return;
         if (this.xHandle == null) return;
-
-        this.xHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.yaw()));
-        this.yHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.pitch()));
-        this.zHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.roll()));
+//
+//        this.xHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.roll()));
+//        this.yHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.pitch()));
+//        this.zHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.yaw()));
     }
 
     private EulerAngle getEulerAngleFrom(Slider xHandle, Slider yHandle, Slider zHandle) {

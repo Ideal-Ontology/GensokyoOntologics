@@ -1,19 +1,41 @@
 package github.thelawf.gensokyoontology.common.item.tool;
 
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
+import github.thelawf.gensokyoontology.common.entity.RailEntity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.world.World;
+import net.minecraftforge.items.IItemHandler;
+import org.jetbrains.annotations.NotNull;
 
-public class TrackRemover extends Item {
+import java.util.concurrent.atomic.AtomicReference;
+
+public class TrackRemover extends Item implements IRayTracer {
     public TrackRemover(Properties properties) {
         super(properties);
     }
 
     @Override
-    public ActionResultType itemInteractionForEntity(ItemStack p_111207_1_, PlayerEntity p_111207_2_, LivingEntity p_111207_3_, Hand p_111207_4_) {
-        return super.itemInteractionForEntity(p_111207_1_, p_111207_2_, p_111207_3_, p_111207_4_);
+    public @NotNull ActionResult<ItemStack> onItemRightClick(@NotNull World world, PlayerEntity player, @NotNull Hand hand) {
+        ItemStack remover = player.getHeldItem(hand);
+        Vector3d lookVec = player.getLookVec();
+        Vector3d start = player.getEyePosition(1);
+        Vector3d end = player.getEyePosition(1).add(lookVec.scale(10));
+
+        AtomicReference<ActionResult<ItemStack>> result = new AtomicReference<>();
+        result.set(ActionResult.resultPass(remover));
+
+        this.rayTrace(world, player, start, end).ifPresent(entity -> {
+            if(!(entity instanceof RailEntity)) return;
+            RailEntity rail = (RailEntity) entity;
+            rail.remove();
+        });
+        return result.get();
     }
 }

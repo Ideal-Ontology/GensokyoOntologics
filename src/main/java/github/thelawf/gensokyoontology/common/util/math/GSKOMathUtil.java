@@ -28,41 +28,43 @@ public class GSKOMathUtil {
      * @return 插值后的四元数
      */
     public static Quaternion slerp(Quaternion start, Quaternion end, float t) {
-        // 确保四元数是单位四元数
-        Quaternion q0 = start.copy();
-        Quaternion q1 = end.copy();
-        q0.normalize();
-        q1.normalize();
+        // 计算点积（判断旋转方向）
+        float dot = start.getX()*end.getX() + start.getY()*end.getY() +
+                start.getZ()*end.getZ() + start.getW()*end.getW();
 
-        // 计算点积（余弦值）
-        float dot = qDot(q0, q1);
-
-        // 如果点积为负，反转一个四元数（确保走最短路径）
-        if (dot < 0.0f) {
-            q1 = new Quaternion(-q1.getX(), -q1.getY(), -q1.getZ(), -q1.getW());
+        // 确保走最短路径
+        if (dot < 0) {
+            end = new Quaternion(-end.getX(), -end.getY(), -end.getZ(), -end.getW());
             dot = -dot;
         }
 
-        // 如果点积接近1，使用线性插值避免除零错误
-        if (dot > 0.9995f) {
-            return qlerp(q0, q1, t);
+        // 处理小角度（线性插值）
+        float threshold = 0.9995f;
+        if (dot > threshold) {
+            Quaternion quaternion = new Quaternion(
+                    MathHelper.lerp(t, start.getX(), end.getX()),
+                    MathHelper.lerp(t, start.getY(), end.getY()),
+                    MathHelper.lerp(t, start.getZ(), end.getZ()),
+                    MathHelper.lerp(t, start.getW(), end.getW())
+            );
+            quaternion.normalize();
+            return quaternion;
         }
 
-        // 计算夹角
-        float theta = (float) Math.acos(dot);
-        float sinTheta = (float) Math.sin(theta);
+        // 球面插值
+        float angle = (float)Math.acos(dot);
+        float sinAngle = (float)Math.sin(angle);
+        float w1 = (float)Math.sin((1 - t) * angle) / sinAngle;
+        float w2 = (float)Math.sin(t * angle) / sinAngle;
 
-        // 计算插值系数
-        float scale0 = (float) Math.sin((1 - t) * theta) / sinTheta;
-        float scale1 = (float) Math.sin(t * theta) / sinTheta;
-
-        // 计算插值结果
-        return new Quaternion(
-                scale0 * q0.getX() + scale1 * q1.getX(),
-                scale0 * q0.getY() + scale1 * q1.getY(),
-                scale0 * q0.getZ() + scale1 * q1.getZ(),
-                scale0 * q0.getW() + scale1 * q1.getW()
+        Quaternion quaternion = new Quaternion(
+                w1 * start.getX() + w2 * end.getX(),
+                w1 * start.getY() + w2 * end.getY(),
+                w1 * start.getZ() + w2 * end.getZ(),
+                w1 * start.getW() + w2 * end.getW()
         );
+        quaternion.normalize();
+        return quaternion;
     }
 
     private static float qDot(Quaternion q0, Quaternion q1) {

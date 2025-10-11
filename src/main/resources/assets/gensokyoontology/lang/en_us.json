@@ -479,14 +479,14 @@
   "gui.gensokyoontology.button.decrease_yaw": "-",
   "gui.gensokyoontology.button.decrease_pitch": "-",
 
-  "gui.gensokyoontology.silder_prefix.qx": "Direction X: ",
-  "gui.gensokyoontology.silder_prefix.qy": "Direction Y: ",
-  "gui.gensokyoontology.silder_prefix.qz": "Direction Z: ",
+  "gui.gensokyoontology.silder_prefix.qx": "X Axis Rotation: ",
+  "gui.gensokyoontology.silder_prefix.qy": "Y Axis Rotation: ",
+  "gui.gensokyoontology.silder_prefix.qz": "Z Axis Roatation: ",
   "gui.gensokyoontology.silder_prefix.qw": "W: ",
 
-  "gui.gensokyoontology.label.qx": "Rotation X: ",
-  "gui.gensokyoontology.label.qy": "Rotation Y: ",
-  "gui.gensokyoontology.label.qz": "Rotation Z: ",
+  "gui.gensokyoontology.button.reset_x": "Reset X: ",
+  "gui.gensokyoontology.button.reset_y": "Reset Y: ",
+  "gui.gensokyoontology.button.reset_z": "Reset Z: ",
   "gui.gensokyoontology.label.qw": "Rotation W: ",
 
   "gui.gensokyoontology.label.cx1": "Control X1 Offset: ",
