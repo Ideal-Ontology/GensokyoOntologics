@@ -6,6 +6,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.UseAction;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -35,7 +36,13 @@ public class TrackRemover extends Item implements IRayTracer {
             if(!(entity instanceof RailEntity)) return;
             RailEntity rail = (RailEntity) entity;
             rail.remove();
+            result.set(ActionResult.resultSuccess(remover));
         });
         return result.get();
+    }
+
+    @Override
+    public @NotNull UseAction getUseAction(@NotNull ItemStack stack) {
+        return UseAction.BLOCK;
     }
 }

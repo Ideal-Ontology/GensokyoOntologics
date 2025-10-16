@@ -307,12 +307,14 @@
   "gui.gensokyoontology.text_field.rotation_roll": "0",
   "gui.gensokyoontology.text_field.rotation_yaw": "0",
   "gui.gensokyoontology.v3d_invoker.param": "参数",
+
   "item.gensokyoontology.aya_fans": "文文的扇子",
   "item.gensokyoontology.bat_body": "蝙蝠身体",
   "item.gensokyoontology.bat_head": "蝙蝠脑袋",
   "item.gensokyoontology.bat_specimen": "蝙蝠标本",
   "item.gensokyoontology.bat_wing_left": "蝙蝠左翼",
   "item.gensokyoontology.bat_wing_right": "蝙蝠右翼",
+
   "item.gensokyoontology.binary_operation_builder": "二元表达式构建器",
   "item.gensokyoontology.bomb_fragment": "B点碎片",
   "item.gensokyoontology.bomb_item": "B点",
@@ -320,15 +322,19 @@
   "item.gensokyoontology.burger_meat_raw": "生汉堡肉",
   "item.gensokyoontology.butter": "黄油",
   "item.gensokyoontology.cake_scarlet_demon": "猩红恶魔蛋糕",
+
   "item.gensokyoontology.cherry_blossom": "樱花",
   "item.gensokyoontology.chimata_market_license": "天弓千亦的市场许可证",
+
   "item.gensokyoontology.circle_shot_blue": "环玉（蓝）",
   "item.gensokyoontology.circle_shot_green": "环玉（绿）",
   "item.gensokyoontology.circle_shot_magenta": "环玉（品红）",
+
   "item.gensokyoontology.cirno_spawn_egg": "琪露诺刷怪蛋",
   "item.gensokyoontology.clock_needle": "钟楼指针",
   "item.gensokyoontology.const_builder": "常量构建器",
   "item.gensokyoontology.copper_coin": "铜币",
+
   "item.gensokyoontology.crimson_alloy_fragment": "绯色合金碎片",
   "item.gensokyoontology.crimson_alloy_ingot": "绯色合金锭",
   "item.gensokyoontology.crooked_clock_needle": "歪曲的钟楼指针",
@@ -499,9 +505,10 @@
   "item.gensokyoontology.white_snow": "白雪",
   "item.gensokyoontology.yattsume_una": "八目鳗",
   "item.gensokyoontology.yattsume_una_yaki": "烤八目鳗",
+
   "item.gensokyoontology.rail_connector": "轨道连接器",
   "item.gensokyoontology.track_placer": "轨道放置器",
-
+  "item.gensokyoontology.track_remover": "轨道移除器",
   "block.gensokyoontology.coaster_rail_node": "轨道节点",
 
   "itemGroup.gensokyoontology.block": "幻想存有论：方块",
