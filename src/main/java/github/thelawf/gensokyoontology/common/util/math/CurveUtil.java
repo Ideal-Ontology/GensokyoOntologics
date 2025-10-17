@@ -323,6 +323,49 @@ public class CurveUtil {
     }
 
     /**
+     * 计算埃尔米特曲线在参数t处的二阶导数（加速度）
+     * @param start 起点位置
+     * @param end 终点位置
+     * @param startTangent 起点切线（一阶导数）
+     * @param endTangent 终点切线（一阶导数）
+     * @param t 参数值 [0,1]
+     * @return 二阶导数向量（加速度）
+     */
+    public static Vector3d hermiteCurvature(Vector3d start, Vector3d end, Vector3d startTangent, Vector3d endTangent, double t) {
+        double h1_2nd = 12 * t - 6;    // h₁''(t)
+        double h2_2nd = 6 * t - 4;     // h₂''(t)
+        double h3_2nd = -12 * t + 6;   // h₃''(t)
+        double h4_2nd = 6 * t - 2;     // h₄''(t)
+
+        return start.scale(h1_2nd)
+                .add(startTangent.scale(h2_2nd))
+                .add(end.scale(h3_2nd))
+                .add(endTangent.scale(h4_2nd));
+    }
+
+    /**
+     * 计算曲率半径（用于向心加速度计算）
+     * @param firstDerivative 一阶导数（速度/切线）
+     * @param secondDerivative 二阶导数（加速度）
+     * @return 曲率半径
+     */
+    public static double calculateCurvatureRadius(Vector3d firstDerivative,
+                                                  Vector3d secondDerivative) {
+        double speed = firstDerivative.length(); // 速度大小
+
+        if (speed < 1e-10) {
+            return Double.MAX_VALUE; // 速度接近0时，曲率半径无限大
+        }
+
+        // 计算曲率：κ = |v × a| / |v|³
+        Vector3d crossProduct = firstDerivative.crossProduct(secondDerivative);
+        double curvature = crossProduct.length() / Math.pow(speed, 3);
+
+        // 曲率半径：ρ = 1/κ
+        return (curvature > 1e-10) ? 1.0 / curvature : Double.MAX_VALUE;
+    }
+
+    /**
      * 计算埃尔米特三次曲线在参数t处的法线
      */
     public static Vector3d hermiteNormalAdvanced(Vector3d start, Vector3d end, Vector3d startTangent, Vector3d endTangent,

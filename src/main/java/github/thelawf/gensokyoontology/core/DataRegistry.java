@@ -14,6 +14,8 @@ public class DataRegistry {
 
     public static final RegistryObject<DataSerializerEntry> QUAT_SERIALIZER = SERIALIZERS.register(
             "quaternion", () -> new DataSerializerEntry(GSKOSerializers.QUATERNION));
+    public static final RegistryObject<DataSerializerEntry> VECTOR3F = SERIALIZERS.register(
+            "vector3f", () -> new DataSerializerEntry(GSKOSerializers.VECTOR3F));
 
     public static final RegistryObject<DataSerializerEntry> ORDER_SERIALIZER = SERIALIZERS.register(
             "villager_order", () -> new DataSerializerEntry(GSKOSerializers.VILLAGER_ORDER));

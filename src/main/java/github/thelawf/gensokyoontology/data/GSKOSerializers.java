@@ -1,14 +1,33 @@
 package github.thelawf.gensokyoontology.data;
 
+import com.sun.xml.internal.bind.v2.model.core.ID;
 import github.thelawf.gensokyoontology.common.capability.entity.VillagerOrder;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.IDataSerializer;
 import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3f;
 import org.jetbrains.annotations.NotNull;
 
 public class GSKOSerializers {
+    public static final IDataSerializer<Vector3f> VECTOR3F = new IDataSerializer<Vector3f>() {
+        @Override
+        public Vector3f read(PacketBuffer buf) {
+            return new Vector3f(buf.readFloat(), buf.readFloat(), buf.readFloat());
+        }
+        @Override
+        public void write(PacketBuffer buf, Vector3f vector3f) {
+            buf.writeFloat(vector3f.getX());
+            buf.writeFloat(vector3f.getY());
+            buf.writeFloat(vector3f.getZ());
+        }
 
-    public static final IDataSerializer<VillagerOrder> VILLAGER_ORDER = new  IDataSerializer<VillagerOrder>() {
+        @Override
+        public Vector3f copyValue(Vector3f value) {
+            return new Vector3f(value.getX(), value.getY(), value.getZ());
+        }
+    };
+
+    public static final IDataSerializer<VillagerOrder> VILLAGER_ORDER = new IDataSerializer<VillagerOrder>() {
         @Override
         public void write(PacketBuffer buf, VillagerOrder value) {
             buf.writeCompoundTag(value.serializeNBT());
