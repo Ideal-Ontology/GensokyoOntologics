@@ -65,6 +65,8 @@ public class GSKOClientEvents {
         // ======================== 技术性实体的渲染器 ======================= //
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.RAIL_ENTITY.get(),
                  RailRenderer::new);
+        RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.COASTER_VEHICLE.get(),
+                CoasterRenderer::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.LASER_SOURCE_ENTITY.get(),
                 LaserEntityRenderer::new);
         // RenderingRegistry.registerEntityRenderingHandler(EntityRegistry.DREAM_SEAL_ENTITY.get(),

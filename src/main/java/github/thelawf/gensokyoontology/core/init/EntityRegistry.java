@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.common.entity.combat.SpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.WingPlaneEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
@@ -147,10 +148,13 @@ public final class EntityRegistry {
     public static final RegistryObject<EntityType<MasterSparkEntity>> MASTER_SPARK_ENTITY = register(
             "master_spark", MasterSparkEntity::new, EntityClassification.MISC, 2.F, 2.F, 10, 2);
 
-
     public static final RegistryObject<EntityType<LunarFall>> LUNAR_FALL = register(
             "lunar_fall", LunarFall::new, EntityClassification.MISC,
             LunarFall.MIN_RADIUS, 1.5F, 10, 2);
+
+    public static final RegistryObject<EntityType<CoasterVehicle>> COASTER_VEHICLE = register(
+            "coaster_vehicle", CoasterVehicle::new, EntityClassification.MISC,
+            0.98F, 0.7F, 10, 2);
 
     // public static final RegistryObject<EntityType<DreamSealEntity>> DREAM_SEAL_ENTITY = register(
     //         "dream_seal", DreamSealEntity::new, EntityClassification.MISC, 2.5F, 2.5F,80,2);

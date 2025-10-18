@@ -46,7 +46,7 @@ public class CoasterVehicle extends Entity {
     }
 
     public double getAcceleration() {
-
+        return 0;
     }
 
     @Override
