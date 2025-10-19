@@ -1,7 +1,5 @@
 package github.thelawf.gensokyoontology.common.events;
 
-import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapability;
-import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.renderer.world.ScarletSkyRenderer;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
@@ -11,7 +9,6 @@ import github.thelawf.gensokyoontology.common.capability.entity.SecularLifeCapab
 import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapability;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
-import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
@@ -30,7 +27,6 @@ import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.EffectRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.data.GSKOPlayerData;
-import github.thelawf.gensokyoontology.data.world.GSKOWorldSavedData;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.block.BlockState;
@@ -97,49 +93,49 @@ public class GSKOEntityEvents {
         }
     }
 
-    @SubscribeEvent
-    public static void onSyncWithTLM(TickEvent.PlayerTickEvent event) {
-        if (event.phase != TickEvent.Phase.END) return;
-        if (!TouhouLittleMaidCompat.isTouhouMaidLoaded())return;
-
-        PlayerEntity player = event.player;
-        if (player.world.isRemote) return;
-        if (!TouhouLittleMaidCompat.isTouhouMaidLoaded()) return;
-
-
-        player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
-            GSKONetworking.sendToClientPlayer(new PowerChangedPacket(gskoCap.getCount()), player);
-            player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> {
-                tlmCap.markDirty();
-                handleDataSaved(player.world, tlmCap, gskoCap);
-                handleDataLoaded(player.world, tlmCap, gskoCap);
-            });
-        });
-    }
-
-    public static void handleDataSaved(World world, PowerCapability tlmCap, GSKOPowerCapability gskoCap) {
-        if (gskoCap.isDirty()) {
-            GSKOWorldSavedData.getInstance(world).writePower(gskoCap.getCount());
-            gskoCap.setDirty(false);
-            tlmCap.markDirty();
-        }
-        else if (tlmCap.isDirty()) {
-            GSKOWorldSavedData.getInstance(world).writePower(tlmCap.get());
-            tlmCap.setDirty(false);
-            gskoCap.markDirty();
-        }
-    }
-
-    public static void handleDataLoaded(World world, PowerCapability tlmCap, GSKOPowerCapability gskoCap) {
-        if (gskoCap.isDirty()) {
-            gskoCap.setCount(GSKOWorldSavedData.getInstance(world).getPower());
-            gskoCap.setDirty(false);
-        }
-        else if (tlmCap.isDirty()) {
-            tlmCap.set(GSKOWorldSavedData.getInstance(world).getPower());
-            tlmCap.setDirty(false);
-        }
-    }
+//    @SubscribeEvent
+//    public static void onSyncWithTLM(TickEvent.PlayerTickEvent event) {
+//        if (event.phase != TickEvent.Phase.END) return;
+//        if (!TouhouLittleMaidCompat.isTouhouMaidLoaded())return;
+//
+//        PlayerEntity player = event.player;
+//        if (player.world.isRemote) return;
+//        if (!TouhouLittleMaidCompat.isTouhouMaidLoaded()) return;
+//
+//
+//        player.getCapability(GSKOCapabilities.POWER).ifPresent(gskoCap -> {
+//            GSKONetworking.sendToClientPlayer(new PowerChangedPacket(gskoCap.getCount()), player);
+//            player.getCapability(PowerCapabilityProvider.POWER_CAP).ifPresent(tlmCap -> {
+//                tlmCap.markDirty();
+//                handleDataSaved(player.world, tlmCap, gskoCap);
+//                handleDataLoaded(player.world, tlmCap, gskoCap);
+//            });
+//        });
+//    }
+//
+//    public static void handleDataSaved(World world, PowerCapability tlmCap, GSKOPowerCapability gskoCap) {
+//        if (gskoCap.isDirty()) {
+//            GSKOWorldSavedData.getInstance(world).writePower(gskoCap.getCount());
+//            gskoCap.setDirty(false);
+//            tlmCap.markDirty();
+//        }
+//        else if (tlmCap.isDirty()) {
+//            GSKOWorldSavedData.getInstance(world).writePower(tlmCap.get());
+//            tlmCap.setDirty(false);
+//            gskoCap.markDirty();
+//        }
+//    }
+//
+//    public static void handleDataLoaded(World world, PowerCapability tlmCap, GSKOPowerCapability gskoCap) {
+//        if (gskoCap.isDirty()) {
+//            gskoCap.setCount(GSKOWorldSavedData.getInstance(world).getPower());
+//            gskoCap.setDirty(false);
+//        }
+//        else if (tlmCap.isDirty()) {
+//            tlmCap.set(GSKOWorldSavedData.getInstance(world).getPower());
+//            tlmCap.setDirty(false);
+//        }
+//    }
 
     // @SubscribeEvent
     @Deprecated

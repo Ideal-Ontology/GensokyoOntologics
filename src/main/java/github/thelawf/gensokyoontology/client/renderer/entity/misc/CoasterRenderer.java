@@ -33,7 +33,7 @@ public class CoasterRenderer extends EntityRenderer<CoasterVehicle> {
     public void render(CoasterVehicle entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
         matrixStackIn.push();
-        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(90.0F));
+        matrixStackIn.rotate(Vector3f.ZP.rotationDegrees(180.0F));
         this.model.render(matrixStackIn, bufferIn.getBuffer(RenderType.getEntityTranslucentCull(COASTER_TEXTURE)),
                 packedLightIn, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
         matrixStackIn.pop();
