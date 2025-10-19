@@ -4,7 +4,9 @@ import com.mojang.serialization.Dynamic;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.common.block.ore.JadeOreBlock;
 import github.thelawf.gensokyoontology.common.container.script.*;
+import github.thelawf.gensokyoontology.common.entity.misc.MasterSparkEntity;
 import github.thelawf.gensokyoontology.common.item.*;
+import github.thelawf.gensokyoontology.common.item.CoasterItem;
 import github.thelawf.gensokyoontology.common.item.food.*;
 import github.thelawf.gensokyoontology.common.item.material.*;
 import github.thelawf.gensokyoontology.common.item.ore.*;
@@ -21,6 +23,7 @@ import github.thelawf.gensokyoontology.common.nbt.script.GSKOScriptUtil;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuColor;
 import github.thelawf.gensokyoontology.common.util.danmaku.DanmakuType;
+import github.thelawf.gensokyoontology.core.GSKOSoundEvents;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOBlockTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOCombatTab;
 import github.thelawf.gensokyoontology.core.init.itemtab.GSKOItemTab;
@@ -28,13 +31,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.INBT;
 import net.minecraft.util.ActionResultType;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.*;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
@@ -878,6 +884,8 @@ public final class ItemRegistry {
         }
     });
 
+    public static final RegistryObject<Item> COASTER_ITEM = ITEMS.register("coaster_item", () -> new CoasterItem(
+            new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> TRACK_PLACER = ITEMS.register("track_placer", () -> new TrackPlacer(
             new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)));
     public static final RegistryObject<Item> TRACK_REMOVER = ITEMS.register("track_remover", () -> new TrackRemover(
@@ -890,5 +898,12 @@ public final class ItemRegistry {
 
     public static final RegistryObject<BlockItem> COASTER_RAIL_ITEM = ITEMS.register("coaster_rail", () -> new BlockItem(
             BlockRegistry.COASTER_RAIL.get(), new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)){
+    });
+
+    public static final RegistryObject<Item> ROT_ROLL_CLOCKWISE = ITEMS.register("rot_roll_clockwise", () -> new Item(new Item.Properties().group(GSKOItemTab.GSKO_ITEM_TAB)){
+        @Override
+        public int getUseDuration(ItemStack stack) {
+            return 72000;
+        }
     });
 }

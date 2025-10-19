@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.client;
 
+import com.github.tartaricacid.touhoulittlemaid.mclib.math.functions.limit.Min;
 import com.mojang.blaze3d.systems.RenderSystem;
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import github.thelawf.gensokyoontology.client.gui.GensokyoLoadingScreen;
@@ -45,10 +46,12 @@ public class GSKOMiscClientEvent {
     private final Minecraft mc = Minecraft.getInstance();
     public static final ITextComponent GOHEI_TITLE = GSKOUtil.translateText("gui.", ".hakurei_gohei.title");
 
+
     @SubscribeEvent
-    public void onTerrainGUIOpen(GuiOpenEvent event) {
-        if (event.getGui() instanceof DownloadTerrainScreen && this.mc.player != null) {
-            if (this.mc.player.getEntityWorld().getDimensionKey() == GSKODimensions.GENSOKYO) {
+    public static void onTerrainGUIOpen(GuiOpenEvent event) {
+        Minecraft mc = Minecraft.getInstance();
+        if (event.getGui() instanceof DownloadTerrainScreen && mc.player != null) {
+            if (mc.player.getEntityWorld().getDimensionKey() == GSKODimensions.GENSOKYO) {
                 GensokyoLoadingScreen guiLoading = new GensokyoLoadingScreen(NarratorChatListener.EMPTY);
                 event.setGui(guiLoading);
             }
@@ -221,5 +224,12 @@ public class GSKOMiscClientEvent {
 
     @SubscribeEvent
     public static void onCameraRotate(EntityViewRenderEvent.CameraSetup event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        ClientPlayerEntity player = minecraft.player;
+        if (player == null) return;
+        if (player.getHeldItemMainhand().getItem() == ItemRegistry.ROT_ROLL_CLOCKWISE.get()) {
+            float angleDeg = player.ticksExisted % 360F;
+            event.setRoll(event.getRoll() + angleDeg);
+        }
     }
 }

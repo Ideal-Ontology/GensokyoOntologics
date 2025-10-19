@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.data;
 
-import com.sun.xml.internal.bind.v2.model.core.ID;
 import github.thelawf.gensokyoontology.common.capability.entity.VillagerOrder;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.network.datasync.IDataSerializer;

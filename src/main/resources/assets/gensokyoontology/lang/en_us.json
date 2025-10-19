@@ -277,6 +277,8 @@
   "item.gensokyoontology.static_invoker": "Static Function Invoker",
   "item.gensokyoontology.binary_operation_builder": "Binary Operation Builder",
 
+  "item.gensokyoontology.rot_roll_clockwise": "Test Rotation Roll Clockwise",
+
   "advancement.gensokyoontology.root.title": "It's An INCIDENT, REIMU!",
   "advancement.gensokyoontology.root.description": "Get Story Pages Chapter 1.1",
   "advancement.gensokyoontology.login_gensokyo.title": "Love From Gensokyo ♥~",
