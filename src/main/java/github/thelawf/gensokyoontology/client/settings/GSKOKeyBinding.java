@@ -7,6 +7,10 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.settings.IKeyConflictContext;
 
+/**
+ * @see org.lwjgl.glfw.GLFW GLFW 中的输入映射值
+ * @see InputMappings InputMappings: Minecraft 中的输入映射表
+ */
 @OnlyIn(Dist.CLIENT)
 public class GSKOKeyBinding extends KeyBinding {
 

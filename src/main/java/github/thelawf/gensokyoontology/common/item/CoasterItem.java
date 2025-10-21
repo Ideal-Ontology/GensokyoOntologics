@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.item;
 
 import github.thelawf.gensokyoontology.api.util.IRayTracer;
+import github.thelawf.gensokyoontology.common.entity.misc.CoasterVehicle;
 import github.thelawf.gensokyoontology.common.entity.misc.RailEntity;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import net.minecraft.entity.SpawnReason;
@@ -37,8 +38,10 @@ public class CoasterItem extends Item implements IRayTracer {
             if (world.isRemote) return;
             ServerWorld serverWorld = (ServerWorld) world;
             RailEntity rail = (RailEntity) entity;
-            EntityRegistry.COASTER_VEHICLE.get().spawn(serverWorld, stack, player, rail.getPosition(),
-                    SpawnReason.SPAWN_EGG, false, false);
+            CoasterVehicle coaster = new CoasterVehicle(serverWorld);
+            coaster.setPosition(rail.getPosX(), rail.getPosY() + 0.5, rail.getPosZ());
+            coaster.setPrevRail(rail);
+            serverWorld.addEntity(coaster);
             result.set(ActionResult.resultConsume(stack));
         });
         return result.get();

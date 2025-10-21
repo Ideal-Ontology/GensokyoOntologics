@@ -133,6 +133,33 @@ public interface IRayTracer {
         return Optional.empty();
     }
 
+    static List<Entity> rayCast(World world, Entity originEntity, float radius, Vector3d offset){
+        List<Entity> tracedEntities = new ArrayList<>();
+        Vector3d start = originEntity.getEyePosition(0f).add(offset);
+        Vector3d end = originEntity.getLookVec().normalize().scale(radius).add(start);
+        BlockRayTraceResult btr = world.rayTraceBlocks(new RayTraceContext(start, end,
+                RayTraceContext.BlockMode.COLLIDER, RayTraceContext.FluidMode.NONE, originEntity));
+        end = btr.getHitVec();
+        AxisAlignedBB range = originEntity.getBoundingBox().expand(end.subtract(start));
+        List<RayTraceResult> rayTraces = new ArrayList<>();
+        List<? extends Entity> entities = world.getEntitiesInAABBexcluding(originEntity, range, Entity::isAlive);
+        for (Entity entity: entities) {
+            Vector3d intersection = entity.getBoundingBox().rayTrace(start, end).orElse(null);
+            if (intersection != null) {
+                EntityRayTraceResult err = new EntityRayTraceResult(entity, intersection);
+                rayTraces.add(err);
+            }
+        }
+
+        if (rayTraces.isEmpty()) return new ArrayList<>();
+        // rayTraces.sort((o1, o2) -> o1.getHitVec().distanceTo(start) < o2.getHitVec().distanceTo(start)? -1 : 1);
+        RayTraceResult result = rayTraces.get(0);
+        if (result instanceof EntityRayTraceResult) {
+            tracedEntities.add(((EntityRayTraceResult) result).getEntity());
+        }
+        return tracedEntities;
+    }
+
     static Optional<Entity> rayCast(World world, Entity sourceEntity, Vector3d startVec, Vector3d endVec){
         double closestDistance = startVec.distanceTo(endVec);
         // GSKOUtil.log(world.getEntitiesWithinAABB(Entity.class, sourceEntity.getBoundingBox().grow(startVec.distanceTo(endVec))).size());

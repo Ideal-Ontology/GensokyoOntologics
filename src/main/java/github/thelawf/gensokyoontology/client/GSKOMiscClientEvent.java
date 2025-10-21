@@ -7,24 +7,31 @@ import github.thelawf.gensokyoontology.client.gui.GensokyoLoadingScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.GoheiModeSelectScreen;
 import github.thelawf.gensokyoontology.client.gui.screen.skill.KoishiEyeSwitchScreen;
 import github.thelawf.gensokyoontology.client.model.KoishiHatModel;
+import github.thelawf.gensokyoontology.client.renderer.entity.misc.CoasterRenderer;
 import github.thelawf.gensokyoontology.client.renderer.world.ScarletSkyRenderer;
 import github.thelawf.gensokyoontology.client.settings.GSKOKeyboardManager;
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
 import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
+import github.thelawf.gensokyoontology.common.entity.misc.CoasterVehicle;
 import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
 import github.thelawf.gensokyoontology.common.item.touhou.KoishiEyeOpen;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.java.games.input.Keyboard;
+import net.minecraft.client.GameSettings;
+import net.minecraft.client.KeyboardListener;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.entity.player.ClientPlayerEntity;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.chat.NarratorChatListener;
 import net.minecraft.client.gui.screen.DownloadTerrainScreen;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -38,6 +45,7 @@ import net.minecraftforge.client.event.*;
 import net.minecraftforge.event.TickEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import org.lwjgl.glfw.GLFW;
 
 @OnlyIn(Dist.CLIENT)
 @Mod.EventBusSubscriber(modid = GensokyoOntology.MODID, value = Dist.CLIENT)
@@ -230,6 +238,20 @@ public class GSKOMiscClientEvent {
         if (player.getHeldItemMainhand().getItem() == ItemRegistry.ROT_ROLL_CLOCKWISE.get()) {
             float angleDeg = player.ticksExisted % 360F;
             event.setRoll(event.getRoll() + angleDeg);
+        }
+    }
+
+    /**
+     * @see net.minecraft.client.GameSettings GameSettings: Minecraft 原版中设置的绑定热键
+     */
+    @SubscribeEvent
+    public static void onPlayerDriveCoaster(InputEvent.KeyInputEvent event) {
+        Minecraft minecraft = Minecraft.getInstance();
+        PlayerEntity player = minecraft.player;
+        if (player == null) return;
+        if (!(player.getLowestRidingEntity() instanceof CoasterVehicle)) return;
+        if (minecraft.gameSettings.keyBindForward.isKeyDown()) {
+            CoasterVehicle vehicle = (CoasterVehicle) player.getLowestRidingEntity();
         }
     }
 }

@@ -3,7 +3,9 @@ package github.thelawf.gensokyoontology.common.events;
 import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapability;
 import com.github.tartaricacid.touhoulittlemaid.capability.PowerCapabilityProvider;
 import github.thelawf.gensokyoontology.GensokyoOntology;
+import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.client.renderer.world.ScarletSkyRenderer;
+import github.thelawf.gensokyoontology.client.settings.GSKOKeyBinding;
 import github.thelawf.gensokyoontology.common.block.nature.HotSpringBlock;
 import github.thelawf.gensokyoontology.common.capability.entity.IdentityCapability;
 import github.thelawf.gensokyoontology.common.capability.entity.GSKOPowerCapability;
@@ -12,6 +14,7 @@ import github.thelawf.gensokyoontology.common.capability.world.BloodyMistCapabil
 import github.thelawf.gensokyoontology.common.capability.GSKOCapabilities;
 import github.thelawf.gensokyoontology.common.capability.world.ImperishableNightCapability;
 import github.thelawf.gensokyoontology.common.compat.touhoulittlemaid.TouhouLittleMaidCompat;
+import github.thelawf.gensokyoontology.common.entity.misc.CoasterVehicle;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
@@ -36,6 +39,7 @@ import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.MusicTicker;
+import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.Pose;
@@ -50,6 +54,7 @@ import net.minecraft.potion.EffectInstance;
 import net.minecraft.potion.Effects;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.util.LazyOptional;
@@ -59,6 +64,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.network.PacketDistributor;
@@ -251,7 +257,6 @@ public class GSKOEntityEvents {
             return;
         }
         boolean precondition = player.ticksExisted % 20 == 0 && !player.isPotionActive(EffectRegistry.HAKUREI_BLESS_EFFECT.get());
-
         serverWorld.getCapability(GSKOCapabilities.BLOODY_MIST).ifPresent((capability -> {
 
             if (!capability.isTriggered()){
@@ -301,6 +306,23 @@ public class GSKOEntityEvents {
        if (MUSIC_TICKER.isBackgroundMusicPlaying(GSKOMusicSelector.MUSIC_BAMBOO_PARTRIDGE)){
            MUSIC_TICKER.selectRandomBackgroundMusic(GSKOMusicSelector.MUSIC_BAMBOO_PARTRIDGE);
        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayerInteractWithCoaster(PlayerInteractEvent.RightClickEmpty event){
+        PlayerEntity player = event.getPlayer();
+        IRayTracer.rayCast(event.getPlayer().world, event.getPlayer(), 10, Vector3d.ZERO).forEach(entity -> {
+                if (!(entity instanceof CoasterVehicle)) return;
+                CoasterVehicle coaster = (CoasterVehicle) entity;
+                player.startRiding(coaster);
+            });
+    }
+
+    @SubscribeEvent
+    public static void onPlayerStopRidingCoaster(TickEvent.PlayerTickEvent event){
+        PlayerEntity player = event.player;
+        if (!(player.getLowestRidingEntity() instanceof CoasterVehicle)) return;
+        if (Screen.hasShiftDown()) player.stopRiding();
     }
 
     private static void fairyDropDanmaku(LivingDeathEvent event) {

@@ -1,5 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
@@ -23,32 +25,42 @@ public class CoasterVehicle extends Entity {
     public static final BlockPos NAN_POS = new BlockPos(Double.NaN, Double.NaN, Double.NaN);
     public static final float FRICTION = 1.0F;
 
-    public static final DataParameter<BlockPos> DATA_PREV_RAIL = EntityDataManager.createKey(
-            CoasterVehicle.class, DataSerializers.BLOCK_POS);
-    public static final DataParameter<BlockPos> DATA_NEXT_RAIL = EntityDataManager.createKey(
-            CoasterVehicle.class, DataSerializers.BLOCK_POS);
+    public static final DataParameter<Integer> DATA_PREV_RAIL = EntityDataManager.createKey(
+            CoasterVehicle.class, DataSerializers.VARINT);
+    public static final DataParameter<Integer> DATA_NEXT_RAIL = EntityDataManager.createKey(
+            CoasterVehicle.class, DataSerializers.VARINT);
 
     public CoasterVehicle(EntityType<?> type, World world) {
         super(type, world);
     }
 
-    @Override
-    protected void registerData() {
-        this.dataManager.register(DATA_PREV_RAIL, NAN_POS);
-        this.dataManager.register(DATA_NEXT_RAIL, NAN_POS);
+    public CoasterVehicle(World world) {
+        this(EntityRegistry.COASTER_VEHICLE.get(), world);
     }
 
-    public void setPrevRail(BlockPos pos) {
-        this.dataManager.set(DATA_PREV_RAIL, pos);
+    @Override
+    protected void registerData() {
+        this.dataManager.register(DATA_PREV_RAIL, 0);
+        this.dataManager.register(DATA_NEXT_RAIL, 0);
     }
-    public void setNextRail(BlockPos pos) {
-        this.dataManager.set(DATA_NEXT_RAIL, pos);
+
+    public void setPrevRail(RailEntity rail) {
+        this.dataManager.set(DATA_PREV_RAIL, rail.getEntityId());
     }
-    public BlockPos getPrevRail() {
-        return this.dataManager.get(DATA_PREV_RAIL);
+    public void setNextRail(RailEntity rail) {
+        this.dataManager.set(DATA_NEXT_RAIL, rail.getEntityId());
     }
-    public BlockPos getNextRail() {
-        return this.dataManager.get(DATA_NEXT_RAIL);
+    public void setPrevRail(int prevRailEntityId) {
+        this.dataManager.set(DATA_PREV_RAIL, prevRailEntityId);
+    }
+    public void setNextRail(int nextRailEntityId) {
+        this.dataManager.set(DATA_NEXT_RAIL, nextRailEntityId);
+    }
+    public RailEntity getPrevRail() {
+        return (RailEntity) this.world.getEntityByID(this.dataManager.get(DATA_PREV_RAIL));
+    }
+    public RailEntity getNextRail() {
+        return (RailEntity) this.world.getEntityByID(this.dataManager.get(DATA_NEXT_RAIL));
     }
 
     public double getAcceleration() {
@@ -68,19 +80,32 @@ public class CoasterVehicle extends Entity {
     }
 
     @Override
-    public @NotNull ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
-        player.startRiding(this);
+    public ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
+        if (this.world.isRemote) return ActionResultType.PASS;
+        ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+        serverPlayer.startRiding(this);
         return ActionResultType.SUCCESS;
     }
 
     @Override
-    protected void readAdditional(@NotNull CompoundNBT compound) {
+    public void tick() {
+        super.tick();
+        if (this.ticksExisted % 20 == 0) {
+            GSKOUtil.log(this.getClass(), "passenger: " + this.getPassengers());
+        }
 
     }
 
     @Override
-    protected void writeAdditional(@NotNull CompoundNBT compound) {
+    protected void readAdditional(@NotNull CompoundNBT compound) {
+        this.setPrevRail(compound.getInt("prevId"));
+        this.setNextRail(compound.getInt("nextId"));
+    }
 
+    @Override
+    protected void writeAdditional(@NotNull CompoundNBT compound) {
+        compound.putInt("prevId", this.dataManager.get(DATA_PREV_RAIL));
+        compound.putInt("nextId", this.dataManager.get(DATA_NEXT_RAIL));
     }
 
     @Override
