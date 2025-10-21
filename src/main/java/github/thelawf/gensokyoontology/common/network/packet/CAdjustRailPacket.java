@@ -1,14 +1,10 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
-import github.thelawf.gensokyoontology.common.entity.RailEntity;
-import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
-import net.minecraft.block.BlockState;
-import net.minecraft.entity.Entity;
+import github.thelawf.gensokyoontology.common.entity.misc.RailEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
 

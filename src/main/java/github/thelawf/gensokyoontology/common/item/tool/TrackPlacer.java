@@ -1,6 +1,6 @@
 package github.thelawf.gensokyoontology.common.item.tool;
 
-import github.thelawf.gensokyoontology.common.entity.RailEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.RailEntity;
 import github.thelawf.gensokyoontology.common.util.math.EulerAngle;
 import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;

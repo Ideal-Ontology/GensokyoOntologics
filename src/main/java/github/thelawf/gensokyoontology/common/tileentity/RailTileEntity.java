@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.tileentity;
 
+import github.thelawf.gensokyoontology.common.entity.misc.RailEntity;
 import github.thelawf.gensokyoontology.common.util.math.RotMatrix;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
@@ -18,7 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 /**
  * @deprecated 因为申必的Forge在玩家视角内不包含方块实体时将不会渲染和方块实体一同渲染的其它模型，故废弃。
- * @see github.thelawf.gensokyoontology.common.entity.RailEntity RailEntity - 轨道实体
+ * @see RailEntity RailEntity - 轨道实体
  */
 @Deprecated
 public class RailTileEntity extends TileEntity implements ITickableTileEntity {

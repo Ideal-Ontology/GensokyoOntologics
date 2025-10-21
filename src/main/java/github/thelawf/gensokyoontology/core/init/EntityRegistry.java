@@ -1,13 +1,12 @@
 package github.thelawf.gensokyoontology.core.init;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
-import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.common.entity.combat.SpellCardEntity;
 import github.thelawf.gensokyoontology.common.entity.passive.WingPlaneEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.entity.HakureiReimuEntity;
 import github.thelawf.gensokyoontology.common.entity.HaniwaEntity;
-import github.thelawf.gensokyoontology.common.entity.RailEntity;
+import github.thelawf.gensokyoontology.common.entity.misc.RailEntity;
 import github.thelawf.gensokyoontology.common.entity.combat.spell.*;
 import github.thelawf.gensokyoontology.common.entity.misc.*;
 import github.thelawf.gensokyoontology.common.entity.monster.KomeijiKoishiEntity;

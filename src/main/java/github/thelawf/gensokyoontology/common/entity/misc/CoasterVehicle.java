@@ -2,12 +2,16 @@ package github.thelawf.gensokyoontology.common.entity.misc;
 
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -47,6 +51,12 @@ public class CoasterVehicle extends Entity {
 
     public double getAcceleration() {
         return 0;
+    }
+
+    @Override
+    public @NotNull ActionResultType processInitialInteract(PlayerEntity player, Hand hand) {
+        player.startRiding(this);
+        return ActionResultType.SUCCESS;
     }
 
     @Override
