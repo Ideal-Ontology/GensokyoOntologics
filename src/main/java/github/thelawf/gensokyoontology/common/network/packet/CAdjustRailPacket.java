@@ -55,6 +55,6 @@ public class CAdjustRailPacket {
         if (rail == null) return;
         rail.setRotation(packet.selfFacing);
         serverWorld.updateEntity(rail);
-        rail.getTargetRail().ifPresent(serverWorld::updateEntity);
+        rail.getNextRail().ifPresent(serverWorld::updateEntity);
     }
 }

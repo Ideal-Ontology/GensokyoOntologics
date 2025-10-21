@@ -1,8 +1,11 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
+import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.datasync.DataParameter;
@@ -11,7 +14,6 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -51,6 +53,18 @@ public class CoasterVehicle extends Entity {
 
     public double getAcceleration() {
         return 0;
+    }
+
+    @Override
+    public boolean hitByEntity(Entity entityIn) {
+        if (!(entityIn instanceof ServerPlayerEntity)) return false;
+        ServerPlayerEntity player = (ServerPlayerEntity) entityIn;
+        if (!player.isSneaking()) return false;
+        if (player.isCreative()) return false;
+
+        Block.spawnAsEntity(world, this.getPosition(), ItemRegistry.COASTER_ITEM.get().getDefaultInstance());
+        this.remove();
+        return true;
     }
 
     @Override

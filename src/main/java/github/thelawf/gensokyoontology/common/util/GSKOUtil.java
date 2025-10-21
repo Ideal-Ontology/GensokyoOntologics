@@ -45,6 +45,7 @@ import static github.thelawf.gensokyoontology.GensokyoOntology.LOGGER;
 
 public class GSKOUtil {
 
+
     public static List<ItemStack> toItemList(IInventory inv) {
         List<ItemStack> list = new ArrayList<>();
         for (int i = 0; i < inv.getSizeInventory(); i++) {

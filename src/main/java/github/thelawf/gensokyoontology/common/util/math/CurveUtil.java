@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
 import com.mojang.datafixers.util.Pair;
+import github.thelawf.gensokyoontology.data.CatmullRomSpline;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
@@ -136,6 +137,9 @@ public class CurveUtil {
         return midPoint.add(avgDirection.scale(offset));
     }
 
+    public static Vector3d catmullRom(CatmullRomSpline spline, float time) {
+        return catmullRom(spline.ctrl1, spline.start, spline.end, spline.ctrl2, time);
+    }
     public static Vector3d catmullRom(Vector3d ctrl1, Vector3d start, Vector3d end,  Vector3d ctrl2, float time) {
         double t2 = time * time;
         double t3 = t2 * time;
