@@ -3,7 +3,7 @@ package github.thelawf.gensokyoontology.common.entity.misc;
 import com.mojang.datafixers.util.Pair;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
-import github.thelawf.gensokyoontology.data.CatmullRomSpline;
+import github.thelawf.gensokyoontology.common.util.math.CatmullRomSpline;
 import github.thelawf.gensokyoontology.data.GSKOSerializers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -18,7 +18,6 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 曲线激光使用和PS相同的Catmull-Rom曲线进行插值

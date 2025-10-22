@@ -1,7 +1,6 @@
 package github.thelawf.gensokyoontology.common.util.math;
 
 import com.mojang.datafixers.util.Pair;
-import github.thelawf.gensokyoontology.data.CatmullRomSpline;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;

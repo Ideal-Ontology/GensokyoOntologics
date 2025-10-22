@@ -4,6 +4,7 @@ import github.thelawf.gensokyoontology.api.util.Color4i;
 import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
 import github.thelawf.gensokyoontology.common.util.math.RotMatrix;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
+import github.thelawf.gensokyoontology.common.util.math.DerivativeInfo;
 import github.thelawf.gensokyoontology.data.GSKOSerializers;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
@@ -14,16 +15,17 @@ import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Quaternion;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class RailEntity extends Entity {
     public static final float NAN = Float.NaN;
+    public static final int SEGMENTS = 32;
 
     public static final DataParameter<Integer> DATA_PREV_ID = EntityDataManager.createKey(
             RailEntity.class, DataSerializers.VARINT);
@@ -154,6 +156,53 @@ public class RailEntity extends Entity {
 
     public Info getInfo() {
         return Info.values()[this.dataManager.get(DATA_INFO)];
+    }
+
+    public List<Vector3d> getSegmentPositions(@NotNull RailEntity nextRail) {
+        List<Vector3d> railPositions = new LinkedList<>();
+        railPositions.add(this.getPositionVec());
+        for (float t = 0F; t < 1F; t += 1F / SEGMENTS) {
+            Vector3d nextPos = CurveUtil.hermite3(this.getPositionVec(), nextRail.getPositionVec(),
+                    this.getFacing(), nextRail.getFacing(), t);
+            railPositions.add(nextPos);
+        }
+        return railPositions;
+    }
+
+    public List<DerivativeInfo> getDerivatives(@NotNull RailEntity nextRail){
+        List<DerivativeInfo> derivativeMap = new LinkedList<>();
+        Vector3d pos = this.getPositionVec();
+        for (float t = 0F; t < 1F; t += 1F / SEGMENTS) {
+            Vector3d nextSegPos = CurveUtil.hermite3(pos, nextRail.getPositionVec(),
+                    this.getFacing(), nextRail.getFacing(), t);
+            Vector3d tangent = CurveUtil.hermiteTangent(pos, nextRail.getPositionVec(),
+                    new Vector3d(this.getFacing()), new Vector3d(nextRail.getFacing()), t);
+            Vector3d curvature = CurveUtil.hermiteCurvature(this.getPositionVec(), nextRail.getPositionVec(),
+                    new Vector3d(this.getFacing()), new Vector3d(nextRail.getFacing()), t);
+            derivativeMap.add(new DerivativeInfo(nextSegPos, tangent, curvature));
+        }
+
+        return derivativeMap;
+    }
+
+    public double getRailLength(@NotNull RailEntity nextRail){
+        List<Double> segmentsLength = this.getSegmentsLength(nextRail);
+        double result = 0;
+        for (double length : segmentsLength) {
+            result += length;
+        }
+        return result;
+    }
+
+    public List<Double> getSegmentsLength(@NotNull RailEntity nextRail){
+        List<Double> lengths = new LinkedList<>();
+        List<Vector3d> railPositions = this.getSegmentPositions(nextRail);
+        Vector3d pos = this.getPositionVec();
+        for (Vector3d nextpos : railPositions) {
+            lengths.add(pos.distanceTo(nextpos));
+            pos = nextpos;
+        }
+        return lengths;
     }
 
     /**

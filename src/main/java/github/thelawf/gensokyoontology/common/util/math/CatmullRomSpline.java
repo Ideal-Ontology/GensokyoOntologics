@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.data;
+package github.thelawf.gensokyoontology.common.util.math;
 
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;

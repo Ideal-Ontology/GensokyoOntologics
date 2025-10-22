@@ -1,11 +1,16 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
+import com.google.common.util.concurrent.AtomicDouble;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
+import github.thelawf.gensokyoontology.common.util.math.DerivativeInfo;
+import github.thelawf.gensokyoontology.common.util.math.TimeDifferential;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.MoverType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.nbt.CompoundNBT;
@@ -21,10 +26,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CoasterVehicle extends Entity {
 
     public static final BlockPos NAN_POS = new BlockPos(Double.NaN, Double.NaN, Double.NaN);
     public static final float FRICTION = 1.0F;
+    public static final BlockState AIR = Blocks.AIR.getDefaultState();
 
     public static final DataParameter<Integer> DATA_PREV_RAIL = EntityDataManager.createKey(
             CoasterVehicle.class, DataSerializers.VARINT);
@@ -32,6 +41,8 @@ public class CoasterVehicle extends Entity {
             CoasterVehicle.class, DataSerializers.VARINT);
     public static final DataParameter<Boolean> DATA_MOVING_FLAG = EntityDataManager.createKey(
             CoasterVehicle.class, DataSerializers.BOOLEAN);
+    public static final DataParameter<Integer> DATA_MOTION_TICKER = EntityDataManager.createKey(
+            CoasterVehicle.class, DataSerializers.VARINT);
 
     public CoasterVehicle(EntityType<?> type, World world) {
         super(type, world);
@@ -46,6 +57,7 @@ public class CoasterVehicle extends Entity {
         this.dataManager.register(DATA_PREV_RAIL, 0);
         this.dataManager.register(DATA_NEXT_RAIL, 0);
         this.dataManager.register(DATA_MOVING_FLAG, false);
+        this.dataManager.register(DATA_MOTION_TICKER, 0);
     }
 
     public void setPrevRail(RailEntity rail) {
@@ -72,6 +84,14 @@ public class CoasterVehicle extends Entity {
     }
     public boolean shouldMove() {
         return this.dataManager.get(DATA_MOVING_FLAG);
+    }
+
+    public int getMotionTicker() {
+        return this.dataManager.get(DATA_MOTION_TICKER);
+    }
+
+    public void setMotionTicker(int tick) {
+        this.dataManager.set(DATA_MOTION_TICKER, tick);
     }
 
     public double getAcceleration() {
@@ -103,9 +123,46 @@ public class CoasterVehicle extends Entity {
     @Override
     public void tick() {
         super.tick();
-        // if (this.ticksExisted % 20 == 0) GSKOUtil.log(this.getClass(), "passenger: " + this.getPassengers());
-        if (!this.shouldMove()) this.setMotion(Vector3d.ZERO);
+        if (!this.shouldMove()) {
+            this.setMotionTicker(0);
+            this.setMotion(Vector3d.ZERO);
+            return;
+        }
 
+        this.getPrevRail().getNextRail().ifPresent(entity -> {
+            if (!(entity instanceof RailEntity)) return;
+            RailEntity rail = (RailEntity) entity;
+            List<TimeDifferential> integral = this.getIntegralOfDistanceAndTime(rail);
+
+            integral.forEach(dt -> {
+                if (this.getMotionTicker() > dt.timePartial) return;
+                this.move(MoverType.SELF, dt.derivativeInfo.position);
+                this.setMotion(dt.derivativeInfo.tangent);
+                this.setMotionMultiplier(AIR, dt.derivativeInfo.curvature);
+            });
+
+        });
+    }
+
+    public void updateVelocity(@NotNull RailEntity nextRail) {
+        this.getPrevRail().getRailLength(nextRail);
+    }
+
+    /**
+     * 通过分段曲线的长度除以瞬时速度来获取载具通过某个分段的速度，将其累加来确定过山车在第几个游戏刻抵达某个区段
+     */
+    public List<TimeDifferential> getIntegralOfDistanceAndTime(@NotNull RailEntity nextRail) {
+        List<Double> lengths = this.getPrevRail().getSegmentsLength(nextRail);
+        AtomicDouble timePartial = new AtomicDouble();
+        List<DerivativeInfo> derivatives = this.getPrevRail().getDerivatives(nextRail);
+        List<TimeDifferential> integral = new ArrayList<>();
+        derivatives.forEach(derivative -> {
+            double length = lengths.get(derivatives.indexOf(derivative));
+            double timeIntegral = timePartial.addAndGet(length / derivative.tangent.length());
+            TimeDifferential dt = new TimeDifferential(timeIntegral, derivative);
+            integral.add(dt);
+        });
+        return integral;
     }
 
     @Override
@@ -113,6 +170,7 @@ public class CoasterVehicle extends Entity {
         this.setPrevRail(compound.getInt("prevId"));
         this.setNextRail(compound.getInt("nextId"));
         this.setShouldMove(compound.getBoolean("shouldMove"));
+        this.setMotionTicker(compound.getInt("movingTick"));
     }
 
     @Override
@@ -120,6 +178,7 @@ public class CoasterVehicle extends Entity {
         compound.putInt("prevId", this.dataManager.get(DATA_PREV_RAIL));
         compound.putInt("nextId", this.dataManager.get(DATA_NEXT_RAIL));
         compound.putBoolean("shouldMove", this.dataManager.get(DATA_MOVING_FLAG));
+        compound.putInt("movingTick", this.dataManager.get(DATA_MOTION_TICKER));
     }
 
     @Override
