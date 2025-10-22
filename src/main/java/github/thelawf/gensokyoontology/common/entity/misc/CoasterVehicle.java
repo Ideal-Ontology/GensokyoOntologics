@@ -28,6 +28,8 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class CoasterVehicle extends Entity {
 
@@ -72,8 +74,9 @@ public class CoasterVehicle extends Entity {
     public void setNextRail(int nextRailEntityId) {
         this.dataManager.set(DATA_NEXT_RAIL, nextRailEntityId);
     }
-    public RailEntity getPrevRail() {
-        return (RailEntity) this.world.getEntityByID(this.dataManager.get(DATA_PREV_RAIL));
+    public Optional<RailEntity> getPrevRail() {
+        Entity entity = this.world.getEntityByID(this.dataManager.get(DATA_PREV_RAIL));
+        return entity instanceof RailEntity ? Optional.of((RailEntity) entity) : Optional.empty();
     }
     public RailEntity getNextRail() {
         return (RailEntity) this.world.getEntityByID(this.dataManager.get(DATA_NEXT_RAIL));
@@ -129,7 +132,7 @@ public class CoasterVehicle extends Entity {
             return;
         }
 
-        this.getPrevRail().getNextRail().ifPresent(entity -> {
+        this.getPrevRail().flatMap(RailEntity::getNextRail).ifPresent(entity -> {
             if (!(entity instanceof RailEntity)) return;
             RailEntity rail = (RailEntity) entity;
             List<TimeDifferential> integral = this.getIntegralOfDistanceAndTime(rail);
@@ -140,29 +143,30 @@ public class CoasterVehicle extends Entity {
                 this.setMotion(dt.derivativeInfo.tangent);
                 this.setMotionMultiplier(AIR, dt.derivativeInfo.curvature);
             });
-
         });
-    }
-
-    public void updateVelocity(@NotNull RailEntity nextRail) {
-        this.getPrevRail().getRailLength(nextRail);
     }
 
     /**
-     * 通过分段曲线的长度除以瞬时速度来获取载具通过某个分段的速度，将其累加来确定过山车在第几个游戏刻抵达某个区段
+     * 获取路程对时间的积分，即通过分段曲线的长度除以瞬时速度来获取载具在通过某个分段时所需的时间，将其累加来确定过山车在哪个游戏刻抵达哪个区段。
+     * @return 路程对时间的积分
      */
     public List<TimeDifferential> getIntegralOfDistanceAndTime(@NotNull RailEntity nextRail) {
-        List<Double> lengths = this.getPrevRail().getSegmentsLength(nextRail);
-        AtomicDouble timePartial = new AtomicDouble();
-        List<DerivativeInfo> derivatives = this.getPrevRail().getDerivatives(nextRail);
-        List<TimeDifferential> integral = new ArrayList<>();
-        derivatives.forEach(derivative -> {
-            double length = lengths.get(derivatives.indexOf(derivative));
-            double timeIntegral = timePartial.addAndGet(length / derivative.tangent.length());
-            TimeDifferential dt = new TimeDifferential(timeIntegral, derivative);
-            integral.add(dt);
+        AtomicReference<List<TimeDifferential>> dtRef = new AtomicReference<>();
+         this.getPrevRail().ifPresent(prev -> {
+             List<Double> lengths = prev.getSegmentsLength(nextRail);
+             AtomicDouble timePartial = new AtomicDouble();
+             List<DerivativeInfo> derivatives = prev.getDerivatives(nextRail);
+             List<TimeDifferential> integral = new ArrayList<>();
+
+             derivatives.forEach(derivative -> {
+                 double length = lengths.get(derivatives.indexOf(derivative));
+                 double timeIntegral = timePartial.addAndGet(length / derivative.tangent.length());
+                 TimeDifferential dt = new TimeDifferential(timeIntegral, derivative);
+                 integral.add(dt);
+             });
+             dtRef.set(integral);
         });
-        return integral;
+        return dtRef.get();
     }
 
     @Override

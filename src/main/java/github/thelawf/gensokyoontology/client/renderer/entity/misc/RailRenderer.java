@@ -214,22 +214,14 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
             currentRight = currentRight.add(prev);
             nextLeft = nextLeft.add(prev);
             nextRight = nextRight.add(prev);
-//
-//            GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(),
-//                    currentLeft, nextLeft,
-//                    RAIL_RADIUS, 32, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
-//
-//            GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(),
-//                    currentRight, nextRight,
-//                    RAIL_RADIUS, 32, color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
 
-            if (startRail.ticksExisted % 20 == 0) {
-                GSKOUtil.log(this.getClass(), "index = " + i);
-                GSKOUtil.log(this.getClass(), "prev left: " + left);
-                GSKOUtil.log(this.getClass(), "current left: " + currentLeft);
-                GSKOUtil.log(this.getClass(), "next left: " + nextLeft);
-                GSKOUtil.log("");
-            }
+//            if (startRail.ticksExisted % 20 == 0) {
+//                GSKOUtil.log(this.getClass(), "index = " + i);
+//                GSKOUtil.log(this.getClass(), "prev left: " + left);
+//                GSKOUtil.log(this.getClass(), "current left: " + currentLeft);
+//                GSKOUtil.log(this.getClass(), "next left: " + nextLeft);
+//                GSKOUtil.log("");
+//            }
 
             GeometryUtil.renderCyl(builder, matrixStack.getLast().getMatrix(),
                     i == 0 ? currentLeft : left, nextLeft,
