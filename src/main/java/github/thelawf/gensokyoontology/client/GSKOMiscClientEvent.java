@@ -242,6 +242,7 @@ public class GSKOMiscClientEvent {
     }
 
     /**
+     * 通过 Minecraft 实例获取游戏绑定热键设置
      * @see net.minecraft.client.GameSettings GameSettings: Minecraft 原版中设置的绑定热键
      */
     @SubscribeEvent
@@ -252,6 +253,7 @@ public class GSKOMiscClientEvent {
         if (!(player.getLowestRidingEntity() instanceof CoasterVehicle)) return;
         if (minecraft.gameSettings.keyBindForward.isKeyDown()) {
             CoasterVehicle vehicle = (CoasterVehicle) player.getLowestRidingEntity();
+
         }
     }
 }

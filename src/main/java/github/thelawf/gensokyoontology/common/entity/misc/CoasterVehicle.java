@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
+import com.github.tartaricacid.touhoulittlemaid.entity.item.EntitySit;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;

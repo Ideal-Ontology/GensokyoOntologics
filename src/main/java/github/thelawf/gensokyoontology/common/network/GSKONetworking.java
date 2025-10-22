@@ -33,7 +33,9 @@ public class GSKONetworking {
         CHANNEL.messageBuilder(CInvokeFunctionPacket.class, next()).encoder(CInvokeFunctionPacket::toBytes).decoder(CInvokeFunctionPacket::fromBytes).consumer(CInvokeFunctionPacket::handle).add();
         CHANNEL.messageBuilder(CSwitchModePacket.class, next()).encoder(CSwitchModePacket::toBytes).decoder(CSwitchModePacket::fromBytes).consumer(CSwitchModePacket::handle).add();
 
+        CHANNEL.messageBuilder(CInteractCoasterPacket.class, next()).encoder(CInteractCoasterPacket::toBytes).decoder(CInteractCoasterPacket::fromBytes).consumer(CInteractCoasterPacket::handle).add();
         CHANNEL.messageBuilder(CAdjustRailPacket.class, next()).encoder(CAdjustRailPacket::toBytes).decoder(CAdjustRailPacket::fromBytes).consumer(CAdjustRailPacket::handle).add();
+
         CHANNEL.messageBuilder(SRotateCameraPacket.class, next()).encoder(SRotateCameraPacket::toBytes).decoder(SRotateCameraPacket::fromBytes).consumer(SRotateCameraPacket::handle).add();
         CHANNEL.messageBuilder(SDanmakuTilePacket.class, next()).encoder(SDanmakuTilePacket::toBytes).decoder(SDanmakuTilePacket::fromBytes).consumer(SDanmakuTilePacket::handle).add();
         CHANNEL.messageBuilder(SJigsawPatternRenderPacket.class, next()).encoder(SJigsawPatternRenderPacket::toBytes).decoder(SJigsawPatternRenderPacket::fromBytes).consumer(SJigsawPatternRenderPacket::handle).add();
