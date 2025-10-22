@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.data;
+package github.thelawf.gensokyoontology.data.generator;
 
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;

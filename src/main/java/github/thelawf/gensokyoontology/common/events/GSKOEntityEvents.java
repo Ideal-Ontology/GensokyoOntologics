@@ -18,6 +18,7 @@ import github.thelawf.gensokyoontology.common.entity.misc.CoasterVehicle;
 import github.thelawf.gensokyoontology.common.entity.monster.FairyEntity;
 import github.thelawf.gensokyoontology.common.entity.projectile.Danmaku;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CInteractCoasterPacket;
 import github.thelawf.gensokyoontology.common.network.packet.PowerChangedPacket;
 import github.thelawf.gensokyoontology.common.network.packet.SScarletMistPacket;
 import github.thelawf.gensokyoontology.common.util.GSKODamageSource;
@@ -315,6 +316,8 @@ public class GSKOEntityEvents {
                 if (!(entity instanceof CoasterVehicle)) return;
                 CoasterVehicle coaster = (CoasterVehicle) entity;
                 player.startRiding(coaster);
+                GSKONetworking.CHANNEL.sendToServer(new CInteractCoasterPacket(
+                        CInteractCoasterPacket.RIDING, coaster.getUniqueID()));
             });
     }
 
@@ -322,7 +325,11 @@ public class GSKOEntityEvents {
     public static void onPlayerStopRidingCoaster(TickEvent.PlayerTickEvent event){
         PlayerEntity player = event.player;
         if (!(player.getLowestRidingEntity() instanceof CoasterVehicle)) return;
-        if (Screen.hasShiftDown()) player.stopRiding();
+        if (Screen.hasShiftDown()) {
+            player.stopRiding();
+            GSKONetworking.CHANNEL.sendToServer(new CInteractCoasterPacket(
+                    CInteractCoasterPacket.STOP_RIDING, player.getUniqueID()));
+        }
     }
 
     private static void fairyDropDanmaku(LivingDeathEvent event) {

@@ -2,8 +2,11 @@ package github.thelawf.gensokyoontology.common.network.packet;
 
 import github.thelawf.gensokyoontology.api.Actions;
 import github.thelawf.gensokyoontology.common.entity.misc.CoasterVehicle;
+import net.minecraft.block.Blocks;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.network.PacketBuffer;
+import net.minecraft.util.math.vector.Vector3d;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkEvent;
 
@@ -55,6 +58,17 @@ public class CInteractCoasterPacket {
         });
         COMMANDS.put(STOP_RIDING, (packet, serverPlayer, serverWorld) ->
                 serverPlayer.stopRiding());
-        COMMANDS.put(DRIVING, (packet, serverPlayer, serverWorld) -> {});
+
+        COMMANDS.put(DRIVING, (packet, serverPlayer, serverWorld) -> {
+            CoasterVehicle vehicle = (CoasterVehicle) serverWorld.getEntityByUuid(packet.coasterUUID);
+            if (vehicle == null) return;
+            Vector3f tangent = vehicle.getPrevRail().getFacing().copy();
+            tangent.mul(2F);
+            Vector3d velocity = new Vector3d(tangent);
+
+            vehicle.setShouldMove(true);
+            vehicle.setMotion(velocity.normalize());
+            vehicle.setMotionMultiplier(Blocks.AIR.getDefaultState(), velocity);
+        });
     }
 }

@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.data;
+package github.thelawf.gensokyoontology.data.generator;
 
 import com.google.common.collect.ImmutableList;
 import com.mojang.datafixers.util.Pair;

@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.data;
 
 import github.thelawf.gensokyoontology.common.capability.entity.VillagerOrder;
+import github.thelawf.gensokyoontology.data.tag.GSKOItemTags;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Tags;

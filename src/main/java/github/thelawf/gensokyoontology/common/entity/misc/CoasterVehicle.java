@@ -1,6 +1,5 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
-import com.github.tartaricacid.touhoulittlemaid.entity.item.EntitySit;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -17,6 +16,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
@@ -30,6 +30,8 @@ public class CoasterVehicle extends Entity {
             CoasterVehicle.class, DataSerializers.VARINT);
     public static final DataParameter<Integer> DATA_NEXT_RAIL = EntityDataManager.createKey(
             CoasterVehicle.class, DataSerializers.VARINT);
+    public static final DataParameter<Boolean> DATA_MOVING_FLAG = EntityDataManager.createKey(
+            CoasterVehicle.class, DataSerializers.BOOLEAN);
 
     public CoasterVehicle(EntityType<?> type, World world) {
         super(type, world);
@@ -43,6 +45,7 @@ public class CoasterVehicle extends Entity {
     protected void registerData() {
         this.dataManager.register(DATA_PREV_RAIL, 0);
         this.dataManager.register(DATA_NEXT_RAIL, 0);
+        this.dataManager.register(DATA_MOVING_FLAG, false);
     }
 
     public void setPrevRail(RailEntity rail) {
@@ -64,9 +67,18 @@ public class CoasterVehicle extends Entity {
         return (RailEntity) this.world.getEntityByID(this.dataManager.get(DATA_NEXT_RAIL));
     }
 
+    public void setShouldMove(boolean flag) {
+        this.dataManager.set(DATA_MOVING_FLAG, flag);
+    }
+    public boolean shouldMove() {
+        return this.dataManager.get(DATA_MOVING_FLAG);
+    }
+
     public double getAcceleration() {
         return 0;
     }
+
+    public void setAcceleration(double acceleration) {}
 
     @Override
     public boolean hitByEntity(Entity entityIn) {
@@ -91,9 +103,8 @@ public class CoasterVehicle extends Entity {
     @Override
     public void tick() {
         super.tick();
-        if (this.ticksExisted % 20 == 0) {
-            GSKOUtil.log(this.getClass(), "passenger: " + this.getPassengers());
-        }
+        // if (this.ticksExisted % 20 == 0) GSKOUtil.log(this.getClass(), "passenger: " + this.getPassengers());
+        if (!this.shouldMove()) this.setMotion(Vector3d.ZERO);
 
     }
 
@@ -101,12 +112,14 @@ public class CoasterVehicle extends Entity {
     protected void readAdditional(@NotNull CompoundNBT compound) {
         this.setPrevRail(compound.getInt("prevId"));
         this.setNextRail(compound.getInt("nextId"));
+        this.setShouldMove(compound.getBoolean("shouldMove"));
     }
 
     @Override
     protected void writeAdditional(@NotNull CompoundNBT compound) {
         compound.putInt("prevId", this.dataManager.get(DATA_PREV_RAIL));
         compound.putInt("nextId", this.dataManager.get(DATA_NEXT_RAIL));
+        compound.putBoolean("shouldMove", this.dataManager.get(DATA_MOVING_FLAG));
     }
 
     @Override

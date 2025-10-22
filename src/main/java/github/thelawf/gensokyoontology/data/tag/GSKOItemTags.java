@@ -1,4 +1,4 @@
-package github.thelawf.gensokyoontology.data;
+package github.thelawf.gensokyoontology.data.tag;
 
 import github.thelawf.gensokyoontology.GensokyoOntology;
 import net.minecraft.item.Item;

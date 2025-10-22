@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
 import github.thelawf.gensokyoontology.api.util.Color4i;
+import github.thelawf.gensokyoontology.common.util.math.CurveUtil;
 import github.thelawf.gensokyoontology.common.util.math.RotMatrix;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.data.GSKOSerializers;
@@ -173,6 +174,7 @@ public class RailEntity extends Entity {
 //        }
         return rails;
     }
+
 
     public enum Info{
         ACCELERATION(Color4i.GREEN),

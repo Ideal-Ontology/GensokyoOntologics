@@ -107,7 +107,7 @@ public final class EntityRegistry {
 
     // ============================ 技术性实体：轨道和载具 ============================= //
     public static final RegistryObject<EntityType<RailEntity>> RAIL_ENTITY = register(
-            "rail", RailEntity::new, EntityClassification.MISC, 1, 0.3F, 16, 2);
+            "rail", RailEntity::new, EntityClassification.MISC, 1, 0.5F, 16, 2);
     // public static final RegistryObject<EntityType<CoasterVehicleEntity>> COASTER_ENTITY = register(
     //         "coaster", CoasterVehicleEntity::new, EntityClassification.MISC, 2, 2, 10, 2);
 

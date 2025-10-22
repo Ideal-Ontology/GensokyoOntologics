@@ -16,6 +16,8 @@ import github.thelawf.gensokyoontology.common.container.script.OneSlotContainer;
 import github.thelawf.gensokyoontology.common.entity.misc.CoasterVehicle;
 import github.thelawf.gensokyoontology.common.item.touhou.HakureiGohei;
 import github.thelawf.gensokyoontology.common.item.touhou.KoishiEyeOpen;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CInteractCoasterPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.world.GSKOWorldUtil;
 import github.thelawf.gensokyoontology.common.world.GSKODimensions;
@@ -33,6 +35,7 @@ import net.minecraft.client.renderer.ItemRenderer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.InputMappings;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Hand;
@@ -250,10 +253,15 @@ public class GSKOMiscClientEvent {
         Minecraft minecraft = Minecraft.getInstance();
         PlayerEntity player = minecraft.player;
         if (player == null) return;
-        if (!(player.getLowestRidingEntity() instanceof CoasterVehicle)) return;
-        if (minecraft.gameSettings.keyBindForward.isKeyDown()) {
-            CoasterVehicle vehicle = (CoasterVehicle) player.getLowestRidingEntity();
+        Entity entity = player.getRidingEntity();
 
+        if (!(entity instanceof CoasterVehicle)) return;
+        CoasterVehicle vehicle = (CoasterVehicle) entity;
+
+        if (vehicle.shouldMove()) return;
+        if (minecraft.gameSettings.keyBindJump.isKeyDown()) {
+            GSKONetworking.CHANNEL.sendToServer(new CInteractCoasterPacket(
+                    CInteractCoasterPacket.DRIVING, vehicle.getUniqueID()));
         }
     }
 }
