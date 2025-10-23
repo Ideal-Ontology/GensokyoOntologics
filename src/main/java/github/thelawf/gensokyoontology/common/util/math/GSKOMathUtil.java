@@ -560,9 +560,9 @@ public class GSKOMathUtil {
 
     // 欧拉角 → 四元数（ZYX顺序）
     public static Quaternion toQuaternion(EulerAngle eulerAngle) {
-        Quaternion qz = new Quaternion(Vector3f.ZP, eulerAngle.yaw(), true);    // 先绕Z轴（Yaw）
-        Quaternion qy = new Quaternion(Vector3f.YP, eulerAngle.pitch(), true);   // 再绕Y轴（Pitch）
-        Quaternion qx = new Quaternion(Vector3f.XP, eulerAngle.roll(), true);    // 后绕X轴（Roll）
+        Quaternion qz = new Quaternion(Vector3f.ZP, eulerAngle.roll(), true);    // 先绕Z轴（Yaw）
+        Quaternion qy = new Quaternion(Vector3f.YP, eulerAngle.yaw(), true);   // 再绕Y轴（Pitch）
+        Quaternion qx = new Quaternion(Vector3f.XP, eulerAngle.pitch(), true);    // 后绕X轴（Roll）
         qz.multiply(qy);
         qz.multiply(qx); // 顺序: Z → Y → X
         return qz;

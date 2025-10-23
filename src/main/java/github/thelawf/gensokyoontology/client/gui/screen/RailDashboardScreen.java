@@ -30,9 +30,9 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     private final Vector3d initHandleValue;
     private Vector3d nextHandleValue;
 
-    private Slider xHandle;
-    private Slider yHandle;
-    private Slider zHandle;
+    private Slider pitchHandle;
+    private Slider yawHandle;
+    private Slider rollHandle;
 
     private Button resetX0;
     private Button resetY0;
@@ -69,31 +69,31 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         this.nextHandleValue = new Vector3d(this.initHandleValue.x, this.initHandleValue.y, this.initHandleValue.z);
     }
 
-    private void onXHandleSlide(Slider slider) {
-        double y = this.yHandle == null ? 0 : this.yHandle.getValue();
-        double z = this.zHandle == null ? 0 : this.zHandle.getValue();
+    private void onPitchSlide(Slider slider) {
+        double yaw = this.yawHandle == null ? 0 : this.yawHandle.getValue();
+        double roll = this.rollHandle == null ? 0 : this.rollHandle.getValue();
 
-        this.eulerAngle = EulerAngle.of(z, y, slider.getValue());
+        this.eulerAngle = EulerAngle.of(yaw, slider.getValue(), roll);
         this.rotation = this.eulerAngle.toQuaternion();
 
         this.setSliderValue();
         this.sendPacketToServer();
     }
 
-    private void onYHandleSlide(Slider slider) {
-        double x = this.yHandle == null ? 0 : this.xHandle.getValue();
-        double z = this.zHandle == null ? 0 : this.zHandle.getValue();
-        this.eulerAngle = EulerAngle.of(z, slider.getValue(), x);
+    private void onYawSlide(Slider slider) {
+        double pitch = this.yawHandle == null ? 0 : this.pitchHandle.getValue();
+        double roll = this.rollHandle == null ? 0 : this.rollHandle.getValue();
+        this.eulerAngle = EulerAngle.of(slider.getValue(), pitch, roll);
         this.rotation = this.eulerAngle.toQuaternion();
 
         this.setSliderValue();
         this.sendPacketToServer();
     }
 
-    private void onZHandleSlide(Slider slider) {
-        double y = this.yHandle == null ? 0 : this.yHandle.getValue();
-        double x = this.zHandle == null ? 0 : this.xHandle.getValue();
-        this.eulerAngle = EulerAngle.of(slider.getValue(), y, x);
+    private void onRollSlide(Slider slider) {
+        double yaw = this.yawHandle == null ? 0 : this.yawHandle.getValue();
+        double pitch = this.rollHandle == null ? 0 : this.pitchHandle.getValue();
+        this.eulerAngle = EulerAngle.of(yaw, pitch, slider.getValue());
         this.rotation = this.eulerAngle.toQuaternion();
 
         this.setSliderValue();
@@ -101,15 +101,15 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     }
 
     private void onResetXSlide(Button btn) {
-        this.xHandle.setValue(0);
+        this.pitchHandle.setValue(0);
         this.eulerAngle.setRoll(0);
     }
     private void onResetYSlide(Button btn) {
-        this.yHandle.setValue(0);
+        this.yawHandle.setValue(0);
         this.eulerAngle.setPitch(0);
     }
     private void onResetZSlide(Button btn) {
-        this.zHandle.setValue(0);
+        this.rollHandle.setValue(0);
         this.eulerAngle.setYaw(0);
     }
 
@@ -120,25 +120,25 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         double y = this.initHandleValue.y;
         double z = this.initHandleValue.z;
 
-        this.xHandle = new Slider(50, 20, 180, 20, QX, withText("°"),
+        this.pitchHandle = new Slider(50, 20, 180, 20, QX, withText("°"),
                 -180, 180, x,
-                true, true, iPressable -> {}, this::onXHandleSlide);
+                true, true, iPressable -> {}, this::onPitchSlide);
 
-        this.yHandle = new Slider(50, 45, 180, 20, QY, withText("°"),
+        this.yawHandle = new Slider(50, 45, 180, 20, QY, withText("°"),
                 -180, 180, y,
-                true, true, iPressable -> {}, this::onYHandleSlide);
+                true, true, iPressable -> {}, this::onYawSlide);
 
-        this.zHandle = new Slider(50, 70, 180, 20, QZ, withText("°"),
+        this.rollHandle = new Slider(50, 70, 180, 20, QZ, withText("°"),
                 -180, 180, z,
-                true, true, iPressable -> {}, this::onZHandleSlide);
+                true, true, iPressable -> {}, this::onRollSlide);
 
         this.resetX0 = new Button(250, 20, 60, 20, RX, this::onResetXSlide);
         this.resetY0 = new Button(250, 45, 60, 20, RY, this::onResetYSlide);
         this.resetZ0 = new Button(250, 70, 60, 20, RZ, this::onResetZSlide);
 
-        this.addButton(this.xHandle);
-        this.addButton(this.yHandle);
-        this.addButton(this.zHandle);
+        this.addButton(this.pitchHandle);
+        this.addButton(this.yawHandle);
+        this.addButton(this.rollHandle);
 
         this.addButton(this.resetX0);
         this.addButton(this.resetY0);
@@ -150,9 +150,9 @@ public class RailDashboardScreen extends LineralLayoutScreen {
         super.render(matrixStack, mouseX, mouseY, partialTicks);
         this.renderBackground(matrixStack);
 
-        this.xHandle.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.yHandle.render(matrixStack, mouseX, mouseY, partialTicks);
-        this.zHandle.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.pitchHandle.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.yawHandle.render(matrixStack, mouseX, mouseY, partialTicks);
+        this.rollHandle.render(matrixStack, mouseX, mouseY, partialTicks);
 
         this.resetX0.render(matrixStack, mouseX, mouseY, partialTicks);
         this.resetY0.render(matrixStack, mouseX, mouseY, partialTicks);
@@ -185,13 +185,13 @@ public class RailDashboardScreen extends LineralLayoutScreen {
     }
 
     private void setSliderValue() {
-        if (this.yHandle == null) return;
-        if (this.zHandle == null) return;
-        if (this.xHandle == null) return;
+        if (this.yawHandle == null) return;
+        if (this.rollHandle == null) return;
+        if (this.pitchHandle == null) return;
 //
-//        this.xHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.roll()));
-//        this.yHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.pitch()));
-//        this.zHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.yaw()));
+        this.pitchHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.pitch()));
+        this.yawHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.yaw()));
+        this.rollHandle.setValue(MathHelper.wrapDegrees(this.eulerAngle.roll()));
     }
 
     private EulerAngle getEulerAngleFrom(Slider xHandle, Slider yHandle, Slider zHandle) {

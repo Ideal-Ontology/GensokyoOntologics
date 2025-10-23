@@ -180,6 +180,7 @@ public class CoasterVehicle extends Entity {
         DerivativeInfo derivative = null;
         for (TimeDifferential td : integral) {
             if (currentTime <= td.timePartial) {
+                GSKOUtil.log("currentTime: " + currentTime + " <= timeParial: " + td.timePartial);
                 derivative = td.derivativeInfo;
                 break;
             }
@@ -208,20 +209,21 @@ public class CoasterVehicle extends Entity {
         Vector3d acceleration = tangent.scale(centripetalAccel + gravityComponent);
 
         // 更新速度
-        Vector3d newVelocity = this.getMotion().add(acceleration);
+//        Vector3d velocity = this.getMotion().add(acceleration);
+        Vector3d velocity = tangent;
+        GSKOUtil.log("Velocity: " + velocity);
 
         // 应用摩擦力
         double frictionFactor = 0.98; // 摩擦系数
-        newVelocity = newVelocity.scale(frictionFactor);
+        velocity = velocity.scale(frictionFactor);
 
         // 设置新位置和运动
-        this.setMotion(newVelocity);
-        this.move(MoverType.SELF, newVelocity);
+        this.move(MoverType.SELF, velocity);
 
         // 更新朝向
-        this.rotationYaw = (float)Math.toDegrees(Math.atan2(newVelocity.z, newVelocity.x)) - 90;
-        this.rotationPitch = (float)Math.toDegrees(Math.atan2(newVelocity.y,
-                Math.sqrt(newVelocity.x*newVelocity.x + newVelocity.z*newVelocity.z)));
+        this.rotationYaw = (float)Math.toDegrees(Math.atan2(velocity.z, velocity.x)) - 90;
+        this.rotationPitch = (float)Math.toDegrees(Math.atan2(velocity.y,
+                Math.sqrt(velocity.x*velocity.x + velocity.z*velocity.z)));
     }
 
     /**
