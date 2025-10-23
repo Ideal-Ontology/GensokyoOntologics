@@ -8,4 +8,12 @@ public class TimeDifferential {
         this.timePartial = timePartial;
         this.derivativeInfo = derivativeInfo;
     }
+
+    @Override
+    public String toString() {
+        return "dt: {" +
+                "timePartial = " + this.timePartial +
+                ", derivativeInfo = " + this.derivativeInfo +
+                '}';
+    }
 }

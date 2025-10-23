@@ -20,4 +20,9 @@ public class DerivativeInfo {
         this.tangent = tangent;
         this.curvature = curvature;
     }
+
+    @Override
+    public String toString() {
+        return "{ pos = " + position + ", tangent = " + tangent + ", curvature = " + curvature + " }";
+    }
 }

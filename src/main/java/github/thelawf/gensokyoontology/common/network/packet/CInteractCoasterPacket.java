@@ -62,13 +62,11 @@ public class CInteractCoasterPacket {
         COMMANDS.put(DRIVING, (packet, serverPlayer, serverWorld) -> {
             CoasterVehicle vehicle = (CoasterVehicle) serverWorld.getEntityByUuid(packet.coasterUUID);
             if (vehicle == null) return;
-            Vector3f tangent = vehicle.getPrevRail().getFacing().copy();
-            tangent.mul(2F);
-            Vector3d velocity = new Vector3d(tangent);
-
-            vehicle.setShouldMove(true);
-            vehicle.setMotion(velocity.normalize());
-            vehicle.setMotionMultiplier(Blocks.AIR.getDefaultState(), velocity);
+            vehicle.getPrevRail().ifPresent(railEntity -> {
+                Vector3f tangent = railEntity.getFacing().copy();
+                tangent.mul(2F);
+                vehicle.setShouldMove(true);
+            });
         });
     }
 }

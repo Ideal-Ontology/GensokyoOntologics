@@ -1,6 +1,7 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
 import com.google.common.util.concurrent.AtomicDouble;
+import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.common.util.math.DerivativeInfo;
@@ -125,25 +126,102 @@ public class CoasterVehicle extends Entity {
 
     @Override
     public void tick() {
+//        super.tick();
+//        if (!this.shouldMove()) {
+//            this.setMotionTicker(0);
+//            this.setMotion(Vector3d.ZERO);
+//            return;
+//        }
+//
+//        if (this.getPassengers().isEmpty()) {
+//            this.setMotion(Vector3d.ZERO);
+//            this.setShouldMove(false);
+//            this.setMotionTicker(0);
+//            return;
+//        }
+//
+//        this.getPrevRail().flatMap(RailEntity::getNextRail).ifPresent(entity -> {
+//            if (!(entity instanceof RailEntity)) return;
+//            RailEntity rail = (RailEntity) entity;
+//            List<TimeDifferential> integral = this.getIntegralOfDistanceAndTime(rail);
+//            if (this.ticksExisted % 40 != 0) GSKOUtil.log(this.getClass(), integral);
+//
+//            integral.forEach(dt -> {
+//                if (this.getMotionTicker() > dt.timePartial) return;
+//                Vector3d movePos = this.getPositionVec().subtract(dt.derivativeInfo.position).normalize().mul(
+//                        dt.derivativeInfo.tangent);
+//                this.move(MoverType.SELF, movePos);
+//
+//            });
+//        });
         super.tick();
-        if (!this.shouldMove()) {
-            this.setMotionTicker(0);
+
+        if (!this.shouldMove() || this.getPassengers().isEmpty()) {
             this.setMotion(Vector3d.ZERO);
+            this.setShouldMove(false);
+            this.setMotionTicker(0);
             return;
         }
 
-        this.getPrevRail().flatMap(RailEntity::getNextRail).ifPresent(entity -> {
-            if (!(entity instanceof RailEntity)) return;
-            RailEntity rail = (RailEntity) entity;
-            List<TimeDifferential> integral = this.getIntegralOfDistanceAndTime(rail);
+        Optional<Entity> nextRailOpt = this.getPrevRail().flatMap(RailEntity::getNextRail);
+        if (!nextRailOpt.isPresent()) return;
+        Entity entity = nextRailOpt.get();
+        if (!(entity instanceof RailEntity)) return;
 
-            integral.forEach(dt -> {
-                if (this.getMotionTicker() > dt.timePartial) return;
-                this.move(MoverType.SELF, dt.derivativeInfo.position);
-                this.setMotion(dt.derivativeInfo.tangent);
-                this.setMotionMultiplier(AIR, dt.derivativeInfo.curvature);
-            });
-        });
+        RailEntity nextRail = (RailEntity) entity;
+        List<TimeDifferential> integral = this.getIntegralOfDistanceAndTime(nextRail);
+
+        // 增加运动计时器（模拟时间流逝）
+        int currentTicker = this.getMotionTicker() + 1;
+        this.setMotionTicker(currentTicker);
+        double currentTime = currentTicker * 0.05; // 转换为秒（假设20tick/s）
+
+        // 查找当前时间对应的轨道段
+        DerivativeInfo derivative = null;
+        for (TimeDifferential td : integral) {
+            if (currentTime <= td.timePartial) {
+                derivative = td.derivativeInfo;
+                break;
+            }
+        }
+
+        if (derivative == null) {
+            // 已到达轨道末端
+            this.setShouldMove(false);
+            return;
+        }
+
+        // 计算物理运动
+        Vector3d tangent = derivative.tangent.normalize();
+        Vector3d curvature = derivative.curvature;
+
+        // 计算向心加速度 (a = v²/r)
+        double speed = this.getMotion().length();
+        double radius = 1.0 / curvature.length(); // 近似曲率半径
+        double centripetalAccel = (radius > 0.1) ? (speed * speed) / radius : 0;
+
+        // 计算重力分量
+        Vector3d gravity = new Vector3d(0, -9.8 * 0.05, 0); // 每tick重力
+        double gravityComponent = gravity.dotProduct(tangent);
+
+        // 合成加速度
+        Vector3d acceleration = tangent.scale(centripetalAccel + gravityComponent);
+
+        // 更新速度
+        Vector3d newVelocity = this.getMotion().add(acceleration);
+
+        // 应用摩擦力
+        double frictionFactor = 0.98; // 摩擦系数
+        newVelocity = newVelocity.scale(frictionFactor);
+
+        // 设置新位置和运动
+        this.setMotion(newVelocity);
+        this.move(MoverType.SELF, newVelocity);
+
+        // 更新朝向
+        this.rotationYaw = (float)Math.toDegrees(Math.atan2(newVelocity.z, newVelocity.x)) - 90;
+        this.rotationPitch = (float)Math.toDegrees(Math.atan2(newVelocity.y,
+                Math.sqrt(newVelocity.x*newVelocity.x + newVelocity.z*newVelocity.z)));
     }
 
     /**
@@ -151,22 +229,24 @@ public class CoasterVehicle extends Entity {
      * @return 路程对时间的积分
      */
     public List<TimeDifferential> getIntegralOfDistanceAndTime(@NotNull RailEntity nextRail) {
-        AtomicReference<List<TimeDifferential>> dtRef = new AtomicReference<>();
-         this.getPrevRail().ifPresent(prev -> {
-             List<Double> lengths = prev.getSegmentsLength(nextRail);
-             AtomicDouble timePartial = new AtomicDouble();
-             List<DerivativeInfo> derivatives = prev.getDerivatives(nextRail);
-             List<TimeDifferential> integral = new ArrayList<>();
+        List<TimeDifferential> integral = new ArrayList<>();
+        this.getPrevRail().ifPresent(prev -> {
+            List<Double> lengths = prev.getSegmentsLength(nextRail);
+            List<DerivativeInfo> derivatives = prev.getDerivatives(nextRail);
 
-             derivatives.forEach(derivative -> {
-                 double length = lengths.get(derivatives.indexOf(derivative));
-                 double timeIntegral = timePartial.addAndGet(length / derivative.tangent.length());
-                 TimeDifferential dt = new TimeDifferential(timeIntegral, derivative);
-                 integral.add(dt);
-             });
-             dtRef.set(integral);
+            double accumulatedTime = 0;
+            for (int i = 0; i < derivatives.size(); i++) {
+                DerivativeInfo derivative = derivatives.get(i);
+                double segmentLength = lengths.get(i);
+                // 避免除以零
+                double speed = Math.max(0.01, derivative.tangent.length());
+                double segmentTime = segmentLength / speed;
+                accumulatedTime += segmentTime;
+
+                integral.add(new TimeDifferential(accumulatedTime, derivative));
+            }
         });
-        return dtRef.get();
+        return integral;
     }
 
     @Override

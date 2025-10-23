@@ -177,7 +177,7 @@ public class RailEntity extends Entity {
                     this.getFacing(), nextRail.getFacing(), t);
             Vector3d tangent = CurveUtil.hermiteTangent(pos, nextRail.getPositionVec(),
                     new Vector3d(this.getFacing()), new Vector3d(nextRail.getFacing()), t);
-            Vector3d curvature = CurveUtil.hermiteCurvature(this.getPositionVec(), nextRail.getPositionVec(),
+            Vector3d curvature = CurveUtil.hermiteDerivative(this.getPositionVec(), nextRail.getPositionVec(),
                     new Vector3d(this.getFacing()), new Vector3d(nextRail.getFacing()), t);
             derivativeMap.add(new DerivativeInfo(nextSegPos, tangent, curvature));
         }
