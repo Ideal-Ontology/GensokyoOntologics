@@ -22,9 +22,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class RailWrench extends Item implements IRayTracer {
@@ -77,7 +79,7 @@ public class RailWrench extends Item implements IRayTracer {
         }
         ItemStack connector = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());
         CompoundNBT nbt = new CompoundNBT();
-        nbt.putInt("id", startRail.getEntityId());
+        nbt.putUniqueId("uuid", startRail.getUniqueID());
         connector.setTag(nbt);
 
         player.addItemStackToInventory(connector);
@@ -87,7 +89,7 @@ public class RailWrench extends Item implements IRayTracer {
                                               ItemStack wrench) {
         ItemStack connector = new ItemStack(ItemRegistry.RAIL_CONNECTOR.get());
         CompoundNBT nbt = new CompoundNBT();
-        nbt.putLong("id", startPos.toLong());
+        nbt.putLong("startPos", startPos.toLong());
         connector.setTag(nbt);
 
         wrench.shrink(1);
@@ -122,19 +124,21 @@ public class RailWrench extends Item implements IRayTracer {
                                        RailEntity targetRail , ItemStack connector) {
         if (connector.getItem() != ItemRegistry.RAIL_CONNECTOR.get()) return;
         if (connector.getTag() == null) return;
-        getStartRail(world, connector.getTag().getInt("id")).ifPresent(entity -> {
+        if (world.isRemote) return;
+        ServerWorld serverWorld = (ServerWorld) world;
+        getStartRail(serverWorld, connector.getTag().getUniqueId("uuid")).ifPresent(entity -> {
             if (!(entity instanceof RailEntity)) return;
             RailEntity startRail = (RailEntity) entity;
             startRail.setTargetPos(targetRail.getPosition());
-            startRail.setTargetId(targetRail.getEntityId());
+            startRail.setTargetId(targetRail.getUniqueID());
             connector.shrink(1);
             player.addItemStackToInventory(new ItemStack(ItemRegistry.RAIL_WRENCH.get()));
         });
 
     }
 
-    public static Optional<Entity> getStartRail(World world, int entityId) {
-        return Optional.ofNullable(world.getEntityByID(entityId));
+    public static Optional<Entity> getStartRail(ServerWorld world, UUID uuid) {
+        return Optional.ofNullable(world.getEntityByUuid(uuid));
     }
 
     public static ActionResultType onRemoveConnection(BlockPos pos, PlayerEntity player, ItemStack connector) {

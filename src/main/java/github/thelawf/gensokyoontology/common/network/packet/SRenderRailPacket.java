@@ -10,25 +10,22 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkEvent;
 
+import java.util.UUID;
 import java.util.function.Supplier;
 
 public class SRenderRailPacket {
-    public final BlockPos pos;
+    public final int nextRailID;
 
-    public final boolean shouldRender;
-
-    public SRenderRailPacket (BlockPos pos, boolean shouldRender) {
-        this.pos = pos;
-        this.shouldRender = shouldRender;
+    public SRenderRailPacket (int nextRailID) {
+        this.nextRailID = nextRailID;
     }
 
     public static SRenderRailPacket fromBytes(PacketBuffer buf) {
-        return new SRenderRailPacket(buf.readBlockPos(), buf.readBoolean());
+        return new SRenderRailPacket(buf.readVarInt());
     }
 
     public void toBytes(PacketBuffer buf) {
-        buf.writeBlockPos(this.pos);
-        buf.writeBoolean(this.shouldRender);
+        buf.writeVarInt(this.nextRailID);
     }
 
     public void handle(Supplier<NetworkEvent.Context> ctx) {
@@ -40,12 +37,6 @@ public class SRenderRailPacket {
     public static void setRenderInfo(SRenderRailPacket packet) {
         Minecraft minecraft = Minecraft.getInstance();
         if (minecraft.world != null) {
-            minecraft.world.notifyBlockUpdate(packet.pos, minecraft.world.getBlockState(packet.pos), minecraft.world.getBlockState(packet.pos), 3);
-            GSKOUtil.getTileByType(minecraft.world, packet.pos, TileEntityRegistry.RAIL_TILE_ENTITY.get())
-                    .ifPresent(tileEntity -> {
-                        tileEntity.setShouldRender(packet.shouldRender);
-                        GSKOUtil.log(tileEntity.getClass(), "render: " + tileEntity.shouldRender());
-                    });
         }
     }
 }

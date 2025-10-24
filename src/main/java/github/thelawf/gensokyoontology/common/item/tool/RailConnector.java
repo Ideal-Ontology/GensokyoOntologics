@@ -12,9 +12,11 @@ import net.minecraft.util.Hand;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicReference;
 
 public class RailConnector extends Item implements IRayTracer {
@@ -46,9 +48,11 @@ public class RailConnector extends Item implements IRayTracer {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         if (stack.getTag() == null) return;
         if (worldIn == null) return;
-        if (!stack.getTag().contains("id")) {
-            int id = stack.getTag().getInt("id");
-            RailWrench.getStartRail(worldIn, id).ifPresent(rail -> tooltip.add(
+        if (worldIn.isRemote) return;
+        if (!stack.getTag().contains("uuid")) {
+            ServerWorld serverWorld = (ServerWorld) worldIn;
+            UUID id = stack.getTag().getUniqueId("uuid");
+            RailWrench.getStartRail(serverWorld, id).ifPresent(rail -> tooltip.add(
                     GSKOUtil.translateText("tooltip.", ".coaster_rail.start_pos").appendSibling(
                             GSKOUtil.stringText("§a(" +
                                     rail.getPosX() + ", " +

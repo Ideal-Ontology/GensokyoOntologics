@@ -18,19 +18,21 @@ import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class RailEntity extends Entity {
     public static final float NAN = Float.NaN;
     public static final int SEGMENTS = 32;
 
-    public static final DataParameter<Integer> DATA_PREV_ID = EntityDataManager.createKey(
-            RailEntity.class, DataSerializers.VARINT);
-    public static final DataParameter<Integer> DATA_TARGET_ID = EntityDataManager.createKey(
-            RailEntity.class, DataSerializers.VARINT);
+    public static final DataParameter<Optional<UUID>> DATA_PREV_UUID = EntityDataManager.createKey(
+            RailEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
+    public static final DataParameter<Optional<UUID>> DATA_TARGET_UUID = EntityDataManager.createKey(
+            RailEntity.class, DataSerializers.OPTIONAL_UNIQUE_ID);
 
     public static final DataParameter<Quaternion> DATA_ROT = EntityDataManager.createKey(
             RailEntity.class, GSKOSerializers.QUATERNION);
@@ -58,8 +60,8 @@ public class RailEntity extends Entity {
 
     @Override
     protected void registerData() {
-        this.dataManager.register(DATA_PREV_ID, 0);
-        this.dataManager.register(DATA_TARGET_ID, 0);
+        this.dataManager.register(DATA_PREV_UUID, Optional.empty());
+        this.dataManager.register(DATA_TARGET_UUID, Optional.empty());
         this.dataManager.register(DATA_ROT, new Quaternion(0f, 0f, 0f, 1f));
         this.dataManager.register(DATA_TARGET, new BlockPos(NAN, NAN, NAN));
         this.dataManager.register(DATA_INFO, Info.UNIFORM.ordinal());
@@ -78,8 +80,9 @@ public class RailEntity extends Entity {
         float qw = nbt.getFloat("qw");
 
         this.setRotation(new Quaternion(qx, qy, qz, qw));
-        this.setTargetId(nbt.getInt("targetId"));
-        this.setPrevId(nbt.getInt("prevId"));
+
+        if (nbt.contains("prevID")) this.setPrevId(nbt.getUniqueId("prevID"));
+        if (nbt.contains("targetID")) this.setTargetId(nbt.getUniqueId("targetID"));
         this.setInfo(nbt.getInt("info"));
 
         if (nbt.contains("targetX") && nbt.contains("targetY") && nbt.contains("targetZ")){
@@ -94,8 +97,10 @@ public class RailEntity extends Entity {
         compound.putFloat("qz", this.getRotation().getZ());
         compound.putFloat("qw", this.getRotation().getW());
 
-        compound.putInt("prevId", this.getPrevId());
-        compound.putInt("targetId", this.getTargetId());
+        compound.putUniqueId("prevID", new UUID(0,0));
+        compound.putUniqueId("targetID", new UUID(0,0));
+        this.getPrevId().ifPresent(id -> compound.putUniqueId("prevID", id));
+        this.getTargetId().ifPresent(id -> compound.putUniqueId("targetID", id));
         compound.putInt("railInfo", this.getInfo().ordinal());
 
         compound.putInt("targetX", this.getTargetPos().getX());
@@ -104,18 +109,18 @@ public class RailEntity extends Entity {
 
     }
 
-    public int getPrevId() {
-        return this.dataManager.get(DATA_PREV_ID);
+    public Optional<UUID> getPrevId() {
+        return this.dataManager.get(DATA_PREV_UUID);
     }
-    public void setPrevId(int id) {
-        this.dataManager.set(DATA_PREV_ID, id);
+    public void setPrevId(UUID uuid) {
+        this.dataManager.set(DATA_PREV_UUID, Optional.of(uuid));
     }
 
-    public int getTargetId() {
-        return this.dataManager.get(DATA_TARGET_ID);
+    public Optional<UUID> getTargetId() {
+        return this.dataManager.get(DATA_TARGET_UUID);
     }
-    public void setTargetId(int id) {
-        this.dataManager.set(DATA_TARGET_ID, id);
+    public void setTargetId(UUID uuid) {
+        this.dataManager.set(DATA_TARGET_UUID, Optional.of(uuid));
     }
 
     public void setRotation(float qx, float qy, float qz, float qw) {
@@ -143,7 +148,13 @@ public class RailEntity extends Entity {
     }
 
     public Optional<Entity> getNextRail() {
-        return Optional.ofNullable(this.world.getEntityByID(this.dataManager.get(DATA_TARGET_ID)));
+        if (world.isRemote) return Optional.empty();
+        ServerWorld serverWorld = (ServerWorld) world;
+        AtomicReference<Optional<Entity>> nextRail = new AtomicReference<>();
+
+        this.dataManager.get(DATA_TARGET_UUID).ifPresent(uuid ->
+                nextRail.set(Optional.ofNullable(serverWorld.getEntityByUuid(uuid))));
+        return nextRail.get();
     }
 
     public void setInfo(Info info) {

@@ -4,6 +4,7 @@ import com.mojang.blaze3d.matrix.MatrixStack;
 import github.thelawf.gensokyoontology.client.model.CoasterModel;
 import github.thelawf.gensokyoontology.common.entity.misc.CoasterVehicle;
 import github.thelawf.gensokyoontology.common.entity.misc.RailEntity;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.common.util.math.DerivativeInfo;
 import github.thelawf.gensokyoontology.common.util.math.TimeDifferential;
@@ -46,13 +47,16 @@ public class CoasterRenderer extends EntityRenderer<CoasterVehicle> {
             List<TimeDifferential> integral = entityIn.getIntegralOfDistanceAndTime(nextRail);
             DerivativeInfo derivative = null;
             for (TimeDifferential timeDifferential : integral) {
-                if (entityIn.getMotionTicker() + partialTicks <= timeDifferential.timePartial) {
+                if (entityIn.getMotionTicker() >= Math.floor(timeDifferential.timePartial) &&
+                        entityIn.getMotionTicker() + partialTicks < timeDifferential.timePartial) {
                     derivative = timeDifferential.derivativeInfo;
                     break;
                 }
             }
 
-            if (derivative != null && entityIn.shouldMove()) entityIn.moveCoaster(derivative.tangent.scale(0.2F));
+            if (derivative != null && entityIn.shouldMove()) {
+                entityIn.moveCoaster(derivative.tangent.scale(0.2F));
+            }
         }
 
         matrixStackIn.push();

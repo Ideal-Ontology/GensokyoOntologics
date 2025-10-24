@@ -136,7 +136,7 @@ public class CoasterVehicle extends Entity {
         if (!this.shouldMove() || this.getPassengers().isEmpty()) {
             this.setMotion(Vector3d.ZERO);
             this.setShouldMove(false);
-            this.setMotionTicker(0);
+            this.setMotionTicker(-1);
             return;
         }
 
@@ -148,16 +148,9 @@ public class CoasterVehicle extends Entity {
         RailEntity nextRail = (RailEntity) entity;
         List<TimeDifferential> integral = this.getIntegralOfDistanceAndTime(nextRail);
 
-        // 增加运动计时器（模拟时间流逝）
-        int currentTicker = this.getMotionTicker() + 1;
-        this.setMotionTicker(currentTicker);
-        double currentTime = currentTicker * 0.05; // 转换为秒（假设20tick/s）
 
         // 查找当前时间对应的轨道段
         DerivativeInfo derivative = null;
-        if (this.getMotionTicker() == 1){
-//            GSKOUtil.log(integral);
-        }
 
         if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof ServerPlayerEntity) {
             GSKONetworking.sendToClientPlayer(
@@ -166,7 +159,7 @@ public class CoasterVehicle extends Entity {
         }
 
         for (TimeDifferential dt : integral) {
-            if (currentTicker <= dt.timePartial) {
+            if (this.getMotionTicker() <= dt.timePartial) {
                 derivative = dt.derivativeInfo;
                 break;
             }
@@ -194,17 +187,19 @@ public class CoasterVehicle extends Entity {
 
 //        Vector3d velocity = this.getMotion().add(acceleration);
         Vector3d velocity = derivative.tangent;
-
         // 应用摩擦力
 //        double frictionFactor = 0.98;
 //        velocity = velocity.scale(frictionFactor);
 
-//        this.moveCoaster(velocity);
+        this.moveCoaster(velocity);
 
         // 更新朝向
         this.rotationYaw = (float)Math.toDegrees(Math.atan2(velocity.z, velocity.x)) - 90;
         this.rotationPitch = (float)Math.toDegrees(Math.atan2(velocity.y,
                 Math.sqrt(velocity.x*velocity.x + velocity.z*velocity.z)));
+        // 增加运动计时器（模拟时间流逝）
+        int currentTicker = this.getMotionTicker() + 1;
+        this.setMotionTicker(currentTicker);
     }
 
     /**
