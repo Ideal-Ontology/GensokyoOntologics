@@ -169,6 +169,23 @@ public class RailEntity extends Entity {
         return railPositions;
     }
 
+    public List<Vector3d> getTangents(@NotNull RailEntity nextRail){
+        List<Vector3d> positions = new LinkedList<>();
+        List<Vector3d> tangents = new LinkedList<>();
+        Vector3d pos = this.getPositionVec();
+        for (float t = 0F; t < 1F; t += 1F / SEGMENTS) {
+            Vector3d nextSegPos = CurveUtil.hermite3(pos, nextRail.getPositionVec(),
+                    this.getFacing(), nextRail.getFacing(), t);
+            positions.add(nextSegPos);
+        }
+        for (int i = 0; i < positions.size() - 1; i++) {
+            Vector3d currentPos = positions.get(i);
+            Vector3d nextPos = positions.get(i + 1);
+            tangents.add(nextPos.subtract(currentPos));
+        }
+        return positions;
+    }
+
     public List<DerivativeInfo> getDerivatives(@NotNull RailEntity nextRail){
         List<DerivativeInfo> derivativeMap = new LinkedList<>();
         Vector3d pos = this.getPositionVec();
@@ -199,6 +216,7 @@ public class RailEntity extends Entity {
         List<Vector3d> railPositions = this.getSegmentPositions(nextRail);
         Vector3d pos = this.getPositionVec();
         for (Vector3d nextpos : railPositions) {
+            if (nextpos.equals(pos)) continue;
             lengths.add(pos.distanceTo(nextpos));
             pos = nextpos;
         }

@@ -1,6 +1,9 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
 import com.google.common.util.concurrent.AtomicDouble;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.CInteractCoasterPacket;
+import github.thelawf.gensokyoontology.common.network.packet.SInteractCoasterPacket;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
@@ -9,6 +12,7 @@ import github.thelawf.gensokyoontology.common.util.math.TimeDifferential;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MoverType;
@@ -31,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.Collectors;
 
 public class CoasterVehicle extends Entity {
 
@@ -126,34 +131,6 @@ public class CoasterVehicle extends Entity {
 
     @Override
     public void tick() {
-//        super.tick();
-//        if (!this.shouldMove()) {
-//            this.setMotionTicker(0);
-//            this.setMotion(Vector3d.ZERO);
-//            return;
-//        }
-//
-//        if (this.getPassengers().isEmpty()) {
-//            this.setMotion(Vector3d.ZERO);
-//            this.setShouldMove(false);
-//            this.setMotionTicker(0);
-//            return;
-//        }
-//
-//        this.getPrevRail().flatMap(RailEntity::getNextRail).ifPresent(entity -> {
-//            if (!(entity instanceof RailEntity)) return;
-//            RailEntity rail = (RailEntity) entity;
-//            List<TimeDifferential> integral = this.getIntegralOfDistanceAndTime(rail);
-//            if (this.ticksExisted % 40 != 0) GSKOUtil.log(this.getClass(), integral);
-//
-//            integral.forEach(dt -> {
-//                if (this.getMotionTicker() > dt.timePartial) return;
-//                Vector3d movePos = this.getPositionVec().subtract(dt.derivativeInfo.position).normalize().mul(
-//                        dt.derivativeInfo.tangent);
-//                this.move(MoverType.SELF, movePos);
-//
-//            });
-//        });
         super.tick();
 
         if (!this.shouldMove() || this.getPassengers().isEmpty()) {
@@ -178,10 +155,19 @@ public class CoasterVehicle extends Entity {
 
         // 查找当前时间对应的轨道段
         DerivativeInfo derivative = null;
-        for (TimeDifferential td : integral) {
-            if (currentTime <= td.timePartial) {
-                GSKOUtil.log("currentTime: " + currentTime + " <= timeParial: " + td.timePartial);
-                derivative = td.derivativeInfo;
+        if (this.getMotionTicker() == 1){
+//            GSKOUtil.log(integral);
+        }
+
+        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof ServerPlayerEntity) {
+            GSKONetworking.sendToClientPlayer(
+                    new SInteractCoasterPacket(SInteractCoasterPacket.RIDING, this.getEntityId()),
+                    (ServerPlayerEntity) this.getPassengers().get(0));
+        }
+
+        for (TimeDifferential dt : integral) {
+            if (currentTicker <= dt.timePartial) {
+                derivative = dt.derivativeInfo;
                 break;
             }
         }
@@ -193,32 +179,27 @@ public class CoasterVehicle extends Entity {
         }
 
         // 计算物理运动
-        Vector3d tangent = derivative.tangent.normalize();
-        Vector3d curvature = derivative.curvature;
+//        Vector3d tangent = derivative.tangent.normalize();
+//        Vector3d curvature = derivative.curvature;
+//
+//        // 计算向心加速度 (a = v²/r)
+//        double speed = this.getMotion().length();
+//        double radius = 1.0 / curvature.length(); // 近似曲率半径
+//        double centripetalAccel = (radius > 0.1) ? (speed * speed) / radius : 0;
+//
+//        Vector3d gravity = new Vector3d(0, -9.8 * 0.05, 0); // 每tick重力
+//        double gravityComponent = gravity.dotProduct(tangent);
+//
+//        Vector3d acceleration = tangent.scale(centripetalAccel + gravityComponent);
 
-        // 计算向心加速度 (a = v²/r)
-        double speed = this.getMotion().length();
-        double radius = 1.0 / curvature.length(); // 近似曲率半径
-        double centripetalAccel = (radius > 0.1) ? (speed * speed) / radius : 0;
-
-        // 计算重力分量
-        Vector3d gravity = new Vector3d(0, -9.8 * 0.05, 0); // 每tick重力
-        double gravityComponent = gravity.dotProduct(tangent);
-
-        // 合成加速度
-        Vector3d acceleration = tangent.scale(centripetalAccel + gravityComponent);
-
-        // 更新速度
 //        Vector3d velocity = this.getMotion().add(acceleration);
-        Vector3d velocity = tangent;
-        GSKOUtil.log("Velocity: " + velocity);
+        Vector3d velocity = derivative.tangent;
 
         // 应用摩擦力
-        double frictionFactor = 0.98; // 摩擦系数
-        velocity = velocity.scale(frictionFactor);
+//        double frictionFactor = 0.98;
+//        velocity = velocity.scale(frictionFactor);
 
-        // 设置新位置和运动
-        this.move(MoverType.SELF, velocity);
+//        this.moveCoaster(velocity);
 
         // 更新朝向
         this.rotationYaw = (float)Math.toDegrees(Math.atan2(velocity.z, velocity.x)) - 90;
@@ -234,10 +215,26 @@ public class CoasterVehicle extends Entity {
         List<TimeDifferential> integral = new ArrayList<>();
         this.getPrevRail().ifPresent(prev -> {
             List<Double> lengths = prev.getSegmentsLength(nextRail);
+//            List<Vector3d> tangents = prev.getTangents(nextRail);
+//
+//            double accumulatedTime = 0;
+//            for (Vector3d tangent : tangents) {
+//                double segTime = tangent.length() / 200;
+//                accumulatedTime += segTime;
+//                integral.add(new TimeDifferential(segTime, accumulatedTime, new DerivativeInfo(
+//                        Vector3d.ZERO, tangent, Vector3d.ZERO)));
+//            }
+//            for (int i = 0; i < tangents.size() - 1; i++) {
+//                // 避免除以零
+//                double segmentTime = tangents.get(i).length() / 10;
+//                accumulatedTime += segmentTime;
+//
+//                integral.add(new TimeDifferential(segmentTime, accumulatedTime, new DerivativeInfo(Vector3d.ZERO, tangents.get(i), Vector3d.ZERO)));
+//            }
             List<DerivativeInfo> derivatives = prev.getDerivatives(nextRail);
 
             double accumulatedTime = 0;
-            for (int i = 0; i < derivatives.size(); i++) {
+            for (int i = 0; i < derivatives.size() - 1; i++) {
                 DerivativeInfo derivative = derivatives.get(i);
                 double segmentLength = lengths.get(i);
                 // 避免除以零
@@ -245,7 +242,7 @@ public class CoasterVehicle extends Entity {
                 double segmentTime = segmentLength / speed;
                 accumulatedTime += segmentTime;
 
-                integral.add(new TimeDifferential(accumulatedTime, derivative));
+                integral.add(new TimeDifferential(segmentTime, accumulatedTime, derivative));
             }
         });
         return integral;
@@ -270,5 +267,10 @@ public class CoasterVehicle extends Entity {
     @Override
     public @NotNull IPacket<?> createSpawnPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
+    }
+
+    public void moveCoaster(Vector3d velocity) {
+        this.setBoundingBox(this.getBoundingBox().offset(velocity));
+        this.resetPositionToBB();
     }
 }
