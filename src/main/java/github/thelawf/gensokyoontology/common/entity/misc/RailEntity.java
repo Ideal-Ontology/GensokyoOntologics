@@ -19,6 +19,8 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
 import org.jetbrains.annotations.NotNull;
 
@@ -40,6 +42,9 @@ public class RailEntity extends Entity {
             RailEntity.class, DataSerializers.BLOCK_POS);
     public static final DataParameter<Integer> DATA_INFO = EntityDataManager.createKey(
             RailEntity.class, DataSerializers.VARINT);
+
+    public int prevId;
+    public int targetId;
 
     public RailEntity(EntityType<RailEntity> entityType, World worldIn) {
         super(entityType, worldIn);
@@ -109,6 +114,26 @@ public class RailEntity extends Entity {
 
     }
 
+    @OnlyIn(Dist.CLIENT)
+    public Optional<Entity> getPrevRail() {
+        return Optional.ofNullable(this.world.getEntityByID(this.prevId));
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public Optional<Entity> getTargetRail() {
+        return Optional.ofNullable(this.world.getEntityByID(this.targetId));
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void setPrevRail(RailEntity prevRail) {
+        this.prevId = prevRail.getEntityId();
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    public void setTargetRail(RailEntity targetRail) {
+        this.targetId = targetRail.getEntityId();
+    }
+
     public Optional<UUID> getPrevId() {
         return this.dataManager.get(DATA_PREV_UUID);
     }
@@ -149,6 +174,7 @@ public class RailEntity extends Entity {
 
     public Optional<Entity> getNextRail() {
         if (world.isRemote) return Optional.empty();
+
         ServerWorld serverWorld = (ServerWorld) world;
         AtomicReference<Optional<Entity>> nextRail = new AtomicReference<>();
 

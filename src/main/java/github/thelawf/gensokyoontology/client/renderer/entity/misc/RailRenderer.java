@@ -50,7 +50,7 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
         IVertexBuilder builder = bufferIn.getBuffer(RenderType.getEntityCutoutNoCull(TEXTURE));
         IVertexBuilder buffer = bufferIn.getBuffer(GSKORenderTypes.MULTI_FACE_SOLID);
 
-        Optional<Entity> optional = startRail.getNextRail();
+        Optional<Entity> optional = startRail.getTargetRail();
         if (!optional.isPresent()) {
             this.renderUnconnectedTrack(buffer, matrixStack, startRail);
             return;

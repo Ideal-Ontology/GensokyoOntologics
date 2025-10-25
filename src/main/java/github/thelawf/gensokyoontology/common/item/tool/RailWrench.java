@@ -3,6 +3,8 @@ package github.thelawf.gensokyoontology.common.item.tool;
 import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.client.gui.screen.RailDashboardScreen;
 import github.thelawf.gensokyoontology.common.entity.misc.RailEntity;
+import github.thelawf.gensokyoontology.common.network.GSKONetworking;
+import github.thelawf.gensokyoontology.common.network.packet.SRenderRailPacket;
 import github.thelawf.gensokyoontology.common.tileentity.RailTileEntity;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.BlockRegistry;
@@ -12,6 +14,7 @@ import net.minecraft.block.BlockState;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemUseContext;
@@ -133,6 +136,10 @@ public class RailWrench extends Item implements IRayTracer {
             startRail.setTargetId(targetRail.getUniqueID());
             connector.shrink(1);
             player.addItemStackToInventory(new ItemStack(ItemRegistry.RAIL_WRENCH.get()));
+
+            ServerPlayerEntity serverPlayer = (ServerPlayerEntity) player;
+            GSKONetworking.sendToClientPlayer(new SRenderRailPacket(startRail.getEntityId(),
+                            targetRail.getEntityId()), serverPlayer);
         });
 
     }

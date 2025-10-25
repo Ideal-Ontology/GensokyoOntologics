@@ -40,7 +40,7 @@ public class CoasterRenderer extends EntityRenderer<CoasterVehicle> {
     public void render(CoasterVehicle entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
 
-        Optional<Entity> nextRailOpt = entityIn.getPrevRail().flatMap(RailEntity::getNextRail);
+        Optional<Entity> nextRailOpt = entityIn.getPrevRail().flatMap(RailEntity::getTargetRail);
         if (nextRailOpt.isPresent() && nextRailOpt.get() instanceof RailEntity) {
             Entity next = nextRailOpt.get();
             RailEntity nextRail = (RailEntity) next;

@@ -1,9 +1,12 @@
 package github.thelawf.gensokyoontology.common.network.packet;
 
+import github.thelawf.gensokyoontology.common.entity.misc.RailEntity;
 import github.thelawf.gensokyoontology.common.network.GSKONetworking;
 import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.TileEntityRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.world.ClientWorld;
+import net.minecraft.entity.Entity;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.api.distmarker.Dist;
@@ -14,17 +17,20 @@ import java.util.UUID;
 import java.util.function.Supplier;
 
 public class SRenderRailPacket {
+    public final int prevRailID;
     public final int nextRailID;
 
-    public SRenderRailPacket (int nextRailID) {
+    public SRenderRailPacket (int prevRailID, int nextRailID) {
+        this.prevRailID = prevRailID;
         this.nextRailID = nextRailID;
     }
 
     public static SRenderRailPacket fromBytes(PacketBuffer buf) {
-        return new SRenderRailPacket(buf.readVarInt());
+        return new SRenderRailPacket(buf.readVarInt(), buf.readVarInt());
     }
 
     public void toBytes(PacketBuffer buf) {
+        buf.writeVarInt(this.prevRailID);
         buf.writeVarInt(this.nextRailID);
     }
 
@@ -36,7 +42,19 @@ public class SRenderRailPacket {
     @OnlyIn(Dist.CLIENT)
     public static void setRenderInfo(SRenderRailPacket packet) {
         Minecraft minecraft = Minecraft.getInstance();
-        if (minecraft.world != null) {
-        }
+        ClientWorld clientWorld = minecraft.world;
+        if (clientWorld == null) return;
+        if (clientWorld.getEntityByID(packet.nextRailID) == null) return;
+        if (clientWorld.getEntityByID(packet.prevRailID) == null) return;
+
+        Entity next = clientWorld.getEntityByID(packet.nextRailID);
+        Entity prev = clientWorld.getEntityByID(packet.prevRailID);
+        if (!(prev instanceof RailEntity)) return;
+        if (!(next instanceof RailEntity)) return;
+
+        RailEntity prevRail = (RailEntity) prev;
+        RailEntity nextRail = (RailEntity) next;
+        nextRail.setPrevRail(prevRail);
+        prevRail.setTargetRail(nextRail);
     }
 }
