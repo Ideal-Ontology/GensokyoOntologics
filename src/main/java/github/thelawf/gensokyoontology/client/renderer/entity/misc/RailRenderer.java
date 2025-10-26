@@ -83,8 +83,8 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
         Vector3d start = Vector3d.ZERO;
         Vector3d end = Vector3d.copy(targetRail.getPosition()).subtract(startVec);
 
-        Vector3f startDirection = startRail.getFacing().copy();
-        Vector3f endDirection = targetRail.getFacing().copy();
+        Vector3f startDirection = startRail.getOrientation().copy();
+        Vector3f endDirection = targetRail.getOrientation().copy();
 
         startDirection.mul(25);
         endDirection.mul(25);
@@ -162,8 +162,8 @@ public class RailRenderer extends EntityRenderer<RailEntity> {
         Vector3d start = Vector3d.ZERO;
         Vector3d end = Vector3d.copy(targetRail.getPosition()).subtract(startVec);
 
-        Vector3f startDirection = startRail.getFacing().copy();
-        Vector3f endDirection = targetRail.getFacing().copy();
+        Vector3f startDirection = startRail.getOrientation().copy();
+        Vector3f endDirection = targetRail.getOrientation().copy();
 
         startDirection.mul(25);
         endDirection.mul(25);

@@ -1,10 +1,5 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
-import com.google.common.util.concurrent.AtomicDouble;
-import github.thelawf.gensokyoontology.common.network.GSKONetworking;
-import github.thelawf.gensokyoontology.common.network.packet.CInteractCoasterPacket;
-import github.thelawf.gensokyoontology.common.network.packet.SInteractCoasterPacket;
-import github.thelawf.gensokyoontology.common.util.GSKOUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.common.util.math.DerivativeInfo;
@@ -12,7 +7,6 @@ import github.thelawf.gensokyoontology.common.util.math.TimeDifferential;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.MoverType;
@@ -26,6 +20,7 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
@@ -34,15 +29,24 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.concurrent.atomic.AtomicReference;
-import java.util.stream.Collectors;
 
 public class CoasterVehicle extends Entity {
 
-    public static final BlockPos NAN_POS = new BlockPos(Double.NaN, Double.NaN, Double.NaN);
+    public static final float GRAVITY = 0.04f;
     public static final float FRICTION = 1.0F;
+
+    private int positionInterpSteps;
+    private int progInterpSteps;
+
+
+    private final Quaternion lastClientOrientation = Quaternion.ONE;
+    private final Quaternion clientOrientation = Quaternion.ONE;
+
+    public static final BlockPos NAN_POS = new BlockPos(Double.NaN, Double.NaN, Double.NaN);
     public static final BlockState AIR = Blocks.AIR.getDefaultState();
 
+    public static final DataParameter<Float> DATA_PROGRESS = EntityDataManager.createKey(
+            CoasterVehicle.class, DataSerializers.FLOAT);
     public static final DataParameter<Integer> DATA_PREV_RAIL = EntityDataManager.createKey(
             CoasterVehicle.class, DataSerializers.VARINT);
     public static final DataParameter<Integer> DATA_NEXT_RAIL = EntityDataManager.createKey(
@@ -62,6 +66,7 @@ public class CoasterVehicle extends Entity {
 
     @Override
     protected void registerData() {
+        this.dataManager.register(DATA_PROGRESS, 0.0F);
         this.dataManager.register(DATA_PREV_RAIL, 0);
         this.dataManager.register(DATA_NEXT_RAIL, 0);
         this.dataManager.register(DATA_MOVING_FLAG, false);
@@ -84,8 +89,8 @@ public class CoasterVehicle extends Entity {
         Entity entity = this.world.getEntityByID(this.dataManager.get(DATA_PREV_RAIL));
         return entity instanceof RailEntity ? Optional.of((RailEntity) entity) : Optional.empty();
     }
-    public RailEntity getNextRail() {
-        return (RailEntity) this.world.getEntityByID(this.dataManager.get(DATA_NEXT_RAIL));
+    public Optional<RailEntity> getNextRail() {
+        return this.getPrevRail().flatMap(RailEntity::getNextRail);
     }
 
     public void setShouldMove(boolean flag) {
@@ -108,6 +113,13 @@ public class CoasterVehicle extends Entity {
     }
 
     public void setAcceleration(double acceleration) {}
+
+    public float getProgress() {
+        return this.dataManager.get(DATA_PROGRESS);
+    }
+    public void setProgress(float progress) {
+        this.dataManager.set(DATA_PROGRESS, progress);
+    }
 
     @Override
     public boolean hitByEntity(Entity entityIn) {
@@ -140,66 +152,171 @@ public class CoasterVehicle extends Entity {
             return;
         }
 
-        Optional<Entity> nextRailOpt = this.getPrevRail().flatMap(RailEntity::getNextRail);
-        if (!nextRailOpt.isPresent()) return;
-        Entity entity = nextRailOpt.get();
-        if (!(entity instanceof RailEntity)) return;
+        if (this.world.isRemote) {
+            Entity passenger = this.getPassengers().get(0);
+            if (this.positionInterpSteps > 0) {
+//                this.interpPosOnly(this.positionInterpSteps);
+                this.positionInterpSteps--;
+            } else {
+                this.resetPositionToBB();
+            }
 
-        RailEntity nextRail = (RailEntity) entity;
-        List<TimeDifferential> integral = this.getIntegralOfDistanceAndTime(nextRail);
+//            this.lastClientTrackProgress = this.clientTrackProgress;
+            this.lastClientOrientation.set(this.clientOrientation.getX(), this.clientOrientation.getY(),
+                    this.clientOrientation.getZ(), this.clientOrientation.getW());
 
+            float progInterpDelta = 1;
+            if (this.progInterpSteps > 0) {
+                progInterpDelta = 1 / (float) progInterpSteps;
 
-        // 查找当前时间对应的轨道段
-        DerivativeInfo derivative = null;
+                this.progInterpSteps--;
+            }
 
-        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof ServerPlayerEntity) {
-            GSKONetworking.sendToClientPlayer(
-                    new SInteractCoasterPacket(SInteractCoasterPacket.RIDING, this.getEntityId()),
-                    (ServerPlayerEntity) this.getPassengers().get(0));
+            Vector3d clientPos = new Vector3d(this.getPosX(), this.getPosY(), this.getPosZ());
+
+//            boolean updatePos = this.clientTrackProgress.getOrientation(this.lastClientTrackProgress, progInterpDelta, clientPos, this.clientOrientation);
+//            if (updatePos) {
+//                this.setPosition(clientPos.x(), clientPos.y(), clientPos.z());
+//            }
         }
+        if (!this.world.isRemote) this.tickOnServer();
 
-        for (TimeDifferential dt : integral) {
-            if (this.getMotionTicker() <= dt.timePartial) {
-                derivative = dt.derivativeInfo;
-                break;
+//        Optional<Entity> nextRailOpt = this.getPrevRail().flatMap(RailEntity::getNextRail);
+//        if (!nextRailOpt.isPresent()) return;
+//        Entity entity = nextRailOpt.get();
+//        if (!(entity instanceof RailEntity)) return;
+//
+//        RailEntity nextRail = (RailEntity) entity;
+//        List<TimeDifferential> integral = this.getIntegralOfDistanceAndTime(nextRail);
+//
+//        // 查找当前时间对应的轨道段
+//        DerivativeInfo derivative = null;
+//
+//        if (!this.getPassengers().isEmpty() && this.getPassengers().get(0) instanceof ServerPlayerEntity) {
+//            GSKONetworking.sendToClientPlayer(
+//                    new SInteractCoasterPacket(SInteractCoasterPacket.RIDING, this.getEntityId()),
+//                    (ServerPlayerEntity) this.getPassengers().get(0));
+//        }
+//
+//        for (TimeDifferential dt : integral) {
+//            if (this.getMotionTicker() <= dt.timePartial) {
+//                derivative = dt.derivativeInfo;
+//                break;
+//            }
+//        }
+//
+//        if (derivative == null) {
+//            // 已到达轨道末端
+//            this.setShouldMove(false);
+//            return;
+//        }
+//
+//        Vector3d velocity = derivative.tangent;
+//        this.moveCoaster(velocity);
+//
+//        // 更新朝向
+//        this.rotationYaw = (float)Math.toDegrees(Math.atan2(velocity.z, velocity.x)) - 90;
+//        this.rotationPitch = (float)Math.toDegrees(Math.atan2(velocity.y,
+//                Math.sqrt(velocity.x*velocity.x + velocity.z*velocity.z)));
+//        // 增加运动计时器（模拟时间流逝）
+//        int currentTicker = this.getMotionTicker() + 1;
+//        this.setMotionTicker(currentTicker);
+    }
+
+    @Override
+    public void setPositionAndRotationDirect(double x, double y, double z, float yaw, float pitch, int posRotationIncrements, boolean teleport) {
+        super.setPositionAndRotationDirect(x, y, z, yaw, pitch, posRotationIncrements, teleport);
+    }
+
+    @Override
+    public void updatePassenger(Entity passenger) {
+        super.updatePassenger(passenger);
+    }
+
+    @Override
+    public void notifyDataManagerChange(DataParameter<?> key) {
+        super.notifyDataManagerChange(key);
+
+        if (key.equals(DATA_PROGRESS)) {
+
+        }
+    }
+
+    public void tickOnServer(){
+        for (Entity passenger : this.getPassengers()) passenger.fallDistance = 0;
+        Entity passenger = this.getPassengers().get(0);
+        if (passenger == null) return;
+
+        Vector3d motion;
+
+        RailEntity start = this.getPrevRail().isPresent() ? this.getPrevRail().get(): null;
+        RailEntity end = this.getNextRail().isPresent() ? this.getNextRail().get() : null;
+
+        if (start == null) return;
+        if (end == null) return;
+
+        // 计算位置和导数
+        DerivativeInfo derivative = this.interpolate(start, end, this.getProgress());
+        // 更新进度
+        double arcLength = derivative.tangent.length();
+        double motionScale = (arcLength > 1e-5) ? 1.0 / arcLength : 0;
+        this.setProgress((float) (this.getMotion().length() * motionScale));
+
+        // 轨道段切换
+        if (this.getProgress() >= 1.0) {
+            Optional<RailEntity> next = end.getNextRail();
+            if (next.isPresent()) {
+                this.setPrevRail(end);
+                this.setNextRail(next.get());
+                this.setProgress(this.getProgress() - 1);
             }
         }
 
-        if (derivative == null) {
-            // 已到达轨道末端
-            this.setShouldMove(false);
-            return;
-        }
+        // 物理计算
+        Vector3d tangent = derivative.tangent.normalize();
+        double velocity = -tangent.y * GRAVITY * 0.05; // 每tick重力分量
 
-        // 计算物理运动
-//        Vector3d tangent = derivative.tangent.normalize();
-//        Vector3d curvature = derivative.curvature;
-//
-//        // 计算向心加速度 (a = v²/r)
-//        double speed = this.getMotion().length();
-//        double radius = 1.0 / curvature.length(); // 近似曲率半径
-//        double centripetalAccel = (radius > 0.1) ? (speed * speed) / radius : 0;
-//
-//        Vector3d gravity = new Vector3d(0, -9.8 * 0.05, 0); // 每tick重力
-//        double gravityComponent = gravity.dotProduct(tangent);
-//
-//        Vector3d acceleration = tangent.scale(centripetalAccel + gravityComponent);
+        // 应用运动
+        motion = derivative.tangent.scale(velocity * motionScale * 0.05);
+        this.move(MoverType.SELF, motion);
+    }
 
-//        Vector3d velocity = this.getMotion().add(acceleration);
-        Vector3d velocity = derivative.tangent;
-        // 应用摩擦力
-//        double frictionFactor = 0.98;
-//        velocity = velocity.scale(frictionFactor);
+    private DerivativeInfo interpolate(RailEntity start, RailEntity end,
+                             double t) {
+        Vector3d p0 = start.getPositionVec();
+        Vector3d p1 = end.getPositionVec();
+        Vector3d m0 = new Vector3d(start.getOrientation());
+        Vector3d m1 = new Vector3d(end.getOrientation());
 
-        this.moveCoaster(velocity);
+        // 使用Hermite插值
+        double t2 = t * t;
+        double t3 = t2 * t;
 
-        // 更新朝向
-        this.rotationYaw = (float)Math.toDegrees(Math.atan2(velocity.z, velocity.x)) - 90;
-        this.rotationPitch = (float)Math.toDegrees(Math.atan2(velocity.y,
-                Math.sqrt(velocity.x*velocity.x + velocity.z*velocity.z)));
-        // 增加运动计时器（模拟时间流逝）
-        int currentTicker = this.getMotionTicker() + 1;
-        this.setMotionTicker(currentTicker);
+        double h1 = 2*t3 - 3*t2 + 1;
+        double h2 = -2*t3 + 3*t2;
+        double h3 = t3 - 2*t2 + t;
+        double h4 = t3 - t2;
+
+        // 位置计算
+        Vector3d pos = new Vector3d(
+                h1 * p0.x + h2 * p1.x + h3 * m0.x + h4 * m1.x,
+                h1 * p0.y + h2 * p1.y + h3 * m0.y + h4 * m1.y,
+                h1 * p0.z + h2 * p1.z + h3 * m0.z + h4 * m1.z
+        );
+
+        // 导数计算（一阶）
+        double dh1 = 6*t2 - 6*t;
+        double dh2 = -6*t2 + 6*t;
+        double dh3 = 3*t2 - 4*t + 1;
+        double dh4 = 3*t2 - 2*t;
+
+        Vector3d deriv = new Vector3d(
+                dh1 * p0.x + dh2 * p1.x + dh3 * m0.x + dh4 * m1.x,
+                dh1 * p0.y + dh2 * p1.y + dh3 * m0.y + dh4 * m1.y,
+                dh1 * p0.z + dh2 * p1.z + dh3 * m0.z + dh4 * m1.z
+        );
+
+        return new DerivativeInfo(pos, deriv, Vector3d.ZERO);
     }
 
     /**
@@ -268,4 +385,26 @@ public class CoasterVehicle extends Entity {
         this.setBoundingBox(this.getBoundingBox().offset(velocity));
         this.resetPositionToBB();
     }
+
+    public static class Progress{
+        public final RailEntity startRail;
+        public final RailEntity endRail;
+        public final boolean orientationOnly;
+        public final double t;
+
+        public Progress(RailEntity endRail, RailEntity startRail, boolean orientationOnly, double t) {
+            this.endRail = endRail;
+            this.startRail = startRail;
+            this.orientationOnly = orientationOnly;
+            this.t = t;
+        }
+
+        public boolean getOrientation(Progress last, float delta,
+                                      Vector3d posOut, Quaternion orientOut) {
+            // 实现轨道位置和朝向插值计算
+            return false;
+        }
+
+    }
+
 }

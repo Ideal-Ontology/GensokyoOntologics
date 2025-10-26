@@ -168,18 +168,18 @@ public class RailEntity extends Entity {
         this.dataManager.set(DATA_TARGET, targetRailPos);
     }
 
-    public Vector3f getFacing() {
+    public Vector3f getOrientation() {
         return new RotMatrix(this.getRotation()).tangent();
     }
 
-    public Optional<Entity> getNextRail() {
+    public Optional<RailEntity> getNextRail() {
         if (world.isRemote) return Optional.empty();
 
         ServerWorld serverWorld = (ServerWorld) world;
-        AtomicReference<Optional<Entity>> nextRail = new AtomicReference<>();
+        AtomicReference<Optional<RailEntity>> nextRail = new AtomicReference<>();
 
         this.dataManager.get(DATA_TARGET_UUID).ifPresent(uuid ->
-                nextRail.set(Optional.ofNullable(serverWorld.getEntityByUuid(uuid))));
+                nextRail.set(Optional.ofNullable((RailEntity) serverWorld.getEntityByUuid(uuid))));
         return nextRail.get();
     }
 
@@ -200,7 +200,7 @@ public class RailEntity extends Entity {
         railPositions.add(this.getPositionVec());
         for (float t = 0F; t < 1F; t += 1F / SEGMENTS) {
             Vector3d nextPos = CurveUtil.hermite3(this.getPositionVec(), nextRail.getPositionVec(),
-                    this.getFacing(), nextRail.getFacing(), t);
+                    this.getOrientation(), nextRail.getOrientation(), t);
             railPositions.add(nextPos);
         }
         return railPositions;
@@ -212,7 +212,7 @@ public class RailEntity extends Entity {
         Vector3d pos = this.getPositionVec();
         for (float t = 0F; t < 1F; t += 1F / SEGMENTS) {
             Vector3d nextSegPos = CurveUtil.hermite3(pos, nextRail.getPositionVec(),
-                    this.getFacing(), nextRail.getFacing(), t);
+                    this.getOrientation(), nextRail.getOrientation(), t);
             positions.add(nextSegPos);
         }
         for (int i = 0; i < positions.size() - 1; i++) {
@@ -228,11 +228,11 @@ public class RailEntity extends Entity {
         Vector3d pos = this.getPositionVec();
         for (float t = 0F; t < 1F; t += 1F / SEGMENTS) {
             Vector3d nextSegPos = CurveUtil.hermite3(pos, nextRail.getPositionVec(),
-                    this.getFacing(), nextRail.getFacing(), t);
+                    this.getOrientation(), nextRail.getOrientation(), t);
             Vector3d tangent = CurveUtil.hermiteTangent(pos, nextRail.getPositionVec(),
-                    new Vector3d(this.getFacing()), new Vector3d(nextRail.getFacing()), t);
+                    new Vector3d(this.getOrientation()), new Vector3d(nextRail.getOrientation()), t);
             Vector3d curvature = CurveUtil.hermiteDerivative(this.getPositionVec(), nextRail.getPositionVec(),
-                    new Vector3d(this.getFacing()), new Vector3d(nextRail.getFacing()), t);
+                    new Vector3d(this.getOrientation()), new Vector3d(nextRail.getOrientation()), t);
             derivativeMap.add(new DerivativeInfo(nextSegPos, tangent, curvature));
         }
 

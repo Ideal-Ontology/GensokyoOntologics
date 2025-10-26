@@ -36,11 +36,14 @@ public class CoasterItem extends Item implements IRayTracer {
         this.rayTrace(world, player, start, end).ifPresent(entity -> {
             if(!(entity instanceof RailEntity)) return;
             if (world.isRemote) return;
+
             ServerWorld serverWorld = (ServerWorld) world;
             RailEntity rail = (RailEntity) entity;
             CoasterVehicle coaster = new CoasterVehicle(serverWorld);
+
             coaster.setPosition(rail.getPosX(), rail.getPosY() + 0.5, rail.getPosZ());
             coaster.setPrevRail(rail);
+            rail.getNextRail().ifPresent(coaster::setNextRail);
             serverWorld.addEntity(coaster);
             result.set(ActionResult.resultConsume(stack));
         });
