@@ -1,5 +1,6 @@
 package github.thelawf.gensokyoontology.common.entity.misc;
 
+import github.thelawf.gensokyoontology.common.util.math.GSKOMathUtil;
 import github.thelawf.gensokyoontology.core.init.EntityRegistry;
 import github.thelawf.gensokyoontology.core.init.ItemRegistry;
 import github.thelawf.gensokyoontology.common.util.math.DerivativeInfo;
@@ -152,33 +153,34 @@ public class CoasterVehicle extends Entity {
             return;
         }
 
-        if (this.world.isRemote) {
-            Entity passenger = this.getPassengers().get(0);
-            if (this.positionInterpSteps > 0) {
-//                this.interpPosOnly(this.positionInterpSteps);
-                this.positionInterpSteps--;
-            } else {
-                this.resetPositionToBB();
-            }
-
-//            this.lastClientTrackProgress = this.clientTrackProgress;
-            this.lastClientOrientation.set(this.clientOrientation.getX(), this.clientOrientation.getY(),
-                    this.clientOrientation.getZ(), this.clientOrientation.getW());
-
-            float progInterpDelta = 1;
-            if (this.progInterpSteps > 0) {
-                progInterpDelta = 1 / (float) progInterpSteps;
-
-                this.progInterpSteps--;
-            }
-
-            Vector3d clientPos = new Vector3d(this.getPosX(), this.getPosY(), this.getPosZ());
-
-//            boolean updatePos = this.clientTrackProgress.getOrientation(this.lastClientTrackProgress, progInterpDelta, clientPos, this.clientOrientation);
-//            if (updatePos) {
-//                this.setPosition(clientPos.x(), clientPos.y(), clientPos.z());
+        this.tickOnServer();
+//        if (this.world.isRemote) {
+//            Entity passenger = this.getPassengers().get(0);
+//            if (this.positionInterpSteps > 0) {
+////                this.interpPosOnly(this.positionInterpSteps);
+//                this.positionInterpSteps--;
+//            } else {
+//                this.resetPositionToBB();
 //            }
-        }
+//
+////            this.lastClientTrackProgress = this.clientTrackProgress;
+//            this.lastClientOrientation.set(this.clientOrientation.getX(), this.clientOrientation.getY(),
+//                    this.clientOrientation.getZ(), this.clientOrientation.getW());
+//
+//            float progInterpDelta = 1;
+//            if (this.progInterpSteps > 0) {
+//                progInterpDelta = 1 / (float) progInterpSteps;
+//
+//                this.progInterpSteps--;
+//            }
+//
+//            Vector3d clientPos = new Vector3d(this.getPosX(), this.getPosY(), this.getPosZ());
+//
+////            boolean updatePos = this.clientTrackProgress.getOrientation(this.lastClientTrackProgress, progInterpDelta, clientPos, this.clientOrientation);
+////            if (updatePos) {
+////                this.setPosition(clientPos.x(), clientPos.y(), clientPos.z());
+////            }
+//        }
         if (!this.world.isRemote) this.tickOnServer();
 
 //        Optional<Entity> nextRailOpt = this.getPrevRail().flatMap(RailEntity::getNextRail);
@@ -256,7 +258,11 @@ public class CoasterVehicle extends Entity {
         if (end == null) return;
 
         // 计算位置和导数
-        DerivativeInfo derivative = this.interpolate(start, end, this.getProgress());
+        int index = this.getMotionTicker() / 3;
+        if (this.getMotionTicker() >= start.getDerivatives(end).size() * 3 - 1) return;
+        DerivativeInfo derivative = start.getDerivatives(end).get(this.getMotionTicker() / 3 + 1);
+        if (derivative == null) return;
+
         // 更新进度
         double arcLength = derivative.tangent.length();
         double motionScale = (arcLength > 1e-5) ? 1.0 / arcLength : 0;
@@ -274,11 +280,12 @@ public class CoasterVehicle extends Entity {
 
         // 物理计算
         Vector3d tangent = derivative.tangent.normalize();
-        double velocity = -tangent.y * GRAVITY * 0.05; // 每tick重力分量
+//        double velocity = -tangent.y * GRAVITY; // 每tick重力分量
 
         // 应用运动
-        motion = derivative.tangent.scale(velocity * motionScale * 0.05);
-        this.move(MoverType.SELF, motion);
+        motion = tangent.scale(motionScale);
+        this.setMotionTicker(this.getMotionTicker() + 1);
+        this.setPositionAndUpdate(derivative.position.x,  derivative.position.y, derivative.position.z);
     }
 
     private DerivativeInfo interpolate(RailEntity start, RailEntity end,

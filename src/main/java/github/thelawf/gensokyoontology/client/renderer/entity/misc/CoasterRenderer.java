@@ -39,25 +39,31 @@ public class CoasterRenderer extends EntityRenderer<CoasterVehicle> {
     @Override
     public void render(CoasterVehicle entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         super.render(entityIn, entityYaw, partialTicks, matrixStackIn, bufferIn, packedLightIn);
+//
+//        Optional<Entity> nextRailOpt = entityIn.getPrevRail().flatMap(RailEntity::getTargetRail);
+//        if (nextRailOpt.isPresent() && nextRailOpt.get() instanceof RailEntity) {
+//            Entity next = nextRailOpt.get();
+//            RailEntity nextRail = (RailEntity) next;
+//            List<TimeDifferential> integral = entityIn.getIntegralOfDistanceAndTime(nextRail);
+//            DerivativeInfo derivative = null;
+//            for (TimeDifferential timeDifferential : integral) {
+//                if (entityIn.getMotionTicker() >= Math.floor(timeDifferential.timePartial) &&
+//                        entityIn.getMotionTicker() + partialTicks < timeDifferential.timePartial) {
+//                    derivative = timeDifferential.derivativeInfo;
+//                    break;
+//                }
+//            }
 
-        Optional<Entity> nextRailOpt = entityIn.getPrevRail().flatMap(RailEntity::getTargetRail);
-        if (nextRailOpt.isPresent() && nextRailOpt.get() instanceof RailEntity) {
-            Entity next = nextRailOpt.get();
-            RailEntity nextRail = (RailEntity) next;
-            List<TimeDifferential> integral = entityIn.getIntegralOfDistanceAndTime(nextRail);
-            DerivativeInfo derivative = null;
-            for (TimeDifferential timeDifferential : integral) {
-                if (entityIn.getMotionTicker() >= Math.floor(timeDifferential.timePartial) &&
-                        entityIn.getMotionTicker() + partialTicks < timeDifferential.timePartial) {
-                    derivative = timeDifferential.derivativeInfo;
-                    break;
-                }
-            }
+//
+//            if (entityIn.getMotionTicker() >= entityIn.get.getDerivatives(end).size() * 3 - 1) return;
+//            derivative = start.getDerivatives(end).get(this.getMotionTicker() / 3 + 1);
+//            if (derivative == null) return;
+//
+//            if (entityIn.shouldMove()) {
+//                entityIn.setPositionAndUpdate(derivative.position.getX(), derivative.position.getY(), derivative.position.getZ());
+//            }
+//        }
 
-            if (derivative != null && entityIn.shouldMove()) {
-                entityIn.moveCoaster(derivative.tangent.scale(0.2F));
-            }
-        }
 
         matrixStackIn.push();
         matrixStackIn.translate(0.0D, -1.25D, 0.0D);

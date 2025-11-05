@@ -222,11 +222,12 @@ public class RailEntity extends Entity {
         }
         return positions;
     }
-
+// https://naxx.org/?utm_source=MV
     public List<DerivativeInfo> getDerivatives(@NotNull RailEntity nextRail){
         List<DerivativeInfo> derivativeMap = new LinkedList<>();
         Vector3d pos = this.getPositionVec();
-        for (float t = 0F; t < 1F; t += 1F / SEGMENTS) {
+        for (int i = 0; i < SEGMENTS; i++) {
+            float t = (float) i / SEGMENTS;
             Vector3d nextSegPos = CurveUtil.hermite3(pos, nextRail.getPositionVec(),
                     this.getOrientation(), nextRail.getOrientation(), t);
             Vector3d tangent = CurveUtil.hermiteTangent(pos, nextRail.getPositionVec(),

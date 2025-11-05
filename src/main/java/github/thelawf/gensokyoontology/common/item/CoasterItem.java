@@ -3,8 +3,6 @@ package github.thelawf.gensokyoontology.common.item;
 import github.thelawf.gensokyoontology.api.util.IRayTracer;
 import github.thelawf.gensokyoontology.common.entity.misc.CoasterVehicle;
 import github.thelawf.gensokyoontology.common.entity.misc.RailEntity;
-import github.thelawf.gensokyoontology.core.init.EntityRegistry;
-import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
